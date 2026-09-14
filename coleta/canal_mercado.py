@@ -81,8 +81,18 @@ IMPORTACAO = os.path.join(ROOT, 'supabase', 'importacoes')
 # As sete provincias do Veneto. Provincia fora deste conjunto e sinal de que a fonte
 # mudou de escopo — nao de que apareceu uma provincia nova.
 PROVINCIAS = ('BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR')
-CABECALHO_ESPERADO = ('provincia di vendita', 'n. reg.',
+CABECALHO_ESPERADO = ('provincia', 'n. reg.',
                       'prodotto fitosanitario venduto', 'quantita')
+
+# TRES GERACOES DO MESMO FICHEIRO, e o contrato tem de ler as tres:
+#   2015-2017  separador ';', decimal virgula, DUAS tabelas lado a lado (produto + SUBSTANCIA
+#              ATIVA) e uma coluna a mais: a AZIENDA ULSS, que e geografia mais fina que a
+#              provincia e e justamente quem licencia o vendedor;
+#   2018-2022  separador ';', decimal virgula, uma tabela, sem ULSS;
+#   2023-2025  separador ',', decimal ponto, cabecalho com ou sem 'di vendita'.
+# Tratar o ponto de '1.173,00' como decimal divide o numero por mil; tratar a virgula de
+# '30,00' como separador de milhar multiplica por cem. Por isso o decimal e decidido pelo
+# SEPARADOR do ficheiro, nao por adivinhacao linha a linha.
 # Estados administrativos que significam "existe autorizacao hoje".
 ATIVO = ('autorizzato', 'ri-registrato')
 ADAMA = re.compile(r'\bADAMA\b', re.I)
@@ -149,6 +159,30 @@ def assinatura(corpo):
     return 'DESCONHECIDO'
 
 
+def _decodificar(corpo):
+    """utf-8 primeiro; os ficheiros antigos da ARPAV sao cp1252 (o 'à' de Quantità)."""
+    for cod in ('utf-8-sig', 'cp1252'):
+        try:
+            return corpo.decode(cod), cod
+        except UnicodeDecodeError:
+            continue
+    return corpo.decode('utf-8', errors='replace'), 'utf-8/replace'
+
+
+def _delimitador(texto):
+    cabeca = '\n'.join(texto.splitlines()[:6])
+    return ';' if cabeca.count(';') > cabeca.count(',') else ','
+
+
+def _linha_do_cabecalho(linhas):
+    """As geracoes antigas trazem uma ou duas linhas de TITULO antes do cabecalho."""
+    for i, r in enumerate(linhas[:8]):
+        campos = [_norm(c) for c in r]
+        if any(c.startswith('provincia') for c in campos) and any('n. reg' in c for c in campos):
+            return i
+    return 0
+
+
 def _norm(s):
     """Compara cabecalho sem acento e sem pontuacao: 'Quantita' e 'Quantità' sao o mesmo campo."""
     s = unicodedata.normalize('NFKD', (s or '')).encode('ascii', 'ignore').decode().lower()
@@ -157,32 +191,35 @@ def _norm(s):
 
 
 def conferir(corpo):
-    """SCHEMA + IDENTIDADE. Devolve (health, motivos, linhas, provincias, rodape).
+    """SCHEMA + IDENTIDADE nas tres geracoes. Devolve (health, motivos, dados, provincias, rodape).
 
     A fonte termina com linhas de nota de rodape (a citacao da base legal e um aviso sobre
-    o carregamento por ficheiro). Elas NAO sao dado e NAO sao defeito: sao separadas,
-    contadas e preservadas. Confundir rodape com linha ruim faz a saude da fonte mentir
-    nos dois sentidos — ou reprova uma fonte sa, ou engole um rodape que virou dado.
+    o carregamento por ficheiro) e, nas geracoes antigas, COMECA com linhas de titulo. Nada
+    disso e dado e nada disso e defeito: e separado, contado e preservado. Confundir moldura
+    com linha ruim faz a saude da fonte mentir nos dois sentidos.
     """
     motivos = []
     if assinatura(corpo) != 'CSV':
         return 'FAILED', ['conteudo nao e CSV: %s' % assinatura(corpo)], [], [], []
-    texto = corpo.decode('utf-8-sig', errors='replace')
-    linhas = [r for r in csv.reader(io.StringIO(texto)) if r]
+    texto, codificacao = _decodificar(corpo)
+    delim = _delimitador(texto)
+    linhas = [r for r in csv.reader(io.StringIO(texto), delimiter=delim) if r]
     if len(linhas) < 2:
         return 'FAILED', ['lista vazia — e FALHA, nunca zero vendas'], [], [], []
-    cab = [_norm(c) for c in linhas[0]]
+    i = _linha_do_cabecalho(linhas)
+    cab = [_norm(c) for c in linhas[i]]
     for esperado in CABECALHO_ESPERADO:
         if not any(esperado in c for c in cab):
             motivos.append('campo do contrato ausente no cabecalho: %r' % esperado)
-    candidatas = [r for r in linhas[1:] if len(r) >= 4]
+    candidatas = [r for r in linhas[i + 1:] if len(r) >= 4]
     dados = [r for r in candidatas if r[0].strip() in PROVINCIAS]
     rodape = [r for r in candidatas if r[0].strip() not in PROVINCIAS]
     vistas = sorted({r[0].strip() for r in dados})
     faltando = [p for p in PROVINCIAS if p not in vistas]
     if faltando:
         motivos.append('provincia do Veneto sem nenhuma linha: %s' % faltando)
-    sem_chave = sum(1 for r in dados if not r[1].strip())
+    chave = 1 if 'n. reg' in cab[1] else 2      # 2015-2017 tem a coluna AZIENDA ULSS no meio
+    sem_chave = sum(1 for r in dados if len(r) <= chave or not r[chave].strip())
     if sem_chave:
         motivos.append('%d linhas sem numero de registro' % sem_chave)
     if len(rodape) > 5:
@@ -192,7 +229,39 @@ def conferir(corpo):
         return 'FAILED', motivos + ['nenhuma linha de dado'], [], vistas, rodape
     if any('campo do contrato ausente' in m for m in motivos):
         return 'FAILED', motivos, dados, vistas, rodape
+    if codificacao != 'utf-8-sig':
+        motivos.append('ficheiro em %s, nao utf-8 — lido, mas a fonte mudou de codificacao'
+                       % codificacao)
     return ('DEGRADED' if motivos else 'HEALTHY'), motivos, dados, vistas, rodape
+
+
+def esquema(corpo_ou_caminho):
+    """Que geracao de ficheiro e esta. Devolve o mapa de colunas, medido e nao adivinhado."""
+    if isinstance(corpo_ou_caminho, bytes):
+        corpo = corpo_ou_caminho
+    else:
+        with open(corpo_ou_caminho, 'rb') as f:
+            corpo = f.read()
+    texto, codificacao = _decodificar(corpo)
+    delim = _delimitador(texto)
+    linhas = [r for r in csv.reader(io.StringIO(texto), delimiter=delim) if r]
+    i = _linha_do_cabecalho(linhas)
+    cab = [_norm(c) for c in linhas[i]]
+    tem_ulss = len(cab) > 1 and 'ulss' in cab[1]
+    subs = next((j for j, c in enumerate(cab) if 'sostanza attiva' in c), None)
+    return {
+        'CODIFICACAO': codificacao, 'DELIMITADOR': delim, 'DECIMAL_VIRGULA': delim == ';',
+        'LINHA_DO_CABECALHO': i, 'CABECALHO': cab,
+        'COL_PROVINCIA': 0, 'COL_ULSS': 1 if tem_ulss else None,
+        'COL_REGISTRO': 2 if tem_ulss else 1,
+        'COL_PRODUTO': 3 if tem_ulss else 2,
+        'COL_QUANTIDADE': 4 if tem_ulss else 3,
+        'COL_SUBSTANCIA': subs,
+        'GERACAO': ('2015-2017 · com ULSS e tabela de substancia ativa' if tem_ulss
+                    else '2018-2022 · ponto-e-virgula' if delim == ';'
+                    else '2023-2025 · virgula'),
+        'PRIMEIRA_LINHA_DE_DADO': i + 1,
+    }
 
 
 def coletar(ano):
@@ -322,10 +391,19 @@ def _mojibake(s):
         return s
 
 
-def _quantidade(v):
-    """O separador decimal da fonte e o PONTO. Tratar ponto como milhar multiplica por mil."""
+def _quantidade(v, decimal_virgula=False):
+    """O decimal e decidido pelo SEPARADOR do ficheiro, nunca por adivinhacao.
+
+    ';'  -> convencao italiana: '1.173,00' e mil cento e setenta e tres.
+    ','  -> '51401.35' e cinquenta e um mil, e nunca cinquenta e um milhoes.
+    """
+    v = (v or '').strip()
+    if not v:
+        return None
+    if decimal_virgula:
+        v = v.replace('.', '').replace(',', '.')
     try:
-        return float((v or '').strip())
+        return float(v)
     except ValueError:
         return None
 
@@ -358,35 +436,8 @@ def normalizar(ano, coleta_info=None):
     coleta_info = coleta_info or _ultima_coleta(ano)
     reg = ler_registro()
     bruto = _bruto_do_store(ano)
-    linhas, descartadas, orfaos = [], [], 0
-    with open(bruto, encoding='utf-8-sig') as f:
-        leitor = csv.reader(f)
-        next(leitor, None)
-        for numero, r in enumerate(leitor, start=2):
-            def recusar(motivo):
-                descartadas.append({'LINHA_NO_FICHEIRO': numero,
-                                    'EXCLUSION_REASON': motivo,
-                                    'MOTIVO_DA_RECUSA': MOTIVO_DA_RECUSA[motivo],
-                                    'CONTEUDO': ' | '.join(c.strip() for c in r if c.strip())[:300]})
-            if len(r) < 4:
-                recusar('COLUNAS_DE_MENOS')
-                continue
-            if r[0].strip() not in PROVINCIAS:
-                recusar('RODAPE_DA_FONTE')
-                continue
-            q = _quantidade(r[3])
-            try:
-                n = int(r[1])
-            except ValueError:
-                recusar('SEM_NUMERO_DE_REGISTRO')
-                continue
-            if q is None:
-                recusar('QUANTIDADE_ILEGIVEL')
-                continue
-            if n not in reg:
-                orfaos += 1
-            linhas.append({'PROVINCIA': r[0].strip(), 'NUM_REGISTRAZIONE': n,
-                           'PRODUTO_NA_FONTE': r[2].strip(), 'QUANTIDADE_KG_L': q})
+    esq, linhas, substancias, descartadas = _ler_linhas(bruto)
+    orfaos = sum(1 for l in linhas if l['NUM_REGISTRAZIONE'] not in reg)
 
     total = sum(l['QUANTIDADE_KG_L'] for l in linhas)
     por_prov = _somar(linhas, lambda l: l['PROVINCIA'])
@@ -666,6 +717,143 @@ def emitir_sql(ano):
     return destino
 
 
+def serie(anos):
+    """Puxa e mede varios anos. A serie e o que transforma uma foto em tendencia.
+
+    ⚠️ O TITULAR E O DE HOJE, PROJETADO PARA TRAS. O registro que uso para dizer de quem e
+    cada produto e o snapshot de 2026. Produto que mudou de dono entre 2015 e hoje aparece,
+    em todos os anos, sob o dono ATUAL. Isso mede a evolucao do PORTFOLIO DE HOJE no tempo —
+    e NAO mede que marca estava na prateleira naquele ano. Sao perguntas diferentes, e trocar
+    uma pela outra produz uma serie confiante e errada.
+    """
+    reg = ler_registro()
+    linhas_serie, por_ano = [], {}
+    for ano in anos:
+        try:
+            bruto = _bruto_do_store(ano)
+        except SystemExit:
+            print('  %d · sem bruto preservado — pulado' % ano)
+            continue
+        total, prov, tit, tipo, adama_prod, ulss = 0.0, {}, {}, {}, {}, {}
+        esq, registros, substancias, descartes = _ler_linhas(bruto)
+        lidas, descartadas = len(registros), len(descartes)
+        for l in registros:
+            q = l['QUANTIDADE_KG_L']
+            total += q
+            prov[l['PROVINCIA']] = prov.get(l['PROVINCIA'], 0.0) + q
+            if l['ULSS']:
+                k = '%s-%s' % (l['PROVINCIA'], l['ULSS'])
+                ulss[k] = ulss.get(k, 0.0) + q
+            base = reg.get(l['NUM_REGISTRAZIONE'])
+            nome_t = base['TITOLARE'] if base else 'NAO SEI (registro nao conhece %d)' % l['NUM_REGISTRAZIONE']
+            tipo_t = base['TIPO'] if base else 'NAO SEI'
+            tit[nome_t] = tit.get(nome_t, 0.0) + q
+            tipo[tipo_t] = tipo.get(tipo_t, 0.0) + q
+            if base and ADAMA.search(nome_t):
+                kk = (l['NUM_REGISTRAZIONE'], base['PRODUTO'], tipo_t)
+                adama_prod[kk] = adama_prod.get(kk, 0.0) + q
+        adama = sum(v for k, v in tit.items() if ADAMA.search(k))
+        por_ano[ano] = {
+            'ANO': ano, 'LINHAS': lidas, 'DESCARTADAS': descartadas,
+            'TOTAL_KG_L': round(total, 2),
+            'ADAMA_KG_L': round(adama, 2),
+            'ADAMA_QUOTA_PCT': round(100 * adama / total, 2) if total else 0,
+            'TITULARES': len(tit), 'PRODUTOS_ADAMA_VENDIDOS': len(adama_prod),
+            'POR_PROVINCIA': {k: round(v, 2) for k, v in sorted(prov.items())},
+            'POR_TIPO': {k: round(v, 2) for k, v in sorted(tipo.items(), key=lambda x: -x[1])[:8]},
+            'TOP_TITULARES': [{'TITOLARE': k, 'KG_L': round(v, 2),
+                               'QUOTA_PCT': round(100 * v / total, 2)}
+                              for k, v in sorted(tit.items(), key=lambda x: -x[1])[:15]],
+            'ADAMA_POR_PRODUTO': [{'NUM_REGISTRAZIONE': n, 'PRODUTO': nm, 'TIPO': tp,
+                                   'KG_L': round(v, 2)}
+                                  for (n, nm, tp), v in sorted(adama_prod.items(), key=lambda x: -x[1])],
+        }
+        por_ano[ano]['ESQUEMA'] = {k: esq[k] for k in ('GERACAO', 'CODIFICACAO', 'DELIMITADOR',
+                                                       'DECIMAL_VIRGULA', 'COL_ULSS', 'COL_SUBSTANCIA')}
+        if ulss:
+            por_ano[ano]['POR_ULSS'] = {k: round(v, 2) for k, v in sorted(ulss.items())}
+        if substancias:
+            agr = {}
+            for s in substancias:
+                agr[s['SUBSTANCIA']] = agr.get(s['SUBSTANCIA'], 0.0) + s['QUANTIDADE_KG']
+            por_ano[ano]['SUBSTANCIA_ATIVA_KG'] = {k: round(v, 2) for k, v in
+                                                   sorted(agr.items(), key=lambda x: -x[1])}
+            por_ano[ano]['SUBSTANCIAS_DISTINTAS'] = len(agr)
+        linhas_serie.append(por_ano[ano])
+        print('  %d · %10.0f kg/l · ADAMA %9.0f (%5.2f%%) · %d titulares'
+              % (ano, total, adama, 100 * adama / total if total else 0, len(tit)))
+
+    corpo = {
+        'ARTIFACT_ID': 'IT-VENETO-SERIE-POR-ANO', 'REGIAO': REGIAO,
+        'GERADO_EM': agora(), 'GERADO_POR': 'coleta/canal_mercado.py --serie',
+        'FONTE_VENDA': SOURCE_ID, 'FONTE_REGISTRO': REGISTRO_SOURCE_ID,
+        'ANOS': sorted(por_ano),
+        'AVISO_VOLUME': AVISO_VOLUME,
+        'AVISO_TITULAR_RETROATIVO': (
+            'o titular de cada produto e o do registro de HOJE (snapshot 2026-09-07), aplicado '
+            'a todos os anos. Produto que mudou de dono aparece sob o dono ATUAL em 2015. '
+            'A serie mede a evolucao do portfolio de hoje, NAO a marca que estava na '
+            'prateleira naquele ano.'),
+        'ANOS_MEDIDOS': linhas_serie,
+    }
+    with open(os.path.join(SAIDA, 'SERIE-POR-ANO.json'), 'w', encoding='utf-8') as f:
+        json.dump(corpo, f, ensure_ascii=False, indent=1)
+    return corpo
+
+
+def _ler_linhas(caminho):
+    """Le o bruto preservado segundo o esquema MEDIDO do proprio ficheiro.
+
+    Devolve (esquema, registros, substancias, descartadas). Cada descarte carrega o motivo:
+    o que ficou de fora, e por que, e metade do que a coleta aprendeu.
+    """
+    with open(caminho, 'rb') as f:
+        corpo = f.read()
+    esq = esquema(corpo)
+    texto, _ = _decodificar(corpo)
+    linhas = [r for r in csv.reader(io.StringIO(texto), delimiter=esq['DELIMITADOR']) if r]
+    virgula = esq['DECIMAL_VIRGULA']
+    cp, cu, cr, cd, cq = (esq['COL_PROVINCIA'], esq['COL_ULSS'], esq['COL_REGISTRO'],
+                          esq['COL_PRODUTO'], esq['COL_QUANTIDADE'])
+    cs = esq['COL_SUBSTANCIA']
+    registros, substancias, descartadas = [], [], []
+
+    def recusar(numero, r, motivo):
+        descartadas.append({'LINHA_NO_FICHEIRO': numero, 'EXCLUSION_REASON': motivo,
+                            'MOTIVO_DA_RECUSA': MOTIVO_DA_RECUSA[motivo],
+                            'CONTEUDO': ' | '.join(c.strip() for c in r if c.strip())[:300]})
+
+    for numero, r in enumerate(linhas[esq['PRIMEIRA_LINHA_DE_DADO']:],
+                               start=esq['PRIMEIRA_LINHA_DE_DADO'] + 1):
+        if len(r) <= cq:
+            recusar(numero, r, 'COLUNAS_DE_MENOS')
+            continue
+        if r[cp].strip() not in PROVINCIAS:
+            recusar(numero, r, 'RODAPE_DA_FONTE')
+            continue
+        q = _quantidade(r[cq], virgula)
+        try:
+            n = int(r[cr])
+        except ValueError:
+            recusar(numero, r, 'SEM_NUMERO_DE_REGISTRO')
+            continue
+        if q is None:
+            recusar(numero, r, 'QUANTIDADE_ILEGIVEL')
+            continue
+        registros.append({'PROVINCIA': r[cp].strip(),
+                          'ULSS': r[cu].strip() if cu is not None and len(r) > cu else None,
+                          'NUM_REGISTRAZIONE': n, 'PRODUTO_NA_FONTE': r[cd].strip(),
+                          'QUANTIDADE_KG_L': q})
+        # A segunda tabela (2015-2017) vive nas colunas da direita da MESMA linha.
+        if cs is not None and len(r) > cs + 1:
+            nome = r[cs].strip()
+            qs = _quantidade(r[cs + 1], virgula)
+            if nome and qs is not None:
+                substancias.append({'PROVINCIA': r[cs - 2].strip() if cs >= 2 else None,
+                                    'SUBSTANCIA': nome, 'QUANTIDADE_KG': qs})
+    return esq, registros, substancias, descartadas
+
+
 def _anexar_ao_manifesto(run, captured_at):
     """Anexa UMA execucao ao RUN-MANIFEST sem tocar nas outras.
 
@@ -709,7 +897,20 @@ def main():
     p.add_argument('--normalizar', action='store_true')
     p.add_argument('--sql', action='store_true',
                    help='gera a importacao para o Supabase (nao executa)')
+    p.add_argument('--serie', type=str, default='',
+                   help='puxa e mede varios anos, ex.: --serie 2015-2025')
     a = p.parse_args()
+    if a.serie:
+        ini, fim = (int(x) for x in a.serie.split('-'))
+        anos = list(range(ini, fim + 1))
+        for ano in anos:
+            try:
+                coletar(ano)
+            except SystemExit as e:
+                print('  %d · COLETA REPROVOU: %s' % (ano, e))
+        print('SERIE:')
+        serie(anos)
+        return
     fazer_tudo = not (a.coletar or a.normalizar or a.sql)
     info = None
     if a.coletar or fazer_tudo:
