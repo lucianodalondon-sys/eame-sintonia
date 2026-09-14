@@ -3,14 +3,14 @@
  "PROVENANCE": {
   "REPO": "lucianodalondon-sys/eame-sintonia",
   "BRANCH": "claude/system-map-v2-canonical-rebuild",
-  "HEAD": "1d9d8088b206e050e85db548184021de3ee4c5e5",
-  "GENERATED_AT": "2026-09-14T16:45:14+00:00"
+  "HEAD": "ce83b14acf48170135cd8d98dfff17a66c1dd9c0",
+  "GENERATED_AT": "2026-09-14T17:35:08+00:00"
  },
  "BIBLIA": {
   "ficheiro": "docs/biblia/leis.json",
   "leis_conhecidas": 105
  },
- "FILES_TRACKED": 1935,
+ "FILES_TRACKED": 1943,
  "DEPARTAMENTOS": [
   {
    "id": "D-ENTRADA",
@@ -2800,7 +2800,6 @@
      "mcase",
      "meeting"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -2855,6 +2854,7 @@
     "tecido_comum": [
      "italia-portale/audit/blocks/brief.spec.json"
     ],
+    "reconciliado_a_mao": [],
     "blocos": [
      "case"
     ],
@@ -2950,7 +2950,6 @@
      "future",
      "signal"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -2967,6 +2966,7 @@
      "italia-portale/audit/blocks/future.spec.json",
      "italia-portale/audit/blocks/signal.spec.json"
     ],
+    "reconciliado_a_mao": [],
     "blocos": [],
     "registos_citados": [],
     "riscos": [],
@@ -3032,7 +3032,6 @@
      "window",
      "windows"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3077,6 +3076,15 @@
      "italia-portale/audit/blocks/windows.spec.json"
     ],
     "tecido_comum": [],
+    "reconciliado_a_mao": [
+     {
+      "ficheiro": "italia-portale/audit/blocks/calendar.spec.json",
+      "nome_no_ficheiro": "calendar",
+      "nome_na_tela": "windows",
+      "porque": "o calendario e a mesma tela das Finestre Colturali; o ficheiro tem o nome da funcao, a tela tem o nome do produto",
+      "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+     }
+    ],
     "blocos": [
      "calendar",
      "windows"
@@ -3173,7 +3181,6 @@
     "telas": [
      "market"
     ],
-    "modo": "ANALISE_PRONTA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3199,6 +3206,7 @@
      "italia-portale/audit/blocks/market.spec.json"
     ],
     "tecido_comum": [],
+    "reconciliado_a_mao": [],
     "blocos": [
      "market"
     ],
@@ -3287,7 +3295,6 @@
     "telas": [
      "voices"
     ],
-    "modo": "ANALISE_PRONTA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3302,6 +3309,15 @@
     "contratos": [],
     "tecido_comum": [
      "italia-portale/audit/blocks/voci.spec.json"
+    ],
+    "reconciliado_a_mao": [
+     {
+      "ficheiro": "italia-portale/audit/blocks/voci.spec.json",
+      "nome_no_ficheiro": "voci",
+      "nome_na_tela": "voices",
+      "porque": "o ficheiro esta em italiano e a tela esta em ingles",
+      "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+     }
     ],
     "blocos": [],
     "registos_citados": [],
@@ -3370,7 +3386,6 @@
      "cproduct",
      "event"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3405,6 +3420,15 @@
      "italia-portale/audit/blocks/competitor.spec.json"
     ],
     "tecido_comum": [],
+    "reconciliado_a_mao": [
+     {
+      "ficheiro": "italia-portale/audit/blocks/competitor.spec.json",
+      "nome_no_ficheiro": "competitor",
+      "nome_na_tela": "competitors",
+      "porque": "o ficheiro esta no singular e a tela no plural",
+      "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+     }
+    ],
     "blocos": [
      "competitor"
     ],
@@ -3491,7 +3515,6 @@
      "science",
      "theme"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3544,6 +3567,7 @@
      "italia-portale/audit/blocks/science.spec.json"
     ],
     "tecido_comum": [],
+    "reconciliado_a_mao": [],
     "blocos": [
      "science"
     ],
@@ -3633,7 +3657,6 @@
      "portfolio",
      "product"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3687,6 +3710,7 @@
      "italia-portale/audit/blocks/product.spec.json"
     ],
     "tecido_comum": [],
+    "reconciliado_a_mao": [],
     "blocos": [
      "portfolio",
      "product"
@@ -3780,7 +3804,6 @@
     "telas": [
      "archive"
     ],
-    "modo": "ANALISE_PRONTA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3833,6 +3856,7 @@
      "italia-portale/audit/blocks/archive.spec.json"
     ],
     "tecido_comum": [],
+    "reconciliado_a_mao": [],
     "blocos": [
      "archive"
     ],
@@ -3920,7 +3944,6 @@
      "source",
      "sources"
     ],
-    "modo": "EXPLORATORIA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -3934,6 +3957,7 @@
     "camadas": {},
     "contratos": [],
     "tecido_comum": [],
+    "reconciliado_a_mao": [],
     "blocos": [],
     "registos_citados": [],
     "riscos": [],
@@ -3998,7 +4022,6 @@
     "telas": [
      "field"
     ],
-    "modo": "ANALISE_PRONTA",
     "prova_das_telas": {
      "file": "italia-portale/client/portale.html",
      "line": 2756,
@@ -4014,6 +4037,7 @@
     "tecido_comum": [
      "italia-portale/audit/blocks/field.spec.json"
     ],
+    "reconciliado_a_mao": [],
     "blocos": [],
     "registos_citados": [],
     "riscos": [],
@@ -4649,7 +4673,7 @@
    "codigo": {
     "estado": "ENCONTRADA",
     "file": "system-map/v2/scripts/medir_maquina.py",
-    "line": 406,
+    "line": 414,
     "snippet": "\"observado\": m.observado(c.get(\"observado_por\", [])),",
     "contem": "observado_por"
    },

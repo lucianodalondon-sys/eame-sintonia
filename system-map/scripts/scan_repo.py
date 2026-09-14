@@ -91,6 +91,23 @@ IGNORAR = re.compile(
     # a encontrar.
     r"^system-map/data/[\w-]+\.generated\.json$|"
     r"^italia-portale/client/system-map/|"
+    # E os TRES DOCUMENTOS que o gerador tambem escreve. Escaparam a regra de
+    # cima por nao se chamarem `.generated.json`, e um deles custou o mesmo
+    # defeito outra vez: `CENSO-DAS-LIGACOES-DA-COLLECTION.md` carimba o
+    # `HEAD_DA_MEDICAO` no proprio texto. O mapa gravava o SHA desse ficheiro,
+    # o commit mudava o HEAD, a regeneracao seguinte reescrevia o carimbo, o
+    # SHA mudava — e o portao acusava drift de uma mudanca que era ele proprio
+    # a fazer. Localmente nao aparecia (o HEAD nao se mexe entre duas corridas);
+    # no CI aparecia sempre, porque la o checkout ja e o commit novo.
+    #
+    #     O MAPA NAO MEDE O QUE O MAPA ESCREVE.
+    #
+    # Os outros dois nao carimbam HEAD e por isso nao driftavam — mas sao saida
+    # do mesmo gerador, e deixar um dentro e dois fora era guardar a mesma
+    # armadilha para a proxima vez que alguem lhes acrescentar uma data.
+    r"^docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION\.md$|"
+    r"^docs/fontes/INDICE-DE-FONTES\.md$|"
+    r"^regras/LEIA-ANTES-DE-COLETAR\.md$|"
     # A copia publicada do CANDIDATO (V2) segue a mesma regra que a do mapa
     # oficial, e pela mesma razao: copia derivada nao e componente. Media-la
     # faria a mesma app aparecer duas vezes no mapa, com dois donos para a

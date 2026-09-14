@@ -1,9 +1,89 @@
 {
-  "SCHEMA": "sintonia.system-map.casco/1",
+  "SCHEMA": "sintonia.system-map.casco/2",
   "PROVENANCE": {
-    "HEAD": "1d9d8088b206e050e85db548184021de3ee4c5e5",
+    "HEAD": "ce83b14acf48170135cd8d98dfff17a66c1dd9c0",
     "BLOCOS": "italia-portale/audit/blocks",
     "CLIENTE": "italia-portale/client"
+  },
+  "COMO_FOI_SABIDO": {
+    "LEI": "MEDIDO nao e RECONCILIADO A MAO. O que foi lido da maquina aparece como MEDIDO; o que alguem decidiu aparece como RECONCILIADO_A_MAO, com dono e motivo.",
+    "OWNER": "system-map/scripts/scan_casco.py",
+    "MEDIDO": [
+      {
+        "o_que": "que ferramentas existem, e como se chamam",
+        "de_onde": "italia-portale/client :: o menu do portal",
+        "como": "lido do proprio menu, com ficheiro e linha por ferramenta"
+      },
+      {
+        "o_que": "que telas pertencem a que ferramenta",
+        "de_onde": "italia-portale/client :: static CAPABILITY_OF",
+        "como": "lida a tabela que o portal ja usa, em vez de escrever outra"
+      },
+      {
+        "o_que": "que camadas de dado cada ferramenta recebe, e com que procedencia",
+        "de_onde": "italia-portale/audit/blocks/*.spec.json :: realSource",
+        "como": "lido o contrato de bloco, com ficheiro e linha"
+      },
+      {
+        "o_que": "que contrato descreve o que, quando o mesmo texto serve varias telas",
+        "de_onde": "italia-portale/audit/blocks/*.spec.json :: domain",
+        "como": "regra medida: um `domain` que pertence a mais do que uma ferramenta nao descreve nenhuma delas — vai para tecido comum"
+      }
+    ],
+    "RECONCILIADO_A_MAO": [
+      {
+        "o_que": "a rota 'radar' e a rota 'meeting' sao a mesma tela",
+        "decisao": {
+          "radar": "meeting"
+        },
+        "porque": "o portal diz isso numa linha, e so 'meeting' aparece no menu",
+        "prova": {
+          "file": "italia-portale/client",
+          "contem": "isMeeting: s.view === 'meeting' || s.view === 'radar'"
+        },
+        "owner": "system-map/scripts/scan_casco.py :: CAPACIDADE_DOBRADA"
+      },
+      {
+        "o_que": "tres contratos tem nome de ficheiro que nao e nome de tela",
+        "decisao": {
+          "calendar": "windows",
+          "competitor": "competitors",
+          "voci": "voices"
+        },
+        "porque": {
+          "calendar": "o calendario e a mesma tela das Finestre Colturali; o ficheiro tem o nome da funcao, a tela tem o nome do produto",
+          "competitor": "o ficheiro esta no singular e a tela no plural",
+          "voci": "o ficheiro esta em italiano e a tela esta em ingles"
+        },
+        "prova": null,
+        "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+      },
+      {
+        "o_que": "quatro contratos nao descrevem ferramenta nenhuma, e sim o casco",
+        "decisao": [
+          "head",
+          "helpers",
+          "nav",
+          "search"
+        ],
+        "porque": "sao o cabecalho, o menu, os ajudantes e a busca do topo",
+        "prova": null,
+        "owner": "system-map/scripts/scan_casco.py :: NAO_E_FERRAMENTA"
+      }
+    ],
+    "INFERIDO": [],
+    "UNKNOWN": [
+      {
+        "o_que": "de onde vem o que quatro ferramentas mostram",
+        "quais": [
+          "field",
+          "future",
+          "sources",
+          "voices"
+        ],
+        "porque": "nao ha contrato de bloco escrito para elas, e sem contrato nao ha como dizer que camada as alimenta"
+      }
+    ]
   },
   "FERRAMENTAS": [
     {
@@ -210,6 +290,15 @@
       "dominios_do_contrato": [
         "CROP WINDOWS + CROP CALENDAR + PREPARATION CLOCK"
       ],
+      "reconciliado_a_mao": [
+        {
+          "ficheiro": "italia-portale/audit/blocks/calendar.spec.json",
+          "nome_no_ficheiro": "calendar",
+          "nome_na_tela": "windows",
+          "porque": "o calendario e a mesma tela das Finestre Colturali; o ficheiro tem o nome da funcao, a tela tem o nome do produto",
+          "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+        }
+      ],
       "de_onde_vem": "REAL",
       "leitura": "Tudo o que esta aqui vem de dado com procedencia.",
       "registos_citados": [
@@ -299,6 +388,15 @@
       "tecido_comum": [
         "italia-portale/audit/blocks/voci.spec.json"
       ],
+      "reconciliado_a_mao": [
+        {
+          "ficheiro": "italia-portale/audit/blocks/voci.spec.json",
+          "nome_no_ficheiro": "voci",
+          "nome_na_tela": "voices",
+          "porque": "o ficheiro esta em italiano e a tela esta em ingles",
+          "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+        }
+      ],
       "de_onde_vem": "NAO SEI",
       "leitura": "Nao da para dizer de onde vem o que esta nesta tela. Esta ferramenta nao tem contrato de bloco nenhum escrito.",
       "registos_citados": []
@@ -363,6 +461,15 @@
       "confissoes": [],
       "dominios_do_contrato": [
         "COMPETITOR WATCH + COMPETITOR x WINDOW (feed, filters, tabs, company profile, gallery, crop density, changed-this-week, company x crop MATRIX, ISSUE_ROWS, competitor products, event cross-links, lead-time)"
+      ],
+      "reconciliado_a_mao": [
+        {
+          "ficheiro": "italia-portale/audit/blocks/competitor.spec.json",
+          "nome_no_ficheiro": "competitor",
+          "nome_na_tela": "competitors",
+          "porque": "o ficheiro esta no singular e a tela no plural",
+          "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"
+        }
       ],
       "de_onde_vem": "MISTURA",
       "leitura": "Mistura dado real com dado escrito a mao. Quem olha nao consegue dizer qual e qual — e a tela nao avisa.",

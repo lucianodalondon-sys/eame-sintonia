@@ -218,12 +218,18 @@ class Medidor:
     def telas_por_ferramenta(self) -> dict:
         """Quantas TELAS do portal pertencem a cada ferramenta — medido.
 
-        Responde «analise pronta ou ferramenta exploratoria?» sem ninguem ter
-        de opinar: uma ferramenta com UMA tela entrega uma leitura fechada;
-        uma com VARIAS deixa entrar e navegar (lista, detalhe, perfil, evento).
         A tabela e a mesma que o proprio portal usa para saber em que
         capacidade esta — `CAPABILITY_OF` — por isso nao ha aqui um segundo
         criterio a divergir do primeiro.
+
+        O QUE ISTO NAO DIZ. Uma versao anterior deste ficheiro concluia daqui
+        que uma tela = «analise pronta» e varias telas = «exploratoria». Nao ha
+        contrato nenhum no repositorio que defina essa regra — foi leitura do
+        proprio mapa, apresentada como medicao. Pior: o unico sitio onde o
+        projeto chama uma ferramenta «exploratoria» e o MT3, e la a razao esta
+        escrita no contrato dela (`DECISION = SO PERGUNTA`), nao no numero de
+        ecras. Contar telas e um facto; chamar-lhe um tipo e uma interpretacao.
+        Fica o facto.
         """
         if getattr(self, "_telas", None) is not None:
             return self._telas
@@ -273,8 +279,6 @@ class Medidor:
             "vista": f.get("vista"),
             "nome": f.get("nome"),
             "telas": sorted(telas),
-            "modo": ("EXPLORATORIA" if len(telas) > 1
-                     else "ANALISE_PRONTA" if len(telas) == 1 else None),
             "prova_das_telas": ({"file": self.PORTALE,
                                  "line": getattr(self, "_linha_capacidade", None),
                                  "simbolo": "static CAPABILITY_OF"} if telas else None),
@@ -286,6 +290,10 @@ class Medidor:
             "camadas": camadas,
             "contratos": list(f.get("ficheiros") or []),
             "tecido_comum": list(f.get("tecido_comum") or []),
+            # O QUE VEIO DA MAQUINA E O QUE ALGUEM DECIDIU — separados ate ao
+            # cartao. Uma ponte de nomes e util e fica; o que nao pode e
+            # passar por medicao.
+            "reconciliado_a_mao": list(f.get("reconciliado_a_mao") or []),
             "blocos": list(f.get("blocos") or []),
             "registos_citados": list(f.get("registos_citados") or []),
             "riscos": list(f.get("riscos") or []),

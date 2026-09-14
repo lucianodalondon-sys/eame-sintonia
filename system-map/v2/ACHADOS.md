@@ -111,6 +111,105 @@ ver um commit de diferença — **por desenho, não por avaria.**
 
 ---
 
+## ACHADO-7 · o mapa media um ficheiro que o próprio mapa escreve
+
+**O que aconteceu.** O portão oficial `SYSTEM MAP CHECK` reprovava em **todos** os
+commits — incluindo os da base, antes desta linha existir — sempre com:
+
+```
+P1_SEM_DRIFT · regerar mudou architecture.generated.json
+primeira diferenca: .FILES[704].sha
+```
+
+`FILES[704]` é `docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md`, que o **próprio
+gerador escreve**, e que carimba `HEAD_DA_MEDICAO` no texto.
+
+**O laço.** O mapa gravava o SHA desse ficheiro → o commit mudava o `HEAD` → a
+regeneração seguinte reescrevia o carimbo → o SHA mudava → o portão acusava
+drift **de uma mudança que era ele próprio a fazer**.
+
+**Por que só aparecia no CI.** Localmente o `HEAD` não se mexe entre duas
+corridas seguidas, e o ponto fixo alcança-se. No CI o checkout já é o commit
+novo, e o carimbo commitado é sempre o do commit anterior. `PASS local` não era
+`PASS remoto` — e nunca ia ser.
+
+**Já tinha acontecido.** O comentário do `IGNORAR` em `scan_repo.py` descreve
+este defeito por extenso, apanhado antes com `censo-da-coleta.generated.json` e
+`pente-fino.generated.json`: *«e só falhava no CI… o mapa voltava a medir-se a si
+mesmo»*. Os três documentos `.md` gerados escaparam à regra por não se chamarem
+`.generated.json`.
+
+**Corrigido nesta missão**, porque é defeito do System Map e não da máquina: os
+três documentos que `generate_system_map.py` escreve saem do censo, como já saíam
+os outros artefatos gerados.
+
+    O MAPA NÃO MEDE O QUE O MAPA ESCREVE.
+
+**Custo, registado:** a exclusão derrubou uma aresta —
+`C-MAPA-GERADOR → C-MAPAV2-MEDIDOR`. Ela vinha de `medir_maquina.py` **citar** os
+nomes desses ficheiros numa lista de prefixos, não de os ler. Mesma fragilidade
+do ACHADO-1: tirar um ficheiro do censo apaga ligações em silêncio.
+
+---
+
+## ACHADO-8 · contar telas não é classificar a ferramenta
+
+A entrega anterior escrevia, em cada ferramenta do portal: **uma** tela =
+`ANALISE_PRONTA`, **várias** telas = `EXPLORATORIA`.
+
+**Não existe contrato nenhum neste repositório que defina essa regra.** Era
+leitura do próprio mapa a sair com ar de medição. O único sítio onde o projeto
+chama uma ferramenta «exploratória» é o **MT3**, e lá a razão está escrita no
+contrato dela (`DECISION = SÓ PERGUNTA`) — não no número de ecrãs.
+
+**Removido.** O mapa passa a dizer só o que mediu: `APARECE EM N TELAS`, com a
+lista e a prova. A `V21` impede que o rótulo volte.
+
+---
+
+## ACHADO-9 · três associações do censo do casco são decisão humana
+
+`scan_casco.py` liga contrato a ferramenta por nome. Em três casos o nome do
+ficheiro não é o nome da tela, e alguém decidiu a ponte:
+
+| ficheiro | tela | porquê |
+|---|---|---|
+| `calendar` | `windows` | o calendário é a mesma tela das Finestre |
+| `competitor` | `competitors` | singular no ficheiro, plural na tela |
+| `voci` | `voices` | o ficheiro em italiano, a tela em inglês |
+
+As três são legítimas e **ficam**. O defeito era saírem no artefato dentro da
+palavra «medido»: quem lê o mapa tem de poder discordar de uma decisão, e não se
+discorda do que não se vê.
+
+**Corrigido:** `casco.generated.json` passa a declarar `COMO_FOI_SABIDO`
+(`MEDIDO` · `RECONCILIADO_A_MAO` · `INFERIDO` · `UNKNOWN`), cada reconciliação
+com **dono** e **motivo**; e o cartão da ferramenta mostra a ponte num bloco
+próprio. A `V20` impede que volte a passar por medição.
+
+---
+
+## KNOW-HOW · o que esta missão confirma, e onde tem de ser registado
+
+O know-how canónico é **`SINTONIA-EAME-KNOW-HOW.md`**, no branch
+`claude/sintonia-eame-know-how-v1` — **fora desta base**, e fora do que esta
+sessão pode escrever. Fica aqui o delta, para ser transcrito por quem tem essa
+permissão. **Não foi criado um segundo know-how.**
+
+1. **Medição automática ≠ reconciliação manual.** Uma ponte de nomes decidida
+   por uma pessoa é útil e fica — mas sai marcada, com dono e motivo. Chamar às
+   duas «medido» tira a quem lê o direito de discordar.
+2. **Quantidade não é tipo.** Contar telas é facto; dizer o que a ferramenta É a
+   partir desse número é interpretação. Sem contrato que a defina, não se
+   publica.
+3. **PASS local ≠ PASS remoto.** O que se mede antes do commit não é o que o CI
+   mede depois dele. Validar antes de commitar não prova nada sobre o commit.
+4. **O artefato regenerado tem de corresponder ao commit publicado.** Encenar
+   primeiro, medir depois, e **voltar a validar já commitado** — porque a
+   contagem de ficheiros e o `HEAD` mudam com o próprio commit que os grava.
+
+---
+
 ## O que NÃO foi tocado para nenhum destes achados
 
 `collection/` · `intelligence/` · `scripts/` · `migrations/` · `italia-portale/server/` ·

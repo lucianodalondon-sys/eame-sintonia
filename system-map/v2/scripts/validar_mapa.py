@@ -65,6 +65,34 @@ def sem_carimbo(b: bytes) -> str:
     return json.dumps(d, ensure_ascii=False, sort_keys=True)
 
 
+def primeira_diferenca(antes, depois) -> list:
+    """Que CAMPO mudou, e de que valor para que valor.
+
+    Dizer so «mudou maquina.medida.json» obriga quem le a ir fazer o diff a
+    mao — e num ficheiro de 150 mil caracteres isso custa mais do que o
+    conserto. O portao oficial ja diz o campo; este passa a dizer tambem.
+    """
+    fora = []
+    for nome, a, b in (("maquina.medida.json", antes[0], depois[0]),
+                       ("estado.gerado.json", antes[1], depois[1])):
+        if a == b:
+            continue
+        try:
+            da, db = json.loads(a), json.loads(b)
+        except ValueError:
+            continue
+        for k in sorted(set(da) | set(db)):
+            va, vb = da.get(k), db.get(k)
+            if va == vb:
+                continue
+            if isinstance(va, (int, float, str)) or isinstance(vb, (int, float, str)):
+                fora.append(f"{nome} :: {k}: commitado={va!r} regerado={vb!r}")
+            else:
+                fora.append(f"{nome} :: {k} mudou (estrutura)")
+            break
+    return fora
+
+
 def main() -> int:
     for f in (MODELO, MEDIDA, ESTADO):
         if not f.is_file():
@@ -87,8 +115,10 @@ def main() -> int:
         mudou = [n for n, a, b in (("maquina.medida.json", antes[0], depois[0]),
                                    ("estado.gerado.json", antes[1], depois[1])) if a != b]
         prova("V01_SEM_DRIFT", "o mapa commitado corresponde ao repositório", not mudou,
-              [f"regerar mudou: {', '.join(mudou)}",
-               "Conserto: python3 system-map/v2/scripts/gerar_mapa.py && git add system-map/v2/data"])
+              [f"regerar mudou: {', '.join(mudou)}"] +
+              primeira_diferenca(antes, depois) +
+              ["Conserto: `git add` PRIMEIRO, regerar DEPOIS, e voltar a validar "
+               "JÁ COMMITADO — a contagem de ficheiros muda com o próprio commit."])
 
     modelo = json.loads(MODELO.read_text(encoding="utf-8"))
     medida = json.loads(MEDIDA.read_text(encoding="utf-8"))
@@ -325,6 +355,55 @@ def main() -> int:
                       if not [x for x in S["LIGACOES"] if x["para"] == c["id"]])
     prova("V19_SETA_SO_ONDE_FOI_MEDIDA",
           f"so recebe seta quem tem camada medida ({len(no_mapa) - len(sem_seta)} de {len(no_mapa)})",
+          not maus, maus)
+
+    # ── V20 · MEDIDO NAO E RECONCILIADO A MAO ───────────────────────────────
+    # O censo do casco usa tres pontes de nome decididas por uma pessoa
+    # (`calendar`->`windows`, `competitor`->`competitors`, `voci`->`voices`).
+    # Sao legitimas e ficam. O que nao pode e sairem no artefato como se a
+    # maquina as tivesse medido: quem le o mapa tem de poder discordar de uma
+    # decisao, e nao se discorda do que nao se ve.
+    maus = []
+    k = {}
+    if casco_f.is_file():
+        k = json.loads(casco_f.read_text(encoding="utf-8")).get("COMO_FOI_SABIDO") or {}
+    if not k:
+        maus.append("casco.generated.json nao declara COMO_FOI_SABIDO")
+    else:
+        for campo in ("MEDIDO", "RECONCILIADO_A_MAO", "INFERIDO", "UNKNOWN"):
+            if campo not in k:
+                maus.append(f"COMO_FOI_SABIDO nao separa {campo}")
+        for r in k.get("RECONCILIADO_A_MAO") or []:
+            if not r.get("owner"):
+                maus.append(f"reconciliacao sem dono: {r.get('o_que')}")
+            if not r.get("porque"):
+                maus.append(f"reconciliacao sem motivo: {r.get('o_que')}")
+    # e a ponte tem de chegar ao cartao da ferramenta que ela liga
+    com_ponte = sorted(v for v, c in no_mapa.items()
+                       if (c.get("ferramenta") or {}).get("reconciliado_a_mao"))
+    for v in com_ponte:
+        for r in no_mapa[v]["ferramenta"]["reconciliado_a_mao"]:
+            if not (r.get("owner") and r.get("nome_no_ficheiro") and r.get("nome_na_tela")):
+                maus.append(f"{v}: ponte sem dono ou sem os dois nomes")
+    prova("V20_RECONCILIADO_NAO_E_MEDIDO",
+          f"associacao decidida por pessoa aparece como tal, com dono ({len(com_ponte)} ferramenta(s))",
+          not maus, maus)
+
+    # ── V21 · O MAPA NAO INVENTA TIPO DE FERRAMENTA ─────────────────────────
+    # Uma versao anterior classificava a ferramenta por numero de telas
+    # (1 = «analise pronta», varias = «exploratoria»). Nenhum contrato do
+    # repositorio define essa regra — era leitura do mapa a passar por
+    # medicao. Contar telas e facto; chamar-lhe um tipo e interpretacao.
+    maus = []
+    for v, c in sorted(no_mapa.items()):
+        f = c["ferramenta"]
+        for campo in ("modo", "tipo_semantico", "classe"):
+            if f.get(campo):
+                maus.append(f"{v}: o mapa atribui «{campo}» sem autoridade que o defina")
+        if not isinstance(f.get("telas"), list):
+            maus.append(f"{v}: nao diz em quantas telas aparece")
+    prova("V21_SEM_TIPO_INVENTADO",
+          "o mapa conta as telas da ferramenta, e nao lhe atribui tipo que nenhum contrato define",
           not maus, maus)
 
     largura = 78

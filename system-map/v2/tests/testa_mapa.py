@@ -194,8 +194,12 @@ PERG += [
  ("Y", "Que pedaço do pacote chega a cada uma?",
   lambda: " · ".join(f"{C[l['para']]['nome']} ← {l['significado']}"
                      for l in L if C.get(l["para"], {}).get("ferramenta"))),
- ("Z", "Mostra análise pronta ou é exploratória?",
-  lambda: " · ".join(f"{c['nome']}: {f_de(c).get('modo') or 'NÃO SEI'}" for c in FER)),
+ # A pergunta era «mostra análise pronta ou é exploratória?». O mapa deixou de
+ # responder a isso, e a pergunta mudou com ele: não há contrato no repositório
+ # que defina esse tipo, e responder à antiga obrigava o mapa a inventá-lo. O
+ # que se conta é o que se mede — em quantas telas a ferramenta aparece.
+ ("Z", "Em quantas telas cada ferramenta aparece?",
+  lambda: " · ".join(f"{c['nome']}: {len(f_de(c).get('telas') or [])}" for c in FER)),
  ("AA", "Em que página do portal isso aparece?",
   lambda: " · ".join(f"{c['nome']}: {', '.join(f_de(c).get('telas') or []) or f_de(c)['vista']}"
                      for c in FER)),

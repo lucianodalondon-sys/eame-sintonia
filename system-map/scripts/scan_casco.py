@@ -133,6 +133,15 @@ CAPACIDADE_DOBRADA = {"radar": "meeting"}
 LEITURA_MINHA = {"calendar": "windows", "competitor": "competitors",
                  "voci": "voices"}
 
+# O motivo de cada ponte, em texto, para sair NO ARTEFATO e nao so aqui. Um
+# comentario honesto num ficheiro de codigo nao chega a quem le o mapa.
+PORQUE_DA_PONTE = {
+    "calendar": "o calendario e a mesma tela das Finestre Colturali; o ficheiro "
+                "tem o nome da funcao, a tela tem o nome do produto",
+    "competitor": "o ficheiro esta no singular e a tela no plural",
+    "voci": "o ficheiro esta em italiano e a tela esta em ingles",
+}
+
 # E quatro contratos nao sao ferramenta nenhuma — sao o casco a volta: o
 # cabecalho, o menu, os ajudantes e a busca do topo. Nao ganham cartao.
 NAO_E_FERRAMENTA = {"head", "helpers", "nav", "search"}
@@ -266,6 +275,18 @@ def ferramentas() -> list:
             # registado no cartao, para nao desaparecer, mas nao fala por ela.
             por_ferramenta[vista].setdefault("tecido_comum", []).append(
                 f"{BLOCOS}/{p.name}")
+            # A ponte manual tambem foi usada para chegar aqui. Se so a
+            # registassemos no ramo de baixo, uma ferramenta podia mostrar
+            # tecido comum que so lhe pertence por decisao de alguem, sem dizer
+            # que houve decisao — que e o mesmo defeito, um ramo ao lado.
+            if raiz_do_nome in LEITURA_MINHA:
+                por_ferramenta[vista].setdefault("reconciliado_a_mao", []).append({
+                    "ficheiro": f"{BLOCOS}/{p.name}",
+                    "nome_no_ficheiro": raiz_do_nome,
+                    "nome_na_tela": LEITURA_MINHA[raiz_do_nome],
+                    "porque": PORQUE_DA_PONTE.get(raiz_do_nome, ""),
+                    "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA",
+                })
             continue
         real = str(e.get("realSource") or "")
         resumo = str(e.get("summary") or "")
@@ -313,6 +334,18 @@ def ferramentas() -> list:
                 alvo["confissoes"].append(frase)
         alvo["blocos"].append(p.stem.replace(".spec", ""))
         alvo["ficheiros"].append(f"{BLOCOS}/{p.name}")
+        # MEDIDO NAO E RECONCILIADO. Este contrato so chegou a esta ferramenta
+        # porque alguem decidiu que `calendar` quer dizer `windows`. Sem este
+        # registo, a ponte desaparecia dentro da palavra «medido» — e quem
+        # lesse o mapa nao tinha como discordar de uma decisao que nao ve.
+        if raiz_do_nome in LEITURA_MINHA:
+            alvo.setdefault("reconciliado_a_mao", []).append({
+                "ficheiro": f"{BLOCOS}/{p.name}",
+                "nome_no_ficheiro": raiz_do_nome,
+                "nome_na_tela": LEITURA_MINHA[raiz_do_nome],
+                "porque": PORQUE_DA_PONTE.get(raiz_do_nome, ""),
+                "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA",
+            })
         alvo["camadas"].update(camadas)
         for n in RE_REGISTOS.findall(real):
             try:
@@ -386,9 +419,63 @@ def main() -> int:
     for f in fs:
         conta[f["de_onde_vem"]] = conta.get(f["de_onde_vem"], 0) + 1
 
+    # ── COMO FOI SABIDO ─────────────────────────────────────────────────────
+    # Este ficheiro nao e todo do mesmo tipo. Quase tudo aqui foi LIDO da
+    # maquina; uma parte pequena foi DECIDIDA por uma pessoa para reconciliar
+    # dois nomes diferentes da mesma coisa. As duas coisas sao uteis; chamar as
+    # duas «medido» e que nao. Quem le o mapa tem de poder discordar de uma
+    # decisao — e nao se discorda do que nao se ve.
+    como_foi_sabido = {
+        "LEI": "MEDIDO nao e RECONCILIADO A MAO. O que foi lido da maquina "
+               "aparece como MEDIDO; o que alguem decidiu aparece como "
+               "RECONCILIADO_A_MAO, com dono e motivo.",
+        "OWNER": "system-map/scripts/scan_casco.py",
+        "MEDIDO": [
+            {"o_que": "que ferramentas existem, e como se chamam",
+             "de_onde": f"{CLIENTE} :: o menu do portal",
+             "como": "lido do proprio menu, com ficheiro e linha por ferramenta"},
+            {"o_que": "que telas pertencem a que ferramenta",
+             "de_onde": f"{CLIENTE} :: static CAPABILITY_OF",
+             "como": "lida a tabela que o portal ja usa, em vez de escrever outra"},
+            {"o_que": "que camadas de dado cada ferramenta recebe, e com que procedencia",
+             "de_onde": f"{BLOCOS}/*.spec.json :: realSource",
+             "como": "lido o contrato de bloco, com ficheiro e linha"},
+            {"o_que": "que contrato descreve o que, quando o mesmo texto serve varias telas",
+             "de_onde": f"{BLOCOS}/*.spec.json :: domain",
+             "como": "regra medida: um `domain` que pertence a mais do que uma "
+                     "ferramenta nao descreve nenhuma delas — vai para tecido comum"},
+        ],
+        "RECONCILIADO_A_MAO": [
+            {"o_que": "a rota 'radar' e a rota 'meeting' sao a mesma tela",
+             "decisao": dict(CAPACIDADE_DOBRADA),
+             "porque": "o portal diz isso numa linha, e so 'meeting' aparece no menu",
+             "prova": {"file": CLIENTE,
+                       "contem": "isMeeting: s.view === 'meeting' || s.view === 'radar'"},
+             "owner": "system-map/scripts/scan_casco.py :: CAPACIDADE_DOBRADA"},
+            {"o_que": "tres contratos tem nome de ficheiro que nao e nome de tela",
+             "decisao": dict(LEITURA_MINHA),
+             "porque": PORQUE_DA_PONTE,
+             "prova": None,
+             "owner": "system-map/scripts/scan_casco.py :: LEITURA_MINHA"},
+            {"o_que": "quatro contratos nao descrevem ferramenta nenhuma, e sim o casco",
+             "decisao": sorted(NAO_E_FERRAMENTA),
+             "porque": "sao o cabecalho, o menu, os ajudantes e a busca do topo",
+             "prova": None,
+             "owner": "system-map/scripts/scan_casco.py :: NAO_E_FERRAMENTA"},
+        ],
+        "INFERIDO": [],
+        "UNKNOWN": [
+            {"o_que": "de onde vem o que quatro ferramentas mostram",
+             "quais": sorted(f["vista"] for f in fs if f["de_onde_vem"] == "NAO SEI"),
+             "porque": "nao ha contrato de bloco escrito para elas, e sem contrato "
+                       "nao ha como dizer que camada as alimenta"},
+        ],
+    }
+
     dados = {
-        "SCHEMA": "sintonia.system-map.casco/1",
+        "SCHEMA": "sintonia.system-map.casco/2",
         "PROVENANCE": {"HEAD": head, "BLOCOS": BLOCOS, "CLIENTE": CLIENTE},
+        "COMO_FOI_SABIDO": como_foi_sabido,
         "FERRAMENTAS": fs,
         "CAMADAS_PUBLICADAS": publica,
         "COUNTS": {

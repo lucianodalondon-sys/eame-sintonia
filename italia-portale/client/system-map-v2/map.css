@@ -300,3 +300,13 @@ button,input{font:inherit;color:inherit}
 .vem.REAL{background:var(--ok)}
 .vem.MISTURA{background:var(--warn)}
 .vem.SO-FIXTURE{background:var(--bad)}
+
+/* a ponte que alguem decidiu — visualmente separada da medicao, porque e
+   outra coisa. Rampa de estado (engenharia), nao cor de marca: o BrandWell
+   nao tem cor para «isto foi uma decisao humana». */
+.recon{border-left:4px solid var(--warn);padding-left:11px;margin-top:14px}
+.recon h4{color:var(--warn)}
+.ponte{display:flex;align-items:baseline;gap:8px;margin:6px 0 2px;flex-wrap:wrap}
+.ponte .de,.ponte .para{font-size:13px;font-weight:800;color:var(--ink);
+  background:var(--earth10);border-radius:6px;padding:2px 8px}
+.ponte .seta{font-size:13px;color:var(--warn);font-weight:800}

@@ -473,16 +473,12 @@
     const on = el('div', 'qa');
     on.appendChild(el('h4', null, 'APARECE EM'));
     on.appendChild(el('p', null,
+      // Quantas telas, e quais. Nada mais: o mapa conta, não classifica.
       (f.telas && f.telas.length
-        ? plural(f.telas.length, 'tela', 'telas') + ' do portal: ' + f.telas.join(', ')
+        ? 'APARECE EM ' + plural(f.telas.length, 'TELA', 'TELAS') +
+          ' do portal: ' + f.telas.join(', ')
         : 'A vista «' + f.vista + '» do portal') +
       (f.blocos && f.blocos.length ? ' · blocos: ' + f.blocos.join(', ') : '') + '.'));
-    if (f.modo) {
-      on.appendChild(el('p', null,
-        f.modo === 'EXPLORATORIA'
-          ? 'É EXPLORATÓRIA: tem mais do que uma tela, dá para entrar e navegar.'
-          : 'É ANÁLISE PRONTA: uma só tela, uma leitura fechada.'));
-    }
     if (f.prova_das_telas) {
       on.appendChild(el('div', 'src',
         f.prova_das_telas.file + ':' + f.prova_das_telas.line +
@@ -505,6 +501,24 @@
         'Sem contrato de bloco escrito. É por isso que a origem está em NÃO SEI.'));
       (f.tecido_comum || []).forEach((k) => pr.appendChild(el('div', 'src',
         'só tecido comum a várias telas, que não fala por esta · ' + k)));
+    }
+    if ((f.reconciliado_a_mao || []).length) {
+      const rc = el('div', 'qa recon');
+      rc.appendChild(el('h4', null, 'RECONCILIADO À MÃO — NÃO É MEDIÇÃO'));
+      rc.appendChild(el('p', null,
+        'O contrato abaixo só chega a esta ferramenta porque alguém decidiu ' +
+        'que dois nomes diferentes são a mesma coisa. Fica à vista para se ' +
+        'poder discordar.'));
+      f.reconciliado_a_mao.forEach((r) => {
+        const l = el('div', 'ponte');
+        l.appendChild(el('span', 'de', r.nome_no_ficheiro));
+        l.appendChild(el('span', 'seta', '→'));
+        l.appendChild(el('span', 'para', r.nome_na_tela));
+        rc.appendChild(l);
+        if (r.porque) rc.appendChild(el('p', 'longo', r.porque));
+        rc.appendChild(el('div', 'src', r.ficheiro + ' · dono: ' + r.owner));
+      });
+      pr.appendChild(rc);
     }
     cx.appendChild(pr);
 
