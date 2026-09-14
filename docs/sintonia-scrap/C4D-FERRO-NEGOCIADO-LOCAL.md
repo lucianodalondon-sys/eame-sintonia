@@ -364,9 +364,30 @@ sai     TRANSCRIPT · TRANSCRIPT_STATE · SEGMENTS (com tempos)
 ```
 
 `RUN_ID` e `RAW_OBSERVATION_ID` **não** entram aqui, e isso é o desenho: quem os
-carrega é o chamador (`youtube_transcrever.py`, `instagram_transcrever.py`,
-`reel_transcricao.py`), que já os tem e já os cola ao artefato. Uma fila própria
+carrega é o chamador, que já os tem e já os cola ao artefato. Uma fila própria
 nesta gaveta seria a segunda Collection que esta missão existe para não criar.
+
+### E o encanamento já existe — não foi preciso construir nada
+
+A capacidade está registada no roteador canónico, e recebe `run_id` do executor:
+
+```text
+coleta/adaptador_instagram.py
+  reg.registar('INSTAGRAM', 'instagram.reel.transcribe', ...)
+  capturar_reel(run_id=..., etapa=...)  ->  ([registo], trace)
+  trace['ASR_OWNER']       = 'ferramentas/fala_local.py'
+  trace['ASR_MODEL_HINT']  = o que o chamador sugeriu (normalmente None)
+  trace['CANONICAL_STATE'] = o veredito na lingua de `leis/falhas.py`
+```
+
+```
+«OUVI E NAO HAVIA FALA» E `ZERO_RESULTS`, E ISSO E UM RESULTADO.
+«NAO CONSEGUI OUVIR» E OUTRA COISA, E TEM OUTRO NOME.
+```
+
+O que esta missão fez foi tornar **verdadeiro** o campo que esse trace já
+carregava. Antes dela, `ASR_DEVICE` podia dizer `cpu/int8` numa máquina com
+placa, e o `WHY_FALLBACK` podia dizer que a placa não existia.
 
 ---
 

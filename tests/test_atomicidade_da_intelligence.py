@@ -40,6 +40,27 @@ TRONCO = "dc00583d01ac6312fa6fa83195d936199eaa3d12"
 #: haver ficheiros ACRESCENTADOS — e e o que a prova mede.
 FIM_DA_INTEGRACAO = "a8b56448009661c12216d265465d02289c15c8e0"
 
+#: O ultimo commit da LINHA da Intelligence — as 27 revisoes entre `TRONCO` e
+#: este SHA sao todas dela (as cinco da integracao, os gates C-INT-*, os
+#: carimbos do mapa e o know-how §111-§113).
+#:
+#: ⚠️ ISTO ERA `HEAD`, E O `HEAD` ANDA.
+#:
+#: As provas da P12 perguntam «a integracao da Intelligence tocou a Collection,
+#: o Portal, uma migration?». Ancoradas em `HEAD`, respondiam a outra pergunta:
+#: «alguem tocou nisso desde aquele tronco?» — e a resposta passa a ser sim no
+#: dia em que qualquer missao seguinte commitar.
+#:
+#:     UMA PROVA SOBRE O QUE EU FIZ TEM DE MEDIR O INTERVALO QUE EU FIZ.
+#:     ANCORADA EM `HEAD`, ELA REPROVA O TRABALHO DOS OUTROS E CHAMA-LHE
+#:     DEFEITO MEU — e quem herdar a arvore gasta o dia a procurar a causa
+#:     numa missao que nao e a sua.
+#:
+#: Apanhado a 2026-09-14 pela C4D: `test_tudo_o_que_foi_modificado_tem_gerador
+#: _com_nome` reprovou a listar nove ficheiros de ASR e de System Map que nada
+#: tem a ver com autoridades da Intelligence.
+FIM_DA_LINHA = "2b3d58d86c6632ef7f1317bf12ba86a901eed7a9"
+
 
 def git(*a):
     return subprocess.check_output(["git"] + list(a), cwd=RAIZ, text=True,
@@ -442,7 +463,23 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
                             "migrations/")
 
     def _tocados_desde_o_tronco(self):
-        return [l for l in git("diff", "--name-only", TRONCO, "HEAD").splitlines()
+        """O que ESTA integracao tocou — `TRONCO..FIM_DA_INTEGRACAO`.
+
+        ⚠️ ISTO DIZIA `HEAD`, E O `HEAD` ANDA.
+
+        Estas provas perguntam «a integracao da Intelligence tocou a
+        Collection?». Medi-la contra `HEAD` respondia a outra pergunta: «a
+        Collection foi tocada por ALGUEM desde aquele tronco?» — e a resposta
+        passa a ser sim no dia em que qualquer missao seguinte commitar.
+
+            UMA PROVA SOBRE O QUE EU FIZ TEM DE MEDIR O INTERVALO QUE EU FIZ.
+            ANCORADA EM `HEAD`, ELA REPROVA O TRABALHO DOS OUTROS E CHAMA-LHE
+            DEFEITO MEU.
+
+        Ver `FIM_DA_LINHA`, onde a medicao que motivou isto esta escrita.
+        """
+        return [l for l in git("diff", "--name-only", TRONCO,
+                               FIM_DA_LINHA).splitlines()
                 if l]
 
     def test_nenhuma_pasta_de_collection_foi_tocada(self):
@@ -476,7 +513,7 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         missao declarou, e nao pode PERDER nenhum. Um gerador que apaga uma
         peca em silencio e indistinguivel de um que a atualiza.
         """
-        diff = git("diff", TRONCO, "HEAD", "--",
+        diff = git("diff", TRONCO, FIM_DA_LINHA, "--",
                    self.ESPELHO_DO_MAPA + "state.generated.json")
         entram = {l for l in diff.splitlines()
                   if l.startswith("+") and '"id":' in l}
@@ -543,7 +580,7 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         Um ficheiro gerado que alguem editou a mao e indistinguivel de um
         gerado — ate ao dia em que o gerador corre outra vez e apaga a edicao.
         """
-        saida = git("diff", "--name-status", TRONCO, "HEAD")
+        saida = git("diff", "--name-status", TRONCO, FIM_DA_LINHA)
         modificados = [l.split("\t", 1)[1] for l in saida.splitlines()
                        if l and l[0] in ("M", "D")]
         orfaos = [f for f in modificados
@@ -559,7 +596,7 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         Esta prova mede que a declaracao mudou (foi la que eu escrevi) e que
         os gerados mudaram COM ela — nunca sem.
         """
-        saida = git("diff", "--name-only", TRONCO, "HEAD")
+        saida = git("diff", "--name-only", TRONCO, FIM_DA_LINHA)
         tocados = set(saida.splitlines())
         self.assertIn("system-map/data/architecture.declared.json", tocados,
                       "declarei pecas novas e a FONTE nao mudou")
