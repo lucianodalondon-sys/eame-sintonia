@@ -18,7 +18,7 @@ a reportar, não um erro a ignorar.
 | **HEAD** | ver `git rev-parse HEAD` — o commit de handoff é o último |
 | **REMOTE_HEAD** | idêntico ao local no momento do push |
 | **WORKING_TREE** | limpo |
-| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->721<!--/M--> testes, 6 falhas, 1 erro, 16 pulados** — as falhas sao anteriores a esta linha de missoes e estao classificadas uma a uma em `docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md` §7. Um handoff que promete verde e entrega vermelho ensina a proxima conta a desconfiar do proprio contador. |
+| **TESTS** | `python3 -m unittest discover -s tests` → **<!--M:TEST_COUNT_CURRENT-->705<!--/M--> testes, 6 falhas, 1 erro, 16 pulados** — as falhas sao anteriores a esta linha de missoes e estao classificadas uma a uma em `docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md` §7. Um handoff que promete verde e entrega vermelho ensina a proxima conta a desconfiar do proprio contador. |
 | **LAST_MAJOR_MISSION** | 10B-ES — fechar os portões estruturais antes de coletar mais |
 | **CURRENT_COUNTRY_SCOPE** | **ESPANHA**. França e Itália **não** foram abertas na camada de voz. |
 
@@ -527,7 +527,7 @@ relatório.** Há teste que varre o repositório atrás de padrão de token.
 ## T · FONTES / ATLAS
 
 Documento dono: `docs/fontes/ATLAS-DE-FONTES-EAME.md`.
-**<!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->26<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->16<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
+**<!--M:SOURCE_ID_COUNT-->177<!--/M--> SOURCE_IDs · <!--M:SOURCE_FICHA_COUNT-->166<!--/M--> fichas · <!--M:SOURCE_GREEN_COUNT-->83<!--/M--> GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI.**
 
 ### As que a próxima conta precisa conhecer primeiro
 
