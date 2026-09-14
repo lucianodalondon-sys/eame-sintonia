@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "12c919af58a78637d11b0c59e0bd5007d3a94e73",
-    "GENERATED_AT": "2026-09-14T00:08:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8ea9cfe7124fe8d261355e136c60b9a4357e43bcc886fa7147198869ba3c62a6"
+    "HEAD": "867f2f1d7e8229c703f39a8f5542e00f2b267e20",
+    "GENERATED_AT": "2026-09-14T10:16:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "dae9736db1b0c9e3b1f53ad89cf408bb62c54006e0ec1cab90472a7efbe9c1f5"
   },
   "FILES": [
     {
@@ -1655,7 +1655,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "24b45073263f180de1278e1e1c4d9d4f45695e92",
+      "sha": "ad88ff6a5056d6d415dd2454937afd4b12f816e2",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4911,6 +4911,13 @@
     {
       "path": "docs/operacao/CENSO-DA-COLETA.md",
       "sha": "086ba4402624999b45c090b4ac1919916a5369c5",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+      "sha": "4c753a243b1e00b5b8b76fa3dd878c3a21fe4ae2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10517,14 +10524,14 @@
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "3db67dda7d81d83484b594ea6eaecfcb14e91460",
+      "sha": "c53b5c32e0fa741368d8398d19a4961f8521f188",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "d87745dc3e91e8323bab614fe48b38080cc38ab8",
+      "sha": "ffeed24672a6bd4e32bf3735e71bab13961594d0",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -10713,7 +10720,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "9c4e7675d949f21da2f3d161946333f1ac21cac9",
+      "sha": "0192a0dc1b6c274e3f362a1333a1d45b2d8c4ca1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -39343,7 +39350,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4162,
+        "line": 4295,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -39398,7 +39405,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4140,
+        "line": 4273,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -39409,7 +39416,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3921,
+        "line": 4054,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -39420,8 +39427,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3923,
+        "line": 4056,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 3928,
+        "snippet": "destino = RAIZ / \"docs\" / \"operacao\" / \"CENSO-DAS-LIGACOES-DA-COLLECTION.md\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 3930,
+        "snippet": "destino.write_text(\"\".join(L), encoding=\"utf-8\")"
       }
     },
     {
@@ -39453,7 +39482,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3204,
+        "line": 3322,
         "snippet": "orq = raiz / \"orquestrador\" / \"orquestrador.py\""
       }
     },
@@ -39464,7 +39493,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3203,
+        "line": 3321,
         "snippet": "reg = raiz / \"pedido\" / \"receitas.py\""
       }
     },
@@ -39486,7 +39515,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4341,
+        "line": 4474,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -39497,7 +39526,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4343,
+        "line": 4476,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -39530,7 +39559,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 5136,
+        "line": 5275,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -39563,7 +39592,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3339,
+        "line": 3457,
         "snippet": "\"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -39574,7 +39603,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 5149,
+        "line": 5288,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -39585,7 +39614,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 5149,
+        "line": 5288,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -54416,10 +54445,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1724,
+    "files_tracked": 1725,
     "files_readable": 724,
     "files_code_dir": 775,
-    "file_edges": 3804,
+    "file_edges": 3806,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

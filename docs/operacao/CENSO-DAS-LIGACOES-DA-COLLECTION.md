@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  12c919af58a78637d11b0c59e0bd5007d3a94e73
+HEAD_DA_MEDICAO  867f2f1d7e8229c703f39a8f5542e00f2b267e20
 BRANCH           claude/system-map-current-collection-truth-v2
-GERADO_EM        2026-09-14T00:08:45+00:00
+GERADO_EM        2026-09-14T10:16:19+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -186,18 +186,18 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:97; orquestrador/orquestrador.py:755 _(plano CODE)_ |
-| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **prova de quem ativa** | pedido/receitas.py:97; orquestrador/orquestrador.py:755 _(plano OBSERVED)_ |
+| **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 3 · saem 3 |
 | **arestas provadas** | entram 2 · saem 3 |
-| **OBSERVADAS** | 0 |
+| **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
-| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+| **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-EXECUTOR-TEXTO-PDF` · Executor · texto a partir de PDF
 
@@ -274,18 +274,18 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:159; orquestrador/orquestrador.py:755 _(plano CODE)_ |
-| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **prova de quem ativa** | pedido/receitas.py:159; orquestrador/orquestrador.py:755 _(plano OBSERVED)_ |
+| **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 6 · saem 10 |
 | **arestas provadas** | entram 6 · saem 10 |
-| **OBSERVADAS** | 0 |
+| **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
-| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+| **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-ROTA-M2` · A rota forward do documento (M2)
 
@@ -1283,19 +1283,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA, C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:400 _(plano CODE)_ |
-| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA, C-PEDIDO, C-SINTONIA-SCRAP |
+| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:400; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
+| **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/executor_texto_de_pdf.py`, `guarda/preservar_documento.py` |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 13 · saem 23 |
-| **arestas provadas** | entram 13 · saem 22 |
-| **OBSERVADAS** | 0 |
-| **control plane** | entram 2 · saem 7 |
+| **arestas no mapa** | entram 14 · saem 23 |
+| **arestas provadas** | entram 14 · saem 22 |
+| **OBSERVADAS** | 3 — corrida `?` |
+| **control plane** | entram 3 · saem 7 |
 | **data plane** | entram 0 · saem 1 |
-| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+| **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ## Z-PEDIDO · PEDIDO — o contrato
 
@@ -1314,12 +1314,12 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 7 |
-| **arestas provadas** | entram 0 · saem 7 |
-| **OBSERVADAS** | 0 |
-| **control plane** | entram 0 · saem 0 |
+| **arestas no mapa** | entram 0 · saem 8 |
+| **arestas provadas** | entram 0 · saem 8 |
+| **OBSERVADAS** | 1 — corrida `?` |
+| **control plane** | entram 0 · saem 1 |
 | **data plane** | entram 0 · saem 0 |
-| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
+| **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-RECEITAS` · A receita da coleta
 
@@ -1572,8 +1572,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ## O PLACAR
 
 ```
-OK                 36
-UNKNOWN            17
+OK                 37
+UNKNOWN            16
 SYSTEM_GAP         7
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2

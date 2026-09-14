@@ -1502,6 +1502,49 @@ const relogio = s => (typeof s === 'string' ? esc(s.slice(0, 16).replace('T', ' 
    e «nao ha buracos» sao frases opostas, e a segunda seria a mentira confortavel.
    Um mapa sem buracos nenhuns tambem se diz por extenso, para nao se confundir
    com a ausencia. */
+/* ══ V2 · AS ESTRADAS QUE UMA CORRIDA INTEIRA ATRAVESSOU ═══════════════════
+   O mapa sabia desenhar LIGAÇÕES e não sabia responder à pergunta que o dono
+   do produto faz primeiro: **alguma coleta chegou ao fim?**
+
+       UMA LIGAÇÃO PROVADA DIZ QUE O CAMINHO EXISTE.
+       SÓ O RECIBO DE UMA CORRIDA DIZ QUE ALGUÉM O PERCORREU.
+
+   Aqui saem os recibos, etapa a etapa, com a primeira aresta perdida escrita
+   quando a estrada morre a meio. `PASS` e `FAIL` são do RECIBO, não do mapa. */
+function blocoDasEstradas() {
+  const R = S.ESTRADAS_OBSERVADAS;
+  const cabeca = d => `<div class="statusScope"><b>ALGUMA COLETA CHEGOU AO FIM?</b><br>${d}</div>`;
+  if (!Array.isArray(R)) {
+    return cabeca('<i>NÃO MEDIDO</i> — nenhum recibo de corrida inteira foi '
+      + 'lido nesta árvore. Isto não quer dizer que nenhuma corrida existiu.');
+  }
+  if (!R.length) {
+    return cabeca('Nenhum recibo de corrida inteira nesta árvore. Foi MEDIDO: '
+      + 'procurou-se e não há.');
+  }
+  const linhas = R.map(r => {
+    const ok = r.E2E === 'PASS';
+    const etapas = (r.ETAPAS || []).map(e =>
+      `<span class="etapaChip ${e.OBSERVED === 'YES' ? 'etapaOk' : 'etapaNao'}"
+         title="${esc(String(e.EVIDENCIA || '')).slice(0, 180)}">${esc(e.ETAPA)}</span>`).join('');
+    return `<div class="estrada ${ok ? 'estradaOk' : 'estradaFalha'}">
+      <div class="estradaTopo"><b>${esc(r.RUN_ID)}</b>
+        <span class="provaChip ${ok ? 'prova-observada' : 'prova-naosei'}">${
+          ok ? 'CHEGOU AO FIM' : 'MORREU A MEIO'}</span></div>
+      <div class="estradaEtapas">${etapas}</div>
+      <div class="estradaNota">${r.ETAPAS_OBSERVADAS}/${r.ETAPAS_TOTAL} etapas
+        observadas${r.PRIMEIRA_ARESTA_PERDIDA
+          ? ` · primeira aresta perdida: <b>${esc(r.PRIMEIRA_ARESTA_PERDIDA)}</b>` : ''}
+        ${r.AQUISICAO_PELA_REDE && r.AQUISICAO_PELA_REDE !== 'NÃO SEI'
+          ? `<br><span style="opacity:.75">aquisição pela rede: <b>${
+              esc(r.AQUISICAO_PELA_REDE)}</b> · origem dos bytes: ${
+              esc(r.ORIGEM_DOS_BYTES)}</span>` : ''}
+      </div></div>`;
+  }).join('');
+  return cabeca(`${R.length} recibo(s) de corrida inteira, lidos do banco depois
+    de ela correr. <b>PASS</b> é do recibo, não do mapa.${linhas}`);
+}
+
 function blocoDosBuracos() {
   const B = S.BURACOS;
   const cabeca = (dentro) => '<div class="statusScope"><b>O QUE ESTÁ DECLARADO '
@@ -1719,6 +1762,7 @@ async function provarFrescura() {
     ${linha(esc(SM_FRESHNESS.COBERTURA_ROTULO),
       `${c.files_covered}&thinsp;/&thinsp;${c.files_tracked} tracked files`)}
     </dl>
+    ${blocoDasEstradas()}
     ${blocoDosBuracos()}
     <div class="statusScope"><b>MAP COVERAGE não é FRESHNESS.</b><br>
       ${esc(SM_FRESHNESS.COBERTURA_EXPLICACAO)}</div>

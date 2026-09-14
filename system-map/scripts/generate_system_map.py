@@ -3037,6 +3037,124 @@ def _caminho_no_inicio(texto) -> str:
     return cabeca if cabeca.endswith((".py", ".mjs", ".sh")) else ""
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# V2 · AS ESTRADAS QUE UMA CORRIDA REAL ATRAVESSOU DE PONTA A PONTA
+#
+# Esta arvore guarda uma coisa que a anterior nao tinha: o retrato de uma
+# CORRIDA INTEIRA, etapa a etapa, lido do banco depois de ela correr.
+#
+#     pedido.observado.json      IT-T2  · CANONICAL_E2E = FAIL
+#                                ADMISSION respondeu NAO_SE_APLICA aos 4,
+#                                e a estrada morre em ADMISSION -> READY
+#     pedido-t4.observado.json   IT-T4  · CANONICAL_E2E = PASS
+#                                REQUEST -> ... -> READY -> SALA, e o ficheiro
+#                                da Sala tem nome
+#
+# O mapa nao lia nenhum dos dois. Publicava a estrada canonica como se ninguem
+# a tivesse percorrido — quando duas corridas a percorreram, uma ate ao fim.
+#
+#     UM MAPA QUE NAO LE O RECIBO DA CORRIDA
+#     DESENHA SEMPRE O SISTEMA DE ONTEM.
+#
+# O QUE ESTA FUNCAO RECUSA FAZER
+# ------------------------------
+# So nascem arestas onde o recibo NOMEIA UM FICHEIRO. `REQUEST`,
+# `ORCHESTRATOR` e `EXECUTOR` nomeiam (`ACTOR=`, `COMANDO=`); `RAW`,
+# `STORAGE`, `DERIVED`, `STRUCTURED`, `ADMISSION`, `READY` e `WAITING_ROOM`
+# contam linhas e tabelas, e NAO dizem que peca as escreveu. Resolver essas
+# cruzando com o modelo das estradas seria juntar duas fontes para inventar
+# uma seta — e uma seta inventada e pior do que uma seta em falta.
+#
+#     DUAS ETAPAS OBSERVADAS NAO SAO UMA ARESTA OBSERVADA.
+#     A ARESTA SO NASCE QUANDO O MESMO RECIBO NOMEIA AS DUAS PONTAS.
+# ══════════════════════════════════════════════════════════════════════════
+_RE_ACTOR = re.compile(r"ACTOR=([^\s·,]+\.py)")
+_RE_COMANDO = re.compile(r"COMANDO=([^\s·,]+\.py)")
+
+
+def estradas_observadas_do_pedido(ligacoes: dict, dono: dict, raiz) -> list:
+    """Le os recibos de corrida inteira e devolve o retrato de cada estrada.
+
+    Acrescenta a `ligacoes` as arestas de CONTROLO que o recibo prova, e
+    devolve a lista das estradas para o mapa as publicar como facto.
+    """
+    fora = []
+    dados = raiz / "system-map" / "data"
+    for f in sorted(dados.glob("pedido*.observado.json")):
+        try:
+            R = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        estrada = R.get("ESTRADA") or {}
+        if not estrada:
+            continue
+        corrida = R.get("RUN_ID") or NAO_SEI
+        etapas = [{"ETAPA": k,
+                   "OBSERVED": SIM if (v or {}).get("OBSERVED") else NAO_SEI,
+                   "EVIDENCIA": (v or {}).get("EVIDENCE") or NAO_SEI}
+                  for k, v in estrada.items()]
+        retrato = {
+            "FICHEIRO": f"system-map/data/{f.name}",
+            "RUN_ID": corrida,
+            "CLASSE": R.get("CLASSE") or NAO_SEI,
+            "E2E": R.get("CANONICAL_E2E") or NAO_SEI,
+            "PRIMEIRA_ARESTA_PERDIDA": R.get("FIRST_LOST_EDGE") or None,
+            "ETAPAS": etapas,
+            "ETAPAS_OBSERVADAS": sum(1 for e in etapas if e["OBSERVED"] == SIM),
+            "ETAPAS_TOTAL": len(etapas),
+            # O QUE O RECIBO ADMITE NAO SABER fica ao lado do que ele prova.
+            "ORIGEM_DOS_BYTES": R.get("ORIGEM_DOS_BYTES") or NAO_SEI,
+            "AQUISICAO_PELA_REDE": R.get("AQUISICAO_PELA_REDE") or NAO_SEI,
+        }
+        fora.append(retrato)
+
+        # ── as duas arestas que o recibo NOMEIA ─────────────────────────────
+        req = (estrada.get("REQUEST") or {}).get("OBSERVED")
+        orq = estrada.get("ORCHESTRATOR") or {}
+        exe = estrada.get("EXECUTOR") or {}
+        texto = f"{orq.get('EVIDENCE') or ''} {exe.get('EVIDENCE') or ''}"
+        m = _RE_ACTOR.search(texto) or _RE_COMANDO.search(texto)
+        alvo = dono.get(m.group(1)) if m else None
+
+        def _pos(de, para, porque):
+            if not de or not para or de == para:
+                return
+            chave = (de, para, "RUNS")
+            lig = ligacoes.setdefault(chave, {
+                "from": de, "to": para, "type": "RUNS", "raw_type": "RUNS",
+                "payload": "execucao", "kind": "technical", "status": VERDE,
+                "evidence": [], "reason": porque,
+            })
+            if not any(e.get("EVIDENCE_TYPE") == "OBSERVED_RUN"
+                       for e in lig["evidence"]):
+                lig["evidence"].append({
+                    "file": retrato["FICHEIRO"], "line": 1,
+                    "snippet": f"{corrida} · {retrato['E2E']}",
+                    "EVIDENCE_TYPE": "OBSERVED_RUN", "RUN_ID": corrida,
+                    "SUPPORTS": SIM,
+                    "WHY": ("o recibo desta corrida nomeia as duas pontas na "
+                            "mesma travessia."),
+                    "LIMITATIONS": ("prova OBSERVED nesta corrida e neste "
+                                    "ambiente. Nao prova producao, nem que "
+                                    "volte a acontecer."),
+                    "ASSERTION_SUPPORTED": {
+                        "EDGE_ID": f"{de}--RUNS-->{para}", "FROM": de,
+                        "TO": para, "RELATION_TYPE": "RUNS",
+                        "PLANE": "OBSERVED"},
+                })
+
+        if req and orq.get("OBSERVED"):
+            _pos("C-PEDIDO", "C-ORQUESTRADOR",
+                 f"A corrida `{corrida}` nasceu de um PEDIDO e foi o "
+                 f"orquestrador que a resolveu: o recibo guarda o pedido "
+                 f"inteiro e a receita escolhida.")
+        if orq.get("OBSERVED") and exe.get("OBSERVED") and alvo:
+            _pos("C-ORQUESTRADOR", alvo,
+                 f"Na corrida `{corrida}` foi o orquestrador que mandou correr "
+                 f"esta peca, e o recibo guarda o comando com que a chamou.")
+    return fora
+
+
 def observar_as_travessias(ligacoes: dict, dono: dict, raiz) -> dict:
     """As travessias que uma CORRIDA REAL deixou medidas, viradas em arestas.
 
@@ -3541,16 +3659,31 @@ def os_quatro_planos(ligacoes: dict, nos: list, raiz,
         #
         # Continua a NAO haver promocao por desejo: so entra o par que o ledger
         # diz ter sido lido do banco, na mesma corrida, com dono resolvido.
+        # ⚠️ ISTO TINHA DOIS DONOS, E O SEGUNDO CHEGOU DEPOIS.
+        # O plano OBSERVED lia-se de um INDICE lateral (`travessias`), e as
+        # arestas que o recibo do PEDIDO prova nasciam com a evidencia certa e
+        # ficavam em NAO SEI — porque nao estavam no indice. Duas maneiras de
+        # dizer a mesma coisa, e uma delas sempre atrasada.
+        #
+        #     A EVIDENCIA E O DONO DO PLANO QUE ELA SUSTENTA.
+        #     Um indice ao lado dela e uma segunda opiniao a espera de divergir.
+        #
+        # Agora a regra e uma so: uma aresta esta OBSERVED quando carrega
+        # evidencia de CORRIDA que a sustenta. O indice continua, mas so para
+        # dar o RETRATO da travessia — nunca para decidir o plano.
+        corridas = [ev for ev in lig.get("evidence", [])
+                    if ev.get("EVIDENCE_TYPE") == "OBSERVED_RUN"
+                    and ev.get("SUPPORTS") == SIM]
         obs = ((travessias or {}).get("ARESTAS") or {}).get(
             (lig["from"], lig["to"]))
-        lig["OBSERVED"] = SIM if obs else NAO_SEI
+        lig["OBSERVED"] = SIM if corridas else NAO_SEI
         if obs:
             lig["OBSERVED_EVIDENCE"] = obs
-        lig["PROVEN"] = SIM if (apoiadas or obs) else NAO_SEI
+        lig["PROVEN"] = SIM if (apoiadas or corridas) else NAO_SEI
         # O PLANO EM QUE ESTA PROVADA, e nao um «provado» sem objecto.
         # OBSERVED ganha a CODE quando existem os dois: uma travessia medida
         # diz mais do que uma linha que diz que ela podia acontecer.
-        lig["PROVEN_PLANE"] = ("OBSERVED" if obs
+        lig["PROVEN_PLANE"] = ("OBSERVED" if corridas
                                else "CODE" if apoiadas else None)
         # O `status` LEGADO passa a ser DERIVADO, e nao mais uma segunda opiniao.
         # Ele existia antes dos planos e continua porque a tela e tres censos o
@@ -3562,7 +3695,7 @@ def os_quatro_planos(ligacoes: dict, nos: list, raiz,
         # `PROVEN=YES` -> `PROVEN`; o resto -> `UNKNOWN`. Uma aresta `expected`
         # nunca tem evidencia que a sustente, logo continua `UNKNOWN` e a prova
         # P7 do validador continua a morder.
-        lig["status"] = "PROVEN" if (apoiadas or obs) else "UNKNOWN"
+        lig["status"] = "PROVEN" if (apoiadas or corridas) else "UNKNOWN"
         lig["STATUS_LEGACY_NOTA"] = (
             "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por "
             "compatibilidade. A fonte de verdade sao os quatro planos.")
@@ -4910,6 +5043,7 @@ def main_uma_vez(stamp: bool) -> int:
     # esta missao veio tirar, reintroduzido pela ordem.
     receitas_lidas = arestas_do_orquestrador(ligacoes, dono, RAIZ)
     travessias = observar_as_travessias(ligacoes, dono, RAIZ)
+    estradas_do_pedido = estradas_observadas_do_pedido(ligacoes, dono, RAIZ)
 
     for chave, l in ligacoes.items():
         if l["type"] == "RETRIEVED_BY" and not l["reason"]:
@@ -5066,6 +5200,11 @@ def main_uma_vez(stamp: bool) -> int:
         "WORLD": {"w": mundo_w, "h": mundo_h},
         "INVENTORY": inventario,
         "ACHADOS": achados(arquivos),
+        # V2 · AS ESTRADAS QUE UMA CORRIDA INTEIRA ATRAVESSOU.
+        # Nao e um resumo do mapa: e o recibo, etapa a etapa, lido do banco.
+        # Fica ao lado das arestas porque responde a outra pergunta — nao
+        # «que ligacoes existem» mas «alguma corrida chegou ao fim».
+        "ESTRADAS_OBSERVADAS": estradas_do_pedido,
         "SEARCH_TERMS": termos_de_busca(),
         "PROVENANCE": G["PROVENANCE"],
         "FAMILIES": faixas,

@@ -259,6 +259,17 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .legendaArestas div{display:flex;gap:5px;align-items:baseline}
 .legendaArestas b{color:#3d3936;font-weight:800;min-width:58px;flex:none}
 .legendaArestas i{color:#8a827e;font-style:normal;font-size:8.4px;min-width:78px;flex:none}
+
+/* ── AS ESTRADAS OBSERVADAS ──────────────────────────────────────────────── */
+.estrada{margin:8px 0 0;padding:8px 9px;border-radius:9px;border:1px solid var(--earth20);background:#fff}
+.estrada.estradaOk{border-color:#96c8ab;background:#f3faf6}
+.estrada.estradaFalha{border-color:#eedb9e;background:#fffdf6}
+.estradaTopo{display:flex;gap:7px;align-items:center;justify-content:space-between;font-size:9.5px}
+.estradaEtapas{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 5px}
+.etapaChip{font-size:8px;font-weight:800;padding:2px 5px;border-radius:5px;border:1px solid;cursor:help}
+.etapaChip.etapaOk{background:#e8f3ec;border-color:#bcdcc8;color:#1f5f3c}
+.etapaChip.etapaNao{background:#f1f2f1;border-color:#d3d8d6;color:#5c6663;text-decoration:line-through}
+.estradaNota{font-size:8.6px;color:#5c6663;line-height:1.5}
 .dyn.catUNKNOWN .edgePath{stroke:var(--unknown);stroke-dasharray:4 6;opacity:.34}
 
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
