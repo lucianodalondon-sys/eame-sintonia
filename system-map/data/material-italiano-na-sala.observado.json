@@ -1,0 +1,164 @@
+{
+ "O_QUE_ISTO_E": "Material italiano REAL, reprocessado da corrida piloto PILOT_RUN_20260907153737_4c34b3, atravessando a Collection ate a Sala de Espera canonica em PostgreSQL.",
+ "COMO_REFAZER": "BANCO_DESCARTAVEL_URL=... python3 provas/o_material_italiano_chega_a_sala.py",
+ "AMBIENTE": "DESCARTAVEL",
+ "AQUISICAO_NOVA": "NAO — a politica de egresso desta sessao responde 403 CONNECT a todos os hospedeiros externos. Isto e REPROCESSAMENTO de bytes ja colhidos, com SHA no livro italiano.",
+ "RUN_ID": "IT-T3-2026-09-14-161319-d25cb43412039d3c",
+ "CORRIDA_DE_ORIGEM": "PILOT_RUN_20260907153737_4c34b3",
+ "ESTRADA": {
+  "REQUEST": {
+   "OBSERVED": true,
+   "EVIDENCE": "alvo=T3 pais={'pais': 'IT'}"
+  },
+  "ORCHESTRATOR": {
+   "OBSERVED": true,
+   "EVIDENCE": "ACTOR=coleta/italy_executor.py RUN_ID=IT-T3-2026-09-14-161319-d25cb43412039d3c"
+  },
+  "EXECUTOR": {
+   "OBSERVED": true,
+   "EVIDENCE": "colheita=10"
+  },
+  "RUN": {
+   "OBSERVED": true,
+   "EVIDENCE": "collection_run: [['IT-T3-2026-09-14-161319-d25cb43412039d3c', 'rodando']]"
+  },
+  "RAW": {
+   "OBSERVED": true,
+   "EVIDENCE": "10 linhas em raw_asset"
+  },
+  "STORAGE": {
+   "OBSERVED": true,
+   "EVIDENCE": "10 copias ligadas por chave estrangeira"
+  },
+  "DERIVED": {
+   "OBSERVED": true,
+   "EVIDENCE": "7 derivados"
+  },
+  "STRUCTURED": {
+   "OBSERVED": true,
+   "EVIDENCE": "7 documentos estruturados"
+  },
+  "ADMISSION": {
+   "OBSERVED": true,
+   "EVIDENCE": "por_resultado={'SIM': 7}"
+  },
+  "READY": {
+   "OBSERVED": true,
+   "EVIDENCE": "prontos=7"
+  },
+  "WAITING_ROOM": {
+   "OBSERVED": true,
+   "EVIDENCE": "7 na Sala"
+  }
+ },
+ "CADEIA_DE_VOLTA": {
+  "WAITING_ROOM": {
+   "run_id": "IT-T3-2026-09-14-161319-d25cb43412039d3c",
+   "ordem": 0,
+   "item_id": "derived:1",
+   "raw_observation_id": 5
+  },
+  "READY": {
+   "ITEM_ID": "derived:1",
+   "DERIVED_ARTIFACT_ID": 1
+  },
+  "STRUCTURED": {
+   "derived_artifact_id": 1,
+   "source_id": "IT-T2-002"
+  },
+  "DERIVED": {
+   "id": 1,
+   "raw_asset_id": 5,
+   "parent_sha256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc"
+  },
+  "RAW": {
+   "id": 5,
+   "run_id": "IT-T3-2026-09-14-161319-d25cb43412039d3c",
+   "sha256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+   "captured_at": "2026-09-07 15:37:48.926+00",
+   "source_id": "IT-T2-002"
+  },
+  "STORAGE": {
+   "id": 5,
+   "sha256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+   "bytes": 465004
+  },
+  "RUN": {
+   "run_id": "IT-T3-2026-09-14-161319-d25cb43412039d3c",
+   "actor": "coleta/italy_executor.py"
+  },
+  "SOURCE": {
+   "source_id": "IT-T2-002",
+   "source_url": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_24.pdf"
+  },
+  "LIVRO_ITALIANO": {
+   "SOURCE_ID": "IT-T2-002",
+   "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_24.pdf",
+   "CAPTURED_AT": "2026-09-07T15:37:48.926Z",
+   "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+  }
+ },
+ "WAITING_ROOM_BEFORE": 0,
+ "WAITING_ROOM_AFTER": 7,
+ "WAITING_ROOM_DELTA": 7,
+ "SALA": [
+  {
+   "ORDEM": 0,
+   "ITEM_ID": "derived:1",
+   "RAW_OBSERVATION_ID": 5,
+   "SOURCE_ID": "IT-T2-002",
+   "CAPTURED_AT": "2026-09-07T15:37:48.926Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 1,
+   "ITEM_ID": "derived:2",
+   "RAW_OBSERVATION_ID": 3,
+   "SOURCE_ID": "IT-T2-002",
+   "CAPTURED_AT": "2026-09-07T15:37:44.653Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 2,
+   "ITEM_ID": "derived:3",
+   "RAW_OBSERVATION_ID": 4,
+   "SOURCE_ID": "IT-T2-002",
+   "CAPTURED_AT": "2026-09-07T15:37:46.751Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 3,
+   "ITEM_ID": "derived:4",
+   "RAW_OBSERVATION_ID": 2,
+   "SOURCE_ID": "IT-T2-002",
+   "CAPTURED_AT": "2026-09-07T15:37:42.531Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 4,
+   "ITEM_ID": "derived:5",
+   "RAW_OBSERVATION_ID": 7,
+   "SOURCE_ID": "IT-T3-002",
+   "CAPTURED_AT": "2026-09-07T15:37:53.953Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 5,
+   "ITEM_ID": "derived:6",
+   "RAW_OBSERVATION_ID": 9,
+   "SOURCE_ID": "IT-T3-008",
+   "CAPTURED_AT": "2026-09-07T15:38:27.742Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 6,
+   "ITEM_ID": "derived:7",
+   "RAW_OBSERVATION_ID": 8,
+   "SOURCE_ID": "IT-T3-010",
+   "CAPTURED_AT": "2026-09-07T15:37:57.488Z",
+   "ESTADO_DA_FILA": "WAITING"
+  }
+ ],
+ "PASSOU": 34,
+ "FALHOU": 0
+}

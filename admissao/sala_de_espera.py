@@ -405,6 +405,24 @@ class _Postgres(object):
               "estrangeira e consulta: sobrevive ao processo, ao job e ao "
               "checkout.")
     SEP = "\x1f"
+    # ⚠️ O SEPARADOR DE LINHA TEM DE SER TAO EXPLICITO COMO O DE CAMPO.
+    # Esta classe separava CAMPOS por `\x1f` e LINHAS pelo fim-de-linha. Com
+    # colunas curtas — `run_id`, `ordem`, `item_id` — isso nunca falhou.
+    #
+    # `ler()` traz `texto`, e o texto de um READY documental e a EXTRACCAO DE
+    # UM PDF: ele tem dezenas de mudancas de linha la dentro. Cada uma delas
+    # virava uma linha nova na saida do `psql`, e a leitura rebentava com
+    # `IndexError` ao procurar o sexto campo de um pedaco de frase.
+    #
+    #     A SALA ESCREVIA O DOCUMENTO E NAO O CONSEGUIA LER DE VOLTA.
+    #
+    # E era assimetrico da pior maneira: `pousar()` funcionava, `listar_pendentes()`
+    # funcionava, e so quem fosse BUSCAR o conteudo descobria. Uma fila que
+    # aceita o que nao sabe devolver nao e uma fila.
+    #
+    # `\x1e` e o RECORD SEPARATOR do ASCII, irmao do `\x1f`. Nenhum dos dois
+    # aparece em texto extraido de documento.
+    SEP_LINHA = "\x1e"
 
     def __init__(self, url):
         self.url = url
@@ -414,11 +432,36 @@ class _Postgres(object):
         """Lê. `-X` para não herdar o `~/.psqlrc` de quem corre isto."""
         r = subprocess.run(
             ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
+             "-R", self.SEP_LINHA,
              "-v", "ON_ERROR_STOP=1", self.url, "-c", sql],
             capture_output=True, text=True, env=_ambiente_psql())
         if r.returncode != 0:
             raise SalaIndisponivel(_sanitiza(r.stderr))
-        return [l for l in r.stdout.splitlines() if l.strip()]
+        # ⚠️ NAO SE USA `splitlines()`. Um `texto` com mudanca de linha dentro
+        # daria N pedacos por linha, e o primeiro deles teria menos campos do
+        # que o leitor espera.
+        #
+        # ⚠️ E O ULTIMO REGISTO NAO LEVA SEPARADOR. Com `-R`, o `psql` poe o
+        # separador ENTRE os registos e nao depois do ultimo — mas continua a
+        # terminar a saida com a mudanca de linha dele. Sem tirar essa, o
+        # ULTIMO CAMPO DO ULTIMO REGISTO vinha com um `\n` a mais:
+        #
+        #     ADMITIDO_POR = 'pertence ao universo v4\n'
+        #
+        # Um caracter, na ultima linha, no ultimo campo. E chegava para mudar a
+        # impressao do CONJUNTO — e entao pousar de novo exactamente o mesmo
+        # conteudo lido de volta dava `RUN_ID_CONFLICT`, que e a resposta
+        # reservada a «esta corrida ja contou outra historia».
+        #
+        #     UM RETRY LEGITIMO ACUSADO DE CONTAR DUAS HISTORIAS
+        #     E PIOR DO QUE UM RETRY QUE DUPLICA: ELE ENSINA A DESLIGAR A TRAVA.
+        #
+        # `rstrip` so da mudanca de linha final, e nunca do conteudo: o que se
+        # tira e o terminador do `psql`, e ele nao e dado de ninguem.
+        bruto = r.stdout
+        if bruto.endswith("\n"):
+            bruto = bruto[:-1]
+        return [l for l in bruto.split(self.SEP_LINHA) if l.strip()]
 
     def _executar(self, script):
         """Escreve. UMA TRANSAÇÃO, ou nada.
@@ -428,9 +471,10 @@ class _Postgres(object):
         """
         r = subprocess.run(
             ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
+             "-R", self.SEP_LINHA,
              "-v", "ON_ERROR_STOP=1", "--single-transaction", self.url, "-f", "-"],
             input=script, capture_output=True, text=True, env=_ambiente_psql())
-        return r.returncode, r.stdout, _sanitiza(r.stderr)
+        return r.returncode, r.stdout.replace(self.SEP_LINHA, "\n"), _sanitiza(r.stderr)
 
     def morada(self, run_id):
         return "postgres:public.sala_de_espera?run_id=%s" % run_id
