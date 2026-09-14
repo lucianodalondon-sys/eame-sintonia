@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §117: a porta de fonte nova escrevia numa fila inexistente, e o System Map tapava o buraco por casar nome de ficheiro em vez de caminho.
+**Última atualização material:** 2026-09-14 — §118: uma ferramenta partida mente com a forma de um resultado; e classificar entidade pelo assunto repete a COL-LAW-034 numa forma nova.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -14188,3 +14188,106 @@ com a verificação **ligada**. `verify=False` nunca é a resposta.
 **OpenAlex** ficou indisponível nesse ambiente (`429 · Insufficient budget`).
 É limitação **observada do ambiente**, não lei universal: remedir antes de
 assumir.
+
+---
+
+# §118 · A FERRAMENTA PARTIDA MENTE COMO SE FOSSE UM ACHADO
+
+**Branch:** `claude/italy-source-qualification-v1` · **Base:** `40f2fb79`
+**Contexto:** qualificação e priorização das 381 candidatas italianas.
+
+## 118.1 · O QUÊ
+
+O ajudante que completa a cadeia TLS pelo AIA (§117.6) tinha a porta do proxy
+**escrita em código**, vinda de uma sessão anterior:
+
+```bash
+openssl s_client -proxy 127.0.0.1:44483 ...
+```
+
+Na sessão seguinte o ambiente serviu `44229`. O script não deu erro: devolveu
+zero intermediários, a cadeia ficou incompleta, e **cinco fontes oficiais**
+— ISMEA, ARPA Puglia, ARPA Sicília, Regione Abruzzo e o departamento agrário
+de Pisa — apareceram como `TLS_ERROR`.
+
+Lidas à letra, aquelas cinco linhas diziam *«a fonte morreu»*. Nenhuma tinha
+morrido.
+
+## 118.2 · A LIÇÃO, QUE É MAIOR QUE O BUG
+
+```
+FERRAMENTA PARTIDA  !=  MEDIÇÃO NEGATIVA.
+```
+
+O perigo não é a ferramenta falhar — é ela falhar **com a forma de um
+resultado**. Um `TLS_ERROR` parece dado sobre o servidor do outro lado; era
+dado sobre o nosso lado. E como o modelo de qualificação transforma estado de
+endereço em nota, o defeito ia propagar-se para a prioridade: fontes oficiais
+de primeira linha teriam caído para `HOLD` por causa de uma porta trocada.
+
+**Regra operacional:** valor que o ambiente fornece (porta, host, caminho,
+credencial) não se escreve em código que atravessa sessões. E antes de aceitar
+uma medição negativa em série, perguntar se o instrumento ainda está de pé —
+cinco falhas do mesmo tipo, todas em fontes oficiais, é sinal de instrumento,
+não sinal de mundo.
+
+## 118.3 · CLASSIFICAR PELA IDENTIDADE, NUNCA PELO ASSUNTO
+
+A `COL-LAW-034` já proíbe identidade por similaridade textual. Esta missão
+mostrou a mesma lei a ser violada numa forma nova — **classificação** por
+substring — e a auditoria manual apanhou quatro casos:
+
+| o que aconteceu | porquê |
+|---|---|
+| `Coldiretti Veneto` virou «instituto nacional de investigação» | a sigla `iret` casou **dentro** de «cold**iret**ti» |
+| `ASSAM Marche`, uma agência regional, virou «imprensa» | a palavra genérica «agroalimentare» no nome ganhou à sigla específica |
+| o departamento da Universidade de Bari virou «serviço fitossanitário» | trabalha Xylella, e o **assunto** entrou no alvo da classificação |
+| `Noi Siamo Agricoltura` foi a `REJECT` | nenhuma família reconhecia comunidades agrícolas |
+
+Três correcções, que valem para além deste caso:
+
+```
+1 · sigla curta exige fronteira de palavra.
+2 · a entidade classifica-se pelo que ELA É (dono, nome, casa),
+    nunca pelo que ela FALA. Assunto não é função.
+3 · palavra genérica não ganha a sigla específica: a ordem de
+    desempate põe o institucional antes do editorial.
+```
+
+## 118.4 · A NOSSA CEGUEIRA NÃO É DEFEITO DA FONTE
+
+Duas decisões do modelo, ambas da mesma família:
+
+```
+UNKNOWN  !=  ZERO.
+```
+
+Dimensão por provar **sai** do cálculo e os pesos re-normalizam. Pontuar
+`UPDATE = 0` porque não conseguimos ler uma data castigaria a fonte por uma
+limitação nossa — e foram **197 das 381** sem data legível. Pelo mesmo motivo,
+`CONN_FAIL` (o túnel caiu a meio) passou a `BLOCKED`, não a `BROKEN`, e a
+relevância baixa causada por **família não reconhecida** passou a `UNKNOWN`,
+não a `REJECT`.
+
+E o contrário também se aplica: o ano no rodapé de copyright **não** é prova de
+frescura. `2026` aparece em quase todos os sites; só uma data de publicação
+lida na página conta.
+
+## 118.5 · O QUE O RED TEAM APANHOU, E PORQUE TINHA DE TER CONTROLO
+
+O ataque «site morto com HTTP 200» apanhou `arpa.sardegna.it` **já promovida a
+P1**: o domínio serve uma página de erro do IIS (`HTTP 999`, *AW Special
+Error*). O endereço certo é `sardegnaambiente.it/arpas/`.
+
+Mas o red team só vale porque foi provado a acender: 17 entradas falsas, 17
+detectores a disparar. Um red team que devolve zero sem controlo não diz «está
+limpo» — diz «não sei se estou ligado».
+
+## 118.6 · O ENDEREÇO ANTIGO NÃO SE APAGA
+
+`URL_DECLARED`, `URL_FINAL` e `URL_CANONICAL` ficam em **colunas separadas**.
+Sobrescrever o declarado apaga a prova de que houve correcção — e foi
+precisamente a comparação entre os três que revelou que `ASSAM Marche` passou a
+`AMAP Marche`, que `CRPV` passou a `rinova.eu`, que a Regione Calabria serve um
+domínio `old.` e que a ERSA FVG devolvia um `jsessionid` dentro do endereço.
+Um `jsessionid` não é endereço canónico de nada.
