@@ -41,7 +41,11 @@ GAVETAS = ('coleta', 'guarda', 'ferramentas', 'orquestrador')
 # para decidir, o campo fica UNKNOWN, e nunca NO por omissao.
 REDE = ('urllib.request', 'urllib', 'requests', 'httpx', 'http.client',
         'navegador', 'cdp', 'websocket')
-PAGO = ('apify_pool', 'apify_contrato', 'apify_recuperar')
+# `apify_contrato` e `apify_recuperar` sairam do repositorio em 2026-09-09 por
+# estarem mortos. Procurar por eles nao faria mal, mas manteria viva no censo
+# uma lista que ja nao descreve a arvore — e uma heuristica que nomeia
+# fantasmas convida a proxima pessoa a recria-los.
+PAGO = ('apify_pool', 'contrato_ator')
 PRODUCAO = ('SUPABASE_URL', 'SUPABASE_KEY', 'SUPABASE_SERVICE')
 TELEMETRIA = ('rastro_da_coleta', 'telemetria')
 FALHAS = ('falhas',)

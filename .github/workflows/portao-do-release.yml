@@ -78,18 +78,25 @@ jobs:
       # É a mesma ordem de `system-map.yml`, de propósito: este portão faz a
       # mesma pergunta que o SYSTEM MAP CHECK, e duas respostas diferentes para
       # a mesma pergunta seriam duas leis.
+      # A CADEIA LE-SE DO MANIFESTO, E QUEM A LE E O CORREDOR.
+      #
+      # Este passo tinha aqui o seu proprio leitor: um heredoc que fazia
+      # `'\n'.join(c['REGERAR'] + c['VALIDAR'])`. Isso valia enquanto cada passo
+      # era uma string. O `G4` deu forma a cada passo — `{STEP_ID, EXECUTABLE,
+      # INPUTS, OUTPUTS}` — e um `join` sobre objectos nao falha a dizer «a forma
+      # mudou»: falha a dizer `TypeError`, e o portao do release morre antes de
+      # medir seja o que for.
+      #
+      #     UM SEGUNDO LEITOR DO MANIFESTO E UMA SEGUNDA CADEIA A PRAZO.
+      #
+      # Ha um leitor por runtime, e nao um por sitio que precisa da lista:
+      # `correr_a_cadeia.py` do lado Python, `publicar_no_deploy.mjs` do lado
+      # Node. Este portao passa a chamar o primeiro, pela mesma ordem de sempre:
+      # REGERAR antes de VALIDAR, pela razao escrita no cabecalho deste ficheiro.
       - name: o mapa corresponde a esta arvore
         run: |
-          python3 - <<'EOF' > /tmp/cadeia.txt
-          import json
-          c = json.load(open('system-map/scripts/CADEIA-DO-MAPA.json', encoding='utf-8'))
-          print('\n'.join(c['REGERAR'] + c['VALIDAR']))
-          EOF
-          while read -r passo; do
-            [ -n "$passo" ] || continue
-            echo "· $passo"
-            python3 "$passo"
-          done < /tmp/cadeia.txt
+          python3 system-map/scripts/correr_a_cadeia.py REGERAR
+          python3 system-map/scripts/correr_a_cadeia.py VALIDAR
 
   portal:
     name: RELEASE · PORTAL REGRESSION CHECK

@@ -72,6 +72,55 @@
     "    UNKNOWN        !=  PASS",
     "    DEPLOYED       !=  CURRENT"
   ],
+  "DEFINICAO_DE_MISSAO_FECHADA": {
+    "LEI": [
+      "    MISSION DONE        !=  PREVIEW READY",
+      "    SYSTEM MAP DONE      =  OFFICIAL URL VERIFIED",
+      "",
+      "Escrito porque aconteceu. Uma missao do System Map fechou com o codigo",
+      "aprovado, os portoes verdes e a versao nova a funcionar — num deployment de",
+      "preview. O endereco oficial continuou, durante dias, a servir a versao",
+      "anterior, e quem so tinha o endereco oficial nao viu nada do trabalho.",
+      "",
+      "    UM PREVIEW QUE FUNCIONA NAO E UMA ENTREGA. E UMA BANCADA.",
+      "",
+      "CAN DO != DID DO: existir um deployment com a versao nova nao e o alias",
+      "oficial apontar para ele. Sao dois factos, e o segundo tem de ser MEDIDO no",
+      "endereco oficial DEPOIS de publicar — nunca inferido do deployment criado."
+    ],
+    "CONDICOES": [
+      "CODIGO_APROVADO",
+      "GATES_APROVADOS  (SYSTEM_MAP_CHECK; vermelho herdado declarado continua declarado)",
+      "DEPLOYMENT_EXISTE",
+      "CONTEUDO_APROVADO_ACESSIVEL_EM  CANONICAL_URL",
+      "VERIFICACAO_POS_DEPLOY_NO_CANONICAL_URL"
+    ],
+    "COMO_SE_VERIFICA": [
+      "1. GET CANONICAL_URL — exigir HTTP 200. Um 200 NAO prova conteudo novo.",
+      "2. GET CANONICAL_URL + 'deployment.generated.json' — ler DEPLOYED_COMMIT,",
+      "   SOURCE_BRANCH, BUILD_ID e MAP_BELONGS_TO_DEPLOYED_TREE no que esta NO AR.",
+      "3. Escolher SINAIS EXCLUSIVOS da versao nova, medidos na arvore que se",
+      "   publicou (uma string, uma classe, um KPI que so a versao nova tem), e",
+      "   procura-los no que o endereco oficial devolve.",
+      "",
+      "    HTTP 200         !=  CONTEUDO NOVO",
+      "    DEPLOY CRIADO    !=  ALIAS ACTUALIZADO",
+      "    DEPLOYMENT URL   !=  OFFICIAL URL"
+    ],
+    "ANTES_DE_PUBLICAR": [
+      "ROLLBACK_DEPLOYMENT_ID, ROLLBACK_URL e ROLLBACK_GIT_SHA do que esta hoje",
+      "atras do alias ficam registados ANTES de o alias mudar.",
+      "",
+      "    ONE RECOVERY PLAN -> ONE PROOF.",
+      "",
+      "Improvisar a recuperacao depois do incidente e nao ter recuperacao."
+    ],
+    "QUEM_ISTO_OBRIGA": [
+      "Qualquer missao cujo produto seja uma mudanca VISIVEL do System Map. Uma",
+      "missao que so mexe em provas, ferramentas ou documentos nao publica nada e",
+      "nao e obrigada a promover — mas tambem nao pode dizer que entregou mapa."
+    ]
+  },
   "PREVIEW_URL_POLICY": [
     "Os previews continuam a existir e sao uteis — sao a bancada da engenharia.",
     "Nao se entregam ao dono do produto como endereco. Qualquer handoff futuro",

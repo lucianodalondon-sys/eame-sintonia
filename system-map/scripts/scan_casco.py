@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+"""Le system-map/data/donos.generated.json e system-map/data/state.generated.json.
+
+    Le system-map/data/donos.generated.json e system-map/data/state.generated.json.
+
+    Le system-map/data/donos.generated.json e system-map/data/state.generated.json.
+
+    
 SINTONIA SYSTEM MAP · SCANNER DO CASCO
 
     CADA FERRAMENTA DA TELA TEM DE DIZER O QUE ESTA LIGADO NELA HOJE.
