@@ -1962,10 +1962,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-g7-g8-visual-clarity-v1",
-    "HEAD": "809e2ab90bc3b97ae23b699ecbf5d4f14f6c2e37",
-    "GENERATED_AT": "2026-09-14T00:55:42+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e9a2e20afa44f4c56bf7a4a4744c3a1ed8b6dd90956e0be6f768c4c29c5a1fd1"
+    "BRANCH": "claude/system-map-collection-truth-v1",
+    "HEAD": "85a245282864af5849fc83dec084ea93eb22bf35",
+    "GENERATED_AT": "2026-09-14T01:20:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1b6b0ef94df339fa028a0524657446abae3c1635de531eb998b4a4c6666eb563"
   },
   "FAMILIES": [
     {
@@ -2543,6 +2543,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-COLETA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/testa_coleta_canonica.py:134",
+          "tests/es/test_adama_es_gate.py:21"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 8240,
       "y": 360
     },
@@ -2710,6 +2723,16 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "motor/v21_ingest.py:266",
+          "pacote/lastmile_entregar.py:65"
+        ],
+        "PORQUE": "estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 3885,
       "y": 360
     },
@@ -2745,6 +2768,8 @@
       ],
       "inbound": [
         "C-IT-TEXTO-DERIVADO",
+        "C-ROTA-M2",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "outbound": [
@@ -2820,6 +2845,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ROTA-M2"
+        ],
+        "PLANO": "OBSERVED",
+        "PROVA": [
+          "tests/test_m2_rota_forward.py:1"
+        ],
+        "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
+      },
       "x": 11600,
       "y": 360
     },
@@ -2914,6 +2950,20 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-COLETA",
+          "C-SINTONIA-SCRAP"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/apify-conexao.yml:68",
+          ".github/workflows/apify-sensores.yml:117",
+          ".github/workflows/sintonia-scrap.yml:216"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 6000,
       "y": 360
     },
@@ -2997,6 +3047,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 18485,
       "y": 360
     },
@@ -3092,6 +3151,15 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "DECLARED",
+        "PROVA": [
+          "declarado `kind: acervo` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 8655,
       "y": 360
     },
@@ -3165,6 +3233,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/adama-relevance-gate.mjs:39",
+          "italia-portale/audit/build-gate.mjs:55",
+          "italia-portale/audit/deploy-surface.mjs:53",
+          "italia-portale/audit/lib/harness.mjs:38"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAO-BUILD · C-SITE-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 14835,
       "y": 360
     },
@@ -5669,6 +5749,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "3 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 3885,
       "y": 682
     },
@@ -5777,6 +5866,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "pacote/metricas_canonicas.py:257",
+          "tests/test_canonico.py:223",
+          "tests/test_coleta_externa.py:568"
+        ],
+        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 16660,
       "y": 360
     },
@@ -5872,6 +5972,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/splice.mjs:18"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 15540,
       "y": 360
     },
@@ -5955,6 +6064,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 15955,
       "y": 360
     },
@@ -6139,6 +6255,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/casa-gate.mjs:32"
+        ],
+        "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 15540,
       "y": 682
     },
@@ -6224,6 +6349,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/acceptance.mjs:12",
+          "italia-portale/audit/adama-product-claim.mjs:25",
+          "italia-portale/audit/blocks.mjs:6",
+          "italia-portale/audit/casco/censo-demo.mjs:4"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-BLOCOS · C-AUDIT-CASCO · C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 15955,
       "y": 682
     },
@@ -6307,6 +6444,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 15540,
       "y": 1004
     },
@@ -6389,6 +6533,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-EXECUTOR-CONTA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/o_executor_conta_se.py:36",
+          "tests/test_forward_instrumentado.py:28"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 10480,
       "y": 360
     },
@@ -6474,6 +6631,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "9 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 360,
       "y": 360
     },
@@ -6563,6 +6729,22 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-PERSIST",
+          "C-CI-REGRESSAO",
+          "C-PROVA-COLETA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/calendario-regressoes.yml:169",
+          ".github/workflows/supabase-migrate.yml:92",
+          "provas/preflight_022_live.sh:120",
+          "provas/trava_de_drift_de_migration.sh:95"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 13010,
       "y": 360
     },
@@ -6656,6 +6838,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_armazem_italiano.py:226"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20020,
       "y": 360
     },
@@ -6750,6 +6943,23 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES",
+          "C-PROVA-COLETA",
+          "C-RECONCILIACAO-UNIVERSO",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/o_corte_de_cr1.py:94",
+          "system-map/scripts/reconciliacao_do_universo.py:472",
+          "system-map/tests/test_impressao_verificavel.py:60",
+          "tests/test_censo_cards_sensores.py:30"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 360
     },
@@ -6830,6 +7040,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-RECONCILIACAO-UNIVERSO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/reconciliacao_do_universo.py:443"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20850,
       "y": 360
     },
@@ -6924,6 +7145,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-TRAVA-MORDE"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/trava_da_inteligencia_morde.py:24"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20020,
       "y": 682
     },
@@ -7007,6 +7239,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-CENSO-IDENTIDADE-IT",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/censo_de_identidade_it.py:241",
+          "tests/test_observabilidade_estrada.py:35"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 682
     },
@@ -7109,6 +7354,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 20850,
       "y": 682
     },
@@ -7190,6 +7442,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 20020,
       "y": 1004
     },
@@ -7255,6 +7514,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 20435,
       "y": 1004
     },
@@ -7357,6 +7623,25 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-CENSO-CARDS-SENSORES",
+          "C-CENSO-DOS-BURACOS",
+          "C-MAPA-GERADOR",
+          "C-PROVA-COLETA",
+          "C-PROVA-ROTA-M2-ATRAVESSA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/a_rota_m2_atravessa.py:120",
+          "provas/os_portoes_da_collection.py:46",
+          "system-map/scripts/censo_cards_sensores.py:140",
+          "system-map/scripts/censo_dos_buracos.py:43"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 10895,
       "y": 360
     },
@@ -7437,6 +7722,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-CENSO-ARMAZEM-IT",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/censo_do_armazem_it.py:187",
+          "tests/test_identidade_do_artefato.py:103"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20850,
       "y": 1004
     },
@@ -7526,6 +7824,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-COLETA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/paridade_da_lingua.py:220",
+          "tests/test_lingua_unica.py:73"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 10480,
       "y": 682
     },
@@ -7610,6 +7921,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 20020,
       "y": 1326
     },
@@ -7688,6 +8006,20 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES",
+          "C-RECONCILIACAO-UNIVERSO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/reconciliacao_do_universo.py:81",
+          "system-map/scripts/reconciliacao_do_universo.py:504",
+          "system-map/tests/test_ordem_por_dependencia.py:303"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 1326
     },
@@ -7765,6 +8097,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_MANUAL",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/apify-conexao.yml · on: workflow_dispatch",
+          ".github/workflows/apify-sensores.yml · on: workflow_dispatch",
+          ".github/workflows/comunicacao-publica.yml · on: workflow_dispatch"
+        ],
+        "PORQUE": "o `on:` so tem `workflow_dispatch`: a unica porta e a mao de alguem. NENHUM orquestrador o dispara, e `workflow_dispatch` prova exactamente isso."
+      },
       "x": 1065,
       "y": 360
     },
@@ -7847,6 +8192,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map-deploy-verify.yml · on: push, workflow_dispatch",
+          ".github/workflows/system-map.yml · on: pull_request, push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
       "x": 20850,
       "y": 1326
     },
@@ -7942,6 +8299,21 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/auditoria-live.yml · on: push, workflow_dispatch",
+          ".github/workflows/banco-descartavel.yml · on: push, workflow_dispatch",
+          ".github/workflows/supabase-conexao.yml · on: push, workflow_dispatch",
+          ".github/workflows/supabase-migrate.yml · on: push, workflow_dispatch",
+          ".github/workflows/supabase-storage.yml · on: push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
       "x": 9070,
       "y": 360
     },
@@ -8032,6 +8404,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/calendario-regressoes.yml · on: pull_request, push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
       "x": 20020,
       "y": 1648
     },
@@ -8139,6 +8522,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "medidas/portoes_eame.py:41",
+          "medidas/portoes_eame.py:296",
+          "tests/test_cicatrizes_brasil.py:21",
+          "tests/test_cicatrizes_brasil.py:77"
+        ],
+        "PORQUE": "estas pecas importam-na — C-REGRA-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 10895,
       "y": 682
     },
@@ -8241,6 +8636,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/comunicacao_coleta.py:58",
+          "coleta/instagram_coleta.py:71",
+          "coleta/youtube_oficial.py:315",
+          "medidas/scanner_da_coleta.py:24"
+        ],
+        "PORQUE": "estas pecas importam-na — C-COLETA-INSTAGRAM · C-COLETA-PUBLICA · C-RASTRO · C-SCRAP-SOCIAL · C-SENSOR-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 6705,
       "y": 360
     },
@@ -8337,6 +8744,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-SINTONIA-SCRAP"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/sintonia-scrap.yml:224",
+          ".github/workflows/sintonia-scrap.yml:234"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 7120,
       "y": 360
     },
@@ -8376,6 +8795,7 @@
         "C-CI-COLETA",
         "C-COLETA-BASE",
         "C-IDENTIDADE",
+        "C-ORQUESTRADOR",
         "V-FACEBOOK",
         "V-INSTAGRAM",
         "V-LINKEDIN",
@@ -8454,6 +8874,21 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-COLETA",
+          "C-ORQUESTRADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/comunicacao-publica.yml:146",
+          ".github/workflows/comunicacao-publica.yml:147",
+          "pedido/receitas.py:152",
+          "orquestrador/orquestrador.py:359"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 7535,
       "y": 360
     },
@@ -8539,6 +8974,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-SINTONIA-SCRAP"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/sintonia-scrap.yml:243",
+          ".github/workflows/sintonia-scrap.yml:246"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 6705,
       "y": 682
     },
@@ -8613,6 +9060,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 18900,
       "y": 360
     },
@@ -8704,6 +9160,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 10480,
       "y": 1004
     },
@@ -8776,6 +9241,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 19315,
       "y": 360
     },
@@ -8872,6 +9346,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 18485,
       "y": 682
     },
@@ -8916,6 +9399,7 @@
         "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ],
       "inbound": [
+        "C-ORQUESTRADOR",
         "V-HTTP"
       ],
       "outbound": [
@@ -9037,6 +9521,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ORQUESTRADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "pedido/receitas.py:80",
+          "orquestrador/orquestrador.py:359"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 7120,
       "y": 682
     },
@@ -9167,6 +9663,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "medidas/portao.py:96",
+          "medidas/source_health.py:157",
+          "motor/v21_ingest_b.py:37",
+          "motor/v21_oportunidades.py:44"
+        ],
+        "PORQUE": "estas pecas importam-na — C-RECEITAS · C-REGRA-COLETA · C-SAUDE-FONTE · C-V21-INGEST · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 18900,
       "y": 682
     },
@@ -9245,6 +9753,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_AGENDADO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/rls-censo-metadados.yml · on: push, schedule, workflow_dispatch"
+        ],
+        "PORQUE": "ha relogio declarado no `on:`."
+      },
       "x": 20435,
       "y": 1648
     },
@@ -9281,6 +9800,7 @@
         "C-DIAGNOSTICO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-RASTRO",
+        "C-ROTA-M2",
         "C-SCRAP-LEIS"
       ],
       "outbound": [
@@ -9288,6 +9808,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -9333,6 +9854,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ROTA-M2"
+        ],
+        "PLANO": "OBSERVED",
+        "PROVA": [
+          "tests/test_m2_rota_forward.py:1"
+        ],
+        "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
+      },
       "x": 7535,
       "y": 682
     },
@@ -9413,6 +9945,15 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "DECLARED",
+        "PROVA": [
+          "declarado `kind: acervo` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 8240,
       "y": 682
     },
@@ -9501,6 +10042,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 19315,
       "y": 682
     },
@@ -9609,6 +10159,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/ingresso.py:78",
+          "guarda/preservar_derivado.py:55",
+          "provas/a_fase_10_entra_no_acervo.py:504",
+          "provas/a_rota_m2_atravessa.py:75"
+        ],
+        "PORQUE": "estas pecas importam-na — C-DONO-DO-DERIVADO · C-INGRESSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 8655,
       "y": 682
     },
@@ -9693,6 +10255,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/executor_texto_de_pdf.py:256",
+          "guarda/memoria_descartavel.py:43",
+          "provas/derived_artifact_no_postgres.py:350",
+          "tests/test_preservar_derivado.py:35"
+        ],
+        "PORQUE": "estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 9070,
       "y": 682
     },
@@ -9776,6 +10350,16 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/client/accesso.html:15",
+          "italia-portale/client/portale.html:25"
+        ],
+        "PORQUE": "estas pecas importam-na — C-PORTAL-CASCO · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 16660,
       "y": 682
     },
@@ -9855,6 +10439,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_MANUAL",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "DECLARED",
+        "PROVA": [
+          "system-map/scripts/CADEIA-DO-MAPA.json · PRODUTORES_EXTERNOS · coleta/golden_path_pdf.py"
+        ],
+        "PORQUE": "a cadeia declara esta peca como PRODUTOR EXTERNO: o mapa consome o que ela deixa e nao a corre. Quem a corre e gente."
+      },
       "x": 6705,
       "y": 1004
     },
@@ -9965,6 +10560,21 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-FORWARD-CONTA",
+          "C-PROVA-ROTA-M2-ATRAVESSA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/a_rota_m2_atravessa.py:157",
+          "provas/o_forward_conta_se.py:130",
+          "tests/test_a_prova_e2e_segue_a_producao.py:232"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20850,
       "y": 1648
     },
@@ -10047,6 +10657,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 18485,
       "y": 1004
     },
@@ -10176,6 +10795,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "OBSERVED",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/derivacao_forward.py:83",
+          "coleta/golden_path_pdf.py:53",
+          "medidas/corrida_instrumentada.py:122",
+          "medidas/corrida_instrumentada.py:157"
+        ],
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 7120,
       "y": 1004
     },
@@ -10255,6 +10886,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:610"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 1970
     },
@@ -10298,6 +10940,7 @@
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
       ],
       "inbound": [
+        "C-ORQUESTRADOR",
         "C-ROTULOS",
         "C-SUPABASE",
         "V-HTTP"
@@ -10396,6 +11039,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ORQUESTRADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "pedido/receitas.py:111",
+          "orquestrador/orquestrador.py:359"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 7535,
       "y": 1004
     },
@@ -10472,6 +11127,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_o10r_a_verdade_dos_nomes.py:25",
+          "tests/test_o10r_a_verdade_dos_nomes.py:329"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 10895,
       "y": 1004
     },
@@ -10560,6 +11227,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 18900,
       "y": 1004
     },
@@ -10652,6 +11328,13 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 20435,
       "y": 1970
     },
@@ -10779,6 +11462,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-COLETA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/comunicacao-publica.yml:104"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 9775,
       "y": 360
     },
@@ -10894,6 +11588,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-REGRESSAO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/calendario-regressoes.yml:235"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 8240,
       "y": 1004
     },
@@ -10967,6 +11672,25 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-CENSO-CARDS-SENSORES",
+          "C-CENSO-COLETA",
+          "C-CENSO-TOPOLOGIA",
+          "C-MAPA-SCAN",
+          "C-RECONCILIACAO-UNIVERSO",
+          "C-REVISAO-DA-EVIDENCIA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/censo_cards_sensores.py:44",
+          "system-map/scripts/censo_da_coleta.py:50",
+          "system-map/scripts/censo_da_topologia.py:480",
+          "system-map/scripts/pente_fino_da_coleta.py:38"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20850,
       "y": 1970
     },
@@ -11054,6 +11778,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/golden_path_pdf.py:51",
+          "coleta/rota_forward_documento.py:51",
+          "orquestrador/orquestrador.py:56",
+          "provas/medir_admission_t3_atual.py:79"
+        ],
+        "PORQUE": "estas pecas importam-na — C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 6705,
       "y": 1326
     },
@@ -11154,6 +11890,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/italy_probe.mjs:23",
+          "provas/a_autoridade_da_fonte.py:61",
+          "provas/a_rota_m2_atravessa.py:154",
+          "provas/italy_accounting.mjs:60"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 3180,
       "y": 360
     },
@@ -11196,7 +11944,8 @@
         "C-CONTRATO-DE-RETORNO",
         "C-IT-CATALOGO",
         "C-IT-CONTRATOS",
-        "C-IT-PRESERVAR"
+        "C-IT-PRESERVAR",
+        "C-ORQUESTRADOR"
       ],
       "outbound": [
         "C-IT-CONTAS",
@@ -11248,6 +11997,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ORQUESTRADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "pedido/receitas.py:124",
+          "orquestrador/orquestrador.py:359"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 7120,
       "y": 1326
     },
@@ -11334,6 +12095,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "regras/italy_contract_test.mjs:157"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 20020,
       "y": 2292
     },
@@ -11437,6 +12207,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "candidatas/italy_write_matrix.mjs:2",
+          "coleta/italy_pilot_collect.mjs:38",
+          "coleta/italy_pilot_collect.mjs:38",
+          "provas/a_autoridade_da_fonte.py:163"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 9775,
       "y": 682
     },
@@ -11530,6 +12312,15 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "DECLARED",
+        "PROVA": [
+          "declarado `kind: acervo` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 8655,
       "y": 1004
     },
@@ -11610,6 +12401,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/italy_executor.py:87",
+          "medidas/padrao_da_coleta.py:65",
+          "provas/italy_pilot_negativos.mjs:30",
+          "provas/medir_source_id_wiring_gap.py:40"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 9070,
       "y": 1004
     },
@@ -11685,6 +12488,13 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 8240,
       "y": 1326
     },
@@ -11770,6 +12580,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "20 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 8655,
       "y": 1326
     },
@@ -11939,6 +12758,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/adama-relevance-gate.mjs:48",
+          "italia-portale/audit/casa-gate.mjs:490",
+          "italia-portale/audit/client-boundary.mjs:26",
+          "italia-portale/client/italy-casa.js:113"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAL-DADOS · C-PORTAL-MODELO · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 14835,
       "y": 682
     },
@@ -12020,6 +12851,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:137"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20435,
       "y": 2292
     },
@@ -12099,6 +12941,16 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "regras/italy_source_health.mjs:38",
+          "system-map/scripts/censo_das_derivacoes.py:121"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 6000,
       "y": 682
     },
@@ -12194,6 +13046,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 19315,
       "y": 1004
     },
@@ -12281,6 +13142,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:174"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 18485,
       "y": 1326
     },
@@ -12364,6 +13236,21 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES",
+          "C-RECONCILIACAO-UNIVERSO",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/reconciliacao_do_universo.py:712",
+          "system-map/tests/test_freshness.mjs:36",
+          "tests/test_observabilidade_estrada.py:382"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20850,
       "y": 2292
     },
@@ -12452,6 +13339,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map-deploy-verify.yml:65",
+          ".github/workflows/system-map.yml:437"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 2614
     },
@@ -12498,8 +13397,10 @@
         "C-MAPA-DEPLOY",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
+        "C-ORQUESTRADOR",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
+        "C-RECEITAS",
         "C-SUPABASE",
         "C-TESTES",
         "lineage_stale"
@@ -12535,11 +13436,12 @@
           "RX_PAPEL",
           "TRADUZ_PAIS",
           "_EXT_EXECUTAVEL",
+          "_GATILHOS",
           "_NOMES_DE_CANAL"
         ],
-        "palavras": 178,
+        "palavras": 185,
         "por_lingua": {},
-        "sem_marca_de_lingua": 178,
+        "sem_marca_de_lingua": 185,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12592,6 +13494,8 @@
         "docs/fontes/INDICE-DE-FONTES.md",
         "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
         "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "orquestrador/orquestrador.py",
+        "pedido/receitas.py",
         "provas/a_fronteira_da_coleta.py",
         "regras/LEIA-ANTES-DE-COLETAR.md",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
@@ -12611,6 +13515,25 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES",
+          "C-MAPA-VALIDADOR",
+          "C-PROVA-MAPA-NAO-MENTE",
+          "C-RECONCILIACAO-UNIVERSO",
+          "C-REVISAO-DA-EVIDENCIA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/o_mapa_nao_mente.py:50",
+          "system-map/scripts/reconciliacao_do_universo.py:392",
+          "system-map/scripts/revisao_da_evidencia.py:46",
+          "system-map/scripts/validate_system_map.py:133"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 2614
     },
@@ -12734,6 +13657,24 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-DEPLOY",
+          "C-MAPA-GERADOR",
+          "C-MAPA-TESTES",
+          "C-MAPA-VALIDADOR",
+          "C-RECONCILIACAO-UNIVERSO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/generate_system_map.py:4992",
+          "system-map/scripts/publicar_no_deploy.mjs:56",
+          "system-map/scripts/reconciliacao_do_universo.py:80",
+          "system-map/scripts/reconciliacao_do_universo.py:407"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20850,
       "y": 2614
     },
@@ -12928,6 +13869,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:249",
+          ".github/workflows/system-map.yml:253"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 2936
     },
@@ -13009,6 +13962,21 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES",
+          "C-PROVA-MAPA-NAO-MENTE",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/o_mapa_nao_mente.py:52",
+          "system-map/tests/test_system_map.py:493",
+          "tests/test_mapa_nao_mente.py:129"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 2936
     },
@@ -13106,6 +14074,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-PERSIST",
+          "C-CI-REGRESSAO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/calendario-regressoes.yml:167",
+          ".github/workflows/supabase-migrate.yml:80"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20850,
       "y": 2936
     },
@@ -13194,6 +14175,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-SINTONIA-SCRAP"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/sintonia-scrap.yml:174"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 6000,
       "y": 1004
     },
@@ -13235,10 +14227,16 @@
         "C-RECEITAS"
       ],
       "outbound": [
+        "C-COLETA-PUBLICA",
+        "C-CORPUS",
         "C-ESTRADAS-IT",
+        "C-FONTES-EU",
+        "C-IT-COLETA",
+        "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-ROTULOS",
         "C-TESTES"
       ],
       "paises": {},
@@ -13272,6 +14270,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-COLETA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/comunicacao-publica.yml:139"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 2475,
       "y": 360
     },
@@ -13561,6 +14570,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_handoff.py:97"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 14835,
       "y": 1004
     },
@@ -13663,6 +14683,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:525"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 10480,
       "y": 1326
     },
@@ -13801,6 +14832,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/youtube_relevancia.py:75",
+          "leis/regua_italia.py:57",
+          "motor/pacote_convergencia.py:101",
+          "provas/testa_coleta_canonica.py:163"
+        ],
+        "PORQUE": "estas pecas importam-na — C-COLETA-YOUTUBE · C-RELEVANCIA · C-V21-CRUZAMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 9775,
       "y": 1004
     },
@@ -13895,6 +14938,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "orquestrador/orquestrador.py:52",
+          "pedido/receitas.py:46",
+          "provas/testa_coleta_canonica.py:31",
+          "tests/test_estagio_atravessa_a_fronteira.py:353"
+        ],
+        "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 1770,
       "y": 360
     },
@@ -13979,6 +15034,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 18900,
       "y": 1326
     },
@@ -14066,6 +15130,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-SCAN"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/scan_sources.py:371"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 3180,
       "y": 682
     },
@@ -14155,6 +15230,16 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/casa-gate.mjs:552",
+          "italia-portale/client/portale.html:252"
+        ],
+        "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 16660,
       "y": 1004
     },
@@ -14322,6 +15407,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/adama-relevance-gate.mjs:39",
+          "italia-portale/audit/browser-deep.mjs:248",
+          "italia-portale/audit/casa-gate.mjs:497",
+          "italia-portale/audit/lib/harness.mjs:44"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-LASTMILE · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 16660,
       "y": 1326
     },
@@ -14448,6 +15545,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/adama-relevance-gate.mjs:40",
+          "italia-portale/audit/build-v21.mjs:38",
+          "italia-portale/audit/casa-gate.mjs:398",
+          "italia-portale/audit/lib/harness.mjs:62"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAL-CASCO · C-PORTAL-DADOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 16660,
       "y": 1648
     },
@@ -14542,6 +15651,16 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/checks.mjs:13",
+          "italia-portale/audit/checks.mjs:13"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 15955,
       "y": 1004
     },
@@ -14669,6 +15788,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/coletor.py:76",
+          "coleta/golden_path_pdf.py:52",
+          "coleta/instagram_janela.py:74",
+          "leis/data_clock.py:75"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 9775,
       "y": 1326
     },
@@ -14748,6 +15879,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-PERSIST"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/banco-descartavel.yml:290"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 3258
     },
@@ -14853,6 +15995,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:539"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20435,
       "y": 3258
     },
@@ -15198,6 +16351,21 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA",
+          "C-CI-PERSIST"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/auditoria-live.yml:54",
+          ".github/workflows/banco-descartavel.yml:121",
+          ".github/workflows/system-map.yml:532",
+          ".github/workflows/system-map.yml:606"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20850,
       "y": 3258
     },
@@ -15275,6 +16443,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA",
+          "C-CI-PERSIST"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/banco-descartavel.yml:299",
+          ".github/workflows/system-map.yml:632"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 3580
     },
@@ -15353,6 +16534,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:625"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20435,
       "y": 3580
     },
@@ -15421,6 +16613,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:644"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20850,
       "y": 3580
     },
@@ -15513,6 +16716,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-PERSIST"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/banco-descartavel.yml:265"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 3902
     },
@@ -15596,6 +16810,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:648"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20435,
       "y": 3902
     },
@@ -15721,6 +16946,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/system-map.yml:618"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20850,
       "y": 3902
     },
@@ -15810,6 +17046,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-PERSIST"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/banco-descartavel.yml:274"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20020,
       "y": 4224
     },
@@ -15887,6 +17134,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-CENSO-CONGELAMENTO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/scripts/censo_do_congelamento.py:121"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 4224
     },
@@ -15987,6 +17245,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:97",
+          "motor/v21_cadeia.sh:112"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 19315,
       "y": 1326
     },
@@ -16080,6 +17350,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 10895,
       "y": 1326
     },
@@ -16149,6 +17428,15 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "DECLARED",
+        "PROVA": [
+          "declarado `kind: acervo` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 12305,
       "y": 360
     },
@@ -16223,6 +17511,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 20850,
       "y": 4224
     },
@@ -16269,6 +17564,7 @@
       ],
       "outbound": [
         "C-ESTRADAS-IT",
+        "C-MAPA-GERADOR",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-TESTES"
@@ -16349,6 +17645,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "orquestrador/orquestrador.py:53",
+          "provas/o_corte_de_cr1.py:59",
+          "system-map/scripts/censo_das_estradas_it.py:693",
+          "system-map/scripts/generate_system_map.py:3202"
+        ],
+        "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 1770,
       "y": 682
     },
@@ -16454,6 +17762,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/tests/test_reconciliacao_do_universo.py:34"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20020,
       "y": 4546
     },
@@ -16542,6 +17861,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_operacao.py:350"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20435,
       "y": 4546
     },
@@ -16677,6 +18007,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_coleta_externa.py:41",
+          "tests/test_portao.py:12"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 10480,
       "y": 1648
     },
@@ -16744,6 +18086,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/regressao-de-navegador.yml · on: push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
       "x": 20850,
       "y": 4546
     },
@@ -16823,6 +18176,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 10895,
       "y": 1648
     },
@@ -16955,6 +18315,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/cruzar_regua_rotulo.py:89",
+          "italia-portale/audit/adama-relevance-gate.mjs:88",
+          "italia-portale/client/adama-relevance.js:10",
+          "motor/pacote_convergencia.py:193"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-MARCA · C-PACOTE-CAMADAS · C-PORTAL-DADOS · C-ROTULOS · C-V21-CRUZAMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 18485,
       "y": 1648
     },
@@ -17034,6 +18406,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/tests/test_quatro_planos.py:35"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 20020,
       "y": 4868
     },
@@ -17077,8 +18460,11 @@
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [
+        "C-ADMISSAO",
+        "C-DERIVACAO-FORWARD",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
       "paises": {},
@@ -17131,6 +18517,22 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "OBSERVED",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-PROVA-COLETA",
+          "C-PROVA-ROTA-M2-ATRAVESSA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/a_rota_m2_atravessa.py:72",
+          "provas/a_rota_m2_atravessa.py:471",
+          "provas/medir_admission_t3_atual.py:76",
+          "tests/test_lingua_da_porta.py:203"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 7535,
       "y": 1326
     },
@@ -17174,6 +18576,7 @@
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ],
       "inbound": [
+        "C-ORQUESTRADOR",
         "C-RELEVANCIA",
         "C-SUPABASE",
         "V-HTTP"
@@ -17291,6 +18694,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ORQUESTRADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "pedido/receitas.py:97",
+          "orquestrador/orquestrador.py:359"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 6705,
       "y": 1648
     },
@@ -17363,6 +18778,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-RECORRENCIA",
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/chain.py:43",
+          "tests/test_falhas.py:22"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
       "x": 10480,
       "y": 1970
     },
@@ -17458,6 +18886,19 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-SCRAP-ROTA",
+          "C-SECURITY-CHECK"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/scrap-social.yml:107",
+          ".github/workflows/security-check.yml:58"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 9070,
       "y": 1326
     },
@@ -17569,6 +19010,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/derivacao_forward.py:80",
+          "coleta/rota_forward_documento.py:54",
+          "coleta/social_rotas.py:56",
+          "ferramentas/apify_pool.py:105"
+        ],
+        "PORQUE": "estas pecas importam-na — C-APIFY-POOL · C-CENSO-OBSERVABILIDADE · C-CONTRATO-TELEMETRIA · C-DERIVACAO-FORWARD · C-DIAGNOSTICO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 18900,
       "y": 1648
     },
@@ -17640,6 +19093,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_MANUAL",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/scrap-social.yml · on: workflow_dispatch"
+        ],
+        "PORQUE": "o `on:` so tem `workflow_dispatch`: a unica porta e a mao de alguem. NENHUM orquestrador o dispara, e `workflow_dispatch` prova exactamente isso."
+      },
       "x": 4590,
       "y": 360
     },
@@ -17678,6 +19142,8 @@
       "inbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-DERIVACAO-FORWARD",
+        "C-ROTA-M2",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
@@ -17685,6 +19151,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-ADMISSAO",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -17740,6 +19207,20 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-ROTA-M2",
+          "C-SCRAP-ROTA"
+        ],
+        "PLANO": "OBSERVED",
+        "PROVA": [
+          ".github/workflows/scrap-social.yml:107",
+          ".github/workflows/scrap-social.yml:108",
+          "tests/test_m2_rota_forward.py:1"
+        ],
+        "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
+      },
       "x": 7120,
       "y": 1648
     },
@@ -17854,6 +19335,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/security-check.yml · on: pull_request, push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
       "x": 20435,
       "y": 4868
     },
@@ -17961,6 +19453,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-COLETA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/apify-sensores.yml:124"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 9775,
       "y": 1648
     },
@@ -18050,6 +19553,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_MANUAL",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/sintonia-scrap.yml · on: workflow_dispatch"
+        ],
+        "PORQUE": "o `on:` so tem `workflow_dispatch`: a unica porta e a mao de alguem. NENHUM orquestrador o dispara, e `workflow_dispatch` prova exactamente isso."
+      },
       "x": 4590,
       "y": 682
     },
@@ -18192,6 +19706,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/deploy-surface.mjs:38"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 15540,
       "y": 1326
     },
@@ -18328,6 +19851,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/cadeia_canonica.sh:195"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 8240,
       "y": 1648
     },
@@ -18496,6 +20030,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17365,
       "y": 1648
     },
@@ -18634,6 +20175,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17780,
       "y": 1004
     },
@@ -18747,6 +20295,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "italia-portale/audit/casco/demo-visibile.mjs:77",
+          "italia-portale/client/casa.html:633",
+          "system-map/scripts/scan_casco.py:100"
+        ],
+        "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 17365,
       "y": 1970
     },
@@ -18851,6 +20410,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17780,
       "y": 360
     },
@@ -18969,6 +20535,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17780,
       "y": 682
     },
@@ -19145,6 +20718,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17365,
       "y": 360
     },
@@ -19317,6 +20897,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17780,
       "y": 1326
     },
@@ -19483,6 +21070,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17365,
       "y": 1326
     },
@@ -19583,6 +21177,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17780,
       "y": 1648
     },
@@ -19686,6 +21287,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17365,
       "y": 1004
     },
@@ -19853,6 +21461,13 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 17365,
       "y": 682
     },
@@ -20473,6 +22088,20 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-COLETA",
+          "C-CI-MAPA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/comunicacao-publica.yml:105",
+          ".github/workflows/system-map.yml:546",
+          ".github/workflows/system-map.yml:547"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 20850,
       "y": 4868
     },
@@ -20547,6 +22176,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-SINTONIA-SCRAP"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/sintonia-scrap.yml:237",
+          ".github/workflows/sintonia-scrap.yml:248"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 6000,
       "y": 1326
     },
@@ -20716,6 +22357,16 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "motor/v21_fechar.py:202",
+          "motor/v21_vozes_reconciliar.py:53"
+        ],
+        "PORQUE": "estas pecas importam-na — C-V21-FONTES · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 13425,
       "y": 360
     },
@@ -20928,6 +22579,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "guarda/social_guarda.py:193",
+          "motor/v21_aceitacao.py:39",
+          "motor/v21_oportunidades.py:45",
+          "motor/v21_traducao_trava.py:351"
+        ],
+        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-SCRAP-GUARDA · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
       "x": 13010,
       "y": 682
     },
@@ -21023,6 +22686,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:117",
+          "motor/v21_cadeia.sh:133"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 13425,
       "y": 682
     },
@@ -21177,6 +22852,17 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:87"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 13010,
       "y": 1004
     },
@@ -21280,6 +22966,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:91",
+          "motor/v21_cadeia.sh:101"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 13425,
       "y": 1004
     },
@@ -21466,6 +23164,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:75",
+          "motor/v21_cadeia.sh:76"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 13010,
       "y": 1326
     },
@@ -21583,6 +23293,18 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CADEIA-V21"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "motor/v21_cadeia.sh:122",
+          "motor/v21_cadeia.sh:128"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+      },
       "x": 13425,
       "y": 1326
     },
@@ -21681,6 +23403,17 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "CANAL_ABERTO_POR_ROTA",
+        "QUEM": [
+          "C-APIFY-POOL"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "coleta/comunicacao_coleta.py:57"
+        ],
+        "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
+      },
       "x": 5295,
       "y": 360
     },
@@ -21925,6 +23658,13 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma rota medida abre este canal, e ninguem o corre."
+      },
       "x": 5295,
       "y": 682
     },
@@ -22028,6 +23768,19 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "CANAL_ABERTO_POR_ROTA",
+        "QUEM": [
+          "C-APIFY-POOL",
+          "C-NAVEGADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "coleta/comunicacao_coleta.py:57",
+          "coleta/instagram_coleta.py:7"
+        ],
+        "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
+      },
       "x": 5295,
       "y": 1004
     },
@@ -22120,6 +23873,17 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "CANAL_ABERTO_POR_ROTA",
+        "QUEM": [
+          "C-APIFY-POOL"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "coleta/comunicacao_coleta.py:57"
+        ],
+        "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
+      },
       "x": 5295,
       "y": 1326
     },
@@ -22226,6 +23990,19 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "CANAL_ABERTO_POR_ROTA",
+        "QUEM": [
+          "C-APIFY-POOL",
+          "C-NAVEGADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "coleta/youtube_janela.py:471",
+          "coleta/youtube_janela.py:37"
+        ],
+        "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
+      },
       "x": 5295,
       "y": 1648
     },
@@ -22235,7 +24012,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-g7-g8-visual-clarity-v1"
+        "branch claude/system-map-collection-truth-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22289,6 +24066,13 @@
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
       "x": 14130,
       "y": 360
     },
@@ -22355,6 +24139,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "1 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 14130,
       "y": 682
     },
@@ -22420,6 +24213,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "1 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 14130,
       "y": 1004
     },
@@ -22493,6 +24295,15 @@
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "1 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
       "x": 14130,
       "y": 1326
     }
@@ -24618,7 +26429,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3449,
+          "line": 3984,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -28005,7 +29816,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2961,
+          "line": 2968,
           "snippet": "f = raiz / \"system-map\" / \"data\" / \"provas-de-execucao.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-EXECUTORES--READS-->C-MAPA-GERADOR",
@@ -32889,6 +34700,49 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "ALIMENTA",
+      "payload": "dado",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` atravessou daqui para ali: a etapa DERIVED e a etapa STRUCTURED deixaram passagem no MESMO `collection_run`, e a aresta foi lida do banco por `tests/test_m2_rota_forward.py`.",
+      "evidence": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · DERIVED -> STRUCTURED lido do banco",
+          "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "SUPPORTS": "YES",
+          "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada.",
+          "LIMITATIONS": "prova OBSERVED nesta corrida e neste ambiente. Nao prova que volte a acontecer, nem prova producao.",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DERIVACAO-FORWARD--ALIMENTA-->C-SCRAP-SOCIAL",
+            "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "ALIMENTA",
+            "PLANE": "OBSERVED"
+          }
+        }
+      ],
+      "categoria": "DATA",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "YES",
+      "OBSERVED_EVIDENCE": {
+        "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+        "ETAPA_DE": "DERIVED",
+        "ETAPA_PARA": "STRUCTURED",
+        "PROVA": "tests/test_m2_rota_forward.py",
+        "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+        "LEDGER": "coleta/rota_forward_documento.py",
+        "COMO_FOI_MEDIDA": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido."
+      },
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "OBSERVED",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -37896,7 +39750,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3471,
+          "line": 4006,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -40325,8 +42179,8 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3765,
-          "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))",
+          "line": 3338,
+          "snippet": "\"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-GERADOR",
             "FROM": "C-MAPA-DEPLOY",
@@ -40759,7 +42613,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4435,
+          "line": 4979,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -40982,7 +42836,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4448,
+          "line": 4992,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -40998,7 +42852,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4448,
+          "line": 4992,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -41990,6 +43844,108 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-COLETA-PUBLICA",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 152,
+          "snippet": "\"id\": \"comunicacao-publica\", \"roda\": ['coleta/comunicacao_coleta.py']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-COLETA-PUBLICA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-COLETA-PUBLICA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "reason": "O orquestrador corre esta peca quando o pedido cai no alvo dela: a receita `comunicacao-publica` declara `roda=['coleta/comunicacao_coleta.py']`, e o orquestrador corre o que a receita declara. Onde ela larga o que traz: data/samples/COMPETITOR-PUBLIC-COMM.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-CORPUS",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 80,
+          "snippet": "\"id\": \"corpus-pesquisador\", \"roda\": ['coleta/corpus_pesquisador.py', 'coletar']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-CORPUS",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-CORPUS",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "reason": "O orquestrador corre esta peca quando o pedido cai no alvo dela: a receita `corpus-pesquisador` declara `roda=['coleta/corpus_pesquisador.py', 'coletar']`, e o orquestrador corre o que a receita declara. Onde ela larga o que traz: data/samples/RESEARCHER-CORPUS-EAME-V1.json.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-ESTRADAS-IT",
       "type": "READS",
       "payload": "artefacto",
@@ -42006,6 +43962,143 @@
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-ESTRADAS-IT",
             "FROM": "C-ORQUESTRADOR",
             "TO": "C-ESTRADAS-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-FONTES-EU",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 111,
+          "snippet": "\"id\": \"eppo\", \"roda\": ['coleta/eppo_gd.py']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-FONTES-EU",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-FONTES-EU",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "reason": "O orquestrador corre esta peca quando o pedido cai no alvo dela: a receita `eppo` declara `roda=['coleta/eppo_gd.py']`, e o orquestrador corre o que a receita declara. Onde ela larga o que traz: data/samples/IT-PRAGAS.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-IT-COLETA",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 124,
+          "snippet": "\"id\": \"italia-recorrente\", \"roda\": ['coleta/italy_executor.py']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "reason": "O orquestrador corre esta peca quando o pedido cai no alvo dela: a receita `italia-recorrente` declara `roda=['coleta/italy_executor.py']`, e o orquestrador corre o que a receita declara. Onde ela larga o que traz: data/colheita/italia/.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 3203,
+          "snippet": "orq = raiz / \"orquestrador\" / \"orquestrador.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-GERADOR",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-MAPA-GERADOR",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -42204,6 +44297,57 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-ROTULOS",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 97,
+          "snippet": "\"id\": \"rotulos-oficiais\", \"roda\": ['coleta/rotulos_baixar.py']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-ROTULOS",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-ROTULOS",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "reason": "O orquestrador corre esta peca quando o pedido cai no alvo dela: a receita `rotulos-oficiais` declara `roda=['coleta/rotulos_baixar.py']`, e o orquestrador corre o que a receita declara. Onde ela larga o que traz: data/raw/IT-ROTULOS.",
+      "categoria": "CONTROL",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -46759,6 +48903,41 @@
     },
     {
       "from": "C-RECEITAS",
+      "to": "C-MAPA-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta alimenta Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 3202,
+          "snippet": "reg = raiz / \"pedido\" / \"receitas.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--READS-->C-MAPA-GERADOR",
+            "FROM": "C-RECEITAS",
+            "TO": "C-MAPA-GERADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-RECEITAS",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -47415,6 +49594,96 @@
     },
     {
       "from": "C-ROTA-M2",
+      "to": "C-ADMISSAO",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · chama o dono de STRUCTURED/ADMISSION",
+          "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "SUPPORTS": "YES",
+          "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa.",
+          "LIMITATIONS": "prova OBSERVED nesta corrida. Nao prova producao.",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--RUNS-->C-ADMISSAO",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-ADMISSAO",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "OBSERVED"
+          }
+        }
+      ],
+      "reason": "Esta peca CHAMA aquela dentro da corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto`: o ledger nomeia-a como a fronteira da travessia, e o dono da etapa como quem faz o trabalho. Quem costura nao deriva, nao escreve e nao julga.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "YES",
+      "OBSERVED_EVIDENCE": {
+        "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+        "ETAPA_DE": "STRUCTURED",
+        "ETAPA_PARA": "ADMISSION",
+        "PROVA": "tests/test_m2_rota_forward.py",
+        "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+        "LEDGER": "coleta/rota_forward_documento.py",
+        "COMO_FOI_MEDIDA": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido.",
+        "PAPEL": "RUNNER -> DONO DA ETAPA"
+      },
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "OBSERVED",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · chama o dono de DERIVED/STRUCTURED",
+          "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "SUPPORTS": "YES",
+          "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa.",
+          "LIMITATIONS": "prova OBSERVED nesta corrida. Nao prova producao.",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--RUNS-->C-DERIVACAO-FORWARD",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-DERIVACAO-FORWARD",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "OBSERVED"
+          }
+        }
+      ],
+      "reason": "Esta peca CHAMA aquela dentro da corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto`: o ledger nomeia-a como a fronteira da travessia, e o dono da etapa como quem faz o trabalho. Quem costura nao deriva, nao escreve e nao julga.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "YES",
+      "OBSERVED_EVIDENCE": {
+        "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+        "ETAPA_DE": "DERIVED",
+        "ETAPA_PARA": "STRUCTURED",
+        "PROVA": "tests/test_m2_rota_forward.py",
+        "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+        "LEDGER": "coleta/rota_forward_documento.py",
+        "COMO_FOI_MEDIDA": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido.",
+        "PAPEL": "RUNNER -> DONO DA ETAPA"
+      },
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "OBSERVED",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTA-M2",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -47532,6 +49801,51 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "RUNS",
+      "raw_type": "RUNS",
+      "payload": "execucao",
+      "kind": "technical",
+      "status": "PROVEN",
+      "evidence": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · chama o dono de DERIVED/STRUCTURED",
+          "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "SUPPORTS": "YES",
+          "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa.",
+          "LIMITATIONS": "prova OBSERVED nesta corrida. Nao prova producao.",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--RUNS-->C-SCRAP-SOCIAL",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "OBSERVED"
+          }
+        }
+      ],
+      "reason": "Esta peca CHAMA aquela dentro da corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto`: o ledger nomeia-a como a fronteira da travessia, e o dono da etapa como quem faz o trabalho. Quem costura nao deriva, nao escreve e nao julga.",
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "YES",
+      "OBSERVED_EVIDENCE": {
+        "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+        "ETAPA_DE": "STRUCTURED",
+        "ETAPA_PARA": "ADMISSION",
+        "PROVA": "tests/test_m2_rota_forward.py",
+        "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+        "LEDGER": "coleta/rota_forward_documento.py",
+        "COMO_FOI_MEDIDA": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido.",
+        "PAPEL": "RUNNER -> DONO DA ETAPA"
+      },
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "OBSERVED",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -49521,6 +51835,49 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-ADMISSAO",
+      "type": "ALIMENTA",
+      "payload": "dado",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` atravessou daqui para ali: a etapa STRUCTURED e a etapa ADMISSION deixaram passagem no MESMO `collection_run`, e a aresta foi lida do banco por `tests/test_m2_rota_forward.py`.",
+      "evidence": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · STRUCTURED -> ADMISSION lido do banco",
+          "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "SUPPORTS": "YES",
+          "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada.",
+          "LIMITATIONS": "prova OBSERVED nesta corrida e neste ambiente. Nao prova que volte a acontecer, nem prova producao.",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--ALIMENTA-->C-ADMISSAO",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-ADMISSAO",
+            "RELATION_TYPE": "ALIMENTA",
+            "PLANE": "OBSERVED"
+          }
+        }
+      ],
+      "categoria": "DATA",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "YES",
+      "OBSERVED_EVIDENCE": {
+        "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
+        "ETAPA_DE": "STRUCTURED",
+        "ETAPA_PARA": "ADMISSION",
+        "PROVA": "tests/test_m2_rota_forward.py",
+        "BANCO": "PostgreSQL 16 descartavel, migrations 001..024. Zero producao.",
+        "LEDGER": "coleta/rota_forward_documento.py",
+        "COMO_FOI_MEDIDA": "lidas do BANCO, e nao declaradas aqui: `medidas/rastro_da_coleta.o_que_a_rota_observou()` so conta uma aresta quando a etapa de ORIGEM tambem deixou passagem naquela rota. Uma linha que diz `edge_from=DERIVED` sem que DERIVED tenha corrido e uma SETA DESENHADA, e nao um caminho percorrido."
+      },
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "OBSERVED",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -54791,8 +57148,8 @@
     "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 659,
-    "edges_proven": 612,
+    "edges": 671,
+    "edges_proven": 624,
     "edges_unknown": 47,
     "business_edges": 4,
     "files_tracked": 1515,

@@ -59,6 +59,28 @@ const O_QUE_E_O_PAPEL = {
 };
 const papelCurto = n => (O_QUE_E_O_PAPEL[n.ROLE] || O_QUE_E_O_PAPEL.UNKNOWN)[0];
 
+/* ══ G9 · QUEM ATIVA ESTA PEÇA ═══════════════════════════════════════════════
+   O cartão respondia «Recebe de — ninguém» a um botão que uma PESSOA carrega.
+   «Ninguém» é falso, e faz uma entrada legítima parecer uma peça órfã.
+
+       UMA ENTRADA EXTERNA NÃO É UM BURACO. Chamar-lhe buraco gasta a
+       atenção que os buracos a sério precisam.
+
+   Sete respostas, e nenhuma delas é o silêncio. A classe vem MEDIDA do
+   gerador (`ATIVACAO`); aqui só se traduz para português de gente. */
+const O_QUE_E_A_ATIVACAO = {
+  PECA_INTERNA:          ['OUTRA PEÇA MANDA',  'há peça no mapa que manda esta correr'],
+  EXTERNO_MANUAL:        ['GENTE · À MÃO',     'é um botão: só se ativa quando alguém carrega'],
+  EXTERNO_AGENDADO:      ['O RELÓGIO',         'há horário declarado — corre sozinha'],
+  EXTERNO_EVENTO:        ['UM ACONTECIMENTO',  'um evento do repositório acorda-a'],
+  CANAL_ABERTO_POR_ROTA: ['ABRE-SE POR ROTA',  'um canal não corre: é aberto por uma rota'],
+  SO_A_PROVA_A_CORRE:    ['SÓ A PROVA',        'na coleta ninguém a corre — só quem a veio medir'],
+  NAO_SE_ATIVA:          ['NÃO SE ATIVA',      'é consultada, não corre'],
+  NAO_SEI:               ['NÃO SEI',           'nada medido diz quem lhe dá a ordem'],
+};
+const ativacaoDe = n => O_QUE_E_A_ATIVACAO[(n.ATIVACAO || {}).CLASSE]
+  || O_QUE_E_A_ATIVACAO.NAO_SEI;
+
 /* ══ G8 · A CLASSE DE PROVA DE UMA ARESTA — DOS QUATRO PLANOS, NUNCA DO KIND
    ---------------------------------------------------------------------------
    ISTO ERA O DEFEITO, E ELE ESTAVA MEDIDO NA TELA.
@@ -77,7 +99,7 @@ const papelCurto = n => (O_QUE_E_O_PAPEL[n.ROLE] || O_QUE_E_O_PAPEL.UNKNOWN)[0];
 
    Agora a classe sai dos planos, na ordem em que eles se provam:
 
-       OBSERVADA   ha corrida que a atravessou            (0 hoje, e e a verdade)
+       OBSERVADA   ha corrida que a atravessou            (plano OBSERVED)
        PROVADA     ha linha de codigo que a sustenta      (plano CODE)
        DECLARADA   uma autoridade disse que devia existir, e ninguem a provou
        NAO SEI     nem uma coisa nem outra
@@ -263,8 +285,11 @@ function showNodeTip(e, n) {
          : '⚪ NÃO SEI — ninguém declarou'}</div>
      <div class="ttLabel">O que faz</div><div class="ttText">${esc(n.what)}</div>
      <div class="ttLabel">Por que está aqui</div><div class="ttText">${esc(n.why_here)}</div>
+     <div class="ttLabel">Quem ativa</div><div class="ttText"><b>${
+       esc(ativacaoDe(n)[0])}</b> — ${esc(ativacaoDe(n)[1])}</div>
      <div class="ttLabel">Recebe de</div><div class="ttText">${
-       de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguém'}</div>
+       de.length ? esc(de.slice(0, 3).join(' · '))
+         : '— nenhuma peça do mapa lhe entrega'}</div>
      ${(() => {
        /* «ENVIA PARA — ninguem» NUM CANAL E UMA MENTIRA POR OMISSAO.
           O canal nao escreve nada, e nunca escreveu: quem escreve e a acao que
@@ -680,6 +705,28 @@ function openDetail(id) {
           (${esc(n.ROLE_CONFLICT.DECLARED_WHY)})<br>
           <i>${esc(n.ROLE_CONFLICT.RESOLUTION)}</i></div>` : ''}
       </div>
+
+      <!-- G9 · QUEM ATIVA. A primeira pergunta de quem olha um mapa de coleta
+           é «isto anda sozinho ou alguém tem de carregar?». O cartão não a
+           respondia em lado nenhum — e a ausência de seta lia-se como órfã. -->
+      ${(() => {
+        const a = n.ATIVACAO || {}; const [rot, exp] = ativacaoDe(n);
+        const quem = (a.QUEM || []).filter(q => q !== 'EXTERNO')
+          .map(q => nodeById[q]?.name || q);
+        const cinza = a.CLASSE === 'NAO_SEI' || a.CLASSE === 'SO_A_PROVA_A_CORRE';
+        return `<div class="sec"><h4>Quem ativa esta peça</h4>
+          <p><b>${esc(rot)}</b> — ${esc(exp)}</p>
+          ${quem.length ? `<div class="tags">${quem.map(q =>
+            `<span class="tag">${esc(q)}</span>`).join('')}</div>` : ''}
+          <div class="evidence" style="border-color:${cinza ? 'var(--warn)'
+            : 'var(--adama)'};background:${cinza ? '#fff8e2' : '#edf7f1'}">
+            ${esc(a.PORQUE || 'NÃO SEI')}
+            ${a.PLANO ? `<br><b>plano da prova: ${esc(a.PLANO)}</b>` : ''}
+            ${(a.PROVA || []).filter(Boolean).length
+              ? `<div class="limite">${(a.PROVA || []).filter(Boolean)
+                  .slice(0, 4).map(esc).join('<br>')}</div>` : ''}
+          </div></div>`;
+      })()}
 
       <!-- G8 · O QUE ENTRA E O QUE SAI, EM FICHEIROS.
            As setas dizem DE QUEM vem. Isto diz O QUE vem — e são perguntas

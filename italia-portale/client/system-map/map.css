@@ -238,6 +238,21 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .dyn.catRULE    .edgePath{stroke-dasharray:8 4 2 4;stroke-width:1.8;opacity:.38}
 .dyn.catPROOF   .edgePath{stroke-dasharray:1 6;stroke-width:1.4;opacity:.26}
 .dyn.catCODE    .edgePath{stroke-dasharray:1 7;stroke-width:1;opacity:.20}
+
+/* ── G9 · A TRAVESSIA OBSERVADA NAO PODE PARECER-SE COM UMA ESTATICA ──────
+   Uma aresta provada por analise estatica diz «ha linha que permite». Uma
+   aresta OBSERVADA diz «uma corrida passou por aqui, e foi lida do banco».
+
+       ANALISE ESTATICA PROVA CAN DO. SO A CORRIDA PROVA DID DO.
+
+   Desenhar as duas iguais e o mesmo defeito que o G8 tirou das 45 sem prova,
+   um degrau acima. A observada e a unica linha CHEIA e escura do mapa: vem
+   depois das regras de categoria de proposito, para ganhar o tracejado
+   delas — a categoria continua legivel na espessura e na seta. */
+.dyn.prova-observada .edgePath{stroke:var(--adama-dark);stroke-width:4;
+  stroke-dasharray:none;opacity:.92}
+.dyn.prova-observada .edgePath.semprova{stroke:var(--adama-dark);
+  stroke-dasharray:none;marker-end:none}
 .dyn.catUNKNOWN .edgePath{stroke:var(--unknown);stroke-dasharray:4 6;opacity:.34}
 
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
