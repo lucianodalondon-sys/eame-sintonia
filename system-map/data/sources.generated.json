@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "HEAD": "463bf05d104532934d1d1a7713d146e7efa10079",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -699,8 +699,28 @@
         "line": 1032,
         "snippet": "bloco IT-T10-001 no atlas de fontes"
       },
-      "contract": null,
-      "sabe_coletar": false
+      "contract": {
+        "retrieval_method": "py coleta/canal_mercado.py --coletar --ano AAAA",
+        "http_method": "GET direto no CSV .../vendite-fitosanitari/vendita_agrofarmaci_veneto_AAAA.csv/@@download/file",
+        "parameters": "só o ano, no caminho do ficheiro",
+        "auth_required": "não",
+        "output_type": "CSV UTF-8 com BOM, separador ',', decimal '.'",
+        "expected_fields": "Provincia di vendita · N. Reg. · Prodotto fitosanitario venduto · Quantità (Kg o litri)",
+        "identity_keys": "(provincia, num_registrazione) — e é `num_registrazione` que liga esta fonte ao registro IT-T4-001, com casamento medido de 100%",
+        "date_field": "nenhum por linha. O ano é do ficheiro inteiro",
+        "update_behavior": "anual, substituição integral por ano",
+        "expected_failures": "· rodapé: as últimas linhas são NOTA da fonte (base legal e aviso de carregamento), não dado — descartadas com EXCLUSION_REASON `RODAPE_DA_FONTE` e preservadas no ledger; · acento no cabeçalho (`Quantità`) — a conferência normaliza sem acento, senão reprova uma fonte sã; · decimal com PONTO: tratar ponto como separador de milhar multiplica o volume por mil. Já aconteceu nesta casa, na leitura manual anterior ao coletor; · 200 com HTML no lugar do CSV",
+        "fail_closed_rule": "saúde por SCHEMA e IDENTIDADE, nunca por HTTP 200: cabeçalho esperado, província dentro do conjunto do Vêneto, chave presente. Lista vazia é FAILED, nunca «zero vendas». Reprovando, o coletor levanta SystemExit e NÃO escreve tabela nenhuma",
+        "fallback": "nenhum. Outras regiões italianas publicam o equivalente? **NÃO SEI**",
+        "archive_requirement": "**obrigatório** — bruto no collection-store, versão = sha256",
+        "criticality": "PRIMARY · OPEN DATA (CC BY 4.0)",
+        "evidence": {
+          "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "line": 241,
+          "snippet": "contrato de IT-T10-001"
+        }
+      },
+      "sabe_coletar": true
     },
     {
       "source_id": "IT-T3-001",
@@ -2586,7 +2606,7 @@
         "degrau": 3,
         "nome": "CONTRATADA",
         "o_que_e": "tem contrato de busca escrito.",
-        "quantas": 5,
+        "quantas": 6,
         "onde": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
         "sobe_como": "por a busca a correr sozinha, num workflow"
       },
@@ -3769,6 +3789,134 @@
         "bruto": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz"
       },
       {
+        "run_id": "IT-T10-2026-09-14-003620",
+        "fonte": null,
+        "plataforma": "open data regional (HTTP)",
+        "quem_foi_buscar": "coleta/canal_mercado.py",
+        "com_que_parametros": {
+          "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+          "ano": 2025,
+          "regiao": "Veneto"
+        },
+        "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+        "pais": "IT",
+        "missao": "Canal e mercado regional",
+        "trouxe": 10719,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "FAILED",
+        "erro": "campo do contrato ausente no cabecalho: 'quantita'; provincia fora do Veneto: ['(fonte dati: Autorità regionale competente, dichiarazioni di vendita p.f. 2025, art. 16 D.Lgs 150/2012)', '* non presente se è stato utilizzato il caricamento da file']; 3 linhas sem chave (provincia + numero de registro)",
+        "prova": "data/samples/IT-VENETO-CANALE",
+        "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+      },
+      {
+        "run_id": "IT-T10-2026-09-14-003653",
+        "fonte": null,
+        "plataforma": "open data regional (HTTP)",
+        "quem_foi_buscar": "coleta/canal_mercado.py",
+        "com_que_parametros": {
+          "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+          "ano": 2025,
+          "regiao": "Veneto"
+        },
+        "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+        "pais": "IT",
+        "missao": "Canal e mercado regional",
+        "trouxe": 10719,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "FAILED",
+        "erro": "campo do contrato ausente no cabecalho: 'quantita'; provincia fora do Veneto: ['(fonte dati: Autorità regionale competente, dichiarazioni di vendita p.f. 2025, art. 16 D.Lgs 150/2012)', '* non presente se è stato utilizzato il caricamento da file']; 3 linhas sem chave (provincia + numero de registro)",
+        "prova": "data/samples/IT-VENETO-CANALE",
+        "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+      },
+      {
+        "run_id": "IT-T10-2026-09-14-003726",
+        "fonte": null,
+        "plataforma": "open data regional (HTTP)",
+        "quem_foi_buscar": "coleta/canal_mercado.py",
+        "com_que_parametros": {
+          "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+          "ano": 2025,
+          "regiao": "Veneto"
+        },
+        "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+        "pais": "IT",
+        "missao": "Canal e mercado regional",
+        "trouxe": 10716,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "data/samples/IT-VENETO-CANALE",
+        "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+      },
+      {
+        "run_id": "IT-T10-2026-09-14-003833",
+        "fonte": null,
+        "plataforma": "open data regional (HTTP)",
+        "quem_foi_buscar": "coleta/canal_mercado.py",
+        "com_que_parametros": {
+          "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+          "ano": 2025,
+          "regiao": "Veneto"
+        },
+        "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+        "pais": "IT",
+        "missao": "Canal e mercado regional",
+        "trouxe": 10716,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "data/samples/IT-VENETO-CANALE",
+        "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+      },
+      {
+        "run_id": "IT-T10-2026-09-14-004034",
+        "fonte": null,
+        "plataforma": "open data regional (HTTP)",
+        "quem_foi_buscar": "coleta/canal_mercado.py",
+        "com_que_parametros": {
+          "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+          "ano": 2025,
+          "regiao": "Veneto"
+        },
+        "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+        "pais": "IT",
+        "missao": "Canal e mercado regional",
+        "trouxe": 10716,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "data/samples/IT-VENETO-CANALE",
+        "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+      },
+      {
+        "run_id": "XX-T4-2026-09-07-193647",
+        "fonte": null,
+        "plataforma": "registro oficial (HTTP)",
+        "quem_foi_buscar": "coleta/rotulos_baixar.py",
+        "com_que_parametros": {},
+        "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
+        "pais": "NAO SEI",
+        "missao": "Regulatorio",
+        "trouxe": 163,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "OK",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
         "run_id": "XX-T7-2026-09-07-193646",
         "fonte": null,
         "plataforma": "OpenAlex, ORCID",
@@ -3803,29 +3951,12 @@
         "erro": null,
         "prova": null,
         "bruto": null
-      },
-      {
-        "run_id": "XX-T4-2026-09-07-193647",
-        "fonte": null,
-        "plataforma": "registro oficial (HTTP)",
-        "quem_foi_buscar": "coleta/rotulos_baixar.py",
-        "com_que_parametros": {},
-        "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
-        "pais": "NAO SEI",
-        "missao": "Regulatorio",
-        "trouxe": 163,
-        "sobrou": 0,
-        "rendimento": 0,
-        "custou_usd": 0,
-        "estado": "OK",
-        "erro": null,
-        "prova": null,
-        "bruto": null
       }
     ],
-    "total": 13,
+    "total": 18,
     "por_pais": {
       "ES": 10,
+      "IT": 5,
       "NAO SEI": 3
     },
     "por_plataforma": {
@@ -3835,6 +3966,7 @@
       "OpenAlex, ORCID": 1,
       "YOUTUBE": 3,
       "YouTube, Instagram, LinkedIn, Facebook": 1,
+      "open data regional (HTTP)": 5,
       "registro oficial (HTTP)": 1
     },
     "fontes_ja_coletadas": [
@@ -3868,21 +4000,22 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 12,
-    "com_custo_medido": 7,
+    "com_rendimento_medido": 17,
+    "com_custo_medido": 12,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3400,
+    "trouxe_total": 56986,
     "sobrou_total": 2963
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
     "ficheiro_corridas": "data/collection-ledger/italy/runs.ndjson",
-    "observacoes": 144,
-    "corridas": 6,
+    "observacoes": 149,
+    "corridas": 11,
     "por_fonte": {
       "IT-T2-002": 124,
       "IT-T3-005": 6,
       "IT-T2-004": 6,
+      "IT-T10-001": 5,
       "IT-T3-002": 2,
       "IT-T3-010": 2,
       "IT-T3-008": 2,
@@ -3890,10 +4023,10 @@
     },
     "documentos_novos": 25,
     "ja_vistos": 109,
-    "com_sha256": 144,
-    "com_fact_time": 144,
-    "com_cadencia": 144,
-    "corridas_com_egress": 6,
+    "com_sha256": 149,
+    "com_fact_time": 149,
+    "com_cadencia": 149,
+    "corridas_com_egress": 11,
     "campos": [
       "BYTES",
       "CADENCE_STATE",
@@ -4419,7 +4552,7 @@
   ],
   "COUNTS": {
     "sources": 24,
-    "with_contract": 5,
+    "with_contract": 6,
     "by_country": {
       "ESPANHA": 6,
       "EUROPA": 11,
@@ -4440,8 +4573,8 @@
     "coletores_com_lugar": 24,
     "coletores_que_separam_fonte_do_fato": 18,
     "coletores_que_registam_descarte": 8,
-    "corridas_registadas": 19,
-    "observacoes_registadas": 144,
+    "corridas_registadas": 29,
+    "observacoes_registadas": 149,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 23,
     "citadas_sem_ficha": 3,

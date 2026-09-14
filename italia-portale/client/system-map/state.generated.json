@@ -455,6 +455,10 @@
       "data/samples/IT-V2/IT-V2-CANONICO.json",
       "data/samples/IT-V2/IT-V2-CONFLITOS.json",
       "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
+      "data/samples/IT-VENETO-CANALE/IT-VENETO-MARCAS-POR-TIPO-2025.json",
+      "data/samples/IT-VENETO-CANALE/IT-VENETO-OSM-PONTOS-CANAL.json",
+      "data/samples/IT-VENETO-CANALE/IT-VENETO-PACOTE-RTV-POR-PROVINCIA.json",
+      "data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json",
       "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
       "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
       "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
@@ -1099,7 +1103,12 @@
       "research/italy-lastmile/NEW-REAL-SOURCES.json",
       "research/italy/.gitkeep",
       "research/people/.gitkeep",
-      "research/spain/.gitkeep"
+      "research/spain/.gitkeep",
+      "research/veneto-clients/FICHA-DO-COMPRADOR-CONTRATO.json",
+      "research/veneto-clients/METODOS-PARA-LISTA-DE-COMPRADORES.md",
+      "research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md",
+      "research/veneto-clients/VENETO-CLIENTI-CANDIDATI.json",
+      "research/veneto-clients/VENETO-COMPRADORES-SEED.json"
     ],
     "scripts": [
       "scripts/.gitkeep"
@@ -1209,8 +1218,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 3. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 3 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 542 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 3. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 542 ficheiros e 3 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1229,7 +1238,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 13 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 18 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1239,7 +1248,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "23 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 23 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 18 corridas registadas, e o país delas é: ES 10 · IT 5 · NAO SEI 3. Elas trouxeram 56986 itens e 2963 atravessaram a régua. As outras 23 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1262,7 +1271,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "14 coletores gravam registo sem data nem lugar.",
-      "texto": "13 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
+      "texto": "14 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1585,8 +1594,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cool-dijkstra-4agznu",
-    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
-    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
+    "HEAD": "463bf05d104532934d1d1a7713d146e7efa10079",
+    "GENERATED_AT": "2026-09-14T00:25:13+00:00"
   },
   "FAMILIES": [
     {
@@ -1608,7 +1617,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 37
+      "count": 38
     },
     {
       "id": "F-ESPERA",
@@ -1761,7 +1770,7 @@
       "y": 190,
       "w": 820,
       "h": 1972,
-      "count": 8
+      "count": 9
     },
     {
       "id": "Z-ADMISSAO",
@@ -2293,13 +2302,13 @@
       ],
       "facts": [
         "bases oficiais com ficha: 24",
-        "dessas, a maquina sabe buscar sozinha: 5",
+        "dessas, a maquina sabe buscar sozinha: 6",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
         "enderecos que o codigo realmente chama: 40"
       ],
-      "status_reason": "24 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 19, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "status_reason": "24 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 6 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -2328,7 +2337,7 @@
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
-          "subtitulo": "24 fichas no atlas · 5 com contrato de busca escrito",
+          "subtitulo": "24 fichas no atlas · 6 com contrato de busca escrito",
           "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
           "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
           "itens": [
@@ -2734,13 +2743,33 @@
               "assunto": "T10 · Politica e subsidio",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
-              "sabe_coletar": false,
+              "sabe_coletar": true,
               "como_se_entra": "download direto de CSV, **sem chave** (.../vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file)",
               "dono": "ARPAV (Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto), por delegação da Regione del Veneto",
               "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari",
               "atualiza": "anual — ano 2025 publicado, com arquivo histórico",
               "exemplo": "Vêneto 2025: **16.265.862 kg/l** declarados. Cruzando pelo número de registro com o portfólio ADAMA do registro italiano (IT-T4-001): **107 registros ADAMA, 1.118.859 kg/l, 6,88% do volume**. Rovigo é a província de maior quota em volume (**14,72%**); FOLPAN 80 WDG é o maior item ADAMA (185.126 kg).",
-              "contrato": null
+              "contrato": {
+                "retrieval_method": "py coleta/canal_mercado.py --coletar --ano AAAA",
+                "http_method": "GET direto no CSV .../vendite-fitosanitari/vendita_agrofarmaci_veneto_AAAA.csv/@@download/file",
+                "parameters": "só o ano, no caminho do ficheiro",
+                "auth_required": "não",
+                "output_type": "CSV UTF-8 com BOM, separador ',', decimal '.'",
+                "expected_fields": "Provincia di vendita · N. Reg. · Prodotto fitosanitario venduto · Quantità (Kg o litri)",
+                "identity_keys": "(provincia, num_registrazione) — e é `num_registrazione` que liga esta fonte ao registro IT-T4-001, com casamento medido de 100%",
+                "date_field": "nenhum por linha. O ano é do ficheiro inteiro",
+                "update_behavior": "anual, substituição integral por ano",
+                "expected_failures": "· rodapé: as últimas linhas são NOTA da fonte (base legal e aviso de carregamento), não dado — descartadas com EXCLUSION_REASON `RODAPE_DA_FONTE` e preservadas no ledger; · acento no cabeçalho (`Quantità`) — a conferência normaliza sem acento, senão reprova uma fonte sã; · decimal com PONTO: tratar ponto como separador de milhar multiplica o volume por mil. Já aconteceu nesta casa, na leitura manual anterior ao coletor; · 200 com HTML no lugar do CSV",
+                "fail_closed_rule": "saúde por SCHEMA e IDENTIDADE, nunca por HTTP 200: cabeçalho esperado, província dentro do conjunto do Vêneto, chave presente. Lista vazia é FAILED, nunca «zero vendas». Reprovando, o coletor levanta SystemExit e NÃO escreve tabela nenhuma",
+                "fallback": "nenhum. Outras regiões italianas publicam o equivalente? **NÃO SEI**",
+                "archive_requirement": "**obrigatório** — bruto no collection-store, versão = sha256",
+                "criticality": "PRIMARY · OPEN DATA (CC BY 4.0)",
+                "evidence": {
+                  "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+                  "line": 241,
+                  "snippet": "contrato de IT-T10-001"
+                }
+              }
             },
             {
               "id": "IT-T3-001",
@@ -3867,6 +3896,134 @@
             "bruto": "data/samples/raw-paid/GATE-TEST-RUNMANIFEST-2026-08-29-d.raw.json.gz"
           },
           {
+            "run_id": "IT-T10-2026-09-14-003620",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10719,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "FAILED",
+            "erro": "campo do contrato ausente no cabecalho: 'quantita'; provincia fora do Veneto: ['(fonte dati: Autorità regionale competente, dichiarazioni di vendita p.f. 2025, art. 16 D.Lgs 150/2012)', '* non presente se è stato utilizzato il caricamento da file']; 3 linhas sem chave (provincia + numero de registro)",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-003653",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10719,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "FAILED",
+            "erro": "campo do contrato ausente no cabecalho: 'quantita'; provincia fora do Veneto: ['(fonte dati: Autorità regionale competente, dichiarazioni di vendita p.f. 2025, art. 16 D.Lgs 150/2012)', '* non presente se è stato utilizzato il caricamento da file']; 3 linhas sem chave (provincia + numero de registro)",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-003726",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10716,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-003833",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10716,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-004034",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10716,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+          },
+          {
+            "run_id": "XX-T4-2026-09-07-193647",
+            "fonte": null,
+            "plataforma": "registro oficial (HTTP)",
+            "quem_foi_buscar": "coleta/rotulos_baixar.py",
+            "com_que_parametros": {},
+            "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
+            "pais": "NAO SEI",
+            "missao": "Regulatorio",
+            "trouxe": 163,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "OK",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
             "run_id": "XX-T7-2026-09-07-193646",
             "fonte": null,
             "plataforma": "OpenAlex, ORCID",
@@ -3901,29 +4058,12 @@
             "erro": null,
             "prova": null,
             "bruto": null
-          },
-          {
-            "run_id": "XX-T4-2026-09-07-193647",
-            "fonte": null,
-            "plataforma": "registro oficial (HTTP)",
-            "quem_foi_buscar": "coleta/rotulos_baixar.py",
-            "com_que_parametros": {},
-            "que_pergunta": "Regulatorio (T4) · PONTUAL · pedido manual",
-            "pais": "NAO SEI",
-            "missao": "Regulatorio",
-            "trouxe": 163,
-            "sobrou": 0,
-            "rendimento": 0,
-            "custou_usd": 0,
-            "estado": "OK",
-            "erro": null,
-            "prova": null,
-            "bruto": null
           }
         ],
-        "total": 13,
+        "total": 18,
         "por_pais": {
           "ES": 10,
+          "IT": 5,
           "NAO SEI": 3
         },
         "por_plataforma": {
@@ -3933,6 +4073,7 @@
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
           "YouTube, Instagram, LinkedIn, Facebook": 1,
+          "open data regional (HTTP)": 5,
           "registro oficial (HTTP)": 1
         },
         "fontes_ja_coletadas": [
@@ -3966,10 +4107,10 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 12,
-        "com_custo_medido": 7,
+        "com_rendimento_medido": 17,
+        "com_custo_medido": 12,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3400,
+        "trouxe_total": 56986,
         "sobrou_total": 2963
       },
       "memoria": [
@@ -4485,7 +4626,7 @@
             "degrau": 3,
             "nome": "CONTRATADA",
             "o_que_e": "tem contrato de busca escrito.",
-            "quantas": 5,
+            "quantas": 6,
             "onde": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
             "sobe_como": "por a busca a correr sozinha, num workflow"
           },
@@ -4988,6 +5129,47 @@
       "y": 360
     },
     {
+      "id": "C-CANAL-MERCADO",
+      "name": "A prateleira da regiao: quem vende o que, e onde",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Coleta a venda declarada de fitossanitarios por provincia (D.Lgs 150/2012 art. 16, publicada pela ARPAV como open data) e cruza com o registro oficial pelo numero de registrazione: quanto se vende num territorio, de que tipo, de que titular, onde a ADAMA esta, e que parte do portfolio ativo NAO aparece ali.",
+      "why_here": "O SINTONIA sabia ligar problema a portfolio. Nao sabia responder onde esse portfolio efetivamente se move — e essa e a primeira pergunta do Field Sales. A peca vive na COLETA porque e coleta: bruto preservado antes de parse, saude decidida por schema e identidade, descarte registado com motivo. O que ela NAO faz esta escrito no proprio ficheiro: nao diz quem comprou, nem preco, nem quota em valor — a fonte agrega por provincia e omite o vendedor.",
+      "departments": [
+        "FIELD_SALES",
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com coleta/canal_mercado.py.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 4590,
+      "y": 360
+    },
+    {
       "id": "C-CENSO-COLETA",
       "name": "Censo da coleta",
       "territory": "Z-PROVA",
@@ -5350,7 +5532,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5005,
       "y": 360
     },
     {
@@ -5407,8 +5589,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 360
+      "x": 4590,
+      "y": 682
     },
     {
       "id": "C-COLETA-PUBLICA",
@@ -5473,7 +5655,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5005,
       "y": 682
     },
     {
@@ -5523,8 +5705,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 682
+      "x": 4590,
+      "y": 1004
     },
     {
       "id": "C-CONTRATO-CAMPOS",
@@ -5678,7 +5860,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 4590,
+      "x": 5005,
       "y": 1004
     },
     {
@@ -5916,8 +6098,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
-      "y": 1004
+      "x": 4590,
+      "y": 1326
     },
     {
       "id": "C-IDENTIDADE",
@@ -6199,7 +6381,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5005,
       "y": 1326
     },
     {
@@ -6363,7 +6545,10 @@
       "file_count": 3,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson"
+      ],
       "produces": [],
       "inbound": [
         "C-IT-CONTRATOS"
@@ -8264,8 +8449,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
-      "y": 1326
+      "x": 4590,
+      "y": 1648
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -9596,7 +9781,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9637,9 +9822,11 @@
         "tests/test_voz.py"
       ],
       "file_count": 30,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_handoff.py"
+      ],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -11082,7 +11269,7 @@
       "icon": "B",
       "facts": [
         "branch claude/cool-dijkstra-4agznu",
-        "HEAD db8380959e651e4a84c3896eab581d4ff67fe051"
+        "HEAD 463bf05d104532934d1d1a7713d146e7efa10079"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18007,19 +18194,19 @@
   "UNCLAIMED_CODE_FILES": [
     ".github/workflows/scrap-social.yml"
   ],
-  "UNCLAIMED_FILES_COUNT": 644,
+  "UNCLAIMED_FILES_COUNT": 653,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 97,
-    "components_proven": 68,
-    "components_pending": 25,
-    "components_broken": 0,
+    "components": 98,
+    "components_proven": 67,
+    "components_pending": 26,
+    "components_broken": 1,
     "components_unknown": 4,
     "edges": 322,
     "edges_proven": 322,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1143,
+    "files_tracked": 1152,
     "files_covered": 499,
     "files_code_unclaimed": 1
   }

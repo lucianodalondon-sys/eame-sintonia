@@ -16,7 +16,7 @@ sabe buscar sozinha.
 | | |
 |---|---|
 | fichas completas no atlas | **24** |
-| dessas, com contrato de busca escrito | **5** |
+| dessas, com contrato de busca escrito | **6** |
 | palavras de busca medidas no código | **103** em 34 grupos |
 | endereços que o código realmente chama | **40** |
 
@@ -41,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
 | 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **19** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
-| 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
+| 3 | **CONTRATADA** | tem contrato de busca escrito. | **6** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
 ### A porta de entrada
@@ -132,11 +132,11 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `FR-T3-002` | Archive en agro-écologie de BSV | T3 · Praga e doenca | ⚪ NAO SEI | **não** |
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · Regulatorio | 🟢 GREEN | sim |
 
-### ITALIA · 3 fontes · 1 com contrato de busca
+### ITALIA · 3 fontes · 2 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `IT-T10-001` | ARPAV — Vendite fitosanitari (open data) + Rapporto annual | T10 · Politica e subsidio | 🟢 GREEN | **não** |
+| `IT-T10-001` | ARPAV — Vendite fitosanitari (open data) + Rapporto annual | T10 · Politica e subsidio | 🟢 GREEN | sim |
 | `IT-T3-001` | IT-T3-001 | T3 · Praga e doenca | 🟡 YELLOW | **não** |
 | `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · Regulatorio | 🟢 GREEN | sim |
 

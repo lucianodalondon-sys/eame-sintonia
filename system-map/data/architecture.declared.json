@@ -1738,6 +1738,24 @@
       "views": [
         "audit"
       ]
+    },
+    {
+      "id": "C-CANAL-MERCADO",
+      "name": "A prateleira da regiao: quem vende o que, e onde",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "views": [],
+      "what": "Coleta a venda declarada de fitossanitarios por provincia (D.Lgs 150/2012 art. 16, publicada pela ARPAV como open data) e cruza com o registro oficial pelo numero de registrazione: quanto se vende num territorio, de que tipo, de que titular, onde a ADAMA esta, e que parte do portfolio ativo NAO aparece ali.",
+      "why_here": "O SINTONIA sabia ligar problema a portfolio. Nao sabia responder onde esse portfolio efetivamente se move — e essa e a primeira pergunta do Field Sales. A peca vive na COLETA porque e coleta: bruto preservado antes de parse, saude decidida por schema e identidade, descarte registado com motivo. O que ela NAO faz esta escrito no proprio ficheiro: nao diz quem comprou, nem preco, nem quota em valor — a fonte agrega por provincia e omite o vendedor.",
+      "departments": [
+        "FIELD_SALES",
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO"
+      ],
+      "files": [
+        "coleta/canal_mercado.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [

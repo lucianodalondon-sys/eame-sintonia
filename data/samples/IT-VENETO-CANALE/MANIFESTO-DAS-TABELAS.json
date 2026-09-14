@@ -1,0 +1,90 @@
+{
+ "ARTIFACT_ID": "IT-VENETO-CANAL-MANIFESTO-DAS-TABELAS",
+ "ANO": 2025,
+ "REGIAO": "Veneto",
+ "GERADO_EM": "2026-09-14T00:40:39Z",
+ "GERADO_POR": "coleta/canal_mercado.py",
+ "COLETA": {
+  "RUN_ID": "IT-T10-2026-09-14-004034",
+  "RAW_PATH": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv",
+  "SHA256": "7bca647d58113da33ef84a20ad61e45730efee6de198e9d4b6514aec8919c2d1",
+  "BYTES": 238851,
+  "ANO": 2025,
+  "VERSAO": "v1_7bca647d5811",
+  "HEALTH_STATE": "HEALTHY",
+  "CAPTURED_AT": "2026-09-14T00:40:34Z"
+ },
+ "FONTES": {
+  "IT-T10-001": {
+   "NOME": "ARPAV — Vendite fitosanitari (open data)",
+   "PAGINA": "https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari",
+   "LICENCA": "CC BY 4.0",
+   "BASE_LEGAL": "D.Lgs 150/2012 art. 16 — declaracao anual obrigatoria"
+  },
+  "IT-T4-001": {
+   "NOME": "Ministero della Salute — banca dati prodotti fitosanitari",
+   "SNAPSHOT": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv"
+  }
+ },
+ "CHAVE_DO_CRUZAMENTO": "num_registrazione (exata) + provincia",
+ "QA": {
+  "LINHAS_LIDAS": 10716,
+  "DESCARTADAS": 3,
+  "DESCARTE_POR_MOTIVO": {
+   "RODAPE_DA_FONTE": 3
+  },
+  "ORFAOS_NO_REGISTRO": 0,
+  "COBERTURA_DO_REGISTRO_PCT": 100.0,
+  "TOTAL_KG_L": 16265861.79
+ },
+ "AVISOS": [
+  "quantidade e VOLUME FISICO (kg/l), nao valor. Enxofre e cobre dominam o volume do Veneto e custam pouco por quilo: quota em volume NAO e quota de mercado em valor. Quota em valor: NAO SEI.",
+  "ausencia na declaracao NAO e ausencia de venda: produto comprado fora da regiao e aplicado dentro nao aparece, e omissao de declarante e possivel. Le-se \"sem venda declarada\", nunca \"nao vendido\".",
+  "nenhuma linha aqui e dado interno da ADAMA (P-003 EXTERNAL-ONLY; ver D-027)"
+ ],
+ "TABELAS": {
+  "DIM-TERRITORIO": {
+   "LINHAS": 7,
+   "SHA256": "a97a0c7eafe543056677fc5feaa702fa055398b24a4788dfdbdf16cb82ff532f",
+   "BYTES": 1946
+  },
+  "DIM-TITOLARE": {
+   "LINHAS": 167,
+   "SHA256": "e15711d6d893eb459b4ef51736f3f2a8b33e40070ece56113d50d907ad4bea67",
+   "BYTES": 65964
+  },
+  "DIM-PRODUTO": {
+   "LINHAS": 1885,
+   "SHA256": "5589bc1f4747d9f1b2fc1626bca41fcdfda0ad244b2d81c34b339ac24604041d",
+   "BYTES": 825270
+  },
+  "FATO-VENDA-DECLARADA": {
+   "LINHAS": 10716,
+   "SHA256": "0f7ddd9f64a8e94cbcf0ac50500510badbc7c910193fc9f8b39cb75ccdbdcccf",
+   "BYTES": 1500319
+  },
+  "FATO-FORCA-DE-MARCA": {
+   "LINHAS": 1725,
+   "SHA256": "de496e320f60fb99d399c4bcc9ff78944eb6fca639fe0ebe16114d9b2f1b4a91",
+   "BYTES": 475832
+  },
+  "FATO-OPORTUNIDADE": {
+   "LINHAS": 726,
+   "SHA256": "008539de69f587ccd324c6470403b6b77bcd44368e7053e2b9c8b70144819b64",
+   "BYTES": 249906
+  },
+  "PACOTE-RTV-POR-PROVINCIA": {
+   "LINHAS": 7,
+   "SHA256": "69a11ac81236ac9a9368c72c14efabdc7129f851a37f06286d249b27c63fc633",
+   "BYTES": 17659
+  }
+ },
+ "O_QUE_NAO_PROVA": [
+  "quem comprou",
+  "qual revenda vendeu",
+  "preco ou valor",
+  "cultura de destino",
+  "onde foi aplicado",
+  "quota em valor"
+ ]
+}

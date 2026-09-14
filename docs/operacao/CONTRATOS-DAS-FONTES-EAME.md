@@ -233,6 +233,59 @@ DEPENDENT_CLAIMS          safe-claims 1 e 3
 
 ---
 
+## IT-T10-001 · ARPAV — venda declarada de fitossanitários no Vêneto — `IMPORTANT`
+
+A primeira fonte desta casa que mede **movimento de produto**, e não autorização de produto.
+
+```
+SOURCE_ID                 IT-T10-001
+OWNER                     ARPAV, por delegação da Regione del Veneto
+COUNTRY                   ITALY — **apenas a região do Vêneto**
+PRIMARY/SECONDARY         PRIMARY · OPEN DATA (CC BY 4.0)
+PURPOSE                   X-013 · pacote de rota do Field Sales · inteligência de mercado
+                          regional (quem está forte onde, e onde há espaço)
+CANONICAL_URL             https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari
+RETRIEVAL_METHOD          py coleta/canal_mercado.py --coletar --ano AAAA
+HTTP_METHOD               GET direto no CSV
+                          .../vendite-fitosanitari/vendita_agrofarmaci_veneto_AAAA.csv/@@download/file
+PARAMETERS                só o ano, no caminho do ficheiro
+AUTH_REQUIRED             não
+BASE_LEGAL                D.Lgs 150/2012 art. 16 — o titular da autorização de venda declara
+                          até 28/02 do ano seguinte, pelo portal ARPAV Web FAS
+OUTPUT_TYPE               CSV UTF-8 com BOM, separador ',', decimal '.'
+EXPECTED_FIELDS           Provincia di vendita · N. Reg. · Prodotto fitosanitario venduto ·
+                          Quantità (Kg o litri)
+IDENTITY_KEYS             (provincia, num_registrazione) — e é `num_registrazione` que liga
+                          esta fonte ao registro IT-T4-001, com casamento medido de 100%
+DATE_FIELD                nenhum por linha. O ano é do ficheiro inteiro
+VERSION_FIELD             não existe campo de versão: a versão é o **sha256 do ficheiro**
+UPDATE_BEHAVIOR           anual, substituição integral por ano
+HISTORICAL_OR_FORWARD     acervo por ano na própria página (histórico), mas cada ano é um
+                          ficheiro que pode ser reescrito sem aviso → **arquivar**
+EXPECTED_FAILURES         · rodapé: as últimas linhas são NOTA da fonte (base legal e aviso
+                            de carregamento), não dado — descartadas com EXCLUSION_REASON
+                            `RODAPE_DA_FONTE` e preservadas no ledger;
+                          · acento no cabeçalho (`Quantità`) — a conferência normaliza sem
+                            acento, senão reprova uma fonte sã;
+                          · decimal com PONTO: tratar ponto como separador de milhar
+                            multiplica o volume por mil. Já aconteceu nesta casa, na leitura
+                            manual anterior ao coletor;
+                          · 200 com HTML no lugar do CSV
+FAIL_CLOSED_RULE          saúde por SCHEMA e IDENTIDADE, nunca por HTTP 200: cabeçalho
+                          esperado, província dentro do conjunto do Vêneto, chave presente.
+                          Lista vazia é FAILED, nunca «zero vendas». Reprovando, o coletor
+                          levanta SystemExit e NÃO escreve tabela nenhuma
+FALLBACK                  nenhum. Outras regiões italianas publicam o equivalente? **NÃO SEI**
+ARCHIVE_REQUIREMENT       **obrigatório** — bruto no collection-store, versão = sha256
+DEPENDENT_CASES           X-013 · pacote RTV por província
+DEPENDENT_CLAIMS          nenhuma claim de share em valor pode depender desta fonte:
+                          ela mede VOLUME. Quota em valor continua NÃO SEI
+O_QUE_NAO_PROVA           quem comprou · qual revenda vendeu · preço · valor · cultura de
+                          destino · onde foi aplicado · quota de mercado
+```
+
+---
+
 ## ASSIMETRIA — três verdes não são o mesmo verde
 
 | | rota | versão vem de | histórico nativo | arquivamento | estabilidade |
@@ -242,6 +295,7 @@ DEPENDENT_CLAIMS          safe-claims 1 e 3
 | **IT** | arquivo estático datado | **o nome do arquivo** | sim (revogações) | recomendável | MÉDIA |
 | **RAIF** | CKAN + troca manual de host | atributo do XML | **sim, 20 anos** | baixo | MÉDIA |
 | **EU** | SPARQL público | o CELEX é imutável | **sim** | baixo | ALTA |
+| **IT-T10** | CSV estático por ano | **o sha256 do ficheiro** | por ano, reescrevível | **obrigatório** | MÉDIA |
 
 **A assimetria não é de qualidade do fato — é de rota e de história.** Publicar as cinco
 como "fonte oficial verificada" apagaria a diferença que decide o risco operacional.

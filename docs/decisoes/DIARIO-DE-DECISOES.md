@@ -583,7 +583,7 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
   não na memória de quem leu.
 - **Consequência:** todo uso desta camada carrega o aviso de que **volume ≠ valor** (enxofre e
   cobre dominam o volume vêneto e são baratos por quilo) e de que **ausência na declaração ≠
-  ausência de venda**. Artefatos: `data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json`
+  ausência de venda**. Artefatos: `data/samples/IT-VENETO-CANALE/ (tabelas geradas por coleta/canal_mercado.py)`
   e `research/veneto-clients/`.
 - **Quem decidiu:** decisão de execução desta missão, sob o pedido de Luciano de pesquisar
   possíveis clientes numa região. Fica **pendente de confirmação** se o cliente quer esta

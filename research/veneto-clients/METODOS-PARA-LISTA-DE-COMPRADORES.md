@@ -22,7 +22,7 @@ declaração de venda é publicada agregada por província**, e o nome de quem v
 que a fonte oculta. Quem quiser o comprador tem de **entrar por outra porta**. Este documento é o mapa
 dessas portas — **12**, cada uma testada ou com o teste descrito.
 
-**O que já existe sem nenhum dado novo:** `data/samples/IT-VENETO-CANALE/IT-VENETO-PACOTE-RTV-POR-PROVINCIA.json`
+**O que já existe sem nenhum dado novo:** `data/samples/IT-VENETO-CANALE/PACOTE-RTV-POR-PROVINCIA.json`
 — por província: demanda declarada, mix por tipo, quem domina a prateleira, onde a ADAMA está, e quais
 produtos ADAMA **vendidos no Vêneto não aparecem naquela província**. É pacote de rota, não de conta.
 

@@ -400,9 +400,9 @@ videira**. Presença de campo e carteira real da região **não estão apontando
 
 | Artefato | Onde ficou |
 |---|---|
-| Cruzamento ARPAV × portfólio ADAMA, com QA e hash da fonte | `data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json` |
+| Cruzamento ARPAV × portfólio ADAMA, com QA e hash da fonte | `data/samples/IT-VENETO-CANALE/ (tabelas geradas por coleta/canal_mercado.py)` |
 | Fichas dos candidatos, em forma de dado | `research/veneto-clients/VENETO-CLIENTI-CANDIDATI.json` |
-| Marca × tipo × província, do cruzamento com o registro oficial | `data/samples/IT-VENETO-CANALE/IT-VENETO-MARCAS-POR-TIPO-2025.json` |
+| Marca × tipo × província, do cruzamento com o registro oficial | `data/samples/IT-VENETO-CANALE/DIM-TITOLARE.json + FATO-FORCA-DE-MARCA.json` |
 | CSV original da ARPAV (não versionado — 238.851 bytes, hash acima) | baixado em sessão; link direto na ficha da fonte |
 
 **QA do cruzamento** (no JSON): 437 linhas com **nome do produto batendo** com o registro ADAMA, 287

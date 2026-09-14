@@ -1068,7 +1068,7 @@ WHAT_IT_CANNOT_PROVE:         quem comprou · qual revenda vendeu · preço ou v
 ADAMA_USE_CASE:               COMMERCIAL / EAME: onde o produto registrado efetivamente se move
                               dentro de uma região, por província, e qual parte do portfólio
                               ativo **não aparece** vendida ali.
-EVIDENCE:                     data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json
+EVIDENCE:                     data/samples/IT-VENETO-CANALE/ (tabelas geradas por coleta/canal_mercado.py)
                               research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md
 VERDICT:                      GREEN
 ```
