@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e4939955e55a97c287b7580be90ec15c5e8e05e0
+HEAD_DA_MEDICAO  0bfd0a2b81ada0d4f1919673987cca38868c28dc
 BRANCH           claude/big-collection-gate-01
-GERADO_EM        2026-09-14T19:35:16-03:00
+GERADO_EM        2026-09-14T19:37:07-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
