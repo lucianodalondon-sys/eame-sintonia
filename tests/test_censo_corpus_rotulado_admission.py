@@ -168,8 +168,18 @@ class OLivroNaoEGabaritoENaoESujo(unittest.TestCase):
     def test_toda_decisao_do_livro_veio_das_keywords_de_hoje(self):
         livro = censo._json("data/samples/LIVRO-DE-DECISOES.json")["DECISOES"]
         versoes = {d.get("versao") for d in livro}
-        self.assertTrue(versoes <= {adm.VERSAO_DA_REGRA, "1", "2", "3"},
-                        f"versoes inesperadas no livro: {versoes}")
+        # ⚠️ ERA UMA LISTA ESCRITA A MAO — `{VERSAO_DA_REGRA, "1", "2", "3"}` —
+        # e ela deixava de fora a versao ANTERIOR a actual de cada vez que a
+        # regra subisse. Com `VERSAO_DA_REGRA = "5"`, a `"4"` passava a ser
+        # «inesperada» sem nunca ter deixado de ser legitima.
+        #
+        #     UMA LISTA DE VERSOES ESCRITA A MAO ENVELHECE NO COMMIT SEGUINTE.
+        #
+        # O que se quer dizer e: toda decisao do livro veio de uma regra que
+        # esta porta conhece. Nenhuma versao inventada, nenhuma do futuro.
+        conhecidas = {str(n) for n in range(1, int(adm.VERSAO_DA_REGRA) + 1)}
+        self.assertTrue(versoes <= conhecidas,
+                        f"versoes inesperadas no livro: {sorted(versoes - conhecidas)}")
         self.assertEqual(
             [d for d in livro if d["universo"] == "T2"], [],
             "apareceu decisao de T2 no livro. T2 nao tem regra escrita.")

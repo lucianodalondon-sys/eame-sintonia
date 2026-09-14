@@ -245,7 +245,22 @@ class N_OMapaNaoInventa(unittest.TestCase):
         self.assertGreater(len(versoes), 1,
                            'todas as decisoes tem a mesma versao: ou a regra '
                            'nunca mudou, ou o historico foi reescrito')
-        self.assertIn(adm.VERSAO_DA_REGRA, versoes)
+        # ⚠️ ISTO EXIGIA A VERSAO ACTUAL DENTRO DO LIVRO, E ERA A PERGUNTA ERRADA.
+        # Subir `VERSAO_DA_REGRA` e um acto legitimo — e o unico que permite
+        # dizer «reprocessa so o que a v4 decidiu». No instante seguinte ao
+        # bump, o livro AINDA NAO TEM a versao nova, porque ninguem correu a
+        # porta desde entao. A guarda reprovava exactamente o comportamento
+        # correcto, e a maneira de a calar era nao subir a versao.
+        #
+        #     UMA GUARDA QUE PUNE A DISCIPLINA ENSINA A ABANDONA-LA.
+        #
+        # A pergunta certa e a outra: NENHUMA decisao pode trazer uma versao que
+        # este codigo nao conhece. Isso apanha o historico reescrito (versao
+        # inventada) e a decisao vinda do futuro, que era o alvo de sempre.
+        conhecidas = {str(n) for n in range(1, int(adm.VERSAO_DA_REGRA) + 1)}
+        self.assertTrue(versoes <= conhecidas,
+                        'o livro traz versoes que a porta nao conhece: %s'
+                        % sorted(versoes - conhecidas))
 
 
 if __name__ == '__main__':

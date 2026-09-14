@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-14T13:37:30+00:00",
-    "HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
+    "GENERATED_AT": "2026-09-14T20:59:36+00:00",
+    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8",
-    "FICHEIROS_NA_IMPRESSAO": 1867,
+    "SOURCE_TREE_FINGERPRINT": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378",
+    "FICHEIROS_NA_IMPRESSAO": 1892,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8",
+        "VERSAO": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "5abc5472ff4c66d4ac8d6cac79cdb00f3600aed07e3e3a68a4f693b506a75354",
+    "INPUTS_DIGEST": "35557ebe30ad0f4e3c58aac96b0b0ce9ff2d9c0534d0d4735a4374cae0c3e239",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -213,18 +213,6 @@
       "respostas": 2,
       "ficheiros": 0,
       "estado": "gray"
-    },
-    {
-      "id": "C-PEDIDO",
-      "nome": "O pedido de coleta",
-      "zona": "· PEDIDO — o contrato",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 1,
-      "estado": "green"
     },
     {
       "id": "C-ADAMA-IT",
@@ -347,18 +335,6 @@
       "estado": "green"
     },
     {
-      "id": "C-IT-PRESERVAR",
-      "nome": "Guardar com impressao digital",
-      "zona": "A SALA DE ESPERA",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 3,
-      "estado": "yellow"
-    },
-    {
       "id": "V-INSTAGRAM",
       "nome": "INSTAGRAM",
       "zona": "· os canais",
@@ -415,8 +391,8 @@
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 3,
-      "ficheiros": 6,
-      "estado": "green"
+      "ficheiros": 7,
+      "estado": "yellow"
     },
     {
       "id": "C-DONO-DO-DOCUMENTO",
@@ -426,6 +402,30 @@
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-IT-CATALOGO",
+      "nome": "O levantamento das fontes italianas",
+      "zona": "· de onde vem uma fonte",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 8,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PEDIDO",
+      "nome": "O pedido de coleta",
+      "zona": "· PEDIDO — o contrato",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 1,
       "estado": "yellow"
@@ -635,6 +635,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-IT-PRESERVAR",
+      "nome": "Guardar com impressao digital",
+      "zona": "A SALA DE ESPERA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
       "id": "C-IMPORTAR",
       "nome": "Levar o dado para o banco",
       "zona": "A SALA DE ESPERA",
@@ -667,7 +679,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 53,
+      "ficheiros": 54,
       "estado": "yellow"
     },
     {
@@ -692,18 +704,6 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 1,
-      "estado": "yellow"
-    },
-    {
-      "id": "C-IT-CATALOGO",
-      "nome": "O levantamento das fontes italianas",
-      "zona": "· de onde vem uma fonte",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 8,
       "estado": "yellow"
     },
     {
@@ -770,8 +770,8 @@
   "RESUMO": {
     "pecas_da_coleta": 52,
     "respondem_as_quatro": 25,
-    "respondem_a_tres": 18,
-    "respondem_a_duas": 6,
+    "respondem_a_tres": 19,
+    "respondem_a_duas": 5,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

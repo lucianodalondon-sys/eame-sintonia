@@ -114,7 +114,13 @@ create table if not exists public.sala_de_espera (
   ordem               integer not null
                       constraint ordem_nao_e_negativa check (ordem >= 0),
   -- O `ITEM_ID` do contrato READY. Guardado e indexado, mas NÃO é endereço:
-  -- ele pode valer `"?"` e repetir-se dentro da mesma corrida.
+  -- ele é o nome que a FONTE deu ao item, e duas fontes podem dar o mesmo.
+  --
+  -- ⚠️ ESTE COMENTÁRIO DIZIA «ele pode valer `"?"`», e isso deixou de ser
+  -- verdade em `C-COL-PRESERVE-FACTS-V1`: a porta ganhou a pergunta
+  -- `identidade` e um item sem `id` e sem `url` já não passa (COL-LAW-034).
+  -- A chave continua a ser `(run_id, ordem)` — curar o sintoma não promove o
+  -- campo a chave.
   item_id             text   not null,
 
   -- ── A LINHAGEM, E ELA É UM PONTEIRO ─────────────────────────────────

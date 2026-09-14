@@ -107,13 +107,26 @@ A_ESPERA = "WAITING"
 RETIRADO = "CONSUMED"
 ESTADOS_DA_FILA = (A_ESPERA, RETIRADO)
 
-# Os 12 campos da COL-LAW-043, na ordem em que
+# Os campos da COL-LAW-043, na ordem em que
 # `admissao.pronto_para_inteligencia()` os constrói. Escritos aqui para que a
 # travessia para o banco tenha dois lados a comparar — e há prova que reprova se
 # o dono mudar e isto não mudar.
+#
+# ⚠️ ERAM DOZE ATÉ `C-COL-PRESERVE-FACTS-V1`, E PASSARAM A DEZANOVE.
+# Os sete que entraram não são conceitos novos: são conceitos que a casa já
+# declarava **antes** da execução e que morriam nesta fronteira — a espécie da
+# coisa (`admissao.estagio()`), os outros dois tempos
+# (`ingresso.FRONTEIRA_TRANSPORTA`), o porquê de cada `NAO SEI` de tempo e de
+# lugar (`leis/artefato.py::conferir` já o exigia), a espécie probatória que os
+# 13 contratos de fonte declaram, e o próprio fato.
+#
+#     ACRESCENTAR CAMPO A UM CONTRATO É DÍVIDA.
+#     DEIXAR MORRER O QUE A CASA JÁ MEDIU É PIOR: É DÍVIDA INVISÍVEL.
 CAMPOS_READY = (
-    "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO",
+    "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO", "TEXTO",
     "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
+    "FACT_TIME_BASIS", "FACT_LOCATION_BASIS", "PUBLISHED_AT", "OBSERVED_AT",
+    "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
     "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
 )
 
@@ -484,7 +497,9 @@ class _Postgres(object):
         linhas = self._consultar(
             "select ordem, item_id, raw_observation_id, universo, texto, "
             "source_id, source_location, fact_location, fact_time, "
-            "captured_at, admitido_por "
+            "captured_at, admitido_por, estagio, fact_time_basis, "
+            "fact_location_basis, published_at, observed_at, "
+            "source_declared_evidence_class, fato "
             "from public.sala_de_espera where run_id = %s order by ordem"
             % _lit(run_id))
         if not linhas:
@@ -506,10 +521,26 @@ class _Postgres(object):
                 "SOURCE_LOCATION": c[6],
                 "FACT_LOCATION": c[7],
                 "FACT_TIME": c[8],
+                # ⚠️ `fato` VOLTA POR `json.loads`, SEMPRE — inclusive quando o
+                # valor é a palavra `NAO_SE_APLICA`. Ela foi escrita como JSON
+                # (`"NAO_SE_APLICA"`, com aspas), e por isso a volta é exacta
+                # nos dois casos. Uma coluna que às vezes é JSON e às vezes é
+                # texto nu obrigaria quem lê a adivinhar qual é qual.
+                "FACT_TIME_BASIS": c[12],
+                "FACT_LOCATION_BASIS": c[13],
+                "PUBLISHED_AT": c[14],
+                "OBSERVED_AT": c[15],
+                "SOURCE_DECLARED_EVIDENCE_CLASS": c[16],
+                "FATO": json.loads(c[17]),
+                "ESTAGIO": c[11],
                 "CAPTURED_AT": c[9],
                 "CORRIDA": run_id,
                 "ADMITIDO_POR": c[10],
             })
+        # A ORDEM DOS CAMPOS É A DO DONO, e não a do `select`. O corpo canónico
+        # assina o dicionário como ele está: reconstruí-lo por outra ordem daria
+        # outra impressão para o mesmo conteúdo.
+        itens = [{c: u[c] for c in CAMPOS_READY} for u in itens]
         return {"RUN_ID": run_id, "ITENS": itens}
 
     # ── pousar ──────────────────────────────────────────────────────────
@@ -530,13 +561,24 @@ class _Postgres(object):
             # Nunca se fabrica um id a partir de outra coisa.
             obs_sql = "null" if (obs is None or str(obs).strip().upper()
                                  in ("NAO SEI", "NÃO SEI", "")) else str(int(obs))
-            valores.append(
-                "(%s, %d, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" % (
-                    _lit(run_id), i, _lit(u["ITEM_ID"]), obs_sql,
-                    _lit(u["UNIVERSO"]), _lit(u["TEXTO"]), _lit(u["SOURCE_ID"]),
-                    _lit(u["SOURCE_LOCATION"]), _lit(u["FACT_LOCATION"]),
-                    _lit(u["FACT_TIME"]), _lit(u["CAPTURED_AT"]),
-                    _lit(u["ADMITIDO_POR"]), _lit(impressao)))
+            # ⚠️ O ENVELOPE DO FATO VAI COMO JSON, SEMPRE, E COM CHAVES
+            # ORDENADAS. `NAO_SE_APLICA` também: ele é escrito como a string
+            # JSON `"NAO_SE_APLICA"`. Assim a volta é `json.loads` sem ramo, e
+            # a impressão da corrida é reproduzível — que é o que separa um
+            # retry legítimo de um conflito.
+            fato_sql = _lit(json.dumps(u["FATO"], ensure_ascii=False,
+                                       sort_keys=True))
+            colunas = [_lit(run_id), str(i), _lit(u["ITEM_ID"]), obs_sql,
+                       _lit(u["UNIVERSO"]), _lit(u["TEXTO"]),
+                       _lit(u["SOURCE_ID"]), _lit(u["SOURCE_LOCATION"]),
+                       _lit(u["FACT_LOCATION"]), _lit(u["FACT_TIME"]),
+                       _lit(u["CAPTURED_AT"]), _lit(u["ADMITIDO_POR"]),
+                       _lit(impressao),
+                       _lit(u["ESTAGIO"]), _lit(u["FACT_TIME_BASIS"]),
+                       _lit(u["FACT_LOCATION_BASIS"]), _lit(u["PUBLISHED_AT"]),
+                       _lit(u["OBSERVED_AT"]),
+                       _lit(u["SOURCE_DECLARED_EVIDENCE_CLASS"]), fato_sql]
+            valores.append("(" + ", ".join(colunas) + ")")
         # ⚠️ A INTERPOLAÇÃO AQUI É `str.format`, E NÃO `%`. O corpo plpgsql usa
         # `%` como marcador do `raise exception`, e um `%` do Python em cima
         # disso fez a primeira versão rebentar antes de chegar ao banco:
@@ -555,7 +597,9 @@ begin
     insert into public.sala_de_espera
       (run_id, ordem, item_id, raw_observation_id, universo, texto,
        source_id, source_location, fact_location, fact_time, captured_at,
-       admitido_por, corrida_sha256)
+       admitido_por, corrida_sha256,
+       estagio, fact_time_basis, fact_location_basis, published_at,
+       observed_at, source_declared_evidence_class, fato)
     values {valores};
     insert into _recibo values ('{pousou}');
   elsif ja = {sha} then

@@ -243,6 +243,21 @@ FRONTEIRA_TRANSPORTA = {
     "SOURCE_LOCATION": "onde esta quem publica",
     "FACT_LOCATION": "onde o fato aconteceu — PODE ser outro",
     "PARENT_SHA256": "a impressao do original de que este texto nasceu",
+    # ⚠️ COMO SE SABE FAZ PARTE DO QUE SE SABE, e ate aqui nao atravessava.
+    # `leis/artefato.py::conferir` JA reprova um `FACT_LOCATION` preenchido
+    # «sem dizer de onde saiu» — a lei existia, e a fronteira nao declarava a
+    # resposta como coisa que viaja. E do outro lado da moeda: o livro do
+    # coletor italiano escreve, em 175 observacoes, PORQUE o tempo do fato e
+    # desconhecido. Essa frase e uma MEDICAO, e morria aqui.
+    #
+    #     UM `NAO SEI` COM RAZAO E UMA MEDICAO.
+    #     UM `NAO SEI` SEM RAZAO E INDISTINGUIVEL DE DESLEIXO.
+    "FACT_TIME_BASIS": "como se sabe o FACT_TIME, ou porque NAO se sabe",
+    "FACT_LOCATION_BASIS": "como se sabe o FACT_LOCATION, ou porque NAO se sabe",
+    # A especie probatoria que o CONTRATO DE FONTE declara antes de correr.
+    # DECLARADO PELA FONTE != MEDIDO NESTE DOCUMENTO, e o nome diz qual e qual.
+    "SOURCE_DECLARED_EVIDENCE_CLASS":
+        "a especie probatoria que o contrato de fonte declara — nao a medida aqui",
 }
 
 #: A linhagem. Não está em `FRONTEIRA_EXIGE` porque a rota documental a põe no
@@ -305,6 +320,16 @@ PARA_A_PORTA = {
     "PARENT_ARTIFACT_ID": "parent_artifact_id",
     "PARENT_SHA256": "parent_sha256",
     "COLLECTED_AT": "captured_at",
+    # ── OS QUATRO QUE `FRONTEIRA_TRANSPORTA` DECLARAVA E O MAPA NAO TRADUZIA ──
+    # Um nome declarado como «coisa que atravessa» e sem par do outro lado
+    # atravessa na lingua errada: chega a porta em MAIUSCULAS, a porta le
+    # minusculas, e o valor fica no item a ser lido por ninguem.
+    #
+    #     DECLARAR QUE ATRAVESSA != TER POR ONDE ATRAVESSAR.
+    "OBSERVED_AT": "observed_at",
+    "FACT_TIME_BASIS": "fact_time_basis",
+    "FACT_LOCATION_BASIS": "fact_location_basis",
+    "SOURCE_DECLARED_EVIDENCE_CLASS": "source_declared_evidence_class",
 }
 
 

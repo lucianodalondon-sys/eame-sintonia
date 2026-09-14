@@ -279,3 +279,208 @@ NÃO É UM ARTEFATO PARCIAL: É UMA DECISÃO POR REFAZER.
 - **Se a Sala existe no LIVE.** Não há credencial de produção nesta sessão.
 - **Se T2 deve ser admitido.** Já tinha resposta medida nesta árvore (`NÃO`), e
   ela aguenta-se sob o mecanismo novo.
+
+---
+---
+
+# SEGUNDA CAMADA — `C-COL-PRESERVE-FACTS-V1`
+
+```
+ORIGEM            C-COL-PRESERVE-FACTS-V1
+BRANCH            claude/collection-preserve-facts-2139eb
+BASE FUNCIONAL    claude/collection-to-waiting-room-v1 @ 56617781
+PEDIDO            docs/operacao/COLLECTION-P0-CHANGE-REQUEST.md
+                  (lido em claude/intelligence-pilot-v1 @ 0c26981b, READ-ONLY)
+```
+
+> **⚠️ ISTO CONTINUA A SER O MESMO FICHEIRO, E DE PROPÓSITO.**
+> A lei central desta missão é a lei central da anterior, um andar abaixo: o
+> campo que o dono escreveu e a porta não leva. Abrir um segundo delta para o
+> mesmo assunto seria fazer, no know-how, exactamente o que este projeto passa a
+> vida a consertar no código.
+
+## A LEI QUE SE CONFIRMOU, E ONDE ELA DÓI MAIS
+
+A missão anterior mediu o defeito em **campos de transporte** — `source_id`,
+`collected_at`. Esta mediu-o um andar acima, e a forma é idêntica:
+
+```
+campos na entrada .... 25          (um facto agronómico, pelo caminho real)
+campos no READY ...... 12
+perdidos ............. 20
+```
+
+O que torna isto pior do que uma omissão é que **a porta já sabia**:
+`MARCAS_DE_FATO` lê `claim_id`, `subject`, `predicate`; `estagio()` devolve
+`FATO`; **a régua aplicada muda por causa disso**. Os campos entram, são lidos,
+**decidem**, e não saem.
+
+```
+O SISTEMA SABE O QUE É UM CLAIM.
+O CONTRATO DE SAÍDA NÃO TINHA ONDE O PÔR.
+```
+
+Generalização, e é a lei nova desta camada:
+
+```
+UM CAMPO QUE O CÓDIGO LÊ PARA DECIDIR E DEPOIS NÃO ESCREVE
+NÃO É UM CAMPO QUE FALTA: É UMA DECISÃO SEM RASTO.
+```
+
+## A LEI DO `UNKNOWN` COM RAZÃO
+
+O livro do coletor italiano escreve, em **175 observações**, *porquê* o tempo do
+facto é desconhecido — «UNKNOWN — o PDF nao expoe a data do fato medido, so a de
+geracao». O contrato de saída não tinha onde pôr essa frase, e ela morria. Do
+outro lado, `leis/artefato.py::conferir` **já reprovava** um `FACT_LOCATION`
+preenchido «sem dizer de onde saiu»: a lei existia e a resposta não tinha campo.
+
+```
+UM «NÃO SEI» COM RAZÃO É UMA MEDIÇÃO.
+UM «NÃO SEI» SEM RAZÃO É INDISTINGUÍVEL DE DESLEIXO.
+```
+
+E o corolário que esta missão pagou para aprender:
+
+```
+NÃO SEI PORQUE NÃO HÁ PROVA  ≠  NÃO SEI PORQUE NÃO PERGUNTEI.
+```
+
+Três campos do contrato saíam `NAO SEI` **por construção** — a rota real nunca
+os punha no item. O silêncio de quem não perguntou tinha a cara de quem
+perguntou.
+
+## A LEI DO CAMPO QUE NÃO DIZ DE QUE ESPÉCIE É
+
+`published_at` a virar `FACT_TIME` já era gap registado. O irmão dele não tinha
+nome e passava há mais tempo:
+
+```
+pronto_para_inteligencia:   item.get("fact_time") or item.get("data")
+```
+
+`published_at` pelo menos **declara o que é** — e foi por isso que alguém o
+apanhou. `data` não declara nada, e foi por isso que ninguém o apanhou.
+
+```
+UM CAMPO QUE NÃO DECLARA DE QUE ESPÉCIE É
+NÃO PODE PROMOVER A ESPÉCIE NENHUMA.
+E É O CAMPO ANÓNIMO QUE SOBREVIVE À AUDITORIA, NÃO O NOMEADO.
+```
+
+## A LEI DA PALAVRA QUASE IGUAL
+
+Duas constantes, no mesmo módulo, com o mesmo nome e valores diferentes:
+
+```
+admissao.NAO_SEI = "NAO_SEI"    ← um RESULTADO da porta
+leis/artefato.NAO_SEI = "NAO SEI"  ← a AUSÊNCIA que a Sala lê como NULL
+```
+
+Troquei uma pela outra ao escrever esta missão. Nada rebentou: o contrato
+continuou a sair, os testes continuaram verdes, e a ausência teria entrado no
+banco como a **string `"NAO_SEI"`**, guardada com cara de valor medido.
+
+```
+DUAS CONSTANTES COM O MESMO NOME E VALORES DIFERENTES
+NÃO DÃO ERRO: DÃO UM VALOR ERRADO QUE PASSA EM TODA A PARTE.
+```
+
+## A LEI DA FRONTEIRA DE PALAVRA, MEDIDA A FALHAR
+
+Contra o notiziario real da ARIF (`IT-T3-008`):
+
+```
+"comunicati ufficiali dell'Osservatorio Fitosanitario della Regione Puglia"
+
+  `osservat[oaie]` casa DENTRO de `Osservatorio`
+  → âncora FIELD_OBSERVATION
+  → FACT_LOCATION = Puglia, com trecho guardado e tudo
+```
+
+`mencoes()` exigia fronteira de palavra. `_ancoras()`, doze linhas abaixo, não
+exigia. **As duas metades da mesma afirmação, e só uma guardada.**
+
+```
+NUMA AFIRMAÇÃO FEITA DE DUAS METADES, A MAIS FRACA É QUE DECIDE.
+`osservatorio` É UM ÓRGÃO. `osservato` É UM ACONTECIMENTO.
+UM CONTÉM O OUTRO EM LETRAS E NÃO O CONTÉM EM SIGNIFICADO.
+```
+
+E o gémeo, no mesmo dia, na normalização taxonómica: `"Malas hierbas"` tem o
+**feitio** de um binómio latino — maiúscula, minúscula, duas palavras — e a
+primeira versão da guarda olhava só para o feitio. O ataque passou. O que
+denuncia o rótulo não é a forma: é a tabela repetir o nome comum na coluna
+científica quando não tem nome científico nenhum.
+
+```
+PARECER UM NOME CIENTÍFICO ≠ SER UM NOME CIENTÍFICO.
+UMA GUARDA DE FORMA GUARDA A FORMA.
+```
+
+## A LEI DA GUARDA QUE CONGELA O NÚMERO
+
+Seis provas reprovaram nesta missão sem nada estar errado com elas — e três
+delas **puniam a disciplina**:
+
+```
+assertIn(VERSAO_DA_REGRA, versoes_no_livro)
+    → reprova no instante seguinte a subir a versão, porque ainda ninguém
+      correu a porta. A maneira de a calar era não subir a versão.
+
+assertEqual("031", numeros[-1])
+    → guardava «a 031 é a ÚLTIMA migration do repositório», uma frase que
+      deixa de ser verdade na migration seguinte, escrita por quem for.
+
+assertEqual("?", ready["ITEM_ID"])
+    → a prova AFIRMAVA o defeito que a COL-LAW-034 proíbe em letra.
+```
+
+```
+UMA GUARDA QUE CONGELA UM NÚMERO EM VEZ DE UMA INTENÇÃO
+ENVELHECE NO COMMIT SEGUINTE.
+UMA PROVA QUE DESCREVE O DEFEITO PASSA A DEFENDÊ-LO.
+```
+
+## A LEI DA CODIFICAÇÃO QUE INVENTA UM `NÃO SEI`
+
+O Python lia a saída UTF-8 do node com a página de código do Windows. O
+travessão de `"Napoli (sede da Regiao) — fixo"` virava lixo, a regra deixava de
+casar, e a fonte saía `NAO SEI`.
+
+```
+UM «NÃO SEI» NASCIDO DE CODIFICAÇÃO PARECE UMA MEDIÇÃO
+E MUDA DE RESPOSTA CONFORME A MÁQUINA.
+```
+
+## `REPROCESS BEFORE RECOLLECT` — confirmado, com número
+
+Contra os textos reais já guardados nesta árvore, sem abrir rede:
+
+```
+43 textos derivados
+27 contêm um binómio latino que casa EXACTAMENTE com o dicionário EPPO
+   que esta casa já tem no repositório
+10 de 13 contratos de fonte declaram um SOURCE_LOCATION conferível
+```
+
+Nada disto exigiu coleta nova. E a segunda metade da lei importa tanto como a
+primeira:
+
+```
+REPROCESSAR ANTES DE RECOLHER — quando a informação já está no RAW.
+E REPROCESSAR NÃO É PREENCHER: `FACT_TIME` e `FACT_LOCATION` continuam
+`NAO SEI` nos seis documentos que atravessaram, porque o material não os prova.
+```
+
+## O QUE ESTA CAMADA **NÃO** APRENDEU, E DIZ QUE NÃO
+
+- **Se a Sala escreve os 19 campos.** Não há `psql` nem `fcntl` nesta máquina:
+  nenhum dos dois backends correu. O contrato foi **conferido**; a escrita
+  **não foi provada**. `CONTRATO CONFERIDO ≠ ESCRITA PROVADA`.
+- **Se a migration 032 aplica.** `DESIGNED ≠ DB_TESTED ≠ LIVE`, e esta parou no
+  primeiro.
+- **Se há autoridade italiano→EPPO.** Não há nesta árvore, e por isso nenhum
+  `ISSUE_ID` foi cunhado a partir de nome comum italiano.
+- **Se uma menção é uma ocorrência.** Não é, e esta missão não tentou decidir
+  quais das 76 menções o são.
