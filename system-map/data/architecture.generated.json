@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
-    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
+    "HEAD": "08e590a7183dd5a4445fdd6bf9e6b4ca97f87d54",
+    "GENERATED_AT": "2026-09-14T14:20:17-03:00"
   },
   "FILES": [
     {
@@ -199,6 +199,13 @@
     {
       "path": "_gavetas.py",
       "sha": "00ebe0acc22ba35815015782d0ebf15266a21d22",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "_territorios.py",
+      "sha": "4680a4580d857cb70266410c42028a016e2197cb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -1087,14 +1094,14 @@
     },
     {
       "path": "candidatas/italy_deep_workbook.py",
-      "sha": "2870153e885a56678e06c2139eb6d0b658ebfd5c",
+      "sha": "b67e40f262ab5fe8bea07027c9a77fb3850f4bfa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "candidatas/italy_deep_xlsx.py",
-      "sha": "a8bdb1e7349fe10779418004fe626f29a3f279af",
+      "sha": "262b8bf3a620666623a8154d4d93fd2dd23ab726",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -3978,14 +3985,14 @@
     },
     {
       "path": "docs/fontes/DELTA-KNOW-HOW-DESCOBERTA-PROFUNDA-2026-09-14.md",
-      "sha": "10676d9d02f53d6b7c7197641380fe73953ccecf",
+      "sha": "29e361acb131e484c6eaf7f7178c24534d6b201d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/fontes/INDICE-DE-FONTES.md",
-      "sha": "b417c0d73dffafccd141342b9bb8fbd727c49161",
+      "sha": "e1b65cc16ec83138ea234cb651d67455cdfb641d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4000,6 +4007,13 @@
     {
       "path": "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "sha": "978d4027a76e1de4f63a237eeb3b8609c332f936",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/know-how/SECAO-TAXONOMIA-T1-T12.md",
+      "sha": "00cd54438982f497a1869ad938eb0cca47ea4d37",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6708,7 +6722,7 @@
     },
     {
       "path": "pedido/pedido.py",
-      "sha": "783852b225b497ca118f1f250f650123d1f81df0",
+      "sha": "1ea7e19ec365e84b90cb693c25dc983c275597a7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7814,7 +7828,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0e743fc0f3f4e8def74e203f75493871a874be38",
+      "sha": "fc208eb80696d28b400d1ea6f2faa26d2f051716",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7863,7 +7877,7 @@
     },
     {
       "path": "system-map/scripts/scan_sources.py",
-      "sha": "ebf2ca643c3fc39caed844e26ec7ae88846d2343",
+      "sha": "65c108989c6f5e06bcf8c617fc7f0cdfc92627cf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8067,6 +8081,13 @@
     {
       "path": "tests/test_radar_futuro.py",
       "sha": "f844094a28cf69ca1b986b666d4ebd3a88ad0e9d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_territorios.py",
+      "sha": "da96f237430589be9200a7be9c266e5e112bff92",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8787,6 +8808,17 @@
       }
     },
     {
+      "from_file": "_territorios.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "_territorios.py",
+        "line": 61,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
       "from_file": "admissao/admissao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -8949,6 +8981,28 @@
         "file": "candidatas/italy_deep_seeds.py",
         "line": 35,
         "snippet": "DADOS = Path(__file__).resolve().parent / \"italy_deep_seeds.json\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_workbook.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_deep_workbook.py",
+        "line": 56,
+        "snippet": "import _territorios as _T  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_xlsx.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_deep_xlsx.py",
+        "line": 49,
+        "snippet": "import _territorios as _T  # noqa: E402"
       }
     },
     {
@@ -20931,6 +20985,17 @@
       }
     },
     {
+      "from_file": "pedido/pedido.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "pedido/pedido.py",
+        "line": 50,
+        "snippet": "import _territorios as _T  # noqa: E402 — o dono da taxonomia T1..T12"
+      }
+    },
+    {
       "from_file": "pedido/receitas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -22527,12 +22592,23 @@
     },
     {
       "from_file": "system-map/scripts/scan_sources.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/scan_sources.py",
+        "line": 68,
+        "snippet": "import _territorios as _T  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/scan_sources.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 369,
+        "line": 388,
         "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
       }
     },
@@ -22543,7 +22619,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 194,
+        "line": 213,
         "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\""
       }
     },
@@ -22554,7 +22630,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 398,
+        "line": 417,
         "snippet": "\"porta\": \"candidatas/fonte_nova.py\","
       }
     },
@@ -22565,7 +22641,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 519,
+        "line": 538,
         "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
       }
     },
@@ -22576,7 +22652,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 520,
+        "line": 539,
         "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
       }
     },
@@ -22587,7 +22663,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 320,
+        "line": 339,
         "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
       }
     },
@@ -22598,7 +22674,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_sources.py",
-        "line": 429,
+        "line": 448,
         "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
       }
     },
@@ -24891,6 +24967,116 @@
       }
     },
     {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 40,
+        "snippet": "import _territorios as T  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "_territorios.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 164,
+        "snippet": "if rel == '_territorios.py':"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 412,
+        "snippet": "'ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv')"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "candidatas/italy_deep_workbook.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 428,
+        "snippet": "for nome in ('italy_deep_workbook.py', 'italy_deep_xlsx.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "candidatas/italy_deep_xlsx.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 428,
+        "snippet": "for nome in ('italy_deep_workbook.py', 'italy_deep_xlsx.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 355,
+        "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 101,
+        "snippet": "open(ATLAS, 'leitura')  # ATLAS = docs/fontes/ATLAS-DE-FONTES-EAME.md"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 210,
+        "snippet": "import pedido as P  # noqa"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "pedido/pedido.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 205,
+        "snippet": "with open(os.path.join(ROOT, 'pedido', 'pedido.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_territorios.py",
+      "to_file": "system-map/scripts/scan_sources.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_territorios.py",
+        "line": 194,
+        "snippet": "'scan_sources.py'), encoding='utf-8') as fh:"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -25476,10 +25662,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1158,
-    "files_readable": 398,
-    "files_code_dir": 448,
-    "file_edges": 1544,
+    "files_tracked": 1161,
+    "files_readable": 400,
+    "files_code_dir": 449,
+    "file_edges": 1559,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

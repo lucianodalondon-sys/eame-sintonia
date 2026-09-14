@@ -1,8 +1,28 @@
-# DELTA PARA O KNOW-HOW CANÔNICO — §118
+# DELTA PARA O KNOW-HOW CANÔNICO — ~~§118~~ NÚMERO A ATRIBUIR
+
+> ## ⚠️ CORREÇÃO, 2026-09-14 (missão TAXONOMIA-T1-T12)
+>
+> **Este ficheiro reivindicava §118, e §118 já está ocupado — por duas seções
+> diferentes, em duas branches diferentes.** A medição está em
+> [`docs/know-how/SECAO-TAXONOMIA-T1-T12.md`](../know-how/SECAO-TAXONOMIA-T1-T12.md),
+> secção *POR QUE O NÚMERO ESTÁ EM BRANCO*:
+>
+> ```
+> SINTONIA-EAME-KNOW-HOW.md existe em 20 branches, com CINCO cabeças
+> diferentes, todas de 2026-09-14, declarando §117, §118, §118, §119 e §120.
+> Nenhuma delas é a branch-base dos PRs. Não existe `main`.
+> ```
+>
+> O número desta seção passa a ser **a atribuir na cabeça que for decidida como
+> canônica** — e essa decisão é do Luciano, não de uma missão.
+>
+> O erro foi meu e é o mesmo que a missão seguinte veio consertar noutro sítio:
+> **afirmar um número sem medir se ele estava livre.**
 
 > **Isto não é o know-how.** O know-how canônico é `SINTONIA-EAME-KNOW-HOW.md` e
-> **não vive nesta branch** — vive em `claude/sintonia-local-runner-514cdc`, hoje
-> em §117.
+> **não vive nesta branch** — a cópia mais avançada que encontrei está em
+> `claude/sintonia-local-runner-514cdc` (§117), que é uma branch **local, não
+> enviada ao remoto**, e pertence a outra sessão viva.
 >
 > Copiar o know-how para cá criaria uma segunda verdade, e
 > [`AGENTS.md`](../../AGENTS.md) proíbe isso: *"uma lei em dois sítios diverge, e

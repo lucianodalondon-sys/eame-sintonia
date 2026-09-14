@@ -48,12 +48,31 @@ ATLAS = "docs/fontes/ATLAS-DE-FONTES-EAME.md"
 CONTRATOS = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
 
 PAIS = {"EU": "EUROPA", "FR": "FRANCA", "ES": "ESPANHA", "IT": "ITALIA"}
-TERRITORIO = {
-    "T1": "Cultura e producao", "T2": "Clima e tempo", "T3": "Praga e doenca",
-    "T4": "Regulatorio", "T5": "Preco e mercado", "T6": "Comercio e distribuicao",
-    "T7": "Ciencia e ensaio", "T8": "Voz do campo", "T9": "Concorrente",
-    "T10": "Politica e subsidio", "T11": "Solo e agua", "T12": "Substancia ativa",
-}
+
+# ── O MAPA LE A TAXONOMIA, NAO A POSSUI ───────────────────────────────────
+# Este scanner ja declara, quatro linhas acima, que o atlas e o que ele LE. Mas
+# guardava aqui uma tabela propria de nomes de territorio — e ela contradizia o
+# atlas em seis codigos de doze. O efeito ficava visivel no artefato que este
+# scanner alimenta: em `docs/fontes/INDICE-DE-FONTES.md`, a fonte `EU-T10-001`
+# (precos de cereais do Agri-food Data Portal) aparecia rotulada
+# «T10 · Politica e subsidio», e `ES-T5-002` (OpenAlex) aparecia como
+# «T5 · Preco e mercado». O ID estava certo; o rotulo que o mapa imprimia, nao.
+#
+#     O MAPA E DERIVADO DO REPO. NAO PODE TER UMA SEGUNDA VERDADE DENTRO.
+#
+# Le-se do dono (`_territorios.py`, que le a tabela do proprio atlas) pela mesma
+# razao e do mesmo jeito que `scan_repo.py` le a lista de gavetas de
+# `_gavetas.py`: duas listas seriam duas verdades.
+if str(RAIZ) not in sys.path:
+    sys.path.insert(0, str(RAIZ))
+import _territorios as _T  # noqa: E402
+
+TERRITORIO = dict(_T.TERRITORIOS)
+# O ocupante legado entra so para o mapa conseguir NOMEAR os tres SOURCE_ID que
+# ja existem com T13. Nomear nao e canonizar: `_territorios.valido("T13")` e
+# False, e um pedido com T13 continua recusado.
+for _c, _e in _T.EXCECOES.items():
+    TERRITORIO[_c] = f"{_e['NOME_NO_ATLAS']} (ocupante legado, fora dos 12)"
 
 
 def ler(rel: str) -> list[str]:

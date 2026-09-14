@@ -100,44 +100,44 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `ES-T3-001` | Datos de seguimiento de plagas y enfermedades en las estac | T3 · Praga e doenca | 🟢 GREEN | sim |
-| `ES-T4-001` | Jerarquía de especies vegetales · Clasificación de plagas | T4 · Regulatorio | 🟢 GREEN | **não** |
-| `ES-T4-002` | Autorizaciones excepcionales vigentes | T4 · Regulatorio | 🟢 GREEN | **não** |
-| `ES-T4-003` | Registro de Productos Fitosanitarios — aplicação de consul | T4 · Regulatorio | ⚪ NAO SEI | **não** |
-| `ES-T4-005` | Registro Oficial de Productos Fitosanitarios — rotas públi | T4 · Regulatorio | 🟢 GREEN | sim |
-| `ES-T5-002` | OpenAlex, recorte espanhol declarado | T5 · Preco e mercado | 🟢 GREEN | **não** |
+| `ES-T3-001` | Datos de seguimiento de plagas y enfermedades en las estac | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | sim |
+| `ES-T4-001` | Jerarquía de especies vegetales · Clasificación de plagas | T4 · REGULATORY | 🟢 GREEN | **não** |
+| `ES-T4-002` | Autorizaciones excepcionales vigentes | T4 · REGULATORY | 🟢 GREEN | **não** |
+| `ES-T4-003` | Registro de Productos Fitosanitarios — aplicação de consul | T4 · REGULATORY | ⚪ NAO SEI | **não** |
+| `ES-T4-005` | Registro Oficial de Productos Fitosanitarios — rotas públi | T4 · REGULATORY | 🟢 GREEN | sim |
+| `ES-T5-002` | OpenAlex, recorte espanhol declarado | T5 · SCIENCE | 🟢 GREEN | **não** |
 
 ### EUROPA · 11 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `EU-T1-001` | Crop production in EU standard humidity by NUTS 2 region | T1 · Cultura e producao | 🟢 GREEN | **não** |
-| `EU-T1-002` | Crop production in EU standard humidity | T1 · Cultura e producao | 🟢 GREEN | **não** |
-| `EU-T10-001` | European Commission — Agri-food Data Portal (cereal prices | T10 · Politica e subsidio | 🟢 GREEN | **não** |
-| `EU-T12-001` | CELLAR / EU Publications Office — camada de política agríc | T12 · Substancia ativa | 🟢 GREEN | **não** |
-| `EU-T2-001` | NASA POWER — Daily Point (community AG) | T2 · Clima e tempo | 🟢 GREEN | **não** |
-| `EU-T2-002` | NUTS_LB_2024_4326_LEVL_2 (label points) | T2 · Clima e tempo | 🟢 GREEN | **não** |
-| `EU-T2-003` | Open-Meteo Historical Weather API (ERA5) | T2 · Clima e tempo | ⚪ NAO SEI | **não** |
-| `EU-T3-001` | EPPO Global Database | T3 · Praga e doenca | ⚪ NAO SEI | **não** |
-| `EU-T4-001` | CELLAR / EU Publications Office (Official Journal of the E | T4 · Regulatorio | 🟢 GREEN | sim |
-| `EU-T4-002` | EU Pesticides Database | T4 · Regulatorio | ⚪ NAO SEI | **não** |
-| `EU-T5-001` | OpenAlex | T5 · Preco e mercado | 🟢 GREEN | **não** |
+| `EU-T1-001` | Crop production in EU standard humidity by NUTS 2 region | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `EU-T1-002` | Crop production in EU standard humidity | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `EU-T10-001` | European Commission — Agri-food Data Portal (cereal prices | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `EU-T12-001` | CELLAR / EU Publications Office — camada de política agríc | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `EU-T2-001` | NASA POWER — Daily Point (community AG) | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `EU-T2-002` | NUTS_LB_2024_4326_LEVL_2 (label points) | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `EU-T2-003` | Open-Meteo Historical Weather API (ERA5) | T2 · CLIMATE / WATER / SOIL | ⚪ NAO SEI | **não** |
+| `EU-T3-001` | EPPO Global Database | T3 · PEST / DISEASE / WEEDS | ⚪ NAO SEI | **não** |
+| `EU-T4-001` | CELLAR / EU Publications Office (Official Journal of the E | T4 · REGULATORY | 🟢 GREEN | sim |
+| `EU-T4-002` | EU Pesticides Database | T4 · REGULATORY | ⚪ NAO SEI | **não** |
+| `EU-T5-001` | OpenAlex | T5 · SCIENCE | 🟢 GREEN | **não** |
 
 ### FRANCA · 4 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `FR-T13-001` | recherche-entreprises.api.gouv.fr (base SIRENE) | T13 ·  | 🟢 GREEN | **não** |
-| `FR-T3-001` | Bulletins de Santé du Végétal | T3 · Praga e doenca | 🟡 YELLOW | **não** |
-| `FR-T3-002` | Archive en agro-écologie de BSV | T3 · Praga e doenca | ⚪ NAO SEI | **não** |
-| `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · Regulatorio | 🟢 GREEN | sim |
+| `FR-T13-001` | recherche-entreprises.api.gouv.fr (base SIRENE) | T13 · DISTRIBUTION (ocupante legado, fora dos 12) | 🟢 GREEN | **não** |
+| `FR-T3-001` | Bulletins de Santé du Végétal | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `FR-T3-002` | Archive en agro-écologie de BSV | T3 · PEST / DISEASE / WEEDS | ⚪ NAO SEI | **não** |
+| `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
 
 ### ITALIA · 2 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `IT-T3-001` | IT-T3-001 | T3 · Praga e doenca | 🟡 YELLOW | **não** |
-| `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · Regulatorio | 🟢 GREEN | sim |
+| `IT-T3-001` | IT-T3-001 | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · REGULATORY | 🟢 GREEN | sim |
 
 ---
 

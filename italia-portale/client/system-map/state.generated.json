@@ -21,6 +21,7 @@
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "_gavetas.py",
+      "_territorios.py",
       "package.json",
       "vercel.json"
     ],
@@ -593,6 +594,7 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/know-how/SECAO-TAXONOMIA-T1-T12.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
@@ -1213,6 +1215,7 @@
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
+      "tests/test_territorios.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -1600,8 +1603,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
-    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
+    "HEAD": "08e590a7183dd5a4445fdd6bf9e6b4ca97f87d54",
+    "GENERATED_AT": "2026-09-14T14:20:17-03:00"
   },
   "FAMILIES": [
     {
@@ -2352,7 +2355,7 @@
               "id": "ES-T3-001",
               "nome": "Datos de seguimiento de plagas y enfermedades en las estaciones de control biológico [2006–2026]",
               "pais": "ESPANHA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -2387,7 +2390,7 @@
               "id": "ES-T4-001",
               "nome": "Jerarquía de especies vegetales · Clasificación de plagas",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2402,7 +2405,7 @@
               "id": "ES-T4-002",
               "nome": "Autorizaciones excepcionales vigentes",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2417,7 +2420,7 @@
               "id": "ES-T4-003",
               "nome": "Registro de Productos Fitosanitarios — aplicação de consulta",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -2432,7 +2435,7 @@
               "id": "ES-T4-005",
               "nome": "Registro Oficial de Productos Fitosanitarios — rotas públicas",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -2467,7 +2470,7 @@
               "id": "ES-T5-002",
               "nome": "OpenAlex, recorte espanhol declarado",
               "pais": "ESPANHA",
-              "assunto": "T5 · Preco e mercado",
+              "assunto": "T5 · SCIENCE",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2482,7 +2485,7 @@
               "id": "EU-T1-001",
               "nome": "Crop production in EU standard humidity by NUTS 2 region",
               "pais": "EUROPA",
-              "assunto": "T1 · Cultura e producao",
+              "assunto": "T1 · CROP & PRODUCTION",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2497,7 +2500,7 @@
               "id": "EU-T1-002",
               "nome": "Crop production in EU standard humidity",
               "pais": "EUROPA",
-              "assunto": "T1 · Cultura e producao",
+              "assunto": "T1 · CROP & PRODUCTION",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2512,7 +2515,7 @@
               "id": "EU-T10-001",
               "nome": "European Commission — Agri-food Data Portal (cereal prices)",
               "pais": "EUROPA",
-              "assunto": "T10 · Politica e subsidio",
+              "assunto": "T10 · MARKET / TRADE / INDUSTRY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2527,7 +2530,7 @@
               "id": "EU-T12-001",
               "nome": "CELLAR / EU Publications Office — camada de política agrícola",
               "pais": "EUROPA",
-              "assunto": "T12 · Substancia ativa",
+              "assunto": "T12 · POLICY / AGRICULTURAL ENVIRONMENT",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2542,7 +2545,7 @@
               "id": "EU-T2-001",
               "nome": "NASA POWER — Daily Point (community AG)",
               "pais": "EUROPA",
-              "assunto": "T2 · Clima e tempo",
+              "assunto": "T2 · CLIMATE / WATER / SOIL",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2557,7 +2560,7 @@
               "id": "EU-T2-002",
               "nome": "NUTS_LB_2024_4326_LEVL_2 (label points)",
               "pais": "EUROPA",
-              "assunto": "T2 · Clima e tempo",
+              "assunto": "T2 · CLIMATE / WATER / SOIL",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2572,7 +2575,7 @@
               "id": "EU-T2-003",
               "nome": "Open-Meteo Historical Weather API (ERA5)",
               "pais": "EUROPA",
-              "assunto": "T2 · Clima e tempo",
+              "assunto": "T2 · CLIMATE / WATER / SOIL",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -2587,7 +2590,7 @@
               "id": "EU-T3-001",
               "nome": "EPPO Global Database",
               "pais": "EUROPA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -2602,7 +2605,7 @@
               "id": "EU-T4-001",
               "nome": "CELLAR / EU Publications Office (Official Journal of the EU)",
               "pais": "EUROPA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -2637,7 +2640,7 @@
               "id": "EU-T4-002",
               "nome": "EU Pesticides Database",
               "pais": "EUROPA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -2652,7 +2655,7 @@
               "id": "EU-T5-001",
               "nome": "OpenAlex",
               "pais": "EUROPA",
-              "assunto": "T5 · Preco e mercado",
+              "assunto": "T5 · SCIENCE",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2667,7 +2670,7 @@
               "id": "FR-T13-001",
               "nome": "recherche-entreprises.api.gouv.fr (base SIRENE)",
               "pais": "FRANCA",
-              "assunto": "T13 · ",
+              "assunto": "T13 · DISTRIBUTION (ocupante legado, fora dos 12)",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -2682,7 +2685,7 @@
               "id": "FR-T3-001",
               "nome": "Bulletins de Santé du Végétal",
               "pais": "FRANCA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "YELLOW",
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
@@ -2697,7 +2700,7 @@
               "id": "FR-T3-002",
               "nome": "Archive en agro-écologie de BSV",
               "pais": "FRANCA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -2712,7 +2715,7 @@
               "id": "FR-T4-001",
               "nome": "Données ouvertes du catalogue E-Phy",
               "pais": "FRANCA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -2747,7 +2750,7 @@
               "id": "IT-T3-001",
               "nome": "IT-T3-001",
               "pais": "ITALIA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "YELLOW",
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
@@ -2762,7 +2765,7 @@
               "id": "IT-T4-001",
               "nome": "Fitosanitari — elenco dei prodotti fitosanitari autorizzati",
               "pais": "ITALIA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -6388,7 +6391,9 @@
         "C-IT-CONTRATOS",
         "C-PORTA-FONTE"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {
         "ITALIA": 11
       },
@@ -6822,8 +6827,8 @@
       "name": "Scanner do System Map",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que — e le tambem o atlas de fontes, os contratos de busca e as palavras usadas na coleta.",
-      "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada.",
+      "what": "Le o repositorio e devolve so os fatos: que ficheiro existe, quem importa quem, quem roda o que — e le tambem o atlas de fontes, os contratos de busca, as palavras usadas na coleta e a TAXONOMIA T1-T12, que ele consome de `_territorios.py` em vez de guardar copia.",
+      "why_here": "E a unica fonte de aresta tecnica do mapa. Sem ele, o mapa seria opiniao desenhada. E o scanner guardou durante uma semana uma tabela propria de nomes de territorio que contradizia o atlas em seis codigos de doze: o `INDICE-DE-FONTES.md` chegou a imprimir «T10 · Politica e subsidio» para a rota de precos de cereais. O mapa e derivado do repo, e por isso nao pode ter uma segunda verdade dentro.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -6862,7 +6867,8 @@
         "C-IDENTIDADE",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -7428,8 +7434,8 @@
       "name": "O pedido de coleta",
       "territory": "Z-PEDIDO",
       "kind": "contract",
-      "what": "O contrato de entrada: alvo, acionamento, escopo e filtros. Traduz «colete materiais de pesquisadores» para o territorio que o atlas ja usa.",
-      "why_here": "O censo mediu 79 pontos de entrada em 92 ficheiros. Setenta e nove maneiras de comecar uma coleta nao sao uma coleta: sao setenta e nove.",
+      "what": "O contrato de entrada: alvo, acionamento, escopo e filtros. Traduz «colete materiais de pesquisadores» para o territorio que o atlas usa, lendo a lista de `_territorios.py` — o dono — e nao de uma copia local.",
+      "why_here": "O censo mediu 79 pontos de entrada em 92 ficheiros. Setenta e nove maneiras de comecar uma coleta nao sao uma coleta: sao setenta e nove. E esta frase ja foi FALSA: ate 14/09/2026 o ficheiro dizia traduzir para o territorio do atlas e guardava uma lista propria, onde «pesquisadores» caia em T7 — que no atlas e REDE TECNICA, nao RESEARCHERS. O pedido pedia pesquisador e mandava buscar consultor, sem erro nenhum a aparecer.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -7453,7 +7459,8 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -9710,13 +9717,14 @@
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
+        "tests/test_territorios.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 30,
+      "file_count": 31,
       "status": "PROVEN",
       "status_reason": "o teste aponta para codigo real do repositorio.",
       "changed_since_declared": [],
@@ -9737,11 +9745,14 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-IDENTIDADE",
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
+        "C-MAPA-SCAN",
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
+        "C-PEDIDO",
         "C-PROCEDENCIA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
@@ -9766,7 +9777,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 2,
+        "ITALIA": 5,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -11162,7 +11173,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italy-agricultural-sources-discovery-dfba81",
-        "HEAD f437ff1140fa97484ca9695b341fbe9ca0a9f050"
+        "HEAD 08e590a7183dd5a4445fdd6bf9e6b4ca97f87d54"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11941,7 +11952,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 320,
+          "line": 339,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
         }
       ]
@@ -12027,7 +12038,7 @@
       "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "AS FONTES alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -12038,6 +12049,11 @@
           "file": "tests/test_competitor_layer.py",
           "line": 334,
           "snippet": "t = doc('fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        },
+        {
+          "file": "tests/test_territorios.py",
+          "line": 101,
+          "snippet": "open(ATLAS, 'leitura')  # ATLAS = docs/fontes/ATLAS-DE-FONTES-EAME.md"
         }
       ]
     },
@@ -14170,7 +14186,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 194,
+          "line": 213,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\""
         }
       ]
@@ -14366,6 +14382,33 @@
       ]
     },
     {
+      "from": "C-IT-DESCOBERTA-PROFUNDA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A descoberta profunda de fontes italianas alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_territorios.py",
+          "line": 412,
+          "snippet": "'ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv')"
+        },
+        {
+          "file": "tests/test_territorios.py",
+          "line": 428,
+          "snippet": "for nome in ('italy_deep_workbook.py', 'italy_deep_xlsx.py'):"
+        },
+        {
+          "file": "tests/test_territorios.py",
+          "line": 428,
+          "snippet": "for nome in ('italy_deep_workbook.py', 'italy_deep_xlsx.py'):"
+        }
+      ]
+    },
+    {
       "from": "C-IT-PRESERVAR",
       "to": "C-IT-CONTAS",
       "type": "READS",
@@ -14394,12 +14437,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 519,
+          "line": 538,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 520,
+          "line": 539,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
         }
       ]
@@ -14806,6 +14849,23 @@
       ]
     },
     {
+      "from": "C-MAPA-SCAN",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_territorios.py",
+          "line": 194,
+          "snippet": "'scan_sources.py'), encoding='utf-8') as fh:"
+        }
+      ]
+    },
+    {
       "from": "C-MAPA-VALIDADOR",
       "to": "C-MAPA-TESTES",
       "type": "READS",
@@ -15150,6 +15210,40 @@
       ]
     },
     {
+      "from": "C-PEDIDO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_territorios.py",
+          "line": 210,
+          "snippet": "import pedido as P  # noqa"
+        }
+      ]
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_territorios.py",
+          "line": 205,
+          "snippet": "with open(os.path.join(ROOT, 'pedido', 'pedido.py'),"
+        }
+      ]
+    },
+    {
       "from": "C-PORTA-FONTE",
       "to": "C-IT-DESCOBERTA-PROFUNDA",
       "type": "READS",
@@ -15178,12 +15272,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 369,
+          "line": 388,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 398,
+          "line": 417,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\","
         }
       ]
@@ -15988,7 +16082,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 429,
+          "line": 448,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
         }
       ]
@@ -16135,7 +16229,7 @@
       "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_portao.py",
@@ -16146,6 +16240,11 @@
           "file": "tests/test_proveniencia.py",
           "line": 184,
           "snippet": "self.pol = amostra('POLITICA-RAW-ROTA-PAGA.json')"
+        },
+        {
+          "file": "tests/test_territorios.py",
+          "line": 355,
+          "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
         }
       ]
     },
@@ -18182,7 +18281,7 @@
   "UNCLAIMED_CODE_FILES": [
     ".github/workflows/scrap-social.yml"
   ],
-  "UNCLAIMED_FILES_COUNT": 648,
+  "UNCLAIMED_FILES_COUNT": 650,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 98,
@@ -18190,12 +18289,12 @@
     "components_pending": 26,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 327,
-    "edges_proven": 327,
+    "edges": 331,
+    "edges_proven": 331,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1158,
-    "files_covered": 510,
+    "files_tracked": 1161,
+    "files_covered": 511,
     "files_code_unclaimed": 1
   }
 }

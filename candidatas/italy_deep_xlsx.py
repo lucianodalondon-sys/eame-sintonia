@@ -41,14 +41,14 @@ REGIOES_20 = ["ABRUZZO", "BASILICATA", "CALABRIA", "CAMPANIA", "EMILIA-ROMAGNA",
               "MOLISE", "PIEMONTE", "PUGLIA", "SARDEGNA", "SICILIA", "TOSCANA",
               "TRENTINO-ALTO ADIGE", "UMBRIA", "VALLE D'AOSTA", "VENETO"]
 TS = [f"T{i}" for i in range(1, 13)]
-TERRITORIOS = {
-    "T1": "CROP & PRODUCTION", "T2": "CLIMATE / WATER / SOIL",
-    "T3": "PEST / DISEASE / WEEDS", "T4": "REGULATORY", "T5": "SCIENCE",
-    "T6": "RESEARCHERS", "T7": "TECHNICAL NETWORK",
-    "T8": "FARMERS & INFLUENCERS", "T9": "COMPETITORS",
-    "T10": "MARKET / TRADE / INDUSTRY", "T11": "EVENTS",
-    "T12": "POLICY / AGRICULTURAL ENVIRONMENT",
-}
+# A taxonomia vem do dono (`_territorios.py`, que le a tabela do atlas), e nao
+# de uma copia aqui — pela mesma razao que em italy_deep_workbook.py.
+_RAIZ_REPO = Path(__file__).resolve().parents[1]
+if str(_RAIZ_REPO) not in sys.path:
+    sys.path.insert(0, str(_RAIZ_REPO))
+import _territorios as _T  # noqa: E402
+
+TERRITORIOS = _T.TERRITORIOS
 
 COLUNAS = ["RECORD_KIND", "NAME", "OWNER", "PERSON", "ORGANIZATION", "COUNTRY",
            "REGION", "REGION_EVIDENCE", "SCOPE", "SOURCE_TYPE", "PLATFORM",

@@ -40,7 +40,14 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from dataclasses import dataclass, field, asdict
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parents[1]
+if str(RAIZ) not in sys.path:
+    sys.path.insert(0, str(RAIZ))
+import _territorios as _T  # noqa: E402 — o dono da taxonomia T1..T12
 
 # ── ACIONAMENTO: quem mandou coletar ────────────────────────────────────────
 MANUAL = "MANUAL"                        # uma pessoa pediu
@@ -58,40 +65,32 @@ TOTAL = "TOTAL"              # tudo, do inicio
 ESCOPOS = (PONTUAL, INCREMENTAL, TOTAL)
 
 # ── ALVO: o assunto que se quer ─────────────────────────────────────────────
-# NAO E UMA LISTA INVENTADA. Sao os territorios que o atlas de fontes ja usa
-# (T1..T13) — a mesma taxonomia com que as 54 fontes italianas e as 23 do atlas
-# europeu ja estao classificadas. Inventar aqui uma segunda lista de assuntos
-# criaria duas verdades sobre a mesma pergunta.
+# ESTE FICHEIRO NAO GUARDA A LISTA. Ele LE do dono, `_territorios.py`, que por
+# sua vez le a tabela "OS 12 TERRITORIOS" de `docs/fontes/ATLAS-DE-FONTES-EAME.md`.
 #
-# Os apelidos existem porque uma pessoa nao diz «T7»: diz «pesquisadores».
-ALVOS = {
-    "T1": "Cultura e producao",
-    "T2": "Clima e tempo",
-    "T3": "Praga e doenca",
-    "T4": "Regulatorio",
-    "T5": "Preco e mercado",
-    "T7": "Ciencia e ensaio",
-    "T9": "Concorrente",
-    "T10": "Politica e subsidio",
-    "T11": "Solo e agua",
-    "T12": "Substancia ativa",
-    "T13": "Outro",
-}
-
-APELIDOS = {
-    "pesquisadores": "T7", "materiais de pesquisadores": "T7",
-    "pesquisador": "T7", "ciencia": "T7", "artigos": "T7",
-    "artigos cientificos": "T7", "ensaio": "T7",
-    "concorrentes": "T9", "concorrente": "T9", "competidores": "T9",
-    "regulatorio": "T4", "rotulos": "T4", "registro": "T4",
-    "praga": "T3", "pragas": "T3", "doenca": "T3", "doencas": "T3",
-    "clima": "T2", "tempo": "T2",
-    "preco": "T5", "precos": "T5", "mercado": "T5",
-    "cultura": "T1", "producao": "T1", "cereais": "T1",
-    "politica": "T10", "subsidio": "T10",
-    "solo": "T11", "agua": "T11",
-    "substancia ativa": "T12", "moa": "T12",
-}
+# A versao anterior guardava uma copia aqui, com um comentario que dizia «Sao os
+# territorios que o atlas de fontes ja usa». Dizia, e nao eram — e a divergencia
+# durou de 07/09/2026 ate 14/09/2026. Seis codigos de doze significavam coisa
+# diferente da lei:
+#
+#     codigo   aqui (errado)          no atlas (lei)
+#     T5       Preco e mercado        SCIENCE
+#     T6       (nao existia)          RESEARCHERS
+#     T7       Ciencia e ensaio       TECHNICAL NETWORK
+#     T10      Politica e subsidio    MARKET / TRADE / INDUSTRY
+#     T11      Solo e agua            EVENTS
+#     T12      Substancia ativa       POLICY / AGRICULTURAL ENVIRONMENT
+#     T13      Outro                  DISTRIBUTION (ocupante legado, nao se pede)
+#
+# O efeito pratico media-se num pedido: «colete materiais de pesquisadores»
+# resolvia para T7, e T7 e a REDE TECNICA — agronomos e cooperativas. O pedido
+# pedia pesquisador e mandava buscar consultor, sem erro nenhum a aparecer.
+#
+# Um ficheiro que se declara fiel a uma lei e a contradiz e pior do que um que
+# inventa a sua: quem le acredita nele. Agora nao ha o que contradizer.
+ALVOS = _T.TERRITORIOS          # T1..T12, lidos do atlas
+APELIDOS = _T.APELIDOS          # a palavra de gente -> o codigo do atlas
+ESCOPO_DO_ALVO = _T.ESCOPO      # o que cada territorio abrange, palavra do atlas
 
 # ── ESTADOS DA VIDA DE UM ITEM ──────────────────────────────────────────────
 # Poucos, e escolhidos para que seja IMPOSSIVEL confundir duas coisas que o
@@ -134,26 +133,28 @@ def _limpa(t: str) -> str:
 def alvo_de(texto: str) -> str:
     """Traduz o que uma pessoa escreveu para o codigo de territorio do atlas.
 
-    Devolve o codigo (T7) ou levanta PedidoInvalido com a lista do que existe —
-    nunca adivinha. Adivinhar aqui significaria coletar o assunto errado e so
-    descobrir isso depois de gastar maquina.
+    Devolve o codigo (T6 para «pesquisadores») ou levanta PedidoInvalido com a
+    lista do que existe — nunca adivinha. Adivinhar aqui significaria coletar o
+    assunto errado e so descobrir isso depois de gastar maquina.
+
+    A traducao inteira mora em `_territorios.codigo_de`. Aqui so se troca o tipo
+    da excecao, para que quem chama o pedido continue a apanhar `PedidoInvalido`
+    e nao precise de conhecer o dono da taxonomia.
     """
-    t = _limpa(texto)
-    if t.upper() in ALVOS:
-        return t.upper()
-    if t in APELIDOS:
-        return APELIDOS[t]
-    for nome, codigo in ALVOS.items():
-        if _limpa(codigo) == t:
-            return nome
-    # ultimo recurso: o apelido esta dentro da frase («materiais de pesquisadores
-    # da Espanha»). Prefere-se o apelido mais longo, que e o mais especifico.
-    for ap in sorted(APELIDOS, key=len, reverse=True):
-        if ap in t:
-            return APELIDOS[ap]
-    raise PedidoInvalido(
-        f"NAO SEI que assunto e «{texto}». Os que existem sao: "
-        + ", ".join(f"{k} ({v})" for k, v in sorted(ALVOS.items())))
+    try:
+        return _T.codigo_de(texto)
+    except _T.TerritorioInvalido as e:
+        raise PedidoInvalido(f"NAO SEI que assunto e «{texto}». {e}") from e
+
+
+def aviso_do_alvo(texto: str):
+    """Se a palavra pedida for ambigua no atlas, devolve o aviso. Senao, None.
+
+    Ambiguidade nao e erro: «producao» esta no escopo de T1 e de T10, e o atlas
+    escreve as duas. O pedido resolve para o primeiro e AVISA — escolher em
+    silencio seria repetir, em pequeno, o erro que esta correcao veio desfazer.
+    """
+    return _T.aviso_de_ambiguidade(texto)
 
 
 @dataclass

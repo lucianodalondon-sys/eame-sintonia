@@ -46,14 +46,16 @@ REGIOES_20 = ["ABRUZZO", "BASILICATA", "CALABRIA", "CAMPANIA", "EMILIA-ROMAGNA",
               "MOLISE", "PIEMONTE", "PUGLIA", "SARDEGNA", "SICILIA", "TOSCANA",
               "TRENTINO-ALTO ADIGE", "UMBRIA", "VALLE D'AOSTA", "VENETO"]
 
-TERRITORIOS = {
-    "T1": "CROP & PRODUCTION", "T2": "CLIMATE / WATER / SOIL",
-    "T3": "PEST / DISEASE / WEEDS", "T4": "REGULATORY", "T5": "SCIENCE",
-    "T6": "RESEARCHERS", "T7": "TECHNICAL NETWORK",
-    "T8": "FARMERS & INFLUENCERS", "T9": "COMPETITORS",
-    "T10": "MARKET / TRADE / INDUSTRY", "T11": "EVENTS",
-    "T12": "POLICY / AGRICULTURAL ENVIRONMENT",
-}
+# A taxonomia vem do dono, nao de uma copia aqui. Esta lista estava certa —
+# batia com o atlas linha por linha — e ainda assim saiu: uma copia certa hoje e
+# uma copia errada no dia em que o atlas mudar e ninguem se lembrar deste
+# ficheiro. Ver `_territorios.py`.
+_RAIZ_REPO = Path(__file__).resolve().parents[1]
+if str(_RAIZ_REPO) not in sys.path:
+    sys.path.insert(0, str(_RAIZ_REPO))
+import _territorios as _T  # noqa: E402
+
+TERRITORIOS = _T.TERRITORIOS
 
 # Territorio deduzido do que a pagina mostra. Uma fonte cobre varios.
 SINAL_TERRITORIO = [
