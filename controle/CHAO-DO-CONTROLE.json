@@ -1,0 +1,139 @@
+{
+  "NOTA": [
+    "O TETO DA DIVIDA DO CONTROL PLANE. Nao e meta: e teto.",
+    "Um numero que sobe reprova, e um MEMBRO novo reprova mesmo",
+    "que o numero nao suba. Quando alguem pagar a divida,",
+    "`--fixar` desce o teto — e ele nunca mais sobe.",
+    "",
+    "MEDIDO_EM diz em que arvore isto foi medido. Um chao cuja",
+    "arvore nao esta atras desta nao mede esta: ou e re-fixado",
+    "aqui, ou declara MIGRADO_DE com a razao de continuar a valer."
+  ],
+  "MEDIDO_EM": {
+    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
+    "BRANCH": "claude/control-plane-intelligence-night-v2",
+    "MIGRADO_DE": {
+      "HEAD": "a885769c54",
+      "PORQUE": [
+        "`a885769c54` nao e antepassado deste HEAD: foi medido noutra linha, e um tecto de outra fotografia nao mede esta.",
+        "A migracao so passou porque nenhuma categoria subiu e",
+        "nenhum membro novo entrou — provado membro a membro abaixo.",
+        "A unica normalizacao aplicada: a razao deixou de viver",
+        "colada ao nome do membro (`A-DIARIO (6)` -> `A-DIARIO`)."
+      ],
+      "PROVA": {
+        "CANONICAL_AUTHORITY_MISSING": {
+          "TETO_ANTIGO": 2,
+          "HOJE": 0,
+          "MEMBROS_ANTES": [
+            "A-BIBLIA-COLETA",
+            "A-KNOWHOW"
+          ],
+          "MEMBROS_HOJE": [],
+          "PAGOS": [
+            "A-BIBLIA-COLETA",
+            "A-KNOWHOW"
+          ],
+          "NOVOS": []
+        },
+        "CANONICAL_AUTHORITY_LOST": {
+          "TETO_ANTIGO": 0,
+          "HOJE": 0,
+          "MEMBROS_ANTES": [],
+          "MEMBROS_HOJE": [],
+          "PAGOS": [],
+          "NOVOS": []
+        },
+        "DIVERGENT_CANONICAL_COPY": {
+          "TETO_ANTIGO": 3,
+          "HOJE": 3,
+          "MEMBROS_ANTES": [
+            "A-BIBLIA-COLETA",
+            "A-DIARIO",
+            "A-KNOWHOW"
+          ],
+          "MEMBROS_HOJE": [
+            "A-BIBLIA-COLETA",
+            "A-DIARIO",
+            "A-KNOWHOW"
+          ],
+          "PAGOS": [],
+          "NOVOS": []
+        },
+        "STALE_AUTHORITY": {
+          "TETO_ANTIGO": 6,
+          "HOJE": 5,
+          "MEMBROS_ANTES": [
+            "A-BIBLIA-COLETA",
+            "A-BIBLIA-ENG-INTELIGENCIA",
+            "A-BIBLIA-ENTREGA",
+            "A-BIBLIA-INTELIGENCIA",
+            "A-KNOWHOW",
+            "A-MOTOR-V2-REQUISITOS"
+          ],
+          "MEMBROS_HOJE": [
+            "A-BIBLIA-ENG-INTELIGENCIA",
+            "A-BIBLIA-ENTREGA",
+            "A-BIBLIA-INTELIGENCIA",
+            "A-KNOWHOW",
+            "A-MOTOR-V2-REQUISITOS"
+          ],
+          "PAGOS": [
+            "A-BIBLIA-COLETA"
+          ],
+          "NOVOS": []
+        },
+        "UNREGISTERED_CANONICAL_DOCUMENT": {
+          "TETO_ANTIGO": 0,
+          "HOJE": 0,
+          "MEMBROS_ANTES": [],
+          "MEMBROS_HOJE": [],
+          "PAGOS": [],
+          "NOVOS": []
+        },
+        "ORPHAN_AUTHORITY": {
+          "TETO_ANTIGO": 0,
+          "HOJE": 0,
+          "MEMBROS_ANTES": [],
+          "MEMBROS_HOJE": [],
+          "PAGOS": [],
+          "NOVOS": []
+        }
+      }
+    }
+  },
+  "TETO": {
+    "CANONICAL_AUTHORITY_MISSING": 0,
+    "CANONICAL_AUTHORITY_LOST": 0,
+    "DIVERGENT_CANONICAL_COPY": 3,
+    "STALE_AUTHORITY": 4,
+    "UNREGISTERED_CANONICAL_DOCUMENT": 0,
+    "ORPHAN_AUTHORITY": 0
+  },
+  "MEMBROS": {
+    "CANONICAL_AUTHORITY_MISSING": [],
+    "CANONICAL_AUTHORITY_LOST": [],
+    "DIVERGENT_CANONICAL_COPY": [
+      "A-BIBLIA-COLETA",
+      "A-DIARIO",
+      "A-KNOWHOW"
+    ],
+    "STALE_AUTHORITY": [
+      "A-BIBLIA-INTELIGENCIA",
+      "A-BIBLIA-ENTREGA",
+      "A-KNOWHOW",
+      "A-MOTOR-V2-REQUISITOS"
+    ],
+    "UNREGISTERED_CANONICAL_DOCUMENT": [],
+    "ORPHAN_AUTHORITY": []
+  },
+  "PORQUE": {
+    "DIVERGENT_CANONICAL_COPY/A-BIBLIA-COLETA": "3 copia(s) divergente(s)",
+    "DIVERGENT_CANONICAL_COPY/A-DIARIO": "6 copia(s) divergente(s)",
+    "DIVERGENT_CANONICAL_COPY/A-KNOWHOW": "1 copia(s) divergente(s)",
+    "STALE_AUTHORITY/A-BIBLIA-INTELIGENCIA": "canonica em origin/claude/integration-acervo-portal-v1, fora deste HEAD",
+    "STALE_AUTHORITY/A-BIBLIA-ENTREGA": "canonica em origin/research/delivery-bible-v1, fora deste HEAD",
+    "STALE_AUTHORITY/A-KNOWHOW": "canonica em origin/claude/sintonia-eame-know-how-v1, fora deste HEAD",
+    "STALE_AUTHORITY/A-MOTOR-V2-REQUISITOS": "canonica em origin/claude/intelligence-backlog-canonical, fora deste HEAD"
+  }
+}

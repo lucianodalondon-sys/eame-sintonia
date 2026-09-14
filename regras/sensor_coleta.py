@@ -75,12 +75,27 @@ ATORES = {
     'LINKEDIN_PROFILE_SEARCH': 'harvestapi~linkedin-profile-search',
     'LINKEDIN_PROFILE': 'harvestapi~linkedin-profile-scraper',
     'LINKEDIN_POSTS': 'harvestapi~linkedin-post-search',
-    'YOUTUBE_SEARCH': 'streamers~youtube-scraper',
     'YOUTUBE_TRANSCRIPT': 'pintostudio~youtube-transcript-scraper',
     # Reserva com 100% de sucesso em 333 mil execucoes nos ultimos 30 dias, contrato
     # proprio. Existe porque rota que falha por CONTRATO nao e rota morta.
     'YOUTUBE_TRANSCRIPT_ALT': 'starvibe~youtube-video-transcript',
-    'YOUTUBE_COMMENTS': 'streamers~youtube-comments-scraper',
+}
+
+# ── O QUE SAIU DAQUI NA C3, E POR QUE NAO FOI APAGADO DA HISTORIA ───────────
+# `YOUTUBE_SEARCH` e `YOUTUBE_COMMENTS` apontavam para dois atores pagos. As
+# duas capacidades foram provadas ao vivo pela API oficial na C2, e os atores
+# deixaram de ser necessarios — entao sairam da CONFIGURACAO ATIVA.
+#
+#     APOSENTAR NAO E APAGAR. O RUN-MANIFEST, os RUNS-*.json e o censo de custo
+#     continuam a dizer que esta casa os usou e pagou. O sistema precisa de se
+#     lembrar disso.
+#
+# `YOUTUBE_TRANSCRIPT` FICA. A legenda de canal de terceiro nao tem rota oficial
+# gratuita — `captions.download` exige ser dono do video — e retirar o ator sem
+# substituto trocaria um gasto por um buraco.
+CAPACIDADES_SCRAP = {
+    'YOUTUBE_SEARCH': 'youtube.search',
+    'YOUTUBE_COMMENTS': 'youtube.comments',
 }
 
 # ── LOTES ────────────────────────────────────────────────────────────────────────
@@ -123,6 +138,72 @@ LOTES = {
     'E': ['IT-OLIVE-BACTROCERA', 'IT-CEREAL-SEPTORIA', 'IT-APPLE-INSECT',
           'IT-TOMATO-DISEASE'],
 }
+# ── O PORTAO DE ESCOPO: ESCONDER O BOTAO NAO E PROTECAO ────────────────────
+# Os lotes A e B levam recortes espanhois e franceses. Quando isso foi
+# descoberto, tirou-se A e B do menu do GitHub — e ficou a parecer resolvido.
+#
+# Nao estava. A linha de baixo era, literalmente:
+#
+#     lote = (sys.argv[2] if len(sys.argv) > 2 else 'A').upper()
+#
+# Qualquer pessoa que corresse `py regras/sensor_coleta.py videos A` recebia os
+# recortes estrangeiros — e o valor POR OMISSAO era o proprio lote A. A unica
+# coisa entre a rota italiana e o vocabulario espanhol era um menu.
+#
+#     PROTECAO QUE DEPENDE DE ESCONDER O BOTAO NAO E PROTECAO: E ARRUMACAO.
+#
+# Agora o escopo e verificado no CODIGO, na unica porta por onde se entra. O
+# conteudo espanhol e frances FICA guardado — nao se apaga trabalho feito — mas
+# nao chega a uma corrida italiana sem alguem pedir isso por escrito.
+PAIS_DA_ROTA = 'IT'
+
+
+def recortes_no_escopo(lote: str, pais: str = PAIS_DA_ROTA, permitir_fora=False):
+    """Os recortes deste lote que pertencem ao pais da rota.
+
+    Devolve (recortes, deixados_de_fora). Nao apaga nada: filtra, e diz o que
+    filtrou. `permitir_fora=True` existe para quem QUISER mesmo correr um lote
+    de outro pais — mas tem de o dizer, e fica escrito no log.
+    """
+    todos = LOTES[lote]
+    dentro = [c for c in todos if c.startswith(pais + '-')]
+    fora = [c for c in todos if c not in dentro]
+    if permitir_fora:
+        return todos, fora
+    return dentro, fora
+
+
+def fora_do_escopo_pedido() -> bool:
+    """Alguem pediu, POR ESCRITO, para correr recortes de outro pais?"""
+    return (('--fora-do-escopo' in sys.argv)
+            or os.environ.get('SINTONIA_FORA_DO_ESCOPO') == '1')
+
+
+def casos_do_lote(lote: str):
+    """A UNICA porta por onde os recortes de um lote saem para ser colhidos.
+
+    Esta funcao existe porque o portao anterior estava so na linha de comando —
+    e chamar `videos('A')` a partir de outro ficheiro passava por baixo dele.
+    Nao chega barrar a entrada da frente se a porta das traseiras esta aberta.
+    Agora quem quer os recortes tem de passar por aqui, venha de onde vier.
+    """
+    dentro, fora = recortes_no_escopo(lote, permitir_fora=fora_do_escopo_pedido())
+    if fora:
+        if fora_do_escopo_pedido():
+            print('  ESCOPO=%s · a correr %d recorte(s) de outro pais A PEDIDO '
+                  'EXPLICITO: %s' % (PAIS_DA_ROTA, len(fora), ', '.join(fora)))
+        else:
+            print('  ESCOPO=%s · %d de %d recortes deste lote nao sao da Italia '
+                  '(%s) — RECUSADOS.'
+                  % (PAIS_DA_ROTA, len(fora), len(LOTES[lote]), ', '.join(fora)))
+            print('           Continuam guardados. So nao correm sem se pedir:')
+            print('           --fora-do-escopo  ou  SINTONIA_FORA_DO_ESCOPO=1')
+    if not dentro:
+        raise SystemExit('ESCOPO=%s · o lote %s nao tem nenhum recorte deste '
+                         'pais. Nada a fazer.' % (PAIS_DA_ROTA, lote))
+    return dentro
+
+
 OFFSET_DO_LOTE = {'A': 0, 'B': 2, 'C': 4, 'D': 6, 'E': 8}  # posição inicial no pool
 
 # ── TERMOS POR RECORTE ───────────────────────────────────────────────────────────
@@ -226,7 +307,34 @@ def _curl_compat(url, *, token, timeout=60):
 # manifesto. Só o modo de falar HTTP muda — urllib em vez de subprocesso, sem stdout
 # para se perder, com retentativa em queda de rede e NUNCA em recusa da API.
 # `coletor.py` não é alterado: um 4xx da Apify é resposta, e resposta não se repete.
-def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
+#
+# ⚠️ E DUAS COISAS QUE ESTA TROCA TINHA LEVADO EMBORA — CONSERTO DA SCRAP-SR-02
+# ------------------------------------------------------------------------------
+# Trocar o transporte trocou, sem querer, DUAS leis que viviam dentro do
+# transporte antigo. Medido: basta `import sensor_coleta` em qualquer sítio do
+# processo para as duas desaparecerem da porta paga — para toda a gente.
+#
+#     UMA TROCA DE TRANSPORTE LEVA COM ELA AS LEIS QUE MORAVAM NO TRANSPORTE.
+#
+# 1 · O TETO DE REDE. `coletor._curl` reserva a cada ida (a C10.8A-F pôs lá a
+#     reserva justamente porque um teto cobrado na primitiva não vê quem sai
+#     por um subprocesso). Esta versão não reservava nada, e o teto de acessos
+#     deixava de existir na única porta que gasta dinheiro.
+#
+# 2 · O POST REPETIDO. `coletor._curl` manda POST UMA vez, e o comentário lá
+#     diz porquê, com data: se o POST CHEGOU e só a resposta se perdeu, repetir
+#     não repete um pedido perdido — acende uma SEGUNDA execução paga, órfã,
+#     sem run_id e a gastar. Esta versão repetia quatro vezes, qualquer método.
+#
+#         REPETIR UM GET É BARATO. REPETIR UM POST É COMPRAR DE NOVO.
+#
+#     E o `maxTotalChargeUsd` não protege disto: ele limita CADA execução,
+#     nunca a soma das execuções que ninguém sabe que existem.
+#
+# As duas voltaram para aqui. O que continua diferente do original é só o que
+# esta troca existe para mudar: urllib em vez de subprocesso.
+def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300,
+                  tentativas=4, **_):
     import urllib.error
     import urllib.request
     dados = json.dumps(corpo).encode('utf-8') if corpo is not None else None
@@ -234,11 +342,24 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
     if dados is not None:
         cab['Content-Type'] = 'application/json'
     ultimo = ''
-    for n in range(4):
+    # O método que CRIA coisa do lado de lá vai uma vez, e só uma.
+    vezes = 1 if metodo.upper() in ('POST', 'PUT', 'PATCH', 'DELETE') else tentativas
+    for n in range(vezes):
+        # O dono do conceito «rede» continua a ser `scrap_http`. Este ficheiro
+        # não conta nada: ele PEDE autorização a quem conta — exactamente como
+        # `coletor._curl`, e pelas mesmas linhas.
+        _rede = coletor._orcamento_de_rede()
+        _registo_de_rede = None
+        if _rede is not None:
+            import scrap_http as _http
+            _registo_de_rede = _rede.reservar(
+                _http.PEDIDO_ROTA if n == 0 else _http.PEDIDO_RETENTATIVA, url)
         req = urllib.request.Request(url, data=dados, headers=cab, method=metodo)
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 bruto = r.read().decode('utf-8', 'replace')
+            if _registo_de_rede is not None:
+                _registo_de_rede['OUTCOME'] = 'OK'
             if not bruto.strip():
                 ultimo = 'corpo vazio'
             else:
@@ -267,9 +388,19 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
             ultimo = 'HTTP %d' % e.code
         except Exception as e:                                # noqa: BLE001
             ultimo = ap.redigir('%s: %s' % (type(e).__name__, e))[:160]
-        if n < 3:
+        if _registo_de_rede is not None:
+            _registo_de_rede['OUTCOME'] = ultimo[:40] or 'FALHOU'
+        if n < vezes - 1:
             time.sleep(2 ** n)
-    raise RuntimeError('transporte falhou apos 4 tentativas: %s' % ultimo)
+    if vezes == 1:
+        # Quem chama decide, e `coletor.executar` ADOTA a execucao que possa
+        # ter nascido em vez de acender outra.
+        raise coletor.PostTalvezCriado(
+            'o %s caiu no transporte e NAO foi repetido: %s. A execucao pode '
+            'ter nascido do outro lado — repetir seria pagar duas vezes.'
+            % (metodo, ultimo))
+    raise RuntimeError('transporte falhou apos %d tentativas: %s'
+                       % (vezes, ultimo))
 
 
 coletor._curl = _curl_robusto          # a porta continua a mesma; o transporte, não
@@ -280,7 +411,7 @@ def _pessoas(lote=None):
         d = json.load(f)
     ps = [p for p in d['PEOPLE'] if p['IDENTITY_STATE'].startswith('IDENTITY_PROVED')]
     if lote:
-        ps = [p for p in ps if p['CASE_ID'] in LOTES[lote]]
+        ps = [p for p in ps if p['CASE_ID'] in casos_do_lote(lote)]
     return ps
 
 
@@ -359,18 +490,94 @@ def _registrar_lote(lote, mans):
 
 
 def _proveniencia(man, actor, lote, batch_id):
-    """Os campos que todo item carrega. Runner é proveniência técnica, não qualidade."""
+    """Os campos que todo item carrega. Runner é proveniência técnica, não qualidade.
+
+    `APIFY_ACTOR` sobrevive porque ha artefato historico que o carrega e leitor
+    que o espera. O que muda e o VALOR quando nao houve ator: `NAO_SE_APLICA`,
+    que nao e `NOT_KNOWN`.
+
+        «NAO SEI QUAL ATOR» E «NAO HOUVE ATOR» SAO RESPOSTAS DIFERENTES, e so
+        uma delas e verdadeira aqui.
+    """
     return {
         'COLLECTION_RUN_ID': man['RUN_ID'],
         'BATCH_ID': batch_id,
         'LOTE': lote,
         'RUNNER_NAME': RUNNER,
-        'APIFY_ACTOR': actor,
+        'APIFY_ACTOR': actor or 'NAO_SE_APLICA',
+        'COLLECTION_PROVIDER': man.get('COLLECTION_PROVIDER') or 'APIFY',
+        'PAID': man.get('PAID', True),
         'CAPTURED_AT': coletor.agora(),
     }
 
 
-def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, lote):
+def _juntar_quota(man, parte):
+    """Funde a quota de UMA corrida no manifesto do lote. Parcial contamina.
+
+    Um lote em que uma corrida declarou unidades e outra nao, TEM de sair
+    `PARTIAL`: a soma nao esta completa, e dizer `MEASURED` por maioria seria
+    dar ao piso a cara de total.
+    """
+    man['OFFICIAL_API_QUOTA_USED'] += parte.get('OFFICIAL_API_QUOTA_USED') or 0
+    man['OFFICIAL_API_SEARCH_CALLS'] = (man.get('OFFICIAL_API_SEARCH_CALLS') or 0) \
+        + (parte.get('OFFICIAL_API_SEARCH_CALLS') or 0)
+    if parte.get('OFFICIAL_API_QUOTA_STATE') == 'PARTIAL':
+        man['OFFICIAL_API_QUOTA_STATE'] = 'PARTIAL'
+    return man
+
+
+def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido):
+    """A rota canonica. → (itens, manifesto, 0).
+
+    Devolve a mesma tripla que `_rodar` para que quem chama nao precise de saber
+    por onde foi. A terceira posicao e SEMPRE 0: ela e a posicao da chave no
+    pool, e aqui nao ha pool nem chave paga.
+
+        O SENSOR DIZ O QUE PESQUISAR. O SCRAP DIZ COMO OBTER DA PLATAFORMA.
+
+    Essa fronteira e o ponto inteiro desta funcao. Se o sensor voltar a escolher
+    ferramenta, ele vira um segundo roteador — e o segundo roteador e sempre o
+    que ninguem mede.
+    """
+    import scrap_executor as scrap
+    itens, trace = scrap.COLLECT(platform=platform, capability=capacidade,
+                                 run_id=run_id, country_scope=country, **pedido)
+    man = {
+        'RUN_ID': run_id, 'PLATFORM': platform, 'COUNTRY': country,
+        'QUERY': query, 'LOTE': lote, 'STATUS': trace.get('RESULT'),
+        'ACTOR': None,
+        'COLLECTION_PROVIDER': trace.get('PROVIDER_USED'),
+        'PAID': bool(trace.get('PAID_PROVIDER_USED')),
+        'COST_USD': trace.get('COST_USD') or 0.0,
+        # ── SO O QUE A ROTA DECLAROU ─────────────────────────────────────────
+        # Aqui estava `1`, fixo. Uma busca gasta mesmo 1 chamada do balde
+        # SEARCH — mas `commentThreads` com 100 threads pagina, e `videos.list`
+        # com 120 ids custa 3. O literal acertava por coincidencia do tamanho
+        # que esta prova usa, e erraria em producao.
+        #
+        #     ACERTAR POR COINCIDENCIA NAO E MEDIR.
+        #
+        # E os dois baldes nao sao a mesma moeda: SEARCH conta CHAMADAS (100 por
+        # dia) e GENERAL conta UNIDADES (10.000 por dia). Somar os dois daria um
+        # numero que nao existe, por isso sao DOIS campos ate ao fim.
+        #
+        # A rota declara os dois desde a C3. Se um dia uma rota nova nao
+        # declarar, o estado diz PARCIAL e o inteiro vale como PISO — nunca se
+        # preenche o buraco com um palpite.
+        'OFFICIAL_API_QUOTA_USED': trace.get('QUOTA_UNITS') or 0,
+        'OFFICIAL_API_SEARCH_CALLS': trace.get('QUOTA_SEARCH_CALLS') or 0,
+        'OFFICIAL_API_QUOTA_STATE': ('MEASURED' if trace.get('QUOTA_UNITS') is not None
+                                     else 'PARTIAL'),
+        'ITEM_COUNT_RAW': len(itens),
+        'RUNNER_NAME': RUNNER,
+        'CAPTURED_AT': coletor.agora(),
+        'TRACE': trace,
+    }
+    return itens, man, 0
+
+
+def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path,
+           lote, autorizacao=None):
     """Roda pelo coletor, trocando de chave só quando a CHAVE é o problema.
 
     Começa na posição deslocada do lote para os dois runners não baterem juntos na mesma.
@@ -386,11 +593,20 @@ def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, l
     ultimo = ([], None)
     for tentativa, idx in enumerate(ordem):
         pos = idx + 1
+        # ── A AUTORIZACAO DESCE, E A ROTACAO NAO A RENOVA ─────────────────
+        # Este laco percorre o pool inteiro: sem consumo, UMA autorizacao
+        # pagaria tantas execucoes quantas chaves houvesse no cofre. O consumo
+        # vive em `leis/autorizacao_de_gasto.conferir_e_consumir`, e por isso a
+        # volta seguinte encontra a autorizacao mais pobre — ou esgotada.
+        #
+        #     ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO.
         itens, man = coletor.executar(
             actor, entrada, token=chaves[idx], run_id='%s-p%d' % (run_id, pos),
             platform=platform, country=country, mission=MISSION, query=query,
             source_version='captura de %s' % coletor.agora()[:10],
-            evidence_path=evidence_path)
+            evidence_path=evidence_path, autorizacao=autorizacao,
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None),
+            teto_usd=getattr(autorizacao, 'max_usd', None))
         man['TOKEN_POSITION_USED'] = pos
         man['RUNNER_NAME'] = RUNNER
         estado = ap.classificar(
@@ -467,7 +683,8 @@ def canais(lote='A'):
     """Canal público das pessoas do lote: LinkedIn por nome + YouTube por nome."""
     pessoas = _pessoas(lote)
     batch = 'BATCH-%s-CANAIS' % lote
-    print('lote %s · %d pessoas · recortes %s' % (lote, len(pessoas), LOTES[lote]))
+    print('lote %s · %d pessoas · recortes %s'
+          % (lote, len(pessoas), casos_do_lote(lote)))
     achados, mans, custo = [], [], 0.0
 
     for p in pessoas:
@@ -495,16 +712,13 @@ def canais(lote='A'):
 
         # --- YouTube: onde a pessoa aparece. Pode ser canal dela OU de instituição.
         termo = '%s %s' % (nome, (p['INSTITUTION'] or '').split(',')[0])
-        entrada = {'searchQueries': [termo], 'maxResults': 10, 'maxResultsShorts': 0,
-                   'maxResultStreams': 0, 'videoType': 'video'}
-        itens, man, pos = _rodar(
-            ATORES['YOUTUBE_SEARCH'], entrada,
+        itens, man, pos = _rodar_scrap(
+            CAPACIDADES_SCRAP['YOUTUBE_SEARCH'],
             run_id='SENSOR-YT-%s-%s' % (lote, _slug(nome)), platform='YOUTUBE',
-            country=pais, query=termo,
-            evidence_path='data/samples/SENSOR-PILOT/CANAIS-%s.json' % lote, lote=lote)
+            country=pais, query=termo, lote=lote, termo=termo, limit=10)
         if man:
             mans.append(man); custo += _usd(man)
-            prov = _proveniencia(man, ATORES['YOUTUBE_SEARCH'], lote, batch)
+            prov = _proveniencia(man, None, lote, batch)
             for v in (itens or []):
                 achados.append(_cand_video(v, p, termo, prov, rota='PERSON_NAME_SEARCH'))
             print('      YouTube : %d itens (pos %d, %s)'
@@ -520,7 +734,7 @@ def canais(lote='A'):
         'ORIGINAL_LANGUAGE': 'multi', 'EVIDENCE_CLASS': 'PRIMARY_SOURCE_PROBE',
         'CAPTURED_AT': coletor.agora(), 'MISSION': MISSION,
         'BATCH_ID': batch, 'LOTE': lote, 'RUNNER_NAME': RUNNER,
-        'CASES': LOTES[lote],
+        'CASES': casos_do_lote(lote),
         'PEOPLE_QUERIED': len(pessoas),
         'CANDIDATES': len(achados),
         'APIFY_RUNS': len(mans), 'COST_USD': round(custo, 6),
@@ -567,10 +781,16 @@ def _cand_linkedin(it, p, prov):
 
 
 def _cand_video(v, p, termo, prov, rota):
-    canal = v.get('channelName') or v.get('channelTitle') or pv.NAO_SEI
+    # ── DOIS VOCABULARIOS, UMA FUNCAO ────────────────────────────────────────
+    # Os nomes em MAIUSCULA vem do envelope do SCRAP; os minusculos, do ator
+    # pago. Os dois convivem porque o mesmo recorte pode ter itens antigos e
+    # novos, e converter um no outro antes de mapear disfarcaria a origem.
+    r = v.get('RAW') or {}
+    canal = (v.get('channelName') or v.get('channelTitle')
+             or r.get('CHANNEL_TITLE') or pv.NAO_SEI)
     sobren = ((p or {}).get('NAME') or '').split()[-1].lower() if p else ''
     parece_dela = bool(sobren) and sobren in str(canal).lower()
-    vid = v.get('id') or v.get('videoId') or pv.NAO_SEI
+    vid = v.get('id') or v.get('videoId') or v.get('NATIVE_ID') or pv.NAO_SEI
     return dict(prov, **{
         'PERSON_ID': (p or {}).get('PERSON_ID', pv.NAO_SEI),
         'NAME': (p or {}).get('NAME', pv.NAO_SEI),
@@ -578,18 +798,27 @@ def _cand_video(v, p, termo, prov, rota):
         'COUNTRY_OF_PERSON': (p or {}).get('COUNTRY', pv.NAO_SEI),
         'INSTITUTION': (p or {}).get('INSTITUTION', pv.NAO_SEI),
         'SOURCE_PLATFORM': 'YOUTUBE',
-        'SOURCE_URL': v.get('url') or v.get('link') or pv.NAO_SEI,
+        'SOURCE_URL': v.get('url') or v.get('link') or v.get('URL') or pv.NAO_SEI,
         'EXTERNAL_ID': vid,
-        'TITLE': v.get('title') or pv.NAO_SEI,
+        'TITLE': v.get('title') or v.get('TITLE') or pv.NAO_SEI,
         'CHANNEL': canal,
-        'CHANNEL_URL': v.get('channelUrl') or pv.NAO_SEI,
+        'CHANNEL_URL': (v.get('channelUrl')
+                        or ('https://www.youtube.com/channel/%s' % r['CHANNEL_ID']
+                            if r.get('CHANNEL_ID') else None) or pv.NAO_SEI),
         'SOURCE_ENTITY': canal,
-        'PUBLISHED_AT': v.get('date') or v.get('publishedAt') or pv.NAO_SEI,
-        'DURATION': v.get('duration') or pv.NAO_SEI,
-        'VIEWS': v.get('viewCount') if v.get('viewCount') is not None else pv.NAO_SEI,
+        'PUBLISHED_AT': (v.get('date') or v.get('publishedAt')
+                         or v.get('PUBLISHED_AT') or pv.NAO_SEI),
+        'DURATION': v.get('duration') or r.get('DURATION') or pv.NAO_SEI,
+        'VIEWS': (v.get('viewCount') if v.get('viewCount') is not None
+                  else (r.get('VIEW_COUNT') if r.get('VIEW_COUNT') is not None
+                        else pv.NAO_SEI)),
         'COMMENTS_COUNT': (v.get('commentsCount')
-                           if v.get('commentsCount') is not None else pv.NAO_SEI),
-        'DESCRIPTION': (v.get('text') or v.get('description') or '')[:6000] or pv.NAO_SEI,
+                           if v.get('commentsCount') is not None
+                           else (r.get('COMMENT_COUNT')
+                                 if r.get('COMMENT_COUNT') is not None
+                                 else pv.NAO_SEI)),
+        'DESCRIPTION': ((v.get('text') or v.get('description')
+                         or v.get('TEXT') or '')[:6000] or pv.NAO_SEI),
         'TRANSCRIPT': None,
         'TRANSCRIPT_AVAILABLE': 'NOT_TESTED',
         'CHANNEL_KIND': ('PERSON_OWN_CHANNEL_CANDIDATE' if parece_dela
@@ -608,23 +837,55 @@ def _cand_video(v, p, termo, prov, rota):
 def videos(lote='A'):
     """Vídeos dos recortes do lote, por termo técnico NA LÍNGUA DO PAÍS."""
     batch = 'BATCH-%s-VIDEOS' % lote
+
+    # AVISO ANTES DE GASTAR, NAO DEPOIS.
+    # Os lotes A e B sao de quando este projeto cobria tres paises: cada um leva
+    # um recorte italiano e dois estrangeiros. Rodar um deles aqui gasta dois
+    # tercos da rota PAGA a buscar espanhol e frances num repositorio que e da
+    # Italia — e ninguem via isso ate a fatura.
+    #
+    # Nao se barra a corrida: A e B continuam a servir para repetir uma coleta
+    # antiga e comparar. Mas quem a manda correr fica a saber o que vai pagar.
+    # AQUI e onde o dinheiro comeca a sair. Por isso o portao fica ANTES.
+    casos = casos_do_lote(lote)
+
     achados, mans, custo = [], [], 0.0
-    for caso in LOTES[lote]:
+    for caso in casos:
         pais = caso.split('-')[0]
         crop, issue = caso.split('-', 1)[1].rsplit('-', 1)
         termos = TERMOS[caso]
         print('  %s · %d termos' % (caso, len(termos)))
-        entrada = {'searchQueries': termos, 'maxResults': 25, 'maxResultsShorts': 0,
-                   'maxResultStreams': 0, 'videoType': 'video'}
-        itens, man, pos = _rodar(
-            ATORES['YOUTUBE_SEARCH'], entrada,
-            run_id='SENSOR-VID-%s-%s' % (lote, caso), platform='YOUTUBE',
-            country=pais, query=' | '.join(termos),
-            evidence_path='data/samples/SENSOR-PILOT/VIDEOS-%s.json' % lote, lote=lote)
+        # ── UM TERMO POR CHAMADA, E ISSO MUDA A CONTA DA QUOTA ──────────────
+        # O ator pago engolia a lista inteira de termos numa corrida. O
+        # `search.list` oficial aceita UMA consulta por chamada, e a busca e o
+        # balde escasso: 100 por dia, nao 10.000.
+        #
+        #     N TERMOS = N CHAMADAS DE BUSCA. Escondido, isto queimaria o dia
+        #     sem ninguem perceber; declarado, e uma decisao de quem manda
+        #     correr.
+        #
+        # Nada foi ampliado para compensar: `limit` continua 25 por termo, como
+        # o ator pedia.
+        itens, man, pos = [], None, 0
+        for termo_t in termos:
+            it_t, man_t, _p = _rodar_scrap(
+                CAPACIDADES_SCRAP['YOUTUBE_SEARCH'],
+                run_id='SENSOR-VID-%s-%s' % (lote, caso), platform='YOUTUBE',
+                country=pais, query=termo_t, lote=lote, termo=termo_t, limit=25)
+            itens.extend(it_t or [])
+            if man is None:
+                man = man_t
+            else:
+                man['ITEM_COUNT_RAW'] += man_t['ITEM_COUNT_RAW']
+                _juntar_quota(man, man_t)
+                if man_t['STATUS'] != 'OK':
+                    man['STATUS'] = man_t['STATUS']
         if not man:
             continue
+        man['QUERY'] = ' | '.join(termos)
+        man['SEARCH_CALLS'] = len(termos)
         mans.append(man); custo += _usd(man)
-        prov = _proveniencia(man, ATORES['YOUTUBE_SEARCH'], lote, batch)
+        prov = _proveniencia(man, None, lote, batch)
         for v in (itens or []):
             r = _cand_video(v, None, ' | '.join(termos), prov, rota='CASE_TERM_SEARCH')
             # CROP e ISSUE vêm da CONSULTA que trouxe o item, nunca do título.
@@ -643,8 +904,8 @@ def videos(lote='A'):
         'FACT_LOCATION': 'NOT_KNOWN — sai do conteúdo, nunca da consulta',
         'ORIGINAL_LANGUAGE': 'multi', 'EVIDENCE_CLASS': 'PRIMARY_SOURCE_PROBE',
         'CAPTURED_AT': coletor.agora(), 'MISSION': MISSION,
-        'BATCH_ID': batch, 'LOTE': lote, 'RUNNER_NAME': RUNNER, 'CASES': LOTES[lote],
-        'TERMS_BY_CASE': {c: TERMOS[c] for c in LOTES[lote]},
+        'BATCH_ID': batch, 'LOTE': lote, 'RUNNER_NAME': RUNNER, 'CASES': casos,
+        'TERMS_BY_CASE': {c: TERMOS[c] for c in casos},
         'ITEMS_COUNT': len(achados),
         'APIFY_RUNS': len(mans), 'COST_USD': round(custo, 6),
         'RUN_IDS': [m['RUN_ID'] for m in mans],
@@ -726,7 +987,11 @@ def transcricao(lote='A'):
             achados.append(dict(prov, **{
                 'SOURCE_URL': u['url'], 'EXTERNAL_ID': pv.NAO_SEI, 'TRANSCRIPT': None,
                 'TRANSCRIPT_AVAILABLE': 'REQUESTED_EMPTY',
-                'TRANSCRIPT_LANGUAGE': pv.NAO_SEI, 'CAPTION_SOURCE': actor,
+                'TRANSCRIPT_LANGUAGE': pv.NAO_SEI,
+                'TRANSCRIPT_LANGUAGE_BASIS': 'NOT_DECLARED_BY_PROVIDER',
+                'TRANSCRIPT_KIND': pv.NAO_SEI,
+                'TRANSCRIPT_KIND_BASIS': pv.NOT_DECLARED,
+                'CAPTION_SOURCE': actor,
                 'WHY_EMPTY': str(man.get('ERROR'))[:200]}))
         for t in (itens or []):
             texto = _texto_transcricao(t)
@@ -736,6 +1001,15 @@ def transcricao(lote='A'):
                 'TRANSCRIPT': texto,
                 'TRANSCRIPT_AVAILABLE': 'YES' if texto else 'REQUESTED_EMPTY',
                 'TRANSCRIPT_LANGUAGE': t.get('language') or pv.NAO_SEI,
+                # DECLARADO != DETECTADO != AUSENTE. O ator não declarou a língua
+                # em nenhuma das 48 corridas preservadas; dizer «não declarou» é
+                # mais honesto do que deixar o `NÃO SEI` sozinho a parecer dúvida
+                # nossa quando a lacuna é dele.
+                'TRANSCRIPT_LANGUAGE_BASIS': ('DECLARED_BY_PROVIDER'
+                                              if t.get('language')
+                                              else 'NOT_DECLARED_BY_PROVIDER'),
+                'TRANSCRIPT_KIND': pv.especie_declarada(t)[0],
+                'TRANSCRIPT_KIND_BASIS': pv.especie_declarada(t)[1],
                 'CAPTION_SOURCE': actor,
             }))
         print('      %d/%d %s: %d itens (pos %d, %s)'
@@ -758,6 +1032,29 @@ def transcricao(lote='A'):
     print('\ngravado: %s · com texto=%d/%d · custo=%.4f USD'
           % (caminho, com, len(achados), custo))
     return 0
+
+
+# ── A ESPÉCIE DO TEXTO VIVE NO DONO DA PROVENIÊNCIA ─────────────────────────
+# A C5 declarou este vocabulário AQUI porque este ficheiro foi o primeiro a
+# precisar dele. Na C6 apareceu o segundo consumidor — `sensor_medir.py`, que
+# alimenta o lugar do facto com o mesmo texto — e dois consumidores fazem a
+# pergunta deixar de ser deste ficheiro.
+#
+#     ONE CONCEPT -> ONE OWNER. E o dono da procedencia de um texto derivado
+#     nao e quem o colheu primeiro: e quem governa procedencia.
+#
+# Mudou de sítio, não de significado. Os nomes continuam a resolver aqui para
+# que nenhum chamador existente se parta.
+NATIVE_CAPTION_ORIGINAL = pv.NATIVE_CAPTION_ORIGINAL
+NATIVE_CAPTION_TRANSLATED = pv.NATIVE_CAPTION_TRANSLATED
+ASR_LOCAL = pv.ASR_LOCAL
+ESPECIES_DE_TEXTO = pv.ESPECIES_DO_TEXTO
+
+
+def especie_do_texto(item):
+    """→ a espécie que o provedor DECLAROU. O dono decide; aqui só se pergunta."""
+    especie, _base = pv.especie_declarada(item)
+    return especie
 
 
 def _texto_transcricao(t):
@@ -811,25 +1108,48 @@ def comentarios(lote='A'):
         # [0..19] do not contain valid URLs". O RUN-MANIFEST espanhol guardava a entrada
         # como a FRASE "48 vídeos on-topic", não a estrutura, então a forma real nunca
         # esteve preservada. Entrada descrita em prosa não é entrada reproduzível.
-        itens, man, pos = _rodar(
-            ATORES['YOUTUBE_COMMENTS'],
-            {'startUrls': [{'url': u} for u in pedaco],
-             'maxComments': 50, 'sortCommentsBy': 'TOP_COMMENTS'},
-            run_id='SENSOR-CM-%s-%d' % (lote, i // 20), platform='YOUTUBE',
-            country='MULTI', query='%d videos' % len(pedaco),
-            evidence_path='data/samples/SENSOR-PILOT/COMENTARIOS-%s.json' % lote,
-            lote=lote)
+        # ── UM VIDEO POR CHAMADA ────────────────────────────────────────────
+        # O ator recebia vinte URLs de uma vez. `commentThreads.list` pergunta
+        # por UM video, e custa 1 unidade do balde GERAL — o largo, de 10.000.
+        # Vinte videos custam vinte unidades, e nao vinte buscas.
+        itens, man, pos = [], None, 0
+        for u in pedaco:
+            vid = (por_url.get(u) or {}).get('EXTERNAL_ID')
+            if not vid:
+                continue
+            it_c, man_c, _p = _rodar_scrap(
+                CAPACIDADES_SCRAP['YOUTUBE_COMMENTS'],
+                run_id='SENSOR-CM-%s-%d' % (lote, i // 20), platform='YOUTUBE',
+                country='MULTI', query=u, lote=lote,
+                video_id=vid, limite_threads=50)
+            for c in (it_c or []):
+                c.setdefault('_SOURCE_VIDEO_URL', u)
+            itens.extend(it_c or [])
+            if man is None:
+                man = man_c
+            else:
+                man['ITEM_COUNT_RAW'] += man_c['ITEM_COUNT_RAW']
+                _juntar_quota(man, man_c)
+                # COMENTARIO DESLIGADO NAO CONTAMINA O LOTE: e um facto sobre
+                # aquele video, e o estado do lote so muda se nenhum responder.
+                if man_c['STATUS'] not in ('OK', 'ZERO_RESULTS', 'FEATURE_DISABLED'):
+                    man['STATUS'] = man_c['STATUS']
         if not man:
             continue
+        man['QUERY'] = '%d videos' % len(pedaco)
         mans.append(man); custo += _usd(man)
-        prov = _proveniencia(man, ATORES['YOUTUBE_COMMENTS'], lote,
+        prov = _proveniencia(man, None, lote,
                              'BATCH-%s-COMENTARIOS' % lote)
         for c in (itens or []):
-            u = c.get('videoUrl') or c.get('url') or ''
+            rc = c.get('RAW') or {}
+            u = (c.get('videoUrl') or c.get('_SOURCE_VIDEO_URL')
+                 or c.get('url') or '')
             v = por_url.get(u) or {}
             achados.append(dict(prov, **{
-                'COMMENT_ID': c.get('cid') or c.get('commentId') or pv.NAO_SEI,
-                'VIDEO_ID': v.get('EXTERNAL_ID') or c.get('videoId') or pv.NAO_SEI,
+                'COMMENT_ID': (c.get('cid') or c.get('commentId')
+                               or rc.get('COMMENT_ID') or pv.NAO_SEI),
+                'VIDEO_ID': (v.get('EXTERNAL_ID') or c.get('videoId')
+                             or rc.get('VIDEO_ID') or pv.NAO_SEI),
                 'SOURCE_URL': u or v.get('SOURCE_URL') or pv.NAO_SEI,
                 'SOURCE_PLATFORM': 'YOUTUBE',
                 'SOURCE_ENTITY': v.get('CHANNEL') or pv.NAO_SEI,
@@ -837,20 +1157,43 @@ def comentarios(lote='A'):
                 'CROP': v.get('CROP') or pv.NAO_SEI,
                 'ISSUE': v.get('ISSUE') or pv.NAO_SEI,
                 # O texto ORIGINAL fica. Resumir e jogar fora a frase mata a evidência.
-                'COMMENT_TEXT_RAW': c.get('comment') or c.get('text') or '',
-                'COMMENTER_NAME': c.get('author') or c.get('authorName') or pv.NAO_SEI,
-                'COMMENTER_PROFILE_URL': (c.get('authorChannelUrl')
-                                          or c.get('authorUrl') or pv.NAO_SEI),
-                'COMMENTER_ID': c.get('authorChannelId') or pv.NAO_SEI,
+                'COMMENT_TEXT_RAW': (c.get('comment') or c.get('text')
+                                    or rc.get('TEXT_ORIGINAL') or ''),
+                'COMMENTER_NAME': (c.get('author') or c.get('authorName')
+                                   or rc.get('AUTHOR_DISPLAY_NAME') or pv.NAO_SEI),
+                'COMMENTER_PROFILE_URL': (
+                    c.get('authorChannelUrl') or c.get('authorUrl')
+                    or ('https://www.youtube.com/channel/%s'
+                        % rc['AUTHOR_CHANNEL_ID'] if rc.get('AUTHOR_CHANNEL_ID')
+                        else None) or pv.NAO_SEI),
+                'COMMENTER_ID': (c.get('authorChannelId')
+                                 or rc.get('AUTHOR_CHANNEL_ID') or pv.NAO_SEI),
                 # Handle não é pessoa. Todo autor entra sem papel resolvido.
                 'COMMENTER_ENTITY_KIND': 'UNKNOWN',
                 'COMMENTER_IDENTITY_STATE': 'UNVERIFIED',
-                'LIKE_COUNT': c.get('voteCount') if c.get('voteCount') is not None
-                              else pv.NAO_SEI,
-                # A rota devolve tempo relativo ("hace 2 años"), não data. Converter um no
-                # outro inventaria precisão que a fonte não deu.
-                'DATE': pv.NAO_SEI,
-                'DATE_RELATIVE': c.get('publishedTimeText') or c.get('date') or pv.NAO_SEI,
+                'LIKE_COUNT': (c.get('voteCount')
+                               if c.get('voteCount') is not None
+                               else (rc.get('LIKE_COUNT')
+                                     if rc.get('LIKE_COUNT') is not None
+                                     else pv.NAO_SEI)),
+                # ── A ROTA OFICIAL DA A HORA. A PAGA SO DAVA «HA 2 ANOS» ────
+                # O ator devolvia tempo relativo, e converte-lo em data teria
+                # inventado precisao — por isso `DATE` nascia NOT_KNOWN. A API
+                # oficial devolve o instante, e recusa-lo para «manter a forma
+                # antiga» seria preservar um defeito em nome da compatibilidade.
+                #
+                #     COMPATIBILIDADE E «NENHUM DADO NECESSARIO DESAPARECE».
+                #     Nao e «reproduzir o que a rota velha nao sabia».
+                #
+                # `DATE_RELATIVE` sobrevive, vazio quando a fonte da a data: ele
+                # deriva-se do instante, e nunca o contrario.
+                'DATE': (c.get('publishedAt') or rc.get('PUBLISHED_AT')
+                         or pv.NAO_SEI),
+                'DATE_UPDATED': rc.get('UPDATED_AT') or pv.NAO_SEI,
+                'IS_REPLY': rc.get('IS_REPLY', pv.NAO_SEI),
+                'PARENT_ID': rc.get('PARENT_ID') or pv.NAO_SEI,
+                'DATE_RELATIVE': (c.get('publishedTimeText') or c.get('date')
+                                  or pv.NAO_SEI),
                 'COUNTRY_OF_FACT': 'NOT_KNOWN',
                 'REGION_OF_FACT': 'NOT_KNOWN',
                 'SPEECH_TYPE': 'NOT_CLASSIFIED',
@@ -877,7 +1220,10 @@ def comentarios(lote='A'):
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'contratos'
-    lote = (sys.argv[2] if len(sys.argv) > 2 else 'A').upper()
+    # POR OMISSAO, O LOTE ITALIANO. Era 'A' — o lote com dois tercos de recortes
+    # estrangeiros — e bastava esquecer o argumento para colher Espanha e Franca
+    # neste repositorio.
+    lote = (sys.argv[2] if len(sys.argv) > 2 else 'C').upper()
     fn = {'contratos': contratos, 'canais': canais, 'videos': videos,
           'transcricao': transcricao, 'comentarios': comentarios}[cmd]
     raise SystemExit(fn(lote))

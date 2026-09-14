@@ -1,0 +1,181 @@
+{
+  "IDENTIDADE_DO_ARTEFATO": {
+    "O_QUE_E": "CAMINHO, CAPTURA, CONTEUDO e COPIA sao quatro especies. Caminho diferente NAO prova captura diferente; SHA igual NAO prova a mesma captura. Cada grupo abaixo foi classificado pela PROVA DE CAPTURA de cada caminho, nunca pelo nome da pasta.",
+    "COPIAS_NO_DISCO": 49,
+    "CONTEUDOS_UNICOS": 43,
+    "CAPTURAS_DISTINTAS": 24,
+    "COPIAS_SEM_PROVA_DE_CAPTURA": 11,
+    "ONDE_FALTA_PROVA": [
+      "data/samples/IT-ARPAV-VENETO/boll_agro_settimanale.pdf",
+      "data/samples/IT-ARPAV-VENETO/fineestate_310826.pdf",
+      "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf",
+      "data/samples/IT-ARPAV-VENETO/lug2026.pdf",
+      "data/samples/IT-ARPAV-VENETO/olivicolo_28_260826.pdf",
+      "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.pdf",
+      "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.pdf",
+      "data/samples/IT-ARPAV-VENETO/vite_19_130826.pdf",
+      "data/samples/IT-ARPAV-VENETO/vite_20_270826.pdf",
+      "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.pdf",
+      "data/samples/PIEMONTE-FD/piano_operativo_2026.pdf"
+    ],
+    "GRUPOS_COM_MAIS_DE_UMA_COPIA": 6,
+    "VEREDITO": {
+      "INDEPENDENT_CAPTURES_SAME_CONTENT": 6
+    },
+    "GRUPOS": [
+      {
+        "SHA256": "0c2723e66201f9668d0c2493f9c85d6f0b4843c2a5059fe9a4f9dc2acecb70c5",
+        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
+        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-07T13:49:59.548Z | 2026-09-07T15:37:53.953Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "COPIAS": [
+          {
+            "CAMINHO": "data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf",
+            "REGISTO": "LIVRO_DO_COLETOR",
+            "CAPTURED_AT": "2026-09-07T15:37:53.953Z",
+            "SOURCE_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+            "ATOR": "coletor-piloto",
+            "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+          },
+          {
+            "CAMINHO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf",
+            "REGISTO": "MANIFESTO_DA_AMOSTRA",
+            "CAPTURED_AT": "2026-09-07T13:49:59.548Z",
+            "SOURCE_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+            "ATOR": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+            "RUN_ID": null
+          }
+        ]
+      },
+      {
+        "SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
+        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:44.653Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "COPIAS": [
+          {
+            "CAMINHO": "data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf",
+            "REGISTO": "LIVRO_DO_COLETOR",
+            "CAPTURED_AT": "2026-09-07T15:37:44.653Z",
+            "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+            "ATOR": "coletor-piloto",
+            "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+          },
+          {
+            "CAMINHO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf",
+            "REGISTO": "MANIFESTO_DA_AMOSTRA",
+            "CAPTURED_AT": "2026-09-07T14:31:58.541Z",
+            "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+            "ATOR": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+            "RUN_ID": null
+          }
+        ]
+      },
+      {
+        "SHA256": "420e08ef15bec6e4a9a5aa8fd822cd0067b597e7648e3260708dc2d176c7a2c7",
+        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
+        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-02 | 2026-09-07T13:49:59.548Z. Ator: curl HTTP GET com User-Agent de navegador, do IP de saida italiano | recolha manual por VPN.",
+        "COPIAS": [
+          {
+            "CAMINHO": "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf",
+            "REGISTO": "PACOTE_VPN",
+            "CAPTURED_AT": "2026-09-02",
+            "SOURCE_URL": "https://fitogest.imagelinenetwork.com/it/pan-piano-uso-sostenibile/bollettini-tecnici-provinciali-zonali/",
+            "ATOR": "recolha manual por VPN",
+            "RUN_ID": null
+          },
+          {
+            "CAMINHO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf",
+            "REGISTO": "MANIFESTO_DA_AMOSTRA",
+            "CAPTURED_AT": "2026-09-07T13:49:59.548Z",
+            "SOURCE_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-26-08.pdf",
+            "ATOR": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+            "RUN_ID": null
+          }
+        ]
+      },
+      {
+        "SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
+        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:49:05.748Z | 2026-09-07T15:37:57.488Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "COPIAS": [
+          {
+            "CAMINHO": "data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+            "REGISTO": "LIVRO_DO_COLETOR",
+            "CAPTURED_AT": "2026-09-07T15:37:57.488Z",
+            "SOURCE_URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+            "ATOR": "coletor-piloto",
+            "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+          },
+          {
+            "CAMINHO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+            "REGISTO": "MANIFESTO_DA_AMOSTRA",
+            "CAPTURED_AT": "2026-09-07T14:49:05.748Z",
+            "SOURCE_URL": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
+            "ATOR": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+            "RUN_ID": null
+          }
+        ]
+      },
+      {
+        "SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
+        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:36:30.583Z | 2026-09-07T15:38:27.742Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "COPIAS": [
+          {
+            "CAMINHO": "data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+            "REGISTO": "LIVRO_DO_COLETOR",
+            "CAPTURED_AT": "2026-09-07T15:38:27.742Z",
+            "SOURCE_URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+            "ATOR": "coletor-piloto",
+            "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+          },
+          {
+            "CAMINHO": "data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+            "REGISTO": "MANIFESTO_DA_AMOSTRA",
+            "CAPTURED_AT": "2026-09-07T14:36:30.583Z",
+            "SOURCE_URL": "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
+            "ATOR": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+            "RUN_ID": null
+          }
+        ]
+      },
+      {
+        "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
+        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:42.531Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "COPIAS": [
+          {
+            "CAMINHO": "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
+            "REGISTO": "LIVRO_DO_COLETOR",
+            "CAPTURED_AT": "2026-09-07T15:37:42.531Z",
+            "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+            "ATOR": "coletor-piloto",
+            "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+          },
+          {
+            "CAMINHO": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
+            "REGISTO": "MANIFESTO_DA_AMOSTRA",
+            "CAPTURED_AT": "2026-09-07T14:31:58.541Z",
+            "SOURCE_URL": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+            "ATOR": "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
+            "RUN_ID": null
+          }
+        ]
+      }
+    ]
+  },
+  "LINHAGEM_DO_DERIVADO": {
+    "O_QUE_E": "DERIVADO nao e RAW. Cada derivado declara de que conteudo nasceu, por que ferramenta e em que versao. O contrato ja existe nos ficheiros; falta-lhe casa no banco.",
+    "DERIVADOS_COM_PAI": 43,
+    "LINHAGEM_COMPLETA": 43,
+    "CAMPOS_DA_LINHAGEM": [
+      "PARENT_ARTIFACT_ID",
+      "PARENT_SHA256",
+      "DERIVATION_TYPE",
+      "EXECUTOR_ID",
+      "EXECUTOR_VERSION",
+      "PIPELINE_VERSION",
+      "DERIVED_AT"
+    ],
+    "PAI_GUARDADO_EM_MAIS_DE_UM_LUGAR": 6
+  }
+}

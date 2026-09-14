@@ -1,0 +1,292 @@
+{
+ "SOURCE_ID": "REEL-TRANSCRICOES/MODELO-COMPARACAO-V1",
+ "source": "a MESMA gravacao ouvida por dois modelos, na mesma maquina, no mesmo dia",
+ "SOURCE_LOCATION": "maquina de execucao desta missao",
+ "FACT_LOCATION": "NAO_SE_APLICA",
+ "MEASURED_AT": "2026-09-10",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "HARDWARE": {
+  "CPU": "Intel Xeon 2.80GHz",
+  "CORES": 4,
+  "GPU": "NENHUMA",
+  "RAM_GB": 15,
+  "OS": "Ubuntu 24.04.4 LTS",
+  "COMPUTE_TYPE": "int8",
+  "BEAM": 1,
+  "BATCH": 8,
+  "VAD": "YES"
+ },
+ "PORQUE_ISTO_EXISTE": "a primeira medicao desta casa (2026-09-02) elegeu `small` por velocidade. Esta re-mede sobre REELS REAIS do corpus EAME, e o que muda a decisao nao e a velocidade: e o nome da cultura e o nome da marca.",
+ "O_QUE_SMALL_ERRA_E_MEDIUM_ACERTA": [
+  {
+   "DITO": "mais (a cultura)",
+   "SMALL": "MICE",
+   "MEDIUM": "mais",
+   "REEL": "C-FanW_CYMz"
+  },
+  {
+   "DITO": "maiscoltori",
+   "SMALL": "mai scoltori",
+   "MEDIUM": "maiscoltori",
+   "REEL": "C-FanW_CYMz"
+  },
+  {
+   "DITO": "Discovery Seeds",
+   "SMALL": "Discovery Seats",
+   "MEDIUM": "Discovery Seeds",
+   "REEL": "C-FanW_CYMz"
+  },
+  {
+   "DITO": "eventi",
+   "SMALL": "venti",
+   "MEDIUM": "eventi",
+   "REEL": "C-FanW_CYMz"
+  },
+  {
+   "DITO": "Syngenta",
+   "SMALL": "Singentha",
+   "MEDIUM": "Syngenta",
+   "REEL": "Db5QG2Dk3sF"
+  }
+ ],
+ "O_QUE_MEDIUM_AINDA_ERRA": [
+  {
+   "DITO": "Syngenta",
+   "MEDIUM": "di singenta",
+   "REEL": "C-FanW_CYMz",
+   "NOTA": "a marca continua errada em italiano. Por isso o caso IT esta PARTIAL, e nao PASS — nao se arredonda para cima."
+  }
+ ],
+ "CUSTO_DA_ESCOLHA": "medium e ~2,8x mais lento que small nesta maquina. Continua acima do tempo real (1,5x-2,5x): um Reel de 90 s custa ~40-60 s de maquina e ZERO dolares.",
+ "DECISAO": "o padrao da cadeia de Reel sobe para `medium`. `fala_local.MODELO_PADRAO` fica em `small`: os dois programas de lote que ja existiam foram orcados nele, e mudar o orcamento deles nao era desta missao.",
+ "LINHAS": [
+  {
+   "REEL": "C-FanW_CYMz",
+   "small": {
+    "REALTIME_FACTOR": 5.03,
+    "MACHINE_SECONDS": 6.8,
+    "AUDIO_SECONDS": 34.1,
+    "CHARS": 345,
+    "TRANSCRIPT": "Buongiorno appassionati di MICE, benvenuti su Discovery Seats, la nuova minisserie disingenta che tratterà tematiche molto importanti per gli agricoltori e mai scoltori italiani. Parleremo di ricerca, campi demo e venti legati al MICE e nuovi prodotti. Non perdetevi il prossimo episodio dove parleremo di Ibrido e la Garella di MICE. Seguitemi!"
+   },
+   "IDIOMA": "it",
+   "medium": {
+    "REALTIME_FACTOR": 1.8,
+    "MACHINE_SECONDS": 18.9,
+    "AUDIO_SECONDS": 34.1,
+    "CHARS": 343,
+    "TRANSCRIPT": "Buongiorno appassionati di mais, benvenuti su Discovery Seeds, la nuova mini serie di singenta che tratterà tematiche molto importanti per gli agricoltori e maiscoltori italiani. Parleremo di ricerca, campi demo, eventi legati al mais e nuovi prodotti. Non perdetevi il prossimo episodio dove parleremo di ibridi da garella di mais. Seguitemi!"
+   }
+  },
+  {
+   "REEL": "Db5QG2Dk3sF",
+   "small": {
+    "REALTIME_FACTOR": 5.13,
+    "MACHINE_SECONDS": 21.9,
+    "AUDIO_SECONDS": 112.6,
+    "CHARS": 1486,
+    "TRANSCRIPT": "Singentha no es una empresa de fertilizantes, pero es mucho más que una empresa de fitosanitarios. Es una empresa de ciencia agrícola. Además de las herramientas que ya he comentado antes, de escaneo del suelo, herramientas digitales y de agricultura de precisión, el desarrollo de microorganismos y de biostimulantes, Singentha también tiene un foco muy fuerte en el desarrollo de variedades. Y estoy de acuerdo con Cristóbal, que las nuevas técnicas genómicas cuya legislación está todavía en desarrollo, van a ser clave también para el desarrollo de variedades más eficientes. Concretamente en España tenemos un equipo técnico de más de 40 personas que se dedica a validar, a trasladar toda esa ciencia a la realidad del campo. Este equipo se ocupa de validar la tecnología y probarla en nuestras condiciones, en nuestros suelos, en nuestros cultivos, en nuestras áreas. Para que os hagáis una idea, el año pasado hemos hecho más de 450 ensayos de los cuales más de 160 son con productos biológicos. Pero la innovación es un ecosistema de colaboración. y es fundamental la colaboración con las entidades públicas, entidades como el CSIC, como las universidades que generan ese conocimiento de base y es responsabilidad de empresas como la nuestra, el validar, el escalar esa tecnología de manera transparente junto con la administración, junto con las instituciones de agricultores, con cooperativas, con la cadena de distribución, que pueda llegar toda esa innovación al agricultor."
+   },
+   "IDIOMA": "es",
+   "medium": {
+    "REALTIME_FACTOR": 2.49,
+    "MACHINE_SECONDS": 45.2,
+    "AUDIO_SECONDS": 112.6,
+    "CHARS": 1475,
+    "TRANSCRIPT": "Syngenta no es una empresa de fertilizantes pero es mucho más que una empresa de fitosanitarios, es una empresa de ciencia agrícola y además de las herramientas que ya he comentado antes de escaneo de suelo, herramientas digitales y de agricultura de precisión, el desarrollo de microorganismos y de bioestimulantes, Syngenta también tiene un foco muy fuerte en el desarrollo de variedades y estoy de acuerdo con Cristóbal. que las nuevas técnicas genómicas cuya legislación está todavía en desarrollo van a ser clave también para el desarrollo de variedades más eficientes. Concretamente en España tenemos un equipo técnico de más de 40 personas que se dedica a validar, a trasladar toda esa ciencia a la realidad del campo. Este equipo se ocupa de validar la tecnología y probarla en nuestras condiciones, nuestros suelos, nuestros cultivos, en nuestras áreas. Para que os hagáis una idea, el año pasado hemos hecho más de 450 ensayos, de los cuales más de 160 son con productos biológicos. Pero la innovación es un ecosistema de colaboración. y es fundamental la colaboración con las entidades públicas, entidades como el CSIC, como las universidades que generan ese conocimiento de base y es responsabilidad de empresas como la nuestra el validar, el escalar esa tecnología y de manera transparente junto con la administración, junto con las asociaciones de agricultores, con cooperativas, con la cadena de distribución que pueda llegar toda esa innovación al agricultor."
+   }
+  },
+  {
+   "REEL": "C2b0GJrIJ8t",
+   "small": {
+    "REALTIME_FACTOR": 3.22,
+    "MACHINE_SECONDS": 24.4,
+    "AUDIO_SECONDS": 78.4,
+    "CHARS": 1754,
+    "TRANSCRIPT": "Ça peut aller jusqu'où ? Jusqu'à bloquer Paris ? C'est ce que vous dites au premier ministre ce matin ? On l'a déjà fait, le but ça ne serait pas d'y arriver parce que ce qui est dramatique c'est que si il faut en arriver là ça va devenir rousant dans ce pays, s'il faut toujours être en train de bloquer un pays... Mais sauf que si il le faut, vous le serez ? Si il le faut potentiellement on y réfléchira et on le fera mais on concertera notre réseau parce que c'est notre réseau qui est en action, qui est sur le terrain et on verra avec eux mais si il faut en arriver là, oui on l'a déjà fait donc on peut le refaire. La détermination en tout cas elle est bien réelle sur le terrain. Ah puis je pense que plus que jamais moi je l'ai jamais vu à un niveau aussi élevé. Jamais ? Non. Jamais par le passé. Non, non, là honnêtement on a une vraie crise profonde. Les mecs malheureusement pour certains plus rien à perdre. Donc en fait c'est leur survie qui est en jeu, leur survie de leurs entreprises, leur famille. Donc voilà, il y a des gens déterminés qui ne lâcheront rien. Le risque, disent certains, c'est une zilé-jaunisation de ce mouvement. C'est ce que vous redoutez ? On peut toujours le redouter après mon géconfiance en nos agriculteurs qui sont des gens responsables, qui sont des chefs d'entreprise. Mais la colère elle est là. Oui, la colère est là. Et profonde. Il faut aussi qu'on fasse attention à pas qu'il y ait des gens qui profitent du mouvement pour venir s'y raccrocher. Penser à certains politiques. Oui. Rassenter en national par exemple. Oui, comme d'autres, il y a un moment donné, moi je veux bien qu'ils nous aiment tous tant mieux mais qu'ils le prouvent par des actes, il y a un moment donné les paroles, ça suffit quoi."
+   },
+   "IDIOMA": "fr",
+   "medium": {
+    "REALTIME_FACTOR": 1.48,
+    "MACHINE_SECONDS": 53.0,
+    "AUDIO_SECONDS": 78.4,
+    "CHARS": 1728,
+    "TRANSCRIPT": "Ça peut aller jusqu'où ? Jusqu'à bloquer Paris ? C'est ce que vous dites au Premier ministre ce matin ? On l'a déjà fait, le but, ça ne serait pas d'y arriver parce que ce qui est dramatique c'est que s'il faut en arriver là, ça va devenir usant dans ce pays, s'il faut toujours être en train de bloquer un pays. Mais sauf que s'il le faut, vous le ferez ? Si il le faut, potentiellement on y réfléchira et on le fera, mais on concertera notre réseau parce que c'est notre réseau qui est en action, qui est sur le terrain, et on verra avec eux. Mais s'il faut en arriver là, oui on l'a déjà fait, donc on peut le refaire. La détermination en tout cas elle est bien réelle sur le terrain ? Je pense que plus que jamais, moi je l'ai jamais vu à un niveau si élevé. Jamais ? Non. Jamais par le passé ? Non, non, là honnêtement on a une vraie crise profonde. Les mecs, malheureusement, pour certains plus rien à perdre. Donc en fait c'est leur survie qui est en jeu, leur survie de leurs entreprises, leur famille. Donc voilà, il y a des gens déterminés qui ne lâcheront rien. Le risque, disent certains, c'est une gilet jaunisation de ce mouvement. C'est ce que vous redoutez ? On peut toujours le redouter après moi j'ai confiance en nos agriculteurs qui sont des gens responsables, qui sont des chefs d'entreprise. Mais la colère elle est là. Oui la colère est là. Il faut aussi qu'on fasse attention à pas qu'il y ait des gens qui profitent du mouvement pour venir s'y raccrocher. Penser à certains politiques ? Oui. Rassemblement national par exemple ? Oui comme d'autres, il y a un moment donné moi je veux bien qu'ils nous aiment tous tant mieux mais qu'ils le prouvent par des actes, à un moment donné les paroles ça suffit."
+   }
+  }
+ ],
+ "TAMBEM_MEDIDO_TINY_BASE_SMALL": {
+  "tiny|it": {
+   "modelo": "tiny",
+   "lang_pedido": "it",
+   "load_s": 1.4,
+   "declarado": {
+    "s": 5.6,
+    "rtf": 15.95,
+    "chars": 1138,
+    "txt": "Capito lo quinto. Pinocchio affame e cerca a un nuovo per farse in una frittata. Ma sul più bello, la frittata li vola via da la finestra. Intanto, cominciò a farse inotte e pinocchio ricordandosi che non aveva mangiato nulla senti un uggiori in allo stomaco, che sono gli avamo moltissimo alla petito. Ma la petito negra gazzi, cammina presto e di fatti, dopo pochi minuti. La petito diventa a fame "
+   },
+   "detectado": {
+    "s": 5.8,
+    "rtf": 15.57,
+    "lang": "it",
+    "p": 0.995,
+    "chars": 1138,
+    "txt": "Capito lo quinto. Pinocchio affame e cerca a un nuovo per farse in una frittata. Ma sul più bello, la frittata li vola via da la finestra. Intanto, cominciò a farse inotte e pinocchio ricordandosi che non aveva mangiato nulla senti un uggiori in allo stomaco, che sono gli avamo moltissimo alla petito. Ma la petito negra gazzi, cammina presto e di fatti, dopo pochi minuti. La petito diventa a fame "
+   }
+  },
+  "tiny|es": {
+   "modelo": "tiny",
+   "lang_pedido": "es",
+   "load_s": 1.4,
+   "declarado": {
+    "s": 4.5,
+    "rtf": 20.05,
+    "chars": 1014,
+    "txt": "con cola y todo. Por fin, llegó el carroaje y llegó sin hacer el menor ruido porque tenía las ruedas en chantadas y además envuelta en estopa y trapos. Lo arrastraban 12 parejas de burritos, todos del mismo tamaño, pero de diferentes colores. Algunos eran pardos, otros blancos. Otros, grisosos como sale pimienta. Y otros listados con grandes rayas amarillas y asules. Pero lo más singular era esto."
+   },
+   "detectado": {
+    "s": 3.5,
+    "rtf": 25.68,
+    "lang": "es",
+    "p": 0.995,
+    "chars": 1014,
+    "txt": "con cola y todo. Por fin, llegó el carroaje y llegó sin hacer el menor ruido porque tenía las ruedas en chantadas y además envuelta en estopa y trapos. Lo arrastraban 12 parejas de burritos, todos del mismo tamaño, pero de diferentes colores. Algunos eran pardos, otros blancos. Otros, grisosos como sale pimienta. Y otros listados con grandes rayas amarillas y asules. Pero lo más singular era esto."
+   }
+  },
+  "tiny|fr": {
+   "modelo": "tiny",
+   "lang_pedido": "fr",
+   "load_s": 1.4,
+   "declarado": {
+    "s": 3.9,
+    "rtf": 23.04,
+    "chars": 1189,
+    "txt": "Je pite très douzième. Ah ! Ma lame courière, c'est une reste saint Thomas, revient un du sud, mort de depuis 60 ans, mais racontait une scène à peu près semblable. Mon père, des athèpient malade, lorsque je vivais n'y rendé tâchement de solde à anglais, je sortis comme un sensé. Et me jeter un au pied de l'office qui est les commandes, je lui dis ensemble au temps. Monsieur, l'anglais, ne tuerais"
+   },
+   "detectado": {
+    "s": 4.0,
+    "rtf": 22.47,
+    "lang": "fr",
+    "p": 0.975,
+    "chars": 1189,
+    "txt": "Je pite très douzième. Ah ! Ma lame courière, c'est une reste saint Thomas, revient un du sud, mort de depuis 60 ans, mais racontait une scène à peu près semblable. Mon père, des athèpient malade, lorsque je vivais n'y rendé tâchement de solde à anglais, je sortis comme un sensé. Et me jeter un au pied de l'office qui est les commandes, je lui dis ensemble au temps. Monsieur, l'anglais, ne tuerais"
+   }
+  },
+  "base|it": {
+   "modelo": "base",
+   "lang_pedido": "it",
+   "load_s": 3.9,
+   "declarado": {
+    "s": 8.1,
+    "rtf": 11.16,
+    "chars": 1133,
+    "txt": "Capito lo quinto. Pinocchio a fame è cerca un nuovo per farsi una frittata, ma sul più bello la frittata gli volava da la finestra. Intanto, cominciò a farsi notte e Pinocchio ricordandosi che non aveva mangiato nulla sentì un uggiorlino allo stomaco che sommigliava moltissimo all'appetito, ma l'appetito nei ragazzi cammina presto e di fatti, dopo pochi minuti, L'appetito diventa a fame e la fame "
+   },
+   "detectado": {
+    "s": 8.8,
+    "rtf": 10.28,
+    "lang": "it",
+    "p": 0.997,
+    "chars": 1133,
+    "txt": "Capito lo quinto. Pinocchio a fame è cerca un nuovo per farsi una frittata, ma sul più bello la frittata gli volava da la finestra. Intanto, cominciò a farsi notte e Pinocchio ricordandosi che non aveva mangiato nulla sentì un uggiorlino allo stomaco che sommigliava moltissimo all'appetito, ma l'appetito nei ragazzi cammina presto e di fatti, dopo pochi minuti, L'appetito diventa a fame e la fame "
+   }
+  },
+  "base|es": {
+   "modelo": "base",
+   "lang_pedido": "es",
+   "load_s": 3.9,
+   "declarado": {
+    "s": 6.0,
+    "rtf": 14.93,
+    "chars": 1002,
+    "txt": "con cola y todo. Por fin llegó el carruaje y llegó sin hacer el menor ruido porque tenía las ruedas enjantadas y además envueltas en estopa y trapos. Lo arrastraban 12 parejas de burritos, todos del mismo tamaño pero de diferentes colores. Algunos eran pardos, otros blancos, otros grisosos como sal y pimienta. Y otros listados con grandes rallas, amarichas y azules. Pero lo más singular era esto. "
+   },
+   "detectado": {
+    "s": 6.7,
+    "rtf": 13.49,
+    "lang": "es",
+    "p": 0.999,
+    "chars": 1002,
+    "txt": "con cola y todo. Por fin llegó el carruaje y llegó sin hacer el menor ruido porque tenía las ruedas enjantadas y además envueltas en estopa y trapos. Lo arrastraban 12 parejas de burritos, todos del mismo tamaño pero de diferentes colores. Algunos eran pardos, otros blancos, otros grisosos como sal y pimienta. Y otros listados con grandes rallas, amarichas y azules. Pero lo más singular era esto. "
+   }
+  },
+  "base|fr": {
+   "modelo": "base",
+   "lang_pedido": "fr",
+   "load_s": 3.9,
+   "declarado": {
+    "s": 7.0,
+    "rtf": 12.77,
+    "chars": 1179,
+    "txt": "J'appétre 12e, Ah ! Malame Cuyor, Seigneuresse de Saint Thomas, revient du sud, morte depuis 60 ans, m'a raconté d'une scène à peu près semblable. Mon père, disait elle, était bien malade, lorsque je vivaient venir un détachement de soldat anglais. Je sorti comme une insensée, et me jettant au pied de l'office qui les commandait, je lui dis, en sanglottant. M. L'Anglais ne tuerait pas mon vieux pè"
+   },
+   "detectado": {
+    "s": 7.0,
+    "rtf": 12.84,
+    "lang": "fr",
+    "p": 0.99,
+    "chars": 1179,
+    "txt": "J'appétre 12e, Ah ! Malame Cuyor, Seigneuresse de Saint Thomas, revient du sud, morte depuis 60 ans, m'a raconté d'une scène à peu près semblable. Mon père, disait elle, était bien malade, lorsque je vivaient venir un détachement de soldat anglais. Je sorti comme une insensée, et me jettant au pied de l'office qui les commandait, je lui dis, en sanglottant. M. L'Anglais ne tuerait pas mon vieux pè"
+   }
+  },
+  "small|it": {
+   "modelo": "small",
+   "lang_pedido": "it",
+   "load_s": 8.0,
+   "declarado": {
+    "s": 19.4,
+    "rtf": 4.63,
+    "chars": 1139,
+    "txt": "Capito lo quinto. Pinocchio a fame e cerca un uovo per farsi una frittata, ma sul più bello l'affrittata gli vola via dalla finestra. Intanto cominciò a farsi notte e Pinocchio, ricordandosi che non aveva mangiato nulla, sentì un uggiolino allo stomaco che somigliava moltissimo all'appetito. Ma l'appetito nei ragazzi cammina presto e, di fatti, dopo pochi minuti, L'appetito diventò fame e la fame,"
+   },
+   "detectado": {
+    "s": 18.4,
+    "rtf": 4.88,
+    "lang": "it",
+    "p": 0.993,
+    "chars": 1139,
+    "txt": "Capito lo quinto. Pinocchio a fame e cerca un uovo per farsi una frittata, ma sul più bello l'affrittata gli vola via dalla finestra. Intanto cominciò a farsi notte e Pinocchio, ricordandosi che non aveva mangiato nulla, sentì un uggiolino allo stomaco che somigliava moltissimo all'appetito. Ma l'appetito nei ragazzi cammina presto e, di fatti, dopo pochi minuti, L'appetito diventò fame e la fame,"
+   }
+  },
+  "small|es": {
+   "modelo": "small",
+   "lang_pedido": "es",
+   "load_s": 8.0,
+   "declarado": {
+    "s": 13.2,
+    "rtf": 6.82,
+    "chars": 998,
+    "txt": "con cola y todo. Por fin llegó el carruaje y llegó sin hacer el menor ruido porque tenía las ruedas enxantadas y además envueltas en estopa y trapos. Lo arrastraban 12 parejas de burritos, todos del mismo tamaño pero de diferentes colores. Algunos eran pardos, otros blancos, otros grisosos como sal y pimienta. y otros listados con grandes rayas amarillas y azules. Pero lo más singular era esto, aq"
+   },
+   "detectado": {
+    "s": 16.0,
+    "rtf": 5.64,
+    "lang": "es",
+    "p": 0.995,
+    "chars": 998,
+    "txt": "con cola y todo. Por fin llegó el carruaje y llegó sin hacer el menor ruido porque tenía las ruedas enxantadas y además envueltas en estopa y trapos. Lo arrastraban 12 parejas de burritos, todos del mismo tamaño pero de diferentes colores. Algunos eran pardos, otros blancos, otros grisosos como sal y pimienta. y otros listados con grandes rayas amarillas y azules. Pero lo más singular era esto, aq"
+   }
+  },
+  "small|fr": {
+   "modelo": "small",
+   "lang_pedido": "fr",
+   "load_s": 8.0,
+   "declarado": {
+    "s": 13.3,
+    "rtf": 6.78,
+    "chars": 1150,
+    "txt": "JAPITRE 12IMA Mme Cuyor, Seigneuresse de Saint Thomas, révière du Sud, morte depuis 60 ans, me racontait une scène à peu près semblable. «Mon père, disait-elle, était bien malade, lorsque je vis venir un détachement de soldats anglais. Je sortis comme une insensée et me jettais au pied de l'officier qui les commandait, je lui dis, en s'englotant. Monsieur l'anglais, ne tuer pas mon vieux père, je "
+   },
+   "detectado": {
+    "s": 14.8,
+    "rtf": 6.08,
+    "lang": "fr",
+    "p": 0.892,
+    "chars": 1150,
+    "txt": "JAPITRE 12IMA Mme Cuyor, Seigneuresse de Saint Thomas, révière du Sud, morte depuis 60 ans, me racontait une scène à peu près semblable. «Mon père, disait-elle, était bien malade, lorsque je vis venir un détachement de soldats anglais. Je sortis comme une insensée et me jettais au pied de l'officier qui les commandait, je lui dis, en s'englotant. Monsieur l'anglais, ne tuer pas mon vieux père, je "
+   }
+  }
+ }
+}

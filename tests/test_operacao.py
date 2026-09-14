@@ -424,8 +424,23 @@ class TestCadeiasDeclaram(unittest.TestCase):
             self.chain.fr_prothioconazole(raw='/caminho/que/nao/existe')
 
     def test_o_rebaixamento_de_tls_nunca_desliga_a_verificacao(self):
-        """Aceitar cifra antiga é uma coisa; não verificar o certificado é outra."""
-        fonte = open(os.path.join(ROOT, 'motor', 'chain.py'), encoding='utf-8').read()
+        """Aceitar cifra antiga é uma coisa; não verificar o certificado é outra.
+
+        ⚠️ ESTE CASO ESTEVE MORTO, E ERA JUSTAMENTE UM CASO DE SEGURANÇA.
+        Ele abria `motor/chain.py` por caminho fixo. O ficheiro mudou de
+        gaveta para `provas/chain.py`, e desde então o teste morria em
+        `FileNotFoundError` — ou seja, a garantia de que ninguém desliga a
+        verificação de certificado deixou de ser conferida, sem que nada
+        ficasse vermelho de uma maneira que alguém lesse como defeito.
+
+            FICHEIRO NÃO ENCONTRADO != GARANTIA CUMPRIDA.
+
+        O caminho deixa de ser escrito à mão: vem do próprio módulo que esta
+        classe já importa em `setUpClass`. Se ele mudar de gaveta outra vez,
+        o teste segue-o sozinho — e se desaparecer, o `import` rebenta a
+        dizer isso, que é o erro certo.
+        """
+        fonte = open(self.chain.__file__, encoding='utf-8').read()
         for proibido in ('CERT_NONE', 'check_hostname = False', '_create_unverified'):
             with self.subTest(proibido=proibido):
                 self.assertNotIn(proibido, fonte)

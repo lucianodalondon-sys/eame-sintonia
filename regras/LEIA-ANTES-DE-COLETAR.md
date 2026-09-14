@@ -39,15 +39,14 @@ Cada uma vale no **momento em que o dado entra**. Depois é tarde.
 
 ### As palavras que a busca digita
 
-Os termos de busca, agrupados por pais-cultura-problema, na lingua de quem trabalha no campo daquele pais.
+Os termos de busca, agrupados por cultura-problema, na lingua de quem trabalha no campo. Sao 103 palavras em dois ficheiros: 35 do censo de rotulos, todas italianas, e 68 do sensor, das quais 13 recortes de 17 sao da Italia.
 
-*Por que existe:* Buscar 'septoria wheat' na Franca devolve literatura internacional, nao a conversa tecnica francesa. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo — e o que torna a linha auditavel.
+*Por que existe:* Buscar 'septoria wheat' na Italia devolve literatura internacional, nao a conversa tecnica de quem esta no campo — o que se procura e 'septoriosi del frumento'. E o CROP e o ISSUE de cada item saem DESTA consulta, nunca de leitura livre do titulo, e e isso que torna a linha auditavel.  ⚠️ DIVIDIDO EM 2026-09-09: este cartao carregava tambem `regras/sensor_coleta.py`, que NAO e uma regua — e um COLETOR. Ele importa `apify_pool`, fala HTTP por `urlopen`, e e corrido pelo workflow `apify-sensores.yml`. Tres responsabilidades num cartao chamado «as palavras que a busca digita»: um coletor, uma medicao e um censo. UM CARTAO COM TRES DONOS NAO TEM DONO.
 
 | | |
 |---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-YOUTUBE, C-RELEVANCIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/rotulos_censo.py` |
-| onde vive | `regras/sensor_coleta.py` |
 | onde vive | `regras/sensor_medir.py` |
 
 ### De onde veio — carimbado na coleta
@@ -58,7 +57,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana
@@ -69,7 +68,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PENDING — e uma lei sem prova executavel apontando para ela. |
+| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-IT-COLETA. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |
@@ -85,7 +84,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 | | |
 |---|---|
-| estado | PROVEN — o motor importa esta lei para decidir. |
+| estado | PROVEN — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED). |
 | onde vive | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
 | onde vive | `regras/comunicacao_identidade.py` |
 | onde vive | `regras/comunicacao_lote.py` |
@@ -95,11 +94,10 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 ## COM O QUE SE VAI
 
-- **A fala vira texto, sem fatura** — Transcreve o audio dos videos na propria maquina, com whisper local.
+- **A fala vira texto, sem fatura** — Transcreve o audio dos videos na propria maquina, com whisper local. `fala_local.py` e o DONO UNICO do reconhecimento; `reel_transcricao.py` e a cadeia que liga um Reel publico ao texto falado, com RAW e DERIVED separados; os dois programas de lote chamam o mesmo dono.
 - **Abrir PDF, ODS e HTML** — Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
-- **SINTONIA SCRAP — o despachador** — O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.
 
 ---
 
@@ -145,4 +143,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 5 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 4 ferramentas e 2 peças de fonte declaradas no mapa.

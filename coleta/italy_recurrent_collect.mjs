@@ -11,6 +11,7 @@
 //
 // ORDEM OBRIGATORIA (nunca reordenar):
 //   1 lock · 2 runtime · 3 timezone · 4 VPN Italia · 5 storage · 6 contratos · 7 RUN_ID
+//     (o 7 e DESTE ficheiro: quem coordena cunha a corrida, e o coletor recebe-a)
 //   8 RAW primeiro · 9 bytes · 10 sha · 11 RAW imutavel · 12 ledger · 13 normalizar
 //   14 saude da fonte · 15 guardas · 16 commit · 17 push · 18 provar remoto · 19 soltar lock
 //
@@ -22,6 +23,7 @@
 //   ... --no-git              nao commita nem faz push (para teste local)
 
 import { execFile, execFileSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import { promisify } from "node:util";
 import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
 import { PROFILES, PERFIL_PADRAO } from "./italy_profiles.mjs";
@@ -124,11 +126,18 @@ async function main() {
     const semContrato = PROFILE.SOURCES.filter(s => !CONTRACTS[s]);
     if (semContrato.length) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = `sem contrato: ${semContrato}`; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length; return fim(resumo, t0); }
 
-    // 7..14 · a coleta em si fica no coletor do piloto, reusado com o perfil restrito
+    // 7 · RUN_ID — E AQUI, QUE E ONDE A ORDEM OBRIGATORIA SEMPRE O POS.
+    // O passo 7 estava escrito no cabecalho e nao acontecia aqui: quem cunhava
+    // era o coletor, la dentro, no passo 8. Um coordenador que delega a cunhagem
+    // da corrida deixa de saber o nome do que mandou correr antes de ele correr
+    // — e proveniencia decidida DEPOIS do facto e proveniencia reconstruida.
+    const RUN_ID = `OPS_${PROFILE_NAME}_${STARTED_AT.replace(/[-:T.]/g, "").slice(0, 14)}_${randomUUID().slice(0, 6)}`;
+    resumo.RUN_ID = RUN_ID;
+
+    // 8..14 · a coleta em si fica no coletor do piloto, reusado com o perfil restrito
     const { executarRodada } = await import("./italy_pilot_collect.mjs");
-    const r = await executarRodada({ nota: `ops ${PROFILE_NAME}`, apenas: PROFILE.SOURCES, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
+    const r = await executarRodada({ runId: RUN_ID, nota: `ops ${PROFILE_NAME}`, apenas: PROFILE.SOURCES, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
     const c = r.resumo.contadores;
-    resumo.RUN_ID = r.resumo.RUN_ID;
     resumo.SOURCE_ATTEMPTED = c.SOURCES_ATTEMPTED; resumo.SOURCE_HEALTHY = c.HEALTHY;
     resumo.SOURCE_DEGRADED = c.DEGRADED; resumo.SOURCE_FAILED = c.FAILED;
     resumo.NEW_DOCUMENTS = c.NEW_DOCUMENTS; resumo.CHANGED_IN_PLACE = c.CHANGED_IN_PLACE;

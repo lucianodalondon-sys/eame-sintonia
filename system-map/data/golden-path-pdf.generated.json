@@ -1,0 +1,410 @@
+{
+ "O_QUE_ISTO_E": "A conta desta corrida, do PDF guardado ate a porta. Cada numero e medido; nenhum e esperado.",
+ "COMO_REFAZER": "py coleta/golden_path_pdf.py",
+ "RUN_ID": "DERIV-PDF-20260908T045247Z",
+ "STATUS": "SUCCESS",
+ "RUN_STATE": "COMPLETE",
+ "COMPLETION_BASIS": {
+  "CONDICOES": {
+   "executor_terminou": true,
+   "outputs_aterrados": true,
+   "reconciliacao_feita": true,
+   "erros_contabilizados": true,
+   "bruto_intacto": true,
+   "estado_antes_e_depois": true
+  },
+  "FALTOU": [],
+  "PORQUE": "todas as condições de fecho foram medidas e cumpridas",
+  "IDEMPOTENCIA": {
+   "NOVOS": 0,
+   "REAPROVEITADOS": 43,
+   "NOTA": "NOVOS=0 com REAPROVEITADOS>0 é a corrida a não refazer trabalho. Não é saída zero, e não é perda."
+  }
+ },
+ "ROUTE": "LOCAL_EXECUTOR",
+ "PREFLIGHT": {
+  "EXECUTOR_AVAILABLE": "SIM",
+  "CAPACIDADE": "pdftotext"
+ },
+ "STATE_BEFORE": {
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
+  "DERIVADOS_PRESENTES": 43
+ },
+ "STATE_AFTER": {
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
+  "DERIVADOS_PRESENTES": 43
+ },
+ "GIT_COMMIT": "491b678d56b4634fa44ec6ab9573414b7adac23c",
+ "GIT_BRANCH": "claude/italia-biblia-integracao-v1",
+ "GIT_TREE_CLEAN": "NAO",
+ "BIBLE_VERSION": "V1.3",
+ "EXECUTOR_ID": "texto-de-pdf",
+ "EXECUTOR_VERSION": "1",
+ "PIPELINE_VERSION": "1",
+ "STARTED_AT": "2026-09-08T04:52:47Z",
+ "FINISHED_AT": "2026-09-08T04:52:47Z",
+ "COUNTS": {
+  "RAW_INPUT": 49,
+  "RAW_TEXT_LAYER_PRESENT": 0,
+  "RAW_NEEDS_OCR": 0,
+  "RAW_EXTRACTION_ERROR": 0,
+  "RAW_UNKNOWN": 0,
+  "DERIVED_EMITTED": 0,
+  "DERIVED_LANDED": 0,
+  "JA_EXISTIAM": 43,
+  "ADMISSION_SEEN": 43,
+  "ADMISSION_NAO_SEI": 6,
+  "ADMISSION_SIM": 18,
+  "ADMISSION_NAO": 19,
+  "LOST": 0
+ },
+ "RAW_IMUTAVEL": {
+  "PDF_CONFERIDOS": 49,
+  "ALTERADOS": [],
+  "DESAPARECIDOS": [],
+  "VEREDITO": "IMUTAVEL"
+ },
+ "TEXTOS_A_MAO": {
+  "TOTAL": 6,
+  "PARENT_PROVEN": 3,
+  "PARENT_UNKNOWN": 3,
+  "FICHAS": [
+   {
+    "ARTIFACT_ID": "RAW-e48aba6b8047c393",
+    "ARTIFACT_TYPE": "DERIVED",
+    "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt",
+    "SHA256": "e48aba6b8047c393d6239ef75786c0a8487e733407764808269131b46222478e",
+    "CONTENT_TYPE": "text/plain",
+    "BYTES": 4150,
+    "SOURCE_ID": "NAO SEI",
+    "SOURCE_URL": "NAO SEI",
+    "PUBLISHER": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "RAW-9488589cfc657b95",
+    "PARENT_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
+    "DERIVATION_TYPE": "MANUAL_LEGACY",
+    "COUNTRY_SCOPE": "IT",
+    "SOURCE_LOCATION": "NAO SEI",
+    "FACT_LOCATION": "NAO SEI",
+    "ITEM_LANGUAGE": "NAO SEI",
+    "FACT_TIME": "NAO SEI",
+    "PUBLISHED_AT": "NAO SEI",
+    "OBSERVED_AT": "NAO SEI",
+    "COLLECTED_AT": "NAO SEI",
+    "DERIVED_AT": "NAO SEI",
+    "RUN_ID": "NAO SEI",
+    "EXECUTOR_ID": "PESSOA",
+    "EXECUTOR_VERSION": "NAO SEI",
+    "PIPELINE_VERSION": "NAO SEI",
+    "STATE": "TEXT_LAYER_PRESENT",
+    "ERROR": "",
+    "COST": "NAO_SE_APLICA",
+    "NOTES": {
+     "PARENT_BASIS": "PARENT_PROVEN",
+     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
+    },
+    "PARENT_STATUS": "PARENT_PROVEN"
+   },
+   {
+    "ARTIFACT_ID": "RAW-166eba17f1b45386",
+    "ARTIFACT_TYPE": "DERIVED",
+    "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.txt",
+    "SHA256": "166eba17f1b45386c3a965df71147864b21913ce5da8b80ac8910caa6ccd58b0",
+    "CONTENT_TYPE": "text/plain",
+    "BYTES": 4052,
+    "SOURCE_ID": "NAO SEI",
+    "SOURCE_URL": "NAO SEI",
+    "PUBLISHER": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "NAO SEI",
+    "PARENT_SHA256": "NAO SEI",
+    "DERIVATION_TYPE": "NAO SEI",
+    "COUNTRY_SCOPE": "IT",
+    "SOURCE_LOCATION": "NAO SEI",
+    "FACT_LOCATION": "NAO SEI",
+    "ITEM_LANGUAGE": "NAO SEI",
+    "FACT_TIME": "NAO SEI",
+    "PUBLISHED_AT": "NAO SEI",
+    "OBSERVED_AT": "NAO SEI",
+    "COLLECTED_AT": "NAO SEI",
+    "DERIVED_AT": "NAO SEI",
+    "RUN_ID": "NAO SEI",
+    "EXECUTOR_ID": "PESSOA",
+    "EXECUTOR_VERSION": "NAO SEI",
+    "PIPELINE_VERSION": "NAO SEI",
+    "STATE": "TEXT_LAYER_PRESENT",
+    "ERROR": "",
+    "COST": "NAO_SE_APLICA",
+    "NOTES": {
+     "PARENT_BASIS": "PARENT_UNKNOWN",
+     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
+     "PDF_VIZINHO": "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.pdf"
+    },
+    "PARENT_STATUS": "PARENT_UNKNOWN"
+   },
+   {
+    "ARTIFACT_ID": "RAW-94c7db3862bb06ba",
+    "ARTIFACT_TYPE": "DERIVED",
+    "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.txt",
+    "SHA256": "94c7db3862bb06ba0fbd687c7fc32ca114dbda920a6442dbcadfc2a1cb92d025",
+    "CONTENT_TYPE": "text/plain",
+    "BYTES": 5661,
+    "SOURCE_ID": "NAO SEI",
+    "SOURCE_URL": "NAO SEI",
+    "PUBLISHER": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "RAW-fe3c922bfdfd7999",
+    "PARENT_SHA256": "fe3c922bfdfd7999242617962b8add2471dd26d8c908bc403e5f34c21dc635ee",
+    "DERIVATION_TYPE": "MANUAL_LEGACY",
+    "COUNTRY_SCOPE": "IT",
+    "SOURCE_LOCATION": "NAO SEI",
+    "FACT_LOCATION": "NAO SEI",
+    "ITEM_LANGUAGE": "NAO SEI",
+    "FACT_TIME": "NAO SEI",
+    "PUBLISHED_AT": "NAO SEI",
+    "OBSERVED_AT": "NAO SEI",
+    "COLLECTED_AT": "NAO SEI",
+    "DERIVED_AT": "NAO SEI",
+    "RUN_ID": "NAO SEI",
+    "EXECUTOR_ID": "PESSOA",
+    "EXECUTOR_VERSION": "NAO SEI",
+    "PIPELINE_VERSION": "NAO SEI",
+    "STATE": "TEXT_LAYER_PRESENT",
+    "ERROR": "",
+    "COST": "NAO_SE_APLICA",
+    "NOTES": {
+     "PARENT_BASIS": "PARENT_PROVEN",
+     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
+    },
+    "PARENT_STATUS": "PARENT_PROVEN"
+   },
+   {
+    "ARTIFACT_ID": "RAW-840509dd827dd579",
+    "ARTIFACT_TYPE": "DERIVED",
+    "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/vite_20_270826.txt",
+    "SHA256": "840509dd827dd57985f34fb1e722e742199ba76aa23e8c2324f29d9865a4e23d",
+    "CONTENT_TYPE": "text/plain",
+    "BYTES": 8574,
+    "SOURCE_ID": "NAO SEI",
+    "SOURCE_URL": "NAO SEI",
+    "PUBLISHER": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "RAW-6d12bcb5fa2b0905",
+    "PARENT_SHA256": "6d12bcb5fa2b09059d6f4b0b4e3a36206ea7447fe81e3401200e388405af5eb6",
+    "DERIVATION_TYPE": "MANUAL_LEGACY",
+    "COUNTRY_SCOPE": "IT",
+    "SOURCE_LOCATION": "NAO SEI",
+    "FACT_LOCATION": "NAO SEI",
+    "ITEM_LANGUAGE": "NAO SEI",
+    "FACT_TIME": "NAO SEI",
+    "PUBLISHED_AT": "NAO SEI",
+    "OBSERVED_AT": "NAO SEI",
+    "COLLECTED_AT": "NAO SEI",
+    "DERIVED_AT": "NAO SEI",
+    "RUN_ID": "NAO SEI",
+    "EXECUTOR_ID": "PESSOA",
+    "EXECUTOR_VERSION": "NAO SEI",
+    "PIPELINE_VERSION": "NAO SEI",
+    "STATE": "TEXT_LAYER_PRESENT",
+    "ERROR": "",
+    "COST": "NAO_SE_APLICA",
+    "NOTES": {
+     "PARENT_BASIS": "PARENT_PROVEN",
+     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
+    },
+    "PARENT_STATUS": "PARENT_PROVEN"
+   },
+   {
+    "ARTIFACT_ID": "RAW-78140fbe25a5e6e3",
+    "ARTIFACT_TYPE": "DERIVED",
+    "STORAGE_LOCATION": "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.txt",
+    "SHA256": "78140fbe25a5e6e3deb9e7544fe1cacf02b4e7c3c2e8b638f6d9279c2d594fe9",
+    "CONTENT_TYPE": "text/plain",
+    "BYTES": 4564,
+    "SOURCE_ID": "NAO SEI",
+    "SOURCE_URL": "NAO SEI",
+    "PUBLISHER": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "NAO SEI",
+    "PARENT_SHA256": "NAO SEI",
+    "DERIVATION_TYPE": "NAO SEI",
+    "COUNTRY_SCOPE": "IT",
+    "SOURCE_LOCATION": "NAO SEI",
+    "FACT_LOCATION": "NAO SEI",
+    "ITEM_LANGUAGE": "NAO SEI",
+    "FACT_TIME": "NAO SEI",
+    "PUBLISHED_AT": "NAO SEI",
+    "OBSERVED_AT": "NAO SEI",
+    "COLLECTED_AT": "NAO SEI",
+    "DERIVED_AT": "NAO SEI",
+    "RUN_ID": "NAO SEI",
+    "EXECUTOR_ID": "PESSOA",
+    "EXECUTOR_VERSION": "NAO SEI",
+    "PIPELINE_VERSION": "NAO SEI",
+    "STATE": "TEXT_LAYER_PRESENT",
+    "ERROR": "",
+    "COST": "NAO_SE_APLICA",
+    "NOTES": {
+     "PARENT_BASIS": "PARENT_UNKNOWN",
+     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
+     "PDF_VIZINHO": "data/samples/PIEMONTE-FD/insetticidi_ammessi_2026.pdf"
+    },
+    "PARENT_STATUS": "PARENT_UNKNOWN"
+   },
+   {
+    "ARTIFACT_ID": "RAW-def4d6c1d477ac63",
+    "ARTIFACT_TYPE": "DERIVED",
+    "STORAGE_LOCATION": "data/samples/PIEMONTE-FD/piano_operativo_2026.txt",
+    "SHA256": "def4d6c1d477ac6360d30580e10ddee3f1e3a6b707fc57f798517ee603557e77",
+    "CONTENT_TYPE": "text/plain",
+    "BYTES": 23379,
+    "SOURCE_ID": "NAO SEI",
+    "SOURCE_URL": "NAO SEI",
+    "PUBLISHER": "NAO SEI",
+    "PARENT_ARTIFACT_ID": "NAO SEI",
+    "PARENT_SHA256": "NAO SEI",
+    "DERIVATION_TYPE": "NAO SEI",
+    "COUNTRY_SCOPE": "IT",
+    "SOURCE_LOCATION": "NAO SEI",
+    "FACT_LOCATION": "NAO SEI",
+    "ITEM_LANGUAGE": "NAO SEI",
+    "FACT_TIME": "NAO SEI",
+    "PUBLISHED_AT": "NAO SEI",
+    "OBSERVED_AT": "NAO SEI",
+    "COLLECTED_AT": "NAO SEI",
+    "DERIVED_AT": "NAO SEI",
+    "RUN_ID": "NAO SEI",
+    "EXECUTOR_ID": "PESSOA",
+    "EXECUTOR_VERSION": "NAO SEI",
+    "PIPELINE_VERSION": "NAO SEI",
+    "STATE": "TEXT_LAYER_PRESENT",
+    "ERROR": "",
+    "COST": "NAO_SE_APLICA",
+    "NOTES": {
+     "PARENT_BASIS": "PARENT_UNKNOWN",
+     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
+     "PDF_VIZINHO": "data/samples/PIEMONTE-FD/piano_operativo_2026.pdf"
+    },
+    "PARENT_STATUS": "PARENT_UNKNOWN"
+   }
+  ]
+ },
+ "PORQUES_DA_PORTA": {
+  "NAO_SEI": [
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
+    "regra": "pertence ao universo",
+    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "prova": {
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
+    "regra": "pertence ao universo",
+    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "prova": {
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
+    "regra": "pertence ao universo",
+    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "prova": {
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   }
+  ],
+  "SIM": [
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-ea2276b0500902b9",
+    "regra": "pertence ao universo",
+    "motivo": "fala de pubblicazione — que e do que «T7» trata",
+    "prova": {
+     "palavras": [
+      "pubblicazione"
+     ],
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+    "regra": "pertence ao universo",
+    "motivo": "fala de doi — que e do que «T7» trata",
+    "prova": {
+     "palavras": [
+      "doi"
+     ],
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+    "regra": "pertence ao universo",
+    "motivo": "fala de tesi — que e do que «T7» trata",
+    "prova": {
+     "palavras": [
+      "tesi"
+     ],
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   }
+  ],
+  "NAO": [
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+    "regra": "pertence ao universo",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "prova": {
+     "achado_noutro": {
+      "T9": [
+       "evento"
+      ]
+     },
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+    "regra": "pertence ao universo",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: insetto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "prova": {
+     "achado_noutro": {
+      "T3": [
+       "insetto"
+      ]
+     },
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+    "regra": "pertence ao universo",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "prova": {
+     "achado_noutro": {
+      "T4": [
+       "etichetta"
+      ]
+     },
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   }
+  ]
+ },
+ "PRECISION": "UNKNOWN — nao ha gabarito humano. Contar quantos passaram e COBERTURA; dizer que estao certos exigiria alguem que leia italiano a marcar a mao o que devia passar, e essa lista nao existe.",
+ "ERRORS": [],
+ "COST_USD": 0.0,
+ "COST_BASIS": "ROTA_GRATUITA_PROVADA — o zero vem da ausencia medida de rota paga e de rede, NAO de contabilidade monetaria. Nenhuma plataforma foi chamada, entao nao ha fatura para conferir.",
+ "COST_ACCOUNTING": "NAO_SE_APLICA",
+ "ROTA_PAGA_USADA": "NAO",
+ "REDE_USADA": "NAO",
+ "OCR_USADO": "NAO"
+}

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "HEAD": "1e1d315c89ae68a792c0b5986213cb13c7ea8ce1",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -2723,7 +2723,7 @@
     },
     {
       "file": "regras/sensor_coleta.py",
-      "line": 132,
+      "line": 213,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -2920,7 +2920,9 @@
       "leis_que_obedece": [
         "proveniencia"
       ],
-      "regista_descarte": []
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/comunicacao_classificar.py",
@@ -2937,7 +2939,9 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "como_se_chama": "coleta/comunicacao_coleta.py contratos",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "FACT_LOCATION",
@@ -2945,7 +2949,9 @@
       ],
       "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
-      "regista_descarte": []
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/comunicacao_medir.py",
@@ -3014,6 +3020,17 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/eu_regulatorio_executor.py",
+      "como_se_chama": "coleta/eu_regulatorio_executor.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/eu_substancia_adama_it.py",
       "como_se_chama": "coleta/eu_substancia_adama_it.py",
       "carimba_data": [
@@ -3025,6 +3042,17 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/executor_texto_de_pdf.py",
+      "como_se_chama": "coleta/executor_texto_de_pdf.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
     },
@@ -3047,6 +3075,41 @@
       "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/golden_path_pdf.py",
+      "como_se_chama": "coleta/golden_path_pdf.py",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/ingresso.py",
+      "como_se_chama": "",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "RECUSAD",
+        "REJEIT"
+      ]
     },
     {
       "ficheiro": "coleta/instagram_coleta.py",
@@ -3102,6 +3165,15 @@
       "carimba_lugar": [
         "COUNTRY"
       ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/italy_executor.py",
+      "como_se_chama": "coleta/italy_executor.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [],
       "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
       "regista_descarte": []
@@ -3174,6 +3246,33 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/scrap_colheita.py",
+      "como_se_chama": "coleta/scrap_colheita.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "coleta/scrap_http.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/sensor_canal_identidade.py",
       "como_se_chama": "coleta/sensor_canal_identidade.py",
       "carimba_data": [],
@@ -3185,6 +3284,36 @@
       "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
       "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/social_envelope.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/social_scrap.py",
+      "como_se_chama": "scripts/social_scrap.py censo",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/speaker_identidade.py",
@@ -3255,6 +3384,22 @@
       ],
       "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
+      "ficheiro": "coleta/youtube_oficial.py",
+      "como_se_chama": "",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
       "regista_descarte": []
     },
     {
@@ -3360,15 +3505,21 @@
     {
       "ficheiro": "regras/sensor_medir.py",
       "como_se_chama": "regras/sensor_medir.py",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "FACT_LOCATION",
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": []
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "REJEIT"
+      ]
     }
   ],
   "COLETAS_FEITAS": {
@@ -3793,16 +3944,144 @@
         "erro": null,
         "prova": null,
         "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T022727Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T023205Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 43,
+        "rendimento": 88,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T023216Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T033724Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T043716Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T045045Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260908T045247Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
       }
     ],
-    "total": 13,
+    "total": 20,
     "por_pais": {
       "ES": 10,
+      "IT": 7,
       "NAO SEI": 3
     },
     "por_plataforma": {
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
+      "LOCAL": 7,
       "OPENALEX": 1,
       "OpenAlex, ORCID": 1,
       "YOUTUBE": 3,
@@ -3839,11 +4118,11 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 12,
-    "com_custo_medido": 7,
+    "com_rendimento_medido": 19,
+    "com_custo_medido": 14,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3400,
-    "sobrou_total": 2963
+    "trouxe_total": 3743,
+    "sobrou_total": 3006
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
@@ -3896,15 +4175,225 @@
   },
   "ENDPOINTS": [
     {
+      "endpoint": "https://www.instagram.com/reel",
+      "usado_por": [
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 7
+        },
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 65
+        },
+        {
+          "file": "provas/instagram_audio_only.py",
+          "line": 7
+        },
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 18
+        },
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 37
+        },
+        {
+          "file": "tests/test_c10_3_location.py",
+          "line": 199
+        },
+        {
+          "file": "tests/test_c10_4_route_gate.py",
+          "line": 68
+        },
+        {
+          "file": "tests/test_c10_5_collection_flow.py",
+          "line": 139
+        },
+        {
+          "file": "tests/test_c10_5d_decisao_instagram.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_c10_6_crash_retry.py",
+          "line": 65
+        },
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 116
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 116
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 758
+        }
+      ]
+    },
+    {
+      "endpoint": "https://exemplo.it/%s",
+      "usado_por": [
+        {
+          "file": "provas/a_fase_10_entra_no_acervo.py",
+          "line": 705
+        },
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 696
+        },
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 218
+        },
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 239
+        },
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 172
+        },
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 261
+        },
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 409
+        },
+        {
+          "file": "tests/test_preservar_coleta.py",
+          "line": 59
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 336
+        },
+        {
+          "file": "provas/_e2e01_janela_admissivel.py",
+          "line": 71
+        },
+        {
+          "file": "provas/_e2e02_janela_dois_posts.py",
+          "line": 37
+        },
+        {
+          "file": "provas/_flow01_janela_falsa.py",
+          "line": 21
+        },
+        {
+          "file": "tests/test_scrap_flow01_caminho_canonico.py",
+          "line": 219
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 753
+        },
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 97
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 266
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 383
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 339
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 42
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 305
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/watch?v=%s'",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 382
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 448
+        },
+        {
+          "file": "provas/primeira_rota_paga.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_c10_8b_live_disparador.py",
+          "line": 248
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 113
+        },
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 113
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 202
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 276
+        }
+      ]
+    },
+    {
       "endpoint": "https://api.apify.com/v2",
       "usado_por": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 129
-        },
-        {
-          "file": "ferramentas/apify_contrato.py",
-          "line": 128
+          "line": 263
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -3942,23 +4431,23 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/p",
+      "endpoint": "https://youtu.be/X'",
       "usado_por": [
         {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 169
         },
         {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
+          "file": "provas/queda_e_repeticao_da_v1.py",
+          "line": 92
         },
         {
-          "file": "coleta/instagram_janela.py",
-          "line": 673
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 159
         },
         {
-          "file": "ferramentas/instagram_transcrever.py",
-          "line": 187
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 398
         }
       ]
     },
@@ -3980,23 +4469,6 @@
       ]
     },
     {
-      "endpoint": "https://api.apify.com/v2'",
-      "usado_por": [
-        {
-          "file": "coleta/coletor.py",
-          "line": 79
-        },
-        {
-          "file": "ferramentas/apify_recuperar.py",
-          "line": 61
-        },
-        {
-          "file": "ferramentas/contrato_ator.py",
-          "line": 65
-        }
-      ]
-    },
-    {
       "endpoint": "https://pub.orcid.org/v3.0",
       "usado_por": [
         {
@@ -4010,6 +4482,40 @@
         {
           "file": "superficie/rede.py",
           "line": 26
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 671
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 266
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.googleapis.com/youtube",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 88
+        },
+        {
+          "file": "tests/test_c2_youtube_oficial.py",
+          "line": 55
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 528
         }
       ]
     },
@@ -4048,6 +4554,36 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.tld/x')",
+      "usado_por": [
+        {
+          "file": "provas/orcamento_de_rede.py",
+          "line": 287
+        },
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 96
+        },
+        {
+          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
+          "line": 207
+        }
+      ]
+    },
+    {
+      "endpoint": "https://public.api.bsky.app/xrpc",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 105
+        },
+        {
+          "file": "provas/_rc01_mundo_falso.py",
+          "line": 111
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.ec.europa.eu/agrifood",
       "usado_por": [
         {
@@ -4074,15 +4610,28 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/%s",
+      "endpoint": "https://api.apify.com/v2'",
       "usado_por": [
         {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
+          "file": "coleta/coletor.py",
+          "line": 91
         },
         {
-          "file": "coleta/instagram_janela.py",
-          "line": 671
+          "file": "ferramentas/contrato_ator.py",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "endpoint": "https://eur-lex.europa.eu/legal-content",
+      "usado_por": [
+        {
+          "file": "coleta/eu_regulatorio_executor.py",
+          "line": 93
+        },
+        {
+          "file": "fontes/adama_it_eu.py",
+          "line": 29
         }
       ]
     },
@@ -4108,7 +4657,20 @@
         },
         {
           "file": "ferramentas/youtube_transcrever.py",
-          "line": 151
+          "line": 158
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/channel",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 806
         }
       ]
     },
@@ -4165,6 +4727,58 @@
       ]
     },
     {
+      "endpoint": "https://www.linkedin.com/legal",
+      "usado_por": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 127
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 487
+        }
+      ]
+    },
+    {
+      "endpoint": "https://developers.facebook.com/docs",
+      "usado_por": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 136
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 358
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/t",
+      "usado_por": [
+        {
+          "file": "guarda/social_sessao.py",
+          "line": 176
+        },
+        {
+          "file": "leis/social_matriz.py",
+          "line": 201
+        }
+      ]
+    },
+    {
+      "endpoint": "https://learn.microsoft.com/en-us",
+      "usado_por": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 498
+        },
+        {
+          "file": "provas/gate_de_aceitacao_tematica.py",
+          "line": 262
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.adama.com/italia",
       "usado_por": [
         {
@@ -4204,186 +4818,67 @@
       ]
     },
     {
-      "endpoint": "https://it.linkedin.com/company",
+      "endpoint": "https://mastodon.uno/users",
       "usado_por": [
         {
-          "file": "regras/comunicacao_identidade.py",
-          "line": 399
+          "file": "provas/_c106c_filho.py",
+          "line": 40
         },
         {
-          "file": "tests/test_comunicacao.py",
-          "line": 58
+          "file": "provas/runtime_comum_no_postgres.py",
+          "line": 46
         }
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/exemplo",
+      "endpoint": "https://exemplo.invalido/boletim",
       "usado_por": [
         {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 146
+          "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+          "line": 69
+        },
+        {
+          "file": "provas/auditoria_agro_fronteira.py",
+          "line": 87
         }
       ]
     },
     {
-      "endpoint": "https://doi.org/',",
+      "endpoint": "https://social.example/p",
       "usado_por": [
         {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 390
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 488
+        },
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 369
         }
       ]
     },
     {
-      "endpoint": "https://www.data.gouv.fr/api",
+      "endpoint": "https://www.arpa.veneto.it/%s",
       "usado_por": [
         {
-          "file": "coleta/ephy.sh",
-          "line": 30
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 351
+        },
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 214
         }
       ]
     },
     {
-      "endpoint": "https://gd.eppo.int/taxon",
+      "endpoint": "https://www.w3.org/TR",
       "usado_por": [
         {
-          "file": "coleta/eppo_gd.py",
-          "line": 28
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ipinfo.io/json',",
-      "usado_por": [
+          "file": "provas/candidatos_tematicos.py",
+          "line": 452
+        },
         {
-          "file": "coleta/instagram_janela.py",
-          "line": 442
-        }
-      ]
-    },
-    {
-      "endpoint": "https://servicio.mapa.gob.es/regfiweb'",
-      "usado_por": [
-        {
-          "file": "coleta/mapa_regfi.py",
-          "line": 44
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.fitosanitari.salute.gov.it/',",
-      "usado_por": [
-        {
-          "file": "coleta/rotulos_baixar.py",
-          "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://orcid.org/0000-...'.",
-      "usado_por": [
-        {
-          "file": "coleta/speaker_identidade.py",
-          "line": 128
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/'",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 169
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it/SDMXWS",
-      "usado_por": [
-        {
-          "file": "data/samples/IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py",
-          "line": 3
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "ferramentas/apify_contrato.py",
-          "line": 63
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.invalid",
-      "usado_por": [
-        {
-          "file": "ferramentas/cdp.py",
-          "line": 5
-        }
-      ]
-    },
-    {
-      "endpoint": "https://example.com'",
-      "usado_por": [
-        {
-          "file": "ferramentas/cdp.py",
-          "line": 382
-        }
-      ]
-    },
-    {
-      "endpoint": "https://eur-lex.europa.eu/legal-content",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_eu.py",
-          "line": 29
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.adama.com/spain",
-      "usado_por": [
-        {
-          "file": "guarda/catalogo_importar.py",
-          "line": 139
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it',ARRAY['ESTATISTICA_OFICIAL']::fonte_natureza[],",
-      "usado_por": [
-        {
-          "file": "pacote/lastmile_para_supabase.py",
-          "line": 217
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it')",
-      "usado_por": [
-        {
-          "file": "pacote/lastmile_para_supabase.py",
-          "line": 226
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.salute.gov.it/',",
-      "usado_por": [
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 34
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.openalex.org',",
-      "usado_por": [
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 49
+          "file": "provas/o_legado_fora_do_fluxo.py",
+          "line": 450
         }
       ]
     }
@@ -4406,12 +4901,12 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 39,
-    "coletores_com_data": 12,
-    "coletores_com_lugar": 24,
-    "coletores_que_separam_fonte_do_fato": 18,
-    "coletores_que_registam_descarte": 8,
-    "corridas_registadas": 19,
+    "coletores": 49,
+    "coletores_com_data": 17,
+    "coletores_com_lugar": 32,
+    "coletores_que_separam_fonte_do_fato": 20,
+    "coletores_que_registam_descarte": 15,
+    "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,
@@ -4435,6 +4930,29 @@
     "yellow": 4,
     "nao_sei": 17,
     "fichas_completas": 23,
+    "ids_mencionados_no_atlas": 42,
+    "mencionados_sem_ficha": [
+      "ES-T1-001",
+      "ES-T13-001",
+      "ES-T7-001",
+      "ES-T8-001",
+      "ES-T8-002",
+      "ES-T8-003",
+      "ES-T9-001",
+      "EU-T10-002",
+      "EU-T10-003",
+      "EU-T8-001",
+      "EU-T9-002",
+      "FR-T1-001",
+      "FR-T11-001",
+      "FR-T9-001",
+      "IT-T1-001",
+      "IT-T11-001",
+      "IT-T12-001",
+      "IT-T13-001",
+      "IT-T9-001"
+    ],
+    "os_tres_numeros": "37 = o que o CABECALHO declara · 42 = SOURCE_IDs MENCIONADOS no texto · 23 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
     "divergencia": 14,
     "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
   }

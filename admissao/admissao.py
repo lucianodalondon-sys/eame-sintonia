@@ -57,6 +57,8 @@ SAIDA: data/samples/LIVRO-DE-DECISOES.json
 from __future__ import annotations
 
 import json
+import os
+import tempfile
 import sys
 from dataclasses import dataclass, asdict, field
 from datetime import datetime, timezone
@@ -65,6 +67,10 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
+# O dono do vocabulario das confissoes. Importado, e nao copiado: as seis
+# palavras foram CONTADAS no repositorio por quem preserva, e uma segunda copia
+# divergiria no dia em que aparecesse a setima.
+from preservar_coleta import _identifica  # noqa: E402
 
 LIVRO = RAIZ / "data" / "samples" / "LIVRO-DE-DECISOES.json"
 
@@ -79,7 +85,14 @@ RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
 
 # A versao da regra vive aqui e sobe quando a regra muda. E o que permite dizer
 # «reprocessa tudo o que a versao 1 rejeitou» sem reprocessar o resto.
-VERSAO_DA_REGRA = "1"
+# A VERSAO SOBE QUANDO A LEI MUDA, e ela mudou: a versao 1 dava NAO por
+# ausencia de palavra. Tudo o que ela rejeitou assim tem de poder ser
+# reprocessado — e sem numero de versao nao ha como saber o que reabrir.
+# 3 · a porta passou a perguntar pelo ESTAGIO do item (COL-LAW-502). O que
+#     mudou de resultado nao foi a evidencia: foi a pergunta. Decisoes
+#     antigas ficam como estao — a versao e o que permite dizer «reavalia
+#     so o que a v2 decidiu» sem reprocessar o resto.
+VERSAO_DA_REGRA = "3"
 
 
 @dataclass
@@ -156,13 +169,90 @@ def _legivel(item: dict) -> tuple:
     return SIM, "tem conteudo legivel", {"caracteres": len(str(t))}
 
 
+# ── O QUE ESTA PORTA CHAMA DE «ORIGEM», E O QUE ELA NAO CHAMA ──────────────
+# Esta pergunta e de PROCEDENCIA CONFERIVEL, e nao de identidade canonica. Nao
+# e opiniao: le-se no contrato, em tres sitios independentes.
+#
+#   1. o motivo que ela propria escreve quando falha — «nao se consegue
+#      CONFERIR DEPOIS»;
+#   2. a companhia em que vive — `perguntas_do_estagio` chama-lhe «Prontidao
+#      DOCUMENTAL: da para ler, sabe de onde veio, sabe de que original nasceu»;
+#   3. e a prova que fecha o assunto: `pronto_para_inteligencia` monta o
+#      `SOURCE_ID` de saida a partir de `source_id` ou `fonte` — e DEIXA `url`
+#      DE FORA, de proposito. Se esta porta fosse um portao de identidade, a
+#      saida partilharia a cadeia dela. Nao partilha.
+#
+#     ORIGIN_GATE = PROCEDENCIA.  IDENTITY_GATE = OUTRO, E NAO VIVE AQUI.
+#
+# Por isso um endereco PODE responder a esta pergunta. O que ele nao pode e
+# virar identidade — e nao vira: `SOURCE_ID` nunca sai daqui, e a especie do
+# que respondeu fica escrita na evidencia para ninguem confundir as duas.
+#
+#     UMA URL PROVA UM ENDERECO. UMA URL NAO CRIA SOURCE_ID.
+IDENTIDADE_DA_FONTE = ("source_id", "SOURCE_ID", "fonte")
+#: O endereco, na grafia do item e na do contrato do coletor (`DO_COLETOR`).
+ENDERECO_DA_OBSERVACAO = ("url", "source_url", "SOURCE_URL")
+
+
+def _declarado(item: dict, campos: tuple):
+    """O primeiro campo que IDENTIFICA de verdade. → (valor, campo) ou (None, None).
+
+    «Identifica de verdade» nao e «e truthy». O dono desse vocabulario e
+    `guarda/preservar_coleta._identifica`, e e ele que se usa — repetir a lista
+    das seis confissoes aqui seria criar um segundo dono da mesma pergunta, e
+    dois donos divergem no dia em que alguem acrescentar a setima.
+    """
+    for c in campos:
+        v = item.get(c)
+        if _identifica(v):
+            return v, c
+    return None, None
+
+
 def _tem_origem(item: dict) -> tuple:
-    fonte = item.get("source_id") or item.get("fonte") or item.get("url")
-    if not fonte:
-        return NAO_SEI, ("nao da para dizer de onde este item veio. Um item sem "
-                         "origem nao se consegue conferir depois, e um numero que "
-                         "nao se confere e um palpite bem vestido."), {}
-    return SIM, "a origem esta declarada", {"origem": str(fonte)[:160]}
+    """Da para conferir depois de onde isto veio? → (resultado, motivo, evidencia).
+
+    A ORDEM E DELIBERADA: identidade primeiro, endereco depois. As duas
+    respondem a pergunta, e a primeira responde melhor — mas a segunda so entra
+    quando a primeira nao existe, NUNCA por cima dela.
+
+    TRES COISAS QUE ESTA FUNCAO FAZIA E DEIXOU DE FAZER
+    ----------------------------------------------------
+    Ela era `source_id or fonte or url`, e uma cadeia de `or` mede se o valor e
+    truthy — nao se ele responde. Medido nesta casa:
+
+        `source_id = "NAO SEI"` + url  ->  SIM, com evidencia «NAO SEI»
+        `source_id = "NAO SEI"` SEM url ->  SIM, com evidencia «NAO SEI»
+
+    O segundo caso e o que mostra o tamanho do buraco: um item sem endereco
+    nenhum passava a dizer que a origem estava declarada. Nao havia NADA para
+    conferir depois, que e exatamente o que esta pergunta existe para garantir.
+
+        UMA CONFISSAO NAO E UMA ORIGEM. «Nao sei de onde veio» e a resposta
+        NAO_SEI a esta pergunta — nao e o valor dela.
+
+    E, no primeiro caso, a confissao AINDA ofuscava o endereco real: o `or`
+    parava nela e o URL — que respondia — nunca chegava ao livro de decisoes.
+
+    A terceira: a evidencia dizia so `origem`, sem dizer de que especie. Quem
+    lesse o livro nao conseguia distinguir uma identidade de um endereco, e a
+    leitura natural de «origem» e a primeira.
+    """
+    ident, campo = _declarado(item, IDENTIDADE_DA_FONTE)
+    if ident:
+        return SIM, "a origem esta declarada por identidade de fonte", {
+            "origem": str(ident)[:160], "origem_especie": "SOURCE_ID",
+            "origem_campo": campo}
+    endereco, campo = _declarado(item, ENDERECO_DA_OBSERVACAO)
+    if endereco:
+        return SIM, ("a origem esta declarada por endereco conferivel. A fonte "
+                     "canonica continua por identificar, e isto NAO e "
+                     "IDENTITY_STATE."), {
+            "origem": str(endereco)[:160], "origem_especie": "SOURCE_URL",
+            "origem_campo": campo}
+    return NAO_SEI, ("nao da para dizer de onde este item veio. Um item sem "
+                     "origem nao se consegue conferir depois, e um numero que "
+                     "nao se confere e um palpite bem vestido."), {}
 
 
 def _tem_quando(item: dict) -> tuple:
@@ -173,8 +263,90 @@ def _tem_quando(item: dict) -> tuple:
     return SIM, "tem tempo do fato", {"quando": str(q)[:40]}
 
 
+def _tem_pai(item: dict) -> tuple:
+    """A pergunta de prontidao DOCUMENTAL que faltava: de onde este texto nasceu?
+
+    Um derivado sem pai nao se consegue conferir contra o original — e um texto
+    que ninguem consegue ligar ao PDF de onde saiu e indistinguivel de um texto
+    que alguem escreveu a mao.
+    """
+    pai = item.get("parent_artifact_id") or item.get("parent_sha256")
+    if item.get("artifact_type") == "RAW":
+        return SIM, "e o original: nao tem pai, e nao devia ter", {}
+    if not pai or str(pai) in (NAO_SEI, "NAO_SE_APLICA", ""):
+        return NAO_SEI, ("este documento nao diz de que original nasceu. Sem pai "
+                         "nao da para conferir contra o bruto."), {}
+    return SIM, "o pai esta declarado", {"pai": str(pai)[:60]}
+
+
+# ── AS DUAS PRONTIDOES, E O ESTAGIO QUE AS SEPARA ───────────────────────────
+# COL-LAW-502: DOCUMENTO PRONTO nao e FATO PRONTO. Sao duas perguntas, em dois
+# momentos, e mede-las com a mesma regua faz o documento reprovar por nao saber
+# uma coisa que so o fato sabe.
+#
+#     43 textos derivados sairam NAO_SEI porque a porta lhes perguntava «quando
+#     o fato aconteceu». Um boletim nao acontece: ele RELATA. A data e do fato
+#     que esta dentro dele, e esse fato ainda nao foi extraido.
+#
+# NAO SE CRIOU SEGUNDA PORTA. E a mesma, e ela passou a perguntar o que se
+# aplica ao estagio do item — que e o que a lei manda.
+DOCUMENTO, FATO, ESTAGIO_DESCONHECIDO = "DOCUMENTO", "FATO", "ESTAGIO_DESCONHECIDO"
+
+# Marcas que dizem «isto e um fato/claim, nao um documento». Um claim tem
+# sujeito e predicado; um documento tem bytes e pai.
+MARCAS_DE_FATO = ("claim_id", "subject", "predicate", "fact_id")
+
+
+def estagio(item: dict) -> str:
+    """Que especie de coisa e esta? A resposta decide as perguntas."""
+    if any(k in item for k in MARCAS_DE_FATO):
+        return FATO
+    if str(item.get("artifact_type") or "").upper() in ("RAW", "DERIVED"):
+        return DOCUMENTO
+    # NAO SE ADIVINHA. Quem nao se declara continua a ser medido pela regua
+    # antiga — mudar o resultado de quem nao pediu seria alterar decisoes de
+    # caminhos que esta missao nao mediu.
+    return ESTAGIO_DESCONHECIDO
+
+
+def perguntas_do_estagio(est: str) -> tuple:
+    """As perguntas aplicaveis, por estagio. Uma arquitetura, duas reguas."""
+    if est == DOCUMENTO:
+        # Prontidao DOCUMENTAL: da para ler, sabe de onde veio, sabe de que
+        # original nasceu. O tempo do FATO nao se pergunta aqui.
+        return (("legivel", _legivel), ("origem", _tem_origem),
+                ("linhagem", _tem_pai))
+    # FATO e ESTAGIO_DESCONHECIDO continuam a responder pelo tempo do fato.
+    return (("legivel", _legivel), ("origem", _tem_origem),
+            ("tempo do fato", _tem_quando))
+
+
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
-    """Pertence ao universo pedido? A resposta muda com o universo — de proposito."""
+    """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
+
+    A LEI CANONICA QUE ESTA FUNCAO VIOLAVA
+    ---------------------------------------
+        AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA.
+
+    Ela devolvia NAO sempre que nenhuma palavra casava. Isso parece razoavel e
+    nao e: «nao encontrei nada deste universo» pode querer dizer duas coisas
+    completamente diferentes —
+
+        o item nao e disto                     ... e uma conclusao
+        o meu vocabulario nao chega a este item ... e uma confissao
+
+    e a porta nao tinha como as distinguir. Com um vocabulario incompleto — e o
+    desta casa esta comprovadamente incompleto — o NAO por ausencia transforma
+    cada buraco do lexico numa rejeicao com ar de julgamento. A coleta encolhe
+    sozinha e ninguem ve, porque um «nao» parece uma decisao tomada.
+
+    AGORA SO HA NAO COM EVIDENCIA POSITIVA:
+    quando o item fala claramente de OUTRO universo e nao deste. Isso e uma
+    prova a favor da exclusao, nao a falta de uma prova a favor da inclusao.
+
+    Sem essa prova, a resposta e NAO_SEI — que e mais util do que um nao errado,
+    porque um NAO_SEI faz alguem ir ver, e um NAO fecha o assunto.
+    """
     if not palavras:
         return NAO_SE_APLICA, (f"nao ha regra escrita do que conta como «{universo}». "
                                f"Sem regra, esta porta nao inventa uma."), {}
@@ -184,47 +356,206 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     if achadas:
         return SIM, (f"fala de {', '.join(achadas[:4])} — que e do que «{universo}» "
                      f"trata"), {"palavras": achadas[:8]}
-    return NAO, (f"nao encontrei nada de «{universo}» neste item. Isto e um NAO "
-                 f"para ESTE universo — o mesmo item pode ser SIM noutro."), {}
+
+    # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
+    noutros = {}
+    for outro, termos in PERGUNTAS_DO_UNIVERSO.items():
+        if outro == universo:
+            continue
+        casou = [t for t in termos if t.lower() in texto]
+        if casou:
+            noutros[outro] = casou[:4]
+    if noutros:
+        quais = "; ".join(f"{u}: {', '.join(w)}" for u, w in noutros.items())
+        return NAO, (f"nao fala de «{universo}», e fala claramente de outro "
+                     f"universo ({quais}). Isto e um NAO com prova a favor — nao "
+                     f"a simples falta de uma palavra."), {"achado_noutro": noutros}
+
+    return NAO_SEI, (f"nao encontrei nada de «{universo}» — nem de nenhum outro "
+                     f"universo. Isso NAO prova que o item nao pertence: prova que "
+                     f"o vocabulario nao lhe chegou. Ausencia de evidencia nao e "
+                     f"evidencia de ausencia, e por isso fica NAO_SEI."), {}
 
 
+# ── A PORTA TEM DE FALAR A LINGUA DO ITEM ──────────────────────────────────
+# Esta lista nasceu em PORTUGUES, e a porta decide sobre item ITALIANO. Medido
+# contra o unico texto italiano real desta arvore: **1 de 28** palavras aparecia
+# la. E das 28, **20 mudam** em italiano — `pesquisa` e `ricerca`, `artigo` e
+# `articolo`, `rotulo` e `etichetta`, `doenca` e `malattia`.
+#
+#     A BUSCA FOI CORRIGIDA E A PORTA FICOU PARA TRAS.
+#
+# O efeito e o pior possivel: o item chega, e como nenhuma palavra casa, ele nao
+# vira NAO_SEI — vira «nao pertence a este universo». Uma peneira que fala outra
+# lingua nao separa o que presta do que nao presta: rejeita tudo, e com ar de
+# quem julgou.
+#
+# NAO SE TRADUZ A LISTA: JUNTA-SE A OUTRA LINGUA AO LADO.
+# Traduzir apagaria o portugues, e ha itens nesta casa que vem em portugues (as
+# licoes do Brasil, os relatorios). O termo internacional — `doi`, `orcid` — nao
+# tem lingua e serve a todos.
+#
+# O QUE ISTO **NAO** RESOLVE, e fica dito: a arquitetura certa e CONCEITO ->
+# TERMO LOCAL (um `WHEAT_SEPTORIA` com as suas formas em IT/ES/FR/EN), e ela
+# NAO existe aqui. Isto e a correcao minima que faz a porta italiana funcionar
+# hoje; a arquitetura fica registada como proposta.
 PERGUNTAS_DO_UNIVERSO = {
-    "T7": ["estudo", "ensaio", "pesquisa", "doi", "orcid", "revista", "artigo",
-           "universidade", "instituto", "publicacao"],
-    "T9": ["lancamento", "campanha", "produto", "concorrente", "anuncio", "evento"],
-    "T4": ["autorizacao", "registro", "rotulo", "bula", "ministero", "decreto"],
-    "T3": ["praga", "doenca", "fungo", "inseto", "infestacao", "sintoma"],
+    # T7 · ciencia e ensaio
+    "T7": ["doi", "orcid",                                   # sem lingua
+           "estudo", "ensaio", "pesquisa", "revista", "artigo",
+           "universidade", "instituto", "publicacao",        # pt
+           "studio", "prova", "ricerca", "rivista", "articolo",
+           "universita", "istituto", "pubblicazione", "convegno",
+           "sperimentazione", "tesi"],                       # it
+    # T9 · o que o concorrente publica
+    "T9": ["concorrente", "evento",                          # serve nas duas
+           "lancamento", "campanha", "produto", "anuncio",   # pt
+           "lancio", "campagna", "prodotto", "annuncio",
+           "novita", "fiera"],                               # it
+    # T4 · regulatorio
+    "T4": ["registro", "ministero", "decreto",               # serve nas duas
+           "autorizacao", "rotulo", "bula",                  # pt
+           "autorizzazione", "etichetta", "foglietto",
+           "registrazione", "gazzetta"],                     # it
+    # T3 · praga e doenca
+    "T3": ["fungo",                                          # serve nas duas
+           "praga", "doenca", "inseto", "infestacao", "sintoma",   # pt
+           "parassita", "malattia", "insetto", "infestazione",
+           "sintomo", "avversita", "patogeno"],              # it
 }
 
 
 def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
-    """A porta. Uma decisao por par (item, universo) — nunca uma por item."""
-    for nome, f in (("legivel", _legivel), ("origem", _tem_origem),
-                    ("tempo do fato", _tem_quando)):
+    """A porta. Uma decisao por par (item, universo) — nunca uma por item.
+
+    E as perguntas vem do ESTAGIO do item (COL-LAW-502): a um documento nao se
+    pergunta o tempo de um fato que ainda nao foi extraido dele.
+    """
+    est = estagio(item)
+    for nome, f in perguntas_do_estagio(est):
         r, motivo, ev = f(item)
         if r != SIM:
             return Decisao(item=str(item.get("id") or item.get("url") or "?"),
                            universo=universo, resultado=r, regra=nome,
-                           motivo=motivo, evidencia=ev, corrida=corrida)
+                           motivo=motivo, evidencia=dict(ev, estagio=est),
+                           corrida=corrida)
 
     r, motivo, ev = _do_universo(item, universo, PERGUNTAS_DO_UNIVERSO.get(universo, []))
+    ev = dict(ev, estagio=est)
+    if est == DOCUMENTO:
+        # O que NAO foi perguntado fica escrito. Um silencio nao explicado
+        # reabre-se como duvida daqui a tres meses.
+        ev["tempo_do_fato"] = (
+            "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao "
+            "documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o "
+            "fato for extraido.")
     return Decisao(item=str(item.get("id") or item.get("url") or "?"),
                    universo=universo, resultado=r, regra="pertence ao universo",
                    motivo=motivo, evidencia=ev, corrida=corrida)
 
 
+class LivroIlegivel(Exception):
+    """O livro existe e nao se conseguiu ler. NAO e um livro vazio."""
+
+
 def escrever(decisoes: list) -> int:
-    """Junta ao livro; nunca reescreve o que ja estava la."""
+    """Junta ao livro; nunca reescreve o que ja estava la.
+
+    ⚠️ ESTA FRASE JA FOI FALSA, E DE MANEIRA DESTRUTIVA.
+
+    O `except json.JSONDecodeError: pass` engolia a falha de leitura, `d`
+    ficava `{"DECISOES": []}`, e a linha seguinte ESCREVIA esse dicionario por
+    cima do ficheiro. Um livro truncado — um `write` interrompido, um disco
+    cheio, um merge mal resolvido — era lido como zero decisoes e substituido
+    pelo lote da vez. Reproduzido nesta arvore:
+
+        813 decisoes  ->  livro truncado  ->  escrever([1 decisao])
+        813 decisoes  ->  1
+
+    e a funcao devolvia `1` como se fosse o total verdadeiro, de modo que nem
+    quem chamou ficava a saber.
+
+        FICHEIRO ILEGIVEL != FICHEIRO VAZIO.
+        UNKNOWN NASCIDO COMO ZERO, E AQUI COM PODER DE APAGAR.
+
+    Agora recusa-se. Um livro que nao se consegue ler e um caso para uma
+    pessoa olhar — nunca para uma maquina resolver deitando fora o que nao
+    entendeu. O ficheiro fica intacto: quem levanta esta excecao nao escreveu
+    nada.
+
+    ⚠️ E A SEGUNDA MANEIRA DE PERDER O LIVRO ERA A CONCORRENCIA.
+    A funcao LE, junta e ESCREVE. Duas corridas ao mesmo tempo davam duas
+    falhas diferentes, e as duas silenciosas na origem:
+
+        as duas leem 100 · cada uma junta 1 · a ultima escreve 101
+        -> a decisao da outra desapareceu, e o total parece certo
+
+        uma le enquanto a outra escreve
+        -> JSON truncado -> LivroIlegivel na corrida seguinte
+
+    Medido nesta arvore com cinco corridas concorrentes: uma das cinco morreu
+    com `LivroIlegivel`. A recusa estava certa; o que estava errado era haver
+    o que recusar.
+
+        LER, JUNTAR E ESCREVER SEM TRAVA NAO E ACRESCENTAR:
+        E ESCREVER POR CIMA DE QUEM ESTAVA A ACRESCENTAR.
+
+    A trava e BLOQUEANTE, e nao fail-fast como a da Sala de Espera — e a
+    diferenca e de conceito, nao de gosto. Na sala, duas escritas da MESMA
+    corrida na mesma morada sao um conflito e devem gritar. Aqui, muitas
+    corridas DIFERENTES acrescentam ao MESMO livro: nao ha conflito nenhum,
+    ha fila. Fazer isto falhar seria transformar trabalho legitimo em erro.
+    """
+    import fcntl
+    LIVRO.parent.mkdir(parents=True, exist_ok=True)
+    trava = os.open(str(LIVRO) + ".lock", os.O_CREAT | os.O_RDWR, 0o644)
+    try:
+        fcntl.flock(trava, fcntl.LOCK_EX)
+        return _escrever_sob_trava(decisoes)
+    finally:
+        fcntl.flock(trava, fcntl.LOCK_UN)
+        os.close(trava)
+
+
+def _escrever_sob_trava(decisoes: list) -> int:
+    """O corpo de `escrever`, com a trava ja presa por quem chamou."""
     d = {"DECISOES": []}
     if LIVRO.is_file():
         try:
             d = json.loads(LIVRO.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            pass
+        except json.JSONDecodeError as e:
+            raise LivroIlegivel(
+                "%s existe e nao e JSON valido (%s). NAO foi escrito nada: um "
+                "livro ilegivel nao e um livro vazio, e continuar aqui "
+                "apagaria as decisoes que ja la estavam. Repare o ficheiro, ou "
+                "arquive-o com outro nome, antes de voltar a correr."
+                % (LIVRO, e)) from e
+        if not isinstance(d, dict) or not isinstance(d.get("DECISOES", []), list):
+            raise LivroIlegivel(
+                "%s tem JSON valido mas nao a forma do livro (esperava um "
+                "objecto com a lista DECISOES). NAO foi escrito nada." % LIVRO)
     d.setdefault("DECISOES", []).extend(asdict(x) for x in decisoes)
     LIVRO.parent.mkdir(parents=True, exist_ok=True)
-    LIVRO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",
-                     encoding="utf-8")
+    # ⚠️ E A ESCRITA E ATOMICA, PELA MESMA RAZAO DA SALA DE ESPERA.
+    # `write_text` deixa o ficheiro truncado se o processo morrer a meio — no
+    # sitio exacto onde o livro bom estava. Corpo inteiro num temporario na
+    # MESMA pasta, `fsync`, e so entao `os.replace`, que e atomico no POSIX.
+    # Quem ler durante a escrita ve o livro ANTERIOR, inteiro.
+    #
+    #     FICHEIRO PARCIAL NAO E ESTADO LEGITIMO.
+    corpo = json.dumps(d, ensure_ascii=False, indent=2) + "\n"
+    fd, temporario = tempfile.mkstemp(prefix=".livro-", suffix=".json",
+                                      dir=str(LIVRO.parent))
+    try:
+        with open(fd, "w", encoding="utf-8") as fh:
+            fh.write(corpo)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(temporario, str(LIVRO))
+        temporario = None
+    finally:
+        if temporario and os.path.exists(temporario):
+            os.unlink(temporario)
     return len(d["DECISOES"])
 
 
@@ -235,12 +566,41 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
     Ela nao sabe — nem precisa de saber — qual raspador trouxe, qual API, qual
     veiculo, nem que remendo foi preciso pelo caminho. Se amanha o executor for
     outro, este contrato nao muda, e nenhum consumidor a jusante mexe uma linha.
+
+    ⚠️ E DESDE `C-READY-LINEAGE-BEFORE-SCALE-V1` ELE LEVA A OBSERVACAO.
+    Nao e um campo de conveniencia: sem ele, a unica maneira de voltar do item
+    ao bruto era procurar `derived_artifact` pelo `sha256` — e isso MEDIU-SE
+    ambiguo contra PostgreSQL real. Dois PDFs diferentes com o mesmo texto
+    extraido dao DOIS derivados com o mesmo `sha256`, e a procura devolve os
+    dois, com duas observacoes e dois objetos de armazem.
+
+        SHA256 IDENTIFICA BYTES. NAO IDENTIFICA OBSERVACAO.
+        DOIS CANDIDATOS NAO SAO UMA LINHAGEM.
+
+    A COL-LAW-033 ja exigia linhagem a todo artefato, e ja tinha escrito o
+    porque: «A PROCEDENCIA SO VALE SE FOR POSTA NA COLETA. Depois e tarde.»
+    O valor ja estava em maos — as duas rotas canonicas poem `raw_asset_id` no
+    item que entregam a porta — e era deitado fora exactamente aqui.
+
+        RUNTIME SABE != O SISTEMA GUARDA (know-how §86.4).
+
+    ⚠️ E SO ESTE ID VIAJA. `storage_object_id` NAO entra: `raw_asset` ja aponta
+    para a copia por chave estrangeira composta `(storage_object_id, sha256)`,
+    e duplica-lo aqui daria duas declaracoes do mesmo parentesco, livres para
+    divergir. A MENOR IDENTIDADE QUE FECHA A ESTRADA E A CERTA.
     """
     if decisao.resultado != SIM:
         raise ValueError(f"item {decisao.item} nao passou a porta ({decisao.resultado})")
+    # ⚠️ AUSENCIA NAO SE FABRICA, E `or` AQUI SERIA UM DEFEITO.
+    # `raw_asset.id` e `bigserial`, mas quem escreve isto nao tem de saber
+    # disso: `or` transformaria um id falsy num «NAO SEI» silencioso, e um
+    # «NAO SEI» inventado e pior do que um id errado, porque ninguem o procura.
+    # Nunca se deriva de sha256, URL, caminho, filename nem RUN_ID.
+    observacao = item.get("raw_asset_id")
     return {
         "ESTADO": "PRONTO_PARA_INTELIGENCIA",
         "ITEM_ID": decisao.item,
+        "RAW_OBSERVATION_ID": "NAO SEI" if observacao is None else observacao,
         "UNIVERSO": decisao.universo,
         "TEXTO": item.get("texto") or item.get("title") or "",
         "SOURCE_ID": item.get("source_id") or item.get("fonte") or "NAO SEI",

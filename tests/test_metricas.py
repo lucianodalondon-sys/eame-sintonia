@@ -342,3 +342,15 @@ class TestPercentualNaoSaiSemDenominador(unittest.TestCase):
     def test_o_marcador_existe_e_e_unico(self):
         self.assertEqual('NOT_PRESERVED',
                          Ledger.DENOMINADOR_NAO_PRESERVADO)
+
+
+# ⚠️ SEM ISTO, `python3 tests/test_metricas.py` NAO CORRIA NADA.
+# 5 classes, 21 casos, e uma saida vazia com codigo 0 — que se le como
+# verde. Ao ligar o arranque aparecem 5 falhas REAIS que estavam escondidas
+# desde sempre: numeros publicados em documentos que ja nao batem com o dono
+# da metrica.
+#
+#     NAO CORREU != PASSOU.
+if __name__ == '__main__':
+    import sys
+    sys.exit(0 if unittest.main(exit=False).result.wasSuccessful() else 1)

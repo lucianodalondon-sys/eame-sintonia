@@ -113,6 +113,30 @@ def _bruto_corrompido():
             ruins.append(item['FILE'])
     return ruins
 
+# ⚠️ UM CAMPO QUE FALTA É UMA MEDIDA, NÃO UMA EXCEÇÃO.
+#
+# Este ficheiro lia os campos do manifesto com `r['NOME']` a seco. Metade das
+# corridas (10 de 20, medido) não traz `RAW_EVIDENCE_STATE`, e há mais campos
+# na mesma situação — e `regras/proveniencia.CAMPOS_RUN` declara-os
+# obrigatórios. O resultado não era um portão vermelho: era um `KeyError` a
+# meio de `avaliar()`, que derrubava a função inteira e com ela NOVE casos de
+# `tests/test_portao.py` — incluindo os dos outros cinco portões, que não têm
+# nada a ver com o campo em falta.
+#
+#     UM PORTÃO QUE REBENTA NÃO REPROVA: ELE DESAPARECE.
+#     E UM DEFEITO NUM MANIFESTO APAGAVA A MEDIÇÃO DE TODOS OS OUTROS.
+#
+# `AUSENTE` é um valor próprio, e NÃO é `NOT_PRESERVED` nem `NOT_APPLICABLE`:
+# esses dois são afirmações que alguém fez sobre a corrida. Este é a ausência
+# de qualquer afirmação, e ela bloqueia o portão a que pertence.
+AUSENTE = 'CAMPO_AUSENTE_NO_MANIFESTO'
+
+
+def campo(r, nome):
+    """O valor do campo, ou `AUSENTE`. Nunca levanta, nunca inventa."""
+    return r.get(nome, AUSENTE)
+
+
 def avaliar():
     p = {}
     runs = pv.carregar()
@@ -221,14 +245,34 @@ def avaliar():
     }
 
     # ---- PAID_RAW_POLICY: quem diz PRESERVED tem o arquivo; quem não tem, confessa
-    faltando, pagas = [], 0
+    #
+    # ⚠️ UM CAMPO QUE FALTA É UMA MEDIDA, NÃO UMA EXCEÇÃO.
+    # Isto fazia `r['RAW_EVIDENCE_STATE']` a seco. Metade dos manifestos (10 de
+    # 20, medido) não traz o campo — e `regras/proveniencia.CAMPOS_RUN` declara-o
+    # obrigatório. O portão morria em `KeyError` a meio da avaliação, levando
+    # consigo NOVE casos de `tests/test_portao.py`, incluindo os dos outros
+    # portões, que não têm nada a ver com este.
+    #
+    #     UM PORTÃO QUE REBENTA NÃO REPROVA: ELE DESAPARECE.
+    #     E um portão que desaparece não é um portão.
+    #
+    # A ausência passa a ser contada e nomeada. Ela NÃO é `NOT_APPLICABLE` — não
+    # se promove um silêncio a «não se aplica», que é uma afirmação sobre a
+    # corrida que ninguém fez. É UNKNOWN, e UNKNOWN bloqueia.
+    faltando, pagas, sem_estado_do_bruto = [], 0, []
     for rid, r in runs.items():
-        if r['RAW_EVIDENCE_STATE'] == 'NOT_APPLICABLE':
+        if 'RAW_EVIDENCE_STATE' not in r:
+            sem_estado_do_bruto.append(rid)
+            continue
+        if campo(r, 'RAW_EVIDENCE_STATE') == 'NOT_APPLICABLE':
             continue
         pagas += 1
-        if r['RAW_EVIDENCE_STATE'] != 'PRESERVED':
+        if campo(r, 'RAW_EVIDENCE_STATE') != 'PRESERVED':
             continue
-        caminhos = r['RAW_EVIDENCE_PATH']
+        caminhos = campo(r, 'RAW_EVIDENCE_PATH')
+        if caminhos is AUSENTE or caminhos == AUSENTE:
+            faltando.append((rid, AUSENTE))
+            continue
         for c in (caminhos if isinstance(caminhos, list) else [caminhos]):
             c = str(c).split(' (')[0].strip()
             if c and c != pv.NOT_PRESERVED and not os.path.exists(os.path.join(ROOT, c)):
@@ -244,17 +288,27 @@ def avaliar():
     # bruto podia ser trocado ou corrompido e o portão seguia dizendo PROVED porque o
     # ARQUIVO existia. Existência não é integridade.
     corrompidos = _bruto_corrompido()
-    ok5 = not faltando and leu_bruto and not corrompidos
+    # UNKNOWN BLOQUEIA. Uma corrida sem `RAW_EVIDENCE_STATE` não é uma corrida
+    # sem bruto: é uma corrida sobre a qual não se sabe. Deixá-la passar em
+    # silêncio seria promover ausência a «não se aplica».
+    ok5 = (not faltando and leu_bruto and not corrompidos
+           and not sem_estado_do_bruto)
     p['PAID_RAW_POLICY'] = {
         'PROVED': bool(ok5),
-        'MEDIDA': ('%d rotas pagas; %d com bruto declarado ausente; %d com SHA-256 divergente; '
+        'MEDIDA': ('%d rotas pagas; %d sem RAW_EVIDENCE_STATE (UNKNOWN, não zero); '
+                   '%d com bruto declarado ausente; %d com SHA-256 divergente; '
                    'pipeline lê o bruto de verdade: %s') % (
-            pagas, len(faltando), len(corrompidos), leu_bruto),
-        'BLOQUEIO': ('bruto declarado e inexistente: %s' % faltando) if faltando
-                    else (('bruto com SHA-256 diferente do relógio de dados: %s' % corrompidos)
-                          if corrompidos
-                          else (None if leu_bruto else
-                                'PIPELINE.ENTRADA não aponta para um bruto existente')),
+            pagas, len(sem_estado_do_bruto), len(faltando), len(corrompidos), leu_bruto),
+        'BLOQUEIO': (
+            ('%d corrida(s) sem RAW_EVIDENCE_STATE, que `regras/proveniencia.CAMPOS_RUN` '
+             'declara obrigatório: %s' % (len(sem_estado_do_bruto),
+                                          sorted(sem_estado_do_bruto)[:6]))
+            if sem_estado_do_bruto
+            else ('bruto declarado e inexistente: %s' % faltando) if faltando
+            else (('bruto com SHA-256 diferente do relógio de dados: %s' % corrompidos)
+                  if corrompidos
+                  else (None if leu_bruto else
+                        'PIPELINE.ENTRADA não aponta para um bruto existente'))),
     }
 
     # ---- COLLECTION_TIMESTAMPS: existe execução com hora medida, e a antiga não finge
@@ -262,15 +316,24 @@ def avaliar():
     # porta nova tem hora MEDIDA PELA PLATAFORMA". As antigas legitimamente não têm, e
     # nunca terão — o que elas não podem é fingir que têm.
     PORTA_NOVA = 'POST /acts/{actor}/runs?waitForFinish'
-    pela_porta = [r for r in runs.values() if PORTA_NOVA in str(r['CAPTURE_METHOD'])]
-    sem_hora = [r['RUN_ID'] for r in pela_porta
-                if pv.NOT_PRESERVED in (r['STARTED_AT'], r['FINISHED_AT'])]
-    fingindo = [r['RUN_ID'] for r in runs.values()
-                if r['STARTED_AT'] != pv.NOT_PRESERVED
-                and r['OUTPUT_WRITTEN_AT'] == r['STARTED_AT']]
+    pela_porta = [r for r in runs.values()
+                  if PORTA_NOVA in str(campo(r, 'CAPTURE_METHOD'))]
+    # Uma corrida sem a hora DECLARADA e uma corrida com a hora AUSENTE contam
+    # as duas como «sem hora medida» — mas por razões diferentes, e por isso a
+    # ausência entra também na lista própria abaixo.
+    sem_hora = [campo(r, 'RUN_ID') for r in pela_porta
+                if pv.NOT_PRESERVED in (campo(r, 'STARTED_AT'),
+                                        campo(r, 'FINISHED_AT'))
+                or AUSENTE in (campo(r, 'STARTED_AT'), campo(r, 'FINISHED_AT'))]
+    sem_campos_de_hora = sorted(
+        campo(r, 'RUN_ID') for r in runs.values()
+        if AUSENTE in (campo(r, 'STARTED_AT'), campo(r, 'OUTPUT_WRITTEN_AT')))
+    fingindo = [campo(r, 'RUN_ID') for r in runs.values()
+                if campo(r, 'STARTED_AT') not in (pv.NOT_PRESERVED, AUSENTE)
+                and campo(r, 'OUTPUT_WRITTEN_AT') == campo(r, 'STARTED_AT')]
     ordem_ok = False
     if len(pela_porta) >= 2:
-        d = sorted(pela_porta, key=lambda r: r['STARTED_AT'])
+        d = sorted(pela_porta, key=lambda r: str(campo(r, 'STARTED_AT')))
         ordem_ok = pv.ordem(d[0], d[-1])[0] != 'NAO_DIZIVEL'
     p['COLLECTION_TIMESTAMPS'] = {
         'PROVED': bool(pela_porta) and not sem_hora and not fingindo and ordem_ok,

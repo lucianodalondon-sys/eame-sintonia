@@ -1,0 +1,56 @@
+# ═══════════════════════════════════════════════════════════════════════
+# AUDITORIA DA PRODUÇÃO — SÓ LEITURA
+#
+# Substitui o `canario-022`, que foi APOSENTADO. Aquele era uma porta de
+# MISSÃO ÚNICA: aplicou a 022, correu o primeiro canário forward, e depois
+# ficou pendurado no repositório com capacidade de escrever produção.
+#
+#     MISSÃO ONE-SHOT TERMINOU → PORTA ONE-SHOT É FECHADA.
+#
+# A prova histórica não precisa de uma porta aberta para existir: ela vive nos
+# runs, no Git e no livro-razão.
+#
+#     pré-voo   34257470111
+#     apply     34257805728
+#     canário   34259433336
+#
+# O QUE ESTE WORKFLOW NÃO PODE FAZER, POR CONSTRUÇÃO
+# --------------------------------------------------
+#   · não chama `cadeia_canonica.sh` — não aplica migration nenhuma
+#   · não faz captura, nem derivação, nem upload
+#   · não recebe `SUPABASE_SECRET_KEY` nem `SUPABASE_URL`: aquilo só existia
+#     para escrever no Storage, e já não há o que escrever
+#   · recebe `SUPABASE_DB_URL` e usa-o só para `SELECT`
+#
+# Um empurrão de código pode dispará-lo à vontade: o pior que acontece é
+# alguém ficar a saber o estado da produção.
+# ═══════════════════════════════════════════════════════════════════════
+name: auditoria-live
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/auditoria-live.yml'
+      - 'provas/auditoria_live.sh'
+      - 'supabase/migrations/**'
+
+permissions:
+  contents: read
+
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · o cliente do banco existe
+        run: psql --version
+
+      # SÓ SELECT. Se um dia alguém acrescentar aqui um `insert`, um `create`
+      # ou uma chamada ao aplicador, este workflow deixa de ser o que o nome
+      # diz — e há teste em `tests/test_porta_de_producao.py` que reprova.
+      - name: 2 · auditoria da produção (somente leitura)
+        run: bash provas/auditoria_live.sh
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}

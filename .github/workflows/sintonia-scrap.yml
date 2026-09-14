@@ -45,6 +45,20 @@ name: sintonia-scrap
 on:
   workflow_dispatch:
     inputs:
+      # ── A FONTE DESCE COM O PEDIDO, E NAO SOBE DA OBSERVACAO ──────────
+      # O SCRAP observa PLATAFORMAS; a porta da coleta fala em FONTES. Sem o
+      # `SOURCE_ID` do atlas vindo daqui, o adapter declara ZERO colheita e
+      # escreve porque — em vez de inventar uma fonte a partir da URL.
+      #
+      #     URL NAO E SOURCE_ID.
+      #
+      # Vazio e um valor legitimo: quer dizer «nao nomeei fonte», e a resposta
+      # a isso e zero colheita, nao uma fonte adivinhada.
+      fonte:
+        description: 'SOURCE_ID do atlas (vazio = sem colheita, so suporte)'
+        required: false
+        default: ''
+        type: string
       fase:
         description: 'qual fase rodar'
         required: true
@@ -57,19 +71,36 @@ on:
           - janela         # rota pública pelo navegador: perfis + objetos
           - janela-perfis  # só a camada de perfil
           - janela-objetos # só a camada de objeto
-          - transcrever    # a fala dos vídeos vira texto, aqui, sem fatura
-          - transcrever-alvos # o que SERIA transcrito, sem transcrever
+          # O CANÁRIO DA RELEASE V1. Rota gratuita, permitida, sem credencial,
+          # sem navegador autenticado e sem fornecedor pago — escolhida para
+          # provar a MÁQUINA, e não a plataforma mais importante.
+          - canario-bluesky # cronologia pública de UMA conta Bluesky
+          # A ÚNICA rota que a política permite no LinkedIn: lê o site DA
+          # PRÓPRIA organização e traz de lá o endereço que ela publicou.
+          # Devolve CATÁLOGO, e catálogo não atravessa a Admissão.
+          - identidade-linkedin # o endereço LinkedIn publicado pela organização
+          # `transcrever` e `transcrever-alvos` foram APOSENTADAS na C10.4C.
+          # A fala de Reel tem um dono só, e ele pede áudio — nunca o vídeo
+          # inteiro. Ver `docs/sintonia-scrap/C10-4C-APOSENTAR-A-ROTA-LEGADA.md`.
           - diario         # a passada do dia sobre o muro de 12
           - diario-fila    # quem vence hoje, e por quê
           - diario-noticia # o que MUDOU desde ontem
           - semaforo       # a grade de cobertura
           - liquidar       # o custo REAL das fases pagas, depois
           - portao-pessoal # o portão de dado pessoal está aberto? por quê?
+          # Lê o BRUTO já pago e diz que forma ele tem. Nenhuma rede, nenhum
+          # provider, nenhum dólar — é `cat` sobre bytes que já são nossos.
+          - yt-legenda-bruto # que forma tem o bruto que a corrida paga trouxe
           # ── PAGAS ──────────────────────────────────────────────────
           - bio            # teste de fumaça de ~1 centavo
           - posts          # um run por conta
           - reels          # um run por conta
           - comentarios    # atrás do portão de dado pessoal (GDPR)
+          # A ÚNICA fase paga autorizada pela C10.8B-LIVE. Ela não recebe alvo,
+          # teto nem motivo por aqui: tudo isso vive em `FASES_PAGAS`, dentro de
+          # `coleta/social_scrap.py`, onde se lê num commit e não se escolhe num
+          # formulário. Este workflow é DISPARADOR.
+          - yt-legenda-paga  # 1 run · US$0,10 · 1 vídeo · a rota apify:transcricao
           # ── YOUTUBE · TODAS GRÁTIS ─────────────────────────────────
           - yt-canais      # nome, inscritos, descrição dos 8 canais
           - yt-objetos     # 30 vídeos por página, com continuation
@@ -85,17 +116,25 @@ on:
         type: choice
         options: ['1', '2']
       modelo:
-        description: 'só para `transcrever` — tiny (18,7x, ruim) / base (9,4x) / small (3,2x, bom)'
+        description: 'só para `yt-transcrever` — tiny (18,7x, ruim) / base (9,4x) / small (3,2x, bom)'
         required: false
         default: small
         type: choice
         options: [small, base, tiny]
       teto:
-        description: 'teto de objetos (transcrever) ou por conta (janela). Vazio = sem teto.'
+        description: 'teto de objetos (yt-transcrever) ou por conta (janela). Vazio = sem teto.'
         required: false
         type: string
       conta:
         description: 'só para `diario` — limitar a uma conta. Vazio = todas as que vencem.'
+        required: false
+        type: string
+      handle:
+        description: 'só para `canario-bluesky` — a conta Bluesky a observar (ex.: nome.bsky.social). NÃO é o SOURCE_ID.'
+        required: false
+        type: string
+      site:
+        description: 'só para `identidade-linkedin` — o site DA ORGANIZAÇÃO onde ela publica o próprio endereço. NUNCA linkedin.com.'
         required: false
         type: string
       orcamento_h:
@@ -136,12 +175,23 @@ jobs:
       # certa, custa dez segundos e evita a caçada.
       - name: 0 · o ref tem os scripts desta missão?
         run: |
+          # OS CAMINHOS SÃO OS DE HOJE, E ISSO É UM CONSERTO DA C10.8B-LIVE
+          # ------------------------------------------------------------------
+          # Esta guarda procurava tudo em `scripts/`. Os ficheiros mudaram de
+          # casa — `coleta/`, `ferramentas/` — e `scripts/` ficou VAZIO. A
+          # guarda passou a reprovar toda a gente, sempre, com a frase de quem
+          # despachou contra o ref errado.
+          #
+          #     UMA GUARDA QUE APONTA PARA A MORADA ANTIGA RECUSA A CASA CERTA.
           faltam=""
-          for f in instagram_coleta.py instagram_janela.py instagram_diario.py \
-                   instagram_transcrever.py instagram_pessoal.py cdp.py \
-                   navegador.py contrato_ator.py youtube_janela.py \
-                   youtube_relevancia.py youtube_transcrever.py; do
-            [ -f "scripts/$f" ] || faltam="$faltam $f"
+          for f in coleta/instagram_coleta.py coleta/instagram_janela.py \
+                   coleta/instagram_diario.py coleta/instagram_pessoal.py \
+                   ferramentas/cdp.py ferramentas/navegador.py \
+                   ferramentas/contrato_ator.py coleta/youtube_janela.py \
+                   coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \
+                   coleta/social_scrap.py coleta/scrap_executor.py \
+                   coleta/coletor.py; do
+            [ -f "$f" ] || faltam="$faltam $f"
           done
           if [ -n "$faltam" ]; then
             echo "SCRIPTS_AUSENTES=YES"
@@ -170,14 +220,14 @@ jobs:
       # Fase que abre navegador falha DEPOIS de minutos se o Chrome nao estiver
       # onde `navegador.py` procura. Perguntar antes custa um segundo.
       - name: 2 · a porta de coleta (só para fase de navegador)
-        if: contains(fromJSON('["janela","janela-perfis","janela-objetos","diario","transcrever","yt-canais","yt-objetos","yt-legendas"]'), inputs.fase)
+        if: contains(fromJSON('["janela","janela-perfis","janela-objetos","diario","yt-canais","yt-objetos","yt-legendas"]'), inputs.fase)
         run: PYTHONIOENCODING=utf-8 $PY ferramentas/navegador.py
 
       # A transcricao vive fora do repositorio, em ~/.sintonia-libs, e precisa do
       # ffmpeg no PATH. Sem um dos dois ela morre no meio do lote — depois de ja
       # ter baixado audio. Falhar aqui nao desperdica download.
       - name: 3 · a transcrição tem com que transcrever?
-        if: contains(fromJSON('["transcrever","yt-transcrever"]'), inputs.fase)
+        if: contains(fromJSON('["yt-transcrever"]'), inputs.fase)
         run: |
           ffmpeg -version >/dev/null 2>&1 \
             && echo "FFMPEG=OK" \
@@ -230,24 +280,200 @@ jobs:
           echo "FASE=${{ inputs.fase }} · RUNNER=${{ runner.name }} · REF=${{ github.ref_name }}"
           TETO='${{ inputs.teto }}'
           CONTA='${{ inputs.conta }}'
+          # ══════════════════════════════════════════════════════════
+          # QUEM ENTRA POR ONDE — E POR QUE ALGUMAS NÃO ENTRAM
+          # ══════════════════════════════════════════════════════════
+          # A C10.6D censou estruturalmente as portas deste workflow e
+          # classificou cada fase pelo COMPORTAMENTO, nunca pelo nome.
+          #
+          #     WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR DE COLETA.
+          #
+          # COLLECTION com rota canônica  ->  entrada canônica
+          # COLLECTION sem rota canônica  ->  RECUSA ALTA (não corre nada)
+          # OPERAÇÃO / MEDIÇÃO / JULGAMENTO -> continua, e NÃO é fabricada
+          #                                    como Collection para o número
+          #                                    de bypasses baixar
+          #
+          #     FABRICAR COLLECTION PARA A MÉTRICA PASSAR É MENTIR COM MÉTRICA.
+          recusar() {
+            echo "FASE_BLOQUEADA=$1"
+            echo "  ESPECIE=$2"
+            echo "  PORQUE=$3"
+            echo "  A implementacao NAO corre por aqui. Uma porta que coleta sem"
+            echo "  perguntar ao dono da decisao e um desejo, nao uma decisao."
+            exit 2
+          }
           case "${{ inputs.fase }}" in
-            janela)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py tudo    $TETO ;;
-            janela-perfis)   PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py perfis  $TETO ;;
-            janela-objetos)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py objetos $TETO ;;
-            transcrever)     PYTHONIOENCODING=utf-8 $PY ferramentas/instagram_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
-            transcrever-alvos) PYTHONIOENCODING=utf-8 $PY ferramentas/instagram_transcrever.py alvos ;;
-            diario)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py rodar   $CONTA ;;
+            # ── COLLECTION · ENTRADA CANÔNICA ────────────────────────────
+            # `leis/social_matriz.py` declara INSTAGRAM/INCREMENTAL com a rota
+            # `instagram_janela.py:grade`, classe PUBLIC_BROWSER, PERMITIDA
+            # CONDICIONAL, estado PROVED. A matriz nomeia o ficheiro e permite
+            # a rota — e durante todo esse tempo o workflow corria o ficheiro
+            # direto, sem passar por portão, registo, RUN ou rastro.
+            #
+            # A implementação é a MESMA e escreve os MESMOS ficheiros. O que
+            # muda é o caminho até ela.
+            #
+            # ── E DESDE A SCRAP-FLOW-01 ELA ENTRA PELO ORQUESTRADOR ──────
+            # `coleta/social_scrap.py coletar` chegava ao `COLLECT` e parava
+            # ali: o que a corrida colhia nunca via `coleta/ingresso.py`, e
+            # portanto nunca chegava a admissao. A porta existia, o executor
+            # existia, e entre os dois nao havia aresta nenhuma.
+            #
+            #     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+            #
+            # O que o disparador diz agora e uma INTENCAO — «colete
+            # concorrentes», com fase e fonte — e quem escolhe o executor, cunha
+            # o RUN_ID, le o retorno declarado e leva a colheita a porta e o
+            # orquestrador canonico. O ator, a rota e o provider continuam a
+            # nao aparecer aqui.
+            #
+            #     WORKFLOW E DISPARADOR. WORKFLOW NAO E MOTOR DE COLETA.
+            janela|janela-perfis|janela-objetos)
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="${{ inputs.fonte }}" \
+                --filtro teto="${{ inputs.teto }}" ;;
+
+            # ── O CANÁRIO DA RELEASE V1 ──────────────────────────────────
+            # Ramo PRÓPRIO, e não mais um nome no `case` de cima, porque ele
+            # leva um filtro que a janela não leva: `handle`, o endereço da
+            # conta. Enfiá-lo no ramo da janela mandaria um argumento que a
+            # rota do Instagram não conhece.
+            #
+            # `handle` é o ENDEREÇO; `fonte` é a IDENTIDADE PROVADA. Quem
+            # dispara nomeia os dois, e nenhum se deriva do outro.
+            #
+            #     HANDLE NÃO É SOURCE_ID.
+            #
+            # Mesma entrada canônica do ramo acima: o disparador diz a
+            # INTENÇÃO, e o orquestrador é que escolhe o executor, cunha o
+            # RUN_ID e leva a colheita à porta. O ator, a rota e o provider
+            # continuam a não aparecer aqui.
+            canario-bluesky)
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="${{ inputs.fonte }}" \
+                --filtro handle="${{ inputs.handle }}" ;;
+
+            # ── A IDENTIDADE DO LINKEDIN ─────────────────────────────────
+            # Ramo próprio pela mesma razão do canário: ele leva `site`, que
+            # é o endereço do site DA ORGANIZAÇÃO — nunca `linkedin.com`, e
+            # nunca um buscador. O que volta é CATÁLOGO: uma entidade de onde
+            # se PODE colher, e não material observado.
+            #
+            #     IDENTITY != CONTENT. E CATALOG != COLHEITA.
+            #
+            # Pedir PUBLICAÇÕES do LinkedIn não tem ramo aqui, e a ausência é
+            # a declaração: `LINKEDIN/FETCH_POST` tem duas rotas e as duas
+            # estão `PERMITIDA = NAO`.
+            identidade-linkedin)
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="${{ inputs.fonte }}" \
+                --filtro site="${{ inputs.site }}" ;;
+
+            # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
+            # `coleta/instagram_diario.py rodar` importa `instagram_janela` e
+            # corre a MESMA rota — mas com uma unidade de trabalho própria (a
+            # passada do DIA) que nenhuma capacidade declara. Registá-la aqui
+            # seria inventar capacidade para o número fechar.
+            diario)
+              recusar diario COLLECTION_DISCOVER \
+                "a passada do dia usa a rota da janela, mas nenhuma capacidade declara a unidade 'conta x dia'" ;;
+
+            # `coleta/youtube_janela.py canais|objetos` sobe NAVEGADOR contra
+            # youtube.com. A matriz declara YOUTUBE/INCREMENTAL com DUAS rotas:
+            # a API oficial (SIM) e o feed nativo (NAO). PUBLIC_BROWSER nao
+            # esta declarada — e os ToS do YouTube proibem meio automatizado
+            # sem permissao escrita.
+            yt-canais|yt-objetos)
+              recusar "${{ inputs.fase }}" COLLECTION_DISCOVER \
+                "rota PUBLIC_BROWSER nao declarada em YOUTUBE/INCREMENTAL; a matriz so conhece OFFICIAL_API_FREE (SIM) e feeds (NAO)" ;;
+
+            # `yt-legendas` chama `_timedtext`. A matriz diz, com prova medida
+            # na C5: YOUTUBE/FETCH_TRANSCRIPT · timedtext · DIRECT_HTTP ·
+            # PERMITIDA=NAO · ROUTE_NOT_ALLOWED, por ToS, por `Disallow: /api/`
+            # e pelas Developer Policies III.D.7 e III.E.6.
+            #
+            #     UMA ROTA QUE FUNCIONA NAO E UMA ROTA PERMITIDA.
+            yt-legendas)
+              recusar yt-legendas COLLECTION_DERIVED \
+                "timedtext e ROUTE_NOT_ALLOWED na matriz desde a C5 — ToS, Disallow /api/ e Developer Policies" ;;
+
+            # `yt-transcrever` busca o audio com `yt-dlp`. A matriz nao tem
+            # capacidade de BYTES para o YouTube: nao ha rota declarada, nem
+            # permitida nem proibida. Ausencia nao e permissao.
+            yt-alvos|yt-transcrever)
+              recusar "${{ inputs.fase }}" COLLECTION_FETCH \
+                "aquisicao de audio do YouTube por yt-dlp; a matriz nao declara capacidade de BYTES para YOUTUBE" ;;
+
+            # As quatro fases PAGAS do Instagram. `instagram.post.comments` esta
+            # declarada e SEM rota; `bio`/`posts`/`reels` nem capacidade tem. E
+            # a C10.6D nao autoriza gasto.
+            bio|posts|reels|comentarios)
+              recusar "${{ inputs.fase }}" COLLECTION_FETCH \
+                "rota paga sem capacidade registada; esta missao nao autoriza gasto" ;;
+
+            # ── A ÚNICA ROTA PAGA COM CAPACIDADE, ROTA E AUTORIZAÇÃO ─────
+            # `youtube.native_caption` → `apify:transcricao`. A C10.8B ligou a
+            # rota e provou-a offline; a C10.8B-LIVE traz a autorização humana
+            # de US$0,10 para a primeira corrida real.
+            #
+            # Esta porta NÃO nomeia ator, NÃO escolhe alvo e NÃO declara teto.
+            # Se ela precisasse de saber o ID do ator para funcionar, o motor
+            # teria voltado para dentro do disparador.
+            #
+            #     WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR DE COLETA.
+            #     E UM TETO QUE VIVE NO DISPARADOR É UM TETO QUE QUEM DISPARA
+            #     ESCOLHE.
+            yt-legenda-paga)
+              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \
+                coletar yt-legenda-paga ;;
+
+            # ── NÃO É COLLECTION · CONTINUA COMO ESTAVA ──────────────────
+            # Medido, não suposto. Nenhuma destas adquire nada de plataforma:
+            # elas leem o que já está em casa, ou dizem o estado de um portão.
+            #
+            #   diario-fila     seleção local sobre o acervo    COLLECTION_SUPPORT
+            #   diario-noticia  comparação local com ontem      OPERATIONAL_CONTROL
+            #   portao-pessoal  o portão de dado pessoal        OPERATIONAL_CONTROL
+            #   yt-relevancia   «vale a pena esta fonte?»       JUDGMENT
+            #   yt-calibrar     calibra a mesma peneira         JUDGMENT
+            #   contratos/plano lê schema e estado de chave     VALIDATION_TOOL
+            #   semaforo/liquidar  controlo de execução         OPERATIONAL_CONTROL
+            #
+            # `yt-relevancia` é JULGAMENTO, e fica FORA da convergência de
+            # propósito: empurrá-la para o SCRAP como capacidade de aquisição
+            # faria o número passar e poria juízo temático dentro da coleta.
+            #
+            #     COLETAR != ADMITIR != JULGAR.
+            yt-legenda-bruto)
+              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py bruto ;;
             diario-fila)     PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py fila ;;
             diario-noticia)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py noticia ;;
             portao-pessoal)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_pessoal.py estado ;;
-            yt-canais)       PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py canais ;;
-            yt-objetos)      PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py objetos $TETO ;;
-            yt-legendas)     PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py legendas $TETO ;;
             yt-relevancia)   PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py tudo ;;
             yt-calibrar)     PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py calibrar ;;
-            yt-alvos)        PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;
-            yt-transcrever)  PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py rodar "${{ inputs.modelo }}" $TETO ;;
-            *)               PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py "${{ inputs.fase }}" ;;
+            contratos|plano|semaforo|liquidar)
+              PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py "${{ inputs.fase }}" ;;
+
+            # ── O RAMO DE OMISSÃO DEIXOU DE EXISTIR ──────────────────────
+            # Ele mandava QUALQUER fase não nomeada para `instagram_coleta.py`,
+            # e ali dentro moravam quatro fases PAGAS. Uma porta que aceita o
+            # que ninguém listou é uma porta que ninguém mediu.
+            *)
+              echo "FASE_DESCONHECIDA=${{ inputs.fase }}"
+              echo "  Nenhum ramo a reclama. O ramo de omissao foi retirado na"
+              echo "  C10.6D: ele mandava fase nao nomeada para um orquestrador"
+              echo "  que tem fases pagas la dentro."
+              exit 2 ;;
           esac
 
       # Depois de CADA fase paga, a fatura. Quem autoriza a fase seguinte precisa
@@ -264,14 +490,21 @@ jobs:
           # Nunca `git add -A`. Outra missao pode estar gravando em data/samples/
           # no mesmo instante, e levar o arquivo dela num commit meu criaria um
           # commit que nenhuma das duas missoes fez.
+          # `SCRAP-YOUTUBE` é onde uma fase PAGA deixa o REGISTO dela. O bruto
+          # em si fica na máquina: `.gitignore` ignora `data/samples/**/*.gz`, e
+          # forçá-lo aqui seria passar por cima de uma decisão desta casa sem a
+          # discutir. O que volta é o registo, com o SHA-256 do bruto.
+          #
+          #     RAW CAPTURADO NO RUNNER != RAW DEVOLVIDO AO REPOSITÓRIO.
           for d in INSTAGRAM-JANELA INSTAGRAM-COLETA INSTAGRAM-DIARIO INSTAGRAM-TRANSCRICOES \
-                   YOUTUBE-JANELA YOUTUBE-RELEVANCIA YOUTUBE-TRANSCRICOES; do
+                   YOUTUBE-JANELA YOUTUBE-RELEVANCIA YOUTUBE-TRANSCRICOES \
+                   SCRAP-YOUTUBE; do
             git add "data/samples/$d" 2>/dev/null || true
           done
           if git diff --cached --quiet; then
             echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
           fi
-          if git diff --cached --name-only | grep -qvE '^data/samples/(INSTAGRAM|YOUTUBE)-'; then
+          if git diff --cached --name-only | grep -qvE '^data/samples/(INSTAGRAM|YOUTUBE|SCRAP)-'; then
             echo "NAMESPACE_VIOLADO=YES · ha arquivo fora dos caminhos desta missao"
             git diff --cached --name-only; exit 1
           fi

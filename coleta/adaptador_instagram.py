@@ -1,0 +1,497 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+ADAPTADOR DO INSTAGRAM — a semantica da plataforma, e mais nada.
+
+O adaptador sabe o que e um Reel, o que e um Story e o que e uma legenda de
+autor. Nao sabe o que e `yt-dlp`, nao sabe o que e Whisper, e nao sabe se corre
+aqui ou no computador da casa. Essas tres coisas tem donos proprios.
+
+    ADAPTADOR    a semantica       Reel, Story, perfil, legenda
+    FORNECEDOR   a ferramenta      yt-dlp, Instaloader, embed, Apify
+    AMBIENTE     onde corre        ONLINE, LOCAL
+
+A UNICA PLATAFORMA ONDE O RECONHECIMENTO DE FALA E INDISPENSAVEL
+-----------------------------------------------------------------
+O Instagram nao serve legenda nativa. O que ele serve e o `caption`, que e o
+texto que o autor escreveu — e texto de autor nao e fala reconhecida.
+
+    CAPTION != TRANSCRIPT. Somar os dois apaga qual deles sustentou uma
+    classificacao, e essa pergunta e a que a inteligencia faz primeiro.
+
+Por isso `instagram.native_caption` nao esta declarado em
+`scrap_capacidades.py`: nao existe. A ausencia e o achado.
+
+O ADAPTADOR NAO ESCOLHE MODELO
+-------------------------------
+`reel_transcricao.py` tem hoje `MODELO_PADRAO = 'medium'` e `fala_local.py` tem
+`'small'`. Sao duas camadas a decidir, e a de cima ganha — de proposito, porque
+Reel curto com termo agronomico e marca e onde o `small` escreveu «MICE» onde
+se disse «mais».
+
+Esta missao NAO fecha essa politica. O que ela faz e tirar a decisao das maos
+do adaptador: aqui passa-se `model_hint`, e quem decide e o dono do ASR.
+
+    `model_hint=None` E O CAMINHO NORMAL. Um valor so entra quando quem chama
+    tem motivo declarado, e o motivo fica no trace.
+"""
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(HERE)
+sys.path.insert(0, RAIZ)
+import _gavetas  # noqa: E402,F401
+import scrap_registo as reg          # noqa: E402
+import scrap_fornecedores as forn    # noqa: E402
+import scrap_capacidades as cap      # noqa: E402
+import social_matriz as mz           # noqa: E402 — DONO da decisao de rota
+import falhas                        # noqa: E402 — DONO da taxonomia
+import scrap_http as http            # noqa: E402 — onde vive o carregador
+
+#: O estado que o dono da ferramenta declarou viaja no transporte, para que
+#: roteador e adaptador falem dele sem se importarem um ao outro.
+_EstadoDaApi = http.EstadoDaApi
+
+NOME = 'adaptador_instagram'
+PLATAFORMA = 'INSTAGRAM'
+
+
+#: A PERGUNTA QUE AS TRES CAPACIDADES DE REEL FAZEM, E E UMA SO.
+#
+# `instagram.reel.capture`, `instagram.reel.audio` e `instagram.reel.transcribe`
+# nao sao tres actos: sao tres nomes do mesmo acto — ir buscar a media do Reel e
+# reconhecer a fala aqui na maquina. Na lingua da matriz esse acto chama-se
+# FETCH_TRANSCRIPT, e e essa a unica pergunta que este adaptador faz a politica.
+#
+#     TRES NOMES PARA UM ACTO NAO SAO TRES AUTORIZACOES.
+#
+# NAO e FETCH_VIDEO_BYTES. A C10 mediu `VIDEO_BYTES_DOWNLOADED = 0` nesta cadeia,
+# e pedir autorizacao para o que nao se faz seria alargar a superficie no papel.
+#
+# E O NOME NAO SE ESCREVE AQUI. Quem traduz `instagram.reel.transcribe` para a
+# lingua da matriz e `scrap_capacidades`, e escrever a traducao uma segunda vez
+# faria duas verdades que so um teste manteria iguais.
+CAPACIDADE_NA_MATRIZ = cap.da_matriz('instagram.reel.transcribe')
+
+
+def politica():
+    """A decisao do dono da politica para esta plataforma. Zero rede, zero custo.
+
+    Le `social_matriz` — nao mantem tabela propria e nao reinterpreta. Um
+    segundo lugar a responder «pode?» seria um segundo portao, e o segundo
+    portao e sempre o que ninguem mede.
+    """
+    return mz.decisao(PLATAFORMA, CAPACIDADE_NA_MATRIZ)
+
+
+def _politica_no_trace(decisao):
+    """Os campos que dizem QUEM decidiu e O QUE decidiu. Sobem sempre."""
+    return {'POLICY_OWNER': 'leis/social_matriz.py',
+            'POLICY_CAPABILITY': '%s/%s' % (PLATAFORMA, CAPACIDADE_NA_MATRIZ),
+            'POLICY_DECISION': decisao['DECISAO'],
+            'POLICY_WHY': decisao['PORQUE'],
+            'REMOTE_ACQUISITION_ALLOWED': decisao['DECISAO'] == mz.PERMITIDA_SIM}
+
+
+def _recusa(decisao):
+    """O trace de quem nem chegou a ter pedido. Usado quando falta o endereco.
+
+    Recusa e resultado medido, nao ausencia dele.
+    """
+    trace = forn.Percurso('instagram.reel.transcribe').selar(
+        resultado=decisao['DECISAO'])
+    trace.update(_politica_no_trace(decisao))
+    trace['NETWORK_TOUCHED'] = False
+    trace['ASR_RUN'] = False
+    return trace
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A DURABILIDADE NÃO É DESTE ADAPTADOR — ELE SÓ A PEDE
+# ══════════════════════════════════════════════════════════════════════════
+# Quem sabe abrir RUN, ligar checkpoint e fechar os dois é
+# `coleta/coleta_checkpoint.py`. Quem sabe escrever `etapa_da_corrida` é
+# `medidas/rastro_da_coleta.py`. Quem sabe onde os degraus de um Reel começam é
+# `ferramentas/reel_transcricao.py`.
+#
+# Este ficheiro não sabe nenhuma das três coisas, e não passa a saber. Ele junta
+# os donos e diz qual é a unidade de trabalho — que é a única coisa que só um
+# adaptador de Instagram pode dizer.
+#
+#     ONE CONCEPT → ONE OWNER. JUNTAR DONOS NÃO É VIRAR DONO.
+#
+# A UNIDADE DE TRABALHO É O REEL, E A IDENTIDADE DELA É DURA
+# ------------------------------------------------------------
+# `PLATFORM + EXTERNAL_ID + CAPABILITY`. Nada de `RUN_ID`, `token`, `dataset_id`
+# ou `captured_at` — a 016 proíbe, e `identidade_valida()` recusa antes de
+# qualquer gasto. Se o `run_id` entrasse na identidade, cada retomada abriria um
+# checkpoint novo e a retomada deixaria de existir.
+#
+#     A UNIDADE DE TRABALHO NÃO PODE CONHECER A EXECUÇÃO QUE A CORRE.
+CAMPOS_DA_IDENTIDADE = ('PLATFORM', 'EXTERNAL_ID', 'CAPABILITY')
+
+
+def unidade_de_trabalho(ident):
+    """A entrada canônica do checkpoint para UM Reel. → (target, entrada)."""
+    ext = str(ident.get('POST_ID') or ident.get('SHORTCODE') or 'SEM_ID')
+    return ('%s/reel/%s' % (PLATAFORMA, ext),
+            {'PLATFORM': PLATAFORMA, 'EXTERNAL_ID': ext,
+             'CAPABILITY': CAPACIDADE_NA_MATRIZ})
+
+
+def unidade_do_pedido(*, url=None, ident=None, **_):
+    """A unidade de trabalho que o EXECUTOR pergunta. → (target, entrada, campos).
+
+    Quem chama `COLLECT` traz um `url` ou um `ident`. Só este ficheiro sabe que
+    a unidade retomável de um pedido de Reel é o Reel — nem a corrida, nem a
+    conta, nem o dia.
+
+        A UNIDADE DE TRABALHO É A ÚNICA COISA QUE SÓ O DONO DA PLATAFORMA
+        PODE DIZER. O RESTO DA DURABILIDADE É DA CASA.
+    """
+    if ident is None:
+        if not url:
+            return None
+        import reel_transcricao as rt
+        ident = rt.identidade_do_url(url)
+    alvo, entrada = unidade_de_trabalho(ident)
+    return alvo, entrada, CAMPOS_DA_IDENTIDADE
+
+
+def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
+                  midia_url=None, midia_ficheiro=None, guardar=True,
+                  oficina=None, etapa=None, **_):
+    """Um Reel, ponta a ponta. → (objetos, trace).
+
+    Delega a cadeia ja provada. NAO a reimplementa: a cadeia tem 47 testes e
+    oito Reels reais no disco, e reescrever isso aqui seria criar a terceira
+    cadeia numa missao que existe para acabar com a segunda.
+    """
+    # ── O PORTAO NAO VIVE AQUI, E ISSO E UMA CORRECAO DA C10.4 ──────────────
+    #
+    # A C10.4 recusava aqui, antes do import da cadeia, e a intencao era boa:
+    # `reel_transcricao` traz o `yt_dlp` atras dele, e perguntar «posso?» depois
+    # de carregar a ferramenta ja e ter decidido que sim.
+    #
+    # A C10.5D mediu o preco disso. Um pedido que TRAZ os proprios bytes — ou
+    # cujos bytes ja estao preservados nesta casa — nao precisa de autorizacao
+    # nenhuma para ser reprocessado, e era recusado na mesma:
+    #
+    #     objectos = 0 · RESULT = ROUTE_NOT_ALLOWED · rede = 0 · e nada corria.
+    #
+    #     O PORTAO QUE RECUSA ANTES DE SABER SE VAI SAIR RECUSA TAMBEM QUEM
+    #     NAO IA SAIR.
+    #
+    # Quem decide e o portao que vive no ponto onde o socket abre — dentro da
+    # cadeia, em `midia_por_ytdlp` e `metadados_ytdlp`. Ele recusa a aquisicao e
+    # deixa passar o reprocessamento, que e exactamente a distincao que a
+    # decisao humana desta missao precisa que o sistema saiba dizer.
+    #
+    #     REUSAR != ADQUIRIR.
+    #
+    # `politica()` continua aqui — nao para barrar, mas para que o trace diga
+    # quem decidiu e porque, mesmo quando a recusa nasce la dentro.
+    import reel_transcricao as rt
+    if ident is None:
+        if not url:
+            return [], forn.Percurso('instagram.reel.transcribe').selar(
+                resultado='NOT_ATTEMPTED')
+        ident = rt.identidade_do_url(url)
+    # `guardar=False` existe para a prova de fiacao: atravessar a cadeia
+    # inteira sem escrever no disco da casa. Nao e um modo de producao.
+    # ⚠️ A DURABILIDADE NÃO MORA AQUI, E NA C10.6B MORAVA.
+    # Este adaptador abria a RUN, ligava o checkpoint e fechava os dois. Funcionava
+    # — e era a prova de que a infraestrutura comum NÃO era comum: as outras dez
+    # capacidades wired da casa não tinham nada disso.
+    #
+    #     UMA INFRAESTRUTURA COMUM NÃO É PROVADA POR UM ÚNICO ADAPTER USANDO-A.
+    #
+    # A C10.6C levou-a para `coleta/scrap_executor.py`, que é o ponto mais alto
+    # que conhece a execução real sem inventar semântica de plataforma. O que
+    # ficou deste lado é a única coisa que só este ficheiro sabe dizer:
+    # `unidade_do_pedido`, e o `etapa=` que a cadeia usa para relatar.
+    registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
+                                  midia_ficheiro=midia_ficheiro,
+                                  modelo=model_hint, guardar=guardar,
+                                  oficina=oficina, etapa=etapa)
+    trace = forn.de_degraus('instagram.reel.transcribe',
+                            registo.get('CAPTURE_ATTEMPTS'),
+                            resultado=registo.get('MEDIA_STATE'))
+    trace['ASR_MODEL_HINT'] = model_hint
+    trace['ASR_OWNER'] = 'ferramentas/fala_local.py'
+    # ── O VEREDITO DA UNIDADE SOBE NA LÍNGUA DE `leis/falhas.py` ────────────
+    # Um objeto ter voltado não quer dizer que a unidade ficou feita: o Reel
+    # pode ter mídia e não ter texto. Quem sabe ler `TRANSCRIPT_STATE` é este
+    # ficheiro — e quem decide o estado da corrida é o executor, que não o sabe
+    # ler. Então o veredito sobe pelo trace, com a palavra do DONO do
+    # vocabulário, nunca com uma inventada aqui.
+    #
+    #     «OUVI E NÃO HAVIA FALA» É `ZERO_RESULTS`, E ISSO É UM RESULTADO.
+    #     «NÃO CONSEGUI OUVIR» É OUTRA COISA, E TEM OUTRO NOME.
+    trace['CANONICAL_STATE'] = _veredito_da_unidade(registo)
+    # A DECISAO SOBE SEMPRE, TENHA ELA BARRADO OU NAO. Quem le o trace precisa
+    # de saber que politica estava em vigor quando aquilo correu — um artefato
+    # que so menciona a lei quando ela recusa nao deixa auditar o que passou.
+    trace.update(_politica_no_trace(politica()))
+    return [registo], trace
+
+
+def _veredito_da_unidade(registo):
+    """O estado canônico desta unidade de trabalho. → nome de `leis/falhas.py`."""
+    estado = registo.get('TRANSCRIPT_STATE')
+    if estado == 'OK' and registo.get('RAW'):
+        return 'OK'
+    if estado == 'OK':
+        # Houve texto e ele não ficou ancorado num pai preservado.
+        return 'PARTIAL_RESULTS'
+    if estado == 'REQUESTED_EMPTY':
+        return 'ZERO_RESULTS'
+    if estado in ('NAO_PEDIDO', 'NOT_ATTEMPTED'):
+        return 'NOT_APPLICABLE'
+    return 'ITEM_ERROR'
+
+
+def reel_transcrever(*, run_id, country_scope=None, medida=None, etapa=None, **kw):
+    """A rota CRUA, que `social_rotas` despacha depois de medir o portao.
+
+    Devolve a lista de objetos — o trace nasce do registo que o roteador sela.
+    O que sobe daqui e MEDIDA, nao narrativa: quem executou de facto, quem fez o
+    reconhecimento, e se a aquisicao foi mesmo so de som.
+
+    POR QUE A IMPLEMENTACAO VAI NA MEDIDA E NAO NA MATRIZ
+    ------------------------------------------------------
+    A matriz chama esta rota `instagram_transcrever.py:faster-whisper`. Quem
+    corre aqui e `ferramentas/reel_transcricao.py`. Sao dois ficheiros vivos da
+    MESMA classe permitida (LOCAL_EXECUTOR, faster-whisper pelo mesmo dono de
+    ASR), e escolher qual deles a matriz deve nomear e decisao de politica —
+    logo, de gente. Ate la o registo diz as duas coisas: que rota a politica
+    escolheu, e que ficheiro de facto correu.
+
+        O TRACE QUE NOMEIA O FICHEIRO ERRADO MENTE COM PRECISAO DE RELOJOEIRO.
+    """
+    objetos, trace = capturar_reel(run_id=run_id, etapa=etapa, **kw)
+    if medida is not None:
+        medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'
+        medida['ASR_OWNER'] = 'ferramentas/fala_local.py'
+        medida['POLICY_OWNER'] = 'leis/social_matriz.py'
+        medida['PROVIDER_STEPS'] = trace.get('PROVIDER_STEPS')
+        primeiro = (objetos or [None])[0] or {}
+        for k in ('MEDIA_KIND_REQUESTED', 'MEDIA_KIND_USED',
+                  'AUDIO_ONLY_ACQUISITION', 'MEDIA_STATE'):
+            medida[k] = primeiro.get(k, 'NAO SEI')
+    return objetos
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O QUE ESTE ADAPTADOR DECLARA
+# ══════════════════════════════════════════════════════════════════════════
+# Tres capacidades com rota, quatro sem. As quatro sem rota NAO devolvem
+# sucesso vazio: o executor le o estado medido e responde com ele.
+# ⚠️ AS TRES DECLARAM A MESMA UNIDADE DE TRABALHO, E E A MESMA MESMO.
+# `capture`, `audio` e `transcribe` são três pedidos sobre O MESMO Reel. A
+# unidade retomável é o Reel — não o pedido, não a corrida, não o dia.
+#
+# Isto tem uma consequência que é desenho e não acidente: pedir `capture` e
+# depois `transcribe` do mesmo Reel encontra O MESMO checkpoint, e o segundo
+# pedido leva `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES` se o primeiro concluiu.
+#
+#     A UNIDADE DE TRABALHO E O QUE SE FEZ, NAO O NOME PELO QUAL SE PEDIU.
+reg.registar(PLATAFORMA, 'instagram.reel.capture', adaptador=NOME,
+             unidade=unidade_do_pedido,
+             executa=capturar_reel,
+             nota='mesma cadeia da transcricao; a captura e o primeiro degrau')
+reg.registar(PLATAFORMA, 'instagram.reel.audio', adaptador=NOME,
+             unidade=unidade_do_pedido,
+             executa=capturar_reel,
+             nota='FFmpeg extrai do video ja preservado; faixa m4a poupa 7,58x de banda')
+# A UNICA DAS TRES COM `rota`, E E DE PROPOSITO.
+#
+# `rota` significa: quem colhe isto entra pelo caminho canonico — executor,
+# roteador, portao — e o trace nasce do registo que o roteador sela. `executa`
+# significa o contrario: nao ha porta a atravessar, por isso monta-se o proprio
+# trace. Ate a C10.4 as tres tinham `executa`, e a nota que justificava isso era
+# verdadeira — a matriz nao conhecia nenhuma delas.
+#
+# Agora conhece esta. Deixar `executa` aqui seria manter aberta, ao lado do
+# portao, a porta que existia por nao haver portao.
+reg.registar(PLATAFORMA, 'instagram.reel.transcribe', adaptador=NOME,
+             unidade=unidade_do_pedido,
+             rota=reel_transcrever,
+             nota='o unico caminho onde o ASR proprio e indispensavel; '
+                  'atravessa INSTAGRAM/FETCH_TRANSCRIPT no dono da politica')
+
+reg.registar(PLATAFORMA, 'instagram.profile.discovery', adaptador=NOME,
+             nota='302/429 deste IP; a janela esgota em ~8-10 respostas')
+reg.registar(PLATAFORMA, 'instagram.post.comments', adaptador=NOME,
+             nota='nenhuma rota anonima provada')
+reg.registar(PLATAFORMA, 'instagram.story.capture', adaptador=NOME,
+             nota='capacidade real numa linhagem que o HEAD nao contem; sem rota de captura')
+reg.registar(PLATAFORMA, 'instagram.story.transcribe', adaptador=NOME,
+             nota='quando houver captura, pede ao dono do ASR; nao traz motor proprio')
+
+assert not cap.existe('instagram.native_caption'), (
+    'o Instagram nao serve legenda nativa; declarar isso seria prometer o que '
+    'a plataforma nao tem')
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A JANELA PÚBLICA — A ROTA QUE A MATRIZ NOMEIA E NINGUÉM TINHA LIGADO
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.6D mediu as portas operacionais e encontrou isto:
+#
+#     leis/social_matriz.py  INSTAGRAM/INCREMENTAL
+#         ROTA      instagram_janela.py:grade
+#         CLASSE    PUBLIC_BROWSER · AUTH_MODE PUBLIC
+#         PERMITIDA CONDICIONAL · ESTADO PROVED
+#
+# A matriz nomeia o ficheiro, declara a classe, e diz que a rota é permitida. E
+# durante todo esse tempo `coleta/instagram_janela.py` foi corrido **direto pelo
+# workflow**, sem nunca perguntar nada a ninguém — nem à matriz, nem ao portão,
+# nem ao registo. Não havia rota registada para a capacidade.
+#
+#     UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+#
+# O QUE ESTA LIGAÇÃO É, E O QUE ELA NÃO É
+# -----------------------------------------
+# Não é um coletor novo. Não é uma rota nova. Não é uma decisão de política. É a
+# implementação que já existia, medida e nomeada, a passar a atender pelo nome
+# canônico — `CAPABILITY_REGISTRATION_ONLY`.
+#
+# O que ela produz continua idêntico: `instagram_janela` escreve os MESMOS
+# ficheiros, na MESMA gaveta, com a MESMA forma. O que muda é o caminho até ela:
+#
+#     ANTES   workflow -> instagram_janela.py
+#     DEPOIS  workflow -> entrada canônica -> COLLECT -> CHECK -> roteador
+#             (portão · sessão · gasto) -> este adaptador -> instagram_janela.py
+#
+#     REWIRE NÃO PODE APAGAR LINEAGE. O QUE ELA ESCREVIA, CONTINUA A ESCREVER.
+def _itens_da_gaveta(nome):
+    """Os objetos que a janela acabou de gravar. → lista, sempre.
+
+    Lê-se de volta o que ela ESCREVEU, em vez de a obrigar a devolver: a função
+    dela é um comando de linha, e mudar-lhe a assinatura para caber aqui seria
+    mexer na implementação para a fazer parecer uma rota.
+
+        LER O QUE FOI PERSISTIDO É MAIS HONESTO QUE ACREDITAR NO QUE FOI DITO.
+    """
+    import instagram_janela as ij
+    d = ij._ler(nome) or {}
+    return list(d.get('ITEMS') or [])
+
+
+def _janela(qual, *, run_id, country_scope=None, medida=None, etapa=None,
+            teto=None, **_):
+    """A rota `PUBLIC_BROWSER` da janela. `qual` ∈ `perfis` · `objetos`."""
+    import instagram_janela as ij
+    rel = None
+    if etapa is not None:
+        rel = etapa.abrir('DISCOVER', input_grain='ACCOUNT',
+                          input_count=len(ij.contas()))
+    # ⚠️ QUEM ABRE UMA ETAPA TEM DE A FECHAR, MESMO A REBENTAR.
+    # `social_rotas.executar` APANHA a excecao e devolve um registo — a excecao
+    # nunca sobe ate ao boundary, e o ramo `except` dele nunca corre. Sem isto,
+    # uma falha da implementacao deixava `DISCOVER` em `RUNNING` para sempre.
+    #
+    #     SO A MORTE DE PROCESSO TEM O DIREITO DE DEIXAR UMA ETAPA ABERTA.
+    #     UM PROCESSO VIVO QUE A DEIXA ESTA A MENTIR.
+    try:
+        codigo = ij.perfis() if qual == 'perfis' else ij.objetos(
+            int(teto) if teto not in (None, '', '0') else None)
+    except Exception as e:                                        # noqa: BLE001
+        # ── O ESTADO QUE O DONO DA FERRAMENTA DECLAROU SOBE INTEIRO ───────
+        # ⚠️ MEDIDO NA NIGHT-SHIFT-01 §9, num runner sem Chrome:
+        #
+        #     instagram.profile.discovery -> RESULT = UNKNOWN_ERROR
+        #     ROUTER_RECORD.ERRO = 'sem Chrome nesta maquina: nenhum Chrome ou
+        #                           Chromium encontrado no PATH nem nos
+        #                           caminhos padrao'
+        #
+        # A frase sabia. O estado nao sabia. E quem le por maquina le o estado
+        # — de manha, `UNKNOWN_ERROR` sobre Instagram manda alguem depurar o
+        # Instagram, quando o que falta e um navegador.
+        #
+        #     UMA MENSAGEM QUE SABE E UM ESTADO QUE NAO SABE VALEM MENOS QUE
+        #     NENHUM DOS DOIS.
+        #
+        # A traducao vive AQUI, e nao no roteador: ele deixou de conhecer
+        # plataformas na C1 e nao volta atras — e e a mesma costura que
+        # `adaptador_youtube` ja usa para «nao tenho chave». Nao se inventa
+        # vocabulario: `cdp` declara o nome nativo, `leis/falhas.py` ja o lista
+        # como `EXECUTOR_UNAVAILABLE`, e `social_rotas.selar` traduz, guarda o
+        # `ESTADO_ORIGINAL` e deriva camada, saude e recuperacao.
+        #
+        #     FAILURE STATE VEM DO DONO, OU NAO E FAILURE STATE.
+        #
+        # Onde o dono NAO declarou, nada muda: um erro de JavaScript na pagina
+        # nao e o navegador em falta, e carimba-lo seria trocar um balde por
+        # outro. NAO SEI CONTINUA A SER UMA RESPOSTA.
+        declarado = getattr(e, 'estado', None)
+        estado = falhas.traduzir(declarado) if declarado else 'UNKNOWN_ERROR'
+        if etapa is not None:
+            etapa.fechar(rel, 'FAIL', error=1, canonical_state=estado,
+                         error_class=type(e).__name__, error_message=str(e))
+        if declarado:
+            # A frase viaja em `DETALHE` e nao em `NATIVE_REASON`: o segundo e
+            # um NOME que `falhas.py` procura numa tabela, e enfiar prosa la
+            # faria a refinacao por razao nativa deixar de bater.
+            #
+            #     UM NOME E UMA FRASE NAO CABEM NO MESMO CAMPO.
+            #
+            # `RECOVERY_ACTION` nao vai: quem a decide e `leis/falhas.py`, e
+            # para `EXECUTOR_UNAVAILABLE` ela ja diz `NEEDS_HUMAN_FIX`.
+            # Reescreve-la aqui seria um segundo dono da mesma pergunta.
+            raise _EstadoDaApi({'STATE': estado,
+                                'NATIVE_REASON': declarado,
+                                'DETALHE': str(e)}) from e
+        raise
+    itens = _itens_da_gaveta('PERFIS.json' if qual == 'perfis' else 'OBJETOS.json')
+    if etapa is not None:
+        etapa.fechar(rel, 'PASS' if codigo == 0 else 'FAIL',
+                     passed=len(itens) if codigo == 0 else 0,
+                     error=0 if codigo == 0 else 1,
+                     output_grain='PROFILE' if qual == 'perfis' else 'POST',
+                     output_count=len(itens), cardinalidade='1:N',
+                     canonical_state=None if codigo == 0 else 'ROUTE_UNAVAILABLE',
+                     last_good_artifact=('%s/%s' % (ij.SAIDA.split('samples/')[-1],
+                                                    qual) if codigo == 0 else None))
+    if medida is not None:
+        medida['IMPLEMENTACAO'] = 'coleta/instagram_janela.py'
+        medida['ROUTE_CLASS'] = 'PUBLIC_BROWSER'
+        medida['APIFY_RUNS'] = 0
+        medida['COST_USD'] = 0
+    return itens
+
+
+#: AS DUAS CAMADAS SAO A MESMA CAPACIDADE, E A MATRIZ DIZ ISSO.
+#: `INSTAGRAM/INCREMENTAL` tem UMA rota — `instagram_janela.py:grade` — e a grade
+#: e perfil e objeto. Registar duas capacidades para as duas camadas daria dois
+#: nomes ao mesmo acto, e a casa ja pagou por isso na C10.4B.
+#:
+#:     DUAS CAMADAS DE UMA ROTA NAO SAO DUAS ROTAS.
+CAMADAS_DA_JANELA = ('perfis', 'objetos', 'tudo')
+
+
+def janela(*, run_id, camada='tudo', **kw):
+    """`INCREMENTAL` — a janela publica do Instagram, por camada.
+
+    `camada` ∈ `perfis` (bio, seguidores, denominador, a grade) · `objetos`
+    (data, legenda inteira, curtidas, vídeo) · `tudo` (as duas, na ordem — e a
+    ordem é lei: objeto precisa do perfil que o listou).
+    """
+    if camada not in CAMADAS_DA_JANELA:
+        raise ValueError('camada fora do vocabulario da janela: %r. As tres sao %s'
+                         % (camada, ', '.join(CAMADAS_DA_JANELA)))
+    if camada != 'tudo':
+        return _janela(camada, run_id=run_id, **kw)
+    fora = _janela('perfis', run_id=run_id, **kw)
+    return fora + _janela('objetos', run_id=run_id, **kw)
+
+
+# A capacidade já estava DECLARADA e sem rota. Registá-la não muda o que ela é —
+# muda por onde se chega a ela.
+reg.registar(PLATAFORMA, 'instagram.profile.discovery', adaptador=NOME,
+             rota=janela,
+             nota='PUBLIC_BROWSER, a rota que a matriz nomeia em '
+                  'INSTAGRAM/INCREMENTAL; a implementacao ja existia e nunca '
+                  'tinha sido ligada ao registo')

@@ -29,6 +29,7 @@ P1 e P9 sao os dois que impedem "depois alguem atualiza o mapa": criar um script
 novo em `scripts/` sem o declarar reprova; mudar codigo sem regerar reprova.
 """
 
+import glob
 import json
 import subprocess
 import sys
@@ -49,6 +50,37 @@ def prova(id_: str, o_que: str, ok: bool, detalhe: str = ""):
         falhas.append(f"{id_}: {o_que}" + (f"\n        {detalhe}" if detalhe else ""))
         if detalhe:
             provas.append(f"        {detalhe}")
+
+
+def mentiras_sobre_existencia(declarado, nos, raiz):
+    """As pecas dadas por INEXISTENTES com o ficheiro no DISCO.
+
+    ⚠️ ESTA FUNCAO ESTA SEPARADA DA `main()` DE PROPOSITO.
+
+    O validador REGENERA o estado antes de o validar (e a P1, anti-drift). Isso
+    e certo — e torna impossivel testar esta guarda injectando uma mentira no
+    ficheiro `state.generated.json`: a regeneracao apaga a injecção antes de a
+    guarda a ver.
+
+    Uma guarda que so pode ser exercitada pelo caminho que a apaga e uma guarda
+    que ninguem consegue provar que morde. Por isso ela e uma funcao pura de
+    (declarado, nos, disco), e o teste chama-a com um estado sintetico.
+
+    Pergunta ao DISCO, e parte dos caminhos DECLARADOS — nao da lista resolvida,
+    que numa peca acusada de inexistente esta vazia.
+    """
+    fora = []
+    for c in declarado.get("COMPONENTS", []):
+        n = nos.get(c["id"])
+        if n is None or n.get("status") != "BROKEN":
+            continue
+        no_disco = [p for p in c.get("files", [])
+                    if (Path(raiz) / p).exists()
+                    or glob.glob(str(Path(raiz) / p), recursive=True)]
+        if no_disco:
+            fora.append("%s diz BROKEN e %s esta no disco"
+                        % (c["id"], no_disco[0]))
+    return fora
 
 
 def main() -> int:
@@ -89,8 +121,12 @@ def main() -> int:
             return None
         return sem_proveniencia(f) if n.endswith(".json") else f.read_text(encoding="utf-8")
 
-    servido_antes = {n: servido(n)
-                     for n in ("state.generated.json", "index.html", "map.js", "map.css")}
+    # A LISTA DO QUE E SERVIDO VEM DA CADEIA, nao daqui. Enquanto estava escrita
+    # neste ficheiro, acrescentar `freshness.js` a app deixava-o FORA da conferencia
+    # anti-drift: alguem podia regerar os dados, commitar, e servir uma versao
+    # antiga da lei da frescura — o pior sitio possivel para uma copia velha.
+    CADEIA = json.loads((AQUI / "CADEIA-DO-MAPA.json").read_text(encoding="utf-8"))
+    servido_antes = {n: servido(n) for n in CADEIA["PUBLICADO"]}
 
     # O INDICE DE FONTES tambem e gerado. Um indice commitado que ja nao bate com
     # o atlas de onde saiu e pior do que nao ter indice: quem o le acredita nele.
@@ -252,6 +288,42 @@ def main() -> int:
     prova("P4_FICHEIROS_REAIS", "todo ficheiro citado pelo mapa existe no repositorio",
           not fantasmas, ", ".join(fantasmas[:6]))
 
+    # ── P4b · o mapa nao pode MENTIR sobre inexistencia ──────────────────────
+    # ⚠️ POR QUE A P4 SOZINHA NAO CHEGAVA, E DEIXOU PASSAR UMA MENTIRA.
+    #
+    # A P4 percorre `n["files"]` — a lista RESOLVIDA — e compara-a com
+    # `existentes`, que sai de `architecture.generated.json`. Duas cegueiras
+    # empilhadas:
+    #
+    #   1. `existentes` vem de `scan_repo.py`, que lista com `git ls-files`.
+    #      E o inventario do GIT, nao do DISCO. Comparar o gerado com o gerado
+    #      prova que o gerador e coerente consigo proprio — nao que ele diz a
+    #      verdade sobre o repositorio.
+    #
+    #   2. quando uma peca e acusada de nao existir, `files` fica VAZIA. A P4
+    #      itera zero ficheiros e PASSA. A peca falsamente partida e invisivel
+    #      justamente para a prova que existia para a apanhar.
+    #
+    # Em 08/09/2026 isso publicou C-CENSO-OBSERVABILIDADE como BROKEN com
+    # «nao existe no repositorio», com o ficheiro no disco — e o
+    # SYSTEM_MAP_CHECK deu PASS na mesma.
+    #
+    #     GENERATED == EXPECTED GENERATOR OUTPUT
+    #     NAO E
+    #     GENERATED == REAL FILE EXISTENCE.
+    #
+    # Esta prova pergunta ao DISCO, e parte dos caminhos DECLARADOS.
+    declarado = json.loads(
+        (DADOS / "architecture.declared.json").read_text(encoding="utf-8"))
+    mentiras = mentiras_sobre_existencia(declarado, nos, RAIZ)
+    prova("P4_NAO_MENTIR_SOBRE_EXISTENCIA",
+          "nenhuma peca e dada por inexistente com o ficheiro no disco",
+          not mentiras,
+          ("\n        ".join(mentiras[:6]) +
+           "\n        EXISTE NO DISCO != RASTREADO PELO GIT != NAO EXISTE."
+           "\n        Conserto: `git add` o ficheiro e regerar — ou corrigir o"
+           " caminho declarado.") if mentiras else "")
+
     # ── P5 · aresta tecnica sem prova nao existe ─────────────────────────────
     sem_prova = [f"{e['from']}->{e['to']} ({e['type']})" for e in S["EDGES"]
                  if e.get("kind") == "technical" and not e.get("evidence")]
@@ -263,6 +335,39 @@ def main() -> int:
                    if not (ev.get("file") in existentes and isinstance(ev.get("line"), int))]
     prova("P5_PROVA_APONTAVEL", "toda prova aponta para ficheiro e linha que existem",
           not mal_formada, ", ".join(sorted(set(mal_formada))[:6]))
+
+    # ── P5c · a linha citada tem de DIZER alguma coisa ───────────────────────
+    # A P5 acima so exige que o numero caiba no ficheiro, e isso deixa passar o
+    # envelhecimento silencioso: a prova mais importante da fronteira da coleta
+    # (C-ADMISSAO -> C-READY) apontava para `admissao/admissao.py:391` com um
+    # `snippet` escrito a mao. A funcao mudou de sitio, a linha 391 ficou EM
+    # BRANCO, e nenhum portao reparou — porque a linha existe.
+    #
+    #     UMA PROVA QUE APONTA PARA UMA LINHA EM BRANCO NAO E UMA PROVA.
+    #
+    # So se recusa o indecidivel-por-omissao: linha vazia ou feita so de
+    # fecho de parenteses, virgulas e aspas. O que ela diz continua a ser
+    # julgado por gente.
+    _cache_l: dict = {}
+
+    def _linha(f: str, n: int):
+        if f not in _cache_l:
+            try:
+                _cache_l[f] = (RAIZ / f).read_text(
+                    encoding="utf-8", errors="replace").splitlines()
+            except OSError:
+                _cache_l[f] = []
+        L = _cache_l[f]
+        return L[n - 1] if 0 < n <= len(L) else None
+
+    _trivial = __import__("re").compile(r"^[\s\)\]\}\,\'\";:]*$")
+    ocas = [f"{e['from']}->{e['to']} ({ev['file']}:{ev['line']})"
+            for e in S["EDGES"] for ev in e.get("evidence", [])
+            if isinstance(ev.get("line"), int) and ev.get("file") in existentes
+            and (_l := _linha(ev["file"], ev["line"])) is not None
+            and _trivial.match(_l)]
+    prova("P5_PROVA_TEM_CONTEUDO", "nenhuma prova aponta para linha sem conteudo",
+          not ocas, ", ".join(sorted(set(ocas))[:6]))
 
     # ── P6 · verde exige prova, nunca "o ficheiro existe" ────────────────────
     verde_frouxo = [n["id"] for n in S["NODES"]
@@ -309,6 +414,18 @@ def main() -> int:
     prova("P8_UM_DONO", "nenhum ficheiro reivindicado por duas pecas",
           not conf, "; ".join(conf[:6]))
 
+    # ── P8b · o dono decidido por gente e o unico que escreve ───────────────
+    # O dono eleito por ordem alfabetica muda sozinho quando alguem renomeia uma
+    # peca. Onde ha decisao humana em `CANONICAL_OWNERS`, ela e lei — e esta
+    # prova mede se o CODIGO a respeita, e nao se o cartao a repete.
+    #
+    #     MUDAR O CARTAO NAO E MUDAR A ARQUITETURA.
+    viol = [f"{v['file']}: declarado {v['declared_owner']}, escrevem "
+            f"{', '.join(v['written_by']) or 'NINGUEM'} [{v['verdict']}]"
+            for v in S.get("CANONICAL_OWNER_VIOLATIONS", [])]
+    prova("P8_DONO_CANONICO", "so o dono declarado escreve o artefato dele",
+          not viol, "; ".join(viol[:4]))
+
     # ── P9 · anti-drift: codigo novo tem de ser declarado ────────────────────
     orfaos = S["UNCLAIMED_CODE_FILES"]
     prova("P9_CODIGO_DECLARADO", "todo ficheiro de codigo pertence a uma peca do mapa",
@@ -324,11 +441,28 @@ def main() -> int:
     prova("P10_STATUS_VALIDO", "todo status e um dos quatro valores conhecidos",
           not maus, ", ".join(maus))
 
-    return relatar()
+    return relatar(S.get("ARTEFACT_MULTIPLE_AUTHORS", []))
 
 
-def relatar() -> int:
+def relatar(varios_autores: list | tuple = ()) -> int:
     print("\n".join(provas))
+
+    # ── OBSERVACAO · o artefacto escrito por mais de uma peca ────────────────
+    # Nao e prova, e por isso nao reprova: nao ha lei nesta casa que proiba dois
+    # autores para o mesmo ficheiro. Mas o mapa tem de eleger UM dono, e elege
+    # por ordem alfabetica — o dono muda sozinho quando alguem renomeia uma
+    # peca. Isto diz, em voz alta, onde a resposta a pergunta «de quem e isto?»
+    # esta a ser dada por um sorteio.
+    if varios_autores:
+        print("\n" + "-" * 70)
+        print(f"OBSERVACAO · {len(varios_autores)} artefacto(s) com MAIS DE UM autor:")
+        for v in varios_autores:
+            print(f"  · {v['file']}")
+            print(f"      escrito por {', '.join(v['written_by'])}"
+                  f" · dono eleito por ordem alfabetica: {v['owner_elected']}")
+        print("  UM DONO ELEITO POR ORDEM ALFABETICA NAO E UM DONO."
+              "\n  Quem decide e gente, e a decisao vai em architecture.declared.json.")
+
     if falhas:
         print("\n" + "=" * 70)
         print(f"SYSTEM_MAP_CHECK=FAIL · {len(falhas)} prova(s) reprovada(s)")

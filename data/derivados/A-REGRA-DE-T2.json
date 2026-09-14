@@ -1,0 +1,52 @@
+{
+  "PERGUNTA": "o que um documento precisa provar para a Admission dizer que ele pertence a «T2 — Clima e tempo»?",
+  "T2_RULE_IMPLEMENTED": "NO",
+  "PORTAO": "FECHADO",
+  "CONDICOES": [
+    {
+      "NOME": "T2_MEANING_ALREADY_CANONICAL",
+      "VALOR": "YES",
+      "PORQUE": "«T2 = Clima e tempo» esta declarado em `MASTER_ITALIANO`, com cinco fontes (IT-T2-001..005) e os seus topics. Nao foi inventado aqui."
+    },
+    {
+      "NOME": "REAL_POSITIVE_EXAMPLES_EXIST",
+      "VALOR": "YES",
+      "PORQUE": "10 documentos reais, de 3 publicadores."
+    },
+    {
+      "NOME": "REAL_NEGATIVE_EXAMPLES_EXIST",
+      "VALOR": "YES",
+      "PORQUE": "33 documentos reais, incluindo 6 do MESMO publicador de positivos."
+    },
+    {
+      "NOME": "RULE_CAN_DISTINGUISH_T2_FROM_T3",
+      "VALOR": "NO",
+      "PORQUE": "nenhuma candidata fica sem erro. E a busca exaustiva mostra que a lista que separa e feita de dias da semana e nomes de departamento: treinada num publicador, acerta 0/10 no publicador que nao viu. Uma regra que nao generaliza nao distingue — decora."
+    },
+    {
+      "NOME": "RULE_CAN_DISTINGUISH_T2_FROM_T7",
+      "VALOR": "NAO_CHEGOU_A_SER_PERGUNTADO",
+      "PORQUE": "a condicao anterior ja fechou o portao. Responder a esta agora seria dar um numero a uma regra que nao existe."
+    },
+    {
+      "NOME": "NO_NEW_ARCHITECTURAL_LAW_REQUIRED",
+      "VALOR": "NO",
+      "PORQUE": "para separar «documento SOBRE clima» de «documento que MENCIONA clima» era precisa uma lei que esta casa ainda nao tem, e um mecanismo que conte sinais em vez de parar na primeira palavra. As duas coisas mudam a Admission. A missao proibiu."
+    }
+  ],
+  "CONDICAO_QUE_FECHOU": "RULE_CAN_DISTINGUISH_T2_FROM_T3",
+  "GABARITO": {
+    "POSITIVOS": 10,
+    "NEGATIVOS": 33,
+    "AMBIGUOS_NAO_ARREDONDADOS": 3
+  },
+  "GENERALIZACAO": "0/10",
+  "O_UNIVERSO_E_LEGITIMO": "YES",
+  "O_QUE_FALHA": "MECANISMO",
+  "PORQUE_NAO_E_O_UNIVERSO": "«T2 = Clima e tempo» e canonico, com cinco fontes declaradas em MASTER_ITALIANO e dez positivos reais de tres publicadores. O que nao existe e um mecanismo que distinga SOBRE de MENCIONA: as palavras obvias de clima aparecem MAIS fora de T2 do que dentro, porque um boletim de praga fala do tempo a que a praga responde.",
+  "O_QUE_FALTA_PARA_A_REGRA_EXISTIR": [
+    "uma lei que diga o que e um documento ser SOBRE um assunto",
+    "um mecanismo que conte sinais em vez de parar na primeira palavra"
+  ],
+  "GENERATED_BY": "provas/a_regra_de_t2.py"
+}

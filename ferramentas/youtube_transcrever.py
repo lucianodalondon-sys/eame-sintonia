@@ -57,6 +57,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+# O DONO DO RECONHECEDOR. Importado AQUI, ao nivel do modulo, porque a
+# politica de modelo se le antes de qualquer funcao correr. `fala_local`
+# so importa `os`, `re` e `time` no topo — a biblioteca pesada continua a
+# entrar tarde, dentro das funcoes dele.
+import fala_local as fl  # noqa: E402
 
 LIBS = os.environ.get('SINTONIA_LIBS') or os.path.join(
     os.path.expanduser('~'), '.sintonia-libs')
@@ -72,7 +77,9 @@ MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 RUNNER = os.environ.get('RUNNER_NAME') or 'NOT_KNOWN'
 NAO_SEI = 'NOT_KNOWN'
 
-MODELO_PADRAO = os.environ.get('YT_MODELO') or 'small'
+# A politica vive no dono; `YT_MODELO` continua a valer. Ver
+# `fala_local.MODELOS_POR_CHAMADOR`.
+MODELO_PADRAO = fl.modelo_de('youtube')
 BEAM = int(os.environ.get('YT_BEAM') or 1)
 LOTE = int(os.environ.get('YT_LOTE') or 8)
 
@@ -176,20 +183,24 @@ def fase_rodar(modelo=None, teto=None):
     if teto:
         itens = itens[:int(teto)]
 
-    try:
-        from faster_whisper import BatchedInferencePipeline, WhisperModel
-    except ImportError:
-        print('falta a biblioteca de transcrição. Instale FORA do repositório:\n'
-              '  py -m pip install --target %s faster-whisper yt-dlp\n'
-              'NUNCA instalar sem --target: no Windows o pip cria `Scripts/`, que é '
-              'a MESMA pasta que `scripts/`.' % LIBS)
+    # O RECONHECEDOR NÃO VIVE MAIS AQUI. O cabeçalho deste ficheiro sempre disse
+    # que os parâmetros «vêm de instagram_transcrever.py» — o que é outra forma de
+    # dizer que a lógica estava copiada. Agora os dois chamam o mesmo dono,
+    # `ferramentas/fala_local.py`, e a medição vive num sítio só.
+    ha, porque = fl.disponivel()
+    if not ha:
+        print(porque + '\n(e `yt-dlp` para o áudio)')
         return 1
 
-    nucleos = os.cpu_count() or 4
-    print('modelo %s · %d núcleos · lote %d · beam %d' % (modelo, nucleos, LOTE, BEAM))
+    nucleos = fl.nucleos()
+    print('modelo %s · %d núcleos · lote %d · beam %d'
+          % (modelo, nucleos, fl.LOTE, fl.BEAM))
     t0 = time.time()
-    m = WhisperModel(modelo, device='cpu', compute_type='int8', cpu_threads=nucleos)
-    pipe = BatchedInferencePipeline(model=m)
+    # O DONO DECIDE O FERRO; ESTE PROGRAMA SO REPORTA O QUE ELE DECIDIU.
+    # O `trace` volta do dono e vai INTEIRO para o carimbo do artefato. Sem
+    # ele o carimbo diria `NOT_KNOWN` onde a resposta existe — e um campo que
+    # confessa nao saber o que o processo ao lado sabe e um campo partido.
+    _pipe, ferro = fl.modelo(modelo)
     print('carregado em %.1f s' % (time.time() - t0))
 
     # Retomar: transcrição é cara em TEMPO, e refazer o pronto é o mesmo desperdício
@@ -217,7 +228,19 @@ def fase_rodar(modelo=None, teto=None):
                                    'relevância o aprovou' % o.get('CAPTION_STATE')),
             'ASR_ENGINE': 'faster-whisper', 'ASR_MODEL': modelo,
             'ASR_BEAM': BEAM, 'ASR_BATCH': LOTE,
-            'ASR_DEVICE': 'cpu/int8/%d threads' % nucleos,
+            # ⚠️ AQUI ESTAVA O MESMO DEFEITO DA C4B, NOUTRO CAMPO.
+            # Esta ficha e a BASE de todos os registos deste lote, e os
+            # que nunca chegam ao reconhecedor — `AUDIO_NAO_OBTIDO`,
+            # `ASR_FALHOU` — levavam-na inteira. Um registo onde NADA
+            # correu saia a jurar `cpu/int8/16 threads`.
+            #
+            #     NOT_RUN NAO PODE TER FICHA DE EXECUCAO.
+            #
+            # A ficha do ferro passa a nascer so quando ha resultado, e
+            # vem do dono — `fala_local.carimbo`, que a preenche com o
+            # estado ao lado.
+            'ASR_DEVICE': fl.NAO_SEI,
+            'ASR_DEVICE_EXECUTION': fl.EXECUCAO_NAO_CORREU,
             'CAPTURED_AT': agora(), 'MISSION': MISSION, 'RUNNER_NAME': RUNNER,
             'COST_USD': 0,
         }
@@ -234,39 +257,53 @@ def fase_rodar(modelo=None, teto=None):
         dur = o.get('DURATION_S')
         limite = max(TETO_MINIMO_S,
                      int(dur * TETO_FATOR) if isinstance(dur, (int, float)) else TETO_MINIMO_S)
-        t = time.time()
-        try:
-            segs, info = pipe.transcribe(
-                wav, batch_size=LOTE, beam_size=BEAM, vad_filter=True,
-                language=idioma, condition_on_previous_text=False)
-            trechos, texto = [], []
-            for s in segs:
-                if time.time() - t > limite:
-                    base['TRUNCADO_POR_TEMPO_S'] = limite
-                    break
-                trechos.append({'T_S': round(s.start, 2), 'FIM_S': round(s.end, 2),
-                                'TEXTO': s.text.strip()})
-                texto.append(s.text.strip())
-        except Exception as e:
+        r = fl.transcrever(wav, idioma=idioma, modelo_nome=modelo,
+                           duracao_s=dur if isinstance(dur, (int, float)) else None)
+        if r['TRANSCRIPT_STATE'] in (fl.ASR_FALHOU, fl.ASR_INDISPONIVEL):
+            # A QUEDA TAMBEM TEM FICHA, e ela vem do reconhecedor — nao da base.
+            # Antes este ramo guardava `base` intacta e deitava fora o trace de
+            # `r`: perdia-se qual ferro tinha sido escolhido justamente no caso
+            # em que essa e a pergunta.
+            #
+            #     QUEM FALHA E QUEM MAIS PRECISA DE DIZER ONDE ESTAVA.
             saida.append(dict(base, **{
-                'TRANSCRIPT': None, 'TRANSCRIPT_STATE': 'ASR_FALHOU',
-                'WHY': '%s: %s' % (type(e).__name__, str(e)[:150])}))
+                'TRANSCRIPT': None, 'TRANSCRIPT_STATE': r['TRANSCRIPT_STATE'],
+                'ASR_DEVICE': r.get('ASR_DEVICE', fl.NAO_SEI),
+                'ASR_DEVICE_SELECTED': r.get('ASR_DEVICE_SELECTED', fl.NAO_SEI),
+                'ASR_DEVICE_EXECUTION': r.get('ASR_DEVICE_EXECUTION',
+                                              fl.EXECUCAO_NAO_CORREU),
+                'ASR_WHY_FALLBACK': r.get('ASR_WHY_FALLBACK'),
+                'WHY': r.get('ERROR', '')}))
             print('  %3d/%d %-13s ASR FALHOU' % (n, len(itens), vid))
             continue
-        gasto = time.time() - t
+        if r.get('TRUNCATED_BY_TIME') == 'YES':
+            base['TRUNCADO_POR_TEMPO_S'] = r.get('TIMEOUT_LIMIT_S', NAO_SEI)
+        gasto = r.get('MACHINE_SECONDS')
+        gasto = gasto if isinstance(gasto, (int, float)) else 0.0
         seg_maquina += gasto
         if isinstance(dur, (int, float)):
             seg_audio += dur
+        texto = r.get('TRANSCRIPT') or ''
         saida.append(dict(base, **{
-            'TRANSCRIPT': ' '.join(texto),
-            'TRANSCRIPT_SEGMENTS': trechos,
-            'TRANSCRIPT_CHARS': len(' '.join(texto)),
-            'TRANSCRIPT_STATE': 'OK',
-            'ASR_LANGUAGE': (idioma or getattr(info, 'language', NAO_SEI)),
-            'ASR_LANGUAGE_DECLARADO': bool(idioma),
+            'TRANSCRIPT': r.get('TRANSCRIPT'),
+            # Os tempos de cada trecho ficam com o nome que este ficheiro sempre
+            # usou; o dono unico devolve-os em `SEGMENTS`, e a traducao e aqui.
+            'TRANSCRIPT_SEGMENTS': [{'T_S': x['start'], 'FIM_S': x['end'],
+                                     'TEXTO': x['text']} for x in r.get('SEGMENTS', [])],
+            'TRANSCRIPT_CHARS': r.get('TRANSCRIPT_CHARS', 0),
+            # ⚠️ ISTO DIZIA `'OK'` SEMPRE, mesmo com texto vazio. Um video sem
+            # fala saia daqui a afirmar transcricao bem-sucedida, e a diferenca
+            # entre «ouvi e nao havia» e «ouvi e transcrevi» desaparecia.
+            'TRANSCRIPT_STATE': r['TRANSCRIPT_STATE'],
+            'WHY': r.get('WHY', ''),
+            'NAO_SIGNIFICA': r.get('NAO_SIGNIFICA', ''),
+            'DISCARDED_OUTPUT': r.get('DISCARDED_OUTPUT'),
+            'ASR_LANGUAGE': r.get('LANGUAGE', NAO_SEI),
+            'ASR_LANGUAGE_DECLARADO': r.get('LANGUAGE_SOURCE') == 'DECLARED',
+            'ASR_LANGUAGE_CONFIDENCE': r.get('LANGUAGE_CONFIDENCE', NAO_SEI),
             'SEGUNDOS_DE_MAQUINA': round(gasto, 1)}))
-        print('  %3d/%d %-13s %6.1f s de máquina · %5d chars · %s'
-              % (n, len(itens), vid, gasto, len(' '.join(texto)),
+        print('  %3d/%d %-13s %6.1f s de máquina · %5d chars · %-18s %s'
+              % (n, len(itens), vid, gasto, len(texto), r['TRANSCRIPT_STATE'],
                  str(o.get('TITLE'))[:32]))
 
     vel = (seg_audio / seg_maquina) if seg_maquina else 0
@@ -281,7 +318,7 @@ def fase_rodar(modelo=None, teto=None):
         'CUSTO_E_TEMPO_NAO_FATURA': ('zero dólar. O custo é %.0f s de máquina para '
                                      '%.0f s de áudio.' % (seg_maquina, seg_audio)),
         'VELOCIDADE_MEDIDA_AGORA': round(vel, 2),
-        'ASR_MODEL': modelo,
+        **fl.carimbo(modelo, ferro),
         'A_FILA_QUE_MANDOU': 'data/samples/YOUTUBE-RELEVANCIA/FILA-WHISPER.json',
         'O_QUE_NAO_ESTA_AQUI': ('todo vídeo que já tinha legenda pública. Ele não foi '
                                 'esquecido: está em YOUTUBE-JANELA/LEGENDAS.json, de '
