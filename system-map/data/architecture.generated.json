@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-g6-dependency-order-v1",
-    "HEAD": "ea58825c210721e5b0b2ad54d6455a61dc522132",
-    "GENERATED_AT": "2026-09-13T19:37:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "19c56fcd26eff8dc121a6946a2be930b877870561b42d1446d18e5b47db7aa38"
+    "BRANCH": "claude/system-map-g7-g8-visual-clarity-v1",
+    "HEAD": "0786cf5d953bcef1a9b64d80c498fbabb9f62523",
+    "GENERATED_AT": "2026-09-14T00:54:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f6b5aad630762eefa02185025794a8dd398707266f1f5abff35d1e4858af5e24"
   },
   "FILES": [
     {
@@ -150,7 +150,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "1f7a05a355992dff3f09d19a66875f19638f6bfa",
+      "sha": "63131f87cbbb4e484b3b181e8e74d5e683b4486c",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -171,7 +171,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "ab911c0afce0a4a1e7092958d4fccc0a3960ff07",
+      "sha": "9bfb9df025a4da244a8e709c6481897c3cbca4c5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4322,7 +4322,7 @@
     },
     {
       "path": "docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md",
-      "sha": "885800675b7b7500eed0840cdbab74ef09ee76c0",
+      "sha": "704904d14c1c6e8eb9ba51ca6e8bb4ad4a15753f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5490,6 +5490,13 @@
       "code_dir": false
     },
     {
+      "path": "handoff/KNOW-HOW-DELTA-PAPEL-E-LEITURA-HUMANA.md",
+      "sha": "40c164fe6d7a9c0c47355272e85fa34dbc1ffb2f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "handoff/S2A-R-RECONCILIACAO.md",
       "sha": "920402753b779752ad0d7f3148715e83a78f4582",
       "ext": ".md",
@@ -5613,6 +5620,27 @@
       "sha": "5ac060a0409d2322a91559a4b91ba77a50e8f459",
       "ext": ".json",
       "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "handoff/provas-visuais-g7-g8-g8b/README.md",
+      "sha": "79a1a86e0f6d194d89d71a62d29da23dd70ca475",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "sha": "ef0ccd3945625e2f25c7a69c5ecad28ab6417fb0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "handoff/provas-visuais-g7-g8-g8b/tirar-as-fotografias.mjs",
+      "sha": "ca7820f4a93664324e5525a8f10e75b617ec5e6c",
+      "ext": ".mjs",
+      "readable": true,
       "code_dir": false
     },
     {
@@ -9432,21 +9460,21 @@
     },
     {
       "path": "system-map/app/index.html",
-      "sha": "41d11308c73834ec9306662350be1e815d25baa3",
+      "sha": "f51129a95ef81a26a4d22899e0aa1e824dfe773d",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "01e43532f50563347b1c083f3cc44a8bd8753887",
+      "sha": "e0359212463dfa664e970c5a407ddfef6c760a9b",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "c2f3e7c54b65c32688b1baa2eef6b5c43702242f",
+      "sha": "aae93783157929db341a3af66e825dcfba0410c9",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -9495,7 +9523,7 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "3bf8c417a6103921b6b42ff27218e2671c35395b",
+      "sha": "53ed42ba81a6ddb9528eb089851d904158c82a05",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9614,7 +9642,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "143061b0a4f3e5a659f31e5a4bbb5c0fe4277a2d",
+      "sha": "bb1e6f9b3111b1d03626474b6ef2e83a4053fe00",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9741,6 +9769,13 @@
     {
       "path": "system-map/tests/test_ordem_por_dependencia.py",
       "sha": "8862157212fc20eb91c66176cb7cc91e8ecc1440",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/tests/test_papel_e_leitura_humana.py",
+      "sha": "cfd6b7cac7223096e32167c18def2eb460b531ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11346,7 +11381,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 508,
+        "line": 525,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -11357,7 +11392,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 631,
+        "line": 648,
         "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
       }
     },
@@ -11368,7 +11403,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 593,
+        "line": 610,
         "snippet": "run: python3 provas/fluxo_no_seco.py"
       }
     },
@@ -11379,7 +11414,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 615,
+        "line": 632,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -11390,7 +11425,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 608,
+        "line": 625,
         "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py"
       }
     },
@@ -11401,7 +11436,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 627,
+        "line": 644,
         "snippet": "run: python3 provas/o_executor_conta_se.py"
       }
     },
@@ -11412,7 +11447,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 601,
+        "line": 618,
         "snippet": "run: python3 provas/o_mapa_nao_mente.py"
       }
     },
@@ -11423,7 +11458,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 589,
+        "line": 606,
         "snippet": "run: python3 provas/paridade_da_lingua.py"
       }
     },
@@ -11434,7 +11469,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 515,
+        "line": 532,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -11445,7 +11480,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 597,
+        "line": 614,
         "snippet": "run: python3 provas/testa_golden_path_pdf.py"
       }
     },
@@ -11456,7 +11491,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 522,
+        "line": 539,
         "snippet": "run: python3 provas/valida_biblia.py"
       }
     },
@@ -11467,7 +11502,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 406,
+        "line": 423,
         "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")"
       }
     },
@@ -11489,7 +11524,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 420,
+        "line": 437,
         "snippet": "node system-map/scripts/publicar_no_deploy.mjs"
       }
     },
@@ -11546,6 +11581,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 358,
         "snippet": "run: python3 system-map/tests/test_ordem_por_dependencia.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_papel_e_leitura_humana.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 375,
+        "snippet": "run: python3 system-map/tests/test_papel_e_leitura_humana.py"
       }
     },
     {
@@ -11610,7 +11656,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 546,
+        "line": 563,
         "snippet": "run: python3 tests/test_armazem_italiano.py"
       }
     },
@@ -11621,7 +11667,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 529,
+        "line": 546,
         "snippet": "python3 tests/test_biblia.py"
       }
     },
@@ -11632,7 +11678,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 539,
+        "line": 556,
         "snippet": "run: python3 tests/test_identidade_do_artefato.py"
       }
     },
@@ -11643,7 +11689,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 530,
+        "line": 547,
         "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
@@ -11654,7 +11700,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 531,
+        "line": 548,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
@@ -11665,7 +11711,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 574,
+        "line": 591,
         "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
@@ -11676,7 +11722,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 553,
+        "line": 570,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
@@ -11687,7 +11733,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 561,
+        "line": 578,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
@@ -11698,7 +11744,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 568,
+        "line": 585,
         "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
@@ -11709,7 +11755,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 532,
+        "line": 549,
         "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },
@@ -15649,6 +15695,72 @@
         "file": "guarda/social_sessao.py",
         "line": 243,
         "snippet": "import social_matriz as mz          # dono único da verdade de capacidade"
+      }
+    },
+    {
+      "from_file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "to_file": "system-map/app/index.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+        "line": 16,
+        "snippet": "casca = (RAIZ / \"system-map/app/index.html\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "to_file": "system-map/app/map.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+        "line": 17,
+        "snippet": "folha = (RAIZ / \"system-map/app/map.css\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "to_file": "system-map/app/map.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+        "line": 15,
+        "snippet": "tela = (RAIZ / \"system-map/app/map.js\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+        "line": 118,
+        "snippet": "\"ROLE\" not in (RAIZ / \"system-map/data/architecture.declared.json\").read_text(encoding=\"utf-8\"),"
+      }
+    },
+    {
+      "from_file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+        "line": 172,
+        "snippet": "cadeia = json.loads((RAIZ / \"system-map/scripts/CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "handoff/provas-visuais-g7-g8-g8b/red-team-g7-g8-g8b.py",
+        "line": 18,
+        "snippet": "ger = (RAIZ / \"system-map/scripts/generate_system_map.py\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -30827,7 +30939,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 191,
+        "line": 231,
         "snippet": "<script src=\"freshness.js\"></script>"
       }
     },
@@ -30849,7 +30961,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 192,
+        "line": 232,
         "snippet": "<script src=\"map.js\"></script>"
       }
     },
@@ -31542,7 +31654,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3212,
+        "line": 3471,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -31597,7 +31709,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3190,
+        "line": 3449,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -31608,7 +31720,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2971,
+        "line": 3230,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -31619,7 +31731,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2973,
+        "line": 3232,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -31663,7 +31775,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3391,
+        "line": 3650,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -31674,7 +31786,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3393,
+        "line": 3652,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -31707,7 +31819,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4112,
+        "line": 4435,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -31729,7 +31841,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2702,
+        "line": 2961,
         "snippet": "f = raiz / \"system-map\" / \"data\" / \"provas-de-execucao.json\""
       }
     },
@@ -31740,7 +31852,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3477,
+        "line": 3765,
         "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
       }
     },
@@ -31751,7 +31863,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4125,
+        "line": 4448,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -31762,7 +31874,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 4125,
+        "line": 4448,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -31773,8 +31885,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3152,
-        "snippet": "vj = RAIZ / \"vercel.json\""
+        "line": 2648,
+        "snippet": "v = json.loads((RAIZ / \"vercel.json\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -32710,6 +32822,39 @@
         "file": "system-map/tests/test_ordem_por_dependencia.py",
         "line": 291,
         "snippet": "[sys.executable, \"system-map/tests/test_cadeia_declara_io.py\"])"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_papel_e_leitura_humana.py",
+      "to_file": "system-map/app/map.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_papel_e_leitura_humana.py",
+        "line": 51,
+        "snippet": "FOLHA = RAIZ / \"system-map\" / \"app\" / \"map.css\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_papel_e_leitura_humana.py",
+      "to_file": "system-map/app/map.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_papel_e_leitura_humana.py",
+        "line": 49,
+        "snippet": "TELA = RAIZ / \"system-map\" / \"app\" / \"map.js\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_papel_e_leitura_humana.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_papel_e_leitura_humana.py",
+        "line": 163,
+        "snippet": "/ \"generate_system_map.py\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -40397,10 +40542,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1510,
-    "files_readable": 588,
-    "files_code_dir": 633,
-    "file_edges": 2667,
+    "files_tracked": 1515,
+    "files_readable": 591,
+    "files_code_dir": 634,
+    "file_edges": 2677,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
