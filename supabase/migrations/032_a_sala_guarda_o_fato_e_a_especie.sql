@@ -65,8 +65,25 @@
 -- ═══════════════════════════════════════════════════════════════════════
 --
 --     DESIGNED  = YES
---     DB_TESTED = NO
+--     DB_TESTED = YES   ·  PostgreSQL 16, banco DESCARTÁVEL, 2026-09-14
+--                          Actions run 34901780026 · passo `2b5`
+--                          `CASOS=91 · PASS=91 · FAIL=0`
 --     LIVE      = NO
+--
+-- O que a corrida provou, e nenhuma linha disto veio de leitura do ficheiro:
+--
+--   · a cadeia canónica aplicou 001…032 num banco limpo, na ordem real;
+--   · as SETE colunas novas existem no `information_schema` — perguntou-se ao
+--     CATÁLOGO, não ao `.sql`, porque ler a intenção não é ler o resultado;
+--   · a cadeia correu DUAS vezes e o conjunto de colunas não mudou;
+--   · uma linha escrita só com as colunas da `031` ficou com
+--     `ESTAGIO_DESCONHECIDO`, seis `NAO SEI` e `fato = "NAO_SE_APLICA"`;
+--   · o READY trouxe exactamente os 19 campos que o dono declara.
+--
+-- ⚠️ A PARTIR DO DIA EM QUE ISTO FOR A PRODUÇÃO, ESTE FICHEIRO NÃO SE EDITA.
+-- O livro-razão da cadeia guarda o hash do que foi aplicado, e uma migration
+-- que muda depois de aplicada faz a cadeia parar — de propósito. Hoje ainda se
+-- pode escrever aqui porque `LIVE = NO`; amanhã não.
 --
 -- ⚠️ ESTE BLOCO DIZIA AS DUAS COISAS AO MESMO TEMPO, E POR ISSO NÃO DIZIA
 -- NENHUMA. Ele abria com «NÃO EXECUTADA» e três linhas abaixo afirmava que
