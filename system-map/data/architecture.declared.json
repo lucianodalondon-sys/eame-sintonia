@@ -600,6 +600,26 @@
       ]
     },
     {
+      "id": "C-SCRAP-SOCIAL",
+      "name": "SINTONIA SCRAP social — o executor das rotas gratuitas",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "workflow",
+      "icon": "⚡",
+      "views": [
+        "infra",
+        "acervo"
+      ],
+      "what": "O executor composto das rotas sociais que NAO passam pela Apify: censo de capacidade, portao do robots.txt, descoberta de video, lacuna, piloto ao vivo e ledger do que realmente rodou. Despacha para o runner hospedado ou para o runner local `eame-sintonia-local`, conforme a fase.",
+      "why_here": "Fica em AS FERRAMENTAS, ao lado do despachador, porque e COM QUE se viaja — nao de onde o dado vem nem quem vai busca-lo. Medido em 2026-09-14 pela prova de fogo da Collection: este workflow esta registado no ramo padrao, mas os tres coletores que ele invoca — coleta/social_scrap.py, guarda/social_guarda.py e coleta/youtube_oficial.py — NAO existem em `main`; vivem so em ramos de funcionalidade que nunca foram integrados. O proprio workflow tem um passo que confere a presenca deles, logo ele falha na propria verificacao previa. FICHEIRO REGISTADO != CAPACIDADE ENTREGUE: o botao existe e a rota nao chega. Ficava invisivel ao mapa ate esta missao, e arquitetura invisivel nao se audita.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        ".github/workflows/scrap-social.yml"
+      ]
+    },
+    {
       "id": "C-NAVEGADOR",
       "name": "O navegador — a rota gratis",
       "territory": "Z-FERRAMENTAS",

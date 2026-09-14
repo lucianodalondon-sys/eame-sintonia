@@ -69,7 +69,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PENDING — e uma lei sem prova executavel apontando para ela. |
+| estado | PENDING — o motor importa esta lei para decidir.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |
@@ -99,6 +99,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **Abrir PDF, ODS e HTML** — Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
+- **SINTONIA SCRAP social — o executor das rotas gratuitas** — O executor composto das rotas sociais que NAO passam pela Apify: censo de capacidade, portao do robots.txt, descoberta de video, lacuna, piloto ao vivo e ledger do que realmente rodou. Despacha para o runner hospedado ou para o runner local `eame-sintonia-local`, conforme a fase.
 - **SINTONIA SCRAP — o despachador** — O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.
 
 ---
@@ -145,4 +146,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 5 ferramentas e 2 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 6 ferramentas e 2 peças de fonte declaradas no mapa.

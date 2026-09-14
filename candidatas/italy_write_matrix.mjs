@@ -1,6 +1,6 @@
 // Gera docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md a partir dos contratos + saude medida.
-import { CONTRACTS } from "./italy_contracts.mjs";
-import { medir } from "./italy_source_health.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
+import { medir } from "../regras/italy_source_health.mjs";
 import { writeFileSync } from "node:fs";
 
 const L = [];

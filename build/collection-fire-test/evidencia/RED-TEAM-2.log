@@ -1,0 +1,22 @@
+RESISTIU RT10  falha de storage controlada (ENOTDIR, vale para root)
+            esperado=o erro sobe, nao e engolido
+            obtido  =NotADirectoryError propagada: [Errno 20] Not a directory: '/tmp/tmp0om7t59r/barreira/sub/raw.bin'
+            escrita que falha calada produz RAW que o ledger jura existir
+RESISTIU RT11  falha de transporte real (ligacao recusada)
+            esperado=codigo de saida do curl dentro de TRANSITORIOS [28, 35, 52, 56, 7] -> repeticao permitida
+            obtido  =curl saiu com 7 · esta em TRANSITORIOS: True
+            const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, reset, resposta vazia, recv failure
+RESISTIU RT12  fonte devolve HTTP 503 (falha do servidor, nao do transporte)
+            esperado=registado como FAILED com o status real, retries=1 (sem repeticao cega)
+            obtido  =HEALTH=FAILED · motivo=status 503 / 114 bytes · retries=1
+            medido na corrida real desta missao — nao simulado
+RESISTIU RT13  bytes identicos servidos a duas fontes diferentes
+            esperado=SOURCE_ID continua distinto — SHA256 identifica bytes, nao documento
+            obtido  =3 grupo(s) de bytes repetidos: IT-T2-005,IT-T3-004; IT-T3-006,IT-T7-001; IT-T3-012,IT-T7-006,IT-T11-004
+            politicheagricole e fmach servem a mesma homepage a varios SOURCE_ID
+RESISTIU RT14  YouTube inalcancavel deste IP
+            esperado=PORTA_NAO_ABRIU (nao consegui olhar) — NUNCA AUSENTE (olhei e nao ha)
+            obtido  ={'PORTA_NAO_ABRIU': 24}
+            confundir os dois manda transcrever video que ja vinha escrito
+
+ATAQUES: 14 · RESISTIU: 14 · CEDEU: 0

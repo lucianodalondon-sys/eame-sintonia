@@ -363,6 +363,91 @@ mídia técnica · Instagram **só se agregar sinal**.
 
 **Vídeo não fica para depois.**
 
+## 22-B · ROTAS QUE FECHARAM — medido na prova de fogo de 2026-09-14
+
+Esta secção guarda **limitação de plataforma provada**, não suspeita. Cada linha traz
+O QUÊ → POR QUÊ → PROVA → CONSEQUÊNCIA. Prova completa em
+[`build/collection-fire-test/RELATORIO.md`](../build/collection-fire-test/RELATORIO.md).
+
+### OpenAlex deixou de ser rota gratuita
+
+**O QUÊ** — `coleta/corpus_pesquisador.py`, `coleta/universo_ciencia_it.py` e
+`coleta/speaker_universo.py` declaram no cabeçalho «rota REST gratuita, sem chave».
+Deixou de ser verdade.
+**POR QUÊ** — a plataforma passou a cobrar por chamada, com orçamento por conta.
+**PROVA** — 17 tentativas, todas HTTP 429 com corpo
+`{"error":"Rate limit exceeded","message":"Insufficient budget. This request costs $0.001
+but you only have $0 remaining."}`. O `mailto` do *polite pool* já estava a ser enviado —
+não é reputação de IP.
+**CONSEQUÊNCIA** — o corpus científico não se monta hoje por OpenAlex. **ORCID (HTTP 200)
+e Crossref (HTTP 200) continuam abertos** e são a rota a usar. Não registar ausência de
+obra a partir de um 429: `NÃO CONSEGUI OLHAR != NÃO HÁ`.
+
+### YouTube fecha as TRÊS portas a IP de centro de dados
+
+**O QUÊ** — a página do canal e a lista de vídeos passam; a página do vídeo, a legenda e a
+faixa de áudio, não.
+**POR QUÊ** — reputação de rede do IP de saída, não bloqueio de conteúdo.
+**PROVA** — porta barata (`urllib`) → HTTP 429; porta do navegador → Chromium presente mas
+`Running as root without --no-sandbox is not supported`; `yt-dlp` → *«Sign in to confirm
+you're not a bot»*. Nos mesmos segundos, a página do canal devolveu 200 e 30 vídeos por
+página. `.github/workflows/scrap-social.yml` já registava o mesmo em 2026-09-08.
+**CONSEQUÊNCIA** — legenda e áudio do YouTube exigem o runner local. O estado correto é
+`PORTA_NAO_ABRIU`; escrever `AUSENTE` manda o whisper transcrever seis horas de som que já
+vinham escritas.
+
+### Os atores Apify de LinkedIn e YouTube mudaram de schema
+
+**O QUÊ** — a entrada que `coleta/comunicacao_coleta.py::entrada()` monta já não é aceite.
+**POR QUÊ** — os builds publicados mudaram campos e enums.
+**PROVA** — `harvestapi~linkedin-post-search` build 0.0.111: `companyUrls` e `maxItems` não
+existem no schema, `postedLimit='30d'` fora do enum
+`['any','1h','24h','week','month','3months','6months','year']`.
+`streamers~youtube-scraper` build 0.0.301: `dateFilter='2026-08-15'` fora do enum
+`['hour','today','week','month','year']`. Instagram (0.0.781) e Facebook (0.0.387):
+**aprovados**.
+**CONSEQUÊNCIA** — a Apify **descarta campo estranho em silêncio e cobra o run**. O portão
+de contrato passou a correr ao vivo dentro de `fase_posts()` a partir de 2026-09-14: antes
+disso ele estava escrito no artefato e nunca era lido. `REGRA ESCRITA NO ARTEFATO != REGRA
+EXECUTADA NO CAMINHO`.
+
+### A transcrição por GPU não está versionada
+
+**O QUÊ** — a operação transcreve na placa de vídeo da máquina local; o repositório não sabe
+disso.
+**POR QUÊ** — os dois donos canónicos fixam CPU no código:
+`ferramentas/youtube_transcrever.py:191` e `ferramentas/instagram_transcrever.py:247`
+chamam `WhisperModel(modelo, device='cpu', compute_type='int8', cpu_threads=nucleos)`.
+**PROVA** — procura por `cuda`/`device='gpu'`/`float16` em todo o repositório: zero
+ocorrências de código.
+**CONSEQUÊNCIA** — quem clonar o repo transcreve em CPU sem saber porquê, e os números
+medidos de velocidade não se reproduzem. A configuração da GPU precisa de entrar no Git ou
+de ficar declarada como pré-requisito do runner `eame-sintonia-local`.
+
+### `scrap-social.yml` está no ramo padrão sem os seus coletores
+
+**O QUÊ** — o executor social das rotas gratuitas é despachável de `main` e não roda.
+**POR QUÊ** — `coleta/social_scrap.py`, `guarda/social_guarda.py` e
+`coleta/youtube_oficial.py` existem em ~37 ramos de funcionalidade e **nunca foram
+integrados em `main`**.
+**PROVA** — `git cat-file -e origin/main:<ficheiro>` falha nos três; o workflow existe.
+O próprio workflow tem um passo que confere a presença deles.
+**CONSEQUÊNCIA** — `FICHEIRO REGISTADO != CAPACIDADE ENTREGUE`. Quem disparar o botão recebe
+uma falha de pré-requisito e pode lê-la como «as redes não entregam». Não puxar os ficheiros
+de outro ramo sem comparar antes — ver AGENTS.md, «TRAZER FICHEIRO DE OUTRA BRANCH».
+
+### Cinco códigos de território significam coisas diferentes em dois sítios
+
+**O QUÊ** — `pedido/pedido.py::ALVOS` e `canonical_territories` do atlas discordam em
+T5, T7, T10, T11 e T12.
+**POR QUÊ** — as duas listas cresceram separadas e nenhuma se declara derivada da outra.
+**PROVA** — `py pedido/orquestrador.py "colete ciencia da Italia" --so-plano` devolve as 12
+fontes de **rede técnica** rotuladas «Ciencia e ensaio»; as 5 fontes científicas reais (T5)
+não aparecem.
+**CONSEQUÊNCIA** — `ONE CONCEPT → ONE OWNER` está violado em silêncio, e uma coleta de
+ciência corre sobre cooperativas sem avisar ninguém. Enquanto não houver um dono único,
+confirmar sempre o território pelo **atlas**, nunca pelo apelido do pedido.
+
 ## 23 · PRINCÍPIO FINAL
 
 **O SINTONIA não é um coletor de posts.**

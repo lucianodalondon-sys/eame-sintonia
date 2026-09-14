@@ -1,0 +1,20 @@
+CONTROLES NEGATIVOS — PILOTO RECORRENTE
+
+ATINGIU   N1  mesmo documento duas vezes: RAW_OBJECTS_CREATED da 2a rodada
+           esperado=0  obtido=0  · SEEN_AGAIN=8
+ATINGIU   N2  mesma URL com bytes alterados (mesmo DOCUMENT_ID)
+           esperado=DOCUMENT_CHANGED_IN_PLACE  obtido=DOCUMENT_CHANGED_IN_PLACE  · versoes anteriores=6
+ATINGIU   N3  janela movel do SIAS avanca um dia
+           esperado=1  obtido=1  · linhas na janela=1045 · observacoes novas=95 (nao 1045)
+ATINGIU   N4  PDF esperado chega como HTML (com HTTP 200)
+           esperado=BYTE_VALIDATION_FAILED  obtido=BYTE_VALIDATION_FAILED  · HTTP 200 nao salva
+ATINGIU   N5  parser falha depois do download
+           esperado=RAW_PRESERVADO_E_INTACTO  obtido=RAW_PRESERVADO_E_INTACTO  · ordem do coletor: download -> bytes -> sha -> RAW -> manifesto -> parse
+NAO ATIN. N6  fonte sem cadencia observada devolve o MESMO hash
+           esperado=CADENCE_UNKNOWN+HEALTHY  obtido=CADENCE_UNKNOWN+FAILED  · SAME_HASH != DEGRADED · NO_CHANGE != FAILURE
+ATINGIU   N7  fonte com cadencia provada, dentro do prazo
+           esperado=EXPECTED_NO_CHANGE  obtido=EXPECTED_NO_CHANGE  · proxima esperada=2026-09-21
+ATINGIU   N8  fonte com cadencia provada e prazo vencido
+           esperado=OVERDUE_UPDATE  obtido=OVERDUE_UPDATE  · so aqui pode acusar atraso
+
+EXECUTED: 8 · EXPECTED_BRANCH_REACHED: 7 · FAILURES: 1

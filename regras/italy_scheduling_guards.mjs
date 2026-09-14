@@ -1,7 +1,7 @@
 // GUARDAS DO AGENDAMENTO FORWARD-ONLY.
 // Cada lei critica tem um controle negativo REAL, medido do log de execucoes.
 import { readFileSync, existsSync } from "node:fs";
-import { PROFILES } from "./italy_profiles.mjs";
+import { PROFILES } from "../candidatas/italy_profiles.mjs";
 
 const OPS = "C:/eame-sintonia-ops";
 const LOG = `${OPS}/data/collection-ledger/italy/logs/runs.log`;

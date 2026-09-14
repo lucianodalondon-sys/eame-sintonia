@@ -242,12 +242,74 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
     }
 
 
+def _portao_do_contrato(plataforma, ator):
+    """O portão que já existia escrito e NUNCA tinha corrido. Devolve (ok, motivo).
+
+    `CONTRATOS.json` carrega, desde sempre, a lei em cada ator:
+
+        MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.
+
+    Só que `fase_posts` nunca a leu. A regra vivia no artefato, não no caminho — e
+    uma regra que o caminho não consulta não é uma regra, é um comentário. Medido em
+    2026-09-14 com o pool vazio: `contratos` REPROVOU YOUTUBE e LINKEDIN, e as duas
+    fases pagas correram logo a seguir na mesma sessão, sem nada as travar. Nada foi
+    gasto porque não havia chave — a trava foi a falta de dinheiro, não o portão.
+
+        REGRA ESCRITA NO ARTEFATO != REGRA EXECUTADA NO CAMINHO.
+
+    A leitura do schema é um GET público e custa ZERO — o mesmo GET que a fase
+    `contratos` faz. Por isso a conferência corre AQUI, ao vivo, e não sobre um
+    ficheiro que pode estar velho: um contrato aprovado ontem não prova que o build
+    de hoje aceita a mesma entrada.
+    """
+    import contrato_ator as ca
+    chaves = ap.pool()
+    try:
+        ent = entrada(plataforma, {'ACCOUNT_URL': 'https://exemplo.invalido/conta',
+                                   'ACCOUNT_HANDLE': 'exemplo', 'COUNTRY': 'XX'},
+                      JANELA_INICIAL_DIAS)
+    except ValueError as ex:
+        return False, 'esta casa não sabe montar entrada para %s: %s' % (plataforma, ex)
+    r, ok = ca.portao(ator, ent, token=(chaves[0] if chaves else None))
+    if ok:
+        return True, 'contrato do build %s aceita a entrada' % r.get('BUILD_NUMBER')
+    porques = '; '.join(('%s %s' % (x['CODIGO'], x.get('CAMPO') or '')).strip()
+                        for x in r['PROBLEMS'] if x['GRAVIDADE'] == 'REPROVA')
+    return False, ('o build %s do ator `%s` NÃO aceita a entrada que esta casa monta '
+                   '(%s). A Apify não recusa campo estranho: descarta em silêncio e '
+                   'cobra o run.' % (r.get('BUILD_NUMBER'), ator, porques or r['CONTRACT_STATE']))
+
+
 def fase_posts(plataforma):
     ator, _ = ATORES[plataforma]
     contas = contas_autorizadas(plataforma)
     if not contas:
         print('nenhuma conta AUTORIZADA em %s. Isto é ausência de conta provada '
               'LOCAL — não é ausência de comunicação.' % plataforma)
+        return None
+
+    # ── O PORTÃO, ANTES DO DINHEIRO ─────────────────────────────────────────
+    ok, porque = _portao_do_contrato(plataforma, ator)
+    if not ok:
+        print('CONTRATO REPROVADO · %s — nenhuma execução paga foi disparada.' % plataforma)
+        print('  %s' % porque)
+        print('  Isto é BLOQUEIO DE CONTRATO, não ausência de conteúdo: ninguém olhou '
+              'a conta. Conserto: corrigir `entrada()` para o schema do build atual.')
+        _gravar('POSTS-%s.json' % plataforma, {
+            'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
+            'DATASET_OWNER': DATASET_OWNER,
+            'source': 'nenhuma coleta — o portão de contrato reprovou antes de gastar',
+            'SOURCE_LOCATION': plataforma,
+            'FACT_LOCATION': NAO_SEI,
+            'EVIDENCE_CLASS': 'NOT_COLLECTED',
+            'COLLECTION_STATE': 'BLOCKED_BY_ACTOR_CONTRACT',
+            'BLOCKED_WHY': porque,
+            'ACCOUNTS_ATTEMPTED': len(contas), 'ACCOUNTS_DONE': 0,
+            'ACCOUNTS_PENDING': len(contas),
+            'APIFY_RUNS': 0, 'COST_USD': 0, 'ITEM_COUNT': 0, 'ITEMS': [], 'RUNS': [],
+            'ZERO_SIGNIFICA': ('NENHUMA CONTA FOI OLHADA. Este zero fala do nosso '
+                               'contrato com o ator, nunca da empresa observada.'),
+        })
         return None
 
     janela = {'DIAS': JANELA_INICIAL_DIAS}

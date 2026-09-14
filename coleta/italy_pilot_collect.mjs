@@ -24,7 +24,7 @@ import { execFileSync, execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, appendFileSync, rmSync } from "node:fs";
 import { createHash, randomUUID } from "node:crypto";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";

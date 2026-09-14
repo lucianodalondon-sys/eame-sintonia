@@ -1,0 +1,116 @@
+[
+ {
+  "N": "RT1",
+  "ATAQUE": "URL morta (dominio inexistente)",
+  "ESPERADO": "falha de rede registada, NUNCA RAW preservado",
+  "OBTIDO": "sem manifesto · rc=1",
+  "RESISTIU": true,
+  "NOTA": "ausencia de resposta nao pode virar documento"
+ },
+ {
+  "N": "RT2",
+  "ATAQUE": "HTTP 200 com pagina de erro",
+  "ESPERADO": "status e bytes reais registados, sem veredito inventado",
+  "OBTIDO": "HTTP 404 · 82066 bytes · HTML/XML · RAW=NOT_PRESERVED",
+  "RESISTIU": true,
+  "NOTA": "o preservador guarda os bytes e o status REAIS; ele NAO afirma que o conteudo serve. Julgar o corpo e da porta de admissao, nao dele."
+ },
+ {
+  "N": "RT3",
+  "ATAQUE": "redirect seguido",
+  "ESPERADO": "URL efetiva guardada ao lado da pedida",
+  "OBTIDO": "pedida=http://www.fmach.it · efetiva=https://fmach.it/",
+  "RESISTIU": true,
+  "NOTA": "URL_EFETIVA != SOURCE_URL fica escrito: o redirect nao se perde"
+ },
+ {
+  "N": "RT4",
+  "ATAQUE": "ficheiro .pdf cujos bytes nao sao PDF",
+  "ESPERADO": "ALERTA + NOT_PRESERVED",
+  "OBTIDO": "assinatura=HTML/XML · ALERTA=SIM · RAW=NOT_PRESERVED",
+  "RESISTIU": true,
+  "NOTA": "A EXTENSAO MENTE: termina em .pdf mas os bytes nao sao PDF. NAO tratar como documento preservado."
+ },
+ {
+  "N": "RT5",
+  "ATAQUE": "item que a ferramenta nao conseguiu ler",
+  "ESPERADO": "ERRO (nunca NAO)",
+  "OBTIDO": "ERRO",
+  "RESISTIU": true,
+  "NOTA": "nao consegui ler este item — a ferramenta falhou. Isto nao e uma rejeicao: ninguem chegou a olhar."
+ },
+ {
+  "N": "RT6",
+  "ATAQUE": "item sem tempo nenhum",
+  "ESPERADO": "NAO_SEI (nunca NAO)",
+  "OBTIDO": "NAO_SEI",
+  "RESISTIU": true,
+  "NOTA": "o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor."
+ },
+ {
+  "N": "RT7",
+  "ATAQUE": "so data de publicacao, sem data do fato",
+  "ESPERADO": "entra, mas o livro diz que o tempo do fato continua NAO SEI",
+  "OBTIDO": "SIM · regra=pertence ao universo",
+  "RESISTIU": true,
+  "NOTA": "a prova esta na regra do tempo, medida a parte"
+ },
+ {
+  "N": "RT8",
+  "ATAQUE": "mesmo item julgado em dois universos",
+  "ESPERADO": "decisoes independentes por par (item,universo)",
+  "OBTIDO": "T7=SIM · T4=NAO",
+  "RESISTIU": true,
+  "NOTA": "relevancia nao e booleano universal"
+ },
+ {
+  "N": "RT9",
+  "ATAQUE": "inventar um resultado de admissao fora do contrato",
+  "ESPERADO": "recusa",
+  "OBTIDO": "ValueError: resultado «TALVEZ» nao existe. Ha: SIM, NAO, NAO_SEI, NAO_SE",
+  "RESISTIU": true,
+  "NOTA": ""
+ },
+ {
+  "N": "RT10",
+  "ATAQUE": "falha de storage controlada (ENOTDIR, vale para root)",
+  "ESPERADO": "o erro sobe, nao e engolido",
+  "OBTIDO": "NotADirectoryError propagada: [Errno 20] Not a directory: '/tmp/tmp0om7t59r/barreira/sub/raw.bin'",
+  "RESISTIU": true,
+  "NOTA": "escrita que falha calada produz RAW que o ledger jura existir"
+ },
+ {
+  "N": "RT11",
+  "ATAQUE": "falha de transporte real (ligacao recusada)",
+  "ESPERADO": "codigo de saida do curl dentro de TRANSITORIOS [28, 35, 52, 56, 7] -> repeticao permitida",
+  "OBTIDO": "curl saiu com 7 · esta em TRANSITORIOS: True",
+  "RESISTIU": true,
+  "NOTA": "const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, reset, resposta vazia, recv failure"
+ },
+ {
+  "N": "RT12",
+  "ATAQUE": "fonte devolve HTTP 503 (falha do servidor, nao do transporte)",
+  "ESPERADO": "registado como FAILED com o status real, retries=1 (sem repeticao cega)",
+  "OBTIDO": "HEALTH=FAILED · motivo=status 503 / 114 bytes · retries=1",
+  "RESISTIU": true,
+  "NOTA": "medido na corrida real desta missao — nao simulado"
+ },
+ {
+  "N": "RT13",
+  "ATAQUE": "bytes identicos servidos a duas fontes diferentes",
+  "ESPERADO": "SOURCE_ID continua distinto — SHA256 identifica bytes, nao documento",
+  "OBTIDO": "3 grupo(s) de bytes repetidos: IT-T2-005,IT-T3-004; IT-T3-006,IT-T7-001; IT-T3-012,IT-T7-006,IT-T11-004",
+  "RESISTIU": true,
+  "NOTA": "politicheagricole e fmach servem a mesma homepage a varios SOURCE_ID"
+ },
+ {
+  "N": "RT14",
+  "ATAQUE": "YouTube inalcancavel deste IP",
+  "ESPERADO": "PORTA_NAO_ABRIU (nao consegui olhar) — NUNCA AUSENTE (olhei e nao ha)",
+  "OBTIDO": {
+   "PORTA_NAO_ABRIU": 24
+  },
+  "RESISTIU": true,
+  "NOTA": "confundir os dois manda transcrever video que ja vinha escrito"
+ }
+]

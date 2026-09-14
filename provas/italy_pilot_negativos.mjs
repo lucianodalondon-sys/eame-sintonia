@@ -4,8 +4,8 @@
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync, rmSync, appendFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { normalizarSias, estadoDeCadencia, lerLedger } from "./italy_pilot_collect.mjs";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { normalizarSias, estadoDeCadencia, lerLedger } from "../coleta/italy_pilot_collect.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const sha = b => createHash("sha256").update(b).digest("hex");
 let executados = 0, atingiram = 0;

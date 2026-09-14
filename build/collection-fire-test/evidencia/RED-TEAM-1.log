@@ -1,0 +1,41 @@
+RESISTIU RT1  URL morta (dominio inexistente)
+            esperado=falha de rede registada, NUNCA RAW preservado
+            obtido  =sem manifesto · rc=1
+            ausencia de resposta nao pode virar documento
+RESISTIU RT2  HTTP 200 com pagina de erro
+            esperado=status e bytes reais registados, sem veredito inventado
+            obtido  =HTTP 404 · 82066 bytes · HTML/XML · RAW=NOT_PRESERVED
+            o preservador guarda os bytes e o status REAIS; ele NAO afirma que o conteudo serve. Julgar o corpo e da porta de admissao, nao dele.
+RESISTIU RT3  redirect seguido
+            esperado=URL efetiva guardada ao lado da pedida
+            obtido  =pedida=http://www.fmach.it · efetiva=https://fmach.it/
+            URL_EFETIVA != SOURCE_URL fica escrito: o redirect nao se perde
+RESISTIU RT4  ficheiro .pdf cujos bytes nao sao PDF
+            esperado=ALERTA + NOT_PRESERVED
+            obtido  =assinatura=HTML/XML · ALERTA=SIM · RAW=NOT_PRESERVED
+            A EXTENSAO MENTE: termina em .pdf mas os bytes nao sao PDF. NAO tratar como documento preservado.
+RESISTIU RT5  item que a ferramenta nao conseguiu ler
+            esperado=ERRO (nunca NAO)
+            obtido  =ERRO
+            nao consegui ler este item — a ferramenta falhou. Isto nao e uma rejeicao: ninguem chegou a olhar.
+RESISTIU RT6  item sem tempo nenhum
+            esperado=NAO_SEI (nunca NAO)
+            obtido  =NAO_SEI
+            o item nao diz quando o fato aconteceu. Fica NAO_SEI, nao NAO: falta a prova, nao o valor.
+RESISTIU RT7  so data de publicacao, sem data do fato
+            esperado=entra, mas o livro diz que o tempo do fato continua NAO SEI
+            obtido  =SIM · regra=pertence ao universo
+            a prova esta na regra do tempo, medida a parte
+RESISTIU RT8  mesmo item julgado em dois universos
+            esperado=decisoes independentes por par (item,universo)
+            obtido  =T7=SIM · T4=NAO
+            relevancia nao e booleano universal
+RESISTIU RT9  inventar um resultado de admissao fora do contrato
+            esperado=recusa
+            obtido  =ValueError: resultado «TALVEZ» nao existe. Ha: SIM, NAO, NAO_SEI, NAO_SE
+CEDEU    RT10  falha de storage controlada
+            esperado=o erro sobe, nao e engolido
+            obtido  =escreveu (a trava nao pegou)
+            uma escrita que falha em silencio produz RAW que o ledger jura existir
+
+ATAQUES: 10 · RESISTIU: 9 · CEDEU: 1

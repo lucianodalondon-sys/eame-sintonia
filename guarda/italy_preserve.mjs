@@ -1,4 +1,4 @@
-// FASE D — preserva uma amostra real com MIME / BYTES / SHA256, do IP italiano.
+// FASE D — preserva uma amostra real com MIME / BYTES / SHA256, e MEDE de onde saiu.
 //
 // Uso:
 //   node guarda/italy_preserve.mjs <SOURCE_ID> <url> [url2] [url3]
@@ -18,6 +18,25 @@ import { basename } from "node:path";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
+
+// A PROCEDENCIA DE SAIDA E MEDIDA, NUNCA ESCRITA A MAO.
+// Ate 2026-09-14 estas tres linhas eram literais no codigo: todo manifesto saia a
+// dizer "Milano, Lombardia, IT — Proton AG" mesmo quando a captura corria de outro
+// pais. Um manifesto que afirma uma origem que nao foi medida nao e impreciso: e
+// prova fabricada, e contamina toda a cadeia que confia nele.
+//     ORIGEM DECLARADA != ORIGEM MEDIDA. Sem medicao, NAO SEI.
+async function egressoMedido() {
+  try {
+    const { stdout } = await run("curl", ["-s", "--max-time", "15", "https://ipinfo.io/json"], { encoding: "utf8" });
+    const d = JSON.parse(stdout);
+    if (!d?.ip) return null;
+    return {
+      EGRESS_IP: d.ip,
+      EGRESS_GEO: [d.city, d.region, d.country].filter(Boolean).join(", ") + (d.org ? ` — ${d.org}` : ""),
+      EGRESS_KIND: `MEDIDO em ${new Date().toISOString()} por ipinfo.io — nao declarado a mao`,
+    };
+  } catch { return null; }
+}
 
 const [sourceId, ...urls] = process.argv.slice(2);
 if (!sourceId || urls.length === 0) {
@@ -61,6 +80,7 @@ for (const url of urls) {
   if (mentiu) console.log("   ^^ ALERTA: extensao .pdf mas bytes nao sao PDF");
 }
 
+const EGRESSO = await egressoMedido();
 const manifestPath = `${dir}/MANIFEST.json`;
 const doc = {
   MANIFEST_VERSION: "1",
@@ -68,10 +88,12 @@ const doc = {
   OWNER_ID: "PREENCHER_A_MAO",
   CAPTURE: {
     CAPTURED_AT_UTC: new Date().toISOString(),
-    METODO: "curl HTTP GET com User-Agent de navegador, do IP de saida italiano",
-    EGRESS_IP: "205.147.30.20",
-    EGRESS_GEO: "Milano, Lombardia, IT — AS208172 Proton AG",
-    EGRESS_KIND: "VPN_COMERCIAL — nao e ISP residencial italiano",
+    METODO: "curl HTTP GET com User-Agent de navegador. O pais de saida NAO se assume: vai medido em EGRESS_GEO.",
+    ...(EGRESSO ?? {
+      EGRESS_IP: "NAO SEI",
+      EGRESS_GEO: "NAO SEI — a medicao de saida falhou nesta captura",
+      EGRESS_KIND: "NAO SEI — ausencia de medicao nao autoriza declarar uma origem",
+    }),
     AUTH_USED: "NENHUMA. Nao se tentou contornar autenticacao."
   },
   FILES: files,

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea"
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050"
   },
   "PECAS": [
     {
@@ -14,7 +14,7 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -125,6 +125,18 @@
       "estado": "green"
     },
     {
+      "id": "C-IT-COLETA",
+      "nome": "Colher as fontes italianas",
+      "zona": "7 · AS ACOES DA COLETA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 4,
+      "estado": "yellow"
+    },
+    {
       "id": "C-COLETA-YOUTUBE",
       "nome": "Colher o YouTube",
       "zona": "7 · AS ACOES DA COLETA",
@@ -197,16 +209,16 @@
       "estado": "yellow"
     },
     {
-      "id": "C-COLETA-BASE",
-      "nome": "O motor de buscar",
-      "zona": "7 · AS ACOES DA COLETA",
+      "id": "C-IT-CATALOGO",
+      "nome": "O levantamento das fontes italianas",
+      "zona": "2 · DE ONDE VEM UMA FONTE",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 3,
-      "ficheiros": 3,
-      "estado": "green"
+      "ficheiros": 8,
+      "estado": "yellow"
     },
     {
       "id": "C-ADAMA-ES",
@@ -218,6 +230,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "nome": "SINTONIA SCRAP social — o executor das rotas gratuitas",
+      "zona": "4 · AS FERRAMENTAS",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -269,18 +293,6 @@
       "estado": "green"
     },
     {
-      "id": "C-IT-COLETA",
-      "nome": "Colher as fontes italianas",
-      "zona": "7 · AS ACOES DA COLETA",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 4,
-      "estado": "yellow"
-    },
-    {
       "id": "C-COLETA-INSTAGRAM",
       "nome": "Colher o Instagram",
       "zona": "7 · AS ACOES DA COLETA",
@@ -302,7 +314,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 3,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-IT-PRESERVAR",
@@ -353,16 +365,16 @@
       "estado": "green"
     },
     {
-      "id": "C-IT-CATALOGO",
-      "nome": "O levantamento das fontes italianas",
-      "zona": "2 · DE ONDE VEM UMA FONTE",
+      "id": "C-COLETA-BASE",
+      "nome": "O motor de buscar",
+      "zona": "7 · AS ACOES DA COLETA",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 8,
-      "estado": "yellow"
+      "ficheiros": 3,
+      "estado": "green"
     },
     {
       "id": "C-NAVEGADOR",
@@ -438,9 +450,9 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 36,
-    "respondem_as_quatro": 17,
-    "respondem_a_tres": 13,
+    "pecas_da_coleta": 37,
+    "respondem_as_quatro": 16,
+    "respondem_a_tres": 15,
     "respondem_a_duas": 6,
     "respondem_a_uma": 0,
     "nao_respondem_a_nenhuma": 0

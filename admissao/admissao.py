@@ -166,11 +166,37 @@ def _tem_origem(item: dict) -> tuple:
 
 
 def _tem_quando(item: dict) -> tuple:
-    q = item.get("fact_time") or item.get("data") or item.get("published_at")
-    if not q:
-        return NAO_SEI, ("o item nao diz quando o fato aconteceu. Fica NAO_SEI, "
-                         "nao NAO: falta a prova, nao o valor."), {}
-    return SIM, "tem tempo do fato", {"quando": str(q)[:40]}
+    """Tem ALGUMA ancora de tempo? E, se tem, ela e o FATO ou so a PUBLICACAO?
+
+    Esta funcao dizia «tem tempo do fato» para qualquer item que trouxesse
+    `published_at`. Quer dizer: a data em que a fonte PUBLICOU entrava no livro de
+    decisoes carimbada como a data em que o fato ACONTECEU — calada, sem ninguem
+    escolher isso, e contra a lei que este projeto inteiro sustenta:
+
+        PUBLICATION_TIME != FACT_TIME.
+
+    Um boletim publicado a 10 de setembro pode descrever uma armadilha lida a 2.
+    Tratar as duas datas como uma faz a inteligencia a jusante ler antecipacao onde
+    houve atraso, e o erro nao aparece em lado nenhum porque «tem tempo do fato»
+    parece uma resposta boa.
+
+    O item continua a passar — uma ancora de publicacao serve para admitir — mas o
+    motivo e a evidencia passam a dizer QUAL das duas datas se achou. Nenhuma
+    decisao SIM/NAO muda aqui; o que muda e a verdade escrita ao lado dela.
+    """
+    fato = item.get("fact_time") or item.get("data")
+    if fato:
+        return SIM, "tem tempo do fato", {"quando": str(fato)[:40],
+                                          "que_tempo": "FACT_TIME"}
+    pub = item.get("published_at")
+    if pub:
+        return SIM, ("tem ancora de tempo, mas e a data de PUBLICACAO — nao a do "
+                     "fato. O tempo do fato continua NAO SEI, e segue NAO SEI "
+                     "adiante."), {"quando": str(pub)[:40],
+                                   "que_tempo": "PUBLICATION_TIME",
+                                   "fact_time": "NAO SEI"}
+    return NAO_SEI, ("o item nao diz quando o fato aconteceu. Fica NAO_SEI, "
+                     "nao NAO: falta a prova, nao o valor."), {}
 
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:

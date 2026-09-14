@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -158,7 +158,10 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/italy_recurrent_collect.mjs",
+        "regras/italy_scheduling_guards.mjs"
+      ],
       "no_ci": false
     },
     {
@@ -651,7 +654,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/coletor.py",
@@ -703,7 +706,7 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "gaveta": "coleta",
-      "linhas": 356,
+      "linhas": 418,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1450,6 +1453,8 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "candidatas/italy_write_matrix.mjs",
+        "coleta/italy_pilot_collect.mjs",
+        "coleta/italy_recurrent_collect.mjs",
         "regras/italy_pilot_guards.mjs"
       ],
       "no_ci": false
@@ -1596,7 +1601,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 262,
+      "linhas": 288,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1685,7 +1690,7 @@
     {
       "ficheiro": "guarda/italy_preserve.mjs",
       "gaveta": "guarda",
-      "linhas": 95,
+      "linhas": 117,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1719,7 +1724,7 @@
     "ficheiros_de_codigo": 88,
     "pontos_de_entrada": 75,
     "executores_que_saem_para_fora": 18,
-    "sem_chamador_e_fora_do_ci": 44,
+    "sem_chamador_e_fora_do_ci": 42,
     "gravam_no_banco": 1,
     "escrevem_ficheiro": 64,
     "deitam_fora_alguma_coisa": 19,
@@ -1830,7 +1835,6 @@
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
-      "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
       "fontes/adama_catalogo_ler.py",
@@ -1844,7 +1848,6 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
       "coleta/agrifood_ue.py",
-      "coleta/coleta_checkpoint.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",
