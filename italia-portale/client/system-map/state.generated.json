@@ -249,6 +249,7 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
       "data/derivados/A-MAQUINA-SOB-CARGA.json",
       "data/derivados/A-REGRA-DE-T2.json",
       "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
@@ -731,6 +732,7 @@
       "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
+      "docs/operacao/COLLECTION-P0-RESPOSTA-PRESERVACAO.md",
       "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATO-DE-RETORNO-DO-EXECUTOR-V1.md",
@@ -1280,6 +1282,7 @@
       "provas/_flow01_janela_falsa.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
+      "provas/a_collection_preserva_o_fato.py",
       "provas/a_corrida_existe_em_cada_rota.py",
       "provas/a_fase_10_entra_no_acervo.py",
       "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -1403,6 +1406,7 @@
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
+      "regras/contratos_de_fonte.py",
       "regras/italy_contract_test.mjs",
       "regras/italy_contracts.mjs",
       "regras/italy_pilot_guards.mjs",
@@ -1560,6 +1564,7 @@
       "supabase/migrations/029_a_observacao_declara_que_participou.sql",
       "supabase/migrations/030_o_documento_ganha_registo.sql",
       "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+      "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1656,6 +1661,7 @@
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
+      "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_fase_10_entra_no_acervo.py",
       "tests/test_a_linhagem_do_ready.py",
       "tests/test_a_linhagem_do_reaproveitamento.py",
@@ -2330,9 +2336,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-preserve-facts-2139eb",
-    "HEAD": "56617781123f0f7ff34da02ba2ba0fe7997f0cb2",
-    "GENERATED_AT": "2026-09-14T17:02:31Z",
-    "SOURCE_TREE_FINGERPRINT": "d4fc875fd9ebb72958bbf4cb4610e067885f262f95a68a3a6649b2dcdcc4b469"
+    "HEAD": "ee3c198918f607a188f8679b6fc437a38194026f",
+    "GENERATED_AT": "2026-09-14T17:42:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582"
   },
   "FAMILIES": [
     {
@@ -6085,6 +6091,18 @@
           "carimba_data": [],
           "carimba_lugar": [
             "COUNTRY",
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
+          "ficheiro": "regras/contratos_de_fonte.py",
+          "como_se_chama": "",
+          "carimba_data": [],
+          "carimba_lugar": [
             "FACT_LOCATION",
             "SOURCE_LOCATION"
           ],
@@ -13150,13 +13168,14 @@
       "family": "F-COLETA",
       "files": [
         "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+        "regras/contratos_de_fonte.py",
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
         "regras/italy_source_health.mjs"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -13183,11 +13202,22 @@
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 39
+        "ITALIA": 40
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DECLARADOS"
+        ],
+        "palavras": 7,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 7,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -13442,8 +13472,8 @@
         "PROVA": [
           "coleta/italy_executor.py:87",
           "medidas/padrao_da_coleta.py:65",
-          "provas/italy_pilot_negativos.mjs:30",
-          "provas/medir_source_id_wiring_gap.py:40"
+          "provas/a_collection_preserva_o_fato.py:77",
+          "provas/italy_pilot_negativos.mjs:30"
         ],
         "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -17295,6 +17325,7 @@
         "provas/_c106c_filho.py",
         "provas/_flow01_janela_falsa.py",
         "provas/_rc01_mundo_falso.py",
+        "provas/a_collection_preserva_o_fato.py",
         "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_lei_da_fase_10.py",
@@ -17364,7 +17395,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 72,
+      "file_count": 73,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17374,7 +17405,9 @@
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py"
       ],
-      "produces": [],
+      "produces": [
+        "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json"
+      ],
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
@@ -17427,7 +17460,8 @@
         "C-SUPABASE",
         "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES",
-        "C-TRANSCRICAO"
+        "C-TRANSCRICAO",
+        "C-V21-INGEST"
       ],
       "outbound": [
         "C-CADEIA-V21",
@@ -17522,21 +17556,30 @@
           "SENTINELAS_MEDIDAS",
           "SE_DECLARAM",
           "STATUS_PROIBIDO",
+          "TERMOS_ITALIANOS_SEM_AUTORIDADE",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1407,
+        "palavras": 1417,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1405,
+        "sem_marca_de_lingua": 1415,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [
+        {
+          "pasta": "data/derivados",
+          "prova": {
+            "file": "provas/a_collection_preserva_o_fato.py",
+            "line": 327,
+            "snippet": "escreve em SAIDA"
+          }
+        },
         {
           "pasta": "supabase/migrations",
           "prova": {
@@ -17566,6 +17609,12 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "provas/gate_de_aceitacao_tematica.py",
@@ -17626,6 +17675,7 @@
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+        "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
         "data/derivados/A-MAQUINA-SOB-CARGA.json",
         "data/derivados/A-REGRA-DE-T2.json",
         "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
@@ -23086,6 +23136,7 @@
         "supabase/migrations/029_a_observacao_declara_que_participou.sql",
         "supabase/migrations/030_o_documento_ganha_registo.sql",
         "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+        "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -23097,9 +23148,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 53,
+      "file_count": 54,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -25008,6 +25059,7 @@
       "files": [
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
+        "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_fase_10_entra_no_acervo.py",
         "tests/test_a_linhagem_do_ready.py",
         "tests/test_a_linhagem_do_reaproveitamento.py",
@@ -25163,7 +25215,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 156,
+      "file_count": 157,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -25335,6 +25387,7 @@
           "CAMPOS",
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
+          "CAMPOS_DO_FATO",
           "CATALOGO",
           "COMPLETA",
           "CONTRATO",
@@ -25373,15 +25426,16 @@
           "SINAL_VENETO",
           "SINTETICOS",
           "TRACE_GPU",
+          "UNIDADE",
           "_GAVETA_DE"
         ],
-        "palavras": 703,
+        "palavras": 738,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 691,
+        "sem_marca_de_lingua": 726,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -26761,6 +26815,7 @@
       "outbound": [
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
         "C-TESTES",
         "C-V21-COMERCIAL",
         "C-V21-CRUZAMENTO"
@@ -28406,8 +28461,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 21 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 22 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_collection_preserva_o_fato.py",
+          "line": 48,
+          "snippet": "from admissao import admissao  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
           "line": 30,
@@ -28572,22 +28643,6 @@
           "file": "provas/ensaio_do_texto_na_collection.py",
           "line": 51,
           "snippet": "import admissao as adm                                       # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/ensaio_scrap_para_a_collection.py",
-          "line": 70,
-          "snippet": "import admissao as adm",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -29269,8 +29324,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_collection_preserva_o_fato.py",
+          "line": 35,
+          "snippet": "import admissao  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_a_linhagem_do_ready.py",
           "line": 23,
@@ -29435,22 +29506,6 @@
           "file": "tests/test_col_e7_contrato_do_texto.py",
           "line": 23,
           "snippet": "import admissao as adm                                       # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 46,
-          "snippet": "import admissao as adm  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
             "FROM": "C-ADMISSAO",
@@ -51005,8 +51060,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_collection_preserva_o_fato.py",
+          "line": 77,
+          "snippet": "with open(LIVRO, encoding=\"utf-8\") as fh:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/medir_source_id_wiring_gap.py",
           "line": 40,
@@ -65287,8 +65358,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_collection_preserva_o_fato.py",
+          "line": 36,
+          "snippet": "import sala_de_espera as espera  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 24,
@@ -75962,14 +76049,65 @@
     },
     {
       "from": "C-V21-INGEST",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ingestao V2.1 tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_collection_preserva_o_fato.py",
+          "line": 55,
+          "snippet": "import motor.normalize_agro as agro  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-V21-INGEST",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-V21-INGEST",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ingestao V2.1 tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Ingestao V2.1 tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_collection_preserva_o_fato.py",
+          "line": 41,
+          "snippet": "import motor.normalize_agro as agro  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-TESTES",
+            "FROM": "C-V21-INGEST",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_v21_geografia.py",
           "line": 21,
@@ -76727,7 +76865,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 838,
+  "UNCLAIMED_FILES_COUNT": 839,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -76912,12 +77050,12 @@
     "components_pending": 142,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 952,
-    "edges_proven": 900,
+    "edges": 953,
+    "edges_proven": 901,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1744,
-    "files_covered": 906,
+    "files_tracked": 1750,
+    "files_covered": 911,
     "files_code_unclaimed": 0,
     "roles_proven": 137,
     "roles_declared_only": 5,

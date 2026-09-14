@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-14T20:28:23+00:00",
-  "HEAD": "56617781123f0f7ff34da02ba2ba0fe7997f0cb2",
+  "GENERATED_AT": "2026-09-14T20:44:57+00:00",
+  "HEAD": "ee3c198918f607a188f8679b6fc437a38194026f",
   "BRANCH": "claude/collection-preserve-facts-2139eb",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d4fc875fd9ebb72958bbf4cb4610e067885f262f95a68a3a6649b2dcdcc4b469",
+  "SOURCE_TREE_FINGERPRINT": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582",
   "FICHEIROS_NA_IMPRESSAO": 1892,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1453,6 +1453,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/a_collection_preserva_o_fato.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "44cd7b64c52ce572d628ffe02dba68659a99c889",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/a_corrida_existe_em_cada_rota.py",
     "PAPEL": "FONTE",
     "VERSAO": "252eba875bd44c0489035a144b77d3c4fc69dbc2",
@@ -2251,6 +2258,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "regras/contratos_de_fonte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "3a7bd4a9f11c7ec41515a5634e0311dab8e614c8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "regras/italy_contract_test.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "4448c6f6a2e5da146d41f21c9942b5aa4f9023e8",
@@ -2365,14 +2379,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d4fc875fd9ebb72958bbf4cb4610e067885f262f95a68a3a6649b2dcdcc4b469",
+    "VERSAO": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d4fc875fd9ebb72958bbf4cb4610e067885f262f95a68a3a6649b2dcdcc4b469",
+    "VERSAO": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -2646,6 +2660,13 @@
     "PATH": "tests/fixtures/ARESTAS/so_comentario.py",
     "PAPEL": "FONTE",
     "VERSAO": "c71cfa4eaf9bfe8728135ac17d9dc60b848afb7a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_a_collection_preserva_o_fato.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "eb9fb3eb8e9c74f5c0a6107deb52768a603944d4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3728,8 +3749,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 527,
-  "INPUTS_DIGEST": "1cda7d263f79a372857c53b3c1a0315e5dd332154f924e242cb855eb291dee66",
+  "INPUTS_COUNT": 530,
+  "INPUTS_DIGEST": "5fff4a841dfc953d33e576ddf4d523f996d114ba75d489c477dde5fc3c2eab80",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -3755,15 +3776,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 341,
+  "DOCUMENTOS_LIDOS": 342,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "207aa144f55533fd23514f1c35498e5eac0f3cc0defde1228c51eee5142c3fd1",
-  "SEMANTIC_HASH": "bfb6268dba37cbbcce59e8ceba2f3e4b89c30df9d033a047dc3bd500a5fa087c"
+  "MEASUREMENT_HASH": "00c148404f43e7e0017d532eacec97cd2612cdbbfa247448eb3bf4c38ca47b9f",
+  "SEMANTIC_HASH": "e5fe8032ac4d1f979af84a05f56982aaf2334fbe3ec05af108affac87e4de5dc"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4240,6 +4261,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/a_collection_preserva_o_fato.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/a_fonte_atravessa_ate_a_porta.py",
       "LINHA": 30,
       "SUPPORTS": "YES",
@@ -4322,14 +4351,6 @@
      {
       "FICHEIRO": "provas/ensaio_do_texto_na_collection.py",
       "LINHA": 51,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "provas/ensaio_scrap_para_a_collection.py",
-      "LINHA": 70,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
@@ -4652,6 +4673,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_a_collection_preserva_o_fato.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_a_linhagem_do_ready.py",
       "LINHA": 23,
       "SUPPORTS": "YES",
@@ -4734,14 +4763,6 @@
      {
       "FICHEIRO": "tests/test_col_e7_contrato_do_texto.py",
       "LINHA": 23,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_estagio_atravessa_a_fronteira.py",
-      "LINHA": 46,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
@@ -16613,6 +16634,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/a_collection_preserva_o_fato.py",
+      "LINHA": 77,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/medir_source_id_wiring_gap.py",
       "LINHA": 40,
       "SUPPORTS": "YES",
@@ -23945,6 +23974,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_a_collection_preserva_o_fato.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_a_sala_de_espera_tem_um_dono.py",
       "LINHA": 24,
       "SUPPORTS": "YES",
@@ -29821,6 +29858,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-PROVA-COLETA",
+    "FROM": "C-V21-INGEST",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/a_collection_preserva_o_fato.py",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-INGEST--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-TESTES",
     "FROM": "C-V21-INGEST",
     "TO": "C-TESTES",
@@ -29832,6 +29891,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_a_collection_preserva_o_fato.py",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-V21-INGEST--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "tests/test_v21_geografia.py",
       "LINHA": 21,
@@ -30315,12 +30382,12 @@
     ]
    }
   ],
-  "COUNT": 873
+  "COUNT": 874
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 138,
   "CARTOES_AUDITADOS": 138,
-  "ARESTAS_RELACIONADAS": 873,
+  "ARESTAS_RELACIONADAS": 874,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -30647,7 +30714,7 @@
    "CODE": 137,
    "CONTROL": 68,
    "DATA": 27,
-   "PROOF": 320,
+   "PROOF": 321,
    "READ": 176,
    "RULE": 138,
    "WRITE": 7
@@ -32018,6 +32085,7 @@
     ".github/workflows/system-map.yml"
    ],
    "SO_MEDEM_ESTE": [
+    "provas/a_collection_preserva_o_fato.py",
     "provas/a_fronteira_da_coleta.py",
     "provas/medir_source_id_wiring_gap.py",
     "system-map/scripts/censo_das_derivacoes.py",
@@ -33241,6 +33309,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+    "regras/contratos_de_fonte.py",
     "regras/italy_contract_test.mjs",
     "regras/italy_contracts.mjs",
     "regras/italy_pilot_guards.mjs",
@@ -33250,6 +33319,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_autoridade_da_fonte.py",
+    "provas/a_collection_preserva_o_fato.py",
     "provas/italy_pilot_negativos.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py"
@@ -33263,7 +33333,10 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [
-    "e"
+    "__future__",
+    "e",
+    "leis",
+    "pathlib"
    ],
    "ENTRAM": 8,
    "SAEM": 8,
@@ -33321,6 +33394,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/a_collection_preserva_o_fato.py",
     "provas/a_porta_le_italiano.py",
     "provas/italy_pilot_negativos.mjs",
     "provas/medir_source_id_wiring_gap.py",
@@ -33533,6 +33607,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/a_collection_preserva_o_fato.py",
     "system-map/scripts/generate_system_map.py",
     "tests/test_c7_lugar_do_fato.py",
     "tests/test_lugar_do_fato.py"
@@ -34370,6 +34445,7 @@
     "provas/_c106c_filho.py",
     "provas/_flow01_janela_falsa.py",
     "provas/_rc01_mundo_falso.py",
+    "provas/a_collection_preserva_o_fato.py",
     "provas/a_fase_10_entra_no_acervo.py",
     "provas/a_fonte_atravessa_ate_a_porta.py",
     "provas/a_lei_da_fase_10.py",
@@ -34558,12 +34634,14 @@
    ],
    "LE_DE": [
     "__future__",
+    "admissao",
     "apify",
     "checkpoint_coleta",
     "coleta",
     "collections",
     "dataclasses",
     "documento_estruturado",
+    "e",
     "etapa_da_corrida",
     "fractions",
     "generate_series",
@@ -34586,13 +34664,14 @@
     "public",
     "raw_asset_id_seq",
     "receitas",
+    "regras",
     "sala_de_espera",
     "tabela_que_nao_existe_de_proposito",
     "the",
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 75,
+   "ENTRAM": 76,
    "SAEM": 19,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -36603,6 +36682,7 @@
     "supabase/migrations/029_a_observacao_declara_que_participou.sql",
     "supabase/migrations/030_o_documento_ganha_registo.sql",
     "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+    "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
     "supabase/tests/mutacao_cicatrizes.sql",
     "supabase/tests/mutacao_coleta.sql",
     "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -36754,6 +36834,7 @@
    "FICHEIROS": [
     "tests/es/test_adama_es_gate.py",
     "tests/es/test_adama_es_import_rules.py",
+    "tests/test_a_collection_preserva_o_fato.py",
     "tests/test_a_fase_10_entra_no_acervo.py",
     "tests/test_a_linhagem_do_ready.py",
     "tests/test_a_linhagem_do_reaproveitamento.py",
@@ -36969,6 +37050,7 @@
    "LE_DE": [
     "__future__",
     "adama_relevance",
+    "admissao",
     "ajudante",
     "caminhos",
     "censo_do_corpus_it",
@@ -37216,7 +37298,7 @@
     "v"
    ],
    "ENTRAM": 5,
-   "SAEM": 6,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",

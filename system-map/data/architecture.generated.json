@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-preserve-facts-2139eb",
-    "HEAD": "56617781123f0f7ff34da02ba2ba0fe7997f0cb2",
-    "GENERATED_AT": "2026-09-14T17:02:31Z",
-    "SOURCE_TREE_FINGERPRINT": "d4fc875fd9ebb72958bbf4cb4610e067885f262f95a68a3a6649b2dcdcc4b469"
+    "HEAD": "ee3c198918f607a188f8679b6fc437a38194026f",
+    "GENERATED_AT": "2026-09-14T17:42:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582"
   },
   "FILES": [
     {
@@ -1594,6 +1594,13 @@
       "path": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
       "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
+      "sha": "00bcc50a79f126de1c84305d5ebcc797edb51ee9",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -4938,7 +4945,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "cd9b2f5d9afa274401838742480eb2953231421f",
+      "sha": "2ce0b6fb6b71dffe32604e90669204dedbbd6c37",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4953,6 +4960,13 @@
     {
       "path": "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "sha": "f49a940e8f3a939390e84ccb8117bc87946745a1",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/COLLECTION-P0-RESPOSTA-PRESERVACAO.md",
+      "sha": "a817d2772d2de573cdbba02ed7d610b67ef06d28",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8612,6 +8626,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_collection_preserva_o_fato.py",
+      "sha": "44cd7b64c52ce572d628ffe02dba68659a99c889",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_corrida_existe_em_cada_rota.py",
       "sha": "252eba875bd44c0489035a144b77d3c4fc69dbc2",
       "ext": ".py",
@@ -9432,7 +9453,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "d12a9fdfbe26976f720b7c49f0fcfe9a7d09483c",
+      "sha": "2f400b7e6259cb686d6dadbdcf405e33cdce5fd7",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -9454,6 +9475,13 @@
     {
       "path": "regras/comunicacao_universo.py",
       "sha": "6c25a78aa4314def6ee4354b0f5329f3d9cce622",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/contratos_de_fonte.py",
+      "sha": "3a7bd4a9f11c7ec41515a5634e0311dab8e614c8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10502,6 +10530,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
+      "sha": "c228b7082551a718a88303456db671408d554046",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -10657,7 +10692,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "22ff576bad6907d016399dc861ef40b51f52f39f",
+      "sha": "0f064bd6397abab7183b61a2f3f1b6cb4ab31be4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11129,6 +11164,13 @@
       "sha": "19c5f7fb716ae3199e5e04b5e6eaf29129e3157f",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_collection_preserva_o_fato.py",
+      "sha": "eb9fb3eb8e9c74f5c0a6107deb52768a603944d4",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -29786,6 +29828,61 @@
       }
     },
     {
+      "from_file": "provas/a_collection_preserva_o_fato.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_collection_preserva_o_fato.py",
+        "line": 48,
+        "snippet": "from admissao import admissao  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_collection_preserva_o_fato.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_collection_preserva_o_fato.py",
+        "line": 77,
+        "snippet": "with open(LIVRO, encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "provas/a_collection_preserva_o_fato.py",
+      "to_file": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_collection_preserva_o_fato.py",
+        "line": 61,
+        "snippet": "\"A-COLLECTION-PRESERVA-O-FATO.json\")"
+      }
+    },
+    {
+      "from_file": "provas/a_collection_preserva_o_fato.py",
+      "to_file": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_collection_preserva_o_fato.py",
+        "line": 327,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "provas/a_collection_preserva_o_fato.py",
+      "to_file": "motor/normalize_agro.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_collection_preserva_o_fato.py",
+        "line": 55,
+        "snippet": "import motor.normalize_agro as agro  # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/a_corrida_existe_em_cada_rota.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -38388,6 +38485,17 @@
       }
     },
     {
+      "from_file": "regras/contratos_de_fonte.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/contratos_de_fonte.py",
+        "line": 58,
+        "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")"
+      }
+    },
+    {
       "from_file": "regras/italy_contract_test.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -42147,6 +42255,50 @@
         "file": "tests/fixtures/ARESTAS/owner_indireto.py",
         "line": 2,
         "snippet": "from ajudante import persistir"
+      }
+    },
+    {
+      "from_file": "tests/test_a_collection_preserva_o_fato.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_collection_preserva_o_fato.py",
+        "line": 34,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_collection_preserva_o_fato.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_collection_preserva_o_fato.py",
+        "line": 35,
+        "snippet": "import admissao  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_collection_preserva_o_fato.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_collection_preserva_o_fato.py",
+        "line": 36,
+        "snippet": "import sala_de_espera as espera  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_collection_preserva_o_fato.py",
+      "to_file": "motor/normalize_agro.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_collection_preserva_o_fato.py",
+        "line": 41,
+        "snippet": "import motor.normalize_agro as agro  # noqa: E402"
       }
     },
     {
@@ -55184,6 +55336,13 @@
         "constante": "OUT"
       }
     ],
+    "provas/a_collection_preserva_o_fato.py": [
+      {
+        "pasta": "data/derivados",
+        "line": 327,
+        "constante": "SAIDA"
+      }
+    ],
     "provas/a_fase_10_entra_no_acervo.py": [
       {
         "pasta": "supabase/migrations",
@@ -55359,11 +55518,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1744,
-    "files_readable": 736,
-    "files_code_dir": 789,
-    "file_edges": 3877,
-    "escritas_em_pasta": 72,
+    "files_tracked": 1750,
+    "files_readable": 739,
+    "files_code_dir": 792,
+    "file_edges": 3887,
+    "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}
