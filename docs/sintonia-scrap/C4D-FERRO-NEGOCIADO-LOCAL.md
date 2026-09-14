@@ -465,7 +465,67 @@ placa está certo?» deixa de ser `NOT_MEASURED`.
 
 ---
 
-# N · VEREDITOS
+# N · TESTES
+
+```
+NEW_FAILURES = 0
+```
+
+E o número tem denominador, porque sem ele não valia nada:
+
+```text
+BASE   2b3d58d8, sem uma unica alteracao minha, nesta maquina
+       Ran 3801 · failures=103 · errors=49 · skipped=186   -> 152 vermelhos
+
+DEPOIS 04f1d093
+       Ran 3838 · failures=100 · errors=49 · skipped=186   -> 149 vermelhos
+```
+
+**A suíte desta casa já reprova 152 testes nesta máquina, sem ninguém mexer em
+nada.** Quase todos são de Windows: caminho com barra invertida onde a prova
+compara com barra para a frente, `import fcntl` que não existe aqui, saída em
+cp1252 a rebentar com emoji.
+
+```
+COM 152 VERMELHOS NO RUIDO DE FUNDO, UMA FALHA NOVA PASSA DESPERCEBIDA.
+`NEW_FAILURES` nao se le da corrida final: mede-se a base ANTES, num worktree
+descartavel do commit de partida, e compara-se POR NOME.
+```
+
+Foi assim que apareceram as duas falhas novas reais desta missão, escondidas
+entre 150 iguais — e as duas foram consertadas, não silenciadas:
+
+| falha nova | causa | conserto |
+|---|---|---|
+| `test_M5_o_ponto_fixo...` | o carimbo do mapa gerado aqui nunca batia com o índice | `impressao_da_arvore.py` — ver **I** |
+| `test_tudo_o_que_foi_modificado...` | prova de outra missão ancorada em `HEAD` | ancorada no intervalo dela |
+
+E três reprovações **de base** ficaram consertadas de passagem, todas a mesma
+barra do Windows — e as três eram sentinelas do **dono único do reconhecedor**,
+que é precisamente o que esta missão não pode deixar apitar por engano:
+
+```text
+test_so_um_ficheiro_instancia_o_reconhecedor
+test_o_repositorio_inteiro_so_tem_um_sitio_com_device
+test_so_um_ficheiro_abre_motor
+```
+
+```
+UMA SENTINELA QUE APITA TODOS OS DIAS DEIXA DE SER OUVIDA — E NO DIA EM QUE
+NASCER UM SEGUNDO DONO, A REPROVACAO E IGUAL A DE ONTEM.
+```
+
+Provas novas desta missão: **37**, em `tests/test_c4d_ferro_negociado.py`.
+
+E a guarda de credencial da casa, corrida sobre os 1947 ficheiros rastreados:
+
+```text
+NENHUM segredo, cookie, perfil de navegador ou caminho pessoal novo.
+```
+
+---
+
+# N2 · VEREDITOS
 
 ```
 LOCAL_GIT_BASE_PROVEN            = YES
