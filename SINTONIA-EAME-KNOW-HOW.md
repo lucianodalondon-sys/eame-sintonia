@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §118: um mundo fechado torna invisível apagar uma proibição, e a proibição carregava a memória do ataque.
+**Última atualização material:** 2026-09-14 — §119: um mapa que mostra a máquina e esconde a lei ensina que a máquina é a lei — e a gaveta decide o território, não a autoridade.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13896,4 +13896,137 @@ NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
 NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO.
 NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
 Esta missao organizou objetos. Nao construiu nenhum.
+```
+
+---
+
+# §119 · UM MAPA QUE MOSTRA A MÁQUINA E ESCONDE A LEI ENSINA QUE A MÁQUINA É A LEI
+
+## O QUE MUDOU
+
+Auditada a faixa da Intelligence no System Map contra as autoridades que as
+missões anteriores fecharam. O que estava lá, medido:
+
+```
+F-INTELIGENCIA     2 territorios   (a Coleta tem 14)
+Z-MOTOR            8 cartoes, todos de codigo do motor V2.1
+Z-LINEAGE          0 cartoes declarados (4 gerados, sobre linhagem de branch)
+
+BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md    SEM CARTAO
+INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json     SEM CARTAO
+INTELLIGENCE-ARBITRATION-V1.md             SEM CARTAO
+MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md      SEM CARTAO
+```
+
+A constituição da Intelligence — promovida a canónica dois commits antes — **não
+aparecia no mapa de forma nenhuma**. A Coleta tem a sua desde sempre, em
+`Z-BIBLIA · 0 · A CONSTITUIÇÃO DA COLETA`.
+
+E o território chamava-se `MOTOR — CADEIA V2.1`, debaixo de `INTELIGENCIA`.
+
+```
+OITO CARTOES DA MAQUINA, ZERO CARTOES DA LEI QUE MANDA NELA.
+```
+
+Quem abrisse o mapa lia, sem ninguém o ter escrito, que a cadeia V2.1 **era** a
+Intelligence. O ataque `RT26` não era hipotético: estava verdadeiro.
+
+## POR QUÊ — E A CAUSA É ESTRUTURAL, NÃO DESCUIDO
+
+O mapa amarra o **território à pasta**. `P2_PASTA_BATE_COM_MAPA` recusa qualquer
+ficheiro que esteja numa gaveta que não é a da sua peça, e as gavetas são
+dezasseis: `admissao`, `coleta`, `leis`, `motor`, `provas`, `superficie`…
+
+Logo:
+
+```
+provas/espinha_da_intelligence.py          -> obrigatoriamente Z-PROVA
+provas/modelo_de_objetos_da_intelligence.py -> obrigatoriamente Z-PROVA
+                                                        (F-GOVERNANCA)
+```
+
+A espinha é a **forma executável do contrato da Intelligence**. O mapa é
+obrigado a lê-la como Governança, porque ela vive em `provas/`.
+
+```
+A GAVETA DECIDE O TERRITORIO.
+LOGO A FAMILIA DO MAPA NAO E O DONO DO CONCEITO — E NUNCA FOI.
+```
+
+Isto não é um defeito do mapa: é uma propriedade dele, e uma propriedade útil
+(mover um ficheiro sem mover a peça reprova). Mas tem uma consequência que
+ninguém tinha escrito: **a família visual segue o caminho físico, e o caminho
+físico não sabe nada sobre autoridade.** Escolher dono pela pasta é exactamente
+o que o Control Plane proíbe — e o mapa fazia-o por construção.
+
+## PROVA
+
+O que se corrigiu, e só na FONTE declarada:
+
+```
+Z-INT-LEI    0 · A CONSTITUICAO DA INTELLIGENCE     territorio novo
+             C-INT-BIBLIA · C-INT-DONOS · C-INT-MODELO · C-INT-MOTOR-V2-REQ
+             — um cartao por AUTORIDADE REGISTADA da INTELIGENCIA, e a prova
+               recusa qualquer cartao ali que nao reivindique uma
+
+Z-MOTOR      renomeado: «1 · A MAQUINA QUE EXISTE HOJE — CADEIA V2.1»
+```
+
+E dois cartões que carregavam objetos a mais foram partidos **por objeto**:
+
+```
+C-V21-OPORTUNIDADE   carregava OPPORTUNITY + FINDING + CLAIM_DOMAIN_JUDGMENT
+                     -> tres cartoes, e o nome mencionava um so
+C-V21-CRUZAMENTO     carregava CROSSING (entidade) + CONVERGENCE (projecao)
+                     -> dois cartoes; fundi-los fazia a projecao parecer
+                        uma estacao do dado
+```
+
+33 provas, 8 mutações, todas apanhadas pelo teste certo.
+
+## CONSEQUÊNCIA — E A PARTE QUE SE RECUSOU A FAZER
+
+O modelo tem 25 objetos. O mapa ganhou **6** cartões de objeto, e isso é
+deliberado:
+
+```
+UM CARTAO NAO E UM OBJETO.
+Um objeto pode atravessar varios ficheiros, ou nao ter ficheiro nenhum.
+```
+
+Dezassete objetos são `DEFINED_ONLY` — não têm código. Desenhá-los como caixas
+seria o mapa a **declarar** que existem, e o mapa não declara nada:
+
+```
+SYSTEM MAP OBSERVA A MAQUINA. SYSTEM MAP NAO DEFINE A ARQUITETURA.
+```
+
+Pela mesma razão os 8 domínios e as 8 ferramentas **não viraram caixas**. Eles
+vivem no modelo de objetos, que É um cartão. O mapa aponta para o contrato em
+vez de o copiar — e duas cópias divergem.
+
+```
+100% REPRESENTADO SEMANTICAMENTE != 25 CAIXAS.
+```
+
+## E A COSTURA QUE NÃO SE CONSEGUIA DESENHAR
+
+`SALA DE ESPERA → READY_ITEM → INTELLIGENCE` não existia como aresta, e não
+existia pela razão certa: **nada no código da Intelligence importa a Sala** — não
+há runtime, e `REAL_ITALY_READY_ITEMS = 0`. As duas fronteiras foram declaradas
+como `expected`, que o mapa força a `⚪ UNKNOWN` e o `P7` reprova se alguém as
+pintar de verde.
+
+```
+UMA SETA QUE NAO SE CONSEGUE PROVAR E A PROVA VISUAL DE QUE A PECA NAO EXISTE.
+Desenha-la a verde seria o mapa a construir o que falta.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO.
+NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
+Esta missao mexeu na FONTE declarada do mapa e em mais nada.
 ```

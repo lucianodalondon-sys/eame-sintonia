@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 21495,
+    "w": 22200,
     "h": 7292
   },
   "INVENTORY": {
@@ -1799,6 +1799,7 @@
       "tests/test_o9_caminho_instrumentado.py",
       "tests/test_o_canario_da_collection.py",
       "tests/test_o_controle_separa_lei_de_mencao.py",
+      "tests/test_o_mapa_da_intelligence_nao_mente.py",
       "tests/test_o_pedido_atravessa.py",
       "tests/test_o_pedido_t4_atravessa.py",
       "tests/test_o_raw_fala.py",
@@ -2232,10 +2233,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/intelligence-object-model-v1",
-    "HEAD": "e8b87f2477cf586953cbdc381d952dd519dc5c1f",
-    "GENERATED_AT": "2026-09-14T11:31:15+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a3a99c293f6388db75811510efb9a4d2edafbd1f61326feec02b25860edb7ecd"
+    "BRANCH": "claude/intelligence-system-map-audit-v1",
+    "HEAD": "4cf43b0ed0afa7883aefa31ea8d19f30e48b83e6",
+    "GENERATED_AT": "2026-09-14T11:45:05+00:00",
+    "SOURCE_TREE_FINGERPRINT": "818f289ca6c8b1f0e404923c335ab0c76bc0989deabe06340cc2a674cac19d88"
   },
   "FAMILIES": [
     {
@@ -2283,20 +2284,21 @@
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
       "x": 12910,
       "y": 60,
-      "w": 1605,
+      "w": 2310,
       "h": 6972,
       "zones": [
+        "Z-INT-LEI",
         "Z-MOTOR",
         "Z-LINEAGE"
       ],
-      "count": 12
+      "count": 19
     },
     {
       "id": "F-GOVERNANCA",
       "name": "GOVERNANCA",
       "why": "O que MEDE e o que REGULA a esteira, sem ser um passo dela. Prova e regra atravessam o sistema inteiro: nao colhem, nao transformam, nao entregam. Viviam em INTELIGENCIA por nao haver sitio para elas, e isso fazia 143 ligacoes de prova e de regra parecerem a coleta a falar com o motor. PROVA != INTELIGENCIA e REGRA != INTELIGENCIA — e nenhuma das duas e etapa operacional.",
       "transversal": true,
-      "x": 18385,
+      "x": 19090,
       "y": 60,
       "w": 2850,
       "h": 6972,
@@ -2310,7 +2312,7 @@
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 14735,
+      "x": 15440,
       "y": 60,
       "w": 3430,
       "h": 6972,
@@ -2550,20 +2552,35 @@
       "count": 1
     },
     {
+      "id": "Z-INT-LEI",
+      "family": "F-INTELIGENCIA",
+      "name": "0 · A CONSTITUIÇÃO DA INTELLIGENCE",
+      "why": "A lei da Intelligence, num sitio so. Ela nao interpreta nada: diz o que interpretar significa nesta casa, que objetos existem, por onde podem andar e o que nunca pode subir. Fica antes do motor porque toda a faixa obedece a ela — e ate hoje nao aparecia no mapa, enquanto a Coleta tinha a sua constituicao ha muito.",
+      "views": [
+        "audit"
+      ],
+      "folder": null,
+      "x": 12950,
+      "y": 190,
+      "w": 405,
+      "h": 6802,
+      "count": 4
+    },
+    {
       "id": "Z-MOTOR",
       "family": "F-INTELIGENCIA",
-      "name": "MOTOR — CADEIA V2.1",
-      "why": "Onde o dado bruto vira caso. A ordem e lei, nao convencao",
+      "name": "1 · A MÁQUINA QUE EXISTE HOJE — CADEIA V2.1",
+      "why": "Onde o dado bruto vira caso, na cadeia V2.1. E o que ESTA construido — nao e a Intelligence inteira, e nao e a espinha que a Biblia governa. Enquanto esta zona se chamava «MOTOR — CADEIA V2.1» debaixo de INTELIGENCIA, o mapa dizia que a V2.1 ERA a Intelligence: oito cartoes de codigo do motor, zero cartoes da lei que manda nele.",
       "views": [
         "generator",
         "opportunity"
       ],
       "folder": "motor",
-      "x": 12950,
+      "x": 13655,
       "y": 190,
       "w": 820,
       "h": 6802,
-      "count": 8
+      "count": 11
     },
     {
       "id": "Z-LINEAGE",
@@ -2575,7 +2592,7 @@
         "official"
       ],
       "folder": null,
-      "x": 14070,
+      "x": 14775,
       "y": 190,
       "w": 405,
       "h": 6802,
@@ -2591,7 +2608,7 @@
         "portal"
       ],
       "folder": "pacote",
-      "x": 14775,
+      "x": 15480,
       "y": 190,
       "w": 405,
       "h": 6802,
@@ -2607,7 +2624,7 @@
         "portal"
       ],
       "folder": "portoes",
-      "x": 15480,
+      "x": 16185,
       "y": 190,
       "w": 820,
       "h": 6802,
@@ -2623,7 +2640,7 @@
         "portal"
       ],
       "folder": "superficie",
-      "x": 16600,
+      "x": 17305,
       "y": 190,
       "w": 405,
       "h": 6802,
@@ -2638,7 +2655,7 @@
         "entrega",
         "portal"
       ],
-      "x": 17305,
+      "x": 18010,
       "y": 190,
       "w": 820,
       "h": 6802,
@@ -2654,7 +2671,7 @@
         "science"
       ],
       "folder": "leis",
-      "x": 18425,
+      "x": 19130,
       "y": 190,
       "w": 1235,
       "h": 6802,
@@ -2670,7 +2687,7 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 19960,
+      "x": 20665,
       "y": 190,
       "w": 1235,
       "h": 6802,
@@ -3118,7 +3135,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 19190,
       "y": 360
     },
     {
@@ -3244,7 +3261,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
+      "x": 15540,
       "y": 360
     },
     {
@@ -5856,7 +5873,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16660,
+      "x": 17365,
       "y": 360
     },
     {
@@ -5928,7 +5945,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15540,
+      "x": 16245,
       "y": 360
     },
     {
@@ -5986,7 +6003,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15955,
+      "x": 16660,
       "y": 360
     },
     {
@@ -6098,7 +6115,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15540,
+      "x": 16245,
       "y": 682
     },
     {
@@ -6153,7 +6170,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15955,
+      "x": 16660,
       "y": 682
     },
     {
@@ -6204,7 +6221,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15540,
+      "x": 16245,
       "y": 1004
     },
     {
@@ -6269,7 +6286,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19605,
       "y": 360
     },
     {
@@ -6435,6 +6452,8 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
+        "C-INT-ACHADO",
+        "C-INT-DOMINIO-ALEGACAO",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-PROVA-COLETA",
@@ -6459,7 +6478,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
+      "x": 13715,
       "y": 360
     },
     {
@@ -6527,7 +6546,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 360
     },
     {
@@ -6592,7 +6611,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 21140,
       "y": 360
     },
     {
@@ -6650,7 +6669,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 360
     },
     {
@@ -6723,7 +6742,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 682
     },
     {
@@ -6784,7 +6803,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 682
     },
     {
@@ -6828,7 +6847,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 682
     },
     {
@@ -6902,7 +6921,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 1004
     },
     {
@@ -6964,7 +6983,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 1004
     },
     {
@@ -7007,7 +7026,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 1004
     },
     {
@@ -7141,7 +7160,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 1326
     },
     {
@@ -7264,7 +7283,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 1326
     },
     {
@@ -7306,7 +7325,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 1326
     },
     {
@@ -7436,7 +7455,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 1648
     },
     {
@@ -7559,7 +7578,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 1648
     },
     {
@@ -8035,7 +8054,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
+      "x": 20020,
       "y": 360
     },
     {
@@ -8161,7 +8180,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 19190,
       "y": 682
     },
     {
@@ -8240,7 +8259,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19605,
       "y": 682
     },
     {
@@ -8466,7 +8485,7 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "escreve data/samples/DATA-CLOCK-manifest.json, e quem le nao esta na esteira: C-REGRA-COLETA, C-SAUDE-FONTE, C-TESTES",
-      "x": 19315,
+      "x": 20020,
       "y": 682
     },
     {
@@ -8521,7 +8540,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
+      "x": 21555,
       "y": 1648
     },
     {
@@ -8717,7 +8736,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 19190,
       "y": 1004
     },
     {
@@ -8996,7 +9015,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16660,
+      "x": 17365,
       "y": 682
     },
     {
@@ -9052,7 +9071,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20725,
       "y": 1970
     },
     {
@@ -9189,7 +9208,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 1970
     },
     {
@@ -9300,7 +9319,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19605,
       "y": 1004
     },
     {
@@ -9448,7 +9467,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 1970
     },
     {
@@ -9685,7 +9704,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
+      "x": 20020,
       "y": 1004
     },
     {
@@ -9756,7 +9775,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 2292
     },
     {
@@ -9985,7 +10004,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 2292
     },
     {
@@ -10064,6 +10083,67 @@
       "y": 1326
     },
     {
+      "id": "C-INT-ACHADO",
+      "name": "Achado — o julgamento analítico que se fecha",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Fecha o caso: transforma hipotese validada em achado com traco de decisao, nivel, ambito, tempo, geografia e linhagem.",
+      "why_here": "FINDING e um objeto proprio do modelo, e estava escondido dentro do cartao da Oportunidade. Um achado nao e uma oportunidade: responde «que pergunta analitica foi respondida», e nao «ha algo a fazer, e a tempo». Duas perguntas, dois cartoes.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "◆",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/v21_fechar.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-V2-LEGADO",
+        "C-V21-FONTES"
+      ],
+      "outbound": [
+        "C-INT-ARBITRAGEM"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 14
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CONTRATO"
+        ],
+        "palavras": 52,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 52,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14130,
+      "y": 360
+    },
+    {
       "id": "C-INT-ARBITRAGEM",
       "name": "A re-arbitragem da Intelligence — e a fotografia em que ela correu",
       "territory": "Z-PROVA",
@@ -10090,14 +10170,18 @@
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [
-        "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json"
-      ],
+      "produces": [],
       "inbound": [
         "C-ADMISSAO",
         "C-BIBLIA",
         "C-GESTAO-DA-COLETA",
+        "C-INT-ACHADO",
+        "C-INT-BIBLIA",
+        "C-INT-CONVERGENCIA",
+        "C-INT-DOMINIO-ALEGACAO",
+        "C-INT-DONOS",
         "C-INT-ESPINHA",
+        "C-INT-MOTOR-V2-REQ",
         "C-POLITICA-COLETA",
         "C-RELEVANCIA",
         "C-RELEVANCIA-DA-FONTE",
@@ -10107,7 +10191,7 @@
       ],
       "outbound": [
         "C-CENSO-CONGELAMENTO",
-        "C-INT-MODELO-OBJETOS",
+        "C-INT-DONOS",
         "C-TESTES"
       ],
       "paises": {},
@@ -10150,8 +10234,208 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
+      "x": 21555,
       "y": 2292
+    },
+    {
+      "id": "C-INT-BIBLIA",
+      "name": "A Bíblia de Engenharia da Intelligence",
+      "territory": "Z-INT-LEI",
+      "kind": "contract",
+      "what": "A constituicao canonica da Intelligence desde 2026-09-14: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega. Promovida com as nove condicoes da seccao 31 medidas contra esta arvore, 9/9.",
+      "why_here": "A lei da Intelligence nao tinha cartao nenhum no mapa. A Coleta tem a sua constituicao visivel desde sempre (Z-BIBLIA); a Intelligence aparecia so pelo codigo do motor V2.1. Um mapa que mostra a maquina e esconde a lei ensina quem o le que a maquina E a lei. Ela declara IMPLEMENTATION_AUTHORIZED limitado a uma unica missao, e essa missao continua bloqueada a montante — logo este cartao e CONTRATO, nunca runtime.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-INT-ARBITRAGEM",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 360
+    },
+    {
+      "id": "C-INT-CONVERGENCIA",
+      "name": "Convergência — quantas origens INDEPENDENTES",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Deriva, do grafo de dependencia e dos cruzamentos provados, quantas origens independentes apontam para o mesmo — metrica separada, nunca somada a contagem de fontes.",
+      "why_here": "CONVERGENCE e PROJECAO, nao entidade: nao persiste, e derivada. Vivia fundida com CROSSING num cartao so. SOURCE COUNT != INDEPENDENT EVIDENCE COUNT — e duas ONPF a republicar o mesmo boletim sao UMA origem.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "◇",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/pacote_convergencia.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-PALAVRAS",
+        "C-RELEVANCIA",
+        "C-ROTULOS",
+        "C-V21-INGEST"
+      ],
+      "outbound": [
+        "C-INT-ARBITRAGEM",
+        "C-PACOTE-CAMADAS"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 8
+      },
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13715,
+      "y": 682
+    },
+    {
+      "id": "C-INT-DOMINIO-ALEGACAO",
+      "name": "Domínio da alegação — a que campo isto pertence",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Decide a que dominio pertence uma alegacao, para ela entrar como evidencia da hipotese certa.",
+      "why_here": "CLAIM_DOMAIN_JUDGMENT e o terceiro objeto que vivia dentro do cartao da Oportunidade. Tem dono proprio medido na arbitragem.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "⊙",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/v21_dominio_da_alegacao.py"
+      ],
+      "file_count": 1,
+      "status": "PROVEN",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CADEIA-V21"
+      ],
+      "outbound": [
+        "C-INT-ARBITRAGEM"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "IMPESSOAL",
+          "MANTER",
+          "REBAIXAR",
+          "TELA"
+        ],
+        "palavras": 51,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 51,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14130,
+      "y": 682
+    },
+    {
+      "id": "C-INT-DONOS",
+      "name": "Quem é dono de cada conceito da Intelligence",
+      "territory": "Z-INT-LEI",
+      "kind": "contract",
+      "what": "A arbitragem viva: 32 conceitos com dono, alias e estado de implementacao MEDIDO — DEFINED_ONLY, DISPERSO ou IMPLEMENTED — e a fotografia em que a medicao correu. Os nomes nus RELEVANCE e PRIORITY ficam aposentados aqui, sem dono, por decisao humana.",
+      "why_here": "ONE CONCEPT -> ONE OWNER so vale se alguem conseguir abrir a lista e conferir. Sem este cartao, a unica forma de saber quem possui CROSSING era ler codigo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
+        "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-INT-ARBITRAGEM"
+      ],
+      "outbound": [
+        "C-INT-ARBITRAGEM",
+        "C-INT-MODELO-OBJETOS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 682
     },
     {
       "id": "C-INT-ESPINHA",
@@ -10218,16 +10502,58 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 2614
     },
     {
+      "id": "C-INT-MODELO",
+      "name": "O modelo de objetos — espécie, transição e portão",
+      "territory": "Z-INT-LEI",
+      "kind": "contract",
+      "what": "25 objetos com especie (entidade, relacao, estado, transicao, projecao, saida, referencia externa, nao-conceito), 18 aliases arbitrados, 8 portoes com prova exigida, 14 transicoes permitidas, 19 proibidas com razao escrita, os 8 dominios da Italia sobre a mesma espinha e a fronteira das 8 ferramentas futuras.",
+      "why_here": "A resposta a «o que e isto, e para onde pode ir» vive aqui, e nao em caixas no mapa. UM CARTAO NAO E UM OBJETO: um objeto pode atravessar varios ficheiros, ou nao ter ficheiro nenhum. Desenhar 25 caixas era o mapa a DEFINIR arquitetura em vez de a observar.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-INT-MODELO-OBJETOS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 1004
+    },
+    {
       "id": "C-INT-MODELO-OBJETOS",
-      "name": "O modelo de objetos da Intelligence — especie, transicao e portao",
+      "name": "O juiz do modelo de objetos — recusa uma declaração que não se sustenta",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Declara, para cada coisa da Intelligence, o que ela E — entidade, relacao, estado, transicao, projecao, saida, referencia externa ou nome sem objeto — quem e dono, quem pode cria-la, para onde pode ir e o que proibe subir. O instrumento le a declaracao e recusa-a quando ela nao se sustenta; o veredito de uma transicao nao declarada e FORBIDDEN, porque o mundo e fechado.",
-      "why_here": "C-INT-OBJECT-MODEL-01. A arbitragem ja dizia QUEM e dono de cada conceito; faltava dizer O QUE cada conceito E, e por onde pode andar. Sem isso, uma ferramenta inventa o seu proprio caminho — e isso nao e hipotetico: o Future Radar deu ao sinal de futuro um STATUS de sete valores que a montante nunca existiu, com os registos reais a status === null. NAO E RUNTIME: INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.",
+      "what": "Le `INTELLIGENCE-OBJECT-MODEL-V1.json` e mede a coerencia interna dele: dono unico, especie valida, alias que aponta para objeto declarado, ponta de transicao que existe, e os nomes conferidos contra a arbitragem. `pode_transitar` devolve FORBIDDEN para tudo o que nao esteja declarado permitido — o mundo e fechado.",
+      "why_here": "Fica em PROVAS e nao na constituicao porque MEDE. O contrato que ele julga vive em `C-INT-MODELO`, dentro da lei. ⚠️ E fica aqui tambem por uma razao que NAO e de autoridade: `provas/` e gaveta de Z-PROVA, e o mapa amarra o territorio a pasta. UM INSTRUMENTO DA INTELLIGENCE QUE VIVE EM provas/ LE-SE COMO GOVERNANCA, e mudar isso exigia mover codigo.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -10241,16 +10567,16 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
-        "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
         "provas/modelo_de_objetos_da_intelligence.py"
       ],
-      "file_count": 2,
+      "file_count": 1,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-INT-ARBITRAGEM"
+        "C-INT-DONOS",
+        "C-INT-MODELO"
       ],
       "outbound": [
         "C-TESTES"
@@ -10276,8 +10602,49 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 2614
+    },
+    {
+      "id": "C-INT-MOTOR-V2-REQ",
+      "name": "Requisitos do Motor V2 — contrato subordinado",
+      "territory": "Z-INT-LEI",
+      "kind": "contract",
+      "what": "Requisitos, gates, estados e proibicoes contra os quais MOTOR_V2_READY e julgado. Testado conceito a conceito contra a Biblia: 0 conflitos estruturais.",
+      "why_here": "SUBORDINATE, e a palavra importa: depois da promocao da Biblia nao podem existir dois donos da mesma lei. Ele nao governa a constituicao — implementa-a.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊟",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-INT-ARBITRAGEM"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 13010,
+      "y": 1326
     },
     {
       "id": "C-IT-CATALOGO",
@@ -10473,7 +10840,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 2614
     },
     {
@@ -10913,7 +11280,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15540,
       "y": 682
     },
     {
@@ -11042,7 +11409,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 19190,
       "y": 1326
     },
     {
@@ -11108,7 +11475,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19605,
       "y": 1326
     },
     {
@@ -11159,7 +11526,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 2936
     },
     {
@@ -11221,7 +11588,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 2936
     },
     {
@@ -11332,7 +11699,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
+      "x": 21555,
       "y": 2936
     },
     {
@@ -11416,7 +11783,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 3258
     },
     {
@@ -11502,7 +11869,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 21140,
       "y": 3258
     },
     {
@@ -11554,7 +11921,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 3258
     },
     {
@@ -11628,7 +11995,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 3580
     },
     {
@@ -11816,10 +12183,10 @@
         "C-ASK-SINTONIA",
         "C-CADEIA-V21",
         "C-CORPUS",
+        "C-INT-CONVERGENCIA",
         "C-RELEVANCIA",
         "C-TESTES",
         "C-V21-COMERCIAL",
-        "C-V21-CRUZAMENTO",
         "C-V21-INGEST"
       ],
       "outbound": [
@@ -11947,7 +12314,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14835,
+      "x": 15540,
       "y": 1004
     },
     {
@@ -12065,10 +12432,10 @@
       "outbound": [
         "C-CENSO-SEMANTICO-IT",
         "C-COLETA-YOUTUBE",
+        "C-INT-CONVERGENCIA",
         "C-PROVA-COLETA",
         "C-RELEVANCIA",
-        "C-TESTES",
-        "C-V21-CRUZAMENTO"
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -12136,7 +12503,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "MEASURES",
-      "rule_role_evidence": "escreve data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json, e quem le nao esta na esteira: C-V21-CRUZAMENTO",
+      "rule_role_evidence": "escreve data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json, e quem le nao esta na esteira: C-INT-CONVERGENCIA",
       "x": 9775,
       "y": 1004
     },
@@ -12277,7 +12644,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
+      "x": 20020,
       "y": 1326
     },
     {
@@ -12402,7 +12769,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16660,
+      "x": 17365,
       "y": 1004
     },
     {
@@ -12531,7 +12898,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 16660,
+      "x": 17365,
       "y": 1326
     },
     {
@@ -12596,7 +12963,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 16660,
+      "x": 17365,
       "y": 1648
     },
     {
@@ -12649,7 +13016,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15955,
+      "x": 16660,
       "y": 1004
     },
     {
@@ -12819,7 +13186,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 3580
     },
     {
@@ -12865,7 +13232,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 3580
     },
     {
@@ -12908,7 +13275,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 3902
     },
     {
@@ -12959,7 +13326,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 3902
     },
     {
@@ -13027,7 +13394,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
+      "x": 21555,
       "y": 3902
     },
     {
@@ -13325,7 +13692,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20725,
       "y": 4224
     },
     {
@@ -13381,7 +13748,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 4224
     },
     {
@@ -13427,7 +13794,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 4224
     },
     {
@@ -13474,7 +13841,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 4546
     },
     {
@@ -13550,7 +13917,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 21140,
       "y": 4546
     },
     {
@@ -13607,7 +13974,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 4546
     },
     {
@@ -13665,7 +14032,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 4868
     },
     {
@@ -13718,7 +14085,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 4868
     },
     {
@@ -13787,7 +14154,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 4868
     },
     {
@@ -13877,7 +14244,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20725,
       "y": 5190
     },
     {
@@ -13947,7 +14314,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 5190
     },
     {
@@ -13999,7 +14366,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 5190
     },
     {
@@ -14051,7 +14418,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 5512
     },
     {
@@ -14113,7 +14480,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 5512
     },
     {
@@ -14172,7 +14539,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 5512
     },
     {
@@ -14244,7 +14611,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 5834
     },
     {
@@ -14297,7 +14664,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 5834
     },
     {
@@ -14344,7 +14711,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 5834
     },
     {
@@ -14407,7 +14774,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 6156
     },
     {
@@ -14482,7 +14849,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18485,
+      "x": 19190,
       "y": 1648
     },
     {
@@ -14659,7 +15026,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 21140,
       "y": 6156
     },
     {
@@ -14811,7 +15178,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 6156
     },
     {
@@ -14953,7 +15320,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 6478
     },
     {
@@ -15051,12 +15418,12 @@
       "outbound": [
         "C-AUDIT-MARCA",
         "C-INT-ARBITRAGEM",
+        "C-INT-CONVERGENCIA",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-ROTULOS",
         "C-SECURITY-CHECK",
-        "C-TESTES",
-        "C-V21-CRUZAMENTO"
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -15113,7 +15480,7 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
       "rule_role_evidence": "escreve data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json, e C-ROTULOS — peca da esteira — le isso",
-      "x": 18900,
+      "x": 19605,
       "y": 1648
     },
     {
@@ -15175,7 +15542,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
+      "x": 20020,
       "y": 1648
     },
     {
@@ -15285,12 +15652,12 @@
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-FONTES-EU",
+        "C-INT-CONVERGENCIA",
         "C-PALAVRAS",
         "C-RECEITAS",
         "C-RECORRENCIA",
         "C-SUPABASE",
-        "C-TESTES",
-        "C-V21-CRUZAMENTO"
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -15741,7 +16108,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18485,
+      "x": 19190,
       "y": 1970
     },
     {
@@ -16004,7 +16371,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 21140,
       "y": 6478
     },
     {
@@ -16259,7 +16626,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 15540,
+      "x": 16245,
       "y": 1326
     },
     {
@@ -16305,7 +16672,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
+      "x": 21555,
       "y": 6478
     },
     {
@@ -16480,7 +16847,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20725,
       "y": 6800
     },
     {
@@ -16606,7 +16973,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18070,
       "y": 1648
     },
     {
@@ -16707,7 +17074,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17780,
+      "x": 18485,
       "y": 1004
     },
     {
@@ -16771,7 +17138,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18070,
       "y": 1970
     },
     {
@@ -16826,7 +17193,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17780,
+      "x": 18485,
       "y": 360
     },
     {
@@ -16912,7 +17279,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17780,
+      "x": 18485,
       "y": 682
     },
     {
@@ -17046,7 +17413,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18070,
       "y": 360
     },
     {
@@ -17181,7 +17548,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17780,
+      "x": 18485,
       "y": 1326
     },
     {
@@ -17310,7 +17677,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18070,
       "y": 1326
     },
     {
@@ -17361,7 +17728,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17780,
+      "x": 18485,
       "y": 1648
     },
     {
@@ -17415,7 +17782,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18070,
       "y": 1004
     },
     {
@@ -17540,7 +17907,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 17365,
+      "x": 18070,
       "y": 682
     },
     {
@@ -17670,6 +18037,7 @@
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_o_canario_da_collection.py",
         "tests/test_o_controle_separa_lei_de_mencao.py",
+        "tests/test_o_mapa_da_intelligence_nao_mente.py",
         "tests/test_o_pedido_atravessa.py",
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_o_raw_fala.py",
@@ -17723,7 +18091,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 159,
+      "file_count": 160,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17798,7 +18166,10 @@
         "C-IMPRESSAO-DA-ARVORE",
         "C-INGRESSO",
         "C-INT-ARBITRAGEM",
+        "C-INT-BIBLIA",
+        "C-INT-DONOS",
         "C-INT-ESPINHA",
+        "C-INT-MODELO",
         "C-INT-MODELO-OBJETOS",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
@@ -18013,7 +18384,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 21140,
       "y": 6800
     },
     {
@@ -18145,8 +18516,8 @@
         "C-V21-FONTES"
       ],
       "outbound": [
-        "C-V21-FONTES",
-        "C-V21-OPORTUNIDADE"
+        "C-INT-ACHADO",
+        "C-V21-FONTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -18215,8 +18586,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13425,
-      "y": 360
+      "x": 13715,
+      "y": 1004
     },
     {
       "id": "C-V21-COMERCIAL",
@@ -18388,8 +18759,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 682
+      "x": 14130,
+      "y": 1004
     },
     {
       "id": "C-V21-CONTRATO",
@@ -18456,16 +18827,16 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
-      "y": 682
+      "x": 13715,
+      "y": 1326
     },
     {
       "id": "C-V21-CRUZAMENTO",
-      "name": "Cruzamentos e convergencia",
+      "name": "Cruzamento — a coincidência estrutural provada",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
-      "why_here": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
+      "what": "Cruza sinais de origens diferentes e estabelece a relacao quando a chave de juncao esta provada. Nao julga: a classe nao tem campo onde escrever um julgamento.",
+      "why_here": "Chamava-se «Cruzamentos e convergencia» e carregava os dois. Sao especies diferentes no modelo: CROSSING e ENTIDADE, CONVERGENCE e PROJECAO derivada do grafo de dependencia. Fundi-los fazia a projecao parecer uma estacao do dado.",
       "departments": [
         "DESENVOLVIMENTO_MERCADO",
         "INTELIGENCIA"
@@ -18482,10 +18853,9 @@
       "files": [
         "motor/consolidar_leque.py",
         "motor/matriz_recorte.py",
-        "motor/pacote_convergencia.py",
         "motor/v21_crossings.py"
       ],
-      "file_count": 4,
+      "file_count": 3,
       "status": "PROVEN",
       "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
@@ -18494,19 +18864,14 @@
       ],
       "inbound": [
         "C-CADEIA-V21",
-        "C-PALAVRAS",
-        "C-RELEVANCIA",
-        "C-ROTULOS",
-        "C-V21-FONTES",
-        "C-V21-INGEST"
+        "C-V21-FONTES"
       ],
       "outbound": [
-        "C-INT-ARBITRAGEM",
-        "C-PACOTE-CAMADAS"
+        "C-INT-ARBITRAGEM"
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 16
+        "ITALIA": 8
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -18571,8 +18936,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 1004
+      "x": 14130,
+      "y": 1326
     },
     {
       "id": "C-V21-FONTES",
@@ -18613,6 +18978,7 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
+        "C-INT-ACHADO",
         "C-PORTAL-MODELO",
         "C-PROVENIENCIA",
         "C-SITE-INGEST",
@@ -18620,8 +18986,7 @@
         "C-V21-COMERCIAL",
         "C-V21-CONTRATO",
         "C-V21-CRUZAMENTO",
-        "C-V21-INGEST",
-        "C-V21-OPORTUNIDADE"
+        "C-V21-INGEST"
       ],
       "paises": {},
       "paises_dado": {
@@ -18648,8 +19013,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13425,
-      "y": 1004
+      "x": 13715,
+      "y": 1648
     },
     {
       "id": "C-V21-INGEST",
@@ -18695,11 +19060,11 @@
         "C-V21-FONTES"
       ],
       "outbound": [
+        "C-INT-CONVERGENCIA",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-TESTES",
-        "C-V21-COMERCIAL",
-        "C-V21-CRUZAMENTO"
+        "C-V21-COMERCIAL"
       ],
       "paises": {},
       "paises_dado": {
@@ -18766,16 +19131,16 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 1326
+      "x": 14130,
+      "y": 1648
     },
     {
       "id": "C-V21-OPORTUNIDADE",
       "name": "Motor de Oportunidade",
       "territory": "Z-MOTOR",
       "kind": "engine",
-      "what": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
-      "why_here": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
+      "what": "Transforma achado validado em caso de oportunidade, com nivel A·B·C·D, dono, lugar e momento.",
+      "why_here": "Este cartao carregava TRES objetos do modelo debaixo do nome de um: OPPORTUNITY, FINDING e CLAIM_DOMAIN_JUDGMENT. Um cartao com tres objetos e um cartao que esconde duas fronteiras — e a Biblia separa-os por lei: FINDING != OPPORTUNITY.",
       "departments": [
         "COMERCIAL",
         "DESENVOLVIMENTO_MERCADO",
@@ -18791,11 +19156,9 @@
       "lane": "official",
       "family": "F-INTELIGENCIA",
       "files": [
-        "motor/v21_dominio_da_alegacao.py",
-        "motor/v21_fechar.py",
         "motor/v21_oportunidades.py"
       ],
-      "file_count": 3,
+      "file_count": 1,
       "status": "PROVEN",
       "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
@@ -18803,9 +19166,7 @@
       "inbound": [
         "C-CADEIA-V21",
         "C-DATA-CLOCK",
-        "C-V2-LEGADO",
-        "C-V21-COMERCIAL",
-        "C-V21-FONTES"
+        "C-V21-COMERCIAL"
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
@@ -18813,9 +19174,7 @@
         "C-V21-COMERCIAL"
       ],
       "paises": {},
-      "paises_dado": {
-        "ITALIA": 14
-      },
+      "paises_dado": {},
       "pais": "TRANSVERSAL",
       "vocabulario": {
         "papel": "NAO SEI",
@@ -18823,20 +19182,15 @@
           "ARQ",
           "C",
           "CAMPOS_AFIRMADOS",
-          "CONTRATO",
           "FAMILIAS_CRUZADAS",
-          "IMPESSOAL",
-          "MANTER",
-          "REBAIXAR",
-          "TELA",
           "TEXTO",
           "TIPOS_DE_AUTORIZACAO",
           "TIPOS_QUE_OBSERVAM",
           "TIPO_DE_JANELA"
         ],
-        "palavras": 247,
+        "palavras": 144,
         "por_lingua": {},
-        "sem_marca_de_lingua": 247,
+        "sem_marca_de_lingua": 144,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -18845,8 +19199,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
-      "y": 1326
+      "x": 13715,
+      "y": 1970
     },
     {
       "id": "V-FACEBOOK",
@@ -19381,7 +19735,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/intelligence-object-model-v1"
+        "branch claude/intelligence-system-map-audit-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19414,7 +19768,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14835,
       "y": 360
     },
     {
@@ -19459,7 +19813,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14835,
       "y": 682
     },
     {
@@ -19503,7 +19857,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14835,
       "y": 1004
     },
     {
@@ -19555,7 +19909,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
+      "x": 14835,
       "y": 1326
     }
   ],
@@ -22092,6 +22446,42 @@
     },
     {
       "from": "C-CADEIA-V21",
+      "to": "C-INT-ACHADO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Achado — o julgamento analítico que se fecha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/v21_cadeia.sh",
+          "line": 141,
+          "snippet": "\"$PY\" motor/v21_fechar.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CADEIA-V21",
+      "to": "C-INT-DOMINIO-ALEGACAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 manda rodar Domínio da alegação — a que campo isto pertence. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/v21_cadeia.sh",
+          "line": 122,
+          "snippet": "\"$PY\" motor/v21_dominio_da_alegacao.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CADEIA-V21",
       "to": "C-LUGAR-DO-FATO",
       "type": "RUNS",
       "payload": "execucao",
@@ -22267,7 +22657,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 manda rodar Cruzamentos e convergencia. Provado por 1 linha de codigo.",
+      "reason": "Cadeia canonica V2.1 manda rodar Cruzamento — a coincidência estrutural provada. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "motor/v21_cadeia.sh",
@@ -22341,22 +22731,12 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 manda rodar Motor de Oportunidade. Provado por 3 linhas de codigo.",
+      "reason": "Cadeia canonica V2.1 manda rodar Motor de Oportunidade. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "motor/v21_cadeia.sh",
-          "line": 122,
-          "snippet": "\"$PY\" motor/v21_dominio_da_alegacao.py"
-        },
         {
           "file": "motor/v21_cadeia.sh",
           "line": 128,
           "snippet": "\"$PY\" motor/v21_oportunidades.py"
-        },
-        {
-          "file": "motor/v21_cadeia.sh",
-          "line": 141,
-          "snippet": "\"$PY\" motor/v21_fechar.py"
         }
       ],
       "categoria": "CONTROL"
@@ -28265,12 +28645,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato da gestão da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato da gestão da coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_execucao_standalone.py",
           "line": 29,
           "snippet": "'leis/gestao_da_coleta.py',"
+        },
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 201,
+          "snippet": "n = dono_do_ficheiro(\"leis/gestao_da_coleta.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -28882,6 +29267,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-INT-ACHADO",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Achado — o julgamento analítico que se fecha alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 139,
+          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_fechar.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
       "from": "C-INT-ARBITRAGEM",
       "to": "C-CENSO-CONGELAMENTO",
       "type": "READS",
@@ -28901,21 +29304,21 @@
     },
     {
       "from": "C-INT-ARBITRAGEM",
-      "to": "C-INT-MODELO-OBJETOS",
-      "type": "READS",
+      "to": "C-INT-DONOS",
+      "type": "WRITES",
       "payload": "artefacto",
-      "raw_type": "READS",
+      "raw_type": "WRITES",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta O modelo de objetos da Intelligence — especie, transicao e portao. Provado por 1 linha de codigo.",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu escreve em Quem é dono de cada conceito da Intelligence. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "provas/modelo_de_objetos_da_intelligence.py",
-          "line": 166,
-          "snippet": "v3 = RAIZ / \"docs\" / \"intelligence\" / \"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\""
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 401,
+          "snippet": "with open(destino, \"w\", encoding=\"utf-8\") as f:"
         }
       ],
-      "categoria": "READ"
+      "categoria": "WRITE"
     },
     {
       "from": "C-INT-ARBITRAGEM",
@@ -28943,17 +29346,176 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 345,
+          "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 265,
+          "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-INT-BIBLIA",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia de Engenharia da Intelligence alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 54,
+          "snippet": "\"BIBLIA_INTELLIGENCE_V0.2\": \"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-BIBLIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia de Engenharia da Intelligence alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 103,
+          "snippet": "\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"], biblias,"
+        },
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 417,
+          "snippet": "h[\"GOVERNS\"] = [\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"]"
+        },
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 90,
+          "snippet": "biblia = dono_do_ficheiro(\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-INT-CONVERGENCIA",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Convergência — quantas origens INDEPENDENTES alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 121,
+          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/pacote_convergencia.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-CONVERGENCIA",
+      "to": "C-PACOTE-CAMADAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Convergência — quantas origens INDEPENDENTES tem o seu codigo importado por Montagem do pacote por camadas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/pacote.py",
+          "line": 35,
+          "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INT-DOMINIO-ALEGACAO",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Domínio da alegação — a que campo isto pertence alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 85,
+          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_dominio_da_alegacao.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-DONOS",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem é dono de cada conceito da Intelligence alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 57,
+          "snippet": "\"ARBITRAGEM_V1\": \"docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md\","
+        },
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 400,
+          "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-DONOS",
+      "to": "C-INT-MODELO-OBJETOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem é dono de cada conceito da Intelligence alimenta O juiz do modelo de objetos — recusa uma declaração que não se sustenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/modelo_de_objetos_da_intelligence.py",
+          "line": 166,
+          "snippet": "v3 = RAIZ / \"docs\" / \"intelligence\" / \"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-DONOS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem é dono de cada conceito da Intelligence alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
           "line": 148,
           "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
-        },
-        {
-          "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 345,
-          "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
         },
         {
           "file": "tests/test_modelo_de_objetos_da_intelligence.py",
@@ -28964,14 +29526,22 @@
           "file": "tests/test_relevance_priority_sobrecarga.py",
           "line": 204,
           "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\"),"
-        },
-        {
-          "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 265,
-          "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\"),"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-INT-ESPINHA",
+      "to": "C-GESTAO-DA-COLETA",
+      "type": "ALIMENTA",
+      "kind": "expected",
+      "reason": "A FRONTEIRA DE SAIDA, e a unica. Quando falta materia-prima, a Intelligence produz um INTELLIGENCE_REQUIREMENT e atravessa por {REQUIREMENT_ID} — nada mais passa. A Collection mede o gap, decide e escolhe a rota; a Intelligence NUNCA nomeia coletor, rota nem executor, e o requisito recusa essas 12 palavras em codigo. Declarada e nao provada: sem runtime, nenhum requisito foi emitido.  ⚪ NAO SEI: isto foi declarado por gente, e o scanner nao achou nenhuma linha de codigo que prove.",
+      "source": "provas/espinha_da_intelligence.py",
+      "declared_by": "missao C-INT-SYSTEM-MAP-AUDIT-01",
+      "declared_at": "2026-09-14",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "categoria": "DATA"
     },
     {
       "from": "C-INT-ESPINHA",
@@ -29048,6 +29618,42 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-INT-MODELO",
+      "to": "C-INT-MODELO-OBJETOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O modelo de objetos — espécie, transição e portão alimenta O juiz do modelo de objetos — recusa uma declaração que não se sustenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/modelo_de_objetos_da_intelligence.py",
+          "line": 44,
+          "snippet": "MODELO = RAIZ / \"docs\" / \"intelligence\" / \"INTELLIGENCE-OBJECT-MODEL-V1.json\""
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-MODELO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O modelo de objetos — espécie, transição e portão alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 39,
+          "snippet": "M = carregar(\"docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-INT-MODELO-OBJETOS",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -29055,7 +29661,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O modelo de objetos da Intelligence — especie, transicao e portao tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O juiz do modelo de objetos — recusa uma declaração que não se sustenta tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_modelo_de_objetos_da_intelligence.py",
@@ -29073,7 +29679,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O modelo de objetos da Intelligence — especie, transicao e portao alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O juiz do modelo de objetos — recusa uma declaração que não se sustenta alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_modelo_de_objetos_da_intelligence.py",
@@ -29082,6 +29688,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-INT-MOTOR-V2-REQ",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Requisitos do Motor V2 — contrato subordinado alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 55,
+          "snippet": "\"MOTOR_V2_REQUISITOS\": \"docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-IT-CATALOGO",
@@ -30668,12 +31292,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Validador do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Validador do System Map alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_mapa_nao_mente.py",
           "line": 129,
           "snippet": "\"validate_system_map.py\"), encoding=\"utf-8\") as f:"
+        },
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 316,
+          "snippet": "[sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"validate_system_map.py\")],"
         }
       ],
       "categoria": "PROOF"
@@ -31418,6 +32047,24 @@
     },
     {
       "from": "C-PALAVRAS",
+      "to": "C-INT-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As palavras que a busca digita alimenta Convergência — quantas origens INDEPENDENTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/pacote_convergencia.py",
+          "line": 101,
+          "snippet": "cen = local_json(os.path.join('IT-ROTULOS', 'IT-CENSO-DE-TERMOS.json'))"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PALAVRAS",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -31507,24 +32154,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-PALAVRAS",
-      "to": "C-V21-CRUZAMENTO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "As palavras que a busca digita alimenta Cruzamentos e convergencia. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/pacote_convergencia.py",
-          "line": 101,
-          "snippet": "cen = local_json(os.path.join('IT-ROTULOS', 'IT-CENSO-DE-TERMOS.json'))"
-        }
-      ],
-      "categoria": "RULE"
     },
     {
       "from": "C-PEDIDO",
@@ -33716,7 +34345,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
@@ -33737,6 +34366,11 @@
           "file": "tests/test_o_controle_separa_lei_de_mencao.py",
           "line": 460,
           "snippet": "for fonte in (\"system-map/data/architecture.declared.json\","
+        },
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 37,
+          "snippet": "D = carregar(\"system-map/data/architecture.declared.json\")"
         }
       ],
       "categoria": "PROOF"
@@ -34602,6 +35236,24 @@
     },
     {
       "from": "C-RELEVANCIA",
+      "to": "C-INT-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua de relevancia ADAMA alimenta Convergência — quantas origens INDEPENDENTES. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/pacote_convergencia.py",
+          "line": 193,
+          "snippet": "'data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json',"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -34735,24 +35387,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-RELEVANCIA",
-      "to": "C-V21-CRUZAMENTO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Regua de relevancia ADAMA alimenta Cruzamentos e convergencia. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/pacote_convergencia.py",
-          "line": 193,
-          "snippet": "'data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json',"
-        }
-      ],
-      "categoria": "RULE"
     },
     {
       "from": "C-RELEVANCIA-DA-FONTE",
@@ -35114,6 +35748,34 @@
     },
     {
       "from": "C-ROTULOS",
+      "to": "C-INT-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Baixar e ler os rotulos oficiais alimenta Convergência — quantas origens INDEPENDENTES. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/pacote_convergencia.py",
+          "line": 40,
+          "snippet": "rot = local_json(os.path.join('IT-ROTULOS', 'IT-ROTULOS-PARES.json'))"
+        },
+        {
+          "file": "motor/pacote_convergencia.py",
+          "line": 41,
+          "snippet": "cru = local_json(os.path.join('IT-CRUZAMENTO', 'IT-CONVERSA-X-ROTULO.json'))"
+        },
+        {
+          "file": "motor/pacote_convergencia.py",
+          "line": 78,
+          "snippet": "'data/raw/IT-ROTULOS/_MANIFESTO.json'],"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ROTULOS",
       "to": "C-PALAVRAS",
       "type": "READS",
       "payload": "artefacto",
@@ -35226,32 +35888,17 @@
       "categoria": "PROOF"
     },
     {
-      "from": "C-ROTULOS",
-      "to": "C-V21-CRUZAMENTO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Baixar e ler os rotulos oficiais alimenta Cruzamentos e convergencia. Provado por 3 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "motor/pacote_convergencia.py",
-          "line": 40,
-          "snippet": "rot = local_json(os.path.join('IT-ROTULOS', 'IT-ROTULOS-PARES.json'))"
-        },
-        {
-          "file": "motor/pacote_convergencia.py",
-          "line": 41,
-          "snippet": "cru = local_json(os.path.join('IT-CRUZAMENTO', 'IT-CONVERSA-X-ROTULO.json'))"
-        },
-        {
-          "file": "motor/pacote_convergencia.py",
-          "line": 78,
-          "snippet": "'data/raw/IT-ROTULOS/_MANIFESTO.json'],"
-        }
-      ],
-      "categoria": "READ"
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-INT-ESPINHA",
+      "type": "ALIMENTA",
+      "kind": "expected",
+      "reason": "A FRONTEIRA DE ENTRADA DA INTELLIGENCE, declarada e nao provada — e e assim que tem de aparecer. A espinha carrega a copia declarada dos 12 campos de `admissao.pronto_para_inteligencia()` (COL-LAW-043) e confere-a contra o contrato real, mas NAO LE a Sala: nao ha runtime para ler. Medido nesta arvore: a morada `data/samples/PRONTO-PARA-INTELIGENCIA/` nem existe, e REAL_ITALY_READY_ITEMS = 0. Pintar esta seta de verde seria dizer que a Intelligence ja bebe da Coleta.  ⚪ NAO SEI: isto foi declarado por gente, e o scanner nao achou nenhuma linha de codigo que prove.",
+      "source": "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
+      "declared_by": "missao C-INT-SYSTEM-MAP-AUDIT-01",
+      "declared_at": "2026-09-14",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "categoria": "DATA"
     },
     {
       "from": "C-SALA-DE-ESPERA",
@@ -35479,7 +36126,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -35490,6 +36137,11 @@
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 29,
           "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
+        },
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 194,
+          "snippet": "n = dono_do_ficheiro(\"admissao/sala_de_espera.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -39198,6 +39850,24 @@
     },
     {
       "from": "C-V2-LEGADO",
+      "to": "C-INT-ACHADO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia V2 (legado) alimenta Achado — o julgamento analítico que se fecha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/v21_fechar.py",
+          "line": 202,
+          "snippet": "('V2-VALIDATION', os.path.join(V2, 'VALIDATION-MANIFEST.json')),"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-V2-LEGADO",
       "to": "C-V21-FONTES",
       "type": "READS",
       "payload": "artefacto",
@@ -39210,24 +39880,6 @@
           "file": "motor/v21_vozes_reconciliar.py",
           "line": 53,
           "snippet": "qa = json.load(open(QA, encoding='utf-8'))"
-        }
-      ],
-      "categoria": "READ"
-    },
-    {
-      "from": "C-V2-LEGADO",
-      "to": "C-V21-OPORTUNIDADE",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cadeia V2 (legado) alimenta Motor de Oportunidade. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/v21_fechar.py",
-          "line": 202,
-          "snippet": "('V2-VALIDATION', os.path.join(V2, 'VALIDATION-MANIFEST.json')),"
         }
       ],
       "categoria": "READ"
@@ -39463,38 +40115,15 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cruzamentos e convergencia alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 2 linhas de codigo.",
+      "reason": "Cruzamento — a coincidência estrutural provada alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
           "line": 117,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_crossings.py\","
-        },
-        {
-          "file": "provas/arbitragem_da_intelligence.py",
-          "line": 121,
-          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/pacote_convergencia.py\","
         }
       ],
       "categoria": "READ"
-    },
-    {
-      "from": "C-V21-CRUZAMENTO",
-      "to": "C-PACOTE-CAMADAS",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Cruzamentos e convergencia tem o seu codigo importado por Montagem do pacote por camadas. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "pacote/pacote.py",
-          "line": 35,
-          "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
-        }
-      ],
-      "categoria": "CODE"
     },
     {
       "from": "C-V21-FONTES",
@@ -39515,6 +40144,29 @@
           "file": "italia-portale/audit/cadeia-de-familias.mjs",
           "line": 85,
           "snippet": "sources: 'SOURCES.json',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-V21-FONTES",
+      "to": "C-INT-ACHADO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Religacao de fontes do pacote alimenta Achado — o julgamento analítico que se fecha. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "motor/v21_fechar.py",
+          "line": 63,
+          "snippet": "('voices', 'PUBLIC-VOICES.json'),"
+        },
+        {
+          "file": "motor/v21_fechar.py",
+          "line": 71,
+          "snippet": "('sources', 'SOURCES.json'),"
         }
       ],
       "categoria": "READ"
@@ -39665,7 +40317,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Religacao de fontes do pacote alimenta Cruzamentos e convergencia. Provado por 1 linha de codigo.",
+      "reason": "Religacao de fontes do pacote alimenta Cruzamento — a coincidência estrutural provada. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "motor/v21_crossings.py",
@@ -39699,27 +40351,22 @@
       "categoria": "READ"
     },
     {
-      "from": "C-V21-FONTES",
-      "to": "C-V21-OPORTUNIDADE",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
+      "from": "C-V21-INGEST",
+      "to": "C-INT-CONVERGENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Religacao de fontes do pacote alimenta Motor de Oportunidade. Provado por 2 linhas de codigo.",
+      "reason": "Ingestao V2.1 tem o seu codigo importado por Convergência — quantas origens INDEPENDENTES. Provado por 1 linha de codigo.",
       "evidence": [
         {
-          "file": "motor/v21_fechar.py",
-          "line": 63,
-          "snippet": "('voices', 'PUBLIC-VOICES.json'),"
-        },
-        {
-          "file": "motor/v21_fechar.py",
-          "line": 71,
-          "snippet": "('sources', 'SOURCES.json'),"
+          "file": "motor/pacote_convergencia.py",
+          "line": 34,
+          "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
         }
       ],
-      "categoria": "READ"
+      "categoria": "CODE"
     },
     {
       "from": "C-V21-INGEST",
@@ -39852,24 +40499,6 @@
       "categoria": "CODE"
     },
     {
-      "from": "C-V21-INGEST",
-      "to": "C-V21-CRUZAMENTO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Ingestao V2.1 tem o seu codigo importado por Cruzamentos e convergencia. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "motor/pacote_convergencia.py",
-          "line": 34,
-          "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
-        }
-      ],
-      "categoria": "CODE"
-    },
-    {
       "from": "C-V21-OPORTUNIDADE",
       "to": "C-INT-ARBITRAGEM",
       "type": "READS",
@@ -39877,18 +40506,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Motor de Oportunidade alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 3 linhas de codigo.",
+      "reason": "Motor de Oportunidade alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "provas/arbitragem_da_intelligence.py",
-          "line": 85,
-          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_dominio_da_alegacao.py\","
-        },
-        {
-          "file": "provas/arbitragem_da_intelligence.py",
-          "line": 139,
-          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_fechar.py\","
-        },
         {
           "file": "provas/arbitragem_da_intelligence.py",
           "line": 151,
@@ -40271,7 +40890,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 897,
+  "UNCLAIMED_FILES_COUNT": 894,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -40426,17 +41045,17 @@
     ]
   },
   "COUNTS": {
-    "components": 186,
-    "components_proven": 48,
-    "components_pending": 132,
+    "components": 193,
+    "components_proven": 51,
+    "components_pending": 136,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 892,
-    "edges_proven": 889,
-    "edges_unknown": 3,
+    "edges": 907,
+    "edges_proven": 902,
+    "edges_unknown": 5,
     "business_edges": 4,
-    "files_tracked": 1781,
-    "files_covered": 884,
+    "files_tracked": 1782,
+    "files_covered": 888,
     "files_code_unclaimed": 0
   }
 }

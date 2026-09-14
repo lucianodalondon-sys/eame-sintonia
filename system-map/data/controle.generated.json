@@ -1,8 +1,8 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "e8b87f2477cf586953cbdc381d952dd519dc5c1f",
-    "BRANCH": "claude/intelligence-object-model-v1"
+    "HEAD": "4cf43b0ed0afa7883aefa31ea8d19f30e48b83e6",
+    "BRANCH": "claude/intelligence-system-map-audit-v1"
   },
   "PLANES": [
     {
@@ -674,7 +674,7 @@
       ],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "55821887b9",
+      "SHA": "c070933cb3",
       "LAST_VERIFIED": "2026-09-14T11:31:15+00:00",
       "LAST_COMMIT": "e8b87f2477",
       "LAST_SUBJECT": "C-INT-OBJECT-MODEL-01 — o que cada coisa E, e por onde pode andar",
@@ -743,7 +743,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "37fb1df991",
+      "SHA": "6c5b166951",
       "LAST_VERIFIED": "2026-09-14T11:31:15+00:00",
       "LAST_COMMIT": "e8b87f2477",
       "LAST_SUBJECT": "C-INT-OBJECT-MODEL-01 — o que cada coisa E, e por onde pode andar",
@@ -1390,9 +1390,10 @@
         "provas/arbitragem_da_intelligence.py",
         "system-map/scripts/censo_do_congelamento.py",
         "tests/test_atomicidade_da_intelligence.py",
-        "tests/test_o_controle_separa_lei_de_mencao.py"
+        "tests/test_o_controle_separa_lei_de_mencao.py",
+        "tests/test_o_mapa_da_intelligence_nao_mente.py"
       ],
-      "REFERENCED_BY_COUNT": 8
+      "REFERENCED_BY_COUNT": 9
     },
     {
       "CARD_ID": "R-SALA",
@@ -1519,15 +1520,18 @@
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "REFERENCED_BY": [
+        "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
         "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
         "docs/operacao/CENSO-DA-INTELLIGENCE.md",
         "provas/arbitragem_da_intelligence.py",
+        "system-map/data/architecture.declared.json",
         "tests/test_atomicidade_da_intelligence.py",
-        "tests/test_o_controle_separa_lei_de_mencao.py"
+        "tests/test_o_controle_separa_lei_de_mencao.py",
+        "tests/test_o_mapa_da_intelligence_nao_mente.py"
       ],
-      "REFERENCED_BY_COUNT": 7
+      "REFERENCED_BY_COUNT": 10
     },
     {
       "CARD_ID": "A-MOTOR-V2-REQUISITOS",
@@ -1559,9 +1563,10 @@
         "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
-        "provas/arbitragem_da_intelligence.py"
+        "provas/arbitragem_da_intelligence.py",
+        "system-map/data/architecture.declared.json"
       ],
-      "REFERENCED_BY_COUNT": 4
+      "REFERENCED_BY_COUNT": 5
     },
     {
       "CARD_ID": "A-MODELO-OBJETOS-INTELIGENCIA",
@@ -1592,9 +1597,10 @@
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json",
         "provas/modelo_de_objetos_da_intelligence.py",
-        "system-map/data/architecture.declared.json"
+        "system-map/data/architecture.declared.json",
+        "tests/test_o_mapa_da_intelligence_nao_mente.py"
       ],
-      "REFERENCED_BY_COUNT": 3
+      "REFERENCED_BY_COUNT": 4
     },
     {
       "CARD_ID": "A-ARBITRAGEM-INTELIGENCIA",
@@ -1625,9 +1631,10 @@
       "REFERENCED_BY": [
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
-        "provas/arbitragem_da_intelligence.py"
+        "provas/arbitragem_da_intelligence.py",
+        "system-map/data/architecture.declared.json"
       ],
-      "REFERENCED_BY_COUNT": 3
+      "REFERENCED_BY_COUNT": 4
     }
   ],
   "GOVERNANCE_EDGES": [
@@ -2207,7 +2214,7 @@
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-MOTOR-V2-REQ",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
@@ -2229,7 +2236,7 @@
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-DONOS",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "DECLARED",
@@ -2252,7 +2259,7 @@
       "FROM": "A-MOTOR-V2-REQUISITOS",
       "TO_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-BIBLIA",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "DECLARED",
@@ -2274,7 +2281,7 @@
       "FROM": "A-MODELO-OBJETOS-INTELIGENCIA",
       "TO_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-BIBLIA",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
@@ -2285,7 +2292,7 @@
       "FROM": "A-MODELO-OBJETOS-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-DONOS",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
@@ -2307,7 +2314,7 @@
       "FROM": "A-ARBITRAGEM-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-DONOS",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "DECLARED",
@@ -2318,7 +2325,7 @@
       "FROM": "A-ARBITRAGEM-INTELIGENCIA",
       "TO_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-BIBLIA",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "DECLARED",
@@ -2329,7 +2336,7 @@
       "FROM": "A-ARBITRAGEM-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "TO_KIND": "PATH",
-      "TO_COMPONENT": "",
+      "TO_COMPONENT": "C-INT-MOTOR-V2-REQ",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "DECLARED",
