@@ -188,10 +188,45 @@ def main():
     # ⚠️ E OS 19 DO CONTRATO TEM DE TER ONDE MORAR NA TABELA.
     # Um contrato de 19 com uma tabela de 12 nao e um contrato: e uma promessa
     # que o `insert` desmente.
-    sem_coluna = sorted(c for c in espera.CAMPOS_READY
-                        if c.lower() not in colunas)
-    caso("B2_cada_campo_do_contrato_tem_coluna_na_tabela", not sem_coluna,
-         "sem coluna: %s" % sem_coluna)
+    #
+    # ⚠️ MAS DOIS NAO MORAM NUMA COLUNA COM O MESMO NOME, E ISSO ESTA CERTO.
+    # A primeira versao deste caso fazia `c.lower() in colunas` para os 19 e
+    # reprovava — e reprovava sobre uma tabela que esta correcta:
+    #
+    #     ESTADO   e uma CONSTANTE do contrato (`PRONTO_PARA_INTELIGENCIA`).
+    #              Guardar uma coluna cujo valor e sempre o mesmo seria guardar
+    #              a palavra, e nao o facto. O dono repoe-a na leitura.
+    #     CORRIDA  mora em `run_id`, que e a coluna que TODA a casa usa para a
+    #              mesma coisa. Uma segunda coluna `corrida` seria um segundo
+    #              nome para a mesma identidade, livre para divergir.
+    #
+    #     UM CAMPO DE CONTRATO NAO E UMA COLUNA. A EQUIVALENCIA DECLARA-SE.
+    #
+    # Declarada aqui, e verificada: se um destes dois passar a ter coluna
+    # propria, ou mudar de casa, este caso reprova e obriga a reescrever a
+    # equivalencia — que e como uma correspondencia deixa de apodrecer.
+    MORA_NOUTRO_SITIO = {
+        "ESTADO": ("constante do contrato, reposta na leitura pelo dono", None),
+        "CORRIDA": ("a identidade da corrida, e a casa inteira chama-lhe assim",
+                    "run_id"),
+    }
+    sem_coluna, mal_declarados = [], []
+    for c in espera.CAMPOS_READY:
+        if c.lower() in colunas:
+            continue
+        if c in MORA_NOUTRO_SITIO:
+            _porque, alias = MORA_NOUTRO_SITIO[c]
+            if alias is not None and alias not in colunas:
+                mal_declarados.append("%s -> %s (coluna ausente)" % (c, alias))
+            continue
+        sem_coluna.append(c)
+    caso("B2_cada_campo_do_contrato_tem_onde_morar", not sem_coluna,
+         "sem coluna e sem equivalencia declarada: %s" % sem_coluna)
+    caso("B2b_as_equivalencias_declaradas_existem_de_facto", not mal_declarados,
+         " · ".join(mal_declarados))
+    _mede("CAMPOS_COM_COLUNA_PROPRIA",
+          sum(1 for c in espera.CAMPOS_READY if c.lower() in colunas),
+          "os outros %d tem equivalencia declarada" % len(MORA_NOUTRO_SITIO))
 
     # ── C · O CANARIO ADMISSIVEL ──────────────────────────────────────────
     print("\nC · O CANARIO ADMISSIVEL (e a regua nao se mexe)")
@@ -364,8 +399,16 @@ def _ler_noutro_processo(url):
         "if not u:\n"
         "    print(json.dumps({'ENCONTRADO': False, 'ERRO': 'ler() devolveu vazio'}))\n"
         "    raise SystemExit(0)\n"
-        "unidades = u.get('UNIDADES') if isinstance(u, dict) else u\n"
-        "p = unidades[0] if isinstance(unidades, list) and unidades else (u if isinstance(u, dict) else {})\n"
+        # A chave e `ITENS`, e e do dono. A primeira versao desta prova
+        # procurava `UNIDADES`, nao achava, e caia para o proprio envelope —
+        # entao media 2 campos (RUN_ID e ITENS) e dizia que o READY tinha 2.
+        #     UM `.get` COM A CHAVE ERRADA NAO REBENTA: MENTE BAIXINHO.
+        "itens = u.get('ITENS') if isinstance(u, dict) else u\n"
+        "if not isinstance(itens, list) or not itens:\n"
+        "    print(json.dumps({'ENCONTRADO': False, 'VIA': 'sala_de_espera.ler',\n"
+        "      'ERRO': 'ler() devolveu %r sem ITENS' % (sorted(u) if isinstance(u, dict) else type(u).__name__)}))\n"
+        "    raise SystemExit(0)\n"
+        "p = itens[0]\n"
         "print(json.dumps({'ENCONTRADO': True, 'VIA': 'sala_de_espera.ler',\n"
         "  'CAMPOS': len(p), 'RAW_OBSERVATION_ID': p.get('RAW_OBSERVATION_ID'),\n"
         "  'CORRIDA': p.get('CORRIDA'), 'SOURCE_ID': p.get('SOURCE_ID'),\n"
