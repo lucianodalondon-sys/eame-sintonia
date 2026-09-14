@@ -12961,3 +12961,142 @@ DESIGNED != DB_TESTED != LIVE.
 ```
 
 O canário italiano continua parado, e agora por **uma** razão em vez de três.
+
+---
+
+# §111 · UM RESTAURO QUE ARRANCA NÃO É UM RESTAURO QUE CHEGOU
+
+**Missão:** `C-RESTORE-PROOF-BEFORE-LIVE-V2`, a seguir ao
+`RESTORE_NOT_PROVEN` de `C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1` e ao
+`SAME_CLASS_RESTORE = NO` de `C-RECOVERY-PROOF-BEFORE-LIVE-V1`.
+
+## 111.1 · O QUE MUDOU
+
+A bancada de recuperação deixou de ser da classe **lógica** (`pg_dump`) e
+passou a ser da classe **física** — base backup + arquivo de WAL +
+recuperação a um instante — em PostgreSQL **17**, o mesmo major do LIVE.
+
+```
+SAME_CLASS_RESTORE       NO   ->  YES
+SAME_PLATFORM_RESTORE    (nao medido) ->  NO
+```
+
+A lacuna **não fechou: mudou de sítio.** Deixou de ser sobre a classe da
+ferramenta e passou a ser só sobre **quem opera o botão**.
+
+## 111.2 · POR QUÊ
+
+Porque a V1 provou um restauro a sério, e depois mediu a classe do backup do
+LIVE e descobriu que tinha provado a classe errada. Um dump lógico e um
+snapshot físico não se restauram com as mesmas ferramentas nem falham pelos
+mesmos motivos.
+
+```
+RESTAURO PROVADO DE UMA CLASSE != RESTAURO PROVADO DA OUTRA.
+```
+
+E a razão de fundo, que é a que dura: `ONE RECOVERY PLAN → ONE PROOF`. Prova-se
+o mecanismo que a **emergência** usaria, e não o que é mais fácil de exercer.
+
+## 111.3 · PROVA
+
+`provas/recuperacao_fisica_provada_no_postgres.py`, contra PostgreSQL 17
+descartável. O banco é **destruído** antes de restaurar — restaurar por cima do
+que ainda existe faz o verde vir do banco velho em vez de vir do backup.
+
+```
+DESTRUICAO_REAL     SIM   (delete · drop table · schema+ledger · corrupcao logica)
+SECOES_DIFERENTES   NENHUMA  (11 seccoes)
+WAL_FOI_REPRODUZIDO SIM
+SEQUENCIAS          PASS  (64)
+CADEIA_REAPLICADAS  0     e 29 SKIP HASH=MATCH
+TRAVAS              8 provocadas, 8 RECUSARAM
+CONTRAPROVA         13 sabotagens, 13 ACUSOU
+RED_TEAM            28 ataques, 0 sobreviventes
+LIVE_READS/WRITES/DDL   0 / 0 / 0
+```
+
+### Os três achados, e os três vieram do red team a atacar a própria prova
+
+**1 · O PostgreSQL não recusa um alvo anterior ao backup.**
+
+| alvo pedido | o que o servidor faz |
+|---|---|
+| **à frente** do WAL disponível | `FATAL`, e não promove — defende-se |
+| **atrás** do início do backup | **PROMOVE, calado**, no estado do backup |
+
+No segundo caso o log escreve *«database system is ready to accept
+connections»* e o `exit` é `0`. O banco entregue está **silenciosamente
+atrasado**, e nada diz que não chegou onde lhe pediram.
+
+```
+EXIT 0 E «READY TO ACCEPT CONNECTIONS» NAO SAO PROVA
+DE QUE O RESTAURO CHEGOU AO INSTANTE PEDIDO.
+```
+
+**2 · Copiar o base backup não é reproduzir o WAL.**
+
+A impressão de referência estava a ser tirada **antes** do base backup — e
+então um restauro que reproduzisse **zero** WAL batia certo na mesma. A prova
+teria aprovado um PITR que nunca fez PITR. A defesa é um **marco**: linhas
+escritas depois do backup e antes do instante de destino, que não estão nos
+ficheiros copiados e só existem no WAL.
+
+```
+UMA IMPRESSAO QUE O BASE BACKUP SOZINHO SATISFAZ NAO PROVA RECUPERACAO.
+```
+
+**3 · Sequência adiantada é correcto; atrasada é um id duplicado.**
+
+O PostgreSQL regista as sequências no WAL aos saltos de 32 (`SEQ_LOG_VALS`), de
+propósito, para que uma recuperação nunca devolva uma sequência atrasada.
+Exigir igualdade byte a byte reprovaria todo o restauro físico correcto — e
+reprovou: na primeira corrida esta prova reprovou o seu próprio restauro, com
+`SECOES_DIFERENTES = ['SEQUENCIAS']`. **O restauro estava certo; a regra de
+comparação é que estava errada.** A regra passou a ser `>=` com tecto.
+
+### E duas coisas menores que custaram caro
+
+- **Um desastre que o banco recusa não é um desastre.** Duas corrupções foram
+  travadas pelo próprio schema (a identidade da observação e o `sha` da cópia).
+  Tratar a recusa como estrago deixaria a prova a restaurar de um estrago que
+  nunca aconteceu — e a chamar-lhe verde.
+- **`setval` não é transaccional.** Sabotar uma sequência dentro de
+  `begin … rollback` para testar a regra deixa a sequência sabotada depois do
+  teste. Um teste que contamina o que mede não é um teste. E a sequência
+  escolhida valia `1`: «pô-la em 1» não é pô-la para trás — uma sabotagem que
+  não sabota mede o nada e diz `PASS`.
+
+## 111.4 · CONSEQUÊNCIA
+
+```
+DISPOSABLE_BACKUP_CLASS  PHYSICAL
+RESTORE_PROOF            BLOCKED
+BLOCKER                  PLATFORM_RESTORE_NOT_EXERCISED
+RUNBOOK_CANONICO         docs/operacao/RUNBOOK-DE-RECUPERACAO.md
+```
+
+A regra que fica, e é maior do que este banco:
+
+> **Provar a classe não é provar a plataforma.** Um restauro local, por mais
+> forte, não prova que o botão de Restore do fornecedor funciona nesta conta,
+> neste projeto, com estas credenciais. As duas coisas ficam em campos
+> separados, e o portão recusa-se a promover uma na outra.
+
+```
+MESMA CLASSE != MESMA PLATAFORMA.
+POLITICA DA PLATAFORMA PROVADA != ESTE BACKUP EXISTE, E E DESTE INSTANTE.
+CAN DO != DID DO.
+```
+
+E a que se aplica a qualquer conferência, não só a restauros:
+
+> **O código de saída de uma operação não é o resultado dela.** Sempre que uma
+> peça desta casa disser «correu bem», a pergunta seguinte é «correu bem *até
+> onde*?» — e a resposta tem de vir de uma medição do estado final, nunca do
+> facto de o processo ter terminado sem erro.
+
+E, para a operação: **rollback não é restore.** Uma migration precisa de
+`FORWARD_RECOVERY_PLAN`; a operação precisa de `DISASTER_RESTORE_PLAN`. Tratar
+os dois como um leva a restaurar o banco inteiro — apagando tudo o que veio
+depois — para desfazer um `create table`.
