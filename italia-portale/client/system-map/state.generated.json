@@ -1195,6 +1195,7 @@
       "tests/test_navegador.py",
       "tests/test_operacao.py",
       "tests/test_pipeline.py",
+      "tests/test_porta_de_candidatas.py",
       "tests/test_portao.py",
       "tests/test_portoes_eame.py",
       "tests/test_prioridade_comercial.py",
@@ -1587,8 +1588,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/fix-source-candidate-door-v1",
-    "HEAD": "b67c89783663a1ee21e4a9606ad154cb5df1f94f",
-    "GENERATED_AT": "2026-09-14T11:44:57+00:00"
+    "HEAD": "07cfbf58f7310628fd7a17565a39c18d31fe56d1",
+    "GENERATED_AT": "2026-09-14T12:26:58+00:00"
   },
   "FAMILIES": [
     {
@@ -6771,7 +6772,8 @@
         "C-IDENTIDADE",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -7409,7 +7411,8 @@
         "C-COLETA-INSTAGRAM"
       ],
       "outbound": [
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -9584,7 +9587,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9613,6 +9616,7 @@
         "tests/test_navegador.py",
         "tests/test_operacao.py",
         "tests/test_pipeline.py",
+        "tests/test_porta_de_candidatas.py",
         "tests/test_portao.py",
         "tests/test_portoes_eame.py",
         "tests/test_prioridade_comercial.py",
@@ -9624,9 +9628,9 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 30,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
+      "file_count": 31,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
@@ -9647,9 +9651,11 @@
         "C-IDENTIDADE",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
+        "C-MAPA-SCAN",
         "C-MEDICAO",
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
+        "C-PORTA-FONTE",
         "C-PROCEDENCIA",
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
@@ -11070,7 +11076,7 @@
       "icon": "B",
       "facts": [
         "branch claude/fix-source-candidate-door-v1",
-        "HEAD b67c89783663a1ee21e4a9606ad154cb5df1f94f"
+        "HEAD 07cfbf58f7310628fd7a17565a39c18d31fe56d1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14636,6 +14642,23 @@
       ]
     },
     {
+      "from": "C-MAPA-SCAN",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_candidatas.py",
+          "line": 265,
+          "snippet": "\"system-map/scripts/scan_sources.py\": 'FILA = \"candidatas/FONTES-CANDIDATAS.json\"',"
+        }
+      ]
+    },
+    {
       "from": "C-MAPA-VALIDADOR",
       "to": "C-MAPA-TESTES",
       "type": "READS",
@@ -14998,6 +15021,28 @@
           "file": "system-map/scripts/scan_sources.py",
           "line": 398,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\","
+        }
+      ]
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_porta_de_candidatas.py",
+          "line": 32,
+          "snippet": "PORTA = RAIZ / \"candidatas\" / \"fonte_nova.py\""
+        },
+        {
+          "file": "tests/test_porta_de_candidatas.py",
+          "line": 33,
+          "snippet": "FILA_CANONICA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
         }
       ]
     },
@@ -17999,16 +18044,16 @@
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
-    "components_proven": 68,
-    "components_pending": 25,
+    "components_proven": 67,
+    "components_pending": 26,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 322,
-    "edges_proven": 322,
+    "edges": 324,
+    "edges_proven": 324,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1145,
-    "files_covered": 499,
+    "files_tracked": 1146,
+    "files_covered": 500,
     "files_code_unclaimed": 1
   }
 }

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/fix-source-candidate-door-v1",
-    "HEAD": "b67c89783663a1ee21e4a9606ad154cb5df1f94f",
-    "GENERATED_AT": "2026-09-14T11:44:57+00:00"
+    "HEAD": "07cfbf58f7310628fd7a17565a39c18d31fe56d1",
+    "GENERATED_AT": "2026-09-14T12:26:58+00:00"
   },
   "FILES": [
     {
@@ -7941,6 +7941,13 @@
     {
       "path": "tests/test_pipeline.py",
       "sha": "69c58f5e55c697745f14af6392d165a68e50119a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_porta_de_candidatas.py",
+      "sha": "3eeed760a4d7cf42ffcbe984dbf23dfef636856e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -24283,6 +24290,61 @@
       }
     },
     {
+      "from_file": "tests/test_porta_de_candidatas.py",
+      "to_file": "AGENTS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_candidatas.py",
+        "line": 264,
+        "snippet": "\"AGENTS.md\": \"candidatas/FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_candidatas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_candidatas.py",
+        "line": 33,
+        "snippet": "FILA_CANONICA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_candidatas.py",
+        "line": 32,
+        "snippet": "PORTA = RAIZ / \"candidatas\" / \"fonte_nova.py\""
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_candidatas.py",
+      "to_file": "docs/fontes/INDICE-DE-FONTES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_candidatas.py",
+        "line": 266,
+        "snippet": "\"docs/fontes/INDICE-DE-FONTES.md\": \"candidatas/FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_candidatas.py",
+      "to_file": "system-map/scripts/scan_sources.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_candidatas.py",
+        "line": 265,
+        "snippet": "\"system-map/scripts/scan_sources.py\": 'FILA = \"candidatas/FONTES-CANDIDATAS.json\"',"
+      }
+    },
+    {
       "from_file": "tests/test_portao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -25231,10 +25293,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1145,
-    "files_readable": 389,
-    "files_code_dir": 436,
-    "file_edges": 1530,
+    "files_tracked": 1146,
+    "files_readable": 390,
+    "files_code_dir": 437,
+    "file_edges": 1535,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
