@@ -141,10 +141,33 @@ def _preparar(url):
 
     # E os campos que a `031` ja trazia continuam la — uma migration que
     # acrescenta nao pode ter levado nenhum pelo caminho.
+    #
+    # ⚠️ ISTO DIZIA «todos os 19 campos tem coluna», E ESTAVA ERRADO POR
+    # CONSTRUCAO — o Postgres real recusou-o com
+    # `column "estado" of relation "sala_de_espera" does not exist`.
+    #
+    # DOIS campos do contrato NAO sao colunas, e nenhum dos dois por descuido:
+    #
+    #     ESTADO   e a condicao de entrada, nao um dado guardado. A porta
+    #              recusa quem nao vem `PRONTO` (`pousar()` levanta), e uma
+    #              coluna que so pode ter um valor nao mede nada.
+    #     CORRIDA  e a coluna `run_id`, que e a chave estrangeira. O contrato
+    #              chama-lhe outra coisa; a tabela nao tem de repetir o nome.
+    #
+    #     NOME NO CONTRATO != NOME DA COLUNA, E SUPOR QUE SIM E COMO
+    #     SUPOR QUE A EXTENSAO DIZ A ESPECIE.
+    #
+    # A lista autoritativa e o proprio `insert` do dono
+    # (`sala_de_espera.pousar`), e e contra ela que se mede.
     import sala_de_espera as _espera                          # noqa: PLC0415
-    faltam = [c for c in _espera.CAMPOS_READY if c.lower() not in colunas]
-    caso("todos os %d campos do contrato tem coluna no banco"
-         % len(_espera.CAMPOS_READY), faltam, [])
+    NAO_SAO_COLUNA = {"ESTADO": "e a condicao de entrada, validada em pousar()",
+                      "CORRIDA": "e a coluna run_id, a chave estrangeira"}
+    faltam = [c for c in _espera.CAMPOS_READY
+              if c not in NAO_SAO_COLUNA and c.lower() not in colunas]
+    caso("todo campo do contrato que E coluna tem coluna no banco", faltam, [])
+    caso("e a corrida do contrato vive em run_id", "run_id" in colunas, True)
+    caso("e ESTADO nao vira coluna: ele e a porta, nao o dado",
+         "estado" in colunas, False)
 
     # ── IDEMPOTENCIA: A CADEIA CORRE OUTRA VEZ E NAO ESTRAGA ────────────
     # `add column if not exists` promete isto; promessa nao e medicao.
@@ -595,19 +618,31 @@ def main():
     # o estado de uma linha pre-032 depois da migration correr.
     #
     #     NAO E VIAGEM NO TEMPO. E O MESMO ESTADO, PRODUZIDO PELO MESMO DEFAULT.
-    antigas = [c for c in espera.CAMPOS_READY
-               if c not in ("ESTAGIO", "PUBLISHED_AT", "OBSERVED_AT",
-                            "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
-                            "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO")]
-    cols = ", ".join(c.lower() for c in antigas)
-    vals = ", ".join("'%s'" % str(pronta[c]).replace("'", "''") for c in antigas)
-    _psql(url, "insert into public.sala_de_espera (%s) values (%s);" % (cols, vals),
+    # As colunas que a `031` criou, na lingua da TABELA — lidas do `insert` do
+    # dono, nao adivinhadas do contrato. As sete da `032` ficam de fora de
+    # proposito: e o default delas que se quer medir.
+    COLS_031 = ("run_id", "ordem", "item_id", "raw_observation_id", "universo",
+                "texto", "source_id", "source_location", "fact_location",
+                "fact_time", "captured_at", "admitido_por", "corrida_sha256")
+    def _lit(v):
+        return "'%s'" % str(v).replace("'", "''")
+    valores = {
+        "run_id": _lit("RUN-ADMISSAO"), "ordem": "0",
+        "item_id": _lit("pre-032"),
+        "raw_observation_id": "null", "universo": _lit("T5"),
+        "texto": _lit("linha escrita antes da 032"),
+        "source_id": _lit("IT-T7-001"), "source_location": _lit("NAO SEI"),
+        "fact_location": _lit("NAO SEI"), "fact_time": _lit("NAO SEI"),
+        "captured_at": _lit("2026-05-03T00:00:00Z"),
+        "admitido_por": _lit("PROVA-032"),
+        "corrida_sha256": _lit("0" * 64)}
+    _psql(url, "insert into public.sala_de_espera (%s) values (%s);"
+          % (", ".join(COLS_031), ", ".join(valores[c] for c in COLS_031)),
           ler=False)
-    velha = _psql(url, "select estagio, published_at, observed_at, fact_time_basis, "
-                       "fact_location_basis, source_declared_evidence_class, "
-                       "fato::text from public.sala_de_espera "
-                       "where item_id = '%s' order by 1 limit 1"
-                       % str(pronta["ITEM_ID"]).replace("'", "''"))
+    velha = _psql(url, "select estagio, published_at, observed_at, "
+                       "fact_time_basis, fact_location_basis, "
+                       "source_declared_evidence_class, fato::text "
+                       "from public.sala_de_espera where item_id = 'pre-032'")
     partes = velha[0].split("") if velha else []
     caso("linha pre-032 · continua legivel depois da migration", len(partes), 7)
     if len(partes) == 7:
@@ -623,8 +658,8 @@ def main():
         # como «mediu-se e nao havia». E `NAO_SE_APLICA`, que e outra coisa.
         caso("linha pre-032 · o fato e NAO_SE_APLICA e nao {}",
              json.loads(fato), "NAO_SE_APLICA")
-    _psql(url, "delete from public.sala_de_espera where item_id = '%s';"
-          % str(pronta["ITEM_ID"]).replace("'", "''"), ler=False)
+    _psql(url, "delete from public.sala_de_espera where item_id = 'pre-032';",
+          ler=False)
 
     # 16 · backend indisponível — e NÃO cai para ficheiro.
     guardado = os.environ.pop("SINTONIA_SALA_DSN")
