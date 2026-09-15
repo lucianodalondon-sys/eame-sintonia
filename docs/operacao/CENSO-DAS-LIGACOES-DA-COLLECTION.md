@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b1909de036616355e7e7f3127b9a50bf20444a55
+HEAD_DA_MEDICAO  79b2582cf1490c06ae441c1447d8faef5ade14c5
 BRANCH           claude/it-trunk-v1
-GERADO_EM        2026-09-15T12:08:34-03:00
-CARDS            70
+GERADO_EM        2026-09-15T14:32:27-03:00
+CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -799,7 +799,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65 |
 | **porquê** | estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/ACTIVE-INGREDIENTS.json` |
+| **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/BUILD-SUMMARY.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json`, `research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json` |
 | **arestas no mapa** | entram 0 · saem 2 |
@@ -809,6 +809,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
 | **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
+
+### `C-ADAMA-REFERENCE` · A referencia da ADAMA, com um dono so
+
+| | |
+|---|---|
+| **peça real** | `fontes/adama_referencia.py`, `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json` _(e mais 7)_ |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | REGULATORIO_PORTFOLIO · INTELIGENCIA |
+| **status operacional** | yellow — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | italia-portale/audit/cadeia-de-familias.mjs:73; italia-portale/client/italy-v21.js:5; motor/v21_fechar.py:53 |
+| **porquê** | estas pecas importam-na — C-AUDIT-GERAL · C-PORTAL-MODELO · C-SITE-INGEST · C-V21-INGEST · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json`, `data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv`, `referencia/adama/AUTHORIZED-USES.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 8 |
+| **arestas provadas** | entram 0 · saem 8 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 8 |
 | **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1805,10 +1830,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 35
-UNKNOWN            16
+UNKNOWN            17
 SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 TERMINAL           1
-TOTAL              70
+TOTAL              71
 ```

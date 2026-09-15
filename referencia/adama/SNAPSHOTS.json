@@ -1,0 +1,42 @@
+{
+ "DATASET": "ADAMA-SNAPSHOTS",
+ "SCHEMA": "sintonia.adama-reference/1",
+ "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
+ "BUILDER": "fontes/adama_referencia.py",
+ "LAW": "Nenhuma foto vira lixo. A actual e a de PROD_FTS_6_20260831.",
+ "CURRENT_SNAPSHOT": "PROD_FTS_6_20260831",
+ "COUNT": 3,
+ "RECORDS": [
+  {
+   "SNAPSHOT_ID": "PROD_FTS_6_20260824",
+   "OBSERVED_AT": "2026-08-24",
+   "SOURCE_ID": "IT-T4-001",
+   "AUTHORITY": "Ministero della Salute",
+   "CURRENT": false,
+   "REGISTRATIONS_ADAMA": 163,
+   "PROVING_ARTIFACT": "build/SINTONIA-ITALY-REALITY-HANDOFF-V2.1.zip",
+   "WHY_KEPT": "os 2030 usos autorizados foram lidos contra ESTA foto. Descartá-la tornaria os 2030 pares afirmacoes sem data."
+  },
+  {
+   "SNAPSHOT_ID": "PROD_FTS_6_20260831",
+   "OBSERVED_AT": "2026-08-31",
+   "SOURCE_ID": "IT-T4-001",
+   "AUTHORITY": "Ministero della Salute",
+   "CURRENT": true,
+   "REGISTRATIONS_ADAMA": 602,
+   "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
+   "WHY_CURRENT": "populacao regulatoria maior (602 > 163) e posterior; e o bruto de 07/09 confirma-a linha a linha, 602 de 602."
+  },
+  {
+   "SNAPSHOT_ID": "PROD_FTS_6_20260907",
+   "OBSERVED_AT": "2026-09-07",
+   "SOURCE_ID": "IT-T4-001",
+   "AUTHORITY": "Ministero della Salute",
+   "CURRENT": false,
+   "REGISTRATIONS_ADAMA": 602,
+   "PROVING_ARTIFACT": "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
+   "STATE": "RAW_PRESENT_NOT_DERIVED",
+   "WHY_NOT_CURRENT": "e o bruto integral (17695 linhas), ainda nao derivado para esta casa. Usado aqui so para CONFERIR a foto de 31/08: 602 de 602, zero entradas e zero saidas. Deriva-lo e missao propria, nao esta."
+  }
+ ]
+}

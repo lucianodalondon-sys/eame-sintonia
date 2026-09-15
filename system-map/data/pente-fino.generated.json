@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-15T17:15:09+00:00",
-    "HEAD": "b1909de036616355e7e7f3127b9a50bf20444a55",
+    "GENERATED_AT": "2026-09-15T18:25:29+00:00",
+    "HEAD": "79b2582cf1490c06ae441c1447d8faef5ade14c5",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "1962b9b2b7d0d9f23ab5d0c6289b98f5f58509fd27c7425da3ccb4c22cab7655",
-    "FICHEIROS_NA_IMPRESSAO": 2079,
+    "SOURCE_TREE_FINGERPRINT": "02f83b56a65a2f5ee65875a41fe7590fa3b335ab809c37099e93e27ed7bc6cd5",
+    "FICHEIROS_NA_IMPRESSAO": 2094,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "1962b9b2b7d0d9f23ab5d0c6289b98f5f58509fd27c7425da3ccb4c22cab7655",
+        "VERSAO": "02f83b56a65a2f5ee65875a41fe7590fa3b335ab809c37099e93e27ed7bc6cd5",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "4e8ba4e71498651d04e427da13c666d2584cba6e99398ad0c2913a9abe8726a0",
+    "INPUTS_DIGEST": "e8f4b698d41311febbb47d00658e5713ab8df4e1d1a9504cbdb96ff2e2d95fe9",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -177,6 +177,18 @@
       "respostas": 1,
       "ficheiros": 20,
       "estado": "gray"
+    },
+    {
+      "id": "C-ADAMA-REFERENCE",
+      "nome": "A referencia da ADAMA, com um dono so",
+      "zona": "· as fontes",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 12,
+      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -780,10 +792,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 53,
+    "pecas_da_coleta": 54,
     "respondem_as_quatro": 26,
     "respondem_a_tres": 19,
-    "respondem_a_duas": 5,
+    "respondem_a_duas": 6,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

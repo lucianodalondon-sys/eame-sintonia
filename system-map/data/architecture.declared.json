@@ -315,6 +315,55 @@
       "icon": "◪"
     },
     {
+      "id": "C-ADAMA-REFERENCE",
+      "name": "A referencia da ADAMA, com um dono so",
+      "territory": "Z-FONTES",
+      "kind": "contract",
+      "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro.",
+      "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE.",
+      "departments": [
+        "REGULATORIO_PORTFOLIO",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "fontes/adama_referencia.py",
+        "referencia/adama/ACTIVE-INGREDIENTS.json",
+        "referencia/adama/AUTHORIZED-USES.json",
+        "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
+        "referencia/adama/DOSES.json",
+        "referencia/adama/LABEL-DOCUMENTS.json",
+        "referencia/adama/PORTFOLIO.json",
+        "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
+        "referencia/adama/PRODUCT-MASTER.json",
+        "referencia/adama/REGISTRATIONS.json",
+        "referencia/adama/SNAPSHOTS.json",
+        "referencia/adama/SOURCE-ID-MAP.json"
+      ],
+      "views": [
+        "science",
+        "acervo"
+      ],
+      "icon": "◈"
+    },
+    {
+      "id": "C-PROVA-ADAMA-REFERENCE",
+      "name": "O red team da referencia ADAMA",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Catorze ataques por mutacao real contra referencia/adama/: funde produtos, roda identidades, apaga snapshot, descarta os 560 registos sem catalogo, funde titulares, devolve o vencimento ao campo de observacao. Cada um exige que a suite REPROVE.",
+      "why_here": "Um dos catorze sobreviveu a primeira corrida: rodar os ADAMA_PRODUCT_ID entre os produtos passava, porque a prova de estabilidade regenerava a partir do proprio ficheiro — lia a rotacao e reproduzia-a. Dai nasceu o IDENTITY_SEAL, que assina o par ID-ancora na emissao. Um teste que passa com o defeito posto de volta nao estava a medir nada.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/red_team_adama_referencia.py"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⚔"
+    },
+    {
       "id": "C-ADMISSAO",
       "name": "A porta de admissao",
       "territory": "Z-ADMISSAO",
