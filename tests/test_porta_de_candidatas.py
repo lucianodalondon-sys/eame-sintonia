@@ -60,6 +60,21 @@ class Sandbox:
         self.fila = self.raiz / "candidatas" / "FONTES-CANDIDATAS.json"
         shutil.copy2(PORTA, self.porta)
         shutil.copy2(FILA_CANONICA, self.fila)
+        # ⚠️ NAO assumir que a fila comeca vazia.
+        #
+        # Estes testes nasceram com `assertEqual(0, s.total())` porque, no dia
+        # em que foram escritos, a fila canonica tinha zero linhas. Isso nao era
+        # uma propriedade da porta — era o facto de ninguem a ter usado ainda.
+        # Em 2026-09-15 entraram 241 candidatas italianas e seis destes testes
+        # ficaram vermelhos sem que a porta tivesse mudado uma linha.
+        #
+        #     UM TESTE QUE SO PASSA COM A GAVETA VAZIA NAO TESTA A GAVETA.
+        #
+        # Agora mede-se o DELTA: quantas linhas a porta acrescentou, e qual e' a
+        # linha que ela escreveu — procurada pelo URL, nao pelo indice, porque
+        # `gravar()` ordena por (TIPO, PAIS, NOME) e o indice 0 e' de quem
+        # calhar.
+        self.inicial = self.total()
         return self
 
     def __exit__(self, *a):
@@ -80,6 +95,18 @@ class Sandbox:
 
     def candidatas(self):
         return json.loads(self.fila.read_text(encoding="utf-8"))["CANDIDATAS"]
+
+    def acrescentadas(self):
+        """Quantas linhas a porta pos na fila desde que o sandbox abriu."""
+        return self.total() - self.inicial
+
+    def linha(self, url):
+        """A linha daquele URL, pela mesma chave que a porta usa para deduplicar."""
+        chave = carregar_porta().normalizar(url)
+        for c in self.candidatas():
+            if carregar_porta().normalizar(c["URL"]) == chave:
+                return c
+        return None
 
     @property
     def fantasma(self):
@@ -106,10 +133,12 @@ class APortaEscreveNaFilaCanonica(unittest.TestCase):
 
     def test_registar_poe_a_candidata_na_fila_canonica(self):
         with Sandbox() as s:
-            self.assertEqual(0, s.total())
             r = s.registar(**VALIDA)
             self.assertEqual(0, r.returncode, r.stderr)
-            self.assertEqual(1, s.total(), "a candidata nao chegou a' fila canonica")
+            self.assertEqual(1, s.acrescentadas(),
+                             "a candidata nao chegou a' fila canonica")
+            self.assertIsNotNone(s.linha(VALIDA["url"]),
+                                 "a fila cresceu e a linha registada nao esta' la'")
 
     def test_a_porta_nao_cria_uma_segunda_fila(self):
         """O defeito original: escrever em data/samples/, que ninguem le'."""
@@ -127,7 +156,7 @@ class APortaEscreveNaFilaCanonica(unittest.TestCase):
             with tempfile.TemporaryDirectory() as outro:
                 r = s.registar(cwd=outro, **VALIDA)
                 self.assertEqual(0, r.returncode, r.stderr)
-            self.assertEqual(1, s.total(),
+            self.assertEqual(1, s.acrescentadas(),
                              "correr a porta de outro diretorio escreveu noutro sitio")
             self.assertFalse(s.fantasma.exists())
 
@@ -145,7 +174,7 @@ class APortaNaoFabricaIdentidade(unittest.TestCase):
     def test_a_candidata_nasce_sem_source_id(self):
         with Sandbox() as s:
             s.registar(**VALIDA)
-            linha = s.candidatas()[0]
+            linha = s.linha(VALIDA["url"])
             self.assertIn("SOURCE_ID", linha)
             self.assertIsNone(linha["SOURCE_ID"],
                               "a porta fabricou um SOURCE_ID — identidade canonica nao "
@@ -156,7 +185,7 @@ class APortaNaoFabricaIdentidade(unittest.TestCase):
     def test_o_identificador_da_fila_nao_e_um_source_id(self):
         with Sandbox() as s:
             s.registar(**VALIDA)
-            linha = s.candidatas()[0]
+            linha = s.linha(VALIDA["url"])
             self.assertTrue(linha["CANDIDATA_ID"].startswith("CAND-"),
                             "o id da fila tem de ser obviamente da fila")
             self.assertNotRegex(linha["CANDIDATA_ID"], r"^[A-Z]{2}-T\d{1,2}-\d+$",
@@ -170,7 +199,7 @@ class ADeduplicacaoOperacional(unittest.TestCase):
         with Sandbox() as s:
             s.registar(**VALIDA)
             s.registar(**VALIDA)
-            self.assertEqual(1, s.total(),
+            self.assertEqual(1, s.acrescentadas(),
                              "registar a mesma fonte duas vezes criou duas linhas")
 
     def test_variacoes_de_grafia_reutilizam_a_candidata_existente(self):
@@ -187,7 +216,7 @@ class ADeduplicacaoOperacional(unittest.TestCase):
             s.registar(**dict(VALIDA, url=base))
             for v in variantes:
                 s.registar(**dict(VALIDA, url=v))
-            self.assertEqual(1, s.total(),
+            self.assertEqual(1, s.acrescentadas(),
                              "uma variacao de grafia abriu uma candidata nova")
 
     def test_url_diferente_continua_a_criar_candidata_nova(self):
@@ -195,7 +224,7 @@ class ADeduplicacaoOperacional(unittest.TestCase):
         with Sandbox() as s:
             s.registar(**VALIDA)
             s.registar(**dict(VALIDA, url="https://exemplo-de-teste.invalid/outra-coisa"))
-            self.assertEqual(2, s.total(),
+            self.assertEqual(2, s.acrescentadas(),
                              "dois enderecos diferentes foram colapsados num so'")
 
     def test_o_tracking_nao_e_removido_pela_normalizacao(self):

@@ -15,17 +15,17 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **197** |
+| fichas completas no atlas | **210** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **255** |
-| desses, publicados no mapa | **40** (truncados: 215) |
+| endereços que o código realmente chama | **258** |
+| desses, publicados no mapa | **40** (truncados: 218) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
-> O cabeçalho do atlas diz **177 fontes registradas**
+> O cabeçalho do atlas diz **190 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **197**. Faltam **-20**.
+> **210**. Faltam **-20**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -41,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **160** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **173** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
@@ -58,7 +58,7 @@ py candidatas/fonte_nova.py \
     --para-que "para que serve" --quem-viu voce --onde-viu "onde viu"
 ```
 
-Hoje há **0** candidata(s) na fila,
+Hoje há **241** candidata(s) na fila,
 em `candidatas/FONTES-CANDIDATAS.json`.
 
 `--para-que` é obrigatório de propósito: fonte sem uso declarado vira
@@ -165,7 +165,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
 | `FR-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### ITALIA · 144 fontes · 1 com contrato de busca
+### ITALIA · 157 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
@@ -191,6 +191,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T1-021` | AgroNotizie — Image Line | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
 | `IT-T1-022` | OlivoNews — giornale di olivicoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
 | `IT-T1-023` | SOI — Societa di Ortoflorofrutticoltura Italiana | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
+| `IT-T10-002` | BMTI — analisi di mercato cereali | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
 | `IT-T10-006` | Agrisole — quotidiano agricolo del Sole 24 Ore | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
 | `IT-T10-007` | ISMEA — Istituto di Servizi per il Mercato Agricolo Alimen | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
 | `IT-T10-008` | Italmopa — Associazione Industriali Mugnai d'Italia | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
@@ -208,6 +209,9 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T12-004` | Confagricoltura | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟡 YELLOW | **não** |
 | `IT-T12-005` | AIAB — Associazione Italiana Agricoltura Biologica | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
 | `IT-T12-006` | CIA Toscana | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T2-001` | ARPAE — Bollettino agrometeorologico regionale | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-002` | ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-004` | SIAS Sicilia — agrometeorologia regional | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-006` | ARPA Campania | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-007` | ARPA Sicilia | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-008` | ARPAT Toscana | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
@@ -228,6 +232,10 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T2-023` | ARPA Basilicata | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-024` | ANBI — Associazione Nazionale Consorzi di gestione e tutel | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T3-001` | IT-T3-001 | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T3-002` | Campania — Bollettini fitosanitari regionali | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-008` | ARIF Puglia / Agrometeo Puglia — rete fitosanitaria | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-010` | APOL Lecce — monitoraggio olivicolo | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-011` | AGRIOS — direttive, aggiornamenti e deroghe per la produzi | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
 | `IT-T3-013` | Emilia-Romagna — Servizio Fitosanitario | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T3-014` | Servizio Fitosanitario Nazionale — Protezione delle Piante | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
 | `IT-T3-015` | Toscana — Servizio Fitosanitario Regionale | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
@@ -238,6 +246,8 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T3-020` | Societa Entomologica Italiana | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
 | `IT-T3-021` | SIPaV — Societa Italiana di Patologia Vegetale | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · REGULATORY | 🟢 GREEN | sim |
+| `IT-T5-002` | FEM OpenPub — repositório de publicações | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-003` | Giornate Fitopatologiche — atti e programma | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-006` | CNR — Consiglio Nazionale delle Ricerche | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-007` | Institut Agricole Regional — Aosta | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-008` | Fondazione Agrion — Fondazione per la ricerca l'innovazion | T5 · SCIENCE | 🟡 YELLOW | **não** |
@@ -305,9 +315,12 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T6-034` | Tito Caffi — registo cientifico ORCID (Università Cattolic | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
 | `IT-T6-035` | Vera Pavese — registo cientifico ORCID (University of Turi | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
 | `IT-T6-036` | sara ruschioni — registo cientifico ORCID (Marche Polytech | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T7-002` | MASAF — elenco delle OP e AOP riconosciute | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T7-013` | CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Fore | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T7-014` | Consorzi Agrari d'Italia — CAI | T7 · TECHNICAL NETWORK | 🟡 YELLOW | **não** |
 | `IT-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
+| `IT-T9-002` | Bayer CropScience Italia — comunicação pública | T9 · COMPETITORS | 🟡 YELLOW | **não** |
+| `IT-T9-008` | ADAMA Italia — comunicação pública | T9 · COMPETITORS | 🟡 YELLOW | **não** |
 | `IT-T9-009` | Cifo | T9 · COMPETITORS | 🟢 GREEN | **não** |
 | `IT-T9-010` | Serbios | T9 · COMPETITORS | 🟡 YELLOW | **não** |
 | `IT-T9-011` | Koppert Italia | T9 · COMPETITORS | 🟡 YELLOW | **não** |

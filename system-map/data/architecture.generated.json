@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "0063e46b07030644a5c5c34e650dba12089e6321",
-    "GENERATED_AT": "2026-09-15T16:49:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8964c64b90637a7a4c70c566087d6043c2c85cc912458c480178fa734592a7f0"
+    "BRANCH": "claude/it-sources-atlas-v1",
+    "HEAD": "43553a651f8c330512c5989a78bc796739659331",
+    "GENERATED_AT": "2026-09-15T17:09:14-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c46c43eb164fbea7eb1f6fb3cc0ab9671f09c5ffaa25d77b365dadf92f9279a0"
   },
   "FILES": [
     {
@@ -220,7 +220,7 @@
     },
     {
       "path": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "sha": "e5c9b1c18f8b73b51289b39f9bc64188b4966a3b",
+      "sha": "b7d3c977028348165d6e747ba7ced96cc298efcd",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1046,8 +1046,22 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "ef5d20af7253dd06350a414a81f37e8327d5b83a",
+      "sha": "99b215e7e10342a385c02c8be56b7aa8b3822e43",
       "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/ITALY-CONTRACT-CANDIDATES-2026-09-15.csv",
+      "sha": "4c6f7f311c564ba36388ee7b9f6a4b24b2d88882",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/ITALY-SOURCE-DECISIONS-2026-09-15.csv",
+      "sha": "d82b93b978759a5653eb9e7cf8412c0a71ed72d8",
+      "ext": ".csv",
       "readable": false,
       "code_dir": true
     },
@@ -1101,6 +1115,13 @@
       "code_dir": true
     },
     {
+      "path": "candidatas/decidir_fila_italia.py",
+      "sha": "22de8d850b4499c701cbed6cad317fb744458f0e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "candidatas/fonte_nova.py",
       "sha": "2ca652d9dac8e4431976ad70ba69ed24a6adc12c",
       "ext": ".py",
@@ -1146,6 +1167,20 @@
       "path": "candidatas/italy_write_matrix.mjs",
       "sha": "7be10ad18b8ba878b09ed93fd41b82ab74262828",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/reconciliar_fichas_orfas.py",
+      "sha": "18018f0ae1bb994bedf1705ce4b4895eed8e442a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/xlsx_simples.py",
+      "sha": "46c087bf2df6ff645e09143c45ae6b7e3f96adc2",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -1725,7 +1760,7 @@
     },
     {
       "path": "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
-      "sha": "58a018dd6eed9c8c1ee24ad6ed26d1c2f133104d",
+      "sha": "4d5ea581806f3ed7340c4f26ba35de6d57126cd0",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5568,21 +5603,21 @@
     },
     {
       "path": "docs/apresentacao/CONTRATO-DE-PROVA-DA-APRESENTACAO.md",
-      "sha": "dc64654f6007f59a5319d86b23fe5eebbfdce52e",
+      "sha": "584619651f699d88ea68fa452dee5ec1bfdea30c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/apresentacao/MATRIZ-DE-PROVA-EAME.md",
-      "sha": "a1ae2fab7f68baea036cad4f6e9fd507734943bf",
+      "sha": "c50cf836254bbb9d3f86dba208235b7c7aad5a07",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-      "sha": "58ddd42251744d667cb8a8431dd2d60bcc54aabb",
+      "sha": "4ebeb85135c9eedc026ad37868fcb0968a566cb0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5869,7 +5904,7 @@
     },
     {
       "path": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "sha": "53e2abd5acf484ac2b380ddf3a72699821651134",
+      "sha": "41c66263cec2fe6428286d584f11111404fe8fbf",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5883,7 +5918,14 @@
     },
     {
       "path": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-      "sha": "1629449da7b3e7637c1cba107f9731ed9612e4c2",
+      "sha": "3029a669604d90ec342ebdc9078335af3837aa1a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/fontes/AUDITORIA-DA-FILA-ITALIANA-2026-09-15.md",
+      "sha": "9fc4c7cf96ff63b70dee115b38cd8756974061a0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6422,28 +6464,28 @@
     },
     {
       "path": "docs/piloto/ENTRADA-PARA-CLAUDE-DESIGN.md",
-      "sha": "8e9c04e62f194a64b032a788f57f267b7840b0e1",
+      "sha": "8656c1db78f34fc931f48981d3f063e8ecf5991f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "sha": "e1c9a5bfc21cf7c8dfe4fb20988af7e4538dae7b",
+      "sha": "0a4db3de9b5e095d6b4eb4b42af8f148581a9e5c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "sha": "8dbfee21d7c3bb0232d1a3637a2bf940b848a458",
+      "sha": "5e732678a544e7952e23b82c85d607e481c3f99b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "sha": "3e390a7f9b47937e054e2e20b03633d5c774d398",
+      "sha": "ed8c92652a094882c8542a64bf7b479bfd24c474",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6464,14 +6506,14 @@
     },
     {
       "path": "docs/piloto/SOURCE-PACK-PILOTO.md",
-      "sha": "0c91145ebabbe5d29aed520cb2b3849868d5e50e",
+      "sha": "583634ba791d8ab90cdf2662a06c131f3991c347",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "sha": "59050b2c0011caf7791c3a502636108233378950",
+      "sha": "0e630b66fb6c8d3be7e2ba80b4015af9fb5bc75e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6604,7 +6646,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "sha": "7be014f992a7184a8871b0865d1dd196c31233e3",
+      "sha": "f7441bba87550ec82cb97122cfd353a104cb95d7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -12022,7 +12064,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "135b848349b08edec602336b493355637f820de0",
+      "sha": "1739d6abf66fc439172370ff5a71e64c110069ca",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13050,6 +13092,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_fila_italia_decisoes.py",
+      "sha": "fd4e0eb6315af67efc924b5afb2247badb609781",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_fonte_atravessa.py",
       "sha": "12c8ca7387efa32b4cbdf3b58b60181b950744a4",
       "ext": ".py",
@@ -13338,7 +13387,7 @@
     },
     {
       "path": "tests/test_porta_de_candidatas.py",
-      "sha": "3eeed760a4d7cf42ffcbe984dbf23dfef636856e",
+      "sha": "ab42bf6e71a64391f3a64430fda867a6ce92bd77",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15153,6 +15202,138 @@
       }
     },
     {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-CONTRACT-CANDIDATES-2026-09-15.csv",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 106,
+        "snippet": "CONTRATOS_CAND = GAVETA / \"ITALY-CONTRACT-CANDIDATES-2026-09-15.csv\""
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-CONTRACT-CANDIDATES-2026-09-15.csv",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 526,
+        "snippet": "with open(CONTRATOS_CAND, \"w\", encoding=\"utf-8\", newline=\"\") as f:"
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-SOURCE-DECISIONS-2026-09-15.csv",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 105,
+        "snippet": "DECISOES = GAVETA / \"ITALY-SOURCE-DECISIONS-2026-09-15.csv\""
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-SOURCE-DECISIONS-2026-09-15.csv",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 519,
+        "snippet": "with open(DECISOES, \"w\", encoding=\"utf-8\", newline=\"\") as f:"
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 103,
+        "snippet": "DISCOVERY = GAVETA / \"ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx\""
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 383,
+        "snippet": "master = json.loads((GAVETA / \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 104,
+        "snippet": "QUALIFICACAO = GAVETA / \"ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx\""
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 100,
+        "snippet": "import fonte_nova                       # noqa: E402  a UNICA porta da fila"
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "candidatas/xlsx_simples.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 101,
+        "snippet": "import xlsx_simples as XL               # noqa: E402  leitor de xlsx sem dependencia"
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 216,
+        "snippet": "EVIDENCE=\"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 360,
+        "snippet": "CONTRATOS = RAIZ / \"docs\" / \"operacao\" / \"CONTRATOS-DAS-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "candidatas/decidir_fila_italia.py",
+      "to_file": "leis/fonte_do_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/decidir_fila_italia.py",
+        "line": 99,
+        "snippet": "import fonte_do_atlas as ATLAS          # noqa: E402  a autoridade do SOURCE_ID"
+      }
+    },
+    {
       "from_file": "candidatas/fonte_nova.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -15249,6 +15430,28 @@
         "file": "candidatas/italy_write_matrix.mjs",
         "line": 3,
         "snippet": "import { medir } from \"../regras/italy_source_health.mjs\";"
+      }
+    },
+    {
+      "from_file": "candidatas/reconciliar_fichas_orfas.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/reconciliar_fichas_orfas.py",
+        "line": 63,
+        "snippet": "MASTER = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\""
+      }
+    },
+    {
+      "from_file": "candidatas/reconciliar_fichas_orfas.py",
+      "to_file": "leis/fonte_do_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/reconciliar_fichas_orfas.py",
+        "line": 60,
+        "snippet": "import fonte_do_atlas as ATLAS          # noqa: E402"
       }
     },
     {
@@ -51519,6 +51722,127 @@
       }
     },
     {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 38,
+        "snippet": "FILA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 281,
+        "snippet": "d = XL.folhas(RAIZ / \"candidatas\" / \"ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 198,
+        "snippet": "master = (RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\") \\"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 278,
+        "snippet": "q = XL.folhas(RAIZ / \"candidatas\" / \"ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx\")"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/decidir_fila_italia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 33,
+        "snippet": "import decidir_fila_italia as D          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/decidir_fila_italia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 303,
+        "snippet": "codigo = (RAIZ / \"candidatas\" / \"decidir_fila_italia.py\").read_text("
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/reconciliar_fichas_orfas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 35,
+        "snippet": "import reconciliar_fichas_orfas as REC   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "candidatas/xlsx_simples.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 36,
+        "snippet": "import xlsx_simples as XL                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 246,
+        "snippet": "self.assertIn(\"data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json\", bloco)"
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 39,
+        "snippet": "ATLAS_MD = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "tests/test_fila_italia_decisoes.py",
+      "to_file": "leis/fonte_do_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fila_italia_decisoes.py",
+        "line": 34,
+        "snippet": "import fonte_do_atlas as ATLAS           # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_fonte_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -54572,7 +54896,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_candidatas.py",
-        "line": 264,
+        "line": 293,
         "snippet": "\"AGENTS.md\": \"candidatas/FONTES-CANDIDATAS.json\","
       }
     },
@@ -54605,7 +54929,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_candidatas.py",
-        "line": 265,
+        "line": 294,
         "snippet": "\"system-map/scripts/scan_sources.py\": 'FILA = \"candidatas/FONTES-CANDIDATAS.json\"',"
       }
     },
@@ -58670,10 +58994,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1951,
-    "files_readable": 766,
-    "files_code_dir": 823,
-    "file_edges": 4045,
+    "files_tracked": 1958,
+    "files_readable": 770,
+    "files_code_dir": 829,
+    "file_edges": 4070,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

@@ -2154,6 +2154,28 @@
       ]
     },
     {
+      "id": "C-DECISAO-DA-FILA",
+      "name": "A decisao da fila de fontes",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "⚖",
+      "what": "Le a prova que ja esta guardada sobre cada candidata italiana e decide, uma a uma, se ela sobe para REGISTADA, se e RECUSADA, ou se fica EM_ANALISE — e escreve porque. Nao abre rede: nao coleta nada.",
+      "why_here": "Recusar exige prova de que a fonte NAO SERVE. HTTP 429 e muro de login nao sao isso: sao a ausencia de leitura, e o atlas proibe por escrito converter «nao consegui verificar» em recusa. Sem uma regua que se possa voltar a correr, a fila passa a ser decidida por opiniao — e opiniao nao deixa rasto para ninguem contestar.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "candidatas/decidir_fila_italia.py",
+        "candidatas/xlsx_simples.py",
+        "candidatas/ITALY-SOURCE-DECISIONS-2026-09-15.csv",
+        "candidatas/ITALY-CONTRACT-CANDIDATES-2026-09-15.csv",
+        "candidatas/reconciliar_fichas_orfas.py"
+      ]
+    },
+    {
       "id": "C-PORTAL-CASCO",
       "name": "Casco do portal",
       "territory": "Z-SUPERFICIE",

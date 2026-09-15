@@ -6,8 +6,8 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-09-14 — **<!--M:SOURCE_ID_COUNT-->177<!--/M--> fontes registradas** (79 GREEN, 81 YELLOW, 17 NÃO SEI).
-**Última atualização:** 2026-09-14
+**Estado:** atualizado em 2026-09-15 — **<!--M:SOURCE_ID_COUNT-->190<!--/M--> fontes registradas** (90 GREEN, 83 YELLOW, 17 NÃO SEI).
+**Última atualização:** 2026-09-15
 
 ---
 
@@ -6302,13 +6302,712 @@ VERDICT:                      GREEN — fonte aberta, exemplo real observado e p
 
 ---
 
+### RECONCILIAÇÃO — prova guardada que o atlas não mostrava (2026-09-15)
+
+*13 fontes italianas cujo `SOURCE_ID` já estava emitido em
+`candidatas/ITALY-SOURCE-MASTER-V1.json`, cuja prova bruta já estava preservada em
+`data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`, e que **nenhuma ficha deste atlas mostrava**.
+Nenhum `SOURCE_ID` foi emitido aqui: os treze já existiam. Nenhuma coleta correu nesta
+missão — o `SHA256` de cada um dos 23 ficheiros foi **reconferido contra os bytes em disco**
+em 2026-09-15, e os 23 conferem.*
+
+> **Porque isto é um defeito, e não uma arrumação.** Este atlas já avisa, na convenção de
+> `SOURCE_ID`, que um número que desaparece daqui é um número que alguém volta a emitir «sem
+> que nada acuse». Enquanto estas treze não tinham ficha, quem contava fontes pelo atlas
+> contava treze a menos e quem contava pela pasta de provas contava treze a mais — duas
+> contagens certas, para a mesma casa, e uma casa que não sabia o que tinha.
+
+**Onze são GREEN e duas são YELLOW, e a diferença está na prova, não no gosto:** as onze
+guardam os bytes que o próprio site serviu; as duas de T9 guardam um **extrato do DOM lido
+por navegador**, e o manifesto delas declara, por escrito, que não são os bytes servidos.
+Os sites da Bayer Italia e da ADAMA Italia devolvem 403 a `curl` do mesmo IP italiano.
+
+⚠️ **Todas as capturas saíram por VPN comercial italiana (Proton AG, Milano).** Não foi
+medido como cada fonte responde a partir de um IP não italiano. Está escrito em cada ficha.
+
+Gerador e verificador: `candidatas/reconciliar_fichas_orfas.py`.
+
+#### IT-T2-001 · ARPAE — Bollettino agrometeorologico regionale
+
+```
+SOURCE_ID:                    IT-T2-001
+SOURCE_NAME:                  ARPAE — Bollettino agrometeorologico regionale
+SOURCE_OWNER:                 ARPAE Emilia-Romagna (IT-OWN-002)
+COUNTRY:                      ITALY
+REGION:                       Emilia-Romagna
+LANGUAGE:                     IT
+TERRITORY:                    T2
+SOURCE_TYPE:                  boletim agrometeorológico
+URL:                          https://www.arpae.it/it/temi-ambientali/meteo/agrometeo
+ACCESS_METHOD:                PDF
+CROPS:                        transversal
+TOPICS:                       precipitação, temperatura, água no solo, agroclima
+GEOGRAPHIC_GRANULARITY:       NÃO SEI (esperado: região/zona)
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 2 de 2 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 31-08-2026 (boletim n. 35) e 24-08-2026 (n. 34)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Bollettino agrometeorologico n. 35 / n. 34 del 2026»
+                              https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026/35_boll_agro_20260831.pdf
+                              — application/pdf, 1787024 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Bologna — sede da ARPAE
+FACT_LOCATION:                Emilia-Romagna (regional). DIFERENTE da sede.
+WHAT_IT_PROVES:               que existe boletim agrometeorologico regional numerado e semanal, em
+                              PDF aberto, com arquivo por ano desde pelo menos 2021
+WHAT_IT_DOES_NOT_PROVE:       presenca de praga · ocorrencia fitossanitaria · risco modelado de
+                              praga · decisao de tratamento · dado por talhao. AGROCLIMATIC_SIGNAL
+                              nunca vira PEST_OCCURRENCE.
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T2-002 · ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali
+
+```
+SOURCE_ID:                    IT-T2-002
+SOURCE_NAME:                  ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali
+SOURCE_OWNER:                 ARPAV — Agenzia Regionale per la Prevenzione e Protezione Ambientale
+                              del Veneto (IT-OWN-003)
+COUNTRY:                      ITALY
+REGION:                       Veneto
+LANGUAGE:                     IT
+TERRITORY:                    T2
+SOURCE_TYPE:                  boletim agrometeorológico zonal
+URL:                          https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo
+ACCESS_METHOD:                PDF
+CROPS:                        transversal, com recortes por cultura nos bollettini zonali
+TOPICS:                       chuva, temperatura, evapotranspiração, alerta agroclimático
+GEOGRAPHIC_GRANULARITY:       NÃO SEI (esperado: zona)
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 2 de 2 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — agro_01 gerado em 03/09/2026 16:09; agro_09 gerado em
+                              02/09/2026 15:26 (data lida do proprio PDF)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T2-002/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Agrometeo...informa — bollettino di zona»
+                              https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf
+                              — application/pdf, 463630 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Padova/Teolo — ARPAV
+FACT_LOCATION:                zona agrometeorologica do Veneto correspondente ao numero do
+                              arquivo. DIFERENTE da sede.
+WHAT_IT_PROVES:               que a ARPAV publica boletim agrometeorologico por zona, em PDF
+                              aberto, com 32 zonas e geracao independente por zona (datas
+                              diferentes entre agro_01 e agro_09)
+WHAT_IT_DOES_NOT_PROVE:       o conteudo especifico de cada boletim (nao lido) · praga · risco
+                              modelado · decisao de tratamento
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-002/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T2-004 · SIAS Sicilia — agrometeorologia regional
+
+```
+SOURCE_ID:                    IT-T2-004
+SOURCE_NAME:                  SIAS Sicilia — agrometeorologia regional
+SOURCE_OWNER:                 SIAS — Servizio Informativo Agrometeorologico Siciliano (IT-OWN-005)
+COUNTRY:                      ITALY
+REGION:                       Sicilia
+LANGUAGE:                     IT
+TERRITORY:                    T2
+SOURCE_TYPE:                  serviço agrometeorológico regional
+URL:                          http://www.sias.regione.sicilia.it
+ACCESS_METHOD:                HTML
+CROPS:                        transversal
+TOPICS:                       chuva, temperatura, seca, território
+GEOGRAPHIC_GRANULARITY:       NÃO SEI (esperado: estação/ponto)
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 2 de 2 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — janela 26/08/2026 a 05/09/2026 (11 dias) na tabela de chuva
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T2-004/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Precipitazioni giornaliere (mm) — dal 26/08/2026 al 05/09/2026»
+                              http://www.sias.regione.sicilia.it/NHEOWL0530_00.html — text/html,
+                              79628 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Palermo — Regione Siciliana
+FACT_LOCATION:                estacoes da Sicilia, agrupadas por provincia (ex.: Calatafimi,
+                              Castellammare del Golfo, Castelvetrano, Erice, Marsala, Mazara del
+                              Vallo, Pantelleria, Salemi)
+WHAT_IT_PROVES:               que a Sicilia publica dado agrometeorologico diario por estacao,
+                              aberto, sem login, com janela movel de 11 dias e acumulado anual
+WHAT_IT_DOES_NOT_PROVE:       praga · cultura · decisao de tratamento · dado por talhao · serie
+                              historica longa (a pagina so mostra a janela corrente)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-004/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T3-002 · Campania — Bollettini fitosanitari regionali
+
+```
+SOURCE_ID:                    IT-T3-002
+SOURCE_NAME:                  Campania — Bollettini fitosanitari regionali
+SOURCE_OWNER:                 Regione Campania — Servizio Fitosanitario Regionale (IT-OWN-007)
+COUNTRY:                      ITALY
+REGION:                       Campania
+LANGUAGE:                     IT
+TERRITORY:                    T3
+SOURCE_TYPE:                  boletim fitossanitário oficial
+URL:                          https://www.agricoltura.regione.campania.it
+ACCESS_METHOD:                PDF
+CROPS:                        múltiplas
+TOPICS:                       fenologia, avversità, difesa integrata, província
+GEOGRAPHIC_GRANULARITY:       NÃO SEI (esperado: província)
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 3 de 3 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 02-09-2026 (SA e NA) e 26-08-2026 (SA)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T3-002/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Bollettino fitosanitario — produzione integrata»
+                              https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf
+                              — application/pdf, 813109 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Napoli — sede da Regione Campania
+FACT_LOCATION:                provincia do proprio boletim: Salerno (SA) e Napoli (NA). DIFERENTE
+                              da sede.
+WHAT_IT_PROVES:               que existe orientacao fitossanitaria oficial semanal por provincia
+                              na Campania, com limiar de intervencao e substancia ativa nomeada, e
+                              com marcacao de presenca/ausencia de pragas observada pelo servico
+                              regional
+WHAT_IT_DOES_NOT_PROVE:       tratamento efetivamente realizado no campo · venda · estoque ·
+                              market share · produto ADAMA comprado · incidencia nacional ·
+                              severidade numerica por ponto
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-002/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T3-008 · ARIF Puglia / Agrometeo Puglia — rete fitosanitaria
+
+```
+SOURCE_ID:                    IT-T3-008
+SOURCE_NAME:                  ARIF Puglia / Agrometeo Puglia — rete fitosanitaria
+SOURCE_OWNER:                 ARIF Puglia — Agenzia Regionale per le Attività Irrigue e Forestali
+                              (IT-OWN-010)
+COUNTRY:                      ITALY
+REGION:                       Puglia
+LANGUAGE:                     IT
+TERRITORY:                    T3
+SOURCE_TYPE:                  rede regional
+URL:                          https://www.arifpuglia.it
+ACCESS_METHOD:                PDF
+CROPS:                        OLIVE · DURUM_WHEAT
+TOPICS:                       monitoramento, alerta, agrometeorologia
+GEOGRAPHIC_GRANULARITY:       NÃO SEI
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 3 de 3 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — Notiziario n.36 de 02/09/2026 (valido ate 08/09) · n.35 de
+                              26/08/2026 · Bollettino diario n.136 de 07/09/2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Notiziario Agrometeorologico & Fitosanitario Regionale n. 36 del 02
+                              settembre 2026 — Settimanale N.36 Anno XL»
+                              https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N35_26-08-2026.pdf
+                              — application/pdf, 2723072 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Bari — ARIF Puglia
+FACT_LOCATION:                Puglia (regional)
+WHAT_IT_PROVES:               que a Puglia tem boletim regional semanal declaradamente
+                              agrometeorologico E fitossanitario, no ano XL (quadragesimo), em PDF
+                              aberto, com rota previsivel; e um boletim meteorologico diario de
+                              segunda a sexta
+WHAT_IT_DOES_NOT_PROVE:       o conteudo fitossanitario especifico (nao lido) · cultura · praga ·
+                              limiar · nenhuma ocorrencia de campo pode ser afirmada a partir
+                              desta amostra
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T3-010 · APOL Lecce — monitoraggio olivicolo
+
+```
+SOURCE_ID:                    IT-T3-010
+SOURCE_NAME:                  APOL Lecce — monitoraggio olivicolo
+SOURCE_OWNER:                 APOL Lecce — Associazione Produttori Olivicoli Lecce (IT-OWN-012)
+COUNTRY:                      ITALY
+REGION:                       Puglia (Lecce)
+LANGUAGE:                     IT
+TERRITORY:                    T3
+SOURCE_TYPE:                  organização de produtores
+URL:                          NÃO SEI
+ACCESS_METHOD:                PDF
+CROPS:                        OLIVE
+TOPICS:                       monitoramento olivícola
+GEOGRAPHIC_GRANULARITY:       NÃO SEI
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 2 de 2 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — Bollettino n.9 valido de 07/09/2026 a 13/09/2026 (comeca HOJE)
+                              · n.8 de 31/08 a 06/09/2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T3-010/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Bollettino n° 9 Mosca dell'olivo valido dal 07/09 al 13/09/2026»
+                              http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf
+                              — application/pdf, 1653200 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Lecce — sede da cooperativa
+FACT_LOCATION:                COMPRENSORIO declarado dentro do documento. Na amostra n.9: 'BR -
+                              COLLINA LITORANEA', cobrindo BRINDISI, CAROVIGNO, CEGLIE MESSAPICA,
+                              CELLINO SAN MARCO, FASANO, FRANCAVILLA FONTANA, MESAGNE, ORIA,
+                              OSTUNI, SAN DONACI, SAN VITO DEI NORMANNI, TORCHIAROLO, TORRE SANTA
+                              SUSANNA, VILLA CASTELLI, SAN GIORGIO IONICO. DIFERENTE da sede
+                              (Lecce).
+WHAT_IT_PROVES:               que existe monitoramento semanal de mosca-da-azeitona na Puglia, por
+                              comprensorio, publicado aberto em PDF, com fase fenologica, contagem
+                              de capturas, percentual de infestacao e referencia explicita ao
+                              limiar de intervencao
+WHAT_IT_DOES_NOT_PROVE:       tratamento realizado · venda · estoque · uso de produto · market
+                              share · numero por talhao individual · cobertura de toda a Puglia (a
+                              amostra cobre um comprensorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-010/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T3-011 · AGRIOS — direttive, aggiornamenti e deroghe per la produzione integrata
+
+```
+SOURCE_ID:                    IT-T3-011
+SOURCE_NAME:                  AGRIOS — direttive, aggiornamenti e deroghe per la produzione
+                              integrata
+SOURCE_OWNER:                 AGRIOS — Arbeitsgruppe für den Integrierten Obstbau Südtirol
+                              (IT-OWN-013)
+COUNTRY:                      ITALY
+REGION:                       Südtirol (Bolzano)
+LANGUAGE:                     IT (O MESMO DOCUMENTO EXISTE EM DE)
+TERRITORY:                    T3
+SOURCE_TYPE:                  diretriz técnica de rede
+URL:                          https://www.agrios.it
+ACCESS_METHOD:                PDF
+CROPS:                        APPLE
+TOPICS:                       difesa integrata, direttive, aggiornamenti, deroghe
+GEOGRAPHIC_GRANULARITY:       província
+UPDATE_FREQUENCY:             NÃO SEI (esperado: anual + atualizações na safra)
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 1 de 1 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026 (declarado no titulo e na capa)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T3-011/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «DIRETTIVE PER LA FRUTTICOLTURA INTEGRATA 2026»
+                              https://www.agrios.it/wp-content/uploads/0286_26_Agrios_Broschuere_Richtlinien_integrierte_Kernobstbau_IT_WEB.pdf
+                              — application/pdf, 5705903 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Terlano (BZ), Alto Adige
+FACT_LOCATION:                Alto Adige / Sudtirol — area de aplicacao da diretriz
+WHAT_IT_PROVES:               que existe um disciplinar tecnico anual, publico e em italiano, que
+                              define o que pode ser usado na fruticultura integrada do Alto Adige
+                              em 2026
+WHAT_IT_DOES_NOT_PROVE:       ocorrencia de praga · tratamento realizado · venda · quantos
+                              produtores seguem · autorizacao regulatoria (isso e do Ministero)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-011/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T5-002 · FEM OpenPub — repositório de publicações
+
+```
+SOURCE_ID:                    IT-T5-002
+SOURCE_NAME:                  FEM OpenPub — repositório de publicações
+SOURCE_OWNER:                 Fondazione Edmund Mach (FEM) (IT-OWN-014)
+COUNTRY:                      ITALY
+REGION:                       Trentino
+LANGUAGE:                     EN
+TERRITORY:                    T5
+SOURCE_TYPE:                  repositório institucional
+URL:                          https://publications.fmach.it
+ACCESS_METHOD:                HTML
+CROPS:                        GRAPE · APPLE e outras
+TOPICS:                       papers, autores, instituição
+GEOGRAPHIC_GRANULARITY:       não aplicável (afiliação != local do experimento)
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 1 de 1 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025-07-15
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Establishment and parasitism levels of Ganaspis kimorum on
+                              Drosophila suzukii in Northeastern Italy: insights from a 4-yr
+                              release program» https://openpub.fmach.it/handle/10449/91515 —
+                              text/html, 60778 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              San Michele all'Adige (TN) — Fondazione Edmund Mach
+FACT_LOCATION:                Nordeste da Italia — area do programa de soltura, conforme o proprio
+                              titulo
+WHAT_IT_PROVES:               que a FEM mantem repositorio publico, pesquisavel, com abstract
+                              aberto, autores, ano e tipologia — e que ha massa critica de ciencia
+                              italiana sobre pragas especificas
+WHAT_IT_DOES_NOT_PROVE:       ocorrencia de campo hoje · eficacia comercial · autorizacao · venda
+                              · que o texto completo do artigo esteja aberto (so o registro e o
+                              abstract foram vistos)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T5-003 · Giornate Fitopatologiche — atti e programma
+
+```
+SOURCE_ID:                    IT-T5-003
+SOURCE_NAME:                  Giornate Fitopatologiche — atti e programma
+SOURCE_OWNER:                 Giornate Fitopatologiche (IT-OWN-017)
+COUNTRY:                      ITALY
+REGION:                       nacional
+LANGUAGE:                     IT
+TERRITORY:                    T5
+SOURCE_TYPE:                  anais de congresso científico
+URL:                          https://www.giornatefitopatologiche.it
+ACCESS_METHOD:                PDF
+CROPS:                        múltiplas
+TOPICS:                       cultura, problema, substância/prática quando explícita, autor,
+                              instituição
+GEOGRAPHIC_GRANULARITY:       não aplicável
+UPDATE_FREQUENCY:             BIENAL (a confirmar)
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 2 de 2 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 27-11-2025 (sessao olivo)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T5-003/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Bilancio Fitosanitario Olivo 2024-2025 — Regione Basilicata /
+                              Regione Marche»
+                              https://aipp.it/wp-content/uploads/2025/12/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf
+                              — application/pdf, 6585313 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              evento nacional online
+FACT_LOCATION:                Basilicata e Marche — a regiao do balanco, DIFERENTE do local do
+                              evento
+WHAT_IT_PROVES:               que existe uma retrospectiva anual, por regiao e por cultura,
+                              assinada pelos servicos fitossanitarios regionais, publicada em PDF
+                              aberto
+WHAT_IT_DOES_NOT_PROVE:       situacao corrente do campo (e balanco de campanha passada) · venda ·
+                              uso de produto · numero por talhao
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-003/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T7-002 · MASAF — elenco delle OP e AOP riconosciute
+
+```
+SOURCE_ID:                    IT-T7-002
+SOURCE_NAME:                  MASAF — elenco delle OP e AOP riconosciute
+SOURCE_OWNER:                 MASAF — Ministero dell'Agricoltura, della Sovranità Alimentare e
+                              delle Foreste (IT-OWN-020)
+COUNTRY:                      ITALY
+REGION:                       nacional com desagregação regional
+LANGUAGE:                     IT
+TERRITORY:                    T7
+SOURCE_TYPE:                  lista oficial de reconhecimento
+URL:                          https://www.politicheagricole.it
+ACCESS_METHOD:                OTHER (ODS)
+CROPS:                        por setor
+TOPICS:                       nome, tipo, setor, região, reconhecimento, data/lista
+GEOGRAPHIC_GRANULARITY:       região (esperado)
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 1 de 1 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — situacao em 31 dicembre 2025, arquivo atualizado em 08.04.2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Elenco nazionale OP e AOP riconosciute al 31 dicembre 2025 -
+                              aggiornato al 08.04.2026»
+                              https://www.masaf.gov.it/flex/cm/pages/ServeAttachment.php/L/IT/D/1%252F3%252Fb%252FD.4476adcbe95b46973538/P/BLOB%3AID%3D6063/E/ods?mode=download
+                              — application/vnd.oasis.opendocument.spreadsheet, 59052 bytes,
+                              SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Roma — MASAF
+FACT_LOCATION:                Italia inteira; cada linha traz a REGIONE e a SEDE (comune +
+                              provincia) da organizacao
+WHAT_IT_PROVES:               quem sao, oficialmente, as organizacoes de produtores reconhecidas
+                              na Italia fora do setor hortifruti: nome, forma juridica, setor,
+                              sede, regiao, data de reconhecimento e valor da producao
+                              comercializada declarado
+WHAT_IT_DOES_NOT_PROVE:       nada de campo · nenhuma praga · nenhum preco de transacao · nao
+                              prova que a organizacao publica boletim · VPC e valor declarado de
+                              producao comercializada, NAO e venda de insumo nem market share
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+#### IT-T9-002 · Bayer CropScience Italia — comunicação pública
+
+```
+SOURCE_ID:                    IT-T9-002
+SOURCE_NAME:                  Bayer CropScience Italia — comunicação pública
+SOURCE_OWNER:                 Bayer CropScience Italia (IT-OWN-042)
+COUNTRY:                      ITALY
+REGION:                       nacional
+LANGUAGE:                     IT
+TERRITORY:                    T9
+SOURCE_TYPE:                  site institucional
+URL:                          https://www.cropscience.bayer.it
+ACCESS_METHOD:                JSON
+CROPS:                        NÃO SEI
+TOPICS:                       NÃO SEI
+GEOGRAPHIC_GRANULARITY:       NÃO SEI
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 1 de 1 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — primeira parte anunciada para 10 marzo 2026; a pagina ja fala
+                              de 'seconda stagione'. A pagina NAO expoe data de publicacao em
+                              metadado — SOURCE_DATE e o que o texto declara, nao um campo do
+                              site.
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T9-002/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA) e nenhum paywall foi contornado. ⚠️
+                              A captura saiu por VPN_COMERCIAL (Milano, IT — Proton AG): a fonte
+                              pode responder de outro modo a partir de um IP não italiano, e isso
+                              não foi medido.
+REAL_EXAMPLE:                 «Arriva Mais Lab: il nuovo podcast dedicato alla coltivazione del
+                              mais»
+                              https://www.cropscience.bayer.it/Magazine/News/Generica/Mais-Lab —
+                              application/json, 3477 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              site nacional Bayer Crop Science Italia
+FACT_LOCATION:                UNKNOWN — nenhum fato de campo localizado. Nao inferir pela sede.
+WHAT_IT_PROVES:               que a Bayer Italia publica conteudo tecnico aberto sobre milho, com
+                              pessoas nomeadas e cargo · que ela escolheu RESISTENCIA A HERBICIDA
+                              em milho como tema de campanha em 2026 · que o site exige NAVEGADOR:
+                              403 para curl do mesmo IP italiano
+WHAT_IT_DOES_NOT_PROVE:       autorizacao de nenhum produto — so o registro do Ministero prova ·
+                              venda, estoque, market share, uso realizado ou eficacia · qualquer
+                              ocorrencia de campo
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-002/MANIFEST.json
+VERDICT:                      YELLOW — o que está preservado é extrato do DOM lido por navegador —
+                              o manifesto declara que NÃO são os bytes servidos pelo site
+```
+
+#### IT-T9-008 · ADAMA Italia — comunicação pública
+
+```
+SOURCE_ID:                    IT-T9-008
+SOURCE_NAME:                  ADAMA Italia — comunicação pública
+SOURCE_OWNER:                 ADAMA Italia S.r.l. (IT-OWN-040)
+COUNTRY:                      ITALY
+REGION:                       nacional
+LANGUAGE:                     IT
+TERRITORY:                    T9
+SOURCE_TYPE:                  site institucional
+URL:                          https://www.adama.com/italia
+ACCESS_METHOD:                JSON
+CROPS:                        NÃO SEI
+TOPICS:                       NÃO SEI
+GEOGRAPHIC_GRANULARITY:       NÃO SEI
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 1 de 1 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-06-03T16:36:57+0200 (published) ·
+                              2026-06-03T16:45:17+0200 (modified)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA) e nenhum paywall foi contornado. ⚠️
+                              A captura saiu por VPN_COMERCIAL (Milano, IT — Proton AG): a fonte
+                              pode responder de outro modo a partir de um IP não italiano, e isso
+                              não foi medido.
+REAL_EXAMPLE:                 «Orticole: come controllare le infestanti, anche quelle piu
+                              difficili»
+                              https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili
+                              — application/json, 5295 bytes, SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              site nacional ADAMA Italia
+FACT_LOCATION:                UNKNOWN — o artigo nao localiza nenhum fato de campo. Nao inferir
+                              pela sede.
+WHAT_IT_PROVES:               que a ADAMA Italia publica conteudo tecnico datado, em italiano,
+                              aberto e sem login · que ela associa publicamente o produto Sonavio®
+                              a bifenox, a inibicao de PPO e ao problema de resistencia em
+                              horticolas/tomate · que o site exige NAVEGADOR: 403 para curl mesmo
+                              com cabecalhos completos, do mesmo IP italiano
+WHAT_IT_DOES_NOT_PROVE:       que Sonavio® esta autorizado na Italia — isso so o registro do
+                              Ministero prova · que esta comercialmente disponivel · eficacia,
+                              venda, estoque, market share ou uso realizado · qualquer ocorrencia
+                              de campo — o artigo nao mede nada em campo
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json
+VERDICT:                      YELLOW — o que está preservado é extrato do DOM lido por navegador —
+                              o manifesto declara que NÃO são os bytes servidos pelo site
+```
+
+#### IT-T10-002 · BMTI — analisi di mercato cereali
+
+```
+SOURCE_ID:                    IT-T10-002
+SOURCE_NAME:                  BMTI — analisi di mercato cereali
+SOURCE_OWNER:                 BMTI — Borsa Merci Telematica Italiana S.c.p.A. (IT-OWN-032)
+COUNTRY:                      ITALY
+REGION:                       nacional
+LANGUAGE:                     IT
+TERRITORY:                    T10
+SOURCE_TYPE:                  análise de mercado telemática
+URL:                          https://www.bmti.it
+ACCESS_METHOD:                HTML
+CROPS:                        DURUM_WHEAT · SOFT_WHEAT · MAIZE
+TOPICS:                       preço, tendência, análise
+GEOGRAPHIC_GRANULARITY:       NÃO SEI
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM — 2 de 2 ficheiro(s) com SHA256 reconferido em 2026-09-15
+DOCUMENT_ID_AVAILABLE:        SIM — o documento traz título e numeração próprios
+PUBLICATION_DATE_AVAILABLE:   SIM — 24/08/2026 (cereais)
+RAW_EVIDENCE_PRESERVABLE:     SIM — já preservada:
+                              data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json
+AUTOMATION_FEASIBILITY:       NÃO SEI — nenhuma rota foi contratada. O manifesto guarda o endereço
+                              exato que trouxe cada ficheiro, o que é o ponto de partida de um
+                              contrato.
+COLLECTION_FEASIBILITY:       NÃO SEI — registar ≠ coletar; nenhuma coleta correu
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação
+                              foi tentada (AUTH_USED: NENHUMA. Nao se tentou contornar
+                              autenticacao.) e nenhum paywall foi contornado. ⚠️ A captura saiu
+                              por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
+                              Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
+                              modo a partir de um IP não italiano, e isso não foi medido.
+REAL_EXAMPLE:                 «Mercato cerealicolo, mais e grano tenero in rialzo tra clima
+                              avverso e tensioni nel Mar Nero»
+                              https://www.bmti.it/prezzi-cereali/46622/ — text/html, 96573 bytes,
+                              SHA256 conferido em 2026-09-07
+SOURCE_LOCATION:              Roma — sede da BMTI
+FACT_LOCATION:                Italia (listini das Borse Merci nacionais) + mercado internacional
+                              (Mar Negro, Europa). NAO e um ponto de campo.
+WHAT_IT_PROVES:               que ha analise de preco datada e recorrente de milho, trigo mole e
+                              azeite, com variacao percentual mensal e comparacao anual, publicada
+                              aberta
+WHAT_IT_DOES_NOT_PROVE:       preco de uma transacao especifica · volume vendido por empresa ·
+                              sinal de campo · incidencia de praga · uso de defensivo
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pelo site preservado e
+                              SHA256 reconferido nesta missão
+```
+
+
+---
+
 ### Regra de contagem (declarada para evitar leitura ambígua)
 
 O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOURCE_ID
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->177<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->190<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -6323,8 +7022,14 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 64 | 79 | 0 | 3 | 146 |
-| **Total** | **79** | **81** | **0** | **17** | **177** |
+| ITALY | 75 | 81 | 0 | 3 | 159 |
+| **Total** | **90** | **83** | **0** | **17** | **190** |
+
+*Movimento de 2026-09-15: **+11 GREEN e +2 YELLOW**, todos italianos, todos vindos da
+secção de RECONCILIAÇÃO — prova que já estava guardada e que o atlas não mostrava.
+**Nenhum `SOURCE_ID` novo foi emitido** e nenhuma coleta correu: a população continua em
+257 identidades (`py leis/fonte_do_atlas.py`). O que mudou foi quantas delas este ficheiro
+deixa ver.*
 
 ### Cobertura por território
 
@@ -6333,6 +7038,6 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1?/17G/5Y | 13G/6Y | 1Y/4G/5Y | 1G | 15G/16Y | 36Y | 2G | – | 1?/3G/2Y | 10G/1Y | 1Y/1G | 2G/2Y |
+| ITALY | 1?/17G/5Y | 16G/6Y | 1Y/8G/5Y | 1G | 17G/16Y | 36Y | 3G | – | 1?/3G/4Y | 11G/1Y | 1Y/1G | 2G/2Y |
 
 *(– = não investigado)*
