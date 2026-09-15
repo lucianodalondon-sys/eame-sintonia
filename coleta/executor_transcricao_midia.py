@@ -151,6 +151,42 @@ TEXT_BASIS = pv.PRODUCED_BY_LOCAL_ASR
 #:     UMA LISTA FECHADA É UM VOCABULÁRIO, E NÃO UM OBSTÁCULO.
 KIND = "TRANSCRIPTION"
 
+#: O motivo de quem tinha texto e mesmo assim não produziu derivado, porque o
+#: DONO DO VOCABULÁRIO recusou a unidade.
+#:
+#: ⚠️ PORTADO DA IMPLEMENTAÇÃO CONCORRENTE, NA UNIÃO SEMÂNTICA C4H.
+#: Sem este estado, uma unidade recusada só tinha dois destinos possíveis:
+#: sair na mesma, ou sair com o motivo de outra coisa. Os dois mentem.
+#:
+#:     ASR_FAILED != CONTENT_REJECTED != UNIDADE_RECUSADA.
+#:
+#: O reconhecedor ouviu e acertou; a Admissão nem foi chamada; o que falhou
+#: foi a FORMA da unidade, e só este nome diz isso.
+UNIDADE_RECUSADA = "UNIDADE_RECUSADA"
+
+#: As medidas que o dono do ASR produz e que este executor transporta sem
+#: reescrever. As quatro últimas vinham de `ferramentas/fala_local.py` e
+#: MORRIAM AQUI: o dono media-as e o recibo não as levava.
+#:
+#: ⚠️ `None` É RESPOSTA, E NÃO SE TROCA POR ZERO.
+#: `REALTIME_FACTOR = 0` diria «correu infinitamente rápido»; `None` diz «não
+#: se mediu». São factos opostos e ocupavam o mesmo campo.
+MEDIDAS_DO_ASR = (
+    "TRANSCRIPT_STATE", "ASR_MODEL", "ASR_DEVICE_USED", "ASR_DEVICE",
+    "ASR_DEVICE_EXECUTION", "ASR_COMPUTE_SELECTED", "AUDIO_SECONDS",
+    "MACHINE_SECONDS", "REALTIME_FACTOR", "LANGUAGE", "LANGUAGE_SOURCE",
+    "LANGUAGE_CONFIDENCE", "VOICED_SEGMENTS", "NO_SPEECH_PROB_MEAN",
+)
+
+
+def _medidas(r) -> dict:
+    """O que se mediu, mesmo quando não houve derivado.
+
+    Um fracasso sem medidas não se distingue de um fracasso de outra causa.
+    A chave ausente vem `None` DE PROPÓSITO — ver `MEDIDAS_DO_ASR`.
+    """
+    return {k: (r or {}).get(k) for k in MEDIDAS_DO_ASR}
+
 
 def ha_ferramenta() -> bool:
     """O `ffmpeg` está nesta máquina? O ASR responde por si em `fl.disponivel()`."""
@@ -298,10 +334,11 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
                 "PORQUE": r.get("ERRO") or ("o reconhecedor devolveu %s" % estado),
                 "NAO_SIGNIFICA": ("que a Admissao recusou. A Admissao nem foi "
                                   "chamada: ASR_FAILED != CONTENT_REJECTED."),
-                "MEDIDAS": {k: r.get(k) for k in
-                            ("AUDIO_SECONDS", "MACHINE_SECONDS",
-                             "ASR_DEVICE_USED", "ASR_MODEL",
-                             "ETAPA_QUE_FALHOU")}}
+                # ⚠️ ERA UMA LISTA DE CINCO CAMPOS ESCRITA AQUI, E AGORA É A DO
+                # DONO. Um fracasso media-se com as mesmas réguas do sucesso,
+                # senão comparar as duas corridas é comparar vocabulários.
+                "MEDIDAS": {**_medidas(r),
+                            "ETAPA_QUE_FALHOU": r.get("ETAPA_QUE_FALHOU")}}
 
     # ── A RECEITA ───────────────────────────────────────────────────────────
     # ⚠️ SÓ ENTRA AQUI O QUE DEFINE O ARTEFATO, NUNCA O QUE MEDE A MÁQUINA.
@@ -333,6 +370,58 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
         "ASR_BEAM": r.get("ASR_BEAM"),
     }
 
+    # ── A UNIDADE DE TEXTO, MONTADA E CONFERIDA PELO DONO ───────────────────
+    # ⚠️ PORTADO DA IMPLEMENTAÇÃO CONCORRENTE, NA UNIÃO SEMÂNTICA C4H.
+    # A arbitragem mediu isto como a única violação de contrato que as DUAS
+    # pontes tinham: `regras/proveniencia.py` é o dono declarado da espécie do
+    # texto e tem CONSTRUTOR (`unidade_de_texto`) e VALIDADOR
+    # (`conferir_unidade_de_texto`) — e nenhuma das duas os chamava.
+    #
+    # As constantes acima (`TEXT_KIND`, `TEXT_RELATION`, `TEXT_BASIS`) já vinham
+    # de lá, e por isso os valores estavam CERTOS. O defeito não era o valor:
+    # era montar a unidade aqui em vez de pedir ao dono que a montasse.
+    #
+    #     UM VALOR CERTO ESCRITO NO SÍTIO ERRADO É UM VALOR QUE VAI DERIVAR.
+    #     E UM CONSTRUTOR QUE NINGUÉM CHAMA NÃO GUARDA NADA.
+    #
+    # A construção vem ANTES de `preservar_derivado` de propósito: o validador
+    # serve para apanhar a unidade inválida enquanto ainda não se escreveu
+    # nenhum byte no armazém.
+    unidade = pv.unidade_de_texto(
+        texto=texto,
+        kind=TEXT_KIND,
+        kind_basis=TEXT_BASIS,
+        relation=TEXT_RELATION,
+        # A língua vem da EVIDÊNCIA do reconhecedor, e o `kind_basis` diz que
+        # essa evidência é ASR local — logo quem lê sabe o grau de prova dela.
+        language=r.get("LANGUAGE"),
+        # O pai canónico tal como chegou. NÃO é o sha: o próprio dono avisa que
+        # 35 valores de `sha256` aparecem em observações distintas desta árvore.
+        raw_observation_id=raw_asset_id,
+        # ⚠️ `METODOS_DE_DERIVACAO` é uma lista FECHADA, como a `022` para o
+        # `kind`. Um método inventado não é mais descritivo: é inválido.
+        derivation_method=pv.ASR_DA_CASA,
+        # A morada dentro desta observação. Leva produtor e versão porque duas
+        # transcrições do MESMO áudio por modelos diferentes são duas unidades
+        # legítimas — a mesma razão pela qual a `022` põe `producer_version`
+        # na chave.
+        unit_id="TU-%s-%s" % (EXECUTOR_ID, EXECUTOR_VERSION),
+        tool=r.get("ASR_ENGINE") or fl.MOTOR,
+        model=r.get("ASR_MODEL"))
+
+    problemas = pv.conferir_unidade_de_texto(unidade)
+    if problemas:
+        # Uma unidade que o dono recusa não sai daqui com cara de boa, e não
+        # sai com o motivo de outra coisa.
+        return {"ESTADO": "SEM_DERIVADO",
+                "MOTIVO_DO_EXECUTOR": UNIDADE_RECUSADA,
+                "ERRO": "; ".join(str(p) for p in problemas)[:300],
+                "PORQUE": "; ".join(str(p) for p in problemas)[:300],
+                "NAO_SIGNIFICA": ("que o audio nao tem fala, nem que a Admissao "
+                                  "recusou. A unidade de texto e que nao passou "
+                                  "no dono do vocabulario."),
+                "MEDIDAS": _medidas(r)}
+
     recibo = preservar_derivado(
         {**(contexto_da_passagem or {}),
          "raw_asset_id": raw_asset_id,
@@ -352,6 +441,9 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
     return {**recibo,
             "TEXT_KIND": TEXT_KIND,
             "TEXT_RELATION": TEXT_RELATION,
+            # A unidade que o dono montou e conferiu viaja inteira. Sem ela,
+            # nenhuma tradução futura tem para onde apontar.
+            "TEXT_UNIT": unidade,
             "LANGUAGE": r.get("LANGUAGE"),
             "LANGUAGE_SOURCE": r.get("LANGUAGE_SOURCE"),
             "LANGUAGE_CONFIDENCE": r.get("LANGUAGE_CONFIDENCE"),
@@ -359,7 +451,13 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
             "DEVICE_EXECUTION": r.get("ASR_DEVICE_EXECUTION"),
             "ASR_MODEL": r.get("ASR_MODEL"),
             "AUDIO_SECONDS": r.get("AUDIO_SECONDS"),
-            "MACHINE_SECONDS": r.get("MACHINE_SECONDS")}
+            "MACHINE_SECONDS": r.get("MACHINE_SECONDS"),
+            # ⚠️ AS QUATRO NOVAS VIVEM AQUI DENTRO, e não soltas no recibo:
+            # `ASR_COMPUTE_SELECTED`, `REALTIME_FACTOR`, `VOICED_SEGMENTS` e
+            # `NO_SPEECH_PROB_MEAN` são MEDIDA DA MÁQUINA, não identidade do
+            # artefato — pô-las na receita faria a mesma mídia, transcrita
+            # duas vezes, parecer dois artefatos diferentes.
+            "MEDIDAS": _medidas(r)}
 
 
 def _seco(caminho):

@@ -1355,8 +1355,8 @@
       "territory": "Z-ACOES",
       "kind": "engine",
       "icon": "⚙",
-      "what": "Recebe bytes de áudio ou vídeo e um pai canónico, tira o áudio com ffmpeg, chama o dono único do reconhecimento (ferramentas/fala_local.py) e entrega o transcript ao dono da escrita. Declara TEXT_KIND=TRANSCRIPT e TEXT_RELATION=ORIGINAL. Corre local, sem rede, sem custo.",
-      "why_here": "É o irmão do executor de PDF, e a peça que faltava para o vídeo ter consumidor: VIDEO_OUTPUT_HAS_CONSUMER estava NO por falta exactamente disto. Ele NÃO sabe de onde a mídia veio — uma ponte que soubesse a plataforma seria uma ponte por plataforma.",
+      "what": "A ponte entre a Collection e o reconhecedor de fala. Recebe bytes de áudio ou vídeo e um pai canónico, tira o áudio com ffmpeg, pede o texto ao dono único do reconhecimento (ferramentas/fala_local.py) e entrega a receita ao dono da escrita do derivado. A unidade de texto é montada e conferida pelo dono da proveniência (regras/proveniencia.py): TEXT_KIND=TRANSCRIPT, TEXT_RELATION=ORIGINAL, DERIVATION_METHOD=LOCAL_ASR. Não abre o motor, não escolhe modelo nem ferro, não escreve no banco e não julga. Corre local, sem rede, sem custo.",
+      "why_here": "É o irmão do executor de PDF, e a peça que faltava para o vídeo ter consumidor: VIDEO_OUTPUT_HAS_CONSUMER estava NO por falta exactamente disto. A porta da derivação conhecia UM executor, importado pelo nome, e o próprio ficheiro tinha previsto o custo: «no dia em que entrasse um executor de áudio os dois divergiam em silêncio». Ele NÃO sabe de onde a mídia veio — uma ponte que soubesse a plataforma seria uma ponte por plataforma. Esta peça é a UNIÃO SEMÂNTICA de duas implementações paralelas (big-collection-gate-01 e local-gpu-on-current-collection-v1): ver docs/operacao/INTEGRACAO-C4H-SEMANTICA-V1.md.",
       "departments": [
         "ENGENHARIA"
       ],
