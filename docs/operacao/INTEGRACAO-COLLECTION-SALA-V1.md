@@ -1,8 +1,12 @@
 # A CANDIDATA UNIFICADA COLLECTION + SALA — V1
 
 > ⚠️ **NÃO É CANÔNICA AINDA.**
-> **WORKFLOWS OPERACIONAIS AINDA NÃO INTEGRADOS.**
+> **DOIS WORKFLOWS DE SUPABASE RECUSADOS POR RISCO DE ESCRITA EM PRODUÇÃO** —
+> `supabase-raw-roundtrip.yml` e `supabase-fichas-adama.yml`. Ver §5.2.
+> O `scrap-social.yml` **já estava** na candidata, e numa versão mais nova que
+> a da `main`.
 > **SYSTEM MAP AINDA NÃO RECONCILIADO** — isso é a Fase 5.
+> **OPEN_RED_TEAM_FINDING:** 6 READY fora da Sala canônica. Ver §6.
 
 **Branch:** `claude/collection-sala-unified-v1`
 **Base original:** `e73cc8ff0669e6c060432e15b02c313793e5a48f` (`claude/big-collection-gate-01`)
@@ -244,3 +248,110 @@ não pode imprimir zero"*.
 2. **Workflows operacionais** — `scrap-social.yml`, `supabase-raw-roundtrip.yml`,
    `supabase-fichas-adama.yml`. Próxima missão.
 3. **System Map** — deliberadamente não reconciliado. Fase 5.
+
+---
+
+## 5 · ESTEIRAS OPERACIONAIS — medidas, e duas **não** entraram
+
+### 5.1 · `scrap-social.yml` — já cá estava, e mais nova
+
+A Fase 4A dizia que a candidata não o tinha. **Estava errado** — a medição veio
+de um laço com `git rev-parse "<ref>:<path>"` que falha em silêncio. Com
+`git ls-tree`, que é autoritativo:
+
+| linha | blob | último toque |
+|---|---|---|
+| `origin/main` | `9cdaaa24` | `df165da9` · **08/09** |
+| **candidata** | `6c33bc21` | `73cf4b72` · **14/09 14:54** |
+
+A da candidata está **269 linhas à frente**: acrescenta as fases
+`youtube-oficial`, `cutover`, `hardware` e `gpu-asr`, e a entrada `runner`.
+Trazer a da `main` seria **regredir seis dias**.
+
+```
+SOURCE_BRANCH  (já presente) claude/big-collection-gate-01 → candidata
+SOURCE_COMMIT  73cf4b72
+TRIGGER        workflow_dispatch apenas — sem `push`, sem `schedule`
+SECRETS        SUPABASE_DB_URL · YOUTUBE_DATA_API_KEY
+ESCRITA EM SUPABASE  nenhuma (0 ocorrências de insert/storage)
+GUARDAS        `if:` por fase (hardware · gpu-asr · sessao)
+PRODUCTION_WRITE_RISK = LOW
+```
+
+### 5.2 · ⛔ `supabase-raw-roundtrip.yml` e `supabase-fichas-adama.yml` — **NÃO integrados**
+
+Os dois estão ausentes da candidata, e os dois foram medidos. **A integração
+foi recusada por risco de escrita em produção.**
+
+```
+                        raw-roundtrip          fichas-adama
+fonte                   origin/main 3e9934e7   origin/main 4a5d2d2d
+trigger                 workflow_dispatch      workflow_dispatch
+                        + push: [o próprio]    + push: [o próprio]
+runs-on                 ubuntu-latest          ubuntu-latest
+secrets                 SUPABASE_URL · SUPABASE_SECRET_KEY · SUPABASE_DB_URL
+environment:            NENHUM                 NENHUM
+if: (guarda)            NENHUM                 NENHUM
+SAME_PROJECT_CONFIRMED  NÃO                    NÃO
+dry-run / descartável   NÃO                    NÃO
+escreve                 insert collection_run  insert collection_run
+                        insert raw_asset       insert raw_asset
+                        POST storage/object/raw update collection_run set
+
+PRODUCTION_WRITE_RISK = HIGH   nos dois
+```
+
+**Duas razões, e a segunda é decisiva:**
+
+1. **Não há guarda nenhuma.** Nem `environment:`, nem `if:`, nem confirmação de
+   projeto, nem modo descartável. Eles escrevem no que quer que os três
+   `secrets` apontem. E a comparação condena: o `supabase-storage.yml`, que
+   apenas **cria um balde**, tem a pré-verificação `SAME_PROJECT_CONFIRMED`;
+   os dois que **escrevem dados** não têm nenhuma.
+
+2. **Integrá-los seria executá-los.** O gatilho é
+   `push: { paths: ['.github/workflows/<o próprio ficheiro>'] }`. Acrescentar o
+   ficheiro à candidata e empurrar a branch **dispara o workflow** — que grava
+   em `collection_run`, em `raw_asset` e no bucket `raw`. Esta missão proíbe
+   executar workflows contra serviços reais, e o acto de os integrar seria
+   exactamente isso.
+
+> **UM FICHEIRO QUE CORRE AO SER GUARDADO NÃO SE INTEGRA EM SILÊNCIO.**
+
+**As dependências locais existem** — não é isso que bloqueia:
+
+| workflow | dependência | na candidata |
+|---|---|---|
+| fichas-adama | `mapa_regfi` | ✅ `coleta/mapa_regfi.py` |
+| fichas-adama | `_gavetas` | ✅ raiz |
+| raw-roundtrip | `data/samples/raw-paid/` | ✅ 11 ficheiros |
+
+E a versão certa do `fichas-adama` é a da `main`: difere da de
+`italy-forward-only-scheduling-v1` por **uma linha** — o import passou de
+`sys.path.insert(0,'scripts')` para `sys.path.insert(0,'.'); import _gavetas`,
+por causa da reorganização de `b8321b07` (*"149 scripts saem de uma pasta só"*).
+A da `main` é a compatível com esta árvore.
+
+**O que falta para eles poderem entrar** — decisão sua, não minha:
+
+- retirar o gatilho `push` (deixar só `workflow_dispatch`), **ou**
+- acrescentar a pré-verificação `SAME_PROJECT_CONFIRMED` que o
+  `supabase-storage.yml` já tem, **ou**
+- declarar explicitamente que os `secrets` apontam para um projeto descartável.
+
+Qualquer uma delas é uma alteração ao workflow, e nenhuma cabia nesta missão.
+
+---
+
+## 6 · OPEN_RED_TEAM_FINDING
+
+```
+READY_OUTSIDE_CANONICAL_SALA = 6
+onde  data/derivados/A-COLLECTION-PRESERVA-O-FATO.json  /READY[0..5]
+```
+
+Herdado da BASE `e73cc8ff` — provado ao correr o mesmo censo contra a base pura
+num clone descartável. Entrou em `317a384d`. **Não foi corrigido nesta missão**,
+por ordem expressa: fica para a auditoria final da Fase 4.
+
+O 14º teste do censo continua vermelho por causa dele, e deve continuar.
