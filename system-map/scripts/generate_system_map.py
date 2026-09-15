@@ -440,7 +440,13 @@ def as_fontes() -> tuple[list, list]:
                   f"contas publicas mapeadas: {contas.get('total', 0)}",
                   f"dessas, autorizadas a coletar: {contas.get('autorizadas', 0)}",
                   f"palavras de busca medidas no codigo: {c['search_terms']}",
-                  f"enderecos que o codigo realmente chama: {c['endpoints']}"],
+                  # O cartao diz os DOIS, porque a lista que ele abre e o top-40.
+                  # Enquanto dizia so um, quem clicava contava 40 e concluia que
+                  # o repositorio chama 40 enderecos.
+                  f"enderecos que o codigo realmente chama: {c['endpoints']}",
+                  f"desses, mostrados aqui: {c.get('endpoints_published', 0)}"
+                  + (f" (ficam de fora {c['endpoints_truncated']})"
+                     if c.get("endpoints_truncated") else "")],
         "status_reason": motivo,
         "evidence_text": "",
         "departments": [], "views": ["acervo"], "lane": "official", "legacy": False,
@@ -4016,7 +4022,9 @@ def indice_de_fontes() -> None:
          f"| fichas completas no atlas | **{c['sources']}** |",
          f"| dessas, com contrato de busca escrito | **{c['with_contract']}** |",
          f"| palavras de busca medidas no código | **{c['search_terms']}** em {c['search_term_groups']} grupos |",
-         f"| endereços que o código realmente chama | **{c['endpoints']}** |", ""]
+         f"| endereços que o código realmente chama | **{c['endpoints']}** |",
+         f"| desses, publicados no mapa | **{c.get('endpoints_published', 0)}** "
+         f"(truncados: {c.get('endpoints_truncated', 0)}) |", ""]
 
     if S.get("HEADER_CLAIM", {}).get("divergencia"):
         h = S["HEADER_CLAIM"]
