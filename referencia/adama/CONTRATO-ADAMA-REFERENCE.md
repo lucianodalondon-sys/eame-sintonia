@@ -25,7 +25,10 @@ NASCEU EM   2026-09-15 · FASE 1C-2
 | **DOSES** | `DOSES.json` | 163 rótulos · 839 linhas | `REGISTRATION_NUMBER` | `data/samples/IT-DOSE-ROTULO/` |
 | **ACTIVE INGREDIENTS** | `ACTIVE-INGREDIENTS.json` | 122 | `ACTIVE_INGREDIENT_ID` | `…-deep/ACTIVE-INGREDIENTS.json` |
 | **PRODUTO × SUBSTÂNCIA** | `PRODUCT-ACTIVE-INGREDIENTS.json` | 203 | `RELATION_ID` | V2.1 `PRODUCT-ACTIVE-INGREDIENTS.json` |
-| **SNAPSHOTS** | `SNAPSHOTS.json` | 3 | `SNAPSHOT_ID` | os três, declarados |
+| **SNAPSHOTS** (regulatório) | `SNAPSHOTS.json` | 3 | `SNAPSHOT_ID` | os três, declarados |
+| **SNAPSHOTS DO CATÁLOGO** | `CATALOG-SNAPSHOTS.json` | 2 | `SNAPSHOT_ID` | `IT-ADAMA-CATALOG`, observado |
+| **MEMBERSHIP OBSERVADA** | `PORTFOLIO-OBSERVATIONS.json` | 102 | `OBSERVATION_ID` | uma linha por produto × foto |
+| **DRIFT DO PORTFOLIO** | `PORTFOLIO-DRIFT.json` | 1 | `SNAPSHOT_BEFORE`+`_NOW` | diff das duas fotos |
 | **VOCABULÁRIO DE FONTE** | `SOURCE-ID-MAP.json` | 2 | `LEGACY_SOURCE_ID` | Atlas da FASE 1B |
 
 **Os pacotes de origem não foram apagados nem movidos.** Continuam onde estavam,
@@ -166,6 +169,43 @@ regulatória canónica está certa — e de que continuava certa uma semana depo
 
 Derivar o 07/09 é missão própria. Aqui ele fica declarado como
 `RAW_PRESENT_NOT_DERIVED`, não escondido.
+
+### A foto do catálogo não é a foto do Ministero
+
+As três de cima são todas da fonte `IT-T4-001`. O **catálogo comercial** é outra
+fonte, e até 15/09/2026 não tinha foto nenhuma: o `PORTFOLIO.json` nasceu do
+catálogo observado a **30/08** e escrevia `PROVENANCE.SNAPSHOT_ID =
+PROD_FTS_6_20260831` — a data do vizinho regulatório, de outro dia e de outra fonte.
+
+```
+A DATA DO REGISTO NÃO É A DATA DO CATÁLOGO.
+```
+
+| `SNAPSHOT_ID` | observado | produtos | `CURRENT` |
+|---|---|---:|---|
+| `CAT_ADAMA_IT_20260830` | 30/08 | 51 | não — reconstruída da evidência que já existia |
+| `CAT_ADAMA_IT_20260915` | 15/09 | 51 | **SIM** |
+
+O valor herdado errado **não se apagou**: vive em
+`REGULATORY_SNAPSHOT_ID_INHERITED`, ao lado do que o corrige.
+
+⚠️ **Entre as duas fotos: 0 entradas, 0 saídas, 0 campos alterados em 51
+produtos.** A leitura completa está em
+[`RELATORIO-DRIFT-CATALOGO-2026-09-15.md`](RELATORIO-DRIFT-CATALOGO-2026-09-15.md).
+
+### Ausência é membership, nunca destruição
+
+`PORTFOLIO-OBSERVATIONS.json` diz quem foi **visto** em cada foto. Produto que
+deixe de aparecer no catálogo sai da foto — **nunca** do Product Master:
+
+```
+PRESENT_IN_CATALOG_SNAPSHOT   estava lá naquele dia
+ABSENT_FROM_CATALOG_SNAPSHOT  não estava. NÃO significa descontinuado,
+                              NÃO significa apagado.
+```
+
+O vocabulário é fechado, e o estado de ausência existe **antes** de ser preciso —
+hoje as 102 observações são todas `PRESENT`.
 
 ---
 

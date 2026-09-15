@@ -1,0 +1,53 @@
+{
+ "DATASET": "ADAMA-CATALOG-SNAPSHOTS",
+ "SCHEMA": "sintonia.adama-reference/1",
+ "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
+ "BUILDER": "fontes/adama_catalogo_snapshot.py",
+ "LAW": "Nenhuma foto vira lixo. E a foto do CATALOGO nao e a foto do MINISTERO: fontes diferentes, dias diferentes, registos separados. Fundi-las faria o portfolio parecer observado num dia em que ninguem olhou para ele.",
+ "WHY_NOT_IN_SNAPSHOTS_JSON": "SNAPSHOTS.json e o registo da fonte IT-T4-001 (Ministero della Salute). Esta casa e da fonte IT-ADAMA-CATALOG. CATALOG_PRODUCT != REGULATORY_PRODUCT, e por isso a foto de um nao data o outro.",
+ "CURRENT_SNAPSHOT": "CAT_ADAMA_IT_20260915",
+ "COUNT": 2,
+ "RECORDS": [
+  {
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "OBSERVED_AT": "2026-08-30",
+   "COLLECTED_AT": null,
+   "SOURCE_ID": "IT-ADAMA-CATALOG",
+   "SOURCE_URL": "https://www.adama.com/italia/it",
+   "AUTHORITY": "ADAMA Italia S.r.l. (catalogo comercial proprio)",
+   "CURRENT": false,
+   "CATALOG_PRODUCTS": 51,
+   "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json",
+   "OBSERVED_AT_READ_FROM": "CATALOG_CAPTURED_AT",
+   "STATE": "RECONSTRUCTED_FROM_EXISTING_EVIDENCE",
+   "WHY_KEPT": "e a foto contra a qual os 51 do PORTFOLIO.json foram lidos. Ela ja existia no artefacto e nunca tinha sido declarada como snapshot; declara-la nao inventa dado nenhum, da data ao que ja estava datado dentro do ficheiro.",
+   "REGULATORY_SNAPSHOT_ID_INHERITED": "PROD_FTS_6_20260831",
+   "WHY_INHERITED_IS_WRONG": "PORTFOLIO.json escreve PROVENANCE.SNAPSHOT_ID = PROD_FTS_6_20260831, que e a foto do Ministero de 31/08. O catalogo foi observado a 30/08, noutra fonte. O valor antigo nao se apaga: fica aqui, ao lado do que o corrige."
+  },
+  {
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "OBSERVED_AT": "2026-09-15",
+   "COLLECTED_AT": "2026-09-15T20:34:40+00:00",
+   "SOURCE_ID": "IT-ADAMA-CATALOG",
+   "SOURCE_URL": "https://www.adama.com/italia/it",
+   "AUTHORITY": "ADAMA Italia S.r.l. (catalogo comercial proprio)",
+   "CURRENT": true,
+   "CATALOG_PRODUCTS": 51,
+   "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
+   "PROVING_ARTIFACT_ENUMERATION": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json",
+   "RAW_STATE": "RAW_LOCAL_NOT_VERSIONED",
+   "RAW_LOCAL_ROOT": "data/raw/IT/adama-catalog/2026-09-15/",
+   "SITEMAP_SHA256": "7648b94eec21e53d23d85c5595c19ebcd6d8e6898a2afcb60c37fbcb87cb01b2",
+   "BROWSER_CONTEXT": {
+    "BROWSER": "Chrome",
+    "BROWSER_VERSION": "153.0.8010.37",
+    "HEADED": "YES",
+    "PROFILE_KIND": "IT",
+    "DEVTOOLS_PORT": 9223,
+    "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+   },
+   "COLLECTION_METHOD": "Chrome COM JANELA na maquina local, porta de depuracao. O adama.com usa Akamai Bot Manager: curl e Chrome headless levam 403. DETECCAO DE ROBO NAO SE CONTORNA — o desafio interstitial da rota de listagem nao foi resolvido, e por isso a listagem oficial NAO entra nesta contagem.",
+   "WHY_CURRENT": "e a observacao mais recente do catalogo comercial."
+  }
+ ]
+}

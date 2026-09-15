@@ -1,0 +1,95 @@
+{
+ "DATASET": "ADAMA-PORTFOLIO-DRIFT",
+ "SCHEMA": "sintonia.adama-reference/1",
+ "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
+ "BUILDER": "fontes/adama_catalogo_snapshot.py",
+ "LAW": "Diff factual entre duas fotos do MESMO catalogo, casado pela IDENTITY_ANCHOR e nunca pelo nome nem pela posicao. Isto NAO e um motor de eventos: nao interpreta, nao decide impacto, nao avisa ninguem. Mede.",
+ "SNAPSHOT_BEFORE": "CAT_ADAMA_IT_20260830",
+ "SNAPSHOT_NOW": "CAT_ADAMA_IT_20260915",
+ "DAYS_BETWEEN": 16,
+ "IDENTITY_MATCH_METHOD": "PRODUCT-MASTER.IDENTITY_ANCHORS (URL:)",
+ "POPULATION_CROSSCHECK": {
+  "LAW": "Listagem nao serve de contagem. Duas contagens por caminhos independentes, e o que nao bate fica escrito.",
+  "METHOD_A": "sitemap.xml publicado pela propria ADAMA",
+  "METHOD_A_COUNT": 51,
+  "METHOD_B": "varredura de toda ligacao com forma de produto dentro das 51 paginas capturadas",
+  "METHOD_B_LIVE_COUNT": 51,
+  "METHOD_B_EXTRA_ROUTES_FOUND": 2,
+  "METHODS_AGREE_ON_LIVE_PRODUCTS": true,
+  "AGREEMENT_MEANS": "as duas contagens dao 51 produtos VIVOS. As rotas extra que o metodo B achou nao sao produto vivo: uma devolve 403, a outra e barrada pelo Akamai.",
+  "DISTINCT_PRODUCT_ROUTES_SEEN": 53,
+  "OUT_OF_SITEMAP_ROUTES": [
+   {
+    "PATH": "/italia/it/prodotti-adama/erbicidi/antigram-gold",
+    "SHAPE": "PRODUCT_SHAPED",
+    "LINKED_FROM": [
+     "prodotti-adama-erbicidi-sulcotrek.html"
+    ],
+    "HTTP_STATUS": 403,
+    "TITLE": "Accesso negato | ADAMA Italia",
+    "AKAMAI_INTERSTITIAL": false,
+    "PROBED_AT": "2026-09-15T20:41:46+00:00",
+    "STATE": "LINKED_BUT_NOT_PUBLISHED",
+    "WHY_NOT_COUNTED": "o proprio site devolve 403 \"Accesso negato\". Ligacao morta dentro de uma pagina viva nao e produto de catalogo.",
+    "REGISTRY_LOOKUP": {
+     "SLUG": "antigram-gold",
+     "MATCHED_REGISTRATIONS": [],
+     "WHAT_IT_PROVES": "nenhuma autorizacao ADAMA com este nome no snapshot regulatorio",
+     "WHAT_IT_DOES_NOT_PROVE": "que a ADAMA lista este produto no catalogo comercial hoje. REGULATORY_PRODUCT != CATALOG_PRODUCT."
+    }
+   },
+   {
+    "PATH": "/italia/it/products/crop-protection/postscript-80",
+    "SHAPE": "OTHER_PRODUCT_ROUTE",
+    "LINKED_FROM": [
+     "prodotti-adama-speciali-parleaf.html",
+     "prodotti-erbicidi-fullpager-rice-cropping-solution.html",
+     "prodotti-speciali-powerfilmr.html"
+    ],
+    "HTTP_STATUS": 200,
+    "TITLE": "&nbsp;",
+    "AKAMAI_INTERSTITIAL": true,
+    "PROBED_AT": "2026-09-15T20:41:47+00:00",
+    "STATE": "BLOCKED_BY_BOT_PROTECTION",
+    "WHY_NOT_COUNTED": "a rota responde com desafio interstitial do Akamai. NAO foi resolvido: deteccao de robo nao se contorna. Nao sabemos o que ha aqui.",
+    "REGISTRY_LOOKUP": {
+     "SLUG": "postscript-80",
+     "MATCHED_REGISTRATIONS": [
+      {
+       "REGISTRATION_NUMBER": "017585",
+       "REGISTERED_NAME": "POSTSCRIPT 80",
+       "HOLDER": "ADAMA AGAN LTD",
+       "ADMIN_ACTIVE": true,
+       "ADAMA_PRODUCT_ID": "UNKNOWN"
+      }
+     ],
+     "WHAT_IT_PROVES": "existe autorizacao ADAMA com este nome no Ministero",
+     "WHAT_IT_DOES_NOT_PROVE": "que a ADAMA lista este produto no catalogo comercial hoje. REGULATORY_PRODUCT != CATALOG_PRODUCT."
+    }
+   }
+  ],
+  "METHOD_C": "/italia/it/products/crop-protection — a listagem oficial, unica superficie onde a ADAMA publica uma CONTAGEM",
+  "METHOD_C_COUNT": "NAO SEI",
+  "METHOD_C_WHY": "Akamai Bot Manager responde com desafio interstitial de prova-de-trabalho, e navegar ate la devolve Access Denied. O desafio NAO foi resolvido."
+ },
+ "ADAMA_PRODUCT_IDS_CHANGED": 0,
+ "WHY_ZERO_IDS_CHANGED": "esta casa nunca escreve no PRODUCT-MASTER. So le. Um ADAMA_PRODUCT_ID emitido nao se renumera.",
+ "HUMAN_REPORT": {
+  "HUMAN_REPORTED_CURRENT_PORTFOLIO": 55,
+  "REPORTED_ON": "2026-09-15",
+  "STATE": "NOT_PROVEN_BY_ANY_SOURCE_READ",
+  "WHY": "as duas contagens independentes que a fonte oficial permitiu — sitemap publicado pela propria ADAMA e varredura de todas as ligacoes internas — dao 51 e 51. Nenhuma fonte lida produziu 55.",
+  "WHAT_WAS_NOT_READABLE": "a listagem oficial /italia/it/products/crop-protection, que e a unica superficie onde a propria ADAMA publica uma CONTAGEM. Ela responde com desafio interstitial do Akamai. Resolver o desafio seria contornar deteccao de robo, e isso nao se faz.",
+  "TEMPORAL_DRIFT_HYPOTHESIS": "REFUTED",
+  "WHY_REFUTED": "a hipotese escrita no handoff era que 15 dias tinham mexido o portfolio. Mediram-se os 15 dias: 0 entradas, 0 saidas, 0 campos alterados em 51 produtos."
+ },
+ "COUNT_BEFORE": 51,
+ "COUNT_NOW": 51,
+ "ADDED": [],
+ "REMOVED": [],
+ "RENAMED_CANDIDATES": [],
+ "CHANGED_FIELDS": [],
+ "UNCHANGED": 51,
+ "UNMATCHED_PAGES_BEFORE": [],
+ "UNMATCHED_PAGES_NOW": []
+}
