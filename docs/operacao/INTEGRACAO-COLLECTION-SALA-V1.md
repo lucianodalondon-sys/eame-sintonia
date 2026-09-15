@@ -1,12 +1,13 @@
 # A CANDIDATA UNIFICADA COLLECTION + SALA — V1
 
 > ⚠️ **NÃO É CANÔNICA AINDA.**
-> **DOIS WORKFLOWS DE SUPABASE ENDURECIDOS E INTEGRADOS — E NÃO EXECUTADOS.**
-> `supabase-raw-roundtrip.yml` e `supabase-fichas-adama.yml`. Ver §5.2 e §5.3.
+> **OS DOIS WORKFLOWS DE SUPABASE FORAM RETIRADOS PELO RED TEAM.** Eles estavam
+> **aposentados de propósito** desde `a29ac0a9`, e a candidata tem um teste que
+> o exige. Integrá-los foi um erro meu. Ver §5.4.
 > O `scrap-social.yml` **já estava** na candidata, e numa versão mais nova que
 > a da `main`.
 > **SYSTEM MAP AINDA NÃO RECONCILIADO** — isso é a Fase 5.
-> **OPEN_RED_TEAM_FINDING:** 6 READY fora da Sala canônica. Ver §6.
+> **OPEN_RED_TEAM_FINDING:** 6 READY fora da Sala canônica. Ver §6 e §7.
 
 **Branch:** `claude/collection-sala-unified-v1`
 **Base original:** `e73cc8ff0669e6c060432e15b02c313793e5a48f` (`claude/big-collection-gate-01`)
@@ -430,3 +431,172 @@ EXTERNAL_ACTIONS_EXECUTED = NÃO
 Nada foi disparado: nem GitHub Actions, nem Supabase, nem Storage, nem
 migration, nem Vercel, nem Apify, nem coleta. A validação foi toda local e
 estática.
+
+---
+
+## 5.4 · ⛔ O RED TEAM DERRUBOU A §5.3 — E TINHA RAZÃO
+
+> As §5.2 e §5.3 ficam como registo do que eu pensei e do que fiz. **Esta
+> secção diz o que estava errado.**
+
+Eu integrei `supabase-raw-roundtrip.yml` e `supabase-fichas-adama.yml`,
+endurecidos com duas portas. O red team correu a suíte inteira e apanhou:
+
+```
+tests/test_porta_de_producao.py
+  class NenhumEscritorAntigoSobrou
+    test_os_caminhos_antigos_nao_existem   FAILED na candidata · OK na BASE
+```
+
+**Aqueles dois ficheiros não estavam «em falta». Estavam APOSENTADOS**, no
+commit `a29ac0a9` (11/09) — *"C-CLOSE-PHASE-10-BLOCKERS: o runtime aprende a
+lei, e a trava sai do Python"* — que apagou os três de uma vez:
+
+```
+.github/workflows/supabase-fichas-adama.yml    -99
+.github/workflows/supabase-raw-roundtrip.yml   -88
+guarda/trava_do_escritor_antigo.sh             -71
+```
+
+E a casa **já tinha recusado exactamente a minha solução**. A docstring da
+classe diz, por escrito:
+
+> *"A VERSÃO ANTERIOR DESTE TESTE COBRAVA O OPOSTO: que cada caminho antigo
+> CHAMASSE `trava_do_escritor_antigo.sh` antes de escrever. Era o teste certo
+> para o estado errado — ele consagrava que os caminhos antigos continuavam lá,
+> atrás de um guarda.*
+>
+> **UM CAMINHO BLOQUEADO AINDA É UM CAMINHO. E UM GUARDA É UMA COISA QUE ALGUÉM
+> PODE TIRAR.**
+>
+> *Agora a invariante é mais forte e não precisa de guarda nenhum: eles não
+> existem. E a razão não é de calendário — `adama-website` é uma ORGANIZAÇÃO,
+> não um código de fonte do atlas, e sem `SOURCE_ID` real não há estado forward
+> possível para aquelas linhas. Nunca houve."*
+
+Eu pus um guarda onde a casa tinha decidido **apagar o caminho**. A minha
+§5.3 argumentava que faltava «tirar o gatilho ou pôr o `SAME_PROJECT_CONFIRMED`»
+— e a resposta certa era a terceira, que eu não considerei: **eles não voltam.**
+
+### O que foi feito
+
+Os dois ficheiros foram **removidos** nesta branch. Nada se perdeu: continuam
+em `origin/main`, e a razão da aposentadoria está no `a29ac0a9`.
+
+```
+tests/test_porta_de_producao   BASE: FAILED (1)   fix: FAILED (1)   ← igual
+  test_os_caminhos_antigos_nao_existem   antes: FAILED   depois: OK
+```
+
+A falha que resta em `test_porta_de_producao` é a herdada
+(`test_o_inventario_de_quem_fala_de_raw_asset_esta_fechado`), idêntica na BASE.
+
+> **O RED TEAM NÃO SERVE PARA CONFIRMAR O QUE EU FIZ. SERVE PARA O PARTIR.**
+
+---
+
+## 7 · PERÍCIA DOS 6 READY — CAUSA RAIZ PROVADA
+
+### O que os 6 são
+
+**Três documentos, cada um duplicado exactamente.** Medido por `sha256` do
+objecto serializado:
+
+| índice | sha | `ITEM_ID` | `SOURCE_ID` |
+|---|---|---|---|
+| `[0]` e `[3]` | `6b659d72447c` | `CAMPANIA:SA:02-09-2026` | `IT-T3-002` |
+| `[1]` e `[4]` | `79b50ea2726b` | `APOL:2026:N9:BR-COLLINA` | `IT-T3-010` |
+| `[2]` e `[5]` | `1f43bab6bff4` | `ARIF:SETTIMANALE:2026:N36` | `IT-T3-008` |
+
+Nos seis: `RAW_OBSERVATION_ID = "NAO SEI"`, `ESTAGIO = DOCUMENTO`,
+`FATO = NAO_SE_APLICA`, `CORRIDA = REPROCESSAMENTO-LOCAL`.
+
+### Por que são seis e não três
+
+O livro do coletor tem **175 observações** e só **35 `RAW_SHA256` distintos** —
+porque re-observar uma fonte e confirmar que o documento não mudou **é um facto
+que se regista**, e está certo:
+
+```
+DOCUMENT_ID=ARPAV:Z01:20260903160930  VERSION=v1_f88c89d73d6  RESULT=BASELINE_DOCUMENT
+DOCUMENT_ID=ARPAV:Z01:20260903160930  VERSION=v1_f88c89d73d6  RESULT=SEEN_AGAIN
+DOCUMENT_ID=ARPAV:Z01:20260903160930  VERSION=v1_f88c89d73d6  RESULT=SEEN_AGAIN
+```
+
+`provas/a_collection_preserva_o_fato.py::correr()` itera sobre **observações** e
+faz `prontos.append(pronto)` uma vez por observação admitida. Dos 30 recibos,
+**6 foram admitidos (SIM) e 24 ficaram `NAO_SEI`** — e os 6 são
+**3 `DOCUMENT_ID` × 2 observações**.
+
+> **A PROVA CONTA OBSERVAÇÕES COMO SE FOSSEM DOCUMENTOS.**
+
+### As respostas
+
+```
+SIX_READY_HAVE_CANONICAL_COUNTERPART = 0
+     a Sala canónica (`data/samples/PRONTO-PARA-INTELIGENCIA`) NÃO EXISTE
+     nesta árvore. Não há contrapartida porque não há Sala.
+SIX_READY_ARE_IDENTICAL_COPIES       = SIM  (3 pares byte-a-byte)
+SIX_READY_ARE_SEMANTIC_DUPLICATES    = SIM
+SIX_READY_CONTAIN_UNIQUE_INFORMATION = NÃO  (3 documentos, 6 objectos)
+SIX_READY_ARE_READ_BY_RUNTIME        = NÃO
+SIX_READY_FILE_ROLE                  = PROOF
+```
+
+**WRITERS:** `provas/a_collection_preserva_o_fato.py` — e mais ninguém.
+**READERS:** o próprio ficheiro de prova (para saber onde escrever) e este
+documento. **RUNTIME_READERS: nenhum.** **TEST_READERS: nenhum.**
+
+O próprio artefacto declara o que é:
+
+```
+SO_LEITURA   "YES — nada foi colhido, nenhuma observacao nova foi criada"
+GENERATED_BY "provas/a_collection_preserva_o_fato.py"
+PORTA_DA_SALA.ESCRITA_PROVADA  "NO"
+```
+
+### ROOT_CAUSE = **F · OUTRO_PROVADO**
+
+Nenhuma das cinco etiquetas serve sozinha:
+
+- **não é** `ARTEFATO_DE_PROVA_FORA_DO_ESCOPO_DO_CENSO` sozinho — os objectos
+  têm mesmo a forma do contrato e o `ESTADO` do READY; a varredura está certa;
+- **não é** `WRITER_GRAVA_NO_LUGAR_ERRADO` — a prova escreve no artefacto dela;
+- **não é** `CENSO_VARRE_ESCOPO_ERRADO` — o censo encontra o que existe.
+
+**É isto:** a prova emite um READY por **observação**, e `SEEN_AGAIN` é uma
+re-observação legítima do **mesmo** documento. O censo vê seis objectos porque
+seis existem — e diz a verdade.
+
+### ⛔ POR QUE NÃO FOI CORRIGIDO
+
+O portão §5A exige `FIX_DOES_NOT_REQUIRE_ARCHITECTURAL_CHOICE = SIM`. **É NÃO.**
+
+A identidade canónica de um READY é `RAW_OBSERVATION_ID` (`COL-LAW-043`), e nos
+seis ela é **`NAO SEI`**. Deduplicar por `DOCUMENT_ID` seria **substituir a
+identidade canónica por outra** — exactamente o que esta casa proíbe:
+
+> **UM FALLBACK QUE INVENTA IDENTIDADE NÃO É UM CONSERTO: É UMA IDENTIDADE NOVA.**
+
+```
+ROOT_CAUSE_PROVEN                      = SIM
+FIX_SCOPE_IS_LOCAL                     = SIM
+NO_DATA_LOSS_PROVEN                    = SIM
+NO_UNIQUE_FACT_REMOVED                 = SIM
+CANONICAL_SALA_REMAINS_COMPLETE        = NÃO SEI  (a Sala não existe aqui)
+NO_EXTERNAL_ACTION_REQUIRED            = SIM
+NO_SYSTEM_MAP_CHANGE_REQUIRED          = SIM
+FIX_DOES_NOT_REQUIRE_ARCHITECTURAL_CHOICE = NÃO   ⛔
+
+HUMAN_DECISION_REQUIRED_FOR_6_READY = SIM
+```
+
+### As três saídas, para decisão humana
+
+| saída | o que implica |
+|---|---|
+| **A · a prova passa a contar documentos** | `prontos` passa a ser indexado por `DOCUMENT_ID`. Muda `ADMITIDOS: 6` → `3`. **Escolhe uma identidade que não é a canónica.** |
+| **B · a Sala ganha morada e a prova compara** | `RAW_OBSERVATION_ID` deixa de ser `NAO SEI` e o problema desaparece na origem. **Exige `psql`/`fcntl`, que esta máquina não tem.** |
+| **C · o censo distingue prova de Sala** | Precisa de um critério declarado — não de uma lista por nome de ficheiro, que §5B proíbe. |
+
+Nenhuma cabe na regra «não escolher arquitectura sem o humano».
