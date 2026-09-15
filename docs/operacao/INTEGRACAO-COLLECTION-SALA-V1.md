@@ -1,8 +1,8 @@
 # A CANDIDATA UNIFICADA COLLECTION + SALA — V1
 
 > ⚠️ **NÃO É CANÔNICA AINDA.**
-> **DOIS WORKFLOWS DE SUPABASE RECUSADOS POR RISCO DE ESCRITA EM PRODUÇÃO** —
-> `supabase-raw-roundtrip.yml` e `supabase-fichas-adama.yml`. Ver §5.2.
+> **DOIS WORKFLOWS DE SUPABASE ENDURECIDOS E INTEGRADOS — E NÃO EXECUTADOS.**
+> `supabase-raw-roundtrip.yml` e `supabase-fichas-adama.yml`. Ver §5.2 e §5.3.
 > O `scrap-social.yml` **já estava** na candidata, e numa versão mais nova que
 > a da `main`.
 > **SYSTEM MAP AINDA NÃO RECONCILIADO** — isso é a Fase 5.
@@ -355,3 +355,78 @@ num clone descartável. Entrou em `317a384d`. **Não foi corrigido nesta missão
 por ordem expressa: fica para a auditoria final da Fase 4.
 
 O 14º teste do censo continua vermelho por causa dele, e deve continuar.
+
+---
+
+## 5.3 · OS DOIS WORKFLOWS DE SUPABASE — ENDURECIDOS E INTEGRADOS
+
+> A §5.2 fica como registo do estado em que eles foram encontrados. Esta secção
+> descreve o que entrou.
+
+### O que estava errado, e continua verdade sobre a forma histórica
+
+```
+                        raw-roundtrip          fichas-adama
+fonte                   origin/main b6a77ee5   origin/main b8321b07
+blob                    3e9934e7               4a5d2d2d
+trigger ORIGINAL        workflow_dispatch      workflow_dispatch
+                        + push: [o próprio]    + push: [o próprio]
+guarda ORIGINAL         NENHUMA                NENHUMA
+PRODUCTION_WRITE_RISK   HIGH                   HIGH
+```
+
+> **UM FICHEIRO QUE CORRE AO SER GUARDADO NÃO É UMA ESTEIRA: É UM GATILHO.**
+
+### O que mudou
+
+**1 · O `push` saiu.** Sobra `workflow_dispatch` e mais nada — sem `schedule`,
+sem `pull_request`, sem `repository_dispatch`. Medido: `push=0` nos dois.
+
+**2 · Duas portas antes da primeira escrita**, e são diferentes de propósito:
+
+| porta | o que exige | falha |
+|---|---|---|
+| `0a · portão humano` | o input `confirmar` tem de vir com `ESCREVER_NO_SUPABASE_CONFIRMADO`. O default é `NAO`. | `exit 1` |
+| `0b · portão do alvo` | `SAME_PROJECT_CONFIRMED` — o mecanismo lido de `supabase-storage.yml`, sem alterar a lógica | `exit 1` / `SystemExit(1)` |
+
+O input usa `type: choice` com `options:`, que é o padrão real desta casa —
+`scrap-social.yml`, `apify-sensores.yml` e `comunicacao-publica.yml` já o usam.
+**Nenhuma convenção foi inventada.**
+
+### ⚠️ O QUE O PORTÃO DO ALVO **NÃO** PROVA
+
+`SAME_PROJECT_CONFIRMED` extrai o ref do projeto do `SUPABASE_URL`
+(`<ref>.supabase.co`) e do `SUPABASE_DB_URL` (`db.<ref>.supabase.` ou o
+utilizador `postgres.<ref>`) e recusa se forem diferentes.
+
+Isso apanha **a incoerência** — Storage num projeto e banco noutro. **Não prova
+que o projeto seja descartável.** Se os dois segredos apontarem para produção,
+eles concordam, e a porta abre.
+
+> **COERÊNCIA DO ALVO ≠ ALVO SEGURO.**
+
+É por isso que a primeira porta é humana, e por isso as duas **somam** em vez de
+se substituírem: quem correr isto está a declarar que sabe para onde aponta.
+Esta limitação fica escrita no cabeçalho dos dois ficheiros, não só aqui.
+
+### Validação estática — 2/2 PASS
+
+| workflow | trigger | 1ª escrita | último portão | portão antes? | fail-closed | verdict |
+|---|---|---:|---:|:--:|:--:|:--:|
+| `supabase-raw-roundtrip` | `workflow_dispatch` | linha 120 | linha 72 | **SIM** | **SIM** | **PASS** |
+| `supabase-fichas-adama` | `workflow_dispatch` | linha 117 | linha 64 | **SIM** | **SIM** | **PASS** |
+
+**Sem caminho alternativo:** cada ficheiro tem **um** job (`roundtrip`,
+`fichas`) e **quatro** passos, nesta ordem — `checkout` → `0a` → `0b` →
+escrita. Não há segundo job nem passo de escrita fora do caminho guardado.
+
+**Dependências completas:** `coleta/mapa_regfi.py` · `_gavetas.py` ·
+`data/samples/raw-paid/` (11 ficheiros rastreados).
+
+```
+EXTERNAL_ACTIONS_EXECUTED = NÃO
+```
+
+Nada foi disparado: nem GitHub Actions, nem Supabase, nem Storage, nem
+migration, nem Vercel, nem Apify, nem coleta. A validação foi toda local e
+estática.
