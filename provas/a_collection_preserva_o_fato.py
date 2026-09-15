@@ -251,10 +251,43 @@ def correr():
                               "MOTIVO": decisao.motivo[:200]}
         # A travessia mede-se pelo dono dela, e não por inspecção à mão.
         recibo["FRONTEIRA"] = ingresso.conferir_fronteira(item)
+        # ── DE QUE BRUTO É ESTE RECIBO ──────────────────────────────────────
+        # O livro do coletor já responde, e a resposta viaja para quem ler:
+        # `True` = esta observação GUARDOU um objecto (e `RAW_PATH` prova-o);
+        # `False` = foi lá, estava igual, e não guardou nada.
+        recibo["RAW_OBJECT_CREATED"] = o.get("RAW_OBJECT_CREATED")
         recibos.append(recibo)
-        if pronto is not None:
+        # ── UM `raw_asset`, UM `READY` ──────────────────────────────────────
+        # ⚠️ ISTO EMITIA UM READY POR OBSERVAÇÃO, E ERA POR ISSO QUE OS MESMOS
+        # TRÊS DOCUMENTOS APARECIAM SEIS VEZES, BYTE A BYTE IGUAIS.
+        #
+        # A lei é de `BIBLIA-CANONICA-DA-COLETA.md`:
+        #
+        #     RAW_OBSERVATION_ID = raw_asset.id. Ausente: NAO SEI.
+        #     **Nunca** derivado de sha256, URL, storage_path, filename ou RUN_ID.
+        #
+        # E `raw_asset` (migration `001`) é UMA LINHA POR OBJECTO GUARDADO —
+        # `storage_path` é `unique`. Uma re-observação que não guarda objecto
+        # novo não cria `raw_asset` novo; logo o READY que dela saísse teria a
+        # linhagem do MESMO bruto. Não são dois READY: é um, contado duas vezes.
+        #
+        #     UM `raw_asset` -> UM `RAW_OBSERVATION_ID` -> UM `READY`.
+        #
+        # ⚠️ E NÃO SE DEDUPLICA POR `DOCUMENT_ID`. Esse é o nome do documento no
+        # mundo, não é identidade de observação bruta, e usá-lo aqui seria a
+        # segunda identidade que a lei proíbe. O que se lê é o campo que a
+        # PRÓPRIA COLETA escreveu — medido: dos 175 registos, `RAW_OBJECT_CREATED
+        # = True` em 35, e são exactamente as 35 impressões digitais distintas.
+        #
+        # ⚠️ E A RE-OBSERVAÇÃO NÃO DESAPARECE. O recibo dela fica acima, com a
+        # decisão que teve. Deixar de contar o mesmo bruto duas vezes não é
+        # apagar a segunda ida.
+        #
+        #     NÃO SE APAGA HISTÓRIA. DEIXA-SE DE CONTAR DUAS VEZES O MESMO BRUTO.
+        guardou_bruto = o.get("RAW_OBJECT_CREATED") is True
+        if pronto is not None and guardou_bruto:
             prontos.append(pronto)
-        else:
+        elif pronto is None:
             nao_passaram.append(recibo["DOCUMENT_ID"])
 
     def _conta(chave, valor):

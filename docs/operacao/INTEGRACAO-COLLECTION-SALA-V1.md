@@ -600,3 +600,135 @@ HUMAN_DECISION_REQUIRED_FOR_6_READY = SIM
 | **C · o censo distingue prova de Sala** | Precisa de um critério declarado — não de uma lista por nome de ficheiro, que §5B proíbe. |
 
 Nenhuma cabe na regra «não escolher arquitectura sem o humano».
+
+---
+
+## 8 · A IDENTIDADE FECHADA — os 6 READY passam a 3
+
+> Estratégia **B**, decidida pelo humano: resolver na camada de **identidade
+> canônica**. Não por `DOCUMENT_ID`. Não escondendo no Censo. Não apagando.
+
+### 8.1 · A lei, lida do dono
+
+`BIBLIA-CANONICA-DA-COLETA.md`, secção *«`RAW_OBSERVATION_ID` — a linhagem
+viaja, e viaja uma vez só»*:
+
+> `RAW_OBSERVATION_ID = raw_asset.id`. Ausente: `NAO SEI`. **Nunca** derivado
+> de `sha256`, URL, `storage_path`, filename ou `RUN_ID`.
+>
+> **TER RAW ≠ O READY CONSEGUIR PROVAR QUAL RAW É O SEU.**
+
+`LAW_STATUS: CANONICAL`. E `raw_asset` (migration `001`) é **uma linha por
+objecto guardado**: `id bigserial primary key`, `storage_path text not null
+unique`.
+
+### 8.2 · A matriz semântica
+
+| entidade | identidade canônica |
+|---|---|
+| **DOCUMENTO** | `DOCUMENT_ID` — o nome do documento no mundo. **Não é identidade de observação.** |
+| **OBSERVAÇÃO BRUTA** | `raw_asset.id`, via `RAW_OBSERVATION_ID` |
+| **RE-OBSERVAÇÃO / `SEEN_AGAIN`** | **nenhuma própria** — não guarda objecto, não cria `raw_asset` |
+| **READY** | herda `RAW_OBSERVATION_ID` do bruto de onde saiu |
+
+**A resposta à pergunta A/B/C/D é `A`:** `BASELINE_DOCUMENT` e `SEEN_AGAIN` do
+mesmo documento partilham o `RAW_OBSERVATION_ID`, porque **há um só
+`raw_asset`**. E a coleta já o diz, sem interpretação:
+
+```
+BASELINE_DOCUMENT   RAW_OBJECT_CREATED=True    RAW_PATH=<caminho real>
+SEEN_AGAIN          RAW_OBJECT_CREATED=False   RAW_PATH=None
+```
+
+**Medido nos 175 registos do livro, sem uma excepção:**
+
+```
+CREATED=True   com RAW_PATH   ->  35   (BASELINE_DOCUMENT 10 + NEW_DOCUMENT 25)
+CREATED=False  sem RAW_PATH   -> 109   (SEEN_AGAIN, todas)
+CREATED=None   sem RAW_PATH   ->  31   (DISCOVERY_FAILED 19 + TRANSPORT_OR_EMPTY 12)
+```
+
+E **35 objectos guardados = 35 impressões digitais distintas**. É essa
+igualdade que autoriza dizer *um objecto guardado = um `raw_asset`*.
+
+### 8.3 · Por que `NAO SEI` — e por que isso **não** era o defeito
+
+`raw_asset.id` é `bigserial`: **quem o atribui é o Postgres**. O livro do
+coletor é um ficheiro NDJSON com 26 campos, e **nenhum deles é o id** — tem
+`RAW_PATH` e `RAW_SHA256`, e a lei proíbe expressamente derivar o id deles.
+
+```
+IDENTITY_CONTRACT_IMPLEMENTED   = SIM  (admissao.py:1007 lê item["raw_asset_id"])
+IDENTITY_CONTRACT_PROVEN_IN_DB  = SIM  (migration 001 + prova PG032)
+IDENTITY_CONTRACT_USED_BY_PROOF = SIM  (a prova nunca o escreve à mão)
+```
+
+> **O `NAO SEI` ERA A LEI A FUNCIONAR.**
+> **O DEFEITO ERA EMITIR DOIS `NAO SEI` PARA O MESMO BRUTO.**
+
+`WHY_PSQL_REQUIRED` — só o Postgres cria `raw_asset.id`. `PROOF_REQUIREMENT`:
+seria preciso para o campo deixar de ser `NAO SEI`, **não** para fechar a
+duplicação.
+`WHY_FCNTL_REQUIRED` — o backend de ficheiro da Sala usa `fcntl`, que não
+existe em Windows. `LEGACY_REQUIREMENT`, e igualmente desnecessário aqui.
+
+**Nenhum dos dois foi preciso.** Zero escrita externa.
+
+### 8.4 · O conserto
+
+`provas/a_collection_preserva_o_fato.py::correr()` emitia um READY por
+**observação**. Passa a emitir um por **bruto guardado**:
+
+```python
+guardou_bruto = o.get("RAW_OBJECT_CREATED") is True
+if pronto is not None and guardou_bruto:
+    prontos.append(pronto)
+```
+
+E o recibo passa a carregar `RAW_OBJECT_CREATED`, para a pergunta *«de que
+bruto é este recibo?»* ter resposta auditável.
+
+```
+OBSERVACOES_NO_LIVRO  175 -> 175      RECIBOS  30 -> 30
+ADMITIDOS               6 ->   3      READY     6 ->  3   (3 distintos)
+recibos de re-observação preservados: 23
+```
+
+> **NÃO SE APAGA HISTÓRIA. DEIXA-SE DE CONTAR DUAS VEZES O MESMO BRUTO.**
+
+`NEW_IDENTITY_CREATED = NÃO` — `RAW_OBJECT_CREATED` é campo que a coleta já
+escrevia. Nenhum `document_identity`, `dedupe_id` ou equivalente nasceu.
+
+### 8.5 · A prova morde — teste mutacional
+
+`tests/test_a_linhagem_do_ready_e_do_raw_asset.py` (11 casos) reprova em
+`2dde8fed` e passa aqui. Em cópia descartável fora dos worktrees:
+
+| mutação | resultado |
+|---|---|
+| repor o defeito (um READY por observação) | **FAILED** (2) |
+| deduplicar por `DOCUMENT_ID` (identidade paralela) | **FAILED** (2) |
+| fabricar a linhagem a partir do `sha` | **FAILED** (2) |
+| não propagar a linhagem ao recibo | **FAILED** (8) |
+| controlo, sem mutação | **OK** |
+
+O teste rejeita **também** as soluções erradas — não só a ausência de solução.
+
+### 8.6 · O Censo, sem lhe mudar as regras
+
+```
+READY_OUTSIDE_CANONICAL_SALA   6 -> 3
+RED_TEAM_SURVIVORS             1 -> 1
+```
+
+**A dupla contagem morreu; o sobrevivente fica** — e está certo assim. O
+ataque nº 1 tem duas partes, e só uma foi fechada:
+
+- *contado duas vezes* → **resolvido**;
+- *segunda representação* → **continua**, porque os 3 objectos ainda têm a
+  forma do READY e vivem fora da Sala canônica — que **não existe nesta
+  árvore**.
+
+Fechar a segunda metade exige um critério declarado que distinga *prova* de
+*Sala*, e isso é decisão de arquitectura — não cabe aqui, e §5B proíbe
+resolvê-la por lista de nomes de ficheiro.
