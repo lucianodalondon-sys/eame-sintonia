@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "79b2582cf1490c06ae441c1447d8faef5ade14c5",
-    "GENERATED_AT": "2026-09-15T14:32:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "02f83b56a65a2f5ee65875a41fe7590fa3b335ab809c37099e93e27ed7bc6cd5"
+    "HEAD": "1222d97d2ac8e565b5b56aa021f2b28ded33b7c1",
+    "GENERATED_AT": "2026-09-15T15:39:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "74737a9d4a39b654019e0cd71a5b3636c8886e251a7bbb12fa1d8cd0c36057e0"
   },
   "FILES": [
     {
@@ -1473,7 +1473,7 @@
     },
     {
       "path": "coleta/scrap_colheita.py",
-      "sha": "ff88f31a71f69b7999f4e138e67f5523d02eb63f",
+      "sha": "17bd098d303e7e4d71ce20054af2c2efa39dae07",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7261,6 +7261,13 @@
       "code_dir": false
     },
     {
+      "path": "handoff/KNOW-HOW-DELTA-A-LINHA-MESTRA-E-AS-DUAS-REFERENCIAS.md",
+      "sha": "9c7c20a51aacd86f054816f82c6829f805e7eda7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "handoff/KNOW-HOW-DELTA-A-PONTE-DE-MIDIA.md",
       "sha": "480d4ef69229da2d752e37cf442521a6b266cdf1",
       "ext": ".md",
@@ -9109,6 +9116,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/fonte_do_atlas.py",
+      "sha": "172477bd6633e10f13b241fd40869cb48b57a157",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/fundacao_da_coleta.py",
       "sha": "e0ae0af152ed868a5f7c7fa9f915218eb82debdd",
       "ext": ".py",
@@ -10572,6 +10586,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/red_team_gate_fase_1d.py",
+      "sha": "8139f6c41691d0c87bb8dac03406ac386b818fff",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/reel_fala_qualidade.py",
       "sha": "6927ebd7f240c5017a1e9e53a5ae51b20b957383",
       "ext": ".py",
@@ -11994,7 +12015,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e04a365935a2785da011c0d302977a1271c3e9b2",
+      "sha": "135b848349b08edec602336b493355637f820de0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17089,8 +17110,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_colheita.py",
-        "line": 80,
+        "line": 81,
         "snippet": "import scrap_executor as sx                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_colheita.py",
+      "to_file": "leis/fonte_do_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_colheita.py",
+        "line": 78,
+        "snippet": "import fonte_do_atlas as fa                                       # noqa: E402  — quem diz se a fonte existe"
       }
     },
     {
@@ -17100,7 +17132,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_colheita.py",
-        "line": 79,
+        "line": 80,
         "snippet": "import retorno_da_coleta as rc                                    # noqa: E402"
       }
     },
@@ -17111,7 +17143,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_colheita.py",
-        "line": 78,
+        "line": 79,
         "snippet": "import proveniencia as pv                                        # noqa: E402  — o dono do texto"
       }
     },
@@ -25440,6 +25472,28 @@
         "file": "leis/diagnostico.py",
         "line": 35,
         "snippet": "import falhas    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/fonte_do_atlas.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/fonte_do_atlas.py",
+        "line": 75,
+        "snippet": "MASTER_IT = os.path.join(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "leis/fonte_do_atlas.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/fonte_do_atlas.py",
+        "line": 71,
+        "snippet": "ATLAS = os.path.join(\"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
       }
     },
     {
@@ -39938,6 +39992,94 @@
         "file": "provas/red_team_da_release_v1.py",
         "line": 379,
         "snippet": "import sensor_coleta as sensor"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 127,
+        "snippet": "import sala_de_espera as SALA"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 125,
+        "snippet": "import scrap_colheita as SC"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 207,
+        "snippet": "import preservar_coleta as PC"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "leis/fonte_do_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 126,
+        "snippet": "import fonte_do_atlas as FA"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "provas/red_team_adama_referencia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 176,
+        "snippet": "\"red_team_adama_referencia.py\")],"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "referencia/adama/PRODUCT-MASTER.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 96,
+        "snippet": "c[\"files\"].append(\"referencia/adama/PRODUCT-MASTER.json\")"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 39,
+        "snippet": "DECLARADO = os.path.join(RAIZ, \"system-map\", \"data\", \"architecture.declared.json\")"
+      }
+    },
+    {
+      "from_file": "provas/red_team_gate_fase_1d.py",
+      "to_file": "system-map/scripts/validate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_gate_fase_1d.py",
+        "line": 40,
+        "snippet": "VALIDADOR = os.path.join(RAIZ, \"system-map\", \"scripts\", \"validate_system_map.py\")"
       }
     },
     {
@@ -58521,10 +58663,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1947,
-    "files_readable": 764,
-    "files_code_dir": 821,
-    "file_edges": 4034,
+    "files_tracked": 1950,
+    "files_readable": 766,
+    "files_code_dir": 823,
+    "file_edges": 4045,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

@@ -85,6 +85,17 @@
       "folder": "fontes"
     },
     {
+      "id": "Z-REFERENCIA",
+      "family": "F-COLETA",
+      "name": "· a referência da ADAMA",
+      "why": "O que a ADAMA possui e o que e oficialmente verdadeiro sobre esses produtos no pais observado. E capital parado, como o atlas: consulta-se ANTES de coletar, e nada aqui sai para buscar. A gaveta existe para que o portao P2 a possa fiscalizar — sem `folder` declarado, um ficheiro fora do lugar dentro de `referencia/` passava sem ninguem ver.",
+      "folder": "referencia",
+      "views": [
+        "acervo",
+        "science"
+      ]
+    },
+    {
       "id": "Z-EXECUCAO",
       "family": "F-COLETA",
       "name": "3 · IT · SCRAP — os botoes da aquisicao",
@@ -307,7 +318,8 @@
         "fontes/adama_it_intelligence.py",
         "fontes/adama_it_labels.py",
         "fontes/adama_it_moa.py",
-        "fontes/adama_it_qa.py"
+        "fontes/adama_it_qa.py",
+        "fontes/adama_referencia.py"
       ],
       "views": [
         "science"
@@ -317,7 +329,7 @@
     {
       "id": "C-ADAMA-REFERENCE",
       "name": "A referencia da ADAMA, com um dono so",
-      "territory": "Z-FONTES",
+      "territory": "Z-REFERENCIA",
       "kind": "contract",
       "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro.",
       "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE.",
@@ -326,7 +338,6 @@
         "INTELIGENCIA"
       ],
       "files": [
-        "fontes/adama_referencia.py",
         "referencia/adama/ACTIVE-INGREDIENTS.json",
         "referencia/adama/AUTHORIZED-USES.json",
         "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
@@ -362,6 +373,24 @@
         "audit"
       ],
       "icon": "⚔"
+    },
+    {
+      "id": "C-PROVA-GATE-1D",
+      "name": "O portao da FASE 1D, e a prova de que o mapa ve",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Dezoito ataques por mutacao real. Quatro provam que o portao P2 enxerga a gaveta `referencia/` — incluindo o ataque que RETIRA a gaveta da lista e mostra o mesmo defeito a passar cego. Os outros catorze sao o red team do gate: fonte inventada, fonte de outro pais, writer aposentado, Sala nao canonica, identidade permutada.",
+      "why_here": "SYSTEM_MAP_CHECK=PASS nao provava nada sobre `referencia/`: a gaveta nao estava na lista dos territorios e o portao saltava-a com um `if g in gavetas`. Passava cego. O ataque 14D e o que torna isso visivel — ele TIRA a gaveta e mostra o defeito a passar, que e a unica maneira de provar que a lista e o que da visao. Um portao que passa cego nao e um portao: e um carimbo.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/red_team_gate_fase_1d.py"
+      ],
+      "views": [
+        "audit"
+      ],
+      "icon": "⚿"
     },
     {
       "id": "C-ADMISSAO",
@@ -1151,6 +1180,25 @@
         "science"
       ],
       "icon": "⚙"
+    },
+    {
+      "id": "C-FONTE-DO-ATLAS",
+      "name": "O atlas conhece esta fonte?",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Uma pergunta so: este SOURCE_ID foi alguma vez emitido? Le a populacao inteira — o atlas nas suas quatro formas de declaracao mais o ITALY-SOURCE-MASTER-V1.json, que cunhou 53 identidades italianas. 257 identidades medidas.",
+      "why_here": "Medido no 1222d97d: `unidade(..., fonte='IT-T99-999')` carimbava, `_identifica()` aceitava, e NINGUEM no fluxo lia o atlas para validar. Uma letra trocada produzia corrida verde com recibo e uma fonte que nunca existiu — e a certificacao diria que a identidade atravessou intacta. Intacta e falsa. Nao cai para lista de reserva: levanta, porque uma segunda populacao responderia calada no dia em que a primeira mudasse.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "leis/fonte_do_atlas.py"
+      ],
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "icon": "✓"
     },
     {
       "id": "C-DATA-CLOCK",

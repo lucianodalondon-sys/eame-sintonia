@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-15T18:25:29+00:00",
-    "HEAD": "79b2582cf1490c06ae441c1447d8faef5ade14c5",
+    "GENERATED_AT": "2026-09-15T19:29:47+00:00",
+    "HEAD": "1222d97d2ac8e565b5b56aa021f2b28ded33b7c1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "02f83b56a65a2f5ee65875a41fe7590fa3b335ab809c37099e93e27ed7bc6cd5",
-    "FICHEIROS_NA_IMPRESSAO": 2094,
+    "SOURCE_TREE_FINGERPRINT": "74737a9d4a39b654019e0cd71a5b3636c8886e251a7bbb12fa1d8cd0c36057e0",
+    "FICHEIROS_NA_IMPRESSAO": 2097,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "02f83b56a65a2f5ee65875a41fe7590fa3b335ab809c37099e93e27ed7bc6cd5",
+        "VERSAO": "74737a9d4a39b654019e0cd71a5b3636c8886e251a7bbb12fa1d8cd0c36057e0",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "e8f4b698d41311febbb47d00658e5713ab8df4e1d1a9504cbdb96ff2e2d95fe9",
+    "INPUTS_DIGEST": "a38c61be1ee6a3421d3c752c9dc392201bdfa3b0f8b5808044bb89760808e254",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -179,18 +179,6 @@
       "estado": "gray"
     },
     {
-      "id": "C-ADAMA-REFERENCE",
-      "nome": "A referencia da ADAMA, com um dono so",
-      "zona": "· as fontes",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 12,
-      "estado": "yellow"
-    },
-    {
       "id": "C-LEITORES",
       "nome": "Abrir PDF, ODS e HTML",
       "zona": "· as ferramentas da execucao",
@@ -225,18 +213,6 @@
       "respostas": 2,
       "ficheiros": 0,
       "estado": "gray"
-    },
-    {
-      "id": "C-ADAMA-IT",
-      "nome": "O que a ADAMA sabe de si",
-      "zona": "· as fontes",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 9,
-      "estado": "yellow"
     },
     {
       "id": "V-HTTP",
@@ -452,6 +428,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-ADAMA-IT",
+      "nome": "O que a ADAMA sabe de si",
+      "zona": "· as fontes",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 10,
       "estado": "yellow"
     },
     {
@@ -792,10 +780,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 54,
+    "pecas_da_coleta": 53,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 19,
-    "respondem_a_duas": 6,
+    "respondem_a_tres": 20,
+    "respondem_a_duas": 4,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

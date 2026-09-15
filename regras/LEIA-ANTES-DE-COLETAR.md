@@ -14,10 +14,6 @@ e o caminho de cada uma é onde ela realmente vive.
 O acervo de fontes é **capital parado** — consulta-se antes de coletar. Não se
 coleta para descobrir o que já se sabe.
 
-- **A referencia da ADAMA, com um dono so** — Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro.
-  - `fontes/adama_referencia.py`
-  - `referencia/adama/ACTIVE-INGREDIENTS.json`
-  - `referencia/adama/AUTHORIZED-USES.json`
 - **AS FONTES** — O capital parado da casa: 197 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
   - `docs/fontes/ATLAS-DE-FONTES-EAME.md`
   - `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
@@ -148,4 +144,4 @@ O que todo registo de coleta tem de carregar:
 
 ---
 
-Gerado de 4 réguas, 4 ferramentas e 3 peças de fonte declaradas no mapa.
+Gerado de 4 réguas, 4 ferramentas e 2 peças de fonte declaradas no mapa.

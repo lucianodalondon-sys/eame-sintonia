@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  79b2582cf1490c06ae441c1447d8faef5ade14c5
+HEAD_DA_MEDICAO  1222d97d2ac8e565b5b56aa021f2b28ded33b7c1
 BRANCH           claude/it-trunk-v1
-GERADO_EM        2026-09-15T14:32:27-03:00
+GERADO_EM        2026-09-15T15:39:52-03:00
 CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -413,13 +413,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 12 |
-| **arestas provadas** | entram 4 · saem 12 |
+| **arestas no mapa** | entram 5 · saem 13 |
+| **arestas provadas** | entram 5 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 16 |
+| **prova das ligações** | CODE 18 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -490,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 16 |
-| **arestas provadas** | entram 3 · saem 16 |
+| **arestas no mapa** | entram 3 · saem 17 |
+| **arestas provadas** | entram 3 · saem 17 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 19 |
+| **prova das ligações** | CODE 20 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -538,19 +538,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:29; provas/a_autoridade_da_fonte.py:61 |
-| **porquê** | estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:29; leis/fonte_do_atlas.py:75 |
+| **porquê** | estas pecas importam-na — C-FONTE-DO-ATLAS · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `regras/italy_contracts.mjs`, `regras/italy_source_health.mjs` |
 | **o que sai · dado** | C-IT-CONTRATOS |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 13 |
-| **arestas provadas** | entram 1 · saem 13 |
+| **arestas no mapa** | entram 2 · saem 14 |
+| **arestas provadas** | entram 1 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 14 · NÃO SEI 1 |
+| **prova das ligações** | CODE 15 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -791,49 +791,24 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `fontes/adama_catalogo_ler.py`, `fontes/adama_catalogo_montar.py`, `fontes/adama_it_eu.py`, `fontes/adama_it_frac.py`, `fontes/adama_it_gaps.py` _(e mais 4)_ |
+| **peça real** | `fontes/adama_catalogo_ler.py`, `fontes/adama_catalogo_montar.py`, `fontes/adama_it_eu.py`, `fontes/adama_it_frac.py`, `fontes/adama_it_gaps.py` _(e mais 5)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
-| **status operacional** | yellow — e uma lei sem prova executavel apontando para ela. |
+| **status operacional** | yellow — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65 |
+| **prova de quem ativa** | motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65; tests/test_adama_referencia.py:56 |
 | **porquê** | estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/BUILD-SUMMARY.json` |
+| **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json`, `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json`, `research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json` |
-| **arestas no mapa** | entram 0 · saem 2 |
-| **arestas provadas** | entram 0 · saem 2 |
+| **arestas no mapa** | entram 1 · saem 3 |
+| **arestas provadas** | entram 1 · saem 3 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 2 |
-| **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
-| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
-
-### `C-ADAMA-REFERENCE` · A referencia da ADAMA, com um dono so
-
-| | |
-|---|---|
-| **peça real** | `fontes/adama_referencia.py`, `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json` _(e mais 7)_ |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
-| **dono** | REGULATORIO_PORTFOLIO · INTELIGENCIA |
-| **status operacional** | yellow — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 12 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | italia-portale/audit/cadeia-de-familias.mjs:73; italia-portale/client/italy-v21.js:5; motor/v21_fechar.py:53 |
-| **porquê** | estas pecas importam-na — C-AUDIT-GERAL · C-PORTAL-MODELO · C-SITE-INGEST · C-V21-INGEST · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
-| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json`, `data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv`, `referencia/adama/AUTHORIZED-USES.json` |
-| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 8 |
-| **arestas provadas** | entram 0 · saem 8 |
-| **OBSERVADAS** | 0 |
-| **control plane** | entram 0 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
-| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 8 |
+| **prova das ligações** | CODE 4 |
 | **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -852,13 +827,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | V-FACEBOOK, V-INSTAGRAM, V-LINKEDIN, V-YOUTUBE |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 17 |
-| **arestas provadas** | entram 0 · saem 13 |
+| **arestas no mapa** | entram 0 · saem 18 |
+| **arestas provadas** | entram 0 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 4 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 · NÃO SEI 4 |
+| **prova das ligações** | CODE 14 · NÃO SEI 4 |
 | **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
@@ -979,13 +954,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 19 |
-| **arestas provadas** | entram 1 · saem 19 |
+| **arestas no mapa** | entram 1 · saem 20 |
+| **arestas provadas** | entram 1 · saem 20 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 20 |
+| **prova das ligações** | CODE 21 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1570,6 +1545,33 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
+## Z-REFERENCIA · a referência da ADAMA
+
+### `C-ADAMA-REFERENCE` · A referencia da ADAMA, com um dono so
+
+| | |
+|---|---|
+| **peça real** | `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json`, `referencia/adama/LABEL-DOCUMENTS.json` _(e mais 6)_ |
+| **papel** | STORAGE · medido no plano CODE |
+| **dono** | REGULATORIO_PORTFOLIO · INTELIGENCIA |
+| **status operacional** | yellow — e uma lei sem prova executavel apontando para ela. |
+| **QUEM ATIVA** | **NAO_SE_ATIVA** |
+| **prova de quem ativa** | 11 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
+| **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 9 |
+| **arestas provadas** | entram 0 · saem 9 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 9 |
+| **lei da Bíblia** | NÃO SEI |
+| **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
+
 ## Z-REGRAS · as reguas que carimbam
 
 ### `C-IDENTIDADE` · Quem esta autorizado a ser coletado
@@ -1829,8 +1831,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ## O PLACAR
 
 ```
-OK                 35
-UNKNOWN            17
+OK                 36
+UNKNOWN            16
 SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
