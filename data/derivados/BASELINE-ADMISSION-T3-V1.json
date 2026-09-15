@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.baseline-admission-t3/1",
   "O_QUE_ISTO_E": "Uma BASELINE: o mecanismo tematico de hoje, medido contra o primeiro gabarito humano de T3. Nao corrige nada, nao propoe substituto e nao aprova nem reprova o mecanismo.",
   "MEASURE_NOT_FIX": true,
-  "SOURCE_HEAD": "247fbf25958da5bb66a0316b43b73dc80c699d0b",
+  "SOURCE_HEAD": "a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f",
   "UNIVERSE": "T3",
   "ADMISSION_OWNER_FILE": "admissao/admissao.py",
   "ADMISSION_OWNER_FUNCTION": "_do_universo (via decidir)",
@@ -11,25 +11,25 @@
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "PERGUNTAS_DO_UNIVERSO = {",
-      "LINE": 402,
+      "LINE": 499,
       "PORQUE": "a lista de palavras, por universo"
     },
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "def _do_universo(",
-      "LINE": 324,
+      "LINE": 394,
       "PORQUE": "a funcao que decide o tema"
     },
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "def decidir(",
-      "LINE": 428,
+      "LINE": 604,
       "PORQUE": "a porta: prontidao primeiro, tema depois"
     },
     {
       "FILE": "orquestrador/orquestrador.py",
       "MARCA": "adm.decidir(x, universo, corrida=run_id)",
-      "LINE": 563,
+      "LINE": 602,
       "PORQUE": "o orquestrador corre a porta sobre a colheita"
     },
     {
@@ -41,7 +41,7 @@
     {
       "FILE": "coleta/ingresso.py",
       "MARCA": "def para_a_porta(",
-      "LINE": 188,
+      "LINE": 319,
       "PORQUE": "o unico tradutor do contrato para a lingua da porta"
     }
   ],
@@ -49,7 +49,7 @@
   "PRODUCTION_MECHANISM_CALLABLE": "YES",
   "COPIED_KEYWORD_IMPLEMENTATION": "NO",
   "THIN_ADAPTER_HAS_SEMANTIC_LOGIC": "NO",
-  "ADMISSION_RULE_VERSION": "3",
+  "ADMISSION_RULE_VERSION": "4",
   "RUNTIME_OUTPUT_STATES": [
     "SIM",
     "NAO",
@@ -1354,112 +1354,226 @@
   "SUBSTRING_FALSE_MATCH_STILL_EXISTS": "YES",
   "SUBSTRING_FALSE_MATCHES": [
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "doi",
       "ITEM_ID": "RAW-3e941738599367d7.txt",
       "DENTRO_DE": "ndoi"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "doi",
       "ITEM_ID": "RAW-59da05274359eff6.txt",
       "DENTRO_DE": "ndoi"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "revista",
       "ITEM_ID": "RAW-024abdb692be926a.txt",
       "DENTRO_DE": "prevista"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "revista",
       "ITEM_ID": "RAW-223510588786a4de.txt",
       "DENTRO_DE": "prevista"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "revista",
       "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
       "DENTRO_DE": "prevista"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "revista",
       "ITEM_ID": "RAW-e5176df66216dfd0.txt",
       "DENTRO_DE": "prevista"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "revista",
       "ITEM_ID": "RAW-e612807928b5ada9.txt",
       "DENTRO_DE": "prevista"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "revista",
       "ITEM_ID": "monitoraggio.html",
       "DENTRO_DE": "prevista"
     },
     {
-      "UNIVERSO": "T7",
-      "TERMO": "prova",
-      "ITEM_ID": "RAW-024abdb692be926a.txt",
-      "DENTRO_DE": "approvati"
-    },
-    {
-      "UNIVERSO": "T7",
-      "TERMO": "prova",
-      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
-      "DENTRO_DE": "approvazione"
-    },
-    {
-      "UNIVERSO": "T7",
-      "TERMO": "prova",
-      "ITEM_ID": "RAW-e612807928b5ada9.txt",
-      "DENTRO_DE": "approvazione"
-    },
-    {
-      "UNIVERSO": "T7",
-      "TERMO": "prova",
-      "ITEM_ID": "monitoraggio.html",
-      "DENTRO_DE": "riprovare"
-    },
-    {
-      "UNIVERSO": "T7",
-      "TERMO": "prova",
-      "ITEM_ID": "pagina.html",
-      "DENTRO_DE": "provata"
-    },
-    {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "universita",
       "ITEM_ID": "pagina.html",
       "DENTRO_DE": "universitario"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "tesi",
       "ITEM_ID": "RAW-699a073ace4361ea.txt",
       "DENTRO_DE": "sintesi"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "tesi",
       "ITEM_ID": "RAW-c6377f6951bfeb2e.txt",
       "DENTRO_DE": "fotosintesi"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "tesi",
       "ITEM_ID": "RAW-e5176df66216dfd0.txt",
       "DENTRO_DE": "sintesi"
     },
     {
-      "UNIVERSO": "T7",
+      "UNIVERSO": "T5",
       "TERMO": "tesi",
       "ITEM_ID": "pagina.html",
       "DENTRO_DE": "sintesi"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "DENTRO_DE": "agronomiche"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-3e941738599367d7.txt",
+      "DENTRO_DE": "agronomici"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "agronomiche"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-59da05274359eff6.txt",
+      "DENTRO_DE": "agronomici"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "DENTRO_DE": "agronomico"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-e5176df66216dfd0.txt",
+      "DENTRO_DE": "agronomiche"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "DENTRO_DE": "agronomiche"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "agronomi",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "agronomiche"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "46622",
+      "DENTRO_DE": "social"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "46647",
+      "DENTRO_DE": "social"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "91515",
+      "DENTRO_DE": "social"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-024abdb692be926a.txt",
+      "DENTRO_DE": "associazioni"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-178ebe9e0ea7dd83.txt",
+      "DENTRO_DE": "associato"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-223510588786a4de.txt",
+      "DENTRO_DE": "associated"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "DENTRO_DE": "associazione"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-3e941738599367d7.txt",
+      "DENTRO_DE": "associazione"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "associato"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-59da05274359eff6.txt",
+      "DENTRO_DE": "associazione"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-5dcfb75ac38390c3.txt",
+      "DENTRO_DE": "società"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-699a073ace4361ea.txt",
+      "DENTRO_DE": "associati"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-6d12bcb5fa2b0905.txt",
+      "DENTRO_DE": "associated"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "DENTRO_DE": "associazione"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "RAW-a927e846ba8e78b0.txt",
+      "DENTRO_DE": "sociale"
+    },
+    {
+      "UNIVERSO": "T7",
+      "TERMO": "soci",
+      "ITEM_ID": "pagina.html",
+      "DENTRO_DE": "socialrp"
     },
     {
       "UNIVERSO": "T9",
@@ -1517,6 +1631,12 @@
     },
     {
       "UNIVERSO": "T3",
+      "TERMO": "larva",
+      "ITEM_ID": "91515",
+      "DENTRO_DE": "larval"
+    },
+    {
+      "UNIVERSO": "T3",
       "TERMO": "sintoma",
       "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
       "DENTRO_DE": "sintomatologia"
@@ -1556,6 +1676,30 @@
       "TERMO": "parassita",
       "ITEM_ID": "RAW-6d12bcb5fa2b0905.txt",
       "DENTRO_DE": "parassitario"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "fitopatolog",
+      "ITEM_ID": "RAW-2a12cb316622a9a5.txt",
+      "DENTRO_DE": "fitopatologico"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "fitopatolog",
+      "ITEM_ID": "RAW-3ef48aaa830edf3b.txt",
+      "DENTRO_DE": "fitopatologiche"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "fitopatolog",
+      "ITEM_ID": "RAW-924aabd94168c53a.txt",
+      "DENTRO_DE": "fitopatologico"
+    },
+    {
+      "UNIVERSO": "T3",
+      "TERMO": "fitopatolog",
+      "ITEM_ID": "RAW-e612807928b5ada9.txt",
+      "DENTRO_DE": "fitopatologiche"
     }
   ],
   "RED_TEAM": [
@@ -1601,7 +1745,7 @@
     },
     {
       "SONDA": "11 · substring dentro de outra palavra",
-      "MEDIDO": "34 casamentos so-substring: [{'UNIVERSO': 'T7', 'TERMO': 'doi', 'ITEM_ID': 'RAW-3e941738599367d7.txt', 'DENTRO_DE': 'ndoi'}, {'UNIVERSO': 'T7', 'TERMO': 'doi', 'ITEM_ID': 'RAW-59da05274359eff6.txt', 'DENTRO_DE': 'ndoi'}, {'UNIVERSO': 'T7', 'TERMO': 'revista', 'ITEM_ID': 'RAW-024abdb692be926a.txt', 'DENTRO_DE': 'prevista'}, {'UNIVERSO': 'T7', 'TERMO': 'revista', 'ITEM_ID': 'RAW-223510588786a4de.txt', 'DENTRO_DE': 'prevista'}]"
+      "MEDIDO": "58 casamentos so-substring: [{'UNIVERSO': 'T5', 'TERMO': 'doi', 'ITEM_ID': 'RAW-3e941738599367d7.txt', 'DENTRO_DE': 'ndoi'}, {'UNIVERSO': 'T5', 'TERMO': 'doi', 'ITEM_ID': 'RAW-59da05274359eff6.txt', 'DENTRO_DE': 'ndoi'}, {'UNIVERSO': 'T5', 'TERMO': 'revista', 'ITEM_ID': 'RAW-024abdb692be926a.txt', 'DENTRO_DE': 'prevista'}, {'UNIVERSO': 'T5', 'TERMO': 'revista', 'ITEM_ID': 'RAW-223510588786a4de.txt', 'DENTRO_DE': 'prevista'}]"
     },
     {
       "SONDA": "12 · decisoes que assentam SO num casamento falso",
@@ -1723,8 +1867,11 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "ovideposizione"
+        ],
         "estagio": "DOCUMENTO"
       },
       "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
@@ -1765,9 +1912,12 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "NAO",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T4: autorizzazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T7: soci; T4: autorizzazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
       "ADMISSION_EVIDENCE": {
         "achado_noutro": {
+          "T7": [
+            "soci"
+          ],
           "T4": [
             "autorizzazione"
           ]
@@ -1806,11 +1956,13 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de parassita, malattia — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de parassita, malattia, avversita, fitopatolog — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
           "parassita",
-          "malattia"
+          "malattia",
+          "avversita",
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -1846,8 +1998,11 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "ovideposizione"
+        ],
         "estagio": "DOCUMENTO"
       },
       "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
@@ -1864,14 +2019,17 @@
       "HUMAN_LABEL": "T3_SIM",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de parassita, malattia, insetto, infestazione — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de larva, parassita, malattia, insetto — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
+          "larva",
           "parassita",
           "malattia",
           "insetto",
           "infestazione",
-          "avversita"
+          "avversita",
+          "trappole",
+          "ovideposizione"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -1889,15 +2047,17 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fungo, sintoma, parassita, malattia — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de fungo, larva, sintoma, parassita — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
           "fungo",
+          "larva",
           "sintoma",
           "parassita",
           "malattia",
           "insetto",
-          "infestazione"
+          "infestazione",
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -1956,12 +2116,14 @@
       "HUMAN_LABEL": "T3_SIM",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de malattia, insetto, avversita — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de larva, malattia, insetto, avversita — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
+          "larva",
           "malattia",
           "insetto",
-          "avversita"
+          "avversita",
+          "trappole"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2069,8 +2231,11 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "ovideposizione"
+        ],
         "estagio": "DOCUMENTO"
       },
       "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
@@ -2087,14 +2252,17 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fungo, malattia, insetto, infestazione — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de fungo, larva, malattia, insetto — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
           "fungo",
+          "larva",
           "malattia",
           "insetto",
           "infestazione",
-          "patogeno"
+          "avversita",
+          "patogeno",
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2166,9 +2334,12 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "NAO",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T9: prodotto; T4: decreto, autorizzazione, registrazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T7: soci; T9: prodotto; T4: decreto, autorizzazione, registrazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
       "ADMISSION_EVIDENCE": {
         "achado_noutro": {
+          "T7": [
+            "soci"
+          ],
           "T9": [
             "prodotto"
           ],
@@ -2230,12 +2401,17 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de parassita, insetto, infestazione — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de parassita, insetto, infestazione, avversita — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
           "parassita",
           "insetto",
-          "infestazione"
+          "infestazione",
+          "avversita",
+          "trappole",
+          "ovideposizione",
+          "oidio",
+          "ticchiolatura"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2253,15 +2429,17 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fungo, sintoma, parassita, malattia — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de fungo, larva, sintoma, parassita — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
           "fungo",
+          "larva",
           "sintoma",
           "parassita",
           "malattia",
           "insetto",
-          "infestazione"
+          "infestazione",
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2297,8 +2475,11 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "nao encontrei nada de «T3» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
+        "palavras": [
+          "ovideposizione"
+        ],
         "estagio": "DOCUMENTO"
       },
       "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
@@ -2994,13 +3175,13 @@
   "LEAKAGE_AUDIT": {
     "GROUND_TRUTH_AUTHORITY": "HUMAN_VERIFIED",
     "MECANISMO_NASCEU_EM": "2026-09-07",
-    "MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM": "2026-09-13",
+    "MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM": "2026-09-14",
     "REVISAO_HUMANA_FECHOU_EM": "2026-09-11",
     "GABARITO_COMMITADO_EM": "2026-09-11",
     "CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN": "NAO SEI",
     "PROVA": "nao foi possivel datar as duas coisas pelo Git"
   },
-  "FIRST_VALID_BASELINE_FINGERPRINT": "03ebe69cf15780e03678a433452e0cffe7f2e4bafad9fa690f9689eab79cce96",
+  "FIRST_VALID_BASELINE_FINGERPRINT": "402362e75786705489d9964d2efbacf7bdfcabf854f8638f61f72dbea7058aa1",
   "O_QUE_A_IMPRESSAO_NAO_DISTINGUE": "ela hasheia o ficheiro inteiro do dono da porta. Uma mudanca que nao toca no julgamento — uma trava, uma escrita atomica, um comentario — move a impressao na mesma. Para saber se a PORTA mudou, comparar PREVISOES_FINGERPRINT, ADMISSION_RULE_VERSION e GROUND_TRUTH.SHA256.",
   "PREVISOES_FINGERPRINT": "e4fd888feff5a1ee9aa4f77d1bc674c489dab3f6c280185480db7cf0c9e36c7f"
 }

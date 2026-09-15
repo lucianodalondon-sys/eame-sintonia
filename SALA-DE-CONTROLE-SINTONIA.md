@@ -58,29 +58,29 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`AGENTS.md`](AGENTS.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `cc861488d8`
+- **impressão do conteúdo medido** — `4298bb24b5`
 - **prova** — `git:HEAD:AGENTS.md`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `CLAUDE.md` *(+21)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `CLAUDE.md` *(+27)*
 - **o que ela diz de si** — A lei escrita. Os outros ficheiros de instrucao apontam para aqui e nao a repetem.
 
   | relação | alvo | estado | prova |
   |---|---|---|---|
-  | `GOVERNS` | `system-map/scripts/generate_system_map.py` | **OBSERVED** | `AGENTS.md:312` |
-  | `GOVERNS` | `system-map/scripts/validate_system_map.py` | **OBSERVED** | `AGENTS.md:313` |
-  | `GOVERNS` | `system-map/data/architecture.declared.json` | **OBSERVED** | `AGENTS.md:338` |
-  | `GOVERNS` | `system-map/tests/test_system_map.py` | **OBSERVED** | `AGENTS.md:314` |
-  | `GOVERNS` | `_gavetas.py` | **OBSERVED** | `AGENTS.md:550` |
-  | `GOVERNS` | `regras/LEIA-ANTES-DE-COLETAR.md` | **OBSERVED** | `AGENTS.md:581` |
-  | `GOVERNS` | `candidatas/fonte_nova.py` | **OBSERVED** | `AGENTS.md:610` |
+  | `GOVERNS` | `system-map/scripts/generate_system_map.py` | **OBSERVED** | `AGENTS.md:346` |
+  | `GOVERNS` | `system-map/scripts/validate_system_map.py` | **OBSERVED** | `AGENTS.md:347` |
+  | `GOVERNS` | `system-map/data/architecture.declared.json` | **OBSERVED** | `AGENTS.md:372` |
+  | `GOVERNS` | `system-map/tests/test_system_map.py` | **OBSERVED** | `AGENTS.md:348` |
+  | `GOVERNS` | `_gavetas.py` | **OBSERVED** | `AGENTS.md:584` |
+  | `GOVERNS` | `regras/LEIA-ANTES-DE-COLETAR.md` | **OBSERVED** | `AGENTS.md:615` |
+  | `GOVERNS` | `candidatas/fonte_nova.py` | **OBSERVED** | `AGENTS.md:644` |
   | `GOVERNS` | `controle/AUTORIDADES-CANONICAS.json` | **DECLARED** | *path_exists* |
   | `GOVERNS` | `controle/censo_do_controle.py` | **DECLARED** | *path_exists* |
   | `GOVERNS` | `controle/portao_do_controle.py` | **DECLARED** | *path_exists* |
-  | `REFERENCES` | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | **OBSERVED** | `AGENTS.md:622` |
-  | `REFERENCES` | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | **OBSERVED** | `AGENTS.md:623` |
-  | `REFERENCES` | `docs/fontes/INDICE-DE-FONTES.md` | **OBSERVED** | `AGENTS.md:627` |
-  | `REFERENCES` | `system-map/README.md` | **OBSERVED** | `AGENTS.md:685` |
-  | `REFERENCES` | `CLAUDE.md` | **OBSERVED** | `AGENTS.md:683` |
-  | `REFERENCES` | `README.md` | **OBSERVED** | `AGENTS.md:684` |
+  | `REFERENCES` | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | **OBSERVED** | `AGENTS.md:656` |
+  | `REFERENCES` | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | **OBSERVED** | `AGENTS.md:657` |
+  | `REFERENCES` | `docs/fontes/INDICE-DE-FONTES.md` | **OBSERVED** | `AGENTS.md:661` |
+  | `REFERENCES` | `system-map/README.md` | **OBSERVED** | `AGENTS.md:719` |
+  | `REFERENCES` | `CLAUDE.md` | **OBSERVED** | `AGENTS.md:717` |
+  | `REFERENCES` | `README.md` | **OBSERVED** | `AGENTS.md:718` |
 
 #### 🟢 INSTRUCOES PERMANENTES DO PROJETO
 
@@ -92,7 +92,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `b38c2989c5`
 - **prova** — `git:HEAD:CLAUDE.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+13)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+15)*
 - **o que ela diz de si** — Aponta para AGENTS.md como dono da lei do mapa, e possui sozinha a lei de design.
 
   | relação | alvo | estado | prova |
@@ -113,7 +113,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `b9e17e4cd9`
 - **prova** — `git:HEAD:README.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+11)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+13)*
 - **o que ela diz de si** — O metodo. Nao repete a lei do mapa; aponta para AGENTS.md.
 - **nota** — Aponta para `docs/08-decisoes/DIARIO-DE-DECISOES.md`, que nao existe. O diario vive em `docs/decisoes/`.
 
@@ -151,9 +151,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`BIBLIA-CANONICA-DA-COLETA.md`](BIBLIA-CANONICA-DA-COLETA.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `909ba45bac`
+- **impressão do conteúdo medido** — `465f48d111`
 - **prova** — `git:HEAD:BIBLIA-CANONICA-DA-COLETA.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+27)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+32)*
 - **cópias divergentes medidas** — 3: `origin/claude/sintonia-eame-know-how-v1`, `origin/release/canonical`, `origin/claude/biblia-canonica-da-coleta`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.
 
@@ -161,7 +161,7 @@ A leitura desta tabela é o resultado principal desta missão:
   |---|---|---|---|
   | `GOVERNS` | `admissao/admissao.py` | **OBSERVED** | `BIBLIA-CANONICA-DA-COLETA.md:110` |
   | `GOVERNS` | `regras/proveniencia.py` | **OBSERVED** | `BIBLIA-CANONICA-DA-COLETA.md:180` |
-  | `GOVERNS` | `regras/sensor_coleta.py` | **OBSERVED** | `BIBLIA-CANONICA-DA-COLETA.md:1047` |
+  | `GOVERNS` | `regras/sensor_coleta.py` | **OBSERVED** | `BIBLIA-CANONICA-DA-COLETA.md:1062` |
   | `GOVERNS` | `coleta/coletor.py` | **OBSERVED** | `BIBLIA-CANONICA-DA-COLETA.md:134` |
   | `GOVERNS` | `pedido/pedido.py` | **OBSERVED** | `BIBLIA-CANONICA-DA-COLETA.md:243` |
 
@@ -210,7 +210,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `9f24a2ff39`
 - **prova** — `git:HEAD:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`
-- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json`, `docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json` *(+6)*
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json`, `docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json` *(+7)*
 - **o que ela diz de si** — CANONICAL desde 2026-09-14, promovida por C-CTRL-INT-NIGHT-02 com as 9 condicoes da secao 31 re-medidas contra esta arvore: 9/9 PASS. A 5 fechou com a integracao de C-INT-ATOMICITY-01 — Biblia, Biblia da Coleta, know-how, arbitragem e registo coexistem num commit so. A 6 fechou quando os dois bloqueadores se revelaram inexistentes: dez MENCOES contadas como leis, e um CARD_ID lido como caminho. A canonica e esta copia, nesta arvore: CANONICAL_REF deixou de apontar para a branch lateral. IMPLEMENTATION_AUTHORIZED cobre apenas a primeira missao da secao 32, e ainda sujeita aos gates a montante (TRAVA-DA-INTELIGENCIA, e o item real que a propria secao 32 exige). C-INT-BIBLE-CONSISTENCY-01 separou o veredito historico de 2026-09-13 do veredito corrente: o texto declarava CANONICAL = NO tres paginas abaixo de um cabecalho CANONICAL. V0.3 (2026-09-14) acrescentou as secoes 34 CAPACIDADES, 35 A FERRAMENTA NAO CONSTROI INTELLIGENCE, 36 SOURCE PERFORMANCE INTELLIGENCE e 37 AVALIACAO CONTINUA, com 22 leis novas (INT-LAW-270..273, 280..284, 290..299, 300..302) e ZERO leis alteradas de 000 a 260. A fronteira IMPLEMENTATION_AUTHORIZED e a mesma cadeia de caracteres da V0.2: acrescentar lei nao autoriza obra. Quatro leis candidatas foram RECUSADAS por ja terem dono (INT-LAW-021, 023, 060, 042) — ver secao 37.4. SOURCE PERFORMANCE nao colide com SOURCE_RELEVANCE (OWNER=COLLECTION, leis/relevancia_da_fonte.py): aquela e porta antes do gasto, esta e medicao depois do gasto. C-INT-BIBLE-RECONCILIATION-01 (2026-09-14) mediu que esta V0.3 nunca se perdeu: a branch claude/intelligence-bible-canonical-review-749b7c esta no remoto e contem origin/claude/intelligence-pilot-v1 como ANCESTRAL (0 commits atras, 17 a frente), logo nada houve a reconstruir. VEREDITO = RECOVER. A reconciliacao encontrou dois defeitos reais e corrigiu-os: a seccao 36 nao citava a INT-LAW-152 e podia aconselhar MORE para material ja recolhido (corrigido pela INT-LAW-302, com REPROCESSING_CHECKED obrigatorio e REPROCESS_FIRST como direcao de primeira classe); e o texto citava INT-LAW-068, que nao existe (era 070..077). Leis passaram de 172 para 173.
 - **nota** — NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; a V0.2 cobria 9 — fora ficavam KIT/KIQ, FIELD_VOICES e DECISION_TELEMETRY. A V0.3 fechou FIELD_VOICES pela capacidade CAP-FIELD da secao 34. Continuam fora: KIT/KIQ e DECISION_TELEMETRY.
 
@@ -264,7 +264,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `1aa96613c2`
 - **prova** — `git:HEAD:docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `coleta/eu_regulatorio_executor.py`, `controle/AUTORIDADES-CANONICAS.json` *(+6)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `coleta/eu_regulatorio_executor.py`, `controle/AUTORIDADES-CANONICAS.json` *(+8)*
 - **o que ela diz de si** — Terceiro degrau da escada da fonte, entre o atlas e o workflow.
 
   | relação | alvo | estado | prova |
@@ -279,9 +279,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`docs/fontes/ATLAS-DE-FONTES-EAME.md`](docs/fontes/ATLAS-DE-FONTES-EAME.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `508a4ca185`
+- **impressão do conteúdo medido** — `1629449da7`
 - **prova** — `git:HEAD:docs/fontes/ATLAS-DE-FONTES-EAME.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`, `PROMPT-PARA-NOVA-CONTA-CLAUDE.md` *(+16)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`, `PROMPT-PARA-NOVA-CONTA-CLAUDE.md` *(+25)*
 - **o que ela diz de si** — Segundo degrau. Uma linha so existe aqui depois de alguem abrir a fonte e guardar evidencia.
 
 #### 🟢 REGRA DE COLETA EXTERNA
@@ -294,7 +294,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `ce98fc51bb`
 - **prova** — `git:HEAD:medidas/REGRA-DE-COLETA-EXTERNA-EAME.md`
-- **quem aponta para ela** — `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`, `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md` *(+2)*
+- **quem aponta para ela** — `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`, `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md` *(+3)*
 - **o que ela diz de si** — Vive em `medidas/`. `tests/test_coleta_externa.py` procura-a em `docs/regras/` e nao a acha — quatro testes acordam com FileNotFoundError.
 - **nota** — BROKEN_POINTER conhecido e medido; o conserto e do dono do teste, nao deste registo.
 
@@ -385,7 +385,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `dede225b19`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
-- **quem aponta para ela** — `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md` *(+3)*
+- **quem aponta para ela** — `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/operacao/CENSO-SALA-DE-ESPERA-ANTES-DA-BIG-COLLECTION-V1.md` *(+6)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. O dono verdadeiro vive numa branch lateral; `main` nao tem know-how nenhum.
 - **nota** — A copia esta 50 commits atras do dono. Escrever um SINTONIA-EAME-KNOW-HOW.md novo em `main` criaria a terceira versao — e isso e o ataque RT04.
@@ -402,7 +402,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `e827506022`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
-- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` *(+5)*
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` *(+6)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
 
 #### 🟢 Sala de Controle do SINTONIA
@@ -415,7 +415,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — *não se mede a si própria: o valor mudaria por ser escrito aqui*
 - **prova** — `git:HEAD:SALA-DE-CONTROLE-SINTONIA.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `provas/arbitragem_da_intelligence.py`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md` *(+1)*
 - **o que ela diz de si** — GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.
 
 ### PORTÕES DE GOVERNANÇA
@@ -430,7 +430,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `a0b488c120`
 - **prova** — `git:HEAD:system-map/scripts/validate_system_map.py`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `AGENTS.md`, `CLAUDE.md` *(+13)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `AGENTS.md`, `CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json` *(+12)*
 - **o que ela diz de si** — Falha fechado: erro inesperado tambem e FAIL.
 
   | relação | alvo | estado | prova |
@@ -448,7 +448,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `a76b9628f4`
 - **prova** — `git:HEAD:controle/portao_do_controle.py`
-- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `docs/operacao/CENSO-DA-INTELLIGENCE.md` *(+1)*
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `docs/operacao/CENSO-DA-INTELLIGENCE.md` *(+2)*
 - **o que ela diz de si** — Falha fechado.
 
   | relação | alvo | estado | prova |
@@ -464,9 +464,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`system-map/tests/test_system_map.py`](system-map/tests/test_system_map.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `503f9fee64`
+- **impressão do conteúdo medido** — `f962658f4b`
 - **prova** — `git:HEAD:system-map/tests/test_system_map.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `controle/AUTORIDADES-CANONICAS.json` *(+4)*
+- **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `controle/AUTORIDADES-CANONICAS.json` *(+5)*
 - **o que ela diz de si** — Corre no CI, passo 4.
 
   | relação | alvo | estado | prova |
@@ -483,7 +483,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `3c07f20a1a`
 - **prova** — `git:HEAD:provas/testa_coleta_canonica.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md` *(+7)*
+- **quem aponta para ela** — `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md` *(+8)*
 - **o que ela diz de si** — Corre no CI, passo 4b.
 
 #### 🟢 O padrao do departamento de coleta
@@ -496,7 +496,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `e6a12f1f60`
 - **prova** — `git:HEAD:medidas/padrao_da_coleta.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md` *(+6)*
+- **quem aponta para ela** — `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md` *(+7)*
 - **o que ela diz de si** — Corre no CI, passo 3.
 
 ### POLÍTICA
@@ -509,19 +509,19 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`.github/workflows/system-map.yml`](.github/workflows/system-map.yml)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `c46fa6462a`
+- **impressão do conteúdo medido** — `f5f756a18b`
 - **prova** — `git:HEAD:.github/workflows/system-map.yml`
-- **quem aponta para ela** — `AGENTS.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md` *(+5)*
+- **quem aponta para ela** — `AGENTS.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md` *(+9)*
 - **o que ela diz de si** — TEXTO NAO REPROVA NADA. WORKFLOW REPROVA.
 
   | relação | alvo | estado | prova |
   |---|---|---|---|
-  | `REFERENCES` | `system-map/scripts/scan_repo.py` | **OBSERVED** | `.github/workflows/system-map.yml:125` |
-  | `REFERENCES` | `system-map/scripts/generate_system_map.py` | **OBSERVED** | `.github/workflows/system-map.yml:167` |
-  | `REFERENCES` | `system-map/scripts/validate_system_map.py` | **OBSERVED** | `.github/workflows/system-map.yml:184` |
-  | `REFERENCES` | `medidas/padrao_da_coleta.py` | **OBSERVED** | `.github/workflows/system-map.yml:443` |
-  | `REFERENCES` | `system-map/tests/test_system_map.py` | **OBSERVED** | `.github/workflows/system-map.yml:300` |
-  | `REFERENCES` | `provas/testa_coleta_canonica.py` | **OBSERVED** | `.github/workflows/system-map.yml:422` |
+  | `REFERENCES` | `system-map/scripts/scan_repo.py` | **DECLARED** | *path_exists* |
+  | `REFERENCES` | `system-map/scripts/generate_system_map.py` | **DECLARED** | *path_exists* |
+  | `REFERENCES` | `system-map/scripts/validate_system_map.py` | **DECLARED** | *path_exists* |
+  | `REFERENCES` | `medidas/padrao_da_coleta.py` | **OBSERVED** | `.github/workflows/system-map.yml:544` |
+  | `REFERENCES` | `system-map/tests/test_system_map.py` | **OBSERVED** | `.github/workflows/system-map.yml:262` |
+  | `REFERENCES` | `provas/testa_coleta_canonica.py` | **OBSERVED** | `.github/workflows/system-map.yml:503` |
 
 ### OBSERVADORES
 
@@ -533,9 +533,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`system-map/scripts/scan_repo.py`](system-map/scripts/scan_repo.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `20523161e0`
+- **impressão do conteúdo medido** — `7b974b286a`
 - **prova** — `git:HEAD:system-map/scripts/scan_repo.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `controle/AUTORIDADES-CANONICAS.json`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md` *(+4)*
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md`, `system-map/README.md` *(+5)*
 - **o que ela diz de si** — Mede. Nao decide. O que ele nao consegue saber fica no ficheiro declarado.
 
   | relação | alvo | estado | prova |
@@ -550,14 +550,14 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`system-map/scripts/generate_system_map.py`](system-map/scripts/generate_system_map.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `02a01be583`
+- **impressão do conteúdo medido** — `3fedfca06b`
 - **prova** — `git:HEAD:system-map/scripts/generate_system_map.py`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `AGENTS.md`, `CLAUDE.md` *(+18)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `AGENTS.md`, `CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+24)*
 - **o que ela diz de si** — DERIVADO. O mapa nasce do repo; o repo nunca nasce do mapa. Este ficheiro NAO e dono de arquitetura nenhuma — e o consumidor dela.
 
   | relação | alvo | estado | prova |
   |---|---|---|---|
-  | `OBSERVES` | `system-map/data/architecture.declared.json` | **OBSERVED** | `system-map/scripts/generate_system_map.py:3114` |
+  | `OBSERVES` | `system-map/data/architecture.declared.json` | **OBSERVED** | `system-map/scripts/generate_system_map.py:4477` |
   | `OBSERVES` | `controle/AUTORIDADES-CANONICAS.json` | **DECLARED** | *path_exists* |
 
 #### 🟢 Censo do Control Plane
@@ -570,7 +570,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `282a4285d9`
 - **prova** — `git:HEAD:controle/censo_do_controle.py`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/portao_do_controle.py`, `tests/test_atomicidade_da_intelligence.py`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/portao_do_controle.py`, `docs/operacao/DONO-DO-SYSTEM-MAP-IT.md`, `tests/test_atomicidade_da_intelligence.py`
 - **o que ela diz de si** — Ele e quem escreve OBSERVED. O registo declarado nunca escreve.
 
   | relação | alvo | estado | prova |
@@ -585,9 +585,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`system-map/scripts/censo_da_coleta.py`](system-map/scripts/censo_da_coleta.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `f76b472add`
+- **impressão do conteúdo medido** — `76646fa75d`
 - **prova** — `git:HEAD:system-map/scripts/censo_da_coleta.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DA-COLETA.md` *(+5)*
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DA-COLETA.md`, `docs/sintonia-scrap/C10-4C-APOSENTAR-A-ROTA-LEGADA.md` *(+5)*
 - **o que ela diz de si** — Mede.
 
 #### 🟢 Pente fino da coleta
@@ -598,9 +598,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`system-map/scripts/pente_fino_da_coleta.py`](system-map/scripts/pente_fino_da_coleta.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `7c6f8bd541`
+- **impressão do conteúdo medido** — `fc7f593867`
 - **prova** — `git:HEAD:system-map/scripts/pente_fino_da_coleta.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `controle/AUTORIDADES-CANONICAS.json`, `system-map/data/architecture.declared.json`, `system-map/scripts/CADEIA-DO-MAPA.json`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `system-map/data/architecture.declared.json`, `system-map/scripts/CADEIA-DO-MAPA.json`, `system-map/scripts/reconciliacao_do_universo.py` *(+2)*
 - **o que ela diz de si** — Mede.
 
 ### HANDOFFS — memória, **não** autoridade
@@ -626,9 +626,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`](HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `853e1b5ff1`
+- **impressão do conteúdo medido** — `e5c9b1c18f`
 - **prova** — `git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`
-- **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `tests/test_atomicidade_da_intelligence.py` *(+2)*
+- **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md` *(+3)*
 - **o que ela diz de si** — MEMORIA.
 
 #### 🟢 Handoff · V2 em pausa
@@ -742,9 +742,9 @@ presumidas: cada uma diz a ref onde a autoridade realmente está.
 ## DECLARADO ≠ OBSERVADO
 
 O censo mediu **64** relações de governo declaradas neste
-registo. Delas, **42** têm prova apontável
+registo. Delas, **39** têm prova apontável
 (ficheiro e linha dentro do texto da própria autoridade) e
-**22** continuam apenas declaradas.
+**25** continuam apenas declaradas.
 
 Uma relação declarada **não passa a observada por estar desenhada**. Quem
 prova que uma lei governa uma peça é o texto da lei a nomear a peça — não o

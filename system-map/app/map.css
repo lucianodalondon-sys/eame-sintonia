@@ -14,6 +14,12 @@
  --adama:#009845;--adama-dark:#00783f;--earth:#978b87;--earth10:#f4f2f2;--earth20:#e5e1e0;--earth40:#cbc5c3;
  --text:#5f504d;--white:#fff;--bg:#f6f7f6;--line:#dedad8;
  --ok:#198754;--warn:#d99a00;--bad:#c53b35;--unknown:#7f8b87;
+ /* O SENTIDO DO FLUXO E A MESMA CLASSE DE PERGUNTA QUE O ESTADO, e herda
+    a mesma decisao do cabecalho: a paleta Primary da ADAMA significa
+    CATEGORIA DE PRODUTO (Crop Enhancement, Weed Control, Disease Control,
+    Pest Control), e dar-lhe um segundo significado estragaria as duas
+    leituras. Declarados aqui, e em mais lado nenhum. */
+ --fluxo-montante:#4a7fa5;--fluxo-jusante:#a8762e;
  --shadow:0 12px 34px rgba(48,42,39,.10);
 }
 *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:var(--bg);overflow:hidden}
@@ -232,6 +238,38 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .dyn.catRULE    .edgePath{stroke-dasharray:8 4 2 4;stroke-width:1.8;opacity:.38}
 .dyn.catPROOF   .edgePath{stroke-dasharray:1 6;stroke-width:1.4;opacity:.26}
 .dyn.catCODE    .edgePath{stroke-dasharray:1 7;stroke-width:1;opacity:.20}
+
+/* ── G9 · A TRAVESSIA OBSERVADA NAO PODE PARECER-SE COM UMA ESTATICA ──────
+   Uma aresta provada por analise estatica diz «ha linha que permite». Uma
+   aresta OBSERVADA diz «uma corrida passou por aqui, e foi lida do banco».
+
+       ANALISE ESTATICA PROVA CAN DO. SO A CORRIDA PROVA DID DO.
+
+   Desenhar as duas iguais e o mesmo defeito que o G8 tirou das 45 sem prova,
+   um degrau acima. A observada e a unica linha CHEIA e escura do mapa: vem
+   depois das regras de categoria de proposito, para ganhar o tracejado
+   delas — a categoria continua legivel na espessura e na seta. */
+.dyn.prova-observada .edgePath{stroke:var(--adama-dark);stroke-width:4;
+  stroke-dasharray:none;opacity:.92}
+.dyn.prova-observada .edgePath.semprova{stroke:var(--adama-dark);
+  stroke-dasharray:none;marker-end:none}
+
+/* ── A LEGENDA DA LINGUA DAS SETAS ───────────────────────────────────────── */
+.legendaArestas{font-size:9px;line-height:1.65;color:#5c6663;margin:2px 0 6px}
+.legendaArestas div{display:flex;gap:5px;align-items:baseline}
+.legendaArestas b{color:#3d3936;font-weight:800;min-width:58px;flex:none}
+.legendaArestas i{color:#8a827e;font-style:normal;font-size:8.4px;min-width:78px;flex:none}
+
+/* ── AS ESTRADAS OBSERVADAS ──────────────────────────────────────────────── */
+.estrada{margin:8px 0 0;padding:8px 9px;border-radius:9px;border:1px solid var(--earth20);background:#fff}
+.estrada.estradaOk{border-color:#96c8ab;background:#f3faf6}
+.estrada.estradaFalha{border-color:#eedb9e;background:#fffdf6}
+.estradaTopo{display:flex;gap:7px;align-items:center;justify-content:space-between;font-size:9.5px}
+.estradaEtapas{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 5px}
+.etapaChip{font-size:8px;font-weight:800;padding:2px 5px;border-radius:5px;border:1px solid;cursor:help}
+.etapaChip.etapaOk{background:#e8f3ec;border-color:#bcdcc8;color:#1f5f3c}
+.etapaChip.etapaNao{background:#f1f2f1;border-color:#d3d8d6;color:#5c6663;text-decoration:line-through}
+.estradaNota{font-size:8.6px;color:#5c6663;line-height:1.5}
 .dyn.catUNKNOWN .edgePath{stroke:var(--unknown);stroke-dasharray:4 6;opacity:.34}
 
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
@@ -329,3 +367,149 @@ body.staleOn .warning{top:122px}
    sao razoes de um buraco, e nao mais buracos. */
 .statusPanel ol.faltas { margin: .35rem 0 .25rem; padding-left: 1.2rem; }
 .statusPanel ol.faltas li { margin-bottom: .35rem; }
+
+/* OS QUATRO PLANOS NA FICHA DA ARESTA — pequenos, e sempre os quatro.
+   Mostrar so o que esta provado seria voltar a dizer que o resto e verde. */
+.planos { font-size: 11px; opacity: .8; margin: 3px 0; letter-spacing: .02em; }
+/* A NOTA DO CAMPO LEGADO, NO CARTAO DA PECA. Pequena, e presente: o pill diz
+   «PROVADO OPERACIONAL» e os quatro planos ao lado podem dizer NAO SEI. Quem
+   le precisa de saber que sao duas perguntas, senao ve uma contradicao e
+   acredita na que estiver em letra maior. */
+.planoNota { font-size: 10px; line-height: 1.45; color: #8a827e; margin: 4px 0 2px; }
+.planoNota:empty { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ⚖️ A LEI DE DESIGN, RESPONDIDA ANTES DE SE PINTAR SEJA O QUE FOR
+   ---------------------------------------------------------------------------
+       ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND
+       NEW_PATTERN_REQUIRED      = YES
+
+   Medido no extracto versionado em `_ds/adama-brandwell/tokens/`: a paleta tem
+   Corporate, Primary, Secondary e Utility, e `patterns.css` nao traz UMA cor de
+   estado. A Primary inteira significa CATEGORIA DE PRODUTO — Crop Enhancement,
+   Weed Control, Disease Control, Pest Control.
+
+       DAR A UMA COR DE PRODUTO UM SEGUNDO SIGNIFICADO
+       ESTRAGA AS DUAS LEITURAS.
+
+   E essa frase nao e nova: e a decisao que o cabecalho desta folha ja tomou
+   para `--ok/--warn/--bad/--unknown`. «Isto esta provado?» e «de onde vem?» sao
+   a mesma classe de pergunta que «isto esta a funcionar?», e herdam a mesma
+   decisao: rampa propria de engenharia, tokens declarados num sitio so.
+
+   O que se REUTILIZOU do Design System, e nao se reinventou: `--adama`,
+   `--adama-dark`, `--earth*`, `--text`, a tipografia e o raio das pastilhas.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   G7 · G8 · G8B — O PAPEL, A PROVA DA LIGACAO, E O SENTIDO DO FLUXO
+   ---------------------------------------------------------------------------
+   TRES CANAIS, NUNCA SO A COR.
+
+   O contrato de design manda que NAO SEI ocupe espaco na tela, e a §18 do
+   contrato de confianca proibe esconde-lo. Uma ligacao sem prova distingue-se
+   aqui por COR, por TRACO e por uma MARCA — e a marca e a que sobra para quem
+   nao separa dois cinzentos parecidos.
+
+       COR      cinzento em vez de tinta
+       TRACO    tracejado curto
+       MARCA    um anel vazado no meio da curva, e a ponta da seta vazada
+
+   As cores continuam a ser os tokens do ADAMA (--adama, --earth, --warn,
+   --unknown). Nenhuma paleta nova nasce aqui.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── O PAPEL, NO CARTAO E NO PAINEL ──────────────────────────────────────── */
+/* ⚠️ O PAPEL DIZ-SE POR PALAVRA, E NAO POR COR — E ISSO E DELIBERADO.
+   A primeira versao desta folha dava um tom proprio a cada um dos sete papeis.
+   Sete tons sem hierarquia nao comunicam: cansam, e obrigam a decorar uma
+   legenda para ler um cartao.
+
+       UMA PALETA SEM HIERARQUIA NAO INFORMA: DECORA.
+
+   Fica UM chip neutro, com o papel escrito por extenso. So `NAO SEI` se separa,
+   e com o cinzento que ja e o dele em todo o mapa — porque a unica distincao
+   que a tela precisa de gritar aqui e «isto nao foi medido». */
+.papelChip{display:inline-block;font-size:7.6px;font-weight:800;letter-spacing:.08em;
+ padding:2px 6px;border-radius:999px;border:1px solid var(--earth20);background:var(--earth10);
+ color:#6c625e;vertical-align:middle}
+.detailSub .papelChip{font-size:8.6px;padding:3px 8px}
+.papelChip.papel-UNKNOWN{background:#f3f4f4;border-color:#d3d8d6;color:var(--unknown)}
+
+/* ── A LINHA DO DONO, NA CABECA DO PAINEL ────────────────────────────────── */
+.donoLinha{margin-top:9px;font-size:11px;color:#4a443f;display:flex;gap:6px;
+ align-items:baseline;flex-wrap:wrap}
+.donoLinha span{font-size:8.6px;text-transform:uppercase;letter-spacing:.08em;color:#958d89}
+.donoLinha i{font-size:9.5px;color:#8a827e;font-style:normal}
+
+/* ── O LIMITE DE UMA EVIDENCIA, SEMPRE ESCRITO ───────────────────────────── */
+.limite{font-size:9.5px;line-height:1.4;color:#7c7470;margin-top:6px;
+ border-top:1px dashed #d8d3d0;padding-top:5px}
+
+/* ── O QUE ENTRA E O QUE SAI, LADO A LADO ────────────────────────────────── */
+.entraSai{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.esTit{font-size:8.4px;font-weight:800;letter-spacing:.09em;color:#958d89;margin-bottom:4px}
+.naosei{font-size:10px;color:#7f8b87;background:#f5f4f3;border:1px dashed #d8d3d0;
+ border-radius:7px;padding:7px}
+
+/* ── UMA LIGACAO, NO PAINEL ──────────────────────────────────────────────── */
+.ligacao{border:1px solid #ece8e6;border-left:4px solid var(--earth40);border-radius:8px;
+ padding:8px 9px;margin:6px 0;background:#fcfbfb}
+.ligacao.prova-provada{border-left-color:var(--adama)}
+.ligacao.prova-observada{border-left-color:var(--adama-dark)}
+.ligacao.prova-declarada{border-left-color:var(--warn)}
+.ligacao.prova-naosei{border-left-color:var(--unknown);background:#f7f7f6}
+.ligTopo{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ligTopo b{font-size:11.5px;color:#334f47}
+.ligComo{font-size:8.4px;text-transform:uppercase;letter-spacing:.07em;color:#958d89;margin-top:3px}
+.ligPorque{font-size:10px;line-height:1.45;color:#5f504d;margin-top:5px}
+.ligTec{font:9px/1.45 monospace;color:#8a827e;margin-top:5px;word-break:break-all}
+
+/* ── O SELO DA CLASSE DE PROVA ───────────────────────────────────────────── */
+.provaChip{font-size:7.4px;font-weight:800;letter-spacing:.08em;padding:2px 6px;
+ border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.provaChip.prova-provada{background:#e8f3ec;border-color:#bcdcc8;color:#1f5f3c}
+.provaChip.prova-observada{background:#d9efe1;border-color:#96c8ab;color:#12492c}
+.provaChip.prova-declarada{background:#fff8e2;border-color:#eedb9e;color:#7d6110}
+.provaChip.prova-naosei{background:#f1f2f1;border-color:#d3d8d6;color:#5c6663}
+.ttStatus.prova-naosei{color:#5c6663}
+.ttStatus.prova-declarada{color:#7d6110}
+
+/* ── A CAMADA TECNICA DO PAINEL ──────────────────────────────────────────── */
+.sec.tecnico{border-top:1px dashed var(--earth20);padding-top:12px}
+.idTec{font:9px/1.5 monospace;color:#8a827e;margin-bottom:5px;word-break:break-all}
+
+/* ── A SETA SEM PROVA ────────────────────────────────────────────────────── */
+/* Nao herda o tracejado da CATEGORIA: a categoria diz o que atravessa, isto diz
+   se ha prova. Dois eixos, e o segundo ganha o traco porque e o que mente se
+   ficar invisivel. */
+.edgePath.semprova{stroke:var(--unknown);stroke-dasharray:5 7;opacity:.5;
+ stroke-width:2;marker-end:url(#arrowNaoSei)}
+.semProvaMarca{fill:#fff;stroke:var(--unknown);stroke-width:1.6;opacity:.75;
+ pointer-events:none}
+#world.focando .semProvaMarca{opacity:.18}
+#world.focando .dyn.acesa .semProvaMarca{opacity:1;stroke:var(--warn);stroke-width:2.2}
+#world.focando .dyn.acesa .edgePath.semprova{stroke:var(--unknown);stroke-width:3;
+ stroke-dasharray:5 7;opacity:1}
+
+/* ── A MONTANTE E A JUSANTE ──────────────────────────────────────────────── */
+/* Quem alimenta e quem e alimentado nao podem acender iguais: com os dois da
+   mesma cor, seguir o caminho obriga a ler a ponta de cada seta uma por uma.
+   A DIFERENCA NAO E SO A COR — a montante leva um tracinho a esquerda e a
+   jusante a direita, e o painel escreve as duas palavras por extenso. */
+#world.focando .node.montante{opacity:1;filter:none;border-color:var(--fluxo-montante);
+ box-shadow:-5px 0 0 -1px var(--fluxo-montante),0 12px 24px rgba(45,40,37,.12)}
+#world.focando .node.jusante{opacity:1;filter:none;border-color:var(--fluxo-jusante);
+ box-shadow:5px 0 0 -1px var(--fluxo-jusante),0 12px 24px rgba(45,40,37,.12)}
+#world.focando .dyn.paraCima .edgePath{stroke:var(--fluxo-montante)}
+#world.focando .dyn.paraBaixo .edgePath{stroke:var(--fluxo-jusante)}
+
+/* ── OS MOSTRADORES ──────────────────────────────────────────────────────── */
+.kpi.semprova b{color:var(--unknown)}
+
+/* O quadradinho que liga a palavra do painel a cor do palco. Sem ele, «a
+   montante» e uma frase e a borda azul e um enfeite — e ninguem junta as duas. */
+.ladoSw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;
+ vertical-align:middle}
+.ladoSw.montante{background:var(--fluxo-montante)}
+.ladoSw.jusante{background:var(--fluxo-jusante)}

@@ -279,25 +279,61 @@ def medir(*, device, modelo, audio=None):
     for campo in ('TRANSCRIPT_STATE', 'TRANSCRIPT', 'TRANSCRIPT_CHARS',
                   'ASR_DEVICE_REQUESTED', 'ASR_DEVICE_SELECTED', 'ASR_DEVICE_EXECUTION',
                   'ASR_DEVICE_USED', 'ASR_ACCELERATOR', 'ASR_ACCELERATOR_SELECTED',
-                  'ASR_DEVICE', 'ASR_WHY_FALLBACK', 'ASR_ENGINE_VERSION',
+                  'ASR_DEVICE', 'ASR_WHY_FALLBACK', 'ASR_COMPUTE_REQUESTED',
+                  'ASR_COMPUTE_SELECTED', 'ASR_COMPUTE_SOURCE',
+                  'ASR_WHY_COMPUTE_FALLBACK', 'ASR_ENGINE_VERSION',
                   'MACHINE_SECONDS', 'MODEL_PREPARE_SECONDS', 'ERROR'):
         fora[campo] = r.get(campo)
 
-    # ── O VEREDITO, E ELE EXIGE OS CINCO AO MESMO TEMPO ──────────────────
-    # Qualquer um em falta e a placa nao ficou provada. Em especial
+    # ── O VEREDITO JULGA CONTRA O QUE FOI PEDIDO ─────────────────────────
+    # ⚠️ ATE AQUI ELE EXIGIA `GPU` SEMPRE — inclusive quando o chamador tinha
+    # pedido `CPU`. A contraprova do processador, que e uma corrida onde nada
+    # falhou, saia `RESULT = FAIL` a dizer «faltou dispositivo GPU».
+    #
+    #     UMA PROVA QUE REPROVA O QUE ELA PROPRIA PEDIU NAO MEDE NADA:
+    #     ELA SO SABE RESPONDER A UMA DAS PERGUNTAS QUE ACEITA.
+    #
+    # Agora o esperado deriva do pedido. `AUTO` e o unico que nao nomeia ferro
+    # de antemao — nele o que se exige e coerencia: o que correu tem de ser o
+    # que o resolvedor escolheu.
+    esperado = {fl.GPU: (fl.GPU, 'CUDA'), fl.CPU: (fl.CPU, 'NONE')}.get(device)
+    if esperado is None:                                  # AUTO
+        esperado = (r.get('ASR_DEVICE_SELECTED'),
+                    r.get('ASR_ACCELERATOR_SELECTED'))
+    fora['DEVICE_EXPECTED'] = esperado[0]
+
+    # Os seis ao mesmo tempo, e qualquer um em falta reprova. Em especial
     # `ASR_DEVICE_EXECUTION`: sem ele, «escolheu GPU» passaria por «correu na
-    # GPU» — que foi o defeito que esta missao encontrou.
-    passou = (r.get('TRANSCRIPT_STATE') == fl.OK
-              and r.get('ASR_DEVICE_EXECUTION') == fl.EXECUCAO_PROVADA
-              and r.get('ASR_DEVICE_USED') == fl.GPU
-              and r.get('ASR_ACCELERATOR') == 'CUDA'
-              and r.get('ASR_WHY_FALLBACK') is None
-              and not r.get('ERROR')
-              and (r.get('TRANSCRIPT_CHARS') or 0) > 0)
-    fora['RESULT'] = PASSOU if passou else FALHOU
-    if not passou:
-        fora['WHY'] = ('faltou pelo menos um dos cinco: estado OK, execucao PROVEN, '
-                       'dispositivo GPU, acelerador CUDA, sem queda e texto nao vazio')
+    # GPU» — que foi o defeito que a C4B encontrou.
+    faltas = []
+    if r.get('TRANSCRIPT_STATE') != fl.OK:
+        faltas.append('estado %s' % r.get('TRANSCRIPT_STATE'))
+    if r.get('ASR_DEVICE_EXECUTION') != fl.EXECUCAO_PROVADA:
+        faltas.append('execucao %s' % r.get('ASR_DEVICE_EXECUTION'))
+    if r.get('ASR_DEVICE_USED') != esperado[0]:
+        faltas.append('correu em %s e esperava-se %s'
+                      % (r.get('ASR_DEVICE_USED'), esperado[0]))
+    if r.get('ASR_ACCELERATOR') != esperado[1]:
+        faltas.append('acelerador %s e esperava-se %s'
+                      % (r.get('ASR_ACCELERATOR'), esperado[1]))
+    if r.get('ASR_WHY_FALLBACK') is not None:
+        faltas.append('queda de dispositivo: %s' % r.get('ASR_WHY_FALLBACK'))
+    if r.get('ERROR'):
+        faltas.append('erro do reconhecedor')
+    if not (r.get('TRANSCRIPT_CHARS') or 0):
+        faltas.append('texto vazio')
+    fora['RESULT'] = PASSOU if not faltas else FALHOU
+    if faltas:
+        fora['WHY'] = ' · '.join(faltas)
+    # ── A TROCA DE ARITMETICA NAO REPROVA, E TAMBEM NAO SE ESCONDE ───────
+    # `float16` negociado para `int8_float32` numa placa que nao faz `float16`
+    # e a escolha certa — e continua a ser uma TROCA. Ela sai a vista, com o
+    # nome dela, para nao se ler este PASS como «correu no que foi pedido».
+    if r.get('ASR_WHY_COMPUTE_FALLBACK'):
+        fora['COMPUTE_NOTE'] = (
+            'a placa correu, e NAO com o tipo de calculo pedido: %s -> %s (%s)'
+            % (r.get('ASR_COMPUTE_REQUESTED'), r.get('ASR_COMPUTE_SELECTED'),
+               r.get('ASR_WHY_COMPUTE_FALLBACK')))
     return fora
 
 

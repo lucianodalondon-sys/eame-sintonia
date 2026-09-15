@@ -42,18 +42,34 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import impressao_da_arvore as IMPRESSAO          # noqa: E402
 SAIDA = RAIZ / "system-map" / "data" / "sources.generated.json"
 
 ATLAS = "docs/fontes/ATLAS-DE-FONTES-EAME.md"
 CONTRATOS = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
 
 PAIS = {"EU": "EUROPA", "FR": "FRANCA", "ES": "ESPANHA", "IT": "ITALIA"}
-TERRITORIO = {
-    "T1": "Cultura e producao", "T2": "Clima e tempo", "T3": "Praga e doenca",
-    "T4": "Regulatorio", "T5": "Preco e mercado", "T6": "Comercio e distribuicao",
-    "T7": "Ciencia e ensaio", "T8": "Voz do campo", "T9": "Concorrente",
-    "T10": "Politica e subsidio", "T11": "Solo e agua", "T12": "Substancia ativa",
-}
+# ⚠️ A TERCEIRA TABELA. Esta era a pior das tres, porque ESCREVIA.
+#
+# `territory_name` sai daqui para `sources.generated.json`, e de la para o
+# portal e para o mapa. Com a copia que aqui estava, o artefato gerado dizia,
+# a serio e por escrito:
+#
+#     EU-T5-001  «OpenAlex»  ->  territory_name: «Preco e mercado»
+#
+# Uma base de literatura cientifica rotulada como preco de mercado, gerada, e
+# sem ninguem perguntar porque — porque o rotulo vinha de uma tabela que
+# parecia autoridade e nao era.
+#
+#     UMA COPIA QUE ESCREVE NAO E UMA COPIA: E UMA SEGUNDA AUTORIDADE.
+#
+# O dono e `leis/territorios.py`, que le o MESMO Atlas de onde este scanner ja
+# extrai cada ficha de fonte — o ficheiro que a linha abaixo chama `ATLAS`.
+sys.path.insert(0, str(RAIZ / "leis"))
+import territorios as _terr                      # noqa: E402
+
+TERRITORIO = {c: d["NOME"] for c, d in _terr.TERRITORIOS.items()}
 
 
 def ler(rel: str) -> list[str]:
@@ -154,7 +170,102 @@ def do_atlas() -> list[dict]:
     # filtro, o mapa passaria a contar 30 fontes e uma delas seria um formulario
     # vazio — e um numero inflado e pior do que um numero pequeno.
     RE_ID = re.compile(r"^(EU|FR|ES|IT)-T\d{1,2}-\d{3}$")
+
+    # ── A FAIXA E POPULACAO, NAO DOIS NUMEROS ─────────────────────────────
+    # O atlas declara `SOURCE_ID: ES-T7-001..027` — UMA ficha, 27 identidades
+    # (27 orgaos de imprensa tecnica e associacoes, nao 27 copias de um). O
+    # `RE_ID` acima nao entende `..`, e por isso as 27 existiam no atlas e NAO
+    # no mapa: uma ficha em vez de vinte e sete. Expandir aqui nao reinterpreta
+    # identidade nenhuma — le o que o atlas ja declarava.
+    RE_FAIXA = re.compile(r"^(EU|FR|ES|IT)-T(\d{1,2})-(\d{3})\.\.(\d{3})$")
+
+    # ── E A FICHA MULTI-PAIS TAMBEM DECLARA VARIOS NUMEROS ────────────────
+    # O atlas escreve, numa unica linha:
+    #     SOURCE_ID:  FR-T9-001 / ES-T9-001 / IT-T9-001 (mesma natureza)
+    #     SOURCE_ID:  EU-T9-002 (uma ficha, quatro recortes: EU · ES · IT · FR)
+    # O regex ancorado nao casa a linha inteira e SALTAVA a ficha toda: quatro
+    # identidades existiam no atlas e nao no mapa. O pais de cada uma sai do
+    # PREFIXO do proprio ID — que e a convencao declarada no preambulo do
+    # atlas — e nao do campo COUNTRY partilhado, que nomeia os tres.
+    RE_SOLTO = re.compile(r"\b(EU|FR|ES|IT)-T\d{1,2}-\d{3}(?:\.\.\d{3})?\b")
+
+    def sem_parenteses(s: str) -> str:
+        """O que esta entre parenteses e nota, nao identidade."""
+        fora, prof = [], 0
+        for c in s:
+            if c in "([{":
+                prof += 1
+            elif c in ")]}":
+                prof = max(0, prof - 1)
+            elif prof == 0:
+                fora.append(c)
+        return "".join(fora)
+
+    def expandir(sid: str) -> list:
+        # ⚠️ O MODELO DE FICHA EM BRANCO NAO E UMA FONTE, e quase virou uma.
+        # O atlas oferece, sob «## FICHA OBRIGATORIA DA FONTE», uma cerca para
+        # copiar, com `SOURCE_ID: # ex.: FR-T3-001`. O `RE_ID` ancorado
+        # rejeitava-a de graca; estes regexes, mais largos para ler faixas e
+        # fichas multi-pais, encontram o `FR-T3-001` do COMENTARIO e
+        # reclamariam o modelo como ficha — criando uma duplicata com a ficha
+        # verdadeira do BSV. A trava logo abaixo foi quem apanhou isso.
+        #
+        # Regra: o que vem depois de `#` na linha e comentario, nao identidade.
+        sid = sid.split("#")[0]
+        fora = []
+        for pedaco in RE_SOLTO.finditer(sem_parenteses(sid)):
+            token = pedaco.group(0)
+            m = RE_FAIXA.match(token)
+            if m:
+                pais, terr = m.group(1), m.group(2)
+                a, b = int(m.group(3)), int(m.group(4))
+                if 0 < b - a <= 200:
+                    fora += [f"{pais}-T{terr}-{n:03d}" for n in range(a, b + 1)]
+                    continue
+            fora.append(token)
+        return list(dict.fromkeys(fora)) or [sid]
+
+    fontes = [{**f, "SOURCE_ID": novo}
+              for f in fontes
+              for novo in expandir(f["SOURCE_ID"].strip())]
+
     saida = []
+    # ── A TRAVA CONTRA A SOBRESCRITA SILENCIOSA ───────────────────────────
+    # O `SOURCE_ID` e identidade. Duas fichas com o mesmo numero nao sao um
+    # detalhe de formatacao: sao duas fontes a responder pelo mesmo dado. E o
+    # perigo desta casa e que a colisao nao APARECE — quem indexa por
+    # `dict[SOURCE_ID]` fica com a ultima e perde a primeira, e o mapa mostra
+    # uma fonte a menos sem acusar erro nenhum.
+    #
+    # Ela vem junto com a expansao de proposito: expandir MULTIPLICA os IDs, e
+    # multiplicar identidade sem trava e exatamente como se fabrica a colisao
+    # que ninguem ve. As duas sao uma peca so.
+    #
+    # A trava e de FALHAR, nao de escolher. Escolher a ultima e o que ja se
+    # fazia, e foi assim que o problema chegou aqui.
+    ja_visto = {}
+    colisoes = []
+    for f in fontes:
+        sid = f["SOURCE_ID"].strip()
+        if not RE_ID.match(sid):
+            continue
+        if sid in ja_visto:
+            colisoes.append(
+                f"{sid} aparece na linha {ja_visto[sid]} e outra vez na "
+                f"linha {f.get('_line', '?')}")
+        else:
+            ja_visto[sid] = f.get("_line", 0)
+    if colisoes:
+        raise SystemExit(
+            "SOURCE_ID DUPLICADO NO ATLAS — o mapa nao e gerado com identidade "
+            "ambigua.\n  "
+            + "\n  ".join(colisoes)
+            + "\n\nO SOURCE_ID e identidade, e identidade nao se resolve "
+              "escolhendo a ultima ficha: a fonte que perder o numero "
+              "desaparece do mapa sem erro. Conserte o atlas — funda as duas "
+              "fichas, ou de um numero novo a fonte que ainda nao tem "
+              "(contra a POPULACAO INTEIRA, nunca contra este ficheiro so).")
+
     for f in fontes:
         sid = f["SOURCE_ID"].strip()
         if not RE_ID.match(sid):
@@ -697,6 +808,24 @@ def as_palavras(arquivos: list[str]) -> list[dict]:
 # ─────────────────────────────────────────────────────────────────────────────
 RE_URL = re.compile(r"https://[A-Za-z0-9._~:/?#\[\]@!$&'()*+,;=%-]{8,90}")
 
+# ⚠️ O CORTE FICA. O QUE NAO PODE FICAR E O CORTE CALADO.
+#
+# O mapa mostra as portas mais usadas, e 40 e quanto cabe numa tela sem virar
+# uma lista que ninguem le. Isso e uma decisao de apresentacao, e e legitima.
+#
+# O defeito era outro, e vivia uma linha abaixo, em `COUNTS["endpoints"]`:
+# contava-se o TAMANHO DA LISTA JA CORTADA e imprimia-se `portas=40`. Quem lia
+# entendia «o repositorio chama 40 enderecos». Nao chama: chama muito mais, e
+# 40 e so quanto se publicou.
+#
+#     UM TOP-40 APRESENTADO COMO TOTAL NAO E UM RESUMO. E UM NUMERO ERRADO.
+#
+# Passam a sair os tres, sempre juntos e nunca um so:
+#     ENDPOINTS_FOUND      quantos o scanner encontrou de facto
+#     ENDPOINTS_PUBLISHED  quantos foram para o mapa
+#     ENDPOINTS_TRUNCATED  a diferenca, escrita e nao deduzida
+LIMITE_ENDPOINTS = 40
+
 
 def as_portas(arquivos: list[str]) -> list[dict]:
     achados: dict[str, dict] = {}
@@ -716,7 +845,9 @@ def as_portas(arquivos: list[str]) -> list[dict]:
                 a = achados.setdefault(porta, {"endpoint": porta, "usado_por": []})
                 if not any(x["file"] == rel for x in a["usado_por"]):
                     a["usado_por"].append({"file": rel, "line": n})
-    return sorted(achados.values(), key=lambda x: -len(x["usado_por"]))[:40]
+    # Devolve TUDO o que encontrou. Quem corta e o chamador, e o chamador
+    # escreve quanto cortou — aqui dentro o corte era invisivel de fora.
+    return sorted(achados.values(), key=lambda x: -len(x["usado_por"]))
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -745,9 +876,29 @@ def main() -> int:
         por_pais[f["country"]] = por_pais.get(f["country"], 0) + 1
         por_verdict[f["verdict"]] = por_verdict.get(f["verdict"], 0) + 1
 
+    # Medido UMA vez, cortado depois. Chamar `as_portas` duas vezes — uma para
+    # a lista e outra para o total — era varrer o repositorio duas vezes e, pior,
+    # abrir a porta a que os dois numeros discordassem por causa de um ficheiro
+    # tocado no meio.
+    _portas_achadas = as_portas(arquivos)
+
     dados = {
         "SCHEMA": "sintonia.system-map.sources/1",
-        "PROVENANCE": {"HEAD": head, "ATLAS": ATLAS, "CONTRATOS": CONTRATOS},
+        # O CARIMBO QUE SE CONSEGUE CONFERIR — e a lista do que este scanner
+        # ABRE de facto. Nenhuma delas e gerada pela cadeia: sao todas fonte, e
+        # por isso a versao de cada uma e o SHA do blob que o git guardaria.
+        "PROVENANCE": dict(
+            IMPRESSAO.carimbo("system-map/scripts/scan_sources.py", [
+                (ATLAS, IMPRESSAO.FONTE, "as_fontes() · linhas()"),
+                (CONTRATOS, IMPRESSAO.FONTE, "os_contratos() · linhas()"),
+                (MASTER_IT, IMPRESSAO.FONTE, "o_master_italiano() · json"),
+                (CONTAS, IMPRESSAO.FONTE, "as_contas() · json"),
+                (FILA, IMPRESSAO.FONTE, "a_fila() · json"),
+                (MANIFESTO, IMPRESSAO.FONTE, "o_manifesto() · json"),
+                (LEDGER_IT, IMPRESSAO.FONTE, "o_registo_italiano() · ndjson"),
+                (RUNS_IT, IMPRESSAO.FONTE, "o_registo_italiano() · ndjson"),
+            ]),
+            ATLAS=ATLAS, CONTRATOS=CONTRATOS),
         "SOURCES": fontes,
         "CITADAS_SEM_FICHA": so_em_tabela,
         "MASTER_ITALIANO": master,
@@ -758,7 +909,10 @@ def main() -> int:
         "MEMORIA_DA_COLETA": memoria_da_coleta(arquivos),
         "COLETAS_FEITAS": coletas_feitas(fontes),
         "COLETAS_ITALIANAS": coletas_italianas(),
-        "ENDPOINTS": as_portas(arquivos),
+        "ENDPOINTS": _portas_achadas[:LIMITE_ENDPOINTS],
+        "ENDPOINTS_FOUND": len(_portas_achadas),
+        "ENDPOINTS_PUBLISHED": min(LIMITE_ENDPOINTS, len(_portas_achadas)),
+        "ENDPOINTS_TRUNCATED": max(0, len(_portas_achadas) - LIMITE_ENDPOINTS),
         "COUNTS": {
             "sources": len(fontes),
             "with_contract": sum(1 for f in fontes if f["sabe_coletar"]),
@@ -770,7 +924,12 @@ def main() -> int:
         len(t["grupos"]) for t in dados["SEARCH_TERMS"])
     dados["COUNTS"]["search_terms"] = sum(
         t["total_palavras"] for t in dados["SEARCH_TERMS"])
-    dados["COUNTS"]["endpoints"] = len(dados["ENDPOINTS"])
+    # ⚠️ `endpoints` ficou a valer o que o nome promete: QUANTOS EXISTEM.
+    # Antes valia `len(dados["ENDPOINTS"])`, que e a lista ja cortada — o
+    # contador dizia 40 porque 40 era o tamanho da gaveta, nao do mundo.
+    dados["COUNTS"]["endpoints"] = dados["ENDPOINTS_FOUND"]
+    dados["COUNTS"]["endpoints_published"] = dados["ENDPOINTS_PUBLISHED"]
+    dados["COUNTS"]["endpoints_truncated"] = dados["ENDPOINTS_TRUNCATED"]
     dados["COUNTS"]["candidates"] = len(dados["INTAKE"]["candidatas"])
     M = dados["MEMORIA_DA_COLETA"]
     dados["COUNTS"]["coletores"] = len(M)
@@ -878,6 +1037,13 @@ def main() -> int:
     print(f"COLETA=OK · fontes={c['sources']} (com contrato de busca: {c['with_contract']}) "
           f"· palavras={c['search_terms']} em {c['search_term_groups']} grupos "
           f"· portas={c['endpoints']}")
+    # Os tres saem SEMPRE juntos, mesmo quando nao ha corte (truncadas=0). Um
+    # numero que so aparece quando incomoda ensina a ler a ausencia dele como
+    # «esta tudo la» — e era isso que acontecia.
+    print(f"  ENDPOINTS_FOUND={c['endpoints']} · "
+          f"ENDPOINTS_PUBLISHED={c['endpoints_published']} · "
+          f"ENDPOINTS_TRUNCATED={c['endpoints_truncated']} "
+          f"(limite de apresentacao: {LIMITE_ENDPOINTS})")
     print("  por pais:    " + " · ".join(f"{k}={v}" for k, v in c["by_country"].items()))
     print("  por veredito:" + " · ".join(f" {k}={v}" for k, v in c["by_verdict"].items()))
     return 0

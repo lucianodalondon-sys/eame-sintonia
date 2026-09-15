@@ -46,10 +46,10 @@ class OContratoLeSeNoCodigo(unittest.TestCase):
         # cadeia, o portao passa a ser de identidade e a §9 foi quebrada.
         item = {'id': 'x', 'texto': 'ensaio de campo com DOI', 'url': URL,
                 'fact_time': '2026-05-02'}
-        d = ad.decidir(item, 'T7', corrida='c10-2')
+        d = ad.decidir(item, 'T5', corrida='c10-2')
         if d.resultado != ad.SIM:
             item['texto'] = 'ensaio de campo publicado com DOI e revisao por pares'
-            d = ad.decidir(item, 'T7', corrida='c10-2')
+            d = ad.decidir(item, 'T5', corrida='c10-2')
         self.assertEqual(d.resultado, ad.SIM, d.motivo)
         saida = ad.pronto_para_inteligencia(item, d)
         self.assertEqual(saida['SOURCE_ID'], 'NAO SEI',
@@ -57,8 +57,22 @@ class OContratoLeSeNoCodigo(unittest.TestCase):
         self.assertNotIn('instagram.com', str(saida['SOURCE_ID']))
 
     def test_o_portao_vive_entre_as_perguntas_de_prontidao(self):
+        # ⚠️ ISTO CONGELAVA A LISTA INTEIRA PARA GUARDAR UM PORTAO SO.
+        # O nome diz o que interessa: «origem» vive ENTRE as perguntas de
+        # prontidao. Exigir a lista exacta fazia esta prova reprovar quando
+        # `C-COL-PRESERVE-FACTS-V1` acrescentou `identidade` — uma pergunta que
+        # nao tem nada que ver com o portao de origem, e cuja chegada este teste
+        # nao tem opiniao nenhuma sobre.
+        #
+        #     UMA GUARDA QUE MEDE MAIS DO QUE PROTEGE
+        #     REPROVA TRABALHO ALHEIO E NAO PROTEGE MELHOR O PROPRIO.
         rotulos = [r for r, _f in ad.perguntas_do_estagio(ad.DOCUMENTO)]
-        self.assertEqual(rotulos, ['legivel', 'origem', 'linhagem'])
+        self.assertIn('origem', rotulos)
+        # E continua a vir DEPOIS de «legivel»: nao se julga de onde veio o que
+        # ainda nao se conseguiu ler.
+        self.assertLess(rotulos.index('legivel'), rotulos.index('origem'))
+        # E o tempo do FATO continua a NAO ser perguntado a um documento.
+        self.assertNotIn('tempo do fato', rotulos)
 
 
 class UmaConfissaoNaoEUmaOrigem(unittest.TestCase):

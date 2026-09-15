@@ -109,10 +109,46 @@ RECUSAS = (SEM_CORRIDA, SEM_CONTEUDO, CONTRATO_QUEBRADO)
 # Nao ha valor por omissao nenhum aqui: o que o coletor nao disser fica NAO SEI.
 NAO_SEI_ID = "NAO SEI"
 
+# ⚠️ `COLLECTED_AT` ENTROU AQUI, E A AUSENCIA DELE ERA UM DEFEITO CALADO.
+# Esta tupla tinha treze campos e nenhum deles servia para o coletor dizer
+# QUANDO ele trouxe os bytes. A ficha enchia esse campo com o `STARTED_AT` da
+# CORRIDA, e enquanto a corrida que colhe e a corrida que preserva forem a
+# mesma, os dois valores coincidem e ninguem repara.
+#
+# Deixam de coincidir no reprocessamento — que e exactamente o que esta missao
+# faz. Medido: dez observacoes italianas capturadas a 2026-09-07, reprocessadas
+# a 2026-09-14, chegaram a Sala de Espera com
+#
+#     captured_at = 2026-09-14  —  uma semana errado, e com ar de medido
+#
+# O livro italiano SEMPRE soube a resposta certa: cada observacao traz
+# `CAPTURED_AT` com o instante real. O coletor sabia, e nao tinha por onde o
+# dizer.
+#
+#     RUNTIME SABE != O SISTEMA GUARDA.
+#     E UM CAMPO SEM SITIO NO CONTRATO E UM CAMPO QUE NAO EXISTE.
+#
+# A corrida continua a ser o valor por omissao — para quem nao declara, nada
+# muda. O que muda e haver um sitio para a verdade quando ela e sabida.
 DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "SOURCE_LOCATION", "FACT_LOCATION", "ITEM_LANGUAGE",
-              "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT",
-              "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION")
+              "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT", "COLLECTED_AT",
+              "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION",
+              # ⚠️ `CONTENT_TYPE` ENTROU, E NAO E «MAIS UM CAMPO A VIAJAR».
+              # A regra escrita a seguir continua a valer: um campo nao entra
+              # aqui por precisar de boleia. Este entra porque e METADADO DA
+              # FICHA — `Artefato` sempre teve a coluna — e porque a ficha
+              # nascia com ela VAZIA enquanto o coletor a trazia preenchida.
+              #
+              # Medido a 2026-09-14 com um `.mp4` real de 9,2 MB: o item
+              # declarava `video/mp4`, a ficha saia `NAO SEI`, e
+              # `_quem_deriva_aceita` trata a ausencia como «tenta» — de
+              # proposito, porque ausencia de evidencia nao e evidencia de
+              # ausencia. Logo o video seguia para o extrator de PDF.
+              #
+              #     UMA TRAVA DE ESPECIE COM A ESPECIE APAGADA A MONTANTE
+              #     NAO PROTEGE NADA: ELA SO NAO TEM O QUE LER.
+              "CONTENT_TYPE")
 
 # ⚠️ `TEXT_UNITS` NAO ESTA NA LISTA ACIMA, E A AUSENCIA E A DECISAO.
 # Medido ao ligar: por-lo la levanta
@@ -155,6 +191,124 @@ DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
 # Vive AQUI porque aqui e a fronteira: esta peca ja «transforma o que o coletor
 # largou numa ficha do contrato comum». Traduzir para a lingua de quem julga e
 # a mesma travessia, no mesmo sitio, uma vez.
+# ═══════════════════════════════════════════════════════════════════════════
+# A FRONTEIRA STRUCTURED → ADMISSION, DECLARADA
+# ═══════════════════════════════════════════════════════════════════════════
+# ⚠️ PORQUE ISTO NASCE AQUI, E NAO NUM FICHEIRO NOVO.
+#
+# A prova de fogo da Collection procurou, no repositorio inteiro, o contrato do
+# registo STRUCTURED. Nao existe esquema nenhum, e a porta le chaves por
+# tentativa e erro. O dano ficou medido no mesmo dia: o produtor escreveu
+# `collected_time`, a porta leu `captured_at`, e SEIS unidades chegaram a Sala
+# de Espera com `CAPTURED_AT = NAO SEI` — com o valor a existir e medido.
+#
+#     PRODUTOR E CONSUMIDOR SEM CONTRATO PARTILHADO
+#     PERDEM DADO SEM DAR ERRO.
+#
+# O remendo obvio — aceitar tambem `collected_time` — seria o pior conserto
+# possivel: cada nome novo que alguem inventasse passaria a ser suportado, e a
+# fronteira deixaria de ter forma nenhuma.
+#
+#     ACEITAR MAIS NOMES NAO E TER UM CONTRATO. E DESISTIR DE TER UM.
+#
+# E nao se cria uma segunda arquitectura. Os DOIS donos ja existiam:
+#
+#     leis/artefato.py       o VOCABULARIO — cinco tempos, tres geografias,
+#                            duas especies, e as proibicoes em codigo
+#     coleta/ingresso.py     a TRAVESSIA — `PARA_A_PORTA`, o unico tradutor
+#                            da fronteira, ja usado pelas tres rotas
+#
+# O que faltava nao era um dono: era a DECLARACAO de o que tem de atravessar.
+# `PARA_A_PORTA` diz como um nome vira outro; nao dizia quais fazem falta, e
+# por isso ninguem reparava quando um deles nao vinha.
+#
+#     UM MAPA DE NOMES NAO E UM CONTRATO: DIZ COMO TRADUZIR, NAO O QUE EXIGIR.
+#
+# ⚠️ E ISTO NAO PREENCHE NADA. `conferir_fronteira()` MEDE e escreve o que
+# falta. Ausencia continua `NAO SEI`, e `NAO SEI` continua a nao ser `NAO`.
+
+#: O que a unidade STRUCTURED tem de trazer para a admissao poder julgar. São
+#: os nomes do CONTRATO COMUM (`leis/artefato.py`), porque é essa a língua em
+#: que a unidade chega — `para_a_porta()` é que a traduz para a da porta.
+FRONTEIRA_EXIGE = ("SOURCE_ID", "ARTIFACT_TYPE")
+
+#: O que a fronteira TRANSPORTA quando existe, e que nunca se fabrica quando
+#: não existe. Cada um é um facto diferente, e o mapa diz de que espécie é —
+#: para que ninguém volte a encher um com o outro.
+FRONTEIRA_TRANSPORTA = {
+    "FACT_TIME": "quando o fato aconteceu",
+    "PUBLISHED_AT": "quando a fonte publicou — NAO e quando o fato aconteceu",
+    "OBSERVED_AT": "quando a fonte registou ter observado",
+    "COLLECTED_AT": "quando ESTA maquina recebeu os bytes (raw_asset.captured_at)",
+    "SOURCE_LOCATION": "onde esta quem publica",
+    "FACT_LOCATION": "onde o fato aconteceu — PODE ser outro",
+    "PARENT_SHA256": "a impressao do original de que este texto nasceu",
+    # ⚠️ COMO SE SABE FAZ PARTE DO QUE SE SABE, e ate aqui nao atravessava.
+    # `leis/artefato.py::conferir` JA reprova um `FACT_LOCATION` preenchido
+    # «sem dizer de onde saiu» — a lei existia, e a fronteira nao declarava a
+    # resposta como coisa que viaja. E do outro lado da moeda: o livro do
+    # coletor italiano escreve, em 175 observacoes, PORQUE o tempo do fato e
+    # desconhecido. Essa frase e uma MEDICAO, e morria aqui.
+    #
+    #     UM `NAO SEI` COM RAZAO E UMA MEDICAO.
+    #     UM `NAO SEI` SEM RAZAO E INDISTINGUIVEL DE DESLEIXO.
+    "FACT_TIME_BASIS": "como se sabe o FACT_TIME, ou porque NAO se sabe",
+    "FACT_LOCATION_BASIS": "como se sabe o FACT_LOCATION, ou porque NAO se sabe",
+    # A especie probatoria que o CONTRATO DE FONTE declara antes de correr.
+    # DECLARADO PELA FONTE != MEDIDO NESTE DOCUMENTO, e o nome diz qual e qual.
+    "SOURCE_DECLARED_EVIDENCE_CLASS":
+        "a especie probatoria que o contrato de fonte declara — nao a medida aqui",
+}
+
+#: A linhagem. Não está em `FRONTEIRA_EXIGE` porque a rota documental a põe no
+#: item já na língua da porta (`raw_asset_id`), e não como nome do contrato
+#: comum. `admissao.pronto_para_inteligencia()` é quem a lê, e é lá que a
+#: ausência vira `NAO SEI` — nunca um id fabricado.
+FRONTEIRA_LINHAGEM = "raw_asset_id"
+
+#: Os quatro tempos, escritos juntos uma vez, para que a proibição seja legível
+#: no sítio onde ela pode ser quebrada.
+TEMPOS_QUE_NAO_SE_MISTURAM = (
+    "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT")
+
+
+def conferir_fronteira(item: dict) -> dict:
+    """O que atravessou esta fronteira, e o que NAO atravessou. Nao preenche.
+
+    Devolve o recibo da travessia — nunca levanta, nunca escreve, nunca
+    adivinha. Quem chama decide o que fazer com um `EXIGIDOS_EM_FALTA` não
+    vazio; esta função só se recusa a deixar a perda ser silenciosa.
+
+        UMA PERDA MEDIDA E UM DEFEITO. UMA PERDA CALADA E UMA ARQUITECTURA.
+
+    Aceita o item em QUALQUER das duas línguas — a do contrato comum e a da
+    porta — porque a fronteira é exactamente o sítio onde as duas se encontram,
+    e um recibo que só soubesse ler uma delas mediria metade da travessia.
+    """
+    def _tem(nome):
+        for chave in (nome, PARA_A_PORTA.get(nome, nome)):
+            v = item.get(chave)
+            if v not in NAO_E_AFIRMACAO:
+                return True
+        return False
+
+    faltam = [c for c in FRONTEIRA_EXIGE if not _tem(c)]
+    return {
+        "FRONTEIRA": "STRUCTURED -> ADMISSION",
+        "DONO": "coleta/ingresso.py",
+        "VOCABULARIO": "leis/artefato.py",
+        "EXIGIDOS": list(FRONTEIRA_EXIGE),
+        "EXIGIDOS_EM_FALTA": faltam,
+        "TRANSPORTADOS": sorted(c for c in FRONTEIRA_TRANSPORTA if _tem(c)),
+        "AUSENTES": sorted(c for c in FRONTEIRA_TRANSPORTA if not _tem(c)),
+        "LINHAGEM": ("PRESENTE" if item.get(FRONTEIRA_LINHAGEM) is not None
+                     else "NAO SEI"),
+        "A_LEI": TEMPOS_QUE_NAO_SE_MISTURAM,
+        "O_QUE_ISTO_NAO_FAZ": ("nao preenche, nao adivinha e nao converte um "
+                               "tempo no outro. Ausencia sai como ausencia."),
+    }
+
+
 PARA_A_PORTA = {
     "SOURCE_ID": "source_id",
     "SOURCE_URL": "url",
@@ -166,6 +320,16 @@ PARA_A_PORTA = {
     "PARENT_ARTIFACT_ID": "parent_artifact_id",
     "PARENT_SHA256": "parent_sha256",
     "COLLECTED_AT": "captured_at",
+    # ── OS QUATRO QUE `FRONTEIRA_TRANSPORTA` DECLARAVA E O MAPA NAO TRADUZIA ──
+    # Um nome declarado como «coisa que atravessa» e sem par do outro lado
+    # atravessa na lingua errada: chega a porta em MAIUSCULAS, a porta le
+    # minusculas, e o valor fica no item a ser lido por ninguem.
+    #
+    #     DECLARAR QUE ATRAVESSA != TER POR ONDE ATRAVESSAR.
+    "OBSERVED_AT": "observed_at",
+    "FACT_TIME_BASIS": "fact_time_basis",
+    "FACT_LOCATION_BASIS": "fact_location_basis",
+    "SOURCE_DECLARED_EVIDENCE_CLASS": "source_declared_evidence_class",
 }
 
 
@@ -372,13 +536,95 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
 #: um `ImportError` aqui faria a coleta parar por causa de uma PERGUNTA sobre
 #: capacidade. Sem a declaração, `_quem_deriva_aceita` responde True — que é o
 #: comportamento de sempre, e o seguro.
+#: Os executores de derivação, por ordem de consulta. A ordem NÃO é prioridade:
+#: as espécies não se sobrepõem — `application/pdf` não é `video/*` — e no dia
+#: em que se sobrepuserem isso é uma decisão a escrever, não a herdar de quem
+#: foi importado primeiro.
+#:
+#:     UMA ORDEM QUE DECIDE SEM QUE NINGUÉM A TENHA DECIDIDO
+#:     É UMA REGRA ESCONDIDA NUM `import`.
+_DONOS_DA_DERIVACAO = ("executor_texto_de_pdf", "executor_transcricao_midia")
+
+
+def _executores_de_derivacao():
+    """Os módulos de derivação importáveis AGORA. → tupla de módulos.
+
+    O import continua LOCAL e protegido, um a um: uma prova que copia meia
+    árvore pode ter o de PDF e não ter o de mídia, e faltar um NÃO pode fazer
+    a coleta parar por causa de uma PERGUNTA sobre capacidade.
+
+        FERRAMENTA QUE FALTA NÃO É DOCUMENTO QUEBRADO — `COL-LAW-503`.
+    """
+    import importlib                                           # noqa: PLC0415
+    fora = []
+    for nome in _DONOS_DA_DERIVACAO:
+        try:
+            mod = importlib.import_module(nome)
+        except Exception:                                      # noqa: BLE001
+            continue
+        if isinstance(getattr(mod, "CAPACIDADE", None), dict):
+            fora.append(mod)
+    return tuple(fora)
+
+
 def _capacidades_de_derivacao():
-    try:
-        import executor_texto_de_pdf as _ex
-    except Exception:                                          # noqa: BLE001
-        return ()
-    cap = getattr(_ex, "CAPACIDADE", None)
-    return (cap,) if isinstance(cap, dict) else ()
+    return tuple(m.CAPACIDADE for m in _executores_de_derivacao())
+
+
+def _cabe_na_capacidade(cap, tipo) -> bool:
+    """`tipo` (já em minúsculas, sem parâmetros) cabe nesta ficha? → bool.
+
+    Dois eixos, e os dois são DECLARADOS pelo dono da capacidade:
+
+        ACEITA_MEDIA_TYPES   o tipo exacto      `application/pdf`
+        ACEITA_FAMILIAS      a família do tipo  `audio` · `video`
+
+    ⚠️ A FAMÍLIA ENTROU PORQUE A LISTA EXACTA NÃO FECHAVA.
+    Um tipo só — PDF — cabe numa tupla. Mídia não: `video/mp4`,
+    `video/quicktime`, `video/webm`, `audio/mpeg`, `audio/mp4`, `audio/wav`,
+    `audio/ogg`, `audio/x-m4a`… e a lista nunca acaba. Escrevê-la aqui
+    garantia que, no dia em que chegasse um `audio/flac`, esta casa
+    responderia `NÃO SUPORTADO` a uma coisa que o `ffmpeg` abre há anos.
+
+        UMA LISTA QUE PRECISA DE SER COMPLETA PARA ESTAR CERTA
+        ESTÁ ERRADA NO DIA SEGUINTE.
+
+    E a família não afrouxa a trava: ela só decide A QUEM PERGUNTAR. Quem
+    responde de verdade é o executor, que abre o contentor e mede.
+    """
+    exactos = tuple(str(a).strip().lower()
+                    for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
+    if tipo in exactos:
+        return True
+    familias = tuple(str(f).strip().lower()
+                     for f in (cap.get("ACEITA_FAMILIAS") or ()))
+    return bool(familias) and tipo.split("/")[0] in familias
+
+
+def executor_para(media_type):
+    """Quem abre esta espécie? → o módulo do executor, ou `None`.
+
+    ⚠️ ESTA É A PERGUNTA QUE FALTAVA, E A SUA AUSÊNCIA ERA O DEFEITO.
+    `_quem_deriva_aceita` respondia «ALGUÉM abre isto?» — um booleano — e com
+    ele a porta sabia deixar passar. Mas quem derivava a seguir chamava sempre
+    o MESMO executor, escrito à mão em `derivacao_forward`. Enquanto houve um
+    executor só, as duas coisas coincidiam por acidente.
+
+        «ALGUÉM ABRE» != «QUEM ABRE».
+        UM ÚNICO EXECUTOR FAZ AS DUAS PERGUNTAS PARECEREM A MESMA.
+
+    `None` é resposta legítima e quer dizer «nenhum executor declara esta
+    espécie» — nunca «falhou». Quem recebe `None` escreve `NOT_APPLICABLE`.
+    """
+    if media_type is None or not str(media_type).strip():
+        return None
+    tipo = str(media_type).split(";")[0].strip().lower()
+    if tipo in _SENTINELAS or tipo.upper() in _SENTINELAS:
+        return None
+    for mod in _executores_de_derivacao():
+        if _cabe_na_capacidade(mod.CAPACIDADE, tipo):
+            return mod
+    return None
 
 
 DERIVACAO_SEM_BYTES_LOCAIS = "DERIVACAO_SEM_BYTES_LOCAIS"
@@ -420,8 +666,7 @@ def _quem_deriva_aceita(media_type) -> bool:
     if tipo in _SENTINELAS or tipo.upper() in _SENTINELAS:
         return True
     for cap in _capacidades_de_derivacao():
-        aceita = cap.get("ACEITA_MEDIA_TYPES") or ()
-        if tipo in tuple(str(a).strip().lower() for a in aceita):
+        if _cabe_na_capacidade(cap, tipo):
             return True
     return False
 
@@ -479,7 +724,32 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
                               "MEDIA_TYPE": o.get("MEDIA_TYPE"),
                               "PORQUE": DERIVACAO_ESPECIE_NAO_SUPORTADA})
             continue
+        # ⚠️ `CAPTURED_AT` VIAJA COM A UNIDADE, E NAO SE MEDE OUTRA VEZ.
+        # Ele e `raw_asset.captured_at` — o instante em que ESTA maquina
+        # recebeu os bytes, escrito pelo dono do RAW. Medi-lo de novo aqui
+        # daria a hora em que a DERIVACAO comecou, que e outro facto:
+        #
+        #     COLLECTED_AT != DERIVED_AT.
+        #
+        # Sem ele, a rota documental chegava a admissao sem saber quando o
+        # documento foi colhido, e a Sala recebia `CAPTURED_AT = NAO SEI` com
+        # o valor guardado tres degraus atras. Ausente continua ausente: uma
+        # linha sem `captured_at` poe `None` aqui, e ninguem o enche.
+        # ⚠️ `MEDIA_TYPE` VIAJA COM A UNIDADE, E SEM ELE A ESCOLHA NÃO ACONTECE.
+        # A porta acima já leu a espécie para decidir se ALGUÉM a abre. Se ela
+        # não a puser na unidade, quem deriva a seguir tem de a adivinhar — e a
+        # única coisa que lá chega é um caminho de ficheiro, que é a extensão
+        # outra vez.
+        #
+        #     DEIXAR A ESPÉCIE PARA TRÁS NA PORTA OBRIGA A DEDUZI-LA DEPOIS,
+        #     E A DEDUÇÃO DEPOIS É A EXTENSÃO A VOLTAR PELA JANELA.
         unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
+                         "CAPTURED_AT": o.get("CAPTURED_AT"),
+                         "MEDIA_TYPE": o.get("MEDIA_TYPE"),
+                         # A fonte DESTA observacao. Nao e a da corrida: uma
+                         # corrida pode ter colhido sete fontes, e entao ela
+                         # nao tem nenhuma.
+                         "SOURCE_ID": o.get("SOURCE_ID"),
                          "PDF": local})
     return unidades, sem_bytes
 
@@ -528,10 +798,14 @@ def ficha(item: dict, *, corrida: dict, raiz: str = RAIZ) -> art.Artefato:
     caminho = item.get("STORAGE_LOCATION") or ""
     abs_ = os.path.join(raiz, caminho) if caminho else ""
     declarados = {k: item[k] for k in DO_COLETOR if item.get(k)}
-    comum = dict(
-        RUN_ID=corrida.get("RUN_ID", art.NAO_SEI),
-        COLLECTED_AT=corrida.get("STARTED_AT") or art.agora(),
-        **declarados)
+    # ⚠️ O QUE O COLETOR DECLAROU VENCE O VALOR POR OMISSAO DA CORRIDA.
+    # `COLLECTED_AT` vem primeiro com a hora da corrida e so depois e
+    # sobreposto pelo que o coletor disse — nunca ao contrario. A corrida sabe
+    # quando ELA comecou; so o coletor sabe quando os BYTES chegaram, e num
+    # reprocessamento essas duas datas estao a uma semana de distancia.
+    comum = dict(RUN_ID=corrida.get("RUN_ID", art.NAO_SEI),
+                 COLLECTED_AT=corrida.get("STARTED_AT") or art.agora())
+    comum.update(declarados)
 
     if abs_ and os.path.isfile(abs_):
         return art.raw_do_disco(abs_, raiz, **comum)

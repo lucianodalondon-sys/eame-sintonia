@@ -45,13 +45,26 @@ def _fonte(rel):
 
 
 def _py_do_repo():
-    """Os ficheiros `.py` que EXECUTAM — sem `__pycache__` e sem o mapa gerado."""
+    """Os ficheiros `.py` que EXECUTAM — sem `__pycache__` e sem o mapa gerado.
+
+    ⚠️ O CAMINHO SAI COM BARRA PARA A FRENTE, E ISSO NAO E ESTETICA.
+    `os.path.relpath` devolve `ferramentas\\fala_local.py` no Windows, e as
+    provas desta casa comparam com `ferramentas/fala_local.py`. A igualdade
+    falhava, o DONO do reconhecedor entrava na lista dos culpados, e duas
+    provas reprovavam na maquina que tem a placa — as mesmas duas, sempre.
+
+        UMA SENTINELA QUE APITA TODOS OS DIAS DEIXA DE SER OUVIDA,
+        E NO DIA EM QUE NASCER UM SEGUNDO DONO A REPROVACAO E IGUAL.
+
+    Medido a 2026-09-14 nesta maquina: 2 falhas antes, 2 depois — o defeito
+    nao vinha da mudanca, vinha da barra.
+    """
     for pasta, dirs, fs in os.walk(RAIZ):
         dirs[:] = [d for d in dirs
                    if d not in ('__pycache__', '.git', 'node_modules', 'system-map')]
         for f in fs:
             if f.endswith('.py'):
-                yield os.path.relpath(os.path.join(pasta, f), RAIZ)
+                yield os.path.relpath(os.path.join(pasta, f), RAIZ).replace(os.sep, '/')
 
 
 # ══════════════════════════════════════════════════════════════════════════

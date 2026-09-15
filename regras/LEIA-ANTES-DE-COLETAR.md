@@ -14,7 +14,7 @@ e o caminho de cada uma é onde ela realmente vive.
 O acervo de fontes é **capital parado** — consulta-se antes de coletar. Não se
 coleta para descobrir o que já se sabe.
 
-- **AS FONTES** — O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
+- **AS FONTES** — O capital parado da casa: 197 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
   - `docs/fontes/ATLAS-DE-FONTES-EAME.md`
   - `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
   - `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json`
@@ -57,7 +57,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-EXECUTOR-TRANSCRICAO-MIDIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `regras/proveniencia.py` |
 
 ### O contrato de cada fonte italiana
@@ -68,8 +68,9 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-IT-COLETA. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
+| onde vive | `regras/contratos_de_fonte.py` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |
 | onde vive | `regras/italy_pilot_guards.mjs` |

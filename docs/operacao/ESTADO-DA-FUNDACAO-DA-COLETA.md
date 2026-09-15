@@ -16,7 +16,7 @@ VEREDITO          COLLECTION_FOUNDATION_V1 = PARTIAL
 ## 1 · O VEREDITO, EM UMA FRASE
 
 A coleta **tem** uma fronteira canônica declarada, com um dono e um contrato
-de 11 campos — e **ninguém entrega nela nem recolhe dela**. Tudo o que era
+de 12 campos — e **ninguém entrega nela nem recolhe dela**. Tudo o que era
 resolvível por engenharia nesta linha foi resolvido; o que resta são dívidas
 de **dados já gravados** e **uma decisão de arquitetura** que não é de
 engenharia.
@@ -37,7 +37,7 @@ PRODUCTION_MUTATION        0
 `python3 provas/a_fronteira_da_coleta.py`
 
 ```
-CONTRATO       COL-LAW-043 · 11 campos, fixos
+CONTRATO       COL-LAW-043 · 12 campos, fixos
 DONO           admissao/admissao.py :: pronto_para_inteligencia()
 PRODUTORES     2  — orquestrador/orquestrador.py (CLI, em workflow nenhum)
                     provas/testa_coleta_canonica.py (prova)

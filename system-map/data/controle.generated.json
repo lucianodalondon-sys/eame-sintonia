@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "2b5ec12f7b1ab5eaacf2da9d5073fb3915156ced",
+    "HEAD": "384df0357cf8c564206388c970ecd7ee72ea41e0",
     "BRANCH": "claude/intelligence-bible-canonical-review-749b7c"
   },
   "PLANES": [
@@ -115,7 +115,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "cc861488d8",
+      "SHA": "4298bb24b5",
       "LAST_VERIFIED": "2026-09-09T12:16:11Z",
       "LAST_COMMIT": "150ac3218f",
       "LAST_SUBJECT": "reconciliacao: a seguranca da S2A sobre a topologia canonica, sem o mapa velho",
@@ -128,6 +128,7 @@
         "CLAUDE.md",
         "README.md",
         "SINTONIA-EAME-KNOW-HOW.md",
+        "candidatas/fonte_nova.py",
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
         "controle/portao_do_controle.py",
@@ -138,6 +139,7 @@
         "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
         "docs/operacao/CENSO-DA-INTELLIGENCE.md",
         "docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "provas/medir_admission_t3_atual.py",
         "provas/testa_coleta_canonica.py",
         "system-map/README.md",
@@ -145,10 +147,14 @@
         "system-map/scripts/impressao_da_arvore.py",
         "system-map/scripts/validate_system_map.py",
         "system-map/tests/test_impressao_da_arvore.py",
+        "system-map/tests/test_impressao_verificavel.py",
+        "system-map/tests/test_ordem_por_dependencia.py",
         "system-map/tests/test_system_map.py",
-        "tests/test_o_controle_separa_lei_de_mencao.py"
+        "system-map/tests/test_topologia_persistida.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py",
+        "tests/test_porta_de_candidatas.py"
       ],
-      "REFERENCED_BY_COUNT": 25
+      "REFERENCED_BY_COUNT": 31
     },
     {
       "CARD_ID": "A-CLAUDE",
@@ -188,14 +194,16 @@
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/decisoes/DIARIO-DE-DECISOES.md",
         "docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "docs/regras/BRAZIL-LESSONS-TRANSFER-EAME.md",
         "medidas/cicatrizes_brasil.py",
         "system-map/app/index.html",
+        "system-map/tests/test_papel_e_leitura_humana.py",
         "system-map/tests/test_system_map.py",
         "tests/test_handoff.py",
         "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 17
+      "REFERENCED_BY_COUNT": 19
     },
     {
       "CARD_ID": "A-README",
@@ -235,12 +243,14 @@
         "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
         "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
         "docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "provas/medir_admission_t3_atual.py",
         "system-map/README.md",
         "system-map/tests/test_system_map.py",
+        "tests/test_c4g_a_especie_do_video.py",
         "tests/test_red_team_estrada.py"
       ],
-      "REFERENCED_BY_COUNT": 15
+      "REFERENCED_BY_COUNT": 17
     },
     {
       "CARD_ID": "A-COPILOT",
@@ -297,7 +307,7 @@
       ],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "909ba45bac",
+      "SHA": "465f48d111",
       "LAST_VERIFIED": "2026-09-13T21:29:13Z",
       "LAST_COMMIT": "84f2b56302",
       "LAST_SUBJECT": "o READY leva a observacao, e a volta ao byte deixa de ser um palpite",
@@ -320,7 +330,11 @@
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
         "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
         "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+        "docs/operacao/COLLECTION-P0-RESPOSTA-PRESERVACAO.md",
         "docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md",
+        "docs/operacao/INTEGRACAO-COLLECTION-SALA-V1.md",
+        "provas/a_collection_preserva_o_fato.py",
         "provas/a_fronteira_da_coleta.py",
         "provas/a_sala_de_espera_nao_tem_morada.py",
         "provas/arbitragem_da_intelligence.py",
@@ -328,6 +342,7 @@
         "provas/valida_biblia.py",
         "system-map/data/architecture.declared.json",
         "tests/test_a_linhagem_do_ready.py",
+        "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_biblia.py",
@@ -336,7 +351,7 @@
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 31
+      "REFERENCED_BY_COUNT": 36
     },
     {
       "CARD_ID": "A-BIBLIA-INTELIGENCIA",
@@ -506,14 +521,16 @@
         "BIBLIA-CANONICA-DA-COLETA.md",
         "coleta/eu_regulatorio_executor.py",
         "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "medidas/padrao_da_coleta.py",
         "provas/a_autoridade_da_fonte.py",
         "system-map/data/architecture.declared.json",
         "system-map/data/provas-de-execucao.json",
+        "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/generate_system_map.py",
         "system-map/scripts/scan_sources.py"
       ],
-      "REFERENCED_BY_COUNT": 10
+      "REFERENCED_BY_COUNT": 12
     },
     {
       "CARD_ID": "A-ATLAS-FONTES",
@@ -535,7 +552,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "508a4ca185",
+      "SHA": "1629449da7",
       "LAST_VERIFIED": "2026-09-07T12:27:39-03:00",
       "LAST_COMMIT": "b8321b07de",
       "LAST_SUBJECT": "a prateleira passa a bater com o mapa: 149 scripts saem de uma pasta so e vao para a gaveta do que sao",
@@ -546,6 +563,7 @@
         "BIBLIA-CANONICA-DA-COLETA.md",
         "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
         "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+        "admissao/admissao.py",
         "candidatas/FONTES-CANDIDATAS.json",
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "candidatas/ITALY-SOURCE-MASTER-V1.md",
@@ -553,17 +571,25 @@
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
         "docs/descoberta/MISSAO-EAME-01.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+        "docs/operacao/INTEGRACAO-COLLECTION-SALA-V1.md",
         "docs/relatorios/RELATORIO-CAMADA-COMPETITOR.md",
+        "leis/territorios.py",
         "medidas/padrao_da_coleta.py",
         "pacote/metricas_canonicas.py",
         "portoes/build_portal.py",
         "provas/a_autoridade_da_fonte.py",
+        "provas/a_taxonomia_tem_um_dono.py",
+        "provas/o_censo_da_sala_de_espera.py",
+        "system-map/data/architecture.declared.json",
         "system-map/data/provas-de-execucao.json",
+        "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/generate_system_map.py",
         "system-map/scripts/scan_sources.py",
-        "system-map/tests/test_system_map.py"
+        "system-map/tests/test_system_map.py",
+        "tests/test_source_id.py"
       ],
-      "REFERENCED_BY_COUNT": 20
+      "REFERENCED_BY_COUNT": 29
     },
     {
       "CARD_ID": "A-REGRA-COLETA-EXTERNA",
@@ -597,9 +623,10 @@
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "system-map/data/architecture.declared.json"
       ],
-      "REFERENCED_BY_COUNT": 6
+      "REFERENCED_BY_COUNT": 7
     },
     {
       "CARD_ID": "A-DIARIO",
@@ -684,12 +711,15 @@
         "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/red_team_do_controle.py",
+        "docs/operacao/CENSO-SALA-DE-ESPERA-ANTES-DA-BIG-COLLECTION-V1.md",
         "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
+        "docs/sintonia-scrap/C4E-GPU-NA-LINHA-DA-COLLECTION.md",
+        "docs/sintonia-scrap/C4H-A-PONTE-DE-MIDIA.md",
         "provas/arbitragem_da_intelligence.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_fronteira_mede_producao.py"
       ],
-      "REFERENCED_BY_COUNT": 7
+      "REFERENCED_BY_COUNT": 10
     },
     {
       "CARD_ID": "H-BUILD-REUNIAO",
@@ -743,7 +773,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "853e1b5ff1",
+      "SHA": "e5c9b1c18f",
       "LAST_VERIFIED": "2026-09-14T19:03:48Z",
       "LAST_COMMIT": "b8c233725f",
       "LAST_SUBJECT": "C-INT-DATA-DEMAND-IT-01 — a Italia nao tem falta de dados, tem falta de uma chave",
@@ -753,11 +783,12 @@
         "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_handoff.py",
         "tests/test_metricas.py"
       ],
-      "REFERENCED_BY_COUNT": 6
+      "REFERENCED_BY_COUNT": 7
     },
     {
       "CARD_ID": "H-V2-PAUSE",
@@ -948,7 +979,6 @@
       "PROOF": "git:HEAD:system-map/scripts/validate_system_map.py",
       "REFERENCED_BY": [
         ".github/copilot-instructions.md",
-        ".github/workflows/system-map.yml",
         "AGENTS.md",
         "CLAUDE.md",
         "controle/AUTORIDADES-CANONICAS.json",
@@ -965,7 +995,7 @@
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/mudar_gaveta.py"
       ],
-      "REFERENCED_BY_COUNT": 17
+      "REFERENCED_BY_COUNT": 16
     },
     {
       "CARD_ID": "G-PORTAO-CONTROLE",
@@ -998,9 +1028,10 @@
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
         "docs/operacao/CENSO-DA-INTELLIGENCE.md",
+        "docs/operacao/DONO-DO-SYSTEM-MAP-IT.md",
         "tests/test_atomicidade_da_intelligence.py"
       ],
-      "REFERENCED_BY_COUNT": 5
+      "REFERENCED_BY_COUNT": 6
     },
     {
       "CARD_ID": "G-TESTES-MAPA",
@@ -1022,7 +1053,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "503f9fee64",
+      "SHA": "f962658f4b",
       "LAST_VERIFIED": "2026-09-09T12:16:11Z",
       "LAST_COMMIT": "150ac3218f",
       "LAST_SUBJECT": "reconciliacao: a seguranca da S2A sobre a topologia canonica, sem o mapa velho",
@@ -1036,9 +1067,10 @@
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "system-map/README.md",
         "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
-        "system-map/data/architecture.declared.json"
+        "system-map/data/architecture.declared.json",
+        "system-map/scripts/CADEIA-DO-MAPA.json"
       ],
-      "REFERENCED_BY_COUNT": 8
+      "REFERENCED_BY_COUNT": 9
     },
     {
       "CARD_ID": "G-COLETA-CANONICA",
@@ -1072,6 +1104,7 @@
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/operacao/CENSO-DA-INTELLIGENCE.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "docs/operacao/ESTADO-DA-FUNDACAO-DA-COLETA.md",
         "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
         "docs/operacao/TOPOLOGIA-DA-COLETA.md",
@@ -1079,7 +1112,7 @@
         "system-map/data/architecture.declared.json",
         "system-map/data/fronteira.observada.json"
       ],
-      "REFERENCED_BY_COUNT": 11
+      "REFERENCED_BY_COUNT": 12
     },
     {
       "CARD_ID": "G-PADRAO-COLETA",
@@ -1115,11 +1148,12 @@
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
         "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
         "docs/operacao/CENSO-DA-COLETA.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "medidas/PADRAO-DA-COLETA-CHAO.json",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/generate_system_map.py"
       ],
-      "REFERENCED_BY_COUNT": 10
+      "REFERENCED_BY_COUNT": 11
     },
     {
       "CARD_ID": "G-CI-MAPA",
@@ -1141,7 +1175,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "c46fa6462a",
+      "SHA": "f5f756a18b",
       "LAST_VERIFIED": "2026-09-09T14:36:54Z",
       "LAST_COMMIT": "c62cd1d84c",
       "LAST_SUBJECT": "collection: nenhum dado salta a porta, e o mapa passa a ver o dono do RAW",
@@ -1151,14 +1185,18 @@
         "AGENTS.md",
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
         "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
+        "system-map/COLLECTION-AUDIT-BASE.json",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/tests/test_cadeia_declara_io.py",
         "system-map/tests/test_impressao_da_arvore.py",
+        "system-map/tests/test_uma_cadeia_um_dono.py",
         "tests/test_atomicidade_da_intelligence.py"
       ],
-      "REFERENCED_BY_COUNT": 9
+      "REFERENCED_BY_COUNT": 13
     },
     {
       "CARD_ID": "O-SCAN-REPO",
@@ -1180,23 +1218,24 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "20523161e0",
+      "SHA": "7b974b286a",
       "LAST_VERIFIED": "2026-09-09T14:36:54Z",
       "LAST_COMMIT": "c62cd1d84c",
       "LAST_SUBJECT": "collection: nenhum dado salta a porta, e o mapa passa a ver o dono do RAW",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:system-map/scripts/scan_repo.py",
       "REFERENCED_BY": [
-        ".github/workflows/system-map.yml",
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
         "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
         "system-map/README.md",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/cadeia_do_mapa.py",
+        "system-map/tests/test_ordem_por_dependencia.py",
         "system-map/tests/test_system_map.py"
       ],
-      "REFERENCED_BY_COUNT": 8
+      "REFERENCED_BY_COUNT": 9
     },
     {
       "CARD_ID": "O-GERADOR",
@@ -1218,7 +1257,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "02a01be583",
+      "SHA": "3fedfca06b",
       "LAST_VERIFIED": "2026-09-13T21:29:13Z",
       "LAST_COMMIT": "84f2b56302",
       "LAST_SUBJECT": "o READY leva a observacao, e a volta ao byte deixa de ser um palpite",
@@ -1226,29 +1265,35 @@
       "PROOF": "git:HEAD:system-map/scripts/generate_system_map.py",
       "REFERENCED_BY": [
         ".github/copilot-instructions.md",
-        ".github/workflows/system-map.yml",
         "AGENTS.md",
         "CLAUDE.md",
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/biblia/EMENDA-V1-1.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+        "docs/operacao/INTEGRACAO-COLLECTION-SALA-V1.md",
         "docs/operacao/MODELO-DAS-CONEXOES.md",
         "docs/operacao/ORQUESTRACAO-UM-CEREBRO.md",
         "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
         "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
         "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
         "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
+        "docs/sintonia-scrap/C4E-GPU-NA-LINHA-DA-COLLECTION.md",
         "guarda/es/workflows/LEIA.md",
         "system-map/README.md",
         "system-map/app/map.js",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/mudar_gaveta.py",
+        "system-map/scripts/reconciliacao_do_universo.py",
         "system-map/scripts/validate_system_map.py",
+        "system-map/tests/test_cadeia_declara_io.py",
+        "system-map/tests/test_impressao_verificavel.py",
+        "system-map/tests/test_ordem_por_dependencia.py",
         "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 22
+      "REFERENCED_BY_COUNT": 28
     },
     {
       "CARD_ID": "O-CENSO-CONTROLE",
@@ -1279,9 +1324,10 @@
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/portao_do_controle.py",
+        "docs/operacao/DONO-DO-SYSTEM-MAP-IT.md",
         "tests/test_atomicidade_da_intelligence.py"
       ],
-      "REFERENCED_BY_COUNT": 3
+      "REFERENCED_BY_COUNT": 4
     },
     {
       "CARD_ID": "O-CENSO-COLETA",
@@ -1303,14 +1349,13 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "f76b472add",
+      "SHA": "76646fa75d",
       "LAST_VERIFIED": "2026-09-12T02:29:55Z",
       "LAST_COMMIT": "9c46e5b22a",
       "LAST_SUBJECT": "C10.4C: o censo contava prosa como chamada",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:system-map/scripts/censo_da_coleta.py",
       "REFERENCED_BY": [
-        ".github/workflows/system-map.yml",
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/operacao/CENSO-DA-COLETA.md",
@@ -1318,7 +1363,8 @@
         "docs/sintonia-scrap/SCRAP-RC-01-RELEASE-CANDIDATE-V1.md",
         "provas/entradas_do_scrap_v1.py",
         "system-map/data/architecture.declared.json",
-        "system-map/scripts/CADEIA-DO-MAPA.json"
+        "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/reconciliacao_do_universo.py"
       ],
       "REFERENCED_BY_COUNT": 9
     },
@@ -1342,19 +1388,21 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "7c6f8bd541",
+      "SHA": "fc7f593867",
       "LAST_VERIFIED": "2026-09-07T16:28:24-03:00",
       "LAST_COMMIT": "cba255517f",
       "LAST_SUBJECT": "coleta: o veiculo diz para onde vai o que entra por ele — e o pente fino",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:system-map/scripts/pente_fino_da_coleta.py",
       "REFERENCED_BY": [
-        ".github/workflows/system-map.yml",
         "controle/AUTORIDADES-CANONICAS.json",
         "system-map/data/architecture.declared.json",
-        "system-map/scripts/CADEIA-DO-MAPA.json"
+        "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/reconciliacao_do_universo.py",
+        "system-map/tests/test_impressao_verificavel.py",
+        "system-map/tests/test_ordem_por_dependencia.py"
       ],
-      "REFERENCED_BY_COUNT": 4
+      "REFERENCED_BY_COUNT": 6
     },
     {
       "CARD_ID": "R-AUTORIDADES",
@@ -1377,9 +1425,9 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "e827506022",
-      "LAST_VERIFIED": "2026-09-14T16:42:01-03:00",
-      "LAST_COMMIT": "19cbc4990b",
-      "LAST_SUBJECT": "C-INT-BIBLE-TOOLS-SOURCEPERF-01 — a lei sabia medir a analise, e nao sabia medir a fonte",
+      "LAST_VERIFIED": "2026-09-14T19:07:33-03:00",
+      "LAST_COMMIT": "561353a5d9",
+      "LAST_SUBJECT": "C-INT-BIBLE-RECONCILIATION-01 — a V0.3 nunca se perdeu, e tinha dois defeitos",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/AUTORIDADES-CANONICAS.json",
       "REFERENCED_BY": [
@@ -1387,13 +1435,14 @@
         "controle/censo_do_controle.py",
         "controle/portao_do_controle.py",
         "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "provas/arbitragem_da_intelligence.py",
         "system-map/scripts/censo_do_congelamento.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_o_controle_separa_lei_de_mencao.py",
         "tests/test_o_mapa_da_intelligence_nao_mente.py"
       ],
-      "REFERENCED_BY_COUNT": 9
+      "REFERENCED_BY_COUNT": 10
     },
     {
       "CARD_ID": "R-SALA",
@@ -1415,19 +1464,20 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "1f99a5b98e",
-      "LAST_VERIFIED": "2026-09-14T16:49:10-03:00",
-      "LAST_COMMIT": "b4db2866c1",
-      "LAST_SUBJECT": "controle: regerar a sala apos a correcao da contagem",
+      "SHA": "30fca974d5",
+      "LAST_VERIFIED": "2026-09-14T19:07:33-03:00",
+      "LAST_COMMIT": "561353a5d9",
+      "LAST_SUBJECT": "C-INT-BIBLE-RECONCILIATION-01 — a V0.3 nunca se perdeu, e tinha dois defeitos",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
         "controle/portao_do_controle.py",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "provas/arbitragem_da_intelligence.py"
       ],
-      "REFERENCED_BY_COUNT": 4
+      "REFERENCED_BY_COUNT": 5
     },
     {
       "CARD_ID": "H-DELTA-108",
@@ -1514,9 +1564,9 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "9f24a2ff39",
-      "LAST_VERIFIED": "2026-09-14T16:48:35-03:00",
-      "LAST_COMMIT": "9300557289",
-      "LAST_SUBJECT": "a minha propria conta de leis estava errada, e a tabela dos RT-TOOL faltava",
+      "LAST_VERIFIED": "2026-09-14T19:07:33-03:00",
+      "LAST_COMMIT": "561353a5d9",
+      "LAST_SUBJECT": "C-INT-BIBLE-RECONCILIATION-01 — a V0.3 nunca se perdeu, e tinha dois defeitos",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
       "REFERENCED_BY": [
@@ -1525,13 +1575,14 @@
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
         "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
         "docs/operacao/CENSO-DA-INTELLIGENCE.md",
+        "docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md",
         "provas/arbitragem_da_intelligence.py",
         "system-map/data/architecture.declared.json",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_o_controle_separa_lei_de_mencao.py",
         "tests/test_o_mapa_da_intelligence_nao_mente.py"
       ],
-      "REFERENCED_BY_COUNT": 10
+      "REFERENCED_BY_COUNT": 11
     },
     {
       "CARD_ID": "A-MOTOR-V2-REQUISITOS",
@@ -1647,7 +1698,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:312"
+      "PROOF_LOCATION": "AGENTS.md:346"
     },
     {
       "FROM": "A-AGENTS",
@@ -1658,7 +1709,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:313"
+      "PROOF_LOCATION": "AGENTS.md:347"
     },
     {
       "FROM": "A-AGENTS",
@@ -1669,7 +1720,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:338"
+      "PROOF_LOCATION": "AGENTS.md:372"
     },
     {
       "FROM": "A-AGENTS",
@@ -1680,7 +1731,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:314"
+      "PROOF_LOCATION": "AGENTS.md:348"
     },
     {
       "FROM": "A-AGENTS",
@@ -1691,7 +1742,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:550"
+      "PROOF_LOCATION": "AGENTS.md:584"
     },
     {
       "FROM": "A-AGENTS",
@@ -1702,7 +1753,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:581"
+      "PROOF_LOCATION": "AGENTS.md:615"
     },
     {
       "FROM": "A-AGENTS",
@@ -1713,7 +1764,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:610"
+      "PROOF_LOCATION": "AGENTS.md:644"
     },
     {
       "FROM": "A-AGENTS",
@@ -1757,7 +1808,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:622"
+      "PROOF_LOCATION": "AGENTS.md:656"
     },
     {
       "FROM": "A-AGENTS",
@@ -1768,7 +1819,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:623"
+      "PROOF_LOCATION": "AGENTS.md:657"
     },
     {
       "FROM": "A-AGENTS",
@@ -1779,7 +1830,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:627"
+      "PROOF_LOCATION": "AGENTS.md:661"
     },
     {
       "FROM": "A-AGENTS",
@@ -1790,7 +1841,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:685"
+      "PROOF_LOCATION": "AGENTS.md:719"
     },
     {
       "FROM": "A-AGENTS",
@@ -1801,7 +1852,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:683"
+      "PROOF_LOCATION": "AGENTS.md:717"
     },
     {
       "FROM": "A-AGENTS",
@@ -1812,7 +1863,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "AGENTS.md:684"
+      "PROOF_LOCATION": "AGENTS.md:718"
     },
     {
       "FROM": "A-CLAUDE",
@@ -1955,7 +2006,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "BIBLIA-CANONICA-DA-COLETA.md:1047"
+      "PROOF_LOCATION": "BIBLIA-CANONICA-DA-COLETA.md:1062"
     },
     {
       "FROM": "A-BIBLIA-COLETA",
@@ -2107,9 +2158,9 @@
       "TO_COMPONENT": "C-MAPA-SCAN",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
-      "EDGE_STATE": "OBSERVED",
-      "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": ".github/workflows/system-map.yml:125"
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "PATH_EXISTS",
+      "PROOF_LOCATION": ""
     },
     {
       "FROM": "G-CI-MAPA",
@@ -2118,9 +2169,9 @@
       "TO_COMPONENT": "C-MAPA-GERADOR",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
-      "EDGE_STATE": "OBSERVED",
-      "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": ".github/workflows/system-map.yml:167"
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "PATH_EXISTS",
+      "PROOF_LOCATION": ""
     },
     {
       "FROM": "G-CI-MAPA",
@@ -2129,9 +2180,9 @@
       "TO_COMPONENT": "C-MAPA-VALIDADOR",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
-      "EDGE_STATE": "OBSERVED",
-      "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": ".github/workflows/system-map.yml:184"
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "PATH_EXISTS",
+      "PROOF_LOCATION": ""
     },
     {
       "FROM": "G-CI-MAPA",
@@ -2142,7 +2193,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": ".github/workflows/system-map.yml:443"
+      "PROOF_LOCATION": ".github/workflows/system-map.yml:544"
     },
     {
       "FROM": "G-CI-MAPA",
@@ -2153,7 +2204,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": ".github/workflows/system-map.yml:300"
+      "PROOF_LOCATION": ".github/workflows/system-map.yml:262"
     },
     {
       "FROM": "G-CI-MAPA",
@@ -2164,7 +2215,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": ".github/workflows/system-map.yml:422"
+      "PROOF_LOCATION": ".github/workflows/system-map.yml:503"
     },
     {
       "FROM": "O-SCAN-REPO",
@@ -2186,7 +2237,7 @@
       "EDGE_PLANE": "PROOF",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "CODE_REFERENCE",
-      "PROOF_LOCATION": "system-map/scripts/generate_system_map.py:3114"
+      "PROOF_LOCATION": "system-map/scripts/generate_system_map.py:4477"
     },
     {
       "FROM": "O-GERADOR",
@@ -2350,7 +2401,7 @@
     "absent_from_snapshot": 2,
     "orphan_in_tree": 0,
     "edges": 64,
-    "edges_observed": 42,
-    "edges_declared": 22
+    "edges_observed": 39,
+    "edges_declared": 25
   }
 }

@@ -23,11 +23,20 @@ O QUE ESTE FICHEIRO **NÃO** É
     NAO e o INTELLIGENCE_RUN produtivo. Esse e a missao seguinte.
 
 O `ItemPronto` daqui é uma **cópia declarada** do contrato de saída medido em
-`admissao.pronto_para_inteligencia()` (12 campos, COL-LAW-043) na linha
-funcional `f888776d`. Copiar é deliberado: importar a Collection tornaria esta
+`admissao.pronto_para_inteligencia()` (19 campos, COL-LAW-043) na linha
+funcional `43553a65`. Copiar é deliberado: importar a Collection tornaria esta
 prova dependente de um runtime que esta missão está proibida de tocar. Se o
 contrato upstream mudar, `CAMPOS_DO_READY` fica errado — e é para ficar: é a
 única forma de a divergência aparecer em vez de se esconder.
+
+⚠️ **E JÁ FICOU ERRADO UMA VEZ — O AVISO FUNCIONOU.** A cópia nasceu com doze
+campos contra `f888776d`. Ao reconciliar com o trunk, `C-COL-PRESERVE-FACTS-V1`
+tinha acrescentado **sete**, e o teste que confere a cópia contra o contrato
+real falhou, que é exactamente o que se lhe pediu. Nenhum dos doze antigos
+desapareceu: a fronteira só **cresceu**.
+
+    ESTAGIO · PUBLISHED_AT · OBSERVED_AT · FACT_TIME_BASIS ·
+    FACT_LOCATION_BASIS · SOURCE_DECLARED_EVIDENCE_CLASS · FATO
 
 AS TRÊS LEIS QUE O CÓDIGO IMPÕE, E NÃO SÓ DESCREVE
 --------------------------------------------------
@@ -60,11 +69,13 @@ class LeiViolada(Exception):
 # ═══════════════════════════════════════════════════════════════════════════
 # 0 · A FRONTEIRA — O QUE A COLLECTION ENTREGA, MEDIDO
 # ═══════════════════════════════════════════════════════════════════════════
-#: Os 12 campos de `admissao.pronto_para_inteligencia()`, na ordem em que ela
+#: Os 19 campos de `admissao.pronto_para_inteligencia()`, na ordem em que ela
 #: os escreve. A Intelligence LÊ isto. Não escreve, não completa, não inventa.
 CAMPOS_DO_READY = (
-    "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO",
+    "ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO", "TEXTO",
     "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
+    "FACT_TIME_BASIS", "FACT_LOCATION_BASIS", "PUBLISHED_AT", "OBSERVED_AT",
+    "SOURCE_DECLARED_EVIDENCE_CLASS", "FATO",
     "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR",
 )
 
@@ -79,6 +90,24 @@ CAMPOS_QUE_NAO_ATRAVESSAM = (
     "DENOMINATOR", "TARGET_POPULATION",
     "PPP_USE",            # a tupla de seis eixos
 )
+
+#: ⚠️ O QUASE-HOMÓNIMO. NÃO APAGAR ESTA NOTA.
+#: A fronteira passou a transportar `SOURCE_DECLARED_EVIDENCE_CLASS`, e o nome
+#: parece o `EVIDENCE_SPECIES` que está na lista acima. **Não é**, e o dono do
+#: campo escreveu porquê em `admissao/admissao.py`:
+#:
+#:     DECLARADO PELA FONTE != MEDIDO NO DOCUMENTO.
+#:
+#: É a expectativa de quem PUBLICA, sobre o que costuma publicar — texto livre,
+#: e pode trazer duas espécies de uma vez («OBSERVED_FIELD_SIGNAL +
+#: TECHNICAL_GUIDELINE»). `EVIDENCE_SPECIES` é a espécie DESTE item, uma só, do
+#: vocabulário fechado `ESPECIES_DE_EVIDENCIA`. Ler o primeiro como o segundo
+#: faria um boletim agroclimático da ARPAV virar relato de campo — que é
+#: precisamente a confusão que `AGROCLIMATIC_NAO_PROVA` existe para impedir.
+#:
+#: O bloqueio G0 **continua de pé**, e continua por medida, não por sorte: o
+#: que chegou foi a expectativa da fonte, não a espécie do item.
+QUASE_ESPECIE = "SOURCE_DECLARED_EVIDENCE_CLASS"
 
 #: As espécies de evidência que os contratos de fonte declaram. A espécie é do
 #: DONO DA FONTE — a Intelligence lê-a, nunca a atribui por leitura do texto.
@@ -123,12 +152,23 @@ class ItemPronto:
     ADMITIDO_POR: str = NAO_SEI
     ESTADO: str = "PRONTO_PARA_INTELIGENCIA"
 
+    # ── os sete de `C-COL-PRESERVE-FACTS-V1` ──────────────────────────────
+    # Chegaram com o trunk. `NAO SEI` por omissão, como todos os outros: um
+    # campo que passou a existir não é um campo que passou a estar preenchido.
+    ESTAGIO: str = NAO_SEI
+    FACT_TIME_BASIS: str = NAO_SEI
+    FACT_LOCATION_BASIS: str = NAO_SEI
+    PUBLISHED_AT: str = NAO_SEI
+    OBSERVED_AT: str = NAO_SEI
+    SOURCE_DECLARED_EVIDENCE_CLASS: str = NAO_SEI   # ⚠️ ver QUASE_ESPECIE
+    FATO: Any = NAO_SEI
+
     # ── fora do contrato de hoje ──────────────────────────────────────────
     especie: str = NAO_SEI          # CAMPOS_QUE_NAO_ATRAVESSAM[0]
     sujeito_declarado: str = NAO_SEI  # CAMPOS_QUE_NAO_ATRAVESSAM[1]
 
     def dentro_do_contrato_de_hoje(self) -> Dict[str, str]:
-        """Só os 12 campos. É isto que a Intelligence recebe em produção."""
+        """Só os 19 campos. É isto que a Intelligence recebe em produção."""
         return {c: getattr(self, c) for c in CAMPOS_DO_READY}
 
 

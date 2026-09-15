@@ -77,7 +77,32 @@ FONTES_MEDIDAS = RAIZ / "system-map" / "data" / "sources.generated.json"
 #     DECLARAR SUPORTE E INOFENSIVO MESMO QUANDO ERRADO: SUPORTE NAO ATRAVESSA.
 #     DECLARAR COLHEITA NAO E — E POR ISSO NAO SE PODE.
 EXECUTORES = {
-    "T7": [{
+    # ⚠️ ESTE REGISTO MUDOU DE CHAVE, E A MUDANCA E UM CONSERTO DE VERDADE.
+    # Estava em `"T7"` porque `pedido/pedido.py` declarava `T7 = «Ciencia e
+    # ensaio»`. No Atlas — que e o dono — `T7` e TECHNICAL NETWORK, e as doze
+    # fontes italianas classificadas la sao COOPERATIVAS E CONSORCIOS. Pedir
+    # ciencia mandava este coletor cientifico correr sobre cooperativas.
+    #
+    # A chave certa nao e `T5` (SCIENCE) e sim `T6` (RESEARCHERS), e o criterio
+    # nao e gosto: e a separacao que o proprio Atlas impoe e que o
+    # `ITALY-SOURCE-MASTER-V1.json` repete —
+    #
+    #     TERRITORY = o que a rota MEDE.  ACCESS_METHOD = como se acessa.
+    #
+    # O que esta rota MEDE esta escrito no `retorno` dela, e foi contado: doze
+    # fichas de PESSOA, zero unidades de obra. Ela mede pesquisadores. Que o
+    # faca atraves de registos cientificos (OpenAlex, ORCID, que sao T5) e a
+    # rota, e rota nao e territorio — confundir os dois foi exactamente o que
+    # produziu esta colisao.
+    #
+    # ⚠️ E ISTO DEIXA `T5` SEM EXECUTOR, O QUE E A VERDADE E NAO UM BURACO NOVO.
+    # As seis fontes de SCIENCE em ficha — `IT-T5-001..005` e `EU-T5-001` —
+    # nunca tiveram executor nesta casa; tinham um coletor a correr sobre as
+    # fontes ERRADAS e ninguem via. O plano passa a dizer «NAO SEI COMO», que e
+    # o que sempre foi verdade.
+    #
+    #     UM BURACO QUE APARECE NAO E UM BURACO NOVO: E UM BURACO QUE ERA CEGO.
+    "T6": [{
         "id": "corpus-pesquisador",
         # F3 · o retorno e o CATALOGO das pessoas de quem se PODE colher
         # obra — nao as obras. Medido: 12 fichas de pessoa, zero unidades.
@@ -144,6 +169,42 @@ EXECUTORES = {
         "custo": "gratuito",
     }],
     "T3": [{
+        # ── O COLETOR ITALIANO COBRE T3, E A RECEITA NAO O DIZIA ───────────
+        # ⚠️ ESTE REGISTO NAO E NOVO CODIGO: E UMA DECLARACAO QUE FALTAVA.
+        # `coleta/italy_pilot_collect.mjs` declara, no proprio ficheiro:
+        #
+        #     PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004",
+        #                      "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"]
+        #
+        # QUATRO das sete sao T3 — boletins fitossanitarios e de praga, com
+        # bytes preservados e SHA no livro italiano. A receita registava este
+        # executor SO em T2, e por isso um pedido de T3 abria o `eppo`, que
+        # nunca correu e cujo `larga_em` aponta para uma pasta inexistente.
+        #
+        #     UM EXECUTOR QUE COLHE T3 E SO SE DECLARA EM T2
+        #     FAZ O PEDIDO DE T3 BATER NUMA PORTA QUE NAO ABRE.
+        #
+        # Ele vem PRIMEIRO porque o orquestrador abre `executores[0]` e este e
+        # o unico dos dois que colhe. O `eppo` fica — o registo dele nao esta
+        # errado, esta por cumprir — e passa para tras, que e onde estao os
+        # executores que ainda nao atravessam.
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T3-010` e o Bollettino Mosca dell'Olivo da APOL: boletim de praga
+        # publicado, com bytes nesta arvore e SHA no livro. Nao foi escolhido
+        # por casar com o vocabulario da porta — e o que o contrato de
+        # `regras/italy_contracts.mjs` ja declara como P0 de T3.
+        "filtros_por_omissao": {"fonte": "IT-T3-010"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o boletim fitossanitario ou de praga da zona, como PDF "
+                      "ou HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }, {
         "id": "eppo",
         # F2 · nunca correu, e o sitio declarado nao existe. Nao ha nada a
         # declarar, e inventar uma especie para um ficheiro inexistente

@@ -92,17 +92,12 @@ PRODUTORES = [
         "TEM_QUANDO": True,
     },
     {
-        # Ate a C10.4C este PRODUTOR era `ferramentas/instagram_transcrever.py`.
-        # Essa rota baixava o video inteiro e foi APOSENTADA — deixar a
-        # declaracao no nome dela era o mapa a registar um segundo dono do
-        # mesmo conceito.  ONE CONCEPT -> ONE OWNER.
-        "PRODUTOR": "ferramentas/reel_transcricao.py",
+        "PRODUTOR": "ferramentas/instagram_transcrever.py",
         "ENTRADA": "audio de reel",
         "SAIDA": "transcricao",
         "FORMATO": "text/plain",
         "ESPECIE": "DERIVED_ARTIFACT",
-        "PORQUE": ("o mesmo caso do YouTube, noutra plataforma — e por rota "
-                   "audio-only: o video nunca chega a nascer."),
+        "PORQUE": "o mesmo caso do YouTube, noutra plataforma.",
         "FERRAMENTA": "whisper",
         "TEM_VERSAO": True,
         "TEM_PAI": True,

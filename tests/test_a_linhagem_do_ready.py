@@ -26,9 +26,11 @@ ROTA = os.path.join(RAIZ, "coleta", "rota_forward_documento.py")
 ORQ = os.path.join(RAIZ, "orquestrador", "orquestrador.py")
 BIBLIA = os.path.join(RAIZ, "BIBLIA-CANONICA-DA-COLETA.md")
 
-CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO",
-          "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
-          "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO",
+          "TEXTO", "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION",
+          "FACT_TIME", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
+          "PUBLISHED_AT", "OBSERVED_AT", "SOURCE_DECLARED_EVIDENCE_CLASS",
+          "FATO", "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
 
 
 def _fonte(caminho):
@@ -46,12 +48,15 @@ def _bom(**troca):
 def _unidade(**troca):
     item = _bom(**troca)
     return admissao.pronto_para_inteligencia(
-        item, admissao.decidir(item, "T7", corrida="guarda"))
+        item, admissao.decidir(item, "T5", corrida="guarda"))
 
 
 class OContratoLevaAObservacao(unittest.TestCase):
 
-    def test_o_contrato_tem_os_doze_campos_e_na_ordem_da_lei(self):
+    def test_o_contrato_tem_os_dezanove_campos_e_na_ordem_da_lei(self):
+        """Eram doze ate `C-COL-PRESERVE-FACTS-V1`. A lista aqui e a TERCEIRA
+        copia de proposito: se o dono mudar e ninguem decidir aqui, isto reprova.
+        """
         self.assertEqual(CAMPOS, tuple(_unidade(raw_asset_id=9)))
 
     def test_a_observacao_viaja_com_o_valor_que_a_rota_entregou(self):

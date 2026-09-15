@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-015",
+ "SOURCE": "Terra e Vita — Edagricole",
+ "OWNER": "Edagricole — New Business Media",
+ "URL": "https://terraevita.edagricole.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:15Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 268860 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://terraevita.edagricole.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Terra e Vita",
+  "IDIOMA": "en",
+  "DATA_VISIVEL": "2026-03-03",
+  "BYTES_LIDOS": 401419
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://terraevita.edagricole.it/agridaily-guida-pac/pac-per-gli-agricoltori/approfondimenti-pac/dublino-mette-alla-prova-la-nuova-agricoltura-europea-sicurezza-innovazione-e-risorse/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": null,
+  "TITULO": "Dublino mette alla prova la nuova agricoltura europea - Terra e Vita",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 268860,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "b561c64b5f80c552ca25b3cb52138c72263e22bdba250da8beaea21177c73c4d",
+  "DATA_VISIVEL": "2026-03-03",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

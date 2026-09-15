@@ -15,16 +15,17 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **23** |
+| fichas completas no atlas | **197** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **40** |
+| endereços que o código realmente chama | **255** |
+| desses, publicados no mapa | **40** (truncados: 215) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
-> O cabeçalho do atlas diz **37 fontes registradas**
+> O cabeçalho do atlas diz **177 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **23**. Faltam **14**.
+> **197**. Faltam **-20**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -40,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **18** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **160** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
@@ -96,48 +97,222 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 
 ## POR PAÍS
 
-### ESPANHA · 6 fontes · 2 com contrato de busca
+### ESPANHA · 34 fontes · 2 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `ES-T3-001` | Datos de seguimiento de plagas y enfermedades en las estac | T3 · Praga e doenca | 🟢 GREEN | sim |
-| `ES-T4-001` | Jerarquía de especies vegetales · Clasificación de plagas | T4 · Regulatorio | 🟢 GREEN | **não** |
-| `ES-T4-002` | Autorizaciones excepcionales vigentes | T4 · Regulatorio | 🟢 GREEN | **não** |
-| `ES-T4-003` | Registro de Productos Fitosanitarios — aplicação de consul | T4 · Regulatorio | ⚪ NAO SEI | **não** |
-| `ES-T4-005` | Registro Oficial de Productos Fitosanitarios — rotas públi | T4 · Regulatorio | 🟢 GREEN | sim |
-| `ES-T5-002` | OpenAlex, recorte espanhol declarado | T5 · Preco e mercado | 🟢 GREEN | **não** |
+| `ES-T3-001` | Datos de seguimiento de plagas y enfermedades en las estac | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | sim |
+| `ES-T4-001` | Jerarquía de especies vegetales · Clasificación de plagas | T4 · REGULATORY | 🟢 GREEN | **não** |
+| `ES-T4-002` | Autorizaciones excepcionales vigentes | T4 · REGULATORY | 🟢 GREEN | **não** |
+| `ES-T4-003` | Registro de Productos Fitosanitarios — aplicação de consul | T4 · REGULATORY | ⚪ NAO SEI | **não** |
+| `ES-T4-005` | Registro Oficial de Productos Fitosanitarios — rotas públi | T4 · REGULATORY | 🟢 GREEN | sim |
+| `ES-T5-002` | OpenAlex, recorte espanhol declarado | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `ES-T7-001` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-002` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-003` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-004` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-005` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-006` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-007` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-008` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-009` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-010` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-011` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-012` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-013` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-014` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-015` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-016` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-017` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-018` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-019` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-020` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-021` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-022` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-023` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-024` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-025` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-026` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-027` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### EUROPA · 11 fontes · 1 com contrato de busca
+### EUROPA · 13 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `EU-T1-001` | Crop production in EU standard humidity by NUTS 2 region | T1 · Cultura e producao | 🟢 GREEN | **não** |
-| `EU-T1-002` | Crop production in EU standard humidity | T1 · Cultura e producao | 🟢 GREEN | **não** |
-| `EU-T10-001` | European Commission — Agri-food Data Portal (cereal prices | T10 · Politica e subsidio | 🟢 GREEN | **não** |
-| `EU-T12-001` | CELLAR / EU Publications Office — camada de política agríc | T12 · Substancia ativa | 🟢 GREEN | **não** |
-| `EU-T2-001` | NASA POWER — Daily Point (community AG) | T2 · Clima e tempo | 🟢 GREEN | **não** |
-| `EU-T2-002` | NUTS_LB_2024_4326_LEVL_2 (label points) | T2 · Clima e tempo | 🟢 GREEN | **não** |
-| `EU-T2-003` | Open-Meteo Historical Weather API (ERA5) | T2 · Clima e tempo | ⚪ NAO SEI | **não** |
-| `EU-T3-001` | EPPO Global Database | T3 · Praga e doenca | ⚪ NAO SEI | **não** |
-| `EU-T4-001` | CELLAR / EU Publications Office (Official Journal of the E | T4 · Regulatorio | 🟢 GREEN | sim |
-| `EU-T4-002` | EU Pesticides Database | T4 · Regulatorio | ⚪ NAO SEI | **não** |
-| `EU-T5-001` | OpenAlex | T5 · Preco e mercado | 🟢 GREEN | **não** |
+| `EU-T1-001` | Crop production in EU standard humidity by NUTS 2 region | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `EU-T1-002` | Crop production in EU standard humidity | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `EU-T10-001` | European Commission — Agri-food Data Portal (cereal prices | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `EU-T12-001` | CELLAR / EU Publications Office — camada de política agríc | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `EU-T2-001` | NASA POWER — Daily Point (community AG) | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `EU-T2-002` | NUTS_LB_2024_4326_LEVL_2 (label points) | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `EU-T2-003` | Open-Meteo Historical Weather API (ERA5) | T2 · CLIMATE / WATER / SOIL | ⚪ NAO SEI | **não** |
+| `EU-T3-001` | EPPO Global Database | T3 · PEST / DISEASE / WEEDS | ⚪ NAO SEI | **não** |
+| `EU-T4-001` | CELLAR / EU Publications Office (Official Journal of the E | T4 · REGULATORY | 🟢 GREEN | sim |
+| `EU-T4-002` | EU Pesticides Database | T4 · REGULATORY | ⚪ NAO SEI | **não** |
+| `EU-T5-001` | OpenAlex | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `EU-T8-001` | EU-T8-001 | T8 · FARMERS & INFLUENCERS | ⚪ NAO SEI | **não** |
+| `EU-T9-002` | Meta Ads Library | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### FRANCA · 4 fontes · 1 com contrato de busca
-
-| id | fonte | assunto | estado | a máquina busca? |
-|---|---|---|---|---|
-| `FR-T13-001` | recherche-entreprises.api.gouv.fr (base SIRENE) | T13 ·  | 🟢 GREEN | **não** |
-| `FR-T3-001` | Bulletins de Santé du Végétal | T3 · Praga e doenca | 🟡 YELLOW | **não** |
-| `FR-T3-002` | Archive en agro-écologie de BSV | T3 · Praga e doenca | ⚪ NAO SEI | **não** |
-| `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · Regulatorio | 🟢 GREEN | sim |
-
-### ITALIA · 2 fontes · 1 com contrato de busca
+### FRANCA · 6 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
-| `IT-T3-001` | IT-T3-001 | T3 · Praga e doenca | 🟡 YELLOW | **não** |
-| `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · Regulatorio | 🟢 GREEN | sim |
+| `FR-T11-001` | FR-T11-001 | T11 · EVENTS | 🟡 YELLOW | **não** |
+| `FR-T13-001` | recherche-entreprises.api.gouv.fr (base SIRENE) | T13 · DISTRIBUTION | 🟢 GREEN | **não** |
+| `FR-T3-001` | Bulletins de Santé du Végétal | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `FR-T3-002` | Archive en agro-écologie de BSV | T3 · PEST / DISEASE / WEEDS | ⚪ NAO SEI | **não** |
+| `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
+| `FR-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
+
+### ITALIA · 144 fontes · 1 com contrato de busca
+
+| id | fonte | assunto | estado | a máquina busca? |
+|---|---|---|---|---|
+| `IT-T1-002` | Provincia autonoma di Trento — Agricoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-003` | Regione Toscana — Agricoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-004` | Liguria — Regione Liguria agricoltura | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
+| `IT-T1-005` | Umbria — Agricoltura e foreste | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
+| `IT-T1-006` | ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Ag | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-007` | ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltur | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-008` | Agricoltura Regione Lombardia | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-009` | Lazio — Agricoltura Regione Lazio | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-010` | Regione Abruzzo — Agricoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-011` | Regione Umbria — Agricoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-012` | Regione Valle d'Aosta — Agricoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-013` | Assosementi | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-014` | Ente Nazionale Risi | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
+| `IT-T1-015` | Terra e Vita — Edagricole | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-016` | Italia Olivicola | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-017` | Olivo e Olio — Edagricole | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-018` | Rivista di Agraria | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-019` | SIA — Societa Italiana di Agronomia | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-020` | Agriligurianet — Regione Liguria agricoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-021` | AgroNotizie — Image Line | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
+| `IT-T1-022` | OlivoNews — giornale di olivicoltura | T1 · CROP & PRODUCTION | 🟢 GREEN | **não** |
+| `IT-T1-023` | SOI — Societa di Ortoflorofrutticoltura Italiana | T1 · CROP & PRODUCTION | 🟡 YELLOW | **não** |
+| `IT-T10-006` | Agrisole — quotidiano agricolo del Sole 24 Ore | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-007` | ISMEA — Istituto di Servizi per il Mercato Agricolo Alimen | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-008` | Italmopa — Associazione Industriali Mugnai d'Italia | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-009` | Borsa Merci Bologna — Camera di Commercio | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-010` | CSO Italy — Centro Servizi Ortofrutticoli | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-011` | Ruminantia — web magazine dei ruminanti | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-012` | Consorzio Tutela Vini d'Abruzzo | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-013` | Consorzio di Tutela Arancia Rossa di Sicilia IGP | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-014` | Consorzio di Tutela del Grana Padano | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-015` | Consorzio Tutela Prosecco DOC | T10 · MARKET / TRADE / INDUSTRY | 🟡 YELLOW | **não** |
+| `IT-T10-016` | Alleanza delle Cooperative Italiane Agroalimentare | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T11-001` | IT-T11-001 | T11 · EVENTS | 🟡 YELLOW | **não** |
+| `IT-T11-005` | SIMEI — Salone Internazionale Macchine per Enologia e Imbo | T11 · EVENTS | 🟢 GREEN | **não** |
+| `IT-T12-003` | CIA — Agricoltori Italiani | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟡 YELLOW | **não** |
+| `IT-T12-004` | Confagricoltura | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟡 YELLOW | **não** |
+| `IT-T12-005` | AIAB — Associazione Italiana Agricoltura Biologica | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-006` | CIA Toscana | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T2-006` | ARPA Campania | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-007` | ARPA Sicilia | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-008` | ARPAT Toscana | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-009` | ISPRA — Istituto Superiore per la Protezione e la Ricerca  | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-010` | APPA Trento — Agenzia provinciale protezione ambiente | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-011` | ARPA Lombardia | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-012` | ARPA Friuli Venezia Giulia — OSMER | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-013` | ARPA Lazio | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-014` | ARPA Molise | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-015` | AIAM — Associazione Italiana di Agrometeorologia | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-016` | ARPA Marche | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-017` | CNR IRET — Istituto di Ricerca sugli Ecosistemi Terrestri | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-018` | CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali d | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-019` | ARPA Piemonte | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-020` | ARTA Abruzzo | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-021` | ARPA Liguria | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-022` | ARPA Valle d'Aosta | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
+| `IT-T2-023` | ARPA Basilicata | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-024` | ANBI — Associazione Nazionale Consorzi di gestione e tutel | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T3-001` | IT-T3-001 | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T3-013` | Emilia-Romagna — Servizio Fitosanitario | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T3-014` | Servizio Fitosanitario Nazionale — Protezione delle Piante | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-015` | Toscana — Servizio Fitosanitario Regionale | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-016` | Veneto — Servizio Fitosanitario Regionale | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-017` | CNR IPSP — Istituto per la Protezione Sostenibile delle Pi | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T3-018` | CNR ISPA — Istituto di Scienze delle Produzioni Alimentari | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T3-019` | Agroinnova — Centro di Competenza per l'Innovazione in cam | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T3-020` | Societa Entomologica Italiana | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
+| `IT-T3-021` | SIPaV — Societa Italiana di Patologia Vegetale | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
+| `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · REGULATORY | 🟢 GREEN | sim |
+| `IT-T5-006` | CNR — Consiglio Nazionale delle Ricerche | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-007` | Institut Agricole Regional — Aosta | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-008` | Fondazione Agrion — Fondazione per la ricerca l'innovazion | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-009` | Fondazione Minoprio | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-010` | Fondazione per l'Agricoltura F.lli Navarra | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-011` | UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pia | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-012` | UNIPI DiSAAA-a — Dipartimento di Scienze Agrarie Alimentar | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-013` | CRPA — Centro Ricerche Produzioni Animali | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-014` | UNITUS DAFNE — Dipartimento di Scienze Agrarie e Forestali | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-015` | CNR IBBR — Istituto di Bioscienze e Biorisorse | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-016` | AIR UNIMI — Archivio Istituzionale della Ricerca | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-017` | FLORE UNIFI — Archivio istituzionale della ricerca | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-018` | IRIS UNIBO — Archivio istituzionale della ricerca | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-019` | IRIS UNIPD — Archivio della ricerca | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-020` | IRIS UNITO — Archivio istituzionale | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-021` | UNIFI DAGRI — Dipartimento di Scienze e Tecnologie Agrarie | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-022` | Advances in Horticultural Science | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-023` | SSICA — Stazione Sperimentale per l'Industria delle Conser | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-024` | UNIMI DiSAA — Dipartimento di Scienze Agrarie e Ambientali | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-025` | Scuola Superiore Sant'Anna — Istituto di Scienze delle Pro | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-026` | UNIPA SAAF — Dipartimento Scienze Agrarie Alimentari e For | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-027` | UNIPD DAFNAE — Dipartimento di Agronomia Animali Alimenti  | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-028` | UNIUD DI4A — Dipartimento di Scienze Agroalimentari Ambien | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-029` | UNIVR Dipartimento di Biotecnologie | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-030` | UNITE Facolta di Bioscienze e Tecnologie Agro-alimentari e | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-031` | UNIVPM D3A — Dipartimento di Scienze Agrarie Alimentari e  | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-032` | UNIPG DSA3 — Dipartimento di Scienze Agrarie Alimentari e  | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-033` | UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-A | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-034` | Accademia dei Georgofili | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-035` | Georgofili INFO — notiziario | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-036` | Georgofili — Accademia dei Georgofili (portale .net) | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T6-001` | Andrea Lentini — registo cientifico ORCID (Università degl | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-002` | Anita Nencioni — registo cientifico ORCID (Consiglio per l | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-003` | Anna Aldrighetti — registo cientifico ORCID (University of | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-004` | Antonio Masetti — registo cientifico ORCID (University of  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-005` | Antonio Pietro GARONNA — registo cientifico ORCID (Univers | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-006` | Antonio Prodi — registo cientifico ORCID (University of Bo | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-007` | Aparna S Balan — registo cientifico ORCID (University of P | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-008` | CLAUDIO RATTI — registo cientifico ORCID (Alma Mater Studi | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-009` | Chiara D'ERRICO — registo cientifico ORCID (Istituto per l | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-010` | Daniele Daffonchio — registo cientifico ORCID (University  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-011` | Dumitru Scutelnic — registo cientifico ORCID (University o | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-012` | Emilio Balducci — registo cientifico ORCID (University of  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-013` | Francesco Nardi — registo cientifico ORCID (University of  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-014` | Gerardo Puopolo — registo cientifico ORCID (University of  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-015` | Gianfranco ANFORA — registo cientifico ORCID (University o | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-016` | Giulia Mandalà — registo cientifico ORCID (Verona Universi | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-017` | Graziella Amendola — registo cientifico ORCID (National In | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-018` | Leonardo Caproni — registo cientifico ORCID (Scuola Superi | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-019` | Leonardo Cera — registo cientifico ORCID (University of Pa | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-020` | Lorenzo Baglieri — registo cientifico ORCID (Politecnico d | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-021` | Luca Finetti — registo cientifico ORCID (University of Fer | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-022` | Luca Mazzon — registo cientifico ORCID (Università degli S | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-023` | Marco Mancini — registo cientifico ORCID (University of Fl | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-024` | Marco Perfetto — registo cientifico ORCID (University of M | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-025` | Marwa Mourou — registo cientifico ORCID (Università degli  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-026` | Paolo Boccacci — registo cientifico ORCID (Consiglio Nazio | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-027` | Paolo Grazieschi — registo cientifico ORCID (Fondazione Br | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-028` | ROBERTO RIZZO — registo cientifico ORCID (CREA - Research  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-029` | Roberta Maria Gravagno — registo cientifico ORCID (Univers | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-030` | Roberta Paris — registo cientifico ORCID (Council for Agri | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-031` | Roberto Ferrise — registo cientifico ORCID (University of  | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-032` | Rosa Francaviglia — registo cientifico ORCID (Consiglio pe | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-033` | Stefano Maini — registo cientifico ORCID (Alma Mater Studi | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-034` | Tito Caffi — registo cientifico ORCID (Università Cattolic | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-035` | Vera Pavese — registo cientifico ORCID (University of Turi | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T6-036` | sara ruschioni — registo cientifico ORCID (Marche Polytech | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
+| `IT-T7-013` | CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Fore | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-014` | Consorzi Agrari d'Italia — CAI | T7 · TECHNICAL NETWORK | 🟡 YELLOW | **não** |
+| `IT-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
+| `IT-T9-009` | Cifo | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-010` | Serbios | T9 · COMPETITORS | 🟡 YELLOW | **não** |
+| `IT-T9-011` | Koppert Italia | T9 · COMPETITORS | 🟡 YELLOW | **não** |
+| `IT-T9-012` | CBC Biogard | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-013` | Certis Belchim Italia | T9 · COMPETITORS | 🟡 YELLOW | **não** |
 
 ---
 

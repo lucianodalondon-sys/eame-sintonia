@@ -1,0 +1,163 @@
+{
+ "O_QUE_ISTO_E": "Se LEGENDA publica e AUDIO-ONLY do YouTube sao rotas permitidas a esta casa — medido, nao herdado do veredito do video.",
+ "COMO_REFAZER": "python3 provas/a_legenda_e_o_audio_do_youtube.py",
+ "A_LEI": "CAPTION != TRANSCRIPT · AUDIO_ONLY != VIDEO · METADATA != MEDIA BYTES · ROTA QUE FUNCIONA != ROTA PERMITIDA",
+ "O_CANARIO": {
+  "SOURCE_ID": "NAO SEI",
+  "PLATFORM_VIDEO_ID": "MCnd9c2pzd8",
+  "CHANNEL_ID": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+  "PROVENANCE": "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+  "PORQUE_SEM_SOURCE_ID": "o piloto declara `KNOWN_SOURCE = NENHUMA`. Derivar um SOURCE_ID do handle, da URL ou do CHANNEL_ID seria fabricar identidade."
+ },
+ "O_PORTAO": {
+  "CAPTION_TIMEDTEXT": {
+   "CAPACIDADE": "FETCH_PUBLIC_CAPTION",
+   "VEREDITO": "ROBOTS_DISALLOWS",
+   "PORQUE": "robots.txt do host barra este caminho para SintoniaScrap",
+   "URL": "https://www.youtube.com/api/timedtext?v=MCnd9c2pzd8&lang=it",
+   "O_QUE_E": "a `baseUrl` real de `captionTracks` — a legenda publica, se houver"
+  },
+  "CAPTION_PAGINA_WATCH": {
+   "CAPACIDADE": "FETCH_PUBLIC_CAPTION",
+   "VEREDITO": "ROBOTS_ALLOWS",
+   "PORQUE": "robots.txt do host permite este caminho",
+   "URL": "https://www.youtube.com/watch?v=MCnd9c2pzd8",
+   "O_QUE_E": "a pagina de onde se leria `ytInitialPlayerResponse.captionTracks`"
+  },
+  "AUDIO_PLAYER_INTERNO": {
+   "CAPACIDADE": "FETCH_AUDIO_STREAM",
+   "VEREDITO": "ROBOTS_DISALLOWS",
+   "PORQUE": "robots.txt do host barra este caminho para SintoniaScrap",
+   "URL": "https://www.youtube.com/youtubei/v1/player",
+   "O_QUE_E": "por onde o `yt-dlp` pede os formatos, audio-only inclusive"
+  },
+  "AUDIO_GET_VIDEO": {
+   "CAPACIDADE": "FETCH_AUDIO_STREAM",
+   "VEREDITO": "ROBOTS_DISALLOWS",
+   "PORQUE": "robots.txt do host barra este caminho para SintoniaScrap",
+   "URL": "https://www.youtube.com/get_video?video_id=MCnd9c2pzd8",
+   "O_QUE_E": "o endereco historico do fluxo de midia"
+  },
+  "METADATA_OEMBED": {
+   "CAPACIDADE": "FETCH_VIDEO_METADATA",
+   "VEREDITO": "ROBOTS_ALLOWS",
+   "PORQUE": "robots.txt do host permite este caminho",
+   "URL": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=MCnd9c2pzd8",
+   "O_QUE_E": "o controlo POSITIVO: a unica rota livre PROVED, e traz so o nome"
+  }
+ },
+ "AS_CLAUSULAS": [
+  {
+   "SECAO": "III.I.7",
+   "TEXTO": "separate, isolate, or modify the audio or video components of any YouTube audiovisual content",
+   "FECHA": "FETCH_AUDIO_STREAM",
+   "FETCHED_AT": "2026-09-14",
+   "FONTE": "https://developers.google.com/youtube/terms/developer-policies"
+  },
+  {
+   "SECAO": "III.E.1.a",
+   "TEXTO": "download, import, backup, cache, or store copies of YouTube audiovisual content without YouTube's prior written approval",
+   "FECHA": "PRESERVAR OS BYTES",
+   "FETCHED_AT": "2026-09-14",
+   "FONTE": "https://developers.google.com/youtube/terms/developer-policies"
+  },
+  {
+   "SECAO": "III.I.14",
+   "TEXTO": "use any technology other than YouTube API Services to access or retrieve API Data, including to access any portion of any YouTube audiovisual content",
+   "FECHA": "yt-dlp COMO ADAPTADOR",
+   "FETCHED_AT": "2026-09-14",
+   "FONTE": "https://developers.google.com/youtube/terms/developer-policies"
+  }
+ ],
+ "MEDIDO": {
+  "CAPTION_TIMEDTEXT": {
+   "VALOR": "ROUTE_NOT_ALLOWED",
+   "PORQUE": "ToS proíbe meio automatizado sem permissão escrita; `Disallo"
+  },
+  "CAPTION_PAGINA_WATCH": {
+   "VALOR": "ROBOTS_ALLOWS",
+   "PORQUE": "robots.txt do host permite este caminho"
+  },
+  "AUDIO_PLAYER_INTERNO": {
+   "VALOR": "ROBOTS_DISALLOWS",
+   "PORQUE": "robots.txt do host barra este caminho para SintoniaScrap"
+  },
+  "AUDIO_GET_VIDEO": {
+   "VALOR": "ROBOTS_DISALLOWS",
+   "PORQUE": "robots.txt do host barra este caminho para SintoniaScrap"
+  },
+  "METADATA_OEMBED": {
+   "VALOR": "ROBOTS_ALLOWS",
+   "PORQUE": "robots.txt do host permite este caminho"
+  },
+  "CAPTION_CAPTIONS_DOWNLOAD": {
+   "VALOR": "REQUIRES_OWNER_PERMISSION",
+   "PORQUE": "SÓ O DONO DO VÍDEO. A doc exige \"permission to edit the vide"
+  },
+  "CAPTION_CAPTIONS_LIST": {
+   "VALOR": "REQUIRES_AUTHORIZATION",
+   "PORQUE": "PRECISA DE OAUTH — `YOUTUBE_DATA_API_KEY` não autentica este"
+  },
+  "CAPTION_TRANSCRICAO": {
+   "VALOR": "PARTIAL",
+   "PORQUE": "ÚNICA rota restante para legenda de canal de terceiro. Motiv"
+  },
+  "CAPTION_STATUS": {
+   "VALOR": "CAPTION_NOT_ACCESSIBLE",
+   "PORQUE": "nenhuma rota livre de legenda esta PERMITIDA=SIM para canal de terceiro"
+  },
+  "CAPTION_KIND": {
+   "VALOR": "UNKNOWN",
+   "PORQUE": "sem ler a faixa nao se sabe se a legenda e MANUAL ou AUTOMATIC — e `captions.list`, que responderia, pede OAuth e nao traz o texto"
+  },
+  "CAPTION_LANGUAGE": {
+   "VALOR": "UNKNOWN",
+   "PORQUE": "idem: a lingua da faixa so se sabe lendo a ficha da faixa"
+  },
+  "AUDIO_CAPABILITY_DECLARADA": {
+   "VALOR": "NO",
+   "PORQUE": "as 5 capacidades do YouTube na matriz sao ['SEARCH_KEYWORD', 'INCREMENTAL', 'FETCH_VIDEO_METADATA', 'FETCH_COMMENTS', 'FETCH_TRANSCRIPT'] — nenhuma de bytes de audio"
+  },
+  "AUDIO_STATUS": {
+   "VALOR": "ROUTE_NOT_ALLOWED",
+   "PORQUE": "nao e o silencio da matriz que fecha: e a III.I.7, que nomeia «separate, isolate ... the audio components» por extenso"
+  },
+  "POLICY_III_I_7": {
+   "VALOR": "PROIBE",
+   "PORQUE": "separate, isolate, or modify the audio or vi — sobre FETCH_AUDIO_STREAM (lido em 2026-09-14)"
+  },
+  "POLICY_III_E_1_a": {
+   "VALOR": "PROIBE",
+   "PORQUE": "download, import, backup, cache, or store co — sobre PRESERVAR OS BYTES (lido em 2026-09-14)"
+  },
+  "POLICY_III_I_14": {
+   "VALOR": "PROIBE",
+   "PORQUE": "use any technology other than YouTube API Se — sobre yt-dlp COMO ADAPTADOR (lido em 2026-09-14)"
+  },
+  "YT_DLP_PRESENTE": {
+   "VALOR": "NO",
+   "PORQUE": "versao nao instalado — e ele passa por `/youtubei/`, que o portao acima barrou"
+  },
+  "ACQUISITION_POLICY_VERDICT": {
+   "VALOR": "BLOCKED_NEEDS_AUTHORIZATION",
+   "PORQUE": "legenda e audio fechados pelas MESMAS autoridades que fecharam o video — e a III.I.7 fecha o audio com nome proprio"
+  },
+  "POLICY_DECISION_REQUIRED": {
+   "VALOR": "YES",
+   "PORQUE": "abrir qualquer das duas rotas depende de permissao escrita do YouTube, e essa decisao e de gente, nao de codigo"
+  },
+  "FULL_VIDEO_FETCHED": {
+   "VALOR": "NO",
+   "PORQUE": "nada foi adquirido nesta corrida"
+  },
+  "AUDIO_BYTES": {
+   "VALOR": "0",
+   "PORQUE": "nenhum byte de midia foi pedido nem recebido"
+  },
+  "CAPTION_BYTES": {
+   "VALOR": "0",
+   "PORQUE": "nenhuma legenda foi pedida nem recebida"
+  }
+ },
+ "O_QUE_ABRIRIA_ESTA_PORTA": "permissao escrita previa do YouTube, ou a autorizacao do dono de cada video para `captions.download`. Nenhuma das duas se resolve escrevendo codigo, e por isso esta missao parou aqui em vez de instalar `yt-dlp`."
+}

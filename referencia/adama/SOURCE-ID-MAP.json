@@ -1,0 +1,21 @@
+{
+ "DATASET": "ADAMA-SOURCE-ID-MAP",
+ "SCHEMA": "sintonia.adama-reference/1",
+ "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
+ "BUILDER": "fontes/adama_referencia.py",
+ "LAW": "O identificador antigo NAO se apaga: fica ligado ao canonico.",
+ "CURRENT_SNAPSHOT": "PROD_FTS_6_20260831",
+ "COUNT": 2,
+ "RECORDS": [
+  {
+   "LEGACY_SOURCE_ID": "SRC_ADAMA_COM",
+   "CANONICAL_SOURCE_ID": "IT-ADAMA-CATALOG",
+   "SAME_SOURCE_PROOF": "IT-ADAMA-CATALOG e o catalogo publico adama.com/italia."
+  },
+  {
+   "LEGACY_SOURCE_ID": "SRC_FITOSANITARI_SALUTE_GOV_IT",
+   "CANONICAL_SOURCE_ID": "IT-T4-001",
+   "SAME_SOURCE_PROOF": "IT-T4-001 e a ficha do Ministero della Salute no ATLAS-DE-FONTES-EAME.md, com a mesma CANONICAL_URL que o vocabulario antigo usava."
+  }
+ ]
+}

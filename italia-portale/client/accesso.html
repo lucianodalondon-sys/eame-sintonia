@@ -300,18 +300,19 @@
      dove stanno tutte le altre. */
   document.getElementById('access').addEventListener('submit', function (e) {
     e.preventDefault();
-    /* ══ SI ENTRA DALL'INTELLIGENZA, NON DALL'INVENTARIO ═══════════════════
-       L'accesso finiva sul radar: la prima cosa che il lettore vedeva era una
-       barra di strumenti. `casa.html` risponde invece alle domande — cosa sta
-       succedendo, cosa preparare, cosa monitorare, dove abbiamo occhi, quale
-       finestra pesa — e porta 44 voci di Radar Futuro, la copertura e i
-       sensori, che il portale non mostra da nessuna parte.
+    /* ══ SI ENTRA NEL PORTALE, E IL PORTALE E UNO SOLO ═════════════════════
+       L'accesso finiva su `casa.html`, che ha una IDENTITA VISUALE PROPRIA —
+       altra griglia, altra scala tipografica, altra testata. Chi entrava non
+       vedeva il portale: vedeva un altro prodotto, e poi doveva trovarne la
+       porta.
 
-           SI APRE SU CIO CHE SAPPIAMO, NON SU CIO CHE ABBIAMO COSTRUITO.
+           DUE IDENTITA VISUALI SONO DUE PRODOTTI,
+           ANCHE QUANDO SONO LO STESSO DATO.
 
-       La casa ha adesso le sue porte verso gli strumenti, quindi entrare da
-       qui non lascia piu niente dietro un link solo. */
-    window.location.href = 'casa.html';
+       Niente e andato perso: i 44 del Radar Futuro, che vivevano solo li, sono
+       adesso una VISTA di questo guscio (#radarfuturo), disegnata con i suoi
+       componenti e con lo stesso dizionario. Si entra dove si lavora. */
+    window.location.href = 'portale.html';
   });
 
   /* ── Europe map · Natural Earth geometry via world-atlas ── */

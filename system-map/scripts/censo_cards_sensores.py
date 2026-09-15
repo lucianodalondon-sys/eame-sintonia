@@ -40,6 +40,8 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DADOS = os.path.join(RAIZ, "system-map", "data")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import impressao_da_arvore as IMPRESSAO          # noqa: E402
 SAIDA = os.path.join(RAIZ, "data", "derivados", "MATRIZ-CARDS-SENSORES-V1.json")
 
 
@@ -164,9 +166,38 @@ def sensores(fronteira):
     #
     # ENTROU pergunta «a saida ATRAVESSOU a fronteira», e atravessar e sair —
     # nao e ser apanhada do outro lado. Mede-se producao.
-    atravessou = bool(fronteira["READY_PRODUZIDO"])
-    porque = ("a fronteira %s nunca produziu um READY: o destino declarado nao "
-              "existe nesta arvore" % fronteira["LEI"]) if not atravessou else None
+    # ⚠️ AQUI ESTAVA `bool(fronteira["READY_PRODUZIDO"])`, E ELE JA NAO SERVE.
+    # O campo deixou de ser booleano (`fronteira-observada/v2`): vale `SIM`,
+    # `NOT_MEASURED` ou `ERROR`. Com `bool()`, as DUAS palavras de ignorancia
+    # davam `True` — e `ENTROU` subia para 58 sensores por a Sala NAO ter sido
+    # medida, que e o defeito oposto e pior do que o que se veio consertar.
+    #
+    #     UMA CONVERSAO PARA BOOLEANO E UMA DECISAO SOBRE O TERCEIRO ESTADO,
+    #     E ELA NUNCA E TOMADA POR QUEM ESCREVE `bool()`.
+    #
+    # `ENTROU` continua a significar PROVADO QUE ATRAVESSOU, e so o `SIM` o
+    # prova — isso nao mudou e nao devia mudar. O que muda e o MOTIVO: ele
+    # deixa de afirmar «nunca produziu um READY» quando tudo o que se sabe e
+    # que ninguem mediu a Sala.
+    #
+    #     NAO PROVADO != PROVADO QUE NAO.
+    medicao = fronteira["READY_PRODUZIDO"]
+    atravessou = medicao == "SIM"
+    if atravessou:
+        porque = None
+    elif medicao == "NOT_MEASURED":
+        porque = ("a SALA CANONICA nao foi medida (backend=%s · canonico=%s): "
+                  "NAO SE SABE se alguma saida ja atravessou a fronteira %s. "
+                  "NOT_MEASURED nao e NAO."
+                  % (fronteira.get("SALA_BACKEND", "NAO SEI"),
+                     fronteira.get("SALA_CANONICO"), fronteira["LEI"]))
+    elif medicao == "ERROR":
+        porque = ("a consulta a SALA CANONICA rebentou: ERRO nao e ZERO, e o "
+                  "estado da fronteira %s continua por saber. %s"
+                  % (fronteira["LEI"], fronteira.get("SALA_PORQUE") or ""))
+    else:
+        porque = ("a Sala canonica respondeu %r, que nao prova travessia da "
+                  "fronteira %s" % (medicao, fronteira["LEI"]))
     fora = []
     for e in ex["EXECUTORES"]:
         cam = e.get("EXECUTOR_ID") or ""
@@ -288,15 +319,37 @@ def main():
             "que ja existem. Nenhum numero e medido aqui: cada um tem dono "
             "noutro ficheiro, e este junta-os para fazer a pergunta que "
             "nenhum deles fazia sozinho."),
-        "PROVENANCE": {
-            "HEAD": head(),
-            "LIDO_DE": ["casco.generated.json", "executores.generated.json",
-                        "sources.generated.json", "fluxo.generated.json",
-                        "fronteira.observada.json",
-                        "congelamento.generated.json",
-                        "provas-de-execucao.json",
-                        "SYSTEM-MAP-COLLECTION-ISSUES.json"],
-        },
+        # ⚠️ ESTE CENSO LE OITO ARTEFATOS, E CINCO DELES SAO GERADOS POR OUTROS.
+        # A versao de um gerado e a impressao que ELE carimba; os que ainda nao
+        # carimbam nenhuma entram como `DERIVADO_SEM_CARIMBO`, com a falta
+        # declarada ficha a ficha em vez de escondida num hash que se move
+        # sozinho a cada corrida da cadeia.
+        "PROVENANCE": dict(
+            IMPRESSAO.carimbo("system-map/scripts/censo_cards_sensores.py", [
+                ("system-map/data/%s" % n, papel, "ler() · json")
+                for n, papel in (
+                    ("casco.generated.json", IMPRESSAO.GERADO),
+                    ("executores.generated.json", IMPRESSAO.GERADO),
+                    ("sources.generated.json", IMPRESSAO.GERADO),
+                    ("fluxo.generated.json", IMPRESSAO.GERADO),
+                    ("congelamento.generated.json", IMPRESSAO.GERADO),
+                    ("fronteira.observada.json", IMPRESSAO.FONTE),
+                    ("provas-de-execucao.json", IMPRESSAO.FONTE),
+                    ("SYSTEM-MAP-COLLECTION-ISSUES.json", IMPRESSAO.FONTE),
+                )]),
+            LIDO_DE=["casco.generated.json", "executores.generated.json",
+                     "sources.generated.json", "fluxo.generated.json",
+                     "fronteira.observada.json",
+                     "congelamento.generated.json",
+                     "provas-de-execucao.json",
+                     "SYSTEM-MAP-COLLECTION-ISSUES.json"],
+            INPUTS_NAO_ENUMERAVEIS=[{
+                "O_QUE": "a varredura `grep -rIl` de `quem_escreve_cada_camada()`",
+                "PORQUE": ("o conjunto de ficheiros que ela toca depende da arvore "
+                           "e nao esta escrito no codigo: nao ha lista para carimbar"),
+                "FICA_COBERTO_POR": ("SOURCE_TREE_FINGERPRINT — ela so ve ficheiros "
+                                     "de fonte, e todos entram na impressao"),
+            }]),
         "CONTAGENS": {
             "CARDS_TOTAL": len(cs),
             "CARDS_POR_ESTADO": _contar(cs, "ESTADO"),
@@ -347,6 +400,13 @@ def main():
             "CONSUMIDORES": fronteira["CONSUMIDORES"],
             "DESTINO_EXISTE": fronteira["DESTINO_EXISTE"],
             "READY_PRODUZIDO": fronteira["READY_PRODUZIDO"],
+            # ⚠️ ESTES TRES VIAJAM JUNTO COM O VEREDITO, E NAO SAO ENFEITE.
+            # Sem eles, quem le `READY_PRODUZIDO = NOT_MEASURED` fica a saber
+            # que nao se mediu e NAO fica a saber porque — e «nao sei porque
+            # nao sei» e o degrau que faz a proxima pessoa concluir sozinha.
+            "SALA_BACKEND": fronteira.get("SALA_BACKEND"),
+            "SALA_CANONICO": fronteira.get("SALA_CANONICO"),
+            "SALA_MEDICAO": fronteira.get("SALA_MEDICAO"),
             "GAP": fronteira["GAP"],
         },
         "CARDS": cs,

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "812690c1e5940c9cad393beb1bcf69eea5e4e483"
+    "HEAD": "0063e46b07030644a5c5c34e650dba12089e6321"
   },
   "VOCABULARIOS": [
     {
@@ -1248,16 +1248,16 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 57,
+      "TOTAL_TERMS": 87,
       "POR_ESCOPO": {
-        "IT_ONLY": 28,
+        "IT_ONLY": 32,
+        "UNKNOWN": 27,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
-        "INTERNATIONAL": 2,
-        "UNKNOWN": 1
+        "INTERNATIONAL": 2
       },
-      "CLASSIFIED": 56,
-      "UNKNOWN": 1,
+      "CLASSIFIED": 60,
+      "UNKNOWN": 27,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
@@ -1265,11 +1265,10 @@
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
         "coleta/rota_forward_documento.py",
-        "controle/censo_do_controle.py",
-        "controle/red_team_do_controle.py",
         "leis/artefato.py",
         "leis/relevancia_da_fonte.py",
         "orquestrador/orquestrador.py",
+        "provas/a_collection_preserva_o_fato.py",
         "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_fronteira_da_coleta.py",
         "provas/a_linhagem_do_ready.py",
@@ -1277,13 +1276,13 @@
         "provas/a_linhagem_do_reaproveitamento.py",
         "provas/a_maquina_depois_do_crash.py",
         "provas/a_maquina_sob_carga.py",
+        "provas/a_porta_le_italiano.py",
         "provas/a_regra_de_t2.py",
         "provas/a_rota_m2_atravessa.py",
         "provas/a_sala_de_espera_nao_tem_morada.py",
+        "provas/a_sala_sobrevive_ao_processo.py",
         "provas/a_unidade_pousa_na_espera.py",
         "provas/alcance_da_pergunta_tematica.py",
-        "provas/arbitragem_da_intelligence.py",
-        "provas/auditoria_agro_fronteira.py",
         "provas/benchmark_tematico.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
@@ -1293,12 +1292,17 @@
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/mutacao_da_linhagem_do_ready.py",
+        "provas/nada_some_em_silencio.py",
         "provas/o_canario_da_collection.py",
+        "provas/o_censo_da_sala_de_espera.py",
         "provas/o_corte_de_cr1.py",
+        "provas/o_material_italiano_chega_a_sala.py",
         "provas/o_pedido_atravessa.py",
         "provas/o_pedido_t4_atravessa.py",
+        "provas/o_portao_da_big_collection.py",
         "provas/o_scrap_chega_ao_acervo.py",
         "provas/os_portoes_da_collection.py",
+        "provas/red_team_collection_ate_a_sala.py",
         "provas/so_a_colheita_atravessa.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
@@ -1309,6 +1313,8 @@
         "system-map/scripts/scan_repo.py",
         "system-map/scripts/validate_system_map.py",
         "system-map/tests/test_system_map.py",
+        "system-map/tests/test_verdade_das_ligacoes.py",
+        "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_linhagem_do_ready.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
         "tests/test_a_regra_de_t2.py",
@@ -1316,7 +1322,6 @@
         "tests/test_a_sala_de_espera_tem_um_dono.py",
         "tests/test_alcance_tematico.py",
         "tests/test_amostragem_neutra_t3.py",
-        "tests/test_atomicidade_da_intelligence.py",
         "tests/test_c10_2_origin_gate.py",
         "tests/test_candidatos_tematicos.py",
         "tests/test_censo_corpus_rotulado_admission.py",
@@ -1333,6 +1338,7 @@
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_pacote_de_revisao_t3.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_sala_duravel.py",
         "tests/test_ui_revisao_t3_ptbr.py"
       ],
       "TERMOS": [
@@ -1381,10 +1387,6 @@
           "escopo": "IT_ONLY"
         },
         {
-          "termo": "prova",
-          "escopo": "UNKNOWN"
-        },
-        {
           "termo": "ricerca",
           "escopo": "IT_ONLY"
         },
@@ -1417,8 +1419,64 @@
           "escopo": "IT_ONLY"
         },
         {
+          "termo": "prova di campo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "prove sperimentali",
+          "escopo": "UNKNOWN"
+        },
+        {
           "termo": "tesi",
           "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "cooperativa",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "consorcio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "agronomo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "extensao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "assistencia tecnica",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "consorzio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "agronomi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "assistenza tecnica",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "servizio agronomico",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "tecnico di campo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "divulgazione tecnica",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "soci",
+          "escopo": "UNKNOWN"
         },
         {
           "termo": "concorrente",
@@ -1517,6 +1575,10 @@
           "escopo": "SHARED_MULTILINGUAL"
         },
         {
+          "termo": "larva",
+          "escopo": "UNKNOWN"
+        },
+        {
           "termo": "praga",
           "escopo": "PT_ONLY"
         },
@@ -1535,6 +1597,22 @@
         {
           "termo": "sintoma",
           "escopo": "PT_ONLY"
+        },
+        {
+          "termo": "daninha",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "erva daninha",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "herbicida",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "resistencia",
+          "escopo": "UNKNOWN"
         },
         {
           "termo": "parassita",
@@ -1563,15 +1641,63 @@
         {
           "termo": "patogeno",
           "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "fitopatolog",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "trappola",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "trappole",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "ovideposizione",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "peronospora",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "oidio",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "botrite",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "ticchiolatura",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "infestante",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "diserbo",
+          "escopo": "IT_ONLY"
+        },
+        {
+          "termo": "erbicida",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "malerba",
+          "escopo": "UNKNOWN"
         }
       ]
     }
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 299,
+    "termos_ao_todo": 329,
     "por_papel": {
-      "ADMISSAO": 57,
+      "ADMISSAO": 87,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35

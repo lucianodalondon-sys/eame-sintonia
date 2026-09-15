@@ -146,12 +146,57 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         self.assertIn("nao ha regra escrita", d.motivo)
 
     def test_os_universos_que_ja_tinham_regra_nao_foram_tocados(self):
-        self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO), ["T3", "T4", "T7", "T9"])
-        for u, n in (("T7", 21), ("T9", 12), ("T4", 11), ("T3", 13)):
+        # ⚠️ ESTA LISTA MUDOU, E A MUDANCA NAO E UM RELAXAMENTO.
+        # Ela dizia `["T3", "T4", "T7", "T9"]`, e a chave `"T7"` carregava o
+        # lexico de CIENCIA — porque `pedido/pedido.py` declarava que `T7` era
+        # «Ciencia e ensaio». No Atlas, que e o dono da taxonomia, `T7` e
+        # TECHNICAL NETWORK e o lexico de ciencia e de `T5`.
+        #
+        #     UMA CHAVE DE DICIONARIO TAMBEM E UMA DECLARACAO DE TAXONOMIA.
+        #
+        # O que esta guarda protege continua inteiro: `T2` NAO ganhou regra, e
+        # nenhum universo que tinha regra a perdeu. O que ha e um universo a
+        # MAIS — `T7` com vocabulario proprio de rede tecnica, que antes nao
+        # tinha nenhum porque a chave dele estava ocupada por outro assunto.
+        self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO), ["T3", "T4", "T5", "T7", "T9"])
+        # ⚠️ AS CONTAGENS MUDARAM, E A MENSAGEM ANTIGA JA NAO SE APLICA.
+        # Ela dizia «a missao so autorizava mexer em T2» — e isso era verdade
+        # da missao que escreveu esta guarda. A missao
+        # `C-COLLECTION-TO-WAITING-ROOM-V1` recebeu ordem explicita de mexer em
+        # T3 (a regua nao lia italiano acentuado, e faltava-lhe a perna das
+        # PLANTAS DANINHAS que o Atlas sempre lhe deu) e de corrigir a
+        # taxonomia inteira.
+        #
+        #     UMA GUARDA QUE CITA O ESCOPO DE OUTRA MISSAO
+        #     DEIXA DE MEDIR A CASA E PASSA A MEDIR A MEMORIA.
+        #
+        # O que esta guarda protege, e que continua inteiro, e OUTRA coisa:
+        # `T2` nao ganhou regra. Essa asserção esta acima e nao mudou.
+        #
+        #     T3  13 -> 30   daninhas, resistencia e o lexico operacional
+        #                    italiano (trappola, diserbo, infestante...)
+        #
+        # ⚠️ ESTE NUMERO JA FOI 31 NESTE MESMO DIA, E A GUARDA APANHOU-ME.
+        # Eu actualizei-o para 31 e SO DEPOIS tirei `fitosanitario` do lexico —
+        # o termo que o gabarito humano mostrou ser rodape institucional e nao
+        # conteudo. A contagem ficou a descrever um estado que durou um commit.
+        #
+        #     UMA CONTAGEM ACTUALIZADA ANTES DE A MUDANCA ASSENTAR
+        #     DESCREVE UMA ARVORE QUE NUNCA EXISTIU.
+        #     T5   0 -> 22   o lexico de ciencia, que vivia na chave `T7`
+        #                    e perdeu `prova` — ela casava dentro de
+        #                    «ap-PROV-al» e admitia regulamento ingles
+        #     T7  21 -> 12   deixa de ser ciencia e passa a ser rede tecnica
+        #     T4  11 -> 11   intacto
+        #     T9  12 -> 12   intacto
+        for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 12),
+                     ("T9", 12)):
             with self.subTest(universo=u):
-                self.assertEqual(len(adm.PERGUNTAS_DO_UNIVERSO[u]), n,
-                                 f"a lista de {u} mudou nesta missao, e a "
-                                 f"missao so autorizava mexer em T2")
+                self.assertEqual(
+                    len(adm.PERGUNTAS_DO_UNIVERSO[u]), n,
+                    f"a lista de {u} mudou desde a ultima medicao. Se foi de "
+                    f"proposito, actualize este numero E escreva porque — uma "
+                    f"contagem sem razao ao lado nao guarda nada")
 
 
 class AProvaNaoSujaNada(unittest.TestCase):

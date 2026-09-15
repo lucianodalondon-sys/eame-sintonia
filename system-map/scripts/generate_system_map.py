@@ -39,6 +39,7 @@ rebaixa o componente para AMARELO com o motivo "mudou depois da declaracao".
 E o unico mecanismo que impede verde velho de sobreviver a mudanca.
 """
 
+import collections
 import fnmatch
 import glob
 import ast
@@ -439,7 +440,13 @@ def as_fontes() -> tuple[list, list]:
                   f"contas publicas mapeadas: {contas.get('total', 0)}",
                   f"dessas, autorizadas a coletar: {contas.get('autorizadas', 0)}",
                   f"palavras de busca medidas no codigo: {c['search_terms']}",
-                  f"enderecos que o codigo realmente chama: {c['endpoints']}"],
+                  # O cartao diz os DOIS, porque a lista que ele abre e o top-40.
+                  # Enquanto dizia so um, quem clicava contava 40 e concluia que
+                  # o repositorio chama 40 enderecos.
+                  f"enderecos que o codigo realmente chama: {c['endpoints']}",
+                  f"desses, mostrados aqui: {c.get('endpoints_published', 0)}"
+                  + (f" (ficam de fora {c['endpoints_truncated']})"
+                     if c.get("endpoints_truncated") else "")],
         "status_reason": motivo,
         "evidence_text": "",
         "departments": [], "views": ["acervo"], "lane": "official", "legacy": False,
@@ -960,7 +967,7 @@ def a_sala_de_espera() -> tuple[list, list]:
     POR QUE ESTE CARTAO E GERADO, E NAO DECLARADO
 
     O READY nao e um ficheiro. E uma FUNCAO (`admissao.pronto_para_inteligencia`),
-    um CONTRATO (COL-LAW-043, 12 campos fixos) e uma FRONTEIRA — e o ficheiro que
+    um CONTRATO (COL-LAW-043, 11 campos fixos) e uma FRONTEIRA — e o ficheiro que
     o contem ja tem dono (`C-ADMISSAO`, que cobre `admissao/admissao.py`).
     Declara-lo como peca com gaveta propria obrigaria a tirar aquele ficheiro do
     dono que ja o tem, e o mapa proibe dois donos para um ficheiro.
@@ -1028,8 +1035,23 @@ def a_sala_de_espera() -> tuple[list, list]:
             f"produtores em runtime: {', '.join(prod) if prod else 'NENHUM'}"
             + (" — e e um CLI, nao um workflow" if prod else ""),
             f"consumidores: {', '.join(cons) if cons else 'NENHUM'}",
-            f"destino declarado {F.get('DESTINO')} existe: "
-            f"{'SIM' if F.get('DESTINO_EXISTE') else 'NAO'}",
+            # ⚠️ ESTA LINHA DIZIA «destino declarado ... existe: NAO» E ERA A
+            # UNICA COISA QUE O CARTAO SABIA SOBRE A SALA. O destino e a morada
+            # do backend FICHEIRO, que a Sala declara `CANONICO = False`: ele
+            # nao responde pelo READY operacional, e quem lia o cartao concluia
+            # que respondia.
+            #
+            #     ONDE OLHEI != O QUE CONCLUI.
+            f"a SALA canonica foi medida: {F.get('SALA_MEDICAO', 'NAO SEI')}"
+            f" (backend={F.get('SALA_BACKEND', 'NAO SEI')},"
+            f" canonico={'SIM' if F.get('SALA_CANONICO') else 'NAO'})"
+            + (f" · {F.get('SALA_PENDENTES')} a espera"
+               if F.get("SALA_PENDENTES") is not None else ""),
+            f"READY produzido: {F.get('READY_PRODUZIDO', 'NAO SEI')}"
+            " — e NOT_MEASURED nao e NAO",
+            f"morada do backend nao canonico {F.get('DESTINO')} existe: "
+            f"{'SIM' if F.get('DESTINO_EXISTE') else 'NAO'}"
+            " (backend FICHEIRO: nao responde pela Sala)",
         ],
         # SEM GAP nao quer dizer «tem consumidor»: quer dizer READY PRODUZIDO
         # e ninguem a atravessar antes de a Inteligencia comecar — que e o
@@ -1787,7 +1809,11 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                 "NAO SEI: o canal esta descrito aqui, mas nenhuma acao da coleta o "
                 "chama no codigo de hoje. Ou nao se usa, ou usa-se por um caminho "
                 "que este mapa ainda nao ve."),
-            "evidence_text": "", "departments": [], "views": ["acervo"],
+            # `scrap` porque o canal e por onde a AQUISICAO sai de casa: quem
+            # abre a lente do SCRAP tem de ver as portas, senao ve executores a
+            # falar com o nada. Continua em `acervo`: a lente e uma leitura a
+            # mais, nao uma mudanca de dono nem de zona.
+            "evidence_text": "", "departments": [], "views": ["acervo", "scrap"],
             "lane": "official", "legacy": False, "changed_since_declared": [],
             "inbound": [], "outbound": [], "file_count": 0,
             "o_que_recebe": recebe,
@@ -2586,6 +2612,1156 @@ def papel_de_cada_regua(nos: list, G: dict, dono: dict) -> None:
         n["rule_role_evidence"] = porque
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# G7 · O PAPEL DE CADA PECA — DERIVADO DE EVIDENCIA, NUNCA LIDO NO NOME
+#
+# A §4 do contrato de confianca poe `ROLE` na lista de campos obrigatorios de
+# uma entidade publicada, e a §5.1 fecha o vocabulario. A §21 escreveu, em
+# 2026-09, a frase que esta funcao vem apagar:
+#
+#     «`ROLE` nao existe ainda como campo. Atribui-lo e trabalho de medicao.»
+#
+# Ele passa a existir, e o trabalho e o de medicao — nao o de ler a ficha.
+#
+#     NOME DE FICHEIRO NAO E PAPEL. GAVETA NAO E PAPEL. FICHA NAO E MEDICAO.
+#
+# DUAS FONTES, NUNCA FUNDIDAS
+# ---------------------------
+# `ROLE_MEASURED`  sai da arvore: que ficheiros a peca tem, o que eles escrevem,
+#                  quem le isso, quem os corre, se falam com a rede. Plano CODE.
+# `ROLE_DECLARED`  sai de `architecture.declared.json`, e SO dos rotulos `kind`
+#                  que nao sao ambiguos. Plano DECLARED.
+#
+# O contrato proibe promover DECLARED para CODE, entao elas nao se misturam: o
+# que a medicao diz sai com `ROLE_PLANE = CODE`; o que so a ficha diz sai com
+# `ROLE_PLANE = DECLARED`; e quando as duas se contradizem, NENHUMA GANHA EM
+# SILENCIO — a peca fica `UNKNOWN` e o conflito e publicado com os dois lados.
+#
+#     UM CONFLITO ESCONDIDO E FAIL.  (§15 do contrato de confianca)
+#
+# PORQUE `kind` NAO ENTRA TODO
+# ----------------------------
+# `contract`, `engine`, `gate`, `library` e `chain` sao rotulos que esta arvore
+# ja provou pouco fiaveis: o comentario de `ZONAS_DE_LEI`, cinquenta linhas
+# acima, regista «O que a ADAMA sabe de si» declarado `contract` quando e o
+# catalogo comercial. Herdar esse engano com cara de papel seria repeti-lo num
+# nivel acima. Sete rotulos entram; o resto nao produz papel declarado nenhum.
+#
+# O QUE ESTA ESCADA NAO PROVA — e esta escrito em cada regra, nao aqui
+# -------------------------------------------------------------------
+# `scan_repo.py` mede escrita para ficheiro RASTREADO e para pasta declarada em
+# constante. Um coletor que escreve em `data/raw/` — que o git ignora — nao tem
+# escrita medida, e sai desta escada como instrumento. Isso e uma limitacao da
+# medicao, e vai escrita em `ROLE_LIMITATIONS` de cada regra, como a §7 exige:
+#
+#     UMA EVIDENCIA QUE NAO DECLARA O SEU LIMITE
+#     E UMA EVIDENCIA QUE SERA USADA FORA DELE.
+# ═════════════════════════════════════════════════════════════════════════════
+PAPEIS_CANONICOS = ("OPERATIONAL_STEP", "MEASUREMENT_INSTRUMENT", "CONTRACT_OR_RULE",
+                    "STORAGE", "SURFACE", "DISPATCH_ENTRYPOINT", "PROOF", "UNKNOWN")
+
+# So os rotulos declarados que NAO sao ambiguos nesta arvore. Ver o comentario.
+KIND_PARA_PAPEL = {
+    "test": "PROOF", "proof": "PROOF",
+    "workflow": "DISPATCH_ENTRYPOINT",
+    "surface": "SURFACE", "tela": "SURFACE",
+    "store": "STORAGE", "acervo": "STORAGE",
+}
+
+# A raiz servida sai de `vercel.json` — nao de um palpite sobre o nome da pasta.
+def _raiz_servida() -> str:
+    try:
+        v = json.loads((RAIZ / "vercel.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ""
+    d = (v.get("outputDirectory") or "").strip("/")
+    return (d + "/") if d else ""
+
+
+_RX_WORKFLOW = re.compile(r"(^|/)workflows/[^/]+\.ya?ml$")
+_EXT_EXECUTAVEL = (".py", ".mjs", ".js", ".sh", ".yml", ".yaml")
+_EXT_SERVIDA = (".html", ".js", ".css")
+
+# A ESCADA. A ORDEM E A REGRA, e por isso ela esta escrita como dados e nao
+# como uma cascata de `if` espalhada: quem a ler consegue dizer, sem correr
+# nada, qual pergunta foi feita primeiro.
+#
+# Cada degrau traz o LIMITE do que ele prova. Nenhum fica vazio.
+LIMITE_ESTATICO = ("analise estatica da arvore: prova CODE. Nao prova OBSERVED, "
+                   "nem que o item da coleta atravessa esta peca.")
+
+
+def papel_canonico(nos: list, G: dict, dono: dict) -> None:
+    """Escreve `ROLE` e a sua evidencia em cada peca. §5.1 do contrato."""
+    servida = _raiz_servida()
+
+    escreve: dict[str, set] = {}
+    leem: dict[str, set] = {}
+    corre: dict[str, set] = {}
+    for e in G["FILE_EDGES"]:
+        t = e["type"]
+        if t == "WRITES":
+            escreve.setdefault(e["from_file"], set()).add(e["to_file"])
+        elif t == "READS":
+            leem.setdefault(e["to_file"], set()).add(e["from_file"])
+        elif t == "RUNS":
+            corre.setdefault(e["from_file"], set()).add(e["to_file"])
+    em_pasta = G.get("ESCRITAS_EM_PASTA") or {}
+
+    for n in nos:
+        fs = n.get("files") or []
+        execs = [f for f in fs if f.endswith(_EXT_EXECUTAVEL)]
+        wfs = [f for f in fs if _RX_WORKFLOW.search(f)]
+        srv = [f for f in fs if servida and f.startswith(servida)
+               and f.endswith(_EXT_SERVIDA)]
+        artefactos = sorted({a for f in fs for a in escreve.get(f, ())})
+        leitores = sorted({dono.get(x) for a in artefactos
+                           for x in leem.get(a, ())
+                           if dono.get(x) and dono.get(x) != n["id"]})
+        le_artefacto = sorted({e["to_file"] for e in G["FILE_EDGES"]
+                               if e["type"] == "READS" and e["from_file"] in fs})
+        pastas = [(f, x) for f in fs for x in em_pasta.get(f, [])]
+        manda = sorted({o for f in fs for o in corre.get(f, ())
+                        if dono.get(o) and dono.get(o) != n["id"]})
+        rede = [f for f in execs if f.endswith(".py") and _fala_com_a_rede(f)]
+
+        medido = regra = porque = None
+        if execs and wfs and len(wfs) == len(execs):
+            medido, regra = "DISPATCH_ENTRYPOINT", "M1_SO_WORKFLOW"
+            porque = ("%d ficheiro(s), todos manifestos de workflow: quem os corre "
+                      "e o GitHub Actions, e nada na arvore os importa" % len(wfs))
+        elif srv:
+            medido, regra = "SURFACE", "M2_SERVIDO_AO_BROWSER"
+            porque = ("vercel.json serve `%s`; %s esta la dentro"
+                      % (servida.rstrip("/"), srv[0]))
+        elif n.get("rule_role") == "DECLARES":
+            medido, regra = "CONTRACT_OR_RULE", "M3_REGUA_QUE_ENUNCIA"
+            porque = "rule_role medido: %s" % n.get("rule_role_evidence")
+        elif n.get("rule_role") == "MEASURES":
+            medido, regra = "MEASUREMENT_INSTRUMENT", "M3_REGUA_QUE_MEDE"
+            porque = "rule_role medido: %s" % n.get("rule_role_evidence")
+        elif n.get("rule_role") == "STAMPS":
+            medido, regra = "OPERATIONAL_STEP", "M3_REGUA_QUE_CARIMBA"
+            porque = "rule_role medido: %s" % n.get("rule_role_evidence")
+        elif manda:
+            medido, regra = "OPERATIONAL_STEP", "M4_MANDA_OUTRA_CORRER"
+            porque = ("corre %s por subprocesso: quem manda outra peca executar "
+                      "nao esta so a olhar" % manda[0])
+        elif rede:
+            medido, regra = "OPERATIONAL_STEP", "M5_VAI_BUSCAR_FORA"
+            porque = ("%s abre ligacao de rede: vai buscar dado fora da arvore"
+                      % rede[0])
+        elif pastas:
+            f, x = pastas[0]
+            medido, regra = "OPERATIONAL_STEP", "M6_ESCREVE_NUMA_PASTA"
+            porque = ("escreve na pasta %s (%s:%d): produz dado"
+                      % (x["pasta"], f, x["line"]))
+        elif artefactos and leitores:
+            medido, regra = "OPERATIONAL_STEP", "M7_ENTREGA_A_SEGUINTE"
+            porque = ("escreve %s, e %s le isso: entrega trabalho a peca seguinte"
+                      % (artefactos[0], leitores[0]))
+        elif le_artefacto and not artefactos:
+            medido, regra = "MEASUREMENT_INSTRUMENT", "M8_LE_E_NAO_ESCREVE"
+            porque = ("le %d artefato(s) e nao escreve nenhum medido: olha e da nota"
+                      % len(le_artefacto))
+        elif fs and not execs:
+            medido, regra = "STORAGE", "M9_NADA_AQUI_CORRE"
+            porque = ("%d ficheiro(s) e nenhum executavel: aqui guarda-se, "
+                      "nao se corre" % len(fs))
+
+        declarado = KIND_PARA_PAPEL.get(n.get("kind"))
+        porque_declarado = ("declarado `kind: %s` em architecture.declared.json"
+                            % n.get("kind"))
+
+        n["ROLE_MEASURED"] = medido or "UNKNOWN"
+        n["ROLE_DECLARED"] = declarado or "UNKNOWN"
+        n["ROLE_RULE"] = regra or "SEM_REGRA"
+        n["ROLE_LIMITATIONS"] = LIMITE_ESTATICO
+
+        if medido and declarado and medido != declarado:
+            # NENHUMA GANHA EM SILENCIO.
+            n["ROLE"] = "UNKNOWN"
+            n["ROLE_PLANE"] = "UNKNOWN"
+            n["ROLE_CONFLICT"] = {
+                "MEASURED": medido, "MEASURED_WHY": porque,
+                "DECLARED": declarado, "DECLARED_WHY": porque_declarado,
+                "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente",
+            }
+            n["ROLE_EVIDENCE"] = ("CONFLITO · a medicao diz %s (%s) e a ficha diz %s "
+                                  "(%s). Enquanto nao houver decisao, NAO SEI."
+                                  % (medido, porque, declarado, porque_declarado))
+        else:
+            n["ROLE_CONFLICT"] = None
+            if medido:
+                n["ROLE"], n["ROLE_PLANE"], n["ROLE_EVIDENCE"] = medido, "CODE", porque
+            elif declarado:
+                n["ROLE"] = declarado
+                n["ROLE_PLANE"] = "DECLARED"
+                n["ROLE_EVIDENCE"] = (porque_declarado + " — nenhum ficheiro medido "
+                                      "sustenta ou contradiz isto")
+            else:
+                n["ROLE"], n["ROLE_PLANE"] = "UNKNOWN", "UNKNOWN"
+                n["ROLE_EVIDENCE"] = (
+                    "nenhum ficheiro rastreado reivindicado por esta peca"
+                    if not fs else
+                    "tem ficheiro, e nenhuma regra desta escada o classifica: "
+                    "a arvore nao mostra o que ele escreve, le, corre ou serve")
+        assert n["ROLE"] in PAPEIS_CANONICOS
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# G8 · QUEM RESPONDE POR ESTA PECA, E O QUE ENTRA NELA
+#
+# A §4 do contrato poe `OWNER` como campo PROPRIO e OBRIGATORIO — «quem responde
+# por esta entidade existir e estar certa». Ele nao e identidade nem
+# classificacao: e responsabilidade, e por isso nao se deduz do sitio onde o
+# ficheiro mora.
+#
+#     PASTA NAO E DONO. O DONO E DECLARADO, OU E NAO SEI.
+#
+# E o `produces` ja respondia «o que sai daqui». Nao havia o simetrico: a tela
+# mostrava as SETAS que entram, mas nao os FICHEIROS que entram — e uma seta diz
+# de QUEM vem, nao O QUE vem.
+#
+#     DE QUEM VEM  !=  O QUE VEM.
+#
+# `consumes` e o simetrico medido de `produces`: os ficheiros que o codigo desta
+# peca abre para ler. Plano CODE — analise estatica prova que ele CONSEGUE ler,
+# nao que leu numa corrida.
+# ═════════════════════════════════════════════════════════════════════════════
+def dono_e_entradas(nos: list, G: dict, dono: dict, varios_autores: list) -> None:
+    """Escreve `OWNER` e `consumes` em cada peca."""
+    por_artefacto = {a["file"]: a for a in varios_autores}
+
+    le: dict[str, set] = {}
+    for e in G["FILE_EDGES"]:
+        if e["type"] == "READS":
+            le.setdefault(e["from_file"], set()).add(e["to_file"])
+
+    for n in nos:
+        fs = n.get("files") or []
+
+        # ── O DONO ────────────────────────────────────────────────────────────
+        deps = [d for d in (n.get("departments") or []) if d]
+        if deps:
+            n["OWNER"] = " · ".join(deps)
+            n["OWNER_PLANE"] = "DECLARED"
+            n["OWNER_EVIDENCE"] = ("`departments` declarado em "
+                                   "architecture.declared.json — decisao de gente, "
+                                   "nao medicao da arvore")
+        else:
+            n["OWNER"] = "UNKNOWN"
+            n["OWNER_PLANE"] = "UNKNOWN"
+            n["OWNER_EVIDENCE"] = ("nenhum departamento declarado para esta peca; "
+                                   "a arvore nao consegue medir responsabilidade")
+
+        # ── O DONO DISPUTADO, QUANDO HA ──────────────────────────────────────
+        # Nao e o dono da PECA: e o dono de um artefato que ela escreve e que
+        # mais alguem tambem escreve. A eleicao por ordem alfabetica ja esta
+        # medida em `ARTEFACT_MULTIPLE_AUTHORS`; aqui ela chega ao cartao.
+        disputados = [por_artefacto[a] for a in (n.get("produces") or [])
+                      if a in por_artefacto]
+        n["OWNER_CONFLICT"] = disputados or None
+
+        # ── O QUE ENTRA, EM FICHEIROS ────────────────────────────────────────
+        entradas = sorted({a for f in fs for a in le.get(f, ())})
+        n["consumes"] = entradas
+        n["consumes_plane"] = "CODE" if entradas else "UNKNOWN"
+
+
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# OS QUATRO PLANOS, E A EVIDENCIA LIGADA A AFIRMACAO CERTA — G1 do contrato.
+#
+# O mapa media bem e publicava a palavra errada. `status = PROVEN` saia em 659
+# arestas e 59 pecas apoiado SO em analise estatica, e a razao escrita dizia-o:
+# «provado por 1 linha de codigo». Isso prova que o codigo CONSEGUE. Nao prova
+# que ACONTECEU.
+#
+#     ANALISE ESTATICA PROVA CAN DO. SO TELEMETRIA PROVA DID DO.
+#
+#     DECLARED  →  CODE  →  OBSERVED  →  PROVEN
+#     nenhuma seta destas e automatica.
+#
+# E O SEGUNDO DEFEITO ERA PIOR, PORQUE NAO ERA VOCABULARIO. Uma linha
+# sustentava afirmacoes que ela nao prova:
+#
+#     coleta/comunicacao_coleta.py:57
+#       import apify_pool as ap
+#     sustentava  C-APIFY-POOL → C-COMUNICACAO  IMPORTS       ← prova
+#     e tambem    C-APIFY-POOL → V-FACEBOOK     ABRE_O_CANAL  ← nao prova
+#
+#     UMA LINHA NAO PROVA DUAS AFIRMACOES DIFERENTES
+#     SO POR ESTAR PERTO DAS DUAS.
+#
+# Por isso cada evidencia passa a dizer QUE AFIRMACAO sustenta, e o plano de
+# cada aresta e calculado a partir disso — nunca da existencia da linha.
+# ═════════════════════════════════════════════════════════════════════════════
+SIM, NAO, NAO_SEI = "YES", "NO", "UNKNOWN"
+
+# Os tipos de relacao que um medidor emite, e o que a linha dele prova.
+# `scan_repo.py` e o medidor; o contrato §6.1 e quem os declara.
+TIPOS_MEDIDOS = {"READS", "IMPORTS", "RUNS", "WRITES"}
+
+
+def _linha(ev: dict) -> tuple:
+    return (ev.get("file"), ev.get("line"))
+
+
+def ligar_evidencia_a_afirmacao(ligacoes: dict) -> None:
+    """Cada evidencia diz que AFIRMACAO sustenta — e algumas nao sustentam nenhuma.
+
+    Tres casos, e os tres foram MEDIDOS nesta arvore, nao imaginados:
+
+    1 · RELACAO MEDIDA, LINHA SO DELA.  A linha prova a afirmacao. `SUPPORTS=YES`.
+
+    2 · ROTULO NARRATIVO.  `ABRE_O_CANAL`, `FEEDS`, `PRODUZ`, `VIAJA_POR` e os
+        outros nao tem medidor: nascem de `architecture.declared.json`, e o
+        `raw_type` deles e nulo. Uma linha de codigo ao lado nao os prova.
+        `SUPPORTS=NO` — e a aresta fica `DECLARED=YES`, `CODE=UNKNOWN`.
+
+    3 · A MESMA LINHA MEDIDA DUAS VEZES, POR DUAS PERGUNTAS.
+        `scan_repo.py` emite `IMPORTS` pelo casador de imports, e emite tambem
+        `READS artefacto` pelo casador de LITERAIS — que encontra `'./lang.mjs'`
+        dentro de `import { X } from './lang.mjs'` e nao consegue distinguir um
+        especificador de modulo de um caminho de dado.
+
+            UM `import` NAO E UMA LEITURA DE ARTEFACTO.
+
+        Medido: 36 linhas, todas `.mjs`, todas com as duas arestas entre o MESMO
+        par. O `IMPORTS` fica; o `READS` que so tem essa linha fica `AMBIGUOUS`.
+        Nao se conserta o scanner aqui — o mapa OBSERVA. Diz-se o que a
+        evidencia sustenta, e o plano cai para `UNKNOWN`.
+    """
+    # onde e que cada linha aparece, e com que tipo de relacao
+    tipos_da_linha: dict[tuple, set] = {}
+    for lig in ligacoes.values():
+        for ev in lig.get("evidence", []):
+            tipos_da_linha.setdefault(_linha(ev), set()).add(lig["type"])
+
+    for lig in ligacoes.values():
+        tipo, medido = lig["type"], lig.get("raw_type")
+        afirmacao = {
+            "EDGE_ID": f'{lig["from"]}--{tipo}-->{lig["to"]}',
+            "FROM": lig["from"], "TO": lig["to"],
+            "RELATION_TYPE": tipo, "PLANE": "CODE",
+        }
+        for ev in lig.get("evidence", []):
+            # A EVIDENCIA DE CORRIDA NAO PASSA POR AQUI. Esta funcao so sabe
+            # julgar linhas de codigo: perguntar-lhe se uma travessia lida do
+            # banco «sustenta a afirmacao» seria pedir a um leitor de imports
+            # que julgasse um recibo de PostgreSQL — e ele responderia NAO, por
+            # nao saber ler, apagando a unica prova forte que o mapa tem.
+            if ev.get("EVIDENCE_TYPE") == "OBSERVED_RUN":
+                continue
+            outros = tipos_da_linha.get(_linha(ev), set()) - {tipo}
+            if medido is None or tipo not in TIPOS_MEDIDOS:
+                apoia, porque = NAO, (
+                    f"`{tipo}` e rotulo narrativo declarado, sem medidor que o "
+                    f"emita. Uma linha de codigo ao lado nao prova esta relacao.")
+            elif tipo == "READS" and "IMPORTS" in outros:
+                apoia, porque = "AMBIGUOUS", (
+                    "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um "
+                    "`import`, e o casador de literais nao distingue um "
+                    "especificador de modulo de um caminho de dado.")
+            else:
+                apoia, porque = SIM, (
+                    f"linha medida por `scan_repo.py` como `{medido}`, que e a "
+                    f"relacao publicada.")
+            ev["ASSERTION_SUPPORTED"] = afirmacao if apoia == SIM else None
+            ev["SUPPORTS"] = apoia
+            ev["WHY"] = porque
+            ev.setdefault("EVIDENCE_TYPE", "STATIC_CODE_ANALYSIS")
+            # LIMITATIONS e obrigatorio pelo contrato §7, e nao pode ser vazio.
+            # Aqui escreve-se o limite DESTA classe, que e sempre o mesmo: ela
+            # nunca diz que alguma coisa correu.
+            ev.setdefault("LIMITATIONS",
+                          "analise estatica: prova CODE. Nao prova OBSERVED nem "
+                          "comportamento em producao.")
+
+
+def observado_em_runtime(raiz) -> dict:
+    """O que o ledger de execucao diz ter CORRIDO — e so ele.
+
+    `provas-de-execucao.json` continua a ser o dono da observacao de executores,
+    e esta funcao le-o. Nao se cria um segundo registo de runtime: um segundo
+    dono da mesma pergunta diverge no dia em que um deles medir outra vez.
+
+        NENHUM TESTE, IMPORT OU WORKFLOW ENTRA AQUI.
+        Existir quem mande correr nao e ter corrido.
+    """
+    f = raiz / "system-map" / "data" / "provas-de-execucao.json"
+    if not f.exists():
+        return {}
+    P = json.loads(f.read_text(encoding="utf-8"))
+    fora = {}
+    for caminho, ficha in (P.get("PROVADOS") or {}).items():
+        fora[caminho] = {
+            "RUN_ID": ficha.get("SOURCE_ID") or NAO_SEI,
+            "OBSERVED_AT": NAO_SEI,
+            "ENVIRONMENT": {
+                "REDE": ficha.get("REDE"), "PAGO": ficha.get("PAGO"),
+                "PRODUCAO": ficha.get("PRODUCAO"),
+                "BANCO": (ficha.get("FORWARD") or {}).get("BANCO", NAO_SEI),
+            },
+            "EXECUTION_MODE": ficha.get("EXECUTION_MODE", NAO_SEI),
+            "STAGES": ficha.get("ETAPAS_OBSERVADAS", []),
+            "PROVA": ficha.get("PROVA", NAO_SEI),
+        }
+    return fora
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# G9 · O PLANO OBSERVED DEIXA DE SER UMA LINHA FIXA
+#
+# O gerador escrevia `lig["OBSERVED"] = NAO_SEI` em TODAS as arestas, e a tela
+# publicava ao lado «OBSERVADA · 0 hoje, e e a verdade». O comentario que o
+# justificava dizia:
+#
+#     «o ledger observa FICHEIROS de executor, nao pares de cartoes»
+#
+# MEDIDO NESTA ARVORE, ISSO E FALSO. `provas-de-execucao.json` guarda, para
+# `coleta/rota_forward_documento.py`:
+#
+#     ARESTAS_OBSERVADAS  [[DERIVED, STRUCTURED], [STRUCTURED, ADMISSION]]
+#     DONOS               DERIVED    -> coleta/derivacao_forward.py
+#                         STRUCTURED -> coleta/social_persistencia.py
+#                         ADMISSION  -> admissao/admissao.py
+#     RUN_UNICO           RUN-M2-E2E
+#
+# Um par de ETAPAS com o DONO de cada uma escrito ao lado E um par de cartoes:
+# falta so resolver o ficheiro para a peca que o tem. O ledger ja media o que
+# o mapa dizia nao existir.
+#
+#     UM MAPA QUE PUBLICA «ZERO OBSERVADAS» TENDO DUAS MEDIDAS
+#     NAO E CONSERVADOR: E UM MAPA QUE ESCONDE A UNICA PROVA FORTE QUE TEM.
+#
+# O QUE ESTA FUNCAO RECUSA FAZER
+# ------------------------------
+# 1. Nao inventa o par que o proprio ledger declara SEM topo. `[RAW, DERIVED]`
+#    esta em `ARESTAS_DECLARADAS_SEM_TOPO` — a fronteira forward emite DERIVED
+#    com `edge_from=RAW` e NAO emite RAW. Promover esse par seria juntar duas
+#    metades e chamar-lhe estrada.
+# 2. Nao resolve por parecenca de nome. O dono tem de ser um ficheiro que o
+#    mapa ja atribuiu a UMA peca. Zero donos ou dois -> a aresta nao nasce, e
+#    o motivo fica escrito.
+# 3. Nao promove a peca. OBSERVED e da TRAVESSIA; o estado operacional do
+#    cartao continua a ser outro eixo, com o seu proprio motivo.
+# ══════════════════════════════════════════════════════════════════════════
+def _caminho_no_inicio(texto) -> str:
+    """O ficheiro no inicio de um campo de DONO — e nada mais.
+
+    O ledger escreve `coleta/derivacao_forward.py -> executor.derivar_um()` e
+    `admissao/admissao.py (a peneira comum)`: o caminho vem primeiro e a prosa
+    vem atras. Ler o primeiro pedaco e LER o que esta escrito; tentar perceber
+    o resto seria adivinhar, e um dono adivinhado liga cartoes errados.
+    """
+    if not isinstance(texto, str) or not texto.strip():
+        return ""
+    cabeca = texto.strip().split()[0]
+    return cabeca if cabeca.endswith((".py", ".mjs", ".sh")) else ""
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# V2 · AS ESTRADAS QUE UMA CORRIDA REAL ATRAVESSOU DE PONTA A PONTA
+#
+# Esta arvore guarda uma coisa que a anterior nao tinha: o retrato de uma
+# CORRIDA INTEIRA, etapa a etapa, lido do banco depois de ela correr.
+#
+#     pedido.observado.json      IT-T2  · CANONICAL_E2E = FAIL
+#                                ADMISSION respondeu NAO_SE_APLICA aos 4,
+#                                e a estrada morre em ADMISSION -> READY
+#     pedido-t4.observado.json   IT-T4  · CANONICAL_E2E = PASS
+#                                REQUEST -> ... -> READY -> SALA, e o ficheiro
+#                                da Sala tem nome
+#
+# O mapa nao lia nenhum dos dois. Publicava a estrada canonica como se ninguem
+# a tivesse percorrido — quando duas corridas a percorreram, uma ate ao fim.
+#
+#     UM MAPA QUE NAO LE O RECIBO DA CORRIDA
+#     DESENHA SEMPRE O SISTEMA DE ONTEM.
+#
+# O QUE ESTA FUNCAO RECUSA FAZER
+# ------------------------------
+# So nascem arestas onde o recibo NOMEIA UM FICHEIRO. `REQUEST`,
+# `ORCHESTRATOR` e `EXECUTOR` nomeiam (`ACTOR=`, `COMANDO=`); `RAW`,
+# `STORAGE`, `DERIVED`, `STRUCTURED`, `ADMISSION`, `READY` e `WAITING_ROOM`
+# contam linhas e tabelas, e NAO dizem que peca as escreveu. Resolver essas
+# cruzando com o modelo das estradas seria juntar duas fontes para inventar
+# uma seta — e uma seta inventada e pior do que uma seta em falta.
+#
+#     DUAS ETAPAS OBSERVADAS NAO SAO UMA ARESTA OBSERVADA.
+#     A ARESTA SO NASCE QUANDO O MESMO RECIBO NOMEIA AS DUAS PONTAS.
+# ══════════════════════════════════════════════════════════════════════════
+_RE_ACTOR = re.compile(r"ACTOR=([^\s·,]+\.py)")
+_RE_COMANDO = re.compile(r"COMANDO=([^\s·,]+\.py)")
+
+
+def estradas_observadas_do_pedido(ligacoes: dict, dono: dict, raiz) -> list:
+    """Le os recibos de corrida inteira e devolve o retrato de cada estrada.
+
+    Acrescenta a `ligacoes` as arestas de CONTROLO que o recibo prova, e
+    devolve a lista das estradas para o mapa as publicar como facto.
+    """
+    fora = []
+    dados = raiz / "system-map" / "data"
+    for f in sorted(dados.glob("pedido*.observado.json")):
+        try:
+            R = json.loads(f.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        estrada = R.get("ESTRADA") or {}
+        if not estrada:
+            continue
+        corrida = R.get("RUN_ID") or NAO_SEI
+        etapas = [{"ETAPA": k,
+                   "OBSERVED": SIM if (v or {}).get("OBSERVED") else NAO_SEI,
+                   "EVIDENCIA": (v or {}).get("EVIDENCE") or NAO_SEI}
+                  for k, v in estrada.items()]
+        retrato = {
+            "FICHEIRO": f"system-map/data/{f.name}",
+            "RUN_ID": corrida,
+            "CLASSE": R.get("CLASSE") or NAO_SEI,
+            "E2E": R.get("CANONICAL_E2E") or NAO_SEI,
+            "PRIMEIRA_ARESTA_PERDIDA": R.get("FIRST_LOST_EDGE") or None,
+            "ETAPAS": etapas,
+            "ETAPAS_OBSERVADAS": sum(1 for e in etapas if e["OBSERVED"] == SIM),
+            "ETAPAS_TOTAL": len(etapas),
+            # O QUE O RECIBO ADMITE NAO SABER fica ao lado do que ele prova.
+            "ORIGEM_DOS_BYTES": R.get("ORIGEM_DOS_BYTES") or NAO_SEI,
+            "AQUISICAO_PELA_REDE": R.get("AQUISICAO_PELA_REDE") or NAO_SEI,
+        }
+        fora.append(retrato)
+
+        # ── as duas arestas que o recibo NOMEIA ─────────────────────────────
+        req = (estrada.get("REQUEST") or {}).get("OBSERVED")
+        orq = estrada.get("ORCHESTRATOR") or {}
+        exe = estrada.get("EXECUTOR") or {}
+        texto = f"{orq.get('EVIDENCE') or ''} {exe.get('EVIDENCE') or ''}"
+        m = _RE_ACTOR.search(texto) or _RE_COMANDO.search(texto)
+        alvo = dono.get(m.group(1)) if m else None
+
+        def _pos(de, para, porque):
+            if not de or not para or de == para:
+                return
+            chave = (de, para, "RUNS")
+            lig = ligacoes.setdefault(chave, {
+                "from": de, "to": para, "type": "RUNS", "raw_type": "RUNS",
+                "payload": "execucao", "kind": "technical", "status": VERDE,
+                "evidence": [], "reason": porque,
+            })
+            if not any(e.get("EVIDENCE_TYPE") == "OBSERVED_RUN"
+                       for e in lig["evidence"]):
+                lig["evidence"].append({
+                    "file": retrato["FICHEIRO"], "line": 1,
+                    "snippet": f"{corrida} · {retrato['E2E']}",
+                    "EVIDENCE_TYPE": "OBSERVED_RUN", "RUN_ID": corrida,
+                    "SUPPORTS": SIM,
+                    "WHY": ("o recibo desta corrida nomeia as duas pontas na "
+                            "mesma travessia."),
+                    "LIMITATIONS": ("prova OBSERVED nesta corrida e neste "
+                                    "ambiente. Nao prova producao, nem que "
+                                    "volte a acontecer."),
+                    "ASSERTION_SUPPORTED": {
+                        "EDGE_ID": f"{de}--RUNS-->{para}", "FROM": de,
+                        "TO": para, "RELATION_TYPE": "RUNS",
+                        "PLANE": "OBSERVED"},
+                })
+
+        if req and orq.get("OBSERVED"):
+            _pos("C-PEDIDO", "C-ORQUESTRADOR",
+                 f"A corrida `{corrida}` nasceu de um PEDIDO e foi o "
+                 f"orquestrador que a resolveu: o recibo guarda o pedido "
+                 f"inteiro e a receita escolhida.")
+        if orq.get("OBSERVED") and exe.get("OBSERVED") and alvo:
+            _pos("C-ORQUESTRADOR", alvo,
+                 f"Na corrida `{corrida}` foi o orquestrador que mandou correr "
+                 f"esta peca, e o recibo guarda o comando com que a chamou.")
+    return fora
+
+
+def observar_as_travessias(ligacoes: dict, dono: dict, raiz) -> dict:
+    """As travessias que uma CORRIDA REAL deixou medidas, viradas em arestas.
+
+    Devolve `{(de, para): ficha}` com as arestas OBSERVADAS, e acrescenta a
+    `ligacoes` as que o mapa ainda nao desenhava.
+
+        DECLARED EDGE != OBSERVED EDGE, e e por isso que esta funcao existe:
+        so entra aqui o par que o ledger diz ter sido LIDO DO BANCO depois de
+        a rota correr, no MESMO `collection_run`.
+    """
+    f = raiz / "system-map" / "data" / "provas-de-execucao.json"
+    if not f.exists():
+        return {}
+    P = json.loads(f.read_text(encoding="utf-8"))
+    fora: dict[tuple, dict] = {}
+    recusadas: list[dict] = []
+
+    for caminho, ficha in sorted((P.get("PROVADOS") or {}).items()):
+        # O bloco FORWARD e o que fala de travessia. O corpo de fora fala do
+        # executor, e um executor nao e uma rota.
+        for bloco in (ficha.get("FORWARD") or {}, ficha):
+            pares = bloco.get("ARESTAS_OBSERVADAS") or []
+            donos = bloco.get("DONOS") or {}
+            if not pares or not donos:
+                continue
+            sem_topo = {tuple(x) for x in (bloco.get("ARESTAS_DECLARADAS_SEM_TOPO") or [])}
+            corrida = bloco.get("RUN_UNICO") or NAO_SEI
+            prova = bloco.get("PROVA") or ficha.get("PROVA") or NAO_SEI
+            banco = bloco.get("BANCO") or NAO_SEI
+            for par in pares:
+                if len(par) != 2:
+                    continue
+                etapa_de, etapa_para = par[0], par[1]
+                if (etapa_de, etapa_para) in sem_topo:
+                    recusadas.append({"PAR": [etapa_de, etapa_para],
+                                      "PORQUE": "o proprio ledger declara este par SEM TOPO"})
+                    continue
+                fic_de = _caminho_no_inicio(donos.get(etapa_de))
+                fic_para = _caminho_no_inicio(donos.get(etapa_para))
+                cartao_de, cartao_para = dono.get(fic_de), dono.get(fic_para)
+                if not cartao_de or not cartao_para or cartao_de == cartao_para:
+                    recusadas.append({
+                        "PAR": [etapa_de, etapa_para],
+                        "PORQUE": (f"dono nao resolve numa peca so: "
+                                   f"{etapa_de}={fic_de or 'NAO SEI'} -> {cartao_de} · "
+                                   f"{etapa_para}={fic_para or 'NAO SEI'} -> {cartao_para}")})
+                    continue
+                ficha_obs = {
+                    "RUN": corrida, "ETAPA_DE": etapa_de, "ETAPA_PARA": etapa_para,
+                    "PROVA": prova, "BANCO": banco, "LEDGER": caminho,
+                    "COMO_FOI_MEDIDA": bloco.get("ARESTAS_COMO_FORAM_MEDIDAS") or
+                                       "lida do banco depois de a rota correr",
+                }
+                fora[(cartao_de, cartao_para)] = ficha_obs
+                # QUEM CHAMOU OS TRES DONOS. O ledger escreve a FRONTEIRA da
+                # travessia; quando essa fronteira NAO e nenhum dos donos, ela
+                # e o runner — a costura que os chama. Isso e CONTROLO, e nao
+                # dado: nao se desenha com a mesma seta.
+                #
+                #     A SETA DE DADO DIZ O QUE ATRAVESSOU.
+                #     A SETA DE CONTROLO DIZ QUEM MANDOU.
+                #     Trocar uma pela outra apaga a pergunta «quem ativa».
+                runner = dono.get(_caminho_no_inicio(bloco.get("FRONTEIRA")) or caminho)
+                donos_cartoes = {dono.get(_caminho_no_inicio(v)) for v in donos.values()}
+                if runner and runner not in donos_cartoes:
+                    for alvo_cartao in (cartao_de, cartao_para):
+                        k = (runner, alvo_cartao, "RUNS")
+                        lg = ligacoes.setdefault(k, {
+                            "from": runner, "to": alvo_cartao, "type": "RUNS",
+                            "raw_type": "RUNS", "payload": "execucao",
+                            "kind": "technical", "status": VERDE, "evidence": [],
+                            "reason": (f"Esta peca CHAMA aquela dentro da corrida "
+                                       f"`{corrida}`: o ledger nomeia-a como a "
+                                       f"fronteira da travessia, e o dono da etapa "
+                                       f"como quem faz o trabalho. Quem costura "
+                                       f"nao deriva, nao escreve e nao julga."),
+                        })
+                        if not any(e.get("EVIDENCE_TYPE") == "OBSERVED_RUN"
+                                   for e in lg["evidence"]):
+                            lg["evidence"].append({
+                                "file": prova, "line": 1,
+                                "snippet": f"{corrida} · chama o dono de {etapa_de}/{etapa_para}",
+                                "EVIDENCE_TYPE": "OBSERVED_RUN",
+                                "RUN_ID": corrida, "SUPPORTS": SIM,
+                                "WHY": ("o ledger nomeia esta peca como FRONTEIRA da "
+                                        "travessia e a outra como DONO da etapa."),
+                                "LIMITATIONS": ("prova OBSERVED nesta corrida. Nao "
+                                                "prova producao."),
+                                "ASSERTION_SUPPORTED": {
+                                    "EDGE_ID": f"{runner}--RUNS-->{alvo_cartao}",
+                                    "FROM": runner, "TO": alvo_cartao,
+                                    "RELATION_TYPE": "RUNS", "PLANE": "OBSERVED"},
+                            })
+                        fora[(runner, alvo_cartao)] = dict(
+                            ficha_obs, PAPEL="RUNNER -> DONO DA ETAPA")
+                chave = (cartao_de, cartao_para, "ALIMENTA")
+                ev = {
+                    "file": prova, "line": 1,
+                    "snippet": (f"{corrida} · {etapa_de} -> {etapa_para} "
+                                f"lido do banco"),
+                    "EVIDENCE_TYPE": "OBSERVED_RUN", "RUN_ID": corrida,
+                    "SUPPORTS": SIM,
+                    "WHY": (f"a corrida `{corrida}` deixou passagem nas duas "
+                            f"etapas, e a aresta foi LIDA do banco — nao "
+                            f"declarada."),
+                    "LIMITATIONS": ("prova OBSERVED nesta corrida e neste "
+                                    "ambiente. Nao prova que volte a acontecer, "
+                                    "nem prova producao."),
+                    "ASSERTION_SUPPORTED": {
+                        "EDGE_ID": f"{cartao_de}--ALIMENTA-->{cartao_para}",
+                        "FROM": cartao_de, "TO": cartao_para,
+                        "RELATION_TYPE": "ALIMENTA", "PLANE": "OBSERVED"},
+                }
+                # A aresta pode ja existir com OUTRO tipo (um `IMPORTS`, por
+                # exemplo). Isso nao e a mesma afirmacao: `import` e dependencia
+                # de codigo, e esta e uma passagem medida. A travessia entra
+                # como aresta propria, e a de codigo fica onde estava.
+                alvo = ligacoes.setdefault(chave, {
+                    "from": cartao_de, "to": cartao_para, "type": "ALIMENTA",
+                    "payload": "dado", "kind": "technical", "status": VERDE,
+                    "reason": (f"A corrida `{corrida}` atravessou daqui para ali: "
+                               f"a etapa {etapa_de} e a etapa {etapa_para} "
+                               f"deixaram passagem no MESMO `collection_run`, e a "
+                               f"aresta foi lida do banco por `{prova}`."),
+                    "evidence": [],
+                })
+                if not any(e.get("EVIDENCE_TYPE") == "OBSERVED_RUN"
+                           for e in alvo["evidence"]):
+                    alvo["evidence"].append(ev)
+    # O QUE SE RECUSOU PROMOVER SAI COM O MESMO CUIDADO DO QUE SE PROMOVEU.
+    # Uma recusa silenciosa e indistinguivel de uma medicao que nunca correu.
+    return {"ARESTAS": fora, "RECUSADAS": recusadas}
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# G9 · O ORQUESTRADOR VOLTA A TER SAIDA
+#
+# A vista «Caminho canonico» dizia ORQUESTRADOR -> EXECUCAO **CORTADO**, e o
+# achado COL-015 escreveu que o mapa mostrava o corte «em vez de o completar
+# com seta inventada». Medido agora, a seta nao era inventada:
+#
+#     pedido/receitas.py        EXECUTORES declara `roda` para cinco alvos
+#     orquestrador.py           comando = list(e["roda"])
+#                               subprocess.run([sys.executable, *comando])
+#
+# Duas linhas, e um registo. O que faltava nao era a prova: era alguem a ler o
+# registo. `scan_repo.py` ve `import receitas` e mais nada — o nome do
+# executor esta DENTRO de uma lista de dados, e um casador de imports nunca o
+# vai encontrar.
+#
+#     O EXECUTOR QUE SE ESCOLHE POR TABELA NAO APARECE A QUEM SO LE `import`.
+#
+# Isto prova CODE, e nao OBSERVED: `--so-plano` devolve o plano antes do
+# `subprocess`, e ninguem mediu a corrida inteira. CAN DO != DID DO, e a
+# aresta sai com o plano em que esta provada.
+# ══════════════════════════════════════════════════════════════════════════
+def arestas_do_orquestrador(ligacoes: dict, dono: dict, raiz) -> list:
+    """`ORQUESTRADOR -> EXECUTOR`, lido do registo de receitas.
+
+    Recusa-se a desenhar quando falta uma das duas metades: sem a linha do
+    `subprocess` no orquestrador, um registo de receitas seria so uma lista de
+    nomes; sem o registo, a linha do `subprocess` nao diz QUEM corre.
+    """
+    reg = raiz / "pedido" / "receitas.py"
+    orq = raiz / "orquestrador" / "orquestrador.py"
+    if not reg.exists() or not orq.exists():
+        return []
+
+    # ── a metade do ORQUESTRADOR: a linha que faz correr o que o registo diz ──
+    linhas_orq = orq.read_text(encoding="utf-8").splitlines()
+    prova_orq = None
+    for i, linha in enumerate(linhas_orq, 1):
+        if "subprocess.run(" in linha and "sys.executable" in linha:
+            prova_orq = {"file": "orquestrador/orquestrador.py", "line": i,
+                         "snippet": linha.strip()[:120]}
+            break
+    if prova_orq is None:
+        return [{"RECUSADA": "nenhuma linha do orquestrador corre o que o registo "
+                             "declara — sem ela o registo e so uma lista de nomes"}]
+
+    # ── a metade do REGISTO: `EXECUTORES`, lido por AST e nao por texto ──
+    try:
+        arvore = ast.parse(reg.read_text(encoding="utf-8"))
+    except SyntaxError:
+        return [{"RECUSADA": "pedido/receitas.py nao abre por AST"}]
+    alvo = None
+    for no in arvore.body:
+        if isinstance(no, ast.Assign) and any(
+                isinstance(t, ast.Name) and t.id == "EXECUTORES" for t in no.targets):
+            alvo = no.value
+    if alvo is None:
+        return [{"RECUSADA": "pedido/receitas.py nao declara EXECUTORES"}]
+
+    fora = []
+    for d in [x for x in ast.walk(alvo) if isinstance(x, ast.Dict)]:
+        campos = {}
+        for k, v in zip(d.keys, d.values):
+            if not isinstance(k, ast.Constant):
+                continue
+            try:
+                campos[k.value] = ast.literal_eval(v)
+            except (ValueError, SyntaxError):
+                campos[k.value] = None
+        roda = campos.get("roda")
+        if not campos.get("id") or not isinstance(roda, list) or not roda:
+            continue
+        ficheiro = roda[0]
+        cartao = dono.get(ficheiro)
+        if not cartao:
+            fora.append({"RECUSADA": f"{ficheiro} nao pertence a peca nenhuma do mapa",
+                         "ID": campos["id"]})
+            continue
+        larga = campos.get("larga_em") or []
+        chave = ("C-ORQUESTRADOR", cartao, "RUNS")
+        lig = ligacoes.setdefault(chave, {
+            "from": "C-ORQUESTRADOR", "to": cartao, "type": "RUNS",
+            "raw_type": "RUNS", "payload": "execucao", "kind": "technical",
+            "status": VERDE, "evidence": [],
+            "reason": (f"O orquestrador corre esta peca quando o pedido cai no "
+                       f"alvo dela: a receita `{campos['id']}` declara "
+                       f"`roda={roda}`, e o orquestrador corre o que a receita "
+                       f"declara. Onde ela larga o que traz: "
+                       f"{', '.join(larga) if larga else 'NAO SEI — a receita nao declara'}."),
+        })
+        if not any(e.get("line") == d.lineno and e.get("file", "").endswith("receitas.py")
+                   for e in lig["evidence"]):
+            lig["evidence"].append({
+                "file": "pedido/receitas.py", "line": d.lineno,
+                "snippet": f'"id": "{campos["id"]}", "roda": {roda}'})
+            lig["evidence"].append(dict(prova_orq))
+        fora.append({"ID": campos["id"], "FICHEIRO": ficheiro, "CARTAO": cartao,
+                     "LARGA_EM": larga})
+    return fora
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# G9 · QUEM ATIVA ESTA PECA — a pergunta que o cartao nao respondia
+#
+# O cartao dizia «Recebe de — ninguem» ao SINTONIA SCRAP, que e um botao que
+# uma PESSOA carrega. «Ninguem» e falso, e pior do que falso: faz uma entrada
+# legitima parecer uma peca orfa, e treina quem le a ignorar o aviso.
+#
+#     UMA ENTRADA EXTERNA NAO E UM BURACO. CHAMAR-LHE BURACO
+#     GASTA A ATENCAO QUE OS BURACOS A SERIO PRECISAM.
+#
+# Cinco respostas possiveis, e nenhuma delas e o silencio:
+#
+#     PECA_INTERNA      ha peca no mapa que a manda correr, com prova
+#     EXTERNO_MANUAL    e um botao: so `workflow_dispatch`, so gente
+#     EXTERNO_AGENDADO  ha `schedule` — o relogio e que a acorda
+#     EXTERNO_EVENTO    `push`, `pull_request` ou `repository_dispatch`
+#     NAO_SE_ATIVA      contrato, lei ou acervo: consulta-se, nao se corre
+#     NAO_SEI           nao ha prova — e diz-se, com o motivo
+#
+# `workflow_dispatch` NAO PROVA QUE O ORQUESTRADOR DISPAROU. Prova o
+# contrario: prova que a unica porta e a mao de alguem.
+# ══════════════════════════════════════════════════════════════════════════
+_GATILHOS = ("workflow_dispatch", "schedule", "push", "pull_request",
+             "repository_dispatch", "workflow_call", "issue_comment")
+
+
+def _gatilhos_do_workflow(caminho, raiz) -> set:
+    """Que gatilhos o `on:` deste workflow declara — lido por indentacao.
+
+    Sem biblioteca de fora: a cadeia do mapa corre em CI sem `pip install`
+    nenhum, e trazer uma dependencia para ler seis palavras seria pagar caro
+    por pouco. O bloco `on:` e lido pela indentacao, e o que estiver noutro
+    sitio do ficheiro nao conta.
+    """
+    try:
+        linhas = (raiz / caminho).read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return set()
+    fora, dentro = set(), False
+    for linha in linhas:
+        crua = linha.rstrip()
+        if not crua.strip() or crua.lstrip().startswith("#"):
+            continue
+        recuo = len(crua) - len(crua.lstrip())
+        if recuo == 0:
+            # `on:` pode vir escrito `on:` ou, em YAML 1.1, virar booleano
+            # quando alguem o cita. Aceita-se a forma escrita, que e a que
+            # esta nos ficheiros desta casa.
+            dentro = crua.split(":")[0].strip().strip("'\"") in ("on", "true")
+            continue
+        if dentro and recuo <= 2:
+            chave = crua.strip().split(":")[0].strip().lstrip("- ").strip()
+            if chave in _GATILHOS:
+                fora.add(chave)
+    return fora
+
+
+def quem_ativa_cada_peca(nos: list, ligacoes: dict, raiz) -> None:
+    """Responde `QUEM ATIVA` em cada cartao, e nunca com um campo vazio."""
+    # quem foi declarado produtor EXTERNO da cadeia: o mapa consome o artefato
+    # e nao o produz, e por isso a corrida e de gente.
+    externos = {}
+    try:
+        cad = json.loads((raiz / "system-map" / "scripts" /
+                          "CADEIA-DO-MAPA.json").read_text(encoding="utf-8"))
+        for p in cad.get("PRODUTORES_EXTERNOS", []):
+            if p.get("PRODUCER_EXECUTABLE"):
+                externos[p["PRODUCER_EXECUTABLE"]] = p.get("PORQUE", "")
+    except (OSError, ValueError):
+        externos = {}
+
+    zona = {n["id"]: n.get("territory") for n in nos}
+
+    entram = {}
+    for lig in ligacoes.values():
+        if lig.get("categoria") == CONTROL or lig.get("type") in ("RUNS", "ABRE_O_CANAL"):
+            entram.setdefault(lig["to"], []).append(lig)
+
+    for n in nos:
+        ctl = [l for l in entram.get(n["id"], [])
+               if l.get("PROVEN") == SIM or l.get("OBSERVED") == SIM]
+        if ctl:
+            n["ATIVACAO"] = {
+                "CLASSE": "PECA_INTERNA",
+                "QUEM": sorted({l["from"] for l in ctl}),
+                "PLANO": ("OBSERVED" if any(l.get("OBSERVED") == SIM for l in ctl)
+                          else "CODE"),
+                "PROVA": [f'{e["file"]}:{e["line"]}' for l in ctl
+                          for e in (l.get("evidence") or [])[:2]][:6],
+                "PORQUE": ("uma corrida medida chamou esta peca — e nao so uma "
+                           "linha que diz que podia chamar."
+                           if any(l.get("OBSERVED") == SIM for l in ctl) else
+                           "ha peca no mapa que manda esta correr, e ha linha de "
+                           "codigo que o prova. CAN DO: a linha existe; que a "
+                           "corrida tenha acontecido e outra pergunta."),
+            }
+            continue
+
+        ymls = [f for f in (n.get("files") or [])
+                if f.startswith(".github/workflows/") and f.endswith((".yml", ".yaml"))]
+        if ymls:
+            todos = {}
+            for y in ymls:
+                todos[y] = sorted(_gatilhos_do_workflow(y, raiz))
+            juntos = {g for v in todos.values() for g in v}
+            if "schedule" in juntos:
+                classe, porque = "EXTERNO_AGENDADO", "ha relogio declarado no `on:`."
+            elif juntos & {"push", "pull_request", "repository_dispatch"}:
+                classe, porque = ("EXTERNO_EVENTO",
+                                  "um acontecimento do repositorio acorda este botao.")
+            elif "workflow_dispatch" in juntos:
+                classe, porque = ("EXTERNO_MANUAL",
+                                  "o `on:` so tem `workflow_dispatch`: a unica porta e "
+                                  "a mao de alguem. NENHUM orquestrador o dispara, e "
+                                  "`workflow_dispatch` prova exactamente isso.")
+            else:
+                classe, porque = ("NAO_SEI",
+                                  "o ficheiro existe e nao se leu gatilho nenhum no `on:`.")
+            n["ATIVACAO"] = {
+                "CLASSE": classe, "QUEM": ["EXTERNO"], "PLANO": "CODE",
+                "PROVA": [f"{y} · on: {', '.join(v) or 'NAO SEI'}" for y, v in todos.items()],
+                "PORQUE": porque,
+            }
+            continue
+
+        ext = [f for f in (n.get("files") or []) if f in externos]
+        if ext:
+            n["ATIVACAO"] = {
+                "CLASSE": "EXTERNO_MANUAL", "QUEM": ["EXTERNO"], "PLANO": "DECLARED",
+                "PROVA": [f"system-map/scripts/CADEIA-DO-MAPA.json · PRODUTORES_EXTERNOS · {f}"
+                          for f in ext],
+                "PORQUE": ("a cadeia declara esta peca como PRODUTOR EXTERNO: o mapa "
+                           "consome o que ela deixa e nao a corre. Quem a corre e gente."),
+            }
+            continue
+
+        if n.get("kind") == "veiculo":
+            # UM CANAL NAO E ACTIVADO: E ABERTO. Perguntar quem «corre» o
+            # YouTube nao tem resposta certa — o que tem dono e a ROTA por onde
+            # se la chega, e o mapa ja a mede (`ABRE_O_CANAL`). Responder
+            # NAO SEI aqui poria um buraco onde ha um facto.
+            abre = sorted({l["from"] for l in entram.get(n["id"], [])
+                           if l.get("type") == "ABRE_O_CANAL"})
+            n["ATIVACAO"] = {
+                "CLASSE": "CANAL_ABERTO_POR_ROTA" if abre else "NAO_SEI",
+                "QUEM": abre, "PLANO": "CODE" if abre else None,
+                "PROVA": [f'{e["file"]}:{e["line"]}'
+                          for l in entram.get(n["id"], [])
+                          if l.get("type") == "ABRE_O_CANAL"
+                          for e in (l.get("evidence") or [])[:2]][:6],
+                "PORQUE": (("um canal nao corre: e aberto por uma rota, e sao estas "
+                            "as rotas medidas que chegam aqui. A ROTA nao esta "
+                            "PROVADA como travessia — o mapa mede que o ficheiro "
+                            "nomeia o canal e sabe falar com a rede, e nao qual "
+                            "rota serviu qual canal.") if abre else
+                           "nenhuma rota medida abre este canal, e ninguem o corre."),
+            }
+            continue
+
+        if n.get("ROLE") in ("CONTRACT_OR_RULE", "STORAGE"):
+            n["ATIVACAO"] = {
+                "CLASSE": "NAO_SE_ATIVA", "QUEM": [], "PLANO": n.get("ROLE_PLANE"),
+                "PROVA": [n.get("ROLE_EVIDENCE") or ""],
+                "PORQUE": ("esta peca nao corre: e consultada. Perguntar quem a ativa "
+                           "e perguntar quem acende um livro."),
+            }
+            continue
+
+        # SO UM TESTE A CORRE NAO E «NAO SEI QUEM A CORRE».
+        # E a resposta mais dura que um cartao da coleta pode dar, e a lei ja
+        # lhe deu nome: UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA.
+        # Deixa-la em NAO SEI seria esconder um buraco atras de uma duvida.
+        # QUEM CONSOME ESTA PECA. A seta de `IMPORTS` sai do IMPORTADO para o
+        # IMPORTADOR («quem foi lido alimenta quem leu»), e por isso o
+        # consumidor esta do lado de FORA, e nao do lado de dentro.
+        prova_cons, outros_cons, onde = set(), set(), []
+        for l in ligacoes.values():
+            if l["from"] != n["id"] or l["type"] not in ("IMPORTS", "READS"):
+                continue
+            if l.get("PROVEN") != SIM:
+                continue
+            # QUEM E «PROVA» LE-SE NO TERRITORIO DECLARADO, e nunca no nome.
+            # `categoria == PROOF` nao serve aqui: ela exige `kind == test` de
+            # um dos lados, e das 45 pecas de Z-PROVA so SEIS o sao — as outras
+            # sao censos e instrumentos. `C-PROVA-ROTA-M2-ATRAVESSA` e uma
+            # delas, e por isso a rota M2 aparecia como se a coleta a corresse.
+            #
+            #     TERRITORIO E FACTO DECLARADO. PREFIXO DE NOME E PALPITE.
+            (prova_cons if zona.get(l["to"]) == "Z-PROVA" else outros_cons).add(l["to"])
+            if (l.get("evidence") or []):
+                e = l["evidence"][0]
+                onde.append(f'{e.get("file")}:{e.get("line")}')
+        if prova_cons and not outros_cons:
+            n["ATIVACAO"] = {
+                "CLASSE": "SO_A_PROVA_A_CORRE", "QUEM": sorted(prova_cons),
+                "PLANO": "CODE", "PROVA": onde[:4],
+                "PORQUE": ("na coleta, NINGUEM a manda correr: quem a abre vive "
+                           "todo em Z-PROVA — provas e instrumentos de medicao. A "
+                           "peca esta construida e medida, e nao esta no caminho de "
+                           "coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO "
+                           "MEDIR AINDA NAO E UMA PORTA."),
+            }
+            continue
+        if outros_cons:
+            n["ATIVACAO"] = {
+                "CLASSE": "NAO_SEI", "QUEM": [], "PLANO": None, "PROVA": onde[:4],
+                "PORQUE": ("estas pecas importam-na — " +
+                           " · ".join(sorted(outros_cons)[:5]) +
+                           " — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede "
+                           "quem lhe da a ordem, e por isso nao a inventa."),
+            }
+            continue
+
+        n["ATIVACAO"] = {
+            "CLASSE": "NAO_SEI", "QUEM": [], "PLANO": None, "PROVA": [],
+            "PORQUE": ("nenhuma peca do mapa a manda correr com prova, e ela nao e "
+                       "botao, nem produtor externo declarado, nem contrato, nem "
+                       "canal. UNKNOWN nao e NAO: pode haver quem a chame por um "
+                       "caminho que o mapa ainda nao mede."),
+        }
+
+
+def os_quatro_planos(ligacoes: dict, nos: list, raiz,
+                     travessias: dict | None = None) -> None:
+    """Publica DECLARED / CODE / OBSERVED / PROVEN em cada aresta e cada peca.
+
+    E `PROVEN_PLANE` ao lado, porque «provado» sozinho nao diz provado DE QUE:
+
+        CODE_PROVEN != FLOW_PROVEN.
+
+    Nao e um quinto plano — e o OBJECTO do quarto, como o contrato §13 pede.
+    """
+    ligar_evidencia_a_afirmacao(ligacoes)
+    runtime = observado_em_runtime(raiz)
+
+    for lig in ligacoes.values():
+        # ⚠️ A GUARDA `rotulo_narrativo_nunca_recebe_CODE_YES` APANHOU ISTO.
+        # Ao dar `SUPPORTS=YES` a evidencia de corrida, ela passou a contar
+        # tambem para CODE — e uma aresta narrativa (`ALIMENTA`, sem medidor
+        # estatico) ficou CODE=YES por causa de um recibo de PostgreSQL.
+        #
+        #     UMA CORRIDA PROVA QUE ACONTECEU. NAO PROVA QUE HA UMA LINHA
+        #     QUE A PERMITE — E SAO PLANOS DIFERENTES POR ISSO MESMO.
+        #
+        # CODE conta so evidencia estatica; a de corrida vai toda para OBSERVED.
+        apoiadas = [ev for ev in lig.get("evidence", [])
+                    if ev.get("SUPPORTS") == SIM
+                    and ev.get("EVIDENCE_TYPE") != "OBSERVED_RUN"]
+        declarada = bool(lig.get("declared_reason")) or lig.get("kind") == "expected"
+
+        lig["DECLARED"] = SIM if declarada else NAO_SEI
+        # CODE nasce de evidencia que sustenta ESTA afirmacao. Sem ela, NAO_SEI —
+        # e nunca NAO: nao ter prova nao e ter prova de que nao existe.
+        lig["CODE"] = SIM if apoiadas else NAO_SEI
+        # ⚠️ ISTO ERA UMA LINHA FIXA, E A LINHA ESTAVA ERRADA.
+        #
+        #     lig["OBSERVED"] = NAO_SEI          # em TODAS as 659
+        #
+        # justificada por «o ledger observa FICHEIROS de executor, nao pares de
+        # cartoes». Medido: `provas-de-execucao.json` guarda
+        # `ARESTAS_OBSERVADAS` com o DONO de cada etapa ao lado, e dois desses
+        # pares resolvem-se em pecas deste mapa. O ledger media o que o mapa
+        # jurava nao existir, e a tela publicava «0 observadas, e e a verdade».
+        #
+        #     ZERO POR OMISSAO NAO E PRUDENCIA: E UMA CONTAGEM ERRADA
+        #     COM CARA DE HUMILDADE.
+        #
+        # Continua a NAO haver promocao por desejo: so entra o par que o ledger
+        # diz ter sido lido do banco, na mesma corrida, com dono resolvido.
+        # ⚠️ ISTO TINHA DOIS DONOS, E O SEGUNDO CHEGOU DEPOIS.
+        # O plano OBSERVED lia-se de um INDICE lateral (`travessias`), e as
+        # arestas que o recibo do PEDIDO prova nasciam com a evidencia certa e
+        # ficavam em NAO SEI — porque nao estavam no indice. Duas maneiras de
+        # dizer a mesma coisa, e uma delas sempre atrasada.
+        #
+        #     A EVIDENCIA E O DONO DO PLANO QUE ELA SUSTENTA.
+        #     Um indice ao lado dela e uma segunda opiniao a espera de divergir.
+        #
+        # Agora a regra e uma so: uma aresta esta OBSERVED quando carrega
+        # evidencia de CORRIDA que a sustenta. O indice continua, mas so para
+        # dar o RETRATO da travessia — nunca para decidir o plano.
+        corridas = [ev for ev in lig.get("evidence", [])
+                    if ev.get("EVIDENCE_TYPE") == "OBSERVED_RUN"
+                    and ev.get("SUPPORTS") == SIM]
+        obs = ((travessias or {}).get("ARESTAS") or {}).get(
+            (lig["from"], lig["to"]))
+        lig["OBSERVED"] = SIM if corridas else NAO_SEI
+        if obs:
+            lig["OBSERVED_EVIDENCE"] = obs
+        lig["PROVEN"] = SIM if (apoiadas or corridas) else NAO_SEI
+        # O PLANO EM QUE ESTA PROVADA, e nao um «provado» sem objecto.
+        # OBSERVED ganha a CODE quando existem os dois: uma travessia medida
+        # diz mais do que uma linha que diz que ela podia acontecer.
+        lig["PROVEN_PLANE"] = ("OBSERVED" if corridas
+                               else "CODE" if apoiadas else None)
+        # O `status` LEGADO passa a ser DERIVADO, e nao mais uma segunda opiniao.
+        # Ele existia antes dos planos e continua porque a tela e tres censos o
+        # leem; o que muda e que deixou de poder contradize-los.
+        #
+        #     UM CAMPO QUE SOBREVIVE A REFORMA TEM DE PASSAR A DERIVAR DELA,
+        #     SENAO A REFORMA GANHOU UM CONCORRENTE EM VEZ DE UM DONO.
+        #
+        # `PROVEN=YES` -> `PROVEN`; o resto -> `UNKNOWN`. Uma aresta `expected`
+        # nunca tem evidencia que a sustente, logo continua `UNKNOWN` e a prova
+        # P7 do validador continua a morder.
+        lig["status"] = "PROVEN" if (apoiadas or corridas) else "UNKNOWN"
+        lig["STATUS_LEGACY_NOTA"] = (
+            "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por "
+            "compatibilidade. A fonte de verdade sao os quatro planos.")
+
+    ficheiros_observados = set(runtime)
+    for n in nos:
+        seus = [f for f in n.get("files", []) if f in ficheiros_observados]
+        n["DECLARED"] = SIM
+        n["CODE"] = SIM if n.get("files") else NAO_SEI
+        n["OBSERVED"] = SIM if seus else NAO_SEI
+        n["OBSERVED_EVIDENCE"] = [{"FILE": f, **runtime[f]} for f in seus]
+        # A peca esta provada como EXISTENCIA/IMPLEMENTACAO quando ha ficheiro
+        # medido; a corrida e outra pergunta, e tem o seu proprio plano.
+        n["PROVEN"] = SIM if n.get("files") else NAO_SEI
+        n["PROVEN_PLANE"] = ("OBSERVED" if seus else
+                             ("CODE" if n.get("files") else None))
+        # O MESMO CAMPO LEGADO QUE AS ARESTAS JA DECLARAM — AGORA TAMBEM AQUI.
+        #
+        # A reforma dos quatro planos passou pelas 672 arestas e deixou as 161
+        # pecas para tras. Medido nesta arvore: 9 pecas publicam
+        # `status = PROVEN` com os QUATRO planos em `NAO SEI`, e 100 publicam o
+        # contrario — `status` amarelo ou cinzento com `PROVEN = YES`. Nenhuma
+        # das 161 dizia que as duas palavras respondem a perguntas diferentes.
+        #
+        #     UMA PALAVRA RESERVADA USADA POR DOIS DONOS NAO E AMBIGUIDADE:
+        #     E UMA CONTRADICAO PUBLICADA, E ELA NAO SE DECLARA SOZINHA.
+        #
+        # Aqui `status` NAO deriva de `PROVEN` — e essa e exactamente a questao.
+        # Na aresta deriva, e por isso a nota dela diz «DERIVADO». Na peca ele e
+        # outro eixo: a prontidao operacional que `status_reason` explica, que
+        # pode apoiar-se num documento, numa migration aplicada ou numa corrida.
+        # Escrever «derivado» aqui seria copiar a frase da aresta para um sitio
+        # onde ela e falsa. A nota diz o que e verdade, e nomeia quem ganha.
+        n["STATUS_LEGACY_NOTA"] = (
+            "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, "
+            "explicado por `status_reason`. Ele NAO deriva dos quatro planos e "
+            "pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os "
+            "quatro planos: DECLARED · CODE · OBSERVED · PROVEN.")
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -2635,6 +3811,191 @@ def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, 
     return caixas, nos, faixas, x, altura
 
 
+def censo_das_ligacoes_da_collection(estado: dict) -> None:
+    """Escreve `docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md` — card a card.
+
+    A auditoria da Collection cabia num relatorio de missao, e um relatorio de
+    missao nasce certo e envelhece em silencio: no dia em que uma aresta muda,
+    ele continua a dizer o que dizia, e ninguem sabe qual dos dois esta errado.
+
+        UM CENSO ESCRITO A MAO E UMA FOTOGRAFIA.
+        UM CENSO DERIVADO E UM ESPELHO.
+
+    Por isso ele sai daqui, da mesma corrida que produz o estado: as respostas
+    que ele publica — quem ativa, o que entra, o que sai, com que prova — sao as
+    MESMAS que a tela mostra, porque sao lidas do mesmo sitio. Nao ha segunda
+    medicao, e por isso nao ha segunda verdade.
+
+    O VEREDITO de cada card e derivado, e a regra de cada um esta escrita ao
+    lado. Nenhum card fica sem veredito, e `UNKNOWN` e um veredito.
+    """
+    # A LEI QUE MANDA EM CADA ZONA DA COLETA. Nao e decoracao: e o que permite
+    # perguntar «este cartao cumpre a lei dele?» sem abrir a Biblia inteira.
+    # Uma zona sem lei nomeada diz NAO SEI — inventar um numero de lei seria
+    # pior do que nao ter nenhum.
+    LEI_DA_ZONA = {
+        "Z-BIBLIA": "COL-LAW-005 · COLETAR != ADMITIR != JULGAR",
+        "Z-ENTRADA": "COL-LAW-010 · um pedido nao conhece implementacao",
+        "Z-PEDIDO": "COL-LAW-010 · um pedido nao conhece implementacao",
+        "Z-ORQUESTRADOR": "COL-LAW-011/012 · um dono da orquestracao; ele "
+                          "controla e nao transporta dado",
+        "Z-CANDIDATAS": "COL-LAW-053 · a fonte tem cadastro unico e reconciliado",
+        "Z-FONTES": "COL-LAW-009 · fonte, endpoint, rota, executor, item e "
+                    "artefato sao seis coisas",
+        "Z-EXECUCAO": "COL-LAW-013/014 · contrato comum do executor e "
+                      "capacidades declaradas",
+        "Z-VEICULOS": "COL-LAW-018/019 · a rota mais barata capaz vem primeiro",
+        "Z-FERRAMENTAS": "COL-LAW-013 · contrato comum do executor",
+        "Z-ACOES": "COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado",
+        "Z-GUARDA": "COL-LAW-044 · armazenamento nao e estado logico",
+        "Z-REGRAS": "COL-LAW-031/032/033/034 · tempo, geografia, procedencia, "
+                    "identidade",
+        "Z-MEDIDAS": "COL-LAW-028/029 · a fonte tem saude, e o drift tem "
+                     "controlo negativo",
+        "Z-ADMISSAO": "COL-LAW-042/043 · a admissao decide com prova, e READY "
+                      "nao e «o script terminou»",
+    }
+    nos = estado["NODES"]
+    col = sorted([n for n in nos if n.get("family") == "F-COLETA"],
+                 key=lambda x: (x["territory"], x["id"]))
+    if not col:
+        return
+    ar = estado["EDGES"]
+    terr = {t["id"]: t["name"] for t in estado["TERRITORIES"]}
+    entra: dict = {}
+    sai: dict = {}
+    for e in ar:
+        entra.setdefault(e["to"], []).append(e)
+        sai.setdefault(e["from"], []).append(e)
+
+    def provada(e):
+        return e.get("PROVEN") == SIM or e.get("OBSERVED") == SIM
+
+    def veredito(n):
+        a = n.get("ATIVACAO") or {}
+        c, ins, outs = a.get("CLASSE"), entra.get(n["id"], []), sai.get(n["id"], [])
+        obs = [e for e in ins + outs if e.get("OBSERVED") == SIM]
+        if not ins and not outs:
+            # ÓRFÃ E ALVO SEM ESCRITOR MEDIDO NÃO SÃO A MESMA COISA.
+            # `C-DERIVED-ARTIFACT` é a casa do derivado (migration 022), com 43
+            # derivações reais medidas dentro dela. Chamar-lhe órfã seria dizer
+            # que ninguém a quer — quando o que se passa é que quem lá escreve
+            # escreve em SQL, e o scanner deste mapa mede ficheiros.
+            #
+            #     O QUE O MEDIDOR NÃO ALCANÇA NÃO É O QUE NÃO EXISTE.
+            #     NOT_OBSERVED != DOES_NOT_EXIST.
+            if n.get("ROLE") == "STORAGE" or n.get("kind") in ("acervo", "store"):
+                return ("ALVO_SEM_ESCRITOR_MEDIDO",
+                        "alvo declarado e explicado; nenhuma aresta medida o enche "
+                        "— quem lá escreve escreve em SQL, e o scanner mede ficheiros")
+            return "ORPHAN", "sem entrada e sem saida medidas"
+        if c == "SO_A_PROVA_A_CORRE":
+            return "SYSTEM_GAP", "construida e medida; na coleta ninguem a corre"
+        if c in ("EXTERNO_MANUAL", "EXTERNO_AGENDADO", "EXTERNO_EVENTO"):
+            return "EXTERNAL_ENTRY", "entrada legitima, e o mapa di-lo com a prova"
+        if not outs:
+            return "TERMINAL", "saida terminal neste escopo"
+        if obs:
+            return "OK", "travessia OBSERVADA numa corrida real"
+        if c == "NAO_SE_ATIVA":
+            return "OK", "contrato ou acervo: consulta-se, nao corre"
+        if c == "CANAL_ABERTO_POR_ROTA":
+            return "OK", "canal, aberto por rota medida"
+        if c == "PECA_INTERNA":
+            return "OK", "activador provado, e o mapa mostra-o"
+        return "UNKNOWN", "nada medido diz quem lhe da a ordem"
+
+    L = ["# CENSO DAS LIGAÇÕES DA COLLECTION — card por card\n\n",
+         "> **Este ficheiro é GERADO.** Não se edita à mão: edita-se o repositório e\n"
+         "> regenera-se. Ele sai da mesma corrida que produz `state.generated.json`, e\n"
+         "> por isso nunca fica a discordar da tela.\n>\n"
+         "> Cada linha diz **quem ativa**, **o que entra**, **o que sai** e **qual é a\n"
+         "> prova** — e diz `NÃO SEI` onde não há prova, em vez de deixar o campo em\n"
+         "> branco, que é a mesma coisa dita de um modo que ninguém vai investigar.\n>\n"
+         "> **STATUS OPERACIONAL e STATUS DA ROTA são eixos diferentes.** Um card verde\n"
+         "> não promove as ligações dele, e uma rota em `NÃO SEI` não rebaixa uma peça\n"
+         "> que funciona.\n\n",
+         "```\n",
+         f"HEAD_DA_MEDICAO  {estado['PROVENANCE'].get('HEAD')}\n",
+         f"BRANCH           {estado['PROVENANCE'].get('BRANCH')}\n",
+         f"GERADO_EM        {estado['PROVENANCE'].get('GENERATED_AT')}\n",
+         f"CARDS            {len(col)}\n",
+         "FONTE            system-map/data/state.generated.json\n",
+         "COMO_REFAZER     py system-map/scripts/generate_system_map.py\n```\n"]
+    placar: dict = {}
+    for z in dict.fromkeys(n["territory"] for n in col):
+        L.append(f"\n## {z} · {terr.get(z, '').lstrip('· ').strip()}\n")
+        for n in [x for x in col if x["territory"] == z]:
+            a = n.get("ATIVACAO") or {}
+            v, porque = veredito(n)
+            placar[v] = placar.get(v, 0) + 1
+            ins, outs = entra.get(n["id"], []), sai.get(n["id"], [])
+            din = [e["from"] for e in ins if e.get("categoria") == DATA]
+            dout = [e["to"] for e in outs if e.get("categoria") in (DATA, WRITE)]
+            obs = [e for e in ins + outs if e.get("OBSERVED") == SIM]
+            fs = n.get("files") or []
+            L.append(f"\n### `{n['id']}` · {n['name']}\n\n| | |\n|---|---|\n")
+            L.append("| **peça real** | " + (", ".join(f"`{f}`" for f in fs[:5])
+                     + (f" _(e mais {len(fs) - 5})_" if len(fs) > 5 else "")
+                     if fs else "— nenhum ficheiro") + " |\n")
+            L.append(f"| **papel** | {n.get('ROLE')} · medido no plano "
+                     f"{n.get('ROLE_PLANE') or 'NÃO SEI'} |\n")
+            L.append(f"| **dono** | {n.get('OWNER') or 'NÃO SEI'} |\n")
+            L.append(f"| **status operacional** | {n.get('ui_status')} — "
+                     f"{(n.get('status_reason') or 'NÃO SEI')[:160]} |\n")
+            L.append(f"| **QUEM ATIVA** | **{a.get('CLASSE', 'NÃO SEI')}**"
+                     + (" — " + ", ".join(a["QUEM"]) if a.get("QUEM") else "") + " |\n")
+            L.append("| **prova de quem ativa** | "
+                     + ("; ".join(x for x in (a.get("PROVA") or [])[:3] if x)
+                        or "— NÃO SEI")
+                     + (f" _(plano {a['PLANO']})_" if a.get("PLANO") else "") + " |\n")
+            L.append(f"| **porquê** | {a.get('PORQUE', 'NÃO SEI')} |\n")
+            L.append("| **o que entra · dado** | " + (", ".join(din)
+                     or "— NÃO SEI: nenhuma aresta de dado medida") + " |\n")
+            L.append("| **o que entra · ficheiros** | "
+                     + (", ".join(f"`{x}`" for x in (n.get("consumes") or [])[:3])
+                        or "— NÃO SEI") + " |\n")
+            L.append("| **o que sai · dado** | " + (", ".join(dout)
+                     or "— NÃO SEI: nenhuma aresta de dado medida") + " |\n")
+            L.append("| **o que sai · ficheiros** | "
+                     + (", ".join(f"`{x}`" for x in (n.get("produces") or [])[:3])
+                        or "— NÃO SEI") + " |\n")
+            L.append(f"| **arestas no mapa** | entram {len(ins)} · saem {len(outs)} |\n")
+            L.append(f"| **arestas provadas** | entram "
+                     f"{sum(1 for e in ins if provada(e))} · "
+                     f"saem {sum(1 for e in outs if provada(e))} |\n")
+            L.append(f"| **OBSERVADAS** | {len(obs)}"
+                     + (" — corrida `"
+                        + str((obs[0].get("OBSERVED_EVIDENCE") or {}).get("RUN", "?")
+                              ).split(" —")[0] + "`" if obs else "") + " |\n")
+            L.append(f"| **control plane** | entram "
+                     f"{sum(1 for e in ins if e.get('categoria') == CONTROL)} · saem "
+                     f"{sum(1 for e in outs if e.get('categoria') == CONTROL)} |\n")
+            L.append(f"| **data plane** | entram {len(din)} · saem {len(dout)} |\n")
+            # OS TRES PLANOS DA PECA, LADO A LADO — e nunca um rotulo por
+            # cima deles. `PROVEN` sozinho nao diz provado DE QUE.
+            L.append(f"| **prova da peça** | DECLARED {n.get('DECLARED')} · "
+                     f"CODE {n.get('CODE')} · OBSERVED {n.get('OBSERVED')} · "
+                     f"PROVEN {n.get('PROVEN')}"
+                     + (f" _(no plano {n['PROVEN_PLANE']})_"
+                        if n.get("PROVEN_PLANE") else "") + " |\n")
+            planos = collections.Counter()
+            for e in ins + outs:
+                planos[e.get("PROVEN_PLANE") or "NÃO SEI"] += 1
+            L.append("| **prova das ligações** | "
+                     + " · ".join(f"{k} {v2}" for k, v2 in planos.most_common())
+                     + " |\n")
+            L.append(f"| **lei da Bíblia** | {LEI_DA_ZONA.get(z, 'NÃO SEI')} |\n")
+            L.append(f"| **VEREDITO** | **{v}** — {porque} |\n")
+    L.append("\n---\n\n## O PLACAR\n\n```\n")
+    for k in sorted(placar, key=lambda x: -placar[x]):
+        L.append(f"{k:18s} {placar[k]}\n")
+    L.append(f"{'TOTAL':18s} {sum(placar.values())}\n```\n")
+    destino = RAIZ / "docs" / "operacao" / "CENSO-DAS-LIGACOES-DA-COLLECTION.md"
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_text("".join(L), encoding="utf-8")
+
+
 def indice_de_fontes() -> None:
     """Escreve `docs/fontes/INDICE-DE-FONTES.md` — a porta de entrada das fontes.
 
@@ -2665,7 +4026,9 @@ def indice_de_fontes() -> None:
          f"| fichas completas no atlas | **{c['sources']}** |",
          f"| dessas, com contrato de busca escrito | **{c['with_contract']}** |",
          f"| palavras de busca medidas no código | **{c['search_terms']}** em {c['search_term_groups']} grupos |",
-         f"| endereços que o código realmente chama | **{c['endpoints']}** |", ""]
+         f"| endereços que o código realmente chama | **{c['endpoints']}** |",
+         f"| desses, publicados no mapa | **{c.get('endpoints_published', 0)}** "
+         f"(truncados: {c.get('endpoints_truncated', 0)}) |", ""]
 
     if S.get("HEADER_CLAIM", {}).get("divergencia"):
         h = S["HEADER_CLAIM"]
@@ -3181,6 +4544,80 @@ def leia_antes_de_coletar(estado: dict) -> None:
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
 
+def _conflito_do_status_legado(nos: list) -> list:
+    """O eixo legado e os quatro planos discordam. Isso nao e para esconder.
+
+    A §15 do contrato de confianca nao manda escolher um vencedor: ela tem o
+    estado `ACCEPTED_AS_DIFFERENT_QUESTIONS` precisamente porque
+
+        A MAIOR PARTE DAS DIVERGENCIAS MEDIDAS NAO ERAM CONFLITOS:
+        ERAM DUAS PERGUNTAS DIFERENTES COM O MESMO NOME.
+
+    Escolher um vencedor aqui repintaria 109 cartoes para satisfazer uma regra
+    escrita para arestas, e destruiria a informacao que `status_reason` carrega
+    — a migration aplicada, a corrida que fechou, o documento que sustenta.
+
+    O que a §15 manda e PUBLICAR: as duas afirmacoes, a evidencia de cada uma,
+    o estado, o dono e a resolucao. O numero e medido aqui, nao escrito a mao:
+    um conflito cuja contagem e um literal deixa de acusar quando ela muda.
+    """
+    discordam = [n["id"] for n in nos
+                 if (n.get("status") == "PROVEN") != (n.get("PROVEN") == "YES")]
+    verdes_sem_plano = [n["id"] for n in nos
+                        if n.get("status") == "PROVEN" and n.get("PROVEN") != "YES"]
+    return [{
+        "CONFLICT_ID": "STATUS_LEGADO_VS_QUATRO_PLANOS_NA_PECA",
+        "ASSERTION_A": "a peca esta PROVADA OPERACIONAL (`status`/`ui_status`)",
+        "EVIDENCE_A": "`status_reason` — documento, migration aplicada, corrida "
+                      "medida ou medicao do git, conforme a peca",
+        "ASSERTION_B": "a peca esta provada no plano PROVEN dos quatro planos",
+        "EVIDENCE_B": "`files` medidos por scan_repo.py; OBSERVED_EVIDENCE quando "
+                      "ha corrida em provas-de-execucao.json",
+        "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
+        "OWNER": "system-map/scripts/generate_system_map.py",
+        "RESOLUTION":
+            "Sao duas perguntas. `status` responde «esta peca esta pronta e "
+            "porque», e apoia-se em evidencia de classes que o modelo de planos "
+            "ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, "
+            "GIT_TREE). Os quatro planos respondem «em que plano esta provada», "
+            "e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma "
+            "vence a outra: as duas sao publicadas lado a lado no cartao, e "
+            "STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre "
+            "EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
+        "PECAS_EM_DESACORDO": len(discordam),
+        "PECAS_VERDES_SEM_PLANO": sorted(verdes_sem_plano),
+        "TOTAL_DE_PECAS": len(nos),
+    }]
+
+def _contagem_dos_donos() -> dict:
+    """UM CONCEITO, UM DONO — lido de quem o mede, e nunca recontado aqui.
+
+    `censo_dos_donos.py` percorre 15 conceitos canonicos e diz, de cada um, se
+    tem um dono, dois, ou se quem responde por ele e um instrumento. Esse numero
+    existia desde a missao da observabilidade e NUNCA chegou a tela — e uma
+    duplicacao de dono que ninguem ve custa o mesmo que uma que nao foi medida.
+
+        MEDIDO E INVISIVEL VALE O MESMO QUE NAO MEDIDO.
+
+    Ficheiro ausente devolve `None` em cada campo, e a tela diz NAO SEI. Nunca
+    zero: zero leria-se como «nenhum conceito tem dois donos», que e o contrario
+    do que esta arvore mede.
+    """
+    caminho = RAIZ / "system-map" / "data" / "donos.generated.json"
+    try:
+        d = json.loads(caminho.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"concept_owner_count": None, "concept_owner_conflicts": None,
+                "concept_owner_single": None, "concept_owner_instrument": None}
+    por_estado = d.get("POR_ESTADO") or {}
+    return {
+        "concept_owner_count": d.get("CONCEITOS"),
+        "concept_owner_conflicts": por_estado.get("DONO_DUPLICADO", 0),
+        "concept_owner_single": por_estado.get("UM_DONO", 0),
+        "concept_owner_instrument": por_estado.get("DONO_E_INSTRUMENTO", 0),
+    }
+
+
 def _buracos() -> dict | None:
     """O que o censo dos buracos mediu — ou `None` se ele nao correu.
 
@@ -3227,9 +4664,50 @@ def construir(estado: dict) -> None:
         if not origem.exists():
             print(f"FALTA={origem} · a app esta incompleta", file=sys.stderr)
             raise SystemExit(2)
-        shutil.copyfile(origem, destino / Path(nome).name)
-    (destino / "state.generated.json").write_text(
-        json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        _publicar(origem, destino / Path(nome).name)
+    _escrever_lf(destino / "state.generated.json",
+                 json.dumps(estado, ensure_ascii=False, indent=2) + "\n")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# O FIM DE LINHA AQUI E BYTE, E NAO ESTILO
+# ─────────────────────────────────────────────────────────────────────────────
+# `.gitattributes` declara `italia-portale/client/** -text`: o Git guarda esta
+# pasta BYTE A BYTE, sem normalizar nada. E `core.autocrlf` esta ligado neste
+# ambiente. As duas coisas juntas produziam isto numa maquina Windows:
+#
+#   · `system-map/app/map.css` NAO e `-text`, logo sai do checkout com CRLF;
+#   · `shutil.copyfile` copiava esses CRLF para dentro da pasta `-text`;
+#   · `Path.write_text` traduzia `\n` em `\r\n` ao gravar o estado.
+#
+# Medido nesta arvore a 2026-09-14: regerar o mapa aqui abria um diff de
+# 79.817 linhas, das quais 14 eram conteudo. As outras ~79.800 eram o fim de
+# linha de quatro ficheiros que nao tinham mudado uma virgula.
+#
+#     UM GERADOR QUE PRODUZ BYTES DIFERENTES EM CADA SISTEMA OPERATIVO
+#     NAO E DETERMINISTICO — E A LEI DESTA CASA MANDA CORRE-LO ANTES DE
+#     FECHAR QUALQUER TAREFA.
+#
+# Quem corresse a lei no Windows tinha de escolher entre desobedecer a lei e
+# empurrar 80 mil linhas de ruido. Agora escreve-se LF explicitamente, e o
+# ficheiro publicado fica igual nos dois sistemas.
+def _escrever_lf(caminho: Path, texto: str) -> None:
+    """Grava texto com `\\n`, em qualquer sistema. `newline=''` desliga a traducao."""
+    with open(caminho, "w", encoding="utf-8", newline="") as f:
+        f.write(texto.replace("\r\n", "\n"))
+
+
+def _publicar(origem: Path, destino: Path) -> None:
+    """Copia para a pasta `-text` com os fins de linha normalizados.
+
+    Binario passa intacto: um `.png` ou uma fonte com `\\r\\n` la dentro sao
+    bytes do formato, e substitui-los corromperia o ficheiro.
+    """
+    bruto = origem.read_bytes()
+    if b"\x00" in bruto[:4096]:
+        destino.write_bytes(bruto)
+        return
+    destino.write_bytes(bruto.replace(b"\r\n", b"\n"))
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -3667,6 +5145,15 @@ def main_uma_vez(stamp: bool) -> int:
             l["reason"] = (f"O contrato de bloco de «{nome_alvo}» nomeia, em "
                            f"{len(l['evidence'])} linha(s), a camada de dado que "
                            f"esta peca publica.")
+    # ── G9 · AS DUAS ARESTAS QUE FALTAVAM, E QUE NAO ERAM INVENCAO ──────────
+    # Correm AQUI, antes de a categoria ser atribuida: uma aresta que nasce
+    # depois da classificacao nasce sem categoria, e uma aresta sem categoria
+    # aparece na tela como «NAO SEI que tipo de ligacao e esta» — o defeito que
+    # esta missao veio tirar, reintroduzido pela ordem.
+    receitas_lidas = arestas_do_orquestrador(ligacoes, dono, RAIZ)
+    travessias = observar_as_travessias(ligacoes, dono, RAIZ)
+    estradas_do_pedido = estradas_observadas_do_pedido(ligacoes, dono, RAIZ)
+
     for chave, l in ligacoes.items():
         if l["type"] == "RETRIEVED_BY" and not l["reason"]:
             nome_alvo = next((c["name"] for c in comps if c["id"] == l["to"]), l["to"])
@@ -3747,8 +5234,27 @@ def main_uma_vez(stamp: bool) -> int:
             continue
         toca = (l["from"] in preparo or l["to"] in preparo)
         outro = l["to"] if l["from"] in preparo else l["from"]
+        # ⚠️ E NUNCA A PARTIR DE UM `import` — TERCEIRA VOLTA DA MESMA LICAO.
+        #
+        # A regra promovia `categoria in (CODE, READ)`. Medido nesta arvore, as
+        # UNICAS DUAS ligacoes que ela promovia eram as duas de `import`:
+        #
+        #   C-COLETA-INSTAGRAM -> C-TRANSCRICAO  IMPORTS  (instagram_transcrever.py:184)
+        #   C-NAVEGADOR        -> C-TRANSCRICAO  IMPORTS  (instagram_transcrever.py:183)
+        #
+        # Ou seja: a regra justificava-se com «o que sai do whisper e o TEXTO do
+        # item» e, na pratica, so promovia importacoes de modulo. Uma linha
+        # `import cdp` prova que ha dependencia de codigo. Nao prova travessia.
+        #
+        #     UM IMPORT NAO E UM CARIMBO, e este ficheiro ja o dizia
+        #     duzentas linhas acima — sobre as reguas, e nao sobre isto.
+        #
+        # A promocao fica de pe para o caso que a justifica (LER o artefacto que
+        # a ferramenta escreveu) e recusa o caso que a contradiz. Hoje isso
+        # promove ZERO ligacoes, e zero e a resposta certa: nenhuma leitura
+        # dessas esta medida nesta arvore.
         if toca and not _fora_do_caminho(outro):
-            if l["categoria"] in (CODE, READ):
+            if l["categoria"] == READ:
                 l["categoria"] = DATA
                 l["passa_pelo_preparo"] = True
 
@@ -3774,8 +5280,18 @@ def main_uma_vez(stamp: bool) -> int:
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
     papel_de_cada_regua(nos, G, dono)
+    # G7 · o papel canonico corre DEPOIS da regua, porque reutiliza `rule_role`:
+    # medir duas vezes a mesma coisa daria duas respostas a divergir.
+    papel_canonico(nos, G, dono)
+    dono_e_entradas(nos, G, dono, varios_autores)
 
     desvios = desvios_do_controlo(ligacoes, nos)
+
+    # G1 · cada afirmacao passa a viver no seu plano, e cada evidencia passa a
+    # dizer que afirmacao sustenta. Corre ANTES de desenhar porque `desenhar()`
+    # so mexe em geometria — os planos sao conteudo.
+    os_quatro_planos(ligacoes, nos, RAIZ, travessias)
+    quem_ativa_cada_peca(nos, ligacoes, RAIZ)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])
@@ -3793,6 +5309,11 @@ def main_uma_vez(stamp: bool) -> int:
         "WORLD": {"w": mundo_w, "h": mundo_h},
         "INVENTORY": inventario,
         "ACHADOS": achados(arquivos),
+        # V2 · AS ESTRADAS QUE UMA CORRIDA INTEIRA ATRAVESSOU.
+        # Nao e um resumo do mapa: e o recibo, etapa a etapa, lido do banco.
+        # Fica ao lado das arestas porque responde a outra pergunta — nao
+        # «que ligacoes existem» mas «alguma corrida chegou ao fim».
+        "ESTRADAS_OBSERVADAS": estradas_do_pedido,
         "SEARCH_TERMS": termos_de_busca(),
         "PROVENANCE": G["PROVENANCE"],
         "FAMILIES": faixas,
@@ -3814,6 +5335,14 @@ def main_uma_vez(stamp: bool) -> int:
         # Ficheiro ausente e `None`, e a tela diz que nao mediu; nunca zero, que
         # se leria como «nao ha buracos».
         "BURACOS": _buracos(),
+        # O CONFLITO QUE EXISTE, NA FORMA QUE O CONTRATO EXIGE.
+        #
+        #     UM CONFLITO ESCONDIDO E FAIL.  (§15 do contrato de confianca)
+        #
+        # Nao e um detetor generico de conflitos — isso e o G13/G10 e continua
+        # em aberto. E ESTE conflito, medido nesta arvore, publicado com os
+        # campos da §15 para que a condicao C1 tenha onde ser respondida.
+        "CONFLITOS": _conflito_do_status_legado(nos),
     }
 
     st = [n["status"] for n in nos]
@@ -3828,12 +5357,25 @@ def main_uma_vez(stamp: bool) -> int:
         "files_tracked": G["COUNTS"]["files_tracked"],
         "files_covered": len(dono),
         "files_code_unclaimed": len(orfaos_de_codigo),
+        # G7 · O PAPEL, CONTADO PELO PLANO EM QUE ESTA PROVADO.
+        # Um numero so — «162 pecas tem papel» — juntaria o que a arvore mede com
+        # o que a ficha afirma, e e exactamente a promocao que a §2 do contrato
+        # proibe. Tres numeros, tres perguntas diferentes.
+        "roles_proven": sum(1 for n in nos if n.get("ROLE_PLANE") == "CODE"),
+        "roles_declared_only": sum(1 for n in nos if n.get("ROLE_PLANE") == "DECLARED"),
+        "roles_unknown": sum(1 for n in nos if n.get("ROLE") == "UNKNOWN"),
+        "roles_conflict": sum(1 for n in nos if n.get("ROLE_CONFLICT")),
+        # G7 · UM CONCEITO, UM DONO — medido por `censo_dos_donos.py`, nao aqui.
+        # O censo ja existia e ja media; o que faltava era ele chegar a tela.
+        # Recontar aqui criaria uma segunda contagem do mesmo universo.
+        **_contagem_dos_donos(),
     }
 
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     construir(estado)
     leia_antes_de_coletar(estado)
     indice_de_fontes()
+    censo_das_ligacoes_da_collection(estado)
 
     if stamp:
         D["DECLARED_BLOBS"] = dict(sorted(novos_blobs.items()))

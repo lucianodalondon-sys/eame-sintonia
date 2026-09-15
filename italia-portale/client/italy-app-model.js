@@ -1773,6 +1773,13 @@
          count can quietly include them. */
       notAPlantProtectionProduct: p.NOT_A_PLANT_PROTECTION_PRODUCT === true,
       isSystemNotProduct: p.IS_SYSTEM_NOT_PRODUCT === true,
+      /* PERCHE QUESTA SCHEDA PUO ESSERE VUOTA — e sono due cose diverse.
+         Cinque dei 51 non agiscono su alcun organismo: per loro non esiste
+         una coppia coltura x avversita da trovare, e il vuoto e la risposta
+         giusta. A classificarli e ADAMA, nella frase della propria scheda,
+         che arriva qui in italiano perche e CITAZIONE e non testo nostro. */
+      pairState: v21S(p.CROP_TARGET_PAIR_STATE),
+      descriptorOnSite: v21S(p.PRODUCT_DESCRIPTOR_ON_SITE),
       commercialContract: v21S(p.COMMERCIAL_CONTRACT),
       note: null,
       contractWhy: v21Text(p, 'COMMERCIAL_CONTRACT_WHY'),
@@ -2164,7 +2171,21 @@
          chiama sul mercato — con il solo segno diventato lettera rimesso a
          posto: NIMRODR torna NIMROD(R). */
       name: PNAME_FIX(p.name, KNOWN_BRANDS),
-    }, (prev && prev.holder) ? {} : { holder: p.holder }));
+      /* Cio che la SCHEDA pubblica: viaggia sempre, non sostituisce nulla. */
+      pairState: p.pairState, descriptorOnSite: p.descriptorOnSite,
+    },
+    /* LA SOSTANZA E IL NUMERO STANNO SULLA SCHEDA, E LA SCHEDA E STATA LETTA.
+       Il registro resta la fonte piu forte e vince quando c'e — stessa regola
+       del titolare, qui sopra. Ma quando il registro NON ha il prodotto —
+       EXELGROW e BUDGE sono biostimolanti, PARLEAF e POWERFILM coadiuvanti,
+       tutti fuori dal registro fitosanitario — la schermata scriveva
+       «principio attivo: non noto» mentre ADAMA lo pubblica sulla propria
+       scheda, a un clic di distanza. Quel vuoto non era del mondo: era nostro.
+
+           NON NOTO E UNA RISPOSTA. NON LETTO NON LO E. */
+    (prev && prev.holder) ? {} : { holder: p.holder },
+    (prev && A(prev.ai).length) ? {} : { ai: p.ai },
+    (prev && prev.reg) ? {} : { reg: p.reg }));
   });
   /* Relationships attach to the product entity from the relationship
      collection — never from a case fixture. The full record is kept beside the
@@ -2203,7 +2224,23 @@
       || PKEY_ALTS(r.product).map((a) => byName[a]).find(Boolean)
       || (r.reg ? perRegistrazione[String(r.reg)] : null);
     if (e) {
-      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null });
+      /* ══ O CANONICO SERVE PARA LIGAR. O LITERAL E O FACTO. ══════════════
+         Esta projeccao levava `crop` e `issue` — os codigos canonicos — e
+         deixava para tras `cropOnLabel`, `target` e `targetAsWritten`, que sao
+         as palavras do proprio rotulo. Medido: 1.589 das 2.389 linhas nao tem
+         issue canonico e 913 nao tem crop, porque o alvo do rotulo nao esta nas
+         dezanove do vocabulario. O ecra da ficha do produto mostrava entao
+         «Barley · » — o ponto e nada depois dele, dezenas de vezes seguidas.
+
+             PERDER O LITERAL PARA FICAR COM O PALPITE E PERDER O FACTO.
+
+         E a lei do proprio leitor de rotulos, escrita em `rotulos_ler.py`:
+         quando nao se sabe mapear sai NAO_MAPEADO, «e o literal continua la,
+         inteiro». O registo completo sempre esteve em `e.relationships`; o que
+         faltava era atravessar a fronteira ate a linha que se desenha. */
+      e.links.push({ crop: r.crop, issue: r.issue, strength: r.strength, evidence: r.evidence, source: r.source, windowId: r.windowId, region: r.region, evidenceKind: r.evidenceKind, labelUrl: r.labelUrl, caseId: null,
+        cropOnLabel: r.cropOnLabel, target: r.target, targetAsWritten: r.targetAsWritten,
+        targetKind: r.targetKind, weedGroup: r.weedGroup, quote: r.quote });
       e.relationships.push(r);
     }
   });

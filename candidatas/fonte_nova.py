@@ -59,8 +59,20 @@ import sys
 from datetime import date
 from pathlib import Path
 
-RAIZ = Path(__file__).resolve().parents[1]
-FILA = RAIZ / "data" / "samples" / "FONTES-CANDIDATAS.json"
+# A PORTA E A FILA VIVEM NA MESMA GAVETA.
+#
+# O caminho ancora-se no proprio ficheiro, nao no diretorio de trabalho nem na
+# raiz do repositorio: a porta escreve ao lado de si mesma. Se a gaveta
+# `candidatas/` for movida inteira, a porta continua a escrever na sua fila.
+#
+# Ja foi de outra maneira, e custou: o script nasceu em `scripts/` e apontava
+# para `data/samples/FONTES-CANDIDATAS.json`. Quando foi movido para
+# `candidatas/`, a constante nao veio junto — e passou a escrever numa fila que
+# nao existia e que nenhuma autoridade lia (AGENTS.md, a Biblia COL-LAW-053,
+# `system-map/scripts/scan_sources.py` e `docs/fontes/INDICE-DE-FONTES.md`
+# apontam todos para o ficheiro ao lado deste). Uma candidata registada assim
+# desaparecia em silencio. Nao voltar a derivar este caminho da raiz.
+FILA = Path(__file__).resolve().parent / "FONTES-CANDIDATAS.json"
 
 # Os tipos sao os que esta casa ja usa, nao uma taxonomia nova. Inventar uma
 # gaveta nova para cada fonte que chega e como nao ter gaveta nenhuma.

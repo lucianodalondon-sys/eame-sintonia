@@ -228,18 +228,29 @@ class P5_P10_AEspinhaSobreviveAArvoreCompleta(unittest.TestCase):
     def test_a_copia_do_contrato_ready_bate_com_o_contrato_real(self):
         """⚠️ A prova central da atomicidade.
 
-        `provas/espinha_da_intelligence.py` traz uma cópia declarada dos 12
+        `provas/espinha_da_intelligence.py` traz uma cópia declarada dos 19
         campos de `admissao.pronto_para_inteligencia()`. Na branch onde nasceu,
         `admissao/` não existia e a cópia não tinha contra o que ser conferida.
         Aqui tem.
 
             UMA COPIA QUE NINGUEM PODE CONFERIR NAO E UMA COPIA: E UMA CRENCA.
+
+        ⚠️ **O UNIVERSO DESTE ITEM ERA `T7`, E ESTAVA ERRADO.** Não é ajuste de
+        teste para passar: o texto fala de *ensaio* e *DOI*, que é CIÊNCIA, e
+        ciência é `T5` no Atlas — o dono da taxonomia. `T7` é TECHNICAL
+        NETWORK. O léxico de ciência vivia em `T7` por uma quarta cópia da
+        taxonomia que `admissao/admissao.py` corrigiu, e a porta passou a
+        recusar o item **com prova a favor**: «fala claramente de outro
+        universo (T5: doi, ensaio)».
+
+            A PORTA NAO FICOU MAIS DURA. O ROTULO E QUE ESTAVA TROCADO.
         """
         from admissao import decidir, pronto_para_inteligencia
         from espinha_da_intelligence import CAMPOS_DO_READY
         item = {"id": "ATOM-1", "texto": "Ensaio de campo publicado com DOI",
-                "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
-        d = decidir(item, "T7", corrida="atomicidade")
+                "source_id": "IT-T5-001", "fact_time": "2026-05-02"}
+        d = decidir(item, "T5", corrida="atomicidade")
+        self.assertEqual("SIM", d.resultado, d.motivo)
         real = pronto_para_inteligencia(item, d)
         self.assertEqual(sorted(CAMPOS_DO_READY), sorted(real),
                          "a copia declarada derivou do contrato real")
@@ -248,10 +259,11 @@ class P5_P10_AEspinhaSobreviveAArvoreCompleta(unittest.TestCase):
         from admissao import decidir, pronto_para_inteligencia
         from espinha_da_intelligence import CAMPOS_QUE_NAO_ATRAVESSAM
         item = {"id": "ATOM-2", "texto": "Ensaio de campo publicado com DOI",
-                "source_id": "IT-T7-001", "fact_time": "2026-05-02",
+                "source_id": "IT-T5-001", "fact_time": "2026-05-02",
                 "evidence_species": "OBSERVED_FIELD_SIGNAL",
                 "method": "inspecao_visual", "denominator": 400}
-        d = decidir(item, "T7", corrida="atomicidade")
+        d = decidir(item, "T5", corrida="atomicidade")
+        self.assertEqual("SIM", d.resultado, d.motivo)
         real = pronto_para_inteligencia(item, d)
         atravessam = sorted(set(CAMPOS_QUE_NAO_ATRAVESSAM) & set(real))
         self.assertEqual([], atravessam,

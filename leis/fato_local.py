@@ -132,6 +132,26 @@ PROVINCIAS = (
     'Bergamo', 'Brescia', 'Cremona', 'Mantova', 'Pavia', 'Lodi', 'Novara',
     'Vercelli', 'Alessandria', 'Cuneo', 'Asti', 'Rovigo', 'Treviso', 'Venezia',
     'Vicenza', 'Belluno', 'Udine', 'Pordenone', 'Gorizia', 'Trieste',
+    # Acrescentadas em 2026-09-14 pelo MESMO motivo do 'Bergamo' de cima, e
+    # medidas no material REAL que já está guardado, não em suposição:
+    #
+    #     `BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI SALERNO`
+    #     -> mencoes(...) devolvia []   e a província estava lá, no título.
+    #
+    # A Campânia inteira faltava, e é a região de um dos três boletins que
+    # atravessam a porta hoje: o contrato `IT-T3-002` declara em
+    # `ROUTE_VARS.PROV` exactamente estas cinco — AV, BN, CE, NA, SA. E o
+    # próprio `SOURCE_LOCATION_RULE` dessa fonte diz «Napoli», que também não
+    # estava aqui.
+    #
+    #     UMA REGRA CERTA CONTRA UM GAZETTEER CEGO DÁ `NAO SEI` COM AR DE LEI.
+    #
+    # Bolzano e Trento entram pelas fontes `IT-T5-001` (Terlano, BZ) e
+    # `IT-T5-002` (San Michele all'Adige, TN). Continua a valer a lei desta
+    # lista: **cobertura declarada, não presumida** — não se despejam aqui as
+    # 107 províncias italianas para o número parecer completo.
+    'Napoli', 'Salerno', 'Avellino', 'Benevento', 'Caserta',
+    'Bolzano', 'Trento',
 )
 
 # Um topônimo fora desta lista não é recusado: ele é INVISÍVEL. São coisas
@@ -194,6 +214,24 @@ ANCORAS_NEGATIVAS = (
     (r'area\s+commerciale', 'área comercial'),
     (r'zona\s+di\s+competenza', 'abrangência institucional'),
     (r'copertura\b', 'abrangência institucional'),
+    # ⚠️ A ABRANGÊNCIA DO PRÓPRIO DOCUMENTO, e ela foi medida a passar.
+    # O boletim da Campânia, `IT-T3-002`, abre com o seu próprio título:
+    #
+    #     "BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI SALERNO"
+    #
+    # `bollettino` é âncora positiva, governa `Salerno`, e o resultado era
+    # `FACT_LOCATION = Salerno` — quando aquilo diz PARA QUE PROVÍNCIA o
+    # boletim é, e não onde alguma coisa aconteceu. É a mesma espécie de erro
+    # que `zona di competenza` já apanhava, escrita de outra maneira.
+    #
+    #     A PROVÍNCIA DE UM BOLETIM É O ÂMBITO DO BOLETIM.
+    #     TERRITORIAL_LIST != FACT_LIST, e um título não é um relato.
+    #
+    # O contrato de fonte diz o mesmo por outras palavras: a regra dele é «a
+    # PROVINCIA do proprio arquivo» — uma regra que manda PROCURAR o facto
+    # dentro, não uma que o declare.
+    (r'provinci[ae]\s+d[iell]+\s*', 'âmbito declarado do documento'),
+    (r'\bcomprensorio\b', 'âmbito declarado do documento'),
     (r'\bpresso\b', 'afiliação institucional'),
     (r'laurea\s+(?:a|presso)', 'formação'),
 )
@@ -259,10 +297,34 @@ def mencoes(frase):
 
 
 def _ancoras(frase, padroes):
+    """As âncoras desta oração, com PALAVRA INTEIRA dos dois lados.
+
+    ⚠️ ESTA FUNÇÃO NÃO EXIGIA FRONTEIRA, E `mencoes()` LOGO ACIMA EXIGE.
+    A assimetria custou um falso positivo medido contra documento real — o
+    notiziario da ARIF, `IT-T3-008`:
+
+        "...comunicati ufficiali dell'Osservatorio Fitosanitario della
+         Regione Puglia"
+
+        `osservat[oaie]` casa dentro de `Osservatorio`
+        -> âncora FIELD_OBSERVATION
+        -> `FACT_LOCATION = Puglia`, com trecho e tudo
+
+    O nome de uma INSTITUIÇÃO virou prova de que alguém observou alguma coisa
+    num sítio. E o trecho guardado fazia a afirmação parecer auditada.
+
+        `osservatorio` É UM ÓRGÃO. `osservato` É UM ACONTECIMENTO.
+        UM CONTÉM O OUTRO EM LETRAS E NÃO O CONTÉM EM SIGNIFICADO.
+
+    O comentário de `mencoes()` já tinha escrito a lei — *«fronteira de palavra
+    obrigatória»* — para os topónimos. Ela vale igual para as âncoras: são as
+    duas metades da mesma afirmação, e a mais fraca é que decide.
+    """
     low = _baixo(frase)
     fora = []
     for padrao, rotulo in padroes:
-        for m in re.finditer(padrao, low):
+        inteiro = r'(?<![0-9a-z])(?:%s)(?![0-9a-z])' % padrao
+        for m in re.finditer(inteiro, low):
             fora.append({'POS': m.start(), 'LABEL': rotulo, 'TEXT': m.group(0)})
     return fora
 

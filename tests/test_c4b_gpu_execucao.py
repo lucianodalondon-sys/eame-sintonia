@@ -236,11 +236,38 @@ class T6OPadraoDeComputeNaoMudou(unittest.TestCase):
         self.assertEqual(fl.DISPOSITIVO_PADRAO, fl.CPU)
 
     def test_int8_float32_e_override_explicito_e_nao_padrao(self):
-        """Ele vive no workflow, declarado, e não no código como regra."""
+        """⚠️ REESCRITA PELA C4D, E O CONTRATO FICOU MAIS APERTADO.
+
+        Ela exigia `SINTONIA_ASR_COMPUTE: int8_float32` NO WORKFLOW, e tinha
+        razão para o dia em que nasceu: sem o override a prova caía para o
+        processador, e um tipo de cálculo escondido seria pior do que um
+        declarado.
+
+        Só que o valor é verdadeiro sobre UMA placa e vivia num ficheiro que
+        vale para todas — e um pin explícito não se negoceia: na placa seguinte,
+        que faça `float16`, ele forçaria a pior das duas.
+
+            UM VALOR QUE SÓ É VERDADE NUMA MÁQUINA NÃO PERTENCE AO GIT.
+
+        Agora o dono NEGOCEIA contra o que a biblioteca declara, e a troca sai
+        carimbada. O que esta prova guarda passa a ser isso: nem o código nem o
+        workflow cravam o tipo de cálculo de uma placa.
+        """
         self.assertNotIn("COMPUTE_GPU = 'int8_float32'", _fonte(DONO_DO_ASR))
-        wf = _fonte('.github/workflows/scrap-social.yml')
-        self.assertIn('SINTONIA_ASR_COMPUTE: int8_float32', wf,
-                      'a prova declara o tipo de calculo que usa, em vez de o esconder')
+        # SEM OS COMENTARIOS. O workflow EXPLICA, por extenso, que este pin
+        # saiu e porque — e uma busca no texto cru reprovava a explicacao.
+        #
+        #     A PERGUNTA E SOBRE O QUE O WORKFLOW FAZ, NAO SOBRE O QUE ELE DIZ.
+        wf = '\n'.join(l for l in _fonte('.github/workflows/scrap-social.yml').splitlines()
+                       if not l.lstrip().startswith('#'))
+        self.assertNotIn('SINTONIA_ASR_COMPUTE:', wf,
+                         'o tipo de calculo de UMA placa voltou ao Git')
+        dono = _fonte(DONO_DO_ASR)
+        self.assertIn('get_supported_compute_types', dono,
+                      'sem a negociacao, tirar o override do workflow deixaria '
+                      'a placa por usar — e em silencio')
+        self.assertIn('ASR_COMPUTE_SELECTED', dono,
+                      'a troca de aritmetica tem de sair no carimbo')
 
 
 # ══════════════════════════════════════════════════════════════════════════

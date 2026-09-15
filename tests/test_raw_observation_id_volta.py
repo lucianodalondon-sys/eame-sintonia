@@ -84,8 +84,25 @@ from test_italia_na_porta_canonica import CasoB1             # noqa: E402
 # `test_a_alca_e_efemera_e_nao_substitui_a_identidade` e quem guarda isso.
 #
 #     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
+# ⚠️ DOIS CAMPOS ENTRARAM EM `C-COLLECTION-TO-WAITING-ROOM-V1`, E OS DOIS
+# ENTRARAM PELA MESMA RAZAO QUE O `MEDIA_TYPE` JA TINHA ENTRADO:
+#
+#     UM CAMPO QUE O DONO ESCREVEU E A PORTA NAO LEVA
+#     E UM CAMPO QUE, PARA QUEM ESTA DO OUTRO LADO, NAO EXISTE.
+#
+#   CAPTURED_AT  `raw_asset.captured_at` — quando ESTA maquina recebeu os bytes.
+#                Sem ele, sete unidades italianas chegaram a Sala de Espera com
+#                `CAPTURED_AT = NAO SEI`, com o valor medido tres degraus atras.
+#   SOURCE_ID    `raw_asset.source_id` — a fonte DO DOCUMENTO. Sem ele,
+#                perguntava-se a CORRIDA de que fonte era cada documento, e uma
+#                corrida que colheu sete fontes nao tem uma: o dono do
+#                STRUCTURED recusava os sete com «o documento nao diz de que
+#                fonte veio».
+#
+# Ambos ja existiam na linha e ja eram lidos por `objetos_da_corrida()`. O que
+# mudou foi a PROJECCAO desta porta.
 CAMPOS = ("RAW_OBSERVATION_ID", "RUN_ID", "STORAGE_PATH", "SHA256",
-          "MEDIA_TYPE", "PASSAGENS")
+          "MEDIA_TYPE", "CAPTURED_AT", "SOURCE_ID", "PASSAGENS")
 
 
 def _codigo(caminho):

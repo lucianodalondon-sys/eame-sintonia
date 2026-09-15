@@ -22,13 +22,33 @@ O QUE ESTA ROTA NAO FAZ, E POR QUE
 NAO emite `RAW`. Quem escreve `raw_asset` e `guarda/preservar_coleta.py`, e ler
 a linha de outro nao e ter corrido a etapa dele.
 
-NAO emite `READY`. A COL-LAW-043 diz que READY significa CONTRATOS OBRIGATORIOS
-satisfeitos, e o contrato de saida exige `ADMITIDO_POR`. Uma porta que disse SIM
-nao e a lei de READY cumprida — e so a porta a dizer sim.
+⚠️ ESTE PARAGRAFO DIZIA «A M2 TERMINA EM ADMISSION», E DEIXOU DE SER VERDADE.
+------------------------------------------------------------------------------
+Era verdade quando foi escrito. Depois nasceu `levar_a_espera()`, mais abaixo
+neste MESMO ficheiro, e `correr()` passou a chama-la — e ninguem veio apagar a
+frase do topo. Em 2026-09-14 uma missao leu-a, concluiu que faltava estrada, e
+quase construiu de novo o que ja existia.
 
-    ADMISSION PASS != READY PASS.
+    UM COMENTARIO DESACTUALIZADO NAO E RUIDO: E UMA AFIRMACAO FALSA
+    ASSINADA POR ESTA CASA, E A PROXIMA PESSOA ACREDITA NELA.
 
-A M2 termina em ADMISSION, e terminar em ADMISSION e a verdade.
+Medido contra PostgreSQL 16 descartavel no CI, 2026-09-14
+(`provas/a_ponte_de_midia_no_postgres.py`):
+
+    ETAPAS_OBSERVADAS = ['ADMISSION', 'DERIVED', 'RAW', 'READY', 'STRUCTURED']
+
+O QUE CONTINUA VERDADE, E NAO MUDOU
+-----------------------------------
+A COL-LAW-043 diz que READY significa CONTRATOS OBRIGATORIOS satisfeitos, e o
+contrato de saida exige `ADMITIDO_POR`. Uma porta que disse SIM nao e a lei de
+READY cumprida — e so a porta a dizer sim.
+
+    ADMISSION PASS != READY PASS. A UNIDADE TEM DE POUSAR.
+
+E por isso `levar_a_espera()` escreve `NOT_RUN` — nao `FAIL` — quando a porta
+responde `NAO`, `NAO_SEI` ou `ERRO`. Medido no mesmo CI: a decisao saiu
+`NAO_SEI`, a etapa READY correu, e a Sala ficou VAZIA. As tres coisas ao mesmo
+tempo, e as tres verdadeiras.
 
 A TELEMETRIA NASCE JUNTO
 ------------------------
@@ -203,6 +223,29 @@ def item_para_a_porta(unidade):
                  'ARTIFACT_TYPE': unidade.get('ARTIFACT_TYPE'),
                  'PARENT_SHA256': unidade.get('PARENT_SHA256'),
                  'PARENT_ARTIFACT_ID': unidade.get('PARENT_ARTIFACT_ID')}
+    # ⚠️ E O QUE A FRONTEIRA DECLARA QUE TRANSPORTA, TRANSPORTA-SE.
+    # MEDIDO: `ingresso.FRONTEIRA_TRANSPORTA` nomeia FACT_TIME, FACT_LOCATION,
+    # SOURCE_LOCATION e os outros como «o que a fronteira leva quando existe».
+    # Esta rota — que e a rota REAL — punha quatro nomes no item, e nenhum
+    # deles era esses. Resultado medido no contrato de saida:
+    #
+    #     FACT_TIME      -> «NAO SEI» POR CONSTRUCAO
+    #     FACT_LOCATION  -> «NAO SEI» POR CONSTRUCAO
+    #     SOURCE_LOCATION-> «NAO SEI» POR CONSTRUCAO
+    #
+    # Tres campos do contrato canonico a sair vazios NAO porque a fonte nao
+    # saiba, mas porque o item nao os carregava. Um «nao sei» assim nao e uma
+    # medicao: e o silencio de quem nao perguntou, com a cara de quem perguntou.
+    #
+    #     NAO SEI PORQUE NAO HA PROVA  !=  NAO SEI PORQUE NAO PERGUNTEI.
+    #
+    # ⚠️ E ISTO NAO PREENCHE NADA. So se copia o que a unidade DECLARA. O que
+    # ela nao traz continua a nao chegar, e continua a sair `NAO SEI` — com a
+    # diferenca de que agora isso e uma resposta e nao um efeito colateral.
+    for nome in ingresso.FRONTEIRA_TRANSPORTA:
+        valor = unidade.get(nome)
+        if valor not in ingresso.NAO_E_AFIRMACAO:
+            declarado[nome] = valor
     item = ingresso.para_a_porta({k: v for k, v in declarado.items() if v})
     item.update({
         'id': unidade['CONTENT_ID'],

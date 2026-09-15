@@ -1,0 +1,132 @@
+{
+ "O_QUE_ISTO_E": "Material italiano REAL, reprocessado da corrida piloto PILOT_RUN_20260907153737_4c34b3, atravessando a Collection ate a Sala de Espera canonica em PostgreSQL.",
+ "COMO_REFAZER": "BANCO_DESCARTAVEL_URL=... python3 provas/o_material_italiano_chega_a_sala.py",
+ "AMBIENTE": "DESCARTAVEL",
+ "AQUISICAO_NOVA": "NAO — a politica de egresso desta sessao responde 403 CONNECT a todos os hospedeiros externos. Isto e REPROCESSAMENTO de bytes ja colhidos, com SHA no livro italiano.",
+ "RUN_ID": "IT-T3-2026-09-14-165806-6a01cfabf4c8ea27",
+ "CORRIDA_DE_ORIGEM": "PILOT_RUN_20260907153737_4c34b3",
+ "ESTRADA": {
+  "REQUEST": {
+   "OBSERVED": true,
+   "EVIDENCE": "alvo=T3 pais={'pais': 'IT'}"
+  },
+  "ORCHESTRATOR": {
+   "OBSERVED": true,
+   "EVIDENCE": "ACTOR=coleta/italy_executor.py RUN_ID=IT-T3-2026-09-14-165806-6a01cfabf4c8ea27"
+  },
+  "EXECUTOR": {
+   "OBSERVED": true,
+   "EVIDENCE": "colheita=10"
+  },
+  "RUN": {
+   "OBSERVED": true,
+   "EVIDENCE": "collection_run: [['IT-T3-2026-09-14-165806-6a01cfabf4c8ea27', 'rodando']]"
+  },
+  "RAW": {
+   "OBSERVED": true,
+   "EVIDENCE": "10 linhas em raw_asset"
+  },
+  "STORAGE": {
+   "OBSERVED": true,
+   "EVIDENCE": "10 copias ligadas por chave estrangeira"
+  },
+  "DERIVED": {
+   "OBSERVED": true,
+   "EVIDENCE": "7 derivados"
+  },
+  "STRUCTURED": {
+   "OBSERVED": true,
+   "EVIDENCE": "7 documentos estruturados"
+  },
+  "ADMISSION": {
+   "OBSERVED": true,
+   "EVIDENCE": "por_resultado={'NAO_SEI': 4, 'SIM': 3}"
+  },
+  "READY": {
+   "OBSERVED": true,
+   "EVIDENCE": "prontos=3"
+  },
+  "WAITING_ROOM": {
+   "OBSERVED": true,
+   "EVIDENCE": "3 na Sala"
+  }
+ },
+ "CADEIA_DE_VOLTA": {
+  "WAITING_ROOM": {
+   "run_id": "IT-T3-2026-09-14-165806-6a01cfabf4c8ea27",
+   "ordem": 0,
+   "item_id": "derived:5",
+   "raw_observation_id": 7
+  },
+  "READY": {
+   "ITEM_ID": "derived:5",
+   "DERIVED_ARTIFACT_ID": 5
+  },
+  "STRUCTURED": {
+   "derived_artifact_id": 5,
+   "source_id": "IT-T3-002"
+  },
+  "DERIVED": {
+   "id": 5,
+   "raw_asset_id": 7,
+   "parent_sha256": "0c2723e66201f9668d0c2493f9c85d6f0b4843c2a5059fe9a4f9dc2acecb70c5"
+  },
+  "RAW": {
+   "id": 7,
+   "run_id": "IT-T3-2026-09-14-165806-6a01cfabf4c8ea27",
+   "sha256": "0c2723e66201f9668d0c2493f9c85d6f0b4843c2a5059fe9a4f9dc2acecb70c5",
+   "captured_at": "2026-09-07 15:37:53.953+00",
+   "source_id": "IT-T3-002"
+  },
+  "STORAGE": {
+   "id": 7,
+   "sha256": "0c2723e66201f9668d0c2493f9c85d6f0b4843c2a5059fe9a4f9dc2acecb70c5",
+   "bytes": 813109
+  },
+  "RUN": {
+   "run_id": "IT-T3-2026-09-14-165806-6a01cfabf4c8ea27",
+   "actor": "coleta/italy_executor.py"
+  },
+  "SOURCE": {
+   "source_id": "IT-T3-002",
+   "source_url": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf"
+  },
+  "LIVRO_ITALIANO": {
+   "SOURCE_ID": "IT-T3-002",
+   "SOURCE_URL": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-02-09.pdf",
+   "CAPTURED_AT": "2026-09-07T15:37:53.953Z",
+   "RUN_ID": "PILOT_RUN_20260907153737_4c34b3"
+  }
+ },
+ "WAITING_ROOM_BEFORE": 0,
+ "WAITING_ROOM_AFTER": 3,
+ "WAITING_ROOM_DELTA": 3,
+ "SALA": [
+  {
+   "ORDEM": 0,
+   "ITEM_ID": "derived:5",
+   "RAW_OBSERVATION_ID": 7,
+   "SOURCE_ID": "IT-T3-002",
+   "CAPTURED_AT": "2026-09-07T15:37:53.953Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 1,
+   "ITEM_ID": "derived:6",
+   "RAW_OBSERVATION_ID": 9,
+   "SOURCE_ID": "IT-T3-008",
+   "CAPTURED_AT": "2026-09-07T15:38:27.742Z",
+   "ESTADO_DA_FILA": "WAITING"
+  },
+  {
+   "ORDEM": 2,
+   "ITEM_ID": "derived:7",
+   "RAW_OBSERVATION_ID": 8,
+   "SOURCE_ID": "IT-T3-010",
+   "CAPTURED_AT": "2026-09-07T15:37:57.488Z",
+   "ESTADO_DA_FILA": "WAITING"
+  }
+ ],
+ "PASSOU": 35,
+ "FALHOU": 0
+}

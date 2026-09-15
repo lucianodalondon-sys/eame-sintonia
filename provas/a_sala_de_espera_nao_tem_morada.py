@@ -21,7 +21,7 @@ que nenhuma das duas saídas é ilegítima — e por isso ela não é minha.
 
 O QUE JÁ EXISTE, E QUE NÃO SE INVENTA OUTRA VEZ
 ------------------------------------------------
-    CONTRATO   COL-LAW-043, 11 campos fixos
+    CONTRATO   COL-LAW-043, 12 campos fixos
     DONO       admissao.pronto_para_inteligencia(), e é o único construtor
     ENTRADA    `item` + `Decisao` — e a rota forward JÁ os tem em mãos,
                montados em `rota_forward_documento.admitir()`
@@ -61,7 +61,7 @@ DESTINO_DECLARADO = os.path.join(RAIZ, "data", "samples",
                                  "PRONTO-PARA-INTELIGENCIA")
 LIVRO_DA_PORTA = os.path.join(RAIZ, "data", "samples",
                               "LIVRO-DE-DECISOES.json")
-# Os 11 campos que a lei declara. Escritos aqui para a comparacao ter dois
+# Os 12 campos que a lei declara. Escritos aqui para a comparacao ter dois
 # lados — o codigo do dono e a lei — e nao um eco.
 CAMPOS_DA_LEI = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
                  "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
@@ -90,8 +90,7 @@ def main():
 
     # ── 1 · O CONTRATO EXISTE, E TEM UM DONO SO ─────────────────────────
     d = admissao.decidir({"id": "medicao-1", "texto": "Ensaio de campo com DOI",
-                          "source_id": "IT-T7-001", "fact_time": "2026-05-02"},
-                         "T7", corrida="medicao")
+                          "source_id": "IT-T7-001", "fact_time": "2026-05-02"}, "T5", corrida="medicao")
     unidade = admissao.pronto_para_inteligencia(
         {"id": "medicao-1", "texto": "Ensaio de campo com DOI",
          "source_id": "IT-T7-001", "fact_time": "2026-05-02"}, d)
@@ -108,7 +107,7 @@ def main():
     #     MENCIONAR UM CONTRATO NAO E IMPLEMENTA-LO.
     #     E A DIFERENCA SO SE VE NA ESTRUTURA, NUNCA NO TEXTO.
     #
-    # Quem constroi e quem devolve o dicionario com os 11 campos da lei. Isso
+    # Quem constroi e quem devolve o dicionario com os 12 campos da lei. Isso
     # le-se por AST, e por AST o orquestrador sai da lista sozinho.
     import ast
     construtores, chamadores = [], []
@@ -191,7 +190,7 @@ def main():
     caso("S9_e_a_COL_LAW_043_nao_diz_onde_a_unidade_pousa",
          "PRONTO-PARA-INTELIGENCIA" not in biblia[
              biblia.find("COL-LAW-043"):biblia.find("COL-LAW-044")],
-         "a lei fixa os 11 campos e cala-se sobre a morada")
+         "a lei fixa os 12 campos e cala-se sobre a morada")
 
     # ── 6 · E A ESPERA QUE JA EXISTE E DE OUTRA ESPECIE ─────────────────
     url = os.environ.get("BANCO_DESCARTAVEL_URL")
@@ -266,7 +265,7 @@ def main():
         portao.
 
   As duas sao legitimas pela lei: a COL-LAW-044 lista `data/samples` E
-  `Supabase` como armazenamento, e a COL-LAW-043 fixa os 11 campos e cala-se
+  `Supabase` como armazenamento, e a COL-LAW-043 fixa os 12 campos e cala-se
   sobre a morada. Nao ha contrato para consultar — ha uma escolha por fazer.
 
     UMA MORADA ESCOLHIDA EM SILENCIO

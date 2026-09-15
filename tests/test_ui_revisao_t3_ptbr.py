@@ -278,8 +278,20 @@ class NadaFoiRotuladoNemAlterado(unittest.TestCase):
 
     def test_a_porta_nao_mudou(self):
         import admissao as adm
+        # ⚠️ ESTA LISTA MUDOU, E A MUDANCA NAO E UM RELAXAMENTO.
+        # Ela dizia `["T3", "T4", "T7", "T9"]`, e a chave `"T7"` carregava o
+        # lexico de CIENCIA — porque `pedido/pedido.py` declarava que `T7` era
+        # «Ciencia e ensaio». No Atlas, que e o dono da taxonomia, `T7` e
+        # TECHNICAL NETWORK e o lexico de ciencia e de `T5`.
+        #
+        #     UMA CHAVE DE DICIONARIO TAMBEM E UMA DECLARACAO DE TAXONOMIA.
+        #
+        # O que esta guarda protege continua inteiro: `T2` NAO ganhou regra, e
+        # nenhum universo que tinha regra a perdeu. O que ha e um universo a
+        # MAIS — `T7` com vocabulario proprio de rede tecnica, que antes nao
+        # tinha nenhum porque a chave dele estava ocupada por outro assunto.
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T3", "T4", "T7", "T9"])
+                         ["T3", "T4", "T5", "T7", "T9"])
 
 
 if __name__ == "__main__":

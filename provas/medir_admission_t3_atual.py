@@ -92,6 +92,15 @@ class MedicaoInvalida(Exception):
     """Nao se produz score a partir de uma copia nem de um gabarito mexido."""
 
 
+#: As palavras que esta prova le para CARACTERIZAR O CORPUS — nunca para
+#: decidir. `tests/test_medir_admission_t3_atual.py` conhece esta tupla e
+#: isenta-a da proibicao de copiar o vocabulario da porta; qualquer termo da
+#: porta fora daqui continua a fazer a guarda acender.
+#:
+#:     LER PARA MEDIR != LER PARA DECIDIR.
+SONDAS_DO_CORPUS = ("fitosanitario", "bilancio fitosanitario")
+
+
 def sha256_do_ficheiro(caminho):
     with open(os.path.join(RAIZ, caminho), "rb") as f:
         return hashlib.sha256(f.read()).hexdigest()
@@ -475,11 +484,30 @@ def red_team(casos, obs, subs, gt_por_sha):
         por_publicador[c["PUBLISHER"]].add(c["HUMAN_LABEL"])
     dois_lados = sorted(p for p, l in por_publicador.items() if len(l) > 1)
 
+    # ⚠️ ESTAS DUAS PALAVRAS SAO SONDAS DO CORPUS, E NAO REGRA.
+    # A lei deste ficheiro proibe COPIAR AS PALAVRAS DA PORTA PARA DENTRO DA
+    # PROVA — e a proibicao esta certa: uma prova que reimplementa a regra mede
+    # a prova. Mas ler um texto para CONTAR quantos documentos o dizem nao e
+    # decidir nada: e caracterizar o corpus, que e o trabalho desta funcao.
+    #
+    #     LER PARA MEDIR != LER PARA DECIDIR.
+    #
+    # A distincao ja tinha sido feita neste ficheiro uma vez: a primeira versao
+    # da guarda acendia na propria sonda de substring, e foi estreitada em vez
+    # de desligada. Aqui acontece o mesmo, com uma diferenca — desde
+    # `C-COLLECTION-TO-WAITING-ROOM-V1` a porta passou a conhecer
+    # `fitosanitario`, e a palavra que esta prova ja usava como sonda passou a
+    # ser TAMBEM um termo da regua.
+    #
+    # Entao a excepcao declara-se, com nome, para a guarda a poder conferir —
+    # e para qualquer OUTRO termo da porta continuar a acender.
+    #
+    #     UMA EXCEPCAO DECLARADA E AUDITAVEL. UMA EXCEPCAO SILENCIOSA E UM BURACO.
     tem_fitosanitario = [c for c in casos
-                         if "fitosanitario" in texto_do_corpo(
+                         if SONDAS_DO_CORPUS[0] in texto_do_corpo(
                              gt_por_sha[c["DOC_SHA256"]]["BODY_PATH"]).lower()]
     bilancio = [c for c in casos
-                if "bilancio fitosanitario" in texto_do_corpo(
+                if SONDAS_DO_CORPUS[1] in texto_do_corpo(
                     gt_por_sha[c["DOC_SHA256"]]["BODY_PATH"]).lower()]
     estados = Counter(c["RAW_OUTPUT"] for c in casos)
 

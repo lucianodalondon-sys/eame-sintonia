@@ -2,7 +2,79 @@
   "SCHEMA": "sintonia.censo-cards-sensores/1",
   "O_QUE_ISTO_E": "A matriz CARD x SENSOR do SINTONIA, montada a partir dos censos que ja existem. Nenhum numero e medido aqui: cada um tem dono noutro ficheiro, e este junta-os para fazer a pergunta que nenhum deles fazia sozinho.",
   "PROVENANCE": {
-    "HEAD": "6bbbfc1cc7571216c07c2f0c0102694bc0880d53",
+    "GENERATED_BY": "system-map/scripts/censo_cards_sensores.py",
+    "GENERATED_AT": "2026-09-15T20:55:10+00:00",
+    "HEAD": "384df0357cf8c564206388c970ecd7ee72ea41e0",
+    "HEAD_VERIFICAVEL": false,
+    "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
+    "SOURCE_TREE_FINGERPRINT": "9584e5735ea475ce1d5bffbce5f616b3b9cf1a1733090430c74ff6bfab1720c3",
+    "FICHEIROS_NA_IMPRESSAO": 2194,
+    "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
+    "INPUTS": [
+      {
+        "PATH": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "e80552e31cd94fbfdd01c9f2ef1d0b04009f68b1",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "ler() · json"
+      },
+      {
+        "PATH": "system-map/data/casco.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/congelamento.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/executores.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/fluxo.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/fronteira.observada.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "0471d90472a1a5d8234d4ef5020cadcb1b9f4538",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "ler() · json"
+      },
+      {
+        "PATH": "system-map/data/provas-de-execucao.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "24b2389839918ca4e8181ecdf3e45bf3ef0b1868",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "ler() · json"
+      },
+      {
+        "PATH": "system-map/data/sources.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "8964c64b90637a7a4c70c566087d6043c2c85cc912458c480178fa734592a7f0",
+        "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
+        "LIDO_POR": "ler() · json"
+      }
+    ],
+    "INPUTS_COUNT": 8,
+    "INPUTS_DIGEST": "b1c03b8965bd3b6a0c70e58c673f2fc40c356772880bbfd00725e865a498bbc5",
+    "INPUTS_AUSENTES": [],
     "LIDO_DE": [
       "casco.generated.json",
       "executores.generated.json",
@@ -12,75 +84,82 @@
       "congelamento.generated.json",
       "provas-de-execucao.json",
       "SYSTEM-MAP-COLLECTION-ISSUES.json"
+    ],
+    "INPUTS_NAO_ENUMERAVEIS": [
+      {
+        "O_QUE": "a varredura `grep -rIl` de `quem_escreve_cada_camada()`",
+        "PORQUE": "o conjunto de ficheiros que ela toca depende da arvore e nao esta escrito no codigo: nao ha lista para carimbar",
+        "FICA_COBERTO_POR": "SOURCE_TREE_FINGERPRINT — ela so ve ficheiros de fonte, e todos entram na impressao"
+      }
     ]
   },
   "CONTAGENS": {
-    "CARDS_TOTAL": 11,
+    "CARDS_TOTAL": 12,
     "CARDS_POR_ESTADO": {
       "ALIMENTADO_POR_REAL": 1,
       "MISTURA_REAL_E_FIXTURE": 6,
-      "SEM_FONTE_DECLARADA": 4
+      "SEM_FONTE_DECLARADA": 5
     },
     "CARDS_POR_ORIGEM": {
       "MISTURA": 6,
-      "NAO SEI": 4,
+      "NAO SEI": 5,
       "REAL": 1
     },
-    "SENSORES_TOTAL": 74,
+    "SENSORES_TOTAL": 75,
     "SENSORES_POR_INSTRUMENTACAO": {
       "NOT_APPLICABLE": 9,
-      "NOT_INSTRUMENTED": 60,
+      "NOT_INSTRUMENTED": 61,
       "PARTIAL": 3,
       "INSTRUMENTED": 2
     },
     "SENSORES_COM_CORRIDA_PROVADA": 2,
-    "SENSORES_QUE_CORREM_OFFLINE": 45,
-    "FONTES_NO_ATLAS": 23,
+    "SENSORES_QUE_CORREM_OFFLINE": 46,
+    "FONTES_NO_ATLAS": 197,
     "FONTES_COM_CONTRATO": 5,
     "FONTES_JA_COLETADAS": 4,
-    "FONTES_NUNCA_COLETADAS": 22,
+    "FONTES_NUNCA_COLETADAS": 197,
     "FONTES_POR_PAIS": {
-      "ESPANHA": 6,
-      "EUROPA": 11,
-      "FRANCA": 4,
-      "ITALIA": 2
+      "ESPANHA": 34,
+      "EUROPA": 13,
+      "FRANCA": 6,
+      "ITALIA": 144
     },
-    "CORRIDAS_NO_LEDGER": 6,
-    "OBSERVACOES_NO_LEDGER": 144,
+    "CORRIDAS_NO_LEDGER": 28,
+    "OBSERVACOES_NO_LEDGER": 175,
     "OBSERVACOES_POR_FONTE": {
-      "IT-T2-002": 124,
+      "IT-T2-002": 136,
       "IT-T2-004": 6,
       "IT-T3-002": 2,
       "IT-T3-005": 6,
       "IT-T3-008": 2,
-      "IT-T3-010": 2,
+      "IT-T3-010": 21,
       "IT-T4-001": 2
     },
-    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 72,
-    "CAMADAS_DO_PORTAL": 15,
+    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 75,
+    "CAMADAS_DO_PORTAL": 17,
     "CAMADAS_COM_GERADOR": 5,
     "ARESTAS_POR_CLASSE": {
       "BROKEN": 21,
-      "MISSING": 4,
+      "MISSING": 5,
       "PROVEN": 1
     },
     "ISSUES_DA_COLETA": {
-      "abertos": 23,
+      "abertos": 28,
       "fechados": 7,
-      "total": 30
+      "total": 35
     }
   },
   "AS_CINCO_PROVAS": [
     {
       "PROVA": "EXISTE",
       "PERGUNTA": "ha ficheiro?",
-      "SENSORES": 74,
+      "SENSORES": 75,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
       "PROVA": "CORRE",
       "PERGUNTA": "e chamavel sem rede, sem pago, sem producao?",
-      "SENSORES": 45,
+      "SENSORES": 46,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
@@ -111,6 +190,9 @@
     "CONSUMIDORES": [],
     "DESTINO_EXISTE": false,
     "READY_PRODUZIDO": false,
+    "SALA_BACKEND": null,
+    "SALA_CANONICO": null,
+    "SALA_MEDICAO": null,
     "GAP": "READY_NUNCA_PRODUZIDO"
   },
   "CARDS": [
@@ -144,6 +226,20 @@
     {
       "CARD_ID": "future",
       "NOME": "Archivio segnali",
+      "ESPECIE": "UNKNOWN",
+      "DE_ONDE_VEM": "NAO SEI",
+      "CAMADAS": [],
+      "TIPOS_DE_CAMADA": [],
+      "REGISTOS_CITADOS": [],
+      "FICHEIROS": [],
+      "RISCOS": 0,
+      "PERGUNTAS_ABERTAS": 0,
+      "CONFISSOES": 0,
+      "ESTADO": "SEM_FONTE_DECLARADA"
+    },
+    {
+      "CARD_ID": "etichette",
+      "NOME": "Label Intelligence",
       "ESPECIE": "UNKNOWN",
       "DE_ONDE_VEM": "NAO SEI",
       "CAMADAS": [],
@@ -373,7 +469,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/adaptador_facebook.py",
@@ -395,7 +491,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/adaptador_instagram.py",
@@ -417,7 +513,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/adaptador_linkedin.py",
@@ -439,7 +535,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/adaptador_x.py",
@@ -461,7 +557,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/adaptador_youtube.py",
@@ -483,7 +579,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/agrifood_ue.py",
@@ -505,7 +601,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/coleta_checkpoint.py",
@@ -527,7 +623,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/coletor.py",
@@ -549,7 +645,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/comunicacao_classificar.py",
@@ -571,7 +667,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/comunicacao_coleta.py",
@@ -593,7 +689,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/comunicacao_medir.py",
@@ -615,7 +711,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/corpus_pesquisador.py",
@@ -637,7 +733,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/cruzar_regua_rotulo.py",
@@ -659,7 +755,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/denominaciones.py",
@@ -681,7 +777,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/derivacao_forward.py",
@@ -703,7 +799,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/eppo_gd.py",
@@ -725,7 +821,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/eu_regulatorio_executor.py",
@@ -747,7 +843,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/eu_substancia_adama_it.py",
@@ -769,7 +865,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/executor_texto_de_pdf.py",
@@ -795,7 +891,29 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
+    },
+    {
+      "SENSOR_ID": "coleta/executor_transcricao_midia.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/filas.py",
@@ -817,7 +935,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/gire_mapas.py",
@@ -839,7 +957,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/golden_path_pdf.py",
@@ -861,7 +979,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/ingresso.py",
@@ -883,7 +1001,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/instagram_coleta.py",
@@ -905,7 +1023,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/instagram_diario.py",
@@ -927,7 +1045,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/instagram_janela.py",
@@ -949,7 +1067,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/instagram_pessoal.py",
@@ -971,7 +1089,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/italy_executor.py",
@@ -993,7 +1111,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/mapa_regfi.py",
@@ -1015,7 +1133,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/pdf_text.py",
@@ -1037,7 +1155,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/preservar_pdf.py",
@@ -1059,7 +1177,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/regulatorio_importar.py",
@@ -1081,7 +1199,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/ropf_pre_requisito.py",
@@ -1103,7 +1221,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/rota_forward_documento.py",
@@ -1129,7 +1247,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/rotulos_baixar.py",
@@ -1151,7 +1269,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/rotulos_ler.py",
@@ -1173,7 +1291,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/scrap_capacidades.py",
@@ -1195,7 +1313,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/scrap_colheita.py",
@@ -1217,7 +1335,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/scrap_executor.py",
@@ -1240,7 +1358,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/scrap_fornecedores.py",
@@ -1262,7 +1380,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/scrap_http.py",
@@ -1284,7 +1402,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/scrap_registo.py",
@@ -1306,7 +1424,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/sensor_canal_identidade.py",
@@ -1328,7 +1446,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/social_envelope.py",
@@ -1350,7 +1468,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/social_persistencia.py",
@@ -1372,7 +1490,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/social_rotas.py",
@@ -1394,7 +1512,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/social_scrap.py",
@@ -1417,7 +1535,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/speaker_identidade.py",
@@ -1439,7 +1557,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/speaker_universo.py",
@@ -1461,7 +1579,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/texto_fonte.py",
@@ -1483,7 +1601,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/universo_ciencia_it.py",
@@ -1505,7 +1623,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/youtube_janela.py",
@@ -1527,7 +1645,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/youtube_oficial.py",
@@ -1550,7 +1668,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "coleta/youtube_relevancia.py",
@@ -1572,7 +1690,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/catalogo_importar.py",
@@ -1594,7 +1712,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/importar_italia.py",
@@ -1616,7 +1734,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/memoria_descartavel.py",
@@ -1638,7 +1756,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/portas_live.py",
@@ -1660,7 +1778,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/preservar_coleta.py",
@@ -1682,7 +1800,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/preservar_derivado.py",
@@ -1704,7 +1822,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/preservar_documento.py",
@@ -1726,7 +1844,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/social_guarda.py",
@@ -1748,7 +1866,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/social_sessao.py",
@@ -1770,7 +1888,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "guarda/sql_conferir.py",
@@ -1792,7 +1910,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/apify_pool.py",
@@ -1814,7 +1932,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/cdp.py",
@@ -1836,7 +1954,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/contrato_ator.py",
@@ -1858,7 +1976,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/fala_local.py",
@@ -1880,7 +1998,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/instagram_transcrever.py",
@@ -1902,7 +2020,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/navegador.py",
@@ -1924,7 +2042,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/reel_transcricao.py",
@@ -1947,7 +2065,7 @@
       "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "ferramentas/youtube_transcrever.py",
@@ -1969,7 +2087,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     },
     {
       "SENSOR_ID": "orquestrador/orquestrador.py",
@@ -1991,7 +2109,7 @@
       "USA_CONTRATO_ARTEFATO": false,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+      "PORQUE_NAO_ENTROU": "a Sala canonica respondeu False, que nao prova travessia da fronteira COL-LAW-043"
     }
   ],
   "MATRIZ": [
@@ -2025,6 +2143,13 @@
     },
     {
       "CARD_ID": "future",
+      "CAMADA": "(nenhuma)",
+      "GERADOR_NO_REPO": null,
+      "ARESTA": "MISSING",
+      "PORQUE": "o card nao declara camada nenhuma"
+    },
+    {
+      "CARD_ID": "etichette",
       "CAMADA": "(nenhuma)",
       "GERADOR_NO_REPO": null,
       "ARESTA": "MISSING",
@@ -2186,6 +2311,8 @@
     "ITALY_CATALOG": null,
     "ITALY_DEMO": null,
     "ITALY_INGEST": null,
+    "ITALY_LABEL_INTELLIGENCE": null,
+    "ITALY_LABEL_LEXICON": null,
     "ITALY_LABEL_VERDICTS": null,
     "ITALY_MARKET": null,
     "ITALY_PDF": null,

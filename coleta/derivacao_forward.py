@@ -52,16 +52,34 @@ Emite UMA passagem: `DERIVED`, com `edge_from='RAW'`.
 
         STAGE EXISTS IN VOCABULARY  !=  STAGE RAN.
 
-                           A unidade forward de hoje TERMINA em `DERIVED`. Não
-                           há dono forward ligado a `derived_artifact` a jusante:
-                           o modelo das estradas dá `STRUCTURED` e `ADMISSION` da
-                           RC-1 como `STATE=CODE`, `PROOF_KIND=NENHUMA` — código
-                           escrito, nunca corrido nesta cadeia. `NOT_RUN` também
-                           seria mentira: `NOT_RUN` é «fazia parte do plano e não
-                           chegou a vez». Estas etapas não fazem parte do plano
-                           desta unidade; elas não têm ainda quem as corra.
+                           Esta fronteira continua a emitir UMA passagem, e é
+                           `DERIVED`. Quem emite as de baixo é
+                           `coleta/rota_forward_documento.py`.
 
-O buraco fica declarado em `GAPS`, e não fechado com uma linha bonita.
+⚠️ E AQUI ESTAVA ESCRITO QUE NÃO HAVIA NINGUÉM LÁ EM BAIXO. JÁ HÁ.
+------------------------------------------------------------------
+Até à C4H este cabeçalho dizia, por extenso: *«A unidade forward de hoje TERMINA
+em `DERIVED`. Não há dono forward ligado a `derived_artifact` a jusante»*. Era
+verdade quando foi escrito. **Deixou de ser**, e ninguém veio apagar a frase.
+
+O custo não foi cosmético: em 2026-09-14 uma missão leu esta linha, concluiu
+que a estrada a jusante não existia, e começou a planear arquitectura nova para
+uma estrada **que já estava construída**. Só não a construiu duas vezes porque
+foi ler o código em vez do comentário.
+
+    UM COMENTÁRIO DESACTUALIZADO NÃO É RUÍDO: É UMA AFIRMAÇÃO FALSA
+    ASSINADA POR ESTA CASA, E A PRÓXIMA PESSOA ACREDITA NELA.
+
+O que o código faz hoje, medido contra PostgreSQL 16 descartável no CI
+(`provas/a_ponte_de_midia_no_postgres.py`, 2026-09-14):
+
+    ETAPAS_OBSERVADAS = ['ADMISSION', 'DERIVED', 'RAW', 'READY', 'STRUCTURED']
+
+`rota_forward_documento.levar_a_espera()` chama `espera.pousar()`, distingue
+`PASSED` de `REUSED`, e escreve `NOT_RUN` quando a Admissão não diz `SIM`.
+
+O que continua verdade, e não mudou: **esta peça** não emite nenhuma delas.
+Emitir aqui seria falar por um dono que está calado.
 
 ⚠️ ESTA PEÇA NÃO É UM EXECUTOR.
 O censo tipado (`system-map/scripts/censo_da_observabilidade.py`) classifica-a
@@ -146,6 +164,22 @@ DESTINO_DO_ESTADO = {
 DESTINO_DO_MOTIVO = {
     art.TEXT_LAYER_ABSENT:  "REJECTED",
     art.EXTRACTION_ERROR:   "ERROR",
+    # ── E OS MOTIVOS DA MIDIA, QUE A C4H TROUXE ──────────────────────────
+    # ⚠️ SEM ESTAS LINHAS, TUDO O QUE VINHA DA MIDIA CAIA EM `UNKNOWN`.
+    # Medido no CI a 2026-09-14: o executor de midia devolveu `SEM_DERIVADO`
+    # com um motivo que esta tabela nao conhecia, e a etapa saiu `ERROR` sem
+    # que nada nosso tivesse falhado.
+    #
+    # A divisao e a MESMA do PDF, e nao uma regra nova: o que e propriedade do
+    # ORIGINAL e `REJECTED`; o que e avaria NOSSA e `ERROR`.
+    #
+    #     UM VIDEO MUDO NAO E UMA FERRAMENTA PARTIDA.
+    #     E UMA FERRAMENTA AUSENTE NAO E UM VIDEO SEM FALA.
+    "SEM_FAIXA_DE_AUDIO":      "REJECTED",   # o contentor nao traz som
+    "REQUESTED_EMPTY":         "REJECTED",   # traz som, e nao ha fala nele
+    "ASR_INDISPONIVEL":        "ERROR",      # a biblioteca nao esta ca
+    "ASR_FALHOU":              "ERROR",      # tentou e nao completou
+    "TRANSCRIPTION_TIMEOUT":   "ERROR",      # o teto desta casa fechou
 }
 
 # O que este caminho AINDA não faz, dito com nome. Um buraco declarado é uma
@@ -221,6 +255,28 @@ def _porta(resultado: dict) -> str:
     return DESTINO_DO_ESTADO.get(estado, "UNKNOWN")
 
 
+#: Quando mais de um executor correu na mesma passagem, o rastro diz isso por
+#: extenso em vez de eleger um. `MIXED` não é um executor: é a recusa honesta
+#: de escolher entre dois que trabalharam.
+ATOR_MISTO = "MIXED"
+
+
+def _ator_da_corrida(donos):
+    if not donos:
+        return ex.EXECUTOR_ID
+    if len(donos) == 1:
+        return getattr(donos[0], "EXECUTOR_ID", ex.EXECUTOR_ID)
+    return "%s:%s" % (ATOR_MISTO,
+                      "+".join(sorted(getattr(d, "EXECUTOR_ID", "?")
+                                      for d in donos)))
+
+
+def _versao_da_corrida(donos):
+    if len(donos) == 1:
+        return getattr(donos[0], "EXECUTOR_VERSION", ex.EXECUTOR_VERSION)
+    return ex.EXECUTOR_VERSION if not donos else art.NAO_SE_APLICA
+
+
 def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
            source_id=None, route_class_id=None, relogio=None, derivar=None,
            tentativa=None) -> dict:
@@ -249,7 +305,46 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
     uma falha a escrever telemetria podia impedir uma derivação de acontecer — e
     OBSERVABILITY FAILURE != COLLECTION FAILURE.
     """
-    derivar = derivar or ex.derivar_um
+    # ⚠️ A ESCOLHA DO EXECUTOR PASSOU A SER POR UNIDADE, E NÃO POR CORRIDA.
+    #
+    # Até aqui esta linha era `derivar = derivar or ex.derivar_um`: UM executor
+    # para a corrida inteira, escolhido por um `import` no topo do ficheiro.
+    # Enquanto houve um executor só, isso estava certo por acidente. Com um
+    # segundo — o de mídia — passava a estar errado em silêncio: um MP4 e um
+    # PDF na mesma corrida iam os dois para o `pdftotext`.
+    #
+    #     UM `import` NO TOPO NÃO É UMA DECISÃO DE ROTEAMENTO.
+    #
+    # `derivar` explícito continua a vencer, e é o que os testes usam para
+    # injectar um duplo. Quando é `None`, pergunta-se ao dono da capacidade —
+    # `ingresso.executor_para` — pela espécie DECLARADA de cada unidade.
+    escolhido_pelo_chamador = derivar is not None
+    _quem_abre = None
+    if not escolhido_pelo_chamador:
+        try:
+            import ingresso as _ing                            # noqa: PLC0415
+            _quem_abre = _ing.executor_para
+        except Exception:                                      # noqa: BLE001
+            _quem_abre = None
+
+    def _derivar_da_unidade(u):
+        """O `derivar_um` do executor que abre ESTA espécie.
+
+        ⚠️ AUSÊNCIA CONTINUA A NÃO SER RECUSA. Sem espécie declarada, ou sem
+        ninguém a declará-la, volta-se ao executor de PDF — que é o que esta
+        casa sempre fez, e que responde honestamente o que encontrou. Recusar
+        aqui encolheria a coleta por silêncio.
+
+            AUSÊNCIA DE EVIDÊNCIA NÃO É EVIDÊNCIA DE AUSÊNCIA.
+        """
+        if escolhido_pelo_chamador:
+            return derivar, ex
+        mod = _quem_abre(u.get("MEDIA_TYPE")) if _quem_abre else None
+        mod = mod or ex
+        return getattr(mod, "derivar_um", ex.derivar_um), mod
+
+    #: Quem realmente correu, para o rastro não carimbar o executor errado.
+    donos_usados = []
     baldes = {d: 0 for d in ("PASSED", "REJECTED", "ERROR", "NOT_RUN",
                              "UNKNOWN", "REUSED")}
     resultados, ultimo_bom, primeiro_erro = [], None, None
@@ -260,9 +355,12 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
         # precisa de saber em que corrida ela foi vista pela primeira vez. Essa
         # corrida e ESTA — a da passagem — e nao a que capturou a observacao.
         # O executor transporta o envelope e nao o abre.
-        r = derivar(u["RAW_ASSET_ID"], u["PDF"], armazem, memoria,
-                    relogio=relogio,
-                    contexto_da_passagem={"run_id": run_id})
+        _derivar_um, _dono = _derivar_da_unidade(u)
+        if _dono not in donos_usados:
+            donos_usados.append(_dono)
+        r = _derivar_um(u["RAW_ASSET_ID"], u["PDF"], armazem, memoria,
+                        relogio=relogio,
+                        contexto_da_passagem={"run_id": run_id})
         porta = _porta(r)
         baldes[porta] += 1
         # ⚠️ A LINHA DO DERIVADO SAI NO RECIBO, e nao so o veredito.
@@ -278,12 +376,32 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
         linha = (r.get("LINHA_ESCRITA") or r.get("LINHA_EXISTENTE") or {}) \
             if porta in ("PASSED", "REUSED") else {}
         resultados.append({"RAW_ASSET_ID": u["RAW_ASSET_ID"], "PDF": u["PDF"],
+                           # A hora da CAPTURA do original, tal como veio da
+                           # unidade. Este runner nao a mede e nao a substitui
+                           # pela sua: COLLECTED_AT != DERIVED_AT.
+                           "CAPTURED_AT": u.get("CAPTURED_AT"),
+                           # A fonte da observacao-pai, transportada e nao
+                           # reconstruida: `SOURCE_ID` nao sai de caminho,
+                           # de pasta, de slug nem de sha.
+                           "SOURCE_ID": u.get("SOURCE_ID"),
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
                            "LINHA": linha or None,
                            "STORAGE_PATH": (linha.get("storage_path")
                                             or r.get("STORAGE_PATH")),
-                           "MOTIVO_DO_EXECUTOR": r.get("MOTIVO_DO_EXECUTOR")})
+                           "MOTIVO_DO_EXECUTOR": r.get("MOTIVO_DO_EXECUTOR"),
+                           # QUEM abriu esta unidade. Sem este campo, «o vídeo
+                           # não foi ao pdftotext» é uma afirmação que ninguém
+                           # consegue conferir sem ler o código.
+                           "EXECUTOR_ID": getattr(_dono, "EXECUTOR_ID", None),
+                           "MEDIA_TYPE": u.get("MEDIA_TYPE"),
+                           # A espécie do texto, quando o executor a declarar.
+                           # O de PDF não declara: `None` é a resposta certa e
+                           # não se preenche com `TEXT`.
+                           "TEXT_KIND": r.get("TEXT_KIND"),
+                           "TEXT_RELATION": r.get("TEXT_RELATION"),
+                           "LANGUAGE": r.get("LANGUAGE"),
+                           "LANGUAGE_SOURCE": r.get("LANGUAGE_SOURCE")})
         if porta in ("PASSED", "REUSED"):
             ultimo_bom = linha.get("storage_path") or ultimo_bom
         elif porta == "ERROR" and primeiro_erro is None:
@@ -356,7 +474,15 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
         error=baldes["ERROR"], not_run=baldes["NOT_RUN"],
         unknown=baldes["UNKNOWN"], reused=baldes["REUSED"],
         estado=estado,
-        actor=ex.EXECUTOR_ID, actor_version=ex.EXECUTOR_VERSION,
+        # ⚠️ O ATOR É QUEM CORREU, E NÃO O QUE ESTÁ NO `import` DO TOPO.
+        # Com dois executores, carimbar `texto-de-pdf` numa corrida que
+        # transcreveu áudio poria no rastro o nome de quem não trabalhou.
+        # E quando correram DOIS, não se escolhe um: diz-se que foram dois —
+        # um rastro que nomeia um dono de uma corrida mista está a esconder
+        # metade dela.
+        #
+        #     UM CAMPO QUE SÓ CABE UM NOME NÃO AUTORIZA A INVENTAR O VENCEDOR.
+        actor=_ator_da_corrida(donos_usados), actor_version=_versao_da_corrida(donos_usados),
         policy_version=ex.PIPELINE_VERSION,
         canonical_state=canonico,
         error_class=((primeiro_erro or {}).get("ESTADO") if houve_avaria else None),

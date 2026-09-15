@@ -1152,6 +1152,50 @@ def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
             # e quem le tem de tratar isso como NAO SEI — nunca como «nao
             # suportado».
             "MEDIA_TYPE": linha.get("media_type"),
+            # ── QUANDO ESTA MAQUINA RECEBEU ESTES BYTES ────────────────────
+            # A MESMA doenca do `MEDIA_TYPE`, uma coluna ao lado, e descoberta
+            # depois de ela estar escrita a vista. `raw_asset.captured_at` e
+            # escrito por esta mesma peca, `objetos_da_corrida()` ja o le nas
+            # duas implementacoes da porta — e ficava aqui.
+            #
+            # Medido na prova de fogo da Collection: seis unidades chegaram a
+            # Sala de Espera com `CAPTURED_AT = NAO SEI`, com o valor a existir
+            # e medido tres degraus atras.
+            #
+            #     UM CAMPO QUE O DONO ESCREVEU E A PORTA NAO LEVA
+            #     E UM CAMPO QUE, PARA QUEM ESTA DO OUTRO LADO, NAO EXISTE.
+            #
+            # ⚠️ E ELE E UM DOS CINCO TEMPOS, E NAO «O TEMPO».
+            # `leis/artefato.py` separa-os e esta porta nao os junta:
+            #
+            #     FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT
+            #
+            # `captured_at` e COLLECTED_AT: quando NOS recebemos. Nao diz nada
+            # sobre quando o fato aconteceu nem sobre quando a fonte publicou, e
+            # quem o usar para encher esses e a fabricar procedencia.
+            #
+            # Ausente continua ausente: sem `captured_at` na linha sai `None`,
+            # e quem le trata isso como NAO SEI — nunca como uma hora.
+            "CAPTURED_AT": linha.get("captured_at"),
+            # ── A FONTE, E ELA E DA OBSERVACAO E NAO DA CORRIDA ────────────
+            # ⚠️ A TERCEIRA VEZ QUE ESTA PORTA DEIXA UM CAMPO PARA TRAS, e a
+            # que mais custou: sem ela, SETE documentos italianos reais foram
+            # recusados por `guarda/preservar_documento.py` com «o documento
+            # nao diz de que fonte veio», e a estrada parou antes do STRUCTURED.
+            #
+            # A informacao existia em `raw_asset.source_id`, escrita por esta
+            # mesma peca, e `objetos_da_corrida()` ja a lia. Quem a pedia a
+            # jusante recebia, em vez dela, a fonte da CORRIDA — e uma corrida
+            # que colheu sete fontes diferentes nao TEM uma fonte:
+            # `_fonte_provada()` devolve `None`, e com razao.
+            #
+            #     A FONTE DE UM DOCUMENTO E DO DOCUMENTO.
+            #     A CORRIDA QUE O TROUXE PODE TER TRAZIDO OUTROS SETE.
+            #
+            # Pedir a corrida a identidade de cada filho dela e a mesma familia
+            # de erro que juntar dois tempos num campo so: um facto do
+            # individuo lido no registo do colectivo.
+            "SOURCE_ID": linha.get("source_id"),
             # ── A ALCA, DE VOLTA A QUEM A ATOU ────────────────────────
             # Efemera, e so por isso e que ela pode existir: ela nao nomeia
             # nada no acervo, nao e escrita em coluna nenhuma e morre com

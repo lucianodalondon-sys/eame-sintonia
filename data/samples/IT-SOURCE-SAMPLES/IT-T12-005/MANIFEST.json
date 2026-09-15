@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T12-005",
+ "SOURCE": "AIAB — Associazione Italiana Agricoltura Biologica",
+ "OWNER": "AIAB",
+ "URL": "https://aiab.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:44Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 103612 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://aiab.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Home - Associazione Italiana per l&#039;Agricoltura Biologica",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-05-15",
+  "BYTES_LIDOS": 240562
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://aiab.it/wp-content/uploads/2023/01/AIAB-Aiuti-di-Stato.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Aiuti di Stato",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 103612,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "805db3bed1f5cc4de6a29c472fa0c5ec22d63a3ce52a0707811884bd66cea24a",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

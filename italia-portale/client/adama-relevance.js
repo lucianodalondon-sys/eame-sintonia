@@ -1,30 +1,59 @@
 /* GERADO por superficie/it_casa_dados.py — nao editar a mao.
    A LEI vive em leis/adama_relevance.py e decide-se LA. Este ficheiro
-   transporta o VEREDITO para o browser, que nunca o recalcula — e nao
-   transporta o TEXTO da lei, que nenhuma linha do portal lia.
-   LEGGE_SHA256 prova qual lei decidiu, sem a revelar.
-
-       O CLIENTE PRECISA DA RESPOSTA. NAO PRECISA DA RECEITA. */
+   transporta o veredito para o browser, que nunca o recalcula. */
 window.ADAMA_RELEVANCE = {
- "BUILD_ID": "V21-06c6421d001ea52a",
+ "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
  "DONO_DA_LEI": "leis/adama_relevance.py",
  "GERADO_POR": "superficie/it_casa_dados.py + leis/adama_relevance.py",
- "LEGGE_CLAUSULAS": 9,
- "LEGGE_SHA256": "23d3b1e3527861fee2262f50e84b6dacc4fe672ae65032479cbdcf1aa87704a8",
+ "LEGGE": {
+  "APPROVAL_EXPIRY_NAO_E_RISCO": "uma data de expiracao europeia NAO e risco de nao-renovacao. Medido nos 47 factos regulatorios do pacote: EU_STATE=APPROVED e IS_RISK=false em 47/47, e o proprio artefacto declara «APPROVAL EXPIRY IS NOT NON-RENEWAL». Um facto regulatorio NUNCA contribui para a classe A por si so; precisa de facto adicional de risco, que hoje nao existe em registo nenhum.",
+  "BASTA_UM_PRODUTO": "um caso e oportunidade se PELO MENOS UM produto fechar a cadeia inteira. Os outros produtos ligados nao sao a prova e nao a estragam — o cartao nomeia qual deles a carrega. Exigir que TODOS fechassem derrubaria OPP_75C37DED9160, onde Lamdex Extra fecha e MAVRIK SMART nao.",
+  "CADEIA_EXIGIDA": [
+   "PAIS",
+   "CULTURA",
+   "ALVO/PROBLEMA",
+   "PRODUTO ADAMA",
+   "RELACAO produto x cultura (pagina de catalogo)",
+   "RELACAO produto x alvo (rotulo ministerial)",
+   "PROBLEMA OBSERVADO (evidencia que sustenta o sinal ou declara a direccao)",
+   "AUTORIZACAO VIVA (registo + estado)"
+  ],
+  "CLASSES": {
+   "A": "PRODUTO ADAMA PROVADO — publica-se como OPORTUNIDADE",
+   "B": "PLAUSIVEL, NAO PROVADO — fica em RADAR / A VALIDAR",
+   "C": "SEM PRODUTO ADAMA LIGAVEL — fica como SINAL BRUTO",
+   "D": "LIGACAO ERRADA — NAO PUBLICAVEL, e um erro a corrigir",
+   "E": "NAO SEI — dados insuficientes; nunca sobe"
+  },
+  "DATASET": "ADAMA-RELEVANCE-LAW-V1",
+  "LEI": "todo caso promovido como inteligencia relevante tem de ter ligacao factual e defensavel com pelo menos um produto ADAMA. Sem ela, o caso continua a existir — como radar, sinal ou erro — mas nao como oportunidade.",
+  "NAO_ACEITE": [
+   "correspondencia lexical",
+   "mesmo ingrediente activo",
+   "produto parecido",
+   "catalogo generico",
+   "template",
+   "inferencia nao provada",
+   "proximidade de data de expiracao europeia",
+   "alvo escrito no caso sem fonte que o tenha observado"
+  ],
+  "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
+  "SO_A_PUBLICA": true
+ },
  "PER_CLASSE": {
-  "A": 13,
+  "A": 17,
   "B": 21,
-  "C": 8,
+  "C": 4,
   "D": 1,
   "E": 0
  },
  "PER_SUPERFICIE": {
   "ERRORE": 1,
-  "OPPORTUNITA": 13,
+  "OPPORTUNITA": 17,
   "RADAR": 21,
-  "SEGNALI": 8
+  "SEGNALI": 4
  },
- "SOURCE_HEAD": "5101073",
+ "SOURCE_HEAD": "fb96f49d",
  "TOTALE": 43,
  "VERDETTI": {
   "OPP_00C5B6E15185": {
@@ -40,10 +69,10 @@ window.ADAMA_RELEVANCE = {
    "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_195919127658": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_2BDE8FC566CE": {
    "CLASSE": "B",
@@ -202,16 +231,16 @@ window.ADAMA_RELEVANCE = {
    "SUPERFICIE": "RADAR"
   },
   "OPP_C1735138E362": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_C5F7888EC524": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_D11664591168": {
    "CLASSE": "A",
@@ -250,10 +279,10 @@ window.ADAMA_RELEVANCE = {
    "SUPERFICIE": "RADAR"
   },
   "OPP_EA2AE1EFB775": {
-   "CLASSE": "C",
-   "PERCHE": "RELEVANCE_C_NO_LINK",
-   "PROVA": null,
-   "SUPERFICIE": "SEGNALI"
+   "CLASSE": "A",
+   "PERCHE": "RELEVANCE_A_PROVEN",
+   "PROVA": "FOLPAN 80 WDG",
+   "SUPERFICIE": "OPPORTUNITA"
   },
   "OPP_EE1E2A3869EE": {
    "CLASSE": "C",

@@ -206,14 +206,24 @@ jobs:
           if (-not $achado) { Write-Host 'INTERPRETADOR=NENHUM'; exit 1 }
           "PY=$achado" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
-      # O tipo de cálculo NÃO está no código como padrão, e isso é decisão:
-      # a GTX 1080 não faz `float16` útil, mas uma política global tirada de UMA
-      # placa seria uma regra universal escrita a partir de uma amostra de um.
-      # Aqui ele é override EXPLÍCITO da prova, e fica escrito no artefato.
+      # ⚠️ AQUI ESTAVA `SINTONIA_ASR_COMPUTE: int8_float32`, E ELE SAIU.
+      #
+      # Ele existia porque a GTX 1080 não faz `float16`, e sem o override a
+      # prova caía para o processador. Era um facto de UMA máquina escrito
+      # dentro de um ficheiro versionado que vale para TODAS.
+      #
+      #     UM VALOR QUE SÓ É VERDADE NUMA MÁQUINA NÃO PERTENCE AO GIT.
+      #     E UM PIN EXPLÍCITO NÃO SE NEGOCEIA: NA PLACA SEGUINTE, QUE FAÇA
+      #     `float16`, ELE FORÇARIA A PIOR DAS DUAS.
+      #
+      # Desde a C4D o dono do reconhecedor NEGOCEIA o tipo de cálculo contra o
+      # que a biblioteca declara para a placa que houver, e regista a troca em
+      # `ASR_COMPUTE_REQUESTED` · `ASR_COMPUTE_SELECTED` ·
+      # `ASR_WHY_COMPUTE_FALLBACK`. Quem quiser fixar um tipo continua a poder:
+      # declara a variável, e aí é promessa, não padrão.
       - name: 1 · a placa leva uma inferência até ao fim?
         env:
           PYTHONIOENCODING: utf-8
-          SINTONIA_ASR_COMPUTE: int8_float32
         run: |
           & $env:PY provas/gpu_asr_smoke.py --device GPU --json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

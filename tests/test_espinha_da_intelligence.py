@@ -25,7 +25,8 @@ sys.path.insert(0, os.path.join(RAIZ, "provas"))
 
 from espinha_da_intelligence import (            # noqa: E402
     NAO_SEI, AGROCLIMATIC_NAO_PROVA, CAMPOS_DO_READY,
-    CAMPOS_QUE_NAO_ATRAVESSAM, Corrida, ItemPronto, LeiViolada, e_falso,
+    CAMPOS_QUE_NAO_ATRAVESSAM, QUASE_ESPECIE,
+    Corrida, ItemPronto, LeiViolada, e_falso,
 )
 
 
@@ -487,12 +488,40 @@ class FronteiraMedida(unittest.TestCase):
     bloqueio G0 caiu e a régua pode subir.
     """
 
-    def test_o_contrato_de_entrada_tem_doze_campos(self):
-        self.assertEqual(len(CAMPOS_DO_READY), 12)
+    def test_o_contrato_de_entrada_tem_dezanove_campos(self):
+        """Eram doze até `C-COL-PRESERVE-FACTS-V1`. Passaram a dezanove.
+
+        O número não é decorativo: é o que faz a divergência aparecer. Quando
+        voltar a mudar, este teste falha ANTES de alguém assumir que leu tudo.
+        """
+        self.assertEqual(len(CAMPOS_DO_READY), 19)
+
+    def test_os_doze_campos_antigos_nenhum_se_perdeu(self):
+        """A fronteira cresceu. Crescer não pode ser perder em silêncio."""
+        for antigo in ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO",
+                       "TEXTO", "SOURCE_ID", "SOURCE_LOCATION",
+                       "FACT_LOCATION", "FACT_TIME", "CAPTURED_AT", "CORRIDA",
+                       "ADMITIDO_POR"):
+            self.assertIn(antigo, CAMPOS_DO_READY)
 
     def test_nenhum_campo_agronomico_atravessa_hoje(self):
         for ausente in CAMPOS_QUE_NAO_ATRAVESSAM:
             self.assertNotIn(ausente, CAMPOS_DO_READY)
+
+    def test_a_classe_declarada_pela_fonte_nao_e_a_especie_da_evidencia(self):
+        """⚠️ O quase-homónimo, pregado para não ser confundido por leitura.
+
+        `SOURCE_DECLARED_EVIDENCE_CLASS` atravessa. `EVIDENCE_SPECIES` não.
+        Quem os tratar como o mesmo campo faz um boletim agroclimático valer
+        por relato de campo — e ai o G0 não caiu, foi contornado.
+
+            DECLARADO PELA FONTE != MEDIDO NO DOCUMENTO.
+        """
+        self.assertIn(QUASE_ESPECIE, CAMPOS_DO_READY)
+        self.assertNotIn("EVIDENCE_SPECIES", CAMPOS_DO_READY)
+        self.assertNotEqual(QUASE_ESPECIE, "EVIDENCE_SPECIES")
+        self.assertIn("EVIDENCE_SPECIES", CAMPOS_QUE_NAO_ATRAVESSAM)
+        self.assertNotIn(QUASE_ESPECIE, CAMPOS_QUE_NAO_ATRAVESSAM)
 
     def test_o_item_real_de_hoje_nao_produz_sinal(self):
         c = corrida(rid="HOJE")

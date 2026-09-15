@@ -45,7 +45,14 @@ class Bancada(unittest.TestCase):
         self.addCleanup(setattr, espera, "MORADA", self._morada)
 
     def unidade(self, **extra):
+        # ⚠️ `RAW_OBSERVATION_ID` ESTAVA EM FALTA AQUI, e ninguem reparou:
+        # a fixture nasceu antes de `C-READY-LINEAGE-BEFORE-SCALE-V1` e ficou
+        # com 11 campos enquanto o contrato passava a ter 12. Nenhuma prova
+        # mordia, porque a sala aceitava qualquer dicionario.
+        #
+        #     UMA FIXTURE DESACTUALIZADA E UM CONTRATO A MENOS.
         return dict({"ESTADO": "PRONTO_PARA_INTELIGENCIA", "ITEM_ID": "i-1",
+                     "RAW_OBSERVATION_ID": "NAO SEI",
                      "UNIVERSO": "T3", "TEXTO": "t", "SOURCE_ID": "IT-T3-002",
                      "SOURCE_LOCATION": "NAO SEI", "FACT_LOCATION": "NAO SEI",
                      "FACT_TIME": "NAO SEI", "CAPTURED_AT": "NAO SEI",
@@ -115,16 +122,23 @@ class UMDonoEUmaMorada(unittest.TestCase):
 
 
 class OContratoNaoMudou(unittest.TestCase):
-    """READY continua os 11 campos, e nem um a mais para facilitar storage."""
+    """READY sao 19 campos, e nem um a mais para facilitar storage.
 
-    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
-              "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
-              "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+    ⚠️ ERAM 12, e a mudanca foi DECIDIDA, nao acidental: `C-COL-PRESERVE-FACTS-V1`
+    mediu 20 campos de um facto a morrerem nesta fronteira. Esta guarda continua
+    a servir para o mesmo — o proximo campo tambem tem de passar por aqui.
+    """
 
-    def test_o_dono_do_contrato_devolve_os_onze(self):
+    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO",
+              "TEXTO", "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION",
+              "FACT_TIME", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
+              "PUBLISHED_AT", "OBSERVED_AT", "SOURCE_DECLARED_EVIDENCE_CLASS",
+              "FATO", "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+
+    def test_o_dono_do_contrato_devolve_os_dezanove(self):
         item = {"id": "c-1", "texto": "Ensaio de campo com DOI",
                 "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
-        d = admissao.decidir(item, "T7", corrida="guarda")
+        d = admissao.decidir(item, "T5", corrida="guarda")
         self.assertEqual(self.CAMPOS,
                          tuple(admissao.pronto_para_inteligencia(item, d)))
 

@@ -95,6 +95,7 @@ jobs:
       # corre em TODO push — e um pulo silencioso tem a cor do verde.
       # Instalar custa segundos; nao instalar custa a confianca nos passos.
       - name: 0 · a ferramenta de texto existe
+        if: '!cancelled()'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y poppler-utils
@@ -120,68 +121,26 @@ jobs:
       # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      # ⚠️ A LISTA DOS PASSOS NAO VIVE AQUI. Vivia — dezanove linhas de YAML — e
+      # os DOIS jobs deste mesmo ficheiro tinham listas DIFERENTES: o job `mapa`
+      # corria dezanove scripts e o job `regras` corria sete. Ninguem comparava.
+      #
+      #     DOIS SITIOS COM A LISTA DOS PASSOS NAO SAO UMA LISTA REPETIDA:
+      #     SAO DUAS CADEIAS, E UMA DELAS ESTA SEMPRE ERRADA SEM NINGUEM SABER.
+      #
+      # Agora a composicao vive so em `CADEIA-DO-MAPA.json`, e o corredor le-a em
+      # runtime. Acrescentar um passo ao manifesto passa a bastar; e
+      # `test_cadeia_declara_io.py` reprova se alguem voltar a escrever a lista
+      # em YAML, em JS, em Python ou num array de shell.
       - name: 1 · regerar o mapa a partir desta árvore
-        run: |
-          python3 system-map/scripts/scan_repo.py
-          python3 system-map/scripts/scan_sources.py
-          python3 system-map/scripts/scan_casco.py
-          python3 system-map/scripts/censo_da_coleta.py
-          python3 system-map/scripts/pente_fino_da_coleta.py
-          # ⚠️ OS OUTROS ONZE CENSOS NAO CORRIAM AQUI, E O MAPA MOSTRA-OS.
-          # Medido em 2026-09-09: de 21 scripts do mapa, o CI corria SEIS. Os
-          # `.generated.json` dos outros alimentam cartoes — o do derivado, o
-          # dos donos, o do armazem italiano — e ninguem os regerava. Correr os
-          # doze deu diferenca em SETE:
-          #
-          #   corpus-it       276 linhas · donos  78 · semantica-it  48
-          #   recall-porta-it  30 · executores 6 · congelamento 2 · derivacoes 2
-          #
-          # E o P1_SEM_DRIFT nao apanhava, porque ele so regera o que o CI
-          # regera: a verificacao anti-drift media exactamente a metade que
-          # nao estava a apodrecer.
-          #
-          #     UM CENSO QUE NAO CORRE NAO E UM CENSO. E UMA FOTOGRAFIA.
-          # ⚠️ A ORDEM AQUI E UMA DEPENDENCIA, NAO ARRUMACAO.
-          # `relatorio_do_fluxo.py` ESCREVE `fluxo.generated.json` (linha 44,
-          # json.dump na 172) e `censo_da_observabilidade.py` LE-O nas linhas
-          # 54, 81 e 114 para decidir as dimensoes TRACE e PERFORMANCE.
-          # Ao ligar os onze censos, liguei o CONSUMIDOR e deixei o PRODUTOR
-          # de fora — o censo passaria a correr sempre sobre um ficheiro que
-          # ninguem refazia.
-          #
-          #     LIGAR QUEM LE E DEIXAR QUEM ESCREVE DE FORA
-          #     E TROCAR UM FICHEIRO PARADO POR UM NUMERO CONFIANTE.
-          python3 system-map/scripts/relatorio_do_fluxo.py
-          python3 system-map/scripts/censo_da_observabilidade.py
-          python3 system-map/scripts/censo_das_derivacoes.py
-          python3 system-map/scripts/censo_das_estradas_it.py
-          python3 system-map/scripts/censo_de_identidade_it.py
-          python3 system-map/scripts/censo_do_armazem_it.py
-          python3 system-map/scripts/censo_do_congelamento.py
-          python3 system-map/scripts/censo_do_corpus_it.py
-          python3 system-map/scripts/censo_dos_donos.py
-          python3 system-map/scripts/censo_dos_executores.py
-          python3 system-map/scripts/censo_semantico_it.py
-          python3 system-map/scripts/recall_da_porta_it.py
-          python3 system-map/scripts/censo_dos_buracos.py
-          python3 system-map/scripts/generate_system_map.py
+        if: '!cancelled()'
+        run: python3 system-map/scripts/correr_a_cadeia.py REGERAR
 
-      # O censo da topologia: quem chama cada cartao, o que atravessa cada
-      # aresta, e porque um cartao esta sozinho. Corre depois do mapa porque
-      # le o estado gerado.
-      - name: 1b · o censo da topologia da coleta
-        run: python3 system-map/scripts/censo_da_topologia.py
-
-      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
-      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
-      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
-      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
-      # o carimbo, e cobre tambem a copia que vai ser servida.
       - name: 2 · o validador (provas anti-drift, falha fechado)
         # Ele REGENERA por dentro (é a P1), logo não depende do passo 1 ter
         # corrido. Correr na mesma dá o segundo diagnóstico em vez do silêncio.
         if: '!cancelled()'
-        run: python3 system-map/scripts/validate_system_map.py
+        run: python3 system-map/scripts/correr_a_cadeia.py VALIDAR
 
       # A P1 do validador IGNORA o bloco PROVENANCE — e tem de ignorar, senão
       # reprovaria toda a gente em todo o commit. Só que a impressão das fontes
@@ -198,7 +157,7 @@ jobs:
         # outro se o CARIMBO corresponde. São dois diagnósticos, e quem lê o
         # vermelho merece os dois — não o primeiro e um silêncio.
         if: '!cancelled()'
-        run: python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo
+        run: python3 system-map/scripts/correr_a_cadeia.py PORTOES_POS_COMMIT
 
   # E O `mapa` FOI SEPARADO OUTRA VEZ, PELA MESMA RAZÃO — E TAMBÉM MEDIDO.
   # -------------------------------------------------------------------------
@@ -279,25 +238,34 @@ jobs:
       # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      # A SEGUNDA LISTA VIVIA AQUI, E ERA MAIS CURTA: sete scripts contra os
+      # dezanove do job `mapa`. Este job validava as regras sobre meio mapa.
       - name: 1 · regerar o mapa a partir desta árvore
-        run: |
-          python3 system-map/scripts/scan_repo.py
-          python3 system-map/scripts/scan_sources.py
-          python3 system-map/scripts/scan_casco.py
-          python3 system-map/scripts/censo_da_coleta.py
-          python3 system-map/scripts/pente_fino_da_coleta.py
-          python3 system-map/scripts/censo_dos_buracos.py
-          python3 system-map/scripts/generate_system_map.py
+        if: '!cancelled()'
+        run: python3 system-map/scripts/correr_a_cadeia.py REGERAR
 
-      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
-      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
-      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
-      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
-      # o carimbo, e cobre tambem a copia que vai ser servida.
+      # ⚠️ ESTE PASSO NASCE DE UMA NOITE PERDIDA. Uma auditoria inteira da
+      # Collection correu sobre uma árvore de três dias antes: validador verde,
+      # 22 guardas verdes, red team a zero — e o sistema descrito já não
+      # existia. Todas as guardas perguntavam «o mapa corresponde a ESTA
+      # árvore?». Nenhuma perguntava «ESTA árvore é o sistema?».
+      #
+      #     MAP CURRENT != SYSTEM CURRENT.
+      #
+      # Corre CEDO, antes de qualquer medição.
+      - name: 3z · a árvore auditada contém a Collection funcional atual
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_base_da_auditoria.py
 
       - name: 4 · as regras do mapa não afrouxaram
         if: '!cancelled()'
         run: python3 system-map/tests/test_system_map.py
+
+      # Os ataques à verdade da Collection ATUAL: a base, o SCRAP, o LinkedIn,
+      # e as fronteiras entre existir, poder e ter acontecido.
+      - name: 4m · vinte e seis ataques à verdade da Collection atual
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_verdade_da_collection_actual.py
 
       - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
         if: '!cancelled()'
@@ -311,6 +279,119 @@ jobs:
       - name: 4l · a impressão mede a árvore, e a lista confere-se sozinha
         if: '!cancelled()'
         run: python3 system-map/tests/test_impressao_da_arvore.py
+
+      # OS NÚMEROS DO MAPA TÊM DE SE ENCONTRAR, E NÃO SÓ DE ESTAR CERTOS.
+      # Três contagens chamavam-se «os cartões da coleta» e contavam populações
+      # diferentes — 65 pela FAMÍLIA, 48 pelo TERRITÓRIO, 111 pela família mais
+      # o fecho por aresta. Nenhuma era falsa; nenhuma declarava o seu universo,
+      # e por isso nenhuma era comparável com a do lado.
+      #
+      #     UMA FERRAMENTA DE OBSERVABILIDADE NÃO É COERENTE PORQUE CADA CENSO
+      #     ESTÁ CERTO. É COERENTE QUANDO OS CENSOS RECONCILIAM OS UNIVERSOS.
+      #
+      # Esta prova regenera a reconciliação e compara com a commitada: se uma
+      # lente mudar de população e ninguém reconciliar as exclusões, ela reprova
+      # aqui. E reprova também no caso que a motivou — um território novo na
+      # coleta que o filtro estático do pente fino não conhece e que sairia da
+      # auditoria sem uma queixa.
+      - name: 4m · os universos do mapa reconciliam-se
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_reconciliacao_do_universo.py
+
+      # OS QUATRO PLANOS, E A EVIDÊNCIA LIGADA À AFIRMAÇÃO CERTA.
+      # 659 arestas diziam `PROVEN` apoiadas só em análise estática, e 52 tinham
+      # a evidência ligada a uma afirmação que ela não sustenta — um `import` a
+      # provar que uma ferramenta abre o Facebook.
+      #
+      #     ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+      #
+      # Esta prova reprova se algum plano subir sem evidência da sua classe, se
+      # uma evidência deixar de dizer que afirmação sustenta, se `UNKNOWN` virar
+      # `NO`, ou se o caso APIFY — a sentinela — voltar a usar o import como
+      # prova de abertura de canal.
+      - name: 4n · cada afirmação no seu plano, cada prova na sua afirmação
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_quatro_planos.py
+
+      # O CENSO DA TOPOLOGIA DEIXOU DE SÓ IMPRIMIR.
+      # Ele publicava 111, 65, 590 e mais catorze números, e não escrevia
+      # ficheiro nenhum. Um número que só existe enquanto alguém olha para o
+      # terminal não pode ser comparado amanhã — e por isso não consegue
+      # envelhecer à vista de ninguém.
+      #
+      #     STDOUT NÃO É MEMÓRIA DURÁVEL.
+      #
+      # Esta prova regenera o censo e compara com o artefacto commitado; morde
+      # cada guarda com o defeito que ela devia apanhar (contagem sem membros,
+      # vizinho contado como coleta, aresta duplicada, JSON mexido à mão); e
+      # confere que a frescura sabe dizer STALE quando uma entrada mudou.
+      #
+      # Ela vive aqui e não no portão do mapa de propósito: «o artefacto da
+      # topologia está actual?» não é «o mapa servido é o desta árvore?», e um
+      # veredito sobre duas perguntas não responde a nenhuma.
+      - name: 4o · o censo da topologia deixa artefacto, e ele confere-se
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_topologia_persistida.py
+
+      # QUATRO ARTEFATOS CARIMBAVAM UM SHA DE COMMIT E MAIS NADA.
+      # Medido em seis commits seguidos: o carimbo aponta sempre para o commit
+      # ANTERIOR. Não é desleixo — é impossível por construção, porque o ficheiro
+      # entra no commit que ele teria de nomear.
+      #
+      #     UM FICHEIRO COMMITADO NUNCA NOMEIA O COMMIT QUE O CONTÉM.
+      #
+      # Agora os quatro carimbam a impressão da árvore-fonte e as versões das
+      # entradas que leram. Esta prova recalcula a impressão pela OUTRA leitura
+      # (a do índice), confere que escrever o carimbo não move a impressão, mexe
+      # numa fonte e exige STALE, e corre os quatro geradores num segundo sistema
+      # de ficheiros para a ordem do disco não voltar a decidir nada.
+      #
+      # Ela exige também que o pente fino NÃO fique verde: ele lê o estado da
+      # geração anterior, e um carimbo verificável não paga uma dívida de ordem.
+      - name: 4p · os quatro artefactos dizem que árvore mediram, e dá para conferir
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_impressao_verificavel.py
+
+      # O contrato de IO por passo. Ele corre a cadeia num CLONE e espia o que
+      # cada passo ABRE — por isso demora, e por isso vale: uma declaracao de
+      # dependencia que so se confere contra si propria nao se consegue
+      # desmentir, e o que nao se desmente nao e contrato.
+      - name: 4q · cada passo declara o que lê e o que escreve, e confere
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_cadeia_declara_io.py
+
+      # Um dono so para a cadeia. Esta prova mede o universo NA MAQUINA — o que
+      # os workflows e o npm realmente correm — e compara com o manifesto nos
+      # dois sentidos. Se alguem voltar a escrever a lista em YAML, em JS, em
+      # Python ou num array de shell, ela reprova.
+      - name: 4r · o manifesto é o único dono da cadeia
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_uma_cadeia_um_dono.py
+
+      # 4s · A ORDEM E O CICLO. Um consumidor antes do produtor nunca falha —
+      #      ele lê o artefato da rodada anterior e responde antigo. Só se
+      #      apanha comparando o que cada passo declara ler com o sítio onde
+      #      ele corre, e é isso que este passo faz.
+      - name: 4s · a ordem sai do grafo, e o ciclo que resta tem nome
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_ordem_por_dependencia.py
+
+      # 4t · O PAPEL, A PROVA DA LIGAÇÃO E A LEITURA HUMANA.
+      #      45 arestas sem prova nenhuma eram desenhadas exactamente como as
+      #      612 provadas, e a dica ao lado escrevia-lhes «LIGAÇÃO PROVADA» por
+      #      cima: a classe do traço saía de `kind`, que não sabe nada sobre
+      #      prova. O «caminho completo» atravessava-as todas.
+      #
+      #          UMA SETA VERDE NÃO PODE SIGNIFICAR QUATRO COISAS.
+      #
+      #      Esta prova reprova se o papel voltar a ser lido no nome, se um papel
+      #      só declarado ganhar plano CODE, se um conflito de papel escolher
+      #      vencedor em silêncio, se a tela voltar a decidir o traço por `kind`,
+      #      se o caminho voltar a atravessar o que não está provado, ou se um
+      #      filtro passar a esconder NÃO SEI por omissão.
+      - name: 4t · o papel vem da evidência, e a tela não promove nada
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_papel_e_leitura_humana.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
@@ -438,6 +519,26 @@ jobs:
         with:
           python-version: '3.12'
 
+      # ⚠️ A MESMA HISTORIA DO `fetch-depth`, OUTRA VEZ, COM OUTRA FERRAMENTA.
+      #
+      # `provas/o_executor_conta_se.py` nunca tinha corrido aqui: o passo 3
+      # cortava antes dele. Ao pôr todos os passos a correr, ele correu e disse
+      # a verdade — «RECUSADO: pdftotext nao esta nesta maquina». E recusa-se de
+      # propósito: um red team mediu que, sem a ferramenta, o executor devolve
+      # REUSED para tudo o que já está na árvore e a prova passaria a medir a
+      # cache em vez da estrada.
+      #
+      #     PASSAR AQUI SEM A FERRAMENTA SERIA MENTIR.
+      #
+      # O conserto é o mesmo de sempre neste job: dar-lhe o que ela precisa
+      # para medir, nunca afrouxar a prova.
+      - name: 0 · a ferramenta de texto existe
+        if: '!cancelled()'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y poppler-utils
+          pdftotext -v
+
       - name: 3 · o padrão do departamento de coleta não piorou
         if: '!cancelled()'
         run: python3 medidas/padrao_da_coleta.py
@@ -520,27 +621,33 @@ jobs:
       # A prova disto e o que se encontrou ao liga-las: `fluxo_no_seco`
       # estava VERMELHA, com dois defeitos reais e antigos la dentro.
       - name: 4k · a lingua e a mesma no contrato, no storage e no scanner
+        if: '!cancelled()'
         run: python3 provas/paridade_da_lingua.py
 
       - name: 4l · a telemetria distingue NAO CORREU de FALHOU, e a conta fecha
+        if: '!cancelled()'
         run: python3 provas/fluxo_no_seco.py
 
       - name: 4m · as trinta armadilhas do caminho do PDF continuam vazias
+        if: '!cancelled()'
         run: python3 provas/testa_golden_path_pdf.py
 
       - name: 4n · o mapa nao diz que nao existe o que existe
+        if: '!cancelled()'
         run: python3 provas/o_mapa_nao_mente.py
 
       # O ENCANAMENTO: uma porta, uma ordem, um dono do RAW. Catorze
       # invariantes pequenos e separados — um portao gigante esconde qual das
       # perguntas reprovou.
       - name: 4n2 · a coleta tem UMA porta de entrada, e ela vem antes da admissao
+        if: '!cancelled()'
         run: python3 provas/o_encanamento_tem_uma_porta.py
 
       # Sem banco: le migrations e codigo, e confronta cada `on conflict` com
       # a chave unica que o sustenta. Corre tambem em `banco-descartavel.yml`,
       # que so acorda por caminho; aqui acorda em todo o push.
       - name: 4o · toda clausula `on conflict` tem chave que a sustente
+        if: '!cancelled()'
         run: python3 provas/o_dedupe_tem_constraint.py
 
       # A fronteira entre a coleta e a inteligencia: que a lei e o codigo
@@ -552,12 +659,15 @@ jobs:
       # a isso «um executor REAL». Com o passo 0 acima, a recusa nunca chega
       # a ser precisa aqui, e e essa a intencao.
       - name: 4p · o executor conta-se, e a lingua que ele fala e a comum
+        if: '!cancelled()'
         run: python3 provas/o_executor_conta_se.py
 
       - name: 4q · a fronteira tem um contrato, um dono, e a lei bate com o codigo
+        if: '!cancelled()'
         run: python3 provas/a_fronteira_da_coleta.py
 
       - name: 5 · o que vai ser publicado existe e é servível
+        if: '!cancelled()'
         run: |
           set -e
           for f in index.html map.js map.css state.generated.json; do
@@ -582,6 +692,7 @@ jobs:
           PY
 
       - name: 6 · nenhum segredo atravessa para o que é publicado
+        if: '!cancelled()'
         run: |
           # O repositório é público e o mapa é servido. Ele carrega caminho de
           # ficheiro e trecho de linha — e trecho de linha é exatamente onde um

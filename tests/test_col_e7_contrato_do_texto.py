@@ -282,7 +282,7 @@ class OCaminhoAntigoNaoContornaOContrato(unittest.TestCase):
         item = ing.para_a_porta({'SOURCE_ID': 'S', 'SOURCE_URL': 'u',
                                  pv.CAMPO_DAS_UNIDADES: [t, o]})
         item.update({'id': 'x', 'fact_time': '2026-01-01'})
-        d = adm.decidir(item, 'T7', corrida='R')
+        d = adm.decidir(item, 'T5', corrida='R')
         # Com o ORIGINAL italiano casa o lexico italiano. Com a traducao
         # inglesa nao casaria — e o veredito seria outro, sem ninguem ver.
         self.assertEqual('SIM', d.resultado)
@@ -356,7 +356,7 @@ class AAusenciaNaoViraVazio(unittest.TestCase):
         item = ing.para_a_porta({'SOURCE_ID': 'S', 'SOURCE_URL': 'u',
                                  pv.CAMPO_DAS_UNIDADES: []})
         item.update({'id': 'x', 'fact_time': '2026-01-01'})
-        d = adm.decidir(item, 'T7', corrida='R')
+        d = adm.decidir(item, 'T5', corrida='R')
         self.assertEqual('NAO_SEI', d.resultado)
 
 

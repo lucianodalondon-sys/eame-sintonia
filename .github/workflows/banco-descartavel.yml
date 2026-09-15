@@ -82,12 +82,179 @@ on:
       - 'provas/a_autoridade_da_fonte.py'
       - 'provas/o_dedupe_tem_constraint.py'
       - 'provas/inventario_esperado.py'
+      # A SALA DURAVEL. Mexer no dono da sala, na migration dela ou no
+      # preflight tem de acordar a prova que os mede — senao a unica prova
+      # ponta-a-ponta da durabilidade so corre se alguem se lembrar dela.
+      - 'supabase/migrations/031_*.sql'
+      - 'admissao/sala_de_espera.py'
+      - 'superficie/rede.py'
+      - 'provas/a_sala_sobrevive_ao_processo.py'
+      - 'provas/o_egresso_antes_da_aquisicao.py'
+      - 'provas/mutacao_da_sala_duravel.py'
       - 'motor/cadeia_canonica.sh'
       - 'provas/trava_de_drift_de_migration.sh'
+      # A ponte de midia e o executor dela: mudar qualquer um muda o que a
+      # aresta `raw_asset(audio/*) -> derived_artifact` escreve no banco, e
+      # isso so se ve com Postgres a serio.
+      - 'coleta/executor_transcricao_midia.py'
+      - 'provas/a_ponte_de_midia_no_postgres.py'
       - '.github/workflows/banco-descartavel.yml'
   workflow_dispatch:
 
 jobs:
+  # ═════════════════════════════════════════════════════════════════════
+  # A PONTE DE MIDIA — JOB PROPRIO, E A RAZAO E MEDIDA
+  #
+  # Esta prova comecou dentro de `postgres-descartavel`, a seguir a `2g`. Nao
+  # correu nunca: o job aborta no passo `2b6`, e aborta ha dias, em TODAS as
+  # branches — medido a 2026-09-14 em `local-gpu-on-current-collection-v1`,
+  # `collection-to-waiting-room-v1` e mais quatro, sempre no MESMO passo.
+  #
+  #     UM PASSO NOVO ATRAS DE UMA AVARIA ANTIGA NAO E UM PASSO NOVO:
+  #     E CODIGO QUE NINGUEM VAI VER CORRER.
+  #
+  # A saida NAO foi por-lhe `continue-on-error` no passo avariado — isso
+  # calaria uma falha que e de outra pessoa e continua a ser real. E tambem
+  # nao foi consertar o `2b6`, que nao e desta missao.
+  #
+  # Job separado: a avaria antiga continua vermelha e visivel, e a aresta nova
+  # e exercitada na mesma. Os dois factos aparecem, e nenhum tapa o outro.
+  # ═════════════════════════════════════════════════════════════════════
+  # O PORTAO DA BIG COLLECTION — o READY existe, ou so a etapa correu?
+  #
+  # A prova da ponte de midia mediu, e foi honesta: `ADMISSION = NAO_SEI`,
+  # `READY_HANDLING = NOT_RUN`, Sala vazia. A etapa correu; nenhum READY
+  # existiu. Este job vai ver a LINHA.
+  #
+  #     ETAPA REGISTADA != UNIDADE PRODUZIDA.
+  #
+  # Job proprio pela mesma razao do outro: `postgres-descartavel` aborta cedo,
+  # e um passo atras de uma avaria antiga nunca corre.
+  portao-big-collection:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    # ⚠️ O BACKEND DA SALA E DECLARADO AO NIVEL DO JOB, E NAO DENTRO DE UM PASSO.
+    # E a mesma lei que `provas/o_egresso_antes_da_aquisicao.py` guarda para o
+    # workflow de coleta: um portao que mede um ambiente e deixa passar para
+    # outro nao mediu nada. Aqui o risco e concreto — sem a variavel, o dono da
+    # Sala cai para FICHEIRO, e um READY escrito no disco efemero do runner
+    # passaria por READY persistido.
+    env:
+      SINTONIA_SALA_BACKEND: POSTGRES
+      SINTONIA_SALA_DSN: postgresql://postgres:descartavel@localhost:5432/descartavel
+      BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # `pdftotext` nao e detalhe de maquina: o canario admissivel e um boletim
+      # italiano REAL em PDF, e sem o extractor a prova mediria o runner.
+      - name: 1 · o extractor de texto existe
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update -qq || true
+          sudo apt-get install -y poppler-utils
+          pdftotext -v 2>&1 | head -1
+
+      - name: 2 · o READY existe mesmo, e outro processo ve-o
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_portao_da_big_collection.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+
+      - name: 3 · o que o banco mostrou fica legivel
+        if: always()
+        run: cat system-map/data/portao-big-collection.generated.json || true
+
+  ponte-de-midia:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # ⚠️ A FALA E GERADA AQUI, E NAO VEM DO REPOSITORIO.
+      # O unico ficheiro com fala real desta casa e de terceiro, e este
+      # repositorio e PUBLICO. Commitar um clipe alheio para um teste passar
+      # nao se faz. `espeak-ng` produz a voz na hora, sem rede e sem licenca
+      # de ninguem.
+      #
+      # O modelo e o `tiny` de proposito: esta prova mede a ESTRADA, e nao a
+      # qualidade da transcricao. Qualidade mede-se na GPU local, que e onde
+      # ela se mede.
+      - name: 1 · as ferramentas da fala existem, ou isto nao corre
+        run: |
+          # ⚠️ O `update` PODE FALHAR POR CULPA DE UM ESPELHO DE TERCEIRO, E
+          # ISSO NAO E UMA FALHA DESTA CASA. Medido a 2026-09-14: o repositorio
+          # do Chrome devolveu «File has unexpected size (1410 != 1413)» —
+          # sincronizacao a meio, do lado deles — e o job inteiro morreu antes
+          # de tocar no Postgres.
+          #
+          #     UM ESPELHO DESALINHADO NAO E UMA PROVA REPROVADA.
+          #
+          # O `|| true` NAO esconde nada: se o pacote faltar mesmo, o `install`
+          # abaixo falha, e as tres conferencias no fim falham a seguir. O que
+          # ele evita e que um soluco de rede de terceiro se leia como veredito
+          # sobre a ponte de midia.
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update -qq || true
+          sudo apt-get install -y espeak-ng ffmpeg
+          python3 -m pip install --quiet faster-whisper
+          espeak-ng --version
+          ffmpeg -version | head -1
+
+      - name: 2 · a ponte de midia atravessa ate a Sala, com Postgres real
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_ponte_de_midia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          SINTONIA_ASR_MODELO: tiny
+          SINTONIA_ASR_DEVICE: CPU
+
+      - name: 3 · o que o banco mostrou fica legivel
+        if: always()
+        run: cat system-map/data/ponte-de-midia-postgres.generated.json || true
+
   postgres-descartavel:
     runs-on: ubuntu-latest
 
@@ -196,6 +363,71 @@ jobs:
       # SKIP CEGO E PROIBIDO. Reproduz o defeito antigo e prova o conserto:
       # migration aplicada e depois editada tem de fazer o aplicador falhar
       # ANTES de qualquer DDL.
+      # ══════════════════════════════════════════════════════════════════
+      # 2b5 · A SALA DE ESPERA SOBREVIVE AO PROCESSO
+      # ══════════════════════════════════════════════════════════════════
+      # A `C-ITALIA-FIRST-REAL-COLLECTION-CANARY-V1` parou a primeira coleta
+      # real italiana aqui: o READY era escrito no workspace do runner e
+      # ninguem o guardava.
+      #
+      #     MODULE EXISTS != FILE WRITTEN ON RUNNER != PERSISTED AFTER RUN.
+      #
+      # Esta prova mata o processo que escreveu e SO DEPOIS pergunta ao banco.
+      # Banco proprio (`sala`), para nao herdar linhas das provas anteriores:
+      # um caso que passa por causa do estado alheio nao prova nada.
+      - name: 2b5 · a sala de espera sobrevive ao processo que a escreveu
+        run: |
+          psql "$ADMIN_URL" -c 'create database sala;'
+          python3 provas/a_sala_sobrevive_ao_processo.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/sala
+
+      # O portao do egresso nao precisa de banco, e nao liga VPN nenhuma: todos
+      # os casos injetam o corpo do checker. A unica medicao real que ele faz e
+      # read-only e nao adquire nada.
+      #
+      #     UM PORTAO QUE SO SE TESTA COM A VPN LIGADA NAO SE TESTA.
+      - name: 2b6 · o egresso mede-se ANTES de adquirir, e UNKNOWN fecha a porta
+        # ⚠️ ESTE PASSO ABORTAVA HA DIAS, EM TODAS AS BRANCHES, POR UM `import`.
+        #
+        # Medido a 2026-09-14 em seis corridas seguidas de branches diferentes:
+        # `ModuleNotFoundError: No module named 'yaml'`. A prova lê o PRÓPRIO
+        # workflow para conferir que `SINTONIA_SALA_BACKEND` é declarado ao
+        # nível do JOB, e não só dentro do preflight — a lei de que
+        #
+        #     UM PORTÃO QUE MEDE UM AMBIENTE E DEIXA PASSAR PARA OUTRO
+        #     NÃO MEDIU NADA.
+        #
+        # Para isso precisa de um analisador de YAML a sério. Escrever um aqui
+        # para fugir à dependência seria pôr um segundo dono a interpretar o
+        # mesmo ficheiro — e um analisador caseiro que se engane deixa o portão
+        # passar por cima da lei que ele existe para guardar.
+        #
+        # Esta casa declara dependências de Python no passo que as usa (é o que
+        # `faster-whisper` já faz, no job da ponte de mídia). Não há
+        # `requirements.txt` — e inventar um aqui seria arquitectura nova por
+        # causa de um `pip install`.
+        #
+        #     UM PORTÃO QUE NÃO CORRE NÃO É UM PORTÃO FECHADO: É UM PORTÃO
+        #     AUSENTE, E ELE ESTAVA VERMELHO A DIZER ISSO.
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 provas/o_egresso_antes_da_aquisicao.py
+
+      # E a pergunta que fecha as duas: as provas acima MORDEM? Cada mutante
+      # quebra uma lei numa copia descartavel da arvore e exige vermelho.
+      #
+      #     UMA PROVA QUE NAO MORDE NAO E UMA PROVA. E UM COMENTARIO VERDE.
+      #
+      # Ela cria um banco por mutante, e a razao esta escrita la dentro: o
+      # livro-razao da cadeia canonica recusaria uma `031` editada sobre um
+      # banco onde ela ja entrou, e a recusa seria lida como morte do mutante.
+      - name: 2b7 · as leis da sala duravel mordem (mutacao)
+        run: python3 provas/mutacao_da_sala_duravel.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
       - name: 2c · migration aplicada que muda faz a cadeia parar
         run: bash provas/trava_de_drift_de_migration.sh
         env:

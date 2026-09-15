@@ -442,9 +442,25 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
                               "PORQUE": "o corpo nao se leu: %s" % erro})
             continue
+        # ── A FONTE DESTE DOCUMENTO, E SO DEPOIS A DA CORRIDA ──────────
+        # ⚠️ ISTO PASSAVA `source_id` — o da CORRIDA — a cada documento.
+        # Medido contra os dez documentos italianos reais desta arvore: a
+        # corrida trouxe SETE fontes diferentes, `_fonte_provada()` devolveu
+        # `None` (com razao: uma corrida com sete fontes nao tem uma), e o dono
+        # do STRUCTURED recusou os sete com «o documento nao diz de que fonte
+        # veio». A estrada parava aqui, com a resposta certa a pergunta errada.
+        #
+        #     A FONTE DE UM DOCUMENTO E DO DOCUMENTO.
+        #     PERGUNTA-LA A CORRIDA E LER O REGISTO DO COLECTIVO
+        #     PARA SABER O NOME DE UM INDIVIDUO.
+        #
+        # A da corrida fica como ultimo recurso — e nao se inventa: quando
+        # nenhuma das duas identifica, o dono do STRUCTURED recusa, e recusar
+        # continua a ser o comportamento certo.
+        fonte_do_documento = r.get("SOURCE_ID") or source_id
         recibo = pdoc.preservar_documento(
             {"derived_artifact_id": linha["id"], "run_id": run_id,
-             "source_id": source_id, "texto": corpo,
+             "source_id": fonte_do_documento, "texto": corpo,
              # ⚠️ `document_id` NAO VAI — E A RAZAO MUDOU, E ISSO FICA DITO.
              # Esta linha dizia «a fonte documental nao o prova». Era verdade
              # da unica fonte que por aqui passava (um boletim ARPAV, sem
@@ -473,8 +489,16 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             memoria)
         if recibo["ESTADO"] in (pdoc.INSERTED, pdoc.REUSED):
             feitos.append({"RAW_ASSET_ID": r.get("RAW_ASSET_ID"),
+                           "SOURCE_ID": fonte_do_documento,
                            "DERIVED_ARTIFACT_ID": linha["id"],
                            "PARENT_SHA256": linha.get("parent_sha256"),
+                           # ⚠️ ELA ATRAVESSA, E NAO SE MEDE AQUI.
+                           # `raw_asset.captured_at` e o instante em que esta
+                           # maquina recebeu o ORIGINAL. Esta etapa e de
+                           # escritorio e acontece depois; escrever a hora
+                           # dela aqui poria a hora do trabalho no campo do
+                           # tempo da colheita.
+                           "CAPTURED_AT": r.get("CAPTURED_AT"),
                            "ESTADO": recibo["ESTADO"],
                            "TEXTO": corpo})
         else:
@@ -526,10 +550,25 @@ def item_documental_para_a_porta(estruturado, *, source_id):
         source_artifact=estruturado.get("PARENT_SHA256"),
         derivation_method=pv.EXTRAIDO_DO_DOCUMENTO,
         tool="coleta/executor_texto_de_pdf.py")
-    item = ing.para_a_porta({"SOURCE_ID": source_id,
-                             "ARTIFACT_TYPE": "DERIVED",
-                             "PARENT_SHA256": estruturado.get("PARENT_SHA256"),
-                             pv.CAMPO_DAS_UNIDADES: [unidade]})
+    # ── E A HORA DA COLHEITA ATRAVESSA COM ELA ────────────────────────────
+    # ⚠️ NO NOME DO CONTRATO COMUM, e nao no da porta. `COLLECTED_AT` e o nome
+    # que `leis/artefato.py` deu a este facto, e `ing.para_a_porta()` e o unico
+    # sitio onde ele vira `captured_at`. Escrever ja `captured_at` aqui saltaria
+    # o tradutor — e um segundo sitio que traduz e um sitio onde a traducao pode
+    # divergir.
+    #
+    #     UMA TRAVESSIA, UM TRADUTOR, NA FRONTEIRA.
+    #
+    # E AUSENCIA NAO SE FABRICA: sem `CAPTURED_AT` na unidade, o campo nao e
+    # escrito, a porta nao o ve, e `pronto_para_inteligencia()` escreve
+    # `NAO SEI` — que e a verdade, e nao um remendo.
+    bruto = {"SOURCE_ID": estruturado.get("SOURCE_ID") or source_id,
+             "ARTIFACT_TYPE": "DERIVED",
+             "PARENT_SHA256": estruturado.get("PARENT_SHA256"),
+             pv.CAMPO_DAS_UNIDADES: [unidade]}
+    if estruturado.get("CAPTURED_AT") not in (None, "", "NAO SEI", "NAO_SE_APLICA"):
+        bruto["COLLECTED_AT"] = estruturado["CAPTURED_AT"]
+    item = ing.para_a_porta(bruto)
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
     return item
@@ -584,9 +623,42 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
     #     UMA TROCA QUE NAO MUDA NENHUM NUMERO NAO SE CONSEGUE VIGIAR.
     carimbados = sum(1 for x in itens
                      if isinstance(x, dict) and x.get("INGRESSO"))
+    # ── O RECIBO DA FRONTEIRA, E ELE CORRE ─────────────────────────────────
+    # ⚠️ A REGRA QUE O CAMINHO NAO CONSULTA NAO E UMA REGRA. Escrever o
+    # contrato da fronteira em `coleta/ingresso.py` e nunca o perguntar aqui
+    # repetiria exactamente o defeito que ele veio fechar — um campo perdido em
+    # silencio, com o valor a existir.
+    #
+    #     REGRA ESCRITA NO ARTEFATO != REGRA EXECUTADA NO CAMINHO.
+    #
+    # E ele NAO decide nada: nao recusa item, nao muda veredito, nao preenche
+    # campo. Conta o que atravessou e o que nao atravessou, e e no recibo que
+    # a perda deixa de ser invisivel.
+    #
+    #     COLETAR != ADMITIR != JULGAR — E MEDIR NAO E NENHUM DOS TRES.
+    fronteira = [ing.conferir_fronteira(x) for x in itens
+                 if isinstance(x, dict)]
+    em_falta = {}
+    for f in fronteira:
+        for c in f["EXIGIDOS_EM_FALTA"]:
+            em_falta[c] = em_falta.get(c, 0) + 1
+    ausentes = {}
+    for f in fronteira:
+        for c in f["AUSENTES"]:
+            ausentes[c] = ausentes.get(c, 0) + 1
     return {"itens": len(itens), "por_resultado": conta, "prontos": len(aceites),
             "ficheiro": recibo["FICHEIRO"] or "",
-            "espera": recibo["ESTADO"]}
+            "espera": recibo["ESTADO"],
+            "FRONTEIRA": {
+                "CONTRATO": "STRUCTURED -> ADMISSION",
+                "DONO": "coleta/ingresso.py::conferir_fronteira",
+                "MEDIDOS": len(fronteira),
+                "EXIGIDOS_EM_FALTA": em_falta,
+                "TRANSPORTAVEIS_AUSENTES": ausentes,
+                "COM_LINHAGEM": sum(1 for f in fronteira
+                                    if f["LINHAGEM"] == "PRESENTE"),
+                "A_LEI": ing.TEMPOS_QUE_NAO_SE_MISTURAM,
+            }}
 
 # O caminho do RUN-MANIFEST NAO vive aqui. Deixar a constante para tras seria
 # deixar a porta destrancada: a proxima pessoa escreve `MANIFESTO.write_text` e

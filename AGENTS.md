@@ -8,6 +8,40 @@ ficheiros de instrução **apontam** para aqui; não repetem a lei.
 
 ---
 
+## QUAL LINHA ABRIR — o System Map é a foto de UMA árvore
+
+Este repositório tem mais de 200 ramos, e o mapa **não soma branches**. Por isso
+há uma linha registada como dona do System Map técnico da Itália, e está aqui:
+
+> 📍 [`docs/operacao/DONO-DO-SYSTEM-MAP-IT.md`](docs/operacao/DONO-DO-SYSTEM-MAP-IT.md)
+
+```
+SYSTEM_MAP_IT_CURRENT_OWNER_BRANCH   claude/system-map-reconciled-v1
+SYSTEM_MAP_IT_CURRENT_OWNER_HEAD     cc476edd33378e67b902f227a55f427d299870f7
+COUNTRY_SCOPE                        IT           PROMOTED_AT   2026-09-15
+```
+
+⚠️ **Isto não é o endereço publicado.** Quem está no ar tem outro dono e outro
+portão, em [`system-map/CANONICAL-PUBLICATION.json`](system-map/CANONICAL-PUBLICATION.json).
+São perguntas diferentes, e o contrato de publicação já escreve a diferença:
+
+```
+CANONICAL PUBLISHED  !=  LATEST SOURCE
+QUE VERSÃO ESTÁ NO AR  !=  QUE LINHA SE ABRE PARA TRABALHAR
+```
+
+E o nome, para não haver dúvida sobre o que existe hoje:
+
+```
+SINTONIA EAME            o guarda-chuva regional
+SINTONIA EAME — ITÁLIA   o produto construído   ·   COUNTRY_CODE = IT
+```
+
+`EAME` sozinho fica reservado ao que for comprovadamente partilhado entre dois ou
+mais países.
+
+---
+
 ## O QUE É O SYSTEM MAP
 
 O SINTONIA System Map é uma **projeção canónica e auditável da arquitetura real

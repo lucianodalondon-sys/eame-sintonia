@@ -110,8 +110,8 @@ window.ITALY_CASA = {
  },
  "DETERMINISTICO": "SIM — sem relogio, sem aleatorio, chaves ordenadas",
  "DONOS_DA_APRESENTACAO": {
-  "meeting-intelligence-snapshot.json": "sha256:b5369ecf2b5f4417e4d7f27e4e605d43ccaa4958f5563c053c0f546241b73f16",
-  "meeting-labels.js": "sha256:e40b46dec4e14759bc178e8d4c18b3a06b5fea5b81405630771552ec2b61a13b"
+  "meeting-intelligence-snapshot.json": "sha256:986ac3e3f6f0e53e422db5fc8ea9577c83e96ba89e4f016b5e6c3076e12d6828",
+  "meeting-labels.js": "sha256:8ea7e824d12866626441acc8f10fa2525116241cde054be7122808a06adf6c2a"
  },
  "DO_NOT_SHOW": [
   {
@@ -212,8 +212,8 @@ window.ITALY_CASA = {
   "IT-HANDOFF-LINHA-B-FITOSSANITARIO-V1.json": "sha256:328310a59e715c593405a51ee5eef4290bc17f502a3b6b6b854bb530158ed0db",
   "IT-HANDOFF-LINHA-B-FONTES-V1.json": "sha256:1f2058f40f0d0ff537c93eb7fa11deb605161f55d5d79e920e8a8265d3e901e1",
   "IT-HANDOFF-LINHA-B-SINAIS_DE_CAMPO-V1.json": "sha256:f7958ff29c00dddd282c9437c127c80d6b476c2e182e3ac558a53eefc33608f2",
-  "IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json": "sha256:8bb9818e6b461427f054df7e2db03bef16099eead782006998c34a133b60b775",
-  "IT-TOP3-SENSORES-V1.json": "sha256:6e01c45b6ed3b5ed004b1404ad6bbbcc26cf10f59010d152ad8e7b2fd06a446c"
+  "IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json": "sha256:1283b4f7a292798f19a964421966316603e7c25aaa9d5b52aa7764bba74ec560",
+  "IT-TOP3-SENSORES-V1.json": "sha256:bf134391b9f6f6ca7f5d8262516a13d5c3b43d877b2e5bbc24b2b7d045e39d88"
  },
  "LABELS": {
   "ACT": {
@@ -311,10 +311,6 @@ window.ITALY_CASA = {
   "COMMERCIAL": {
    "en": "COMMERCIAL",
    "it": "COMMERCIALE"
-  },
-  "COMMERCIAL_PRODUCT_MISSING": {
-   "en": "A linked commercial product is missing",
-   "it": "Manca un prodotto commerciale collegato"
   },
   "COMMERCIAL_WATCH": {
    "en": "COMMERCIAL WATCH",
@@ -1518,7 +1514,7 @@ window.ITALY_CASA = {
   }
  },
  "LABELS_FAIL_CLOSED": {
-  "CODIGOS_NO_PACOTE": 325,
+  "CODIGOS_NO_PACOTE": 324,
   "DONO": "italia-portale/client/meeting-labels.js",
   "REGRA": "nenhum codigo sai daqui sem par IT+EN. Nao ha fallback para o codigo cru, nao ha string vazia, e nenhuma linha desaparece em silencio: sem par, a GERACAO falha."
  },
@@ -1538,7 +1534,7 @@ window.ITALY_CASA = {
   "RECENCIA_TERRITORIAL": "a camada territorial foi produzida com a leitura de data defeituosa do achado 07. Mostra-se cobertura, nunca recencia."
  },
  "OPPORTUNITA_ATTUALI": {
-  "BUILD_ID": "V21-06c6421d001ea52a",
+  "BUILD_ID": "V21-ef6e7e5f37eaa6e6",
   "CASI": [
    {
     "AMBITO": "PROVINCIAL",
@@ -1675,31 +1671,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1371",
+      "ID": "IT-LBL-1024",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1675",
+      "ID": "IT-LBL-1113",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-326",
+      "ID": "IT-LBL-1193",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-823",
+      "ID": "IT-LBL-1794",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-903",
+      "ID": "IT-LBL-360",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-4908",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -1710,7 +1712,7 @@ window.ITALY_CASA = {
       "RUOLO": "SUPPORTS_DIRECTION"
      }
     ],
-    "EVIDENZE_TOTALE": 7,
+    "EVIDENZE_TOTALE": 8,
     "E_OPPORTUNITA_COMMERCIALE": true,
     "FAMIGLIE": [
      "FIELD_SIGNAL",
@@ -1733,6 +1735,7 @@ window.ITALY_CASA = {
     "FONTI_CHIAVI": 3,
     "FONTI_URL": [
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/modena-reggio-emilia/bollettini-di-modena/bollettino-28-del-01-settembre-2026-modena.pdf/@@download/file",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43526",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586",
@@ -1847,7 +1850,8 @@ window.ITALY_CASA = {
       "AZIONE": "CONTACT_NOW",
       "DIPENDE_DA": null,
       "EVIDENZA": [
-       "CATPRD_BANJO"
+       "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG"
       ],
       "FINESTRA": "WINDOW_ACT_NOW",
       "INNESCO": null,
@@ -1884,7 +1888,8 @@ window.ITALY_CASA = {
       "AZIONE": "WATCH_REGULATORY_DATE",
       "DIPENDE_DA": null,
       "EVIDENZA": [
-       "AI_FLUAZINAM"
+       "AI_FLUAZINAM",
+       "AI_FOLPET"
       ],
       "FINESTRA": "WINDOW_MONITOR",
       "INNESCO": null,
@@ -1925,7 +1930,8 @@ window.ITALY_CASA = {
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
-       "CATPRD_BANJO"
+       "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -1953,37 +1959,37 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1437",
+      "ID": "IT-LBL-422",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1439",
+      "ID": "IT-LBL-430",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1626",
+      "ID": "IT-LBL-458",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1628",
+      "ID": "IT-LBL-466",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-979",
+      "ID": "IT-LBL-680",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-981",
+      "ID": "IT-LBL-688",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -2063,9 +2069,9 @@ window.ITALY_CASA = {
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/modena-reggio-emilia/bollettini-di-modena/bollettino-28-del-01-settembre-2026-modena.pdf/@@download/file",
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/parma-piacenza/parma/bollettino-27-del-21-agosto-2026-di-parma.pdf/@@download/file",
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/parma-piacenza/piacenza-1/bollettino-27-del-21-agosto-2026-di-piacenza.pdf/@@download/file",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38821",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38822",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38823",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
      "https://www.fitosanitario.mo.it/files/5617/8713/5961/Bollettino_27_del18_Agosto_2026_Modena.pdf",
      "https://www.fitosanitario.re.it/files/1017/8609/8225/26_Bollettino_RE_06_08_2026.pdf",
      "https://www.fitosanitario.re.it/files/3317/8739/0073/27_Bollettino_RE_20_08_2026.pdf"
@@ -2095,7 +2101,7 @@ window.ITALY_CASA = {
      "ALL_GATES_CLOSE",
      "TIME_FROM_SOURCE_RECOMMENDATION"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": null,
+    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "SALES_READY",
     "PRODOTTI": [
@@ -2118,9 +2124,29 @@ window.ITALY_CASA = {
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "YES",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
-    "PRODOTTO_PRINCIPALE": "CATPRD_BANJO",
+    "PRODOTTO_PRINCIPALE": null,
     "PROVA": {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
@@ -2143,6 +2169,11 @@ window.ITALY_CASA = {
       "ATTIVO": "FLUAZINAM",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [],
@@ -2305,37 +2336,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-058",
+      "ID": "IT-LBL-063",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-152",
+      "ID": "IT-LBL-072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-320",
+      "ID": "IT-LBL-174",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-459",
+      "ID": "IT-LBL-183",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-651",
+      "ID": "IT-LBL-354",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-817",
+      "ID": "IT-LBL-543",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -2363,10 +2394,8 @@ window.ITALY_CASA = {
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43588",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45052",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45054",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45417",
      "https://www.regione.veneto.it/documents/11979050/14333679/Frutticolo_2026_24.pdf/1775bf60-54f5-4a7d-97f7-d4ed018700ce",
      "https://www.regione.veneto.it/documents/11979050/14333679/Frutticolo_2026_25.pdf/ac238b78-736f-4161-be76-b86b241c69ea"
@@ -2616,37 +2645,37 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-343",
+      "ID": "IT-LBL-1130",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-350",
+      "ID": "IT-LBL-1137",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-840",
+      "ID": "IT-LBL-1210",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-847",
+      "ID": "IT-LBL-1217",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-920",
+      "ID": "IT-LBL-377",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-927",
+      "ID": "IT-LBL-384",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -2770,6 +2799,298 @@ window.ITALY_CASA = {
     "TITOLO_DA_ARCHETIPO": false
    },
    {
+    "AMBITO": "REGIONAL",
+    "ARCHETIPO": "O1_FIELD_PRESSURE",
+    "ATTUALITA": "CURRENT",
+    "AZIONI": [
+     {
+      "AZIONE": "VALIDATE_WINDOW_IN_REGION",
+      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
+      "EVIDENZA": [
+       "IT-CAN-03C08A9CCB",
+       "IT-CAN-03C08A9CCB"
+      ],
+      "FINESTRA": null,
+      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
+      "PERCHE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+      "REPARTO": "MARKET_DEVELOPMENT",
+      "STATO": "VALIDATE"
+     },
+     {
+      "AZIONE": "PREPARE",
+      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
+      "FINESTRA": "WINDOW_PREPARE",
+      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
+      "PERCHE": "PRIORIDADE_COMERCIAL_SEM_TEMPO_PROVADO",
+      "REPARTO": "COMMERCIAL",
+      "STATO": "PREPARE"
+     },
+     {
+      "AZIONE": "MESSAGE_AVAILABLE",
+      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
+      "EVIDENZA": [
+       "IT-CAN-03C08A9CCB"
+      ],
+      "FINESTRA": "WINDOW_ACT_NOW",
+      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
+      "PERCHE": "EXTERNAL_MATERIAL_READY",
+      "REPARTO": "MARKETING",
+      "STATO": "ACT"
+     },
+     {
+      "AZIONE": "CONFIRM_WINDOW_CONDITION_MET",
+      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
+      "EVIDENZA": [
+       "IT-CAN-03C08A9CCB",
+       "IT-CAN-03C08A9CCB"
+      ],
+      "FINESTRA": null,
+      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
+      "PERCHE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
+      "REPARTO": "TECHNICAL_SCIENTIFIC",
+      "STATO": "VALIDATE"
+     },
+     {
+      "AZIONE": "WATCH_REGULATORY_DATE",
+      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
+      "EVIDENZA": [
+       "AI_CYMOXANIL",
+       "AI_FOLPET"
+      ],
+      "FINESTRA": "WINDOW_MONITOR",
+      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
+      "PERCHE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
+      "REPARTO": "SUPPLY",
+      "STATO": "WATCH"
+     }
+    ],
+    "BERSAGLIO": "ISSUE_DOWNY_MILDEW",
+    "CATENA": [
+     {
+      "ELO": "SINAL_ATUAL",
+      "EVIDENZA": [
+       "IT-CAN-03C08A9CCB"
+      ],
+      "FATTO_CODICE": null,
+      "FATTO_DATA": "2026-08-26",
+      "OK": true
+     },
+     {
+      "ELO": "JANELA_DEFINIDA",
+      "EVIDENZA": [
+       "IT-CAN-03C08A9CCB"
+      ],
+      "FATTO_CODICE": "WEATHER_TRIGGERED_WINDOW",
+      "FATTO_DATA": null,
+      "OK": true
+     },
+     {
+      "ELO": "JANELA_ABERTA_AGORA",
+      "EVIDENZA": [
+       "IT-CAN-03C08A9CCB"
+      ],
+      "FATTO_CODICE": "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE",
+      "FATTO_DATA": null,
+      "OK": false
+     },
+     {
+      "ELO": "VINCULO_COM_PORTFOLIO",
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
+      "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
+      "FATTO_DATA": null,
+      "OK": true
+     },
+     {
+      "ELO": "TEMPO_PARA_ACAO",
+      "EVIDENZA": [],
+      "FATTO_CODICE": null,
+      "FATTO_DATA": null,
+      "OK": false
+     }
+    ],
+    "CATENA_CODICI": [
+     "SEM_JANELA_ABERTA_AGORA",
+     "SEM_TEMPO_PARA_ACAO"
+    ],
+    "CATENA_COMPLETA": false,
+    "COLTURA": "CROP_TOMATO",
+    "CONFIDENZA": "ALTA",
+    "DATA_RIFERIMENTO": "2026-09-02",
+    "DATA_SEGNALE": "2026-08-26",
+    "DIREZIONE": "POSITIVE_PRESSURE",
+    "DIREZIONE_DOCUMENTO": "IT-CAN-03C08A9CCB",
+    "ESTRATTO_TRATTENUTO": true,
+    "EVIDENZE": [
+     {
+      "FAMIGLIA": "FIELD_SIGNAL",
+      "ID": "IT-CAN-03C08A9CCB",
+      "PERCHE": "FRASE_QUE_DECIDIU_A_DIRECAO",
+      "RUOLO": "SUPPORTS_DIRECTION"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1074",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1263",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-435",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-470",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-693",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-727",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     }
+    ],
+    "EVIDENZE_TOTALE": 7,
+    "E_OPPORTUNITA_COMMERCIALE": true,
+    "FAMIGLIE": [
+     "FIELD_SIGNAL",
+     "LABEL_USE_RELATIONSHIP"
+    ],
+    "FINESTRA": {
+     "APERTA_ORA": "UNKNOWN",
+     "CONDIZIONE_TRATTENUTA": true,
+     "DEFINITA": "YES",
+     "DEFINITA_TOKEN": "YES",
+     "DOCUMENTO_CONDIZIONE": "IT-CAN-03C08A9CCB",
+     "DOCUMENTO_REGOLA": "IT-CAN-03C08A9CCB",
+     "FINE": null,
+     "GIORNI_RIMASTI": null,
+     "INIZIO": null,
+     "METODO": "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE",
+     "REGOLA": "RULE_DECLARED",
+     "TIPO": "WEATHER_TRIGGERED_WINDOW"
+    },
+    "FONTI_CHIAVI": 2,
+    "FONTI_URL": [
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36263",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428",
+     "https://www.regione.veneto.it/documents/11979050/14337132/Orticolo_2026_22.pdf/da94340c-e810-41b4-ab76-eafbf8a72edd"
+    ],
+    "GEOGRAFIA": "REGION_VENETO",
+    "ID": "OPP_EA2AE1EFB775",
+    "INVALIDA": [],
+    "LIMITI": [
+     "WINDOW_STATE_UNKNOWN",
+     "INTENSITY_UNKNOWN",
+     "RECURRENCE_UNKNOWN",
+     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
+    ],
+    "METODO_NECESSITA": "PAIR_IN_SAME_CLAUSE",
+    "NON_PROVA": {
+     "en": "does NOT prove incidence, affected area, or that the farmer will treat. A bulletin is the service's observation, not a census of the field.",
+     "it": "NON prova incidenza, superficie colpita, né che l'agricoltore tratterà. Il bollettino è osservazione del servizio, non censimento del campo."
+    },
+    "NON_PROVA_COMMERCIALE": {
+     "en": "does NOT prove channel demand, sell-in, sell-out, orders, inventory, margin, pipeline or purchase intent. Nothing here comes from ADAMA internal data. Agronomic pressure is an external commercial opportunity to examine — it is not demand.",
+     "it": "NON prova domanda della distribuzione, sell-in, sell-out, ordine, scorte, margine, pipeline né intenzione d'acquisto. Nulla qui viene da dati interni ADAMA. La pressione agronomica è un'opportunità commerciale esterna da esaminare — non è domanda."
+    },
+    "PERCHE": {
+     "en": "current positive need, catalogue product with a label on the pair, geography that holds, and time to act.",
+     "it": "necessità positiva corrente, prodotto del catalogo con etichetta sulla coppia, geografia che regge e tempo per agire."
+    },
+    "PERCHE_CODICI": [
+     "ALL_GATES_CLOSE",
+     "TIME_FROM_SOURCE_RECOMMENDATION"
+    ],
+    "PERCHE_NESSUN_PRINCIPALE": null,
+    "PERCHE_SOLO_CODICI": false,
+    "PRIORITA": "SALES_READY",
+    "PRODOTTI": [
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     }
+    ],
+    "PRODOTTO_PRINCIPALE": "CATPRD_FOLPAN_80_WDG",
+    "PROVA": {
+     "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
+     "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
+    },
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FOLPET"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_FOLPAN_80_WDG",
+     "PRODOTTO": "FOLPAN 80 WDG",
+     "REGISTRO": "008601"
+    },
+    "PUBBLICAZIONE": "PUBLISHABLE",
+    "RACCOMANDAZIONE": "START_RECOMMENDED",
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     }
+    ],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CYMOXANIL",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-11-30"
+     }
+    ],
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
+    "SOGLIA": "NOT_APPLICABLE",
+    "STADIO": "STAGE_NOT_DECLARED",
+    "STATO_CLIENTE": "CLIENT_ACT_NOW",
+    "TITOLO_DA_ARCHETIPO": false
+   },
+   {
     "AMBITO": "PROVINCIAL",
     "ARCHETIPO": "O1_FIELD_PRESSURE",
     "ATTUALITA": "CURRENT",
@@ -2791,7 +3112,8 @@ window.ITALY_CASA = {
       "AZIONE": "CONTACT_NOW",
       "DIPENDE_DA": null,
       "EVIDENZA": [
-       "CATPRD_BANJO"
+       "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG"
       ],
       "FINESTRA": "WINDOW_ACT_NOW",
       "INNESCO": null,
@@ -2828,7 +3150,8 @@ window.ITALY_CASA = {
       "AZIONE": "WATCH_REGULATORY_DATE",
       "DIPENDE_DA": null,
       "EVIDENZA": [
-       "AI_FLUAZINAM"
+       "AI_FLUAZINAM",
+       "AI_FOLPET"
       ],
       "FINESTRA": "WINDOW_MONITOR",
       "INNESCO": null,
@@ -2869,7 +3192,8 @@ window.ITALY_CASA = {
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
-       "CATPRD_BANJO"
+       "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -2903,37 +3227,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1437",
+      "ID": "IT-LBL-422",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1439",
+      "ID": "IT-LBL-430",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1626",
+      "ID": "IT-LBL-458",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1628",
+      "ID": "IT-LBL-466",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-979",
+      "ID": "IT-LBL-680",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-981",
+      "ID": "IT-LBL-688",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -2975,9 +3299,9 @@ window.ITALY_CASA = {
      "https://agroambiente.info.regione.toscana.it/agro18/agroreport_view#/agro_report/provincia/2/Firenze/2026_35",
      "https://agroambiente.info.regione.toscana.it/agro18/agroreport_view#/agro_report/provincia/38/Siena/2026_35",
      "https://agroambiente.info.regione.toscana.it/agro18/agroreport_view#/agro_report/provincia/38/Siena/2026_36",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38821",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38822",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38823"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426"
     ],
     "GEOGRAFIA": "REGION_TOSCANA",
     "ID": "OPP_F8106D5E1767",
@@ -3004,7 +3328,7 @@ window.ITALY_CASA = {
      "ALL_GATES_CLOSE",
      "TIME_FROM_SOURCE_RECOMMENDATION"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": null,
+    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "SALES_READY",
     "PRODOTTI": [
@@ -3027,9 +3351,29 @@ window.ITALY_CASA = {
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "YES",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
-    "PRODOTTO_PRINCIPALE": "CATPRD_BANJO",
+    "PRODOTTO_PRINCIPALE": null,
     "PROVA": {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
@@ -3052,6 +3396,11 @@ window.ITALY_CASA = {
       "ATTIVO": "FLUAZINAM",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [],
@@ -3083,8 +3432,8 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "CATPRD_BANJO",
-       "CATPRD_FOLPAN_GOLD",
-       "CATPRD_LAMDEX_EXTRA"
+       "CATPRD_FOLPAN_80_WDG",
+       "CATPRD_FOLPAN_GOLD"
       ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -3122,6 +3471,7 @@ window.ITALY_CASA = {
        "AI_FOLPET",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_METALAXYL_M",
+       "AI_POTASSIUM_PHOSPHONATES_FORMERLY_POTASSIUM_PHOSPHITE",
        "AI_TAU_FLUVALINATE",
        "AI_TEBUCONAZOLE"
       ],
@@ -3163,7 +3513,9 @@ window.ITALY_CASA = {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
        "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_FOLPAN_GOLD",
+       "CATPRD_FOLPAN_ENERGY",
        "CATPRD_LAMDEX_EXTRA",
        "CATPRD_MAVRIK_SMART"
       ],
@@ -3197,25 +3549,25 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-064",
+      "ID": "IT-LBL-078",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-065",
+      "ID": "IT-LBL-079",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-066",
+      "ID": "IT-LBL-080",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-067",
+      "ID": "IT-LBL-081",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -3365,6 +3717,26 @@ window.ITALY_CASA = {
      },
      {
       "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "FOLPET",
        "METALAXYL-M"
       ],
@@ -3386,6 +3758,32 @@ window.ITALY_CASA = {
         "ATTIVO": "METALAXYL-M",
         "CODICE": "EU_APPROVAL_EXPIRES",
         "DATA": "2035-05-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET",
+       "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_ENERGY",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Folpan® Energy",
+      "REGISTRO": "016749",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       },
+       {
+        "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2029-07-31"
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
@@ -3459,6 +3857,11 @@ window.ITALY_CASA = {
       "ATTIVO": "METALAXYL-M",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-07-31"
      },
      {
       "ATTIVO": "TAU-FLUVALINATE",
@@ -3612,19 +4015,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-409",
+      "ID": "IT-LBL-489",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-410",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-411",
+      "ID": "IT-LBL-490",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -3641,7 +4038,7 @@ window.ITALY_CASA = {
       "RUOLO": "BACKGROUND_ONLY"
      }
     ],
-    "EVIDENZE_TOTALE": 6,
+    "EVIDENZE_TOTALE": 5,
     "E_OPPORTUNITA_COMMERCIALE": true,
     "FAMIGLIE": [
      "ACTIVE_INGREDIENT",
@@ -3859,13 +4256,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-801",
+      "ID": "IT-LBL-1091",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-802",
+      "ID": "IT-LBL-1092",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -4115,25 +4512,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1987",
+      "ID": "IT-LBL-5362",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1988",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1989",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1990",
+      "ID": "IT-LBL-5363",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -4156,7 +4541,7 @@ window.ITALY_CASA = {
       "RUOLO": "BACKGROUND_ONLY"
      }
     ],
-    "EVIDENZE_TOTALE": 17,
+    "EVIDENZE_TOTALE": 15,
     "E_OPPORTUNITA_COMMERCIALE": true,
     "FAMIGLIE": [
      "ACTIVE_INGREDIENT",
@@ -4385,25 +4770,25 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1516",
+      "ID": "IT-LBL-3178",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1517",
+      "ID": "IT-LBL-3179",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1518",
+      "ID": "IT-LBL-3180",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1652",
+      "ID": "IT-LBL-3663",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -4661,51 +5046,21 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "ACTIVE_INGREDIENT",
-      "ID": "AI_FOLPET",
+      "ID": "AI_METALAXYL_M",
       "PERCHE": "NAO_DECIDE_NENHUM_ELO",
       "RUOLO": "BACKGROUND_ONLY"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1442",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1443",
+      "ID": "IT-LBL-1870",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-796",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "REGULATORY_PRODUCT",
-      "ID": "IT-PRD-011",
-      "PERCHE": "NAO_DECIDE_NENHUM_ELO",
-      "RUOLO": "BACKGROUND_ONLY"
-     },
-     {
-      "FAMIGLIA": "REGULATORY_PRODUCT",
-      "ID": "IT-PRD-013",
-      "PERCHE": "NAO_DECIDE_NENHUM_ELO",
-      "RUOLO": "BACKGROUND_ONLY"
-     },
-     {
-      "FAMIGLIA": "REGULATORY_PRODUCT",
-      "ID": "IT-PRD-023",
-      "PERCHE": "NAO_DECIDE_NENHUM_ELO",
-      "RUOLO": "BACKGROUND_ONLY"
-     },
-     {
-      "FAMIGLIA": "REGULATORY_PRODUCT",
-      "ID": "IT-PRD-026",
-      "PERCHE": "NAO_DECIDE_NENHUM_ELO",
-      "RUOLO": "BACKGROUND_ONLY"
      },
      {
       "FAMIGLIA": "REGULATORY_PRODUCT",
@@ -4715,18 +5070,18 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "REGULATORY_PRODUCT",
-      "ID": "IT-PRD-038",
+      "ID": "IT-PRD-077",
       "PERCHE": "NAO_DECIDE_NENHUM_ELO",
       "RUOLO": "BACKGROUND_ONLY"
      },
      {
       "FAMIGLIA": "REGULATORY_FUTURE_FACT",
-      "ID": "RFF_FOLPET",
+      "ID": "RFF_METALAXYL_M",
       "PERCHE": "NAO_DECIDE_NENHUM_ELO",
       "RUOLO": "BACKGROUND_ONLY"
      }
     ],
-    "EVIDENZE_TOTALE": 14,
+    "EVIDENZE_TOTALE": 12,
     "E_OPPORTUNITA_COMMERCIALE": true,
     "FAMIGLIE": [
      "ACTIVE_INGREDIENT",
@@ -4751,13 +5106,9 @@ window.ITALY_CASA = {
     "FONTI_CHIAVI": 3,
     "FONTI_URL": [
      "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02011R0540-20260721",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46740",
      "https://www.frac.info/media/s1zfrjqa/frac-code-list-2026.pdf"
     ],
     "GEOGRAFIA": "GEO_EU",
@@ -4974,7 +5325,7 @@ window.ITALY_CASA = {
       "RUOLO": "BACKGROUND_ONLY"
      }
     ],
-    "EVIDENZE_TOTALE": 250,
+    "EVIDENZE_TOTALE": 266,
     "E_OPPORTUNITA_COMMERCIALE": true,
     "FAMIGLIE": [
      "ACTIVE_INGREDIENT",
@@ -5179,19 +5530,19 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1459",
+      "ID": "IT-LBL-1918",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1460",
+      "ID": "IT-LBL-1919",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1461",
+      "ID": "IT-LBL-1920",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -5327,6 +5678,7 @@ window.ITALY_CASA = {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_PIRIMOR_50"
       ],
       "FINESTRA": null,
@@ -5362,6 +5714,8 @@ window.ITALY_CASA = {
        "AI_AZOXYSTROBIN",
        "AI_BUPIRIMATE",
        "AI_CYMOXANIL",
+       "AI_FLONICAMID_IKI_220",
+       "AI_FOLPET",
        "AI_PIRIMICARB",
        "AI_TEBUCONAZOLE"
       ],
@@ -5398,6 +5752,7 @@ window.ITALY_CASA = {
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_PIRIMOR_50"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
@@ -5508,7 +5863,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-240",
+      "ID": "IT-LBL-274",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -5571,10 +5926,30 @@ window.ITALY_CASA = {
     "PERCHE_CODICI": [
      "OPENING_WITHOUT_NEED"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": null,
+    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "COMMERCIAL_WATCH",
     "PRODOTTI": [
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
      {
       "ATTIVI": [
        "PIRIMICARB"
@@ -5596,7 +5971,7 @@ window.ITALY_CASA = {
       "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
-    "PRODOTTO_PRINCIPALE": "CATPRD_PIRIMOR_50",
+    "PRODOTTO_PRINCIPALE": null,
     "PROVA": {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
@@ -5605,6 +5980,11 @@ window.ITALY_CASA = {
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
     "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
      {
       "ATTIVO": "PIRIMICARB",
       "CODICE": "EU_APPROVAL_EXPIRES",
@@ -5626,6 +6006,11 @@ window.ITALY_CASA = {
       "ATTIVO": "CYMOXANIL",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-11-30"
+     },
+     {
+      "ATTIVO": "FLONICAMID (IKI-220)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-11-30"
      },
      {
       "ATTIVO": "TEBUCONAZOLE",
@@ -5805,13 +6190,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-247",
+      "ID": "IT-LBL-281",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-248",
+      "ID": "IT-LBL-282",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -6042,9 +6427,9 @@ window.ITALY_CASA = {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
+       "CATPRD_AVASTELR",
        "CATPRD_LAMDEX_EXTRA",
-       "CATPRD_MAGANICR",
-       "CATPRD_MAXENTISR"
+       "CATPRD_MAGANICR"
       ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -6077,7 +6462,11 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_CHLOROTOLURON",
        "AI_DIFENOCONAZOLE",
+       "AI_DIFLUFENICAN",
+       "AI_FLUXAPYROXAD",
+       "AI_FOLPET",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_PIRIMICARB",
        "AI_PROTHIOCONAZOLE",
@@ -6116,11 +6505,13 @@ window.ITALY_CASA = {
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
+       "CATPRD_AVASTELR",
        "CATPRD_LAMDEX_EXTRA",
        "CATPRD_MAGANICR",
        "CATPRD_MAXENTISR",
        "CATPRD_PIRIMOR_50",
-       "CATPRD_SCHERMO_0_5_G"
+       "CATPRD_SCHERMO_0_5_G",
+       "CATPRD_STAVENTO"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -6297,6 +6688,33 @@ window.ITALY_CASA = {
     "PRODOTTI": [
      {
       "ATTIVI": [
+       "FLUXAPYROXAD",
+       "PROTHIOCONAZOLE"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_AVASTELR",
+      "MOA": [
+       "FRAC 3",
+       "FRAC 7"
+      ],
+      "NOME": "Avastel®",
+      "REGISTRO": "018089",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FLUXAPYROXAD",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2027-10-31"
+       },
+       {
+        "ATTIVO": "PROTHIOCONAZOLE",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2027-03-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "LAMBDA-CYHALOTHRIN"
       ],
       "FINESTRA_FIT": "UNKNOWN",
@@ -6407,6 +6825,26 @@ window.ITALY_CASA = {
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_STAVENTO",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Stavento®",
+      "REGISTRO": "017752",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
     "PRODOTTO_PRINCIPALE": null,
@@ -6429,6 +6867,16 @@ window.ITALY_CASA = {
       "DATA": "2028-01-31"
      },
      {
+      "ATTIVO": "FLUXAPYROXAD",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-10-31"
+     },
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     },
+     {
       "ATTIVO": "LAMBDA-CYHALOTHRIN",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2029-01-31"
@@ -6449,7 +6897,18 @@ window.ITALY_CASA = {
       "DATA": "2027-05-31"
      }
     ],
-    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CHLOROTOLURON",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-06-30"
+     },
+     {
+      "ATTIVO": "DIFLUFENICAN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-08-31"
+     }
+    ],
     "RILEVANZA": "B",
     "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
     "RILEVANZA_SUPERFICIE": "RADAR",
@@ -6477,7 +6936,8 @@ window.ITALY_CASA = {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
-       "CATPRD_LAMDEX_EXTRA"
+       "CATPRD_LAMDEX_EXTRA",
+       "CATPRD_MAVRIK_SMART"
       ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -6509,7 +6969,9 @@ window.ITALY_CASA = {
       "AZIONE": "WATCH_REGULATORY_DATE",
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
-       "AI_LAMBDA_CYHALOTHRIN"
+       "AI_FLONICAMID_IKI_220",
+       "AI_LAMBDA_CYHALOTHRIN",
+       "AI_TAU_FLUVALINATE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -6544,7 +7006,8 @@ window.ITALY_CASA = {
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
-       "CATPRD_LAMDEX_EXTRA"
+       "CATPRD_LAMDEX_EXTRA",
+       "CATPRD_MAVRIK_SMART"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -6624,37 +7087,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-306",
+      "ID": "IT-LBL-052",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-307",
+      "ID": "IT-LBL-053",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-308",
+      "ID": "IT-LBL-054",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-803",
+      "ID": "IT-LBL-055",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-804",
+      "ID": "IT-LBL-163",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-805",
+      "ID": "IT-LBL-164",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -6689,8 +7152,8 @@ window.ITALY_CASA = {
      "https://www.facebook.com/ads/library/?id=920692757444126&locale=en_US",
      "https://www.facebook.com/ads/library/?id=959159786996717&locale=en_US",
      "https://www.facebook.com/ads/library/?id=976626005126800&locale=en_US",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43588"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45417"
     ],
     "GEOGRAFIA": "GEO_ITALY",
     "ID": "OPP_6B7D9CC9188B",
@@ -6716,7 +7179,7 @@ window.ITALY_CASA = {
     "PERCHE_CODICI": [
      "OPENING_WITHOUT_NEED"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": null,
+    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "COMMERCIAL_WATCH",
     "PRODOTTI": [
@@ -6739,9 +7202,29 @@ window.ITALY_CASA = {
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "TAU-FLUVALINATE"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_MAVRIK_SMART",
+      "MOA": [
+       "IRAC 3"
+      ],
+      "NOME": "MAVRIK SMART",
+      "REGISTRO": "009800",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "TAU-FLUVALINATE",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2027-01-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
      }
     ],
-    "PRODOTTO_PRINCIPALE": "CATPRD_LAMDEX_EXTRA",
+    "PRODOTTO_PRINCIPALE": null,
     "PROVA": {
      "en": "that a competitor publicly communicated about this crop.",
      "it": "che c'è stata comunicazione pubblica di un concorrente su questa coltura."
@@ -6754,9 +7237,20 @@ window.ITALY_CASA = {
       "ATTIVO": "LAMBDA-CYHALOTHRIN",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2029-01-31"
+     },
+     {
+      "ATTIVO": "TAU-FLUVALINATE",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-01-31"
      }
     ],
-    "RESTRIZIONI_ALTRO_ATTIVO": [],
+    "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "FLONICAMID (IKI-220)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-11-30"
+     }
+    ],
     "RILEVANZA": "B",
     "RILEVANZA_PERCHE": "RELEVANCE_B_NO_TARGET",
     "RILEVANZA_SUPERFICIE": "RADAR",
@@ -6892,37 +7386,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-360",
+      "ID": "IT-LBL-1147",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-361",
+      "ID": "IT-LBL-1148",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-362",
+      "ID": "IT-LBL-394",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-363",
+      "ID": "IT-LBL-395",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-857",
+      "ID": "IT-LBL-396",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-858",
+      "ID": "IT-LBL-397",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -7187,37 +7681,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1348",
+      "ID": "IT-LBL-1771",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1349",
+      "ID": "IT-LBL-1772",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-407",
+      "ID": "IT-LBL-487",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-408",
+      "ID": "IT-LBL-488",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-601",
+      "ID": "IT-LBL-799",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-602",
+      "ID": "IT-LBL-800",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -7524,13 +8018,13 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-247",
+      "ID": "IT-LBL-281",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-248",
+      "ID": "IT-LBL-282",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -7760,6 +8254,7 @@ window.ITALY_CASA = {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
+       "CATPRD_AVASTELR",
        "CATPRD_MAGANICR",
        "CATPRD_MAXENTISR"
       ],
@@ -7794,9 +8289,12 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_CHLOROTOLURON",
        "AI_DIFENOCONAZOLE",
+       "AI_DIFLUFENICAN",
        "AI_FLORASULAM",
        "AI_FLUROXYPYR",
+       "AI_FLUXAPYROXAD",
        "AI_PROTHIOCONAZOLE",
        "AI_TEBUCONAZOLE"
       ],
@@ -7833,6 +8331,7 @@ window.ITALY_CASA = {
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
+       "CATPRD_AVASTELR",
        "CATPRD_MAGANICR",
        "CATPRD_MAXENTISR"
       ],
@@ -7866,37 +8365,37 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1332",
+      "ID": "IT-LBL-1750",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1333",
+      "ID": "IT-LBL-1751",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1334",
+      "ID": "IT-LBL-1752",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1335",
+      "ID": "IT-LBL-1753",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1459",
+      "ID": "IT-LBL-1915",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1460",
+      "ID": "IT-LBL-1918",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -7929,6 +8428,7 @@ window.ITALY_CASA = {
     },
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36530",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41520"
     ],
@@ -7960,6 +8460,33 @@ window.ITALY_CASA = {
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "COMMERCIAL_WATCH",
     "PRODOTTI": [
+     {
+      "ATTIVI": [
+       "FLUXAPYROXAD",
+       "PROTHIOCONAZOLE"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_AVASTELR",
+      "MOA": [
+       "FRAC 3",
+       "FRAC 7"
+      ],
+      "NOME": "Avastel®",
+      "REGISTRO": "018089",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FLUXAPYROXAD",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2027-10-31"
+       },
+       {
+        "ATTIVO": "PROTHIOCONAZOLE",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2027-03-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
      {
       "ATTIVI": [
        "AZOXYSTROBIN",
@@ -8034,12 +8561,27 @@ window.ITALY_CASA = {
       "DATA": "2028-01-31"
      },
      {
+      "ATTIVO": "FLUXAPYROXAD",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-10-31"
+     },
+     {
       "ATTIVO": "PROTHIOCONAZOLE",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-03-31"
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
+     {
+      "ATTIVO": "CHLOROTOLURON",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2028-06-30"
+     },
+     {
+      "ATTIVO": "DIFLUFENICAN",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2027-08-31"
+     },
      {
       "ATTIVO": "FLORASULAM",
       "CODICE": "EU_APPROVAL_EXPIRES",
@@ -8197,37 +8739,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-107",
+      "ID": "IT-LBL-127",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-108",
+      "ID": "IT-LBL-128",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-109",
+      "ID": "IT-LBL-129",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-110",
+      "ID": "IT-LBL-130",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-111",
+      "ID": "IT-LBL-131",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-112",
+      "ID": "IT-LBL-132",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -8520,37 +9062,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1348",
+      "ID": "IT-LBL-1771",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1349",
+      "ID": "IT-LBL-1772",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-407",
+      "ID": "IT-LBL-487",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-408",
+      "ID": "IT-LBL-488",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-601",
+      "ID": "IT-LBL-799",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-602",
+      "ID": "IT-LBL-800",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -8675,8 +9217,8 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "CATPRD_BANJO",
-       "CATPRD_FOLPAN_GOLD",
-       "CATPRD_LAMDEX_EXTRA"
+       "CATPRD_FOLPAN_80_WDG",
+       "CATPRD_FOLPAN_GOLD"
       ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -8714,6 +9256,7 @@ window.ITALY_CASA = {
        "AI_FOLPET",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_METALAXYL_M",
+       "AI_POTASSIUM_PHOSPHONATES_FORMERLY_POTASSIUM_PHOSPHITE",
        "AI_TAU_FLUVALINATE",
        "AI_TEBUCONAZOLE"
       ],
@@ -8751,7 +9294,9 @@ window.ITALY_CASA = {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
        "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_FOLPAN_GOLD",
+       "CATPRD_FOLPAN_ENERGY",
        "CATPRD_LAMDEX_EXTRA",
        "CATPRD_MAVRIK_SMART"
       ],
@@ -8833,37 +9378,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-064",
+      "ID": "IT-LBL-078",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-065",
+      "ID": "IT-LBL-079",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-066",
+      "ID": "IT-LBL-080",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-067",
+      "ID": "IT-LBL-081",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-068",
+      "ID": "IT-LBL-189",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-069",
+      "ID": "IT-LBL-190",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -8898,7 +9443,8 @@ window.ITALY_CASA = {
      "https://www.facebook.com/ads/library/?id=808788992321444&locale=en_US",
      "https://www.facebook.com/ads/library/?id=873934682006547&locale=en_US",
      "https://www.facebook.com/ads/library/?id=997604116521158&locale=en_US",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45417"
     ],
     "GEOGRAFIA": "GEO_ITALY",
     "ID": "OPP_BCD174C535AC",
@@ -8950,6 +9496,26 @@ window.ITALY_CASA = {
      },
      {
       "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "FOLPET",
        "METALAXYL-M"
       ],
@@ -8971,6 +9537,32 @@ window.ITALY_CASA = {
         "ATTIVO": "METALAXYL-M",
         "CODICE": "EU_APPROVAL_EXPIRES",
         "DATA": "2035-05-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET",
+       "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_ENERGY",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Folpan® Energy",
+      "REGISTRO": "016749",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       },
+       {
+        "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2029-07-31"
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
@@ -9044,6 +9636,11 @@ window.ITALY_CASA = {
       "ATTIVO": "METALAXYL-M",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-07-31"
      },
      {
       "ATTIVO": "TAU-FLUVALINATE",
@@ -9131,6 +9728,7 @@ window.ITALY_CASA = {
       "EVIDENZA": [
        "AI_CAPTAN",
        "AI_CHLORANTRANILIPROLE",
+       "AI_FLONICAMID_IKI_220",
        "AI_FLUAZINAM",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_PIRIMICARB",
@@ -9255,19 +9853,19 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-052",
+      "ID": "IT-LBL-056",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-053",
+      "ID": "IT-LBL-057",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-054",
+      "ID": "IT-LBL-058",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -9496,6 +10094,11 @@ window.ITALY_CASA = {
       "ATTIVO": "CHLORANTRANILIPROLE",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2027-05-31"
+     },
+     {
+      "ATTIVO": "FLONICAMID (IKI-220)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2026-11-30"
      }
     ],
     "RILEVANZA": "B",
@@ -9526,8 +10129,8 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "CATPRD_BANJO",
-       "CATPRD_FOLPAN_GOLD",
-       "CATPRD_LAMDEX_EXTRA"
+       "CATPRD_FOLPAN_80_WDG",
+       "CATPRD_FOLPAN_GOLD"
       ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -9565,6 +10168,7 @@ window.ITALY_CASA = {
        "AI_FOLPET",
        "AI_LAMBDA_CYHALOTHRIN",
        "AI_METALAXYL_M",
+       "AI_POTASSIUM_PHOSPHONATES_FORMERLY_POTASSIUM_PHOSPHITE",
        "AI_TAU_FLUVALINATE",
        "AI_TEBUCONAZOLE"
       ],
@@ -9602,7 +10206,9 @@ window.ITALY_CASA = {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
        "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_FOLPAN_GOLD",
+       "CATPRD_FOLPAN_ENERGY",
        "CATPRD_LAMDEX_EXTRA",
        "CATPRD_MAVRIK_SMART"
       ],
@@ -9660,37 +10266,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-064",
+      "ID": "IT-LBL-078",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-065",
+      "ID": "IT-LBL-079",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-066",
+      "ID": "IT-LBL-080",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-067",
+      "ID": "IT-LBL-081",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-068",
+      "ID": "IT-LBL-189",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-069",
+      "ID": "IT-LBL-190",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -9722,7 +10328,8 @@ window.ITALY_CASA = {
      "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/vit_t1?format=JSON&lang=en&vinetype=TOTAL&unit=HA&time=2020&geo=IT&geo=ITG1&geo=ITH3&geo=ITF4",
      "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT+ITC1+ITC2+ITC3+ITC4+ITDA+ITD1+ITD2+ITD3+ITD4+ITD5+ITE1+ITE2+ITE3+ITE4+ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+ITG1+ITG2.ART+PA+TP_QUIN_EXT+HP_Q_EXT+TP_HECT_EXT+TPT.VINEFORTHE+WINESQ+WINESO+WINEES+TABLEGRAPES+OLIV+OLIVTAB_OIL+APPLET.?startPeriod=2024",
      "https://www.bmti.it/wp-content/uploads/2026/05/Analisi-uve-da-vino-2025-1.pdf",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45051",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=45417"
     ],
     "GEOGRAFIA": "GEO_ITALY",
     "ID": "OPP_F383CF46E5BF",
@@ -9774,6 +10381,26 @@ window.ITALY_CASA = {
      },
      {
       "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "FOLPET",
        "METALAXYL-M"
       ],
@@ -9795,6 +10422,32 @@ window.ITALY_CASA = {
         "ATTIVO": "METALAXYL-M",
         "CODICE": "EU_APPROVAL_EXPIRES",
         "DATA": "2035-05-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET",
+       "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_ENERGY",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Folpan® Energy",
+      "REGISTRO": "016749",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       },
+       {
+        "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2029-07-31"
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
@@ -9868,6 +10521,11 @@ window.ITALY_CASA = {
       "ATTIVO": "METALAXYL-M",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-07-31"
      },
      {
       "ATTIVO": "TAU-FLUVALINATE",
@@ -10036,31 +10694,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1371",
+      "ID": "IT-LBL-1024",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1675",
+      "ID": "IT-LBL-1113",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-326",
+      "ID": "IT-LBL-1193",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-823",
+      "ID": "IT-LBL-1794",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-903",
+      "ID": "IT-LBL-360",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-4908",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -10071,7 +10735,7 @@ window.ITALY_CASA = {
       "RUOLO": "SUPPORTS_SIGNAL"
      }
     ],
-    "EVIDENZE_TOTALE": 7,
+    "EVIDENZE_TOTALE": 8,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "FIELD_SIGNAL",
@@ -10093,6 +10757,7 @@ window.ITALY_CASA = {
     },
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43525",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43526",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=43586",
@@ -10209,7 +10874,9 @@ window.ITALY_CASA = {
      {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
-      "EVIDENZA": [],
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
       "PERCHE": "SEM_PRIORIDADE_COMERCIAL",
@@ -10246,6 +10913,7 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_FOLPET",
        "AI_TEBUCONAZOLE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
@@ -10286,10 +10954,12 @@ window.ITALY_CASA = {
      },
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
-      "EVIDENZA": [],
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
-      "OK": false
+      "OK": true
      },
      {
       "ELO": "TEMPO_PARA_ACAO",
@@ -10302,7 +10972,6 @@ window.ITALY_CASA = {
     "CATENA_CODICI": [
      "SEM_SINAL_ATUAL",
      "SEM_JANELA_ABERTA_AGORA",
-     "SEM_VINCULO_COM_PORTFOLIO",
      "SEM_TEMPO_PARA_ACAO"
     ],
     "CATENA_COMPLETA": false,
@@ -10322,13 +10991,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1343",
+      "ID": "IT-LBL-1072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1852",
+      "ID": "IT-LBL-1648",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-429",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-468",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-687",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-725",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -10339,7 +11032,7 @@ window.ITALY_CASA = {
       "RUOLO": "SUPPORTS_DIRECTION"
      }
     ],
-    "EVIDENZE_TOTALE": 4,
+    "EVIDENZE_TOTALE": 8,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "FIELD_SIGNAL",
@@ -10362,15 +11055,18 @@ window.ITALY_CASA = {
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
      "http://difesafitosanitaria.ersa.fvg.it/difesa-e-produzione-integrata/difesa-integrata-obbligatoria/bollettini-fitosanitari/vite/bollettini-ersa/bollettini-ersa-2026/Bollettino%20Vite_33_2026.pdf",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42926",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428"
     ],
     "GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
     "ID": "OPP_195919127658",
     "INVALIDA": [],
     "LIMITI": [
      "WINDOW_STATE_UNKNOWN",
-     "COMMERCIAL_PRODUCT_MISSING",
      "INTENSITY_UNKNOWN",
      "RECURRENCE_UNKNOWN",
      "OFFICIAL_AREA_NOT_CLIENT_SAFE"
@@ -10385,25 +11081,62 @@ window.ITALY_CASA = {
      "it": "NON prova domanda della distribuzione, sell-in, sell-out, ordine, scorte, margine, pipeline né intenzione d'acquisto. Nulla qui viene da dati interni ADAMA. La pressione agronomica è un'opportunità commerciale esterna da esaminare — non è domanda."
     },
     "PERCHE": {
-     "en": "there is a verified ministerial label, but none of the authorised products is in the public commercial catalogue: authorisation is not catalogue.",
-     "it": "c'è etichetta ministeriale verificata, ma nessuno dei prodotti autorizzati è nel catalogo commerciale pubblico: autorizzazione non è catalogo."
+     "en": "pair and product are there, but the source declares no current positive need.",
+     "it": "ci sono coppia e prodotto, ma la fonte non dichiara una necessità positiva corrente."
     },
     "PERCHE_CODICI": [
-     "LABEL_WITHOUT_CATALOG"
+     "NEED_NOT_POSITIVE"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "PERCHE_NESSUN_PRINCIPALE": null,
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "TO_VALIDATE",
-    "PRODOTTI": [],
-    "PRODOTTO_PRINCIPALE": null,
+    "PRODOTTI": [
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     }
+    ],
+    "PRODOTTO_PRINCIPALE": "CATPRD_FOLPAN_80_WDG",
     "PROVA": {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
-    "PROVA_ADAMA": null,
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FOLPET"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_FOLPAN_80_WDG",
+     "PRODOTTO": "FOLPAN 80 WDG",
+     "REGISTRO": "008601"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "RECOMMENDATION_NOT_DECLARED",
-    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     }
+    ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
      {
       "ATTIVO": "AZOXYSTROBIN",
@@ -10416,9 +11149,9 @@ window.ITALY_CASA = {
       "DATA": "2028-07-31"
      }
     ],
-    "RILEVANZA": "C",
-    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
-    "RILEVANZA_SUPERFICIE": "SEGNALI",
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -10560,37 +11293,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-065",
+      "ID": "IT-LBL-079",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1035",
+      "ID": "IT-LBL-1341",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1115",
+      "ID": "IT-LBL-1439",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-159",
+      "ID": "IT-LBL-190",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-466",
+      "ID": "IT-LBL-560",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-658",
+      "ID": "IT-LBL-879",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -10862,31 +11595,31 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1348",
+      "ID": "IT-LBL-1771",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1508",
+      "ID": "IT-LBL-2828",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1514",
+      "ID": "IT-LBL-3176",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-407",
+      "ID": "IT-LBL-487",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-601",
+      "ID": "IT-LBL-799",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11142,7 +11875,25 @@ window.ITALY_CASA = {
     "EVIDENZE": [
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1932",
+      "ID": "IT-LBL-1028",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1029",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1030",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1031",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11183,7 +11934,7 @@ window.ITALY_CASA = {
       "RUOLO": "BACKGROUND_ONLY"
      }
     ],
-    "EVIDENZE_TOTALE": 7,
+    "EVIDENZE_TOTALE": 10,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "FIELD_SIGNAL",
@@ -11211,7 +11962,7 @@ window.ITALY_CASA = {
      "https://agroambiente.info.regione.toscana.it/agro18/agroreport_view#/agro_report/provincia/38/Siena/2026_35",
      "https://doi.org/10.1094/phyto-12-23-0476-kc",
      "https://doi.org/10.5281/zenodo.3559093",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44958",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
      "https://www.regione.umbria.it/documents/18/0/bollettino+olivo+n.9+del+28_08_26/1b3871b7-7431-4b37-af82-6ff9ce17c916?version=1.0"
     ],
     "GEOGRAFIA": "GEO_ITALY",
@@ -11402,37 +12153,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-343",
+      "ID": "IT-LBL-1130",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-350",
+      "ID": "IT-LBL-1137",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-840",
+      "ID": "IT-LBL-1210",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-847",
+      "ID": "IT-LBL-1217",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-920",
+      "ID": "IT-LBL-377",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-927",
+      "ID": "IT-LBL-384",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11719,12 +12470,42 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1932",
+      "ID": "IT-LBL-1028",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1029",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1030",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1031",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1032",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-5191",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
     ],
-    "EVIDENZE_TOTALE": 9,
+    "EVIDENZE_TOTALE": 14,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "COMPETITOR_ACTIVITY",
@@ -11754,6 +12535,7 @@ window.ITALY_CASA = {
      "https://www.facebook.com/ads/library/?id=2521120791684081&locale=en_US",
      "https://www.facebook.com/ads/library/?id=865132003279105&locale=en_US",
      "https://www.facebook.com/ads/library/?id=976626005126800&locale=en_US",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44958"
     ],
     "GEOGRAFIA": "GEO_ITALY",
@@ -11829,7 +12611,9 @@ window.ITALY_CASA = {
      {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
-      "EVIDENZA": [],
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
       "PERCHE": "SEM_PRIORIDADE_COMERCIAL",
@@ -11866,6 +12650,7 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_FOLPET",
        "AI_TEBUCONAZOLE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
@@ -11906,10 +12691,12 @@ window.ITALY_CASA = {
      },
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
-      "EVIDENZA": [],
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
-      "OK": false
+      "OK": true
      },
      {
       "ELO": "TEMPO_PARA_ACAO",
@@ -11922,7 +12709,6 @@ window.ITALY_CASA = {
     "CATENA_CODICI": [
      "SEM_SINAL_ATUAL",
      "SEM_JANELA_ABERTA_AGORA",
-     "SEM_VINCULO_COM_PORTFOLIO",
      "SEM_TEMPO_PARA_ACAO"
     ],
     "CATENA_COMPLETA": false,
@@ -11942,13 +12728,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1343",
+      "ID": "IT-LBL-1072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1852",
+      "ID": "IT-LBL-1648",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-429",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-468",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-687",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-725",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -11959,7 +12769,7 @@ window.ITALY_CASA = {
       "RUOLO": "SUPPORTS_DIRECTION"
      }
     ],
-    "EVIDENZE_TOTALE": 4,
+    "EVIDENZE_TOTALE": 8,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "FIELD_SIGNAL",
@@ -11981,8 +12791,12 @@ window.ITALY_CASA = {
     },
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42926",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428",
      "https://www.regione.umbria.it/documents/18/0/bollettino+vite+n.21+del+28_08_26/7ad698cc-396f-4f9f-a146-12495ec6e169?version=1.0"
     ],
     "GEOGRAFIA": "REGION_UMBRIA",
@@ -11993,7 +12807,6 @@ window.ITALY_CASA = {
     ],
     "LIMITI": [
      "WINDOW_STATE_UNKNOWN",
-     "COMMERCIAL_PRODUCT_MISSING",
      "INTENSITY_UNKNOWN",
      "RECURRENCE_UNKNOWN",
      "OFFICIAL_AREA_NOT_CLIENT_SAFE"
@@ -12014,19 +12827,56 @@ window.ITALY_CASA = {
     "PERCHE_CODICI": [
      "NEED_CLOSED"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "PERCHE_NESSUN_PRINCIPALE": null,
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "TO_VALIDATE",
-    "PRODOTTI": [],
-    "PRODOTTO_PRINCIPALE": null,
+    "PRODOTTI": [
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     }
+    ],
+    "PRODOTTO_PRINCIPALE": "CATPRD_FOLPAN_80_WDG",
     "PROVA": {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
-    "PROVA_ADAMA": null,
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FOLPET"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_FOLPAN_80_WDG",
+     "PRODOTTO": "FOLPAN 80 WDG",
+     "REGISTRO": "008601"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "NOT_NEEDED_DECLARED",
-    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     }
+    ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
      {
       "ATTIVO": "AZOXYSTROBIN",
@@ -12039,9 +12889,9 @@ window.ITALY_CASA = {
       "DATA": "2028-07-31"
      }
     ],
-    "RILEVANZA": "C",
-    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
-    "RILEVANZA_SUPERFICIE": "SEGNALI",
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -12068,7 +12918,9 @@ window.ITALY_CASA = {
      {
       "AZIONE": "NO_MOVEMENT",
       "DIPENDE_DA": "SINAL_ATUAL",
-      "EVIDENZA": [],
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
       "FINESTRA": null,
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
       "PERCHE": "SEM_PRIORIDADE_COMERCIAL",
@@ -12105,6 +12957,7 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "AI_AZOXYSTROBIN",
+       "AI_FOLPET",
        "AI_TEBUCONAZOLE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
@@ -12145,10 +12998,12 @@ window.ITALY_CASA = {
      },
      {
       "ELO": "VINCULO_COM_PORTFOLIO",
-      "EVIDENZA": [],
+      "EVIDENZA": [
+       "CATPRD_FOLPAN_80_WDG"
+      ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
-      "OK": false
+      "OK": true
      },
      {
       "ELO": "TEMPO_PARA_ACAO",
@@ -12161,7 +13016,6 @@ window.ITALY_CASA = {
     "CATENA_CODICI": [
      "SEM_SINAL_ATUAL",
      "SEM_JANELA_ABERTA_AGORA",
-     "SEM_VINCULO_COM_PORTFOLIO",
      "SEM_TEMPO_PARA_ACAO"
     ],
     "CATENA_COMPLETA": false,
@@ -12181,13 +13035,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1343",
+      "ID": "IT-LBL-1072",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1852",
+      "ID": "IT-LBL-1648",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-429",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-468",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-687",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-725",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -12204,7 +13082,7 @@ window.ITALY_CASA = {
       "RUOLO": "SUPPORTS_SIGNAL"
      }
     ],
-    "EVIDENZE_TOTALE": 5,
+    "EVIDENZE_TOTALE": 9,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "FIELD_SIGNAL",
@@ -12228,8 +13106,12 @@ window.ITALY_CASA = {
     "FONTI_URL": [
      "https://agroambiente.info.regione.toscana.it/agro18/agroreport_view#/agro_report/provincia/2/Firenze/2026_35",
      "https://agroambiente.info.regione.toscana.it/agro18/agroreport_view#/agro_report/provincia/38/Siena/2026_35",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38654",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38656"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=42926",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428"
     ],
     "GEOGRAFIA": "REGION_TOSCANA",
     "ID": "OPP_C5F7888EC524",
@@ -12239,7 +13121,6 @@ window.ITALY_CASA = {
     ],
     "LIMITI": [
      "WINDOW_STATE_UNKNOWN",
-     "COMMERCIAL_PRODUCT_MISSING",
      "INTENSITY_UNKNOWN",
      "RECURRENCE_UNKNOWN",
      "OFFICIAL_AREA_NOT_CLIENT_SAFE"
@@ -12260,19 +13141,56 @@ window.ITALY_CASA = {
     "PERCHE_CODICI": [
      "NEED_CLOSED"
     ],
-    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
+    "PERCHE_NESSUN_PRINCIPALE": null,
     "PERCHE_SOLO_CODICI": false,
     "PRIORITA": "TO_VALIDATE",
-    "PRODOTTI": [],
-    "PRODOTTO_PRINCIPALE": null,
+    "PRODOTTI": [
+     {
+      "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     }
+    ],
+    "PRODOTTO_PRINCIPALE": "CATPRD_FOLPAN_80_WDG",
     "PROVA": {
      "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
      "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
     },
-    "PROVA_ADAMA": null,
+    "PROVA_ADAMA": {
+     "ATTIVI": [
+      "FOLPET"
+     ],
+     "AUTORIZZAZIONE": "AUTHORIZATION_LIVE",
+     "BERSAGLIO": "ON_MINISTERIAL_LABEL",
+     "CULTURA": "DECLARED_ON_CATALOG_PAGE",
+     "ID": "CATPRD_FOLPAN_80_WDG",
+     "PRODOTTO": "FOLPAN 80 WDG",
+     "REGISTRO": "008601"
+    },
     "PUBBLICAZIONE": "VALIDATION_REQUIRED",
     "RACCOMANDAZIONE": "SUSPEND_RECOMMENDED",
-    "RESTRIZIONI_ADAMA": [],
+    "RESTRIZIONI_ADAMA": [
+     {
+      "ATTIVO": "FOLPET",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2039-10-31"
+     }
+    ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
      {
       "ATTIVO": "AZOXYSTROBIN",
@@ -12285,9 +13203,9 @@ window.ITALY_CASA = {
       "DATA": "2028-07-31"
      }
     ],
-    "RILEVANZA": "C",
-    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
-    "RILEVANZA_SUPERFICIE": "SEGNALI",
+    "RILEVANZA": "A",
+    "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
+    "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -12424,37 +13342,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-065",
+      "ID": "IT-LBL-079",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1035",
+      "ID": "IT-LBL-1341",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1115",
+      "ID": "IT-LBL-1439",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-159",
+      "ID": "IT-LBL-190",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-466",
+      "ID": "IT-LBL-560",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-658",
+      "ID": "IT-LBL-879",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -12619,6 +13537,7 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_FOLPAN_GOLD"
       ],
       "FINESTRA": null,
@@ -12659,7 +13578,8 @@ window.ITALY_CASA = {
        "AI_CYMOXANIL",
        "AI_FLUAZINAM",
        "AI_FOLPET",
-       "AI_METALAXYL_M"
+       "AI_METALAXYL_M",
+       "AI_POTASSIUM_PHOSPHONATES_FORMERLY_POTASSIUM_PHOSPHITE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -12701,7 +13621,9 @@ window.ITALY_CASA = {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
        "CATPRD_BANJO",
-       "CATPRD_FOLPAN_GOLD"
+       "CATPRD_FOLPAN_80_WDG",
+       "CATPRD_FOLPAN_GOLD",
+       "CATPRD_FOLPAN_ENERGY"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -12737,37 +13659,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1438",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1442",
+      "ID": "IT-LBL-1067",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1446",
+      "ID": "IT-LBL-427",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-796",
+      "ID": "IT-LBL-463",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-967",
+      "ID": "IT-LBL-685",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-980",
+      "ID": "IT-LBL-720",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -12801,12 +13723,12 @@ window.ITALY_CASA = {
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
      "http://difesafitosanitaria.ersa.fvg.it/difesa-e-produzione-integrata/difesa-integrata-obbligatoria/bollettini-fitosanitari/vite/bollettini-ersa/bollettini-ersa-2026/Bollettino%20Vite_33_2026.pdf",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36263",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36264",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38821",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38822",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374"
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428"
     ],
     "GEOGRAFIA": "REGION_FRIULI_VENEZIA_GIULIA",
     "ID": "OPP_D9B21D005CC3",
@@ -12859,6 +13781,26 @@ window.ITALY_CASA = {
      },
      {
       "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "FOLPET",
        "METALAXYL-M"
       ],
@@ -12880,6 +13822,32 @@ window.ITALY_CASA = {
         "ATTIVO": "METALAXYL-M",
         "CODICE": "EU_APPROVAL_EXPIRES",
         "DATA": "2035-05-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET",
+       "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_ENERGY",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Folpan® Energy",
+      "REGISTRO": "016749",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       },
+       {
+        "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2029-07-31"
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
@@ -12918,6 +13886,11 @@ window.ITALY_CASA = {
       "ATTIVO": "METALAXYL-M",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-07-31"
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
@@ -12958,6 +13931,7 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_FOLPAN_GOLD"
       ],
       "FINESTRA": null,
@@ -12998,7 +13972,8 @@ window.ITALY_CASA = {
        "AI_CYMOXANIL",
        "AI_FLUAZINAM",
        "AI_FOLPET",
-       "AI_METALAXYL_M"
+       "AI_METALAXYL_M",
+       "AI_POTASSIUM_PHOSPHONATES_FORMERLY_POTASSIUM_PHOSPHITE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -13040,7 +14015,9 @@ window.ITALY_CASA = {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
        "CATPRD_BANJO",
-       "CATPRD_FOLPAN_GOLD"
+       "CATPRD_FOLPAN_80_WDG",
+       "CATPRD_FOLPAN_GOLD",
+       "CATPRD_FOLPAN_ENERGY"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -13076,37 +14053,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1438",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1442",
+      "ID": "IT-LBL-1067",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1446",
+      "ID": "IT-LBL-427",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-796",
+      "ID": "IT-LBL-463",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-967",
+      "ID": "IT-LBL-685",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-980",
+      "ID": "IT-LBL-720",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -13139,12 +14116,12 @@ window.ITALY_CASA = {
     },
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36263",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36264",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38821",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38822",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428",
      "https://www.regione.umbria.it/documents/18/0/bollettino+vite+n.21+del+28_08_26/7ad698cc-396f-4f9f-a146-12495ec6e169?version=1.0"
     ],
     "GEOGRAFIA": "REGION_UMBRIA",
@@ -13201,6 +14178,26 @@ window.ITALY_CASA = {
      },
      {
       "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "FOLPET",
        "METALAXYL-M"
       ],
@@ -13222,6 +14219,32 @@ window.ITALY_CASA = {
         "ATTIVO": "METALAXYL-M",
         "CODICE": "EU_APPROVAL_EXPIRES",
         "DATA": "2035-05-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET",
+       "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_ENERGY",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Folpan® Energy",
+      "REGISTRO": "016749",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       },
+       {
+        "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2029-07-31"
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
@@ -13260,6 +14283,11 @@ window.ITALY_CASA = {
       "ATTIVO": "METALAXYL-M",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-07-31"
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
@@ -13300,6 +14328,7 @@ window.ITALY_CASA = {
       "DIPENDE_DA": "SINAL_ATUAL",
       "EVIDENZA": [
        "CATPRD_BANJO",
+       "CATPRD_FOLPAN_80_WDG",
        "CATPRD_FOLPAN_GOLD"
       ],
       "FINESTRA": null,
@@ -13340,7 +14369,8 @@ window.ITALY_CASA = {
        "AI_CYMOXANIL",
        "AI_FLUAZINAM",
        "AI_FOLPET",
-       "AI_METALAXYL_M"
+       "AI_METALAXYL_M",
+       "AI_POTASSIUM_PHOSPHONATES_FORMERLY_POTASSIUM_PHOSPHITE"
       ],
       "FINESTRA": "WINDOW_MONITOR",
       "INNESCO": "TRIGGER_NEW_BULLETIN_POSITIVE_NEED",
@@ -13382,7 +14412,9 @@ window.ITALY_CASA = {
       "ELO": "VINCULO_COM_PORTFOLIO",
       "EVIDENZA": [
        "CATPRD_BANJO",
-       "CATPRD_FOLPAN_GOLD"
+       "CATPRD_FOLPAN_80_WDG",
+       "CATPRD_FOLPAN_GOLD",
+       "CATPRD_FOLPAN_ENERGY"
       ],
       "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
       "FATTO_DATA": null,
@@ -13418,37 +14450,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1438",
+      "ID": "IT-LBL-1061",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1442",
+      "ID": "IT-LBL-1067",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1446",
+      "ID": "IT-LBL-427",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-796",
+      "ID": "IT-LBL-463",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-967",
+      "ID": "IT-LBL-685",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-980",
+      "ID": "IT-LBL-720",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -13528,12 +14560,12 @@ window.ITALY_CASA = {
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/forli-cesena-ravenna-rimini/bollettino-27-del-19-agosto-2026-di-forli-cesena-ravenna-rimini.pdf/@@download/file",
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/parma-piacenza/parma/bollettino-27-del-21-agosto-2026-di-parma.pdf/@@download/file",
      "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026/parma-piacenza/piacenza-1/bollettino-27-del-21-agosto-2026-di-piacenza.pdf/@@download/file",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36263",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36264",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38821",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38822",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46359",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46355",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46356",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46374",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46426",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46427",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=46428",
      "https://www.fitosanitario.mo.it/files/5617/8713/5961/Bollettino_27_del18_Agosto_2026_Modena.pdf"
     ],
     "GEOGRAFIA": "REGION_EMILIA_ROMAGNA",
@@ -13590,6 +14622,26 @@ window.ITALY_CASA = {
      },
      {
       "ATTIVI": [
+       "FOLPET"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_80_WDG",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "FOLPAN 80 WDG",
+      "REGISTRO": "008601",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
        "FOLPET",
        "METALAXYL-M"
       ],
@@ -13611,6 +14663,32 @@ window.ITALY_CASA = {
         "ATTIVO": "METALAXYL-M",
         "CODICE": "EU_APPROVAL_EXPIRES",
         "DATA": "2035-05-31"
+       }
+      ],
+      "VALIDAZIONE": "LABEL_AND_CATALOG"
+     },
+     {
+      "ATTIVI": [
+       "FOLPET",
+       "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)"
+      ],
+      "FINESTRA_FIT": "UNKNOWN",
+      "ID": "CATPRD_FOLPAN_ENERGY",
+      "MOA": [
+       "FRAC M 04"
+      ],
+      "NOME": "Folpan® Energy",
+      "REGISTRO": "016749",
+      "RESTRIZIONI": [
+       {
+        "ATTIVO": "FOLPET",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2039-10-31"
+       },
+       {
+        "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+        "CODICE": "EU_APPROVAL_EXPIRES",
+        "DATA": "2029-07-31"
        }
       ],
       "VALIDAZIONE": "LABEL_AND_CATALOG"
@@ -13649,6 +14727,11 @@ window.ITALY_CASA = {
       "ATTIVO": "METALAXYL-M",
       "CODICE": "EU_APPROVAL_EXPIRES",
       "DATA": "2035-05-31"
+     },
+     {
+      "ATTIVO": "POTASSIUM PHOSPHONATES (FORMERLY POTASSIUM PHOSPHITE)",
+      "CODICE": "EU_APPROVAL_EXPIRES",
+      "DATA": "2029-07-31"
      }
     ],
     "RESTRIZIONI_ALTRO_ATTIVO": [
@@ -13661,257 +14744,6 @@ window.ITALY_CASA = {
     "RILEVANZA": "A",
     "RILEVANZA_PERCHE": "RELEVANCE_A_PROVEN",
     "RILEVANZA_SUPERFICIE": "OPPORTUNITA",
-    "SOGLIA": "NOT_APPLICABLE",
-    "STADIO": "STAGE_NOT_DECLARED",
-    "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
-    "TITOLO_DA_ARCHETIPO": false
-   },
-   {
-    "AMBITO": "REGIONAL",
-    "ARCHETIPO": "O1_FIELD_PRESSURE",
-    "ATTUALITA": "CURRENT",
-    "AZIONI": [
-     {
-      "AZIONE": "VALIDATE_WINDOW_IN_REGION",
-      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
-      "EVIDENZA": [
-       "IT-CAN-03C08A9CCB",
-       "IT-CAN-03C08A9CCB"
-      ],
-      "FINESTRA": null,
-      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
-      "PERCHE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
-      "REPARTO": "MARKET_DEVELOPMENT",
-      "STATO": "VALIDATE"
-     },
-     {
-      "AZIONE": "NO_MOVEMENT",
-      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
-      "EVIDENZA": [],
-      "FINESTRA": null,
-      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
-      "PERCHE": "SEM_PRIORIDADE_COMERCIAL",
-      "REPARTO": "COMMERCIAL",
-      "STATO": "NO_ACTION"
-     },
-     {
-      "AZIONE": "NO_MOVEMENT",
-      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
-      "EVIDENZA": [
-       "IT-CAN-03C08A9CCB"
-      ],
-      "FINESTRA": null,
-      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
-      "PERCHE": "NAO_AUTORIZADO_A_SAIR",
-      "REPARTO": "MARKETING",
-      "STATO": "NO_ACTION"
-     },
-     {
-      "AZIONE": "CONFIRM_WINDOW_CONDITION_MET",
-      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
-      "EVIDENZA": [
-       "IT-CAN-03C08A9CCB",
-       "IT-CAN-03C08A9CCB"
-      ],
-      "FINESTRA": null,
-      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
-      "PERCHE": "CONDICAO_DECLARADA_ESTADO_DESCONHECIDO",
-      "REPARTO": "TECHNICAL_SCIENTIFIC",
-      "STATO": "VALIDATE"
-     },
-     {
-      "AZIONE": "WATCH_REGULATORY_DATE",
-      "DIPENDE_DA": "JANELA_ABERTA_AGORA",
-      "EVIDENZA": [
-       "AI_CYMOXANIL"
-      ],
-      "FINESTRA": "WINDOW_MONITOR",
-      "INNESCO": "TRIGGER_DECLARED_CONDITION_MET",
-      "PERCHE": "DATA_REGULATORIA_EM_ATIVO_LIGADO",
-      "REPARTO": "SUPPLY",
-      "STATO": "WATCH"
-     }
-    ],
-    "BERSAGLIO": "ISSUE_DOWNY_MILDEW",
-    "CATENA": [
-     {
-      "ELO": "SINAL_ATUAL",
-      "EVIDENZA": [
-       "IT-CAN-03C08A9CCB"
-      ],
-      "FATTO_CODICE": null,
-      "FATTO_DATA": "2026-08-26",
-      "OK": true
-     },
-     {
-      "ELO": "JANELA_DEFINIDA",
-      "EVIDENZA": [
-       "IT-CAN-03C08A9CCB"
-      ],
-      "FATTO_CODICE": "WEATHER_TRIGGERED_WINDOW",
-      "FATTO_DATA": null,
-      "OK": true
-     },
-     {
-      "ELO": "JANELA_ABERTA_AGORA",
-      "EVIDENZA": [
-       "IT-CAN-03C08A9CCB"
-      ],
-      "FATTO_CODICE": "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE",
-      "FATTO_DATA": null,
-      "OK": false
-     },
-     {
-      "ELO": "VINCULO_COM_PORTFOLIO",
-      "EVIDENZA": [],
-      "FATTO_CODICE": "VERIFIED_LABEL_MATCH",
-      "FATTO_DATA": null,
-      "OK": false
-     },
-     {
-      "ELO": "TEMPO_PARA_ACAO",
-      "EVIDENZA": [],
-      "FATTO_CODICE": null,
-      "FATTO_DATA": null,
-      "OK": false
-     }
-    ],
-    "CATENA_CODICI": [
-     "SEM_JANELA_ABERTA_AGORA",
-     "SEM_VINCULO_COM_PORTFOLIO",
-     "SEM_TEMPO_PARA_ACAO"
-    ],
-    "CATENA_COMPLETA": false,
-    "COLTURA": "CROP_TOMATO",
-    "CONFIDENZA": "ALTA",
-    "DATA_RIFERIMENTO": "2026-09-02",
-    "DATA_SEGNALE": "2026-08-26",
-    "DIREZIONE": "POSITIVE_PRESSURE",
-    "DIREZIONE_DOCUMENTO": "IT-CAN-03C08A9CCB",
-    "ESTRATTO_TRATTENUTO": true,
-    "EVIDENZE": [
-     {
-      "FAMIGLIA": "FIELD_SIGNAL",
-      "ID": "IT-CAN-03C08A9CCB",
-      "PERCHE": "FRASE_QUE_DECIDIU_A_DIRECAO",
-      "RUOLO": "SUPPORTS_DIRECTION"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1448",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1453",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1737",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1743",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1749",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     },
-     {
-      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-969",
-      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
-      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
-     }
-    ],
-    "EVIDENZE_TOTALE": 7,
-    "E_OPPORTUNITA_COMMERCIALE": false,
-    "FAMIGLIE": [
-     "FIELD_SIGNAL",
-     "LABEL_USE_RELATIONSHIP"
-    ],
-    "FINESTRA": {
-     "APERTA_ORA": "UNKNOWN",
-     "CONDIZIONE_TRATTENUTA": true,
-     "DEFINITA": "YES",
-     "DEFINITA_TOKEN": "YES",
-     "DOCUMENTO_CONDIZIONE": "IT-CAN-03C08A9CCB",
-     "DOCUMENTO_REGOLA": "IT-CAN-03C08A9CCB",
-     "FINE": null,
-     "GIORNI_RIMASTI": null,
-     "INIZIO": null,
-     "METODO": "FONTE_NAO_DECLARA_A_MEDICAO_QUE_A_CONDICAO_EXIGE",
-     "REGOLA": "RULE_DECLARED",
-     "TIPO": "WEATHER_TRIGGERED_WINDOW"
-    },
-    "FONTI_CHIAVI": 2,
-    "FONTI_URL": [
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36263",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36264",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=36265",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=37221",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=38106",
-     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=41673",
-     "https://www.regione.veneto.it/documents/11979050/14337132/Orticolo_2026_22.pdf/da94340c-e810-41b4-ab76-eafbf8a72edd"
-    ],
-    "GEOGRAFIA": "REGION_VENETO",
-    "ID": "OPP_EA2AE1EFB775",
-    "INVALIDA": [],
-    "LIMITI": [
-     "WINDOW_STATE_UNKNOWN",
-     "COMMERCIAL_PRODUCT_MISSING",
-     "INTENSITY_UNKNOWN",
-     "RECURRENCE_UNKNOWN",
-     "OFFICIAL_AREA_NOT_CLIENT_SAFE"
-    ],
-    "METODO_NECESSITA": "PAIR_IN_SAME_CLAUSE",
-    "NON_PROVA": {
-     "en": "does NOT prove incidence, affected area, or that the farmer will treat. A bulletin is the service's observation, not a census of the field.",
-     "it": "NON prova incidenza, superficie colpita, né che l'agricoltore tratterà. Il bollettino è osservazione del servizio, non censimento del campo."
-    },
-    "NON_PROVA_COMMERCIALE": {
-     "en": "does NOT prove channel demand, sell-in, sell-out, orders, inventory, margin, pipeline or purchase intent. Nothing here comes from ADAMA internal data. Agronomic pressure is an external commercial opportunity to examine — it is not demand.",
-     "it": "NON prova domanda della distribuzione, sell-in, sell-out, ordine, scorte, margine, pipeline né intenzione d'acquisto. Nulla qui viene da dati interni ADAMA. La pressione agronomica è un'opportunità commerciale esterna da esaminare — non è domanda."
-    },
-    "PERCHE": {
-     "en": "there is a verified ministerial label, but none of the authorised products is in the public commercial catalogue: authorisation is not catalogue.",
-     "it": "c'è etichetta ministeriale verificata, ma nessuno dei prodotti autorizzati è nel catalogo commerciale pubblico: autorizzazione non è catalogo."
-    },
-    "PERCHE_CODICI": [
-     "LABEL_WITHOUT_CATALOG"
-    ],
-    "PERCHE_NESSUN_PRINCIPALE": "SEM_REGRA_DEFENSAVEL_PARA_ESCOLHER",
-    "PERCHE_SOLO_CODICI": false,
-    "PRIORITA": "TO_VALIDATE",
-    "PRODOTTI": [],
-    "PRODOTTO_PRINCIPALE": null,
-    "PROVA": {
-     "en": "that the target was observed by the phytosanitary service and that authorisation exists to treat it in this crop.",
-     "it": "che il bersaglio è stato osservato dal servizio fitosanitario e che esiste autorizzazione a trattarlo in questa coltura."
-    },
-    "PROVA_ADAMA": null,
-    "PUBBLICAZIONE": "VALIDATION_REQUIRED",
-    "RACCOMANDAZIONE": "START_RECOMMENDED",
-    "RESTRIZIONI_ADAMA": [],
-    "RESTRIZIONI_ALTRO_ATTIVO": [
-     {
-      "ATTIVO": "CYMOXANIL",
-      "CODICE": "EU_APPROVAL_EXPIRES",
-      "DATA": "2027-11-30"
-     }
-    ],
-    "RILEVANZA": "C",
-    "RILEVANZA_PERCHE": "RELEVANCE_C_NO_LINK",
-    "RILEVANZA_SUPERFICIE": "SEGNALI",
     "SOGLIA": "NOT_APPLICABLE",
     "STADIO": "STAGE_NOT_DECLARED",
     "STATO_CLIENTE": "CLIENT_TO_VALIDATE",
@@ -14037,12 +14869,42 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1932",
+      "ID": "IT-LBL-1028",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1029",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1030",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1031",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-1032",
+      "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
+      "RUOLO": "SUPPORTS_PRODUCT_MATCH"
+     },
+     {
+      "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
+      "ID": "IT-LBL-5191",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
     ],
-    "EVIDENZE_TOTALE": 2,
+    "EVIDENZE_TOTALE": 7,
     "E_OPPORTUNITA_COMMERCIALE": false,
     "FAMIGLIE": [
      "CROP_ECONOMIC_WEIGHT_CLAIM",
@@ -14065,6 +14927,7 @@ window.ITALY_CASA = {
     "FONTI_CHIAVI": 2,
     "FONTI_URL": [
      "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_1015,1.0/A.IT+ITC1+ITC2+ITC3+ITC4+ITDA+ITD1+ITD2+ITD3+ITD4+ITD5+ITE1+ITE2+ITE3+ITE4+ITF1+ITF2+ITF3+ITF4+ITF5+ITF6+ITG1+ITG2.ART+PA+TP_QUIN_EXT+HP_Q_EXT+TP_HECT_EXT+TPT.VINEFORTHE+WINESQ+WINESO+WINEES+TABLEGRAPES+OLIV+OLIVTAB_OIL+APPLET.?startPeriod=2024",
+     "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=27726",
      "https://www.fitosanitari.salute.gov.it/fitosanitariws_new/EtichettaServlet?id=44958"
     ],
     "GEOGRAFIA": "GEO_ITALY",
@@ -14255,37 +15118,37 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-342",
+      "ID": "IT-LBL-1129",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-349",
+      "ID": "IT-LBL-1136",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-366",
+      "ID": "IT-LBL-1153",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-839",
+      "ID": "IT-LBL-376",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-846",
+      "ID": "IT-LBL-383",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-863",
+      "ID": "IT-LBL-400",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      },
@@ -14553,7 +15416,7 @@ window.ITALY_CASA = {
      },
      {
       "FAMIGLIA": "LABEL_USE_RELATIONSHIP",
-      "ID": "IT-LBL-1236",
+      "ID": "IT-LBL-1658",
       "PERCHE": "ROTULO_MINISTERIAL_NO_PAR",
       "RUOLO": "SUPPORTS_PRODUCT_MATCH"
      }
@@ -14640,36 +15503,70 @@ window.ITALY_CASA = {
     "TITOLO_DA_ARCHETIPO": false
    }
   ],
-  "DA_VALIDARE": 17,
+  "DA_VALIDARE": 16,
   "ERRORE": 1,
-  "LEGGE_ADAMA_SHA256": "23d3b1e3527861fee2262f50e84b6dacc4fe672ae65032479cbdcf1aa87704a8",
-  "MEETING_CUTOFF": "2026-09-07T01:41:30Z",
-  "OPPORTUNITA": 13,
+  "LEGGE_ADAMA": {
+   "APPROVAL_EXPIRY_NAO_E_RISCO": "uma data de expiracao europeia NAO e risco de nao-renovacao. Medido nos 47 factos regulatorios do pacote: EU_STATE=APPROVED e IS_RISK=false em 47/47, e o proprio artefacto declara «APPROVAL EXPIRY IS NOT NON-RENEWAL». Um facto regulatorio NUNCA contribui para a classe A por si so; precisa de facto adicional de risco, que hoje nao existe em registo nenhum.",
+   "BASTA_UM_PRODUTO": "um caso e oportunidade se PELO MENOS UM produto fechar a cadeia inteira. Os outros produtos ligados nao sao a prova e nao a estragam — o cartao nomeia qual deles a carrega. Exigir que TODOS fechassem derrubaria OPP_75C37DED9160, onde Lamdex Extra fecha e MAVRIK SMART nao.",
+   "CADEIA_EXIGIDA": [
+    "PAIS",
+    "CULTURA",
+    "ALVO/PROBLEMA",
+    "PRODUTO ADAMA",
+    "RELACAO produto x cultura (pagina de catalogo)",
+    "RELACAO produto x alvo (rotulo ministerial)",
+    "PROBLEMA OBSERVADO (evidencia que sustenta o sinal ou declara a direccao)",
+    "AUTORIZACAO VIVA (registo + estado)"
+   ],
+   "CLASSES": {
+    "A": "PRODUTO ADAMA PROVADO — publica-se como OPORTUNIDADE",
+    "B": "PLAUSIVEL, NAO PROVADO — fica em RADAR / A VALIDAR",
+    "C": "SEM PRODUTO ADAMA LIGAVEL — fica como SINAL BRUTO",
+    "D": "LIGACAO ERRADA — NAO PUBLICAVEL, e um erro a corrigir",
+    "E": "NAO SEI — dados insuficientes; nunca sobe"
+   },
+   "DATASET": "ADAMA-RELEVANCE-LAW-V1",
+   "LEI": "todo caso promovido como inteligencia relevante tem de ter ligacao factual e defensavel com pelo menos um produto ADAMA. Sem ela, o caso continua a existir — como radar, sinal ou erro — mas nao como oportunidade.",
+   "NAO_ACEITE": [
+    "correspondencia lexical",
+    "mesmo ingrediente activo",
+    "produto parecido",
+    "catalogo generico",
+    "template",
+    "inferencia nao provada",
+    "proximidade de data de expiracao europeia",
+    "alvo escrito no caso sem fonte que o tenha observado"
+   ],
+   "PREENCHER_NAO_PROMOVE": "TARGET_FIT vale ON_MINISTERIAL_LABEL em 65 de 65 correspondencias: e uma constante, e nao distingue nada. Se a lei se apoiasse nela, escrever um alvo no caso promovia-o — medido, 10 dos 21 B subiriam sem nada observado. Por isso o problema agronomico exige evidencia que DECIDA um elo (SUPPORTS_SIGNAL ou SUPPORTS_DIRECTION). Com a regra, preencher o alvo nos 21 B promove UM: OPP_00C5B6E15185, que ja traz 4 sinais de campo e 4 evidencias de sinal — esse subiria por ter facto, nao por ter campo cheio.",
+   "SO_A_PUBLICA": true
+  },
+  "MEETING_CUTOFF": "2026-09-07T19:23:48Z",
+  "OPPORTUNITA": 17,
   "ORIZZONTE": "ADESSO",
   "PER_STATO": {
-   "CLIENT_ACT_NOW": 5,
+   "CLIENT_ACT_NOW": 6,
    "CLIENT_MONITOR": 13,
    "CLIENT_PREPARE_NOW": 8,
-   "CLIENT_TO_VALIDATE": 17
+   "CLIENT_TO_VALIDATE": 16
   },
-  "PRIORITA_COMMERCIALE": 26,
+  "PRIORITA_COMMERCIALE": 27,
   "RADAR": 21,
   "RILEVANZA_PER_CLASSE": {
-   "A": 13,
+   "A": 17,
    "B": 21,
-   "C": 8,
+   "C": 4,
    "D": 1,
    "E": 0
   },
   "RILEVANZA_PER_SUPERFICIE": {
    "ERRORE": 1,
-   "OPPORTUNITA": 13,
+   "OPPORTUNITA": 17,
    "RADAR": 21,
-   "SEGNALI": 8
+   "SEGNALI": 4
   },
-  "RULE_VERSION": "V21-06c6421d001ea52a",
-  "SEGNALI": 8,
-  "SOURCE_HEAD": "5101073",
+  "RULE_VERSION": "V21-ef6e7e5f37eaa6e6",
+  "SEGNALI": 4,
+  "SOURCE_HEAD": "fb96f49d",
   "TOTALE": 43
  },
  "RADAR_FUTURO": {

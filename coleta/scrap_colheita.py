@@ -75,6 +75,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for _p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', 'regras', ''):
     sys.path.insert(0, os.path.join(RAIZ, _p) if _p else RAIZ)
 
+import fonte_do_atlas as fa                                       # noqa: E402  — quem diz se a fonte existe
 import proveniencia as pv                                        # noqa: E402  — o dono do texto
 import retorno_da_coleta as rc                                    # noqa: E402
 import scrap_executor as sx                                       # noqa: E402
@@ -404,15 +405,43 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
                 % (especie, ', '.join(rc.ENTRAM_NO_INGRESSO), len(objetos))),
         }
 
-    if not fonte:
+    # ── E UMA FONTE QUE NINGUÉM EMITIU NÃO É UMA FONTE ────────────────────
+    # ⚠️ MEDIDO NO `1222d97d`, antes do portão da FASE 1D:
+    #
+    #     unidade(..., fonte='IT-T99-999')  ->  SOURCE_ID = 'IT-T99-999'
+    #     _identifica('IT-T99-999')         ->  True
+    #     quem lia o atlas para validar     ->  NINGUÉM
+    #
+    # `_identifica()` recusa as confissões e aceita tudo o resto — e está certa
+    # para o que mede: distingue «veio um valor» de «veio uma desculpa». Não
+    # distingue, nem deve, um valor verdadeiro de um inventado.
+    #
+    #     UM SOURCE_ID QUE NINGUÉM EMITIU NÃO É UMA IDENTIDADE FRACA.
+    #     É UMA IDENTIDADE QUE NÃO EXISTE.
+    #
+    # Uma letra trocada — `IT-T3-O13` com a letra O — produziria uma corrida
+    # verde, com recibo, carimbada com uma fonte que o atlas nunca conheceu. E
+    # a certificação diria «a identidade atravessou intacta»: intacta e falsa.
+    #
+    # A resposta é a MESMA de quem não nomeou fonte, porque o facto é o mesmo:
+    # não há fonte provada que ancore estas observações. Quem responde pela
+    # população é `leis/fonte_do_atlas.py`, e ele levanta em vez de cair para
+    # uma lista de reserva.
+    desconhecida = bool(fonte) and not fa.conhece(fonte)
+    if not fonte or desconhecida:
         # ── SEM FONTE PROVADA NÃO HÁ COLHEITA, E ISSO NÃO É UM ERRO ────────
         # É a resposta certa. O SCRAP não sabe de que fonte do atlas veio o que
         # colheu, e inventá-la seria fabricar identidade.
         porque_zero = (
-            'o pedido não nomeou fonte. O SCRAP observa PLATAFORMAS e a porta '
-            'fala em FONTES; sem o SOURCE_ID vindo do pedido, estas %d '
-            'observações são CANDIDATAS e não observações de uma fonte provada. '
-            'URL não é SOURCE_ID.' % len(objetos))
+            ('o pedido nomeou uma fonte que o atlas não conhece: %s Estas %d '
+             'observações não têm fonte provada que as ancore, e carimbá-las '
+             'com um SOURCE_ID inventado seria fabricar identidade.'
+             % (fa.porque_nao(fonte), len(objetos)))
+            if desconhecida else
+            ('o pedido não nomeou fonte. O SCRAP observa PLATAFORMAS e a porta '
+             'fala em FONTES; sem o SOURCE_ID vindo do pedido, estas %d '
+             'observações são CANDIDATAS e não observações de uma fonte provada. '
+             'URL não é SOURCE_ID.' % len(objetos)))
         colheita = []
         suporte = suporte_do_trace(trace) + [
             {'ESPECIE': rc.ESPECIE_DESCONHECIDA, 'ONDE': '',

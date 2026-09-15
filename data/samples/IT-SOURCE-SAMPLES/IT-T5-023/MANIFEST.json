@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-023",
+ "SOURCE": "SSICA — Stazione Sperimentale per l'Industria delle Conserve Alimentari",
+ "OWNER": "SSICA",
+ "URL": "https://www.ssica.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:14Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 194972 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.ssica.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Stazione Sperimentale per l&#039;Industria delle Conserve Alimentari | SSICA",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2011-06-20",
+  "BYTES_LIDOS": 156705
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.ssica.it/wp-content/uploads/2025/03/PROGETTO-ACTION.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": null,
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 194972,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "8b65091e8b319f7bceff4951f957dff1b8f49d029bd443782a61f1497f606bfd",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}
