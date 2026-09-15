@@ -262,6 +262,7 @@
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/O-CANARIO-DA-COLLECTION.json",
+      "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -717,7 +718,6 @@
       "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
       "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
       "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-      "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
@@ -730,8 +730,8 @@
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
       "docs/operacao/CENSO-DA-COLETA.md",
-      "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
+      "docs/operacao/CENSO-SALA-DE-ESPERA-ANTES-DA-BIG-COLLECTION-V1.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "docs/operacao/COLLECTION-P0-RESPOSTA-PRESERVACAO.md",
       "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
@@ -750,6 +750,8 @@
       "docs/operacao/IDEIAS-E-PENDENCIAS.md",
       "docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md",
       "docs/operacao/IDENTIDADE-DO-ARTEFATO.md",
+      "docs/operacao/INTEGRACAO-C4H-SEMANTICA-V1.md",
+      "docs/operacao/INTEGRACAO-COLLECTION-SALA-V1.md",
       "docs/operacao/ITALIA-NA-PORTA-CANONICA.md",
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
@@ -918,6 +920,7 @@
       "handoff/HANDOFF-C-GATE-BIG-COLLECTION-01.md",
       "handoff/KNOW-HOW-DELTA-A-BASE-DA-AUDITORIA.md",
       "handoff/KNOW-HOW-DELTA-A-PONTE-DE-MIDIA.md",
+      "handoff/KNOW-HOW-DELTA-O-BACKEND-APOSENTADO.md",
       "handoff/KNOW-HOW-DELTA-O-CAMPO-QUE-NAO-ATRAVESSA.md",
       "handoff/KNOW-HOW-DELTA-O-FERRO-NEGOCIADO.md",
       "handoff/S2A-R-RECONCILIACAO.md",
@@ -1362,6 +1365,7 @@
       "provas/nenhuma_compra_sem_autorizacao.py",
       "provas/o_canario_da_collection.py",
       "provas/o_canario_do_scrap_v1.py",
+      "provas/o_censo_da_sala_de_espera.py",
       "provas/o_censo_do_acervo.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
@@ -1417,7 +1421,6 @@
       "provas/valida_biblia.py"
     ],
     "regras": [
-      "regras/LEIA-ANTES-DE-COLETAR.md",
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
@@ -1652,6 +1655,7 @@
       "system-map/tests/test_freshness.mjs",
       "system-map/tests/test_impressao_da_arvore.py",
       "system-map/tests/test_impressao_verificavel.py",
+      "system-map/tests/test_o_mapa_nao_esconde.py",
       "system-map/tests/test_ordem_por_dependencia.py",
       "system-map/tests/test_papel_e_leitura_humana.py",
       "system-map/tests/test_quatro_planos.py",
@@ -1679,6 +1683,7 @@
       "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_fase_10_entra_no_acervo.py",
       "tests/test_a_linhagem_do_ready.py",
+      "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
       "tests/test_a_linhagem_do_reaproveitamento.py",
       "tests/test_a_operacao_aguenta_concorrencia.py",
       "tests/test_a_ponte_do_derived.py",
@@ -1726,6 +1731,7 @@
       "tests/test_c4b_gpu_execucao.py",
       "tests/test_c4d_ferro_negociado.py",
       "tests/test_c4g_a_especie_do_video.py",
+      "tests/test_c4h_executor_de_midia.py",
       "tests/test_c4h_ponte_de_midia.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
@@ -1753,6 +1759,7 @@
       "tests/test_fechar_ground_truth_t3.py",
       "tests/test_fonte_atravessa.py",
       "tests/test_forward_instrumentado.py",
+      "tests/test_fronteira_mede_a_sala_canonica.py",
       "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
       "tests/test_gate_de_aceitacao_tematica.py",
@@ -1781,6 +1788,7 @@
       "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
       "tests/test_o_canario_da_collection.py",
+      "tests/test_o_censo_da_sala_de_espera.py",
       "tests/test_o_pedido_atravessa.py",
       "tests/test_o_pedido_t4_atravessa.py",
       "tests/test_o_raw_fala.py",
@@ -1840,8 +1848,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 540 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 540 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 540 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 4. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 540 ficheiros e 4 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1849,8 +1857,8 @@
     },
     {
       "id": "duas-listas-de-fontes",
-      "titulo": "52 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
-      "texto": "23 tem ficha no atlas, 54 estao no levantamento italiano, 2 estao nos dois. 52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
+      "titulo": "50 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
+      "texto": "57 tem ficha no atlas, 54 estao no levantamento italiano, 4 estao nos dois. 50 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
       "porque_importa": "O levantamento italiano tem campos que o atlas nao tem — o dono normalizado, o papel da fonte, e o melhor de todos: o que ela NAO prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1869,8 +1877,8 @@
     },
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
-      "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 23 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 3. Elas trouxeram 3890 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "titulo": "56 fontes nunca foram coletadas. Todas as corridas foram num país só.",
+      "texto": "Há 23 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 3. Elas trouxeram 3890 itens e 3006 atravessaram a régua. As outras 56 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -2353,10 +2361,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/big-collection-gate-01",
-    "HEAD": "5e43f1c42c7064b97f0dc1588779775456de0f24",
-    "GENERATED_AT": "2026-09-14T19:41:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "db69bef065c187243e55f2cf24d67aca218e2da69949a6cefdd706de8edf09ea"
+    "BRANCH": "claude/system-map-reconciled-v1",
+    "HEAD": "cd3dd0372c049ad622a50a7c450a1eec2c009da8",
+    "GENERATED_AT": "2026-09-15T10:04:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4d9fd06a9cf08d03f266821645353dc5c680776d2e3ab137e5ae4502319c3e40"
   },
   "FAMILIES": [
     {
@@ -3653,7 +3661,7 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
+      "what": "O capital parado da casa: 57 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
       "why_here": "Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so entra depois de alguem a abrir, olhar o que ela entrega e guardar evidencia disso — e coleta nenhuma comeca sem consultar o que ja esta aqui.",
       "files": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -3661,14 +3669,15 @@
         "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
       ],
       "facts": [
-        "bases oficiais com ficha: 23",
+        "bases oficiais com ficha: 57",
         "dessas, a maquina sabe buscar sozinha: 5",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 40"
+        "enderecos que o codigo realmente chama: 248",
+        "desses, mostrados aqui: 40 (ficam de fora 208)"
       ],
-      "status_reason": "23 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "status_reason": "57 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 52, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -3700,7 +3709,7 @@
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
-          "subtitulo": "23 fichas no atlas · 5 com contrato de busca escrito",
+          "subtitulo": "57 fichas no atlas · 5 com contrato de busca escrito",
           "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
           "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
           "itens": [
@@ -3832,6 +3841,426 @@
               "url": "",
               "atualiza": "",
               "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-001",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-002",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-003",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-004",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-005",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-006",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-007",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-008",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-009",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-010",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-011",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-012",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-013",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-014",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-015",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-016",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-017",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-018",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-019",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-020",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-021",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-022",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-023",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-024",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-025",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-026",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-027",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T9-001",
+              "nome": "páginas de atualidades de BASF, Bayer, Syngenta, Corteva…",
+              "pais": "ESPANHA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
               "contrato": null
             },
             {
@@ -4020,6 +4449,51 @@
               "contrato": null
             },
             {
+              "id": "EU-T8-001",
+              "nome": "EU-T8-001",
+              "pais": "EUROPA",
+              "assunto": "T8 · FARMERS & INFLUENCERS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "EU-T9-002",
+              "nome": "Meta Ads Library",
+              "pais": "EUROPA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "NÃO SEI — rota não executada nesta rodada",
+              "dono": "Meta Platforms",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
+            },
+            {
+              "id": "FR-T11-001",
+              "nome": "FR-T11-001",
+              "pais": "FRANCA",
+              "assunto": "T11 · EVENTS",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional do evento (HTML)",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
               "id": "FR-T13-001",
               "nome": "recherche-entreprises.api.gouv.fr (base SIRENE)",
               "pais": "FRANCA",
@@ -4100,6 +4574,36 @@
               }
             },
             {
+              "id": "FR-T9-001",
+              "nome": "páginas de atualidades de BASF, Bayer, Syngenta, Corteva…",
+              "pais": "FRANCA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
+            },
+            {
+              "id": "IT-T11-001",
+              "nome": "IT-T11-001",
+              "pais": "ITALIA",
+              "assunto": "T11 · EVENTS",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional do evento (HTML)",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
               "id": "IT-T3-001",
               "nome": "IT-T3-001",
               "pais": "ITALIA",
@@ -4148,6 +4652,21 @@
                   "snippet": "contrato de IT-T4-001"
                 }
               }
+            },
+            {
+              "id": "IT-T9-001",
+              "nome": "páginas de atualidades de BASF, Bayer, Syngenta, Corteva…",
+              "pais": "ITALIA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
             }
           ]
         },
@@ -4850,32 +5369,24 @@
         "green": 16,
         "yellow": 4,
         "nao_sei": 17,
-        "fichas_completas": 23,
+        "fichas_completas": 57,
         "ids_mencionados_no_atlas": 42,
         "mencionados_sem_ficha": [
           "ES-T1-001",
           "ES-T13-001",
-          "ES-T7-001",
           "ES-T8-001",
           "ES-T8-002",
           "ES-T8-003",
-          "ES-T9-001",
           "EU-T10-002",
           "EU-T10-003",
-          "EU-T8-001",
-          "EU-T9-002",
           "FR-T1-001",
-          "FR-T11-001",
-          "FR-T9-001",
           "IT-T1-001",
-          "IT-T11-001",
           "IT-T12-001",
-          "IT-T13-001",
-          "IT-T9-001"
+          "IT-T13-001"
         ],
-        "os_tres_numeros": "37 = o que o CABECALHO declara · 42 = SOURCE_IDs MENCIONADOS no texto · 23 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
-        "divergencia": 14,
-        "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "os_tres_numeros": "37 = o que o CABECALHO declara · 42 = SOURCE_IDs MENCIONADOS no texto · 57 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
+        "divergencia": -20,
+        "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 57. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -5509,6 +6020,34 @@
           "ES-T4-002",
           "ES-T4-003",
           "ES-T4-005",
+          "ES-T7-001",
+          "ES-T7-002",
+          "ES-T7-003",
+          "ES-T7-004",
+          "ES-T7-005",
+          "ES-T7-006",
+          "ES-T7-007",
+          "ES-T7-008",
+          "ES-T7-009",
+          "ES-T7-010",
+          "ES-T7-011",
+          "ES-T7-012",
+          "ES-T7-013",
+          "ES-T7-014",
+          "ES-T7-015",
+          "ES-T7-016",
+          "ES-T7-017",
+          "ES-T7-018",
+          "ES-T7-019",
+          "ES-T7-020",
+          "ES-T7-021",
+          "ES-T7-022",
+          "ES-T7-023",
+          "ES-T7-024",
+          "ES-T7-025",
+          "ES-T7-026",
+          "ES-T7-027",
+          "ES-T9-001",
           "EU-T1-001",
           "EU-T1-002",
           "EU-T10-001",
@@ -5520,12 +6059,18 @@
           "EU-T4-001",
           "EU-T4-002",
           "EU-T5-001",
+          "EU-T8-001",
+          "EU-T9-002",
+          "FR-T11-001",
           "FR-T13-001",
           "FR-T3-001",
           "FR-T3-002",
           "FR-T4-001",
+          "FR-T9-001",
+          "IT-T11-001",
           "IT-T3-001",
-          "IT-T4-001"
+          "IT-T4-001",
+          "IT-T9-001"
         ],
         "com_rendimento_medido": 22,
         "com_custo_medido": 17,
@@ -5715,7 +6260,9 @@
           "leis_que_obedece": [
             "proveniencia"
           ],
-          "regista_descarte": []
+          "regista_descarte": [
+            "RECUSAD"
+          ]
         },
         {
           "ficheiro": "coleta/filas.py",
@@ -6218,7 +6765,7 @@
             "degrau": 2,
             "nome": "REGISTADA",
             "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-            "quantas": 18,
+            "quantas": 20,
             "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
             "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
           },
@@ -6241,7 +6788,7 @@
         ],
         "por_tipo": {},
         "candidatas": [],
-        "nao_verificadas": 5
+        "nao_verificadas": 10
       },
       "file_count": 3,
       "paises": {},
@@ -7529,7 +8076,7 @@
           "pasta": "data/derivados",
           "prova": {
             "file": "system-map/scripts/censo_cards_sensores.py",
-            "line": 382,
+            "line": 418,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -7553,7 +8100,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta data/derivados (system-map/scripts/censo_cards_sensores.py:382): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta data/derivados (system-map/scripts/censo_cards_sensores.py:418): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -11045,7 +11592,7 @@
         "PLANO": null,
         "PROVA": [
           "coleta/executor_texto_de_pdf.py:299",
-          "coleta/executor_transcricao_midia.py:267",
+          "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43",
           "provas/a_linhagem_do_reaproveitamento.py:323"
         ],
@@ -11869,8 +12416,8 @@
       "name": "Executor · transcrição de mídia",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Recebe bytes de áudio ou vídeo e um pai canónico, tira o áudio com ffmpeg, chama o dono único do reconhecimento (ferramentas/fala_local.py) e entrega o transcript ao dono da escrita. Declara TEXT_KIND=TRANSCRIPT e TEXT_RELATION=ORIGINAL. Corre local, sem rede, sem custo.",
-      "why_here": "É o irmão do executor de PDF, e a peça que faltava para o vídeo ter consumidor: VIDEO_OUTPUT_HAS_CONSUMER estava NO por falta exactamente disto. Ele NÃO sabe de onde a mídia veio — uma ponte que soubesse a plataforma seria uma ponte por plataforma.",
+      "what": "A ponte entre a Collection e o reconhecedor de fala. Recebe bytes de áudio ou vídeo e um pai canónico, tira o áudio com ffmpeg, pede o texto ao dono único do reconhecimento (ferramentas/fala_local.py) e entrega a receita ao dono da escrita do derivado. A unidade de texto é montada e conferida pelo dono da proveniência (regras/proveniencia.py): TEXT_KIND=TRANSCRIPT, TEXT_RELATION=ORIGINAL, DERIVATION_METHOD=LOCAL_ASR. Não abre o motor, não escolhe modelo nem ferro, não escreve no banco e não julga. Corre local, sem rede, sem custo.",
+      "why_here": "É o irmão do executor de PDF, e a peça que faltava para o vídeo ter consumidor: VIDEO_OUTPUT_HAS_CONSUMER estava NO por falta exactamente disto. A porta da derivação conhecia UM executor, importado pelo nome, e o próprio ficheiro tinha previsto o custo: «no dia em que entrasse um executor de áudio os dois divergiam em silêncio». Ele NÃO sabe de onde a mídia veio — uma ponte que soubesse a plataforma seria uma ponte por plataforma. Esta peça é a UNIÃO SEMÂNTICA de duas implementações paralelas (big-collection-gate-01 e local-gpu-on-current-collection-v1): ver docs/operacao/INTEGRACAO-C4H-SEMANTICA-V1.md.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -11910,11 +12457,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "CAPACIDADE"
+          "CAPACIDADE",
+          "MEDIDAS_DO_ASR"
         ],
-        "palavras": 17,
+        "palavras": 31,
         "por_lingua": {},
-        "sem_marca_de_lingua": 17,
+        "sem_marca_de_lingua": 31,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11955,7 +12503,8 @@
         "PLANO": "CODE",
         "PROVA": [
           "provas/a_ponte_de_midia_atravessa.py:46",
-          "tests/test_c4h_ponte_de_midia.py:26"
+          "tests/test_c4h_executor_de_midia.py:54",
+          "tests/test_c4h_executor_de_midia.py:60"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -14585,11 +15134,7 @@
       "changed_since_declared": [
         "system-map/scripts/generate_system_map.py"
       ],
-      "produces": [
-        "docs/fontes/INDICE-DE-FONTES.md",
-        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-        "regras/LEIA-ANTES-DE-COLETAR.md"
-      ],
+      "produces": [],
       "inbound": [
         "C-ADMISSAO",
         "C-AS-FONTES",
@@ -14643,9 +15188,9 @@
           "_GATILHOS",
           "_NOMES_DE_CANAL"
         ],
-        "palavras": 210,
+        "palavras": 215,
         "por_lingua": {},
-        "sem_marca_de_lingua": 210,
+        "sem_marca_de_lingua": 215,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14655,7 +15200,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/generate_system_map.py",
-            "line": 4669,
+            "line": 4692,
             "snippet": "escreve em caminho"
           }
         }
@@ -14664,24 +15209,6 @@
         "GIT"
       ],
       "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "docs/fontes/INDICE-DE-FONTES.md",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "regras/LEIA-ANTES-DE-COLETAR.md",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
         {
           "onde": "GIT",
           "file": "system-map/data/architecture.declared.json",
@@ -14697,7 +15224,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/generate_system_map.py:4669): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/generate_system_map.py:4692): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -14710,14 +15237,11 @@
         "data/derivados/REGISTO-DE-ARTEFATOS.json",
         "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "docs/fontes/INDICE-DE-FONTES.md",
-        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
         "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
         "orquestrador/orquestrador.py",
         "pedido/receitas.py",
         "provas/a_fronteira_da_coleta.py",
-        "regras/LEIA-ANTES-DE-COLETAR.md",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
         "system-map/data/architecture.declared.json",
         "system-map/data/fronteira.observada.json",
@@ -14750,7 +15274,7 @@
           "provas/o_mapa_nao_mente.py:50",
           "system-map/scripts/reconciliacao_do_universo.py:392",
           "system-map/scripts/revisao_da_evidencia.py:46",
-          "system-map/scripts/validate_system_map.py:133"
+          "system-map/scripts/validate_system_map.py:144"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -14886,7 +15410,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/generate_system_map.py:5370",
+          "system-map/scripts/generate_system_map.py:5393",
           "system-map/scripts/publicar_no_deploy.mjs:56",
           "system-map/scripts/reconciliacao_do_universo.py:80",
           "system-map/scripts/reconciliacao_do_universo.py:407"
@@ -14921,6 +15445,7 @@
         "system-map/tests/test_freshness.mjs",
         "system-map/tests/test_impressao_da_arvore.py",
         "system-map/tests/test_impressao_verificavel.py",
+        "system-map/tests/test_o_mapa_nao_esconde.py",
         "system-map/tests/test_ordem_por_dependencia.py",
         "system-map/tests/test_papel_e_leitura_humana.py",
         "system-map/tests/test_quatro_planos.py",
@@ -14932,7 +15457,7 @@
         "system-map/tests/test_verdade_das_ligacoes.py",
         "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 15,
+      "file_count": 16,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15191,14 +15716,12 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
-        "docs/fontes/INDICE-DE-FONTES.md",
-        "regras/LEIA-ANTES-DE-COLETAR.md",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/generate_system_map.py",
@@ -16413,7 +16936,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/scan_sources.py:385"
+          "system-map/scripts/scan_sources.py:480"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -17509,6 +18032,7 @@
         "provas/nenhuma_compra_sem_autorizacao.py",
         "provas/o_canario_da_collection.py",
         "provas/o_canario_do_scrap_v1.py",
+        "provas/o_censo_da_sala_de_espera.py",
         "provas/o_censo_do_acervo.py",
         "provas/o_corte_de_cr1.py",
         "provas/o_egresso_antes_da_aquisicao.py",
@@ -17542,7 +18066,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 73,
+      "file_count": 74,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17655,6 +18179,7 @@
           "CANDIDATAS_A",
           "CANDIDATOS",
           "CASOS",
+          "COLS_031",
           "COLS_DER",
           "COLS_DOC",
           "COLS_OBJ",
@@ -17682,6 +18207,7 @@
           "FIXTURES",
           "FONTE_DO_POSITIVO",
           "GRUPOS_DE_ALVO",
+          "IGNORAR",
           "IMPLEMENTACOES",
           "ITENS",
           "LIMIARES",
@@ -17710,11 +18236,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1417,
+        "palavras": 1436,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1415,
+        "sem_marca_de_lingua": 1434,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17724,7 +18250,7 @@
           "pasta": "data/derivados",
           "prova": {
             "file": "provas/a_collection_preserva_o_fato.py",
-            "line": 335,
+            "line": 368,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -17834,6 +18360,7 @@
         "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
         "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
         "data/derivados/O-CANARIO-DA-COLLECTION.json",
+        "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
         "data/derivados/O-CENSO-DO-ACERVO.json",
         "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
         "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -17931,6 +18458,7 @@
         "provas/gate_de_aceitacao_tematica.py",
         "provas/implementacoes_candidatas.py",
         "provas/o_canario_da_collection.py",
+        "provas/o_censo_do_acervo.py",
         "provas/o_egresso_antes_da_aquisicao.py",
         "provas/o_pedido_atravessa.py",
         "provas/o_pedido_t4_atravessa.py",
@@ -18481,7 +19009,9 @@
       "inbound": [
         "C-ADMISSAO",
         "C-BIBLIA",
-        "C-CI-MAPA"
+        "C-CI-MAPA",
+        "C-SALA-DE-ESPERA",
+        "C-TESTES"
       ],
       "outbound": [
         "C-MAPA-GERADOR",
@@ -18514,7 +19044,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 3 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 4 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -18522,6 +19052,7 @@
       "consumes": [
         "BIBLIA-CANONICA-DA-COLETA.md",
         "admissao/admissao.py",
+        "admissao/sala_de_espera.py",
         "system-map/data/fronteira.observada.json"
       ],
       "consumes_plane": "CODE",
@@ -20351,7 +20882,9 @@
         "a lei e o codigo declaram os mesmos campos: SIM (11 campos)",
         "produtores em runtime: orquestrador/orquestrador.py — e e um CLI, nao um workflow",
         "consumidores: NENHUM",
-        "destino declarado data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json existe: NAO"
+        "a SALA canonica foi medida: NAO SEI (backend=NAO SEI, canonico=NAO)",
+        "READY produzido: False — e NOT_MEASURED nao e NAO",
+        "morada do backend nao canonico data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json existe: NAO (backend FICHEIRO: nao responde pela Sala)"
       ],
       "status_reason": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. UMA PORTA POR ONDE NINGUEM PASSOU AINDA NAO E UMA PORTA.",
       "gap": "READY_NUNCA_PRODUZIDO",
@@ -21814,6 +22347,7 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-FRONTEIRA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -25244,6 +25778,7 @@
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_fase_10_entra_no_acervo.py",
         "tests/test_a_linhagem_do_ready.py",
+        "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
         "tests/test_a_linhagem_do_reaproveitamento.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
         "tests/test_a_ponte_do_derived.py",
@@ -25291,6 +25826,7 @@
         "tests/test_c4b_gpu_execucao.py",
         "tests/test_c4d_ferro_negociado.py",
         "tests/test_c4g_a_especie_do_video.py",
+        "tests/test_c4h_executor_de_midia.py",
         "tests/test_c4h_ponte_de_midia.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
@@ -25318,6 +25854,7 @@
         "tests/test_fechar_ground_truth_t3.py",
         "tests/test_fonte_atravessa.py",
         "tests/test_forward_instrumentado.py",
+        "tests/test_fronteira_mede_a_sala_canonica.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
         "tests/test_gate_de_aceitacao_tematica.py",
@@ -25346,6 +25883,7 @@
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_o_canario_da_collection.py",
+        "tests/test_o_censo_da_sala_de_espera.py",
         "tests/test_o_pedido_atravessa.py",
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_o_raw_fala.py",
@@ -25400,7 +25938,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 160,
+      "file_count": 164,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -25545,6 +26083,7 @@
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-PROVA-COLETA",
+        "C-PROVA-FRONTEIRA",
         "C-REGRESSAO-NAVEGADOR",
         "C-SCRAP-GUARDA",
         "C-SCRAP-ROTA",
@@ -25566,6 +26105,7 @@
           "ANTES_DESTA_MISSAO",
           "ANTES_DO_B2",
           "APOSENTADOS",
+          "ASR_COMPLETO",
           "BINDINGS",
           "BLOQUEADAS",
           "CADEIA",
@@ -25574,11 +26114,13 @@
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
           "CAMPOS_DO_FATO",
+          "CANONICA_DE_PE",
           "CATALOGO",
           "COMPLETA",
           "CONTRATO",
           "CORRIDA",
           "DEFEITO_MEDIDO",
+          "DELEGADAS",
           "DESTINOS",
           "ESCRITORES",
           "ESPECIES",
@@ -25607,21 +26149,24 @@
           "ROTULO_ITALIA",
           "SEIS",
           "SEM_BYTES",
+          "SEM_DSN",
           "SINAIS",
           "SINAL_LOMBARDIA",
           "SINAL_VENETO",
           "SINTETICOS",
+          "SO_FICHEIRO",
           "TRACE_GPU",
           "UNIDADE",
+          "VALORES",
           "_GAVETA_DE"
         ],
-        "palavras": 738,
+        "palavras": 809,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 726,
+        "sem_marca_de_lingua": 797,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -25730,6 +26275,7 @@
         "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
         "coleta/executor_texto_de_pdf.py",
+        "coleta/executor_transcricao_midia.py",
         "coleta/golden_path_pdf.py",
         "coleta/ingresso.py",
         "coleta/instagram_coleta.py",
@@ -25753,6 +26299,7 @@
         "coleta/youtube_oficial.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
+        "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
         "data/derivados/A-REGRA-DE-T2.json",
         "data/derivados/BASELINE-ADMISSION-T3-V1.json",
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
@@ -25922,6 +26469,7 @@
         "package.json",
         "pedido/receitas.py",
         "provas/_c108a_ultima_corrida.json",
+        "provas/a_collection_preserva_o_fato.py",
         "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_fronteira_da_coleta.py",
@@ -25947,6 +26495,7 @@
         "provas/mutacao_da_sala_duravel.py",
         "provas/mutacao_do_gate.py",
         "provas/o_canario_da_collection.py",
+        "provas/o_censo_da_sala_de_espera.py",
         "provas/o_fluxo_canonico_do_scrap.py",
         "provas/o_forward_conta_se.py",
         "provas/o_legado_fora_do_fluxo.py",
@@ -26015,6 +26564,7 @@
         "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
         "tests/fixtures/yt-raw-minimo.json",
         "tests/test_c2_youtube_oficial.py",
+        "tests/test_c4h_ponte_de_midia.py",
         "tests/test_m2_rota_forward.py"
       ],
       "consumes_plane": "CODE",
@@ -27979,7 +28529,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/big-collection-gate-01"
+        "branch claude/system-map-reconciled-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -28549,7 +29099,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1060,
+          "line": 1081,
           "snippet": "\"evidence\": [_onde_esta(\"admissao/admissao.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-MAPA-GERADOR",
@@ -28650,7 +29200,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 22 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 23 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -28750,7 +29300,7 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 153,
+          "line": 232,
           "snippet": "import admissao as adm",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
@@ -28861,7 +29411,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
@@ -28883,6 +29433,22 @@
           "file": "provas/mutacao_da_linhagem_do_ready.py",
           "line": 27,
           "snippet": "ADM = 'admissao/admissao.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 831,
+          "snippet": "sai = _chaves_do_dict_de_retorno(\"admissao/admissao.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -28967,7 +29533,7 @@
       "evidence": [
         {
           "file": "provas/a_fronteira_da_coleta.py",
-          "line": 255,
+          "line": 385,
           "snippet": "if not l.startswith('admissao/admissao.py')]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-FRONTEIRA",
@@ -30985,7 +31551,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 475,
+          "line": 481,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -31001,7 +31567,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4314,
+          "line": 4337,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -31068,7 +31634,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 336,
+          "line": 431,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-SCAN",
@@ -31099,8 +31665,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "AS FONTES alimenta Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_o_mapa_nao_esconde.py",
+          "line": 212,
+          "snippet": "\"ATLAS-DE-FONTES-EAME.md\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-TESTES",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/tests/test_system_map.py",
           "line": 467,
@@ -33754,7 +34336,7 @@
       "evidence": [
         {
           "file": "provas/a_fronteira_da_coleta.py",
-          "line": 67,
+          "line": 70,
           "snippet": "BIBLIA = os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-FRONTEIRA",
@@ -34866,7 +35448,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo dos cards e dos sensores alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Censo dos cards e dos sensores alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_censo_cards_sensores.py",
@@ -34885,8 +35467,24 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_fronteira_mede_a_sala_canonica.py",
+          "line": 264,
+          "snippet": "with open(caminho, encoding=\"utf-8\") as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-TESTES",
+            "FROM": "C-CENSO-CARDS-SENSORES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_fronteira_mede_producao.py",
-          "line": 98,
+          "line": 122,
           "snippet": "with open(caminho, encoding=\"utf-8\") as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-TESTES",
@@ -35217,7 +35815,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2969,
+          "line": 2990,
           "snippet": "f = raiz / \"system-map\" / \"data\" / \"provas-de-execucao.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-EXECUTORES--READS-->C-MAPA-GERADOR",
@@ -43594,12 +44192,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 29,
           "snippet": "import derivacao_forward as deriv    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-TESTES",
+            "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 52,
+          "snippet": "import derivacao_forward as df                         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-TESTES",
             "FROM": "C-DERIVACAO-FORWARD",
@@ -45364,7 +45978,7 @@
       "evidence": [
         {
           "file": "coleta/executor_transcricao_midia.py",
-          "line": 267,
+          "line": 303,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -45823,7 +46437,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1428,
+          "line": 1449,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ESTRADA-PDF--READS-->C-MAPA-GERADOR",
@@ -46899,7 +47513,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1410,
+          "line": 1431,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-MAPA-GERADOR",
@@ -46915,7 +47529,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1421,
+          "line": 1442,
           "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-MAPA-GERADOR",
@@ -47389,12 +48003,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 470,
           "snippet": "import executor_texto_de_pdf as ex",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-PDF",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 53,
+          "snippet": "import executor_texto_de_pdf as pdf                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-PDF",
@@ -47734,8 +48364,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · transcrição de mídia tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Executor · transcrição de mídia tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 54,
+          "snippet": "import executor_transcricao_midia as em                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--IMPORTS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_c4h_ponte_de_midia.py",
           "line": 26,
@@ -47749,6 +48395,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · transcrição de mídia alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 60,
+          "snippet": "FICHEIRO = \"coleta/executor_transcricao_midia.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--READS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -50281,7 +50962,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4336,
+          "line": 4359,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -50316,7 +50997,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 210,
+          "line": 305,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-SCAN",
@@ -51760,7 +52441,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 535,
+          "line": 630,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MAPA-SCAN",
@@ -51776,7 +52457,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 536,
+          "line": 631,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MAPA-SCAN",
@@ -51858,7 +52539,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -51880,6 +52561,38 @@
           "file": "provas/medir_source_id_wiring_gap.py",
           "line": 40,
           "snippet": "LEDGER = \"data/collection-ledger/italy/observations.ndjson\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 60,
+          "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 61,
+          "snippet": "CORRIDAS_IT = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"runs.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
             "FROM": "C-IT-PRESERVAR",
@@ -52043,8 +52756,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
+          "line": 55,
+          "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_observabilidade_estrada.py",
           "line": 276,
@@ -53120,7 +53849,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3458,
+          "line": 3479,
           "snippet": "\"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-GERADOR",
@@ -53381,12 +54110,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Testes do System Map. Provado por 4 linhas de codigo.",
+      "reason": "Gerador do System Map alimenta Testes do System Map. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_cadeia_declara_io.py",
           "line": 305,
           "snippet": "i_ger = CAD.executaveis().index(\"system-map/scripts/generate_system_map.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-GERADOR",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_o_mapa_nao_esconde.py",
+          "line": 156,
+          "snippet": "\"generate_system_map.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
             "FROM": "C-MAPA-GERADOR",
@@ -53464,40 +54209,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Validador do System Map. Provado por 3 linhas de codigo.",
+      "reason": "Gerador do System Map alimenta Validador do System Map. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "system-map/scripts/validate_system_map.py",
-          "line": 133,
-          "snippet": "INDICE = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-VALIDADOR",
-            "FROM": "C-MAPA-GERADOR",
-            "TO": "C-MAPA-VALIDADOR",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/scripts/validate_system_map.py",
-          "line": 137,
-          "snippet": "PORTA = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-VALIDADOR",
-            "FROM": "C-MAPA-GERADOR",
-            "TO": "C-MAPA-VALIDADOR",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
         {
           "file": "system-map/scripts/validate_system_map.py",
           "line": 144,
@@ -53570,7 +54283,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5357,
+          "line": 5380,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -53793,7 +54506,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5370,
+          "line": 5393,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -53809,7 +54522,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5370,
+          "line": 5393,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -55454,7 +56167,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3323,
+          "line": 3344,
           "snippet": "orq = raiz / \"orquestrador\" / \"orquestrador.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-GERADOR",
@@ -57633,7 +58346,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 385,
+          "line": 480,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
@@ -57649,7 +58362,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 414,
+          "line": 509,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
@@ -59601,7 +60314,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 445,
+          "line": 540,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-MAPA-SCAN",
@@ -60186,8 +60899,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 55,
+          "snippet": "import proveniencia as pv                              # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-TESTES",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_c4h_ponte_de_midia.py",
           "line": 29,
@@ -61410,12 +62139,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
           "line": 472,
           "snippet": "import a_collection_preserva_o_fato as prova  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
+          "line": 52,
+          "snippet": "import a_collection_preserva_o_fato as prova           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-PROVA-COLETA",
@@ -61448,6 +62193,22 @@
           "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
           "line": 308,
           "snippet": "import bluesky_trial_ao_vivo as bt",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_censo_da_sala_de_espera.py",
+          "line": 31,
+          "snippet": "import o_censo_da_sala_de_espera as censo      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-PROVA-COLETA",
@@ -61541,12 +62302,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 40 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 43 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_fase_10_entra_no_acervo.py",
           "line": 45,
           "snippet": "PROVA = \"provas/a_fase_10_entra_no_acervo.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
+          "line": 57,
+          "snippet": "\"A-COLLECTION-PRESERVA-O-FATO.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
+          "line": 218,
+          "snippet": "codigo = self._codigo_sem_prosa(\"provas/a_collection_preserva_o_fato.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
             "FROM": "C-PROVA-COLETA",
@@ -61691,38 +62484,6 @@
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
           "line": 579,
           "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
-            "FROM": "C-PROVA-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_candidatos_tematicos.py",
-          "line": 26,
-          "snippet": "\"cand_t\", os.path.join(RAIZ, \"provas\", \"candidatos_tematicos.py\"))",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
-            "FROM": "C-PROVA-COLETA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_candidatos_tematicos.py",
-          "line": 298,
-          "snippet": "for caminho in (\"admissao/\", \"provas/gate_de_aceitacao_tematica.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
             "FROM": "C-PROVA-COLETA",
@@ -61912,7 +62673,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1011,
+          "line": 1017,
           "snippet": "\"evidence_text\": \"provas/a_fronteira_da_coleta.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-MAPA-GERADOR",
@@ -61994,8 +62755,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A medição da fronteira com a Inteligência alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A medição da fronteira com a Inteligência alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_fronteira_mede_a_sala_canonica.py",
+          "line": 35,
+          "snippet": "\"_fronteira_sala\", os.path.join(RAIZ, \"provas\", \"a_fronteira_da_coleta.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-TESTES",
+            "FROM": "C-PROVA-FRONTEIRA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_fronteira_mede_producao.py",
           "line": 40,
@@ -62119,7 +62896,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 780,
+          "line": 801,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPA-SCAN",
@@ -62150,8 +62927,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que o mapa não mente sobre existência alimenta Testes do System Map. Provado por 3 linhas de codigo.",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Testes do System Map. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_o_mapa_nao_esconde.py",
+          "line": 54,
+          "snippet": "DECLARADO = (DADOS / \"architecture.declared.json\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPA-TESTES",
+            "FROM": "C-PROVA-MAPA-NAO-MENTE",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/tests/test_reconciliacao_do_universo.py",
           "line": 267,
@@ -63575,7 +64368,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3322,
+          "line": 3343,
           "snippet": "reg = raiz / \"pedido\" / \"receitas.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--READS-->C-MAPA-GERADOR",
@@ -65097,7 +65890,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
@@ -65119,6 +65912,22 @@
           "file": "provas/mutacao_da_linhagem_do_ready.py",
           "line": 29,
           "snippet": "ROTA = 'coleta/rota_forward_documento.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--READS-->C-PROVA-COLETA",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 829,
+          "snippet": "entra = _chaves_atribuidas(\"coleta/rota_forward_documento.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--READS-->C-PROVA-COLETA",
             "FROM": "C-ROTA-M2",
@@ -65984,7 +66793,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -66052,8 +66861,24 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 171,
-          "snippet": "import sala_de_espera as espera",
+          "line": 162,
+          "snippet": "import sala_de_espera as _espera                          # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 53,
+          "snippet": "import sala_de_espera as espera                      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SALA-DE-ESPERA",
@@ -66099,11 +66924,11 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 536,
+          "line": 689,
           "snippet": "[sys.executable, os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-COLETA",
@@ -66134,6 +66959,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 182,
+          "snippet": "(\"OWNER\", \"admissao/sala_de_espera.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "provas/os_portoes_da_collection.py",
           "line": 406,
           "snippet": "\"admissao/sala_de_espera.py\",",
@@ -66151,6 +66992,76 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_fronteira_da_coleta.py",
+          "line": 68,
+          "snippet": "import sala_de_espera as espera  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-FRONTEIRA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-FRONTEIRA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera alimenta A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_fronteira_da_coleta.py",
+          "line": 518,
+          "snippet": "\"SALA_DONO\": \"admissao/sala_de_espera.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-FRONTEIRA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-FRONTEIRA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -66497,7 +67408,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -66519,6 +67430,38 @@
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 24,
           "snippet": "import sala_de_espera as espera       # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fronteira_mede_a_sala_canonica.py",
+          "line": 140,
+          "snippet": "import sala_de_espera",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_censo_da_sala_de_espera.py",
+          "line": 30,
+          "snippet": "import sala_de_espera as espera                # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -73391,7 +74334,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1095,
+          "line": 1116,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-MAPA-GERADOR",
@@ -73856,7 +74799,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 26 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -74035,9 +74978,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_c4h_ponte_de_midia.py",
-          "line": 336,
-          "snippet": "sql = open(caminho, encoding=\"utf-8\").read()",
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 209,
+          "snippet": "sql = _fonte(\"supabase/migrations/022_o_derivado_ganha_casa.sql\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-TESTES",
             "FROM": "C-SUPABASE",
@@ -74934,7 +75877,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2649,
+          "line": 2670,
           "snippet": "v = json.loads((RAIZ / \"vercel.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-MAPA-GERADOR",
@@ -75096,6 +76039,41 @@
             "EDGE_ID": "C-TESTES--WRITES-->C-PROVA-COLETA",
             "FROM": "C-TESTES",
             "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PROVA-FRONTEIRA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A medição da fronteira com a Inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_fronteira_mede_a_sala_canonica.py",
+          "line": 179,
+          "snippet": "with open(os.path.join(RAIZ, \"provas\", \"a_fronteira_da_coleta.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-PROVA-FRONTEIRA",
+            "FROM": "C-TESTES",
+            "TO": "C-PROVA-FRONTEIRA",
             "RELATION_TYPE": "WRITES",
             "PLANE": "CODE"
           },
@@ -75763,7 +76741,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 26 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -75974,7 +76952,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 34 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 35 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -78209,7 +79187,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 849,
+  "UNCLAIMED_FILES_COUNT": 854,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -78394,12 +79372,12 @@
     "components_pending": 143,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 975,
-    "edges_proven": 923,
+    "edges": 979,
+    "edges_proven": 927,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1768,
-    "files_covered": 919,
+    "files_tracked": 1776,
+    "files_covered": 922,
     "files_code_unclaimed": 0,
     "roles_proven": 138,
     "roles_declared_only": 5,

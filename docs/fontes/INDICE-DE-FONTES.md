@@ -15,16 +15,17 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **23** |
+| fichas completas no atlas | **57** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **40** |
+| endereços que o código realmente chama | **248** |
+| desses, publicados no mapa | **40** (truncados: 208) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
 > O cabeçalho do atlas diz **37 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **23**. Faltam **14**.
+> **57**. Faltam **-20**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -40,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **18** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **20** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
@@ -96,7 +97,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 
 ## POR PAÍS
 
-### ESPANHA · 6 fontes · 2 com contrato de busca
+### ESPANHA · 34 fontes · 2 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
@@ -106,8 +107,36 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `ES-T4-003` | Registro de Productos Fitosanitarios — aplicação de consul | T4 · REGULATORY | ⚪ NAO SEI | **não** |
 | `ES-T4-005` | Registro Oficial de Productos Fitosanitarios — rotas públi | T4 · REGULATORY | 🟢 GREEN | sim |
 | `ES-T5-002` | OpenAlex, recorte espanhol declarado | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `ES-T7-001` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-002` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-003` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-004` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-005` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-006` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-007` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-008` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-009` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-010` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-011` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-012` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-013` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-014` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-015` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-016` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-017` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-018` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-019` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-020` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-021` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-022` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-023` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-024` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-025` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-026` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T7-027` | feeds de imprensa técnica espanhola, associações agrárias, | T7 · TECHNICAL NETWORK | ⚪ PARCIAL | **não** |
+| `ES-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### EUROPA · 11 fontes · 1 com contrato de busca
+### EUROPA · 13 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
@@ -122,22 +151,28 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `EU-T4-001` | CELLAR / EU Publications Office (Official Journal of the E | T4 · REGULATORY | 🟢 GREEN | sim |
 | `EU-T4-002` | EU Pesticides Database | T4 · REGULATORY | ⚪ NAO SEI | **não** |
 | `EU-T5-001` | OpenAlex | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `EU-T8-001` | EU-T8-001 | T8 · FARMERS & INFLUENCERS | ⚪ NAO SEI | **não** |
+| `EU-T9-002` | Meta Ads Library | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### FRANCA · 4 fontes · 1 com contrato de busca
+### FRANCA · 6 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
+| `FR-T11-001` | FR-T11-001 | T11 · EVENTS | 🟡 YELLOW | **não** |
 | `FR-T13-001` | recherche-entreprises.api.gouv.fr (base SIRENE) | T13 · DISTRIBUTION | 🟢 GREEN | **não** |
 | `FR-T3-001` | Bulletins de Santé du Végétal | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `FR-T3-002` | Archive en agro-écologie de BSV | T3 · PEST / DISEASE / WEEDS | ⚪ NAO SEI | **não** |
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
+| `FR-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### ITALIA · 2 fontes · 1 com contrato de busca
+### ITALIA · 4 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
+| `IT-T11-001` | IT-T11-001 | T11 · EVENTS | 🟡 YELLOW | **não** |
 | `IT-T3-001` | IT-T3-001 | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · REGULATORY | 🟢 GREEN | sim |
+| `IT-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
 ---
 

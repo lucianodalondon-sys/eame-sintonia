@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5e43f1c42c7064b97f0dc1588779775456de0f24
-BRANCH           claude/big-collection-gate-01
-GERADO_EM        2026-09-14T19:41:14-03:00
+HEAD_DA_MEDICAO  cd3dd0372c049ad622a50a7c450a1eec2c009da8
+BRANCH           claude/system-map-reconciled-v1
+GERADO_EM        2026-09-15T10:04:07-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -257,19 +257,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-ROTAS-REAIS, C-TESTES |
-| **prova de quem ativa** | provas/a_ponte_de_midia_atravessa.py:46; tests/test_c4h_ponte_de_midia.py:26 _(plano CODE)_ |
+| **prova de quem ativa** | provas/a_ponte_de_midia_atravessa.py:46; tests/test_c4h_executor_de_midia.py:54; tests/test_c4h_executor_de_midia.py:60 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | C-TRANSCRICAO |
 | **o que entra · ficheiros** | `ferramentas/fala_local.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 5 · saem 2 |
-| **arestas provadas** | entram 5 · saem 2 |
+| **arestas no mapa** | entram 5 · saem 3 |
+| **arestas provadas** | entram 5 · saem 3 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 7 |
+| **prova das ligações** | CODE 8 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
@@ -490,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 14 |
-| **arestas provadas** | entram 3 · saem 14 |
+| **arestas no mapa** | entram 3 · saem 16 |
+| **arestas provadas** | entram 3 · saem 16 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 17 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -563,7 +563,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-MAPA-SCAN |
-| **prova de quem ativa** | system-map/scripts/scan_sources.py:385 _(plano CODE)_ |
+| **prova de quem ativa** | system-map/scripts/scan_sources.py:480 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json` |
@@ -819,7 +819,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `docs/fontes/ATLAS-DE-FONTES-EAME.md`, `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`, `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json` |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | UNKNOWN |
-| **status operacional** | yellow — 23 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la —  |
+| **status operacional** | yellow — 57 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 52, hoje so uma pessoa consegue ir la —  |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
 | **prova de quem ativa** | 3 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
@@ -973,7 +973,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:267; guarda/memoria_descartavel.py:43 |
+| **prova de quem ativa** | coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:303; guarda/memoria_descartavel.py:43 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
