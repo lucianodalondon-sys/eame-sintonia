@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5fb1579b3531ee074447e04ccc3ee077ec7fea9c
+HEAD_DA_MEDICAO  9434f816d043348f0106fd328c287ada4249d824
 BRANCH           claude/intelligence-bible-canonical-review-749b7c
-GERADO_EM        2026-09-15T18:07:40-03:00
+GERADO_EM        2026-09-15T18:15:39-03:00
 CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

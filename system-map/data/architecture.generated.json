@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-bible-canonical-review-749b7c",
-    "HEAD": "5fb1579b3531ee074447e04ccc3ee077ec7fea9c",
-    "GENERATED_AT": "2026-09-15T18:07:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9402c67a5caeec3d0881b6e9ffd437f287e51ff9966763267d960cc47638e96b"
+    "HEAD": "9434f816d043348f0106fd328c287ada4249d824",
+    "GENERATED_AT": "2026-09-15T18:15:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "179c909bb7a17cca36c14be02b9d840aceb74af02978519d135e3b09e84d9092"
   },
   "FILES": [
     {
@@ -1781,7 +1781,7 @@
     },
     {
       "path": "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
-      "sha": "58a018dd6eed9c8c1ee24ad6ed26d1c2f133104d",
+      "sha": "61fdff9d6e41e5adf28080854a9ccc5ca904b8e5",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -13254,7 +13254,7 @@
     },
     {
       "path": "tests/test_atomicidade_da_intelligence.py",
-      "sha": "3938129b17124486966d8bb4f9c269ec84b1c0b3",
+      "sha": "58182f5b767d7e02b254f56e0ea6fa3324dd2aab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13919,7 +13919,7 @@
     },
     {
       "path": "tests/test_o_controle_separa_lei_de_mencao.py",
-      "sha": "a6a0f5610c1294a3564b6d1b0c3edf586cf25618",
+      "sha": "5893c12f22817a7bfc4fa4d43faabd93d7f2d90f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -47471,7 +47471,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 102,
+        "line": 144,
         "snippet": "[\"BIBLIA-CANONICA-DA-COLETA.md\","
       }
     },
@@ -47482,19 +47482,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 103,
+        "line": 145,
         "snippet": "\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"], biblias,"
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 575,
-        "snippet": "\"HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md\","
       }
     },
     {
@@ -47504,7 +47493,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 84,
+        "line": 126,
         "snippet": "self.assertEqual([\"SINTONIA-EAME-KNOW-HOW.md\"], achados,"
       }
     },
@@ -47526,7 +47515,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 248,
+        "line": 290,
         "snippet": "from admissao import decidir, pronto_para_inteligencia"
       }
     },
@@ -47537,7 +47526,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 107,
+        "line": 149,
         "snippet": "reg = json.load(open(ficheiro(\"controle/AUTORIDADES-CANONICAS.json\"),"
       }
     },
@@ -47548,7 +47537,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 433,
+        "line": 475,
         "snippet": "with open(ficheiro(\"controle/CHAO-DO-CONTROLE.json\"),"
       }
     },
@@ -47559,7 +47548,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 378,
+        "line": 420,
         "snippet": "self.assertTrue(os.path.exists(ficheiro(\"controle/censo_do_controle.py\")))"
       }
     },
@@ -47570,30 +47559,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 379,
+        "line": 421,
         "snippet": "self.assertTrue(os.path.exists(ficheiro(\"controle/portao_do_controle.py\")))"
       }
     },
     {
       "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
+      "to_file": "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 576,
-        "snippet": "\"docs/apresentacao/PILOTO-CLASSIFICACAO.md\","
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 577,
-        "snippet": "\"docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md\","
+        "line": 658,
+        "snippet": "\"data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json\":"
       }
     },
     {
@@ -47603,63 +47581,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 148,
+        "line": 190,
         "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 578,
-        "snippet": "\"docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md\","
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 579,
-        "snippet": "\"docs/piloto/O-QUE-PODEMOS-DIZER.md\","
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 580,
-        "snippet": "\"docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md\","
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 581,
-        "snippet": "\"docs/piloto/VEREDITO-M10-HANDOFF.md\","
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 582,
-        "snippet": "\"docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md\","
       }
     },
     {
@@ -47669,7 +47592,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 169,
+        "line": 211,
         "snippet": "import gestao_da_coleta as g"
       }
     },
@@ -47691,7 +47614,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 357,
+        "line": 399,
         "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
       }
     },
@@ -47702,7 +47625,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 185,
+        "line": 227,
         "snippet": "from espinha_da_intelligence import PALAVRAS_QUE_O_REQUISITO_RECUSA"
       }
     },
@@ -47713,7 +47636,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 366,
+        "line": 408,
         "snippet": "self.assertNotIn(\"provas/espinha_da_intelligence.py\", c.INSTRUMENTOS)"
       }
     },
@@ -47724,7 +47647,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 445,
+        "line": 487,
         "snippet": "\"research/intelligence/BIBLE-PROMOTION-GATE-REPORT-V1.md\""
       }
     },
@@ -47735,7 +47658,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 515,
+        "line": 557,
         "snippet": "with open(ficheiro(\"system-map/data/architecture.declared.json\"),"
       }
     },
@@ -47746,7 +47669,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 571,
+        "line": 638,
         "snippet": "\"system-map/scripts/censo_do_congelamento.py\":"
       }
     },
@@ -55963,7 +55886,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-        "line": 689,
+        "line": 732,
         "snippet": "import sala_de_espera as SALA                                # noqa: E402"
       }
     },
@@ -56095,7 +56018,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-        "line": 679,
+        "line": 722,
         "snippet": "T = json.loads((RAIZ / \"docs\" / \"operacao\" / \"TRAVA-DA-INTELIGENCIA.json\")"
       }
     },
@@ -56139,7 +56062,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-        "line": 702,
+        "line": 745,
         "snippet": "espinha = (RAIZ / \"provas\" / \"espinha_da_intelligence.py\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -56172,7 +56095,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-        "line": 500,
+        "line": 543,
         "snippet": "[sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"impressao_da_arvore.py\"),"
       }
     },
@@ -56183,7 +56106,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-        "line": 508,
+        "line": 551,
         "snippet": "\"system-map/scripts/publicar_no_deploy.mjs\"):"
       }
     },
@@ -61149,7 +61072,7 @@
     "files_tracked": 2046,
     "files_readable": 785,
     "files_code_dir": 839,
-    "file_edges": 4209,
+    "file_edges": 4202,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

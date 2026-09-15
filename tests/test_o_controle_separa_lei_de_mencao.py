@@ -475,19 +475,62 @@ class M_UmArtefactoGeradoNaoCarimbaOProprioCommit(unittest.TestCase):
     def test_M4_o_universo_medido_e_declarado_e_nao_adivinhado(self):
         """Nao existe «ficheiro irrelevante fora do universo».
 
-        O universo e TODO ficheiro rastreado menos a lista de EXCLUIDO, e essa
-        lista vive no manifesto, num sitio so. Nao ha terceira categoria: ou o
-        ficheiro e fonte, ou e saida da propria cadeia. Um HEAD que mude por
-        causa de qualquer outra coisa muda a impressao, e isso e a resposta
-        certa — «nao sei se este mapa e o desta arvore» e melhor que um verde.
+        O universo e TODO ficheiro rastreado menos o que a cadeia escreve. Nao
+        ha terceira categoria: ou o ficheiro e fonte, ou e saida da propria
+        cadeia. Um HEAD que mude por causa de qualquer outra coisa muda a
+        impressao, e isso e a resposta certa — «nao sei se este mapa e o desta
+        arvore» e melhor que um verde.
+
+        ⚠️ **`LEI["EXCLUIDO"]` DEIXOU DE EXISTIR, E A LEI FICOU MAIS FORTE.**
+        Eram doze caminhos escritos a mao que queriam dizer «as saidas da
+        cadeia» — o mesmo que cada passo ja declara em `OUTPUTS`. Quando o G5
+        trouxe treze passos novos, catorze ficheiros que a cadeia escreve
+        ficaram DENTRO da impressao que ela carimba, e cada passagem movia a
+        impressao. O dono resolveu-o onde devia: a exclusao passou a DERIVAR
+        de `REGERAR` + `REGERAR_A_MAO`, e so `EXCLUIDO_EXTRA` fica a mao.
+
+            UMA LISTA DAS SAIDAS AO LADO DE UMA LISTA DAS SAIDAS
+            NAO E REDUNDANCIA: E A SEGUNDA A FICAR PARA TRAS.
+
+        Esta prova seguia a chave antiga e rebentava com `KeyError` — nao
+        reprovava, NAO CORRIA. Passa a medir a propriedade pela funcao que a
+        casa expoe, que e o que ela sempre quis medir.
         """
-        lei = IMPRESSAO.LEI
-        self.assertTrue(lei["EXCLUIDO"])
-        self.assertEqual(lei["ALGORITMO"], "sha256")
-        for e in lei["EXCLUIDO"]:
+        self.assertEqual(IMPRESSAO.LEI["ALGORITMO"], "sha256")
+
+        excluidos = IMPRESSAO._excluidos()
+        self.assertTrue(excluidos, "o universo nao exclui nada: a cadeia "
+                                   "deixou de declarar OUTPUTS?")
+
+        # ⚠️ E O PREFIXO OUTRA VEZ. A primeira versao desta correccao exigia
+        # `system-map/data/` ou `italia-portale/`, e apanhou
+        # `regras/LEIA-ANTES-DE-COLETAR.md` — uma saida LEGITIMA da cadeia, que
+        # o gerador do mapa escreve, e que simplesmente nao mora numa das duas
+        # pastas que alguem tinha em mente no dia em que escreveu a regra.
+        #
+        #     «SAIDA DA CADEIA» E UMA PROPRIEDADE DO DONO, NAO DA PASTA.
+        #
+        # A pergunta e «quem escreve isto?», e a cadeia ja responde por escrito.
+        import cadeia_do_mapa as CAD   # noqa: E402 — a gaveta ja esta no path
+        saidas = set()
+        for grupo in (CAD.ordem_escrita(), CAD.passos_a_mao()):
+            for passo in grupo:
+                for o in passo.get("OUTPUTS", []):
+                    saidas.add(o["PATH"] if isinstance(o, dict) else o)
+        extra = tuple(IMPRESSAO.LEI.get("EXCLUIDO_EXTRA", ()))
+
+        for e in sorted(excluidos):
             with self.subTest(excluido=e):
-                self.assertTrue(e.startswith(("system-map/data/", "italia-portale/")),
-                                "so saida da cadeia sai do universo")
+                self.assertTrue(
+                    e in saidas or e.startswith(extra),
+                    "saiu do universo sem ser saida declarada da cadeia "
+                    "nem EXCLUIDO_EXTRA — quem escreve este ficheiro?")
+
+        # A fonte continua DENTRO — e por isso mexer nela muda a impressao.
+        for fonte in ("AGENTS.md",
+                      "system-map/data/architecture.declared.json"):
+            with self.subTest(fonte=fonte):
+                self.assertFalse(IMPRESSAO.excluido(fonte))
 
     def test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore(self):
         """A prova empirica de que a perseguicao era desnecessaria.

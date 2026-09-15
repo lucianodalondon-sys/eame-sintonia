@@ -32,9 +32,40 @@ sys.path.insert(0, os.path.join(RAIZ, "provas"))
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 from arbitragem_da_intelligence import AUTORIDADES, medir  # noqa: E402
 
-#: O tronco de onde esta integracao partiu. Tudo o que estas provas chamam de
-#: «nao alterado» e medido contra ele, e nao contra a memoria de ninguem.
+#: ⚠️ SAO DUAS PERGUNTAS, E ATE 2026-09-15 PARTILHAVAM UMA CONSTANTE SO.
+#:
+#:   1. «os CINCO commits de integracao so ACRESCENTARAM?» — um facto
+#:      HISTORICO, sobre um intervalo fechado que nao volta a mudar. Mede-se
+#:      de `TRONCO` a `FIM_DA_INTEGRACAO`, e esses dois nunca mais se mexem.
+#:   2. «a Intelligence tocou Collection, migrations ou Portal?» — uma
+#:      pergunta sobre HOJE, cujo denominador e o tronco em que esta linha
+#:      assenta AGORA.
+#:
+#: Enquanto a Intelligence viveu no mesmo tronco, as duas respostas vinham do
+#: mesmo commit e ninguem reparou que eram duas perguntas. A reconciliacao com
+#: `claude/it-trunk-v1` afastou-as: medir a pergunta 2 contra `dc00583d`
+#: passou a somar o trabalho INTEIRO do trunk ao que a prova chama «a
+#: integracao tocou» — 22 ficheiros de Collection, 2 migrations e 29 do
+#: Portal, nenhum deles escrito pela Intelligence. E `dc00583d` ja nem e
+#: ancestral do trunk de hoje: as duas linhas divergiram, e a prova estava a
+#: comparar duas casas em vez de dois dias.
+#:
+#:     UM DIFF CONTRA O TRONCO ERRADO NAO MEDE O QUE EU FIZ.
+#:     MEDE O QUE ACONTECEU NO MUNDO DESDE QUE EU SAI DE CASA.
+#:
+#: Apontar ambas ao mesmo commit fazia uma mentir sempre que a outra ficasse
+#: certa. Ficam separadas, com nome proprio.
+#:
+#:     DUAS PERGUNTAS COM DENOMINADORES DIFERENTES NAO PARTILHAM UMA CONSTANTE.
+
+#: O tronco de onde a integracao das autoridades partiu. Historico, fixo.
 TRONCO = "dc00583d01ac6312fa6fa83195d936199eaa3d12"
+
+#: O tronco em que esta linha assenta HOJE, depois da reconciliacao com
+#: `claude/it-trunk-v1`. Contra ele, as tres provas voltam a dizer o que sempre
+#: quiseram dizer, e desta vez e verdade medida: zero ficheiros de Collection,
+#: zero migrations, zero do Portal.
+TRONCO_ACTUAL = "43553a651f8c330512c5989a78bc796739659331"
 
 #: O ultimo dos cinco commits que trouxeram autoridades. Ate aqui, so pode
 #: haver ficheiros ACRESCENTADOS — e e o que a prova mede.
@@ -42,7 +73,18 @@ FIM_DA_INTEGRACAO = "a8b56448009661c12216d265465d02289c15c8e0"
 
 
 def git(*a):
+    """⚠️ `encoding` EXPLICITO, E NAO O DA MAQUINA.
+
+    Com `text=True` sozinho, o Python descodifica a saida do git na codificacao
+    default do sistema — `cp1252` no Windows. O repositorio escreve UTF-8 (os
+    nomes das pecas do mapa levam acento e emoji), e a leitura rebentava com
+    `UnicodeDecodeError` a meio do diff do espelho. Nao era uma prova a
+    reprovar: era a prova a nao conseguir correr, nesta maquina, sempre.
+
+        UM TESTE QUE SO FALHA NUM SISTEMA OPERATIVO NAO ESTA A MEDIR O CODIGO.
+    """
     return subprocess.check_output(["git"] + list(a), cwd=RAIZ, text=True,
+                                   encoding="utf-8", errors="replace",
                                    stderr=subprocess.DEVNULL)
 
 
@@ -454,7 +496,7 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
                             "migrations/")
 
     def _tocados_desde_o_tronco(self):
-        return [l for l in git("diff", "--name-only", TRONCO, "HEAD").splitlines()
+        return [l for l in git("diff", "--name-only", TRONCO_ACTUAL, "HEAD").splitlines()
                 if l]
 
     def test_nenhuma_pasta_de_collection_foi_tocada(self):
@@ -488,7 +530,7 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         missao declarou, e nao pode PERDER nenhum. Um gerador que apaga uma
         peca em silencio e indistinguivel de um que a atualiza.
         """
-        diff = git("diff", TRONCO, "HEAD", "--",
+        diff = git("diff", TRONCO_ACTUAL, "HEAD", "--",
                    self.ESPELHO_DO_MAPA + "state.generated.json")
         entram = {l for l in diff.splitlines()
                   if l.startswith("+") and '"id":' in l}
@@ -526,13 +568,38 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         declarados = ({c["id"] for c in F["COMPONENTS"]}
                       | {t["id"] for t in F["TERRITORIES"]}
                       | {f["id"] for f in F.get("FAMILIES", [])})
+
+        # ⚠️ E A SETIMA VEZ, E DESTA O VALOR FIXO ERA UM PREFIXO.
+        #
+        # A regra era `cid.startswith(("C-INT-", "Z-INT-"))`, e apanhou
+        # `C-PROVA-AGRO-FRONTEIRA` — uma peca da Intelligence, declarada na
+        # FONTE por esta faixa, que so tem a infelicidade de se chamar pelo
+        # territorio onde mora (Z-PROVA) em vez do dominio que serve. O irmao
+        # dela, `C-INT-MODELO-OBJETOS`, mora no MESMO territorio e passa, so
+        # porque alguem lhe deu outro nome.
+        #
+        #     UM PREFIXO E UMA CONVENCAO DE NOME. NAO E UMA MEDICAO DE DONO.
+        #
+        # A propriedade que interessa nunca foi «chama-se C-INT»: e «esta faixa
+        # ACRESCENTOU esta peca, e o tronco nao a tinha». Isso mede-se, e
+        # continua a apanhar o ataque que a prova existe para apanhar — uma
+        # peca que aparece no espelho sem alguem a ter declarado aqui.
+        do_tronco = json.loads(git("show",
+                                   TRONCO_ACTUAL + ":system-map/data/"
+                                   "architecture.declared.json"))
+        ja_no_tronco = ({c["id"] for c in do_tronco["COMPONENTS"]}
+                        | {t["id"] for t in do_tronco["TERRITORIES"]}
+                        | {f["id"] for f in do_tronco.get("FAMILIES", [])})
+        desta_faixa = declarados - ja_no_tronco
+
         for linha in sorted(so_entram):
             cid = linha.split('"')[3]
             with self.subTest(peca=cid):
                 self.assertIn(cid, declarados,
                               "o espelho ganhou algo que a FONTE nao declara")
-                self.assertTrue(cid.startswith(("C-INT-", "Z-INT-")),
-                                "esta faixa so declara Intelligence")
+                self.assertIn(cid, desta_faixa,
+                              "o espelho ganhou uma peca que esta faixa nao "
+                              "acrescentou — veio de onde?")
 
     def test_a_integracao_de_autoridades_so_acrescentou(self):
         """Ataques 1 e 14 do red team, guardados no sitio certo.
@@ -571,16 +638,45 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         "system-map/scripts/censo_do_congelamento.py":
             "declarei os dois INSTRUMENTOS da trava, pagos com P10b",
     }
-    REGENERADO_PELO_LEDGER = (
-        "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-        "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-        "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-        "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-        "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-        "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-        "docs/piloto/VEREDITO-M10-HANDOFF.md",
-        "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-    )
+    #: ⚠️ ERA UMA LISTA DE OITO NOMES, E ADOECEU DA MESMA COISA QUE AS OUTRAS.
+    #:
+    #: O ledger (`pacote/metricas_canonicas.py --sync`) escreve em todo o
+    #: ficheiro que tenha um marcador `<!--M:NOME-->`. A lista fixava OITO —
+    #: os que tinham `TEST_COUNT_CURRENT` no dia em que foi escrita — e deixava
+    #: de fora quatro que carregam `SOURCE_ID_COUNT` e sao regenerados pelo
+    #: MESMO comando, pelo MESMO dono, na MESMA corrida.
+    #:
+    #:     O DONO NAO E A LISTA. O DONO E O MARCADOR, E ELE ESTA NO FICHEIRO.
+    #:
+    #: Passa a medir-se: tem marcador do ledger, e do ledger.
+    MARCA_DO_LEDGER = "<!--M:"
+
+    #: O que nao e `.generated.json`, nao tem marcador do ledger e nao e OUTPUT
+    #: declarado da cadeia — mas TEM gerador, com nome. Lista curta, com razao,
+    #: e cada linha e uma divida a resolver no sitio certo.
+    GERADO_FORA_DA_CADEIA = {
+        "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json":
+            "escrito por provas/o_censo_da_sala_de_espera.py (SAIDA, linha 55); "
+            "o censo da Sala ainda nao e passo declarado da cadeia do mapa",
+    }
+
+    @staticmethod
+    def _outputs_da_cadeia():
+        """Os OUTPUTS que a propria cadeia declara. Nao e uma copia: e a fonte.
+
+        `system-map/scripts/cadeia_do_mapa.py` ja diz, passo a passo, o que
+        cada um escreve. Repetir a lista aqui seria o segundo sitio a
+        divergir do primeiro.
+        """
+        import cadeia_do_mapa as CAD  # noqa: E402 — vive em system-map/scripts
+        saidas = set()
+        for grupo in (CAD.ordem_escrita(), CAD.passos_a_mao(),
+                      CAD.passos_de_validar(), CAD.portoes_pos_commit(),
+                      CAD.outras_execucoes()):
+            for passo in grupo:
+                for o in passo.get("OUTPUTS", []):
+                    saidas.add(o["PATH"] if isinstance(o, dict) else o)
+        return saidas
 
     def test_tudo_o_que_foi_modificado_tem_gerador_com_nome(self):
         """Nenhum ficheiro mudou por edicao a mao.
@@ -588,13 +684,28 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         Um ficheiro gerado que alguem editou a mao e indistinguivel de um
         gerado — ate ao dia em que o gerador corre outra vez e apaga a edicao.
         """
-        saida = git("diff", "--name-status", TRONCO, "HEAD")
+        saida = git("diff", "--name-status", TRONCO_ACTUAL, "HEAD")
         modificados = [l.split("\t", 1)[1] for l in saida.splitlines()
                        if l and l[0] in ("M", "D")]
-        orfaos = [f for f in modificados
-                  if not f.endswith(self.REGENERADO_POR_CADEIA_CANONICA)
-                  and f not in self.REGENERADO_PELO_LEDGER
-                  and f not in self.EDITADO_NA_FONTE]
+        da_cadeia = self._outputs_da_cadeia()
+
+        def tem_dono(f):
+            if f.endswith(self.REGENERADO_POR_CADEIA_CANONICA):
+                return True                      # o sufixo declara a saida
+            if f in da_cadeia:
+                return True                      # a cadeia declara-o como OUTPUT
+            if f in self.GERADO_FORA_DA_CADEIA:
+                return True                      # gerador com nome, escrito
+            if f in self.EDITADO_NA_FONTE:
+                return True                      # edicao de fonte, com razao
+            caminho = ficheiro(f)
+            if os.path.exists(caminho):
+                with open(caminho, encoding="utf-8", errors="replace") as fh:
+                    if self.MARCA_DO_LEDGER in fh.read():
+                        return True              # o marcador diz quem escreve
+            return False
+
+        orfaos = [f for f in modificados if not tem_dono(f)]
         self.assertEqual([], orfaos,
                          "modificado sem gerador nem razao escrita: %s" % orfaos)
 
@@ -604,7 +715,7 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         Esta prova mede que a declaracao mudou (foi la que eu escrevi) e que
         os gerados mudaram COM ela — nunca sem.
         """
-        saida = git("diff", "--name-only", TRONCO, "HEAD")
+        saida = git("diff", "--name-only", TRONCO_ACTUAL, "HEAD")
         tocados = set(saida.splitlines())
         self.assertIn("system-map/data/architecture.declared.json", tocados,
                       "declarei pecas novas e a FONTE nao mudou")

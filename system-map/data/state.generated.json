@@ -2638,9 +2638,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-bible-canonical-review-749b7c",
-    "HEAD": "5fb1579b3531ee074447e04ccc3ee077ec7fea9c",
-    "GENERATED_AT": "2026-09-15T18:07:40-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9402c67a5caeec3d0881b6e9ffd437f287e51ff9966763267d960cc47638e96b"
+    "HEAD": "9434f816d043348f0106fd328c287ada4249d824",
+    "GENERATED_AT": "2026-09-15T18:15:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "179c909bb7a17cca36c14be02b9d840aceb74af02978519d135e3b09e84d9092"
   },
   "FAMILIES": [
     {
@@ -11041,7 +11041,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "provas/trava_da_inteligencia_morde.py:24",
-          "tests/test_atomicidade_da_intelligence.py:571"
+          "tests/test_atomicidade_da_intelligence.py:638"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -16577,7 +16577,7 @@
           "provas/consumo_da_referencia_adama.py:94",
           "system-map/scripts/censo_do_congelamento.py:136",
           "tests/test_atomicidade_da_intelligence.py:33",
-          "tests/test_atomicidade_da_intelligence.py:357"
+          "tests/test_atomicidade_da_intelligence.py:399"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -17330,7 +17330,7 @@
           "motor/corrida_da_inteligencia.py:58",
           "provas/arbitragem_da_intelligence.py:63",
           "provas/consumo_da_referencia_adama.py:98",
-          "tests/test_atomicidade_da_intelligence.py:185"
+          "tests/test_atomicidade_da_intelligence.py:227"
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CORRIDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -30867,6 +30867,7 @@
         "data/derivados/A-REGRA-DE-T2.json",
         "data/derivados/BASELINE-ADMISSION-T3-V1.json",
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+        "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
         "data/derivados/REGISTO-DE-ARTEFATOS.json",
         "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
@@ -30995,13 +30996,11 @@
         "docs/piloto/O-QUE-PODEMOS-DIZER.md",
         "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
         "docs/piloto/SOURCE-PACK-PILOTO.md",
-        "docs/piloto/VEREDITO-M10-HANDOFF.md",
         "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md",
         "docs/regras/MODELO-DE-IDENTIDADE-EAME.md",
         "docs/regras/POLITICA-DE-CHAVES-DESCARTAVEIS.md",
         "docs/regras/REGUA-DE-ALERTA-EAME.md",
         "docs/regras/REGUA-DE-CHANGE-EVENT-EAME.md",
-        "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
         "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
         "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
         "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
@@ -35792,7 +35791,7 @@
         },
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 248,
+          "line": 290,
           "snippet": "from admissao import decidir, pronto_para_inteligencia",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-TESTES",
@@ -40102,7 +40101,7 @@
         },
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 102,
+          "line": 144,
           "snippet": "[\"BIBLIA-CANONICA-DA-COLETA.md\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-TESTES",
@@ -41291,7 +41290,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 571,
+          "line": 638,
           "snippet": "\"system-map/scripts/censo_do_congelamento.py\":",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-CONGELAMENTO--READS-->C-TESTES",
@@ -54818,7 +54817,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 169,
+          "line": 211,
           "snippet": "import gestao_da_coleta as g",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-GESTAO-DA-COLETA--IMPORTS-->C-TESTES",
@@ -55662,7 +55661,7 @@
       "evidence": [
         {
           "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-          "line": 500,
+          "line": 543,
           "snippet": "[sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"impressao_da_arvore.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--READS-->C-TESTES",
@@ -56867,7 +56866,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 357,
+          "line": 399,
           "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-ARBITRAGEM--READS-->C-TESTES",
@@ -56953,7 +56952,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 103,
+          "line": 145,
           "snippet": "\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"], biblias,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-BIBLIA--READS-->C-TESTES",
@@ -57491,7 +57490,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 148,
+          "line": 190,
           "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-DONOS--READS-->C-TESTES",
@@ -57714,7 +57713,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 185,
+          "line": 227,
           "snippet": "from espinha_da_intelligence import PALAVRAS_QUE_O_REQUISITO_RECUSA",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-TESTES",
@@ -57781,7 +57780,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 366,
+          "line": 408,
           "snippet": "self.assertNotIn(\"provas/espinha_da_intelligence.py\", c.INSTRUMENTOS)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-ESPINHA--READS-->C-TESTES",
@@ -57813,7 +57812,7 @@
         },
         {
           "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-          "line": 702,
+          "line": 745,
           "snippet": "espinha = (RAIZ / \"provas\" / \"espinha_da_intelligence.py\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-ESPINHA--READS-->C-TESTES",
@@ -61526,7 +61525,7 @@
       "evidence": [
         {
           "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-          "line": 508,
+          "line": 551,
           "snippet": "\"system-map/scripts/publicar_no_deploy.mjs\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-TESTES",
@@ -71041,7 +71040,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 515,
+          "line": 557,
           "snippet": "with open(ficheiro(\"system-map/data/architecture.declared.json\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-TESTES",
@@ -75739,7 +75738,7 @@
         },
         {
           "file": "tests/test_o_controle_separa_lei_de_mencao.py",
-          "line": 689,
+          "line": 732,
           "snippet": "import sala_de_espera as SALA                                # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
