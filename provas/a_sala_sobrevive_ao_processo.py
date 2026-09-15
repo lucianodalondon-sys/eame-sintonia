@@ -99,10 +99,89 @@ def _preparar(url):
     if r.returncode != 0:
         print(r.stdout[-2000:]); print(r.stderr[-2000:])
         raise SystemExit("a cadeia canonica nao aplicou")
-    caso("a migration 031 aplica pela cadeia canonica",
-         "MIGRATION_031=PASS" in r.stdout or "MIGRATION_031=SKIP" in r.stdout.replace(
-             "MIGRATION_031=SKIP (ja no livro-razao) HASH=MATCH",
-             "MIGRATION_031=SKIP"), True)
+    def _aplicou(num, saida):
+        """A migration `num` passou pela cadeia? PASS ou SKIP-com-hash-igual.
+
+        `SKIP (ja no livro-razao) HASH=MATCH` e uma passagem legitima: o banco
+        ja a tem e o ficheiro nao mudou. O que NAO conta e um SKIP sem hash.
+        """
+        marca = "MIGRATION_%s=" % num
+        for linha in saida.splitlines():
+            if not linha.startswith(marca):
+                continue
+            resto = linha[len(marca):]
+            if resto.startswith("PASS"):
+                return True
+            if resto.startswith("SKIP") and "HASH=MATCH" in resto:
+                return True
+            if resto.startswith("SKIP") and "objetos ja existem" in resto:
+                return True
+        return False
+
+    caso("a migration 031 aplica pela cadeia canonica", _aplicou("031", r.stdout), True)
+    # ── E A 032, QUE E O OBJETO DESTA MISSAO ────────────────────────────
+    # ⚠️ ELA NAO ERA CONFERIDA AQUI. A prova aplicava a cadeia inteira, lia o
+    # resultado da `031` e seguia — e a `032` podia ter falhado no meio sem
+    # ninguem perguntar. A cadeia para no primeiro erro, logo o silencio era
+    # SEGURO; mas seguro por acidente nao e o mesmo que medido.
+    #
+    #     UMA MIGRATION QUE NINGUEM CONFERE E UMA MIGRATION POR PROVAR,
+    #     MESMO QUANDO ELA CORREU.
+    caso("a migration 032 aplica pela cadeia canonica", _aplicou("032", r.stdout), True)
+
+    # ── AS SETE COLUNAS DA 032 EXISTEM MESMO, NO CATALOGO ───────────────
+    # Nao se pergunta ao ficheiro `.sql` se ele tem `add column`: pergunta-se
+    # ao BANCO se a coluna la esta. Ler a intencao nao e ler o resultado.
+    colunas = {c.strip().lower() for c in _psql(
+        url, "select column_name from information_schema.columns "
+             "where table_schema='public' and table_name='sala_de_espera'")}
+    for nova in ("estagio", "published_at", "observed_at", "fact_time_basis",
+                 "fact_location_basis", "source_declared_evidence_class", "fato"):
+        caso("a 032 criou a coluna %s" % nova, nova in colunas, True)
+
+    # E os campos que a `031` ja trazia continuam la — uma migration que
+    # acrescenta nao pode ter levado nenhum pelo caminho.
+    #
+    # ⚠️ ISTO DIZIA «todos os 19 campos tem coluna», E ESTAVA ERRADO POR
+    # CONSTRUCAO — o Postgres real recusou-o com
+    # `column "estado" of relation "sala_de_espera" does not exist`.
+    #
+    # DOIS campos do contrato NAO sao colunas, e nenhum dos dois por descuido:
+    #
+    #     ESTADO   e a condicao de entrada, nao um dado guardado. A porta
+    #              recusa quem nao vem `PRONTO` (`pousar()` levanta), e uma
+    #              coluna que so pode ter um valor nao mede nada.
+    #     CORRIDA  e a coluna `run_id`, que e a chave estrangeira. O contrato
+    #              chama-lhe outra coisa; a tabela nao tem de repetir o nome.
+    #
+    #     NOME NO CONTRATO != NOME DA COLUNA, E SUPOR QUE SIM E COMO
+    #     SUPOR QUE A EXTENSAO DIZ A ESPECIE.
+    #
+    # A lista autoritativa e o proprio `insert` do dono
+    # (`sala_de_espera.pousar`), e e contra ela que se mede.
+    import sala_de_espera as _espera                          # noqa: PLC0415
+    NAO_SAO_COLUNA = {"ESTADO": "e a condicao de entrada, validada em pousar()",
+                      "CORRIDA": "e a coluna run_id, a chave estrangeira"}
+    faltam = [c for c in _espera.CAMPOS_READY
+              if c not in NAO_SAO_COLUNA and c.lower() not in colunas]
+    caso("todo campo do contrato que E coluna tem coluna no banco", faltam, [])
+    caso("e a corrida do contrato vive em run_id", "run_id" in colunas, True)
+    caso("e ESTADO nao vira coluna: ele e a porta, nao o dado",
+         "estado" in colunas, False)
+
+    # ── IDEMPOTENCIA: A CADEIA CORRE OUTRA VEZ E NAO ESTRAGA ────────────
+    # `add column if not exists` promete isto; promessa nao e medicao.
+    r2 = subprocess.run(["bash", os.path.join(RAIZ, "motor", "cadeia_canonica.sh"),
+                         "migrations", url], capture_output=True, text=True)
+    caso("a cadeia corre duas vezes sem falhar", r2.returncode, 0)
+    caso("a 032 na segunda passagem continua a passar",
+         _aplicou("032", r2.stdout), True)
+    colunas2 = {c.strip().lower() for c in _psql(
+        url, "select column_name from information_schema.columns "
+             "where table_schema='public' and table_name='sala_de_espera'")}
+    caso("e o conjunto de colunas nao mudou na segunda passagem",
+         colunas2 == colunas, True)
+
     _psql(url, "delete from public.sala_de_espera;", ler=False)
 
 
@@ -241,7 +320,21 @@ def main():
     espera.MORADA = bancada
 
     pronta = _ready(observacao)
-    caso("o READY tem os 12 campos da COL-LAW-043", len(pronta), 12)
+    # ⚠️ ISTO DIZIA `12`, ESCRITO A MAO, E O CONTRATO JA TINHA 19.
+    #
+    # Uma prova que carimba a cardinalidade a mao e uma SEGUNDA lista do
+    # contrato — e no dia em que o dono aprende um campo, ela continua a jurar
+    # o numero antigo e fica verde a medir o passado.
+    #
+    #     UM NUMERO COPIADO DO CONTRATO NAO E O CONTRATO:
+    #     E UMA FOTOGRAFIA DELE, E FOTOGRAFIA NAO ENVELHECE JUNTO.
+    #
+    # Agora a pergunta e feita ao DONO (`sala_de_espera.CAMPOS_READY`), e o
+    # numero sai como CONSEQUENCIA — nao como afirmacao independente.
+    caso("o READY traz exactamente os campos que o dono declara",
+         sorted(pronta), sorted(espera.CAMPOS_READY))
+    caso("e sao %d, porque e isso que o contrato tem hoje" % len(espera.CAMPOS_READY),
+         len(pronta), len(espera.CAMPOS_READY))
     caso("e o dono do contrato pos la a observacao",
          pronta["RAW_OBSERVATION_ID"], observacao)
 
@@ -500,19 +593,79 @@ def main():
           if c.upper() in ("KEEP", "TEMP", "DISCARD", "RELEVANCIA", "VEREDITO")], [])
 
     # ── I · O RESTO DO RED TEAM ────────────────────────────────────────
-    # 12 e 13 · o contrato READY tem 12 campos, e 11 não entra.
+    # 12 e 13 · o contrato READY tem os campos que o DONO declara, e um a
+    # menos nao entra. O nome do ataque conta-se a partir dele, para nao voltar
+    # a envelhecer um numero escrito a mao.
     onze = dict(pronta); onze.pop("CAPTURED_AT")
     try:
         espera.pousar("RUN-11", [onze]); entrou = True
     except ValueError:
         entrou = False
-    caso("ataque 12 · READY com 11 campos NAO entra", entrou, False)
+    caso("ataque 12 · READY com %d campos (um a menos) NAO entra"
+         % (len(espera.CAMPOS_READY) - 1), entrou, False)
     treze = dict(pronta, EXTRA="a mais")
     try:
         espera.pousar("RUN-13", [treze]); entrou13 = True
     except ValueError:
         entrou13 = False
     caso("ataque 13 · READY com campo a mais tambem NAO entra", entrou13, False)
+
+    # ── J · A LINHA QUE EXISTIA ANTES DA 032 ────────────────────────────
+    # ⚠️ ISTO E UMA SIMULACAO DO BACKFILL, E DIZ-SE QUE E.
+    # `alter table ... add column ... not null default` preenche as linhas que
+    # ja la estavam com o DEFAULT. Escrever uma linha com SO as colunas que a
+    # `031` tinha, e deixar as sete novas cairem no default, produz exactamente
+    # o estado de uma linha pre-032 depois da migration correr.
+    #
+    #     NAO E VIAGEM NO TEMPO. E O MESMO ESTADO, PRODUZIDO PELO MESMO DEFAULT.
+    # As colunas que a `031` criou, na lingua da TABELA — lidas do `insert` do
+    # dono, nao adivinhadas do contrato. As sete da `032` ficam de fora de
+    # proposito: e o default delas que se quer medir.
+    COLS_031 = ("run_id", "ordem", "item_id", "raw_observation_id", "universo",
+                "texto", "source_id", "source_location", "fact_location",
+                "fact_time", "captured_at", "admitido_por", "corrida_sha256")
+    def _lit(v):
+        return "'%s'" % str(v).replace("'", "''")
+    valores = {
+        # ⚠️ `ordem` 999 DE PROPOSITO. A chave primaria e `(run_id, ordem)`, e
+        # o Postgres real recusou `(RUN-ADMISSAO, 0)` — os casos anteriores ja
+        # tinham pousado nesse endereco. Uma morada livre nao se adivinha: ela
+        # escolhe-se fora do alcance de quem ja escreveu.
+        "run_id": _lit("RUN-ADMISSAO"), "ordem": "999",
+        "item_id": _lit("pre-032"),
+        "raw_observation_id": "null", "universo": _lit("T5"),
+        "texto": _lit("linha escrita antes da 032"),
+        "source_id": _lit("IT-T7-001"), "source_location": _lit("NAO SEI"),
+        "fact_location": _lit("NAO SEI"), "fact_time": _lit("NAO SEI"),
+        "captured_at": _lit("2026-05-03T00:00:00Z"),
+        "admitido_por": _lit("PROVA-032"),
+        "corrida_sha256": _lit("0" * 64)}
+    _psql(url, "delete from public.sala_de_espera where item_id = 'pre-032';",
+          ler=False)
+    _psql(url, "insert into public.sala_de_espera (%s) values (%s);"
+          % (", ".join(COLS_031), ", ".join(valores[c] for c in COLS_031)),
+          ler=False)
+    velha = _psql(url, "select estagio, published_at, observed_at, "
+                       "fact_time_basis, fact_location_basis, "
+                       "source_declared_evidence_class, fato::text "
+                       "from public.sala_de_espera where item_id = 'pre-032'")
+    partes = velha[0].split("") if velha else []
+    caso("linha pre-032 · continua legivel depois da migration", len(partes), 7)
+    if len(partes) == 7:
+        est, pub, obs, ftb, flb, sde, fato = partes
+        # ⚠️ O DEFAULT DECLARA AUSENCIA. Ele NAO inventa um facto.
+        caso("linha pre-032 · estagio nao inventa especie", est, "ESTAGIO_DESCONHECIDO")
+        caso("linha pre-032 · published_at fica NAO SEI", pub, "NAO SEI")
+        caso("linha pre-032 · observed_at fica NAO SEI", obs, "NAO SEI")
+        caso("linha pre-032 · a base do tempo fica NAO SEI", ftb, "NAO SEI")
+        caso("linha pre-032 · a base do lugar fica NAO SEI", flb, "NAO SEI")
+        caso("linha pre-032 · a classe declarada fica NAO SEI", sde, "NAO SEI")
+        # E o facto de uma linha que ninguem mediu NAO e `{}` — vazio leria-se
+        # como «mediu-se e nao havia». E `NAO_SE_APLICA`, que e outra coisa.
+        caso("linha pre-032 · o fato e NAO_SE_APLICA e nao {}",
+             json.loads(fato), "NAO_SE_APLICA")
+    _psql(url, "delete from public.sala_de_espera where item_id = 'pre-032';",
+          ler=False)
 
     # 16 · backend indisponível — e NÃO cai para ficheiro.
     guardado = os.environ.pop("SINTONIA_SALA_DSN")
@@ -580,20 +733,51 @@ def main():
     _psql(url, "insert into public.collection_run (run_id, platform, started_at, "
                "rule_version) values ('RUN-AMBIGUO','prova', now(),'v1') "
                "on conflict do nothing;", ler=False)
-    # `admissao.decidir()` devolve "?" quando o item nao traz id nem url.
-    sem_id = [{"texto": "Ensaio um com DOI", "source_id": "IT-T7-001",
-               "fact_time": "2026-05-02", "raw_asset_id": observacao},
-              {"texto": "Ensaio dois com DOI", "source_id": "IT-T7-001",
-               "fact_time": "2026-05-02", "raw_asset_id": observacao}]
+    # ⚠️ ESTE BLOCO MONTAVA A AMBIGUIDADE COM ITENS SEM `id`, E ISSO DEIXOU
+    # DE PASSAR A PORTA. `COL-LAW-034` fechou-a nesta mesma linha funcional, e
+    # a `031` ate o escreve por extenso: «ele pode valer "?"» deixou de ser
+    # verdade. O comentario aqui ainda dizia o contrario, e a prova morria com
+    # `item NAO SEI nao passou a porta (NAO_SEI)` — medido no CI, na base,
+    # ANTES desta missao.
+    #
+    #     UMA PROVA QUE MONTA O CENARIO POR UMA PORTA QUE FECHOU
+    #     DEIXA DE MEDIR O QUE ELA GUARDAVA.
+    #
+    # O que ela guarda e o ATAQUE 26: retirar por um `ITEM_ID` ambiguo tem de
+    # ser RECUSADO. A ambiguidade continua a existir, e agora nasce por um
+    # caminho LEGITIMO — dois itens que a fonte nomeou igual. Isso acontece no
+    # mundo real e e exactamente o caso que o ataque existe para apanhar.
+    mesma_morada = [{"id": "doc-repetido", "texto": "Ensaio um com DOI",
+                     "source_id": "IT-T7-001", "fact_time": "2026-05-02",
+                     "raw_asset_id": observacao,
+                     "captured_at": "2026-05-03T00:00:00Z"},
+                    {"id": "doc-repetido", "texto": "Ensaio dois com DOI",
+                     "source_id": "IT-T7-001", "fact_time": "2026-05-02",
+                     "raw_asset_id": observacao,
+                     "captured_at": "2026-05-03T00:00:00Z"}]
     dois = [adm.pronto_para_inteligencia(b, adm.decidir(b, "T5", corrida="RUN-AMBIGUO"))
-            for b in sem_id]
-    caso("dois itens sem id trazem o MESMO ITEM_ID",
-         [x["ITEM_ID"] for x in dois], ["?", "?"])
+            for b in mesma_morada]
+    caso("dois itens que a fonte nomeou igual trazem o MESMO ITEM_ID",
+         [x["ITEM_ID"] for x in dois], ["doc-repetido", "doc-repetido"])
+    # E a lei NOVA ganha caso proprio, em vez de desaparecer com a antiga:
+    # sem `id` e sem `url`, o item NAO entra.
+    try:
+        adm.pronto_para_inteligencia(
+            {"texto": "sem morada", "source_id": "IT-T7-001",
+             "fact_time": "2026-05-02", "raw_asset_id": observacao},
+            adm.decidir({"texto": "sem morada", "source_id": "IT-T7-001",
+                         "fact_time": "2026-05-02", "raw_asset_id": observacao},
+                        "T5", corrida="RUN-AMBIGUO"))
+        entrou_sem_morada = True
+    except ValueError:
+        entrou_sem_morada = False
+    caso("COL-LAW-034 · item sem id e sem url NAO passa a porta",
+         entrou_sem_morada, False)
     espera.pousar("RUN-AMBIGUO", dois)
     caso("e os dois pousaram, sem nenhum ser deitado fora",
          len(espera.ler("RUN-AMBIGUO")["ITENS"]), 2)
     try:
-        espera.retirar("RUN-AMBIGUO", "?", por="prova"); retirou = True
+        espera.retirar("RUN-AMBIGUO", "doc-repetido", por="prova"); retirou = True
     except espera.ItemAmbiguo:
         retirou = False
     caso("ataque 26 · retirar por ITEM_ID ambiguo e RECUSADO", retirou, False)

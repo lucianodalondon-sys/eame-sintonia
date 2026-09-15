@@ -64,13 +64,45 @@
 --
 -- ═══════════════════════════════════════════════════════════════════════
 --
---     NÃO EXECUTADA
+--     DESIGNED  = YES
+--     DB_TESTED = YES   ·  PostgreSQL 16, banco DESCARTÁVEL, 2026-09-14
+--                          Actions run 34901780026 · passo `2b5`
+--                          `CASOS=91 · PASS=91 · FAIL=0`
+--     LIVE      = NO
 --
--- Esta migration é uma PROPOSTA, pela mesma disciplina da `031`. Ela foi
--- aplicada e medida contra PostgreSQL DESCARTÁVEL, e nunca contra o banco de
--- produção. A aplicação é uma decisão explícita e separada.
+-- O que a corrida provou, e nenhuma linha disto veio de leitura do ficheiro:
+--
+--   · a cadeia canónica aplicou 001…032 num banco limpo, na ordem real;
+--   · as SETE colunas novas existem no `information_schema` — perguntou-se ao
+--     CATÁLOGO, não ao `.sql`, porque ler a intenção não é ler o resultado;
+--   · a cadeia correu DUAS vezes e o conjunto de colunas não mudou;
+--   · uma linha escrita só com as colunas da `031` ficou com
+--     `ESTAGIO_DESCONHECIDO`, seis `NAO SEI` e `fato = "NAO_SE_APLICA"`;
+--   · o READY trouxe exactamente os 19 campos que o dono declara.
+--
+-- ⚠️ A PARTIR DO DIA EM QUE ISTO FOR A PRODUÇÃO, ESTE FICHEIRO NÃO SE EDITA.
+-- O livro-razão da cadeia guarda o hash do que foi aplicado, e uma migration
+-- que muda depois de aplicada faz a cadeia parar — de propósito. Hoje ainda se
+-- pode escrever aqui porque `LIVE = NO`; amanhã não.
+--
+-- ⚠️ ESTE BLOCO DIZIA AS DUAS COISAS AO MESMO TEMPO, E POR ISSO NÃO DIZIA
+-- NENHUMA. Ele abria com «NÃO EXECUTADA» e três linhas abaixo afirmava que
+-- «foi aplicada e medida contra PostgreSQL DESCARTÁVEL». As duas não podem ser
+-- verdade juntas, e quem lesse escolhia a que lhe convinha.
+--
+--     UM ESTADO ESCRITO DUAS VEZES COM VALORES DIFERENTES NÃO É AMBIGUIDADE:
+--     É UM CAMPO QUE DEIXOU DE MEDIR.
+--
+-- Os três estados acima são o vocabulário desta casa, e são separados de
+-- propósito: desenhar, provar contra um banco descartável, e aplicar em
+-- produção são três decisões, e nenhuma implica a seguinte.
 --
 --     DESIGNED != DB_TESTED != LIVE.
+--
+-- `DB_TESTED` só passa a `YES` quando a CADEIA CANÓNICA de migrations correr
+-- num PostgreSQL limpo — do `001` ao `032`, na ordem real — e a prova ler de
+-- volta o que escreveu. Escrevê-lo antes disso seria carimbar uma execução que
+-- ainda não houve.
 -- ═══════════════════════════════════════════════════════════════════════
 
 -- ── A ESPÉCIE DA COISA ───────────────────────────────────────────────────
