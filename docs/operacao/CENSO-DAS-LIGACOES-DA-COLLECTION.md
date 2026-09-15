@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  c24ea78aeb11851fc00f90d6347729942abfe33e
+HEAD_DA_MEDICAO  ea656476d7ad45335010dc03155220eeba1a085d
 BRANCH           claude/it-portal-reconciled-v1
-GERADO_EM        2026-09-15T11:54:19-03:00
+GERADO_EM        2026-09-15T12:07:55-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
