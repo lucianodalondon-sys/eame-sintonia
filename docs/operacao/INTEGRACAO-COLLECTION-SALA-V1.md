@@ -65,7 +65,101 @@ separação em `611e7cbf`, logo foi avanço puro.
 
 ---
 
-## 2 · ⛔ O CENSO DA SALA **NÃO** ENTROU — E A RAZÃO É BOA
+## 2 · O CENSO DA SALA — ENTROU, DEPOIS DE DUAS ADAPTAÇÕES DECLARADAS
+
+> Esta secção substitui o bloqueio registado na primeira versão deste
+> documento. O bloqueio era real; a decisão de o resolver foi autorizada, e a
+> regra foi sempre a mesma: **ajustar a sonda, não regredir a casa.**
+
+### 2.1 · A sonda de T7
+
+```
+OLD_T7_PROBE  "Ensaio de campo publicado com DOI"
+NEW_T7_PROBE  "Boletim tecnico da cooperativa para os socios,
+               assinado pelo agronomo de campo"
+```
+
+**Dono da taxonomia:** o **Atlas**, e ele fala por dois sítios que concordam —
+`leis/territorios.py` (`TERRITORIOS`) e a tabela da linha 51 de
+`docs/fontes/ATLAS-DE-FONTES-EAME.md`:
+
+| | |
+|---|---|
+| **T7** | TECHNICAL NETWORK — agrônomos, advisors, crop specialists, consultores, extensão, institutos técnicos, **cooperativas**, associações |
+| **T5** | SCIENCE — papers, estudos, trials, institutos, universidades |
+
+A sonda antiga passava porque `T7` carregava o léxico de CIÊNCIA — por
+`pedido/pedido.py` dizer que `T7` era «Ciência e ensaio». Era a quarta cópia da
+taxonomia, e estava errada.
+
+**Medido, e não suposto:**
+
+| frase | T7 | T5 | outros |
+|---|:--:|:--:|:--:|
+| nova (cooperativa/sócios/agrônomo) | **SIM** | não | **nenhum** |
+| antiga (ensaio/DOI) | **NÃO** | **SIM** | nenhum |
+
+A nova cai em T7 **e em mais nenhum território** — não é ambígua, e não foi
+moldada para o teste: é o que uma fonte T7 realmente publica.
+
+> **A SONDA NÃO SE ESCOLHE PARA PASSAR: ESCOLHE-SE PARA PERTENCER.**
+
+### 2.2 · O molde do teste era de ontem
+
+Com a sonda corrigida, 12 dos 13 problemas desapareceram. Sobrou um, e a causa
+era da mesma família: **o contrato READY passou de 11 para 19 campos** —
+`RAW_OBSERVATION_ID`, `ESTAGIO`, `FACT_TIME_BASIS`, `FACT_LOCATION_BASIS`,
+`PUBLISHED_AT`, `OBSERVED_AT`, `SOURCE_DECLARED_EVIDENCE_CLASS`, `FATO` — no
+commit `13feb273` da própria BIG, *"contrato READY de 19 campos"*.
+
+O fixture `unidade()` do teste escrevia as **onze** chaves à mão. O censo
+mediu-a e contou-a como **LEGADO** — que é exactamente o que ela era.
+
+> **O CENSO NÃO ESTAVA ERRADO: O MOLDE DO TESTE É QUE ERA DE ONTEM.**
+
+E a lista escrita à mão era a mesma falta que `_campos_do_contrato()` se recusa
+a cometer. A forma passa a sair de `self.campos`, que vem do construtor do
+dono; os campos que o teste não nomeia ficam `NAO SEI` — nunca vazio, nunca
+zero. **Nenhuma asserção foi enfraquecida:** os valores que cada teste verifica
+continuam os mesmos.
+
+### 2.3 · ⚠️ O QUE O CENSO ENCONTROU, E QUE NÃO SE APAGA
+
+O 14º teste **continua vermelho**, e deve continuar:
+
+```
+RED_TEAM   15 ataques · 1 sobrevivente
+ataque 1 · «mesmo item em duas representacoes contado duas vezes»  SOBREVIVEU
+           varridos 465 ficheiros: 6 objectos READY fora da sala canonica
+BIG_COLLECTION_CAN_START = UNKNOWN
+```
+
+Os 6 estão todos em `data/derivados/A-COLLECTION-PRESERVA-O-FATO.json`,
+`/READY[0]` a `/READY[5]`.
+
+**A condição é herdada, e está provada:** corri o censo — com a sonda já
+corrigida — contra a BASE `e73cc8ff` **pura**, num clone descartável fora dos
+worktrees. Deu **exactamente o mesmo**: 6 fora da sala, 1 sobrevivente,
+`UNKNOWN`, saída 1. O ficheiro entrou em `317a384d` (14/09 17:30), da própria
+BIG, muito antes desta integração.
+
+```
+FAIL_NEW       = 0   nada regrediu por causa desta integração
+FAIL_INHERITED = 1   uma verdade pré-existente que passou a ser visível
+```
+
+A saída do censo é `0 if RED_TEAM_SURVIVORS == 0 else 1`. O teste
+`test_duas_corridas_dao_o_MESMO_relatorio_byte_a_byte` afirma `returncode == 0`
+e por isso reprova. **Não mexi nessa asserção.** Torná-la verde seria apagar o
+único sinal de que há READY em duas representações — e o censo existe
+precisamente para o dar.
+
+O relatório commitado (`data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json`) é o que
+mede **esta** árvore, não o que veio de `b67e6f07`.
+
+---
+
+## 2-bis · REGISTO HISTÓRICO — o bloqueio original
 
 Fonte: `origin/claude/censo-sala-espera-big-collection-x0ut2y` @ `b67e6f07`
 (commits `9ffd829e` · `b67e6f07`).

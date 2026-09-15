@@ -1068,7 +1068,18 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
 
 
 if __name__ == "__main__":
-    exemplo = {"id": "demo-1", "texto": "Ensaio de campo publicado com DOI",
+    # ⚠️ A DEMO FICOU INCOERENTE QUANDO A TAXONOMIA FOI CORRIGIDA, E NINGUEM
+    # DEU POR ISSO — porque uma demo nao tem quem a reprove.
+    # Ela mandava «Ensaio de campo publicado com DOI» a `T7` e logo a seguir
+    # chamava `pronto_para_inteligencia()`, que so faz sentido para um item
+    # ADMITIDO. Depois de `T7` voltar a ser TECHNICAL NETWORK — e a ciencia
+    # voltar para `T5`, como o Atlas sempre disse — a demo passou a imprimir
+    # NAO e a construir um READY a partir de uma recusa.
+    #
+    #     UM EXEMPLO QUE NAO CORRE E UMA DOCUMENTACAO QUE MENTE DEVAGAR.
+    exemplo = {"id": "demo-1",
+               "texto": ("Boletim tecnico da cooperativa para os socios, "
+                         "assinado pelo agronomo de campo"),
                "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
     d = decidir(exemplo, "T7", corrida="demo")
     print(f"{d.resultado} · {d.regra} · {d.motivo}")
