@@ -1809,7 +1809,11 @@ def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
                 "NAO SEI: o canal esta descrito aqui, mas nenhuma acao da coleta o "
                 "chama no codigo de hoje. Ou nao se usa, ou usa-se por um caminho "
                 "que este mapa ainda nao ve."),
-            "evidence_text": "", "departments": [], "views": ["acervo"],
+            # `scrap` porque o canal e por onde a AQUISICAO sai de casa: quem
+            # abre a lente do SCRAP tem de ver as portas, senao ve executores a
+            # falar com o nada. Continua em `acervo`: a lente e uma leitura a
+            # mais, nao uma mudanca de dono nem de zona.
+            "evidence_text": "", "departments": [], "views": ["acervo", "scrap"],
             "lane": "official", "legacy": False, "changed_since_declared": [],
             "inbound": [], "outbound": [], "file_count": 0,
             "o_que_recebe": recebe,

@@ -87,19 +87,21 @@
     {
       "id": "Z-EXECUCAO",
       "family": "F-COLETA",
-      "name": "3 · EXECUCAO",
-      "why": "Quem faz o trabalho. Nao e um ficheiro: e o sitio onde vivem os executores, e as ferramentas e os canais que eles usam aparecem por baixo, nao ao lado",
+      "name": "3 · IT · SCRAP — os botoes da aquisicao",
+      "why": "Os botoes que DISPARAM a aquisicao. A COLLECTION PEDE. O SCRAP EXECUTA. A COLLECTION ADMITE. O SCRAP nao e uma segunda Collection: nao e dono da admissao, nem da Sala, nem da identidade, nem da verdade do dado. Ele escolhe e corre ferramentas MUTAVEIS de aquisicao e devolve o bruto com metodo, prova e o erro ou custo quando houve. Provado nesta arvore: C-ORQUESTRADOR -> C-SCRAP-COLHEITA e CONTROL (quem manda), C-SCRAP-SOCIAL -> C-ADMISSAO e DATA (o que volta). As duas setas sao de tipos diferentes DE PROPOSITO. Esta zona nao mudou de familia: em faixa propria ela ficaria por cima da faixa da COLETA (medido) e 35 das 45 setas do SCRAP passariam a atravessar mais de metade do mapa. O agrupamento vive na lente `scrap`, que os reune todos sem mover ficheiro nenhum.",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ]
     },
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "· os canais",
-      "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
+      "name": "· IT · SCRAP — os canais",
+      "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda Por onde a AQUISICAO sai de casa. O canal nao decide nada: quem decide a rota e C-SCRAP-ROTA.",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ]
     },
     {
@@ -327,7 +329,8 @@
         "admissao/admissao.py"
       ],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ]
     },
     {
@@ -344,7 +347,9 @@
         "ferramentas/apify_pool.py",
         "ferramentas/contrato_ator.py"
       ],
-      "views": [],
+      "views": [
+        "scrap"
+      ],
       "icon": "€"
     },
     {
@@ -1899,7 +1904,8 @@
       "kind": "library",
       "icon": "◎",
       "views": [
-        "infra"
+        "infra",
+        "scrap"
       ],
       "what": "Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.",
       "why_here": "A rota publica ja entrega bio, seguidores, os 12 posts recentes, a legenda inteira, a data e as curtidas. Pagar por isso seria pagar duas vezes.",
@@ -1926,7 +1932,8 @@
         "orquestrador/orquestrador.py"
       ],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ]
     },
     {
@@ -2964,7 +2971,8 @@
       ],
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ]
     },
     {
@@ -2983,7 +2991,8 @@
       ],
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ]
     },
     {
@@ -2993,7 +3002,8 @@
       "kind": "gate",
       "icon": "⛨",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "what": "`social_guarda.py` varre o repositorio atras de segredo, cookie, perfil de navegador e caminho pessoal antes de qualquer execucao. `social_sessao.py` decide usabilidade em seis eixos separados — TECHNICAL, ROBOTS, TERMS, AUTH, AUTHORIZATION, ROUTE — e redige segredo de qualquer texto que va para log, RAW ou relatorio.",
       "why_here": "Segredo commitado nao sai do historico com `git rm`: fica no pack para sempre, entao a unica hora util de barrar e ANTES. E os seis eixos existem porque a casa ja tinha colapsado tres perguntas diferentes numa so: LOCAL_SESSION NAO E AUTOMATION_PERMISSION, ROBOTS_STATUS NAO E TERMS_STATUS, OWN_PROPERTY NAO E AUTOMATION_ALLOWED.",
@@ -3012,7 +3022,8 @@
       "kind": "contract",
       "icon": "⚖",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "what": "`falhas.py` e o DONO UNICO do FAILURE STATE: 23 estados canonicos com camada (SOURCE/ROUTE/EXECUTOR), a flag `esperado` e a recuperacao, mais 54 nomes antigos traduzidos. Mais a matriz de capacidade e a fundacao da coleta.",
       "why_here": "ROTA CAIDA NAO E FONTE CAIDA, e PARSER QUEBRADO NAO E FONTE VAZIA — sem estas camadas um coletor partido publica um zero que nao mediu nada. E anterior as duas sessoes que escreveram a observabilidade, e por isso e ELE o dono: quem chegou depois importa, nao redeclara.",
@@ -3041,7 +3052,8 @@
       ],
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ]
     },
     {
@@ -3051,7 +3063,8 @@
       "kind": "engine",
       "icon": "◉",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "what": "O EXECUTOR unico da aquisicao social, hibrido ONLINE/LOCAL. Declara os seis verbos de COL-LAW-013 — CAPABILITIES, CHECK, COLLECT, STATE, OUTPUT, TRACE — em scrap_executor.py. Por dentro tem um SCRAP ADAPTER ROUTER, nao um segundo cerebro: social_rotas.py escolhe a porta, mede o portao de robots e executa; scrap_registo.py e o dono unico do mapa PLATAFORMA/CAPACIDADE -> ADAPTADOR; scrap_capacidades.py declara as 34 capacidades com estado medido (PROVEN, PARTIAL, BLOCKED, UNKNOWN, NOT_EXECUTED), ambiente de execucao (ONLINE, LOCAL, EITHER, HYBRID, UNKNOWN) e o documento que provou cada uma; scrap_fornecedores.py guarda PROVIDER_REQUESTED, PROVIDER_USED, WHY_FALLBACK e RESULT, e RECUSA fallback silencioso; scrap_http.py e o portao e a busca, fora do roteador para que adaptador e despacho nao se importem um ao outro. Seis adaptadores, um modulo cada: Instagram, LinkedIn, YouTube, X, Facebook e a social aberta (Mastodon, Bluesky, Telegram). Quem chama diz PLATAFORMA + CAPACIDADE e NUNCA escolhe ferramenta nem ambiente.",
       "why_here": "Havia duas linhagens de SCRAP que nao se conheciam, e o roteador guardava um dict literal com o nome de todas as plataformas — acrescentar uma obrigava a edita-lo, que e a definicao do monolito. Agora o mapa vive no registo e cada adaptador escreve-se nele. E o executor NAO compete com C-ORQUESTRADOR pela pergunta global: ele nao cria COLLECTION_REQUEST, nao admite e nao julga. COLETAR != ADMITIR != JULGAR, e COL-LAW-011 continua a ter um dono so.",
@@ -3133,7 +3146,8 @@
       "icon": "⚡",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
       "why_here": "Os cinco `instagram_*.py` rodavam A MAO. Isso significa que a coleta so existia enquanto alguem estivesse sentado nela. Aqui ela vira despacho: quem pede nao precisa estar na maquina, e o que rodou fica no historico. A ordem e lei: LOTE CONGELADO -> PERFIL -> OBJETO -> so entao ROTA PAGA.",

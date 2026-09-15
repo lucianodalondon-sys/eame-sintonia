@@ -130,6 +130,15 @@ const VISOES = [
      onde o caminho canonico esta partido, ele aparece partido. */
   ['canonico', '⇉', 'Caminho canônico'],
   ['desvios', '⚠', 'Onde a coleta salta o cérebro'],
+  /* SCRAP / AQUISIÇÃO — um bloco, e não uma segunda Collection.
+     A COLLECTION PEDE · O SCRAP EXECUTA · A COLLECTION ADMITE.
+     A lente traz as peças que ESCOLHEM e CORREM ferramentas mutáveis de
+     aquisição, mais os canais por onde elas saem, mais as DUAS peças da
+     fronteira — o orquestrador, que pede, e a porta de admissão, que recebe.
+     Sem essas duas, o bloco flutuaria a falar com o nada.
+     O que NÃO entra: as provas com «scrap» no nome. Uma prova sobre a
+     aquisição não adquire nada, e nome não é prova de função. */
+  ['scrap', '⤥', 'SCRAP / aquisição'],
   ['all', '◉', 'Sistema inteiro'], ['official', '→', 'Rota oficial hoje'],
   ['lineage', '⌥', 'Linhagens e donos'], ['acervo', '◫', 'Acervo → pacote'],
   ['generator', '⚙', 'Gerador V2.1'], ['opportunity', '◎', 'Opportunity + relevância'],
