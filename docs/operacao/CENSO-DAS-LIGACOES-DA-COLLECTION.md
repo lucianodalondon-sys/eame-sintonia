@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  cd3dd0372c049ad622a50a7c450a1eec2c009da8
+HEAD_DA_MEDICAO  423e5b346d26a7dacfdba47200d86ea24c19e7d0
 BRANCH           claude/system-map-reconciled-v1
-GERADO_EM        2026-09-15T10:04:07-03:00
+GERADO_EM        2026-09-15T10:43:33-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -606,7 +606,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
-## Z-EXECUCAO · 3 · EXECUCAO
+## Z-EXECUCAO · 3 · IT · SCRAP — os botoes da aquisicao
 
 ### `C-SCRAP-EVIDENCIA` · SCRAP evidencia entre jobs · o bruto pago atravessa, ou nao atravessa
 
@@ -1672,7 +1672,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
-## Z-VEICULOS · os canais
+## Z-VEICULOS · IT · SCRAP — os canais
 
 ### `V-FACEBOOK` · FACEBOOK
 

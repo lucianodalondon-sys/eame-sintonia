@@ -2362,9 +2362,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-reconciled-v1",
-    "HEAD": "cd3dd0372c049ad622a50a7c450a1eec2c009da8",
-    "GENERATED_AT": "2026-09-15T10:04:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4d9fd06a9cf08d03f266821645353dc5c680776d2e3ab137e5ae4502319c3e40"
+    "HEAD": "423e5b346d26a7dacfdba47200d86ea24c19e7d0",
+    "GENERATED_AT": "2026-09-15T10:43:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "bdb1e4c8dd8d6e23a16e2eeac6feb105a0c509f583da0b67e94238408f04c92b"
   },
   "FAMILIES": [
     {
@@ -2544,10 +2544,11 @@
     {
       "id": "Z-EXECUCAO",
       "family": "F-COLETA",
-      "name": "3 · EXECUCAO",
-      "why": "Quem faz o trabalho. Nao e um ficheiro: e o sitio onde vivem os executores, e as ferramentas e os canais que eles usam aparecem por baixo, nao ao lado",
+      "name": "3 · IT · SCRAP — os botoes da aquisicao",
+      "why": "Os botoes que DISPARAM a aquisicao. A COLLECTION PEDE. O SCRAP EXECUTA. A COLLECTION ADMITE. O SCRAP nao e uma segunda Collection: nao e dono da admissao, nem da Sala, nem da identidade, nem da verdade do dado. Ele escolhe e corre ferramentas MUTAVEIS de aquisicao e devolve o bruto com metodo, prova e o erro ou custo quando houve. Provado nesta arvore: C-ORQUESTRADOR -> C-SCRAP-COLHEITA e CONTROL (quem manda), C-SCRAP-SOCIAL -> C-ADMISSAO e DATA (o que volta). As duas setas sao de tipos diferentes DE PROPOSITO. Esta zona nao mudou de familia: em faixa propria ela ficaria por cima da faixa da COLETA (medido) e 35 das 45 setas do SCRAP passariam a atravessar mais de metade do mapa. O agrupamento vive na lente `scrap`, que os reune todos sem mover ficheiro nenhum.",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "x": 4530,
       "y": 190,
@@ -2558,10 +2559,11 @@
     {
       "id": "Z-VEICULOS",
       "family": "F-COLETA",
-      "name": "· os canais",
-      "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda",
+      "name": "· IT · SCRAP — os canais",
+      "why": "De ONDE o dado vem: o canal em si — YouTube, Instagram, LinkedIn, Facebook, o pedido HTTP direto. Vem antes da acao porque e dali que a coleta chega; a acao e quem vai busca-la e quem a guarda Por onde a AQUISICAO sai de casa. O canal nao decide nada: quem decide a rota e C-SCRAP-ROTA.",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "x": 5235,
       "y": 190,
@@ -3149,7 +3151,8 @@
       "ui_status": "yellow",
       "icon": "⊞",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -3273,7 +3276,8 @@
       "icon": "€",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -15200,7 +15204,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/generate_system_map.py",
-            "line": 4692,
+            "line": 4696,
             "snippet": "escreve em caminho"
           }
         }
@@ -15224,7 +15228,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/generate_system_map.py:4692): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/generate_system_map.py:4696): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -15410,7 +15414,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/generate_system_map.py:5393",
+          "system-map/scripts/generate_system_map.py:5397",
           "system-map/scripts/publicar_no_deploy.mjs:56",
           "system-map/scripts/reconciliacao_do_universo.py:80",
           "system-map/scripts/reconciliacao_do_universo.py:407"
@@ -15880,7 +15884,8 @@
       "icon": "◎",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -15981,7 +15986,8 @@
       "ui_status": "yellow",
       "icon": "⚙",
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -22514,7 +22520,8 @@
       "icon": "⇥",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -22617,7 +22624,8 @@
       "icon": "⇄",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -22695,7 +22703,8 @@
       "icon": "⛨",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -22805,7 +22814,8 @@
       "views": [
         "acervo",
         "opportunity",
-        "science"
+        "science",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-GOVERNANCA",
@@ -22932,7 +22942,8 @@
       "icon": "⇉",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -23017,7 +23028,8 @@
       "icon": "◉",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -23459,7 +23471,8 @@
       "icon": "⚡",
       "views": [
         "acervo",
-        "infra"
+        "infra",
+        "scrap"
       ],
       "lane": "official",
       "family": "F-COLETA",
@@ -27859,7 +27872,8 @@
       "evidence_text": "",
       "departments": [],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "legacy": false,
@@ -27970,7 +27984,8 @@
       "evidence_text": "",
       "departments": [],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "legacy": false,
@@ -28222,7 +28237,8 @@
       "evidence_text": "",
       "departments": [],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "legacy": false,
@@ -28337,7 +28353,8 @@
       "evidence_text": "",
       "departments": [],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "legacy": false,
@@ -28441,7 +28458,8 @@
       "evidence_text": "",
       "departments": [],
       "views": [
-        "acervo"
+        "acervo",
+        "scrap"
       ],
       "lane": "official",
       "legacy": false,
@@ -31567,7 +31585,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4337,
+          "line": 4341,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -35815,7 +35833,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2990,
+          "line": 2994,
           "snippet": "f = raiz / \"system-map\" / \"data\" / \"provas-de-execucao.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-EXECUTORES--READS-->C-MAPA-GERADOR",
@@ -50962,7 +50980,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4359,
+          "line": 4363,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -53849,7 +53867,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3479,
+          "line": 3483,
           "snippet": "\"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-GERADOR",
@@ -54283,7 +54301,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5380,
+          "line": 5384,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -54506,7 +54524,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5393,
+          "line": 5397,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -54522,7 +54540,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5393,
+          "line": 5397,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -56167,7 +56185,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3344,
+          "line": 3348,
           "snippet": "orq = raiz / \"orquestrador\" / \"orquestrador.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-GERADOR",
@@ -64368,7 +64386,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3343,
+          "line": 3347,
           "snippet": "reg = raiz / \"pedido\" / \"receitas.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--READS-->C-MAPA-GERADOR",
@@ -75877,7 +75895,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2670,
+          "line": 2674,
           "snippet": "v = json.loads((RAIZ / \"vercel.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-MAPA-GERADOR",
