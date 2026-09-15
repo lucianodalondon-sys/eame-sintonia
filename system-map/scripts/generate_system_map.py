@@ -1029,8 +1029,23 @@ def a_sala_de_espera() -> tuple[list, list]:
             f"produtores em runtime: {', '.join(prod) if prod else 'NENHUM'}"
             + (" — e e um CLI, nao um workflow" if prod else ""),
             f"consumidores: {', '.join(cons) if cons else 'NENHUM'}",
-            f"destino declarado {F.get('DESTINO')} existe: "
-            f"{'SIM' if F.get('DESTINO_EXISTE') else 'NAO'}",
+            # ⚠️ ESTA LINHA DIZIA «destino declarado ... existe: NAO» E ERA A
+            # UNICA COISA QUE O CARTAO SABIA SOBRE A SALA. O destino e a morada
+            # do backend FICHEIRO, que a Sala declara `CANONICO = False`: ele
+            # nao responde pelo READY operacional, e quem lia o cartao concluia
+            # que respondia.
+            #
+            #     ONDE OLHEI != O QUE CONCLUI.
+            f"a SALA canonica foi medida: {F.get('SALA_MEDICAO', 'NAO SEI')}"
+            f" (backend={F.get('SALA_BACKEND', 'NAO SEI')},"
+            f" canonico={'SIM' if F.get('SALA_CANONICO') else 'NAO'})"
+            + (f" · {F.get('SALA_PENDENTES')} a espera"
+               if F.get("SALA_PENDENTES") is not None else ""),
+            f"READY produzido: {F.get('READY_PRODUZIDO', 'NAO SEI')}"
+            " — e NOT_MEASURED nao e NAO",
+            f"morada do backend nao canonico {F.get('DESTINO')} existe: "
+            f"{'SIM' if F.get('DESTINO_EXISTE') else 'NAO'}"
+            " (backend FICHEIRO: nao responde pela Sala)",
         ],
         # SEM GAP nao quer dizer «tem consumidor»: quer dizer READY PRODUZIDO
         # e ninguem a atravessar antes de a Inteligencia comecar — que e o

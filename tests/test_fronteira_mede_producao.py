@@ -54,33 +54,57 @@ class OEstadoDaFronteiraDistingueOsQuatroMundos(unittest.TestCase):
             "Sem uma função pura, o diagnóstico só existe dentro de `main()` e "
             "não há como o testar sem escrever no disco do repositório.")
 
-    def gap(self, produzido, consumidores):
-        return self.m.o_estado_da_fronteira(produzido, consumidores)[0]
+    # ⚠️ O PRIMEIRO EIXO DEIXOU DE SER UM BOOLEANO — C-SALA-TRUTH-01.
+    # Ele valia `True`/`False`, e o `False` colava três mundos: «medi e não
+    # há», «não consegui medir» e «a consulta rebentou». Agora vale `SIM`,
+    # `NOT_MEASURED` ou `ERROR`, e vem de `a_sala_canonica()` — o dono da Sala.
+    # As leis abaixo são as MESMAS; só o vocabulário do eixo mudou.
+    PRODUZIDO = "SIM"
+    NAO_PROVADO = "NOT_MEASURED"
 
-    def test_nada_produzido_e_o_defeito_e_ele_tem_nome_proprio(self):
-        self.assertEqual(self.gap(False, []), "READY_NUNCA_PRODUZIDO")
+    def gap(self, ready, consumidores):
+        return self.m.o_estado_da_fronteira(ready, consumidores)[0]
+
+    def test_nada_provado_e_um_gap_e_ele_tem_nome_proprio(self):
+        """E o nome deixou de afirmar «nunca»: ninguém mediu isso."""
+        self.assertEqual(self.gap(self.NAO_PROVADO, []), "SALA_NAO_MEDIDA")
 
     def test_o_alvo_da_arquitetura_nao_e_um_defeito(self):
         """READY produzido + zero consumidores = `WAITING FOR INTELLIGENCE`."""
         self.assertIsNone(
-            self.gap(True, []),
+            self.gap(self.PRODUZIDO, []),
             "READY produzido com zero consumidores é o ESTADO DESEJADO da "
             "secção 24 do know-how, e não pode sair como gap.")
 
     def test_consumidor_sem_producao_nao_limpa_coisa_nenhuma(self):
         """O pior estado do mundo não pode ser o melhor diagnóstico."""
         self.assertEqual(
-            self.gap(False, ["inteligencia/le_o_ready.py"]),
-            "READY_NUNCA_PRODUZIDO",
-            "zero produção continua a ser zero produção, haja quem leia ou não.")
+            self.gap(self.NAO_PROVADO, ["inteligencia/le_o_ready.py"]),
+            "SALA_NAO_MEDIDA",
+            "produção não provada continua não provada, haja quem leia ou não.")
 
     def test_consumidor_com_producao_e_bypass_enquanto_a_inteligencia_nao_comecou(self):
         self.assertEqual(
-            self.gap(True, ["inteligencia/le_o_ready.py"]),
+            self.gap(self.PRODUZIDO, ["inteligencia/le_o_ready.py"]),
             "CONSUMIDOR_ANTES_DA_INTELIGENCIA")
 
+    def test_erro_de_consulta_tem_gap_proprio_e_nao_se_confunde_com_vazio(self):
+        """ERROR != ZERO: um cabo de rede não é um veredito sobre a fila."""
+        self.assertEqual(self.gap("ERROR", []), "SALA_ERRO_DE_CONSULTA")
+        self.assertNotEqual(self.gap("ERROR", []), self.gap(self.NAO_PROVADO, []))
+
+    def test_nenhum_gap_afirma_o_que_nao_foi_medido(self):
+        for ready in (self.NAO_PROVADO, "ERROR"):
+            for cons in ([], ["x.py"]):
+                _, porque = self.m.o_estado_da_fronteira(ready, cons)
+                with self.subTest(ready=ready, consumidores=cons):
+                    self.assertNotIn("NUNCA", (porque or "").upper())
+
     def test_todo_gap_traz_o_porque_escrito(self):
-        for produzido, cons in ((False, []), (True, []), (False, ["x.py"]), (True, ["x.py"])):
+        for produzido, cons in ((self.NAO_PROVADO, []), (self.PRODUZIDO, []),
+                                ("ERROR", []),
+                                (self.NAO_PROVADO, ["x.py"]),
+                                (self.PRODUZIDO, ["x.py"])):
             gap, porque = self.m.o_estado_da_fronteira(produzido, cons)
             with self.subTest(produzido=produzido, consumidores=cons):
                 if gap is None:
