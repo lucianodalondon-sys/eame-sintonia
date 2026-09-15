@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ea656476d7ad45335010dc03155220eeba1a085d
-BRANCH           claude/it-portal-reconciled-v1
-GERADO_EM        2026-09-15T12:07:55-03:00
+HEAD_DA_MEDICAO  b1909de036616355e7e7f3127b9a50bf20444a55
+BRANCH           claude/it-trunk-v1
+GERADO_EM        2026-09-15T12:08:34-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -562,20 +562,20 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
-| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-MAPA-SCAN |
-| **prova de quem ativa** | system-map/scripts/scan_sources.py:480 _(plano CODE)_ |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-MAPA-SCAN, C-TESTES |
+| **prova de quem ativa** | system-map/scripts/scan_sources.py:480; tests/test_porta_de_candidatas.py:32 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/FONTES-CANDIDATAS.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 1 |
-| **arestas provadas** | entram 0 · saem 1 |
+| **arestas no mapa** | entram 0 · saem 2 |
+| **arestas provadas** | entram 0 · saem 2 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 1 |
+| **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
@@ -819,7 +819,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `docs/fontes/ATLAS-DE-FONTES-EAME.md`, `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`, `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json` |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | UNKNOWN |
-| **status operacional** | yellow — 57 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 52, hoje so uma pessoa consegue ir la —  |
+| **status operacional** | yellow — 197 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 192, hoje so uma pessoa consegue ir la  |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
 | **prova de quem ativa** | 3 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |

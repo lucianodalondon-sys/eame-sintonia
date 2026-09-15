@@ -8,7 +8,7 @@
     "isso que este ficheiro nao e um registo."
   ],
   "PROVENANCE": {
-    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
+    "HEAD": "b1909de036616355e7e7f3127b9a50bf20444a55",
     "MEDIDO_POR": "censo_dos_buracos.py"
   },
   "COUNTS": {
@@ -33,7 +33,7 @@
     {
       "NOME": "ADMISSION_SEM_DONO_LIGADO",
       "ONDE": "coleta/derivacao_forward.py",
-      "LINHA": 153,
+      "LINHA": 187,
       "FORMA": "tuplo GAPS",
       "O_QUE_FALTA": "RC-1 STEPS.ADMISSION: STATE=CODE, PROOF_KIND=NENHUMA. admissao/admissao.py julga o registo legado, e nao `derived_artifact`."
     },
@@ -108,7 +108,7 @@
     {
       "NOME": "READY_NAO_TEM_DONO",
       "ONDE": "coleta/derivacao_forward.py",
-      "LINHA": 153,
+      "LINHA": 187,
       "FORMA": "tuplo GAPS",
       "O_QUE_FALTA": "o NOME esta errado e o buraco e real: READY TEM dono (admissao.pronto_para_inteligencia) e TEM contrato (COL-LAW-043, 11 campos). O que nao tem e caminho: a rota forward termina em ADMISSION e nao chega la — o dono recebe `item` e a rota produz `derived_artifact` — e nao tem NENHUM consumidor. UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA. Medido em provas/a_fronteira_da_coleta.py."
     },
@@ -122,14 +122,14 @@
     {
       "NOME": "STRUCTURED_SEM_DONO_LIGADO",
       "ONDE": "coleta/derivacao_forward.py",
-      "LINHA": 153,
+      "LINHA": 187,
       "FORMA": "tuplo GAPS",
       "O_QUE_FALTA": "RC-1 STEPS.STRUCTURED: STATE=CODE, PROOF_KIND=NENHUMA. Ha codigo em guarda/importar_italia.py e ele nunca correu nesta cadeia."
     },
     {
       "NOME": "TELEMETRY_FAILURE_SEM_POLITICA",
       "ONDE": "coleta/derivacao_forward.py",
-      "LINHA": 153,
+      "LINHA": 187,
       "FORMA": "tuplo GAPS",
       "O_QUE_FALTA": "a excecao do rastro SOBE por `correr()`. O artefato fica guardado — a coleta NAO falhou — mas quem chama perde o recibo e pode ler a excecao como corrida falhada. Nao ha politica escrita para «o sensor partiu-se». OBSERVABILITY FAILURE != COLLECTION FAILURE."
     },

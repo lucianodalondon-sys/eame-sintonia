@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-007",
+ "SOURCE": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio",
+ "OWNER": "Regione Lazio",
+ "URL": "https://www.arsial.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:47Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 362452 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.arsial.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Homepage - Arsial",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-09-11",
+  "BYTES_LIDOS": 405484
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-privati/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Avvisi per privati",
+  "TITULO": "Avvisi per privati Archive - Arsial",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 362452,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "23ffdd562e050ea93f2d87ffdb3bcc65aff1ff5e8e54149f5d7696302de619f1",
+  "DATA_VISIVEL": "2026-08-31",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

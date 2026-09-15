@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-020",
+ "SOURCE": "ARTA Abruzzo",
+ "OWNER": "ARTA Abruzzo",
+ "URL": "https://www.artaabruzzo.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:02Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 570068 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.artaabruzzo.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Arpa Abruzzo",
+  "IDIOMA": null,
+  "DATA_VISIVEL": "2026-07-27",
+  "BYTES_LIDOS": 19675
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.artaabruzzo.it/download/aree/qualita/MIP_07_01_01_modulo_reclami_rev_01.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Modulo reclami",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 570068,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "70bb1867346b06859d4de705ea673570c29ef5a47c218e9f64ee15b9a13928ef",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

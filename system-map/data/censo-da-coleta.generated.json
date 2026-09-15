@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-14T20:58:27+00:00",
-    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
+    "GENERATED_AT": "2026-09-15T17:13:56+00:00",
+    "HEAD": "b1909de036616355e7e7f3127b9a50bf20444a55",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378",
-    "FICHEIROS_NA_IMPRESSAO": 1892,
+    "SOURCE_TREE_FINGERPRINT": "1962b9b2b7d0d9f23ab5d0c6289b98f5f58509fd27c7425da3ccb4c22cab7655",
+    "FICHEIROS_NA_IMPRESSAO": 2079,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "7f6ca7caa21add72df72e60e1a825906d67f55b8",
+        "VERSAO": "b8bdda454fdcb81cd2c1d0ce89d90d3e5a24561e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -27,7 +27,7 @@
       {
         "PATH": "candidatas/fonte_nova.py",
         "PAPEL": "FONTE",
-        "VERSAO": "9a96acc19f31d08a1aebca168fcc0380268c46c9",
+        "VERSAO": "2ca652d9dac8e4431976ad70ba69ed24a6adc12c",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -188,7 +188,7 @@
       {
         "PATH": "coleta/derivacao_forward.py",
         "PAPEL": "FONTE",
-        "VERSAO": "400919c0376a31ee29c04820fef3dd95ff866d23",
+        "VERSAO": "f563c50f7816208cde67d874a40d1aea776fc939",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -235,6 +235,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "coleta/executor_transcricao_midia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "db0f49e3cee0a5fb0aa48b3b6597e9cc8f9e089b",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "coleta/filas.py",
         "PAPEL": "FONTE",
         "VERSAO": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
@@ -258,7 +265,7 @@
       {
         "PATH": "coleta/ingresso.py",
         "PAPEL": "FONTE",
-        "VERSAO": "5433f022565c5ad1c97c9986fd6759e885f5d542",
+        "VERSAO": "91a14103ad917e3820f196fa3947845b4a5e0e1d",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -363,7 +370,7 @@
       {
         "PATH": "coleta/rota_forward_documento.py",
         "PAPEL": "FONTE",
-        "VERSAO": "c75c87ede3f0956a8aa68748b0027467a540cd86",
+        "VERSAO": "ad082f7abc5477749273f24d3368b77052598e0a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -531,7 +538,7 @@
       {
         "PATH": "ferramentas/fala_local.py",
         "PAPEL": "FONTE",
-        "VERSAO": "53fa2b80a754880bd93ebf204f393fd276709e49",
+        "VERSAO": "e3363d354f3f6b6f8f0bad0be6661925ff7fa18e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -851,8 +858,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 120,
-    "INPUTS_DIGEST": "f4d597dff678ca5bd84e33c459f0fc9e8d2408aff803bf7ed1c173ebd5bdcc28",
+    "INPUTS_COUNT": 121,
+    "INPUTS_DIGEST": "510972e17011b4acb2335f6756d4e06460a9f543fd2956eeb970f466d92bb64b",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -912,7 +919,7 @@
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 213,
+      "linhas": 225,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1267,7 +1274,7 @@
     {
       "ficheiro": "ferramentas/fala_local.py",
       "gaveta": "ferramentas",
-      "linhas": 1045,
+      "linhas": 1261,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1287,6 +1294,7 @@
       "chamado_por": [
         "coleta/adaptador_instagram.py",
         "coleta/comunicacao_coleta.py",
+        "coleta/executor_transcricao_midia.py",
         "ferramentas/instagram_transcrever.py",
         "ferramentas/reel_transcricao.py",
         "ferramentas/youtube_transcrever.py"
@@ -1819,13 +1827,15 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 453,
+      "linhas": 571,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
-      "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
@@ -1952,6 +1962,27 @@
       "no_ci": true
     },
     {
+      "ficheiro": "coleta/executor_transcricao_midia.py",
+      "gaveta": "coleta",
+      "linhas": 500,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM",
+        "YOUTUBE"
+      ],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": true
+    },
+    {
       "ficheiro": "coleta/filas.py",
       "gaveta": "coleta",
       "linhas": 128,
@@ -2014,11 +2045,13 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 1283,
+      "linhas": 1388,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
-      "ferramentas": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
@@ -2026,6 +2059,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "admissao/admissao.py",
+        "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
         "coleta/executor_texto_de_pdf.py",
         "coleta/golden_path_pdf.py",
@@ -2306,17 +2340,18 @@
     {
       "ficheiro": "coleta/rota_forward_documento.py",
       "gaveta": "coleta",
-      "linhas": 530,
+      "linhas": 550,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
       "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/derivacao_forward.py",
         "coleta/ingresso.py"
       ],
       "no_ci": true
@@ -3014,6 +3049,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/coletor.py",
+        "coleta/executor_transcricao_midia.py",
         "coleta/golden_path_pdf.py",
         "coleta/ingresso.py",
         "coleta/instagram_janela.py",
@@ -3099,7 +3135,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 1076,
+      "linhas": 1087,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3307,6 +3343,7 @@
       "chamado_por": [
         "coleta/derivacao_forward.py",
         "coleta/executor_texto_de_pdf.py",
+        "coleta/executor_transcricao_midia.py",
         "guarda/memoria_descartavel.py",
         "guarda/portas_live.py",
         "guarda/preservar_documento.py"
@@ -3400,13 +3437,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 120,
-    "pontos_de_entrada": 89,
+    "ficheiros_de_codigo": 121,
+    "pontos_de_entrada": 90,
     "executores_que_saem_para_fora": 23,
     "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 70,
-    "deitam_fora_alguma_coisa": 32,
+    "deitam_fora_alguma_coisa": 34,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 3,
     "decisoes_escondidas_ao_todo": 3
@@ -3451,6 +3488,7 @@
       "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/executor_texto_de_pdf.py",
+      "coleta/executor_transcricao_midia.py",
       "coleta/filas.py",
       "coleta/gire_mapas.py",
       "coleta/golden_path_pdf.py",

@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
+  "HEAD": "b1909de036616355e7e7f3127b9a50bf20444a55",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 74,
- "TOTAL_CAMINHOS_RELEVANTES": 65,
+ "TOTAL_FICHEIROS": 75,
+ "TOTAL_CAMINHOS_RELEVANTES": 66,
  "POR_ESTADO": {
   "NOT_APPLICABLE": 9,
-  "NOT_INSTRUMENTED": 60,
+  "NOT_INSTRUMENTED": 61,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 63,
+   "NOT_INSTRUMENTED": 64,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,8 +206,8 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 74,
-  "TOTAL_RELEVANT_PATHS": 65,
+  "TOTAL_FILES_SCANNED": 75,
+  "TOTAL_RELEVANT_PATHS": 66,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 11,
   "TOTAL_ORCHESTRATORS": 5,
@@ -215,7 +215,7 @@
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 3,
   "TOTAL_TELEMETRY_EMITTERS": 4,
-  "TOTAL_UNKNOWN": 35,
+  "TOTAL_UNKNOWN": 36,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
@@ -606,7 +606,7 @@
   {
    "EXECUTOR_ID": "coleta/derivacao_forward.py",
    "GAVETA": "coleta",
-   "LINHAS": 453,
+   "LINHAS": 571,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -736,6 +736,32 @@
    "STATE": "INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "coleta/executor_transcricao_midia.py",
+   "GAVETA": "coleta",
+   "LINHAS": 500,
+   "TEM_PORTA": true,
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": true,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
    "EXECUTOR_ID": "coleta/filas.py",
    "GAVETA": "coleta",
    "LINHAS": 128,
@@ -814,7 +840,7 @@
   {
    "EXECUTOR_ID": "coleta/ingresso.py",
    "GAVETA": "coleta",
-   "LINHAS": 1283,
+   "LINHAS": 1388,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1090,7 +1116,7 @@
   {
    "EXECUTOR_ID": "coleta/rota_forward_documento.py",
    "GAVETA": "coleta",
-   "LINHAS": 530,
+   "LINHAS": 550,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1949,7 +1975,7 @@
   {
    "EXECUTOR_ID": "ferramentas/fala_local.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 1045,
+   "LINHAS": 1261,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-009",
+ "SOURCE": "ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale",
+ "OWNER": "ISPRA",
+ "URL": "https://www.isprambiente.gov.it/it",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:35Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 129270 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.isprambiente.gov.it/it",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "homepage — Italiano",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": "2026-09-11",
+  "BYTES_LIDOS": 177063
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.isprambiente.gov.it/it/files/iso_9001-ita-c859101-2-20260709.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": null,
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 129270,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "0af0de50ec6d2b8e1138f09b9994ff5f48b268be8938ec4f616d73a80364a217",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

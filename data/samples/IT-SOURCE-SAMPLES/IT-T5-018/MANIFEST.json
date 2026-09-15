@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-018",
+ "SOURCE": "IRIS UNIBO — Archivio istituzionale della ricerca",
+ "OWNER": "Universita di Bologna",
+ "URL": "https://cris.unibo.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:10Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 135160 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://cris.unibo.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Home page",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 67564
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.unibo.it/it/allegati/policy-di-ateneo-per-l2019accesso-aperto-alle-pubblicazioni-e-ai-dati-della-ricerca/@@download/file/PolicyAteneoAccessoApertoPubblicazioniDatiRicerca.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Policy di Ateneo per l’accesso aperto alle pubblicazioni e ai dati della ricerca",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 135160,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "b37ed18f2a3fda836f4cb2d2d5c8511627331c0bd3ac915bbf652c9d555fcd85",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

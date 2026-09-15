@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-010",
+ "SOURCE": "Fondazione per l'Agricoltura F.lli Navarra",
+ "OWNER": "Fondazione Navarra",
+ "URL": "https://www.fondazionenavarra.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:59Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 704512 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.fondazionenavarra.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Fondazione Navarra &#8211; fondazione fratelli Navarra",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-05-15",
+  "BYTES_LIDOS": 103426
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.fondazionenavarra.it/images/pdf/la_pianura_n_3_2010_copertina.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "La Pianura",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 704512,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "b1f7eedef50a2fe132dd6c585ac5e98bd396d835c82525cfd6d657c02dcdd6e3",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}
