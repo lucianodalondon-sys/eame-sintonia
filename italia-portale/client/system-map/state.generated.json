@@ -882,6 +882,7 @@
       "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
       "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
       "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "docs/intelligence/INTELLIGENCE-INPUT-CONTRACT-V1.md",
       "docs/intelligence/INTELLIGENCE-MIGRATION-MAP-V1.md",
       "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
       "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
@@ -1550,6 +1551,7 @@
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
       "provas/chain.py",
+      "provas/consumo_da_referencia_adama.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
       "provas/demanda_de_dados_da_italia.py",
@@ -2016,6 +2018,7 @@
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
+      "tests/test_consumo_da_referencia_adama.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
       "tests/test_estradas_it.py",
@@ -2635,9 +2638,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-bible-canonical-review-749b7c",
-    "HEAD": "384df0357cf8c564206388c970ecd7ee72ea41e0",
-    "GENERATED_AT": "2026-09-14T19:09:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "028cabd706b89b88b5b14c39a0f8f24c7e4bc6d51e243499b297dbe6e1b8f323"
+    "HEAD": "5fb1579b3531ee074447e04ccc3ee077ec7fea9c",
+    "GENERATED_AT": "2026-09-15T18:07:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9402c67a5caeec3d0881b6e9ffd437f287e51ff9966763267d960cc47638e96b"
   },
   "FAMILIES": [
     {
@@ -3311,6 +3314,7 @@
         "C-ADAMA-REFERENCE"
       ],
       "outbound": [
+        "C-INT-CONSUMO-ADAMA",
         "C-LASTMILE",
         "C-TESTES",
         "C-V21-INGEST"
@@ -3456,6 +3460,7 @@
         "PROVA": [
           "motor/v21_ingest.py:266",
           "pacote/lastmile_entregar.py:65",
+          "provas/consumo_da_referencia_adama.py:60",
           "tests/test_adama_referencia.py:56"
         ],
         "PORQUE": "estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -3506,6 +3511,7 @@
         "C-ADAMA-IT",
         "C-AUDIT-GERAL",
         "C-INT-ACHADO",
+        "C-INT-CONSUMO-ADAMA",
         "C-PORTAL-MODELO",
         "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-GATE-1D",
@@ -16467,6 +16473,7 @@
       ],
       "outbound": [
         "C-CENSO-CONGELAMENTO",
+        "C-INT-CONSUMO-ADAMA",
         "C-INT-DONOS",
         "C-TESTES"
       ],
@@ -16562,10 +16569,12 @@
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
           "C-CENSO-CONGELAMENTO",
+          "C-INT-CONSUMO-ADAMA",
           "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "provas/consumo_da_referencia_adama.py:94",
           "system-map/scripts/censo_do_congelamento.py:136",
           "tests/test_atomicidade_da_intelligence.py:33",
           "tests/test_atomicidade_da_intelligence.py:357"
@@ -16658,7 +16667,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⌸",
       "views": [
         "audit",
@@ -16666,49 +16675,104 @@
       ],
       "lane": "official",
       "family": "F-GOVERNANCA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add docs/intelligence/INTELLIGENCE-INPUT-CONTRACT-V1.md provas/consumo_da_referencia_adama.py tests/test_consumo_da_referencia_adama.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "docs/intelligence/INTELLIGENCE-INPUT-CONTRACT-V1.md",
+        "provas/consumo_da_referencia_adama.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "inbound": [
+        "C-ADAMA-IT",
+        "C-ADAMA-REFERENCE",
+        "C-INT-ARBITRAGEM",
+        "C-INT-CORRIDA",
+        "C-INT-DEMANDA-IT",
+        "C-INT-ESPINHA",
+        "C-INT-MODELO-OBJETOS",
+        "C-PROVA-AGRO-FRONTEIRA"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "AUTORIDADE",
+          "MODULOS_DA_INTELLIGENCE"
+        ],
+        "palavras": 36,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 36,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
-      "ROLE_CONFLICT": null,
-      "ROLE": "PROOF",
-      "ROLE_PLANE": "DECLARED",
-      "ROLE_EVIDENCE": "declarado `kind: proof` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 18 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 18 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "controle/censo_do_controle.py",
+        "controle/portao_do_controle.py",
+        "controle/red_team_do_controle.py",
+        "fontes/adama_referencia.py",
+        "motor/corrida_da_inteligencia.py",
+        "provas/arbitragem_da_intelligence.py",
+        "provas/auditoria_agro_fronteira.py",
+        "provas/demanda_de_dados_da_italia.py",
+        "provas/espinha_da_intelligence.py",
+        "provas/modelo_de_objetos_da_intelligence.py",
+        "referencia/adama/AUTHORIZED-USES.json",
+        "referencia/adama/LABEL-DOCUMENTS.json",
+        "referencia/adama/PORTFOLIO.json",
+        "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
+        "referencia/adama/PRODUCT-MASTER.json",
+        "referencia/adama/REGISTRATIONS.json",
+        "referencia/adama/SNAPSHOTS.json",
+        "referencia/adama/SOURCE-ID-MAP.json"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
-      "CODE": "UNKNOWN",
+      "CODE": "YES",
       "OBSERVED": "UNKNOWN",
       "OBSERVED_EVIDENCE": [],
-      "PROVEN": "UNKNOWN",
-      "PROVEN_PLANE": null,
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_consumo_da_referencia_adama.py:19"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20020,
       "y": 2614
@@ -16839,6 +16903,7 @@
       ],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-INT-CONSUMO-ADAMA",
         "C-TESTES"
       ],
       "paises": {},
@@ -16885,11 +16950,13 @@
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
           "C-INT-ARBITRAGEM",
+          "C-INT-CONSUMO-ADAMA",
           "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
           "provas/arbitragem_da_intelligence.py:101",
+          "provas/consumo_da_referencia_adama.py:93",
           "tests/test_a_primeira_corrida_da_inteligencia.py:28",
           "tests/test_a_primeira_corrida_da_inteligencia.py:186"
         ],
@@ -16930,6 +16997,7 @@
         "C-PORTAL-MODELO"
       ],
       "outbound": [
+        "C-INT-CONSUMO-ADAMA",
         "C-TESTES"
       ],
       "paises": {},
@@ -16984,10 +17052,12 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
+          "C-INT-CONSUMO-ADAMA",
           "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "provas/consumo_da_referencia_adama.py:97",
           "tests/test_a_demanda_de_dados_da_italia.py:24",
           "tests/test_a_demanda_de_dados_da_italia.py:49"
         ],
@@ -17197,6 +17267,7 @@
       "inbound": [],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-INT-CONSUMO-ADAMA",
         "C-INT-CORRIDA",
         "C-TESTES"
       ],
@@ -17258,8 +17329,8 @@
         "PROVA": [
           "motor/corrida_da_inteligencia.py:58",
           "provas/arbitragem_da_intelligence.py:63",
-          "tests/test_atomicidade_da_intelligence.py:185",
-          "tests/test_atomicidade_da_intelligence.py:366"
+          "provas/consumo_da_referencia_adama.py:98",
+          "tests/test_atomicidade_da_intelligence.py:185"
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CORRIDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -17370,6 +17441,7 @@
         "C-INT-MODELO"
       ],
       "outbound": [
+        "C-INT-CONSUMO-ADAMA",
         "C-TESTES"
       ],
       "paises": {},
@@ -17426,10 +17498,12 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
+          "C-INT-CONSUMO-ADAMA",
           "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
+          "provas/consumo_da_referencia_adama.py:99",
           "tests/test_modelo_de_objetos_da_intelligence.py:30",
           "tests/test_modelo_de_objetos_da_intelligence.py:326"
         ],
@@ -21675,7 +21749,8 @@
         "C-TESTES"
       ],
       "outbound": [
-        "C-PROVA-GATE-1D"
+        "C-PROVA-GATE-1D",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -21734,11 +21809,13 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-PROVA-GATE-1D"
+          "C-PROVA-GATE-1D",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "provas/red_team_gate_fase_1d.py:176"
+          "provas/red_team_gate_fase_1d.py:176",
+          "tests/test_consumo_da_referencia_adama.py:125"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -21776,7 +21853,9 @@
         "C-ADMISSAO",
         "C-INGRESSO"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-INT-CONSUMO-ADAMA"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -21822,11 +21901,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-INT-CONSUMO-ADAMA"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "provas/consumo_da_referencia_adama.py:95"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20850,
       "y": 3902
@@ -30282,6 +30365,7 @@
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
+        "tests/test_consumo_da_referencia_adama.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_estradas_it.py",
@@ -30382,7 +30466,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 175,
+      "file_count": 176,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -30462,6 +30546,7 @@
         "C-INGRESSO",
         "C-INT-ARBITRAGEM",
         "C-INT-BIBLIA",
+        "C-INT-CONSUMO-ADAMA",
         "C-INT-CORRIDA",
         "C-INT-DEMANDA-IT",
         "C-INT-DONOS",
@@ -30490,6 +30575,7 @@
         "C-PORTA-FONTE",
         "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
+        "C-PROVA-ADAMA-REFERENCE",
         "C-PROVA-ASR-LOCAL",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
@@ -31010,6 +31096,7 @@
         "provas/preservar_coleta_no_postgres.py",
         "provas/primeira_rota_paga.py",
         "provas/qualidade_t3.py",
+        "provas/red_team_adama_referencia.py",
         "provas/superficie_do_scrap_v1.py",
         "provas/ui_revisao_t3_ptbr.py",
         "referencia/adama/AUTHORIZED-USES.json",
@@ -33387,6 +33474,41 @@
     },
     {
       "from": "C-ADAMA-IT",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que a ADAMA sabe de si alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 60,
+          "snippet": "CONSTRUTOR_DA_REFERENCIA = \"fontes/adama_referencia.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-IT--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-IT",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADAMA-IT",
       "to": "C-LASTMILE",
       "type": "READS",
       "payload": "artefacto",
@@ -33741,6 +33863,153 @@
     },
     {
       "from": "C-ADAMA-REFERENCE",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A referencia da ADAMA, com um dono so alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 8 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 59,
+          "snippet": "DONO_DO_PRODUCT_ID = \"referencia/adama/PRODUCT-MASTER.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 68,
+          "snippet": "\"PORTFOLIO.json\": (\"RECORDS\", \"ADAMA_PRODUCT_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 69,
+          "snippet": "\"REGISTRATIONS.json\": (\"RECORDS\", \"REGISTRATION_NUMBER\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 70,
+          "snippet": "\"LABEL-DOCUMENTS.json\": (\"RECORDS\", \"DOCUMENT_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 71,
+          "snippet": "\"AUTHORIZED-USES.json\": (\"RECORDS\", \"USE_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 73,
+          "snippet": "\"PRODUCT-ACTIVE-INGREDIENTS.json\": (\"RECORDS\", \"RELATION_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 74,
+          "snippet": "\"SNAPSHOTS.json\": (\"RECORDS\", \"SNAPSHOT_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 75,
+          "snippet": "\"SOURCE-ID-MAP.json\": (\"RECORDS\", \"LEGACY_SOURCE_ID\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADAMA-REFERENCE",
       "to": "C-PORTAL-MODELO",
       "type": "READS",
       "payload": "artefacto",
@@ -33967,7 +34236,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_referencia.py",
@@ -34101,6 +34370,38 @@
           "file": "tests/test_adama_referencia.py",
           "line": 287,
           "snippet": "with io.open(os.path.join(CASA, \"CONTRATO-ADAMA-REFERENCE.md\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_consumo_da_referencia_adama.py",
+          "line": 62,
+          "snippet": "self.assertEqual(\"referencia/adama/PRODUCT-MASTER.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_consumo_da_referencia_adama.py",
+          "line": 160,
+          "snippet": "d = json.load(open(ficheiro(\"referencia/adama/REGISTRATIONS.json\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
             "FROM": "C-ADAMA-REFERENCE",
@@ -56451,6 +56752,41 @@
     },
     {
       "from": "C-INT-ARBITRAGEM",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 94,
+          "snippet": "\"provas/arbitragem_da_intelligence.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-ARBITRAGEM--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-INT-ARBITRAGEM",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-ARBITRAGEM",
       "to": "C-INT-DONOS",
       "type": "WRITES",
       "payload": "artefacto",
@@ -56673,6 +57009,41 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-INT-CONSUMO-ADAMA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O consumo da referencia ADAMA — le, cita, e nao cunha tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_consumo_da_referencia_adama.py",
+          "line": 19,
+          "snippet": "from consumo_da_referencia_adama import (   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CONSUMO-ADAMA--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-CONSUMO-ADAMA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-INT-CONVERGENCIA",
       "to": "C-INT-ARBITRAGEM",
       "type": "READS",
@@ -56779,6 +57150,41 @@
     },
     {
       "from": "C-INT-CORRIDA",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 93,
+          "snippet": "\"motor/corrida_da_inteligencia.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-CORRIDA--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-INT-CORRIDA",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-CORRIDA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -56840,6 +57246,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-DEMANDA-IT",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A demanda de dados da Itália — mede que cruzamento a matéria-prima sustenta alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 97,
+          "snippet": "\"provas/demanda_de_dados_da_italia.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-DEMANDA-IT--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-INT-DEMANDA-IT",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -57193,6 +57634,41 @@
     },
     {
       "from": "C-INT-ESPINHA",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 98,
+          "snippet": "\"provas/espinha_da_intelligence.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-ESPINHA--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-INT-ESPINHA",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-ESPINHA",
       "to": "C-INT-CORRIDA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -57234,12 +57710,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
           "line": 185,
           "snippet": "from espinha_da_intelligence import PALAVRAS_QUE_O_REQUISITO_RECUSA",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-TESTES",
+            "FROM": "C-INT-ESPINHA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_consumo_da_referencia_adama.py",
+          "line": 191,
+          "snippet": "from espinha_da_intelligence import (CAMPOS_DO_READY,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INT-ESPINHA--IMPORTS-->C-TESTES",
             "FROM": "C-INT-ESPINHA",
@@ -57407,6 +57899,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INT-MODELO-OBJETOS",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O juiz do modelo de objetos — recusa uma declaração que não se sustenta alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 99,
+          "snippet": "\"provas/modelo_de_objetos_da_intelligence.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INT-MODELO-OBJETOS--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-INT-MODELO-OBJETOS",
+            "TO": "C-INT-CONSUMO-ADAMA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -68509,6 +69036,76 @@
             "EDGE_ID": "C-PROVA-ADAMA-REFERENCE--READS-->C-PROVA-GATE-1D",
             "FROM": "C-PROVA-ADAMA-REFERENCE",
             "TO": "C-PROVA-GATE-1D",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-ADAMA-REFERENCE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O red team da referencia ADAMA alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_consumo_da_referencia_adama.py",
+          "line": 125,
+          "snippet": "txt = open(p, encoding=\"utf-8\", errors=\"replace\").read()",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-PROVA-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-AGRO-FRONTEIRA",
+      "to": "C-INT-CONSUMO-ADAMA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A auditoria da fronteira agronomica — o que a Intelligence agricola recebe alimenta O consumo da referencia ADAMA — le, cita, e nao cunha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/consumo_da_referencia_adama.py",
+          "line": 95,
+          "snippet": "\"provas/auditoria_agro_fronteira.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-AGRO-FRONTEIRA--READS-->C-INT-CONSUMO-ADAMA",
+            "FROM": "C-PROVA-AGRO-FRONTEIRA",
+            "TO": "C-INT-CONSUMO-ADAMA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -87221,7 +87818,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 177,
+      "PECAS_EM_DESACORDO": 178,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -87239,23 +87836,23 @@
   "COUNTS": {
     "components": 209,
     "components_proven": 37,
-    "components_pending": 163,
+    "components_pending": 164,
     "components_broken": 0,
-    "components_unknown": 9,
-    "edges": 1050,
-    "edges_proven": 996,
+    "components_unknown": 8,
+    "edges": 1060,
+    "edges_proven": 1006,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2043,
-    "files_covered": 969,
+    "files_tracked": 2046,
+    "files_covered": 972,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
-    "roles_declared_only": 8,
-    "roles_unknown": 54,
-    "roles_conflict": 26,
+    "roles_declared_only": 7,
+    "roles_unknown": 55,
+    "roles_conflict": 27,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 9,
-    "concept_owner_single": 3,
-    "concept_owner_instrument": 3
+    "concept_owner_single": 4,
+    "concept_owner_instrument": 2
   }
 }

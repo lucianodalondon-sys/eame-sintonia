@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "0063e46b07030644a5c5c34e650dba12089e6321"
+    "HEAD": "5fb1579b3531ee074447e04ccc3ee077ec7fea9c"
   },
   "VOCABULARIOS": [
     {
@@ -1265,6 +1265,8 @@
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
         "coleta/rota_forward_documento.py",
+        "controle/censo_do_controle.py",
+        "controle/red_team_do_controle.py",
         "leis/artefato.py",
         "leis/relevancia_da_fonte.py",
         "orquestrador/orquestrador.py",
@@ -1283,11 +1285,14 @@
         "provas/a_sala_sobrevive_ao_processo.py",
         "provas/a_unidade_pousa_na_espera.py",
         "provas/alcance_da_pergunta_tematica.py",
+        "provas/arbitragem_da_intelligence.py",
+        "provas/auditoria_agro_fronteira.py",
         "provas/benchmark_tematico.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/ensaio_do_texto_na_collection.py",
         "provas/ensaio_scrap_para_a_collection.py",
+        "provas/espinha_da_intelligence.py",
         "provas/implementacoes_candidatas.py",
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
@@ -1322,6 +1327,7 @@
         "tests/test_a_sala_de_espera_tem_um_dono.py",
         "tests/test_alcance_tematico.py",
         "tests/test_amostragem_neutra_t3.py",
+        "tests/test_atomicidade_da_intelligence.py",
         "tests/test_c10_2_origin_gate.py",
         "tests/test_candidatos_tematicos.py",
         "tests/test_censo_corpus_rotulado_admission.py",
@@ -1338,6 +1344,7 @@
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_pacote_de_revisao_t3.py",
         "tests/test_red_team_estrada.py",
+        "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
         "tests/test_ui_revisao_t3_ptbr.py"
       ],

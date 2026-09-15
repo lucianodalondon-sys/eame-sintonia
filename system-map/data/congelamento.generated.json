@@ -1,17 +1,18 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "0063e46b07030644a5c5c34e650dba12089e6321",
+  "FROZEN_AT_HEAD": "5fb1579b3531ee074447e04ccc3ee077ec7fea9c",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 233,
+  "ARTEFATOS": 254,
   "POR_ESPECIE": {
-    "DATA_SAMPLE": 83,
-    "GENERATED_OUTPUT": 25,
+    "CONTRACT": 3,
+    "DATA_SAMPLE": 88,
+    "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 10,
-    "INSTRUMENT": 4,
-    "MENCAO_FRACA_APENAS": 37,
+    "INSTRUMENT": 6,
+    "MENCAO_FRACA_APENAS": 40,
     "PORTAL_UI": 65,
-    "TEST": 9
+    "TEST": 16
   },
   "O_QUE_A_TRAVA_SEGURA": [
     "IMPLEMENTATION",
@@ -42,6 +43,14 @@
       "GIT_BLOB_SHA": "957774eff46891cbf73b0f57bc3ea0273f074370",
       "MARCAS_FORTES": [
         "FIELD_VOICE"
+      ]
+    },
+    {
+      "PATH": "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "6e9bcebe0fee24993b50c8049dd6d7efc4206196",
+      "MARCAS_FORTES": [
+        "RECOMMENDATION"
       ]
     },
     {
@@ -537,12 +546,24 @@
       ]
     },
     {
+      "PATH": "research/intelligence/DATA-DEMAND-MATRIX-ITALY.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "1896228d15439454ff646ab7fbe779928e4a21a2",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "superficie/it_casa_dados.py",
       "SPECIES": "PORTAL_UI",
       "GIT_BLOB_SHA": "50ff87ff872ae2d1b6e0699e0bf091085ba7a662",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
+    },
+    {
+      "PATH": "system-map/data/architecture.declared.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "e2deb297d119fc6f6f1fc62555d92dc3188b62f4",
+      "MARCAS_FORTES": []
     }
   ],
   "OUTROS_ARTEFATOS": [
@@ -665,6 +686,10 @@
     {
       "PATH": "coleta/speaker_universo.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "controle/AUTORIDADES-CANONICAS.json",
+      "SPECIES": "INSTRUMENT"
     },
     {
       "PATH": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
@@ -843,6 +868,22 @@
       "SPECIES": "DATA_SAMPLE"
     },
     {
+      "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
       "PATH": "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "SPECIES": "DATA_SAMPLE"
     },
@@ -991,6 +1032,10 @@
       "SPECIES": "INSTRUMENT"
     },
     {
+      "PATH": "motor/corrida_da_inteligencia.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
       "PATH": "motor/matriz_recorte.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
@@ -1047,7 +1092,19 @@
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
+      "PATH": "provas/arbitragem_da_intelligence.py",
+      "SPECIES": "INSTRUMENT"
+    },
+    {
       "PATH": "provas/especie_do_texto_auditoria.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/espinha_da_intelligence.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/modelo_de_objetos_da_intelligence.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
@@ -1064,6 +1121,10 @@
     },
     {
       "PATH": "research/adama-italy-product-intelligence-deep/HANDOFF-TO-V2.1.json",
+      "SPECIES": "DATA_SAMPLE"
+    },
+    {
+      "PATH": "research/intelligence/INTELLIGENCE-SPINE-ARBITRATION-V1.json",
       "SPECIES": "DATA_SAMPLE"
     },
     {
@@ -1123,6 +1184,10 @@
       "SPECIES": "GENERATED_OUTPUT"
     },
     {
+      "PATH": "system-map/data/controle.generated.json",
+      "SPECIES": "GENERATED_OUTPUT"
+    },
+    {
       "PATH": "system-map/data/estradas-it.generated.json",
       "SPECIES": "GENERATED_OUTPUT"
     },
@@ -1143,7 +1208,19 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_a_demanda_de_dados_da_italia.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_a_primeira_corrida_da_inteligencia.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_adama_relevance.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_atomicidade_da_intelligence.py",
       "SPECIES": "TEST"
     },
     {
@@ -1163,7 +1240,19 @@
       "SPECIES": "TEST"
     },
     {
+      "PATH": "tests/test_espinha_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
       "PATH": "tests/test_hero_cases_v1.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_modelo_de_objetos_da_intelligence.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_o_mapa_da_intelligence_nao_mente.py",
       "SPECIES": "TEST"
     },
     {
@@ -1172,6 +1261,10 @@
     },
     {
       "PATH": "tests/test_radar_futuro.py",
+      "SPECIES": "TEST"
+    },
+    {
+      "PATH": "tests/test_relevance_priority_sobrecarga.py",
       "SPECIES": "TEST"
     },
     {
