@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  423e5b346d26a7dacfdba47200d86ea24c19e7d0
+HEAD_DA_MEDICAO  6d17acf6f441e3284e87c60f87363a2dcb784685
 BRANCH           claude/system-map-reconciled-v1
-GERADO_EM        2026-09-15T10:43:33-03:00
+GERADO_EM        2026-09-15T11:04:34-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
