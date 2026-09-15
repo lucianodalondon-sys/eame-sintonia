@@ -437,6 +437,8 @@
       "data/samples/FR-T4-001/FR-T4-001-adama-produtos.json",
       "data/samples/FR-T4-001/substance_active_utf8.csv",
       "data/samples/INVENTARIO-SCRATCHPAD-HANDOFF.json",
+      "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json",
+      "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
       "data/samples/IT-ARPAV-VENETO/boll.txt",
       "data/samples/IT-ARPAV-VENETO/fe.txt",
       "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt",
@@ -1040,6 +1042,7 @@
     "fontes": [
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
+      "fontes/adama_catalogo_snapshot.py",
       "fontes/adama_it_eu.py",
       "fontes/adama_it_frac.py",
       "fontes/adama_it_gaps.py",
@@ -1584,13 +1587,17 @@
     "referencia": [
       "referencia/adama/ACTIVE-INGREDIENTS.json",
       "referencia/adama/AUTHORIZED-USES.json",
+      "referencia/adama/CATALOG-SNAPSHOTS.json",
       "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
       "referencia/adama/DOSES.json",
       "referencia/adama/LABEL-DOCUMENTS.json",
+      "referencia/adama/PORTFOLIO-DRIFT.json",
+      "referencia/adama/PORTFOLIO-OBSERVATIONS.json",
       "referencia/adama/PORTFOLIO.json",
       "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
       "referencia/adama/PRODUCT-MASTER.json",
       "referencia/adama/REGISTRATIONS.json",
+      "referencia/adama/RELATORIO-DRIFT-CATALOGO-2026-09-15.md",
       "referencia/adama/SNAPSHOTS.json",
       "referencia/adama/SOURCE-ID-MAP.json"
     ],
@@ -1865,6 +1872,7 @@
       "tests/test_a_regra_de_t2.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
       "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "tests/test_adama_catalogo_drift.py",
       "tests/test_adama_referencia.py",
       "tests/test_adama_relevance.py",
       "tests/test_alcance_tematico.py",
@@ -2025,8 +2033,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 693 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 144. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 693 ficheiros e 144 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 695 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 144. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 695 ficheiros e 144 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -2539,9 +2547,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-adama-reference-v1",
-    "HEAD": "43553a651f8c330512c5989a78bc796739659331",
-    "GENERATED_AT": "2026-09-15T17:09:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "74be275a06aa4e36ef52626c82ea115df96b23d1f9a320d653c5048d95291324"
+    "HEAD": "f719f38b2cbb687c4ac3a0c975ca4b8dcc2d019e",
+    "GENERATED_AT": "2026-09-15T18:13:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "83f7d9c75bb68be84276da33d70b1199493f30b4cad81fdc445bee6b870d3bb1"
   },
   "FAMILIES": [
     {
@@ -3177,6 +3185,7 @@
       "files": [
         "fontes/adama_catalogo_ler.py",
         "fontes/adama_catalogo_montar.py",
+        "fontes/adama_catalogo_snapshot.py",
         "fontes/adama_it_eu.py",
         "fontes/adama_it_frac.py",
         "fontes/adama_it_gaps.py",
@@ -3186,9 +3195,9 @@
         "fontes/adama_it_qa.py",
         "fontes/adama_referencia.py"
       ],
-      "file_count": 10,
+      "file_count": 11,
       "status": "PENDING",
-      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
@@ -3205,7 +3214,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 8,
+        "ITALIA": 10,
         "EUROPA": 6
       },
       "pais": "TRANSVERSAL",
@@ -3220,6 +3229,7 @@
         "papel": "NAO SEI",
         "listas": [
           "ALIASES",
+          "ANTERIOR",
           "CATEGORIAS",
           "CAT_DO_CAMINHO",
           "CULTURA_PAGINA",
@@ -3232,11 +3242,11 @@
           "SNAPSHOTS",
           "SOURCE_ID_CANONICO"
         ],
-        "palavras": 319,
+        "palavras": 326,
         "por_lingua": {
           "IT": 5
         },
-        "sem_marca_de_lingua": 314,
+        "sem_marca_de_lingua": 321,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -3289,12 +3299,17 @@
       "OWNER_CONFLICT": null,
       "consumes": [
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json",
+        "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json",
+        "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
         "data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json",
         "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
         "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv",
         "referencia/adama/AUTHORIZED-USES.json",
+        "referencia/adama/CATALOG-SNAPSHOTS.json",
         "referencia/adama/DOSES.json",
         "referencia/adama/LABEL-DOCUMENTS.json",
+        "referencia/adama/PORTFOLIO-DRIFT.json",
+        "referencia/adama/PORTFOLIO-OBSERVATIONS.json",
         "referencia/adama/PORTFOLIO.json",
         "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
         "referencia/adama/PRODUCT-MASTER.json",
@@ -3344,7 +3359,7 @@
         "PROVA": [
           "motor/v21_ingest.py:266",
           "pacote/lastmile_entregar.py:65",
-          "tests/test_adama_referencia.py:56"
+          "tests/test_adama_catalogo_drift.py:69"
         ],
         "PORQUE": "estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -3356,8 +3371,8 @@
       "name": "A referencia da ADAMA, com um dono so",
       "territory": "Z-REFERENCIA",
       "kind": "contract",
-      "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro.",
-      "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE.",
+      "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro. Guarda tambem as FOTOS DATADAS do catalogo comercial, quem foi visto em cada uma, e o diff entre elas.",
+      "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE. A partir de 15/09/2026 a casa responde tambem a «o que mudou?»: o catalogo passou a ter snapshot proprio, porque o PORTFOLIO nascera do catalogo observado a 30/08 mas datava-se pela foto do Ministero de 31/08 — outra fonte, outro dia. Ausencia numa foto e membership, nunca apagamento: o produto sai da foto e fica inteiro no Product Master.",
       "departments": [
         "REGULATORIO_PORTFOLIO",
         "INTELIGENCIA"
@@ -3374,17 +3389,21 @@
       "files": [
         "referencia/adama/ACTIVE-INGREDIENTS.json",
         "referencia/adama/AUTHORIZED-USES.json",
+        "referencia/adama/CATALOG-SNAPSHOTS.json",
         "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
         "referencia/adama/DOSES.json",
         "referencia/adama/LABEL-DOCUMENTS.json",
+        "referencia/adama/PORTFOLIO-DRIFT.json",
+        "referencia/adama/PORTFOLIO-OBSERVATIONS.json",
         "referencia/adama/PORTFOLIO.json",
         "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
         "referencia/adama/PRODUCT-MASTER.json",
         "referencia/adama/REGISTRATIONS.json",
+        "referencia/adama/RELATORIO-DRIFT-CATALOGO-2026-09-15.md",
         "referencia/adama/SNAPSHOTS.json",
         "referencia/adama/SOURCE-ID-MAP.json"
       ],
-      "file_count": 11,
+      "file_count": 15,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
       "changed_since_declared": [],
@@ -3418,7 +3437,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "STORAGE",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "11 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre",
+      "ROLE_EVIDENCE": "15 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre",
       "OWNER": "REGULATORIO_PORTFOLIO · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -3437,7 +3456,7 @@
         "QUEM": [],
         "PLANO": "CODE",
         "PROVA": [
-          "11 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+          "15 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
@@ -3987,8 +4006,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 255",
-        "desses, mostrados aqui: 40 (ficam de fora 215)"
+        "enderecos que o codigo realmente chama: 257",
+        "desses, mostrados aqui: 40 (ficam de fora 217)"
       ],
       "status_reason": "197 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 192, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -28797,6 +28816,7 @@
         "tests/test_a_regra_de_t2.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "tests/test_adama_catalogo_drift.py",
         "tests/test_adama_referencia.py",
         "tests/test_adama_relevance.py",
         "tests/test_alcance_tematico.py",
@@ -28952,7 +28972,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 167,
+      "file_count": 168,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -29539,9 +29559,12 @@
         "provas/superficie_do_scrap_v1.py",
         "provas/ui_revisao_t3_ptbr.py",
         "referencia/adama/AUTHORIZED-USES.json",
+        "referencia/adama/CATALOG-SNAPSHOTS.json",
         "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
         "referencia/adama/DOSES.json",
         "referencia/adama/LABEL-DOCUMENTS.json",
+        "referencia/adama/PORTFOLIO-DRIFT.json",
+        "referencia/adama/PORTFOLIO-OBSERVATIONS.json",
         "referencia/adama/PORTFOLIO.json",
         "referencia/adama/PRODUCT-MASTER.json",
         "referencia/adama/REGISTRATIONS.json",
@@ -32002,8 +32025,40 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que a ADAMA sabe de si tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O que a ADAMA sabe de si tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 69,
+          "snippet": "import adama_referencia as A",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
+            "FROM": "C-ADAMA-IT",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 260,
+          "snippet": "import adama_catalogo_snapshot as S",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
+            "FROM": "C-ADAMA-IT",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_adama_referencia.py",
           "line": 56,
@@ -32072,8 +32127,104 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A referencia da ADAMA, com um dono so alimenta O que a ADAMA sabe de si. Provado por 9 linhas de codigo.",
+      "reason": "A referencia da ADAMA, com um dono so alimenta O que a ADAMA sabe de si. Provado por 15 linhas de codigo.",
       "evidence": [
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 295,
+          "snippet": "master = ler(os.path.join(CASA, 'PRODUCT-MASTER.json'))['PRODUCTS']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-ADAMA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 296,
+          "snippet": "portfolio = ler(os.path.join(CASA, 'PORTFOLIO.json'))['RECORDS']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-ADAMA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 328,
+          "snippet": "registos = ler(os.path.join(CASA, 'REGISTRATIONS.json'))['RECORDS']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-ADAMA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 474,
+          "snippet": "gravar(os.path.join(CASA, 'CATALOG-SNAPSHOTS.json'), snapshots)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-ADAMA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 505,
+          "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-OBSERVATIONS.json'), {",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-ADAMA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 586,
+          "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-DRIFT.json'), drift)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-ADAMA-IT",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "fontes/adama_referencia.py",
           "line": 278,
@@ -32158,54 +32309,6 @@
           "file": "fontes/adama_referencia.py",
           "line": 599,
           "snippet": "\"LABEL-DOCUMENTS.json\": _env(\"ADAMA-LABEL-DOCUMENTS\", documentos,",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-ADAMA-IT",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "fontes/adama_referencia.py",
-          "line": 601,
-          "snippet": "\"AUTHORIZED-USES.json\": _env(\"ADAMA-AUTHORIZED-USES\", usos,",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-ADAMA-IT",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "fontes/adama_referencia.py",
-          "line": 604,
-          "snippet": "\"DOSES.json\": _env(\"ADAMA-DOSES\", doses,",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-ADAMA-IT",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "fontes/adama_referencia.py",
-          "line": 614,
-          "snippet": "\"SOURCE-ID-MAP.json\": _env(\"ADAMA-SOURCE-ID-MAP\", [",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
             "FROM": "C-ADAMA-REFERENCE",
@@ -32490,8 +32593,120 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 33,
+          "snippet": "MASTER = ler(\"PRODUCT-MASTER.json\")[\"PRODUCTS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 34,
+          "snippet": "PORTFOLIO = ler(\"PORTFOLIO.json\")[\"RECORDS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 35,
+          "snippet": "SNAPS_REG = ler(\"SNAPSHOTS.json\")[\"RECORDS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 36,
+          "snippet": "CAT = ler(\"CATALOG-SNAPSHOTS.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 38,
+          "snippet": "OBS = ler(\"PORTFOLIO-OBSERVATIONS.json\")[\"RECORDS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 39,
+          "snippet": "DRIFT = ler(\"PORTFOLIO-DRIFT.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 294,
+          "snippet": "mapa = ler(\"SOURCE-ID-MAP.json\")[\"RECORDS\"]",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_adama_referencia.py",
           "line": 39,
@@ -32560,70 +32775,6 @@
           "file": "tests/test_adama_referencia.py",
           "line": 43,
           "snippet": "USOS = registos(\"AUTHORIZED-USES.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 44,
-          "snippet": "DOSES = registos(\"DOSES.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 45,
-          "snippet": "SNAPS = registos(\"SNAPSHOTS.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 46,
-          "snippet": "MAPA_FONTE = registos(\"SOURCE-ID-MAP.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 287,
-          "snippet": "with io.open(os.path.join(CASA, \"CONTRATO-ADAMA-REFERENCE.md\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
             "FROM": "C-ADAMA-REFERENCE",
@@ -83573,7 +83724,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1005,
+  "UNCLAIMED_FILES_COUNT": 1007,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -83762,8 +83913,8 @@
     "edges_proven": 952,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1951,
-    "files_covered": 946,
+    "files_tracked": 1959,
+    "files_covered": 952,
     "files_code_unclaimed": 0,
     "roles_proven": 141,
     "roles_declared_only": 5,

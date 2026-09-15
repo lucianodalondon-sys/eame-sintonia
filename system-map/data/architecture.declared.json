@@ -312,6 +312,7 @@
       "files": [
         "fontes/adama_catalogo_ler.py",
         "fontes/adama_catalogo_montar.py",
+        "fontes/adama_catalogo_snapshot.py",
         "fontes/adama_it_eu.py",
         "fontes/adama_it_frac.py",
         "fontes/adama_it_gaps.py",
@@ -331,8 +332,8 @@
       "name": "A referencia da ADAMA, com um dono so",
       "territory": "Z-REFERENCIA",
       "kind": "contract",
-      "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro.",
-      "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE.",
+      "what": "Product master, portfolio, registos, documentos de rotulo, usos autorizados, doses e substancias activas da ADAMA Italia — ligados por um identificador interno (ADAMA_PRODUCT_ID) que nao vem do numero do Ministero nem carrega o pais dentro. Guarda tambem as FOTOS DATADAS do catalogo comercial, quem foi visto em cada uma, e o diff entre elas.",
+      "why_here": "A casa tinha DUAS referencias da ADAMA construidas no mesmo dia que nao se conheciam: uma com 602 autorizacoes e zero usos de rotulo, outra com 163 autorizacoes e 2030 usos. Onde as duas opinavam nunca se contradiziam — eram duas fotografias parciais, e o consumidor escolhia entre elas sozinho. Aqui ha um dono por conceito, escrito em CONTRATO-ADAMA-REFERENCE.md, e os pacotes de origem continuam intactos, citados linha a linha em PROVENANCE. A partir de 15/09/2026 a casa responde tambem a «o que mudou?»: o catalogo passou a ter snapshot proprio, porque o PORTFOLIO nascera do catalogo observado a 30/08 mas datava-se pela foto do Ministero de 31/08 — outra fonte, outro dia. Ausencia numa foto e membership, nunca apagamento: o produto sai da foto e fica inteiro no Product Master.",
       "departments": [
         "REGULATORIO_PORTFOLIO",
         "INTELIGENCIA"
@@ -340,13 +341,17 @@
       "files": [
         "referencia/adama/ACTIVE-INGREDIENTS.json",
         "referencia/adama/AUTHORIZED-USES.json",
+        "referencia/adama/CATALOG-SNAPSHOTS.json",
         "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
         "referencia/adama/DOSES.json",
         "referencia/adama/LABEL-DOCUMENTS.json",
+        "referencia/adama/PORTFOLIO-DRIFT.json",
+        "referencia/adama/PORTFOLIO-OBSERVATIONS.json",
         "referencia/adama/PORTFOLIO.json",
         "referencia/adama/PRODUCT-ACTIVE-INGREDIENTS.json",
         "referencia/adama/PRODUCT-MASTER.json",
         "referencia/adama/REGISTRATIONS.json",
+        "referencia/adama/RELATORIO-DRIFT-CATALOGO-2026-09-15.md",
         "referencia/adama/SNAPSHOTS.json",
         "referencia/adama/SOURCE-ID-MAP.json"
       ],

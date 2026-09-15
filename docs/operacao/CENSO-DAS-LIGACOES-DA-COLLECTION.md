@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  43553a651f8c330512c5989a78bc796739659331
+HEAD_DA_MEDICAO  f719f38b2cbb687c4ac3a0c975ca4b8dcc2d019e
 BRANCH           claude/it-adama-reference-v1
-GERADO_EM        2026-09-15T17:09:14-03:00
+GERADO_EM        2026-09-15T18:13:36-03:00
 CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -791,15 +791,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `fontes/adama_catalogo_ler.py`, `fontes/adama_catalogo_montar.py`, `fontes/adama_it_eu.py`, `fontes/adama_it_frac.py`, `fontes/adama_it_gaps.py` _(e mais 5)_ |
+| **peça real** | `fontes/adama_catalogo_ler.py`, `fontes/adama_catalogo_montar.py`, `fontes/adama_catalogo_snapshot.py`, `fontes/adama_it_eu.py`, `fontes/adama_it_frac.py` _(e mais 6)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
-| **status operacional** | yellow — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65; tests/test_adama_referencia.py:56 |
+| **prova de quem ativa** | motor/v21_ingest.py:266; pacote/lastmile_entregar.py:65; tests/test_adama_catalogo_drift.py:69 |
 | **porquê** | estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-DOSE-ROTULO/IT-DOSES-2026-09-06.json`, `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json` |
+| **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json`, `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json`, `research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json`, `research/adama-italy-product-intelligence-deep/MOA-SOURCE-FRAC.json` |
 | **arestas no mapa** | entram 1 · saem 3 |
@@ -1551,12 +1551,12 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json`, `referencia/adama/LABEL-DOCUMENTS.json` _(e mais 6)_ |
+| **peça real** | `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CATALOG-SNAPSHOTS.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json` _(e mais 10)_ |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · INTELIGENCIA |
 | **status operacional** | yellow — e uma lei sem prova executavel apontando para ela. |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
-| **prova de quem ativa** | 11 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
+| **prova de quem ativa** | 15 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |

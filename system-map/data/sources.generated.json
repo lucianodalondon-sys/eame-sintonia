@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-15T21:09:06+00:00",
-    "HEAD": "43553a651f8c330512c5989a78bc796739659331",
+    "GENERATED_AT": "2026-09-15T21:19:07+00:00",
+    "HEAD": "f719f38b2cbb687c4ac3a0c975ca4b8dcc2d019e",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "74be275a06aa4e36ef52626c82ea115df96b23d1f9a320d653c5048d95291324",
+    "SOURCE_TREE_FINGERPRINT": "83f7d9c75bb68be84276da33d70b1199493f30b4cad81fdc445bee6b870d3bb1",
     "FICHEIROS_NA_IMPRESSAO": 2106,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -9902,6 +9902,23 @@
       ]
     },
     {
+      "endpoint": "https://www.adama.com/italia",
+      "usado_por": [
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 61
+        },
+        {
+          "file": "motor/v21_ingest.py",
+          "line": 281
+        },
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 44
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.hracglobal.com/tools",
       "usado_por": [
         {
@@ -10174,19 +10191,6 @@
       ]
     },
     {
-      "endpoint": "https://www.adama.com/italia",
-      "usado_por": [
-        {
-          "file": "motor/v21_ingest.py",
-          "line": 281
-        },
-        {
-          "file": "pacote/pacote_camadas3.py",
-          "line": 44
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com',",
       "usado_por": [
         {
@@ -10265,9 +10269,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 255,
+  "ENDPOINTS_FOUND": 257,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 215,
+  "ENDPOINTS_TRUNCATED": 217,
   "COUNTS": {
     "sources": 197,
     "with_contract": 5,
@@ -10285,9 +10289,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 255,
+    "endpoints": 257,
     "endpoints_published": 40,
-    "endpoints_truncated": 215,
+    "endpoints_truncated": 217,
     "candidates": 0,
     "coletores": 51,
     "coletores_com_data": 19,
