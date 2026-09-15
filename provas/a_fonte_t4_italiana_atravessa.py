@@ -543,6 +543,27 @@ def main():                                                    # noqa: C901
             "pela rede, contra Postgres descartavel." % FONTE),
         "COMO_REFAZER": ("BANCO_DESCARTAVEL_URL=... python3 "
                          "provas/a_fonte_t4_italiana_atravessa.py"),
+        # ── COMO LER O `RUN_ID` DESTE FICHEIRO ────────────────────────────
+        # ⚠️ ESTE ARTEFATO E UM RETRATO DE UMA CORRIDA, E E REESCRITO INTEIRO
+        # A CADA EXECUCAO. O `RUN_ID` aqui dentro e o da corrida que o escreveu
+        # POR ULTIMO — nunca «a corrida desta prova», em abstracto.
+        #
+        # A distincao nao e teorica: em 2026-09-15 a entrega falou de uma
+        # corrida (`...-213639-a8619f35086cd83b`) e o ficheiro commitado era de
+        # outra (`...-211428-166b8db7c8f3bf96`). As duas correram, as duas deram
+        # o mesmo resultado sobre os mesmos bytes — e mesmo assim sao DUAS.
+        # So uma delas tem a cadeia de evidencia preservada neste commit.
+        #
+        #     DUAS CORRIDAS COM O MESMO RESULTADO CONTINUAM A SER DUAS.
+        #     CHAMAR-LHES UMA E PERDER A QUE FICOU POR AUDITAR.
+        #
+        # Quem auditar: o `RUN_ID` gravado aqui e o unico que se pode conferir
+        # contra este commit. Qualquer outro numero citado num relato so vale
+        # com o ficheiro da corrida dele ao lado.
+        "COMO_LER_O_RUN_ID": (
+            "retrato da corrida que escreveu este ficheiro por ultimo; "
+            "reexecutar a prova substitui-o por outra corrida, e as duas "
+            "continuam a ser duas"),
         "AMBIENTE": "DESCARTAVEL",
         "AQUISICAO_NOVA": "SIM — HTTP GET real em %s" % HOSPEDEIRO,
         "SOURCE_ID": FONTE,

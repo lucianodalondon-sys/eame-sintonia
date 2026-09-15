@@ -93,8 +93,26 @@ class Banco:
         # linhas acima — ler a conversa do cliente como se fosse a resposta do
         # banco. Aqui é o degrau anterior: nem conversa houve.
         #
-        # A ordem não muda nada onde já funcionava. `provas/preservar_coleta_no_
-        # postgres.py` e `admissao/sala_de_espera.py` já escrevem assim.
+        # A ordem não muda nada onde já funcionava:
+        # `provas/preservar_coleta_no_postgres.py::_psql` e
+        # `guarda/portas_live.py` já escrevem assim, e continuam a correr igual.
+        #
+        # ⚠️ ESTE COMENTÁRIO JÁ MENTIU, E A REVIEW APANHOU-O.
+        # Ele nomeava `admissao/sala_de_espera.py` como exemplo do padrão certo.
+        # É FALSO, e foi medido em 2026-09-15: nas linhas 447 e 486 desse
+        # ficheiro a DSN vem ANTES de `-c` e de `-f`, que é exactamente o
+        # defeito descrito aqui em cima. A Sala tem a MESMA doença, e ela NÃO
+        # foi consertada nesta missão — pertence à missão
+        # `FIX_PROOF_INFRASTRUCTURE_FIRST`, junto com os outros sítios de
+        # `provas/` e `guarda/es/`.
+        #
+        # O erro não foi de medição distraída: foi de medição TRUNCADA. A busca
+        # cortava cada linha aos 150 caracteres, e as opções do início cabiam no
+        # corte enquanto a DSN e o `-c` ficavam de fora. Ver o começo de uma
+        # chamada e concluir sobre o fim dela é adivinhar com ar de medir.
+        #
+        #     LER METADE DA LINHA E DIZER QUE SE MEDIU A LINHA
+        #     É UMA AFIRMAÇÃO SEM PROVA, E ELA ENTROU AQUI COMO SE FOSSE UMA.
         cmd = ['psql', '-q', '-v', 'ON_ERROR_STOP=1',
                '-tAF', '\x1f', '-c', sql, self.dsn]
         r = subprocess.run(cmd, capture_output=True, text=True)
