@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  6d17acf6f441e3284e87c60f87363a2dcb784685
-BRANCH           claude/system-map-reconciled-v1
-GERADO_EM        2026-09-15T11:04:34-03:00
+HEAD_DA_MEDICAO  c24ea78aeb11851fc00f90d6347729942abfe33e
+BRANCH           claude/it-portal-reconciled-v1
+GERADO_EM        2026-09-15T11:54:19-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -388,13 +388,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json` |
 | **o que sai · dado** | C-SUPABASE |
 | **o que sai · ficheiros** | `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/IT-CRUZAMENTO/IT-CONVERSA-X-ROTULO.json`, `data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json` |
-| **arestas no mapa** | entram 4 · saem 10 |
-| **arestas provadas** | entram 3 · saem 10 |
+| **arestas no mapa** | entram 4 · saem 11 |
+| **arestas provadas** | entram 3 · saem 11 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 · NÃO SEI 1 |
+| **prova das ligações** | CODE 14 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
