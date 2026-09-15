@@ -360,7 +360,18 @@ check('VALIDATION_STATE_NOT_HIDDEN', 'VALIDATION_REQUIRED is shown, never dresse
     .map((c) => (m.vals({ view: 'mcase', mCaseId: c.ID, lang: 'it' }) || {}).mc)
     .filter(Boolean);
   const shown = [...inGriglia, ...fuori].filter((c) => c.publicationCode === 'VALIDATION_REQUIRED');
-  if (shown.length !== 38) bad.push(`${shown.length} of 38 VALIDATION_REQUIRED cases reachable across the four surfaces`);
+  /* 38 -> 37, E O CASO QUE SAIU SAIU A SUBIR.
+     Pomodoro x Peronospora estava VALIDATION_REQUIRED porque o motor dizia
+     «c'e etichetta ministeriale verificata, ma nessuno dei prodotti autorizzati
+     e nel catalogo commerciale»: COMMERCIAL_PRODUCT_COUNT era zero. O FOLPAN
+     80 WDG estava autorizado nessa coppia desde sempre; o que faltava era o
+     leitor conseguir abrir a seccao de uso, que estava do outro lado do acento
+     de «MODALITÀ». Com o produto ligado, o caso passa a PUBLISHABLE — e os
+     publicaveis vao de 5 a 6.
+
+         UM CASO QUE SAI DAQUI POR TER GANHO UM PRODUTO
+         NAO E UM CASO ESCONDIDO. E UM CASO RESOLVIDO. */
+  if (shown.length !== 37) bad.push(`${shown.length} of 37 VALIDATION_REQUIRED cases reachable across the four surfaces`);
   for (const c of shown) if (!c.publication) bad.push(`${c.id}: publication state has no phrase`);
   if (!/\{\{\s*c\.publication\s*\}\}/.test(markup)) bad.push('the card does not bind the publication state');
   return { pass: !bad.length, expected: 0, measured: bad.length, detail: bad.slice(0, 6) };

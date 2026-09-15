@@ -37,8 +37,24 @@ import { PT_MARKERS } from './lang.mjs';
    PASS sem nunca ter disparado. */
 import { medir, controloNegativo, QA } from './do-not-show.mjs';
 
-const require_ = createRequire(import.meta.url);
-const { chromium } = require_('/opt/node22/lib/node_modules/playwright/index.js');
+/* O NAVEGADOR PROCURA-SE, NAO SE FIXA NUM CAMINHO DE UMA MAQUINA SO.
+   Estavam aqui dois caminhos absolutos de Linux — o pacote em
+   `/opt/node22/lib/node_modules/playwright` e o binario em
+   `/opt/pw-browsers/chromium`. Em Windows nenhum existe, e este portao de 30
+   controlos morria em MODULE_NOT_FOUND antes do primeiro deles: nunca correu
+   na maquina do dono do projecto.
+
+       PORTAO QUE SO CORRE NUM SITIO SO GUARDA UM SITIO.
+
+   O `lib/drive.mjs`, ao lado, ja fazia isto bem, e este e o mesmo desenho:
+   importa `playwright-core` pelo nome e procura o binario do Linux; se nao o
+   achar, `executablePath` fica `undefined` e o playwright usa o navegador que
+   ele proprio traz. Em Linux nada muda; em Windows passa a correr. */
+import { chromium } from 'playwright-core';
+
+const EXEC_CHROMIUM = ['/opt/pw-browsers/chromium/chrome-linux/chrome',
+  '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+  '/opt/pw-browsers/chromium'].find((p) => fs.existsSync(p));
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const RAIZ = path.resolve(AQUI, '..', '..');
@@ -64,7 +80,7 @@ const R = [];
 const check = (id, fn) => { try { R.push({ id, ...fn() }); }
   catch (e) { R.push({ id, pass: false, detail: [`LANCOU: ${e.message}`] }); } };
 
-const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const b = await chromium.launch({ executablePath: EXEC_CHROMIUM, args: ['--no-sandbox'] });
 const pg = await b.newPage({ viewport: { width: 1280, height: 1000 } });
 const erros = [];
 pg.on('pageerror', (e) => erros.push(e.message));
@@ -115,10 +131,24 @@ const lerDom = () => pg.evaluate(() => {
     /* Cada caso tem de ter as sete seccoes do L2 e uma dobra de L3 dentro. */
     seccoes: casos.map((e) => e.querySelectorAll(':scope > .dd > .sec').length),
     comL3: casos.filter((e) => e.querySelector(':scope > .dd > details')).length,
-    /* O registo dos 44, medido no DOM e nao no dado. */
-    ledger: [...document.querySelectorAll('table tbody tr')]
-      .map((r) => (r.cells[0] ? r.cells[0].innerText.trim() : ''))
-      .filter((v) => /^ITFC-\d+/.test(v)).map((v) => v.slice(0, 8)),
+    /* O registo dos 44, medido no DOM e nao no dado.
+       A LEI E «OS 44 ESTAO DESENHADOS», NAO «HA UMA TABELA». O registo passou
+       de tabela a fichas e este selector prendia-se a `table tbody tr`: um
+       portao que reprova porque a APRESENTACAO mudou nao guarda a lei, guarda
+       a implementacao.
+
+           UM PORTAO PRESO AO DESENHO CAI COM O DESENHO, E LEVA A LEI COM ELE.
+
+       Le-se o id onde quer que ele esteja: no atributo que as fichas declaram,
+       ou na primeira celula, se um dia voltar a ser tabela. */
+    ledger: (() => {
+      const fichas = [...document.querySelectorAll('[data-itfc]')]
+        .map((e) => String(e.getAttribute('data-itfc') || '').trim());
+      const linhas = [...document.querySelectorAll('table tbody tr')]
+        .map((r) => (r.cells[0] ? r.cells[0].innerText.trim() : ''));
+      return fichas.concat(linhas)
+        .filter((v) => /^ITFC-\d+/.test(v)).map((v) => v.slice(0, 8));
+    })(),
     /* Buracos de etiqueta: `tt()` desenha [codigo] quando o par falta. */
     buracos: (txt.match(/\[[A-Za-z][A-Za-z0-9_]{3,}\]/g) || []),
     objetos: (txt.match(/\[object Object\]/g) || []).length,
@@ -555,7 +585,16 @@ check('HARDCODE_43_CANNOT_PASS', () => {
   /* So o CODIGO, nunca o comentario: um numero citado numa nota nao desenha
      nada, e proibi-lo obrigaria a escrever notas que nao podem explicar-se. */
   const TRIPLA = String.fromCharCode(34, 34, 34);
-  const semComentarios = (src, tipo) => (tipo === 'js'
+  /* E TAMBEM NAO E O QUANTIFICADOR DE UMA EXPRESSAO REGULAR.
+     A lei de relevancia trouxe SEGNALI a 4, e `it_casa_dados.py` tem
+     `[0-9a-fA-F]{4}` (o comprimento de um escape unicode) e `\d{4}` (o de um
+     ano). Nenhum dos dois conta coisa nenhuma — sao a forma da expressao, nao
+     uma populacao. Uma populacao nunca se escreve `{43}`.
+
+         AFINAR O DETECTOR NAO E AFROUXAR A REGRA — outra vez, e pela mesma
+         razao: um portao que acusa o que nao e defeito ensina a ignora-lo. */
+  const semQuantificador = (src) => src.replace(/\{\s*\d+\s*(,\s*\d*)?\s*\}/g, ' ');
+  const semComentarios = (src, tipo) => semQuantificador(tipo === 'js'
     ? src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|\s)\/\/[^\n]*/g, ' ')
     : src.replace(new RegExp(TRIPLA + '[\\s\\S]*?' + TRIPLA, 'g'), ' ').replace(/#[^\n]*/g, ' '));
   const alvos = [OA.TOTALE, OA.OPPORTUNITA, OA.RADAR, OA.SEGNALI];
@@ -586,6 +625,8 @@ check('HARDCODE_43_CANNOT_PASS', () => {
   if (!ve(`if (n === ${OA.RADAR}) {}`, OA.RADAR)) bad.push('CONTROLO NEGATIVO FALHOU: nao ve o numero numa comparacao');
   if (ve(`/* sono ${OA.TOTALE} */`, OA.TOTALE)) bad.push('CONTROLO NEGATIVO FALHOU: acusa o numero citado num comentario');
   if (ve(`decode('utf-${OA.SEGNALI}')`, OA.SEGNALI)) bad.push('CONTROLO NEGATIVO FALHOU: acusa um digito dentro de outro token');
+  if (ve(`re.compile(r'\\d{${OA.SEGNALI}}')`, OA.SEGNALI, 'py')) bad.push('CONTROLO NEGATIVO FALHOU: acusa o quantificador de uma expressao regular');
+  if (!ve(`var n = ${OA.SEGNALI};`, OA.SEGNALI)) bad.push('CONTROLO NEGATIVO FALHOU: deixou de ver o numero pequeno escrito a mao');
   return { pass: !bad.length, detail: bad.length ? bad
     : [`${alvos.join(', ')} nao existem como literais na vista nem no gerador — todos derivados`,
        'controlo negativo: um numero escrito a mao SERIA apanhado; o mesmo numero num comentario nao'] };

@@ -343,14 +343,35 @@ check('N1', 'Nav counts match the active normalized collections', () => {
        esattamente il difetto per cui questo controllo esiste. */
     (() => { const s2 = m.ctx.MEETING_SURFACE && m.ctx.MEETING_SURFACE.build('it');
              return s2 ? s2.commercial.length : (m.ctx.MEETING_INTELLIGENCE || {}).TOTAL_CASES; })(),
-    /* I SEGNALI NON HANNO PIU UN BADGE: non sono uno strumento, e la voce di
-       primo livello e stata tolta. Restano raggiungibili da una riga in fondo
-       al radar, e il loro numero non e un contatore di menu. */
     /* IL PORTAFOGLIO SALE, PERCHE E UNO STRUMENTO. La barra ha due gruppi e
        questa lista li segue nell'ordine in cui l'occhio li incontra: prima i
        due strumenti, poi l'evidenza. La sorgente di ogni numero non cambia. */
     AM.collections.products.count,
-    AM.collections.futureSignals.count,
+    /* L'ARCHIVIO SEGNALI NON HA PIU UN BADGE, PERCHE NON HA PIU UNA VOCE.
+       Tre, letti sotto quarantaquattro, dicevano «qui dentro non c'e quasi
+       niente» di una popolazione che esiste per essere spiegata. La voce esce
+       dalla barra; la rotta `#future`, la vista e le sue tre porte restano —
+       e chi le misura e `superficie-visivel.mjs`, che pesa la PORTA e non il
+       badge. Qui sparisce solo il contatore, perche qui si contano voci.
+
+           UN BADGE PER UNA VOCE CHE NON C'E CONTROLLA UN MENU IMMAGINARIO. */
+    /* IL RADAR FUTURO HA ADESSO UN BADGE, E QUINDI HA UN GUARDIANO.
+       I 44 non stanno in nessuna collezione normalizzata del modello: vivono in
+       `italy-casa.js`, che e il loro proprietario. Il numero si legge DA LI —
+       scriverlo qui a mano farebbe di questo controllo la seconda verita che
+       esiste per impedire.
+
+           UN BADGE NUOVO SENZA CONTROLLO E UN NUMERO CHE PRIMA O POI MENTE. */
+    ((m.ctx.ITALY_CASA || {}).RADAR_FUTURO || {}).RENDERIZAVEIS,
+    /* LE ETICHETTE UFFICIALI HANNO UN BADGE, E QUINDI HANNO UN GUARDIANO.
+       I 166 non stanno in nessuna collezione normalizzata del modello: vivono
+       nel payload sigillato della Label Intelligence, che e il loro
+       proprietario, e il menu li legge DA LI. Scrivere 166 qui a mano
+       ripeterebbe l'errore che questo controllo esiste per impedire — e
+       ripeterebbe anche il ragionamento gia scritto sopra per il Radar Futuro.
+
+           UN BADGE NUOVO SENZA CONTROLLO E UN NUMERO CHE PRIMA O POI MENTE. */
+    ((m.ctx.ITALY_LABEL_INTELLIGENCE || {}).products || []).length,
     AM.collections.cropWindows.count,
     AM.collections.marketObservations.count,
     AM.collections.publicVoices.count,
@@ -809,14 +830,54 @@ check('H2', 'The V2.1 universe counts are MEASURED, not declared', () => {
   const eq = (label, got, want) => { if (got !== want) bad.push(`${label}: ${got}, expected ${want}`); };
   eq('commercial products', C.productsCommercial.count, 51);
   eq('regulatory products', C.productsRegulatory.count, 163);
-  eq('label use pairs', C.productRelationships.count, 2030);
+  /* 2.030 -> 2.389 E 78 -> 84 SAO UMA MUDANCA DECLARADA, NAO UMA DERIVA.
+     Este controlo existe para apanhar linhas que somem em silencio, e apanhou
+     bem: quando `rotulos_ler.py` passou a reconhecer a coluna «Malattia
+     fungina», a parar de tratar uma frase como cabecalho de tabela e a nao ler
+     verbos no infinitivo como organismos, a leitura subiu de 102 para 119 dos
+     163 rotulos. O universo cresceu porque se leu mais do MESMO documento —
+     os 163 PDF sao byte a byte os de 02/09, sha256 conferido um a um.
+     Segunda subida declarada, 2.389 -> 2.702: o cabecalho da seccao de uso pedia
+     «MODALITA» sem acento e o rotulo escreve «MODALITÀ». Quarenta e seis
+     etiquetas tinham a seccao inteira do outro lado desse caractere.
+
+     TERCEIRA SUBIDA DECLARADA, 2.702 -> 5.402, E ESTA DOBRA O UNIVERSO.
+     Nao dobrou porque se afrouxou nada: dobrou porque doze dos quinze rotulos
+     novos entram pelo nivel FRACO, e o nivel fraco cruza duas listas.
+       · 2.702 -> 2.734, nivel FORTE: o cabecalho da seccao de uso e uma LISTA,
+         e o rotulo escreve-a na ordem que quer. «COLTURE, DOSI E MODALITA'
+         D'IMPIEGO» e o mesmo cabecalho, com um item mudado de lugar. Abriu
+         APYZA WG, APYZA 500 WG, DICURAN PLUS e STAVENTO, com cultura e alvo na
+         MESMA linha.
+       · 2.734 -> 5.402, nivel FRACO: ha rotulo que declara a cultura a abrir a
+         linha da SUA dose («Colza : 2 litri per ettaro») e nunca escreve «per
+         il diserbo di:». Abriu a familia da pendimetalina inteira — 12 rotulos
+         da mesma molecula com marcas diferentes. Ai o par nasce do cruzamento
+         entre a lista de culturas e a lista de daninhas que o rotulo declara
+         SEPARADAMENTE, e vai a tela com a frase que diz que NAO afirma controlo
+         daquela daninha naquela cultura. E a mesma leitura que os outros 42
+         rotulos de herbicida ja tinham; um rotulo com 16 culturas e 20 daninhas
+         contribui 320 linhas por construcao.
+     A trava que impediu o erro obvio: so se le a cultura quando a dose e POR
+     HECTARE. O ACTIVUS ME lista as mesmas culturas duas vezes — uma com a dose,
+     outra na «fascia di rispetto» de 20 metros dos cursos de agua — e nenhuma
+     das que so aparecem na faixa entrou.
+     84 -> 85 alvos distintos: um alvo novo, vindo do espectro da pendimetalina.
+
+     MEDIDO CONTRA CONTROLO: a cadeia correu primeiro sem alteracao nenhuma e
+     reproduziu V21-15071cc31d3461d3. Os numeros que NAO podiam mexer nao
+     mexeram: 43 casos, os cinco estados canonicos (WATCH 21, TO_VALIDATE 9,
+     FUTURE_PREPARATION 7, VALIDATE_NOW 4, ACT_NOW 2), 6 publicaveis e a LEI
+     ADAMA A=17 B=21 C=4 D=1. Zero pares saidos, zero rotulos que perderam a
+     leitura. */
+  eq('label use pairs', C.productRelationships.count, 5402);
   eq('active substances', C.activeIngredients.count, 53);
   /* CROPS and TARGETS are the label corpus's own vocabulary, recounted from the
      pairs rather than read off a list anybody typed. */
   const crops = new Set(C.productRelationships.records.map((r) => r.cropOnLabel).filter(Boolean));
   const targets = new Set(C.productRelationships.records.map((r) => r.target).filter(Boolean));
   eq('distinct label crops', crops.size, 35);
-  eq('distinct label targets', targets.size, 78);
+  eq('distinct label targets', targets.size, 85);
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
 });
 
@@ -1304,9 +1365,23 @@ check('I5', 'Italian interface strings are actually Italian', () => {
   const fit = flat(it), fen = flat(en);
   const PROPER = /^[A-Z0-9 ·§+\-/&.]+$/;            /* a code or an all-caps token */
   const SHORT = (s) => s.trim().split(/\s+/).length < 2;
+  /* ── IL NOME DI UNO STRUMENTO NON SI TRADUCE ────────────────────────────
+     «Label Intelligence» e uguale nelle due lingue perche e il NOME dello
+     strumento, non una frase di interfaccia — e la stessa ragione per cui
+     «Sintonia» e «ADAMA» non hanno una versione italiana. La regola di questo
+     controllo — it uguale a en vuol dire traduzione mai scritta — e giusta, e
+     su un nome proprio e falsa.
+
+         TRADURRE IL NOME DI UNO STRUMENTO NON FA DUE LINGUE.
+         FA DUE STRUMENTI.
+
+     L'esenzione e per CHIAVE, non per forma: una lista scritta, corta, che si
+     legge e si discute. Nessun euristica che indovini «sembra un nome» — quella
+     assolverebbe anche la traduzione dimenticata di domani. */
+  const NOMI_PROPRI = new Set(['navLabels', 'liTitle']);
   const bad = [];
   for (const [k, v] of Object.entries(fit)) {
-    if (!v || PROPER.test(v) || SHORT(v)) continue;
+    if (!v || PROPER.test(v) || SHORT(v) || NOMI_PROPRI.has(k)) continue;
     if (isEnglish(v)) bad.push(`it.${k} reads English: "${v.slice(0, 60)}"`);
     else if (fen[k] && fen[k] === v && v.length > 12) bad.push(`it.${k} === en.${k}: "${v.slice(0, 60)}"`);
   }
