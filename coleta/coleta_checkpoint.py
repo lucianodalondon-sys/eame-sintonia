@@ -71,8 +71,32 @@ class Banco:
         # É a mesma família do defeito que `pode_gastar` já carrega escrito no
         # corpo: ler a conversa do cliente de banco como se fosse a resposta do
         # banco.
-        cmd = ['psql', self.dsn, '-q', '-v', 'ON_ERROR_STOP=1',
-               '-tAF', '\x1f', '-c', sql]
+        # ⚠️ E AS OPÇÕES VÊM ANTES DO DSN, QUE É UM ARGUMENTO POSICIONAL.
+        # O `getopt` da glibc PERMUTA — lê as opções onde quer que estejam — e
+        # por isso `psql <dsn> -q -c <sql>` funcionou sempre no Linux e no CI.
+        # O `getopt` do Windows NÃO permuta: no primeiro argumento posicional
+        # ele para de procurar opções, e tudo o que vem depois passa a ser
+        # posicional também. O `-c <sql>` deixa de existir, o `psql` liga-se,
+        # lê o stdin vazio, imprime NADA e sai com ZERO.
+        #
+        #     UMA CONSULTA QUE NÃO CORRE E SAI COM ZERO
+        #     NÃO É UMA CONSULTA SEM RESULTADO: É UMA CONSULTA QUE NÃO SE FEZ.
+        #
+        # E as duas são indistinguíveis daqui: as duas devolvem `[]`. Medido
+        # nesta bancada a 2026-09-15, com a rota canónica italiana a correr
+        # contra Postgres real — `medidas/rastro_da_coleta.py::registrar` fez
+        # `banco.executa(sql)[0]` sobre a lista vazia e rebentou com
+        # `IndexError`, a três etapas de distância da causa. Rebentar foi o BOM
+        # desfecho: quem lê `[]` como «o banco não tem nada» continua calado.
+        #
+        # É a MESMA família do defeito que este método já carrega escrito seis
+        # linhas acima — ler a conversa do cliente como se fosse a resposta do
+        # banco. Aqui é o degrau anterior: nem conversa houve.
+        #
+        # A ordem não muda nada onde já funcionava. `provas/preservar_coleta_no_
+        # postgres.py` e `admissao/sala_de_espera.py` já escrevem assim.
+        cmd = ['psql', '-q', '-v', 'ON_ERROR_STOP=1',
+               '-tAF', '\x1f', '-c', sql, self.dsn]
         r = subprocess.run(cmd, capture_output=True, text=True)
         if r.returncode != 0:
             raise RuntimeError(ap.redigir(r.stderr.strip())[:400])
