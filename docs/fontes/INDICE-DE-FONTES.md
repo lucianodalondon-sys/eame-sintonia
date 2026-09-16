@@ -247,7 +247,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T3-021` | SIPaV — Societa Italiana di Patologia Vegetale | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · REGULATORY | 🟢 GREEN | sim |
 | `IT-T5-002` | FEM OpenPub — repositório de publicações | T5 · SCIENCE | 🟢 GREEN | **não** |
-| `IT-T5-003` | Giornate Fitopatologiche — atti e programma | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-003` | Bilanci fitosanitari regionali 2024-2025 — ciclo «I Gioved | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-006` | CNR — Consiglio Nazionale delle Ricerche | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-007` | Institut Agricole Regional — Aosta | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-008` | Fondazione Agrion — Fondazione per la ricerca l'innovazion | T5 · SCIENCE | 🟡 YELLOW | **não** |

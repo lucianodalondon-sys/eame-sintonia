@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2f0863d1acfc457bb87cb026319c56eb5ff0114f
+HEAD_DA_MEDICAO  d88e479f6fd5c475254e9b580a7930f1f2f3f4ff
 BRANCH           claude/it-sources-atlas-v1
-GERADO_EM        2026-09-15T18:33:44-03:00
+GERADO_EM        2026-09-16T13:33:58-03:00
 CARDS            72
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -561,7 +561,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/ITALY-SOURCE-MASTER-V1.md`, `candidatas/italy_fill_manifests.mjs`, `candidatas/italy_fill_manifests_browser.mjs`, `candidatas/italy_fix_semantics.mjs` _(e mais 3)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | candidatas/decidir_fila_italia.py:383; coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:29 |
 | **porquê** | estas pecas importam-na — C-DECISAO-DA-FILA · C-FONTE-DO-ATLAS · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |

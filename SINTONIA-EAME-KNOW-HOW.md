@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §126: a ordem entre lanes não se decide por contagem de conflitos; mede-se dependência lane×lane e o risco do erro que consegue passar em silêncio.
+**Última atualização material:** 2026-09-16 — §127: mudar de secção no site não cria fonte; `SOURCE` é quem publica, e `IT-ADAMA-CATALOG` passa a identificador legado de `IT-T9-008`.
 **Próxima missão autorizada:** PREPARAR ADAMA REFERENCE — reconciliar `claude/it-adama-reference-v1` contra o trunk oficial que existir no preflight; fotografia que fundamentou a decisão: trunk `f888b363`, Reference `91998964`, Sources `2f0863d1`. Não integrar no trunk sem review independente.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
@@ -15023,4 +15023,112 @@ NAO cria SOURCE_ID nem ADAMA_PRODUCT_ID, e não muda owner nenhum.
 NAO altera Collection, Intelligence, Portal, migration, deploy ou LIVE.
 NAO substitui o §124: ali está «conflitos != decisões». Aqui está a pergunta
    seguinte: «quando nenhuma ordem custa mais, qual erro consegue passar em silêncio?»
+```
+
+---
+
+# §127 · MUDAR DE SECÇÃO NO SITE NÃO CRIA FONTE — `SOURCE` É QUEM PUBLICA, E A PRÁTICA DO ATLAS NÃO REVOGA A BÍBLIA
+
+## O QUE MUDOU
+
+```
+IT_ADAMA_CATALOG_IDENTITY  =  PROVEN_EXISTING_SOURCE  →  IT-T9-008
+SOURCE_ID_CRIADO           =  0
+```
+
+`IT-ADAMA-CATALOG` viveu dois anos como identificador próprio — nasceu a 30/08/2026 no
+commit `77fe16d3`, espalhou-se por 21 ficheiros do trunk e nunca teve ficha no Atlas. O
+contrato da ADAMA Reference escreveu a dívida por extenso
+(`IT_ADAMA_CATALOG_ATLAS_REGISTRATION = PREEXISTING_GAP / NOT_PROVEN`) e devolveu-a à faixa
+Sources.
+
+Não é fonte nova. É **outro endpoint do mesmo publicador** — `ADAMA Italia S.r.l.` — e passa
+a viver como identificador legado dentro da ficha `IT-T9-008`.
+
+## POR QUÊ
+
+### 1 · A LEI JÁ TINHA O EXEMPLO EXACTO
+
+`COL-LAW-009` não define `SOURCE` por abstração: dá o par que decide.
+
+| entidade | pergunta | exemplo da Bíblia |
+|---|---|---|
+| `SOURCE` | quem publica / mantém | **ARPAV Veneto** |
+| `ENDPOINT` | onde tecnicamente se acessa | **a URL do boletim da zona 7** |
+
+A zona 7 não é uma segunda ARPAV. O catálogo não é uma segunda ADAMA.
+
+### 2 · AS QUATRO DIFERENÇAS QUE EXISTIAM SÃO AS QUATRO QUE NÃO CONTAM
+
+Entre `/it/articolo/*` e `/it/prodotti-adama/*` mudava: a URL, a secção do site, o tipo de
+conteúdo e o uso a que servia. **Nenhuma das quatro cria fonte.** Procurou-se um quinto
+ponto de diferença — publicador, pessoa jurídica, autoridade declarada — e não há: o próprio
+`CATALOG-SNAPSHOTS.json` escreve `AUTHORITY: ADAMA Italia S.r.l.`, a mesma entidade da ficha.
+
+### 3 · A PRÁTICA DO ATLAS DIZIA O CONTRÁRIO, E FOI MEDIDA
+
+No Atlas, 16 donos têm mais de uma ficha; dois têm mais de uma **no mesmo território**
+(`EU-T1-001`+`EU-T1-002`, `IT-T1-005`+`IT-T1-011`). Há dois precedentes com parentesco
+declarado — `ES-T5-002` (`DERIVA_DE: EU-T5-001`) e `EU-T12-001` («mesma fonte de
+`EU-T4-001`»).
+
+Isso é **prática**, e prática não revoga lei escrita. A régua da própria casa, em
+`candidatas/ITALY-SOURCE-MASTER-V1.md`, já dizia o mesmo que a Bíblia: *«uma organização pode
+ter vários canais, sem ser duplicada»* — e a tabela dos que *parecem um só e não são* separa
+sempre por **órgão distinto** (ARPAE × Serviço Fitossanitário; AGRIOS × VOG; SIAS × Sicilia
+SFR), nunca por secção de site.
+
+    DUAS FICHAS PARA O MESMO PUBLICADOR SÃO DUAS LISTAS A RESPONDER «QUE FONTES TEMOS»,
+    E A SEGUNDA ENVELHECE CALADA — É O QUE A COL-LAW-053 PROÍBE.
+
+## PROVA
+
+```
+COL-LAW-009            BIBLIA-CANONICA-DA-COLETA.md:189-201 — a tabela das seis entidades
+COL-LAW-053            BIBLIA-CANONICA-DA-COLETA.md:1402-1406 — cadastro único e derivado
+publicador é o mesmo   referencia/adama/CATALOG-SNAPSHOTS.json · AUTHORITY
+                       "ADAMA Italia S.r.l. (catalogo comercial proprio)"
+                       docs/fontes/ATLAS-DE-FONTES-EAME.md · IT-T9-008
+                       SOURCE_OWNER "ADAMA Italia S.r.l. (IT-OWN-040)"
+nunca foi alias        fontes/adama_referencia.py:112 mapeia IT-ADAMA-CATALOG a si mesmo;
+                       é o ALVO de SRC_ADAMA_COM, não um alias
+não nasceu na Reference commit 77fe16d3, 2026-08-30 — anterior à casa referencia/adama/
+régua da casa          candidatas/ITALY-SOURCE-MASTER-V1.md — «vários canais, sem ser
+                       duplicada» + a tabela «parecem um só e não são»
+prática medida         16 donos com >1 ficha; 2 com >1 ficha no mesmo território
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · Antes de emitir SOURCE_ID, perguntar QUEM PUBLICA — não onde está, nem o que entrega.
+    Se o publicador já tem ficha, o que se achou é ENDPOINT: declara-se na ficha dele.
+
+2 · As quatro razões que NÃO bastam, escritas para não se discutirem outra vez:
+        muda a URL · muda a secção do site · muda o tipo de conteúdo · muda o uso.
+
+3 · Identificador herdado NÃO se apaga. `IT-ADAMA-CATALOG` continua a nomear as fotos em
+    `referencia/adama/` e a pasta `data/samples/IT-ADAMA-CATALOG/`: é linhagem, e apagá-la
+    partiria a proveniência de 51 páginas já preservadas. Vive agora em
+    `IDENTIFICADORES_LEGADOS` na ficha IT-T9-008.
+
+4 · DÍVIDA ABERTA, COM DONO. `referencia/adama/SOURCE-ID-MAP.json` ainda escreve
+    `SRC_ADAMA_COM → IT-ADAMA-CATALOG` como `CANONICAL_SOURCE_ID`. O canónico é `IT-T9-008`.
+    O ficheiro tem BUILDER (`fontes/adama_referencia.py`, linhas 111-112 e 620) e dono
+    próprio — a faixa ADAMA Reference. Enquanto não seguir, há duas listas, e a COL-LAW-053
+    continua ferida.
+
+5 · Os precedentes ES-T5-002 e EU-T12-001 ficam de pé — não foram revistos aqui e esta secção
+    NÃO os declara errados. Ficam sinalizados para quem os reabrir com autoridade para isso.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO reabre nem corrige ES-T5-002, EU-T12-001, EU-T1-001/002 ou IT-T1-005/011.
+NAO altera referencia/adama/ — a dívida do ponto 4 é da faixa ADAMA Reference.
+NAO cria, apaga nem recicla SOURCE_ID: o universo media 220 antes e mede 220 depois.
+NAO promove nenhuma das 241 candidatas EM_ANALISE.
+NAO integra a Sources no trunk, e não corre coleta nenhuma.
+NAO substitui o §126: ali está a ordem entre faixas; aqui está o que é uma fonte.
 ```

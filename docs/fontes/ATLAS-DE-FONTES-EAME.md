@@ -6563,8 +6563,21 @@ LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missã
                               modo a partir de um IP não italiano, e isso não foi medido.
 REAL_EXAMPLE:                 «Notiziario Agrometeorologico & Fitosanitario Regionale n. 36 del 02
                               settembre 2026 — Settimanale N.36 Anno XL»
-                              https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N35_26-08-2026.pdf
-                              — application/pdf, 2723072 bytes, SHA256 conferido em 2026-09-07
+                              https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/2026/Notiziario_Agrometeorologico_N36_02-09-2026.pdf
+                              — application/pdf, 2703344 bytes,
+                              SHA256 e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859,
+                              reconferido contra os bytes em disco em 2026-09-16
+                              ⚠️ ATÉ 2026-09-16 ESTA LINHA DESCREVIA DOIS DOCUMENTOS COMO SE FOSSE
+                              UM: o título era o do n.36, e o endereço e os 2.723.072 bytes eram os
+                              do n.35. Os dois ficheiros são desta mesma fonte e os dois estão no
+                              manifesto — o defeito era só da citação. UMA CITAÇÃO QUE MISTURA DOIS
+                              DOCUMENTOS NÃO PROVA NENHUM DOS DOIS.
+OUTROS_DOCUMENTOS_NA_AMOSTRA: Notiziario n.35 de 26/08/2026 (2.723.072 bytes) · Bollettino
+                              Giornaliero Meteorologico n.136 de 07/09/2026 (1.446.423 bytes) —
+                              ambos com SHA256 próprio no manifesto
+ENDPOINT_QUE_SERVE:           www.agrometeopuglia.it — o portal agrometeo da ARIF Puglia. O endereço
+                              da ficha (arifpuglia.it) é o da agência; os boletins são servidos pelo
+                              portal. ENDEREÇO DIFERENTE, MESMO PUBLICADOR — COL-LAW-009.
 SOURCE_LOCATION:              Bari — ARIF Puglia
 FACT_LOCATION:                Puglia (regional)
 WHAT_IT_PROVES:               que a Puglia tem boletim regional semanal declaradamente
@@ -6736,18 +6749,29 @@ VERDICT:                      GREEN — fonte aberta, ficheiro bruto servido pel
                               SHA256 reconferido nesta missão
 ```
 
-#### IT-T5-003 · Giornate Fitopatologiche — atti e programma
+#### IT-T5-003 · AIPP — bilanci fitosanitari regionali («I Giovedì dell'AIPP»)
 
 ```
 SOURCE_ID:                    IT-T5-003
-SOURCE_NAME:                  Giornate Fitopatologiche — atti e programma
-SOURCE_OWNER:                 Giornate Fitopatologiche (IT-OWN-017)
+SOURCE_NAME:                  Bilanci fitosanitari regionali 2024-2025 — ciclo «I Giovedì
+                              dell'AIPP»
+SOURCE_OWNER:                 AIPP — Associazione Italiana per la Protezione delle Piante
+                              (IT-OWN-AIPP)
+EVENTO_ASSOCIADO:             Giornate Fitopatologiche (IT-OWN-GIORNATE-FITO) — comitê científico
+                              com site próprio, giornatefitopatologiche.it. É o EVENTO em que o
+                              material é apresentado, NÃO o publicador destes ficheiros.
+                              ⚠️ ATÉ 2026-09-16 ESTA FICHA DECLARAVA «Giornate Fitopatologiche
+                              (IT-OWN-017)» COMO DONO, e apontava para giornatefitopatologiche.it —
+                              mas os dois PDFs que a sustentam foram servidos por aipp.it, e o
+                              manifesto já dizia, desde 2026-09-07, `OWNER_ID: IT-OWN-AIPP` e «são
+                              DUAS organizações; não fundir». O dono agora é o que a prova mostra.
+                              QUEM HOSPEDA OS BYTES É QUEM PUBLICA; O EVENTO ONDE SE FALOU NÃO É.
 COUNTRY:                      ITALY
 REGION:                       nacional
 LANGUAGE:                     IT
 TERRITORY:                    T5
-SOURCE_TYPE:                  anais de congresso científico
-URL:                          https://www.giornatefitopatologiche.it
+SOURCE_TYPE:                  apresentação técnica de ciclo científico
+URL:                          https://aipp.it
 ACCESS_METHOD:                PDF
 CROPS:                        múltiplas
 TOPICS:                       cultura, problema, substância/prática quando explícita, autor,
@@ -6770,10 +6794,18 @@ LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missã
                               por VPN_COMERCIAL — nao e ISP residencial italiano (Milano,
                               Lombardia, IT — AS208172 Proton AG): a fonte pode responder de outro
                               modo a partir de um IP não italiano, e isso não foi medido.
-REAL_EXAMPLE:                 «Bilancio Fitosanitario Olivo 2024-2025 — Regione Basilicata /
-                              Regione Marche»
+REAL_EXAMPLE:                 «Bilancio Fitosanitario Olivo 2024-2025 — Regione Marche» (Alesi)
                               https://aipp.it/wp-content/uploads/2025/12/7_Alesi_olivo-2025_-Bilancio-Fitosanitario-Marche.pdf
-                              — application/pdf, 6585313 bytes, SHA256 conferido em 2026-09-07
+                              — application/pdf, 6585313 bytes,
+                              SHA256 924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6,
+                              reconferido contra os bytes em disco em 2026-09-16
+                              ⚠️ o título anterior dizia «Basilicata / Marche» ao lado do endereço
+                              e dos bytes de UM só dos dois ficheiros. São duas apresentações
+                              distintas, ambas preservadas; a citação agora descreve uma.
+OUTRO_DOCUMENTO_NA_AMOSTRA:   «Bilancio Fitosanitario Olivo 2024-2025 — Regione Basilicata»
+                              (Altieri), 3.991.102 bytes,
+                              SHA256 2a12cb316622a9a5c28c233f236befd29707ca0e19c84ebabf43023ff23ae34e
+EVIDENCE_HOST:                aipp.it (SERVER_IP 86.107.32.111) — os dois ficheiros, HTTP 200
 SOURCE_LOCATION:              evento nacional online
 FACT_LOCATION:                Basilicata e Marche — a regiao do balanco, DIFERENTE do local do
                               evento
@@ -6900,6 +6932,15 @@ VERDICT:                      YELLOW — o que está preservado é extrato do DO
 SOURCE_ID:                    IT-T9-008
 SOURCE_NAME:                  ADAMA Italia — comunicação pública
 SOURCE_OWNER:                 ADAMA Italia S.r.l. (IT-OWN-040)
+IDENTIFICADORES_LEGADOS:      IT-ADAMA-CATALOG — o catálogo comercial em
+                              www.adama.com/italia/it/prodotti-adama/*. NÃO é uma segunda fonte:
+                              é outro ENDPOINT do MESMO publicador, e por COL-LAW-009 endpoint
+                              não é fonte. Decidido em 2026-09-16; ver a nota logo abaixo da ficha.
+                              O identificador não se apaga — continua a nomear as fotos do catálogo
+                              em referencia/adama/ e em data/samples/IT-ADAMA-CATALOG/.
+ENDPOINTS_CONHECIDOS:         /it/articolo/*          artigo técnico datado (a amostra desta ficha)
+                              /it/prodotti-adama/*    catálogo comercial, 51 páginas de produto
+                              /it/sitemap.xml         enumeração, 261 endereços
 COUNTRY:                      ITALY
 REGION:                       nacional
 LANGUAGE:                     IT
@@ -6947,6 +6988,52 @@ EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.
 VERDICT:                      YELLOW — o que está preservado é extrato do DOM lido por navegador —
                               o manifesto declara que NÃO são os bytes servidos pelo site
 ```
+
+##### `IT-ADAMA-CATALOG` não é uma segunda fonte — decidido em 2026-09-16
+
+O catálogo comercial da ADAMA Itália andou dois anos com identificador próprio,
+`IT-ADAMA-CATALOG`, sem nunca ter ficha neste atlas. A pergunta era: fonte nova, ou
+outro endereço da fonte que já está aqui?
+
+**A lei decide, e a prática não a revoga.** `COL-LAW-009` define as seis entidades e dá o
+exemplo que fecha o caso:
+
+| entidade | pergunta | exemplo da Bíblia | aqui |
+|---|---|---|---|
+| `SOURCE` | quem publica / mantém | **ARPAV Veneto** | **ADAMA Italia S.r.l.** |
+| `ENDPOINT` | onde tecnicamente se acessa | a URL do boletim da zona 7 | `/it/prodotti-adama/*` · `/it/articolo/*` |
+| `DISCOVERED ITEM` | o que se achou lá | o boletim de hoje | uma página de produto · um artigo |
+| `ARTIFACT` | a evidência preservada | o PDF com SHA-256 | as 51 páginas com SHA256 |
+
+O que separa o catálogo do artigo é **só** isto: muda a URL, muda a secção do site, muda o
+tipo de conteúdo, muda o uso a que serve. **Nenhuma dessas quatro coisas cria uma fonte.**
+O publicador é o mesmo — `ADAMA Italia S.r.l.`, a mesma pessoa jurídica que
+`CATALOG-SNAPSHOTS.json` nomeia em `AUTHORITY`. Não há um quinto ponto de diferença.
+
+A própria casa já escreveu a régua em `candidatas/ITALY-SOURCE-MASTER-V1.md`:
+**«uma organização pode ter vários canais, sem ser duplicada»** — e a tabela ao lado, dos
+que *parecem um só e não são*, separa sempre por **órgão distinto** (ARPAE × Serviço
+Fitossanitário; AGRIOS × VOG), nunca por secção de site.
+
+```
+IT_ADAMA_CATALOG_IDENTITY  =  PROVEN_EXISTING_SOURCE  →  IT-T9-008
+SOURCE_ID_CRIADO           =  0
+```
+
+**O identificador não se apaga.** `IT-ADAMA-CATALOG` continua a nomear as fotos do catálogo
+em `referencia/adama/CATALOG-SNAPSHOTS.json` e a pasta `data/samples/IT-ADAMA-CATALOG/` —
+é linhagem, e apagá-la partiria a proveniência de 51 páginas já preservadas.
+
+⚠️ **Fica uma dívida que não é desta faixa.** `referencia/adama/SOURCE-ID-MAP.json` ainda
+escreve `SRC_ADAMA_COM → IT-ADAMA-CATALOG` como `CANONICAL_SOURCE_ID`. Pela decisão acima o
+canónico é `IT-T9-008`, e `IT-ADAMA-CATALOG` passa a legado. Esse ficheiro tem `BUILDER`
+declarado (`fontes/adama_referencia.py`, linhas 111-112 e 620) e **dono próprio** — a faixa
+ADAMA Reference. Corrigi-lo à mão aqui seria editar saída de gerador alheio.
+`COL-LAW-053` exige leitura única: enquanto as duas listas discordarem, a segunda envelhece
+calada.
+
+    HERDAR UM IDENTIFICADOR NÃO É CERTIFICÁ-LO — E NÃO O CORRIGIR NA CASA DO VIZINHO
+    NÃO É DEIXÁ-LO ERRADO: É NÃO ESCREVER PELA MÃO DELE.
 
 #### IT-T10-002 · BMTI — analisi di mercato cereali
 
