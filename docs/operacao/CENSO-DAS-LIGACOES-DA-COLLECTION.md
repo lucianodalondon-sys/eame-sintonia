@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b4b38b3c756154857804c462cc5d8f9e1d89c048
+HEAD_DA_MEDICAO  91998964f9e822c2885a5019a267e20516a14cca
 BRANCH           claude/it-adama-reference-v1
-GERADO_EM        2026-09-16T11:11:20-03:00
+GERADO_EM        2026-09-15T18:20:30-03:00
 CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
