@@ -99,7 +99,11 @@ nunca fica em branco e nunca é preenchido por plausibilidade.
 ```
 SOURCE_ID:                    # ex.: FR-T3-001
 SOURCE_NAME:
-SOURCE_OWNER:                 # quem publica e responde pelo dado
+SOURCE_OWNER:                 # quem publica e responde pelo dado — a ENTIDADE, pelo nome.
+                              # Um «(IT-OWN-nnn)» ao lado é a chave do catálogo candidato
+                              # candidatas/ITALY-SOURCE-MASTER-V1.json, útil para cruzar com ele;
+                              # NÃO é identidade canónica de dono. O SINTONIA ainda não tem
+                              # SOURCE_OWNER_STABLE_ID (decidido em 2026-09-16, know-how §127-5b.2).
 COUNTRY:                      # EUROPE | FRANCE | SPAIN | ITALY
 REGION:
 LANGUAGE:
@@ -6946,24 +6950,22 @@ VERDICT:                      YELLOW — o que está preservado é extrato do DO
 SOURCE_ID:                    IT-T9-008
 SOURCE_NAME:                  ADAMA Italia — comunicação pública
 SOURCE_OWNER:                 ADAMA Italia S.r.l. (IT-OWN-040)
-                              OWNER_ID_LEGACY: IT-OWN-ADAMA-IT — até 2026-09-16 o manifesto da
-                              amostra e regras/italy_contracts.mjs chamavam a este mesmo dono
-                              IT-OWN-ADAMA-IT («ADAMA Italia», nome curto). Reconciliado no mesmo
-                              dia: é a MESMA entidade (os dois ids eram o dono declarado desta
-                              mesma fonte, mesmo site, nascidos no mesmo commit 2640c5e0); o
-                              canónico é o desta ficha, porque na cadeia de autoridade da casa
-                              (provas/a_autoridade_da_fonte.py) a ficha no registo canónico decide
-                              e o .mjs é contrato de ACESSO. O nome antigo não se apaga: está
-                              escrito no MASTER, no manifesto e no contrato num campo chamado
-                              OWNER_ID_LEGACY — ⚠️ REPRESENTAÇÃO PROVISÓRIA, SEM CONTRATO: o campo
-                              nasceu em 2026-09-16 por analogia com SOURCE_ID, não há mecanismo
-                              canónico de alias de dono, e este atlas identifica o dono por NOME
-                              (IT-OWN-* é chave do catálogo candidato). Gate BLOCKED; ver
-                              know-how §127-5b.1. Não copiar para outros donos.
-                              ⚠️ Só a ADAMA foi reconciliada. Outros 11 manifestos (ISTAT, BMTI,
-                              ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF,
-                              Bayer) continuam com id de dono nomeado diferente do MASTER — dívida
-                              medida, com dono na faixa Sources, NÃO paga aqui.
+                              O FACTO é a entidade: ADAMA Italia S.r.l. O «(IT-OWN-040)» é a chave
+                              do catálogo candidato ITALY-SOURCE-MASTER-V1 — chave operacional,
+                              NÃO identidade canónica (decidido em 2026-09-16; know-how §127-5b.2:
+                              o SINTONIA ainda não tem SOURCE_OWNER_STABLE_ID). HISTÓRIA DA CHAVE:
+                              até 2026-09-16 o manifesto da amostra e regras/italy_contracts.mjs
+                              usavam a chave IT-OWN-ADAMA-IT («ADAMA Italia», nome curto) para
+                              esta mesma entidade e esta mesma fonte; passaram a usar a chave do
+                              MASTER, e a chave anterior fica escrita neles como metadado do
+                              mecanismo que a criou. Nenhuma das duas chaves é «canónica» nem
+                              «legado»: são duas chaves do mesmo catálogo candidato. Um campo
+                              OWNER_ID_LEGACY existiu entre e060bc55 e d376c268 e foi retirado —
+                              era alias inventado por analogia com SOURCE_ID, sem contrato.
+                              ⚠️ Só a ADAMA teve a chave alinhada. Outros 11 manifestos (ISTAT,
+                              BMTI, ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero,
+                              MASAF, Bayer) continuam com chave nomeada diferente do MASTER —
+                              dívida medida, da faixa Sources, NÃO paga aqui.
 IDENTIFICADORES_LEGADOS:      IT-ADAMA-CATALOG — o catálogo comercial em
                               www.adama.com/italia/it/prodotti-adama/* (31 páginas) e
                               /it/prodotti/* (20 páginas). NÃO é uma segunda fonte:

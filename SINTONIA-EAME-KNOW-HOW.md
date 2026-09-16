@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §127 (revisto no mesmo dia): mudar de secção no site não cria fonte, mas «mesmo publicador» não prova, por si, «mesma fonte»; `IT-ADAMA-CATALOG` é legado de `IT-T9-008` por factos (mesma entidade, mesmo site, um só sitemap), a ADAMA Reference seguiu pelo builder, e «quem hospeda os bytes é quem publica» foi retirada.
+**Última atualização material:** 2026-09-16 — §127 (revisto no mesmo dia, até 5b.2): mudar de secção no site não cria fonte, mas «mesmo publicador» não prova, por si, «mesma fonte»; `IT-ADAMA-CATALOG` é legado de `IT-T9-008` por factos; e **o SINTONIA ainda não tem identidade canónica de SOURCE_OWNER** — `IT-OWN-*` é chave do catálogo candidato, o facto é a entidade pelo nome, e `OWNER_ID_LEGACY` foi retirado.
 **Próxima missão autorizada:** PREPARAR ADAMA REFERENCE — reconciliar `claude/it-adama-reference-v1` contra o trunk oficial que existir no preflight; fotografia que fundamentou a decisão: trunk `f888b363`, Reference `91998964`, Sources `2f0863d1`. Não integrar no trunk sem review independente.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
@@ -15217,6 +15217,83 @@ obedeçam — e só então o campo deixa de ser provisório (ou muda de nome).
     HISTORY_EXISTS != CANONICAL_ALIAS_MECHANISM_EXISTS.
     UM CAMPO QUE NENHUM VALIDADOR CONHECE FOI ACEITE PORQUE O JSON IGNORA O DESCONHECIDO.
 
+#### 5b.2 · DECIDIDO: O SINTONIA AINDA NÃO TEM IDENTIDADE CANÓNICA DE SOURCE_OWNER — `IT-OWN-*` É CHAVE DE CATÁLOGO CANDIDATO  [REV 4]
+
+## O QUE
+
+```
+SOURCE_OWNER_IDENTITY_MODE  = NO_CANONICAL_STABLE_ID_YET
+IT_OWN_CURRENT_SEMANTICS    = CANDIDATE_OWNER_KEY
+ADAMA · SOURCE_OWNER_ENTITY = ADAMA Italia S.r.l.      (o facto — o Atlas escreve a entidade)
+ADAMA · IT-OWN-040          = chave do catálogo candidato, alinhada em MASTER, manifesto e .mjs
+ADAMA · IT-OWN-ADAMA-IT     = chave anterior do manifesto e do .mjs; história, escrita neles
+OWNER_ID_LEGACY             = RETIRADO (existiu entre e060bc55 e d376c268)
+```
+
+O bloqueio do 5b.1 fecha-se pela **opção B**: em vez de criar um contrato de identidade de
+dono para desbloquear a Sources, mediu-se se a casa *precisa* de um — e não precisa ainda.
+
+## POR QUÊ
+
+1. **O Atlas, registo canónico, identifica o dono pela ENTIDADE (nome).** 168 das 176 fichas
+   escrevem só o nome em `SOURCE_OWNER`; o glossário define «quem publica e responde pelo
+   dado». As 8 com `(IT-OWN-…)` são as italianas de 15-16/09, que trouxeram a chave do MASTER.
+   Oito fichas recentes não fazem lei para 168.
+2. **`IT-OWN-*` nasceu no candidato e vive só nele.** 58 valores distintos em ficheiros
+   vivos: 44 numéricos, todos registados em `candidatas/ITALY-SOURCE-MASTER-V1.json` (45
+   registos, com `IT-OWN-AIPP`); 14 nomeados, dos quais **13 não têm registo em lado nenhum** —
+   são etiquetas escritas à mão nos manifestos de 07/09 e em `regras/italy_contracts.mjs`. Um
+   namespace onde 13 de 58 valores não resolvem não é um registo de identidade.
+3. **Nenhuma peça de runtime depende de `IT-OWN-*`.** `coleta/`, `admissao/`, `pedido/`,
+   `leis/`, `guarda/`, `supabase/`: zero ocorrências. A única prova que escreve `organizacao`
+   (`provas/a_rota_m2_atravessa.py`) fá-lo por `nome_canonico`, não por chave. O único
+   consumidor real é `system-map/scripts/scan_sources.py`, que usa `OWNER_ID` como **chave de
+   junção interna do MASTER** para exibir o nome — uso operacional, não identidade.
+4. **A própria casa já o tinha dito.** `provas/a_autoridade_da_fonte.py`: «SOURCE CATALOG
+   DECLARATION != DB IDENTITY AUTHORITY · CANDIDATE RECORD != CANONICAL FACT»; e o registo de
+   autoridades não tem dono para «identidade de organização». Promover a chave do candidato a
+   identidade canónica seria «escrever a resposta no exame» (AU6).
+5. **Não há necessidade provada.** Nenhum consumidor pede um id estável de dono; nenhum dono
+   foi medido em dois países; nenhum contrato canónico referencia `IT-OWN-*`. Criar contrato,
+   registo, namespace e validador agora seria arquitetura sem cliente — e uma segunda
+   autoridade em cima de um catálogo que se declara «aditivo».
+
+## PROVA
+
+```
+Atlas por nome           docs/fontes/ATLAS-DE-FONTES-EAME.md — 168/176 SOURCE_OWNER sem
+                         «(…-OWN-…)»; glossário linha ~102
+censo IT-OWN-*           58 distintos · 44 numéricos (MASTER) · 14 nomeados · 13 sem registo
+                         (script sobre git ls-files, excluindo handoff/ build/ research/ gerados)
+manifestos               15 com OWNER_ID · 11 com chave diferente do MASTER
+contratos .mjs           13 OWNER_ID · 5 numéricos · 8 nomeados
+runtime                  grep IT-OWN em coleta/ admissao/ pedido/ leis/ guarda/ supabase/ = 0
+                         provas/a_rota_m2_atravessa.py:266-271 — insert organizacao por nome_canonico
+consumidor               system-map/scripts/scan_sources.py:332-341 — join OWNER_ID → nome
+candidato ≠ canónico     provas/a_autoridade_da_fonte.py:26-27, AU5b, AU6
+dono do conceito         controle/AUTORIDADES-CANONICAS.json — nenhum CONCEPT_OWNER de identidade
+guarda executável        tests/test_source_owner_identity.py
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · SOURCE_OWNER é a ENTIDADE, escrita pelo nome na ficha do Atlas. É isso que se cita.
+2 · IT-OWN-* é chave operacional do catálogo candidato. Não se chama «canónico», não se chama
+    «legado», não ganha alias, não se copia entre catálogos como se fosse identidade.
+3 · O nome capturado numa amostra (ex.: «ADAMA Italia») não é identidade: fica como
+    OWNER_NAME_AS_CAPTURED / história, ao lado da entidade.
+4 · Quando (e se) um consumidor precisar de SOURCE_OWNER_STABLE_ID — dono em dois países,
+    junção entre registos canónicos, runtime — abre-se um contrato próprio de
+    SOURCE_OWNER_IDENTITY (dono único, registado no controle, com validador). Não antes.
+5 · Os outros 11 manifestos com chave nomeada continuam dívida do candidato; alinhar chaves
+    é arrumação do MASTER, não decisão de identidade. ARPAV só depois de AU9.
+6 · IT-ADAMA-CATALOG → legado → IT-T9-008 (fonte) NÃO é tocado por isto: fonte tem
+    identidade canónica (SOURCE_ID, dono: Atlas); dono de fonte ainda não tem.
+```
+
+    O FACTO É A ENTIDADE. A CHAVE É DO CATÁLOGO. NÃO SE PROMOVE A CHAVE PARA FECHAR UM GATE.
+
 ⚠️ **O achado maior fica em aberto.** Medido **antes** desta reconciliação: em 15 manifestos
 com `OWNER_ID`, 12 usavam um id nomeado diferente do MASTER e só 3 coincidiam (APOL `012`,
 FEM `014`, AIPP); o `.mjs` misturava os dois vocabulários (4 numéricos, 9 nomeados). **Depois**
@@ -15228,11 +15305,13 @@ continuar divergente. Reconciliar os outros 11 é missão própria, da faixa Sou
 só depois de alguém decidir o que fazer com `AU9`.
 
 ```
-ADAMA_OWNER_IDENTITY      = PROVEN_SAME_ENTITY
-CANONICAL_ADAMA_OWNER_ID  = IT-OWN-040
-LEGACY_ADAMA_OWNER_ID     = IT-OWN-ADAMA-IT
-OWNER_VOCABULARY_DEBT     = 11 manifestos + 8 contratos com id nomeado, NÃO reconciliados
+ADAMA_OWNER_IDENTITY      = PROVEN_SAME_ENTITY   (ADAMA Italia S.r.l. — a entidade, pelo nome)
+ADAMA_OWNER_KEY_ALIGNED   = IT-OWN-040           (chave do catálogo candidato; ver 5b.2)
+ADAMA_OWNER_KEY_PREVIOUS  = IT-OWN-ADAMA-IT      (história, escrita nos três produtores)
+OWNER_VOCABULARY_DEBT     = 11 manifestos + 8 contratos com chave nomeada, NÃO alinhados
 ```
+*(Este bloco dizia `CANONICAL_ADAMA_OWNER_ID` / `LEGACY_ADAMA_OWNER_ID`; reescrito em 5b.2 —
+chave de catálogo não se chama canónica nem legado.)*
 
 ### 6 · O «51» — AUDITADO  [REV]
 

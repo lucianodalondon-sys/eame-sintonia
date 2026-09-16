@@ -662,10 +662,7 @@
    "PROVINCE": "Bergamo (Grassobbio)",
    "WEBSITE": "https://www.adama.com/italia",
    "competitor_layer": "SELF",
-   "OWNER_ID_LEGACY": [
-    "IT-OWN-ADAMA-IT"
-   ],
-   "owner_id_note": "reconciliado em 2026-09-16: o manifesto de IT-T9-008 e regras/italy_contracts.mjs chamavam a este mesmo dono IT-OWN-ADAMA-IT (nome curto «ADAMA Italia»). E a mesma entidade — os dois ids eram o dono declarado da MESMA fonte IT-T9-008, com o mesmo site, nascidos no mesmo commit 2640c5e0. O canonico e o que a ficha do Atlas diz (IT-OWN-040): pela cadeia de autoridade da casa (provas/a_autoridade_da_fonte.py) a ficha no registo canonico decide, e o .mjs e contrato de ACESSO. O nome antigo nao se apaga: fica aqui, no manifesto e no contrato como OWNER_ID_LEGACY. AVISO: OWNER_ID_LEGACY e representacao PROVISORIA, sem contrato canonico (gate BLOCKED em 2026-09-16; know-how §127-5b.1). Nao copiar para outros donos."
+   "owner_id_note": "OWNER_ID e a CHAVE deste catalogo candidato, nao identidade canonica de dono (decidido em 2026-09-16; know-how §127-5b.2: o SINTONIA ainda nao tem SOURCE_OWNER_STABLE_ID; o facto canonico e a entidade, ADAMA Italia S.r.l., como o Atlas escreve). HISTORIA DA CHAVE: ate 2026-09-16 o manifesto de IT-T9-008 e regras/italy_contracts.mjs usavam a chave IT-OWN-ADAMA-IT (nome curto «ADAMA Italia») para esta mesma entidade e esta mesma fonte — os dois valores nasceram no mesmo commit 2640c5e0; passaram a usar esta chave, e a anterior fica registada la como metadado do mecanismo que a criou. Um campo OWNER_ID_LEGACY existiu aqui entre e060bc55 e d376c268 e foi retirado: era alias inventado por analogia com SOURCE_ID, sem contrato. Nao copiar chaves entre catalogos como se fossem identidade."
   },
   {
    "OWNER_ID": "IT-OWN-041",

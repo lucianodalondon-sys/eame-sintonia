@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-16T18:35:07+00:00",
-  "HEAD": "e060bc55d145519345a17fc4348014829ecf5434",
+  "GENERATED_AT": "2026-09-16T19:01:09+00:00",
+  "HEAD": "d376c2687826e7696552a4b9c5941e58332e39c6",
   "BRANCH": "claude/it-sources-atlas-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0b442942c8045fa3c4948af9ff2308196410108c93b082e1a76a88c31989b135",
-  "FICHEIROS_NA_IMPRESSAO": 2211,
+  "SOURCE_TREE_FINGERPRINT": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f",
+  "FICHEIROS_NA_IMPRESSAO": 2212,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2792,7 +2792,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "d7ba275faf72af7066430e24bb9e09acf561f8fe",
+    "VERSAO": "6c7d25d1536ab0cbe72ced3555a13f07d2fd57f2",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2897,14 +2897,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0b442942c8045fa3c4948af9ff2308196410108c93b082e1a76a88c31989b135",
+    "VERSAO": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0b442942c8045fa3c4948af9ff2308196410108c93b082e1a76a88c31989b135",
+    "VERSAO": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3289,7 +3289,7 @@
    {
     "PATH": "tests/test_adama_referencia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a397399c0aa5c41b7208f5ff21549ad307897e96",
+    "VERSAO": "f082a7cbe1dc03b852b48d0b353ec9566edb1702",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4422,7 +4422,7 @@
    }
   ],
   "INPUTS_COUNT": 626,
-  "INPUTS_DIGEST": "4d433fc8f16bd221ed0da6fc69a5453deca6690e3d590a3512e0a36b47e2329b",
+  "INPUTS_DIGEST": "14351a310348ce8dd648fd0488210bf125486a3d642d9663527365c794eff095",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4455,8 +4455,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "627cfa59e76922f0b825180f3899406ff26b2fe2a1f95c1531ef96b9f1268061",
-  "SEMANTIC_HASH": "f9e2a8ac0831f61f135396c764592fbe52cb09e90fd436fbea95d2ac508c09ad"
+  "MEASUREMENT_HASH": "3b3d5f9c24332c04c86e0e1f157a608ca0909e0ee74b20acd2211eb62c3b15ab",
+  "SEMANTIC_HASH": "9d5d54a8f2f0b1d69f9972c5c3c07ddc0200b5512d2aab459412066b5a44b291"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -19072,14 +19072,6 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
-      "FICHEIRO": "tests/test_adama_referencia.py",
-      "LINHA": 410,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
       "FICHEIRO": "tests/test_autoridade_da_fonte.py",
       "LINHA": 84,
       "SUPPORTS": "YES",
@@ -19785,14 +19777,6 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "tests/test_adama_referencia.py",
-      "LINHA": 422,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
      {
       "FICHEIRO": "tests/test_alvo_estruturado_resolvido.py",
       "LINHA": 233,
@@ -38603,7 +38587,6 @@
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/generate_system_map.py",
     "system-map/scripts/scan_sources.py",
-    "tests/test_adama_referencia.py",
     "tests/test_autoridade_da_fonte.py",
     "tests/test_fila_italia_decisoes.py",
     "tests/test_forward_instrumentado.py",
@@ -38749,7 +38732,6 @@
     "provas/a_collection_preserva_o_fato.py",
     "provas/italy_pilot_negativos.mjs",
     "system-map/scripts/scan_repo.py",
-    "tests/test_adama_referencia.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_source_id.py"
    ],

@@ -2655,9 +2655,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-sources-atlas-v1",
-    "HEAD": "e060bc55d145519345a17fc4348014829ecf5434",
-    "GENERATED_AT": "2026-09-16T15:19:55-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0b442942c8045fa3c4948af9ff2308196410108c93b082e1a76a88c31989b135"
+    "HEAD": "d376c2687826e7696552a4b9c5941e58332e39c6",
+    "GENERATED_AT": "2026-09-16T15:36:29-03:00",
+    "SOURCE_TREE_FINGERPRINT": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f"
   },
   "FAMILIES": [
     {
@@ -7347,7 +7347,7 @@
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
               "como_se_entra": "JSON",
-              "dono": "ADAMA Italia S.r.l. (IT-OWN-040) OWNER_ID_LEGACY: IT-OWN-ADAMA-IT — até 2026-09-16 o manifesto da amostra e regras/italy_contracts.mjs chamavam a este mesmo dono IT-OWN-ADAMA-IT («ADAMA Italia», nome curto). Reconciliado no mesmo dia: é a MESMA entidade (os dois ids eram o dono declarado desta mesma fonte, mesmo site, nascidos no mesmo commit 2640c5e0); o canónico é o desta ficha, porque na cadeia de autoridade da casa (provas/a_autoridade_da_fonte.py) a ficha no registo canónico decide e o .mjs é contrato de ACESSO. O nome antigo não se apaga: está escrito no MASTER, no manifesto e no contrato num campo chamado OWNER_ID_LEGACY — ⚠️ REPRESENTAÇÃO PROVISÓRIA, SEM CONTRATO: o campo nasceu em 2026-09-16 por analogia com SOURCE_ID, não há mecanismo canónico de alias de dono, e este atlas identifica o dono por NOME (IT-OWN-* é chave do catálogo candidato). Gate BLOCKED; ver know-how §127-5b.1. Não copiar para outros donos. ⚠️ Só a ADAMA foi reconciliada. Outros 11 manifestos (ISTAT, BMTI, ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF, Bayer) continuam com id de dono nomeado diferente do MASTER — dívida medida, com dono na faixa Sources, NÃO paga aqui.",
+              "dono": "ADAMA Italia S.r.l. (IT-OWN-040) O FACTO é a entidade: ADAMA Italia S.r.l. O «(IT-OWN-040)» é a chave do catálogo candidato ITALY-SOURCE-MASTER-V1 — chave operacional, NÃO identidade canónica (decidido em 2026-09-16; know-how §127-5b.2: o SINTONIA ainda não tem SOURCE_OWNER_STABLE_ID). HISTÓRIA DA CHAVE: até 2026-09-16 o manifesto da amostra e regras/italy_contracts.mjs usavam a chave IT-OWN-ADAMA-IT («ADAMA Italia», nome curto) para esta mesma entidade e esta mesma fonte; passaram a usar a chave do MASTER, e a chave anterior fica escrita neles como metadado do mecanismo que a criou. Nenhuma das duas chaves é «canónica» nem «legado»: são duas chaves do mesmo catálogo candidato. Um campo OWNER_ID_LEGACY existiu entre e060bc55 e d376c268 e foi retirado — era alias inventado por analogia com SOURCE_ID, sem contrato. ⚠️ Só a ADAMA teve a chave alinhada. Outros 11 manifestos (ISTAT, BMTI, ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF, Bayer) continuam com chave nomeada diferente do MASTER — dívida medida, da faixa Sources, NÃO paga aqui.",
               "url": "https://www.adama.com/italia",
               "atualiza": "NÃO SEI",
               "exemplo": "«Orticole: come controllare le infestanti, anche quelle piu difficili» https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili — application/json, 5295 bytes, SHA256 conferido em 2026-09-07",
@@ -36096,7 +36096,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 38,
+        "ITALIA": 36,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -64408,24 +64408,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 410,
-          "snippet": "master = ler_raiz(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
-            "FROM": "C-IT-CATALOGO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
         {
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 84,
@@ -65552,24 +65536,8 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 422,
-          "snippet": "with io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
-            "FROM": "C-IT-CONTRATOS",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 233,
