@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §124: contagem de conflitos não é contagem de decisões, e a reescrita do histórico fica por fazer por decisão da coordenação.
+**Última atualização material:** 2026-09-16 — §125: a prova do System Map é a cadeia canónica completa; `PASS` de um subgerador isolado deixou 8 derivados a descrever a máquina anterior.
 **Próxima missão autorizada:** REMEASURE_COLLECTION_REFERENCE_SOURCES — **a faixa COLLECTION já foi reconciliada** (§124, merge `167d35d3` contra o trunk `cb88bff5`) e está apta a fast-forward; falta integrá-la, e integrar é decisão da coordenação. `REFERENCE` e `SOURCES` continuam `DIVERGED` (§122) — e a ordem de ataque é por DECISÕES esperadas, não por total de conflitos: `REFERENCE` tem menos conflitos que `SOURCES` e mais trabalho real.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
@@ -14787,4 +14787,104 @@ NAO registra coleta nova, migration, deploy, Portal nem LIVE.
 NAO repete o §122 nem o §123: ali esta a ordem das faixas, o encoding da
    medicao, a redaccao no HEAD e o que o HEAD nao resolve. Aqui esta como se
    classifica um conflito e porque a reescrita fica por fazer.
+```
+
+---
+
+# §125 · UM SUBGERADOR VERDE NÃO PROVA A CADEIA — `PASS` DE UM PASSO NÃO É FRESCURA DOS VINTE
+
+## O QUE MUDOU
+
+```
+A prova oficial do System Map é a CADEIA CANÓNICA COMPLETA, e não a execução
+isolada de um dos geradores dela.
+
+    py system-map/scripts/correr_a_cadeia.py REGERAR
+    py system-map/scripts/correr_a_cadeia.py VALIDAR
+
+`generate_system_map.py` é o passo 18 de 20. Chamá-lo por caminho e ver
+`SYSTEM_MAP_CHECK=PASS` NÃO prova que a árvore derivada está fresca.
+```
+
+## POR QUÊ
+
+O `validate_system_map.py` compara o mapa commitado com uma regeneração — mas a
+regeneração dele **não cobre os vinte passos**. Um passo isolado atualiza o que
+esse passo escreve, o validador confere o que o validador sabe conferir, e os
+dois concordam **sobre o pedaço que ambos olham**.
+
+    DOIS INSTRUMENTOS QUE OLHAM PARA A MESMA METADE
+    CONCORDAM SOBRE A METADE, E CALAM-SE SOBRE A OUTRA.
+
+O preço não é teórico, e não é um número desalinhado: são artefactos derivados a
+**descrever uma versão da máquina que já não existe**. `topologia`,
+`censo-da-coleta` e `donos` guardam a `VERSAO` — o blob — dos ficheiros que
+descrevem. Depois do passo isolado, e com o portão verde, eles ainda diziam:
+
+```
+b8bdda45   admissao/admissao.py            (a versão ANTERIOR à faixa)
+072c87cd   coleta/coleta_checkpoint.py
+e9980f36   coleta/italy_pilot_collect.mjs
+```
+
+Quem lesse o mapa nesse estado leria a Collection **de antes da reconciliação**,
+com um `PASS` a garantir-lhe que estava a ver o presente.
+
+## PROVA
+
+```
+reconciliação da faixa COLLECTION · commit final 3ab73bfb
+
+passo isolado (d53864d7 · ea7a300b · 5f545c8e)
+    generate_system_map.py + validate_system_map.py
+    SYSTEM_MAP_CHECK = PASS
+
+cadeia canónica depois (3ab73bfb) · 20 passos
+    14 artefactos alterados NO COMMIT
+     8 deles NUNCA tocados pelo passo isolado:
+         buracos · censo-da-coleta · congelamento · donos
+         executores · pente-fino · semantica-it · topologia
+     3 blobs obsoletos substituídos, 2 ocorrências cada
+    +2 ficheiros sujaram a worktree e NÃO entraram no commit:
+         fluxo · observabilidade — churn de CRLF, conteúdo igual
+
+delta estrutural: NODES 209 · EDGES 1059 · TERRITORIES 25 · FAMILIES 5
+    novos = 0 · removidos = 0   (antes da cadeia, depois, e contra o trunk)
+```
+
+⚠️ **E os números deste parágrafo corrigem os que eu próprio relatei.** A entrega
+da reconciliação dizia «16 artefactos, 10 por atualizar». Isso veio do
+`git status` **durante** a corrida. O Git, medido no commit, diz **14 e 8** — os
+outros dois eram terminação de linha, que o repositório normaliza e o commit não
+regista.
+
+    CONTAR PELA ÁRVORE SUJA CONTA TAMBÉM O QUE NÃO VAI FICAR.
+    O QUE FICOU MEDE-SE NO COMMIT.
+
+## CONSEQUÊNCIA
+
+```
+1 · Missão que exija regenerar/validar o System Map usa o entrypoint canónico
+    completo. Nunca `generate_system_map.py` por caminho.
+
+2 · `PASS` de um subgerador não é evidência de frescura. Ao fechar, `git status`
+    só pode mostrar re-carimbo — HEAD_DA_MEDICAO, GERADO_EM, GENERATED_AT.
+    Se mostrar conteúdo, a cadeia ainda tem o que dizer.
+
+3 · Delta de artefactos conta-se no COMMIT, não na worktree: a worktree inclui
+    churn de CRLF que o repositório normaliza e que nunca chega a existir.
+
+4 · Stale derived state não cria peça nem aresta. Por isso não aparece no
+    contador estrutural, e por isso só se apanha correndo a cadeia inteira.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra defeito consertado: `generate_system_map.py` continua a dizer
+   `MAPA=OK` sem refazer os derivados dos outros passos. Fica MEDIDO. Consertar
+   o gerador e de outro dono e de outra missao.
+NAO registra alteracao de arquitetura, de Collection, nem integracao no trunk.
+NAO repete o §124: ali esta como se classifica um conflito pelo dono e porque a
+   reescrita do historico fica por fazer. Aqui esta o que prova o mapa.
 ```
