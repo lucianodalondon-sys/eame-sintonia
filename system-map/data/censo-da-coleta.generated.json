@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-16T08:18:16+00:00",
-    "HEAD": "b4ac04afb79a998fc960e872b4f37c5ae89542a7",
+    "GENERATED_AT": "2026-09-16T11:44:57+00:00",
+    "HEAD": "5f545c8eaf0e269005daafd1f65419dd52c5bd06",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "f38cfe96be94bc620162740c6785059440558b32d60e704f70fcab6527cf775b",
-    "FICHEIROS_NA_IMPRESSAO": 2194,
+    "SOURCE_TREE_FINGERPRINT": "55e40378f5c6de538d4e22e5690c65df1100795e9192a178f435e0ccdd61c8ba",
+    "FICHEIROS_NA_IMPRESSAO": 2196,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "b8bdda454fdcb81cd2c1d0ce89d90d3e5a24561e",
+        "VERSAO": "de8b1c1a9cc4235049494174ecca7f46e47eb5d5",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -132,7 +132,7 @@
       {
         "PATH": "coleta/coleta_checkpoint.py",
         "PAPEL": "FONTE",
-        "VERSAO": "072c87cd9bdf3720fa6158056b982f9a33e6f955",
+        "VERSAO": "f0827313ec6474133f04cb26ceb5ab51715072e3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -314,7 +314,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "e9980f36313c236dd2faa676a3b0ad7701994df8",
+        "VERSAO": "7e0e60a451c1d88c302e8a2cc1a9e09fc2cafc8a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -866,7 +866,7 @@
       }
     ],
     "INPUTS_COUNT": 122,
-    "INPUTS_DIGEST": "8f4b4e34e569a470766c3024d23d16e7280272fd7f77f7bc3c29796d44b7252b",
+    "INPUTS_DIGEST": "a4f4a362f9e0efb0b6f56027907573baa0c8e5e32a227038691086bae65ee192",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1655,7 +1655,7 @@
     {
       "ficheiro": "coleta/coleta_checkpoint.py",
       "gaveta": "coleta",
-      "linhas": 887,
+      "linhas": 929,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2087,6 +2087,7 @@
         "coleta/executor_texto_de_pdf.py",
         "coleta/golden_path_pdf.py",
         "coleta/italy_executor.py",
+        "coleta/italy_pilot_collect.mjs",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_colheita.py",
         "guarda/catalogo_importar.py",
@@ -2226,7 +2227,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 525,
+      "linhas": 575,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3158,7 +3159,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 1087,
+      "linhas": 1176,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3197,6 +3198,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/coleta_checkpoint.py",
         "coleta/rota_forward_documento.py"
       ],
       "no_ci": true
@@ -3320,7 +3322,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/coleta_checkpoint.py"
+      ],
       "no_ci": false
     },
     {
@@ -3463,7 +3467,7 @@
     "ficheiros_de_codigo": 122,
     "pontos_de_entrada": 91,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 47,
+    "sem_chamador_e_fora_do_ci": 46,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 71,
     "deitam_fora_alguma_coisa": 35,
@@ -3636,7 +3640,6 @@
       "regras/rotulos_censo.py",
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
-      "guarda/portas_live.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
