@@ -15109,9 +15109,9 @@ a casa dá dois `SOURCE_ID` ao mesmo publicador quando há duas séries.
    `candidatas/ITALY-SOURCE-MASTER-V1.json` (só `002` e `008` têm ficha no Atlas) são todas
    «*&lt;empresa&gt; Italia — comunicação pública*», `SOURCE_TYPE` site institucional: **uma
    entrada por site institucional de concorrente**. O catálogo é secção desse site.
-   ⚠️ O dono tem dois ids na casa — `IT-OWN-040` (Atlas, MASTER) e `IT-OWN-ADAMA-IT`
-   (manifesto da amostra, `regras/italy_contracts.mjs`): mesma entidade, divergência
-   declarada na ficha e NÃO reconciliada aqui;
+   O dono tinha dois ids na casa — `IT-OWN-040` (Atlas, MASTER) e `IT-OWN-ADAMA-IT`
+   (manifesto da amostra, `regras/italy_contracts.mjs`). **Reconciliado em 2026-09-16**,
+   ver 5b abaixo;
 5. **nada aponta para uma segunda origem lógica** — nem mantenedor, nem contrato, nem série
    com identidade e cadência próprias. A única diferença real é a **identidade nativa do
    item** (produto: `NODE_ID` + nº de registo; artigo: título + data) — e isso é
@@ -15142,6 +15142,44 @@ Italiana Protezione delle Piante» no slide final (página 21 de 21 — o da Mar
 marca da AIPP em 44 páginas); e os dois PDFs foram servidos por `aipp.it` com o **mesmo**
 `/Author` («galassi_t»), uma só mão que não é nenhum dos dois autores. AUTOR ≠ PUBLICADOR:
 os autores são os serviços regionais. Quem é «galassi_t»: NÃO SEI.
+
+### 5b · O DONO DA ADAMA TINHA DOIS IDS — E A CASA TEM DOIS VOCABULÁRIOS DE DONO  [REV 2]
+
+`IT-OWN-040` («ADAMA Italia S.r.l.», MASTER e Atlas) e `IT-OWN-ADAMA-IT` («ADAMA Italia»,
+manifesto da amostra e `regras/italy_contracts.mjs`). **Mesma entidade, provado:** os dois ids
+eram o dono declarado da **mesma** fonte `IT-T9-008`, com o mesmo site, e nasceram no mesmo
+commit `2640c5e0` (07/09). Não é semelhança de nome: é o mesmo campo, para a mesma fonte, em
+dois registos da mesma rodada. A razão social existe — o Ministero tem 240 autorizações em nome
+de `ADAMA ITALIA S.R.L.`, 21 delas ligadas a produtos do catálogo. O que **não** se leu foi o
+rodapé legal do site (o bruto guardado são extratos de página, sem rodapé) — isso afeta a
+certeza do **nome** da entidade operadora, não a de que os dois ids apontam para a mesma coisa.
+
+**Qual é canónico não se escolheu — leu-se.** A casa já tinha a cadeia de autoridade escrita em
+`provas/a_autoridade_da_fonte.py`: quem diz de quem é uma fonte é (1) o contrato canónico em
+prosa, senão (2) a **ficha no Atlas** — o registo canónico; o MASTER é candidato e o `.mjs` é
+contrato de **acesso**. A ARPAV (`IT-T2-002`) ficou `UNRESOLVED` porque não tem ficha; a ADAMA
+tem ficha, e ela diz `IT-OWN-040`. Logo: canónico `IT-OWN-040`, legado `IT-OWN-ADAMA-IT`.
+Corrigido nos três produtores (MASTER, manifesto, contrato) com o nome antigo ao lado em
+`OWNER_ID_LEGACY` — o mesmo padrão `*_LEGACY` que a casa já usa para `SOURCE_ID` (COL-LAW-206:
+mapeamento preservado, nunca reidentificação em silêncio). Nenhum byte de amostra, SHA256,
+`SOURCE_ID` ou `ADAMA_PRODUCT_ID` mudou.
+
+⚠️ **O achado maior fica em aberto.** Medido **antes** desta reconciliação: em 15 manifestos
+com `OWNER_ID`, 12 usavam um id nomeado diferente do MASTER e só 3 coincidiam (APOL `012`,
+FEM `014`, AIPP); o `.mjs` misturava os dois vocabulários (4 numéricos, 9 nomeados). **Depois**
+(a ADAMA passou para o lado certo): **11 manifestos divergem** (ISTAT, BMTI, ARPAE, ARPAV, SIAS,
+Campania SFR, ARIF, AGRIOS, Ministero, MASAF, Bayer) e 4 coincidem; o `.mjs` tem 5 numéricos e
+8 nomeados. (A primeira redação deste ponto publicou os números de antes como se fossem os de
+depois — o red team apanhou.) A prova `AU9` de `a_autoridade_da_fonte.py` **depende** de a ARPAV
+continuar divergente. Reconciliar os outros 11 é missão própria, da faixa Sources — e a ARPAV
+só depois de alguém decidir o que fazer com `AU9`.
+
+```
+ADAMA_OWNER_IDENTITY      = PROVEN_SAME_ENTITY
+CANONICAL_ADAMA_OWNER_ID  = IT-OWN-040
+LEGACY_ADAMA_OWNER_ID     = IT-OWN-ADAMA-IT
+OWNER_VOCABULARY_DEBT     = 11 manifestos + 8 contratos com id nomeado, NÃO reconciliados
+```
 
 ### 6 · O «51» — AUDITADO  [REV]
 

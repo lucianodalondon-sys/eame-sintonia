@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-sources-atlas-v1",
-    "HEAD": "bcac1c7b8e0efe790c028a44188f50df122a3c29",
-    "GENERATED_AT": "2026-09-16T14:04:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "645a99e05176cecb2135858da364b776ecd4f50a5f59697b37f8907db3a3868f"
+    "HEAD": "9ac2af8866e2d3ca7e11dd8a1fbe24912d8dfa80",
+    "GENERATED_AT": "2026-09-16T15:11:00-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0ad65a9fea222b1ed3478f0deac95cb4d7aea543e6c29e8702f45b3b6a4d0b16"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "b9601f0bba2df10cfc61c07a96de5fe9106a49d9",
+      "sha": "669774c4e385c7db72965e2fdac4c8f2847a4c3f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1109,7 +1109,7 @@
     },
     {
       "path": "candidatas/ITALY-SOURCE-MASTER-V1.json",
-      "sha": "3d8ab6918516a91fc3c4a0d0122d2baef6432184",
+      "sha": "5c1ff5177ddb972fd909f998a2d45d1be830d581",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -4805,7 +4805,7 @@
     },
     {
       "path": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json",
-      "sha": "237ae2f3ab6e17a18d0c5e1cccc36d834551001f",
+      "sha": "4a48a3b75c4eb6f6a5ba1acfd856bfc4822dcd4a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5988,7 +5988,7 @@
     },
     {
       "path": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-      "sha": "2e725c6a380b4659b475ac4c504cdfe5f4e811c0",
+      "sha": "688943f2e583aa4bd7764e2a1baba850ac3d9333",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11343,7 +11343,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+      "sha": "ebd6ddeb0f789f4ab4b20d61f4ae99bd4382ffa5",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13310,7 +13310,7 @@
     },
     {
       "path": "tests/test_adama_referencia.py",
-      "sha": "f082a7cbe1dc03b852b48d0b353ec9566edb1702",
+      "sha": "06fbc56f1fb0707eca41d23e5ca49cd57bf99ae6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -47684,6 +47684,17 @@
     },
     {
       "from_file": "tests/test_adama_referencia.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_adama_referencia.py",
+        "line": 404,
+        "snippet": "master = ler_raiz(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_adama_referencia.py",
       "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
       "type": "READS",
       "payload": "artefacto",
@@ -47722,7 +47733,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_adama_referencia.py",
-        "line": 386,
+        "line": 428,
         "snippet": "cat = registos(\"CATALOG-SNAPSHOTS.json\")"
       }
     },
@@ -47812,6 +47823,17 @@
         "file": "tests/test_adama_referencia.py",
         "line": 46,
         "snippet": "MAPA_FONTE = registos(\"SOURCE-ID-MAP.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_adama_referencia.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_adama_referencia.py",
+        "line": 416,
+        "snippet": "with io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),"
       }
     },
     {
@@ -61928,7 +61950,7 @@
     "files_tracked": 2063,
     "files_readable": 792,
     "files_code_dir": 849,
-    "file_edges": 4269,
+    "file_edges": 4271,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

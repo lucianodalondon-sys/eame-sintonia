@@ -306,6 +306,11 @@ class OQueEraArmadilhaDeixouDeSer(unittest.TestCase):
             self.assertTrue(col, "%s esta vazio — o teste nao mediu nada" % nome)
 
 
+def ler_raiz(*partes):
+    with io.open(os.path.join(RAIZ, *partes), encoding="utf-8") as fh:
+        return json.load(fh)
+
+
 def _source_ids_do_atlas():
     """Os SOURCE_ID que TÊM ficha no Atlas — a única lista que pode ser canónica."""
     atlas = os.path.join(RAIZ, "docs", "fontes", "ATLAS-DE-FONTES-EAME.md")
@@ -379,6 +384,43 @@ class LegadoNaoECanonico(unittest.TestCase):
         import adama_referencia as A
         gerado = A.montar(escrever=False)["SOURCE-ID-MAP.json"]["RECORDS"]
         self.assertEqual(MAPA_FONTE, gerado)
+
+    def test_V_o_dono_da_fonte_adama_tem_um_id_so_e_o_antigo_nao_morre(self):
+        """IT-OWN-040 e IT-OWN-ADAMA-IT eram dois ids para o mesmo dono da
+        mesma fonte IT-T9-008. Reconciliados em 2026-09-16 pela cadeia de
+        autoridade da casa (a ficha do Atlas decide). Os quatro sitios que
+        declaram o dono de IT-T9-008 tem de dizer o MESMO id, e o antigo tem
+        de continuar encontravel como OWNER_ID_LEGACY."""
+        import re
+        CANON, LEGADO = "IT-OWN-040", "IT-OWN-ADAMA-IT"
+        atlas = os.path.join(RAIZ, "docs", "fontes", "ATLAS-DE-FONTES-EAME.md")
+        with io.open(atlas, encoding="utf-8") as fh:
+            texto = fh.read()
+        i = texto.index("SOURCE_ID:                    IT-T9-008")
+        ficha = texto[i:i + 4000]
+        m = re.search(r"SOURCE_OWNER:\s+.*?\((IT-OWN-[A-Z0-9-]+)\)", ficha)
+        self.assertEqual(CANON, m.group(1), "a ficha do Atlas mudou de dono")
+        self.assertIn("OWNER_ID_LEGACY: " + LEGADO, ficha)
+        master = ler_raiz("candidatas", "ITALY-SOURCE-MASTER-V1.json")
+        fonte = next(s for s in master["sources"] if s["SOURCE_ID"] == "IT-T9-008")
+        dono = next(o for o in master["owners"] if o["OWNER_ID"] == CANON)
+        self.assertEqual(CANON, fonte["OWNER_ID"])
+        self.assertIn(LEGADO, dono["OWNER_ID_LEGACY"])
+        self.assertFalse(any(o["OWNER_ID"] == LEGADO for o in master["owners"]),
+                         "o legado virou registo proprio — segundo dono canonico")
+        man = ler_raiz("data", "samples", "IT-SOURCE-SAMPLES", "IT-T9-008", "MANIFEST.json")
+        self.assertEqual(CANON, man["OWNER_ID"])
+        self.assertEqual(LEGADO, man["OWNER_ID_LEGACY"])
+        self.assertEqual("9f56e17877efe44f086c65efb9e4910f138b8273a0eaedc70842ac697f1218c6",
+                         man["FILES"][0]["SHA256"], "a amostra mudou de bytes")
+        with io.open(os.path.join(RAIZ, "regras", "italy_contracts.mjs"),
+                     encoding="utf-8") as fh:
+            mjs = fh.read()
+        j = mjs.index('"IT-T9-008": {')
+        bloco = mjs[j:j + 900]
+        self.assertIn('OWNER_ID: "%s"' % CANON, bloco)
+        self.assertIn('OWNER_ID_LEGACY: "%s"' % LEGADO, bloco)
+        self.assertNotIn('OWNER_ID: "%s"' % LEGADO, bloco)
 
     def test_U_o_51_e_o_que_se_leu_nao_o_que_o_catalogo_tem(self):
         """51 = OBSERVED_READABLE; total oficial = NAO SEI. As duas coisas

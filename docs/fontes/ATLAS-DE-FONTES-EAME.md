@@ -6946,11 +6946,19 @@ VERDICT:                      YELLOW — o que está preservado é extrato do DO
 SOURCE_ID:                    IT-T9-008
 SOURCE_NAME:                  ADAMA Italia — comunicação pública
 SOURCE_OWNER:                 ADAMA Italia S.r.l. (IT-OWN-040)
-                              ⚠️ O MESMO dono tem um segundo id na casa: o manifesto da amostra
-                              (data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json) e
-                              regras/italy_contracts.mjs chamam-lhe IT-OWN-ADAMA-IT. É a mesma
-                              entidade com dois ids de dono — divergência declarada em 2026-09-16,
-                              NÃO reconciliada aqui (o SOURCE_ID não depende dela).
+                              OWNER_ID_LEGACY: IT-OWN-ADAMA-IT — até 2026-09-16 o manifesto da
+                              amostra e regras/italy_contracts.mjs chamavam a este mesmo dono
+                              IT-OWN-ADAMA-IT («ADAMA Italia», nome curto). Reconciliado no mesmo
+                              dia: é a MESMA entidade (os dois ids eram o dono declarado desta
+                              mesma fonte, mesmo site, nascidos no mesmo commit 2640c5e0); o
+                              canónico é o desta ficha, porque na cadeia de autoridade da casa
+                              (provas/a_autoridade_da_fonte.py) a ficha no registo canónico decide
+                              e o .mjs é contrato de ACESSO. O nome antigo não se apaga: vive como
+                              OWNER_ID_LEGACY no MASTER, no manifesto e no contrato.
+                              ⚠️ Só a ADAMA foi reconciliada. Outros 11 manifestos (ISTAT, BMTI,
+                              ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF,
+                              Bayer) continuam com id de dono nomeado diferente do MASTER — dívida
+                              medida, com dono na faixa Sources, NÃO paga aqui.
 IDENTIFICADORES_LEGADOS:      IT-ADAMA-CATALOG — o catálogo comercial em
                               www.adama.com/italia/it/prodotti-adama/* (31 páginas) e
                               /it/prodotti/* (20 páginas). NÃO é uma segunda fonte:

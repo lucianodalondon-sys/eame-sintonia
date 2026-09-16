@@ -386,7 +386,10 @@ export const CONTRACTS = {
   },
 
   "IT-T9-008": {
-    OWNER_ID: "IT-OWN-ADAMA-IT", OWNER: "ADAMA Italia", TERRITORY: "T9", VALUE: "P2",
+    // OWNER_ID reconciliado em 2026-09-16: a ficha IT-T9-008 do Atlas (registo
+    // canonico) diz IT-OWN-040 = ADAMA Italia S.r.l.; este contrato de ACESSO
+    // chamava ao mesmo dono IT-OWN-ADAMA-IT. Mesma entidade; o nome antigo fica.
+    OWNER_ID: "IT-OWN-040", OWNER_ID_LEGACY: "IT-OWN-ADAMA-IT", OWNER: "ADAMA Italia S.r.l.", TERRITORY: "T9", VALUE: "P2",
     CANONICAL_ENTRY_URL: "https://www.adama.com/italia/it/articoli-news-ed-eventi-main",
     DISCOVERY_METHOD: "listagem de artigos no site", RETRIEVAL_METHOD: "navegador com janela",
     ROUTE_TYPE: "BROWSER_DISCOVERED_ROUTE",
