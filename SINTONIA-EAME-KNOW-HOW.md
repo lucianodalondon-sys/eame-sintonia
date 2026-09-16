@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §120: a Collection mediu certo contra a fotografia dela, e o que ela produziu a Intelligence não consegue consumir.
-**Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
+**Última atualização material:** 2026-09-15 — §122: uma faixa que já engoliu o tronco tem prazo, e um merge pode ressuscitar um segredo que alguém já matou.
+**Próxima missão autorizada:** REMEASURE_COLLECTION_REFERENCE_SOURCES — as três faixas ficaram `DIVERGED` contra o novo trunk (§122). Medir antes de reconciliar; não integrar nada sem a coordenação medir o novo trunk.
 
 ---
 
@@ -14330,4 +14330,166 @@ NAO registra lei nova. Os requisitos, os cruzamentos e os papeis ja tinham dono:
    AGRO-INTELLIGENCE-INPUT-REQUIREMENTS-V1 · AGRO-CROSSING-GRAPH-V1 ·
    AGRO-INTELLIGENCE-TOOL-ROLES-V1 · ARQUITETURA-DE-PRODUTO-ATUAL.
    Esta missao mediu a Italia contra os quatro, e nao escreveu um quinto.
+```
+
+---
+
+# §122 · UMA FAIXA QUE JÁ ENGOLIU O TRONCO TEM PRAZO — E UM MERGE PODE RESSUSCITAR UM SEGREDO QUE ALGUÉM JÁ MATOU
+
+## O QUE MUDOU
+
+A Intelligence auditada entrou na Linha Oficial por **fast-forward**, e a Linha Oficial
+passou a ser exactamente o estado que tinha sido auditado:
+
+```
+TRUNK     43553a65  ->  f54e32a3        0 ahead · 60 behind
+MERGE_BASE = 43553a65 = o proprio HEAD do trunk
+git diff f54e32a3 HEAD  ..................  VAZIO
+commit de merge criado  ..................  NENHUM (HEAD tem 1 pai)
+```
+
+Depois disso, quatro commits próprios: a cadeia do mapa corrida três vezes (20 passos,
+`SYSTEM_MAP_CHECK=PASS`, 22 portões), a redacção de **12 cabeçalhos `Set-Cookie`** com
+valor cru, e a razão escrita das quatro edições à mão.
+
+## POR QUÊ — E SÃO TRÊS LIÇÕES, NÃO UMA
+
+### 1 · A ORDEM DE INTEGRAÇÃO NÃO É PREFERÊNCIA: É UMA JANELA QUE FECHA
+
+A Intelligence tinha **absorvido o trunk inteiro** e foi auditada nesse estado. Isso deu-lhe
+uma propriedade que nenhuma das outras faixas tinha: o trunk era **ancestral** dela, logo
+entrava sem merge, sem conflito e sem reconciliação — o estado auditado chegava byte a byte.
+
+Essa propriedade **não é estável**. Ela morre no instante em que qualquer outra faixa entra
+primeiro, porque o trunk deixa de ser ancestral e o fast-forward passa a ser impossível.
+Medido **nesta missão, depois da integração**, contra as três faixas que ficaram de fora:
+
+```
+                 MERGE_BASE   AHEAD  BEHIND   ANCESTRY     CONFLICTING_PATHS
+COLLECTION       43553a65       2      63     DIVERGED      6  (5 generated + 1)
+REFERENCE        43553a65       2      63     DIVERGED      7  (5 generated + 1 + declared)
+SOURCES          43553a65       1      63     DIVERGED     18  (5 generated + 13 docs)
+```
+
+As três eram `TRUNK_IS_ANCESTOR_OF_LANE` antes, e as três são `DIVERGED` agora. A janela
+fechou-se para elas no momento em que a Intelligence entrou — exactamente como se teria
+fechado para a Intelligence se uma delas tivesse entrado antes.
+
+```
+QUEM JA ENGOLIU O TRONCO ENTRA PRIMEIRO, OU ENTRA OUTRA VEZ.
+```
+
+E o preço não é teórico: `REFERENCE` conflita em `system-map/data/architecture.declared.json`,
+que é **fonte escrita por gente**, e `SOURCES` conflita em **13 documentos**. Conflito em
+`generated` resolve-se correndo a cadeia; conflito em `declared` e em documento exige que
+alguém releia e decida.
+
+### 2 · UMA PROVA QUE MORRE POR CAUSA DO AMBIENTE NÃO REPROVOU: ELA NÃO CORREU
+
+Medido três vezes nesta máquina, e são três caras do mesmo defeito:
+
+```
+`py` resolvia para  C:\actions-runner-2\_work\_tool\Python\3.12.10\x64\python.exe
+   -> "No module named pytest". A instalacao real perdeu o proprio python.exe;
+      o site-packages com o pytest 9.1.1 ficou orfao ao lado dele.
+`git()` descodificava em cp1252, e o repo escreve UTF-8
+   -> UnicodeDecodeError no diff do espelho do mapa. Corrigido no ultimo
+      commit da propria Intelligence: nao era prova a reprovar, era prova
+      que NUNCA CORREU nesta maquina.
+`_outputs_da_cadeia()` faz `import cadeia_do_mapa` sem por
+   `system-map/scripts` no sys.path — quem o poe sao OUTRAS classes do mesmo
+      ficheiro. Sozinha morre com ModuleNotFoundError; com o ficheiro inteiro, passa.
+```
+
+Nos três casos o vermelho **não era sobre o código medido**. Era sobre quem media.
+
+```
+ModuleNotFoundError  !=  REGRESSAO
+UnicodeDecodeError   !=  VEREDITO
+KeyError             !=  REPROVACAO
+```
+
+O CI desta casa já escrevia a defesa — `PYTHONIOENCODING=utf-8` nos workflows — e a defesa
+é a lei: **a medição declara o encoding e o caminho, coerentes com o repo, ou não é uma
+medição.** E há um teste que só passa quando corre acompanhado: prova dependente de ordem
+mede também quem correu antes dela.
+
+### 3 · REDACÇÃO SEM REGRESSÃO PRÓPRIA DESFAZ-SE NO PRÓXIMO MERGE
+
+Uma linha anterior da Intelligence **já tinha redigido** estes valores. A reconciliação com o
+trunk **restaurou-os**. E a medição mais importante desta missão é esta:
+
+```
+git diff 43553a65 f54e32a3 -- data/samples/IT-SOURCE-SAMPLES/   ..........  VAZIO
+```
+
+O fast-forward **não trouxe** os segredos — eles já estavam iguais nos dois lados. Foi o
+merge anterior que os ressuscitou, e ninguém ficou a saber, porque **a prova que os via já
+estava vermelha por outro motivo**:
+
+```
+guarda de credencial, ANTES da integracao ....  5 achados reais
+   4 x Set-Cookie cru em data/samples/IT-SOURCE-SAMPLES/  (12 cabecalhos)
+   1 x caminho pessoal de Windows em docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md
+guarda de credencial, DEPOIS ..................  1 achado (o caminho, fora do escopo)
+```
+
+CLASSIFICAÇÃO = **SESSION**. `JSESSIONID`, `PHPSESSID`, `NGMDS_XPORT`, `cookiesession1`,
+`__cf_bm`, dois opacos e `dtCookie`. **Não havia AUTH**: as recolhas foram GET anónimos a
+portais públicos e ninguém se autenticou. Mas são fichas de sessão reais emitidas ao nosso
+recolhedor, **e este repositório é público** — medido, `visibility: public`.
+
+```
+HERDADO DO TRONCO NAO TORNA UM SEGREDO ACEITAVEL.
+UMA PROVA JA VERMELHA NAO VIGIA NADA: ELA SO ACUMULA.
+```
+
+## PROVA
+
+```
+ANCESTRALIDADE   merge-base(43553a65, f54e32a3) = 43553a65 · 0 ahead / 60 behind
+FAST-FORWARD     POST_FF_HEAD = f54e32a3 · git diff vazio · HEAD com 1 pai
+MAPA             20 passos · 22 portoes PASS · portao 2b IMPRESSAO_DO_CARIMBO=IGUAL
+                 sobre 2194 ficheiros-fonte
+DELTA DO MAPA    1a e 2a corrida: proveniencia e digesto derivado, e nada mais
+                 3a corrida: +6 arestas READS medidas, porque a razao escrita
+                 nomeia 5 caminhos · paises_dado.ITALIA 26 -> 31
+REDACCAO         12 cabecalhos em 4 ficheiros · 12 linhas mudadas, e sao as 12
+                 SHA256 dos MANIFEST intactos: cobrem o PAYLOAD, nao o header
+                 marcador reutilizado de data/samples/ITALY-T3-005-MONITORAGGIO
+NAO AFROUXOU     0 linhas `assert` apagadas em 43553a65..f54e32a3 · 640 acrescentadas
+                 EDITADO_NA_FONTE 2 -> 6 entradas, NOMINAL: MANIFEST.json da MESMA
+                 pasta continua a ser apanhado
+FAIXAS DE FORA   Collection, Reference e Sources: TRUNK_IS_ANCESTOR -> DIVERGED
+```
+
+## CONSEQUÊNCIA
+
+```
+1. MEDIR A ANCESTRALIDADE ANTES DE ESCOLHER A ORDEM DAS FAIXAS.
+   Quem for ancestral-compativel entra primeiro; cada integracao fora dessa
+   ordem custa uma reconciliacao inteira, e a conta paga-se em `declared`
+   e em documento, nao em `generated`.
+
+2. A MEDICAO DECLARA ENCODING E CAMINHO, OU NAO E MEDICAO.
+   Antes de chamar vermelho a um vermelho, provar que a prova CORREU.
+   `py` nao e o interprete; `text=True` nao e o encoding do repo.
+
+3. REDACCAO SEM REGRESSAO PROPRIA E TEMPORARIA.
+   Uma prova que vive vermelha por um motivo nao vigia o segundo motivo.
+   Baixar o vermelho a zero e parte do controlo, nao cosmetica.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra integracao de Collection, ADAMA Reference ou Sources/Atlas.
+   As tres ficaram FORA de proposito, e ficam DIVERGED — medido, nao resolvido.
+NAO registra coleta, migration, deploy nem Portal.
+   0 migrations tocadas · 0 executadas · 0 ficheiros de codigo do Portal.
+NAO registra lei nova. O marcador de redaccao, a guarda de credencial, a cadeia
+   do mapa e `EDITADO_NA_FONTE` ja tinham dono: reutilizados, nao inventados.
+NAO resolve o achado que resta na guarda (caminho pessoal de Windows em
+   docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md:64, entrado pelo proprio 43553a65).
+   Fica vermelho, e fica dito.
 ```
