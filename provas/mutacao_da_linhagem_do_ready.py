@@ -87,10 +87,10 @@ def _banco_novo(base_url, nome):
     from urllib.parse import urlparse, urlunparse
     u = urlparse(base_url)
     admin = urlunparse(u._replace(path='/postgres'))
-    subprocess.run(['psql', admin, '-q', '-c',
-                    'drop database if exists %s' % nome],
+    subprocess.run(['psql', '-q', '-c',
+                    'drop database if exists %s' % nome, admin],
                    capture_output=True, text=True)
-    subprocess.run(['psql', admin, '-q', '-c', 'create database %s' % nome],
+    subprocess.run(['psql', '-q', '-c', 'create database %s' % nome, admin],
                    capture_output=True, text=True)
     return urlunparse(u._replace(path='/' + nome))
 

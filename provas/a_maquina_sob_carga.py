@@ -59,8 +59,8 @@ def aplicar_migrations(url):
     for f in sorted(os.listdir(pasta)):
         if not f.endswith(".sql") or f.split("_", 1)[0] in _SO_VERIFICA:
             continue
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
-                            os.path.join(pasta, f)],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, f), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("FALHOU a aplicar %s\n%s" % (f, r.stderr[:400]))
@@ -211,9 +211,9 @@ def main():
     for quantas in escadas:
         # Cada degrau comeca do zero: medir carga sobre o estado da anterior
         # mediria as duas juntas.
-        subprocess.run(["psql", url.rsplit("/", 1)[0] + "/postgres",
+        subprocess.run(["psql", 
                         "-q", "-c", "drop database descartavel;",
-                        "-c", "create database descartavel;"],
+                        "-c", "create database descartavel;", url.rsplit("/", 1)[0] + "/postgres"],
                        capture_output=True, text=True)
         aplicar_migrations(url)
         for f in os.listdir(sala):

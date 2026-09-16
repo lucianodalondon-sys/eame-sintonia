@@ -49,7 +49,7 @@ def ataque(n, nome, morreu, detalhe=""):
 
 def _psql(url, sql):
     r = subprocess.run(["psql", "-X", "-q", "-A", "-t", "-F", "\x1f",
-                        "-v", "ON_ERROR_STOP=1", url, "-c", sql],
+                        "-v", "ON_ERROR_STOP=1", "-c", sql, url],
                        capture_output=True, text=True)
     return r.returncode, r.stdout, r.stderr
 

@@ -71,7 +71,7 @@ def T(nome, condicao, detalhe=""):
 
 def _psql(url, sql):
     r = subprocess.run(["psql", "-X", "-q", "-A", "-t", "-F", "\x1f",
-                        "-v", "ON_ERROR_STOP=1", url, "-c", sql],
+                        "-v", "ON_ERROR_STOP=1", "-c", sql, url],
                        capture_output=True, text=True)
     if r.returncode != 0:
         raise SystemExit("psql falhou: %s" % r.stderr[:400])
@@ -93,8 +93,8 @@ def aplicar_migrations(url):
     for f in sorted(os.listdir(pasta)):
         if not f.endswith(".sql") or f.split("_", 1)[0] in ("008",):
             continue
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q",
-                            "-f", os.path.join(pasta, f)],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q",
+                            "-f", os.path.join(pasta, f), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             raise SystemExit("migration %s falhou:\n%s" % (f, r.stderr[:500]))

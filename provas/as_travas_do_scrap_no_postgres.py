@@ -84,7 +84,7 @@ def tenta(url, sql):
     A razão vem do banco e é CURTA de propósito: ela entra no relatório, e uma
     mensagem inteira de `psql` traria o SQL com os valores dentro.
     """
-    r = subprocess.run(['psql', url, '-q', '-v', 'ON_ERROR_STOP=1', '-c', sql],
+    r = subprocess.run(['psql', '-q', '-v', 'ON_ERROR_STOP=1', '-c', sql, url],
                        capture_output=True, text=True)
     if r.returncode == 0:
         return True, '', ''

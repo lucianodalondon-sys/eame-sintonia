@@ -82,7 +82,7 @@ def _recusa_o_que_nao_e_descartavel(url):
 
 def _psql(url, sql, ler=True):
     cmd = ["psql", "-X", "-q", "-A", "-t", "-F", "\x1f", "-v", "ON_ERROR_STOP=1",
-           url, "-c", sql]
+           "-c", sql, url]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip())

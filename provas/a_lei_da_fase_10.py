@@ -84,8 +84,8 @@ FASE_10 = os.path.join("supabase", "migrations",
 def psql(url, sql):
     """(ok, linhas, erro). Uma recusa do banco é MEDIDA, nunca acidente — por
     isso nada aqui levanta exceção: o erro é um resultado como outro."""
-    p = subprocess.run(["psql", url, "-X", "-q", "-v", "ON_ERROR_STOP=1",
-                        "-t", "-A", "-F", SEP, "-c", sql],
+    p = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1",
+                        "-t", "-A", "-F", SEP, "-c", sql, url],
                        capture_output=True, text=True)
     linhas = [l.split(SEP) for l in p.stdout.strip().splitlines() if l]
     return (p.returncode == 0), linhas, p.stderr.strip()
@@ -108,7 +108,7 @@ def sessao(url):
     """Uma sessão `psql` VIVA. Concorrência a sério precisa de duas ligações
     ao mesmo tempo; simulá-la em Python mediria o Python."""
     return subprocess.Popen([
-        "psql", url, "-X", "-q", "-A", "-t"], stdin=subprocess.PIPE,
+        "psql", "-X", "-q", "-A", "-t", url], stdin=subprocess.PIPE,
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
 
 

@@ -83,7 +83,7 @@ case "$ETAPA" in
     # registro, a primeira execução aplica o que falta e ANOTA o que já
     # existia — a anotação vem da resposta do banco ("already exists"), não
     # de suposição sobre até onde alguém foi.
-    psql "$URL" -v ON_ERROR_STOP=1 -q -c "
+    psql -v ON_ERROR_STOP=1 -q -c "
       create table if not exists public.schema_migracao (
         versao      text primary key,
         aplicada_em timestamptz not null default now(),
@@ -93,7 +93,7 @@ case "$ETAPA" in
         'Infraestrutura do aplicador de migrations, não schema de domínio. '
         'Existe para que a cadeia NÃO reaplique o que já foi aplicado — '
         'reaplicar pode ressuscitar coluna que uma migration posterior '
-        'aposentou, e foi por isso que ele nasceu.';" >/dev/null
+        'aposentou, e foi por isso que ele nasceu.';" "$URL" >/dev/null
     for f in $(ls "$RAIZ"/supabase/migrations/*.sql | grep -v '/008_' | sort); do
       num=$(basename "$f" | cut -c1-3)
       sha=$(sha256sum "$f" | cut -d' ' -f1)
@@ -107,8 +107,8 @@ case "$ETAPA" in
       #     VERSAO IGUAL COM SHA DIFERENTE E DRIFT.
       #
       # O SHA nao e segredo e pode aparecer no log; a DSN e que nunca aparece.
-      guardado=$(psql "$URL" -tAc "select sha256 from public.schema_migracao
-                                   where versao='$num'")
+      guardado=$(psql -tAc "select sha256 from public.schema_migracao
+                                   where versao='$num'" "$URL")
       if [ -n "$guardado" ]; then
         if [ "$guardado" = "$sha" ]; then
           echo "MIGRATION_$num=SKIP (ja no livro-razao) HASH=MATCH"
@@ -147,14 +147,14 @@ case "$ETAPA" in
            printf '\ninsert into public.schema_migracao (versao, resultado, sha256)'
            printf " values ('%s','APLICADA','%s') on conflict (versao) do nothing;\n" \
                   "$num" "$sha"
-         } | psql "$URL" -v ON_ERROR_STOP=1 --single-transaction -q -f - \
+         } | psql -v ON_ERROR_STOP=1 --single-transaction -q -f - "$URL" \
                >/tmp/cc.out 2>/tmp/cc.err; then
         echo "MIGRATION_$num=PASS"
       elif grep -qiE "already exists|ja existe|já existe" /tmp/cc.err; then
         # O banco respondeu que os objetos já estão lá. Isso é RESPOSTA, e
         # é ela que entra no livro — não uma suposição sobre o histórico.
-        psql "$URL" -q -c "insert into public.schema_migracao (versao, resultado, sha256)
-          values ('$num','JA_EXISTIA','$sha') on conflict (versao) do nothing" >/dev/null
+        psql -q -c "insert into public.schema_migracao (versao, resultado, sha256)
+          values ('$num','JA_EXISTIA','$sha') on conflict (versao) do nothing" "$URL" >/dev/null
         echo "MIGRATION_$num=SKIP (objetos ja existem; anotado no livro-razao)"
       else
         echo "MIGRATION_$num=FAIL"; sanitiza < /tmp/cc.err | head -8; exit 1
@@ -197,7 +197,7 @@ case "$ETAPA" in
         fi
       fi
       nome=$(basename "$f")
-      if psql "$URL" -v ON_ERROR_STOP=1 -q -f "$RAIZ/$f" >/tmp/cc.out 2>/tmp/cc.err; then
+      if psql -v ON_ERROR_STOP=1 -q -f "$RAIZ/$f" "$URL" >/tmp/cc.out 2>/tmp/cc.err; then
         echo "IMPORT_${nome%%.sql}=PASS"
       else
         echo "IMPORT_${nome%%.sql}=FAIL"; sanitiza < /tmp/cc.err | head -8; exit 1

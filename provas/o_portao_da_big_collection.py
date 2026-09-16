@@ -117,8 +117,8 @@ def aplicar_migrations(url):
     cadeia = _cadeia()
     for n in cadeia:
         f = [x for x in sorted(os.listdir(pasta)) if x.startswith(n + "_")][0]
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
-                            os.path.join(pasta, f)],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, f), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("FALHOU a aplicar %s\n%s" % (f, r.stderr[:700]))

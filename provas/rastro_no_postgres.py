@@ -47,7 +47,7 @@ def aplicar(url):
         if not achados:
             raise SystemExit('migration %s nao encontrada' % n)
         c = os.path.join(pasta, achados[0])
-        r = subprocess.run(['psql', url, '-v', 'ON_ERROR_STOP=1', '-q', '-f', c],
+        r = subprocess.run(['psql', '-v', 'ON_ERROR_STOP=1', '-q', '-f', c, url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print('FALHOU a aplicar %s' % achados[0])

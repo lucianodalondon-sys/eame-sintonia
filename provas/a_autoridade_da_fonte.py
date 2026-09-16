@@ -345,7 +345,7 @@ def main():
         for n in ("001", "002"):
             pasta = os.path.join(RAIZ, "supabase", "migrations")
             alvo = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")][0]
-            subprocess.run(["psql", url, "-q", "-f", os.path.join(pasta, alvo)],
+            subprocess.run(["psql", "-q", "-f", os.path.join(pasta, alvo), url],
                            capture_output=True, text=True)
         # ⚠️ ESTA CONTA ERA ABSOLUTA, E POR ISSO DEPENDIA DE QUEM CORREU ANTES.
         #
@@ -370,8 +370,8 @@ def main():
         def contar():
             fora_ = {}
             for t in TABELAS_DE_IDENTIDADE:
-                r = subprocess.run(["psql", url, "-tA", "-c",
-                                    "select count(*) from public.%s" % t],
+                r = subprocess.run(["psql", "-tA", "-c",
+                                    "select count(*) from public.%s" % t, url],
                                    capture_output=True, text=True)
                 fora_[t] = r.stdout.strip() if r.returncode == 0 else "?"
             return fora_

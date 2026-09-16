@@ -442,11 +442,23 @@ class _Postgres(object):
 
     # ── as duas maneiras de falar com o banco ───────────────────────────
     def _consultar(self, sql):
-        """Lê. `-X` para não herdar o `~/.psqlrc` de quem corre isto."""
+        """Lê. `-X` para não herdar o `~/.psqlrc` de quem corre isto.
+
+        ⚠️ A DSN VEM POR ÚLTIMO, E ISSO NÃO É ESTILO. O `getopt` do Windows
+        não permuta: parado o primeiro argumento posicional, `-c` deixa de
+        ser opção. Com a DSN à frente, este método ligava-se, NÃO CORRIA a
+        consulta, e saía com ZERO — medido em PostgreSQL 16.4 real nesta
+        máquina (2026-09-16): seis avisos `extra command-line argument ...
+        ignored` e `rc=0`. A Sala canónica não lia nem escrevia no Windows.
+
+            OPÇÕES PRIMEIRO. DSN POR ÚLTIMO.
+
+        `tests/test_psql_argv.py` reprova quem voltar a trocar a ordem.
+        """
         r = subprocess.run(
             ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
              "-R", self.SEP_LINHA,
-             "-v", "ON_ERROR_STOP=1", self.url, "-c", sql],
+             "-v", "ON_ERROR_STOP=1", "-c", sql, self.url],
             capture_output=True, text=True, env=_ambiente_psql())
         if r.returncode != 0:
             raise SalaIndisponivel(_sanitiza(r.stderr))
@@ -482,10 +494,13 @@ class _Postgres(object):
             SEM `--single-transaction`, CADA INSTRUÇÃO CONFIRMA-SE SOZINHA —
             e um erro a meio deixa metade da corrida pousada.
         """
+        # ⚠️ A DSN POR ÚLTIMO — mesma razão de `_consultar`, e aqui é a ESCRITA:
+        # com a DSN à frente, o `-f -` era ignorado no Windows e o pousar não
+        # pousava nada, com cara de sucesso.
         r = subprocess.run(
             ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
              "-R", self.SEP_LINHA,
-             "-v", "ON_ERROR_STOP=1", "--single-transaction", self.url, "-f", "-"],
+             "-v", "ON_ERROR_STOP=1", "--single-transaction", "-f", "-", self.url],
             input=script, capture_output=True, text=True, env=_ambiente_psql())
         return r.returncode, r.stdout.replace(self.SEP_LINHA, "\n"), _sanitiza(r.stderr)
 

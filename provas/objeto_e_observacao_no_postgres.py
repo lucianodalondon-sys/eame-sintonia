@@ -811,7 +811,7 @@ def _reset(banco, url):
 def _sessao(url, script):
     """Uma sessão `psql` que fica de pé enquanto o script dela corre."""
     return subprocess.Popen(
-        ["psql", url, "-X", "-q", "-v", "ON_ERROR_STOP=1", "-f", "-"],
+        ["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1", "-f", "-", url],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT, text=True), script
 

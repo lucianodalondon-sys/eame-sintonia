@@ -172,8 +172,8 @@ def aplicar_migrations(url):
     pasta = os.path.join(RAIZ, "supabase", "migrations")
     for n in MIGRATIONS:
         achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")]
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
-                            os.path.join(pasta, achados[0])],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, achados[0]), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("FALHOU a aplicar %s\n%s" % (achados[0], r.stderr[:900]))

@@ -45,7 +45,7 @@ def vocab_do_banco(tabela, coluna):
          "and a.attnum = any(c.conkey) "
          "where c.conrelid = 'public.%s'::regclass and c.contype = 'c' "
          "and a.attname = '%s' and array_length(c.conkey,1) = 1" % (tabela, coluna))
-    r = subprocess.run(['psql', DSN, '-tAc', q], capture_output=True, text=True)
+    r = subprocess.run(['psql', '-tAc', q, DSN], capture_output=True, text=True)
     if r.returncode:
         raise RuntimeError(r.stderr.strip()[:300])
     return set(re.findall(r"'([A-Z_]+)'::text", r.stdout))
@@ -86,7 +86,7 @@ class TestOCoreEOBancoNaoDivergem(unittest.TestCase):
     def test_a_lista_branca_do_fato_e_so_escrito_e_citado(self):
         q = ("select pg_get_constraintdef(oid) from pg_constraint "
              "where conname = 'so_o_escrito_e_o_citado_sustentam_o_lugar_do_fato'")
-        r = subprocess.run(['psql', DSN, '-tAc', q], capture_output=True, text=True)
+        r = subprocess.run(['psql', '-tAc', q, DSN], capture_output=True, text=True)
         valores = set(re.findall(r"'([A-Z_]+)'::text", r.stdout))
         self.assertEqual(set(L.ORIGENS_QUE_SUSTENTAM_FATO) | {'FACT'}, valores,
                          'a lista branca mudou: tres leis dependem do que esta nela')
@@ -94,7 +94,7 @@ class TestOCoreEOBancoNaoDivergem(unittest.TestCase):
     def test_o_dono_antigo_nao_voltou(self):
         q = ("select count(*) from information_schema.columns where table_schema='public' "
              "and table_name='conteudo' and column_name='fact_geografia_id'")
-        r = subprocess.run(['psql', DSN, '-tAc', q], capture_output=True, text=True)
+        r = subprocess.run(['psql', '-tAc', q, DSN], capture_output=True, text=True)
         self.assertEqual('0', r.stdout.strip(),
                          'DOIS DONOS DA MESMA LEI responderiam coisas diferentes um dia')
 

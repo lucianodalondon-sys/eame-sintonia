@@ -214,8 +214,8 @@ def aplicar_migrations(url):
         achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")]
         if not achados:
             raise SystemExit("migration %s nao encontrada" % n)
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
-                            os.path.join(pasta, achados[0])],
+        r = subprocess.run(["psql", "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, achados[0]), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("FALHOU a aplicar %s" % achados[0])

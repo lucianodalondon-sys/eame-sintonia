@@ -195,11 +195,11 @@ def _banco_novo(admin_url, nome):
     entrou seria recusado pela trava de drift — e a recusa seria lida como morte
     do mutante quando na verdade ele nem chegou a correr.
     """
-    subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1", admin_url,
-                    "-c", 'drop database if exists "%s";' % nome],
+    subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1", 
+                    "-c", 'drop database if exists "%s";' % nome, admin_url],
                    capture_output=True, text=True)
-    r = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1", admin_url,
-                        "-c", 'create database "%s";' % nome],
+    r = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1", 
+                        "-c", 'create database "%s";' % nome, admin_url],
                        capture_output=True, text=True)
     if r.returncode != 0:
         raise SystemExit("nao consegui criar banco do mutante: %s" % r.stderr[:300])

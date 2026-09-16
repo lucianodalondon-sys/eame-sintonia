@@ -229,8 +229,8 @@ def garantir_o_esquema(url):
     pasta = os.path.join(RAIZ, 'supabase', 'migrations')
     for n in cadeia_de_migrations():
         achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + '_')]
-        r = subprocess.run(['psql', url, '-v', 'ON_ERROR_STOP=1', '-q', '-f',
-                            os.path.join(pasta, achados[0])],
+        r = subprocess.run(['psql', '-v', 'ON_ERROR_STOP=1', '-q', '-f',
+                            os.path.join(pasta, achados[0]), url],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print('FALHOU a aplicar %s\n%s' % (achados[0], r.stderr[:900]))
@@ -240,8 +240,8 @@ def garantir_o_esquema(url):
 
 def q(url, sql):
     """Uma pergunta ao banco, pelo `psql` que o runner já tem."""
-    r = subprocess.run(['psql', url, '-q', '-v', 'ON_ERROR_STOP=1',
-                        '-tAF', '\x1f', '-c', sql],
+    r = subprocess.run(['psql', '-q', '-v', 'ON_ERROR_STOP=1',
+                        '-tAF', '\x1f', '-c', sql, url],
                        capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip()[:400])

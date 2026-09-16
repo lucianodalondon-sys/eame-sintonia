@@ -174,8 +174,8 @@ def faixas(versoes):
 
 # ─────────────────────────────────────────────────────────────────────────
 def psql(url, sql):
-    p = subprocess.run(["psql", url, "-X", "-q", "-v", "ON_ERROR_STOP=1",
-                        "-t", "-A", "-F", SEP, "-c", sql],
+    p = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1",
+                        "-t", "-A", "-F", SEP, "-c", sql, url],
                        capture_output=True, text=True)
     linhas = [l.split(SEP) for l in p.stdout.strip().splitlines() if l]
     return (p.returncode == 0), linhas, p.stderr.strip()
@@ -187,10 +187,12 @@ def um(url, sql):
 
 
 def ficheiro(url, caminho, transacao=True):
-    cmd = ["psql", url, "-X", "-q", "-v", "ON_ERROR_STOP=1"]
+    # A DSN entra POR ULTIMO: o getopt do Windows nao permuta, e com ela a
+    # frente o -f deixava de ser opcao e o psql saia com zero sem correr nada.
+    cmd = ["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1"]
     if transacao:
         cmd.append("--single-transaction")
-    cmd += ["-f", caminho]
+    cmd += ["-f", caminho, url]
     p = subprocess.run(cmd, capture_output=True, text=True)
     return p.returncode == 0, p.stderr.strip()
 
@@ -829,10 +831,10 @@ def parte_red_team(url):
                "document_key, document_key_basis, identity_state, attempts) "
                "values ('T-A','%s','application/pdf',10,'%s',now(),%s,'ARPAV',"
                "%s,%s,'%s',1);" % (p, sha256(A), oid, dk, ba, estado))
-        a = subprocess.Popen(["psql", url, "-X", "-q", "-A", "-t"],
+        a = subprocess.Popen(["psql", "-X", "-q", "-A", "-t", url],
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT, text=True, bufsize=1)
-        b = subprocess.Popen(["psql", url, "-X", "-q", "-A", "-t"],
+        b = subprocess.Popen(["psql", "-X", "-q", "-A", "-t", url],
                              stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT, text=True, bufsize=1)
         for s in (a, b):
