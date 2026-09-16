@@ -10,9 +10,9 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §123: uma lista de perdão desactualizada vira aresta `PROVEN` no mapa, e apagar do HEAD não apaga do histórico.
-**Próxima missão autorizada:** REMEASURE_COLLECTION_REFERENCE_SOURCES — as três faixas ficaram `DIVERGED` contra o novo trunk (§122). Medir antes de reconciliar; não integrar nada sem a coordenação medir o novo trunk.
-**Decisão pendente na coordenação:** `HISTORY_REWRITE_RECOMMENDED = SIM` (§123) — 12 valores de sessão continuam alcançáveis no histórico público, um dos commits contido em 185 refs remotas. 9 dos 12 estão provadamente expirados; 3 têm validade até 07/09/2027. Não executado de propósito.
+**Última atualização material:** 2026-09-16 — §124: contagem de conflitos não é contagem de decisões, e a reescrita do histórico fica por fazer por decisão da coordenação.
+**Próxima missão autorizada:** REMEASURE_COLLECTION_REFERENCE_SOURCES — **a faixa COLLECTION já foi reconciliada** (§124, merge `167d35d3` contra o trunk `cb88bff5`) e está apta a fast-forward; falta integrá-la, e integrar é decisão da coordenação. `REFERENCE` e `SOURCES` continuam `DIVERGED` (§122) — e a ordem de ataque é por DECISÕES esperadas, não por total de conflitos: `REFERENCE` tem menos conflitos que `SOURCES` e mais trabalho real.
+**Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
 
@@ -14662,4 +14662,129 @@ NAO registra revogacao. Nao temos os servidores; nao ha mecanismo nosso.
 NAO registra integracao de lane nenhuma, migration, deploy, Portal ou LIVE.
 NAO repete o §122: ali esta a ordem das faixas, o encoding da medicao e a
    redaccao no HEAD. Aqui esta o que o HEAD nao resolve.
+```
+
+---
+
+# §124 · CONTAGEM DE CONFLITOS NÃO É CONTAGEM DE DECISÕES — E A REESCRITA DO HISTÓRICO FICA POR FAZER, POR DECISÃO
+
+## O QUE MUDOU
+
+```
+COLLECTION reconciliada contra o trunk cb88bff5 · merge 167d35d3
+   merge-base 43553a65 · lane +2 · trunk +75 · DIVERGED
+
+conflitos                 6
+conflitos GENERATED       6
+conflitos FUNCIONAIS      0
+ficheiros funcionais da lane, byte a byte iguais depois do merge   6/6
+
+HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA   (decisão da coordenação)
+```
+
+## POR QUÊ — E SÃO DUAS LIÇÕES, UMA DE MEDIÇÃO E UMA DE DECISÃO
+
+### 1 · O TOTAL DE CONFLITOS NÃO DIZ ONDE ESTÁ O TRABALHO
+
+Três faixas mediram contra o mesmo trunk, e o número de conflitos ordenou-as ao
+contrário do esforço real:
+
+```
+SOURCES     18 conflitos    12 eram linhas automáticas de ledger
+COLLECTION   6 conflitos     6 eram generated · 0 decisões
+REFERENCE   menos conflitos que SOURCES, e MAIS trabalho:
+            carregava uma fusão estrutural real em architecture.declared.json
+```
+
+    QUEM ORDENA AS FAIXAS PELO TOTAL DE CONFLITOS
+    ATACA PRIMEIRO A QUE TEM MAIS LINHAS, E NÃO A QUE TEM MAIS DECISÕES.
+
+O que separa as duas coisas é o **dono** do ficheiro, e o dono não se lê na
+extensão. Medido nesta reconciliação, nos dois sentidos:
+
+```
+docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md   é .md   e é GERADO
+system-map/data/architecture.declared.json          é .json e é DECISÃO HUMANA
+```
+
+Um `.md` no balde da decisão humana faria um humano arbitrar a saída de uma
+máquina. Um `.json` no balde do gerado faria uma máquina apagar a decisão de um
+humano. A fonte de verdade é o gerador — e prova-se de duas maneiras que se
+conferem uma à outra: **ler** quem escreve o caminho, e **observar** que
+ficheiros o gerador reescreve numa árvore limpa.
+
+### 2 · A REESCRITA DO HISTÓRICO NÃO SE FAZ, E O MOTIVO É MEDIDO
+
+O §123 deixou `HISTORY_REWRITE_RECOMMENDED = SIM` pendente. A coordenação
+decidiu **não executar agora**, e a decisão assenta no que já estava medido:
+
+```
+HEAD                    saneado
+12 valores históricos   são SESSION, não AUTH
+9 dos 12                expirados por evidência temporal
+3 restantes             afinidade/balanceamento — não autenticam ninguém
+alcance da reescrita    grande número de refs remotas
+```
+
+    UM VALOR DE SESSÃO EXPIRADO NÃO É UMA CREDENCIAL VIVA,
+    E REESCREVER 185 REFS PARA O APAGAR CUSTA MAIS DO QUE ELE VALE.
+
+Isto **não** revoga o §123: o risco descrito lá continua verdadeiro e o
+histórico continua a conter os valores. O que muda é que a inacção passa a ser
+uma decisão registada, com dono e motivo — e não uma pendência que ninguém
+assume.
+
+## PROVA
+
+```
+git merge-tree --write-tree HEAD origin/claude/it-trunk-v1
+   -> 6 caminhos em conflito, e os 6 têm gerador com nome
+
+os 3 runtime + 1 teste da lane: o trunk não lhes tocou em 75 commits
+   admissao/admissao.py · coleta/coleta_checkpoint.py
+   coleta/italy_pilot_collect.mjs · tests/test_a_operacao_aguenta_concorrencia.py
+
+depois do merge, antes de resolver nada, blob a blob contra 4b84c642
+   6/6 IGUAIS
+
+generated resolvido com o estado do TRUNK como base, e a cadeia canónica a
+decidir o conteúdo final. O gerador concordou com o trunk em 4 dos 6; nos
+outros 2 o delta são DUAS linhas, e as duas têm fonte real:
+   "branch claude/it-trunk-v1" -> "branch claude/it-collection-sala-v1"
+   "line": 940 -> 1029   (a trava multi-plataforma entrou por cima)
+
+NODES 209->209 · EDGES 1059->1059 · nenhuma aresta nasceu ou morreu
+SYSTEM_MAP_CHECK = PASS
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · Classificar conflito pelo DONO, nunca pela extensão nem pelo total.
+    Medir "quem gera este caminho" antes de decidir quem resolve.
+
+2 · Ordenar faixas de reconciliação por DECISÕES esperadas, não por conflitos.
+    REFERENCE, com menos conflitos, é a que carrega fusão estrutural.
+
+3 · O gerado resolve-se tomando o estado do trunk como base e correndo a
+    cadeia. Fusão semântica manual de JSON gerado é um humano a arbitrar a
+    saída de uma máquina, e não se faz.
+
+4 · HISTORY_REWRITE fica NÃO EXECUTADO por decisão, com motivo registado.
+    Quem o retomar tem de remedir os 3 valores não expirados antes de 07/09/2027.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra integracao da Collection no trunk: a lane foi reconciliada e
+   ficou apta a fast-forward. Integrar e decisao da coordenacao.
+NAO registra reconciliacao de SOURCES nem de REFERENCE.
+NAO registra conserto de divida conhecida: a ordem de argumentos `psql` da
+   Sala, o roteamento T4 e a capacidade CSV continuam abertos e continuam
+   NOT_PROVEN. O merge nao os pintou de verde.
+NAO registra coleta nova, migration, deploy, Portal nem LIVE.
+NAO repete o §122 nem o §123: ali esta a ordem das faixas, o encoding da
+   medicao, a redaccao no HEAD e o que o HEAD nao resolve. Aqui esta como se
+   classifica um conflito e porque a reescrita fica por fazer.
 ```
