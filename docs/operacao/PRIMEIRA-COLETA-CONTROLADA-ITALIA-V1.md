@@ -321,6 +321,16 @@ PERGUNTAR À TABELA NÃO É PERGUNTAR AO DONO.
 
 #### `BG-02` · Não há ambiente com egresso italiano **e** Sala canónica não-produção
 
+> ⚠️ **REVISTO EM 2026-09-16 — a parte do AMBIENTE está fechada.** A premissa
+> abaixo era falsa por falta de procura: o runner italiano é **esta bancada**, e
+> o PostgreSQL 16.4 portátil já estava no disco, fora do repositório. Foi
+> arrancado, ligado, consultado e destruído na mesma sessão em que o portão do
+> egresso deu `PASS`. Ver **§10-B · BANCADA DE EXECUÇÃO**.
+>
+> O que sobra nesta bancada **não é ambiente, é código**, e chama-se `BG-04`.
+> O texto original fica por baixo, datado, porque apagar a premissa apagaria a
+> razão de se ter ido medir.
+
 | | |
 |---|---|
 | `PROBLEM` | três ambientes, e nenhum serve: **(a)** esta bancada tem `EGRESS=IT` e **nenhum** PostgreSQL; **(b)** o `ubuntu-latest` tem Postgres descartável e egresso **US** — e o portão bloqueia, corretamente; **(c)** o runner Windows auto-hospedado tem a Sala por `SUPABASE_DB_URL`, que é **produção** |
@@ -444,6 +454,163 @@ NÃO SE INVENTA CUSTO. ZERO PORQUE A ROTA É GRATUITA ≠ ZERO POR OMISSÃO.
 | `RISCO_04` | correr o coletor contra a árvore viva **engorda o livro versionado** e reprova guardas congeladas de outras missões (medido: 175 → 182) | apontar `ITALY_OPS_ROOT` para um `mkdtemp()` **e** atribuir `italy_executor.OPS_ROOT` — o módulo lê o `os.environ` no import, tarde demais |
 | `RISCO_05` | `IT-T2-002` e `IT-T2-004` são `FORWARD_ONLY` com `ARCHIVE_REQUIREMENT = CRITICAL`: **o que não for preservado hoje desaparece** | não adiar a execução destas duas |
 | `RISCO_06` | o egresso italiano desta bancada vem de VPN. `VPN_LOCATION ≠ SOURCE_LOCATION ≠ FACT_LOCATION` | o portão prova o **ambiente**, nunca a geografia do dado |
+
+---
+
+## 10-B · BANCADA DE EXECUÇÃO
+
+> Medido em **2026-09-16**, missão `C-IT-PILOT-ENVIRONMENT-GATE-V1`, HEAD `774e1e6d`.
+> Esta secção responde a **uma** pergunta: em que máquina corre a primeira coleta
+> controlada. Não corrige portão nenhum.
+
+```
+PILOT_ENVIRONMENT_DECISION = OPTION_A
+SELECTED_PILOT_ENVIRONMENT = runner auto-hospedado `eame-sintonia-local`
+                             (+ `-local-2`), com PostgreSQL 16.4 portátil
+PRODUCTION_TOUCHED         = NO
+```
+
+### O achado que decide
+
+O `BG-02` dizia que **nenhum** ambiente tinha egresso italiano e Sala não-produção
+ao mesmo tempo. A medição de hoje mostra que a premissa estava errada por um
+detalhe que ninguém tinha ido ver:
+
+> **O runner italiano é esta bancada.** `SINTONIA-EAME-LOCAL` e
+> `SINTONIA-EAME-LOCAL-2` não são máquinas remotas — são dois processos de runner
+> **nesta máquina**, ligados ao repositório `eame-sintonia`, com as etiquetas
+> `eame-sintonia-local` e `eame-sintonia-local-2` que o `sintonia-scrap.yml` pede.
+
+E o PostgreSQL que faltava **também já cá estava**, fora do repositório, em
+`C:\Users\London1\orca\pgtmp\pgsql` — binários portáteis 16.4, sem instalação,
+sem serviço e sem administrador.
+
+```
+EGRESSO IT  e  POSTGRES DESCARTÁVEL  ESTÃO NA MESMA MÁQUINA.
+E ISSO FOI PROVADO NA MESMA SESSÃO, NÃO INFERIDO DE DUAS.
+```
+
+### Os ambientes medidos
+
+| | `ENV_A` · runner italiano | `ENV_B` · GitHub hosted | `ENV_C` · Supabase produção |
+|---|---|---|---|
+| `OS` · `ARCH` | Windows 10.0.22000 · AMD64 | Ubuntu · x64 | — (serviço) |
+| `RUNNER_TYPE` | self-hosted, **processo à mão** (não é serviço) | hosted, efémero | — |
+| `EGRESS_COUNTRY` | **IT** | **NÃO É IT** | — |
+| `EGRESS_PROOF` | `superficie/rede.py --portao-de-egresso IT` → `PASS`, sai com **0** | `banco-descartavel.yml` **não tem um único passo que ligue VPN** — medido | — |
+| `DOCKER_AVAILABLE` | **NÃO** (`docker: command not found`) | sim (serviços de job) | — |
+| `WSL_AVAILABLE` | **NÃO** — `wsl.exe` existe como stub; `wsl -l` imprime a ajuda, não há distro | n/a | — |
+| `PSQL_AVAILABLE` | **SIM**, portátil, fora do `PATH` | sim | sim |
+| `POSTGRES_SERVER_AVAILABLE` | **SIM** — 16.4 portátil | sim, via `services:` | — |
+| `PYTHON` · `NODE` · `CURL` · `PDFTOTEXT` | 3.12.10 · v24.18.0 · 8.21.0 · 4.06 | presentes | — |
+| `DISK_AVAILABLE` | **271 GB** livres | efémero | — |
+| `CAN_RUN_DISPOSABLE_POSTGRES` | **SIM — PROVADO** | SIM | — |
+| `CAN_REACH_PRODUCTION` | só com `SUPABASE_DB_URL`, **ausente nesta sessão** | idem | sim |
+| `PRODUCTION_ACCESS_REQUIRED` | **NÃO** | NÃO | **SIM** |
+| `STATUS` | ✅ **ESCOLHIDO** | ❌ sem egresso italiano, e sem mecanismo para o ter | ⛔ **PROIBIDO como laboratório** |
+
+`ENV_C'` — os runners `LUCIANO` e `LUCIANO-2` correm na mesma máquina mas estão
+ligados a **outro repositório** (`portal-sintonia`). Não servem esta missão.
+
+### A prova de infraestrutura (§6), passo a passo
+
+```
+DISPOSABLE_POSTGRES_STARTED = YES
+    initdb 16.4 · cluster novo e vazio · md5 · UTF8
+    fora do repositório: C:\Users\London1\orca\pgtmp\proof-bancada
+    pg_ctl start · porta 54329 · a ouvir SÓ em 127.0.0.1
+
+CONNECTION_PROVED = YES
+    create database descartavel;          -> ok
+    select 1;                             -> 1        rc=0
+    select version();                     -> PostgreSQL 16.4, 64-bit
+
+DESTROYED_AFTER_TEST = YES
+    pg_ctl stop -m fast  ->  "server stopped"
+    pasta apagada · 0 processos postgres · porta 54329 sem LISTENING
+
+PRODUCTION_TOUCHED = NO
+    SUPABASE_DB_URL · SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY ·
+    SUPABASE_ANON_KEY · SINTONIA_SALA_DSN · SINTONIA_SALA_BACKEND
+    = todas AUSENTES nesta sessão. Nenhuma ligação foi tentada.
+
+NENHUMA migration do SINTONIA foi aplicada.
+A Sala NÃO foi chamada. Nenhuma coleta correu.
+```
+
+### E o `BG-04` deixou de ser inferência: foi medido no metal
+
+Aproveitou-se o banco de pé para medir o defeito **sem tocar em código do
+SINTONIA**. O mesmo `select 1;` foi pedido de duas maneiras:
+
+| ordem dos argumentos | saída | código de saída |
+|---|---|---|
+| `psql -X -q -A -t -c 'select 1;' <DSN>` | `1` | **0** |
+| `psql <DSN> -X -q -A -t -c 'select 1;'` | seis avisos `extra command-line argument … ignored` | **0** |
+| `psql <DSN> -X … -f ficheiro.sql` (o caminho de **escrita** da Sala) | idem | **0** |
+
+```
+ELE NÃO FALHA. ELE SAI COM ZERO SEM TER FEITO NADA —
+NA LEITURA E NA ESCRITA.
+```
+
+E há um segundo desfecho, apanhado por acidente: numa primeira tentativa **sem o
+stdin fechado**, o `psql` ficou **preso à espera de senha** — porque com a DSN à
+frente o próprio `-w` («nunca perguntes») deixa de ser opção. Num passo de CI
+isso não é um erro: é um job pendurado até ao teto de tempo.
+
+> `BG_04_CONTINUES_BLOCKING = YES` — e agora com prova de hardware, não com
+> leitura de código.
+
+### O que ainda falta na bancada — pequeno, e escrito
+
+| `REQUIREMENT` | porquê | tamanho |
+|---|---|---|
+| `REQ-01` · pôr `C:\Users\London1\orca\pgtmp\pgsql\bin` no `PATH` do job, ou usar caminho absoluto | os binários existem e **não estão no `PATH`** | uma linha de `env:` |
+| `REQ-02` · o job arranca e destrói o cluster (`initdb` → `pg_ctl start` → … → `pg_ctl stop` → apagar) | `_work` do self-hosted **persiste entre jobs** — medido: pastas de 30/08 e 11/09 ainda lá. Um cluster esquecido vira estado partilhado | um passo de setup e um de `always()` |
+| `REQ-03` · `SINTONIA_SALA_BACKEND=POSTGRES` + `SINTONIA_SALA_DSN=postgresql://postgres:descartavel@localhost:54329/descartavel` ao **nível do job** | a trava aceita **qualquer porta**; exige host local e nome na lista curta (`descartavel`, `derivado`, `social`, `objeto`) — lido em `provas/preservar_coleta_no_postgres.py` | duas linhas de `env:` |
+| `REQ-04` · alguém tem de deixar o runner ligado | ele **não é serviço**: é um processo iniciado à mão. Estava online e a ouvir hoje às 15:34Z, com 31 jobs no histórico | operacional, não código |
+
+**Nada disto é instalação nova.** Não foi instalado Docker, não foi instalado WSL,
+não foi instalado PostgreSQL, não foi mexido no runner e não foi alterada
+arquitetura nenhuma.
+
+### Os portões, recalculados contra o ambiente escolhido
+
+| | antes | agora | porquê |
+|---|---|---|---|
+| `BG-01` workflow sem fase italiana | MUST_FIX | **MUST_FIX** | independente do ambiente. É o único sítio onde os dois portões correm antes de adquirir |
+| `BG-02` não há bancada | MUST_FIX | **AMBIENTE RESOLVIDO** | a bancada existe, está escolhida e foi provada. ⚠️ O que resta nela é `BG-04`, que é **código**, não ambiente |
+| `BG-03` `pathToFileURL` no Windows | MUST_FIX | **MUST_FIX, e agora certo** | o ambiente escolhido **é** Windows. Deixou de ser hipótese |
+| `BG-04` ordem do `psql` | MUST_FIX | **MUST_FIX, provado no metal** | ver acima: `rc=0` sem executar, leitura e escrita |
+| `BG-05` `IT-T4-001` só por `alvo=T3` | MUST_FIX | **MUST_FIX** | independente do ambiente |
+| `BG-06` sete fontes por omissão | MUST_FIX | **MUST_FIX** | independente do ambiente |
+
+```
+MÁQUINA TEM POSTGRES  ≠  CÓDIGO SABE USAR POSTGRES.
+E é exactamente aí que a bancada acaba e o BG-04 começa.
+```
+
+### O ambiente proibido
+
+`ENV_C` — Supabase de produção — **não foi usado, não foi tocado e não é
+laboratório**. Não foi preciso rejeitá-lo por princípio: `ENV_A` funciona, e por
+isso a pergunta de autorização **não chega a ser feita** ao dono.
+
+```
+PRODUÇÃO NÃO É LABORATÓRIO.
+DESCARTÁVEL -> PROVA -> depois LIVE.
+```
+
+### Próximo passo mínimo
+
+Fechar, **por esta ordem**, e só isto:
+
+1. `BG-04` — a ordem dos argumentos do `psql` em `admissao/sala_de_espera.py`
+   (447 e 486). Sem isto, a bancada provada não serve para nada;
+2. `BG-03` — `pathToFileURL` na prova do coletor italiano;
+3. `BG-01` — a fase italiana no `sintonia-scrap.yml`, com `REQ-01..REQ-03`;
+4. `BG-05` e `BG-06` — o filtro que se perde em silêncio, e as sete fontes.
 
 ---
 

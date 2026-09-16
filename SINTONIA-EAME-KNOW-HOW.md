@@ -10,10 +10,10 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §128: a primeira coleta controlada da Itália bate num **ambiente**, não num módulo. Nenhuma das três bancadas medidas tem **egresso italiano e Sala canónica ao mesmo tempo**; as duas provas que existem partem a pergunta ao meio (uma adquire e não pousa, a outra pousa e não adquire); a **dona da Sala** e todas as provas dela chamam o `psql` com a DSN antes do `-c`/`-f` (38 contra 3) e por isso não correm no Windows, que é onde o egresso italiano vive; e `coleta/italy_pilot_collect.mjs` corre, por omissão, `IT-T3-005` — uma fonte com **zero menções no Atlas**.
+**Última atualização material:** 2026-09-16 — **§129 (revê o §128)**: o runner italiano é a **própria bancada** — `SINTONIA-EAME-LOCAL` e `-LOCAL-2` são dois processos de runner nesta máquina —, e o PostgreSQL 16.4 portátil já estava no disco fora do repositório. Arrancado, ligado, consultado e destruído na mesma sessão em que o portão do egresso deu `PASS`. `PILOT_ENVIRONMENT_DECISION = OPTION_A`; a Supabase de produção **não** precisa de ser autorizada. O `BG-04` passou de leitura de código a prova de hardware: `rc=0` sem executar, na leitura **e** na escrita. O §128 mantém-se no resto.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
-**Passo anterior — CUMPRIDO (2026-09-16):** PREPARAR PRIMEIRA COLETA CONTROLADA ITÁLIA V1. O plano vive em [`docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md`](docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md): `PILOT_SOURCE_COUNT = 6` (`IT-T4-001` · `IT-T3-002` · `IT-T3-008` · `IT-T3-010` · `IT-T2-002` · `IT-T2-004`), **6 portões `MUST_FIX`** e **9 dívidas `CAN_WAIT`**. Nenhuma coleta foi executada.
-**Próximo passo autorizado (2026-09-16):** **FECHAR OS SEIS PORTÕES** antes de executar — e o primeiro deles é escolher a **bancada** (§128), não escrever módulo. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`. Preparar ≠ coletar — CAN DO ≠ DID DO.
+**Passo anterior — CUMPRIDO (2026-09-16):** ESCOLHER E PROVAR A BANCADA. `SELECTED_PILOT_ENVIRONMENT = runner eame-sintonia-local (+ -2) com PostgreSQL 16.4 portátil`. Prova em `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §10-B. Nenhuma coleta, nenhuma migration, produção não tocada.
+**Próximo passo autorizado (2026-09-16):** **FECHAR O `BG-04`** — a ordem dos argumentos do `psql` em `admissao/sala_de_espera.py` (linhas 447 e 486). É o único portão que, por si só, torna a bancada já provada inútil. Depois `BG-03`, `BG-01`, e por fim `BG-05` e `BG-06`. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`. Preparar ≠ coletar — CAN DO ≠ DID DO.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -15556,4 +15556,123 @@ NAO declara a rota italiana partida: ela atravessa, e está provada nas duas met
 NAO autoriza Big Collection.  BIG_COLLECTION = NÃO AUTORIZADA.
 NAO decide construir derivador de CSV: o contrato de IT-T4-001 declara DUAS
     granularidades, e escolher uma é arquitectura, não conserto.
+```
+
+---
+
+# §129 · O RUNNER ITALIANO ERA A PRÓPRIA BANCADA, E O POSTGRES JÁ ESTAVA NO DISCO — REVÊ O §128
+
+## O QUE MUDOU
+
+```
+O §128 concluiu, ontem, que NENHUM ambiente tinha egresso italiano e Sala
+canonica ao mesmo tempo. A metade do AMBIENTE estava ERRADA, e nao por
+raciocinio: por falta de procura.
+
+    SINTONIA-EAME-LOCAL  e  SINTONIA-EAME-LOCAL-2
+    nao sao maquinas remotas. Sao DOIS PROCESSOS DE RUNNER NESTA MAQUINA.
+
+    C:\actions-runner-eame     -> gitHubUrl = .../eame-sintonia
+    C:\actions-runner-eame-2   -> gitHubUrl = .../eame-sintonia
+    etiquetas medidas nos logs: eame-sintonia-local · eame-sintonia-local-2
+    (exactamente as que sintonia-scrap.yml pede)
+
+E o PostgreSQL que «faltava» tambem ja ca estava, fora do repositorio:
+
+    C:\Users\London1\orca\pgtmp\pgsql   ->  16.4 portatil
+    initdb · pg_ctl · psql · postgres, todos a responder --version
+```
+
+## POR QUÊ
+
+Eu medi ferramentas — `psql`, `psycopg`, Docker, WSL — e **não medi a máquina**.
+`psql: command not found` responde «não está no PATH», e eu li «não existe».
+`docker: command not found` respondeu a mesma coisa, e nesse caso era verdade.
+
+    UMA FERRAMENTA FORA DO PATH NAO E UMA FERRAMENTA AUSENTE.
+    E «QUEM E ESTE RUNNER?» NAO SE RESPONDE LENDO O WORKFLOW:
+    RESPONDE-SE PROCURANDO O PROCESSO.
+
+O §128 perguntou «que ambientes existem?» e respondeu com os três que o
+**workflow nomeia**. A pergunta certa era «que runners estão ligados, e onde?»,
+e a resposta estava a quatro processos de distância, no `ps`.
+
+## PROVA
+
+```
+16/09/2026 · HEAD 774e1e6d · uma sessao so
+
+RUNNERS       4 processos Runner.Listener vivos nesta maquina
+              2 deles no repo eame-sintonia, online e «Listening for Jobs»
+              31 jobs no historico do eame; ultimo em 11/09
+              NAO sao servico: processo iniciado a mao (sc nao os conhece)
+              _work PERSISTE entre jobs (pastas de 30/08 e 11/09 ainda la)
+
+POSTGRES      initdb 16.4 · cluster novo · porta 54329 · so 127.0.0.1
+              create database descartavel   -> ok
+              select 1                      -> 1
+              select version()              -> PostgreSQL 16.4, 64-bit
+              pg_ctl stop + pasta apagada   -> 0 processos, 0 LISTENING
+
+EGRESSO       superficie/rede.py --portao-de-egresso IT
+              EGRESS_GATE=PASS · EGRESS_COUNTRY_CODE=IT · sai com 0
+              NA MESMA MAQUINA, NA MESMA SESSAO
+
+PRODUCAO      SUPABASE_DB_URL / SUPABASE_URL / SERVICE_ROLE / ANON /
+              SINTONIA_SALA_DSN / SINTONIA_SALA_BACKEND = todas AUSENTES
+              nenhuma ligacao tentada · nenhuma migration aplicada
+              a Sala NAO foi chamada · nenhuma coleta correu
+
+NAO INSTALADO Docker: ausente.  WSL: stub sem distro (`wsl -l` da a ajuda).
+              Nada foi instalado, nada no runner foi alterado.
+```
+
+## E O BG-04 PASSOU DE LEITURA DE CODIGO A PROVA DE HARDWARE
+
+Com o banco de pe, o mesmo `select 1;` das duas maneiras:
+
+```
+psql -X -q -A -t -c 'select 1;' <DSN>      ->  "1"                      rc=0
+psql <DSN> -X -q -A -t -c 'select 1;'      ->  6x "extra ... ignored"   rc=0
+psql <DSN> -X ... -f ficheiro.sql          ->  idem                     rc=0
+```
+
+    ELE NAO FALHA. SAI COM ZERO SEM TER FEITO NADA —
+    NA LEITURA E NA ESCRITA.
+
+E ha um segundo desfecho, apanhado por acidente: sem o stdin fechado, o `psql`
+ficou PRESO a espera de senha, porque com a DSN a frente ate o `-w` («nunca
+perguntes») deixa de ser opcao. Num passo de CI isso nao e erro: e um job
+pendurado ate ao teto de tempo.
+
+## CONSEQUÊNCIA
+
+```
+1 · PILOT_ENVIRONMENT_DECISION = OPTION_A. A bancada da primeira coleta
+    controlada e o runner `eame-sintonia-local` (+ `-2`), com PostgreSQL 16.4
+    portatil arrancado e destruido pelo proprio job.
+
+2 · A Supabase de producao NAO precisa de ser autorizada, e por isso a pergunta
+    NAO se faz ao dono. PRODUCAO NAO E LABORATORIO.
+
+3 · O BG-02 fecha SO a metade do ambiente. O que sobra na bancada e o BG-04, e
+    ele e codigo. MAQUINA TEM POSTGRES != CODIGO SABE USAR POSTGRES.
+
+4 · Escolher Windows torna o BG-03 e o BG-04 certos, e nao hipoteticos.
+
+5 · Quatro requisitos pequenos ficam escritos no plano (§10-B): PATH dos
+    binarios, cluster criado e destruido pelo job, as duas variaveis da Sala ao
+    nivel do JOB, e alguem a manter o runner ligado.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO apaga o §128: as outras tres conclusoes dele continuam de pe — as duas
+    provas que partem a pergunta ao meio, o BG-04, e o IT-T3-005 fora do Atlas.
+NAO conserta BG-01..BG-06. Nenhum deles foi tocado.
+NAO aplicou migration nenhuma, nem no banco descartavel.
+NAO chamou a Sala, nao correu Collection, nao escreveu em producao.
+NAO instalou Docker, WSL nem PostgreSQL, e nao alterou o runner.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 ```
