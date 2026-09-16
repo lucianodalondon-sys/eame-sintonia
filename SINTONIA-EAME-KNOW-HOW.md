@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §125: a prova do System Map é a cadeia canónica completa; `PASS` de um subgerador isolado deixou 8 derivados a descrever a máquina anterior.
-**Próxima missão autorizada:** REMEASURE_COLLECTION_REFERENCE_SOURCES — **a faixa COLLECTION já foi reconciliada** (§124, merge `167d35d3` contra o trunk `cb88bff5`) e está apta a fast-forward; falta integrá-la, e integrar é decisão da coordenação. `REFERENCE` e `SOURCES` continuam `DIVERGED` (§122) — e a ordem de ataque é por DECISÕES esperadas, não por total de conflitos: `REFERENCE` tem menos conflitos que `SOURCES` e mais trabalho real.
+**Última atualização material:** 2026-09-16 — §126: a ordem entre lanes não se decide por contagem de conflitos; mede-se dependência lane×lane e o risco do erro que consegue passar em silêncio.
+**Próxima missão autorizada:** PREPARAR ADAMA REFERENCE — reconciliar `claude/it-adama-reference-v1` contra o trunk oficial que existir no preflight; fotografia que fundamentou a decisão: trunk `f888b363`, Reference `91998964`, Sources `2f0863d1`. Não integrar no trunk sem review independente.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -14887,4 +14887,140 @@ NAO registra defeito consertado: `generate_system_map.py` continua a dizer
 NAO registra alteracao de arquitetura, de Collection, nem integracao no trunk.
 NAO repete o §124: ali esta como se classifica um conflito pelo dono e porque a
    reescrita do historico fica por fazer. Aqui esta o que prova o mapa.
+```
+
+---
+
+# §126 · CONFLITO MECÂNICO NÃO DECIDE ORDEM — MEDE-SE A DEPENDÊNCIA E O ERRO QUE CONSEGUE PASSAR EM SILÊNCIO
+
+## O QUE MUDOU
+
+Depois de Intelligence e Collection entrarem na Linha Oficial, as duas faixas restantes foram medidas outra vez contra o trunk `f888b363`, e também **uma contra a outra** antes de escolher a ordem:
+
+```
+REFERENCE   91998964   DIVERGED · +2 / -86
+SOURCES     2f0863d1   DIVERGED · +1 / -86
+
+REFERENCE x SOURCES
+conflitos partilhados                 7
+conflitos partilhados GENERATED       7
+conflitos partilhados em
+architecture.declared.json            0
+```
+
+A decisão operacional é:
+
+```
+NEXT_LANE_TO_PREPARE = REFERENCE
+```
+
+Não porque «8 conflitos são menos que 19». O §124 já matou essa leitura. A pergunta que faltava era outra: **se a ordem não muda o custo mecânico, qual das duas consegue errar em silêncio?**
+
+## POR QUÊ
+
+### 1 · MEDIR TRUNK × LANE NÃO CHEGA QUANDO A DECISÃO É DE ORDEM
+
+A primeira medição dizia quanto cada faixa disputava com o trunk. Isso mede a reconciliação de cada uma, mas não responde se **integrar A primeiro torna B mais cara**.
+
+A pergunta de ordem exige a terceira aresta:
+
+```
+TRUNK x REFERENCE
+TRUNK x SOURCES
+REFERENCE x SOURCES
+```
+
+Medido, Reference e Sources só se tocam nos sete outputs da cadeia. Em `architecture.declared.json`, uma modifica duas peças ADAMA e a outra acrescenta outra peça; **não disputam a mesma declaração**.
+
+```
+CONFLITO PARTILHADO TODO GENERATED != DEPENDENCIA DE ORDEM.
+```
+
+Se a sobreposição partilhada é mecânica e regenerável, nenhuma das duas cobra uma decisão humana extra à outra. A escolha passa a ser por dependência real e risco, não por sequência.
+
+### 2 · DOIS ERROS COM O MESMO TAMANHO NÃO TÊM O MESMO CUSTO
+
+Na Reference, o ponto humano é a união estrutural de `architecture.declared.json`. A medição encontrou:
+
+```
+ids novos em comum                         0
+mesma peça alterada pelos dois lados       0
+duplo owner ADAMA                          0
+```
+
+E um erro nessa união tem sentinelas: ownership e System Map medem a estrutura e podem reprovar a candidata.
+
+Na Sources, treze fichas entram no Atlas canônico de identidade. Elas podem ser JSON/Markdown perfeitamente válidos e ainda ligar uma prova à fonte errada. **Nenhum portão estrutural prova a semântica da ficha.** Três foram conferidas por amostragem contra a prova do trunk e bateram; as outras dez continuam trabalho de leitura humana quando chegar a vez da Sources.
+
+```
+ERRO DETECTAVEL != ERRO SILENCIOSO.
+QUANDO A ORDEM E DE GRACA, VEM PRIMEIRO A FAIXA CUJO ERRO TEM PORTAO.
+```
+
+Isto não torna Reference «mais importante». Torna a reconciliação dela mais observável.
+
+### 3 · A HIPÓTESE «SOURCE_ID É FUNDACIONAL, LOGO SOURCES PRIMEIRO» FOI MEDIDA E CAIU
+
+A hipótese parecia boa: Atlas/SOURCE_ID vem antes de Reference. A medição da dependência concreta recusou-a.
+
+A Reference usa a fonte `IT-T4-001`, que **já existe no trunk** e foi certificada pela Collection. A intersecção entre essa dependência e as treze identidades acrescentadas pela Sources é vazia.
+
+```
+CONCEITO FUNDACIONAL != DEPENDENCIA DESTA MUDANCA.
+```
+
+Uma lei ser fundacional não autoriza inventar uma dependência entre duas faixas que, neste delta, não se usam.
+
+## PROVA
+
+```
+trunk medido                         f888b3639ccac5b211984326900bd39399ed1a75
+Reference                            91998964f9e822c2885a5019a267e20516a14cca
+Sources                              2f0863d1acfc457bb87cb026319c56eb5ff0114f
+
+Reference x Sources                  7 conflitos
+                                     7/7 generated
+architecture.declared compartilhado 0
+
+Reference: decisão estrutural        guardada por portões do mapa/ownership
+Sources: 13 fichas Atlas             sem portão que confira semântica de identidade
+Reference depende de IT-T4-001       já presente no trunk
+intersecção com as 13 novas fichas   vazia
+
+NEXT_LANE_TO_PREPARE                  REFERENCE
+```
+
+A medição foi read-only: nenhum merge, rebase, cherry-pick, commit, push ou escrita foi usado para chegar a esta decisão.
+
+## CONSEQUÊNCIA
+
+```
+1 · ANTES DE ESCOLHER ORDEM ENTRE FAIXAS, MEDIR TAMBEM LANE x LANE.
+    Trunk x lane mede o custo individual; lane x lane mede se a ordem cria custo novo.
+
+2 · OVERLAP TODO GENERATED NAO E DEPENDENCIA SEMANTICA.
+    Output mecânico volta a ser medido pela cadeia depois da união.
+
+3 · ESCOLHER ORDEM POR DEPENDENCIA, OWNER E OBSERVABILIDADE DO ERRO.
+    Contagem de conflitos é fotografia de Git, não prioridade arquitetural.
+
+4 · QUANDO NENHUMA ORDEM ENCARECE A OUTRA, PREFERIR PRIMEIRO A MUDANCA
+    CUJO ERRO TEM SENTINELA, E DEIXAR A SEMANTICA SILENCIOSA PARA REVIEW HUMANO EXPLICITO.
+
+5 · PARALELISMO É DE LEITURA E PROVA; MUDANCA DE ESTADO É SERIALIZADA.
+    Investigações independentes podem correr em paralelo quando reduzem tempo.
+    Writes, merge, resolução, commit e push sobre o mesmo estado ficam sob um
+    coordenador único. Mais agentes não podem criar mais de um dono.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra integração da Reference. Ela continua fora do trunk e precisa ser
+   reconciliada, provada e revista antes de qualquer integração.
+NAO registra integração nem promoção das 13 fichas da Sources.
+NAO cria SOURCE_ID nem ADAMA_PRODUCT_ID, e não muda owner nenhum.
+NAO altera Collection, Intelligence, Portal, migration, deploy ou LIVE.
+NAO substitui o §124: ali está «conflitos != decisões». Aqui está a pergunta
+   seguinte: «quando nenhuma ordem custa mais, qual erro consegue passar em silêncio?»
 ```
