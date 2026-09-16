@@ -803,15 +803,104 @@ def escrever(decisoes: list) -> int:
     corridas DIFERENTES acrescentam ao MESMO livro: nao ha conflito nenhum,
     ha fila. Fazer isto falhar seria transformar trabalho legitimo em erro.
     """
-    import fcntl
     LIVRO.parent.mkdir(parents=True, exist_ok=True)
     trava = os.open(str(LIVRO) + ".lock", os.O_CREAT | os.O_RDWR, 0o644)
     try:
-        fcntl.flock(trava, fcntl.LOCK_EX)
+        _prender(trava)
         return _escrever_sob_trava(decisoes)
     finally:
-        fcntl.flock(trava, fcntl.LOCK_UN)
+        _soltar(trava)
         os.close(trava)
+
+
+# ── A TRAVA, NOS DOIS SISTEMAS — E CONTINUA A SER A MESMA TRAVA ─────────────
+#
+# ⚠️ `import fcntl` ESTAVA AQUI DENTRO, E `fcntl` NAO EXISTE EM WINDOWS.
+# O efeito nao era «a trava e mais fraca no Windows»: era a PORTA NAO ABRIR.
+# `escrever()` e chamada por `orquestrador.pela_porta()` em TODA corrida, e a
+# primeira linha dela rebentava com `ModuleNotFoundError`. Medido nesta bancada
+# a 2026-09-15, com a rota canonica italiana a correr contra Postgres real: a
+# corrida atravessou SOURCE, RUN, RAW e STORAGE, e morreu ao bater na admissao.
+#
+#     UMA ETAPA QUE NAO CORRE NAO E UMA ETAPA QUE RECUSOU.
+#     E A ESTRADA A ACABAR ANTES DA PORTA.
+#
+# O QUE **NAO** MUDOU, E E O QUE IMPORTA: a trava continua EXCLUSIVA e
+# BLOQUEANTE, pela razao escrita no corpo de `escrever()` — aqui nao ha
+# conflito, ha fila, e fazer isto falhar transformaria trabalho legitimo em
+# erro. Em POSIX e o mesmo `flock` de sempre, byte a byte igual. Em Windows e
+# `msvcrt.locking`, que trava uma REGIAO do ficheiro e e igualmente visivel
+# entre processos.
+#
+# ⚠️ NAO HA TETO DE ESPERA, E A AUSENCIA DELE E A DECISAO.
+# A primeira versao desta peca desistia ao fim de 120 segundos e levantava
+# `OSError`. O numero nasceu aqui, sem contrato, sem lei e sem precedente nesta
+# casa — e um numero inventado num sitio so nao e uma politica: e uma diferenca
+# de comportamento entre sistemas, disfarcada de prudencia.
+#
+#     POSIX esperava.  Windows desistia aos 120 s.
+#     A MESMA CONTENCAO LEGITIMA DAVA DOIS DESFECHOS.
+#
+# E o desfecho do Windows era exactamente o que o corpo de `escrever()` proibe
+# tres paragrafos acima: aqui nao ha conflito, HA FILA, e transformar fila em
+# erro transforma trabalho legitimo em falha. Uma corrida honesta que calhasse
+# de esperar dois minutos atras de outra corrida honesta seria acusada de
+# avaria.
+#
+#     UM TETO ARBITRARIO NAO PROTEGE DE NADA:
+#     SO DECIDE, POR NUMERO REDONDO, QUEM E QUE LEVA A CULPA.
+#
+# Fica a semantica que o POSIX sempre teve: quem espera pela trava, espera pela
+# trava. Se ela nunca se soltar, isso e uma trava presa — e trava presa e um
+# defeito a diagnosticar, nao um erro a fabricar no fim de uma contagem.
+#
+# ⚠️ E USA-SE `LK_NBLCK` E NAO `LK_LOCK`. O `LK_LOCK` tem um teto proprio
+# escondido — tenta dez vezes, com um segundo de intervalo, e levanta. Um teto
+# que se herda da biblioteca e tao arbitrario como um escrito a mao, com o
+# agravante de nao estar a vista. A tentativa nao-bloqueante, repetida por nos,
+# e a unica forma de a espera ser realmente nossa e realmente sem fim.
+
+
+def _prender(fd) -> None:
+    """Trava exclusiva e BLOQUEANTE sobre `fd`, nos dois sistemas. → None."""
+    try:
+        import fcntl                                           # noqa: PLC0415
+    except ImportError:
+        pass
+    else:
+        fcntl.flock(fd, fcntl.LOCK_EX)
+        return
+    import msvcrt                                              # noqa: PLC0415
+    import time                                                # noqa: PLC0415
+    while True:
+        try:
+            os.lseek(fd, 0, os.SEEK_SET)
+            # UM BYTE CHEGA: o que importa e a REGIAO ser a mesma para todos
+            # os que a disputam, e nao o tamanho dela. O ficheiro de trava
+            # nunca tem conteudo — travar alem do fim e legitimo em Windows.
+            msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)
+            return
+        except OSError:
+            time.sleep(0.05)
+
+
+def _soltar(fd) -> None:
+    """Larga a trava. Nunca rebenta: isto corre dentro de um `finally`."""
+    try:
+        import fcntl                                           # noqa: PLC0415
+    except ImportError:
+        pass
+    else:
+        fcntl.flock(fd, fcntl.LOCK_UN)
+        return
+    import msvcrt                                              # noqa: PLC0415
+    try:
+        os.lseek(fd, 0, os.SEEK_SET)
+        msvcrt.locking(fd, msvcrt.LK_UNLCK, 1)
+    except OSError:
+        # Largar uma trava que nao se chegou a prender nao e um erro, e
+        # rebentar aqui esconderia a excecao verdadeira que trouxe o `finally`.
+        pass
 
 
 def _escrever_sob_trava(decisoes: list) -> int:

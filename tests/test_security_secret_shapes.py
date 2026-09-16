@@ -111,6 +111,35 @@ class FormasDeSegredo(unittest.TestCase):
         self._ignora("Cookie: <REDIGIDO pela guarda>",
                      "redigir a origem nao pode virar um achado novo")
 
+    # ── O MARCADOR DE CAMINHO TINHA EXCEPCAO E NAO TINHA PROVA ────────────
+    # `CONTEUDO_PROIBIDO` isenta `[A-Z]:\Users\(?!<)` desde sempre, e
+    # `social_sessao.redigir()` escreve `<CAMINHO-LOCAL>` nesse lugar. O cookie
+    # tinha as duas faces provadas; o caminho tinha ZERO. Quando o SECURITY
+    # CLOSURE saneou `docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md`, passou a
+    # DEPENDER dessa isencao — e uma isencao de que alguem depende sem prova
+    # e a proxima a ser apagada sem ninguem dar por ela.
+    #
+    #     UMA ISENCAO SEM PROVA NAO E UMA REGRA: E UM HABITO.
+    #
+    # As formas continuam MONTADAS em tempo de execucao, como o resto deste
+    # ficheiro: ele NAO esta em `PERMITIDOS`, logo um caminho pessoal escrito
+    # inteiro aqui faria a guarda acusar a propria prova, para sempre.
+    def test_caminho_pessoal_windows(self):
+        self._pega(monta("C:", "\\", "Users", "\\", "Fulano", "\\", "orca"),
+                   "caminho pessoal Windows")
+
+    def test_caminho_pessoal_de_outra_conta_tambem(self):
+        self._pega(monta("D:", "\\", "users", "\\", "outra.conta", "\\", "tmp"),
+                   "caminho pessoal Windows")
+
+    def test_marcador_de_caminho_local_nao_e_segredo(self):
+        self._ignora(monta("00  <CAMINHO-LOCAL>", "\\", "orca", "\\", "workspaces"),
+                     "e o que redigir() escreve; acusa-lo obrigaria a apagar a linha")
+
+    def test_caminho_sem_perfil_de_utilizador_nao_e_segredo(self):
+        self._ignora(monta("05  C:", "\\", "eame-sintonia", "\\", ".claude", "\\", "worktrees"),
+                     "nao passa pelo perfil de ninguem: nao carrega nome de conta")
+
 
 class ArvoreReal(unittest.TestCase):
     def test_a_arvore_versionada_continua_sem_credencial(self):

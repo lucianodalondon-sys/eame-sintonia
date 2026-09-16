@@ -362,7 +362,7 @@ WHAT_IS_MISSING:       a separação FACT/INTERPRETATION/ACTION está implícita
 ```
 CLAIM_TYPE:            D
 CURRENT_STATUS:        **PROVED**
-CURRENT_EVIDENCE:      17 dos <!--M:SOURCE_ID_COUNT-->190<!--/M--> SOURCE_IDs estão em NÃO SEI com motivo medido; nenhuma
+CURRENT_EVIDENCE:      16 dos <!--M:SOURCE_ID_COUNT-->190<!--/M--> SOURCE_IDs estão em NÃO SEI com motivo medido; nenhuma
                        fonte foi reprovada sem avaliação; cinco hipóteses caíram e ficaram
                        registradas, duas delas nossas.
 ```

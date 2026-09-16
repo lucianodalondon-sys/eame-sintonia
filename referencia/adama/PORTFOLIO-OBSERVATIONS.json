@@ -1,0 +1,1856 @@
+{
+ "DATASET": "ADAMA-PORTFOLIO-OBSERVATIONS",
+ "SCHEMA": "sintonia.adama-reference/1",
+ "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
+ "BUILDER": "fontes/adama_catalogo_snapshot.py",
+ "LAW": "Ausencia numa foto e MEMBERSHIP, nao destruicao. O produto que sai do catalogo continua inteiro no PRODUCT-MASTER e no PORTFOLIO; o que muda e o estado dele NAQUELA foto.",
+ "MEMBERSHIP_STATES": {
+  "PRESENT_IN_CATALOG_SNAPSHOT": "a pagina do produto foi observada viva naquela foto",
+  "ABSENT_FROM_CATALOG_SNAPSHOT": "nao foi observada naquela foto. NAO significa descontinuado, nao significa apagado: significa que naquele dia nao estava la. O produto continua inteiro no PRODUCT-MASTER e no PORTFOLIO."
+ },
+ "VOCABULARY_IS_CLOSED": true,
+ "CURRENT_SNAPSHOT": "CAT_ADAMA_IT_20260915",
+ "SNAPSHOTS_OBSERVED": [
+  "CAT_ADAMA_IT_20260830",
+  "CAT_ADAMA_IT_20260915"
+ ],
+ "COUNT": 102,
+ "RECORDS": [
+  {
+   "OBSERVATION_ID": "ADAMA-P-0001|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0001",
+   "CANONICAL_NAME": "Lamdex® Extra",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Lamdex® Extra",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/lamdex-extra",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0001|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0001",
+   "CANONICAL_NAME": "Lamdex® Extra",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Lamdex® Extra",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": "0e520c5e15120b29f0702e0b13c854d2ce9628c02cffb59ed0678fb6100d95ab",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/lamdex-extra",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0002|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0002",
+   "CANONICAL_NAME": "Mavrik® Smart",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Mavrik® Smart",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/mavrik-smart",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0002|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0002",
+   "CANONICAL_NAME": "Mavrik® Smart",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Mavrik® Smart",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": "3867c7be6277f2b73bd17fcef138505e9d6af159002afbf321e677c6e8339bf0",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/mavrik-smart",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0003|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0003",
+   "CANONICAL_NAME": "Pirimor® 50",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Pirimor® 50",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/pirimor-50",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0003|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0003",
+   "CANONICAL_NAME": "Pirimor® 50",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Pirimor® 50",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": "0dad43d922033bd1a58b949a9366e6a0bb34e595d583b65db55930fea1484cb3",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/pirimor-50",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0004|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0004",
+   "CANONICAL_NAME": "Schermo® 0.5 G",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Schermo® 0.5 G",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/schermo-0-5-g",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0004|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0004",
+   "CANONICAL_NAME": "Schermo® 0.5 G",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Schermo® 0.5 G",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": "f5b31188781d0378530df17c85e8c3c6b6325b9a2f2879e5874dbea611dffe66",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/insetticidi/schermo-0-5-g",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0005|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0005",
+   "CANONICAL_NAME": "Banjo®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Banjo®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/banjo",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0005|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0005",
+   "CANONICAL_NAME": "Banjo®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Banjo®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "b616af2bea30f657f54449bea6a8f6456ce7f2b1954d2952d24df9c6f6e8e536",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/banjo",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0006|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0006",
+   "CANONICAL_NAME": "Seedron®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Seedron®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/seedron",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0006|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0006",
+   "CANONICAL_NAME": "Seedron®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Seedron®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "27b4b931afd3ed31010e8f3501215e0a6a51a34acef76da22ad5e70128120de0",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/seedron",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0007|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0007",
+   "CANONICAL_NAME": "Mirador® SC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Mirador® SC",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/mirador-sc",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0007|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0007",
+   "CANONICAL_NAME": "Mirador® SC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Mirador® SC",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "066b60338d33d1f9fa3559f33111516d7b12a93a7d3901746c89fd13de210c35",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/mirador-sc",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0008|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0008",
+   "CANONICAL_NAME": "Merpan® 80 WDG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Merpan® 80 WDG",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/merpan-80-wdg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0008|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0008",
+   "CANONICAL_NAME": "Merpan® 80 WDG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Merpan® 80 WDG",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "8edbd03e36adc519c004c2a35e05d6197d1e2d06ceb415ccdac7da1729236425",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/merpan-80-wdg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0009|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0009",
+   "CANONICAL_NAME": "Mavita® 250 EC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Mavita® 250 EC",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/mavita-250-ec",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0009|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0009",
+   "CANONICAL_NAME": "Mavita® 250 EC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Mavita® 250 EC",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "467b67c800f14909c1bb47a4060a2742a50ada3a29fb0fd8dadb01bcf194b9f2",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/mavita-250-ec",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0010|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0010",
+   "CANONICAL_NAME": "Folpan® Gold",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Folpan® Gold",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-gold",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0010|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0010",
+   "CANONICAL_NAME": "Folpan® Gold",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Folpan® Gold",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "b2a313c1ad4cb0f11c3811fe95292d316cee308cfa17a2bb5a303a7023fa8553",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-gold",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0011|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0011",
+   "CANONICAL_NAME": "Folpan® 80 WDG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Folpan® 80 WDG",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-80-wdg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0011|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0011",
+   "CANONICAL_NAME": "Folpan® 80 WDG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Folpan® 80 WDG",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "8f6e381f1e9d6af95b047fa1d20eddc3236c286cefe89620a9e44176d6442bd4",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/folpan-80-wdg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0012|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0012",
+   "CANONICAL_NAME": "Zakeo® 250 SC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Zakeo® 250 SC",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/zakeo-250-sc",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0012|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0012",
+   "CANONICAL_NAME": "Zakeo® 250 SC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Zakeo® 250 SC",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "4d738c6477554a195f58d43ad32ed54f02a3ebf0b2d7f3978689b348c669abf0",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/fungicidi/zakeo-250-sc",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0013|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0013",
+   "CANONICAL_NAME": "Activus® ME",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Activus® ME",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/activus-me",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0013|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0013",
+   "CANONICAL_NAME": "Activus® ME",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Activus® ME",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "dd0877434bd09179f465fdea88290b4b508c39a98434572238b45ed3bf4117c2",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/activus-me",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0014|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0014",
+   "CANONICAL_NAME": "Leopard® 5 EC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Leopard® 5 EC",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/leopard-5-ec",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0014|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0014",
+   "CANONICAL_NAME": "Leopard® 5 EC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Leopard® 5 EC",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "5e74cea01f30155a480142c5160ad83c9479b1de47b25ffaa01ff46c38e31fff",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/leopard-5-ec",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0015|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0015",
+   "CANONICAL_NAME": "Trimmer® 50 WG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Trimmer® 50 WG",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/trimmer-50-wg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0015|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0015",
+   "CANONICAL_NAME": "Trimmer® 50 WG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Trimmer® 50 WG",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "b8ded6158b5e3d5691074a39ddd0e1ec54ee3515cd52b5431fe2a583ab0fc027",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/trimmer-50-wg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0016|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0016",
+   "CANONICAL_NAME": "Timeline® Trio",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Timeline® Trio",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/timeline-trio",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0016|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0016",
+   "CANONICAL_NAME": "Timeline® Trio",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Timeline® Trio",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "31d15b6fdbe171acf6fa1faffbed96e25365385b24d02d961680888300803bed",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/timeline-trio",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0017|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0017",
+   "CANONICAL_NAME": "Taifun® MK CL",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Taifun® MK CL",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/taifun-mk-cl",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0017|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0017",
+   "CANONICAL_NAME": "Taifun® MK CL",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Taifun® MK CL",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "0afae16816edca61d26141dd7b3910258cc7aed1e15fb4dddbaed3361526ae87",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/taifun-mk-cl",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0018|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0018",
+   "CANONICAL_NAME": "Sultan®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Sultan®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sultan",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0018|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0018",
+   "CANONICAL_NAME": "Sultan®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Sultan®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "c4f01ec3a08e640fe5bca1f382117d0e761045c7fdbae4c97603683c1d506da3",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sultan",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0019|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0019",
+   "CANONICAL_NAME": "Sulcotrek®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Sulcotrek®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sulcotrek",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0019|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0019",
+   "CANONICAL_NAME": "Sulcotrek®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Sulcotrek®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "057919890df0bae9eab8a8941c7ea80274f8ac3184b390281bf411ddbe532bfc",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/sulcotrek",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0020|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0020",
+   "CANONICAL_NAME": "Stopper P",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Stopper P",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/stopper-p",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0020|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0020",
+   "CANONICAL_NAME": "Stopper P",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Stopper P",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "9c7690061e6eba0df13c1a28f6e5a23d8b3316943d524ea4e0f0bd5eb58ee6a3",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/stopper-p",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0021|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0021",
+   "CANONICAL_NAME": "Nicogan® V.O.",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Nicogan® V.O.",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/nicogan-vo",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0021|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0021",
+   "CANONICAL_NAME": "Nicogan® V.O.",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Nicogan® V.O.",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "be8b435e84d22532090e187806f014b2a6df788d51b5d83539524a9e4249ec1d",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/nicogan-vo",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0022|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0022",
+   "CANONICAL_NAME": "Agil®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Agil®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/agil",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0022|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0022",
+   "CANONICAL_NAME": "Agil®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Agil®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "670ada53b940f24100d6c676ce4e9a70054b8a7afd878fb959716e2ea5d8fb1f",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/agil",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0023|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0023",
+   "CANONICAL_NAME": "Goltix®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Goltix®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/goltix",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0023|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0023",
+   "CANONICAL_NAME": "Goltix®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Goltix®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "876ec9961e64a6b73aa06d6e07df3c0fddeae9fb42df01eb1e5da11471c4633a",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/goltix",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0024|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0024",
+   "CANONICAL_NAME": "Elegant® 2fd",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Elegant® 2fd",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/elegant-2fd",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0024|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0024",
+   "CANONICAL_NAME": "Elegant® 2fd",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Elegant® 2fd",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "5ec70e0e502325e9f331f15e4c09e2115e15be8079ef349d627eb0cc3800fda5",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/elegant-2fd",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0025|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0025",
+   "CANONICAL_NAME": "Davai®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Davai®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/davai",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0025|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0025",
+   "CANONICAL_NAME": "Davai®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Davai®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "d9f2fdf7e2ab2ebb44f666d7aea087a533c25331417b6fa216ff9d3abefd350b",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/davai",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0026|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0026",
+   "CANONICAL_NAME": "Contatto® 320",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Contatto® 320",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/contatto-320",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0026|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0026",
+   "CANONICAL_NAME": "Contatto® 320",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Contatto® 320",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "64cea49254bc21c9bea96388132f782f648b5ee209bbc3ef1d93053ce8179cf1",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/contatto-320",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0027|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0027",
+   "CANONICAL_NAME": "Clematis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Clematis®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/clematis",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0027|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0027",
+   "CANONICAL_NAME": "Clematis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Clematis®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "7374112d3008f9bdf95b2003991b64b945310007056a669b360567c0b7ec55a4",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/clematis",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0028|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0028",
+   "CANONICAL_NAME": "Valley",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Valley",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/valley",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0028|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0028",
+   "CANONICAL_NAME": "Valley",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Valley",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "556742dc13067b22227996d7757dd179229cd858c7f0857b93c23fef321c798b",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/erbicidi/valley",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0029|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0029",
+   "CANONICAL_NAME": "Brevis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Brevis®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/brevis",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0029|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0029",
+   "CANONICAL_NAME": "Brevis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Brevis®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": "62e5734989a9593b73142ee163e7fa6615775ed76e8796cf843eac88f97c7fdc",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/brevis",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0030|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0030",
+   "CANONICAL_NAME": "Exelgrow®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Exelgrow®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/exelgrow",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0030|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0030",
+   "CANONICAL_NAME": "Exelgrow®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Exelgrow®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": "43fb2531e4c4b64965df72e02eef86762461e26059808d760494526c9f4637e4",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/exelgrow",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0031|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0031",
+   "CANONICAL_NAME": "Parleaf",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Parleaf",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/parleaf",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0031|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0031",
+   "CANONICAL_NAME": "Parleaf",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Parleaf",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": "1e5f4a5b597fff4cf1a48249744d7d9e6c6c80a14614b1ae9991b37b0223552e",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti-adama/speciali/parleaf",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0032|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0032",
+   "CANONICAL_NAME": "Nimrod® 250 EW",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Nimrod® 250 EW",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/nimrodr-250-ew",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0032|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0032",
+   "CANONICAL_NAME": "Nimrod® 250 EW",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Nimrod® 250 EW",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "7e1a2f786cfbe8e3cc5acf01653f04b24d1cd5cd1047a66ed45c6975b6a389f9",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/nimrodr-250-ew",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0033|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0033",
+   "CANONICAL_NAME": "Tomigan",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Tomigan",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/tomigan",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0033|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0033",
+   "CANONICAL_NAME": "Tomigan",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Tomigan",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "10dd1dc18604cb808a3596e8855911064cfb3fd8c04f7614aa78bf028cc37efb",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/tomigan",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0034|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0034",
+   "CANONICAL_NAME": "Stavento®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Stavento®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/stavento",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0034|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0034",
+   "CANONICAL_NAME": "Stavento®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Stavento®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "b672d419f5b513d9d3f93783179f3c085a5a5ede2004a69464e45233ce4f64ee",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/stavento",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0035|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0035",
+   "CANONICAL_NAME": "Budge®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Budge®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/speciali/budge",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0035|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0035",
+   "CANONICAL_NAME": "Budge®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Budge®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": "75b9fe87b1dc26bd959e5d4969545e76bd41b2a155624ad81a2c587cb1c53317",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/speciali/budge",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0036|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0036",
+   "CANONICAL_NAME": "Taifun® MK CL PFNPE",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Taifun® MK CL PFNPE",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/taifun-mk-cl-pfnpe",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0036|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0036",
+   "CANONICAL_NAME": "Taifun® MK CL PFNPE",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Taifun® MK CL PFNPE",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "ef348e4a2d7a5b5cf660cd6087e3c678d462641033d0e5e5500f05644f4fa85d",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/taifun-mk-cl-pfnpe",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0037|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0037",
+   "CANONICAL_NAME": "Folpan® Energy",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Folpan® Energy",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/folpan-energy",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0037|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0037",
+   "CANONICAL_NAME": "Folpan® Energy",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Folpan® Energy",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "3bf5fc6d50f8d64c2f115243220e2e156f6300c3e535ad310dc18859f9d24cce",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/folpan-energy",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0038|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0038",
+   "CANONICAL_NAME": "Powerfilm®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Powerfilm®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/speciali/powerfilmr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0038|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0038",
+   "CANONICAL_NAME": "Powerfilm®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Powerfilm®",
+   "OBSERVED_CATEGORY": "SPECIALI",
+   "PAGE_SHA256": "c505e41e67c4e3360d894edf2627416009e28c32aa14f1d812142ca063e66085",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/speciali/powerfilmr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0039|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0039",
+   "CANONICAL_NAME": "Arrodim®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Arrodim®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/arrodimr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0039|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0039",
+   "CANONICAL_NAME": "Arrodim®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Arrodim®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "f877f1da9f94d2d941533c00d4a6e8f36364477556817555367f98bb08f7610f",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/arrodimr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0040|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0040",
+   "CANONICAL_NAME": "Apyza® WG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Apyza® WG",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/apyzar-wg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0040|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0040",
+   "CANONICAL_NAME": "Apyza® WG",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Apyza® WG",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": "ac78056e49000b3342cdb226cc0443799ede0d99e665457b7bf1a68f5fe379bb",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/apyzar-wg",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0041|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0041",
+   "CANONICAL_NAME": "Sonavio®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Sonavio®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/sonavior",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0041|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0041",
+   "CANONICAL_NAME": "Sonavio®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Sonavio®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "da734f700b15fe2c7f6d3a9b133d03ccbf68a6e8819afc93257dde013a92dc15",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/sonavior",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0042|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0042",
+   "CANONICAL_NAME": "Maganic®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Maganic®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maganicr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0042|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0042",
+   "CANONICAL_NAME": "Maganic®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Maganic®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "ea8e7504ac6cee73bce899696760b9ac4d1063b1351c54a4c00f3bc4b78cf089",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maganicr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0043|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0043",
+   "CANONICAL_NAME": "Maxentis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Maxentis®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maxentisr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0043|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0043",
+   "CANONICAL_NAME": "Maxentis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Maxentis®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "6fb569d7d6a7272869c1e786ea1807688d5ddba093cb3e7c96b93ee78a97aae4",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/maxentisr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0044|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0044",
+   "CANONICAL_NAME": "Edaptis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Edaptis®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/edaptisr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0044|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0044",
+   "CANONICAL_NAME": "Edaptis®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Edaptis®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "4ae373c4425933a220f902e6c5e6e80a3b20d865d95a1373a4c25e1710a1e859",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/edaptisr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0045|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0045",
+   "CANONICAL_NAME": "Highcard®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Highcard®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/highcardr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0045|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0045",
+   "CANONICAL_NAME": "Highcard®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Highcard®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "18a611dd695767e1adb0f3cdffdd6dced7de35cfc084755d2913308834058a76",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/highcardr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0046|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0046",
+   "CANONICAL_NAME": "Goltix® TOP",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Goltix® TOP",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/goltixr-top-0",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0046|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0046",
+   "CANONICAL_NAME": "Goltix® TOP",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Goltix® TOP",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "f03e24232ba32aac36e65a3ada77debc57b54e7aca172e6d9dda6f0c05ac2e5c",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/goltixr-top-0",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0047|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0047",
+   "CANONICAL_NAME": "Max-Ace® Rice Cropping Solution",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Max-Ace® Rice Cropping Solution",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/max-acer-rice-cropping-solution",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0047|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0047",
+   "CANONICAL_NAME": "Max-Ace® Rice Cropping Solution",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Max-Ace® Rice Cropping Solution",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "65288bb7ed3adc1a06e7d721b4c07568d31a8a9e0f3adda224407783c5b03e1d",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/max-acer-rice-cropping-solution",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0048|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0048",
+   "CANONICAL_NAME": "FullPage® Rice Cropping Solution",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "FullPage® Rice Cropping Solution",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/fullpager-rice-cropping-solution",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0048|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0048",
+   "CANONICAL_NAME": "FullPage® Rice Cropping Solution",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "FullPage® Rice Cropping Solution",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "5ebfbbf020b5084042d3bb65ba3662e302d9a69cd710d73b5849420eb12137b4",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/fullpager-rice-cropping-solution",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0049|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0049",
+   "CANONICAL_NAME": "Diode®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Diode®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/dioder",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0049|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0049",
+   "CANONICAL_NAME": "Diode®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Diode®",
+   "OBSERVED_CATEGORY": "ERBICIDI",
+   "PAGE_SHA256": "fd6a83244e19c8fc32a473a8f4aaba00f8027bb1adaccc2599c8bf8458971cbb",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/erbicidi/dioder",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0050|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0050",
+   "CANONICAL_NAME": "Avastel®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Avastel®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/avastelr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0050|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0050",
+   "CANONICAL_NAME": "Avastel®",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Avastel®",
+   "OBSERVED_CATEGORY": "FUNGICIDI",
+   "PAGE_SHA256": "19f66e3903a7d0aa70c90656449b45cf39ba33528b507d2b7e87c7e96c6cd9e7",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/fungicidi/avastelr",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0051|CAT_ADAMA_IT_20260830",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0051",
+   "CANONICAL_NAME": "Cosayr® 200 SC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Cosayr® 200 SC",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": null,
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/cosayrr-200-sc",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260830",
+    "PROVING_ARTIFACT": "research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json"
+   }
+  },
+  {
+   "OBSERVATION_ID": "ADAMA-P-0051|CAT_ADAMA_IT_20260915",
+   "ADAMA_PRODUCT_ID": "ADAMA-P-0051",
+   "CANONICAL_NAME": "Cosayr® 200 SC",
+   "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+   "MEMBERSHIP_STATE": "PRESENT_IN_CATALOG_SNAPSHOT",
+   "OBSERVED_NAME": "Cosayr® 200 SC",
+   "OBSERVED_CATEGORY": "INSETTICIDI",
+   "PAGE_SHA256": "9cec862e32a7f4c3b701220b45c1ec1bc3feaf5a58211d1ca255feae5d1639af",
+   "PROVENANCE": {
+    "SOURCE_IDS": [
+     "IT-ADAMA-CATALOG"
+    ],
+    "SOURCE_URL": "https://www.adama.com/italia/it/prodotti/insetticidi/cosayrr-200-sc",
+    "SNAPSHOT_ID": "CAT_ADAMA_IT_20260915",
+    "PROVING_ARTIFACT": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json"
+   }
+  }
+ ]
+}

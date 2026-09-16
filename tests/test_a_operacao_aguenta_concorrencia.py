@@ -244,6 +244,83 @@ class OLivroAguentaDuasMaos(unittest.TestCase):
                          "decisoes perdidas: ficaram %d de 24"
                          % len(livro["DECISOES"]))
 
+    def test_a_contencao_espera_e_nao_vira_erro(self):
+        """QUEM ESPERA PELA TRAVA, ESPERA. Contencao legitima nao e falha.
+
+        ⚠️ ESTA GUARDA NASCEU DE UM DEFEITO REAL E DECLARADO.
+        A primeira versao da trava multi-plataforma desistia ao fim de 120
+        segundos e levantava `OSError` — so no Windows. A mesma fila dava dois
+        desfechos conforme o sistema, e no Windows uma corrida honesta atras de
+        outra corrida honesta era acusada de avaria.
+
+            UM TETO ARBITRARIO NAO PROTEGE DE NADA:
+            SO DECIDE, POR NUMERO REDONDO, QUEM E QUE LEVA A CULPA.
+
+        Aqui a trava e presa POR FORA por um tempo maior do que qualquer
+        tentativa nao-bloqueante aguenta, e o escritor tem de ATRAVESSAR — nem
+        rebentar, nem desistir, nem escrever por cima.
+        """
+        import time
+
+        adm.LIVRO.parent.mkdir(parents=True, exist_ok=True)
+        fd = os.open(str(adm.LIVRO) + ".lock", os.O_CREAT | os.O_RDWR, 0o644)
+        adm._prender(fd)                                       # noqa: SLF001
+
+        fora = {}
+
+        def escreve():
+            comeco = time.monotonic()
+            try:
+                adm.escrever([self._decisao(1)])
+                fora["erro"] = None
+            except BaseException as ex:                       # noqa: BLE001
+                fora["erro"] = "%s: %s" % (type(ex).__name__, str(ex)[:120])
+            fora["esperou"] = time.monotonic() - comeco
+
+        f = threading.Thread(target=escreve)
+        f.start()
+        # Segura a trava bem para la do que uma tentativa unica aguentaria.
+        time.sleep(1.2)
+        adm._soltar(fd)                                        # noqa: SLF001
+        os.close(fd)
+        # ⚠️ O `join` TEM TETO, E ELE E DA PROVA — NAO DA TRAVA.
+        # Sem teto, uma trava que nunca solta pendurava a suite inteira sem
+        # dizer porque. Aqui o teto so existe para a FALHA ter voz.
+        f.join(timeout=60)
+        self.assertFalse(f.is_alive(),
+                         "o escritor ficou preso mesmo depois de a trava sair")
+        self.assertIsNone(fora.get("erro"),
+                          "a contencao virou erro: %s" % fora.get("erro"))
+        self.assertGreaterEqual(
+            fora.get("esperou", 0), 1.0,
+            "o escritor nao esperou pela trava — ou ela nao estava presa, e "
+            "entao esta prova nao mede nada")
+        with io.open(str(adm.LIVRO), encoding="utf-8") as fh:
+            self.assertEqual(1, len(json.load(fh)["DECISOES"]))
+
+    def test_a_trava_nao_tem_teto_fixo_de_espera(self):
+        """NENHUM NUMERO REDONDO DECIDE QUANDO A FILA VIRA ERRO.
+
+        Duas maneiras de o teto voltar, e as duas contam:
+
+            escrito a mao      uma constante de segundos nesta peca
+            herdado da libc    `LK_LOCK`, que tenta 10 vezes e levanta
+
+        Um teto que se herda da biblioteca e tao arbitrario como um escrito a
+        mao, com o agravante de nao estar a vista.
+        """
+        codigo = _codigo_sem_prosa("admissao/admissao.py")
+        self.assertNotIn("_TETO_DA_FILA", codigo,
+                         "voltou um teto de espera escrito a mao na trava")
+        self.assertNotIn("LK_LOCK", codigo,
+                         "voltou o `LK_LOCK`, que traz teto proprio escondido")
+        self.assertIn("LK_NBLCK", codigo,
+                      "a espera do Windows deixou de ser nossa")
+        # E o POSIX NAO MUDOU: continua a ser o mesmo `flock` bloqueante.
+        self.assertIn("LOCK_EX", codigo, "o POSIX deixou de travar exclusivo")
+        self.assertNotIn("LOCK_NB", codigo,
+                         "o POSIX ganhou uma trava que desiste")
+
     def test_a_escrita_e_atomica_e_nao_deixa_o_livro_a_meio(self):
         codigo = _codigo_sem_prosa("admissao/admissao.py")
         self.assertIn("os.replace", codigo,

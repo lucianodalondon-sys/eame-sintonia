@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-15T20:06:01+00:00",
-    "HEAD": "0063e46b07030644a5c5c34e650dba12089e6321",
+    "GENERATED_AT": "2026-09-16T16:15:59+00:00",
+    "HEAD": "2f0863d1acfc457bb87cb026319c56eb5ff0114f",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "8964c64b90637a7a4c70c566087d6043c2c85cc912458c480178fa734592a7f0",
-    "FICHEIROS_NA_IMPRESSAO": 2098,
+    "SOURCE_TREE_FINGERPRINT": "c4ca8dd8494341adef64d0293c64db4add3fabd931afe14f322f512bf7f43e91",
+    "FICHEIROS_NA_IMPRESSAO": 2211,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "b8bdda454fdcb81cd2c1d0ce89d90d3e5a24561e",
+        "VERSAO": "de8b1c1a9cc4235049494174ecca7f46e47eb5d5",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -21,6 +21,13 @@
         "PATH": "admissao/sala_de_espera.py",
         "PAPEL": "FONTE",
         "VERSAO": "01f1ce4c45adb44032abd2831201274f12fac1d8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/decidir_fila_italia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "22de8d850b4499c701cbed6cad317fb744458f0e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -70,6 +77,20 @@
         "PATH": "candidatas/italy_write_matrix.mjs",
         "PAPEL": "FONTE",
         "VERSAO": "7be10ad18b8ba878b09ed93fd41b82ab74262828",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/reconciliar_fichas_orfas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "18018f0ae1bb994bedf1705ce4b4895eed8e442a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/xlsx_simples.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "46c087bf2df6ff645e09143c45ae6b7e3f96adc2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -132,7 +153,7 @@
       {
         "PATH": "coleta/coleta_checkpoint.py",
         "PAPEL": "FONTE",
-        "VERSAO": "072c87cd9bdf3720fa6158056b982f9a33e6f955",
+        "VERSAO": "f0827313ec6474133f04cb26ceb5ab51715072e3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -314,7 +335,7 @@
       {
         "PATH": "coleta/italy_pilot_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "e9980f36313c236dd2faa676a3b0ad7701994df8",
+        "VERSAO": "7e0e60a451c1d88c302e8a2cc1a9e09fc2cafc8a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -613,6 +634,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "fontes/adama_catalogo_snapshot.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a1f14a075b0fdf2a47a816b0895a8ee24c2bfa7f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "fontes/adama_it_eu.py",
         "PAPEL": "FONTE",
         "VERSAO": "0c20516dedec3feee45b64c166f971299e6210cd",
@@ -741,7 +769,7 @@
       {
         "PATH": "guarda/social_guarda.py",
         "PAPEL": "FONTE",
-        "VERSAO": "842c7a0bcc601bf4430f4986c9fa37524be430a9",
+        "VERSAO": "431b97fb8264db0e1cf65ec1c5207eb405c68fab",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -865,8 +893,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 122,
-    "INPUTS_DIGEST": "3f93d35f62a554921c605846ad5ee6e86b74ec376dda1c6933a164d3aee4e53a",
+    "INPUTS_COUNT": 126,
+    "INPUTS_DIGEST": "8ca94fd4815497bfee248c5e100dd25105231ca374e318114255e274c20c2848",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -924,6 +952,26 @@
       "no_ci": false
     },
     {
+      "ficheiro": "candidatas/decidir_fila_italia.py",
+      "gaveta": "candidatas",
+      "linhas": 554,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
       "linhas": 225,
@@ -941,7 +989,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "candidatas/decidir_fila_italia.py"
+      ],
       "no_ci": false
     },
     {
@@ -1044,6 +1094,40 @@
       "no_ci": false
     },
     {
+      "ficheiro": "candidatas/reconciliar_fichas_orfas.py",
+      "gaveta": "candidatas",
+      "linhas": 267,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/xlsx_simples.py",
+      "gaveta": "candidatas",
+      "linhas": 126,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "candidatas/decidir_fila_italia.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "fontes/adama_catalogo_ler.py",
       "gaveta": "fontes",
       "linhas": 241,
@@ -1066,6 +1150,22 @@
       "ficheiro": "fontes/adama_catalogo_montar.py",
       "gaveta": "fontes",
       "linhas": 380,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "fontes/adama_catalogo_snapshot.py",
+      "gaveta": "fontes",
+      "linhas": 706,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1655,7 +1755,7 @@
     {
       "ficheiro": "coleta/coleta_checkpoint.py",
       "gaveta": "coleta",
-      "linhas": 887,
+      "linhas": 929,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2087,6 +2187,7 @@
         "coleta/executor_texto_de_pdf.py",
         "coleta/golden_path_pdf.py",
         "coleta/italy_executor.py",
+        "coleta/italy_pilot_collect.mjs",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_colheita.py",
         "guarda/catalogo_importar.py",
@@ -2226,7 +2327,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 525,
+      "linhas": 575,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3158,7 +3259,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 1087,
+      "linhas": 1176,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3197,6 +3298,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/coleta_checkpoint.py",
         "coleta/rota_forward_documento.py"
       ],
       "no_ci": true
@@ -3320,7 +3422,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/coleta_checkpoint.py"
+      ],
       "no_ci": false
     },
     {
@@ -3394,7 +3498,7 @@
     {
       "ficheiro": "guarda/social_guarda.py",
       "gaveta": "guarda",
-      "linhas": 290,
+      "linhas": 301,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3460,12 +3564,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 122,
-    "pontos_de_entrada": 91,
+    "ficheiros_de_codigo": 126,
+    "pontos_de_entrada": 94,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 47,
+    "sem_chamador_e_fora_do_ci": 48,
     "gravam_no_banco": 2,
-    "escrevem_ficheiro": 71,
+    "escrevem_ficheiro": 73,
     "deitam_fora_alguma_coisa": 35,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 3,
@@ -3475,9 +3579,12 @@
     "pontos_de_entrada": [
       "pedido/pedido.py",
       "pedido/receitas.py",
+      "candidatas/decidir_fila_italia.py",
       "candidatas/fonte_nova.py",
+      "candidatas/reconciliar_fichas_orfas.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
+      "fontes/adama_catalogo_snapshot.py",
       "fontes/adama_it_eu.py",
       "fontes/adama_it_frac.py",
       "fontes/adama_it_gaps.py",
@@ -3592,14 +3699,16 @@
     ],
     "orfaos": [
       "pedido/receitas.py",
-      "candidatas/fonte_nova.py",
+      "candidatas/decidir_fila_italia.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
+      "candidatas/reconciliar_fichas_orfas.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
+      "fontes/adama_catalogo_snapshot.py",
       "fontes/adama_it_gaps.py",
       "fontes/adama_it_labels.py",
       "fontes/adama_it_qa.py",
@@ -3636,7 +3745,6 @@
       "regras/rotulos_censo.py",
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
-      "guarda/portas_live.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-15T21:32:17+00:00",
-    "HEAD": "43553a651f8c330512c5989a78bc796739659331",
+    "GENERATED_AT": "2026-09-16T16:17:59+00:00",
+    "HEAD": "2f0863d1acfc457bb87cb026319c56eb5ff0114f",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c46c43eb164fbea7eb1f6fb3cc0ab9671f09c5ffaa25d77b365dadf92f9279a0",
-    "FICHEIROS_NA_IMPRESSAO": 2105,
+    "SOURCE_TREE_FINGERPRINT": "c4ca8dd8494341adef64d0293c64db4add3fabd931afe14f322f512bf7f43e91",
+    "FICHEIROS_NA_IMPRESSAO": 2211,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -15359,6 +15359,23 @@
       ]
     },
     {
+      "endpoint": "https://www.adama.com/italia",
+      "usado_por": [
+        {
+          "file": "fontes/adama_catalogo_snapshot.py",
+          "line": 79
+        },
+        {
+          "file": "motor/v21_ingest.py",
+          "line": 281
+        },
+        {
+          "file": "pacote/pacote_camadas3.py",
+          "line": 44
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.hracglobal.com/tools",
       "usado_por": [
         {
@@ -15644,19 +15661,6 @@
       ]
     },
     {
-      "endpoint": "https://www.adama.com/italia",
-      "usado_por": [
-        {
-          "file": "motor/v21_ingest.py",
-          "line": 281
-        },
-        {
-          "file": "pacote/pacote_camadas3.py",
-          "line": 44
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com',",
       "usado_por": [
         {
@@ -15696,6 +15700,19 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.invalido/boletim",
+      "usado_por": [
+        {
+          "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+          "line": 69
+        },
+        {
+          "file": "provas/auditoria_agro_fronteira.py",
+          "line": 87
+        }
+      ]
+    },
+    {
       "endpoint": "https://social.example/p",
       "usado_por": [
         {
@@ -15707,24 +15724,11 @@
           "line": 369
         }
       ]
-    },
-    {
-      "endpoint": "https://exemplo.it/",
-      "usado_por": [
-        {
-          "file": "provas/a_rota_m2_atravessa.py",
-          "line": 213
-        },
-        {
-          "file": "tests/test_porta_de_candidatas.py",
-          "line": 233
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 258,
+  "ENDPOINTS_FOUND": 261,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 218,
+  "ENDPOINTS_TRUNCATED": 221,
   "COUNTS": {
     "sources": 210,
     "with_contract": 5,
@@ -15742,9 +15746,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 258,
+    "endpoints": 261,
     "endpoints_published": 40,
-    "endpoints_truncated": 218,
+    "endpoints_truncated": 221,
     "candidates": 241,
     "coletores": 51,
     "coletores_com_data": 19,

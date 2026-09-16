@@ -21,7 +21,7 @@ coleta para descobrir o que já se sabe.
 - **O que a ADAMA sabe de si** — O catalogo comercial e o portfolio da ADAMA lidos por dentro: o que vende em cada pais, com que rotulo, modo de acao e substancia — e onde ha lacuna.
   - `fontes/adama_catalogo_ler.py`
   - `fontes/adama_catalogo_montar.py`
-  - `fontes/adama_it_eu.py`
+  - `fontes/adama_catalogo_snapshot.py`
 
 ```bash
 py candidatas/fonte_nova.py --listar     # a fila de fontes candidatas

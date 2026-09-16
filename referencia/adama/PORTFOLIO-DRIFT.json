@@ -1,0 +1,118 @@
+{
+ "DATASET": "ADAMA-PORTFOLIO-DRIFT",
+ "SCHEMA": "sintonia.adama-reference/1",
+ "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
+ "BUILDER": "fontes/adama_catalogo_snapshot.py",
+ "LAW": "Diff factual entre duas fotos do MESMO catalogo, casado pela IDENTITY_ANCHOR e nunca pelo nome nem pela posicao. Isto NAO e um motor de eventos: nao interpreta, nao decide impacto, nao avisa ninguem. Mede.",
+ "SNAPSHOT_BEFORE": "CAT_ADAMA_IT_20260830",
+ "SNAPSHOT_NOW": "CAT_ADAMA_IT_20260915",
+ "DAYS_BETWEEN": 16,
+ "IDENTITY_MATCH_METHOD": "PRODUCT-MASTER.IDENTITY_ANCHORS (URL:)",
+ "COUNT_SCOPE": {
+  "LAW": "PAGINA LEGIVEL OBSERVADA != CATALOGO OFICIAL TOTAL. Esta casa conta o que conseguiu ler. O que nao conseguiu ler nao vira zero.",
+  "OBSERVED_READABLE_PRODUCT_COUNT": 51,
+  "OBSERVED_READABLE_MEANS": "paginas de produto que o sitemap oficial enumera E que foram abertas e lidas nesta observacao: 51 de 51, zero falhas.",
+  "CURRENT_OFFICIAL_PORTFOLIO_COUNT": "NAO SEI",
+  "WHY_TOTAL_IS_UNKNOWN": "a listagem oficial /italia/it/products/crop-protection — unica superficie onde a propria ADAMA publica uma CONTAGEM — nao foi lida. Enquanto ela for ilegivel pode existir superficie comercial que os 51 legiveis nao enumeram, e POSTSCRIPT 80 e um candidato observado a exactamente isso. Dizer \"o catalogo tem 51\" seria transformar o limite do instrumento em facto sobre o mundo.",
+  "WHAT_51_DOES_PROVE": "51 URLs de produto no sitemap oficial · 51 paginas vivas capturadas · as mesmas 51 nas duas fotografias · 55 nao provado.",
+  "WHAT_51_DOES_NOT_PROVE": "que o catalogo comercial oficial tenha 51 produtos hoje."
+ },
+ "POPULATION_CROSSCHECK": {
+  "LAW": "Listagem nao serve de contagem. Duas contagens por caminhos independentes, e o que nao bate fica escrito.",
+  "WHAT_IS_BEING_COUNTED": "PAGINAS DE PRODUTO LEGIVEIS, nao o catalogo total",
+  "METHOD_A": "sitemap.xml publicado pela propria ADAMA",
+  "METHOD_A_COUNT": 51,
+  "METHOD_B": "varredura de toda ligacao com forma de produto dentro das 51 paginas capturadas",
+  "METHOD_B_READABLE_COUNT": 51,
+  "METHOD_B_EXTRA_ROUTES_FOUND": 2,
+  "METHODS_AGREE_ON_READABLE_PAGES": true,
+  "AGREEMENT_MEANS": "os dois caminhos leem as MESMAS 51 paginas. Isso e concordancia sobre o que se consegue ler — nao sobre o tamanho do catalogo. As rotas extra que o metodo B achou ficam UNKNOWN: uma devolveu 403 e a outra e barrada pelo Akamai, e nenhuma das duas respostas e \"nao existe\".",
+  "DISTINCT_PRODUCT_ROUTES_SEEN": 53,
+  "OUT_OF_SITEMAP_ROUTES": [
+   {
+    "PATH": "/italia/it/prodotti-adama/erbicidi/antigram-gold",
+    "SHAPE": "PRODUCT_SHAPED",
+    "LINKED_FROM": [
+     "prodotti-adama-erbicidi-sulcotrek.html"
+    ],
+    "HTTP_STATUS": 403,
+    "TITLE": "Accesso negato | ADAMA Italia",
+    "AKAMAI_INTERSTITIAL": false,
+    "PROBED_AT": "2026-09-15T20:41:46+00:00",
+    "STATE": "LINKED_BUT_NOT_READABLE",
+    "PUBLICATION_STATE": "UNKNOWN",
+    "WHY_NOT_COUNTED": "nesta observacao a rota devolveu 403 \"Accesso negato\", e por isso NAO foi lida. ⚠️ 403 NAO PROVA que o produto esteja despublicado: prova que este cliente, neste momento, nao teve acesso. ERROR != REJECTED, e ausencia de prova nao e prova de ausencia. Nao entra na contagem porque nao foi observado, nao porque foi observado ausente.",
+    "REGISTRY_LOOKUP": {
+     "SLUG": "antigram-gold",
+     "MATCHED_REGISTRATIONS": [],
+     "WHAT_IT_PROVES": "nenhuma autorizacao ADAMA com este nome no snapshot regulatorio",
+     "WHAT_IT_DOES_NOT_PROVE": "que a ADAMA lista este produto no catalogo comercial hoje. REGULATORY_PRODUCT != CATALOG_PRODUCT."
+    }
+   },
+   {
+    "PATH": "/italia/it/products/crop-protection/postscript-80",
+    "SHAPE": "OTHER_PRODUCT_ROUTE",
+    "LINKED_FROM": [
+     "prodotti-adama-speciali-parleaf.html",
+     "prodotti-erbicidi-fullpager-rice-cropping-solution.html",
+     "prodotti-speciali-powerfilmr.html"
+    ],
+    "HTTP_STATUS": 200,
+    "TITLE": "&nbsp;",
+    "AKAMAI_INTERSTITIAL": true,
+    "PROBED_AT": "2026-09-15T20:41:47+00:00",
+    "STATE": "BLOCKED_BY_BOT_PROTECTION",
+    "PUBLICATION_STATE": "UNKNOWN",
+    "WHY_NOT_COUNTED": "a rota responde com desafio interstitial do Akamai. NAO foi resolvido: deteccao de robo nao se contorna. Nao sabemos o que ha aqui.",
+    "REGISTRY_LOOKUP": {
+     "SLUG": "postscript-80",
+     "MATCHED_REGISTRATIONS": [
+      {
+       "REGISTRATION_NUMBER": "017585",
+       "REGISTERED_NAME": "POSTSCRIPT 80",
+       "HOLDER": "ADAMA AGAN LTD",
+       "ADMIN_ACTIVE": true,
+       "ADAMA_PRODUCT_ID": "UNKNOWN"
+      }
+     ],
+     "WHAT_IT_PROVES": "existe autorizacao ADAMA com este nome no Ministero",
+     "WHAT_IT_DOES_NOT_PROVE": "que a ADAMA lista este produto no catalogo comercial hoje. REGULATORY_PRODUCT != CATALOG_PRODUCT."
+    }
+   }
+  ],
+  "METHOD_C": "/italia/it/products/crop-protection — a listagem oficial, unica superficie onde a ADAMA publica uma CONTAGEM",
+  "METHOD_C_COUNT": "NAO SEI",
+  "METHOD_C_WHY": "Akamai Bot Manager responde com desafio interstitial de prova-de-trabalho, e navegar ate la devolve Access Denied. O desafio NAO foi resolvido."
+ },
+ "ADAMA_PRODUCT_IDS_CHANGED": 0,
+ "WHY_ZERO_IDS_CHANGED": "esta casa nunca escreve no PRODUCT-MASTER. So le. Um ADAMA_PRODUCT_ID emitido nao se renumera.",
+ "HUMAN_REPORT": {
+  "HUMAN_REPORTED_CURRENT_PORTFOLIO": 55,
+  "REPORTED_ON": "2026-09-15",
+  "STATE": "NOT_PROVEN_BY_ANY_SOURCE_READ",
+  "WHY": "as duas contagens independentes que a fonte oficial permitiu — sitemap publicado pela propria ADAMA e varredura de todas as ligacoes internas — dao 51 e 51 PAGINAS LEGIVEIS. Nenhuma fonte lida produziu 55.",
+  "WHAT_WAS_NOT_READABLE": "a listagem oficial /italia/it/products/crop-protection, que e a unica superficie onde a propria ADAMA publica uma CONTAGEM. Ela responde com desafio interstitial do Akamai. Resolver o desafio seria contornar deteccao de robo, e isso nao se faz.",
+  "COULD_55_STILL_BE_TRUE": "SIM. Nao provado nao e refutado. Enquanto a listagem oficial for ilegivel, 55 continua possivel — o que esta medido e que nenhuma fonte lida o produziu, e que o conjunto legivel nao se mexeu."
+ },
+ "TEMPORAL_DRIFT": {
+  "LAW": "Nao se mediu o universo. Mediu-se o conjunto observavel, e o veredito nao pode ser maior do que a amostra.",
+  "TEMPORAL_DRIFT_IN_OBSERVED_SET": "NOT_OBSERVED",
+  "OBSERVED_SET": "as 51 paginas legiveis, comparaveis nas duas fotografias",
+  "WHAT_WAS_MEASURED": "entre 30/08 e 15/09: 0 entradas, 0 saidas, 0 renomeacoes, 0 campos alterados, 51 inalterados",
+  "TOTAL_CATALOG_TEMPORAL_DRIFT": "NAO SEI",
+  "WHY_TOTAL_IS_UNKNOWN": "o universo comercial total nunca foi enumerado — a listagem oficial nao abre. Um produto que tenha entrado ou saido FORA do sitemap nao apareceria em nenhuma das duas fotografias, e a comparacao daria igual na mesma. Dizer que o catalogo nao mudou seria concluir sobre o que nao se olhou.",
+  "HANDOFF_HYPOTHESIS_WAS": "que 15 dias tinham mexido o portfolio, e que isso explicava a diferenca 51 vs 55",
+  "HANDOFF_HYPOTHESIS_NOW": "NOT_SUPPORTED_IN_OBSERVED_SET — nao explica a diferenca pelo que se conseguiu ver. NAO e refutacao: a hipotese continua de pe para a parte do catalogo que permanece ilegivel."
+ },
+ "WHAT_COUNT_MEANS": "COUNT_BEFORE e COUNT_NOW contam PRODUTOS OBSERVADOS EM PAGINA LEGIVEL e casados por IDENTITY_ANCHOR — a populacao comparavel entre as duas fotografias. NAO sao o tamanho do catalogo oficial, que permanece NAO SEI enquanto a listagem oficial nao abrir.",
+ "COUNT_POPULATION": "OBSERVED_READABLE_AND_COMPARABLE",
+ "COUNT_BEFORE": 51,
+ "COUNT_NOW": 51,
+ "ADDED": [],
+ "REMOVED": [],
+ "RENAMED_CANDIDATES": [],
+ "CHANGED_FIELDS": [],
+ "UNCHANGED": 51,
+ "UNMATCHED_PAGES_BEFORE": [],
+ "UNMATCHED_PAGES_NOW": []
+}

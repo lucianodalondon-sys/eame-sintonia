@@ -2,14 +2,14 @@
  "O_QUE_ISTO_E": "Censo do corpo italiano. Conta REGISTOS e CARACTERES DE PROSA em separado, porque sao coisas diferentes e confundi-las foi o que produziu a frase «milhoes de caracteres».",
  "COMO_REFAZER": "py system-map/scripts/censo_do_corpus_it.py",
  "TOTAIS": {
-  "FICHEIROS_ITALIANOS": 206,
-  "FICHEIROS_COM_ALGUMA_PROSA": 153,
-  "FICHEIROS_SEM_PROSA_NENHUMA": 53,
-  "CORPO_DE_REGISTOS_COM_IDENTIFICADOR": 903,
-  "CORPO_DE_OBJETOS_DENTRO_DE_LISTAS": 13031,
-  "CORPO_DE_REGISTOS": 903,
-  "CORPO_DE_TEXTO_EM_CARACTERES": 63175,
-  "CARACTERES_POR_REGISTO": 70.0
+  "FICHEIROS_ITALIANOS": 208,
+  "FICHEIROS_COM_ALGUMA_PROSA": 154,
+  "FICHEIROS_SEM_PROSA_NENHUMA": 54,
+  "CORPO_DE_REGISTOS_COM_IDENTIFICADOR": 905,
+  "CORPO_DE_OBJETOS_DENTRO_DE_LISTAS": 13343,
+  "CORPO_DE_REGISTOS": 905,
+  "CORPO_DE_TEXTO_EM_CARACTERES": 65502,
+  "CARACTERES_POR_REGISTO": 72.4
  },
  "POR_GAVETA": {
   "TEXT_EXPECTED_AND_PRESENT": {
@@ -18,9 +18,9 @@
    "caracteres": 26446
   },
   "TEXT_NOT_EXPECTED": {
-   "ficheiros": 169,
-   "registos": 831,
-   "caracteres": 36729
+   "ficheiros": 171,
+   "registos": 833,
+   "caracteres": 39056
   },
   "UNKNOWN": {
    "ficheiros": 23,
@@ -48,6 +48,11 @@
    "FICHEIRO": "data/samples/IT-CATALOGO/IT-ADAMA-CATALOG-CENSUS-2026-09-02.json",
    "CARACTERES": 5355,
    "REGISTOS": 0
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
+   "CARACTERES": 2327,
+   "REGISTOS": 1
   },
   {
    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T9-008/adama-orticole-2026-06-03.BROWSER-EXTRACT.json",
@@ -1400,6 +1405,19 @@
    "CARACTERES_DE_TEXTO": 5355,
    "CAMPOS_DE_TEXTO_USADOS": {
     "SUBTITLE_IT": 51
+   },
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 51,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 1,
+   "CARACTERES_DE_TEXTO": 2327,
+   "CAMPOS_DE_TEXTO_USADOS": {
+    "ACTIVE_INGREDIENT_TEXT": 51
    },
    "GAVETA": "TEXT_NOT_EXPECTED",
    "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
@@ -3381,6 +3399,17 @@
    "CAMPOS_DE_TEXTO_USADOS": {},
    "GAVETA": "UNKNOWN",
    "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
+   "FICHEIRO": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 261,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
   },
   {
    "FICHEIRO": "data/samples/IT-ARPAV-VENETO/staz_18.json",
