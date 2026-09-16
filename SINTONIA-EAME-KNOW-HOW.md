@@ -10,9 +10,10 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §127 (revisto no mesmo dia, até 5b.2): mudar de secção no site não cria fonte, mas «mesmo publicador» não prova, por si, «mesma fonte»; `IT-ADAMA-CATALOG` é legado de `IT-T9-008` por factos; e **o SINTONIA ainda não tem identidade canónica de SOURCE_OWNER** — `IT-OWN-*` é chave do catálogo candidato, o facto é a entidade pelo nome, e `OWNER_ID_LEGACY` foi retirado.
+**Última atualização material:** 2026-09-16 — §128: a primeira coleta controlada da Itália bate num **ambiente**, não num módulo. Nenhuma das três bancadas medidas tem **egresso italiano e Sala canónica ao mesmo tempo**; as duas provas que existem partem a pergunta ao meio (uma adquire e não pousa, a outra pousa e não adquire); duas provas da Itália não correm no Windows, que é onde o egresso italiano vive; e `coleta/italy_pilot_collect.mjs` corre, por omissão, `IT-T3-005` — uma fonte com **zero menções no Atlas**.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
-**Próximo passo autorizado (2026-09-16):** PREPARAR PRIMEIRA COLETA CONTROLADA ITÁLIA V1 — selecionar um conjunto pequeno e representativo de fontes reais; medir contratos, rotas e ferramentas disponíveis para elas; identificar **somente** os gates da Collection necessários ao piloto. ⚠️ **NÃO executar coleta** nessa missão e **NÃO autorizar Big Collection** (`BIG_COLLECTION = NÃO AUTORIZADA`). Preparar ≠ coletar — CAN DO ≠ DID DO.
+**Passo anterior — CUMPRIDO (2026-09-16):** PREPARAR PRIMEIRA COLETA CONTROLADA ITÁLIA V1. O plano vive em [`docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md`](docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md): `PILOT_SOURCE_COUNT = 6` (`IT-T4-001` · `IT-T3-002` · `IT-T3-008` · `IT-T3-010` · `IT-T2-002` · `IT-T2-004`), **6 portões `MUST_FIX`** e **9 dívidas `CAN_WAIT`**. Nenhuma coleta foi executada.
+**Próximo passo autorizado (2026-09-16):** **FECHAR OS SEIS PORTÕES** antes de executar — e o primeiro deles é escolher a **bancada** (§128), não escrever módulo. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`. Preparar ≠ coletar — CAN DO ≠ DID DO.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -15398,4 +15399,145 @@ NAO integra a Sources no trunk, e não corre coleta nenhuma.
 NAO substitui o §126: ali está a ordem entre faixas; aqui está o que é uma fonte.
 NAO toca fontes/adama_it_intelligence.py: escreve IT-ADAMA-CATALOG na saída PRÓPRIA dele,
     que é entrada histórica da Reference; o mapa legado→canónico traduz à entrada.
+```
+
+---
+
+# §128 · QUEM PODE ADQUIRIR NÃO PODE PROVAR, E QUEM PODE PROVAR NÃO PODE ADQUIRIR — A PRIMEIRA COLETA CONTROLADA BATE NUM AMBIENTE, NÃO NUM MÓDULO
+
+## O QUE MUDOU
+
+```
+A Collection italiana NÃO está à espera de código. Está à espera de UMA
+BANCADA que tenha as duas metades ao mesmo tempo:
+
+    EGRESSO ITALIANO        para a fonte responder
+    SALA CANÓNICA           para a unidade poder pousar
+
+Medido em 2026-09-16, em três ambientes, e nenhum tem as duas.
+```
+
+## POR QUÊ
+
+Duas provas já existem, e a leitura apressada delas diz «está feito». Não está —
+e a razão é que **nenhuma das duas faz as duas coisas ao mesmo tempo**:
+
+| prova | adquiriu da rede? | chegou à Sala? |
+|---|:-:|:-:|
+| `provas/a_fonte_t4_italiana_atravessa.py` | **SIM** | **NÃO** — para em `DERIVED = NOT_APPLICABLE` (`text/csv` sem derivador) |
+| `provas/o_material_italiano_chega_a_sala.py` | **NÃO** — reprocessa bytes já colhidos | **SIM** — 3 unidades pousaram |
+
+    AQUISIÇÃO REAL + CHEGADA À SALA, NA MESMA CORRIDA = AINDA NÃO ACONTECEU.
+
+E a soma das duas **não** vale pela terceira: uma prova o transporte sem o
+destino, a outra prova o destino sem o transporte.
+
+    DUAS METADES PROVADAS EM DIAS DIFERENTES NÃO SÃO UM INTEIRO PROVADO.
+
+## PROVA
+
+```
+egresso desta bancada (16/09)     EGRESS_COUNTRY_CODE = IT   EGRESS_GATE = PASS
+                                  (Proton AG · Milão · medido em superficie/rede.py)
+node 24.18.0 · curl 8.21.0 · pdftotext 4.06        presentes
+psql · psycopg · PostgreSQL portátil               AUSENTES  (procurados, zero)
+admissao/sala_de_espera.py --portao                SALA_DE_ESPERA=BLOCKED, sai com 1
+
+ubuntu-latest (banco-descartavel.yml)   Postgres 16 descartável, egresso US
+                                        -> o portão do egresso BLOQUEIA, e tem razão
+
+runner Windows auto-hospedado           SINTONIA_SALA_BACKEND=POSTGRES
+(sintonia-scrap.yml)                    SUPABASE_DB_URL = PRODUÇÃO
+                                        LIVE_DB_REACHABLE = NO na última medição
+                                        32 migrations em Git; 031 e 032 nunca
+                                        medidas em produção
+```
+
+O portão do egresso está certo, o portão da Sala está certo, e é precisamente
+por estarem certos que não há por onde passar hoje. Nenhum dos dois pode ser
+afrouxado: `UNKNOWN != IT`, e uma Sala que não sobrevive ao job faz pagar rede
+por nada.
+
+## OS DOIS DEFEITOS DE WINDOWS QUE MORAM EXACTAMENTE NO SÍTIO ERRADO
+
+O runner que tem o egresso italiano **é Windows**. E é lá que as duas provas da
+Itália não correm — as duas pela mesma família de defeito: um caminho absoluto
+de Windows tratado como se fosse POSIX.
+
+```
+1 · tests/test_italia_na_porta_canonica.py::_driver
+    monta  import ... from "C:/.../italy_pilot_collect.mjs"
+    Node lê `c:` como PROTOCOLO -> ERR_UNSUPPORTED_ESM_URL_SCHEME
+    14 falhas nesta bancada, UMA causa só, 0 falhas no CI Linux
+
+    ⚠️ O conserto já existe no MESMO repositório, e pela MESMA razão:
+       coleta/italy_pilot_collect.mjs:543 usa `pathToFileURL`, e o comentário
+       ao lado explica que sem ele o ficheiro «corria sem fazer nada e saía
+       com zero». O coletor foi consertado; a prova dele não.
+
+2 · psql com a DSN ANTES das opções
+    provas/o_material_italiano_chega_a_sala.py:96
+    provas/o_portao_da_big_collection.py:120
+    o getopt do Windows não permuta: liga-se, NÃO aplica a migration, sai 0
+    medido: 40 chamadas com DSN à frente contra 15 corretas
+    admissao/sala_de_espera.py já está certo; a_fonte_t4_italiana_atravessa.py também
+```
+
+    UMA PROVA QUE NÃO CORRE NA MÁQUINA QUE PODE ADQUIRIR
+    GUARDA A PORTA DE UMA CASA ONDE NINGUÉM ENTRA.
+
+## E O COLETOR ITALIANO CORRE, POR OMISSÃO, UMA FONTE QUE O REGISTO NÃO TEM
+
+```
+coleta/italy_pilot_collect.mjs  ->  PILOT_SOURCES tem SETE entradas
+docs/fontes/ATLAS-DE-FONTES-EAME.md  ->  IT-T3-005 tem ZERO menções
+
+IT-T3-005 (Terre dell'Etruria) vive só em candidatas/ITALY-SOURCE-MASTER-V1.json
+    status  = NEW
+    verdict = NAO SEI
+e já tem 6 observações no livro append-only.
+
+E está no perfil OPERACIONAL `forward-only-live`, ao lado de IT-T2-002 e IT-T2-004.
+```
+
+O Atlas diz de si próprio que «uma linha só existe aqui depois que alguém abriu a
+fonte, olhou o que ela entrega e guardou evidência disso», e o `AGENTS.md` diz
+que «o que entra pela porta é candidata, nunca fonte». As duas leis estavam de
+pé; o que ninguém tinha medido é que **a lista do coletor não é a lista do
+registo**, e que correr sem `--fonte=` atravessa a diferença em silêncio.
+
+    A LISTA DE QUEM SE COLHE NÃO É A LISTA DE QUEM SE REGISTOU,
+    E O PADRÃO DE UM COLETOR É UMA DECISÃO QUE NINGUÉM TOMOU DE NOVO.
+
+## CONSEQUÊNCIA
+
+```
+1 · Antes da primeira coleta controlada, decide-se A BANCADA — não mais um módulo.
+    Ou Postgres descartável no runner com egresso italiano, ou autorização
+    explícita do dono para escrever na Supabase de produção. Não há terceira.
+
+2 · `sintonia-scrap.yml` é o único sítio onde os dois portões correm ANTES da
+    aquisição, e não tem fase italiana. A condição dos passos 5b/5c é lista de
+    EXCLUSÃO — uma fase nova nasce com os dois portões ligados, e isso é de
+    propósito. O mínimo é a fase, não um portão novo.
+
+3 · Consertar `pathToFileURL` na prova e a ordem das opções do `psql` é barato,
+    e nenhum dos dois é novo: os dois já foram consertados noutro ficheiro da
+    mesma casa, pela mesma razão escrita.
+
+4 · IT-T3-005 NÃO entra em piloto nenhum enquanto não tiver ficha no Atlas. E
+    enquanto o padrão do coletor a incluir, toda corrida nomeia as fontes uma a
+    uma. Isto NÃO promove a candidata e NÃO apaga as 6 observações que ela já
+    tem: promover ou apagar são decisões de outra missão.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO promove IT-T3-005 nem nenhuma das candidatas.
+NAO conserta nenhum dos quatro defeitos que nomeia — mede-os e dá-lhes dono.
+NAO declara a rota italiana partida: ela atravessa, e está provada nas duas metades.
+NAO autoriza Big Collection.  BIG_COLLECTION = NÃO AUTORIZADA.
+NAO decide construir derivador de CSV: o contrato de IT-T4-001 declara DUAS
+    granularidades, e escolher uma é arquitectura, não conserto.
 ```
