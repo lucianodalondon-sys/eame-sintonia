@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-16T19:01:09+00:00",
-  "HEAD": "d376c2687826e7696552a4b9c5941e58332e39c6",
+  "GENERATED_AT": "2026-09-16T19:10:42+00:00",
+  "HEAD": "3bdb34badd26ffbb630b4a35b3f2d13b8730dead",
   "BRANCH": "claude/it-sources-atlas-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f",
+  "SOURCE_TREE_FINGERPRINT": "9629a09594f068156cf2712a095e0c3b49dc1e609587dac464e03bc53ea4f0ab",
   "FICHEIROS_NA_IMPRESSAO": 2212,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2897,14 +2897,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f",
+    "VERSAO": "9629a09594f068156cf2712a095e0c3b49dc1e609587dac464e03bc53ea4f0ab",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f",
+    "VERSAO": "9629a09594f068156cf2712a095e0c3b49dc1e609587dac464e03bc53ea4f0ab",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4330,6 +4330,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_source_owner_identity.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4d95099dbe9932444cd8430119792126bf04ef46",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_telemetria.py",
     "PAPEL": "FONTE",
     "VERSAO": "deba0869b754955d61715aaa47488636ef39f975",
@@ -4421,8 +4428,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 626,
-  "INPUTS_DIGEST": "14351a310348ce8dd648fd0488210bf125486a3d642d9663527365c794eff095",
+  "INPUTS_COUNT": 627,
+  "INPUTS_DIGEST": "0b66c0364b28da4b5f285f20ed54f2ffa7c94ec15d326fd97f840147ac6eaeb7",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4455,8 +4462,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3b3d5f9c24332c04c86e0e1f157a608ca0909e0ee74b20acd2211eb62c3b15ab",
-  "SEMANTIC_HASH": "9d5d54a8f2f0b1d69f9972c5c3c07ddc0200b5512d2aab459412066b5a44b291"
+  "MEASUREMENT_HASH": "7a7a87a22652ae909c70baa1c3591ab0fbe0ce409058bab36f330d66d924c163",
+  "SEMANTIC_HASH": "5aa710bc1088c3f9e5507ae5c41c582bb70c57fe73b253c51640a34859ad8257"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7307,6 +7314,14 @@
      {
       "FICHEIRO": "tests/test_source_id.py",
       "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_source_owner_identity.py",
+      "LINHA": 34,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
@@ -19102,6 +19117,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_source_owner_identity.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -19780,6 +19803,14 @@
      {
       "FICHEIRO": "tests/test_alvo_estruturado_resolvido.py",
       "LINHA": 233,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_source_owner_identity.py",
+      "LINHA": 36,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -35740,7 +35771,8 @@
     "provas/red_team_gate_fase_1d.py",
     "tests/test_adama_catalogo_drift.py",
     "tests/test_adama_referencia.py",
-    "tests/test_consumo_da_referencia_adama.py"
+    "tests/test_consumo_da_referencia_adama.py",
+    "tests/test_source_owner_identity.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -35969,7 +36001,8 @@
     "tests/test_competitor_layer.py",
     "tests/test_fila_italia_decisoes.py",
     "tests/test_retorno_da_coleta.py",
-    "tests/test_source_id.py"
+    "tests/test_source_id.py",
+    "tests/test_source_owner_identity.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -38591,7 +38624,8 @@
     "tests/test_fila_italia_decisoes.py",
     "tests/test_forward_instrumentado.py",
     "tests/test_m2_rota_forward.py",
-    "tests/test_source_id.py"
+    "tests/test_source_id.py",
+    "tests/test_source_owner_identity.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -38733,7 +38767,8 @@
     "provas/italy_pilot_negativos.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py",
-    "tests/test_source_id.py"
+    "tests/test_source_id.py",
+    "tests/test_source_owner_identity.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
@@ -42721,6 +42756,7 @@
     "tests/test_social_sessao.py",
     "tests/test_source_id.py",
     "tests/test_source_id_wiring_gap.py",
+    "tests/test_source_owner_identity.py",
     "tests/test_telemetria.py",
     "tests/test_thread_parcial.py",
     "tests/test_trava_da_inteligencia.py",

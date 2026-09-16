@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-sources-atlas-v1",
-    "HEAD": "d376c2687826e7696552a4b9c5941e58332e39c6",
-    "GENERATED_AT": "2026-09-16T15:36:29-03:00",
-    "SOURCE_TREE_FINGERPRINT": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f"
+    "HEAD": "3bdb34badd26ffbb630b4a35b3f2d13b8730dead",
+    "GENERATED_AT": "2026-09-16T16:02:28-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9629a09594f068156cf2712a095e0c3b49dc1e609587dac464e03bc53ea4f0ab"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "f4dc3fd4826f48ebdc338d22b04c1f22969a5296",
+      "sha": "5cf72fa8b662ced95b37334806623bf52c0e34f0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -14347,6 +14347,13 @@
     {
       "path": "tests/test_source_id_wiring_gap.py",
       "sha": "d2ddc6ef7a2d923f98b852b186b78f1a04228ebf",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_source_owner_identity.py",
+      "sha": "4d95099dbe9932444cd8430119792126bf04ef46",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -60641,6 +60648,50 @@
       }
     },
     {
+      "from_file": "tests/test_source_owner_identity.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_owner_identity.py",
+        "line": 35,
+        "snippet": "MASTER = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_source_owner_identity.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_owner_identity.py",
+        "line": 34,
+        "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_source_owner_identity.py",
+      "to_file": "referencia/adama/SOURCE-ID-MAP.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_owner_identity.py",
+        "line": 204,
+        "snippet": "mapa = _json(os.path.join(RAIZ, \"referencia\", \"adama\", \"SOURCE-ID-MAP.json\"))[\"RECORDS\"]"
+      }
+    },
+    {
+      "from_file": "tests/test_source_owner_identity.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_owner_identity.py",
+        "line": 36,
+        "snippet": "CONTRATOS = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")"
+      }
+    },
+    {
       "from_file": "tests/test_telemetria.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -61925,10 +61976,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2063,
-    "files_readable": 792,
-    "files_code_dir": 849,
-    "file_edges": 4269,
+    "files_tracked": 2064,
+    "files_readable": 793,
+    "files_code_dir": 850,
+    "file_edges": 4273,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

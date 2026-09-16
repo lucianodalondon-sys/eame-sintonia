@@ -2122,6 +2122,7 @@
       "tests/test_social_sessao.py",
       "tests/test_source_id.py",
       "tests/test_source_id_wiring_gap.py",
+      "tests/test_source_owner_identity.py",
       "tests/test_telemetria.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
@@ -2655,9 +2656,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-sources-atlas-v1",
-    "HEAD": "d376c2687826e7696552a4b9c5941e58332e39c6",
-    "GENERATED_AT": "2026-09-16T15:36:29-03:00",
-    "SOURCE_TREE_FINGERPRINT": "13056bdc85ae6da58c597a97163f309595d3a115dd160d20a9c3190fca07129f"
+    "HEAD": "3bdb34badd26ffbb630b4a35b3f2d13b8730dead",
+    "GENERATED_AT": "2026-09-16T16:02:28-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9629a09594f068156cf2712a095e0c3b49dc1e609587dac464e03bc53ea4f0ab"
   },
   "FAMILIES": [
     {
@@ -35904,6 +35905,7 @@
         "tests/test_social_sessao.py",
         "tests/test_source_id.py",
         "tests/test_source_id_wiring_gap.py",
+        "tests/test_source_owner_identity.py",
         "tests/test_telemetria.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
@@ -35918,7 +35920,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 178,
+      "file_count": 179,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36096,7 +36098,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 36,
+        "ITALIA": 38,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -36136,6 +36138,7 @@
           "FORA_DA_COLLECTION",
           "FORTE",
           "FORWARD",
+          "GAVETAS_DE_RUNTIME",
           "HISTORICOS",
           "IDENT",
           "IMPLEMENTACOES",
@@ -36169,13 +36172,13 @@
           "VOCABULARIO_DA_COLLECTION",
           "_GAVETA_DE"
         ],
-        "palavras": 866,
+        "palavras": 874,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 854,
+        "sem_marca_de_lingua": 862,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -39777,7 +39780,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 21 linhas de codigo.",
+      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 22 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_catalogo_drift.py",
@@ -43163,7 +43166,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "AS FONTES alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_referencia.py",
@@ -43265,6 +43268,22 @@
           "file": "tests/test_source_id.py",
           "line": 37,
           "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_owner_identity.py",
+          "line": 34,
+          "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
             "FROM": "C-AS-FONTES",
@@ -64408,7 +64427,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -64462,6 +64481,22 @@
           "file": "tests/test_source_id.py",
           "line": 38,
           "snippet": "MASTER_IT = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
+            "FROM": "C-IT-CATALOGO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_owner_identity.py",
+          "line": 35,
+          "snippet": "MASTER = os.path.join(RAIZ, \"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
             "FROM": "C-IT-CATALOGO",
@@ -65536,12 +65571,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 233,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_owner_identity.py",
+          "line": 36,
+          "snippet": "CONTRATOS = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",
@@ -93901,8 +93952,8 @@
     "edges_proven": 1013,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2063,
-    "files_covered": 985,
+    "files_tracked": 2064,
+    "files_covered": 986,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,
