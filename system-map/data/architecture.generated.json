@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "b4ac04afb79a998fc960e872b4f37c5ae89542a7",
-    "GENERATED_AT": "2026-09-16T05:17:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f38cfe96be94bc620162740c6785059440558b32d60e704f70fcab6527cf775b"
+    "BRANCH": "claude/it-collection-sala-v1",
+    "HEAD": "167d35d3b650003538f420e823b7cbd73059b8c3",
+    "GENERATED_AT": "2026-09-16T07:55:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "645e449f241dc982d57e01490fc67b36b407526d82ea5b4ce83962bc2bcf75cc"
   },
   "FILES": [
     {
@@ -290,7 +290,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "b8bdda454fdcb81cd2c1d0ce89d90d3e5a24561e",
+      "sha": "de8b1c1a9cc4235049494174ecca7f46e47eb5d5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1228,7 +1228,7 @@
     },
     {
       "path": "coleta/coleta_checkpoint.py",
-      "sha": "072c87cd9bdf3720fa6158056b982f9a33e6f955",
+      "sha": "f0827313ec6474133f04cb26ceb5ab51715072e3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1410,7 +1410,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "e9980f36313c236dd2faa676a3b0ad7701994df8",
+      "sha": "7e0e60a451c1d88c302e8a2cc1a9e09fc2cafc8a",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -10243,6 +10243,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_fonte_t4_italiana_atravessa.py",
+      "sha": "a6a36f7756447c99f6d8716384e5521b90f4eeb2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_fronteira_da_coleta.py",
       "sha": "764b0d05d0a847ac76c9420e06edc1cf5056f892",
       "ext": ".py",
@@ -12637,6 +12644,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/data/fonte-t4-italiana.observado.json",
+      "sha": "bc0c50d6ee9df09f761622bd4bcaf1eac22ecfca",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "system-map/data/fronteira.observada.json",
       "sha": "0471d90472a1a5d8234d4ef5020cadcb1b9f4538",
       "ext": ".json",
@@ -13149,7 +13163,7 @@
     },
     {
       "path": "tests/test_a_operacao_aguenta_concorrencia.py",
-      "sha": "7e2b2cce00c01042017702a89787d42c21effbd7",
+      "sha": "83fb495602c54e00ad00fc29cdf0d46f45bf5441",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16330,7 +16344,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/coleta_checkpoint.py",
-        "line": 501,
+        "line": 543,
         "snippet": "import rastro_da_coleta as rastro"
       }
     },
@@ -17320,7 +17334,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 130,
+        "line": 161,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -32791,6 +32805,160 @@
       }
     },
     {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 66,
+        "snippet": "import _gavetas                                    # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 170,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 70,
+        "snippet": "import sala_de_espera as espera                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 67,
+        "snippet": "import coleta_checkpoint as cc                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 68,
+        "snippet": "import ingresso as ing                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 69,
+        "snippet": "import italy_executor as ie                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 351,
+        "snippet": "\"roda\": [\"coleta/italy_executor.py\"]}, run_id)"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 433,
+        "snippet": "r1 = subprocess.run([\"node\", \"coleta/italy_pilot_collect.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 172,
+        "snippet": "adm.LIVRO = livro / \"LIVRO-DE-DECISOES.json\""
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 414,
+        "snippet": "\"instagram_transcrever.py\"), \"rodar\"],"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 218,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 71,
+        "snippet": "from pedido import Pedido                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 114,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_t4_italiana_atravessa.py",
+      "to_file": "system-map/data/fonte-t4-italiana.observado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_t4_italiana_atravessa.py",
+        "line": 86,
+        "snippet": "\"fonte-t4-italiana.observado.json\")"
+      }
+    },
+    {
       "from_file": "provas/a_fronteira_da_coleta.py",
       "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
       "type": "READS",
@@ -46503,7 +46671,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_operacao_aguenta_concorrencia.py",
-        "line": 248,
+        "line": 312,
         "snippet": "codigo = _codigo_sem_prosa(\"admissao/admissao.py\")"
       }
     },
@@ -61113,10 +61281,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2046,
-    "files_readable": 785,
-    "files_code_dir": 839,
-    "file_edges": 4206,
+    "files_tracked": 2048,
+    "files_readable": 786,
+    "files_code_dir": 841,
+    "file_edges": 4220,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

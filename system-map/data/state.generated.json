@@ -1517,6 +1517,7 @@
       "provas/a_corrida_existe_em_cada_rota.py",
       "provas/a_fase_10_entra_no_acervo.py",
       "provas/a_fonte_atravessa_ate_a_porta.py",
+      "provas/a_fonte_t4_italiana_atravessa.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_legenda_e_o_audio_do_youtube.py",
       "provas/a_lei_da_fase_10.py",
@@ -1875,6 +1876,7 @@
       "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
+      "system-map/data/fonte-t4-italiana.observado.json",
       "system-map/data/fronteira.observada.json",
       "system-map/data/linhagem.observada.json",
       "system-map/data/material-italiano-na-sala.observado.json",
@@ -2637,10 +2639,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "b4ac04afb79a998fc960e872b4f37c5ae89542a7",
-    "GENERATED_AT": "2026-09-16T05:17:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f38cfe96be94bc620162740c6785059440558b32d60e704f70fcab6527cf775b"
+    "BRANCH": "claude/it-collection-sala-v1",
+    "HEAD": "167d35d3b650003538f420e823b7cbd73059b8c3",
+    "GENERATED_AT": "2026-09-16T07:55:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "645e449f241dc982d57e01490fc67b36b407526d82ea5b4ce83962bc2bcf75cc"
   },
   "FAMILIES": [
     {
@@ -4107,8 +4109,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 255",
-        "desses, mostrados aqui: 40 (ficam de fora 215)"
+        "enderecos que o codigo realmente chama: 256",
+        "desses, mostrados aqui: 40 (ficam de fora 216)"
       ],
       "status_reason": "197 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 192, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -35887,7 +35889,7 @@
         },
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
-          "line": 248,
+          "line": 312,
           "snippet": "codigo = _codigo_sem_prosa(\"admissao/admissao.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
@@ -71668,7 +71670,7 @@
       "evidence": [
         {
           "file": "coleta/coleta_checkpoint.py",
-          "line": 501,
+          "line": 543,
           "snippet": "import rastro_da_coleta as rastro",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RASTRO--IMPORTS-->C-COLETA-BASE",
@@ -87614,8 +87616,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1074,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/a_fonte_t4_italiana_atravessa.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1076,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -87804,9 +87808,9 @@
     "edges_proven": 1005,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2046,
+    "files_tracked": 2048,
     "files_covered": 972,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 147,
     "roles_declared_only": 7,
     "roles_unknown": 55,
