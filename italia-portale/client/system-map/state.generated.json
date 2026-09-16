@@ -2640,9 +2640,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "167d35d3b650003538f420e823b7cbd73059b8c3",
-    "GENERATED_AT": "2026-09-16T07:55:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "645e449f241dc982d57e01490fc67b36b407526d82ea5b4ce83962bc2bcf75cc"
+    "HEAD": "d53864d78c300325ef94c2457531a0242f6851dd",
+    "GENERATED_AT": "2026-09-16T07:58:33-03:00",
+    "SOURCE_TREE_FINGERPRINT": "dd14fd0e01da8f2746bd7935645eee402e2efbdbc0c077632785988b7bcd3ee0"
   },
   "FAMILIES": [
     {
@@ -20831,8 +20831,8 @@
         "PROVA": [
           "orquestrador/orquestrador.py:53",
           "pedido/receitas.py:46",
-          "provas/a_linhagem_do_reaproveitamento.py:50",
-          "provas/a_maquina_depois_do_crash.py:50"
+          "provas/a_fonte_t4_italiana_atravessa.py:71",
+          "provas/a_linhagem_do_reaproveitamento.py:50"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR · C-RECEITAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -22301,6 +22301,7 @@
         "provas/a_collection_preserva_o_fato.py",
         "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_fonte_atravessa_ate_a_porta.py",
+        "provas/a_fonte_t4_italiana_atravessa.py",
         "provas/a_lei_da_fase_10.py",
         "provas/a_linhagem_do_ready.py",
         "provas/a_maquina_depois_do_crash.py",
@@ -22369,7 +22370,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 74,
+      "file_count": 75,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -22460,7 +22461,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 4,
+        "ITALIA": 7,
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
@@ -22539,11 +22540,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1436,
+        "palavras": 1447,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1434,
+        "sem_marca_de_lingua": 1445,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -22639,6 +22640,7 @@
         "coleta/instagram_diario.py",
         "coleta/instagram_janela.py",
         "coleta/italy_executor.py",
+        "coleta/italy_pilot_collect.mjs",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_capacidades.py",
         "coleta/scrap_colheita.py",
@@ -22777,6 +22779,7 @@
         "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
         "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
         "superficie/rede.py",
+        "system-map/data/fonte-t4-italiana.observado.json",
         "system-map/data/fronteira.observada.json",
         "system-map/data/pedido-t4.observado.json",
         "system-map/data/pedido.observado.json",
@@ -34744,7 +34747,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 23 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 24 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
@@ -34766,6 +34769,22 @@
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
           "line": 30,
           "snippet": "import admissao as adm  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 170,
+          "snippet": "import admissao as adm",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -34910,22 +34929,6 @@
           "file": "provas/censo_corpus_rotulado_admission.py",
           "line": 39,
           "snippet": "import admissao as adm  # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
-            "FROM": "C-ADMISSAO",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/ensaio_do_texto_na_collection.py",
-          "line": 51,
-          "snippet": "import admissao as adm                                       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -44387,7 +44390,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 16 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -44409,6 +44412,22 @@
           "file": "provas/_c106c_filho.py",
           "line": 24,
           "snippet": "import coleta_checkpoint as ck   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-COLETA-BASE",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 67,
+          "snippet": "import coleta_checkpoint as cc                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-COLETA-BASE",
@@ -44553,22 +44572,6 @@
           "file": "provas/queda_e_repeticao_da_v1.py",
           "line": 48,
           "snippet": "import coletor as ct                                              # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-COLETA",
-            "FROM": "C-COLETA-BASE",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/red_team_da_release_v1.py",
-          "line": 58,
-          "snippet": "import coletor as ct                                 # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-COLETA-BASE",
@@ -55831,8 +55834,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 68,
+          "snippet": "import ingresso as ing                             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-INGRESSO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/ensaio_do_texto_na_collection.py",
           "line": 52,
@@ -58754,8 +58773,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 69,
+          "snippet": "import italy_executor as ie                        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 39,
@@ -58789,8 +58824,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 351,
+          "snippet": "\"roda\": [\"coleta/italy_executor.py\"]}, run_id)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 433,
+          "snippet": "r1 = subprocess.run([\"node\", \"coleta/italy_pilot_collect.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_linhagem_do_ready.py",
           "line": 222,
@@ -63815,8 +63882,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 9 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 218,
+          "snippet": "import orquestrador as orq",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_maquina_depois_do_crash.py",
           "line": 100,
@@ -65350,8 +65433,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 71,
+          "snippet": "from pedido import Pedido                          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-PEDIDO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_maquina_depois_do_crash.py",
           "line": 50,
@@ -75003,12 +75102,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
           "line": 57,
           "snippet": "import sala_de_espera as espera  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 70,
+          "snippet": "import sala_de_espera as espera                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SALA-DE-ESPERA",
@@ -84861,8 +84976,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_t4_italiana_atravessa.py",
+          "line": 414,
+          "snippet": "\"instagram_transcrever.py\"), \"rodar\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--READS-->C-PROVA-COLETA",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/portas_canonicas_no_postgres.py",
           "line": 42,
@@ -87616,10 +87747,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/a_fonte_t4_italiana_atravessa.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1076,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1075,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -87809,8 +87938,8 @@
     "edges_unknown": 54,
     "business_edges": 4,
     "files_tracked": 2048,
-    "files_covered": 972,
-    "files_code_unclaimed": 1,
+    "files_covered": 973,
+    "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,
     "roles_unknown": 55,
