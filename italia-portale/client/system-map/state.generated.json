@@ -2655,9 +2655,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-sources-atlas-v1",
-    "HEAD": "d88e479f6fd5c475254e9b580a7930f1f2f3f4ff",
-    "GENERATED_AT": "2026-09-16T13:33:58-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f28f53c1d4fd57198ad19e2e83eecde01af2e8a82755c03d9228943cf1065648"
+    "HEAD": "bcac1c7b8e0efe790c028a44188f50df122a3c29",
+    "GENERATED_AT": "2026-09-16T14:04:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "645a99e05176cecb2135858da364b776ecd4f50a5f59697b37f8907db3a3868f"
   },
   "FAMILIES": [
     {
@@ -3367,11 +3367,11 @@
           "SNAPSHOTS",
           "SOURCE_ID_CANONICO"
         ],
-        "palavras": 326,
+        "palavras": 328,
         "por_lingua": {
           "IT": 5
         },
-        "sem_marca_de_lingua": 321,
+        "sem_marca_de_lingua": 323,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7347,7 +7347,7 @@
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
               "como_se_entra": "JSON",
-              "dono": "ADAMA Italia S.r.l. (IT-OWN-040)",
+              "dono": "ADAMA Italia S.r.l. (IT-OWN-040) ⚠️ O MESMO dono tem um segundo id na casa: o manifesto da amostra (data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json) e regras/italy_contracts.mjs chamam-lhe IT-OWN-ADAMA-IT. É a mesma entidade com dois ids de dono — divergência declarada em 2026-09-16, NÃO reconciliada aqui (o SOURCE_ID não depende dela).",
               "url": "https://www.adama.com/italia",
               "atualiza": "NÃO SEI",
               "exemplo": "«Orticole: come controllare le infestanti, anche quelle piu difficili» https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili — application/json, 5295 bytes, SHA256 conferido em 2026-09-07",
@@ -39046,7 +39046,7 @@
         },
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 382,
+          "line": 390,
           "snippet": "import adama_catalogo_snapshot as S",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
@@ -39132,7 +39132,7 @@
       "evidence": [
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 319,
+          "line": 343,
           "snippet": "master = ler(os.path.join(CASA, 'PRODUCT-MASTER.json'))['PRODUCTS']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39148,7 +39148,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 320,
+          "line": 344,
           "snippet": "portfolio = ler(os.path.join(CASA, 'PORTFOLIO.json'))['RECORDS']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39164,7 +39164,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 359,
+          "line": 383,
           "snippet": "registos = ler(os.path.join(CASA, 'REGISTRATIONS.json'))['RECORDS']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39180,7 +39180,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 516,
+          "line": 550,
           "snippet": "gravar(os.path.join(CASA, 'CATALOG-SNAPSHOTS.json'), snapshots)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39196,7 +39196,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 547,
+          "line": 582,
           "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-OBSERVATIONS.json'), {",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39212,7 +39212,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 677,
+          "line": 712,
           "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-DRIFT.json'), drift)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39228,7 +39228,7 @@
         },
         {
           "file": "fontes/adama_referencia.py",
-          "line": 278,
+          "line": 313,
           "snippet": "caminho = os.path.join(CASA, \"PRODUCT-MASTER.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39244,7 +39244,7 @@
         },
         {
           "file": "fontes/adama_referencia.py",
-          "line": 292,
+          "line": 327,
           "snippet": "vpai = v21(\"PRODUCT-ACTIVE-INGREDIENTS.json\")[\"RECORDS\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39260,7 +39260,7 @@
         },
         {
           "file": "fontes/adama_referencia.py",
-          "line": 591,
+          "line": 626,
           "snippet": "\"SNAPSHOTS.json\": _env(\"ADAMA-SNAPSHOTS\", SNAPSHOTS,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39276,7 +39276,7 @@
         },
         {
           "file": "fontes/adama_referencia.py",
-          "line": 593,
+          "line": 628,
           "snippet": "\"PORTFOLIO.json\": _env(\"ADAMA-PORTFOLIO\", portfolio,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39292,7 +39292,7 @@
         },
         {
           "file": "fontes/adama_referencia.py",
-          "line": 596,
+          "line": 631,
           "snippet": "\"REGISTRATIONS.json\": _env(\"ADAMA-REGISTRATIONS\", registos,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39308,7 +39308,7 @@
         },
         {
           "file": "fontes/adama_referencia.py",
-          "line": 599,
+          "line": 634,
           "snippet": "\"LABEL-DOCUMENTS.json\": _env(\"ADAMA-LABEL-DOCUMENTS\", documentos,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -39776,7 +39776,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_catalogo_drift.py",
@@ -39876,7 +39876,7 @@
         },
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 317,
+          "line": 320,
           "snippet": "regs = {r[\"REGISTRATION_NUMBER\"]: r for r in ler(\"REGISTRATIONS.json\")[\"RECORDS\"]}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -39892,7 +39892,7 @@
         },
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 352,
+          "line": 357,
           "snippet": "with io.open(os.path.join(CASA, \"CONTRATO-ADAMA-REFERENCE.md\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -39908,7 +39908,7 @@
         },
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 416,
+          "line": 430,
           "snippet": "mapa = ler(\"SOURCE-ID-MAP.json\")[\"RECORDS\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -43166,7 +43166,7 @@
       "evidence": [
         {
           "file": "tests/test_adama_referencia.py",
-          "line": 246,
+          "line": 249,
           "snippet": "atlas = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
@@ -89901,7 +89901,7 @@
       "evidence": [
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 224,
+          "line": 227,
           "snippet": "texto = json.dumps(ler(\"PORTFOLIO-DRIFT.json\"), ensure_ascii=False)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-ADAMA-REFERENCE",

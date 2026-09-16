@@ -122,8 +122,11 @@ class AIdentidadeNaoSeMexe(unittest.TestCase):
         sendo dois."""
         ids = [p["ADAMA_PRODUCT_ID"] for p in MASTER]
         self.assertEqual(len(ids), len(set(ids)), "ADAMA_PRODUCT_ID duplicado")
+        # 51 e o CONJUNTO OBSERVADO (paginas legiveis), nao o total oficial —
+        # esse e NAO SEI. Ver test_o_51_e_o_que_se_leu_nao_o_que_o_catalogo_tem.
         self.assertEqual(len(MASTER), 51,
-                         "o catalogo tem 51 produtos; ficaram %d" % len(MASTER))
+                         "o MASTER preserva os 51 produtos observados no catalogo; "
+                         "ficaram %d" % len(MASTER))
         partilham = [r for r in REGISTOS if len(r["ADAMA_PRODUCT_IDS"]) > 1]
         self.assertTrue(partilham, "017995 partilhava dois produtos e deixou de partilhar")
         for r in partilham:
@@ -301,6 +304,98 @@ class OQueEraArmadilhaDeixouDeSer(unittest.TestCase):
                           ("REGISTOS", REGISTOS), ("DOCS", DOCS),
                           ("USOS", USOS), ("DOSES", DOSES), ("SNAPS", SNAPS)):
             self.assertTrue(col, "%s esta vazio — o teste nao mediu nada" % nome)
+
+
+def _source_ids_do_atlas():
+    """Os SOURCE_ID que TÊM ficha no Atlas — a única lista que pode ser canónica."""
+    atlas = os.path.join(RAIZ, "docs", "fontes", "ATLAS-DE-FONTES-EAME.md")
+    with io.open(atlas, encoding="utf-8") as fh:
+        linhas = fh.read().splitlines()
+    ids = set()
+    for l in linhas:
+        if l.startswith("SOURCE_ID:"):
+            ids.add(l.split(":", 1)[1].strip())
+    return ids
+
+
+class LegadoNaoECanonico(unittest.TestCase):
+    """P a U — a fonte do catálogo é a ficha do Atlas; o nome antigo não morre.
+
+    Decidido em 2026-09-16 (know-how §127; ficha IT-T9-008): o catálogo
+    comercial é outro ENDPOINT da fonte IT-T9-008, não uma segunda fonte.
+    `IT-ADAMA-CATALOG` passa a identificador LEGADO. Estas provas impedem as
+    duas regressões simétricas: o legado voltar a canónico, e o legado sumir.
+    """
+
+    LEGADO = "IT-ADAMA-CATALOG"
+    CANONICO = "IT-T9-008"
+
+    def test_P_nenhum_canonico_do_mapa_e_IT_ADAMA_CATALOG(self):
+        canonicos = {m["CANONICAL_SOURCE_ID"] for m in MAPA_FONTE}
+        self.assertNotIn(self.LEGADO, canonicos,
+                         "IT-ADAMA-CATALOG voltou a ser CANONICAL_SOURCE_ID")
+        self.assertIn(self.CANONICO, canonicos)
+
+    def test_Q_todo_canonico_tem_ficha_no_atlas(self):
+        """SOURCE_ID não se fabrica: canónico é o que o Atlas tem como ficha."""
+        no_atlas = _source_ids_do_atlas()
+        self.assertTrue(no_atlas, "o Atlas nao devolveu nenhum SOURCE_ID")
+        for m in MAPA_FONTE:
+            self.assertIn(m["CANONICAL_SOURCE_ID"], no_atlas,
+                          "%s e canonico no mapa mas nao tem ficha no Atlas"
+                          % m["CANONICAL_SOURCE_ID"])
+        self.assertNotIn(self.LEGADO, no_atlas,
+                         "IT-ADAMA-CATALOG ganhou ficha propria — isso e uma "
+                         "SEGUNDA fonte para o mesmo publicador")
+
+    def test_R_o_builder_nao_inventa_source_id(self):
+        import adama_referencia as A
+        no_atlas = _source_ids_do_atlas()
+        for k, v in A.SOURCE_ID_CANONICO.items():
+            self.assertIn(v, no_atlas, "%s -> %s: canonico sem ficha" % (k, v))
+        self.assertEqual(self.CANONICO, A.SOURCE_ID_CANONICO[self.LEGADO])
+        self.assertEqual(self.CANONICO, A.SOURCE_ID_CANONICO["SRC_ADAMA_COM"])
+
+    def test_S_o_legado_continua_encontravel(self):
+        """Apagar o nome antigo partiria a linhagem: 51 paginas e 141
+        documentos foram produzidos sob IT-ADAMA-CATALOG e continuam a
+        responder «como me chamava quando fui produzido?»."""
+        legados = {m["LEGACY_SOURCE_ID"]: m["CANONICAL_SOURCE_ID"] for m in MAPA_FONTE}
+        self.assertEqual(self.CANONICO, legados.get(self.LEGADO))
+        self.assertEqual(self.CANONICO, legados.get("SRC_ADAMA_COM"))
+        com_legado = lambda col: sum(  # noqa: E731
+            1 for r in col if self.LEGADO in r["PROVENANCE"].get("SOURCE_IDS_LEGACY", []))
+        self.assertEqual(51, com_legado(PORTFOLIO))
+        self.assertEqual(51, com_legado(MASTER))
+        self.assertEqual(141, com_legado(DOCS))
+        for col in (PORTFOLIO, MASTER, DOCS, REGISTOS, USOS):
+            for r in col:
+                self.assertNotIn(self.LEGADO, r["PROVENANCE"]["SOURCE_IDS"],
+                                 "legado a ser usado como canonico")
+
+    def test_T_regenerar_nao_desfaz_o_mapa(self):
+        """O ataque: corrigir o JSON à mão e o builder desfazer na regeneração.
+        O mapa commitado tem de ser o que o builder produz."""
+        import adama_referencia as A
+        gerado = A.montar(escrever=False)["SOURCE-ID-MAP.json"]["RECORDS"]
+        self.assertEqual(MAPA_FONTE, gerado)
+
+    def test_U_o_51_e_o_que_se_leu_nao_o_que_o_catalogo_tem(self):
+        """51 = OBSERVED_READABLE; total oficial = NAO SEI. As duas coisas
+        têm de continuar separadas em todo o lado onde esta casa fala."""
+        cat = registos("CATALOG-SNAPSHOTS.json")
+        self.assertTrue(cat)
+        for s in cat:
+            self.assertEqual("NAO SEI", s["TOTAL_OFFICIAL_CATALOG"])
+            self.assertEqual(51, s["OBSERVED_READABLE_PRODUCT_PAGES"])
+        self.assertEqual(51, len(MASTER))
+        with io.open(os.path.join(CASA, "CONTRATO-ADAMA-REFERENCE.md"),
+                     encoding="utf-8") as fh:
+            contrato = fh.read().lower()
+        for frase in ("catalogo tem 51", "catálogo tem 51", "catalogo = 51",
+                      "catálogo de 51 produtos", "catalogo de 51 produtos"):
+            self.assertNotIn(frase, contrato,
+                             "o contrato voltou a afirmar o total do catalogo: «%s»" % frase)
 
 
 if __name__ == "__main__":

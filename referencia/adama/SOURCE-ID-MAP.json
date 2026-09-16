@@ -3,14 +3,19 @@
  "SCHEMA": "sintonia.adama-reference/1",
  "OWNER": "IT — ADAMA REFERENCE (referencia/adama/)",
  "BUILDER": "fontes/adama_referencia.py",
- "LAW": "O identificador antigo NAO se apaga: fica ligado ao canonico.",
+ "LAW": "O identificador antigo NAO se apaga: fica ligado ao canonico. LEGADO != CANONICO: nenhum CANONICAL_SOURCE_ID deste mapa pode ser um identificador que o Atlas nao tem como ficha.",
  "CURRENT_SNAPSHOT": "PROD_FTS_6_20260831",
- "COUNT": 2,
+ "COUNT": 3,
  "RECORDS": [
   {
+   "LEGACY_SOURCE_ID": "IT-ADAMA-CATALOG",
+   "CANONICAL_SOURCE_ID": "IT-T9-008",
+   "SAME_SOURCE_PROOF": "IT-T9-008 e a ficha «ADAMA Italia — comunicacao publica» no ATLAS-DE-FONTES-EAME.md (dono ADAMA Italia S.r.l., IT-OWN-040). O catalogo comercial (www.adama.com/italia/it/prodotti-adama/* e /it/prodotti/*, 31 + 20 paginas de produto) e outro ENDPOINT dessa fonte: mesmo publicador, mesmo site, mesmo sitemap (/it/sitemap.xml enumera artigos e paginas de produto). Por COL-LAW-009/205 endpoint nao e fonte. Decidido em 2026-09-16 (know-how §127; ficha IT-T9-008, IDENTIFICADORES_LEGADOS). IT-ADAMA-CATALOG passa a identificador LEGADO e nao se apaga."
+  },
+  {
    "LEGACY_SOURCE_ID": "SRC_ADAMA_COM",
-   "CANONICAL_SOURCE_ID": "IT-ADAMA-CATALOG",
-   "SAME_SOURCE_PROOF": "IT-ADAMA-CATALOG e o catalogo publico adama.com/italia."
+   "CANONICAL_SOURCE_ID": "IT-T9-008",
+   "SAME_SOURCE_PROOF": "IT-T9-008 e a ficha «ADAMA Italia — comunicacao publica» no ATLAS-DE-FONTES-EAME.md (dono ADAMA Italia S.r.l., IT-OWN-040). O catalogo comercial (www.adama.com/italia/it/prodotti-adama/* e /it/prodotti/*, 31 + 20 paginas de produto) e outro ENDPOINT dessa fonte: mesmo publicador, mesmo site, mesmo sitemap (/it/sitemap.xml enumera artigos e paginas de produto). Por COL-LAW-009/205 endpoint nao e fonte. Decidido em 2026-09-16 (know-how §127; ficha IT-T9-008, IDENTIFICADORES_LEGADOS). IT-ADAMA-CATALOG passa a identificador LEGADO e nao se apaga."
   },
   {
    "LEGACY_SOURCE_ID": "SRC_FITOSANITARI_SALUTE_GOV_IT",

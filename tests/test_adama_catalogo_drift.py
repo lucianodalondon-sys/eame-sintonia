@@ -132,9 +132,12 @@ class AProvenienciaEstaInteira(unittest.TestCase):
     """§4 — SOURCE_ID · SOURCE_URL · OBSERVED_AT · COLLECTED_AT · SHA256."""
 
     def test_cada_observacao_diz_de_onde_veio(self):
+        """A fonte é a canónica do Atlas (IT-T9-008 — o catálogo é um endpoint
+        dela); o nome com que esta casa a chamava fica ao lado, em LEGACY."""
         for o in OBS:
             p = o["PROVENANCE"]
-            self.assertEqual(["IT-ADAMA-CATALOG"], p["SOURCE_IDS"])
+            self.assertEqual(["IT-T9-008"], p["SOURCE_IDS"])
+            self.assertEqual(["IT-ADAMA-CATALOG"], p["SOURCE_IDS_LEGACY"])
             self.assertTrue(p["SOURCE_URL"], "%s sem endereco" % o["OBSERVATION_ID"])
             self.assertTrue(p["SNAPSHOT_ID"])
             self.assertTrue(os.path.exists(os.path.join(RAIZ, p["PROVING_ARTIFACT"])),
@@ -347,15 +350,20 @@ class OQueMudouEOQueNaoSeSabe(unittest.TestCase):
         self.assertIn("nao se fundem", man["WHY_THESE_THREE_ARE_SEPARATE"])
 
     def test_o_source_id_herdado_nao_esconde_a_divida_do_atlas(self):
-        """IT-ADAMA-CATALOG não foi emitido aqui — e também não está no Atlas.
-        Lacuna anterior, declarada, e cujo dono é a faixa Sources."""
+        """IT-ADAMA-CATALOG não foi emitido aqui — e não estava no Atlas.
+        A lacuna foi declarada (PREEXISTING_GAP) e depois resolvida pela faixa
+        Sources: é identificador LEGADO da ficha IT-T9-008. O contrato guarda as
+        duas datas; a foto do catálogo diz o canónico E o nome antigo."""
         with io.open(os.path.join(CASA, "CONTRATO-ADAMA-REFERENCE.md"),
                      encoding="utf-8") as fh:
             contrato = fh.read()
         self.assertIn("PREEXISTING_GAP", contrato)
+        self.assertIn("RESOLVED_AS_LEGACY_OF_IT-T9-008", contrato)
         self.assertIn("SOURCE_ID_NEW_BY_REFERENCE           0", contrato)
         for s in CAT_SNAPS:
-            self.assertEqual("IT-ADAMA-CATALOG", s["SOURCE_ID"])
+            self.assertEqual("IT-T9-008", s["SOURCE_ID"])
+            self.assertEqual("IT-ADAMA-CATALOG", s["SOURCE_ID_LEGACY"])
+            self.assertIn("/it/prodotti-adama/", s["SOURCE_ENDPOINT"])
 
 
 class AAusenciaNaoDestroi(unittest.TestCase):
@@ -411,11 +419,23 @@ class ACasaContinuaDonaDoDado(unittest.TestCase):
     """§7 · §9 — não se construiu motor, e o Portal não foi tocado."""
 
     def test_a_fonte_do_catalogo_fala_a_lingua_do_atlas(self):
+        """LEGADO != CANÓNICO. O canónico é a ficha do Atlas (IT-T9-008);
+        IT-ADAMA-CATALOG só pode aparecer do lado LEGADO do mapa — nunca mais
+        do lado canónico. E o builder das fotos lê o mapa da Reference, não
+        tem cópia própria (COL-LAW-053: uma lista só)."""
+        import adama_catalogo_snapshot as S
+        import adama_referencia as A
         for s in CAT_SNAPS:
-            self.assertEqual("IT-ADAMA-CATALOG", s["SOURCE_ID"])
+            self.assertEqual("IT-T9-008", s["SOURCE_ID"])
         mapa = ler("SOURCE-ID-MAP.json")["RECORDS"]
         canonicos = {m["CANONICAL_SOURCE_ID"] for m in mapa}
-        self.assertIn("IT-ADAMA-CATALOG", canonicos)
+        legados = {m["LEGACY_SOURCE_ID"]: m["CANONICAL_SOURCE_ID"] for m in mapa}
+        self.assertIn("IT-T9-008", canonicos)
+        self.assertNotIn("IT-ADAMA-CATALOG", canonicos,
+                         "IT-ADAMA-CATALOG voltou a ser canonico")
+        self.assertEqual("IT-T9-008", legados.get("IT-ADAMA-CATALOG"))
+        self.assertEqual(A.SOURCE_ID_CANONICO["IT-ADAMA-CATALOG"], S.SOURCE_ID)
+        self.assertEqual("IT-ADAMA-CATALOG", S.SOURCE_ID_LEGACY)
 
     def test_a_foto_do_catalogo_nao_se_funde_com_a_do_ministero(self):
         """CATALOG_PRODUCT != REGULATORY_PRODUCT. Fundir as duas faria o

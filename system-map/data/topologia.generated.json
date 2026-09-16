@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-16T17:03:01+00:00",
-  "HEAD": "d88e479f6fd5c475254e9b580a7930f1f2f3f4ff",
+  "GENERATED_AT": "2026-09-16T17:52:32+00:00",
+  "HEAD": "bcac1c7b8e0efe790c028a44188f50df122a3c29",
   "BRANCH": "claude/it-sources-atlas-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "f28f53c1d4fd57198ad19e2e83eecde01af2e8a82755c03d9228943cf1065648",
+  "SOURCE_TREE_FINGERPRINT": "645a99e05176cecb2135858da364b776ecd4f50a5f59697b37f8907db3a3868f",
   "FICHEIROS_NA_IMPRESSAO": 2211,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -769,7 +769,7 @@
    {
     "PATH": "fontes/adama_catalogo_snapshot.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a1f14a075b0fdf2a47a816b0895a8ee24c2bfa7f",
+    "VERSAO": "321751483654978752ce27aee251f1519af9820f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -825,7 +825,7 @@
    {
     "PATH": "fontes/adama_referencia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "616d38a00bda038b729f0699f4971941136b459d",
+    "VERSAO": "b9a7ec25bd72c4955f537c93aafdb2e7512dd338",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2897,14 +2897,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f28f53c1d4fd57198ad19e2e83eecde01af2e8a82755c03d9228943cf1065648",
+    "VERSAO": "645a99e05176cecb2135858da364b776ecd4f50a5f59697b37f8907db3a3868f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "f28f53c1d4fd57198ad19e2e83eecde01af2e8a82755c03d9228943cf1065648",
+    "VERSAO": "645a99e05176cecb2135858da364b776ecd4f50a5f59697b37f8907db3a3868f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3282,14 +3282,14 @@
    {
     "PATH": "tests/test_adama_catalogo_drift.py",
     "PAPEL": "FONTE",
-    "VERSAO": "f3a834633c908a2996c2940c00c360efb0bf059e",
+    "VERSAO": "99a7c263dfa03147918c196537ac2caf1c160546",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "tests/test_adama_referencia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "301a7a8716403636cc1bb6c4b99db6ce6b685e4e",
+    "VERSAO": "f082a7cbe1dc03b852b48d0b353ec9566edb1702",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4422,7 +4422,7 @@
    }
   ],
   "INPUTS_COUNT": 626,
-  "INPUTS_DIGEST": "afced76736d9e4e11e8bde270d0d1740f55d86bcca4d70705283e641f07156b4",
+  "INPUTS_DIGEST": "3b0bafc70abf61f95ea63a1c442307791b4c6fc3a60940eca87fecbfecfc3035",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4455,8 +4455,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b411a61070890ff280f2fc96f8d18c1b01ed26c9ba85e3d5042d502d26779e0d",
-  "SEMANTIC_HASH": "f11085e348e3a1d06cc9cc61d67fda949e18a0e651c55e80f521066657d59a60"
+  "MEASUREMENT_HASH": "3b3d5f9c24332c04c86e0e1f157a608ca0909e0ee74b20acd2211eb62c3b15ab",
+  "SEMANTIC_HASH": "341bdb25ecd16619fc82f351759966477e89ee38fb223ceab51c082a779db51b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4870,7 +4870,7 @@
      },
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 382,
+      "LINHA": 390,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
@@ -4974,7 +4974,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 319,
+      "LINHA": 343,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4982,7 +4982,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 320,
+      "LINHA": 344,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4990,7 +4990,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 359,
+      "LINHA": 383,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4998,7 +4998,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 516,
+      "LINHA": 550,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5006,7 +5006,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 547,
+      "LINHA": 582,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5014,7 +5014,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 677,
+      "LINHA": 712,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5022,7 +5022,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_referencia.py",
-      "LINHA": 278,
+      "LINHA": 313,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5030,7 +5030,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_referencia.py",
-      "LINHA": 292,
+      "LINHA": 327,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5038,7 +5038,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_referencia.py",
-      "LINHA": 591,
+      "LINHA": 626,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5046,7 +5046,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_referencia.py",
-      "LINHA": 593,
+      "LINHA": 628,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5054,7 +5054,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_referencia.py",
-      "LINHA": 596,
+      "LINHA": 631,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5062,7 +5062,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_referencia.py",
-      "LINHA": 599,
+      "LINHA": 634,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5382,7 +5382,7 @@
      },
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 317,
+      "LINHA": 320,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -5390,7 +5390,7 @@
      },
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 352,
+      "LINHA": 357,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -5398,7 +5398,7 @@
      },
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 416,
+      "LINHA": 430,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -7258,7 +7258,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_adama_referencia.py",
-      "LINHA": 246,
+      "LINHA": 249,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
@@ -33533,7 +33533,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 224,
+      "LINHA": 227,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-ADAMA-REFERENCE",
@@ -35688,6 +35688,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
+    "adama_referencia",
     "collections",
     "datetime",
     "pdfminer"

@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §127: mudar de secção no site não cria fonte; `SOURCE` é quem publica, e `IT-ADAMA-CATALOG` passa a identificador legado de `IT-T9-008`.
+**Última atualização material:** 2026-09-16 — §127 (revisto no mesmo dia): mudar de secção no site não cria fonte, mas «mesmo publicador» não prova, por si, «mesma fonte»; `IT-ADAMA-CATALOG` é legado de `IT-T9-008` por factos (mesma entidade, mesmo site, um só sitemap), a ADAMA Reference seguiu pelo builder, e «quem hospeda os bytes é quem publica» foi retirada.
 **Próxima missão autorizada:** PREPARAR ADAMA REFERENCE — reconciliar `claude/it-adama-reference-v1` contra o trunk oficial que existir no preflight; fotografia que fundamentou a decisão: trunk `f888b363`, Reference `91998964`, Sources `2f0863d1`. Não integrar no trunk sem review independente.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
@@ -15027,108 +15027,204 @@ NAO substitui o §124: ali está «conflitos != decisões». Aqui está a pergun
 
 ---
 
-# §127 · MUDAR DE SECÇÃO NO SITE NÃO CRIA FONTE — `SOURCE` É QUEM PUBLICA, E A PRÁTICA DO ATLAS NÃO REVOGA A BÍBLIA
+# §127 · MUDAR DE SECÇÃO NO SITE NÃO CRIA FONTE — MAS «MESMO PUBLICADOR» NÃO PROVA «MESMA FONTE»; O CASO ADAMA DECIDE-SE POR FACTOS
+
+> **Revisto em 2026-09-16, no mesmo dia em que nasceu.** A primeira redação desta secção
+> dizia «`SOURCE` é quem publica» e apoiava-se na régua da casa como se ela dissesse o
+> mesmo. Uma revisão epistémica independente tentou derrubar a decisão e não conseguiu —
+> mas derrubou **a fundamentação**: a Bíblia não escreve «mesmo publicador ⇒ mesma fonte»,
+> e a régua da casa diz o contrário do que lhe foi atribuído. A decisão fica; a regra
+> geral encolhe até ao que a lei sustenta; e a dívida da ADAMA Reference foi paga pelo dono.
+> O que mudou de redação está marcado com **[REV]**.
 
 ## O QUE MUDOU
 
 ```
 IT_ADAMA_CATALOG_IDENTITY  =  PROVEN_EXISTING_SOURCE  →  IT-T9-008
 SOURCE_ID_CRIADO           =  0
+SOURCE_IDENTITY_REASON     =  mesma pessoa jurídica + mesmo site/sistema + um só sitemap
+                              enumera os dois caminhos + o registo T9 é por site
+                              institucional; nenhuma prova de segunda origem lógica  [REV]
 ```
 
-`IT-ADAMA-CATALOG` viveu dois anos como identificador próprio — nasceu a 30/08/2026 no
-commit `77fe16d3`, espalhou-se por 21 ficheiros do trunk e nunca teve ficha no Atlas. O
-contrato da ADAMA Reference escreveu a dívida por extenso
-(`IT_ADAMA_CATALOG_ATLAS_REGISTRATION = PREEXISTING_GAP / NOT_PROVEN`) e devolveu-a à faixa
-Sources.
+`IT-ADAMA-CATALOG` viveu **17 dias** como identificador próprio **[REV — a primeira redação
+escreveu «dois anos»]** — nasceu a 30/08/2026 no commit `77fe16d3`, espalhou-se por 21
+ficheiros do trunk e nunca teve ficha no Atlas. O contrato da ADAMA Reference escreveu a
+dívida por extenso (`IT_ADAMA_CATALOG_ATLAS_REGISTRATION = PREEXISTING_GAP / NOT_PROVEN`) e
+devolveu-a à faixa Sources.
 
-Não é fonte nova. É **outro endpoint do mesmo publicador** — `ADAMA Italia S.r.l.` — e passa
-a viver como identificador legado dentro da ficha `IT-T9-008`.
+Não é fonte nova. É **outro endpoint da fonte `IT-T9-008`** — e passa a viver como
+identificador legado dentro dessa ficha.
 
 ## POR QUÊ
 
-### 1 · A LEI JÁ TINHA O EXEMPLO EXACTO
+### 1 · O QUE A LEI SUSTENTA, À LETRA — E O QUE NÃO SUSTENTA  [REV]
 
-`COL-LAW-009` não define `SOURCE` por abstração: dá o par que decide.
+| lei | o que diz |
+|---|---|
+| `COL-LAW-009` | `SOURCE` = quem publica / mantém (ex.: **ARPAV Veneto**) · `ENDPOINT` = onde tecnicamente se acessa (ex.: **a URL do boletim da zona 7**) |
+| `COL-LAW-205` | `SOURCE = instituição / publisher / origem lógica — estável` · trocar o **meio técnico de acesso** (raspador de HTML por API) **não cria** fonte; uma fonte pode ter vários endpoints: site, RSS, API, sitemap, YouTube, repositório |
+| `COL-LAW-206` | URL e *slug* não são identidade canónica |
 
-| entidade | pergunta | exemplo da Bíblia |
-|---|---|---|
-| `SOURCE` | quem publica / mantém | **ARPAV Veneto** |
-| `ENDPOINT` | onde tecnicamente se acessa | **a URL do boletim da zona 7** |
+A zona 7 não é uma segunda ARPAV — isso a lei diz. O que a lei **não** diz:
 
-A zona 7 não é uma segunda ARPAV. O catálogo não é uma segunda ADAMA.
+- **«mesmo publicador ⇒ mesma fonte».** Não existe. COL-LAW-205 põe três palavras lado a
+  lado — *instituição / publisher / origem lógica* — e **«origem lógica» aparece uma vez em
+  toda a Bíblia e nunca é definida**. A primeira redação colapsou as três em «quem publica».
+- **que secção de site, tipo de conteúdo ou uso nunca criem fonte.** A lei só garante que
+  trocar o **meio de acesso** não cria. Estender isso às quatro diferenças é analogia com o
+  exemplo da zona 7 — defensável neste caso, mas não é letra de lei.
 
-### 2 · AS QUATRO DIFERENÇAS QUE EXISTIAM SÃO AS QUATRO QUE NÃO CONTAM
+### 2 · A RÉGUA DA CASA FOI MAL LIDA  [REV]
 
-Entre `/it/articolo/*` e `/it/prodotti-adama/*` mudava: a URL, a secção do site, o tipo de
-conteúdo e o uso a que servia. **Nenhuma das quatro cria fonte.** Procurou-se um quinto
-ponto de diferença — publicador, pessoa jurídica, autoridade declarada — e não há: o próprio
-`CATALOG-SNAPSHOTS.json` escreve `AUTHORITY: ADAMA Italia S.r.l.`, a mesma entidade da ficha.
+`candidatas/ITALY-SOURCE-MASTER-V1.md`, §3: *«uma organização pode ter vários canais, sem
+ser duplicada»*. A primeira redação leu «canal» como «endpoint» e concluiu «um publicador,
+uma fonte». A tabela que segue essa frase diz o oposto: dá a **um só OWNER vários
+`SOURCE_ID`** — ICQRF: *Cantina Italia · Frantoio Italia* (T10 · T10); ISTAT: *coltivazioni ·
+commercio estero* (T1 · T10); Campania SFR: *bollettini · SIMFITO* (T3 · T3). O que a régua
+não duplica é o **dono**; as fontes de um dono podem ser várias. E a tabela dos que *parecem
+um só e não são* separa por **órgão distinto** — isso continua verdade, mas é a régua do
+OWNER, não da SOURCE.
 
-### 3 · A PRÁTICA DO ATLAS DIZIA O CONTRÁRIO, E FOI MEDIDA
+Os precedentes medidos confirmam: `EU-T1-001`+`EU-T1-002` (Eurostat, dois datasets),
+`IT-T1-005`+`IT-T1-011` (Regione Umbria, mesmo território, **só muda a URL**),
+`ES-T5-002` (`DERIVA_DE: EU-T5-001` — «mesma fonte, recorte próprio», e ainda assim id
+próprio). A prática não revoga a lei — mas aqui **a lei está calada**, e a prática mostra que
+a casa dá dois `SOURCE_ID` ao mesmo publicador quando há duas séries.
 
-No Atlas, 16 donos têm mais de uma ficha; dois têm mais de uma **no mesmo território**
-(`EU-T1-001`+`EU-T1-002`, `IT-T1-005`+`IT-T1-011`). Há dois precedentes com parentesco
-declarado — `ES-T5-002` (`DERIVA_DE: EU-T5-001`) e `EU-T12-001` («mesma fonte de
-`EU-T4-001`»).
+    MESMO PUBLICADOR NÃO É, POR SI, MESMA FONTE. A LEI NÃO O DIZ, E A CASA NÃO O PRATICA.
 
-Isso é **prática**, e prática não revoga lei escrita. A régua da própria casa, em
-`candidatas/ITALY-SOURCE-MASTER-V1.md`, já dizia o mesmo que a Bíblia: *«uma organização pode
-ter vários canais, sem ser duplicada»* — e a tabela dos que *parecem um só e não são* separa
-sempre por **órgão distinto** (ARPAE × Serviço Fitossanitário; AGRIOS × VOG; SIAS × Sicilia
-SFR), nunca por secção de site.
+### 3 · O QUE DECIDE ESTE CASO SÃO FACTOS  [REV]
 
-    DUAS FICHAS PARA O MESMO PUBLICADOR SÃO DUAS LISTAS A RESPONDER «QUE FONTES TEMOS»,
-    E A SEGUNDA ENVELHECE CALADA — É O QUE A COL-LAW-053 PROÍBE.
+1. **mesma pessoa jurídica** — `CATALOG-SNAPSHOTS.json` · `AUTHORITY` «ADAMA Italia S.r.l.»
+   = ficha IT-T9-008 · `SOURCE_OWNER` «ADAMA Italia S.r.l. (IT-OWN-040)»;
+2. **mesmo site, mesmo sistema** — `www.adama.com/italia`, o mesmo Akamai Bot Manager
+   (403 a curl no artigo e no catálogo);
+3. **uma só enumeração** — o **mesmo** `/it/sitemap.xml` (SHA256 `7648b94e…`) lista 51 URLs
+   de produto (31 em `/it/prodotti-adama/*` + 20 em `/it/prodotti/*` — o red team apanhou a
+   primeira redação a atribuir as 51 a um só prefixo) **e** 13 URLs `/it/articolo/*`
+   (`catalog-enumeration.json`, 261 endereços). Se fossem duas origens lógicas, o publicador
+   não as enumeraria como uma;
+4. **o desenho do registo T9** — as oito entradas `IT-T9-001…008` de
+   `candidatas/ITALY-SOURCE-MASTER-V1.json` (só `002` e `008` têm ficha no Atlas) são todas
+   «*&lt;empresa&gt; Italia — comunicação pública*», `SOURCE_TYPE` site institucional: **uma
+   entrada por site institucional de concorrente**. O catálogo é secção desse site.
+   ⚠️ O dono tem dois ids na casa — `IT-OWN-040` (Atlas, MASTER) e `IT-OWN-ADAMA-IT`
+   (manifesto da amostra, `regras/italy_contracts.mjs`): mesma entidade, divergência
+   declarada na ficha e NÃO reconciliada aqui;
+5. **nada aponta para uma segunda origem lógica** — nem mantenedor, nem contrato, nem série
+   com identidade e cadência próprias. A única diferença real é a **identidade nativa do
+   item** (produto: `NODE_ID` + nº de registo; artigo: título + data) — e isso é
+   `SOURCE_NATIVE_ID` de COL-LAW-206: identidade de **item**, não de fonte.
+
+As quatro diferenças (URL, secção, tipo de conteúdo, uso) **não bastam sozinhas**. O que
+bastaria — mantenedor, contrato, série ou sistema distintos — **não existe aqui**.
+
+### 4 · A DÍVIDA FOI PAGA PELO DONO, E TINHA UMA SEGUNDA CÓPIA  [REV]
+
+`fontes/adama_referencia.py` passou a mapear `SRC_ADAMA_COM` e `IT-ADAMA-CATALOG` para
+`IT-T9-008` em `SOURCE_ID_CANONICO`, e regenerou `SOURCE-ID-MAP.json` (2 → 3 registos). A
+revisão achou o que a primeira redação não viu: `fontes/adama_catalogo_snapshot.py` tinha
+**a sua própria constante** `SOURCE_ID = 'IT-ADAMA-CATALOG'` e escrevia-a como identidade
+nas fotos do catálogo — duas listas dentro da mesma casa. Passou a importar o mapa da
+Reference. Medido antes de escrever: 490 valores de proveniência mudam; **0** `ADAMA_PRODUCT_ID`,
+**0** `DOCUMENT_ID`, **0** `SHA256`, **0** `IDENTITY_SEAL`, 51 → 51 produtos, `NEXT_SERIAL`
+52 → 52.
+
+### 5 · «QUEM HOSPEDA OS BYTES É QUEM PUBLICA» — RETIRADA  [REV]
+
+A ficha `IT-T5-003` (AIPP) trazia esta frase como regra. Hospedar bytes, por si, não prova
+publicação: um CDN ou um espelho também hospeda. A AIPP fica provada como publicadora por
+**quatro coisas juntas** — a página institucional da própria AIPP descreve o ciclo «I
+Giovedì dell'AIPP — Bilanci fitosanitari» como seu (`research/italy-lastmile/NEW-REAL-SOURCES.json`,
+lido em 02/09, HTTP 200); o ciclo tem o nome dela; o PDF da Basilicata traz «Associazione
+Italiana Protezione delle Piante» no slide final (página 21 de 21 — o da Marche **não** traz
+marca da AIPP em 44 páginas); e os dois PDFs foram servidos por `aipp.it` com o **mesmo**
+`/Author` («galassi_t»), uma só mão que não é nenhum dos dois autores. AUTOR ≠ PUBLICADOR:
+os autores são os serviços regionais. Quem é «galassi_t»: NÃO SEI.
+
+### 6 · O «51» — AUDITADO  [REV]
+
+Caçadas as frases «o catálogo tem 51». Em ficheiros vivos desta faixa e da Reference:
+`tests/test_adama_referencia.py` dizia «o catalogo tem 51 produtos» na mensagem de um teste
+que mede `len(MASTER)` — corrigida; `CONTRATO-ADAMA-REFERENCE.md` dizia «São 51 produtos e
+602 autorizações» — corrigido para «51 produtos observados no catálogo». Ficam como estão,
+por serem relatórios datados ou gerados por motor (reescrevê-los seria reescrever o passado):
+`docs/design/COMPLETUDE-DA-OPORTUNIDADE.md` (gerado de `motor/`),
+`docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md` (HISTORICAL, registado),
+`docs/adama/AVALIACAO-IT-T4-001-CONTRA-V2.1.md` (gerado de `motor/`), e um comentário em
+`italia-portale/client/italy-app-model.js:2279` (Portal — fora do escopo). O Portal **não**
+imprime «51» como total oficial em nenhuma superfície.
+
+```
+OBSERVED_READABLE_PRODUCT_COUNT   = 51
+CURRENT_OFFICIAL_PORTFOLIO_COUNT  = NÃO SEI
+```
 
 ## PROVA
 
 ```
 COL-LAW-009            BIBLIA-CANONICA-DA-COLETA.md:189-201 — a tabela das seis entidades
 COL-LAW-053            BIBLIA-CANONICA-DA-COLETA.md:1402-1406 — cadastro único e derivado
+COL-LAW-205            BIBLIA-CANONICA-DA-COLETA.md:1841-1857 — «instituição / publisher /
+                       origem lógica»; trocar o meio de acesso não cria fonte
+COL-LAW-206            BIBLIA-CANONICA-DA-COLETA.md:1863-1876 — URL não é identidade
+«origem lógica»        aparece UMA vez na Bíblia (linha 1846) e nunca é definida   [REV]
 publicador é o mesmo   referencia/adama/CATALOG-SNAPSHOTS.json · AUTHORITY
-                       "ADAMA Italia S.r.l. (catalogo comercial proprio)"
-                       docs/fontes/ATLAS-DE-FONTES-EAME.md · IT-T9-008
-                       SOURCE_OWNER "ADAMA Italia S.r.l. (IT-OWN-040)"
-nunca foi alias        fontes/adama_referencia.py:112 mapeia IT-ADAMA-CATALOG a si mesmo;
-                       é o ALVO de SRC_ADAMA_COM, não um alias
+                       docs/fontes/ATLAS-DE-FONTES-EAME.md · IT-T9-008 · SOURCE_OWNER
+um só sitemap          data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json —
+                       SITEMAP_SHA256 7648b94e…, 261 locs: 51 produto + 13 artigo   [REV]
+registo T9             candidatas/ITALY-SOURCE-MASTER-V1.json — IT-T9-001…008, todas
+                       «comunicação pública», SOURCE_TYPE site institucional        [REV]
+régua da casa          candidatas/ITALY-SOURCE-MASTER-V1.md §3 — um OWNER, vários
+                       SOURCE_ID (ICQRF · ISTAT · Campania SFR)                     [REV]
+prática medida         16 donos com >1 ficha; IT-T1-005/011 só difere na URL       [REV]
 não nasceu na Reference commit 77fe16d3, 2026-08-30 — anterior à casa referencia/adama/
-régua da casa          candidatas/ITALY-SOURCE-MASTER-V1.md — «vários canais, sem ser
-                       duplicada» + a tabela «parecem um só e não são»
-prática medida         16 donos com >1 ficha; 2 com >1 ficha no mesmo território
+dívida paga            fontes/adama_referencia.py · SOURCE_ID_CANONICO + SAME_SOURCE_PROOF
+                       fontes/adama_catalogo_snapshot.py · importa o mapa           [REV]
+provas de regressão    tests/test_adama_referencia.py · LegadoNaoECanonico (P–U)
+                       tests/test_adama_catalogo_drift.py · 3 provas reescritas     [REV]
+IT-T5-003              PDF Basilicata p.21 «Associazione Italiana Protezione delle Piante»;
+                       /Author galassi_t nos dois PDFs; NEW-REAL-SOURCES.json «AIPP»  [REV]
 ```
 
 ## CONSEQUÊNCIA
 
 ```
-1 · Antes de emitir SOURCE_ID, perguntar QUEM PUBLICA — não onde está, nem o que entrega.
-    Se o publicador já tem ficha, o que se achou é ENDPOINT: declara-se na ficha dele.
+1 · Antes de emitir SOURCE_ID, perguntar: quem publica / mantém? é o mesmo site e o mesmo
+    sistema? a própria fonte enumera os dois caminhos como um? o registo deste território
+    é desenhado por instituição ou por série? há mantenedor, contrato ou série própria?
+    Se o publicador já tem ficha E nada disto aponta para segunda origem lógica, o que se
+    achou é ENDPOINT: declara-se na ficha dele.                                     [REV]
 
-2 · As quatro razões que NÃO bastam, escritas para não se discutirem outra vez:
-        muda a URL · muda a secção do site · muda o tipo de conteúdo · muda o uso.
+2 · As quatro razões que NÃO bastam SOZINHAS: muda a URL · muda a secção do site ·
+    muda o tipo de conteúdo · muda o uso. Não são lei; são o que este caso mediu.  [REV]
 
-3 · Identificador herdado NÃO se apaga. `IT-ADAMA-CATALOG` continua a nomear as fotos em
-    `referencia/adama/` e a pasta `data/samples/IT-ADAMA-CATALOG/`: é linhagem, e apagá-la
-    partiria a proveniência de 51 páginas já preservadas. Vive agora em
-    `IDENTIFICADORES_LEGADOS` na ficha IT-T9-008.
+3 · MESMO PUBLICADOR ≠ automaticamente MESMA FONTE. MESMA URL ≠ SOURCE. SEÇÃO DO SITE ≠
+    SOURCE. ENDPOINT ≠ SOURCE. QUEM HOSPEDA OS BYTES ≠ automaticamente QUEM PUBLICA.  [REV]
 
-4 · DÍVIDA ABERTA, COM DONO. `referencia/adama/SOURCE-ID-MAP.json` ainda escreve
-    `SRC_ADAMA_COM → IT-ADAMA-CATALOG` como `CANONICAL_SOURCE_ID`. O canónico é `IT-T9-008`.
-    O ficheiro tem BUILDER (`fontes/adama_referencia.py`, linhas 111-112 e 620) e dono
-    próprio — a faixa ADAMA Reference. Enquanto não seguir, há duas listas, e a COL-LAW-053
-    continua ferida.
+4 · «Origem lógica» está por definir na Bíblia. Não se definiu aqui — é NÃO SEI declarado.
+    Quem precisar de separar duas fontes do mesmo publicador tem de o provar caso a caso
+    (mantenedor · contrato · série com identidade própria · sistema), e escrever a prova.
+    BIBLE_CHANGE_NEEDED = NÃO: as leis actuais resolvem este caso; a lacuna fica anotada. [REV]
 
-5 · Os precedentes ES-T5-002 e EU-T12-001 ficam de pé — não foram revistos aqui e esta secção
-    NÃO os declara errados. Ficam sinalizados para quem os reabrir com autoridade para isso.
+5 · Identificador herdado NÃO se apaga. LEGADO ≠ CANÓNICO: vive em SOURCE_IDS_LEGACY /
+    SOURCE_ID_LEGACY / SOURCE-ID-MAP.json, e a pasta data/samples/IT-ADAMA-CATALOG/ mantém
+    o nome. PATH ≠ SOURCE_ID.
+
+6 · Os precedentes ES-T5-002, EU-T12-001, EU-T1-001/002 e IT-T1-005/011 ficam de pé — não
+    foram revistos e esta secção NÃO os declara errados. Ficam sinalizados.
 ```
 
 ## O QUE ESTA SECÇÃO **NÃO** REGISTA
 
 ```
 NAO reabre nem corrige ES-T5-002, EU-T12-001, EU-T1-001/002 ou IT-T1-005/011.
-NAO altera referencia/adama/ — a dívida do ponto 4 é da faixa ADAMA Reference.
+NAO altera a Bíblia: nenhuma lei nova, nenhuma definição de «origem lógica».
 NAO cria, apaga nem recicla SOURCE_ID: o universo media 220 antes e mede 220 depois.
 NAO promove nenhuma das 241 candidatas EM_ANALISE.
 NAO integra a Sources no trunk, e não corre coleta nenhuma.
 NAO substitui o §126: ali está a ordem entre faixas; aqui está o que é uma fonte.
+NAO toca fontes/adama_it_intelligence.py: escreve IT-ADAMA-CATALOG na saída PRÓPRIA dele,
+    que é entrada histórica da Reference; o mapa legado→canónico traduz à entrada.
 ```

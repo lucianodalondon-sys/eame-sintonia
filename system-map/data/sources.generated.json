@@ -2,11 +2,11 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-16T17:03:25+00:00",
-    "HEAD": "d88e479f6fd5c475254e9b580a7930f1f2f3f4ff",
+    "GENERATED_AT": "2026-09-16T17:52:56+00:00",
+    "HEAD": "bcac1c7b8e0efe790c028a44188f50df122a3c29",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "f28f53c1d4fd57198ad19e2e83eecde01af2e8a82755c03d9228943cf1065648",
+    "SOURCE_TREE_FINGERPRINT": "645a99e05176cecb2135858da364b776ecd4f50a5f59697b37f8907db3a3868f",
     "FICHEIROS_NA_IMPRESSAO": 2211,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
@@ -55,7 +55,7 @@
       {
         "PATH": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "PAPEL": "FONTE",
-        "VERSAO": "75cc41948778d09bd85cc9f2c4a4921c4c5706ba",
+        "VERSAO": "2e725c6a380b4659b475ac4c504cdfe5f4e811c0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "as_fontes() · linhas()"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "a4028627f0e34fb32e8511a9211b0998de6b3e6a02cf68d20b6c59017c180ca2",
+    "INPUTS_DIGEST": "bdf844b3efca45fbb4c60f92a9484ba233353b4a2e129262c0f68fef7484620a",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -2276,7 +2276,7 @@
       "verdict": "GREEN",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "line": 7040,
+        "line": 7089,
         "snippet": "bloco IT-T10-002 no atlas de fontes"
       },
       "contract": null,
@@ -5768,7 +5768,7 @@
       "verdict": "GREEN",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "line": 6824,
+        "line": 6838,
         "snippet": "bloco IT-T7-002 no atlas de fontes"
       },
       "contract": null,
@@ -5880,7 +5880,7 @@
       "verdict": "YELLOW",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "line": 6878,
+        "line": 6892,
         "snippet": "bloco IT-T9-002 no atlas de fontes"
       },
       "contract": null,
@@ -5889,7 +5889,7 @@
     {
       "source_id": "IT-T9-008",
       "name": "ADAMA Italia — comunicação pública",
-      "owner": "ADAMA Italia S.r.l. (IT-OWN-040)",
+      "owner": "ADAMA Italia S.r.l. (IT-OWN-040) ⚠️ O MESMO dono tem um segundo id na casa: o manifesto da amostra (data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json) e regras/italy_contracts.mjs chamam-lhe IT-OWN-ADAMA-IT. É a mesma entidade com dois ids de dono — divergência declarada em 2026-09-16, NÃO reconciliada aqui (o SOURCE_ID não depende dela).",
       "country": "ITALIA",
       "territory": "T9",
       "territory_name": "COMPETITORS",
@@ -5908,7 +5908,7 @@
       "verdict": "YELLOW",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "line": 6931,
+        "line": 6945,
         "snippet": "bloco IT-T9-008 no atlas de fontes"
       },
       "contract": null,
@@ -15363,7 +15363,7 @@
       "usado_por": [
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 79
+          "line": 99
         },
         {
           "file": "motor/v21_ingest.py",

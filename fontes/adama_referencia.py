@@ -105,11 +105,46 @@ UNKNOWN = "UNKNOWN"
 
 #: `SOURCE_ID` canônico, na língua do Atlas reconciliado na FASE 1B.
 #: O vocabulário antigo não se apaga — vive em SOURCE-ID-MAP.json.
+#:
+#: ⚠️ `IT-ADAMA-CATALOG` DEIXOU DE SER CANÔNICO EM 2026-09-16. Nasceu a 30/08
+#: (commit 77fe16d3) como identificador do catálogo comercial e nunca teve ficha
+#: no Atlas. A faixa Sources decidiu que o catálogo (`/it/prodotti-adama/*` e
+#: `/it/prodotti/*` — 31 + 20 páginas de produto) é
+#: outro ENDPOINT da fonte que já existia — `IT-T9-008`, ADAMA Italia S.r.l. —
+#: e não uma segunda fonte: mesmo publicador, mesmo site, o MESMO sitemap enumera
+#: os artigos e as páginas de produto (`catalog-enumeration.json`, SHA 7648b9…).
+#: Ficha: docs/fontes/ATLAS-DE-FONTES-EAME.md · IT-T9-008 · IDENTIFICADORES_LEGADOS.
+#: Decisão: SINTONIA-EAME-KNOW-HOW.md §127.
+#:
+#:     LEGADO != CANÔNICO. O nome antigo continua a responder «como se chamava
+#:     este registo quando foi produzido?» — em SOURCE_IDS_LEGACY e no mapa.
+#:     PATH != SOURCE_ID: a pasta data/samples/IT-ADAMA-CATALOG/ não muda de nome.
+#:
+#: Este dicionário é o ÚNICO dono do mapeamento legado→canônico da casa ADAMA.
+#: `adama_catalogo_snapshot.py` importa-o daqui; não há segunda cópia.
 SOURCE_ID_CANONICO = {
     "SRC_FITOSANITARI_SALUTE_GOV_IT": "IT-T4-001",
     "IT-T4-001": "IT-T4-001",
-    "SRC_ADAMA_COM": "IT-ADAMA-CATALOG",
-    "IT-ADAMA-CATALOG": "IT-ADAMA-CATALOG",
+    "SRC_ADAMA_COM": "IT-T9-008",
+    "IT-ADAMA-CATALOG": "IT-T9-008",
+    "IT-T9-008": "IT-T9-008",
+}
+
+#: Por que cada identificador legado é a MESMA fonte que o canônico. Uma prova
+#: por canônico, escrita uma vez: o SOURCE-ID-MAP.json lê daqui.
+SAME_SOURCE_PROOF = {
+    "IT-T4-001": ("IT-T4-001 e a ficha do Ministero della Salute no "
+                  "ATLAS-DE-FONTES-EAME.md, com a mesma CANONICAL_URL que o "
+                  "vocabulario antigo usava."),
+    "IT-T9-008": ("IT-T9-008 e a ficha «ADAMA Italia — comunicacao publica» no "
+                  "ATLAS-DE-FONTES-EAME.md (dono ADAMA Italia S.r.l., IT-OWN-040). "
+                  "O catalogo comercial (www.adama.com/italia/it/prodotti-adama/* e "
+                  "/it/prodotti/*, 31 + 20 paginas de produto) e "
+                  "outro ENDPOINT dessa fonte: mesmo publicador, mesmo site, mesmo "
+                  "sitemap (/it/sitemap.xml enumera artigos e paginas de produto). "
+                  "Por COL-LAW-009/205 endpoint nao e fonte. Decidido em 2026-09-16 "
+                  "(know-how §127; ficha IT-T9-008, IDENTIFICADORES_LEGADOS). "
+                  "IT-ADAMA-CATALOG passa a identificador LEGADO e nao se apaga."),
 }
 
 
@@ -613,13 +648,11 @@ def montar(escrever=True):
                                                 "Uma relacao por componente."),
         "SOURCE-ID-MAP.json": _env("ADAMA-SOURCE-ID-MAP", [
             {"LEGACY_SOURCE_ID": k, "CANONICAL_SOURCE_ID": v,
-             "SAME_SOURCE_PROOF": "IT-T4-001 e a ficha do Ministero della Salute no "
-                                  "ATLAS-DE-FONTES-EAME.md, com a mesma CANONICAL_URL "
-                                  "que o vocabulario antigo usava."
-                                  if v == "IT-T4-001" else
-                                  "IT-ADAMA-CATALOG e o catalogo publico adama.com/italia."}
+             "SAME_SOURCE_PROOF": SAME_SOURCE_PROOF[v]}
             for k, v in sorted(SOURCE_ID_CANONICO.items()) if k != v],
-            "O identificador antigo NAO se apaga: fica ligado ao canonico."),
+            "O identificador antigo NAO se apaga: fica ligado ao canonico. "
+            "LEGADO != CANONICO: nenhum CANONICAL_SOURCE_ID deste mapa pode ser um "
+            "identificador que o Atlas nao tem como ficha."),
     }
     if escrever:
         os.makedirs(CASA, exist_ok=True)

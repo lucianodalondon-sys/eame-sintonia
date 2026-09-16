@@ -6761,11 +6761,25 @@ EVENTO_ASSOCIADO:             Giornate Fitopatologiche (IT-OWN-GIORNATE-FITO) �
                               com site próprio, giornatefitopatologiche.it. É o EVENTO em que o
                               material é apresentado, NÃO o publicador destes ficheiros.
                               ⚠️ ATÉ 2026-09-16 ESTA FICHA DECLARAVA «Giornate Fitopatologiche
-                              (IT-OWN-017)» COMO DONO, e apontava para giornatefitopatologiche.it —
-                              mas os dois PDFs que a sustentam foram servidos por aipp.it, e o
-                              manifesto já dizia, desde 2026-09-07, `OWNER_ID: IT-OWN-AIPP` e «são
-                              DUAS organizações; não fundir». O dono agora é o que a prova mostra.
-                              QUEM HOSPEDA OS BYTES É QUEM PUBLICA; O EVENTO ONDE SE FALOU NÃO É.
+                              (IT-OWN-017)» COMO DONO, e apontava para giornatefitopatologiche.it.
+                              O dono passou a AIPP. A PROVA NÃO É SÓ O ALOJAMENTO — hospedar bytes,
+                              por si, não prova quem publica (um CDN ou um espelho também hospeda).
+                              O que prova a AIPP como publicadora é a soma de QUATRO coisas:
+                              1 · a página institucional da própria AIPP descreve o ciclo «I Giovedì
+                                  dell'AIPP — Bilanci fitosanitari» como publicação sua (lida em
+                                  2026-09-02, HTTP 200: research/italy-lastmile/NEW-REAL-SOURCES.json,
+                                  registo «AIPP», campo O_QUE_PUBLICA);
+                              2 · o ciclo tem o nome da AIPP;
+                              3 · o PDF da Basilicata traz «Associazione Italiana Protezione delle
+                                  Piante» no slide final (página 21 de 21) — o da Marche NÃO traz
+                                  marca da AIPP em nenhuma das 44 páginas;
+                              4 · os dois PDFs foram servidos por aipp.it/wp-content/uploads/ e têm o
+                                  mesmo /Author («galassi_t») — uma só mão publicou os dois, e não é
+                                  nenhum dos dois autores (Altieri, Alesi). Quem é galassi_t: NÃO SEI.
+                              AUTOR ≠ PUBLICADOR: os autores são os serviços regionais (Ufficio
+                              Fitosanitario Regione Basilicata; AMAP Regione Marche). O manifesto já
+                              dizia, desde 2026-09-07, `OWNER_ID: IT-OWN-AIPP` e «são DUAS
+                              organizações; não fundir». O EVENTO ONDE SE FALOU NÃO É O PUBLICADOR.
 COUNTRY:                      ITALY
 REGION:                       nacional
 LANGUAGE:                     IT
@@ -6932,15 +6946,28 @@ VERDICT:                      YELLOW — o que está preservado é extrato do DO
 SOURCE_ID:                    IT-T9-008
 SOURCE_NAME:                  ADAMA Italia — comunicação pública
 SOURCE_OWNER:                 ADAMA Italia S.r.l. (IT-OWN-040)
+                              ⚠️ O MESMO dono tem um segundo id na casa: o manifesto da amostra
+                              (data/samples/IT-SOURCE-SAMPLES/IT-T9-008/MANIFEST.json) e
+                              regras/italy_contracts.mjs chamam-lhe IT-OWN-ADAMA-IT. É a mesma
+                              entidade com dois ids de dono — divergência declarada em 2026-09-16,
+                              NÃO reconciliada aqui (o SOURCE_ID não depende dela).
 IDENTIFICADORES_LEGADOS:      IT-ADAMA-CATALOG — o catálogo comercial em
-                              www.adama.com/italia/it/prodotti-adama/*. NÃO é uma segunda fonte:
-                              é outro ENDPOINT do MESMO publicador, e por COL-LAW-009 endpoint
-                              não é fonte. Decidido em 2026-09-16; ver a nota logo abaixo da ficha.
-                              O identificador não se apaga — continua a nomear as fotos do catálogo
-                              em referencia/adama/ e em data/samples/IT-ADAMA-CATALOG/.
+                              www.adama.com/italia/it/prodotti-adama/* (31 páginas) e
+                              /it/prodotti/* (20 páginas). NÃO é uma segunda fonte:
+                              é outro ENDPOINT desta fonte — mesmo site, o mesmo /it/sitemap.xml
+                              enumera artigos e páginas de produto, mesma pessoa jurídica. Decidido
+                              em 2026-09-16 e revisto no mesmo dia; ver a nota abaixo da ficha.
+                              O identificador não se apaga: a ADAMA Reference mapeia-o para esta
+                              ficha em referencia/adama/SOURCE-ID-MAP.json e guarda-o em
+                              SOURCE_IDS_LEGACY / SOURCE_ID_LEGACY; a pasta
+                              data/samples/IT-ADAMA-CATALOG/ mantém o nome (path não é identidade).
 ENDPOINTS_CONHECIDOS:         /it/articolo/*          artigo técnico datado (a amostra desta ficha)
-                              /it/prodotti-adama/*    catálogo comercial, 51 páginas de produto
-                              /it/sitemap.xml         enumeração, 261 endereços
+                              /it/prodotti-adama/*    catálogo comercial — 31 páginas de produto
+                              /it/prodotti/*          catálogo comercial — 20 páginas de produto
+                                                      (51 LEGÍVEIS ao todo; o total oficial é NÃO SEI:
+                                                      a listagem /it/products/crop-protection não abre)
+                              /it/sitemap.xml         enumeração, 261 endereços (51 de produto +
+                                                      13 de artigo + 197 outros)
 COUNTRY:                      ITALY
 REGION:                       nacional
 LANGUAGE:                     IT
@@ -6989,51 +7016,73 @@ VERDICT:                      YELLOW — o que está preservado é extrato do DO
                               o manifesto declara que NÃO são os bytes servidos pelo site
 ```
 
-##### `IT-ADAMA-CATALOG` não é uma segunda fonte — decidido em 2026-09-16
+##### `IT-ADAMA-CATALOG` não é uma segunda fonte — decidido em 2026-09-16, revisto no mesmo dia
 
-O catálogo comercial da ADAMA Itália andou dois anos com identificador próprio,
+O catálogo comercial da ADAMA Itália andou **17 dias** (30/08 → 16/09/2026; a primeira
+redação desta nota escreveu «dois anos», e estava errada) com identificador próprio,
 `IT-ADAMA-CATALOG`, sem nunca ter ficha neste atlas. A pergunta era: fonte nova, ou
 outro endereço da fonte que já está aqui?
 
-**A lei decide, e a prática não a revoga.** `COL-LAW-009` define as seis entidades e dá o
-exemplo que fecha o caso:
+**A lei decide, e a prática não a revoga — mas a lei diz menos do que a primeira redação
+lhe pôs na boca.** O que a Bíblia sustenta, à letra:
 
-| entidade | pergunta | exemplo da Bíblia | aqui |
-|---|---|---|---|
-| `SOURCE` | quem publica / mantém | **ARPAV Veneto** | **ADAMA Italia S.r.l.** |
-| `ENDPOINT` | onde tecnicamente se acessa | a URL do boletim da zona 7 | `/it/prodotti-adama/*` · `/it/articolo/*` |
-| `DISCOVERED ITEM` | o que se achou lá | o boletim de hoje | uma página de produto · um artigo |
-| `ARTIFACT` | a evidência preservada | o PDF com SHA-256 | as 51 páginas com SHA256 |
+| lei | o que diz | aqui |
+|---|---|---|
+| `COL-LAW-009` | `SOURCE` = quem publica / mantém (ex.: **ARPAV Veneto**); `ENDPOINT` = onde tecnicamente se acessa (ex.: a URL do boletim da zona 7) | ADAMA Italia S.r.l. · `/it/prodotti-adama/*` e `/it/articolo/*` |
+| `COL-LAW-205` | trocar o **meio técnico de acesso** não cria fonte; uma fonte pode ter vários endpoints (site, RSS, API, sitemap…) | o catálogo é um endpoint do mesmo site |
+| `COL-LAW-206` | URL e *slug* não são identidade canónica | `/prodotti-adama` vs `/articolo` não decide nada |
 
-O que separa o catálogo do artigo é **só** isto: muda a URL, muda a secção do site, muda o
-tipo de conteúdo, muda o uso a que serve. **Nenhuma dessas quatro coisas cria uma fonte.**
-O publicador é o mesmo — `ADAMA Italia S.r.l.`, a mesma pessoa jurídica que
-`CATALOG-SNAPSHOTS.json` nomeia em `AUTHORITY`. Não há um quinto ponto de diferença.
+⚠️ A Bíblia escreve `SOURCE = instituição / publisher / **origem lógica**` (COL-LAW-205) e
+**nunca define «origem lógica»** — a expressão aparece uma vez em todo o texto. Não existe lei
+que diga «mesmo publicador ⇒ mesma fonte». E a régua da casa
+(`candidatas/ITALY-SOURCE-MASTER-V1.md`, §3) diz o **contrário** do que a primeira redação
+lhe atribuiu: *«uma organização pode ter vários canais, sem ser duplicada»* fala do
+**OWNER** não se duplicar — a tabela ao lado dá a **um só dono vários `SOURCE_ID`** (ICQRF:
+Cantina Italia · Frantoio Italia, T10 · T10; ISTAT: coltivazioni · commercio estero). Os
+precedentes `EU-T1-001`/`002` (Eurostat) e `IT-T1-005`/`011` (Regione Umbria, mesmo
+território, só muda a URL) mostram o mesmo publicador com duas fichas.
 
-A própria casa já escreveu a régua em `candidatas/ITALY-SOURCE-MASTER-V1.md`:
-**«uma organização pode ter vários canais, sem ser duplicada»** — e a tabela ao lado, dos
-que *parecem um só e não são*, separa sempre por **órgão distinto** (ARPAE × Serviço
-Fitossanitário; AGRIOS × VOG), nunca por secção de site.
+    MESMO PUBLICADOR NÃO É, POR SI, MESMA FONTE. A LEI NÃO O DIZ, E A CASA NÃO O PRATICA.
+
+**O que decide este caso são factos, não a regra geral:**
+
+1. **mesma pessoa jurídica** — `CATALOG-SNAPSHOTS.json` · `AUTHORITY` «ADAMA Italia S.r.l.»; esta ficha · `SOURCE_OWNER` «ADAMA Italia S.r.l. (IT-OWN-040)»;
+2. **mesmo site e mesmo sistema** — `www.adama.com/italia`, atrás do mesmo Akamai Bot Manager (403 a curl nos dois casos);
+3. **uma só enumeração** — `data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json`: o **mesmo** `/it/sitemap.xml` (SHA256 `7648b94e…`) lista 51 URLs de produto (31 em `/it/prodotti-adama/*` + 20 em `/it/prodotti/*`) **e** 13 URLs `/it/articolo/*`, num total de 261;
+4. **o desenho deste registo** — as oito entradas T9 `IT-T9-001` … `IT-T9-008` de `candidatas/ITALY-SOURCE-MASTER-V1.json` (duas delas, `002` e `008`, já com ficha neste Atlas) são todas «*&lt;empresa&gt; Italia — comunicação pública*», `SOURCE_TYPE` «site institucional»: uma entrada por site institucional de concorrente. O catálogo é uma secção desse site;
+5. **nada aponta para uma segunda origem lógica** — não há mantenedor distinto, nem contrato distinto, nem série própria com identidade e cadência próprias. O que difere é a **identidade nativa do item** (página de produto: `NODE_ID` + número de registo; artigo: título + data) — e isso é `SOURCE_NATIVE_ID` de COL-LAW-206, identidade de **item**, não de fonte.
+
+As quatro diferenças que existem — URL, secção do site, tipo de conteúdo, uso — **não bastam
+sozinhas** para criar fonte. O que bastaria (mantenedor, contrato, série ou sistema
+distintos) não foi encontrado. **«Origem lógica» continua sem definição na Bíblia: isso é um
+`NÃO SEI` declarado, não uma regra nova escrita aqui.**
 
 ```
 IT_ADAMA_CATALOG_IDENTITY  =  PROVEN_EXISTING_SOURCE  →  IT-T9-008
 SOURCE_ID_CRIADO           =  0
+SOURCE_IDENTITY_REASON     =  mesma pessoa jurídica + mesmo site/sistema + um só sitemap
+                              enumera os dois caminhos + registo T9 é por site institucional;
+                              nenhuma prova de segunda origem lógica
 ```
 
-**O identificador não se apaga.** `IT-ADAMA-CATALOG` continua a nomear as fotos do catálogo
-em `referencia/adama/CATALOG-SNAPSHOTS.json` e a pasta `data/samples/IT-ADAMA-CATALOG/` —
-é linhagem, e apagá-la partiria a proveniência de 51 páginas já preservadas.
+**O identificador não se apaga.** `IT-ADAMA-CATALOG` é **legado**: a pasta
+`data/samples/IT-ADAMA-CATALOG/` mantém o nome (path não é identidade), e cada registo
+produzido sob ele continua a responder «como me chamava quando fui produzido?» —
+`SOURCE_IDS_LEGACY` em 51 linhas do portfolio e 141 documentos, `SOURCE_ID_LEGACY` nas
+duas fotos do catálogo.
 
-⚠️ **Fica uma dívida que não é desta faixa.** `referencia/adama/SOURCE-ID-MAP.json` ainda
-escreve `SRC_ADAMA_COM → IT-ADAMA-CATALOG` como `CANONICAL_SOURCE_ID`. Pela decisão acima o
-canónico é `IT-T9-008`, e `IT-ADAMA-CATALOG` passa a legado. Esse ficheiro tem `BUILDER`
-declarado (`fontes/adama_referencia.py`, linhas 111-112 e 620) e **dono próprio** — a faixa
-ADAMA Reference. Corrigi-lo à mão aqui seria editar saída de gerador alheio.
-`COL-LAW-053` exige leitura única: enquanto as duas listas discordarem, a segunda envelhece
-calada.
+**A dívida da faixa ADAMA Reference foi paga pelo dono, em 2026-09-16.**
+`fontes/adama_referencia.py` (`SOURCE_ID_CANONICO`) passou a mapear `SRC_ADAMA_COM` e
+`IT-ADAMA-CATALOG` para `IT-T9-008`, e `referencia/adama/SOURCE-ID-MAP.json` foi regenerado
+por ele (3 registos). Havia uma **segunda cópia** do identificador em
+`fontes/adama_catalogo_snapshot.py` (`SOURCE_ID = 'IT-ADAMA-CATALOG'`, escrito como
+identidade nas fotos) — passou a ler o mapa da Reference, para que a casa tenha uma lista
+só (`COL-LAW-053`). Nenhum `ADAMA_PRODUCT_ID`, `DOCUMENT_ID`, `SHA256` ou `IDENTITY_SEAL`
+mudou: só proveniência de fonte. Provas: `tests/test_adama_referencia.py` (classe
+`LegadoNaoECanonico`) e `tests/test_adama_catalogo_drift.py`.
 
-    HERDAR UM IDENTIFICADOR NÃO É CERTIFICÁ-LO — E NÃO O CORRIGIR NA CASA DO VIZINHO
-    NÃO É DEIXÁ-LO ERRADO: É NÃO ESCREVER PELA MÃO DELE.
+    HERDAR UM IDENTIFICADOR NÃO É CERTIFICÁ-LO.
+    LEGADO NÃO É CANÓNICO — E QUEM CORRIGE É O DONO DO BUILDER, NÃO A MÃO NO JSON.
 
 #### IT-T10-002 · BMTI — analisi di mercato cereali
 

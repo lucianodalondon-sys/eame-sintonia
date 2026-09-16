@@ -75,8 +75,32 @@ AMOSTRAS = os.path.join(RAIZ, 'data', 'samples', 'IT-ADAMA-CATALOG')
 SCHEMA = 'sintonia.adama-reference/1'
 OWNER = 'IT — ADAMA REFERENCE (referencia/adama/)'
 BUILDER = 'fontes/adama_catalogo_snapshot.py'
-SOURCE_ID = 'IT-ADAMA-CATALOG'
+
+# A FONTE DA FOTO, E O NOME COM QUE ESTA CASA A CHAMAVA
+# ------------------------------------------------------
+# Até 2026-09-16 esta casa escrevia `SOURCE_ID = 'IT-ADAMA-CATALOG'` — um
+# identificador que nasceu a 30/08 e nunca teve ficha no Atlas. A faixa Sources
+# decidiu (know-how §127; ficha IT-T9-008, IDENTIFICADORES_LEGADOS) que o
+# catálogo é outro ENDPOINT da fonte que já existia, `IT-T9-008` — ADAMA Italia
+# S.r.l. — e não uma segunda fonte. O mapeamento legado→canônico tem UM dono,
+# `adama_referencia.SOURCE_ID_CANONICO`; este ficheiro lê-o de lá para que a
+# casa não volte a ter duas listas (COL-LAW-053).
+#
+#     LEGADO != CANÔNICO. O nome antigo NÃO se apaga: fica ao lado do canônico
+#     em SOURCE_ID_LEGACY / SOURCE_IDS_LEGACY, para responder «como se chamava
+#     esta foto quando foi tirada?». A pasta data/samples/IT-ADAMA-CATALOG/ e o
+#     SNAPSHOT_ID CAT_ADAMA_IT_* não mudam: PATH e rótulo de foto não são
+#     identidade de fonte.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from adama_referencia import SOURCE_ID_CANONICO  # noqa: E402
+
+SOURCE_ID_LEGACY = 'IT-ADAMA-CATALOG'
+SOURCE_ID = SOURCE_ID_CANONICO[SOURCE_ID_LEGACY]
 SOURCE_URL = 'https://www.adama.com/italia/it'
+# As 51 paginas de produto do sitemap vivem em DOIS prefixos: 31 em
+# /it/prodotti-adama/* e 20 em /it/prodotti/*. Um so glob mentiria sobre 20.
+SOURCE_ENDPOINT = ('https://www.adama.com/italia/it/prodotti-adama/* e '
+                   'https://www.adama.com/italia/it/prodotti/*')
 AUTHORITY = 'ADAMA Italia S.r.l. (catalogo comercial proprio)'
 
 # A foto anterior do CATÁLOGO. Não é a do Ministero, e é por isso que existe.
@@ -396,6 +420,8 @@ def main():
                 'esta neste disco.'),
         'SNAPSHOT_ID': snap_id,
         'SOURCE_ID': SOURCE_ID,
+        'SOURCE_ID_LEGACY': SOURCE_ID_LEGACY,
+        'SOURCE_ENDPOINT': SOURCE_ENDPOINT,
         'OBSERVED_AT': observado_em,
         'COLLECTED_AT': censo.get('CAPTURED_AT'),
         'BROWSER_CONTEXT': censo.get('BROWSER_CONTEXT'),
@@ -431,6 +457,8 @@ def main():
         'LAW': enum['WHAT_THIS_IS_NOT'],
         'SNAPSHOT_ID': snap_id,
         'SOURCE_ID': SOURCE_ID,
+        'SOURCE_ID_LEGACY': SOURCE_ID_LEGACY,
+        'SOURCE_ENDPOINT': SOURCE_ENDPOINT,
         'OBSERVED_AT': observado_em,
         'COLLECTED_AT': enum.get('CAPTURED_AT'),
         'SITEMAP_URL': enum['SITEMAP_URL'],
@@ -457,8 +485,10 @@ def main():
                 'em que ninguem olhou para ele.'),
         'WHY_NOT_IN_SNAPSHOTS_JSON': (
             'SNAPSHOTS.json e o registo da fonte IT-T4-001 (Ministero della '
-            'Salute). Esta casa e da fonte IT-ADAMA-CATALOG. CATALOG_PRODUCT != '
-            'REGULATORY_PRODUCT, e por isso a foto de um nao data o outro.'),
+            'Salute). Esta casa e da fonte %s (ADAMA Italia S.r.l.), pelo endpoint '
+            'do catalogo comercial; ate 2026-09-16 chamava-lhe %s, e esse nome fica '
+            'em SOURCE_ID_LEGACY. CATALOG_PRODUCT != REGULATORY_PRODUCT, e por isso '
+            'a foto de um nao data o outro.' % (SOURCE_ID, SOURCE_ID_LEGACY)),
         'CURRENT_SNAPSHOT': snap_id,
         'COUNT': 2,
         'RECORDS': [
@@ -467,6 +497,8 @@ def main():
                 'OBSERVED_AT': ANTERIOR['OBSERVED_AT'],
                 'COLLECTED_AT': None,
                 'SOURCE_ID': SOURCE_ID,
+                'SOURCE_ID_LEGACY': SOURCE_ID_LEGACY,
+                'SOURCE_ENDPOINT': SOURCE_ENDPOINT,
                 'SOURCE_URL': SOURCE_URL,
                 'AUTHORITY': AUTHORITY,
                 'CURRENT': False,
@@ -492,6 +524,8 @@ def main():
                 'OBSERVED_AT': observado_em,
                 'COLLECTED_AT': censo.get('CAPTURED_AT'),
                 'SOURCE_ID': SOURCE_ID,
+                'SOURCE_ID_LEGACY': SOURCE_ID_LEGACY,
+                'SOURCE_ENDPOINT': SOURCE_ENDPOINT,
                 'SOURCE_URL': SOURCE_URL,
                 'AUTHORITY': AUTHORITY,
                 'CURRENT': True,
@@ -537,6 +571,7 @@ def main():
                 'PAGE_SHA256': (visto[0].get('PAGE_SHA256') if visto else None),
                 'PROVENANCE': {
                     'SOURCE_IDS': [SOURCE_ID],
+                    'SOURCE_IDS_LEGACY': [SOURCE_ID_LEGACY],
                     'SOURCE_URL': (visto[0]['CANONICAL_URL'] if visto
                                    else ancora_de_url(p)),
                     'SNAPSHOT_ID': sid,

@@ -26,10 +26,10 @@ NASCEU EM   2026-09-15 · FASE 1C-2
 | **ACTIVE INGREDIENTS** | `ACTIVE-INGREDIENTS.json` | 122 | `ACTIVE_INGREDIENT_ID` | `…-deep/ACTIVE-INGREDIENTS.json` |
 | **PRODUTO × SUBSTÂNCIA** | `PRODUCT-ACTIVE-INGREDIENTS.json` | 203 | `RELATION_ID` | V2.1 `PRODUCT-ACTIVE-INGREDIENTS.json` |
 | **SNAPSHOTS** (regulatório) | `SNAPSHOTS.json` | 3 | `SNAPSHOT_ID` | os três, declarados |
-| **SNAPSHOTS DO CATÁLOGO** | `CATALOG-SNAPSHOTS.json` | 2 | `SNAPSHOT_ID` | `IT-ADAMA-CATALOG`, observado |
+| **SNAPSHOTS DO CATÁLOGO** | `CATALOG-SNAPSHOTS.json` | 2 | `SNAPSHOT_ID` | `IT-T9-008` pelo endpoint do catálogo (legado `IT-ADAMA-CATALOG`), observado |
 | **MEMBERSHIP OBSERVADA** | `PORTFOLIO-OBSERVATIONS.json` | 102 | `OBSERVATION_ID` | uma linha por produto × foto |
 | **DRIFT DO PORTFOLIO** | `PORTFOLIO-DRIFT.json` | 1 | `SNAPSHOT_BEFORE`+`_NOW` | diff das duas fotos |
-| **VOCABULÁRIO DE FONTE** | `SOURCE-ID-MAP.json` | 2 | `LEGACY_SOURCE_ID` | Atlas da FASE 1B |
+| **VOCABULÁRIO DE FONTE** | `SOURCE-ID-MAP.json` | 3 | `LEGACY_SOURCE_ID` | Atlas da FASE 1B + decisão §127 |
 
 **Os pacotes de origem não foram apagados nem movidos.** Continuam onde estavam,
 e cada linha desta casa diz em `PROVENANCE.PROVING_ARTIFACT` de qual veio.
@@ -280,36 +280,47 @@ dataset do Ministero não traz período de escoamento. Derivá-lo de
 ## O VOCABULÁRIO DE FONTE FALA COM O ATLAS
 
 ```
-SRC_FITOSANITARI_SALUTE_GOV_IT  →  IT-T4-001          (Ministero della Salute)
-SRC_ADAMA_COM                   →  IT-ADAMA-CATALOG   (catálogo adama.com/italia)
+SRC_FITOSANITARI_SALUTE_GOV_IT  →  IT-T4-001   (Ministero della Salute)
+SRC_ADAMA_COM                   →  IT-T9-008   (ADAMA Italia S.r.l. — o site; o catálogo é um endpoint)
+IT-ADAMA-CATALOG                →  IT-T9-008   (idem — identificador histórico desta casa, 30/08 → 16/09/2026)
 ```
 
 `IT-T4-001` é a ficha do Ministero no `ATLAS-DE-FONTES-EAME.md` reconciliado na
-FASE 1B. O identificador antigo **não se apaga**: vive em `SOURCE-ID-MAP.json` e
-em `PROVENANCE.SOURCE_IDS_LEGACY`.
+FASE 1B. `IT-T9-008` é a ficha «ADAMA Italia — comunicação pública» no mesmo
+Atlas. O identificador antigo **não se apaga**: vive em `SOURCE-ID-MAP.json`, em
+`PROVENANCE.SOURCE_IDS_LEGACY` (192 registos: 51 do portfolio + 141 documentos) e
+em `SOURCE_ID_LEGACY` nas fotos do catálogo. O mapa legado→canónico tem **um dono**,
+`SOURCE_ID_CANONICO` em `fontes/adama_referencia.py`; `adama_catalogo_snapshot.py`
+lê de lá.
 
 ⚠️ O pacote `…-deep/` já usava `IT-T4-001` em 609 dos seus registos. Quem estava
 fora da língua do Atlas era só o V2.1.
 
-### ⚠️ Uma dívida que esta casa NÃO criou e NÃO paga
+### A dívida que esta casa NÃO criou — e como foi paga
 
 ```
 IT-T4-001                            registado no ATLAS · 🟢
-IT-ADAMA-CATALOG                     NÃO consta do ATLAS
-IT_ADAMA_CATALOG_ATLAS_REGISTRATION  PREEXISTING_GAP / NOT_PROVEN
+IT-ADAMA-CATALOG                     NÃO constava do ATLAS (até 2026-09-16)
+IT_ADAMA_CATALOG_ATLAS_REGISTRATION  PREEXISTING_GAP / NOT_PROVEN   (estado de 2026-09-15)
+                                     → RESOLVED_AS_LEGACY_OF_IT-T9-008  (2026-09-16)
 SOURCE_ID_NEW_BY_REFERENCE           0
 ```
 
 `IT-ADAMA-CATALOG` **não foi emitido aqui**: já vivia em 21 ficheiros do tronco,
 incluindo `fontes/adama_referencia.py`, antes desta casa existir. Esta referência
-**herda** o identificador; não é dona dele e não emite `SOURCE_ID`.
+**herdou** o identificador; não é dona dele e não emite `SOURCE_ID`.
 
-Mas ele **não está no `ATLAS-DE-FONTES-EAME.md`** — nem antes nem agora. É lacuna
-anterior, não regressão, e registá-la no Atlas é missão da faixa **Sources**, não
-desta. Fica escrita para não ser descoberta outra vez como novidade.
+A faixa **Sources** decidiu em 2026-09-16 (know-how §127; ficha `IT-T9-008`,
+`IDENTIFICADORES_LEGADOS`): o catálogo (`/it/prodotti-adama/*` e `/it/prodotti/*`) é outro **endpoint**
+da fonte `IT-T9-008` — mesmo publicador (ADAMA Italia S.r.l.), mesmo site, o mesmo
+`/it/sitemap.xml` enumera artigos e páginas de produto — e não uma fonte nova. Por
+`COL-LAW-009/205` endpoint não é fonte. Esta casa seguiu a decisão pelo seu
+construtor: `IT-T9-008` é o canónico; `IT-ADAMA-CATALOG` é **legado** e continua
+encontrável. Nenhum `ADAMA_PRODUCT_ID`, `DOCUMENT_ID`, `SHA256` ou `IDENTITY_SEAL`
+mudou com isso — só campos de proveniência de fonte (490 valores).
 
     HERDAR UM IDENTIFICADOR NÃO É CERTIFICÁ-LO.
-    E NÃO O REGISTAR AQUI NÃO É ESCONDÊ-LO — É NÃO O ROUBAR AO DONO.
+    LEGADO NÃO É CANÓNICO — E APAGAR O LEGADO PARTIRIA A LINHAGEM.
 
 ---
 
@@ -336,7 +347,7 @@ AUTHORITY = Ministero della Salute
 ADMIN_STATUS ∈ {Autorizzato, Ri-registrato, Rinnovato, Autorizzato con procedura zonale}
 PROD_FTS_6_YYYYMMDD como versão
 ETICHETTA · SCHEDA_DI_SICUREZZA · ESTENSIONE_USO
-SOURCE_ID IT-T4-001 · IT-ADAMA-CATALOG
+SOURCE_ID IT-T4-001 · IT-T9-008 (legado: IT-ADAMA-CATALOG)
 ```
 
 **Nenhum valor italiano virou lei EAME.** O formato do número, a autoridade e os
@@ -351,8 +362,9 @@ estados administrativos vivem nos dados, não no contrato.
   `PARSER_FAILURE != REGULATORY_ABSENCE`;
 - **não diz** o produto de 1.466 dos 2.030 usos autorizados — diz `UNKNOWN`,
   porque o registo deles não tem produto de catálogo;
-- **não diz** que as 602 autorizações são 602 produtos. São 51 produtos e 602
-  autorizações, e a diferença é informação, não erro.
+- **não diz** que as 602 autorizações são 602 produtos. São 51 produtos
+  **observados no catálogo** (as páginas legíveis — o total oficial é `NÃO SEI`)
+  e 602 autorizações, e a diferença é informação, não erro.
 
 ---
 
