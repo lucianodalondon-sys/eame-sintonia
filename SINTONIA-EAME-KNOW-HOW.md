@@ -15159,10 +15159,63 @@ certeza do **nome** da entidade operadora, não a de que os dois ids apontam par
 prosa, senão (2) a **ficha no Atlas** — o registo canónico; o MASTER é candidato e o `.mjs` é
 contrato de **acesso**. A ARPAV (`IT-T2-002`) ficou `UNRESOLVED` porque não tem ficha; a ADAMA
 tem ficha, e ela diz `IT-OWN-040`. Logo: canónico `IT-OWN-040`, legado `IT-OWN-ADAMA-IT`.
-Corrigido nos três produtores (MASTER, manifesto, contrato) com o nome antigo ao lado em
-`OWNER_ID_LEGACY` — o mesmo padrão `*_LEGACY` que a casa já usa para `SOURCE_ID` (COL-LAW-206:
-mapeamento preservado, nunca reidentificação em silêncio). Nenhum byte de amostra, SHA256,
-`SOURCE_ID` ou `ADAMA_PRODUCT_ID` mudou.
+Corrigido nos três produtores (MASTER, manifesto, contrato) com o nome antigo ao lado num campo
+chamado `OWNER_ID_LEGACY`. Nenhum byte de amostra, SHA256, `SOURCE_ID` ou `ADAMA_PRODUCT_ID`
+mudou.
+
+#### 5b.1 · O CAMPO `OWNER_ID_LEGACY` NÃO É CANÓNICO — GATE BLOQUEADO EM 2026-09-16  [REV 3]
+
+A redação anterior deste ponto dizia que `OWNER_ID_LEGACY` era «o mesmo padrão `*_LEGACY` que
+a casa já usa para `SOURCE_ID`». **Estava errada por analogia.** Medido:
+
+- `OWNER_ID_LEGACY` **não existia antes** do commit `e060bc55` — primeira ocorrência em toda a
+  história, em todas as branches. É campo novo.
+- **Não há mecanismo de alias de organização na casa.** `ID_ALIASES` / `ID_ANTERIOR` são de
+  **fontes** do V2.1 (`motor/v21_fontes_rechavear.py`); `SOURCE-ID-MAP.json` e
+  `SOURCE_IDS_LEGACY` são de **fontes**, e só na ADAMA Reference, por contrato dela
+  (`CONTRATO-ADAMA-REFERENCE.md`); a tabela `organizacao` da migração de identidade
+  (`supabase/migrations/002_identidade_pessoa_org_canal.sql`) só tem `ror_id`. Nada para
+  «id antigo de dono».
+- **`IT-OWN-*` nem sequer é conceito do Atlas.** O glossário da ficha (linha 102) define
+  `SOURCE_OWNER` = «quem publica e responde pelo dado» — um **nome**. Das 176 fichas, 168 têm
+  só o nome; as 8 com `(IT-OWN-…)` são as italianas entradas em 15-16/09, que trouxeram o
+  vocabulário do MASTER — e o MASTER é **candidato**, não autoridade
+  (`provas/a_autoridade_da_fonte.py`, AU5b/AU6).
+- **Ninguém é dono do conceito «identidade de organização».** `controle/AUTORIDADES-CANONICAS.json`
+  não tem `CONCEPT_OWNER` para isso; a migração 002 não está registada; e a própria prova da
+  casa escreve «até lá não há dono nenhum a fingir que há».
+- A lei manda **preservar** (COL-LAW-203: «normalização não destrói o valor original — vale para
+  organização»; COL-LAW-206: «preservado o mapeamento/histórico»). A lei **não diz como**
+  representar um alias de dono. Exigir preservar ≠ definir a representação.
+
+```
+OWNER_ID_LEGACY_PREEXISTING       = NÃO   (primeira ocorrência: e060bc55)
+EXISTING_OWNER_ALIAS_MECHANISM    = NONE_PROVEN
+COL_LAW_206_DIRECTLY_AUTHORIZES   = NÃO   (exige preservar; não define a forma)
+OWNER_IDENTITY_CONCEPT_OWNER      = NONE_PROVEN  (o mais perto: Atlas = «quem publica», por NOME)
+OWNER_ALIAS_CONTRACT_OWNER        = NONE_PROVEN
+OWNER_ALIAS_MECHANISM             = NOT_CANONICALLY_DEFINED
+OWNER_ALIAS_GATE                  = BLOCKED
+```
+
+**O que fica de pé, e o que fica provisório.** `IT-OWN-040` continua o dono provado de
+`IT-T9-008` (a ficha do Atlas decide — isso não muda). O id antigo `IT-OWN-ADAMA-IT` **não
+some**: continua escrito no MASTER, no manifesto, no contrato, nesta secção e no Git. Mas o
+campo em que está escrito é **representação provisória, sem contrato** — não se cite como
+mecanismo canónico, e não se copie para os outros 11 donos divergentes.
+
+**O que falta, quem decide, mudança mínima.** Falta um contrato que diga (1) se `IT-OWN-*` é
+identidade canónica de dono ou apenas chave do catálogo candidato — hoje o Atlas diz «dono» por
+nome; (2) qual é a chave estável do dono (`SINTONIA_STABLE_ID` de COL-LAW-206 aplicado a
+organização); (3) como se escreve um id antigo. Quem decide: a coordenação, porque isso cria
+uma autoridade nova em `controle/AUTORIDADES-CANONICAS.json` (dono do conceito
+OWNER_IDENTITY) — não é decisão de faixa. Mudança mínima quando decidirem: um contrato curto
+em `docs/fontes/` (dono: faixa Sources, registado no controle), o glossário da ficha do Atlas a
+citá-lo, **um** validador executável em `provas/` que MASTER, manifestos e `regras/italy_contracts.mjs`
+obedeçam — e só então o campo deixa de ser provisório (ou muda de nome).
+
+    HISTORY_EXISTS != CANONICAL_ALIAS_MECHANISM_EXISTS.
+    UM CAMPO QUE NENHUM VALIDADOR CONHECE FOI ACEITE PORQUE O JSON IGNORA O DESCONHECIDO.
 
 ⚠️ **O achado maior fica em aberto.** Medido **antes** desta reconciliação: em 15 manifestos
 com `OWNER_ID`, 12 usavam um id nomeado diferente do MASTER e só 3 coincidiam (APOL `012`,

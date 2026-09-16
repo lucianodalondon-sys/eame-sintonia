@@ -2655,9 +2655,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-sources-atlas-v1",
-    "HEAD": "9ac2af8866e2d3ca7e11dd8a1fbe24912d8dfa80",
-    "GENERATED_AT": "2026-09-16T15:11:00-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0ad65a9fea222b1ed3478f0deac95cb4d7aea543e6c29e8702f45b3b6a4d0b16"
+    "HEAD": "e060bc55d145519345a17fc4348014829ecf5434",
+    "GENERATED_AT": "2026-09-16T15:19:55-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0b442942c8045fa3c4948af9ff2308196410108c93b082e1a76a88c31989b135"
   },
   "FAMILIES": [
     {
@@ -7347,7 +7347,7 @@
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
               "como_se_entra": "JSON",
-              "dono": "ADAMA Italia S.r.l. (IT-OWN-040) OWNER_ID_LEGACY: IT-OWN-ADAMA-IT — até 2026-09-16 o manifesto da amostra e regras/italy_contracts.mjs chamavam a este mesmo dono IT-OWN-ADAMA-IT («ADAMA Italia», nome curto). Reconciliado no mesmo dia: é a MESMA entidade (os dois ids eram o dono declarado desta mesma fonte, mesmo site, nascidos no mesmo commit 2640c5e0); o canónico é o desta ficha, porque na cadeia de autoridade da casa (provas/a_autoridade_da_fonte.py) a ficha no registo canónico decide e o .mjs é contrato de ACESSO. O nome antigo não se apaga: vive como OWNER_ID_LEGACY no MASTER, no manifesto e no contrato. ⚠️ Só a ADAMA foi reconciliada. Outros 11 manifestos (ISTAT, BMTI, ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF, Bayer) continuam com id de dono nomeado diferente do MASTER — dívida medida, com dono na faixa Sources, NÃO paga aqui.",
+              "dono": "ADAMA Italia S.r.l. (IT-OWN-040) OWNER_ID_LEGACY: IT-OWN-ADAMA-IT — até 2026-09-16 o manifesto da amostra e regras/italy_contracts.mjs chamavam a este mesmo dono IT-OWN-ADAMA-IT («ADAMA Italia», nome curto). Reconciliado no mesmo dia: é a MESMA entidade (os dois ids eram o dono declarado desta mesma fonte, mesmo site, nascidos no mesmo commit 2640c5e0); o canónico é o desta ficha, porque na cadeia de autoridade da casa (provas/a_autoridade_da_fonte.py) a ficha no registo canónico decide e o .mjs é contrato de ACESSO. O nome antigo não se apaga: está escrito no MASTER, no manifesto e no contrato num campo chamado OWNER_ID_LEGACY — ⚠️ REPRESENTAÇÃO PROVISÓRIA, SEM CONTRATO: o campo nasceu em 2026-09-16 por analogia com SOURCE_ID, não há mecanismo canónico de alias de dono, e este atlas identifica o dono por NOME (IT-OWN-* é chave do catálogo candidato). Gate BLOCKED; ver know-how §127-5b.1. Não copiar para outros donos. ⚠️ Só a ADAMA foi reconciliada. Outros 11 manifestos (ISTAT, BMTI, ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF, Bayer) continuam com id de dono nomeado diferente do MASTER — dívida medida, com dono na faixa Sources, NÃO paga aqui.",
               "url": "https://www.adama.com/italia",
               "atualiza": "NÃO SEI",
               "exemplo": "«Orticole: come controllare le infestanti, anche quelle piu difficili» https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili — application/json, 5295 bytes, SHA256 conferido em 2026-09-07",
@@ -64412,7 +64412,7 @@
       "evidence": [
         {
           "file": "tests/test_adama_referencia.py",
-          "line": 404,
+          "line": 410,
           "snippet": "master = ler_raiz(\"candidatas\", \"ITALY-SOURCE-MASTER-V1.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
@@ -65556,7 +65556,7 @@
       "evidence": [
         {
           "file": "tests/test_adama_referencia.py",
-          "line": 416,
+          "line": 422,
           "snippet": "with io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",

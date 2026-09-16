@@ -6953,8 +6953,13 @@ SOURCE_OWNER:                 ADAMA Italia S.r.l. (IT-OWN-040)
                               mesma fonte, mesmo site, nascidos no mesmo commit 2640c5e0); o
                               canónico é o desta ficha, porque na cadeia de autoridade da casa
                               (provas/a_autoridade_da_fonte.py) a ficha no registo canónico decide
-                              e o .mjs é contrato de ACESSO. O nome antigo não se apaga: vive como
-                              OWNER_ID_LEGACY no MASTER, no manifesto e no contrato.
+                              e o .mjs é contrato de ACESSO. O nome antigo não se apaga: está
+                              escrito no MASTER, no manifesto e no contrato num campo chamado
+                              OWNER_ID_LEGACY — ⚠️ REPRESENTAÇÃO PROVISÓRIA, SEM CONTRATO: o campo
+                              nasceu em 2026-09-16 por analogia com SOURCE_ID, não há mecanismo
+                              canónico de alias de dono, e este atlas identifica o dono por NOME
+                              (IT-OWN-* é chave do catálogo candidato). Gate BLOCKED; ver
+                              know-how §127-5b.1. Não copiar para outros donos.
                               ⚠️ Só a ADAMA foi reconciliada. Outros 11 manifestos (ISTAT, BMTI,
                               ARPAE, ARPAV, SIAS, Campania SFR, ARIF, AGRIOS, Ministero, MASAF,
                               Bayer) continuam com id de dono nomeado diferente do MASTER — dívida
