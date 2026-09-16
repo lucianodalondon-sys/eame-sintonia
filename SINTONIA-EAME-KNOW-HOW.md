@@ -10,8 +10,9 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-15 — §122: uma faixa que já engoliu o tronco tem prazo, e um merge pode ressuscitar um segredo que alguém já matou.
+**Última atualização material:** 2026-09-16 — §123: uma lista de perdão desactualizada vira aresta `PROVEN` no mapa, e apagar do HEAD não apaga do histórico.
 **Próxima missão autorizada:** REMEASURE_COLLECTION_REFERENCE_SOURCES — as três faixas ficaram `DIVERGED` contra o novo trunk (§122). Medir antes de reconciliar; não integrar nada sem a coordenação medir o novo trunk.
+**Decisão pendente na coordenação:** `HISTORY_REWRITE_RECOMMENDED = SIM` (§123) — 12 valores de sessão continuam alcançáveis no histórico público, um dos commits contido em 185 refs remotas. 9 dos 12 estão provadamente expirados; 3 têm validade até 07/09/2027. Não executado de propósito.
 
 ---
 
@@ -14499,4 +14500,166 @@ NAO registra lei nova. O marcador de redaccao, a guarda de credencial, a cadeia
 NAO resolve o achado que resta na guarda (caminho pessoal de Windows em
    docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md:64, entrado pelo proprio 43553a65).
    Fica vermelho, e fica dito.
+```
+
+---
+
+# §123 · UMA LISTA DE PERDÃO DESACTUALIZADA VIRA ARESTA `PROVEN` NO MAPA — E APAGAR DO HEAD NÃO APAGA DO HISTÓRICO
+
+## O QUE MUDOU
+
+O SECURITY CLOSURE fechou a pendência que a integração da Intelligence deixou. A guarda de
+credencial passou a **0 achados com a lista de perdão VAZIA**:
+
+```
+guarda de credencial   5 achados -> 1 (§122) -> 0
+DIVIDA_CONHECIDA       1 entrada -> {}
+ArvoreReal             FAIL -> PASS, por ausencia do defeito
+```
+
+Três coisas foram medidas e nenhuma delas era o que o nome dizia.
+
+## POR QUÊ — E SÃO TRÊS LIÇÕES NOVAS, NENHUMA REPETE O §122
+
+### 1 · REMOVER DO HEAD NÃO REMOVE DO HISTÓRICO — E ISTO FOI MEDIDO, NÃO PRESUMIDO
+
+O §122 redigiu 12 cabeçalhos `Set-Cookie`. Ficou a impressão de que o segredo saiu do
+repositório. **Saiu do HEAD. Não saiu do Git.** Medido sem imprimir um único valor:
+
+```
+blobs distintos destes 4 caminhos ..............  12
+blobs com Set-Cookie CRU .......................   4
+valores distintos (por digest sha256/10) .......  12
+commits que os alcancam ........................   4
+alcancaveis de refs/remotes/origin .............   4 de 4   = PUBLICO
+na arvore publica desde ........................  2026-09-07
+```
+
+E o raio de alcance é o que torna a reescrita uma decisão de coordenação e não de quem
+integra — um dos quatro commits está contido em **185 refs remotas**:
+
+```
+2640c5e027f2   185 refs remotas    (os 4 ficheiros crus)
+79b2582cf149     5 refs remotas    (os 4 ficheiros crus)
+df89b52d4a6f     7 refs remotas
+059989f1ad0a     6 refs remotas
+```
+
+```
+REDIGIR NO HEAD E HIGIENE. NAO E REVOGACAO, E NAO E APAGAMENTO.
+```
+
+A mitigação verdadeira veio do relógio, não do commit — e o relógio **está provado nos
+próprios cabeçalhos**, porque data não é segredo:
+
+```
+5 dos 12   sem `expires`   -> cookie de sessao puro, morre ao fechar o cliente
+4 dos 12   expires 07/09/2026 (14:40 / 15:16 / 15:46)  -> expirados no MESMO dia
+3 dos 12   expires 07/09/2027  -> `cookiesession1` x2 e `fxs`, os unicos que a
+                                   data ainda nao matou
+```
+
+`REVOCATION_AVAILABLE = NÃO`: os servidores são de terceiros (ARIF, Ministero, ISMEA), a
+recolha foi `GET` anónimo, ninguém se autenticou, e por isso **não há sessão nossa para
+encerrar** nem endpoint que possamos chamar. A expiração do lado do servidor é o único
+mecanismo, e para 9 dos 12 ela já correu.
+
+### 2 · UM PONTEIRO MORTO NUMA LISTA DE PERDÃO É UMA ARESTA FALSA NO MAPA
+
+Esta é a descoberta que nenhuma missão anterior tinha. `DIVIDA_CONHECIDA` perdoava
+`scripts/v21_tm_colher.py`, um caminho que morreu quando `scripts/` foi desmontado
+(`b8321b07`). Ao apagar a entrada, o System Map perdeu uma aresta:
+
+```
+arestas no mapa      entram 7 -> entram 6
+prova das ligacoes   CODE 13 -> CODE 12
+aresta removida      C-V21-COMERCIAL -> C-SCRAP-GUARDA   (READS, status PROVEN)
+prova UNICA dela     guarda/social_guarda.py:193
+linha 193 no commit anterior:   'scripts/v21_tm_colher.py':
+```
+
+O scanner prova aresta procurando o **caminho dentro do código**. Para ele, uma string de
+allowlist obsoleta é indistinguível de uma dependência real — e o mapa carimbou `PROVEN`
+numa relação que só existia porque um perdão velho tinha ficado escrito.
+
+```
+UM PONTEIRO MORTO NAO E APENAS RUIDO NA GUARDA:
+E ARQUITECTURA INVENTADA, E VEM CARIMBADA DE `PROVEN`.
+```
+
+E a ordem de medição não é negociável: **ponteiro velho ≠ dívida viva**. Se a dívida ainda
+existisse no caminho novo, o certo era ACTUALIZAR o ponteiro — apagar teria silenciado um
+achado real. Mediram-se as duas: `motor/v21_tm_colher.py` tem **zero** caminhos pessoais e
+lê `os.environ.get('LOCALAPPDATA')`, que é a forma certa. Não havia o que perdoar, e o
+perdão continuava escrito.
+
+### 3 · UMA ISENÇÃO DE QUE ALGUÉM DEPENDE SEM PROVA É A PRÓXIMA A SER APAGADA
+
+A causa do vermelho era `docs/operacao/ORCA-CONTROL-ROOM-ITALIA.md`: cinco linhas com o
+caminho das bancadas, e o caminho carrega o nome da conta da máquina. **Cinco, não uma** —
+a guarda só relatava a primeira porque `varrer()` faz `break` por ficheiro.
+
+```
+UMA GUARDA QUE PARA NO PRIMEIRO ACHADO CONTA OCORRENCIAS A MENOS.
+LER O RELATORIO COMO INVENTARIO SUBESTIMA O TRABALHO.
+```
+
+Não se inventou representação: correu-se `guarda/social_sessao.py → redigir()` sobre as
+linhas e escreveu-se **a saída dele** (`C:\Users\<nome>` → `<CAMINHO-LOCAL>`). A bancada que
+não passa pelo perfil de ninguém ficou intacta, porque o redactor não lhe tocou.
+
+Mas a isenção `[A-Z]:\Users\(?!<)` existia desde sempre e **não tinha uma única prova** — o
+cookie tinha as duas faces testadas, o caminho tinha zero. Ao sanear o documento, a correcção
+passou a **depender** dessa isenção. Quatro provas novas, de duas faces, fecham isso.
+
+## PROVA
+
+```
+PREFLIGHT        HEAD 89b27038 = remoto, branch e a oficial, 0 commits locais
+EXPOSICAO        4 blobs crus · 12 valores · 4 commits · 185 refs no pior deles
+EXPIRACAO        9 de 12 provadamente mortos pelos proprios cabecalhos
+GUARDA           5 -> 0 achados, com DIVIDA_CONHECIDA = {}
+DUAS FACES       8 casos: 3 legitimos passam, 5 defeitos reprovam
+PROVAS           test_security_secret_shapes 21 -> 25 testes, OK
+REGRESSAO        social_sessao 2 -> 1 vermelho (um CONSERTADO pela correccao)
+                 ratchet 9 -> 9, nomes IDENTICOS (comparado depois de tirar o \r)
+                 drift_db 11 · thread_parcial 15 · youtube_piloto 33, tudo verde
+MAPA             22 portoes PASS · 2b IGUAL · delta = 1 aresta falsa a menos
+HISTORIA         NAO reescrita. Nenhum filter-repo, nenhum BFG, nenhum force.
+```
+
+## CONSEQUÊNCIA
+
+```
+1. SEGREDO COMMITADO MEDE-SE NO HISTORICO, NUNCA NO HEAD.
+   `git log -- <caminho>` por blob, contagem e digest — nunca conteudo. E a
+   pergunta seguinte e «de quantas refs remotas isto se alcanca?», porque e
+   ela que decide se a cura cabe numa missao ou exige a coordenacao.
+
+2. AO LIMPAR LISTA DE PERDAO, MEDIR O PONTEIRO **E** A DIVIDA.
+   Ponteiro morto com divida viva -> ACTUALIZAR.
+   Ponteiro morto com divida paga -> APAGAR.
+   Apagar no primeiro caso silencia um achado real; deixar no segundo inventa
+   uma aresta `PROVEN` no mapa.
+
+3. ANTES DE DEPENDER DE UMA ISENCAO, EXIGIR-LHE AS DUAS FACES.
+   O legitimo passa E o defeito reprova. Uma isencao sem prova e um habito, e
+   habito apaga-se numa limpeza sem ninguem dar por ela.
+
+4. `WORKTREE_DIRTY` CONTA O NAO-RASTREADO, E O PORTAO 2b PROVA PORQUE.
+   A impressao da arvore usa `ls-files --cached --others --exclude-standard`.
+   Um ficheiro solto e nao ignorado — um transcrito exportado, por exemplo —
+   desloca o carimbo e reprova o portao. Nao e falso alarme: e a arvore medida
+   a nao ser a arvore commitada.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra reescrita de historico. HISTORY_REWRITE_RECOMMENDED = SIM, e NAO
+   foi executada: atinge 185 refs remotas e e decisao da coordenacao.
+NAO registra revogacao. Nao temos os servidores; nao ha mecanismo nosso.
+NAO registra integracao de lane nenhuma, migration, deploy, Portal ou LIVE.
+NAO repete o §122: ali esta a ordem das faixas, o encoding da medicao e a
+   redaccao no HEAD. Aqui esta o que o HEAD nao resolve.
 ```
