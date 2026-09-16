@@ -637,6 +637,27 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
             "declarei C-INT-ESPINHA e C-INT-ARBITRAGEM (§17: consertar na fonte)",
         "system-map/scripts/censo_do_congelamento.py":
             "declarei os dois INSTRUMENTOS da trava, pagos com P10b",
+
+        #: ⚠️ ESTAS QUATRO NAO SAO DESTA FAIXA — sao do CLOSE WAVE / PASSO 1,
+        #: a missao que integrou esta linha no trunk por fast-forward. Ficam
+        #: aqui porque esta prova mede `TRONCO_ACTUAL..HEAD`, e depois da
+        #: integracao o HEAD do trunk passou a conter os commits dela.
+        #: A prova apanhou-as, e apanhou-as com razao: sao edicao a mao.
+        #: Escreve-se a razao em vez de afrouxar a assercao.
+        "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt":
+            "redigi 3 cabecalhos Set-Cookie com valor cru (tokens de sessao "
+            "num repositorio publico); marcador ja usado em "
+            "data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt",
+        "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/PROD_FTS_6_20260907.csv.headers.txt":
+            "redigi 3 cabecalhos Set-Cookie com valor cru; RAW e SHA256 do "
+            "MANIFEST intactos — o manifesto cobre o payload, nao o header",
+        "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/91515.headers.txt":
+            "redigi 3 cabecalhos Set-Cookie com valor cru (JSESSIONID e "
+            "__cf_bm entre eles); o cabecalho existiu continua provado",
+        "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/"
+        "ELENCO-OP-AOP-al-31-12-2025-agg-08-04-2026.ods.headers.txt":
+            "redigi 3 cabecalhos Set-Cookie com valor cru (PHPSESSID entre "
+            "eles); a guarda de credencial passou de 5 achados para 1",
     }
     #: ⚠️ ERA UMA LISTA DE OITO NOMES, E ADOECEU DA MESMA COISA QUE AS OUTRAS.
     #:
