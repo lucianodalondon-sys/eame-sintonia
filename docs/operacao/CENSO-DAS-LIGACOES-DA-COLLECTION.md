@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  35c7fd780f0ba43a4daec458c07e4b1d27b72840
+HEAD_DA_MEDICAO  63d8bd7266db182e48f49e2a8b749ec7a9196ad2
 BRANCH           claude/it-adama-reference-v1
-GERADO_EM        2026-09-16T11:30:01-03:00
+GERADO_EM        2026-09-16T11:33:09-03:00
 CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1554,7 +1554,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `referencia/adama/ACTIVE-INGREDIENTS.json`, `referencia/adama/AUTHORIZED-USES.json`, `referencia/adama/CATALOG-SNAPSHOTS.json`, `referencia/adama/CONTRATO-ADAMA-REFERENCE.md`, `referencia/adama/DOSES.json` _(e mais 10)_ |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | REGULATORIO_PORTFOLIO · INTELIGENCIA |
-| **status operacional** | yellow — e uma lei sem prova executavel apontando para ela. |
+| **status operacional** | yellow — existe teste que exercita esta lei. NENHUM modulo de runtime a importa — a lei esta escrita e nao esta a ser aplicada (DECLARED_RULE_NOT_ENFORCED).  Mas ha 15 f |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
 | **prova de quem ativa** | 15 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
@@ -1562,13 +1562,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 0 · saem 10 |
-| **arestas provadas** | entram 0 · saem 10 |
+| **arestas no mapa** | entram 1 · saem 10 |
+| **arestas provadas** | entram 1 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 10 |
+| **prova das ligações** | CODE 11 |
 | **lei da Bíblia** | NÃO SEI |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 

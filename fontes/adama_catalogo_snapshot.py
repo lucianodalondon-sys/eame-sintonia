@@ -23,6 +23,24 @@ Quem lesse o portfolio concluiria que ele foi observado a 31/08. Foi a 30/08, e
 numa fonte diferente. O valor antigo não se apaga: fica em
 `REGULATORY_SNAPSHOT_ID_INHERITED`, ao lado do que corrige.
 
+A LEI DA CONTAGEM — E É A QUE SE QUEBRA MAIS FÁCIL
+---------------------------------------------------
+    PÁGINA LEGÍVEL OBSERVADA  ≠  CATÁLOGO OFICIAL TOTAL
+
+Esta casa conta **o que conseguiu ler**. Os 51 provam 51 URLs no sitemap oficial
+e 51 páginas vivas lidas nas duas fotografias. Não provam que o catálogo tenha
+51: a listagem oficial (`/italia/it/products/crop-protection`) permanece
+ilegível, e enquanto estiver, `CURRENT_OFFICIAL_PORTFOLIO_COUNT` é **`NÃO SEI`**.
+
+    O LIMITE DO INSTRUMENTO NÃO É UM FACTO SOBRE O MUNDO.
+    AUSÊNCIA DE PROVA NÃO É PROVA DE AUSÊNCIA.
+    ERROR ≠ REJECTED — um 403 diz que não se leu, não que não existe.
+
+Por isso `TEMPORAL_DRIFT_IN_OBSERVED_SET = NOT_OBSERVED` e
+`TOTAL_CATALOG_TEMPORAL_DRIFT = NÃO SEI`: um produto que tenha entrado ou saído
+**fora** do sitemap não apareceria em nenhuma das duas fotos, e a comparação
+daria igual na mesma.
+
 A LEI DA IDENTIDADE AQUI
 -------------------------
     NOME IGUAL NÃO PROVA PRODUTO IGUAL.
@@ -271,6 +289,12 @@ def medir_drift(master, portfolio, antes, agora_pgs):
             inalterados.append(pid)
 
     return {
+        'WHAT_COUNT_MEANS': (
+            'COUNT_BEFORE e COUNT_NOW contam PRODUTOS OBSERVADOS EM PAGINA '
+            'LEGIVEL e casados por IDENTITY_ANCHOR — a populacao comparavel entre '
+            'as duas fotografias. NAO sao o tamanho do catalogo oficial, que '
+            'permanece NAO SEI enquanto a listagem oficial nao abrir.'),
+        'COUNT_POPULATION': 'OBSERVED_READABLE_AND_COMPARABLE',
         'COUNT_BEFORE': len(ids_antes),
         'COUNT_NOW': len(ids_agora),
         'ADDED': [{'ADAMA_PRODUCT_ID': p, 'CANONICAL_NAME': nome_canonico.get(p)}
@@ -309,17 +333,24 @@ def main():
         f['AKAMAI_INTERSTITIAL'] = s.get('AKAMAI_INTERSTITIAL')
         f['PROBED_AT'] = s.get('PROBED_AT')
         if s.get('HTTP_STATUS') == 403:
-            f['STATE'] = 'LINKED_BUT_NOT_PUBLISHED'
-            f['WHY_NOT_COUNTED'] = ('o proprio site devolve 403 "Accesso negato". '
-                                    'Ligacao morta dentro de uma pagina viva nao e '
-                                    'produto de catalogo.')
+            f['STATE'] = 'LINKED_BUT_NOT_READABLE'
+            f['PUBLICATION_STATE'] = 'UNKNOWN'
+            f['WHY_NOT_COUNTED'] = (
+                'nesta observacao a rota devolveu 403 "Accesso negato", e por isso '
+                'NAO foi lida. ⚠️ 403 NAO PROVA que o produto esteja despublicado: '
+                'prova que este cliente, neste momento, nao teve acesso. '
+                'ERROR != REJECTED, e ausencia de prova nao e prova de ausencia. '
+                'Nao entra na contagem porque nao foi observado, nao porque foi '
+                'observado ausente.')
         elif s.get('AKAMAI_INTERSTITIAL'):
             f['STATE'] = 'BLOCKED_BY_BOT_PROTECTION'
+            f['PUBLICATION_STATE'] = 'UNKNOWN'
             f['WHY_NOT_COUNTED'] = ('a rota responde com desafio interstitial do '
                                     'Akamai. NAO foi resolvido: deteccao de robo nao '
                                     'se contorna. Nao sabemos o que ha aqui.')
         else:
             f['STATE'] = 'UNDECIDED'
+            f['PUBLICATION_STATE'] = 'UNKNOWN'
             f['WHY_NOT_COUNTED'] = 'sem sonda: estado nao medido.'
 
     # A rota que nao se le pode mesmo assim ter nome no registo do Ministero.
@@ -369,6 +400,15 @@ def main():
         'COLLECTED_AT': censo.get('CAPTURED_AT'),
         'BROWSER_CONTEXT': censo.get('BROWSER_CONTEXT'),
         'RAW_STATE': 'RAW_LOCAL_NOT_VERSIONED',
+        'RAW_PRESERVED': 'NAO',
+        'METADATA_PROVENANCE_COMPLETE': 'SIM',
+        'PAGE_SHA256_VERSIONED': 'SIM',
+        'WHY_THESE_THREE_ARE_SEPARATE': (
+            'PROVENANCE_COMPLETE dito sozinho le-se como «o bruto esta guardado». '
+            'Nao esta. Versionado esta o sha256 de cada pagina e a metadata da '
+            'captura; os bytes vivem em data/raw/, que o Git ignora, e so neste '
+            'disco. 80 manifestos desta casa ja disseram PRESERVED apontando para '
+            'ficheiro que nao existia — por isso os tres campos nao se fundem.'),
         'RAW_LOCAL_ROOT': 'data/raw/IT/adama-catalog/%s/' % data_pasta,
         'CAPTURE_FAILURES': falhas,
         'COUNT': len(manifesto_paginas),
@@ -430,7 +470,8 @@ def main():
                 'SOURCE_URL': SOURCE_URL,
                 'AUTHORITY': AUTHORITY,
                 'CURRENT': False,
-                'CATALOG_PRODUCTS': len(pgs_antes),
+                'OBSERVED_READABLE_PRODUCT_PAGES': len(pgs_antes),
+                'TOTAL_OFFICIAL_CATALOG': 'NAO SEI',
                 'PROVING_ARTIFACT': ANTERIOR['PROVING_ARTIFACT'],
                 'OBSERVED_AT_READ_FROM': ANTERIOR['OBSERVED_AT_FIELD'],
                 'STATE': 'RECONSTRUCTED_FROM_EXISTING_EVIDENCE',
@@ -454,7 +495,8 @@ def main():
                 'SOURCE_URL': SOURCE_URL,
                 'AUTHORITY': AUTHORITY,
                 'CURRENT': True,
-                'CATALOG_PRODUCTS': len(pgs_agora),
+                'OBSERVED_READABLE_PRODUCT_PAGES': len(pgs_agora),
+                'TOTAL_OFFICIAL_CATALOG': 'NAO SEI',
                 'PROVING_ARTIFACT': rel_manifesto,
                 'PROVING_ARTIFACT_ENUMERATION': rel_enum,
                 'RAW_STATE': 'RAW_LOCAL_NOT_VERSIONED',
@@ -537,20 +579,46 @@ def main():
         'DAYS_BETWEEN': (datetime.date.fromisoformat(observado_em)
                          - datetime.date.fromisoformat(ANTERIOR['OBSERVED_AT'])).days,
         'IDENTITY_MATCH_METHOD': 'PRODUCT-MASTER.IDENTITY_ANCHORS (URL:)',
+        'COUNT_SCOPE': {
+            'LAW': ('PAGINA LEGIVEL OBSERVADA != CATALOGO OFICIAL TOTAL. '
+                    'Esta casa conta o que conseguiu ler. O que nao conseguiu ler '
+                    'nao vira zero.'),
+            'OBSERVED_READABLE_PRODUCT_COUNT': enum['UNIQUE_PRODUCT_URLS'],
+            'OBSERVED_READABLE_MEANS': (
+                'paginas de produto que o sitemap oficial enumera E que foram '
+                'abertas e lidas nesta observacao: %d de %d, zero falhas.'
+                % (len(pgs_agora), enum['UNIQUE_PRODUCT_URLS'])),
+            'CURRENT_OFFICIAL_PORTFOLIO_COUNT': 'NAO SEI',
+            'WHY_TOTAL_IS_UNKNOWN': (
+                'a listagem oficial /italia/it/products/crop-protection — unica '
+                'superficie onde a propria ADAMA publica uma CONTAGEM — nao foi '
+                'lida. Enquanto ela for ilegivel pode existir superficie comercial '
+                'que os 51 legiveis nao enumeram, e POSTSCRIPT 80 e um candidato '
+                'observado a exactamente isso. Dizer "o catalogo tem 51" seria '
+                'transformar o limite do instrumento em facto sobre o mundo.'),
+            'WHAT_51_DOES_PROVE': (
+                '51 URLs de produto no sitemap oficial · 51 paginas vivas '
+                'capturadas · as mesmas 51 nas duas fotografias · 55 nao provado.'),
+            'WHAT_51_DOES_NOT_PROVE': (
+                'que o catalogo comercial oficial tenha 51 produtos hoje.'),
+        },
         'POPULATION_CROSSCHECK': {
             'LAW': ('Listagem nao serve de contagem. Duas contagens por caminhos '
                     'independentes, e o que nao bate fica escrito.'),
+            'WHAT_IS_BEING_COUNTED': 'PAGINAS DE PRODUTO LEGIVEIS, nao o catalogo total',
             'METHOD_A': 'sitemap.xml publicado pela propria ADAMA',
             'METHOD_A_COUNT': enum['UNIQUE_PRODUCT_URLS'],
             'METHOD_B': ('varredura de toda ligacao com forma de produto dentro '
                          'das %d paginas capturadas' % len(pgs_agora)),
-            'METHOD_B_LIVE_COUNT': enum['UNIQUE_PRODUCT_URLS'],
+            'METHOD_B_READABLE_COUNT': enum['UNIQUE_PRODUCT_URLS'],
             'METHOD_B_EXTRA_ROUTES_FOUND': len(fora_do_sitemap),
-            'METHODS_AGREE_ON_LIVE_PRODUCTS': True,
-            'AGREEMENT_MEANS': ('as duas contagens dao %d produtos VIVOS. As rotas '
-                                'extra que o metodo B achou nao sao produto vivo: '
-                                'uma devolve 403, a outra e barrada pelo Akamai.'
-                                % enum['UNIQUE_PRODUCT_URLS']),
+            'METHODS_AGREE_ON_READABLE_PAGES': True,
+            'AGREEMENT_MEANS': (
+                'os dois caminhos leem as MESMAS %d paginas. Isso e concordancia '
+                'sobre o que se consegue ler — nao sobre o tamanho do catalogo. '
+                'As rotas extra que o metodo B achou ficam UNKNOWN: uma devolveu '
+                '403 e a outra e barrada pelo Akamai, e nenhuma das duas respostas '
+                'e "nao existe".' % enum['UNIQUE_PRODUCT_URLS']),
             'DISTINCT_PRODUCT_ROUTES_SEEN': total_ligacoes,
             'OUT_OF_SITEMAP_ROUTES': fora_do_sitemap,
             'METHOD_C': ('/italia/it/products/crop-protection — a listagem oficial, '
@@ -569,26 +637,49 @@ def main():
             'STATE': 'NOT_PROVEN_BY_ANY_SOURCE_READ',
             'WHY': ('as duas contagens independentes que a fonte oficial permitiu '
                     '— sitemap publicado pela propria ADAMA e varredura de todas '
-                    'as ligacoes internas — dao 51 e 51. Nenhuma fonte lida '
-                    'produziu 55.'),
+                    'as ligacoes internas — dao 51 e 51 PAGINAS LEGIVEIS. Nenhuma '
+                    'fonte lida produziu 55.'),
             'WHAT_WAS_NOT_READABLE': (
                 'a listagem oficial /italia/it/products/crop-protection, que e a '
                 'unica superficie onde a propria ADAMA publica uma CONTAGEM. Ela '
                 'responde com desafio interstitial do Akamai. Resolver o desafio '
                 'seria contornar deteccao de robo, e isso nao se faz.'),
-            'TEMPORAL_DRIFT_HYPOTHESIS': 'REFUTED',
-            'WHY_REFUTED': ('a hipotese escrita no handoff era que 15 dias tinham '
-                            'mexido o portfolio. Mediram-se os 15 dias: 0 entradas, '
-                            '0 saidas, 0 campos alterados em 51 produtos.'),
+            'COULD_55_STILL_BE_TRUE': (
+                'SIM. Nao provado nao e refutado. Enquanto a listagem oficial for '
+                'ilegivel, 55 continua possivel — o que esta medido e que nenhuma '
+                'fonte lida o produziu, e que o conjunto legivel nao se mexeu.'),
+        },
+        'TEMPORAL_DRIFT': {
+            'LAW': ('Nao se mediu o universo. Mediu-se o conjunto observavel, e o '
+                    'veredito nao pode ser maior do que a amostra.'),
+            'TEMPORAL_DRIFT_IN_OBSERVED_SET': 'NOT_OBSERVED',
+            'OBSERVED_SET': ('as %d paginas legiveis, comparaveis nas duas '
+                             'fotografias' % len(pgs_agora)),
+            'WHAT_WAS_MEASURED': ('entre 30/08 e 15/09: 0 entradas, 0 saidas, '
+                                  '0 renomeacoes, 0 campos alterados, %d inalterados'
+                                  % d['UNCHANGED']),
+            'TOTAL_CATALOG_TEMPORAL_DRIFT': 'NAO SEI',
+            'WHY_TOTAL_IS_UNKNOWN': (
+                'o universo comercial total nunca foi enumerado — a listagem '
+                'oficial nao abre. Um produto que tenha entrado ou saido FORA do '
+                'sitemap nao apareceria em nenhuma das duas fotografias, e a '
+                'comparacao daria igual na mesma. Dizer que o catalogo nao mudou '
+                'seria concluir sobre o que nao se olhou.'),
+            'HANDOFF_HYPOTHESIS_WAS': ('que 15 dias tinham mexido o portfolio, e '
+                                       'que isso explicava a diferenca 51 vs 55'),
+            'HANDOFF_HYPOTHESIS_NOW': (
+                'NOT_SUPPORTED_IN_OBSERVED_SET — nao explica a diferenca pelo que '
+                'se conseguiu ver. NAO e refutacao: a hipotese continua de pe para '
+                'a parte do catalogo que permanece ilegivel.'),
         },
         **d,
     }
     gravar(os.path.join(CASA, 'PORTFOLIO-DRIFT.json'), drift)
 
     # ── relatorio em pe ────────────────────────────────────────────────────
-    print('CATALOG_SNAPSHOT_BEFORE  %s  (%s)  produtos=%d'
+    print('CATALOG_SNAPSHOT_BEFORE  %s  (%s)  paginas legiveis=%d'
           % (ANTERIOR['SNAPSHOT_ID'], ANTERIOR['OBSERVED_AT'], d['COUNT_BEFORE']))
-    print('CATALOG_SNAPSHOT_NOW     %s  (%s)  produtos=%d'
+    print('CATALOG_SNAPSHOT_NOW     %s  (%s)  paginas legiveis=%d'
           % (snap_id, observado_em, d['COUNT_NOW']))
     print('DIAS ENTRE AS FOTOS      %d' % drift['DAYS_BETWEEN'])
     print('ADDED                    %d' % len(d['ADDED']))
@@ -598,6 +689,15 @@ def main():
     print('UNCHANGED                %d' % d['UNCHANGED'])
     print('UNMATCHED_PAGES_NOW      %d' % len(orfas))
     print('CAPTURE_FAILURES         %d' % len(falhas))
+    print('-' * 62)
+    print('OBSERVED_READABLE_PRODUCT_COUNT   %d' % len(pgs_agora))
+    print('CURRENT_OFFICIAL_PORTFOLIO_COUNT  %s'
+          % drift['COUNT_SCOPE']['CURRENT_OFFICIAL_PORTFOLIO_COUNT'])
+    print('TEMPORAL_DRIFT_IN_OBSERVED_SET    %s'
+          % drift['TEMPORAL_DRIFT']['TEMPORAL_DRIFT_IN_OBSERVED_SET'])
+    print('TOTAL_CATALOG_TEMPORAL_DRIFT      %s'
+          % drift['TEMPORAL_DRIFT']['TOTAL_CATALOG_TEMPORAL_DRIFT'])
+    print('55_PROVEN                         NAO')
     return 0
 
 

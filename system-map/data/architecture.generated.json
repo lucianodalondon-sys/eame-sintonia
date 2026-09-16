@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-adama-reference-v1",
-    "HEAD": "35c7fd780f0ba43a4daec458c07e4b1d27b72840",
-    "GENERATED_AT": "2026-09-16T11:30:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0f8696aaac3a78b5571d19b35b0ebff6ea61d12c9fd3c2da32e66c9d81cad59a"
+    "HEAD": "63d8bd7266db182e48f49e2a8b749ec7a9196ad2",
+    "GENERATED_AT": "2026-09-16T11:33:09-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1592288831ae68829cae1d47b735dd45f359ffcdc198477ff81e0ca4a7f89f76"
   },
   "FILES": [
     {
@@ -2978,7 +2978,7 @@
     },
     {
       "path": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
-      "sha": "0d40d1e4890b289ebdc61dcbabf642ef76fdec5d",
+      "sha": "373daf112e754af1704f85bd27e72775ae4e019e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7276,7 +7276,7 @@
     },
     {
       "path": "fontes/adama_catalogo_snapshot.py",
-      "sha": "b36ce3d9b1c9741249a2c25f1885d0e809152027",
+      "sha": "a1f14a075b0fdf2a47a816b0895a8ee24c2bfa7f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11175,14 +11175,14 @@
     },
     {
       "path": "referencia/adama/CATALOG-SNAPSHOTS.json",
-      "sha": "c4ab6506e48c63dd7752aa8d250347c56425c4dd",
+      "sha": "e11d7ea018b722d789aee680c7ad5cc0e8a101e5",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
-      "sha": "299e466b2bc69001c8750f00b07a87f719f01cf3",
+      "sha": "814993dda9c47848ae191ffa8b1dc99d5799d5f8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11203,7 +11203,7 @@
     },
     {
       "path": "referencia/adama/PORTFOLIO-DRIFT.json",
-      "sha": "d92cacfd3e25528ace6a4e370592e3ca3fce009e",
+      "sha": "681852d37c16ffcab0a71574f744928de1b3028c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -11245,7 +11245,7 @@
     },
     {
       "path": "referencia/adama/RELATORIO-DRIFT-CATALOGO-2026-09-15.md",
-      "sha": "d46615f8d68584f92b47100475b8c7e05e3e6419",
+      "sha": "4bf15055120acb1ee2e342600d8f2e34ad8bc4db",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13261,7 +13261,7 @@
     },
     {
       "path": "tests/test_adama_catalogo_drift.py",
-      "sha": "2bc2557ccf68dfb124ccf504d8d617b676d63c4d",
+      "sha": "f3a834633c908a2996c2940c00c360efb0bf059e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20195,7 +20195,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 387,
+        "line": 427,
         "snippet": "destino_enum = os.path.join(AMOSTRAS, data_pasta, 'catalog-enumeration.json')"
       }
     },
@@ -20206,7 +20206,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 378,
+        "line": 418,
         "snippet": "AMOSTRAS, data_pasta, 'catalog-page-manifest.json')"
       }
     },
@@ -20217,7 +20217,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 474,
+        "line": 516,
         "snippet": "gravar(os.path.join(CASA, 'CATALOG-SNAPSHOTS.json'), snapshots)"
       }
     },
@@ -20228,7 +20228,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 586,
+        "line": 677,
         "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-DRIFT.json'), drift)"
       }
     },
@@ -20239,7 +20239,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 505,
+        "line": 547,
         "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-OBSERVATIONS.json'), {"
       }
     },
@@ -20250,7 +20250,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 296,
+        "line": 320,
         "snippet": "portfolio = ler(os.path.join(CASA, 'PORTFOLIO.json'))['RECORDS']"
       }
     },
@@ -20261,7 +20261,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 295,
+        "line": 319,
         "snippet": "master = ler(os.path.join(CASA, 'PRODUCT-MASTER.json'))['PRODUCTS']"
       }
     },
@@ -20272,7 +20272,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 328,
+        "line": 359,
         "snippet": "registos = ler(os.path.join(CASA, 'REGISTRATIONS.json'))['RECORDS']"
       }
     },
@@ -20283,7 +20283,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "fontes/adama_catalogo_snapshot.py",
-        "line": 69,
+        "line": 87,
         "snippet": "'research/adama-italy-product-intelligence-deep/PRODUCTS-COMMERCIAL.json',"
       }
     },
@@ -47327,12 +47327,23 @@
     },
     {
       "from_file": "tests/test_adama_catalogo_drift.py",
+      "to_file": "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_adama_catalogo_drift.py",
+        "line": 334,
+        "snippet": "\"catalog-page-manifest.json\"), encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_adama_catalogo_drift.py",
       "to_file": "fontes/adama_catalogo_snapshot.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_adama_catalogo_drift.py",
-        "line": 260,
+        "line": 382,
         "snippet": "import adama_catalogo_snapshot as S"
       }
     },
@@ -47360,6 +47371,17 @@
     },
     {
       "from_file": "tests/test_adama_catalogo_drift.py",
+      "to_file": "referencia/adama/CONTRATO-ADAMA-REFERENCE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_adama_catalogo_drift.py",
+        "line": 352,
+        "snippet": "with io.open(os.path.join(CASA, \"CONTRATO-ADAMA-REFERENCE.md\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_adama_catalogo_drift.py",
       "to_file": "referencia/adama/PORTFOLIO-DRIFT.json",
       "type": "READS",
       "payload": "artefacto",
@@ -47367,6 +47389,17 @@
         "file": "tests/test_adama_catalogo_drift.py",
         "line": 39,
         "snippet": "DRIFT = ler(\"PORTFOLIO-DRIFT.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_adama_catalogo_drift.py",
+      "to_file": "referencia/adama/PORTFOLIO-DRIFT.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_adama_catalogo_drift.py",
+        "line": 224,
+        "snippet": "texto = json.dumps(ler(\"PORTFOLIO-DRIFT.json\"), ensure_ascii=False)"
       }
     },
     {
@@ -47404,6 +47437,17 @@
     },
     {
       "from_file": "tests/test_adama_catalogo_drift.py",
+      "to_file": "referencia/adama/REGISTRATIONS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_adama_catalogo_drift.py",
+        "line": 317,
+        "snippet": "regs = {r[\"REGISTRATION_NUMBER\"]: r for r in ler(\"REGISTRATIONS.json\")[\"RECORDS\"]}"
+      }
+    },
+    {
+      "from_file": "tests/test_adama_catalogo_drift.py",
       "to_file": "referencia/adama/SNAPSHOTS.json",
       "type": "READS",
       "payload": "artefacto",
@@ -47420,7 +47464,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_adama_catalogo_drift.py",
-        "line": 294,
+        "line": 416,
         "snippet": "mapa = ler(\"SOURCE-ID-MAP.json\")[\"RECORDS\"]"
       }
     },
@@ -61538,7 +61582,7 @@
     "files_tracked": 2056,
     "files_readable": 788,
     "files_code_dir": 843,
-    "file_edges": 4238,
+    "file_edges": 4242,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

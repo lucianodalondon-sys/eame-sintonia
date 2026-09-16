@@ -177,7 +177,13 @@ class OQueMudouEOQueNaoSeSabe(unittest.TestCase):
         self.assertEqual(AGORA, DRIFT["SNAPSHOT_NOW"])
         self.assertEqual(16, DRIFT["DAYS_BETWEEN"])
 
-    def test_o_catalogo_nao_mexeu_em_dezasseis_dias(self):
+    def test_o_conjunto_observado_nao_mexeu_em_dezasseis_dias(self):
+        """E só o conjunto observado. O título deste teste já foi «o catálogo
+        não mexeu» — e isso era afirmação maior do que a amostra."""
+        self.assertEqual("OBSERVED_READABLE_AND_COMPARABLE",
+                         DRIFT["COUNT_POPULATION"])
+        self.assertIn("NAO sao o tamanho do catalogo oficial",
+                      DRIFT["WHAT_COUNT_MEANS"])
         self.assertEqual(51, DRIFT["COUNT_BEFORE"])
         self.assertEqual(51, DRIFT["COUNT_NOW"])
         self.assertEqual([], DRIFT["ADDED"])
@@ -186,11 +192,45 @@ class OQueMudouEOQueNaoSeSabe(unittest.TestCase):
         self.assertEqual([], DRIFT["CHANGED_FIELDS"])
         self.assertEqual(51, DRIFT["UNCHANGED"])
 
-    def test_a_hipotese_do_drift_temporal_foi_refutada_e_nao_esquecida(self):
+    def test_o_total_oficial_do_catalogo_continua_NAO_SEI(self):
+        """⚠️ O overclaim que o review apanhou: 51 é o que se consegue LER.
+
+            PÁGINA LEGÍVEL OBSERVADA != CATÁLOGO OFICIAL TOTAL
+
+        Enquanto a listagem oficial não abrir, o total não é 51 — é NÃO SEI."""
+        e = DRIFT["COUNT_SCOPE"]
+        self.assertEqual(51, e["OBSERVED_READABLE_PRODUCT_COUNT"])
+        self.assertEqual("NAO SEI", e["CURRENT_OFFICIAL_PORTFOLIO_COUNT"],
+                         "o total do catalogo voltou a ser afirmado a partir do "
+                         "que se conseguiu ler")
+        self.assertIn("!=", e["LAW"])
+        self.assertIn("nao PROVA" if "nao PROVA" in e["WHAT_51_DOES_NOT_PROVE"]
+                      else "51 produtos", e["WHAT_51_DOES_NOT_PROVE"])
+
+    def test_o_drift_total_do_catalogo_continua_NAO_SEI(self):
+        """Um produto que entre ou saia FORA do sitemap não aparece em nenhuma
+        das duas fotos — e a comparação dá igual na mesma."""
+        t = DRIFT["TEMPORAL_DRIFT"]
+        self.assertEqual("NOT_OBSERVED", t["TEMPORAL_DRIFT_IN_OBSERVED_SET"])
+        self.assertEqual("NAO SEI", t["TOTAL_CATALOG_TEMPORAL_DRIFT"],
+                         "o veredito voltou a ser maior do que a amostra")
+        self.assertIn("NOT_SUPPORTED_IN_OBSERVED_SET", t["HANDOFF_HYPOTHESIS_NOW"])
+        self.assertNotIn("REFUTED", t["HANDOFF_HYPOTHESIS_NOW"].replace(
+            "NAO e refutacao", ""))
+
+    def test_a_palavra_REFUTED_nao_volta_ao_artefacto(self):
+        """`NOT_SUPPORTED` != `REFUTED`. Não provado não é refutado, e a
+        diferença entre os dois é o tamanho do que se pode afirmar."""
+        texto = json.dumps(ler("PORTFOLIO-DRIFT.json"), ensure_ascii=False)
+        self.assertNotIn("REFUTED", texto,
+                         "a hipotese voltou a ser dada por morta")
+
+    def test_o_55_continua_pista_e_continua_possivel(self):
         h = DRIFT["HUMAN_REPORT"]
         self.assertEqual(55, h["HUMAN_REPORTED_CURRENT_PORTFOLIO"])
         self.assertEqual("NOT_PROVEN_BY_ANY_SOURCE_READ", h["STATE"])
-        self.assertEqual("REFUTED", h["TEMPORAL_DRIFT_HYPOTHESIS"])
+        self.assertIn("SIM", h["COULD_55_STILL_BE_TRUE"],
+                      "55 nao foi provado, mas tambem nao foi refutado")
 
     def test_o_55_nao_foi_escrito_como_verdade_em_lado_nenhum(self):
         """§8 — não forçar. 55 é pista, e pista não vira contagem."""
@@ -202,9 +242,14 @@ class OQueMudouEOQueNaoSeSabe(unittest.TestCase):
     def test_duas_contagens_independentes_e_a_terceira_declarada_NAO_SEI(self):
         c = DRIFT["POPULATION_CROSSCHECK"]
         self.assertEqual(51, c["METHOD_A_COUNT"])
-        self.assertEqual(51, c["METHOD_B_LIVE_COUNT"])
+        self.assertEqual(51, c["METHOD_B_READABLE_COUNT"])
         self.assertEqual("NAO SEI", c["METHOD_C_COUNT"],
                          "a listagem oficial nao foi lida; dizer um numero seria inventar")
+        # a concordancia e sobre o LEGIVEL, nunca sobre o tamanho do catalogo
+        self.assertIn("PAGINAS DE PRODUTO LEGIVEIS", c["WHAT_IS_BEING_COUNTED"])
+        self.assertTrue(c["METHODS_AGREE_ON_READABLE_PAGES"])
+        self.assertNotIn("produtos VIVOS", c["AGREEMENT_MEANS"],
+                         "a concordancia voltou a ser lida como censo de produto")
 
     def test_a_rota_que_nao_se_le_fica_nomeada_e_nao_arredondada(self):
         """POSTSCRIPT 80 não é «nada». É autorização ADAMA viva cuja página de
@@ -234,6 +279,83 @@ class OQueMudouEOQueNaoSeSabe(unittest.TestCase):
     def test_deteccao_de_robo_declarada_como_limite_nao_como_ausencia(self):
         nova = [s for s in CAT_SNAPS if s["SNAPSHOT_ID"] == AGORA][0]
         self.assertIn("NAO SE CONTORNA", nova["COLLECTION_METHOD"])
+
+    def test_o_403_do_antigram_nao_vira_despublicado(self):
+        """⚠️ O segundo overclaim que o review apanhou.
+
+            ERROR != REJECTED
+            AUSÊNCIA DE PROVA NÃO É PROVA DE AUSÊNCIA
+
+        403 diz que este cliente não leu a rota. Não diz que o produto não
+        existe, nem que foi despublicado."""
+        c = DRIFT["POPULATION_CROSSCHECK"]
+        ag = [r for r in c["OUT_OF_SITEMAP_ROUTES"] if "antigram" in r["PATH"]]
+        self.assertEqual(1, len(ag))
+        ag = ag[0]
+        self.assertEqual(403, ag["HTTP_STATUS"])
+        self.assertEqual("LINKED_BUT_NOT_READABLE", ag["STATE"],
+                         "o 403 voltou a ser lido como despublicado")
+        self.assertEqual("UNKNOWN", ag["PUBLICATION_STATE"])
+        self.assertIn("NAO PROVA", ag["WHY_NOT_COUNTED"])
+
+    def test_nenhuma_rota_por_ler_e_dada_por_ausente(self):
+        """Toda rota que não se conseguiu ler fica UNKNOWN quanto a publicação —
+        nunca ausente, nunca zero."""
+        for r in DRIFT["POPULATION_CROSSCHECK"]["OUT_OF_SITEMAP_ROUTES"]:
+            self.assertEqual("UNKNOWN", r["PUBLICATION_STATE"],
+                             "%s deixou de ser UNKNOWN sem prova nova" % r["PATH"])
+            self.assertNotIn("NOT_PUBLISHED", r["STATE"])
+
+    def test_postscript_80_continua_sem_membership_comercial(self):
+        c = DRIFT["POPULATION_CROSSCHECK"]
+        ps = [r for r in c["OUT_OF_SITEMAP_ROUTES"] if "postscript-80" in r["PATH"]][0]
+        self.assertEqual("BLOCKED_BY_BOT_PROTECTION", ps["STATE"])
+        self.assertEqual("UNKNOWN", ps["PUBLICATION_STATE"])
+        # ⚠️ `POSTSCRIPT 80 XL` (017868) é OUTRA coisa: é um OBSERVED_NAME
+        # legítimo de ADAMA-P-0048 (FullPage®). Procurar a substring apanharia
+        # o XL e daria um falso positivo — mede-se o registo exacto.
+        regs = {r["REGISTRATION_NUMBER"]: r for r in ler("REGISTRATIONS.json")["RECORDS"]}
+        self.assertEqual("POSTSCRIPT 80", regs["017585"]["REGISTERED_NAME"])
+        self.assertEqual("UNKNOWN", regs["017585"]["ADAMA_PRODUCT_ID"],
+                         "POSTSCRIPT 80 ganhou produto de catalogo sem prova nova")
+        self.assertEqual([], regs["017585"]["ADAMA_PRODUCT_IDS"])
+        self.assertEqual("ADAMA-P-0048", regs["017868"]["ADAMA_PRODUCT_ID"],
+                         "o XL e outro registo, e continua a ser o FullPage")
+        nomes = {p["CANONICAL_NAME"].upper() for p in PORTFOLIO}
+        self.assertNotIn("POSTSCRIPT 80", nomes,
+                         "POSTSCRIPT 80 entrou no portfolio comercial sem prova")
+
+    def test_proveniencia_nao_se_diz_num_campo_so(self):
+        """`PROVENANCE_COMPLETE = SIM` sozinho lê-se como «o bruto está
+        guardado». Não está: 80 manifestos desta casa já o disseram apontando
+        para ficheiro inexistente."""
+        man = json.load(io.open(os.path.join(
+            RAIZ, "data", "samples", "IT-ADAMA-CATALOG", "2026-09-15",
+            "catalog-page-manifest.json"), encoding="utf-8"))
+        self.assertEqual("RAW_LOCAL_NOT_VERSIONED", man["RAW_STATE"])
+        self.assertEqual("NAO", man["RAW_PRESERVED"])
+        self.assertEqual("SIM", man["METADATA_PROVENANCE_COMPLETE"])
+        self.assertEqual("SIM", man["PAGE_SHA256_VERSIONED"])
+        # nenhum CAMPO pode AFIRMAR preservação — a prosa que explica a regra
+        # menciona a palavra de propósito, e procurar a substring apanha-a.
+        for chave, valor in man.items():
+            if chave.endswith("_PRESERVED") or chave == "RAW_STATE":
+                self.assertNotEqual("PRESERVED", valor,
+                                    "%s voltou a afirmar bruto guardado" % chave)
+                self.assertNotEqual("SIM", valor) if chave.endswith(
+                    "_PRESERVED") else None
+        self.assertIn("nao se fundem", man["WHY_THESE_THREE_ARE_SEPARATE"])
+
+    def test_o_source_id_herdado_nao_esconde_a_divida_do_atlas(self):
+        """IT-ADAMA-CATALOG não foi emitido aqui — e também não está no Atlas.
+        Lacuna anterior, declarada, e cujo dono é a faixa Sources."""
+        with io.open(os.path.join(CASA, "CONTRATO-ADAMA-REFERENCE.md"),
+                     encoding="utf-8") as fh:
+            contrato = fh.read()
+        self.assertIn("PREEXISTING_GAP", contrato)
+        self.assertIn("SOURCE_ID_NEW_BY_REFERENCE           0", contrato)
+        for s in CAT_SNAPS:
+            self.assertEqual("IT-ADAMA-CATALOG", s["SOURCE_ID"])
 
 
 class AAusenciaNaoDestroi(unittest.TestCase):

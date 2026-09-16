@@ -181,7 +181,7 @@ PROD_FTS_6_20260831` — a data do vizinho regulatório, de outro dia e de outra
 A DATA DO REGISTO NÃO É A DATA DO CATÁLOGO.
 ```
 
-| `SNAPSHOT_ID` | observado | produtos | `CURRENT` |
+| `SNAPSHOT_ID` | observado | páginas legíveis | `CURRENT` |
 |---|---|---:|---|
 | `CAT_ADAMA_IT_20260830` | 30/08 | 51 | não — reconstruída da evidência que já existia |
 | `CAT_ADAMA_IT_20260915` | 15/09 | 51 | **SIM** |
@@ -189,9 +189,47 @@ A DATA DO REGISTO NÃO É A DATA DO CATÁLOGO.
 O valor herdado errado **não se apagou**: vive em
 `REGULATORY_SNAPSHOT_ID_INHERITED`, ao lado do que o corrige.
 
-⚠️ **Entre as duas fotos: 0 entradas, 0 saídas, 0 campos alterados em 51
-produtos.** A leitura completa está em
+⚠️ **Entre as duas fotos, nas 51 páginas legíveis: 0 entradas, 0 saídas, 0 campos
+alterados.** A leitura completa está em
 [`RELATORIO-DRIFT-CATALOGO-2026-09-15.md`](RELATORIO-DRIFT-CATALOGO-2026-09-15.md).
+
+#### ⚠️ A coluna conta o que se conseguiu LER, não o catálogo
+
+```
+OBSERVED_READABLE_PRODUCT_COUNT   = 51
+CURRENT_OFFICIAL_PORTFOLIO_COUNT  = NÃO SEI
+TEMPORAL_DRIFT_IN_OBSERVED_SET    = NOT_OBSERVED
+TOTAL_CATALOG_TEMPORAL_DRIFT      = NÃO SEI
+```
+
+    PÁGINA LEGÍVEL OBSERVADA  ≠  CATÁLOGO OFICIAL TOTAL
+
+A listagem oficial (`/italia/it/products/crop-protection`) — a única superfície
+onde a ADAMA publica uma **contagem** — não abre para automação. Enquanto não
+abrir, o total é `NÃO SEI`, e um produto que tenha entrado ou saído **fora** do
+sitemap não apareceria em nenhuma das duas fotos: a comparação daria igual na
+mesma. **`55` não está provado — e também não está refutado.**
+
+E duas rotas observadas ficam `UNKNOWN`, não ausentes:
+
+```
+antigram-gold    HTTP 403  →  LINKED_BUT_NOT_READABLE · PUBLICATION_STATE UNKNOWN
+postscript-80    Akamai    →  BLOCKED_BY_BOT_PROTECTION · PUBLICATION_STATE UNKNOWN
+```
+
+    403 NÃO PROVA DESPUBLICADO. ERROR ≠ REJECTED.
+    AUSÊNCIA DE PROVA NÃO É PROVA DE AUSÊNCIA.
+
+#### O bruto não está guardado, e isso diz-se em três campos
+
+```
+RAW_PRESERVED                 = NÃO   os bytes vivem em data/raw/, que o Git ignora
+METADATA_PROVENANCE_COMPLETE  = SIM   SOURCE_ID · SOURCE_URL · OBSERVED_AT · COLLECTED_AT
+PAGE_SHA256_VERSIONED         = SIM   51 hashes, em data/samples/
+```
+
+Um `PROVENANCE_COMPLETE = SIM` sozinho lê-se como «o bruto está guardado», e
+nesta casa isso já aconteceu 80 vezes apontando para ficheiro inexistente.
 
 ### Ausência é membership, nunca destruição
 
@@ -252,6 +290,26 @@ em `PROVENANCE.SOURCE_IDS_LEGACY`.
 
 ⚠️ O pacote `…-deep/` já usava `IT-T4-001` em 609 dos seus registos. Quem estava
 fora da língua do Atlas era só o V2.1.
+
+### ⚠️ Uma dívida que esta casa NÃO criou e NÃO paga
+
+```
+IT-T4-001                            registado no ATLAS · 🟢
+IT-ADAMA-CATALOG                     NÃO consta do ATLAS
+IT_ADAMA_CATALOG_ATLAS_REGISTRATION  PREEXISTING_GAP / NOT_PROVEN
+SOURCE_ID_NEW_BY_REFERENCE           0
+```
+
+`IT-ADAMA-CATALOG` **não foi emitido aqui**: já vivia em 21 ficheiros do tronco,
+incluindo `fontes/adama_referencia.py`, antes desta casa existir. Esta referência
+**herda** o identificador; não é dona dele e não emite `SOURCE_ID`.
+
+Mas ele **não está no `ATLAS-DE-FONTES-EAME.md`** — nem antes nem agora. É lacuna
+anterior, não regressão, e registá-la no Atlas é missão da faixa **Sources**, não
+desta. Fica escrita para não ser descoberta outra vez como novidade.
+
+    HERDAR UM IDENTIFICADOR NÃO É CERTIFICÁ-LO.
+    E NÃO O REGISTAR AQUI NÃO É ESCONDÊ-LO — É NÃO O ROUBAR AO DONO.
 
 ---
 

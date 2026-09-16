@@ -17,6 +17,10 @@
   "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
  },
  "RAW_STATE": "RAW_LOCAL_NOT_VERSIONED",
+ "RAW_PRESERVED": "NAO",
+ "METADATA_PROVENANCE_COMPLETE": "SIM",
+ "PAGE_SHA256_VERSIONED": "SIM",
+ "WHY_THESE_THREE_ARE_SEPARATE": "PROVENANCE_COMPLETE dito sozinho le-se como «o bruto esta guardado». Nao esta. Versionado esta o sha256 de cada pagina e a metadata da captura; os bytes vivem em data/raw/, que o Git ignora, e so neste disco. 80 manifestos desta casa ja disseram PRESERVED apontando para ficheiro que nao existia — por isso os tres campos nao se fundem.",
  "RAW_LOCAL_ROOT": "data/raw/IT/adama-catalog/2026-09-15/",
  "CAPTURE_FAILURES": [],
  "COUNT": 51,

@@ -2648,9 +2648,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-adama-reference-v1",
-    "HEAD": "35c7fd780f0ba43a4daec458c07e4b1d27b72840",
-    "GENERATED_AT": "2026-09-16T11:30:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0f8696aaac3a78b5571d19b35b0ebff6ea61d12c9fd3c2da32e66c9d81cad59a"
+    "HEAD": "63d8bd7266db182e48f49e2a8b749ec7a9196ad2",
+    "GENERATED_AT": "2026-09-16T11:33:09-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1592288831ae68829cae1d47b735dd45f359ffcdc198477ff81e0ca4a7f89f76"
   },
   "FAMILIES": [
     {
@@ -3524,10 +3524,12 @@
       ],
       "file_count": 15,
       "status": "PENDING",
-      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "status_reason": "existe teste que exercita esta lei. NENHUM modulo de runtime a importa — a lei esta escrita e nao esta a ser aplicada (DECLARED_RULE_NOT_ENFORCED).  Mas ha 15 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-TESTES"
+      ],
       "outbound": [
         "C-ADAMA-IT",
         "C-AUDIT-GERAL",
@@ -30639,6 +30641,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-ADAMA-REFERENCE",
         "C-ADMISSAO",
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
@@ -30664,7 +30667,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 31,
+        "ITALIA": 32,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -30935,6 +30938,7 @@
         "data/samples/ES-X-VOICE-SCIENCE.json",
         "data/samples/EU-T4-001/evidence-32026R1696.json",
         "data/samples/INVENTARIO-SCRATCHPAD-HANDOFF.json",
+        "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
         "data/samples/IT-COMPLETUDE/IT-COMPLETUDE-OPORTUNIDADE.json",
         "data/samples/IT-PROBE/probe-fase-c.json",
         "data/samples/IT-SOURCE-SAMPLES/IT-T4-001/ID_6_Dataset_Fitosanitari_v2.0.pdf.headers.txt",
@@ -33610,7 +33614,7 @@
         },
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 260,
+          "line": 382,
           "snippet": "import adama_catalogo_snapshot as S",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
@@ -33696,7 +33700,7 @@
       "evidence": [
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 295,
+          "line": 319,
           "snippet": "master = ler(os.path.join(CASA, 'PRODUCT-MASTER.json'))['PRODUCTS']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -33712,7 +33716,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 296,
+          "line": 320,
           "snippet": "portfolio = ler(os.path.join(CASA, 'PORTFOLIO.json'))['RECORDS']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -33728,7 +33732,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 328,
+          "line": 359,
           "snippet": "registos = ler(os.path.join(CASA, 'REGISTRATIONS.json'))['RECORDS']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -33744,7 +33748,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 474,
+          "line": 516,
           "snippet": "gravar(os.path.join(CASA, 'CATALOG-SNAPSHOTS.json'), snapshots)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -33760,7 +33764,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 505,
+          "line": 547,
           "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-OBSERVATIONS.json'), {",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -33776,7 +33780,7 @@
         },
         {
           "file": "fontes/adama_catalogo_snapshot.py",
-          "line": 586,
+          "line": 677,
           "snippet": "gravar(os.path.join(CASA, 'PORTFOLIO-DRIFT.json'), drift)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -34340,7 +34344,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "A referencia da ADAMA, com um dono so alimenta Suite de testes. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_catalogo_drift.py",
@@ -34440,7 +34444,39 @@
         },
         {
           "file": "tests/test_adama_catalogo_drift.py",
-          "line": 294,
+          "line": 317,
+          "snippet": "regs = {r[\"REGISTRATION_NUMBER\"]: r for r in ler(\"REGISTRATIONS.json\")[\"RECORDS\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 352,
+          "snippet": "with io.open(os.path.join(CASA, \"CONTRATO-ADAMA-REFERENCE.md\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+            "FROM": "C-ADAMA-REFERENCE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 416,
           "snippet": "mapa = ler(\"SOURCE-ID-MAP.json\")[\"RECORDS\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -34490,38 +34526,6 @@
           "file": "tests/test_adama_referencia.py",
           "line": 41,
           "snippet": "REGISTOS = registos(\"REGISTRATIONS.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 42,
-          "snippet": "DOCS = registos(\"LABEL-DOCUMENTS.json\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-            "FROM": "C-ADAMA-REFERENCE",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_adama_referencia.py",
-          "line": 43,
-          "snippet": "USOS = registos(\"AUTHORIZED-USES.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
             "FROM": "C-ADAMA-REFERENCE",
@@ -84082,6 +84086,41 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-ADAMA-REFERENCE",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A referencia da ADAMA, com um dono so. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_adama_catalogo_drift.py",
+          "line": 224,
+          "snippet": "texto = json.dumps(ler(\"PORTFOLIO-DRIFT.json\"), ensure_ascii=False)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TESTES--WRITES-->C-ADAMA-REFERENCE",
+            "FROM": "C-TESTES",
+            "TO": "C-ADAMA-REFERENCE",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-ADMISSAO",
       "type": "WRITES",
       "payload": "artefacto",
@@ -88052,8 +88091,8 @@
     "components_pending": 164,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1059,
-    "edges_proven": 1005,
+    "edges": 1060,
+    "edges_proven": 1006,
     "edges_unknown": 54,
     "business_edges": 4,
     "files_tracked": 2056,

@@ -1,7 +1,9 @@
 # RELATÓRIO DE DRIFT — CATÁLOGO COMERCIAL ADAMA ITÁLIA
 
 > **51 medido contra 55 informado.** A pergunta não se resolveu escolhendo um dos
-> dois números. Resolveu-se medindo — e o que a medição encontrou foi outra coisa.
+> dois números — resolveu-se medindo. E a medição respondeu uma pergunta mais
+> estreita do que a que foi feita: mede **o que se consegue ler**, e o total
+> oficial continua `NÃO SEI`.
 
 ```
 SNAPSHOT_BEFORE   CAT_ADAMA_IT_20260830   observado 2026-08-30
@@ -12,35 +14,59 @@ CASADO POR        PRODUCT-MASTER.IDENTITY_ANCHORS (URL:)
 
 ---
 
-## A RESPOSTA, EM UMA LINHA
+## A RESPOSTA, EM UMA LINHA — E O QUE ELA **NÃO** DIZ
 
 ```
-COUNT_BEFORE = 51        ADDED   = 0        RENAMED_CANDIDATES = 0
-COUNT_NOW    = 51        REMOVED = 0        UNCHANGED          = 51
+população comparável     COUNT_BEFORE = 51     ADDED   = 0    RENAMED_CAND. = 0
+(páginas legíveis)       COUNT_NOW    = 51     REMOVED = 0    UNCHANGED     = 51
 ```
 
-**O catálogo não mexeu em dezasseis dias.** Nem um produto entrou, nem um saiu,
-nem um campo mudou nas 51 páginas. `55_PROVEN = NÃO`.
+**Nas 51 páginas que se conseguem ler, nada mexeu em dezasseis dias.** Nem um
+produto entrou, nem um saiu, nem um campo mudou. `55_PROVEN = NÃO`.
+
+⚠️ **Isto não diz que o catálogo tem 51.**
+
+```
+OBSERVED_READABLE_PRODUCT_COUNT   = 51
+CURRENT_OFFICIAL_PORTFOLIO_COUNT  = NÃO SEI
+TEMPORAL_DRIFT_IN_OBSERVED_SET    = NOT_OBSERVED
+TOTAL_CATALOG_TEMPORAL_DRIFT      = NÃO SEI
+```
+
+    PÁGINA LEGÍVEL OBSERVADA  ≠  CATÁLOGO OFICIAL TOTAL
+
+A listagem oficial continua ilegível. Enquanto estiver, pode existir superfície
+comercial que estas 51 não enumeram — e um produto que tenha entrado ou saído
+**fora** do sitemap não apareceria em nenhuma das duas fotos, deixando a
+comparação igual na mesma. O limite do instrumento não é um facto sobre o mundo.
 
 ---
 
-## A HIPÓTESE QUE MORREU
+## A HIPÓTESE QUE DEIXOU DE EXPLICAR — E QUE NÃO MORREU
 
 O handoff registou-a assim, e ela era razoável:
 
 > *«O snapshot do catálogo é de 30/08/2026; a informação humana é de 15/09.
 > Quinze dias chegam para um portfólio mexer.»*
 
-Mediram-se os quinze dias. **Não mexeu nada.**
+Mediram-se os quinze dias **no que se consegue ler**. Aí não mexeu nada.
 
 ```
-TEMPORAL_DRIFT_HYPOTHESIS = REFUTED
+TEMPORAL_DRIFT_IN_OBSERVED_SET  = NOT_OBSERVED
+TOTAL_CATALOG_TEMPORAL_DRIFT    = NÃO SEI
+HANDOFF_HYPOTHESIS              = NOT_SUPPORTED_IN_OBSERVED_SET
 ```
 
-Isto não é um detalhe de arrumação. Enquanto a explicação plausível estava de pé,
-a diferença entre 51 e 55 parecia um problema que o tempo resolvia sozinho — era
-só voltar a coletar. Não era. A diferença continua inteira, e agora sem a
-explicação que a tornava confortável.
+⚠️ **`NOT_SUPPORTED` não é `REFUTED`.** A hipótese continua de pé para a parte do
+catálogo que permanece ilegível: o drift podia ter acontecido exactamente onde
+não se olhou, e a medição sairia igual.
+
+Isto não é um detalhe de arrumação. Enquanto a explicação temporal parecia
+suficiente, a diferença entre 51 e 55 parecia um problema que o tempo resolvia
+sozinho — era só voltar a coletar. **Não é.** Recoletar pelo mesmo caminho dá 51
+outra vez, porque o caminho é o mesmo.
+
+O que falta não é uma coleta. É uma superfície que se consiga ler.
 
 ---
 
@@ -48,11 +74,14 @@ explicação que a tornava confortável.
 
 Listagem não serve de contagem. Por isso contou-se por mais de um caminho.
 
-| # | caminho | contagem |
+| # | caminho | páginas legíveis |
 |---|---|---:|
 | **A** | `sitemap.xml`, a lista que a própria ADAMA publica | **51** |
 | **B** | varredura de toda ligação com forma de produto dentro das 51 páginas | **51** |
 | **C** | `/italia/it/products/crop-protection` — a listagem oficial | **`NÃO SEI`** |
+
+⚠️ A coluna conta **páginas que se conseguiram ler**, não produtos do catálogo.
+A e B concordam sobre o que é legível; nenhuma das duas mede o total.
 
 **A e B concordam.** Foram obtidos por caminhos que não se conhecem: um lê o que
 a ADAMA declara, o outro lê o que as páginas linkam entre si.
@@ -82,10 +111,15 @@ nos 51, e nenhuma é «nada».
 HTTP 403 · "Accesso negato | ADAMA Italia"
 ligada a partir de: 1 página (Sulcotrek®)
 no registo do Ministero: NENHUMA autorização com este nome
-STATE = LINKED_BUT_NOT_PUBLISHED
+STATE             = LINKED_BUT_NOT_READABLE
+PUBLICATION_STATE = UNKNOWN
 ```
 
-Link morto dentro de página viva. Estava **igual** nas duas fotos — não é drift.
+⚠️ **403 não prova despublicado.** Prova que este cliente, neste momento, não teve
+acesso — `ERROR ≠ REJECTED`. A rota não entra na contagem porque **não foi
+observada**, não porque foi observada ausente.
+
+Estava **igual** nas duas fotos — logo não é drift observado.
 
 ### `postscript-80` — ⚠️ o `NÃO SEI` que interessa
 
@@ -157,9 +191,18 @@ CHANGE_ENGINE_CREATED     = NÃO      SNAPSHOTS.json  não foi escrito
 PORTAL_CHANGED            = NÃO
 ```
 
-O bruto das 51 páginas vive em `data/raw/`, que o Git ignora. Por isso diz-se
-`RAW_LOCAL_NOT_VERSIONED` — **não** `PRESERVED`. O que está versionado é o
-`sha256` de cada página, e esse chega para provar que a foto é a mesma.
+O bruto das 51 páginas vive em `data/raw/`, que o Git ignora. Por isso os três
+campos não se fundem num só:
+
+```
+RAW_PRESERVED                 = NÃO
+METADATA_PROVENANCE_COMPLETE  = SIM
+PAGE_SHA256_VERSIONED         = SIM
+```
+
+Dizer só «`PROVENANCE_COMPLETE = SIM`» lê-se como «o bruto está guardado». Não
+está. O que está versionado é o `sha256` de cada página e a metadata da captura —
+e esse hash chega para provar que a foto é a mesma, não para a reconstruir.
 
 ---
 
@@ -191,15 +234,16 @@ NOME DIFERENTE NÃO PROVA PRODUTO DIFERENTE.
 ## A PERGUNTA QUE FICA ABERTA
 
 ```
-CURRENT_OFFICIAL_PORTFOLIO_COUNT = 51   (dois caminhos independentes concordam)
-HUMAN_REPORT                     = 55
+OBSERVED_READABLE_PRODUCT_COUNT  = 51   (dois caminhos independentes concordam)
+CURRENT_OFFICIAL_PORTFOLIO_COUNT = NÃO SEI
+HUMAN_REPORT                     = 55   (não provado — e NÃO refutado)
 WHY_DIFFERENT                    = NÃO SEI
 ```
 
 Não se sabe de onde vem o 55. O que se sabe agora, e não se sabia antes:
 
-- **não é do tempo** — dezasseis dias não mexeram uma linha;
-- **não é do sitemap nem das ligações internas** — os dois dão 51;
+- **não é do tempo, no que se vê** — dezasseis dias não mexeram uma linha das 51;
+- **não é do sitemap nem das ligações internas** — os dois dão as mesmas 51;
 - **pode estar** na listagem oficial que não abre, ou numa superfície que ninguém
   nomeou ainda (apresentação comercial, listagem de representante, catálogo
   impresso, ou contagem que inclui autorização sem produto de catálogo).

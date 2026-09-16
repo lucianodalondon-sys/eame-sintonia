@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-16T14:32:36+00:00",
-  "HEAD": "35c7fd780f0ba43a4daec458c07e4b1d27b72840",
+  "GENERATED_AT": "2026-09-16T15:15:21+00:00",
+  "HEAD": "63d8bd7266db182e48f49e2a8b749ec7a9196ad2",
   "BRANCH": "claude/it-adama-reference-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0f8696aaac3a78b5571d19b35b0ebff6ea61d12c9fd3c2da32e66c9d81cad59a",
+  "SOURCE_TREE_FINGERPRINT": "1592288831ae68829cae1d47b735dd45f359ffcdc198477ff81e0ca4a7f89f76",
   "FICHEIROS_NA_IMPRESSAO": 2204,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -748,7 +748,7 @@
    {
     "PATH": "fontes/adama_catalogo_snapshot.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b36ce3d9b1c9741249a2c25f1885d0e809152027",
+    "VERSAO": "a1f14a075b0fdf2a47a816b0895a8ee24c2bfa7f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2876,14 +2876,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0f8696aaac3a78b5571d19b35b0ebff6ea61d12c9fd3c2da32e66c9d81cad59a",
+    "VERSAO": "1592288831ae68829cae1d47b735dd45f359ffcdc198477ff81e0ca4a7f89f76",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0f8696aaac3a78b5571d19b35b0ebff6ea61d12c9fd3c2da32e66c9d81cad59a",
+    "VERSAO": "1592288831ae68829cae1d47b735dd45f359ffcdc198477ff81e0ca4a7f89f76",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3261,7 +3261,7 @@
    {
     "PATH": "tests/test_adama_catalogo_drift.py",
     "PAPEL": "FONTE",
-    "VERSAO": "2bc2557ccf68dfb124ccf504d8d617b676d63c4d",
+    "VERSAO": "f3a834633c908a2996c2940c00c360efb0bf059e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4394,7 +4394,7 @@
    }
   ],
   "INPUTS_COUNT": 622,
-  "INPUTS_DIGEST": "398fc82802bbbb529a9efc28502239bb1e62929ad6e296a5f8166549d647fd13",
+  "INPUTS_DIGEST": "cfa69bcaa4aed16f0ce53f2269c59b823e7bc6ef0edf7605c6c7b88db9b8545f",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4427,8 +4427,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b4f4c652d3881f5d057f78d33eeb716795f8bb4be702ed44aea175aec3199410",
-  "SEMANTIC_HASH": "612aa3ca772f6ee8c23606b0d34db97df9fcea4a8f42d532d9a2c46aa41d7c1e"
+  "MEASUREMENT_HASH": "6a2e6b533e3a28a978c0189e2d4d17e45c9b9f578be9b72d9d457d8d2e97682b",
+  "SEMANTIC_HASH": "34f6bc0c1da55be610af9f580964887d87218d290cacb4b647c49b61d67a0274"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4840,7 +4840,7 @@
      },
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 260,
+      "LINHA": 382,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-IT--IMPORTS-->C-TESTES",
@@ -4944,7 +4944,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 295,
+      "LINHA": 319,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4952,7 +4952,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 296,
+      "LINHA": 320,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4960,7 +4960,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 328,
+      "LINHA": 359,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4968,7 +4968,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 474,
+      "LINHA": 516,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4976,7 +4976,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 505,
+      "LINHA": 547,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -4984,7 +4984,7 @@
      },
      {
       "FICHEIRO": "fontes/adama_catalogo_snapshot.py",
-      "LINHA": 586,
+      "LINHA": 677,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-ADAMA-IT",
@@ -5352,7 +5352,23 @@
      },
      {
       "FICHEIRO": "tests/test_adama_catalogo_drift.py",
-      "LINHA": 294,
+      "LINHA": 317,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_adama_catalogo_drift.py",
+      "LINHA": 352,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_adama_catalogo_drift.py",
+      "LINHA": 416,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -5377,22 +5393,6 @@
      {
       "FICHEIRO": "tests/test_adama_referencia.py",
       "LINHA": 41,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_adama_referencia.py",
-      "LINHA": 42,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_adama_referencia.py",
-      "LINHA": 43,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-TESTES",
@@ -33272,6 +33272,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--WRITES-->C-ADAMA-REFERENCE",
+    "FROM": "C-TESTES",
+    "TO": "C-ADAMA-REFERENCE",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_adama_catalogo_drift.py",
+      "LINHA": 224,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-ADAMA-REFERENCE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--WRITES-->C-ADMISSAO",
     "FROM": "C-TESTES",
     "TO": "C-ADMISSAO",
@@ -34968,12 +34990,12 @@
     ]
    }
   ],
-  "COUNT": 993
+  "COUNT": 994
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 149,
   "CARTOES_AUDITADOS": 149,
-  "ARESTAS_RELACIONADAS": 993,
+  "ARESTAS_RELACIONADAS": 994,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -35317,7 +35339,7 @@
    "CODE": 157,
    "CONTROL": 71,
    "DATA": 31,
-   "PROOF": 351,
+   "PROOF": 352,
    "READ": 226,
    "RULE": 149,
    "WRITE": 8
@@ -35478,9 +35500,11 @@
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 0,
+   "ENTRAM": 1,
    "SAEM": 10,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
     "READ"
@@ -42517,7 +42541,7 @@
     "x"
    ],
    "ENTRAM": 179,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
