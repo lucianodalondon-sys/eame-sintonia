@@ -14888,3 +14888,110 @@ NAO registra alteracao de arquitetura, de Collection, nem integracao no trunk.
 NAO repete o §124: ali esta como se classifica um conflito pelo dono e porque a
    reescrita do historico fica por fazer. Aqui esta o que prova o mapa.
 ```
+
+---
+
+# §126 · A ORDEM ENTRE FAIXAS SÓ IMPORTA ONDE HÁ COLISÃO FORA DA MÁQUINA
+
+## O QUE MUDOU
+
+```
+A REFERENCE foi reconciliada contra o trunk f888b363 · merge b4b38b3c
+   merge-base 43553a65 · lane +2 · trunk +86 · DIVERGED
+
+conflitos                 8
+conflitos GENERATED       7
+conflitos HUMANOS         1   (architecture.declared.json)
+ficheiros funcionais da lane, byte a byte iguais depois do merge   9/9
+
+A ordem REFERENCE-antes-de-SOURCES foi escolhida. E a medição diz que a
+escolha era livre: as duas faixas não disputam nenhuma decisão humana.
+```
+
+## POR QUÊ
+
+A pergunta «qual faixa entra primeiro?» parece sempre uma pergunta de
+dependência. Quase nunca é. Duas faixas só se prendem uma à outra quando
+colidem **fora** do que uma máquina reescreve — porque artefacto gerado não
+guarda escolha de ninguém:
+
+```
+CONFLITO PARTILHADO INTEIRAMENTE GENERATED NÃO CRIA DEPENDÊNCIA DE ORDEM.
+QUEM ENTRAR DEPOIS CORRE A CADEIA, E A CADEIA DECIDE O CONTEÚDO OUTRA VEZ.
+```
+
+O custo de entrar em segundo lugar, num conflito gerado, é **correr a cadeia** —
+que quem entra em segundo lugar teria de correr de qualquer maneira. Não é
+dívida: é o mesmo trabalho, feito uma vez.
+
+Onde a ordem importa é no ficheiro que guarda decisão humana. Aí o segundo a
+entrar tem de **reler** o que o primeiro decidiu, e isso é trabalho novo.
+
+## PROVA
+
+Medido nesta missão, com `git merge-tree` contra o mesmo trunk — leitura pura,
+nenhuma faixa tocada:
+
+```
+SOURCES    (2f0863d1) × trunk    19 conflitos
+REFERENCE  (91998964) × trunk     8 conflitos
+
+PARTILHADOS ENTRE AS DUAS         7
+   docs/fontes/INDICE-DE-FONTES.md
+   docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md
+   italia-portale/client/system-map/state.generated.json
+   system-map/data/{architecture,casco,sources,state}.generated.json
+
+   os 7 são GENERATED_ARTIFACT declarados em CADEIA-DO-MAPA.json
+
+architecture.declared.json nos partilhados   0
+architecture.declared.json nos da SOURCES    0   ← ela nem lhe toca
+```
+
+⚠️ **Os 7 partilhados são exactamente o conjunto gerado.** A única decisão
+humana das duas faixas — `architecture.declared.json` — é tocada por **uma só**.
+Não há sobreposição de decisão. A ordem não muda o custo de ninguém.
+
+E dentro da Reference, a fusão humana também não era disputa:
+
+```
+trunk     +14 componentes · +1 território · +2 arestas · 3 componentes alterados
+reference   0 componentes ·  0 territórios ·  0 arestas · 2 componentes alterados
+intersecção dos alterados = 0
+resultado difere do trunk em 9 linhas — as duas edições aditivas da Reference
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · Antes de discutir ordem entre faixas, medir a INTERSECÇÃO dos conflitos e
+    classificá-la. Se for toda gerada, não há dependência — há preferência.
+
+2 · Quando a ordem não aumenta o custo da outra faixa, escolher pela ASSIMETRIA
+    DE RISCO, não pelo tamanho:
+
+        erro protegido por portão  <  erro semântico silencioso
+
+    Gerado errado o validador apanha. Fusão humana errada em
+    architecture.declared.json entra calada e fica.
+
+3 · Investigação e prova independentes PODEM correr em paralelo. Escritas sobre
+    o mesmo estado NÃO. Nesta missão três agentes leram em paralelo — topologia,
+    identidade, donos — e um só coordenador escreveu. Dois escritores no mesmo
+    worktree produzem uma árvore que nenhum dos dois mediu.
+
+4 · A prova de que a ordem não custou nada é blob a blob: 9 de 9 ficheiros
+    funcionais da lane iguais DEPOIS do merge e ANTES de resolver qualquer
+    conflito. Medir nessa janela, não no fim.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO integra a Reference no trunk, nem toca na faixa SOURCES: a medicao de
+   SOURCES foi `git merge-tree` em leitura, sem checkout e sem escrita.
+NAO revoga o §124, que ordena as faixas pelo trabalho e nao pelo total de
+   conflitos. Esta seccao responde a pergunta seguinte: se o trabalho nao se
+   sobrepoe, a ordem e livre — e entao escolhe-se pelo risco.
+NAO promete que a proxima faixa terá interseccao vazia. Diz como medir se tem.
+```
