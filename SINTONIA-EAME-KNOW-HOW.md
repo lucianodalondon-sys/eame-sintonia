@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — §128: a primeira coleta controlada da Itália bate num **ambiente**, não num módulo. Nenhuma das três bancadas medidas tem **egresso italiano e Sala canónica ao mesmo tempo**; as duas provas que existem partem a pergunta ao meio (uma adquire e não pousa, a outra pousa e não adquire); duas provas da Itália não correm no Windows, que é onde o egresso italiano vive; e `coleta/italy_pilot_collect.mjs` corre, por omissão, `IT-T3-005` — uma fonte com **zero menções no Atlas**.
+**Última atualização material:** 2026-09-16 — §128: a primeira coleta controlada da Itália bate num **ambiente**, não num módulo. Nenhuma das três bancadas medidas tem **egresso italiano e Sala canónica ao mesmo tempo**; as duas provas que existem partem a pergunta ao meio (uma adquire e não pousa, a outra pousa e não adquire); a **dona da Sala** e todas as provas dela chamam o `psql` com a DSN antes do `-c`/`-f` (38 contra 3) e por isso não correm no Windows, que é onde o egresso italiano vive; e `coleta/italy_pilot_collect.mjs` corre, por omissão, `IT-T3-005` — uma fonte com **zero menções no Atlas**.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
 **Passo anterior — CUMPRIDO (2026-09-16):** PREPARAR PRIMEIRA COLETA CONTROLADA ITÁLIA V1. O plano vive em [`docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md`](docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md): `PILOT_SOURCE_COUNT = 6` (`IT-T4-001` · `IT-T3-002` · `IT-T3-008` · `IT-T3-010` · `IT-T2-002` · `IT-T2-004`), **6 portões `MUST_FIX`** e **9 dívidas `CAN_WAIT`**. Nenhuma coleta foi executada.
 **Próximo passo autorizado (2026-09-16):** **FECHAR OS SEIS PORTÕES** antes de executar — e o primeiro deles é escolher a **bancada** (§128), não escrever módulo. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`. Preparar ≠ coletar — CAN DO ≠ DID DO.
@@ -15475,12 +15475,28 @@ de Windows tratado como se fosse POSIX.
        ao lado explica que sem ele o ficheiro «corria sem fazer nada e saía
        com zero». O coletor foi consertado; a prova dele não.
 
-2 · psql com a DSN ANTES das opções
-    provas/o_material_italiano_chega_a_sala.py:96
-    provas/o_portao_da_big_collection.py:120
-    o getopt do Windows não permuta: liga-se, NÃO aplica a migration, sai 0
-    medido: 40 chamadas com DSN à frente contra 15 corretas
-    admissao/sala_de_espera.py já está certo; a_fonte_t4_italiana_atravessa.py também
+2 · psql com a DSN ANTES do -c e do -f — e a DONA DA SALA esta na lista
+    admissao/sala_de_espera.py:447  (leitura, -c)
+    admissao/sala_de_espera.py:486  (escrita, -f)
+    o getopt do Windows nao permuta: parado o primeiro posicional, -c e -f
+    deixam de ser opcoes. A Sala canonica NAO LE E NAO ESCREVE no Windows.
+
+    medido por AST, comparando a POSICAO da DSN com a de -c/-f na chamada
+    inteira:  38 erradas contra 3 certas.
+    Entre as 38 esta TODA prova da Sala: o_material_italiano_chega_a_sala
+    (73 e 96), o_portao_da_big_collection:120, a_rota_m2_atravessa:175,
+    a_unidade_pousa_na_espera:89, a_sala_sobrevive_ao_processo:84,
+    mutacao_da_sala_duravel (198 e 201), guarda/portas_live:115.
+    As 3 certas: coleta/coleta_checkpoint:116 e as duas de
+    a_fonte_t4_italiana_atravessa.
+
+    ⚠️ E EU MEDI ISTO AO CONTRARIO PRIMEIRO. Um grep de UMA linha mostra
+    `["psql", "-X", "-q", ...` e parece correcto — a DSN vem tres linhas
+    abaixo. A memoria do projecto ja registava este mesmo engano, cometido
+    por outra sessao e apanhado por review.
+
+        LER METADE DA CHAMADA E DIZER QUE SE MEDIU A CHAMADA
+        E ADIVINHAR COM AR DE MEDIR.
 ```
 
     UMA PROVA QUE NÃO CORRE NA MÁQUINA QUE PODE ADQUIRIR

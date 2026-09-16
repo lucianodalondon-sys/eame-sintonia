@@ -329,6 +329,7 @@ PERGUNTAR À TABELA NÃO É PERGUNTAR AO DONO.
 | `EVIDENCE` | `psql: command not found` e `psycopg` ausente nesta máquina; `SALA_DE_ESPERA=BLOCKED` (sai com 1); `LIVE_DB_REACHABLE = NO` e `MIGRATION_029/030_LIVE = UNKNOWN` no pré-voo; **32** migrations em Git, das quais **031** e **032** (a Sala durável) não foram sequer medidas em produção |
 | `MINIMUM_FIX` | PostgreSQL descartável **no runner com egresso italiano**, com `SINTONIA_SALA_BACKEND=POSTGRES` e `SINTONIA_SALA_DSN` a apontar para ele — ao **nível do job**, nunca do passo. **Ou** decisão explícita do dono de escrever na Supabase de produção |
 | `TEST_REQUIRED` | `admissao/sala_de_espera.py --portao` a sair com **0**, e `motor/cadeia_canonica.sh` a aplicar 001..032 |
+| ⚠️ **e o caminho Windows está bloqueado DUAS vezes** | pôr Postgres no runner Windows **não chega**: `BG-04` diz que a própria dona da Sala não fala com ele nesse sistema. Os dois fecham-se juntos, ou não se fecha nenhum |
 
 > `MIGRATION EM GIT NÃO É MIGRATION APLICADA.`
 > `UM PORTÃO QUE MEDE UM AMBIENTE E DEIXA PASSAR PARA OUTRO NÃO MEDIU NADA.`
@@ -344,16 +345,17 @@ PERGUNTAR À TABELA NÃO É PERGUNTAR AO DONO.
 | `MINIMUM_FIX` | `pathToFileURL(...).href` — a **mesma** conversão que o próprio coletor já usa na linha 543 pela **mesma** razão |
 | `TEST_REQUIRED` | o próprio, a passar no Windows |
 
-#### `BG-04` · Duas provas do caminho até à Sala chamam o `psql` com a DSN à frente
+#### `BG-04` · A **dona da Sala** chama o `psql` com a DSN antes do `-c` e do `-f`
 
 | | |
 |---|---|
-| `PROBLEM` | `provas/o_material_italiano_chega_a_sala.py:96` e `provas/o_portao_da_big_collection.py:120` passam a URL **antes** das opções. O `getopt` do Windows não permuta: o `psql` liga-se, **não corre a migration** e sai com **zero** |
-| `OWNER` | os dois ficheiros |
-| `WHY_BLOCKS` | no runner Windows, a preparação do banco **não acontece** e o silêncio parece sucesso |
-| `EVIDENCE` | **40** chamadas com DSN à frente contra **15** corretas. `admissao/sala_de_espera.py` **já está certo**; `provas/a_fonte_t4_italiana_atravessa.py` também |
-| `MINIMUM_FIX` | mover as opções para antes da URL, como nos outros dois |
-| `TEST_REQUIRED` | a prova a correr no Windows e a **reprovar** quando o banco está vazio |
+| `PROBLEM` | `admissao/sala_de_espera.py` passa `self.url` **antes** de `-c` (linha 447, leitura) e **antes** de `-f` (linha 486, escrita). O `getopt` do Windows **não permuta**: parado o primeiro posicional, `-c` e `-f` deixam de ser opções. A Sala canónica **não lê e não escreve** no Windows |
+| `OWNER` | `admissao/sala_de_espera.py` — e depois as provas |
+| `WHY_BLOCKS` | é o dono do `READY`. Sem ele, no runner que tem o egresso italiano, `pousar()` não pousa |
+| `EVIDENCE` | medido por AST, comparando a **posição** da DSN com a de `-c`/`-f` na chamada inteira: **38 erradas contra 3 certas**. Entre as 38: as duas da Sala, `provas/o_material_italiano_chega_a_sala.py` (73 e 96), `o_portao_da_big_collection.py:120`, `a_rota_m2_atravessa.py:175`, `a_unidade_pousa_na_espera.py:89`, `a_sala_sobrevive_ao_processo.py:84`, `mutacao_da_sala_duravel.py` (198 e 201) e `guarda/portas_live.py:115`. **Toda prova da Sala está na lista.** As 3 certas são `coleta/coleta_checkpoint.py:116` e as duas de `provas/a_fonte_t4_italiana_atravessa.py` |
+| como falha | **não é sempre igual, e não se finge que é.** Sobrando um posicional, o `psql` aceita-o como utilizador e ignora o resto; sobrando dois, reclama. Há um caso **medido** (15/09) em que o aplicador de migrations disse OK e o banco ficou com **zero tabelas**. Em nenhum dos casos faz o que diz |
+| `MINIMUM_FIX` | opções primeiro, DSN no fim — como em `coleta/coleta_checkpoint.py`, que já foi consertado pela mesma razão |
+| `TEST_REQUIRED` | uma guarda que meça a **posição** da DSN na lista inteira. ⚠️ Ler só o início da linha dá a resposta errada: foi assim que esta medição já saiu invertida uma vez |
 
 #### `BG-05` · `IT-T4-001` só se alcança pedindo `alvo=T3`
 
