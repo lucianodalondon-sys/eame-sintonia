@@ -2638,9 +2638,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "5b718d4d74d25564a99a6a52a045e7b9acc869ad",
-    "GENERATED_AT": "2026-09-15T23:54:51-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b6cde80ee33ea8205d35e14fd07eb348e4754ee3f399d83c888db117f976a12c"
+    "HEAD": "082736dbacd0114a095b013f05b5ee38e670082a",
+    "GENERATED_AT": "2026-09-16T05:02:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9900961687ae77d7c21f27d7acb22363b86c4ef0518169273b1869481fc1fbe3"
   },
   "FAMILIES": [
     {
@@ -27113,8 +27113,7 @@
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
         "C-SECURITY-CHECK",
-        "C-TESTES",
-        "C-V21-COMERCIAL"
+        "C-TESTES"
       ],
       "outbound": [
         "C-PROVA-ROTAS-REAIS",
@@ -27161,7 +27160,6 @@
         "coleta/instagram_janela.py",
         "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
         "guarda/social_sessao.py",
-        "motor/v21_tm_colher.py",
         "tests/test_social_sessao.py"
       ],
       "consumes_plane": "CODE",
@@ -31557,7 +31555,6 @@
       "outbound": [
         "C-INT-ARBITRAGEM",
         "C-PACOTE-CAMADAS",
-        "C-SCRAP-GUARDA",
         "C-TESTES",
         "C-V21-CONTRATO",
         "C-V21-OPORTUNIDADE"
@@ -31716,12 +31713,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "guarda/social_guarda.py:193",
           "motor/v21_aceitacao.py:39",
           "motor/v21_oportunidades.py:45",
-          "motor/v21_traducao_trava.py:351"
+          "motor/v21_traducao_trava.py:351",
+          "pacote/v21_handoff_json.py:9"
         ],
-        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-SCRAP-GUARDA · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 13010,
       "y": 1326
@@ -85677,41 +85674,6 @@
     },
     {
       "from": "C-V21-COMERCIAL",
-      "to": "C-SCRAP-GUARDA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Leitura comercial e completude alimenta A guarda de credencial e de sessao do SCRAP. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "guarda/social_guarda.py",
-          "line": 193,
-          "snippet": "'scripts/v21_tm_colher.py':",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-V21-COMERCIAL--READS-->C-SCRAP-GUARDA",
-            "FROM": "C-V21-COMERCIAL",
-            "TO": "C-SCRAP-GUARDA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-V21-COMERCIAL",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -87838,8 +87800,8 @@
     "components_pending": 164,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1060,
-    "edges_proven": 1006,
+    "edges": 1059,
+    "edges_proven": 1005,
     "edges_unknown": 54,
     "business_edges": 4,
     "files_tracked": 2046,

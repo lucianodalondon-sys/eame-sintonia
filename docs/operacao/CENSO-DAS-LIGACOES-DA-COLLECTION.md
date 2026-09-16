@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  5b718d4d74d25564a99a6a52a045e7b9acc869ad
+HEAD_DA_MEDICAO  082736dbacd0114a095b013f05b5ee38e670082a
 BRANCH           claude/it-trunk-v1
-GERADO_EM        2026-09-15T23:54:51-03:00
+GERADO_EM        2026-09-16T05:02:56-03:00
 CARDS            71
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1154,13 +1154,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/instagram_janela.py`, `docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md`, `guarda/social_sessao.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 6 |
-| **arestas provadas** | entram 7 · saem 6 |
+| **arestas no mapa** | entram 6 · saem 6 |
+| **arestas provadas** | entram 6 · saem 6 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 |
+| **prova das ligações** | CODE 12 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
