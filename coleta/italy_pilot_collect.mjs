@@ -16,7 +16,7 @@
 //   PARSER_FAILURE MUST NOT DESTROY CAPTURED_RAW
 //
 // Uso:
-//   node coleta/italy_pilot_collect.mjs --run-id=<RUN_ID> [--fonte=<ID>...]
+//   node coleta/italy_pilot_collect.mjs --run-id=<RUN_ID> --fonte=<ID> [--fonte=<ID>...]
 //                                             executa uma rodada real
 //   node coleta/italy_pilot_collect.mjs --negativos         roda os controles negativos
 //
@@ -329,7 +329,30 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
                     + "Este coletor NAO cunha corrida.");
   }
   globalThis.__ARPAV_TODAS = arpavZonas === "TODAS";
-  const FONTES = apenas ?? PILOT_SOURCES;
+  // ── NAO HA CONJUNTO POR OMISSAO — BG-06 ────────────────────────────────
+  // `apenas ?? PILOT_SOURCES` fazia uma corrida sem fontes nomeadas colher as
+  // SETE — e a setima, IT-T3-005, tem ZERO mencoes no Atlas: e candidata
+  // (status NEW, verdict NAO SEI). O Atlas e o AGENTS.md ja diziam a lei
+  // («o que entra pela porta e candidata, nunca fonte»); o que faltava era
+  // este ficheiro obedece-la: a lista do que o coletor SABE percorrer nao e
+  // a lista do que uma corrida DEVE colher.
+  //
+  //     O PADRAO DE UM COLETOR E UMA DECISAO QUE NINGUEM TOMOU DE NOVO.
+  //     QUEM COLHE NOMEIA AS FONTES, UMA A UMA. SEM NOME, NAO HA COLHEITA.
+  //
+  // `PILOT_SOURCES` continua a existir e continua com as sete: e a
+  // CAPACIDADE declarada (quem este coletor sabe percorrer), usada para
+  // recusar FONTE_DESCONHECIDA. Capacidade nao e aprovacao — HISTORY
+  // EXISTS != SOURCE APPROVED — e apagar IT-T3-005 daqui apagaria a verdade
+  // de que o corredor recorrente a percorre por declaracao explicita de
+  // perfil (candidatas/italy_profiles.mjs), que e outra decisao, de outra
+  // missao.
+  if (!Array.isArray(apenas) || apenas.length === 0) {
+    throw new Error("FONTES_AUSENTES: executarRodada() exige a lista explicita "
+                    + "de fontes (`apenas`). Este coletor nao tem conjunto por "
+                    + "omissao — sem nome, colheria a candidata IT-T3-005.");
+  }
+  const FONTES = apenas;
   const anterior = lerLedger();
   const primeira = anterior.length === 0;
   const RUN_ID = runId;
@@ -546,16 +569,25 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const args = process.argv.slice(2);
   const rid = (args.find(a => a.startsWith("--run-id=")) || "").split("=")[1];
   if (!rid) {
-    console.error("uso: node coleta/italy_pilot_collect.mjs --run-id=<RUN_ID> [--fonte=<ID>...] [nota...]");
+    console.error("uso: node coleta/italy_pilot_collect.mjs --run-id=<RUN_ID> --fonte=<ID> [--fonte=<ID>...] [nota...]");
     console.error("     este coletor NAO cunha corrida. O RUN_ID vem de quem coordena.");
     process.exit(2);
   }
   // `--fonte=` existe porque o REGISTO ja declara um filtro de fonte, e um
-  // filtro declarado que nao chega ao coletor e um filtro que nao filtra. Sem
-  // ele, pedir «IT-T2-002» corria as sete fontes na mesma. Repete-se para
-  // pedir mais do que uma; sem nenhum, corre o piloto inteiro.
+  // filtro declarado que nao chega ao coletor e um filtro que nao filtra.
+  // Repete-se para pedir mais do que uma.
+  //
+  // ⚠️ E E OBRIGATORIO — BG-06. «Sem nenhum, corre o piloto inteiro» deixou
+  // de ser verdade: o piloto inteiro incluia IT-T3-005, que nao esta no
+  // Atlas. Sem --fonte, esta CLI recusa, como recusa RUN_ID ausente.
   const fontes = args.filter(a => a.startsWith("--fonte="))
                      .map(a => a.split("=")[1]).filter(Boolean);
+  if (!fontes.length) {
+    console.error("FONTES_AUSENTES: nomeie cada fonte com --fonte=<SOURCE_ID>. "
+                  + "Nao ha conjunto por omissao — o padrao antigo colhia a "
+                  + "candidata IT-T3-005, que nao esta no Atlas.");
+    process.exit(2);
+  }
   const desconhecidas = fontes.filter(f => !PILOT_SOURCES.includes(f));
   if (desconhecidas.length) {
     console.error(`FONTE_DESCONHECIDA: ${desconhecidas.join(", ")} — este coletor `
@@ -564,7 +596,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   }
   const { resumo, detalhes } = await executarRodada({
     runId: rid,
-    apenas: fontes.length ? fontes : null,
+    apenas: fontes,
     nota: args.filter(a => !a.startsWith("--run-id=") && !a.startsWith("--fonte=")).join(" ") });
   console.log(JSON.stringify(resumo, null, 1));
   console.log("\nSOURCE_ID     RESULTADO                        SAUDE     CADENCIA            DOCUMENT_ID");

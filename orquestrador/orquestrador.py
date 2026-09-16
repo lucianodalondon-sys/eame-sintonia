@@ -51,7 +51,8 @@ sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
 
 from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402
-from receitas import resolver, Plano  # noqa: E402
+from receitas import (resolver, Plano,  # noqa: E402
+                      FILTROS_DO_RESOLVEDOR, filtros_consumidos)
 import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
@@ -774,6 +775,39 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
 
     e = plano.executores[0]
     caminho = e["roda"][0]
+
+    # ── NENHUM FILTRO DESAPARECE EM SILENCIO — BG-05 ────────────────────────
+    # O pedido declarou um filtro; o executor escolhido nao o consome; ate
+    # aqui, o valor simplesmente nao entrava no comando e ninguem sabia.
+    # Medido: `T4 + fonte=IT-T4-001` abria o `regulatorio-eu` (que consome
+    # `celex`), o `fonte` evaporava, e a corrida colhia `EU-T4-001` — outra
+    # fonte, outro pais — com cara de sucesso.
+    #
+    #     PEDIDO ESPECIFICA FILTRO + EXECUTOR NAO SABE CONSUMIR
+    #     = ERRO EXPLICITO, ANTES DA REDE. NUNCA SILENCIO.
+    #
+    # Quem declara o que consome e a receita do executor; quem consome
+    # `pais`/`tema`/`fase` e o resolvedor. O que sobrar e recusa, com nome.
+    sobras = sorted({k for k, v in p.filtros.items() if v not in (None, "")}
+                    - set(FILTROS_DO_RESOLVEDOR) - filtros_consumidos(e))
+    if sobras:
+        return {
+            "RUN_ID": novo_run_id(p),
+            "STATUS": "FILTRO_NAO_CONSUMIDO",
+            "PEDIDO": p.para_json(),
+            "MISSION": p.assunto,
+            "COUNTRY": p.filtros.get("pais", "NAO SEI"),
+            "EXECUTOR_ESCOLHIDO": e.get("id", "NAO SEI"),
+            "FILTROS_NAO_CONSUMIDOS": sobras,
+            "ERROR": ("FILTRO_NAO_CONSUMIDO: o pedido declara %s e o executor "
+                      "«%s» so consome %s. Nenhum executor de %s consome tudo "
+                      "o que o pedido declarou; correr assim descartaria o "
+                      "filtro em silencio, e foi exactamente assim que um "
+                      "pedido de IT-T4-001 colheu EU-T4-001."
+                      % (", ".join(sobras), e.get("id", "?"),
+                         sorted(filtros_consumidos(e)) or "(nada)", p.alvo)),
+            "_plano": plano,
+        }
 
     # ── A CORRIDA NASCE AQUI, ANTES DE QUALQUER COISA CORRER ────────────────
     # ⚠️ O `RUN_ID` NASCIA OITO LINHAS DEPOIS DE O EXECUTOR JA TER CORRIDO.

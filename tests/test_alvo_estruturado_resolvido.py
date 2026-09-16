@@ -71,8 +71,12 @@ class CasoB2(CasoB1):
         que e de onde sai `ARPAV:Z{NN}:{AAAAMMDDHHMMSS}`. Nenhuma infraestrutura
         nova, e nenhuma ida a rede.
         """
+        # BG-03: o import vai por `pathToFileURL`, nunca por caminho cru —
+        # no Windows `import "C:/..."` faz o Node ler `c:` como protocolo.
+        # Mesmo conserto e mesma razao do driver de test_italia_na_porta_canonica.
         driver = """
-import { executarRodada } from "%s";
+import { pathToFileURL } from "node:url";
+const { executarRodada } = await import(pathToFileURL(%s).href);
 const semData = () => Buffer.concat([
   Buffer.from("%%PDF-1.4\\n/Title (boletim sem data de geracao)\\n", "latin1"),
   Buffer.alloc(4096, "z"),
@@ -80,7 +84,7 @@ const semData = () => Buffer.concat([
 const r = await executarRodada({
   runId: "%s", apenas: ["%s"], forcarBuf: semData, nota: "prova b2 negativa" });
 console.log(JSON.stringify(r.resumo));
-""" % (COLETOR.replace("\\", "/"), run_id, FONTE)
+""" % (json.dumps(COLETOR.replace("\\", "/")), run_id, FONTE)
         r = subprocess.run(["node", "--input-type=module", "-e", driver],
                            cwd=RAIZ, capture_output=True, text=True, timeout=300)
         self.assertEqual(r.returncode, 0, r.stderr[-2000:])

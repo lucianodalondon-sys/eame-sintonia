@@ -68,9 +68,19 @@ def _driver(run_id: str, marca: str) -> str:
     Ele nao substitui o coletor nem o imita: importa-o e chama a mesma
     `executarRodada` que a rota canonica chama, com o mesmo `runId`. A unica
     diferenca e `forcarBuf`, que e onde os bytes entram sem haver rede.
+
+    ⚠️ O IMPORT E POR `pathToFileURL`, E NAO POR CAMINHO CRU — BG-03.
+    No Windows, `import "C:/.../x.mjs"` faz o Node ler `c:` como PROTOCOLO
+    e morrer com `ERR_UNSUPPORTED_ESM_URL_SCHEME` — 14 casos desta prova
+    vermelhos por UMA causa, medido em 2026-09-16. O conserto e o MESMO que
+    o proprio coletor ja usa na CLI dele (`italy_pilot_collect.mjs`, guarda
+    do `import.meta.url`), pela MESMA razao escrita la: `pathToFileURL` e a
+    conversao que o proprio Node exporta para isto, e vale nos dois sistemas.
     """
     return """
-import { executarRodada } from "%s/coleta/italy_pilot_collect.mjs";
+import { pathToFileURL } from "node:url";
+const { executarRodada } = await import(
+  pathToFileURL(%s + "/coleta/italy_pilot_collect.mjs").href);
 // UMA ZONA, UM DOCUMENTO, BYTES PROPRIOS. As quatro zonas do piloto sao quatro
 // boletins diferentes; dar-lhes os mesmos bytes faria o armazem guardar UM
 // objecto e o teste aplaudir um resultado que a realidade nao produz.
@@ -81,7 +91,7 @@ const bytesDaZona = (_fonte, alvo) => Buffer.concat([
 const r = await executarRodada({
   runId: "%s", apenas: ["%s"], forcarBuf: bytesDaZona, nota: "prova b1" });
 console.log(JSON.stringify(r.resumo));
-""" % (RAIZ.replace("\\", "/"), marca[1], marca[0], run_id, FONTE)
+""" % (json.dumps(RAIZ.replace("\\", "/")), marca[1], marca[0], run_id, FONTE)
 
 
 class CasoB1(unittest.TestCase):

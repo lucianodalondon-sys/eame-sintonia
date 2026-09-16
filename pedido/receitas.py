@@ -167,6 +167,35 @@ EXECUTORES = {
         "o_que_traz": "o rotulo oficial do produto, como PDF, com a data em que "
                       "foi baixado",
         "custo": "gratuito",
+    }, {
+        # ── A FONTE T4 ITALIANA GANHA O EXECUTOR QUE JA A COLHE — BG-05 ─────
+        # `IT-T4-001` e T4, o coletor italiano SABE percorre-la (esta em
+        # `PILOT_SOURCES` e ja a colheu com aquisicao real em 15/09), e ainda
+        # assim um pedido `T4 + fonte=IT-T4-001` abria o `regulatorio-eu` —
+        # que nao consome `fonte`, descartava o filtro EM SILENCIO e colhia
+        # `EU-T4-001`. Outra fonte, outro pais, outro ato.
+        #
+        #     O PEDIDO NOMEIA UMA FONTE; O EXECUTOR NAO PODE TROCA-LA.
+        #
+        # Ele vem em TERCEIRO de proposito: o pedido T4 SEM filtros continua a
+        # abrir exactamente o que abria antes (`regulatorio-eu`, primeiro da
+        # lista). Quem o promove e a regra de consumo de filtros no
+        # `resolver()`: declarado `fonte`, so ele a consome, e sobe.
+        #
+        # SEM `filtros_por_omissao`, e isso e uma escolha: um T4 que chegasse
+        # aqui sem `fonte` nao pode ganhar uma fonte inventada pela receita —
+        # e o coletor, sem fonte nomeada, recusa alto (FONTES_AUSENTES, BG-06).
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o registo oficial datado da fonte T4 italiana nomeada "
+                      "no pedido, como CSV, com a versao do documento e o "
+                      "sitio onde o byte ficou",
+        "custo": "gratuito",
     }],
     "T3": [{
         # ── O COLETOR ITALIANO COBRE T3, E A RECEITA NAO O DIZIA ───────────
@@ -393,6 +422,24 @@ CONTRATOS_OBRIGATORIOS = (
 )
 
 
+#: Os filtros que o PROPRIO resolvedor consome — recortam fontes e ordenam
+#: executores, e por isso nao descem ao executor nem podem ser acusados de
+#: nao-consumidos. Um filtro fora desta lista OU e consumido pelo executor
+#: escolhido, OU a corrida e recusada antes da rede (BG-05).
+FILTROS_DO_RESOLVEDOR = ("pais", "tema", "fase")
+
+
+def filtros_consumidos(e: dict) -> set:
+    """O que ESTE executor declara saber consumir — e nada alem disso.
+
+    A declaracao ja existia (`argumentos_de_filtros` + `filtros_nomeados`);
+    o que faltava era alguem le-la ANTES de correr, em vez de deixar o
+    filtro nao-declarado cair no chao.
+    """
+    return (set(e.get("argumentos_de_filtros") or ())
+            | set(e.get("filtros_nomeados") or ()))
+
+
 def _fontes() -> list:
     """As fontes que a casa ja tem em ficha — atlas europeu e master italiano."""
     if not FONTES_MEDIDAS.is_file():
@@ -490,7 +537,7 @@ def resolver(p: Pedido) -> Plano:
     com = [f for f in do_assunto if _sabe_o_caminho(f)]
     sem = [f for f in do_assunto if not _sabe_o_caminho(f)]
 
-    # ── QUEM ATENDE A FASE PEDIDA VEM PRIMEIRO ──────────────────────────────
+    # ── QUEM CONSOME OS FILTROS DECLARADOS VEM PRIMEIRO — BG-05 ────────────
     # O orquestrador abre apenas `executores[0]`. Enquanto a ordem fosse fixa,
     # um segundo executor no mesmo alvo nunca era aberto — e o proprio registo
     # do `comunicacao-publica` dizia isso, por escrito, como defeito conhecido.
@@ -498,12 +545,25 @@ def resolver(p: Pedido) -> Plano:
     #     UMA LISTA CUJO SEGUNDO ITEM NUNCA E LIDO NAO E UMA LISTA:
     #     E UM ITEM E UMA MENTIRA.
     #
+    # A promocao tem DUAS chaves, por esta ordem:
+    #
+    #   1 · consome TODOS os filtros que o pedido declarou (fora os do
+    #       resolvedor). Foi a falta disto que mandou `T4 + fonte=IT-T4-001`
+    #       para o `regulatorio-eu`, que nao consome `fonte` — o filtro
+    #       morria calado e vinha `EU-T4-001` no lugar.
+    #   2 · serve a fase pedida (a regra que ja existia).
+    #
     # Nao ha adivinhacao: quem nao declara `serve_fases` serve tudo, como
-    # sempre serviu, e a ordem entre iguais nao muda.
+    # sempre serviu; um pedido SEM filtros de executor nao mexe em nada, e a
+    # ordem declarada continua a mandar entre iguais (sort estavel).
     execs = list(EXECUTORES.get(p.alvo, []))
     fase = str(p.filtros.get("fase") or "").strip()
-    if fase:
-        execs.sort(key=lambda e: 0 if fase in (e.get("serve_fases") or [fase]) else 1)
+    declarados = ({k for k, v in p.filtros.items() if v not in (None, "")}
+                  - set(FILTROS_DO_RESOLVEDOR))
+    if fase or declarados:
+        execs.sort(key=lambda e: (
+            0 if declarados <= filtros_consumidos(e) else 1,
+            0 if fase in (e.get("serve_fases") or [fase]) else 1))
 
     return Plano(
         pedido=p,
