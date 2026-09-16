@@ -67,6 +67,7 @@ on:
         options:
           # ── GRÁTIS ─────────────────────────────────────────────────
           - contratos      # lê o INPUT SCHEMA de cada ator. Zero run.
+          - italia-documento # UMA fonte italiana do Atlas, pela porta canonica, com banco descartavel
           - plano          # em que faixa está cada chave do pool
           - janela         # rota pública pelo navegador: perfis + objetos
           - janela-perfis  # só a camada de perfil
@@ -323,6 +324,41 @@ jobs:
       #     UM COMPOSITOR QUE SÓ ENCADEIA DOIS DONOS
       #     É UM TERCEIRO SÍTIO ONDE A VERDADE PODE DIVERGIR.
       #
+      # ── 5a-IT · A BANCADA ITALIANA NASCE ANTES DOS PORTÕES — BG-01 ──────
+      # A fase italiana NUNCA usa a Supabase de produção: o job cria um
+      # PostgreSQL 16 descartável nesta máquina (binários portáteis, fora
+      # do repo), aplica as migrations pela cadeia canónica, e escreve
+      # SINTONIA_SALA_DSN no GITHUB_ENV — que o dono da Sala lê ANTES de
+      # SUPABASE_DB_URL. Assim o portão 5b mede exactamente o ambiente em
+      # que a aquisição vai correr, sem env próprio no passo do portão.
+      #
+      #     PRODUÇÃO NÃO É LABORATÓRIO.  DESCARTÁVEL → PROVA → depois LIVE.
+      #
+      # A senha é temporária, do cluster descartável, e morre com ele no
+      # passo 9z-IT (always). Nunca se ecoa a DSN inteira.
+      - name: 5a-IT · a bancada italiana nasce (PostgreSQL descartável)
+        if: inputs.fase == 'italia-documento'
+        run: |
+          set -eu
+          PGBIN="${SINTONIA_PG_PORTATIL:-/c/Users/London1/orca/pgtmp/pgsql/bin}"
+          [ -x "$PGBIN/initdb.exe" ] || { echo 'PG_PORTATIL_AUSENTE: initdb nao achado em '"$PGBIN"; exit 1; }
+          CLUSTER="$RUNNER_TEMP/pg-italia-$GITHUB_RUN_ID"
+          rm -rf "$CLUSTER"
+          printf 'descartavel' > "$RUNNER_TEMP/.pgpw"
+          "$PGBIN/initdb.exe" -D "$CLUSTER" -U postgres --auth=md5 --pwfile="$RUNNER_TEMP/.pgpw" -E UTF8 --no-sync >/dev/null
+          rm -f "$RUNNER_TEMP/.pgpw"
+          "$PGBIN/pg_ctl.exe" -D "$CLUSTER" -o '-p 54329 -h 127.0.0.1' -l "$CLUSTER/servidor.log" -w start >/dev/null
+          export PGPASSWORD=descartavel
+          "$PGBIN/psql.exe" -X -q -w -c 'create database descartavel;' postgresql://postgres@localhost:54329/postgres < /dev/null
+          # migrations pela cadeia canónica — o único aplicador desta casa
+          PATH="$PGBIN:$PATH" bash motor/cadeia_canonica.sh migrations 'postgresql://postgres:descartavel@localhost:54329/descartavel'
+          # o ambiente que os portões vão medir É o da aquisição: nível de job
+          echo "SINTONIA_SALA_DSN=postgresql://postgres:descartavel@localhost:54329/descartavel" >> "$GITHUB_ENV"
+          echo "BANCO_DESCARTAVEL_URL=postgresql://postgres:descartavel@localhost:54329/descartavel" >> "$GITHUB_ENV"
+          echo "PGPASSWORD=descartavel" >> "$GITHUB_ENV"
+          echo "ITALY_OPS_ROOT=$RUNNER_TEMP/ops-italia-$GITHUB_RUN_ID" >> "$GITHUB_ENV"
+          echo "$PGBIN" >> "$GITHUB_PATH"
+
       # A SALA VEM PRIMEIRO de propósito: não custa rede nenhuma, e é a pergunta
       # cuja resposta errada torna toda a aquisição desperdício.
       - name: 5b · a sala onde o READY vai pousar sobrevive a este job?
@@ -396,6 +432,30 @@ jobs:
             # nao aparecer aqui.
             #
             #     WORKFLOW E DISPARADOR. WORKFLOW NAO E MOTOR DE COLETA.
+            # ── ITÁLIA, PELA PORTA CANÓNICA — BG-01 ──────────────────
+            # O disparador diz a INTENÇÃO e nomeia a FONTE; o orquestrador
+            # escolhe o executor, cunha o RUN_ID e leva a colheita à porta.
+            # NUNCA se chama italy_pilot_collect.mjs daqui — workflow é
+            # disparador, não motor de coleta. E fonte é OBRIGATÓRIA:
+            # sem nome não há colheita (BG-06), e o alvo deriva do
+            # TERRITÓRIO que o próprio SOURCE_ID declara.
+            italia-documento)
+              FONTE_IT='${{ inputs.fonte }}'
+              if [ -z "$FONTE_IT" ]; then
+                echo 'FONTE_OBRIGATORIA: a fase italia-documento exige um SOURCE_ID do Atlas em `fonte`.'
+                exit 2
+              fi
+              case "$FONTE_IT" in
+                IT-T2-*) ASSUNTO='colete clima' ;;
+                IT-T3-*) ASSUNTO='colete pragas' ;;
+                IT-T4-*) ASSUNTO='colete regulatorio' ;;
+                *) echo "FONTE_FORA_DO_PILOTO: $FONTE_IT nao e um SOURCE_ID italiano de T2/T3/T4."; exit 2 ;;
+              esac
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "$ASSUNTO" \
+                --filtro pais=IT \
+                --filtro fonte="$FONTE_IT" ;;
+
             janela|janela-perfis|janela-objetos)
               PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
                 "colete concorrentes" \
@@ -581,6 +641,18 @@ jobs:
           git pull --rebase --quiet origin "${{ github.ref_name }}" || true
           git push origin HEAD:"${{ github.ref_name }}"
           echo "RESULTADO_COMMITADO=YES"
+
+      # A bancada morre com o job, MESMO em falha: um cluster esquecido no
+      # self-hosted vira estado partilhado da corrida seguinte — o _work
+      # deste runner persiste entre jobs, e isso foi medido.
+      - name: 9z-IT · a bancada italiana morre (always)
+        if: always() && inputs.fase == 'italia-documento'
+        run: |
+          PGBIN="${SINTONIA_PG_PORTATIL:-/c/Users/London1/orca/pgtmp/pgsql/bin}"
+          CLUSTER="$RUNNER_TEMP/pg-italia-$GITHUB_RUN_ID"
+          "$PGBIN/pg_ctl.exe" -D "$CLUSTER" -w -m fast stop >/dev/null 2>&1 || true
+          rm -rf "$CLUSTER" "$RUNNER_TEMP/ops-italia-$GITHUB_RUN_ID"
+          echo "bancada destruida: cluster e ops-root removidos"
 
       - name: 9 · o que a fase gastou, e o que ela cobriu
         if: always()
