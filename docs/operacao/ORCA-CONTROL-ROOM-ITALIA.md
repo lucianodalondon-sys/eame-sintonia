@@ -61,13 +61,21 @@ responde *quem manda*. Não se substituem.
 ### As bancadas no disco
 
 ```
-00  C:\Users\London1\orca\workspaces\eame-sintonia\it-trunk-v1
-01  C:\Users\London1\orca\workspaces\eame-sintonia\it-sources-atlas
-02  C:\Users\London1\orca\workspaces\eame-sintonia\it-collection-sala
-03  C:\Users\London1\orca\workspaces\eame-sintonia\it-scrap
-04  C:\Users\London1\orca\workspaces\eame-sintonia\it-adama-reference
+00  <CAMINHO-LOCAL>\orca\workspaces\eame-sintonia\it-trunk-v1
+01  <CAMINHO-LOCAL>\orca\workspaces\eame-sintonia\it-sources-atlas
+02  <CAMINHO-LOCAL>\orca\workspaces\eame-sintonia\it-collection-sala
+03  <CAMINHO-LOCAL>\orca\workspaces\eame-sintonia\it-scrap
+04  <CAMINHO-LOCAL>\orca\workspaces\eame-sintonia\it-adama-reference
 05  C:\eame-sintonia\.claude\worktrees\intelligence-bible-canonical-review-749b7c
 ```
+
+`<CAMINHO-LOCAL>` é o perfil do utilizador do Windows, e o marcador não é
+decorativo: é **exactamente** o que `guarda/social_sessao.py` → `redigir()`
+escreve no lugar de `C:\Users\<nome>`. A bancada 05 fica inteira porque o
+caminho dela não passa pelo perfil de ninguém.
+
+    O REPOSITORIO E PUBLICO. A ESTRUTURA DA BANCADA E OPERACAO;
+    O NOME DA CONTA DA MAQUINA NAO E.
 
 ⚠️ A bancada 05 é a **do próprio dono** — não foi criado alias nem ramo novo,
 para não nascer uma segunda autoridade de Intelligence. Ela vive sob

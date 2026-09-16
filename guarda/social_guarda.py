@@ -189,13 +189,24 @@ def _valor_e_segredo(trecho):
 # Achado REAL, anterior a esta missão, em código que NÃO é do SINTONIA SCRAP.
 # Fica listado — não silenciado. Listar é diferente de ignorar: a linha abaixo
 # obriga quem mexer a decidir de novo, e o relatório continua mostrando.
-DIVIDA_CONHECIDA = {
-    'scripts/v21_tm_colher.py':
-        ('caminho pessoal de Windows embutido como padrão de `LOCALAPPDATA`. '
-         'Expõe o nome de usuário da máquina. É da cadeia v21, fora do escopo '
-         'desta missão — reportado, não alterado, para não colidir com a missão '
-         'paralela.'),
-}
+#
+# ⚠️ ESTAVA VAZIA DE VERDADE E CHEIA NO PAPEL. A única entrada apontava para
+# `scripts/v21_tm_colher.py`, e isso deixou de ser um endereço: o ficheiro foi
+# para a gaveta do que ele é (`motor/v21_tm_colher.py`) no commit `b8321b07`,
+# o mesmo que desmontou `scripts/`. É a MESMA doença que o comentário do
+# `PERMITIDOS` acima descreve, e a cura é a mesma.
+#
+# E a dívida em si também já não existe — medido, não presumido:
+# `motor/v21_tm_colher.py` tem ZERO caminhos pessoais de Windows, e lê o
+# `LOCALAPPDATA` do ambiente (`os.environ.get('LOCALAPPDATA')`, linha 59), que é
+# a forma CERTA. Não havia o que perdoar, e o perdão continuava escrito.
+#
+#     UMA DIVIDA PERDOADA NUM ENDERECO QUE NAO EXISTE NAO PROTEGE NADA:
+#     ELA SO ENSINA QUE A LISTA PODE ESTAR ERRADA.
+#
+# Fica vazia de propósito. Se o padrão voltar — ali ou em qualquer sítio — a
+# guarda passa a acusá-lo como achado NOVO, que é o que ele seria.
+DIVIDA_CONHECIDA = {}
 
 # Extensões que não vale a pena abrir procurando texto.
 BINARIOS = re.compile(r'(?i)\.(png|jpg|jpeg|gif|webp|pdf|zip|gz|woff2?|ttf|otf|ico|mp4|mp3)$')

@@ -37,9 +37,9 @@
     "REGISTOS": []
   },
   "OUTRAS_REPRESENTACOES": {
-    "FICHEIROS_JSON_VARRIDOS": 465,
-    "OBJECTOS_READY_ENCONTRADOS": 3,
-    "FORA_DA_SALA_CANONICA": 3,
+    "FICHEIROS_JSON_VARRIDOS": 629,
+    "OBJECTOS_READY_ENCONTRADOS": 9,
+    "FORA_DA_SALA_CANONICA": 9,
     "ONDE": [
       {
         "FICHEIRO": "data\\derivados\\A-COLLECTION-PRESERVA-O-FATO.json",
@@ -52,9 +52,33 @@
       {
         "FICHEIRO": "data\\derivados\\A-COLLECTION-PRESERVA-O-FATO.json",
         "ONDE": "/READY[2]"
+      },
+      {
+        "FICHEIRO": "research\\intelligence\\COORTE-DA-SALA-2026-09-14.json",
+        "ONDE": "/ITENS[0]"
+      },
+      {
+        "FICHEIRO": "research\\intelligence\\COORTE-DA-SALA-2026-09-14.json",
+        "ONDE": "/ITENS[1]"
+      },
+      {
+        "FICHEIRO": "research\\intelligence\\COORTE-DA-SALA-2026-09-14.json",
+        "ONDE": "/ITENS[2]"
+      },
+      {
+        "FICHEIRO": "research\\intelligence\\COORTE-DA-SALA-2026-09-14.json",
+        "ONDE": "/ITENS[3]"
+      },
+      {
+        "FICHEIRO": "research\\intelligence\\COORTE-DA-SALA-2026-09-14.json",
+        "ONDE": "/ITENS[4]"
+      },
+      {
+        "FICHEIRO": "research\\intelligence\\COORTE-DA-SALA-2026-09-14.json",
+        "ONDE": "/ITENS[5]"
       }
     ],
-    "REPRESENTACOES_DA_SALA": 2,
+    "REPRESENTACOES_DA_SALA": 3,
     "O_QUE_ISTO_PROVA": "se FORA_DA_SALA_CANONICA = 0, nao ha segunda representacao em ficheiro nesta arvore, e os totais da sala podem ser lidos como estao — sem risco de contar o mesmo item duas vezes."
   },
   "LIVE": {
@@ -230,7 +254,7 @@
     {
       "ATAQUE": "1 · mesmo item em duas representacoes contado duas vezes",
       "SOBREVIVEU": true,
-      "PORQUE": "varridos 465 ficheiros JSON/NDJSON da arvore: 3 objectos READY fora da sala canonica. Uma representacao so."
+      "PORQUE": "varridos 629 ficheiros JSON/NDJSON da arvore: 9 objectos READY fora da sala canonica. Uma representacao so."
     },
     {
       "ATAQUE": "2 · SHA igual tratado como mesma observacao",

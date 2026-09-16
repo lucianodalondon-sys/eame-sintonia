@@ -1,0 +1,1052 @@
+{
+ "SCHEMA": "sintonia.intelligence.data-demand-matrix/1",
+ "MISSAO": "C-INT-DATA-DEMAND-IT-01",
+ "ESPECIE": "ESTUDO MEDIDO — NAO IMPLEMENTA, NAO COLETA, NAO REDESENHA",
+ "ESCOPO": "ITALIA",
+ "FOTOGRAFIA": {
+  "REPO": "lucianodalondon-sys/eame-sintonia",
+  "BRANCH": "claude/intelligence-pilot-v1",
+  "HEAD": "0aacefd0a9fa7c14ce4d65e12798b32f454c9448",
+  "MEDIDO_EM": "2026-09-14",
+  "PACOTE": "V21-843baf4229d93598",
+  "REFERENCE_DATE_DO_PACOTE": "2026-09-02"
+ },
+ "NAO_CRIA": [
+  "NAO cria Biblia. A lei da Intelligence continua em BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md (CANONICAL V0.2).",
+  "NAO redefine requisitos. Eles vivem em AGRO-INTELLIGENCE-INPUT-REQUIREMENTS-V1.md.",
+  "NAO redefine cruzamentos. Eles vivem em AGRO-CROSSING-GRAPH-V1.md.",
+  "NAO redefine papeis. Eles vivem em AGRO-INTELLIGENCE-TOOL-ROLES-V1.md.",
+  "NAO redefine o produto. Ele vive em docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md.",
+  "Este ficheiro MEDE A ITALIA contra os cinco. E so isso."
+ ],
+ "SUBORDINADO_A": [
+  "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+  "research/intelligence/AGRO-INTELLIGENCE-INPUT-REQUIREMENTS-V1.md",
+  "research/intelligence/AGRO-CROSSING-GRAPH-V1.md",
+  "research/intelligence/AGRO-INTELLIGENCE-TOOL-ROLES-V1.md",
+  "research/intelligence/AGRO-IDENTITY-AND-ONTOLOGY-MAP-V1.md",
+  "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+  "docs/operacao/COLLECTION-P0-CHANGE-REQUEST.md"
+ ],
+ "INSTRUMENTO": "provas/demanda_de_dados_da_italia.py",
+ "VEREDITO": {
+  "INTELLIGENCE_DATA_DIRECTION": "PARTIAL",
+  "PORQUE": "a materia-prima existe em volume (7078 registos) e falha na chave. 6 dos 12 cruzamentos medidos sao NOT_POSSIBLE, e os 6 pelo mesmo campo ausente.",
+  "CRUZAMENTOS_POSSIVEIS": 3,
+  "CRUZAMENTOS_PARCIAIS": 3,
+  "CRUZAMENTOS_IMPOSSIVEIS": 6,
+  "CHAVE_QUE_MAIS_FALTA": "ISSUE_ID"
+ },
+ "FAMILIAS_MEDIDAS": {
+  "products.regulatory": {
+   "N": 163,
+   "CROP_IDS": 112,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 163,
+   "SOURCE_IDS": 163
+  },
+  "products.commercial": {
+   "N": 51,
+   "CROP_IDS": 32,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 51,
+   "SOURCE_IDS": 51
+  },
+  "products.relationships": {
+   "N": 2030,
+   "CROP_IDS": 1290,
+   "ISSUE_IDS": 753,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 2030,
+   "SOURCE_IDS": 2030
+  },
+  "activeIngredients": {
+   "N": 53,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 53,
+   "SOURCE_IDS": 53
+  },
+  "products.activeIngredients": {
+   "N": 203,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 203,
+   "SOURCE_IDS": 203
+  },
+  "regulatoryFutureFacts": {
+   "N": 47,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 47,
+   "SOURCE_IDS": 47
+  },
+  "windows": {
+   "N": 7,
+   "CROP_IDS": 7,
+   "ISSUE_IDS": 6,
+   "REGION_SUBNACIONAL": 7,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 7
+  },
+  "fieldSignals": {
+   "N": 122,
+   "CROP_IDS": 80,
+   "ISSUE_IDS": 58,
+   "REGION_SUBNACIONAL": 113,
+   "REFERENCE_DATE": 122,
+   "SOURCE_IDS": 122
+  },
+  "cropEconomicWeight": {
+   "N": 2978,
+   "CROP_IDS": 2971,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 2802,
+   "REFERENCE_DATE": 2976,
+   "SOURCE_IDS": 2978
+  },
+  "market": {
+   "N": 157,
+   "CROP_IDS": 64,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 12,
+   "REFERENCE_DATE": 80,
+   "SOURCE_IDS": 157
+  },
+  "competitors": {
+   "N": 577,
+   "CROP_IDS": 156,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 4,
+   "REFERENCE_DATE": 576,
+   "SOURCE_IDS": 577
+  },
+  "science": {
+   "N": 88,
+   "CROP_IDS": 87,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 88,
+   "SOURCE_IDS": 88
+  },
+  "researchers": {
+   "N": 60,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 60
+  },
+  "resistance": {
+   "N": 34,
+   "CROP_IDS": 22,
+   "ISSUE_IDS": 13,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 29,
+   "SOURCE_IDS": 34
+  },
+  "voices": {
+   "N": 79,
+   "CROP_IDS": 76,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 13,
+   "REFERENCE_DATE": 21,
+   "SOURCE_IDS": 79
+  },
+  "channels": {
+   "N": 62,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 62
+  },
+  "regulatoryFuture": {
+   "N": 28,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 28,
+   "SOURCE_IDS": 28
+  },
+  "agromet": {
+   "N": 44,
+   "CROP_IDS": 10,
+   "ISSUE_IDS": 5,
+   "REGION_SUBNACIONAL": 36,
+   "REFERENCE_DATE": 44,
+   "SOURCE_IDS": 44
+  },
+  "events": {
+   "N": 40,
+   "CROP_IDS": 7,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 30,
+   "REFERENCE_DATE": 40,
+   "SOURCE_IDS": 40
+  },
+  "futureEvents": {
+   "N": 14,
+   "CROP_IDS": 2,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 8,
+   "REFERENCE_DATE": 14,
+   "SOURCE_IDS": 14
+  },
+  "opportunities": {
+   "N": 3,
+   "CROP_IDS": 2,
+   "ISSUE_IDS": 1,
+   "REGION_SUBNACIONAL": 2,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 3
+  },
+  "futureSignals": {
+   "N": 3,
+   "CROP_IDS": 2,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 3
+  },
+  "sources": {
+   "N": 189,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 187
+  },
+  "news": {
+   "N": 8,
+   "CROP_IDS": 7,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 7,
+   "SOURCE_IDS": 8
+  },
+  "relationships": {
+   "N": 19,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 0
+  },
+  "crossings": {
+   "N": 19,
+   "CROP_IDS": 0,
+   "ISSUE_IDS": 0,
+   "REGION_SUBNACIONAL": 0,
+   "REFERENCE_DATE": 0,
+   "SOURCE_IDS": 0
+  }
+ },
+ "VOCABULARIO_DE_PROBLEMA": {
+  "ISSUE_IDS_DISTINTOS": 24,
+  "NOMES_CITADOS_EM_TEXTO_LIVRE": 172,
+  "POR_NORMALIZAR": 172,
+  "NOTA": "o nome citado ja esta no material recolhido. Falta identidade, nao falta fonte."
+ },
+ "CRUZAMENTOS": [
+  {
+   "CROSSING_ID": "X-FIELD-x-SCIENCE",
+   "PERGUNTA": "o que a ciencia diz sobre o problema que o campo esta a ver, aqui?",
+   "A": "fieldSignals",
+   "B": "science",
+   "N_A": 122,
+   "N_B": 88,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 3,
+    "ISSUE_IDS": 0
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "fieldSignals": 0,
+    "science": 0
+   },
+   "CROSSING_STATE": "NOT_POSSIBLE",
+   "BLOQUEIO": [
+    "ISSUE_IDS ausente em science"
+   ]
+  },
+  {
+   "CROSSING_ID": "X-FIELD-x-CLIMA",
+   "PERGUNTA": "as condicoes favoreceram o problema que o boletim reportou?",
+   "A": "fieldSignals",
+   "B": "agromet",
+   "N_A": 122,
+   "N_B": 44,
+   "CHAVES": [
+    "REGION_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "REGION_IDS": 10,
+    "ISSUE_IDS": 0
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "fieldSignals": 0,
+    "agromet": 0
+   },
+   "CROSSING_STATE": "NOT_POSSIBLE",
+   "BLOQUEIO": [
+    "as duas pontas nao partilham um unico valor em ISSUE_IDS"
+   ]
+  },
+  {
+   "CROSSING_ID": "X-FIELD-x-JANELA",
+   "PERGUNTA": "o que o campo reporta cai dentro de alguma janela de aplicacao?",
+   "A": "fieldSignals",
+   "B": "windows",
+   "N_A": 122,
+   "N_B": 7,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS",
+    "REGION_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 2,
+    "ISSUE_IDS": 2,
+    "REGION_IDS": 4
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "fieldSignals": 1,
+    "windows": 5
+   },
+   "CROSSING_STATE": "PARTIAL",
+   "BLOQUEIO": []
+  },
+  {
+   "CROSSING_ID": "X-JANELA-x-PORTFOLIO",
+   "PERGUNTA": "a ADAMA tem uso registado para a janela que esta aberta?",
+   "A": "windows",
+   "B": "products.relationships",
+   "N_A": 7,
+   "N_B": 2030,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 2,
+    "ISSUE_IDS": 1
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "windows": 5,
+    "products.relationships": 6
+   },
+   "CROSSING_STATE": "PARTIAL",
+   "BLOQUEIO": []
+  },
+  {
+   "CROSSING_ID": "X-FIELD-x-PORTFOLIO",
+   "PERGUNTA": "a ADAMA tem resposta registada para o que o campo esta a ver?",
+   "A": "fieldSignals",
+   "B": "products.relationships",
+   "N_A": 122,
+   "N_B": 2030,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 15,
+    "ISSUE_IDS": 9
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "fieldSignals": 27,
+    "products.relationships": 116
+   },
+   "CROSSING_STATE": "POSSIBLE",
+   "BLOQUEIO": []
+  },
+  {
+   "CROSSING_ID": "X-CONCORRENCIA-x-PORTFOLIO",
+   "PERGUNTA": "quem mais tem resposta registada para este par cultura x alvo?",
+   "A": "competitors",
+   "B": "products.relationships",
+   "N_A": 577,
+   "N_B": 2030,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 9,
+    "ISSUE_IDS": 0
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "competitors": 0,
+    "products.relationships": 0
+   },
+   "CROSSING_STATE": "NOT_POSSIBLE",
+   "BLOQUEIO": [
+    "ISSUE_IDS ausente em competitors"
+   ]
+  },
+  {
+   "CROSSING_ID": "X-CONCORRENCIA-x-CAMPO",
+   "PERGUNTA": "a comunicacao do concorrente coincide com o que o campo reporta?",
+   "A": "competitors",
+   "B": "fieldSignals",
+   "N_A": 577,
+   "N_B": 122,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS",
+    "REGION_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 8,
+    "ISSUE_IDS": 0,
+    "REGION_IDS": 6
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "competitors": 0,
+    "fieldSignals": 0
+   },
+   "CROSSING_STATE": "NOT_POSSIBLE",
+   "BLOQUEIO": [
+    "ISSUE_IDS ausente em competitors"
+   ]
+  },
+  {
+   "CROSSING_ID": "X-MERCADO-x-CULTURA",
+   "PERGUNTA": "o preco desta cultura mudou onde o problema esta a acontecer?",
+   "A": "market",
+   "B": "fieldSignals",
+   "N_A": 157,
+   "N_B": 122,
+   "CHAVES": [
+    "CROP_IDS",
+    "REGION_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 8,
+    "REGION_IDS": 6
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "market": 5,
+    "fieldSignals": 29
+   },
+   "CROSSING_STATE": "PARTIAL",
+   "BLOQUEIO": []
+  },
+  {
+   "CROSSING_ID": "X-REGULATORIO-x-PORTFOLIO",
+   "PERGUNTA": "que produtos ADAMA sao atingidos por uma decisao de substancia?",
+   "A": "regulatoryFutureFacts",
+   "B": "products.activeIngredients",
+   "N_A": 47,
+   "N_B": 203,
+   "CHAVES": [
+    "ACTIVE_INGREDIENT_ID"
+   ],
+   "INTERSECCAO": {
+    "ACTIVE_INGREDIENT_ID": 47
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "regulatoryFutureFacts": 47,
+    "products.activeIngredients": 183
+   },
+   "CROSSING_STATE": "POSSIBLE",
+   "BLOQUEIO": []
+  },
+  {
+   "CROSSING_ID": "X-VOZ-x-CAMPO",
+   "PERGUNTA": "a voz publica confirma o que o boletim oficial reportou?",
+   "A": "voices",
+   "B": "fieldSignals",
+   "N_A": 79,
+   "N_B": 122,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS",
+    "REGION_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 9,
+    "ISSUE_IDS": 0,
+    "REGION_IDS": 6
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "voices": 0,
+    "fieldSignals": 0
+   },
+   "CROSSING_STATE": "NOT_POSSIBLE",
+   "BLOQUEIO": [
+    "ISSUE_IDS ausente em voices"
+   ]
+  },
+  {
+   "CROSSING_ID": "X-CIENCIA-x-PORTFOLIO",
+   "PERGUNTA": "ha trabalho publicado sobre o alvo que a ADAMA cobre?",
+   "A": "science",
+   "B": "products.relationships",
+   "N_A": 88,
+   "N_B": 2030,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 2,
+    "ISSUE_IDS": 0
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "science": 0,
+    "products.relationships": 0
+   },
+   "CROSSING_STATE": "NOT_POSSIBLE",
+   "BLOQUEIO": [
+    "ISSUE_IDS ausente em science"
+   ]
+  },
+  {
+   "CROSSING_ID": "X-RESISTENCIA-x-PORTFOLIO",
+   "PERGUNTA": "a resistencia confirmada toca alguma substancia do portfolio?",
+   "A": "resistance",
+   "B": "products.relationships",
+   "N_A": 34,
+   "N_B": 2030,
+   "CHAVES": [
+    "CROP_IDS",
+    "ISSUE_IDS"
+   ],
+   "INTERSECCAO": {
+    "CROP_IDS": 4,
+    "ISSUE_IDS": 3
+   },
+   "LINHAS_QUE_ATRAVESSAM": {
+    "resistance": 11,
+    "products.relationships": 15
+   },
+   "CROSSING_STATE": "POSSIBLE",
+   "BLOQUEIO": []
+  }
+ ],
+ "SUPERFICIES": [
+  {
+   "TOOL": "OPPORTUNITY RADAR",
+   "VIEWS_MEDIDAS": [
+    "radar",
+    "meeting",
+    "case"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "PRIMARY_TOOL",
+   "PAPEL_NA_CASA": "ANALYTIC PRODUCT — o unico card que PROMOVE (AGRO-INTELLIGENCE-TOOL-ROLES-V1)",
+   "BUSINESS_QUESTION": "ha convergencia que merece investigacao neste par cultura x problema x regiao, e ainda ha tempo de agir?",
+   "ROTULO_OBRIGATORIO": "CONVERGENCIA QUE MERECE INVESTIGACAO — nunca «oportunidade»",
+   "ANALYTIC_OUTPUT_REQUIRED": "OPPORTUNITY (nivel A ou B) derivada de FINDING validado",
+   "ESTADOS_VALIDOS": [
+    "MATCH",
+    "CROP_ONLY",
+    "NOT_FOUND",
+    "UNKNOWN",
+    "MATERIAL_EXISTENTE_NAO_UTILIZAVEL"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "nivel C (comercial) ou D (venda)",
+    "procura",
+    "quota",
+    "previsao de receita",
+    "disponibilidade comercial",
+    "escrever o proprio nivel: a promocao e do portao G6"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-FIELD-x-PORTFOLIO",
+    "X-FIELD-x-JANELA",
+    "X-JANELA-x-PORTFOLIO",
+    "X-FIELD-x-SCIENCE",
+    "X-CONCORRENCIA-x-PORTFOLIO",
+    "X-MERCADO-x-CULTURA"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "FIELD OBSERVATIONS",
+    "CROPS",
+    "PESTS/DISEASES",
+    "AGRONOMIC WINDOWS",
+    "ADAMA PORTFOLIO",
+    "LABELS",
+    "REGULATORY",
+    "SCIENCE",
+    "COMPETITOR",
+    "MARKET",
+    "FACT TIME",
+    "GEOGRAPHY"
+   ],
+   "O_QUE_EXISTE": "3 OPPORTUNITIES, todas CLIENT_SAFE=0; 122 fieldSignals (40 com cultura+problema+regiao+data); 2030 relacoes de rotulo",
+   "O_QUE_FALTA": "4 dos 6 cruzamentos. O card nao consegue dizer o que a ciencia, a concorrencia ou o clima dizem do mesmo problema",
+   "GAP_PRINCIPAL": "GAP-IT-001",
+   "PRIORITY": "P0"
+  },
+  {
+   "TOOL": "PORTFOLIO",
+   "VIEWS_MEDIDAS": [
+    "portfolio",
+    "product",
+    "cproduct"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "SUPPORTING_INTELLIGENCE",
+   "PAPEL_NA_CASA": "TRUTH LAYER, e so para o portfolio REGISTADO",
+   "BUSINESS_QUESTION": "que usos a ADAMA tem autorizados em Italia, para que cultura e que alvo, e ate quando?",
+   "ANALYTIC_OUTPUT_REQUIRED": "LABEL_FACT e REGULATORY_FACT — factos de autoridade, nao achados",
+   "ESTADOS_VALIDOS": [
+    "VERIFIED",
+    "NOT_FOUND",
+    "LABEL_CHECK_NEEDED"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "catalogo de vendas",
+    "disponibilidade comercial",
+    "quota",
+    "par cultura x alvo que o rotulo lista sem ligar"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-REGULATORIO-x-PORTFOLIO",
+    "X-JANELA-x-PORTFOLIO",
+    "X-RESISTENCIA-x-PORTFOLIO"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "ADAMA PORTFOLIO",
+    "LABELS",
+    "ACTIVE INGREDIENT / MOA",
+    "REGISTRATION / EXPIRY",
+    "CROPS",
+    "PESTS/DISEASES",
+    "REGULATORY"
+   ],
+   "O_QUE_EXISTE": "163 registos com titular ADAMA, 100% com expiry, 100% com rotulo; 53 substancias; 203 pares produto-substancia; 2030 relacoes de rotulo",
+   "O_QUE_FALTA": "ISSUE_IDS em 0% dos produtos; 144 de 163 produtos sem uma unica linha de uso lida; dose em 35 de 219; epoca em 0 de 219",
+   "GAP_PRINCIPAL": "GAP-IT-003",
+   "PRIORITY": "P0"
+  },
+  {
+   "TOOL": "FUTURE RADAR",
+   "VIEWS_MEDIDAS": [
+    "future",
+    "signal"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "SUPPORTING_INTELLIGENCE",
+   "PAPEL_NA_CASA": "SENSOR; ANALYTIC PRODUCT so depois de existir rastreio",
+   "BUSINESS_QUESTION": "o que ainda nao e acionavel, e quando volta a mesa?",
+   "ANALYTIC_OUTPUT_REQUIRED": "FUTURE_SIGNAL, que e PROJECCAO de um FINDING em watch — nunca achado novo",
+   "ESTADOS_VALIDOS": [
+    "(herda o estado do FINDING) — nao tem vocabulario proprio"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "previsao",
+    "STATUS proprio",
+    "FUTURE_SIGNAL sem FINDING por tras",
+    "FUTURE_DATE como oportunidade"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-REGULATORIO-x-PORTFOLIO",
+    "X-MERCADO-x-CULTURA"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "REGISTRATION / EXPIRY",
+    "REGULATORY",
+    "SCIENCE",
+    "EVENTS",
+    "FACT TIME"
+   ],
+   "O_QUE_EXISTE": "3 FUTURE_SIGNALS (1 client_safe); 47 regulatoryFutureFacts com substancia e data oficial; 28 regulatoryFuture",
+   "O_QUE_FALTA": "separar as duas especies que hoje partilham o card: FACTO PRESENTE SOBRE O FUTURO (caducidade) e SINAL FRACO. Medido em producao: 7 valores de status que a montante nunca existiram, e 3/3 registos reais com status nulo",
+   "GAP_PRINCIPAL": "GAP-IT-008",
+   "PRIORITY": "P1"
+  },
+  {
+   "TOOL": "LABEL INTELLIGENCE",
+   "VIEWS_MEDIDAS": [],
+   "CURRENT_PORTAL_SURFACE": "NO",
+   "CANONICAL_PRODUCT_ROLE": "SUPPORTING_INTELLIGENCE",
+   "PAPEL_NA_CASA": "nao e card. Existe o MATERIAL, nao existe a ferramenta (medido: 0 ocorrencias de view 'label' em portale.html)",
+   "BUSINESS_QUESTION": "que usos estao autorizados neste rotulo, para quem, com que dose e em que epoca — e como isso se compara com o do concorrente?",
+   "ANALYTIC_OUTPUT_REQUIRED": "LABEL_FACT — o par cultura x alvo COM a ligacao que o rotulo escreveu",
+   "ESTADOS_VALIDOS": [
+    "LINHA_DA_TABELA",
+    "BLOCO_DA_CULTURA",
+    "DECLARACAO_DE_PRODUTO"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "inferir o par cultura x alvo quando o rotulo os lista sem os ligar",
+    "ler registo como mercado",
+    "comparar rotulo sem versao e data"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-JANELA-x-PORTFOLIO",
+    "X-CONCORRENCIA-x-PORTFOLIO"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "LABELS",
+    "ADAMA PORTFOLIO",
+    "COMPETITOR LABELS",
+    "ACTIVE INGREDIENT / MOA",
+    "CROPS",
+    "PESTS/DISEASES",
+    "AGRONOMIC WINDOWS"
+   ],
+   "O_QUE_EXISTE": "2030 relacoes de rotulo ADAMA com forca de ligacao declarada e citacao do rotulo",
+   "O_QUE_FALTA": "ZERO rotulos de concorrente. Sem a outra metade nao ha comparacao — so inventario proprio",
+   "GAP_PRINCIPAL": "GAP-IT-004",
+   "PRIORITY": "P0"
+  },
+  {
+   "TOOL": "CROP WINDOWS",
+   "VIEWS_MEDIDAS": [
+    "windows",
+    "window"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "SUPPORTING_INTELLIGENCE",
+   "PAPEL_NA_CASA": "CONTEXT LAYER; candidato a TRUTH LAYER e ainda nao merecido",
+   "BUSINESS_QUESTION": "ainda ha tempo de fazer alguma coisa neste par cultura x problema, nesta regiao?",
+   "ANALYTIC_OUTPUT_REQUIRED": "janela composta = fenologia INTERSECAO infeccao INTERSECAO rotulo INTERSECAO preparacao",
+   "ESTADOS_VALIDOS": [
+    "WINDOW_OPEN",
+    "WINDOW_CLOSED",
+    "NEXT_CYCLE",
+    "DATE_UNKNOWN"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "ACT NOW a partir de norma agronomica",
+    "tratar janela esperada como observacao de campo",
+    "computar START_DATE ou END_DATE na camada de apresentacao"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-FIELD-x-JANELA",
+    "X-JANELA-x-PORTFOLIO",
+    "X-FIELD-x-CLIMA"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "AGRONOMIC WINDOWS",
+    "CROPS",
+    "PESTS/DISEASES",
+    "WEATHER / CLIMATE",
+    "FIELD OBSERVATIONS",
+    "LABELS",
+    "REGULATORY",
+    "GEOGRAPHY",
+    "FACT TIME"
+   ],
+   "O_QUE_EXISTE": "7 janelas no pacote V2.1 e 29 janelas canonicas; 44 registos agromet, 36 com regiao real",
+   "O_QUE_FALTA": "fenologia observada. Das 29 janelas canonicas: CROP_STAGE_SOURCE nulo 29/29, SOURCE_IDS vazio 29/29, PRODUCT_MATCHES vazio 29/29, e nenhuma com calendario confirmado por fonte da safra corrente. Epoca de aplicacao do rotulo: 0 de 219",
+   "GAP_PRINCIPAL": "GAP-IT-002",
+   "PRIORITY": "P0"
+  },
+  {
+   "TOOL": "MARKET PULSE",
+   "VIEWS_MEDIDAS": [
+    "market"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "EVIDENCE_CONTEXT",
+   "PAPEL_NA_CASA": "CONTEXT LAYER. Nao e ANALYTIC PRODUCT: um painel macro nao vira intelligence por estar num card",
+   "BUSINESS_QUESTION": "o contexto economico desta cultura mudou o suficiente para alterar a prioridade de olhar para ela?",
+   "ANALYTIC_OUTPUT_REQUIRED": "MARKET FINDING so com CHANGE + MATERIALITY + CONTEXT + DECISION_AFFECTED + ATTRIBUTION_LIMIT",
+   "ESTADOS_VALIDOS": [
+    "CORRENTE",
+    "PARADA_EM_<ano>"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "ler preco como volume, procura, quota ou disponibilidade",
+    "ler preco de uma praca como preco nacional",
+    "atribuir a variacao a uma causa"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-MERCADO-x-CULTURA"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "MARKET / PRICES",
+    "CROPS",
+    "GEOGRAPHY",
+    "FACT TIME",
+    "IMPORT / EXPORT / COMEX"
+   ],
+   "O_QUE_EXISTE": "157 observacoes de mercado, 80 com data; 2978 linhas de peso economico por cultura e regiao",
+   "O_QUE_FALTA": "so ha PRECO, e de dois grupos (cereal e azeite). Zero volume, zero comercio, zero disponibilidade, zero quota. 12 das 77 series de ITALY_INGEST estao paradas e mantem o ultimo valor",
+   "GAP_PRINCIPAL": "GAP-IT-009",
+   "PRIORITY": "P2"
+  },
+  {
+   "TOOL": "FIELD VOICES",
+   "VIEWS_MEDIDAS": [
+    "voices"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "EVIDENCE_CONTEXT",
+   "PAPEL_NA_CASA": "SENSOR, com tecto declarado: voz de campo e NIVEL 1 da regua de doenca e nunca mais",
+   "BUSINESS_QUESTION": "ha gente no campo a falar deste problema, nesta cultura, neste lugar, agora?",
+   "ANALYTIC_OUTPUT_REQUIRED": "OBSERVED_FIELD_SIGNAL, e so quando a fonte declara observacao de campo",
+   "ESTADOS_VALIDOS": [
+    "FIRST_PERSON_FIELD_REPORT",
+    "TECHNICAL_REPLY"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "incidencia",
+    "prevalencia",
+    "eficacia ou falha de produto",
+    "representatividade regional",
+    "contar quatro pessoas de um artigo como quatro fontes"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-VOZ-x-CAMPO"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "SOCIAL / PUBLIC VOICES",
+    "TECHNICIANS / PRODUCERS",
+    "CROPS",
+    "PESTS/DISEASES",
+    "GEOGRAPHY",
+    "FACT TIME"
+   ],
+   "O_QUE_EXISTE": "79 vozes no pacote V2.1; 17 no ITALY_INGEST, todas com o que provam e o que nao provam escrito",
+   "O_QUE_FALTA": "quem, onde e quando. Nas 17 do ITALY_INGEST: DATE 'NAO SEI' 17/17, REGION 'NAO SEI' 17/17, identidade NAO_ATRIBUIVEL 17/17. No V2.1: ISSUE_IDS 0%, regiao real 13 de 79, data 21 de 79",
+   "GAP_PRINCIPAL": "GAP-IT-005",
+   "PRIORITY": "P1"
+  },
+  {
+   "TOOL": "COMPETITOR WATCH",
+   "VIEWS_MEDIDAS": [
+    "competitors",
+    "company"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "SUPPORTING_INTELLIGENCE",
+   "PAPEL_NA_CASA": "SAO DOIS DOMINIOS COM UM NOME: EVIDENCE SOURCE na camada de registo, SENSOR na camada de comunicacao. As duas nunca partilham contagem",
+   "BUSINESS_QUESTION": "quem mais tem resposta REGISTADA para este par, e quem esta a comunicar sobre ele?",
+   "ANALYTIC_OUTPUT_REQUIRED": "duas especies separadas: REGULATORY_FACT e COMPANY_CLAIM",
+   "ESTADOS_VALIDOS": [
+    "COMPETITOR_REGISTERED_RESPONSE",
+    "COMPETITOR_PAID_META_ACTIVITY",
+    "COMPETITOR_PUBLIC_COMMUNICATION",
+    "COMPETITOR_TECHNICAL_ACTIVITY",
+    "NOT_KNOWN"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "somar as quatro observacoes num indicador",
+    "ler anuncio como procura, venda ou quota",
+    "dizer que um concorrente esta silencioso",
+    "ler AD_REACHED_COUNTRY como AD_TARGETED_COUNTRY"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-CONCORRENCIA-x-PORTFOLIO",
+    "X-CONCORRENCIA-x-CAMPO"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "COMPETITOR REGISTRATIONS",
+    "COMPETITOR LABELS",
+    "COMPETITOR COMMUNICATION",
+    "COMPETITOR TECHNICAL ACTIVITY",
+    "EVENTS",
+    "CROPS",
+    "PESTS/DISEASES",
+    "GEOGRAPHY",
+    "FACT TIME"
+   ],
+   "O_QUE_EXISTE": "577 actividades de concorrencia — TODAS da camada de comunicacao. 414 anuncios pagos, 89 videos",
+   "O_QUE_FALTA": "a camada de REGISTO inteira. Zero registos de concorrente em Italia. E das 577: ISSUE_IDS 0%, cultura 27%, regiao real 4. Duas das quatro fontes de concorrente estao BLOCKED (403)",
+   "GAP_PRINCIPAL": "GAP-IT-006",
+   "PRIORITY": "P0"
+  },
+  {
+   "TOOL": "SCIENTIFIC INTELLIGENCE",
+   "VIEWS_MEDIDAS": [
+    "science",
+    "theme",
+    "person"
+   ],
+   "CURRENT_PORTAL_SURFACE": "YES",
+   "CANONICAL_PRODUCT_ROLE": "SUPPORTING_INTELLIGENCE",
+   "PAPEL_NA_CASA": "EVIDENCE SOURCE; VALIDATION WORKSPACE e candidato — e onde a independencia se mede",
+   "BUSINESS_QUESTION": "que trabalho publicado sustenta ou contradiz esta hipotese, e quantas origens REALMENTE independentes existem?",
+   "ANALYTIC_OUTPUT_REQUIRED": "SCIENCE_SIGNAL com identidade de publicacao, e a aresta SAME_ORIGIN",
+   "ESTADOS_VALIDOS": [
+    "DISEASE_PEST_MONITORING",
+    "METHOD_MECHANISM",
+    "NEW_SCIENTIFIC_EVIDENCE",
+    "MANAGEMENT_GUIDANCE",
+    "REVIEW_SYNTHESIS",
+    "EXPERIMENT_RESULT"
+   ],
+   "NAO_PODE_DECIDIR": [
+    "contar tres papers do mesmo ensaio como tres origens",
+    "apresentar conclusao de paper como facto de campo em Italia",
+    "ler afiliacao do autor como local do estudo"
+   ],
+   "CROSSINGS_NECESSARIOS": [
+    "X-FIELD-x-SCIENCE",
+    "X-CIENCIA-x-PORTFOLIO"
+   ],
+   "FAMILIAS_NECESSARIAS": [
+    "SCIENCE / PAPERS",
+    "RESEARCHERS / INSTITUTIONS",
+    "CROPS",
+    "PESTS/DISEASES",
+    "ACTIVE INGREDIENT / MOA",
+    "GEOGRAPHY",
+    "FACT TIME"
+   ],
+   "O_QUE_EXISTE": "88 publicacoes, 86 com DOI, 60 investigadores com ORCID, 5 temas, 34 casos de resistencia",
+   "O_QUE_FALTA": "ISSUE_IDS 0 de 88 e REGION_IDS 0 de 88. E nao ha trial_id nem dataset_id: sem eles a aresta SAME_ORIGIN nao se instancia e a contagem de independencia fica proibida. O corpus concentra-se em 2 pares: vinha x flavescencia (45) e trigo duro x fusarium (40)",
+   "GAP_PRINCIPAL": "GAP-IT-007",
+   "PRIORITY": "P1"
+  }
+ ],
+ "COLLECTION_GAPS": [
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-001",
+   "TOOL_AFFECTED": "OPPORTUNITY RADAR · CROP WINDOWS · COMPETITOR WATCH · SCIENTIFIC INTELLIGENCE · FIELD VOICES",
+   "QUESTION_BLOCKED": "qualquer pergunta que una duas camadas pelo PROBLEMA",
+   "MISSING_DATA_FAMILY": "PESTS / DISEASES / WEEDS — a identidade, nao o texto",
+   "MISSING_FIELDS": "ISSUE_ID normalizado (codigo EPPO) em science, competitors, voices, market, news, agromet",
+   "MISSING_GEOGRAPHY": "nenhuma — este e um buraco de identidade, nao de cobertura",
+   "MISSING_TIME": "nenhuma",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "o nome do problema JA ESTA no material: 172 nomes distintos de praga e doenca citados em texto livre nos boletins, contra 24 ISSUE_IDs normalizados em todo o pacote. 6 dos 12 cruzamentos medidos sao NOT_POSSIBLE e os 6 pelo mesmo motivo",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "NENHUMA. Isto NAO se resolve com fonte nova (INT-LAW-152): pede-se REPROCESSAMENTO do material preservado mais um registo de vocabulario com autoridade externa (EPPO Global Database, ja registada como EU-T3-001 e ainda NAO SEI)",
+   "PRIORITY": "P0",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "PARCIALMENTE — o texto ja esta guardado; o que falta e a regra de normalizacao e o seu versionamento",
+   "UNKNOWN_REASON": ""
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-002",
+   "TOOL_AFFECTED": "CROP WINDOWS · OPPORTUNITY RADAR",
+   "QUESTION_BLOCKED": "ainda ha tempo de agir?",
+   "MISSING_DATA_FAMILY": "AGRONOMIC WINDOWS — fenologia observada e epoca de aplicacao do rotulo",
+   "MISSING_FIELDS": "BBCH observado com data e local; coluna de EPOCA do rotulo; START/END da janela com fonte da safra corrente",
+   "MISSING_GEOGRAPHY": "regiao ou provincia, na escada administrativa, sem promover SOURCE_LOCATION",
+   "MISSING_TIME": "FACT_TIME da observacao fenologica — nao PUBLICATION_TIME do boletim",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "das 29 janelas canonicas, CROP_STAGE_SOURCE e nulo em 29/29 e nenhuma tem calendario confirmado por fonte da safra corrente — o proprio ficheiro o declara. Das 219 linhas de uso de rotulo, a epoca e 'NAO SEI' em 219/219",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "boletins fitossanitarios regionais que ja declaram fase fenologica (5 contratos italianos T3 ja existem e ja a trazem em texto) + extracao da coluna de epoca dos 163 rotulos ja guardados",
+   "PRIORITY": "P0",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "SIM para a fenologia (rota provada em 5 fontes T3); SIM para a epoca do rotulo por reprocessamento",
+   "UNKNOWN_REASON": ""
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-003",
+   "TOOL_AFFECTED": "PORTFOLIO · LABEL INTELLIGENCE · OPPORTUNITY RADAR",
+   "QUESTION_BLOCKED": "a ADAMA tem resposta registada para este par cultura x alvo?",
+   "MISSING_DATA_FAMILY": "LABELS — a linha de uso, produto a produto",
+   "MISSING_FIELDS": "par cultura x alvo LIGADO pelo documento; dose; numero maximo de aplicacoes; intervalo; epoca",
+   "MISSING_GEOGRAPHY": "nenhuma (o registo e nacional)",
+   "MISSING_TIME": "versao e data do rotulo na chave",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "144 de 163 produtos nao tem uma unica linha de uso lida. Das 219 que existem, dose em 35, intervalo em 15, maximo de aplicacoes em 0, epoca em 0. Para a vinha, 61 produtos citam a cultura e 1 tem linha de uso lida",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "os proprios rotulos oficiais, que JA estao guardados com URL em 163/163 — e a fonte ja tem contrato (IT-T4-001, GREEN, P0)",
+   "PRIORITY": "P0",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "SIM — e sobretudo reprocessamento, nao aquisicao",
+   "UNKNOWN_REASON": ""
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-004",
+   "TOOL_AFFECTED": "LABEL INTELLIGENCE · COMPETITOR WATCH",
+   "QUESTION_BLOCKED": "como o uso autorizado da ADAMA se compara com o do concorrente?",
+   "MISSING_DATA_FAMILY": "COMPETITOR LABELS + COMPETITOR REGISTRATIONS",
+   "MISSING_FIELDS": "registo do concorrente: numero, titular, substancia, cultura, alvo, dose, validade",
+   "MISSING_GEOGRAPHY": "Italia (nacional)",
+   "MISSING_TIME": "VALID_FROM e VALID_TO",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "ZERO registos de concorrente em Italia. Tudo o que existe de concorrencia (577) e comunicacao. Comparar sem a outra metade e inventario proprio disfarcado de comparacao",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "a MESMA fonte que ja da o portfolio ADAMA — Banca dati del Ministero della Salute (IT-T4-001), lida sem o filtro de titular",
+   "PRIORITY": "P0",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "SIM — a rota ja e GREEN e ja esta contratada; o que falta e o recorte",
+   "UNKNOWN_REASON": ""
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-005",
+   "TOOL_AFFECTED": "FIELD VOICES · OPPORTUNITY RADAR",
+   "QUESTION_BLOCKED": "ha gente no campo a falar deste problema, aqui, agora?",
+   "MISSING_DATA_FAMILY": "FIELD OBSERVATIONS / SOCIAL / PUBLIC VOICES",
+   "MISSING_FIELDS": "FACT_TIME absoluto (nao 'ha 1 ano'), FACT_LOCATION, papel declarado de quem fala, ISSUE_ID",
+   "MISSING_GEOGRAPHY": "regiao ou provincia do FACTO — hoje ha a do canal, que nao promove",
+   "MISSING_TIME": "a rota devolve tempo RELATIVO; converter inventaria precisao",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "nas 17 vozes do ITALY_INGEST: data 'NAO SEI' 17/17, regiao 'NAO SEI' 17/17, identidade NAO_ATRIBUIVEL 17/17, papel 'NAO SEI' 17/17. Uma voz sem quando e sem onde nao cruza com nada",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "fontes onde a voz vem com data absoluta e lugar declarado: associacoes de produtores, cooperativas, consorcios de tutela, servicos de assistencia tecnica regional. NAO mais plataformas sociais",
+   "PRIORITY": "P1",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "NAO SEI — o estado medido da frente e NOT REACHED, nao KILL; Reddit 403, YouTube search RSS 400, e Apify nunca foi testado",
+   "UNKNOWN_REASON": "falta testar as rotas antes de decidir se a familia e alcancavel"
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-006",
+   "TOOL_AFFECTED": "COMPETITOR WATCH · OPPORTUNITY RADAR",
+   "QUESTION_BLOCKED": "a comunicacao do concorrente coincide com o que o campo reporta?",
+   "MISSING_DATA_FAMILY": "COMPETITOR COMMUNICATION — o assunto, nao o anuncio",
+   "MISSING_FIELDS": "ISSUE_ID e CROP_ID extraidos do criativo; regiao alvo declarada",
+   "MISSING_GEOGRAPHY": "regiao — hoje 573 das 577 dizem apenas GEO_ITALY",
+   "MISSING_TIME": "ja existe (576 de 577 com data)",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "577 registos e ISSUE_IDS em 0%. O texto do criativo existe em 68% e nunca foi classificado. E a semantica da propria fonte diz AD_REACHED_COUNTRY != AD_TARGETED_COUNTRY em 414 de 414 anuncios pagos",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "reprocessamento do criativo ja guardado; e, para atividade tecnica, sitios tecnicos das empresas — sabendo que 2 dos 4 estao BLOCKED com 403 e que 403 nao e ausencia de comunicacao",
+   "PRIORITY": "P1",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "PARCIALMENTE — o texto ja esta guardado; a rota para 2 dos majors esta bloqueada",
+   "UNKNOWN_REASON": ""
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-007",
+   "TOOL_AFFECTED": "SCIENTIFIC INTELLIGENCE · OPPORTUNITY RADAR · FUTURE RADAR",
+   "QUESTION_BLOCKED": "quantas origens REALMENTE independentes sustentam esta hipotese?",
+   "MISSING_DATA_FAMILY": "SCIENCE / PAPERS — a identidade do ensaio, nao a do artigo",
+   "MISSING_FIELDS": "trial_id, dataset_id, ISSUE_ID, regiao do ESTUDO (nao a afiliacao do autor)",
+   "MISSING_GEOGRAPHY": "REGION_IDS em 0 de 88; o unico geografico e COUNTRY_OF_FACT = IT",
+   "MISSING_TIME": "FACT_TIME do ensaio — hoje so ha PUBLISHED_AT",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "sem trial_id a aresta SAME_ORIGIN nao se instancia, e sem ela tres artigos de um ensaio contam como tres. A convergencia passa a ser aritmetica de duplicados. Alem disso o corpus tem 88 registos concentrados em 2 pares cultura x problema",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "registos de ensaio (EU CTR agricola quando aplicavel), repositorios institucionais que publicam o dataset, e a leitura da seccao de metodos — nao mais indices bibliograficos",
+   "PRIORITY": "P1",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "NAO SEI — nunca foi medido se as publicacoes italianas declaram trial_id",
+   "UNKNOWN_REASON": "nunca foi tentada a extracao de identidade de ensaio"
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-008",
+   "TOOL_AFFECTED": "FUTURE RADAR",
+   "QUESTION_BLOCKED": "o que ainda nao e acionavel, e quando volta a mesa?",
+   "MISSING_DATA_FAMILY": "a separacao entre FACTO PRESENTE SOBRE O FUTURO e SINAL FRACO",
+   "MISSING_FIELDS": "horizonte declarado, gatilho, indicadores de reforco e de enfraquecimento, incerteza",
+   "MISSING_GEOGRAPHY": "REGION_IDS em 0 de 3",
+   "MISSING_TIME": "REFERENCE_DATE em 0 de 3",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "3 sinais de futuro, nenhum com data nem regiao, e o card inventou 7 valores de status que a montante nunca existiram. Uma caducidade de registo e um facto datado do regulador; um sinal fraco e outra especie. Misturados, nao se pode medir nem um nem outro",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "os 47 regulatoryFutureFacts ja sustentam a primeira especie. A segunda precisa de um rastreio, nao de uma fonte",
+   "PRIORITY": "P1",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "SIM para a primeira especie; a segunda nao e problema de coleta",
+   "UNKNOWN_REASON": ""
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-009",
+   "TOOL_AFFECTED": "MARKET PULSE",
+   "QUESTION_BLOCKED": "o contexto economico mudou o suficiente para alterar a prioridade?",
+   "MISSING_DATA_FAMILY": "MARKET — tudo o que nao e preco",
+   "MISSING_FIELDS": "volume, comercio, disponibilidade; e, para o preco que existe, o STAGE (nulo em 37 de 77)",
+   "MISSING_GEOGRAPHY": "regiao real em 12 de 157",
+   "MISSING_TIME": "REFERENCE_DATE em 80 de 157",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "so ha preco, e de dois grupos: cereal e azeite. Nao ha uma unica observacao de mercado de defensivo. E 12 das 77 series do ITALY_INGEST estao paradas — algumas desde 2010 — e mantem o ultimo valor, parecendo correntes",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "series de comercio (ISTAT/Eurostat ja registadas) para volume; para mercado de defensivo NAO existe fonte publica conhecida, e isso e NAO SEI, nao zero",
+   "PRIORITY": "P2",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "PARCIALMENTE — volume e comercio SIM (ISTAT e Eurostat ja registadas); mercado de defensivo NAO SEI",
+   "UNKNOWN_REASON": "mercado de defensivo em Italia: nunca foi procurada fonte publica"
+  },
+  {
+   "COLLECTION_GAP_ID": "GAP-IT-010",
+   "TOOL_AFFECTED": "TODAS",
+   "QUESTION_BLOCKED": "quantas fontes independentes sustentam isto?",
+   "MISSING_DATA_FAMILY": "identidade de fonte — governanca, nao dado",
+   "MISSING_FIELDS": "um SOURCE_ID unico por PUBLICADOR, nao por dominio de internet",
+   "MISSING_GEOGRAPHY": "nenhuma",
+   "MISSING_TIME": "nenhuma",
+   "WHY_CURRENT_DATA_IS_INSUFFICIENT": "ha quatro registos de fonte a conviver: 13 contratos italianos, 31 fontes no ITALY_INGEST, 189 no pacote V2.1 e 23 fichas no atlas EAME. E no V2.1 a identidade e o DOMINIO: SRC_FACEBOOK_COM cobre 415 registos de varias empresas, SRC_ESPLORADATI_ISTAT_IT cobre 2975. Duas 'fontes' respondem por 5372 dos 7078 registos",
+   "WHAT_KIND_OF_SOURCE_COULD_FILL_IT": "nenhuma — e arbitragem de identidade, nao aquisicao",
+   "PRIORITY": "P0",
+   "CAN_COLLECTION_CURRENTLY_ACQUIRE_IT": "NAO SE APLICA",
+   "UNKNOWN_REASON": ""
+  }
+ ]
+}

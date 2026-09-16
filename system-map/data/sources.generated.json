@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-15T21:18:22+00:00",
-    "HEAD": "43553a651f8c330512c5989a78bc796739659331",
+    "GENERATED_AT": "2026-09-16T08:18:08+00:00",
+    "HEAD": "b4ac04afb79a998fc960e872b4f37c5ae89542a7",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "8964c64b90637a7a4c70c566087d6043c2c85cc912458c480178fa734592a7f0",
-    "FICHEIROS_NA_IMPRESSAO": 2098,
+    "SOURCE_TREE_FINGERPRINT": "f38cfe96be94bc620162740c6785059440558b32d60e704f70fcab6527cf775b",
+    "FICHEIROS_NA_IMPRESSAO": 2194,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -10226,6 +10226,19 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.invalido/boletim",
+      "usado_por": [
+        {
+          "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+          "line": 69
+        },
+        {
+          "file": "provas/auditoria_agro_fronteira.py",
+          "line": 87
+        }
+      ]
+    },
+    {
       "endpoint": "https://social.example/p",
       "usado_por": [
         {
@@ -10248,19 +10261,6 @@
         {
           "file": "tests/test_porta_de_candidatas.py",
           "line": 204
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.arpa.veneto.it/%s",
-      "usado_por": [
-        {
-          "file": "provas/a_rota_m2_atravessa.py",
-          "line": 351
-        },
-        {
-          "file": "provas/o_raw_fala.py",
-          "line": 214
         }
       ]
     }
