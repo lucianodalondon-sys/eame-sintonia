@@ -14451,9 +14451,16 @@ ANCESTRALIDADE   merge-base(43553a65, f54e32a3) = 43553a65 · 0 ahead / 60 behin
 FAST-FORWARD     POST_FF_HEAD = f54e32a3 · git diff vazio · HEAD com 1 pai
 MAPA             20 passos · 22 portoes PASS · portao 2b IMPRESSAO_DO_CARIMBO=IGUAL
                  sobre 2194 ficheiros-fonte
-DELTA DO MAPA    1a e 2a corrida: proveniencia e digesto derivado, e nada mais
-                 3a corrida: +6 arestas READS medidas, porque a razao escrita
-                 nomeia 5 caminhos · paises_dado.ITALIA 26 -> 31
+DELTA DO MAPA    1a, 2a e 4a corrida: proveniencia e digesto derivado, e nada mais
+                 3a corrida: +5 arestas READS medidas, uma por cada caminho que
+                 a razao escrita nomeia · paises_dado.ITALIA 26 -> 31
+                 ⚠️ o commit `d80c0d0e` diz «+6 arestas» no assunto e no corpo,
+                 e esta ERRADO: sao 5. Contei linhas `from_file` no diff em vez
+                 de contar objectos de aresta. Medido depois, no ficheiro
+                 gerado: 5 arestas, 5 `to_file` distintos, cada uma com
+                 `evidence.file` e `evidence.line`. A mensagem do commit fica
+                 na historia como foi escrita — nao se reescreve historia para
+                 esconder uma contagem errada; corrige-se onde a memoria vive.
 REDACCAO         12 cabecalhos em 4 ficheiros · 12 linhas mudadas, e sao as 12
                  SHA256 dos MANIFEST intactos: cobrem o PAYLOAD, nao o header
                  marcador reutilizado de data/samples/ITALY-T3-005-MONITORAGGIO
