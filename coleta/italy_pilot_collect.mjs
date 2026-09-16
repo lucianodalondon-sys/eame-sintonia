@@ -93,13 +93,44 @@ const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, reset, resposta vazia, re
 async function baixar(url, tentativas = 2) {
   for (let i = 1; i <= tentativas; i++) {
     try {
+      // ⚠️ `%{content_type}` ENTRA PORQUE O TRANSPORTE JA O SABIA E NINGUEM O ESCREVIA.
+      // A ESPECIE dos bytes vinha no cabecalho da resposta, era deitada fora aqui, e
+      // a observacao chegava a porta sem dizer o que os bytes SAO. O resultado esta
+      // medido nesta bancada a 2026-09-15, com `IT-T4-001` (um CSV de 4,59 MB):
+      //
+      //     raw_asset.media_type = 'NAO SEI'
+      //     etapa DERIVED        = FAIL / DERIVATION_FAILED
+      //
+      // E o FAIL era mentira sobre o documento. `coleta/ingresso.py` ja tem a lei
+      // escrita — «UMA FERRAMENTA QUE RECEBE O QUE NAO SABE ABRIR NAO FALHOU: FOI
+      // CHAMADA PARA O TRABALHO ERRADO» — e ja tem o desfecho certo pronto
+      // (`DERIVACAO_ESPECIE_NAO_SUPORTADA` -> `NOT_APPLICABLE`). Ele nunca corria,
+      // porque a pergunta que o dispara e `MEDIA_TYPE`, e o campo chegava vazio.
+      // Sem especie declarada, o CSV era entregue ao extractor de PDF.
+      //
+      //     ESPECIE POR DECLARAR NAO E ESPECIE DESCONHECIDA:
+      //     E UMA PERGUNTA QUE O TRANSPORTE JA TINHA RESPONDIDO.
+      //
+      // ⚠️ E ISTO NAO E A EXTENSAO DO FICHEIRO OUTRA VEZ. E o que o SERVIDOR
+      // declarou, e declaracao de terceiro nao e prova: quem guarda continua a ser
+      // a validacao de BYTES contra `EXPECTED_SIGNATURE`, que corre antes de
+      // qualquer parse e ja reprova um HTML servido como PDF. Esta linha nao a
+      // substitui nem a afrouxa — acrescenta o que a fonte disse de si.
       const { stdout } = await run("curl", ["-sSL", "--max-time", "90", "-A", UA,
-        "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-", "-w", "\\n__S__%{http_code}", url],
+        "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-",
+        "-w", "\\n__S__%{http_code}\\t%{content_type}", url],
         { maxBuffer: 128e6, encoding: "buffer" });
       const s = stdout.toString("latin1");
       const k = s.lastIndexOf("\n__S__");
-      const status = Number(s.slice(k + 6));
-      return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status, tentativas: i };
+      // O reboque tem DOIS campos agora. `split` com limite implicito chega: o
+      // `content_type` nunca traz tabulacao, e o `http_code` e so digitos.
+      const reboque = (k < 0 ? "" : s.slice(k + 6)).split("\t");
+      const status = Number(reboque[0]);
+      // AUSENTE CONTINUA AUSENTE: um servidor que nao declara tipo devolve vazio
+      // aqui, e vazio vira `null` — nunca uma especie adivinhada pelo nome.
+      const contentType = (reboque[1] || "").trim().split(";")[0].trim() || null;
+      return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status,
+               contentType, tentativas: i };
     } catch (e) {
       const cod = e.code ?? 0;
       const transitorio = TRANSITORIOS.includes(cod);
@@ -442,6 +473,25 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         ...(ident.DOCUMENT_ID && DOCUMENT_VERSION_ID
             ? { RESOLVED_STRUCTURED_TARGET: SOURCE_DOCUMENT } : {}),
         BYTES: r.buf.length, MIME_ASSINATURA: sig,
+        // ── A ESPECIE, COMO A FONTE A DECLAROU ─────────────────────────────
+        // ⚠️ `MIME_ASSINATURA` E OUTRA COISA, E POR ISSO AS DUAS FICAM.
+        // `MIME_ASSINATURA` e o que NOS medimos nos primeiros bytes (PDF · ZIP
+        // · HTML · TEXTO) — uma familia, nao um media type. `CONTENT_TYPE` e o
+        // que o SERVIDOR disse. Sao duas testemunhas, e juntar as duas num
+        // campo so apagaria a unica que permite compara-las.
+        //
+        //     O QUE EU MEDI != O QUE ELE DISSE.
+        //
+        // O nome e `CONTENT_TYPE` porque e assim que `coleta/ingresso.py::
+        // DO_COLETOR` o transporta e `leis/artefato.py` o le. Inventar aqui um
+        // nome proprio obrigaria a uma traducao a mais, e cada traducao e um
+        // sitio onde o campo se pode perder — foi o que ja aconteceu ao
+        // `CAPTURED_AT`.
+        //
+        // Com `forcarBuf` nao houve HTTP: `contentType` vem `undefined`, o
+        // campo sai `null`, e a ficha volta ao que fazia antes. Ausencia
+        // honesta, e nao um tipo fabricado para uma corrida sem rede.
+        CONTENT_TYPE: r.contentType ?? null,
         SOURCE_DATE: ident.SOURCE_DATE, SOURCE_DATE_ISO: ident.SOURCE_DATE_ISO,
         FACT_TIME: ident.FACT_TIME ?? "UNKNOWN",
         CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT,

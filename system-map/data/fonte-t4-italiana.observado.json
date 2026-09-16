@@ -1,0 +1,143 @@
+{
+ "O_QUE_ISTO_E": "Certificacao controlada de UMA fonte (IT-T4-001), com AQUISICAO REAL pela rede, contra Postgres descartavel.",
+ "COMO_REFAZER": "BANCO_DESCARTAVEL_URL=... python3 provas/a_fonte_t4_italiana_atravessa.py",
+ "AMBIENTE": "DESCARTAVEL",
+ "AQUISICAO_NOVA": "SIM — HTTP GET real em www.dati.salute.gov.it",
+ "SOURCE_ID": "IT-T4-001",
+ "ALVO_DO_PEDIDO": "T3",
+ "RUN_ID": "IT-T3-2026-09-15-211428-166b8db7c8f3bf96",
+ "RAW_ASSET_ID": 1,
+ "RAW_OBSERVATION_ID": 1,
+ "STORAGE_OBJECT_ID": 1,
+ "STORAGE_PATH": "XX/it-t4-001/OBSERVATION/d8f20c7383d15372-u116deea54869f929-PROD_FTS_6_20260914.csv",
+ "SHA256": "d8f20c7383d15372a69622b1aa91d627b363f0540f96a260dcdc7895d5430f30",
+ "BYTES": 4594254,
+ "MEDIA_TYPE": "text/csv",
+ "DOCUMENT_KEY": "MINSALUTE:FTS6:20260914",
+ "DOCUMENT_KEY_BASIS": "SOURCE_DOCUMENT_ID",
+ "IDENTITY_STATE": "FORWARD_IDENTIFIED",
+ "SOURCE_URL": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260914.csv",
+ "CAPTURED_AT": "2026-09-15 21:14:38.367+00",
+ "DERIVED_ID": null,
+ "ADMISSION_DECISION": {
+  "NAO_SEI": 1
+ },
+ "SALA_ROW_ID": null,
+ "READY": 0,
+ "ETAPAS": {
+  "RAW": "PASS",
+  "DERIVED": "NOT_APPLICABLE"
+ },
+ "ESTRADA": {
+  "REQUEST": {
+   "OBSERVED": true,
+   "EVIDENCE": "alvo=T3 filtros={'pais': 'IT', 'fonte': 'IT-T4-001'}"
+  },
+  "ORCHESTRATOR": {
+   "OBSERVED": true,
+   "EVIDENCE": "ACTOR=coleta/italy_executor.py RUN_ID=IT-T3-2026-09-15-211428-166b8db7c8f3bf96"
+  },
+  "EXECUTOR": {
+   "OBSERVED": true,
+   "EVIDENCE": "colheita=1"
+  },
+  "RUN": {
+   "OBSERVED": true,
+   "EVIDENCE": "collection_run: [['IT-T3-2026-09-15-211428-166b8db7c8f3bf96', 'coleta/italy_executor.py', 'concluida']]"
+  },
+  "RAW": {
+   "OBSERVED": true,
+   "EVIDENCE": "1 linhas em raw_asset"
+  },
+  "STORAGE": {
+   "OBSERVED": true,
+   "EVIDENCE": "storage_object: [['1', 'XX/it-t4-001/OBSERVATION/d8f20c7383d15372-u116deea54869f929-PROD_FTS_6_20260914.csv', 'd8f20c7383d15372a69622b1aa91d627b363f0540f96a260dcdc7895d5430f30', '4594254', 'text/csv']]"
+  },
+  "DERIVED": {
+   "OBSERVED": true,
+   "EVIDENCE": "etapa DERIVED = NOT_APPLICABLE (esperado NOT_APPLICABLE: nenhum executor desta casa abre text/csv)"
+  },
+  "STRUCTURED": {
+   "OBSERVED": true,
+   "EVIDENCE": "documento_estruturado=0 chamado=False porque=nenhum derivado desta corrida para estruturar"
+  },
+  "ADMISSION": {
+   "OBSERVED": true,
+   "EVIDENCE": "por_resultado={'NAO_SEI': 1}"
+  },
+  "READY": {
+   "OBSERVED": true,
+   "EVIDENCE": "prontos=0"
+  },
+  "WAITING_ROOM": {
+   "OBSERVED": true,
+   "EVIDENCE": "0 na Sala"
+  }
+ },
+ "ONDE_PARA_E_PORQUE": {
+  "ETAPA": "DERIVED",
+  "ESTADO": "NOT_APPLICABLE",
+  "PORQUE": "nenhum executor de derivacao desta casa abre text/csv; os dois que existem abrem PDF e midia. NOT_APPLICABLE != FAIL.",
+  "O_QUE_FALTARIA": "um dono do STRUCTURED para registo tabular. E capacidade NOVA, e nao um conserto: o proprio contrato de IT-T4-001 declara DUAS granularidades (o arquivo e a linha), e escolher uma delas e decisao de arquitectura."
+ },
+ "RED_TEAM": [
+  {
+   "ATAQUE": "SOURCE_ID inexistente e recusado, e nao vira «corri tudo»",
+   "MORREU": true,
+   "PORQUE": "saiu 2 · FONTE_DESCONHECIDA: IT-T9-999 â€” este coletor percorre IT-T3-005, IT-T2-002, IT-T2-004, IT-T3-002, IT-T3-010, IT-T3-008"
+  },
+  {
+   "ATAQUE": "pedir outra fonte nao traz IT-T4-001 de boleia",
+   "MORREU": true,
+   "PORQUE": "a corrida trouxe ['IT-T4-001']"
+  },
+  {
+   "ATAQUE": "o mesmo conteudo sob DUAS fontes nao elege uma em silencio",
+   "MORREU": true,
+   "PORQUE": "devolveu {\"SOURCE_ID\": null, \"OBSERVACOES\": 2, \"CONFLITO\": [\"IT-T2-002\", \"IT-T4-001\"], \"PORQUE\": \"o livro registou este mesmo conteudo sob 2 fontes diferentes; desempatar aqui seria inventar\"}"
+  },
+  {
+   "ATAQUE": "observacao SEM bytes nao passa por observacao preservada",
+   "MORREU": true,
+   "PORQUE": "STORAGE_LOCATION=None"
+  },
+  {
+   "ATAQUE": "nao existe linha na Sala sem decisao da porta por tras",
+   "MORREU": true,
+   "PORQUE": "sala=0 · SIM no livro=0"
+  },
+  {
+   "ATAQUE": "READY fabricado a mao nao entra na Sala desta corrida",
+   "MORREU": true,
+   "PORQUE": "ValueError: unidade 0 nao cumpre o contrato READY (COL-LAW-043): faltam ESTADO, ITEM_ID, RAW_OBSERVATION_ID, UNIVERSO, ESTAGIO, TEXT"
+  },
+  {
+   "ATAQUE": "escritor aposentado nao reaparece por uma porta lateral",
+   "MORREU": true,
+   "PORQUE": "saiu com 2"
+  },
+  {
+   "ATAQUE": "o retry da MESMA corrida nao multiplica a identidade",
+   "MORREU": true,
+   "PORQUE": "raw_asset 2->2 · storage_object 1->1"
+  },
+  {
+   "ATAQUE": "um sha desconhecido nao INVENTA fonte nenhuma",
+   "MORREU": true,
+   "PORQUE": "{\"SOURCE_ID\": null, \"OBSERVACOES\": 0, \"CONFLITO\": [], \"PORQUE\": \"o livro nao tem observacao deste conteudo\"}"
+  },
+  {
+   "ATAQUE": "o backend de FICHEIRO nunca se declara canonico",
+   "MORREU": true,
+   "PORQUE": "CANONICO=False"
+  },
+  {
+   "ATAQUE": "a porta do banco recusa-se a correr fora do descartavel",
+   "MORREU": true,
+   "PORQUE": "RECUSADO: 'postgresql://alguem@db.exemplo-remoto.com:5432/producao' nao parece um banco descartavel local. Esta prova nunca corre contra pro"
+  }
+ ],
+ "RED_TEAM_SURVIVORS": 0,
+ "PASSOU": 37,
+ "FALHOU": 0
+}

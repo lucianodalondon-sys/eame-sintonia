@@ -1,0 +1,765 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""AS PROVAS DE C-CTRL-INT-NIGHT-02 — o detector, a supersessao e o chao.
+
+    python3 -m unittest tests.test_o_controle_separa_lei_de_mencao -v
+
+Tres defeitos do Control Plane mantinham o portao reprovado, e nenhum dos tres
+era o que o nome dele dizia:
+
+    UNREGISTERED_CANONICAL_DOCUMENT = 10   eram dez MENCOES, zero autoridades
+    BROKEN_POINTER = 1                     era um CARD_ID lido como caminho
+    o chao                                 media outra arvore
+
+    MENCIONAR UMA LEI NAO E PROMULGAR UMA.
+    IDENTIDADE NAO E MORADA.
+    UMA FOTOGRAFIA DE DIVIDA DE OUTRA LINHA NAO MEDE ESTA.
+
+O que estas provas guardam e a separacao. O que elas NAO provam e que a
+Intelligence funciona.
+"""
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parents[1]
+if str(RAIZ) not in sys.path:
+    sys.path.insert(0, str(RAIZ))
+sys.path.insert(0, str(RAIZ / "controle"))
+
+import portao_do_controle as PORTAO          # noqa: E402
+
+sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
+import impressao_da_arvore as IMPRESSAO       # noqa: E402
+
+REGISTO_REAL = RAIZ / "controle" / "AUTORIDADES-CANONICAS.json"
+CHAO_REAL = RAIZ / "controle" / "CHAO-DO-CONTROLE.json"
+
+
+def declara(texto: str, caminho: str = "docs/operacao/QUALQUER.md"):
+    """O veredito do detector real sobre este texto."""
+    return PORTAO.declara_se_lei(caminho, texto.split("\n"))
+
+
+def correr(registo: dict, pasta: Path):
+    """Censo + portao REAIS sobre um registo descartavel.
+
+    O repositorio nao e tocado: as variaveis `SINTONIA_CONTROLE_*` desviam
+    leitura e escrita. Um teste que estraga o que testa nao se corre duas vezes.
+    """
+    p_reg, p_censo = pasta / "registo.json", pasta / "censo.json"
+    p_sala, p_chao = pasta / "sala.md", pasta / "chao.json"
+    p_reg.write_text(json.dumps(registo, ensure_ascii=False), encoding="utf-8")
+    shutil.copyfile(CHAO_REAL, p_chao)
+    env = {**os.environ,
+           "SINTONIA_CONTROLE_REGISTO": str(p_reg),
+           "SINTONIA_CONTROLE_CENSO": str(p_censo),
+           "SINTONIA_CONTROLE_SALA": str(p_sala),
+           "SINTONIA_CONTROLE_CHAO": str(p_chao)}
+    c = subprocess.run([sys.executable, str(RAIZ / "controle" / "censo_do_controle.py")],
+                       capture_output=True, text=True, env=env)
+    if c.returncode != 0:
+        raise AssertionError("o censo rebentou: " + c.stdout + c.stderr)
+    g = subprocess.run([sys.executable, str(RAIZ / "controle" / "portao_do_controle.py")],
+                       capture_output=True, text=True, env=env)
+    return json.loads(p_censo.read_text(encoding="utf-8")), g.stdout + g.stderr
+
+
+def base():
+    return json.loads(REGISTO_REAL.read_text(encoding="utf-8"))
+
+
+def achar(reg, cid):
+    return next(a for a in reg["AUTHORITIES"] if a["CARD_ID"] == cid)
+
+
+def aresta(censo, de, para):
+    return next(e for e in censo["GOVERNANCE_EDGES"]
+                if e["FROM"] == de and e["TO_PATH"] == para)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class D_ODetectorSeparaPromulgacaoDeMencao(unittest.TestCase):
+    """D1–D6 · o detector de documento-que-se-diz-lei, atacado.
+
+    O objetivo declarado da missao: REDUZIR FALSO POSITIVO SEM CRIAR FALSO
+    NEGATIVO. Cada par abaixo e uma mencao e a promulgacao correspondente — se o
+    detector nao distinguir os dois, uma das duas provas cai.
+    """
+
+    def test_D1_uma_autoridade_real_nao_registada_continua_a_ser_apanhada(self):
+        # A forma exacta de `BIBLIA-CANONICA-DA-COLETA.md:9`, que e uma lei real.
+        v = declara("# UMA LEI QUALQUER\n\n```text\nCANONICAL_OWNER   este ficheiro\n```\n")
+        self.assertTrue(v, "uma promulgacao real tem de ser apanhada")
+        self.assertEqual(v[0], "LEGISLA")
+
+    def test_D2_dizer_que_o_dono_e_outro_ficheiro_nao_torna_este_uma_lei(self):
+        v = declara("O canonical owner deste conceito e `guarda/preservar_coleta.py`,\n"
+                    "e nao este relatorio.\n")
+        self.assertEqual(v, (), "apontar para o dono nao e ser o dono")
+
+    def test_D3_um_handoff_que_cita_a_palavra_nao_vira_autoridade(self):
+        v = declara("| `generate_system_map.py` | `CANONICAL_OWNERS` (topologia) |\n",
+                    "handoff/S2A-R-RECONCILIACAO.md")
+        self.assertEqual(v, (), "citar num handoff nao promulga nada")
+
+    def test_D4_a_declaracao_em_cabecalho_e_apanhada(self):
+        v = declara("DESIGN_SOURCE_OF_TRUTH = ADAMA_DESIGN_SYSTEM\n")
+        self.assertTrue(v)
+        self.assertEqual(v[0], "LEGISLA")
+
+    def test_D5_uma_copia_historica_de_uma_lei_nao_cria_segunda_autoridade(self):
+        # O historico cita a lei INTEIRA, mas a citacao esta enquadrada como
+        # citacao: a linha fala do documento antigo, nunca de si propria.
+        v = declara("## O que a lei antiga dizia\n\n"
+                    "> a Biblia da coleta dizia que o dono canonico era ela propria\n",
+                    "know-how/daily/2026-09-10.md")
+        self.assertEqual(v, (), "um historico a citar nao e uma segunda lei")
+
+    def test_D6_uma_lei_verdadeira_escondida_em_docs_operacao_e_apanhada(self):
+        v = declara("# CONTRATO X\n\nEste documento e o dono canonico do conceito Y.\n",
+                    "docs/operacao/CONTRATO-X.md")
+        self.assertTrue(v, "esconder uma lei numa pasta nao a torna invisivel")
+        self.assertEqual(v[0], "RECLAMA_SE")
+
+    # ── o que provocou os dez falsos positivos, um a um ─────────────────────
+    def test_D7_um_nome_de_metrica_nao_e_uma_declaracao(self):
+        for linha in ("DUPLICATE_CANONICAL_OWNERS = 0",
+                      "REGISTRO_REGULATORIO_CANONICAL_OWNER = MISSING",
+                      "CANONICAL_OWNER_FOUND?   SIM",
+                      "STRUCTURED_CANONICAL_OWNER_EXISTS = NO",
+                      "`CANONICAL_OWNER_VIOLATIONS = MULTIPLE_CANONICAL_WRITERS`"):
+            with self.subTest(linha=linha):
+                self.assertEqual(declara(linha + "\n"), (),
+                                 "a chave tem de ser a palavra inteira")
+
+    def test_D8_prosa_sobre_o_dono_de_outra_coisa_nao_e_declaracao(self):
+        for linha in ("o executor produz o artefato, o **dono canónico** persiste",
+                      "O3  catalogo_importar escreve raw_asset fora do dono canónico",
+                      "FORWARD   derivar_um()  -> um raw_asset real -> o dono canónico"):
+            with self.subTest(linha=linha):
+                self.assertEqual(declara(linha + "\n"), ())
+
+    def test_D9_os_dez_acusados_desta_arvore_estao_todos_inocentes(self):
+        """A prova que fecha a hipotese da missao anterior.
+
+        Ela disse que registar os dez exigia decidir um `CONCEPT_OWNER` da
+        Collection. Nenhum dos dez e uma autoridade: a decisao nunca foi precisa.
+        """
+        dez = ["docs/operacao/A-CASA-DO-DERIVADO.md",
+               "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
+               "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+               "docs/operacao/ENCANAMENTO-DA-COLETA.md",
+               "docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md",
+               "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
+               "docs/operacao/TOPOLOGIA-DA-COLETA.md",
+               "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
+               "handoff/S2A-R-RECONCILIACAO.md",
+               "know-how/daily/2026-09-10.md"]
+        for p in dez:
+            with self.subTest(doc=p):
+                f = RAIZ / p
+                self.assertTrue(f.exists(), f"{p} saiu da arvore")
+                v = PORTAO.declara_se_lei(
+                    p, f.read_text(encoding="utf-8", errors="replace").split("\n"))
+                self.assertEqual(v, (), f"{p} nao promulga nada: {v}")
+
+    def test_D10_as_autoridades_reais_desta_arvore_continuam_visiveis(self):
+        """O falso negativo seria pior que o falso positivo: a lei desaparecia."""
+        for p, forma in (("AGENTS.md", "RECLAMA_SE"),
+                         ("CLAUDE.md", "LEGISLA"),
+                         ("BIBLIA-CANONICA-DA-COLETA.md", "LEGISLA")):
+            with self.subTest(doc=p):
+                v = PORTAO.declara_se_lei(
+                    p, (RAIZ / p).read_text(encoding="utf-8").split("\n"))
+                self.assertTrue(v, f"{p} promulga e o detector ficou cego")
+                self.assertEqual(v[0], forma)
+
+    def test_D11_nao_existe_lista_de_excecoes_por_nome_de_ficheiro(self):
+        """A correcao tinha de ser estrutural.
+
+        Um `if caminho == 'docs/operacao/X.md': ignorar` passa o portao de hoje e
+        cria o defeito de amanha com outro nome.
+        """
+        fonte = (RAIZ / "controle" / "portao_do_controle.py").read_text(encoding="utf-8")
+        for proibido in ("A-CASA-DO-DERIVADO", "ENCANAMENTO-DA-COLETA",
+                         "TOPOLOGIA-DA-COLETA", "C7-LUGAR-DO-FATO",
+                         "S2A-R-RECONCILIACAO", "2026-09-10"):
+            self.assertNotIn(proibido, fonte,
+                             "o portao nao pode conhecer um ficheiro pelo nome")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class S_UmaSupersessaoLigaIdentidadesNaoMoradas(unittest.TestCase):
+    """S1–S6 · o modelo de supersessao, atacado.
+
+        AUTHORITY_ID != CANONICAL_PATH
+
+    Uma lei substituida quase sempre ja nao vive aqui — e essa a razao de alguem
+    a ter substituido. Exigir o caminho dela torna a historia indeclaravel.
+    """
+
+    def test_S0_o_registo_declara_que_o_alvo_e_uma_identidade(self):
+        R = base()
+        self.assertEqual(R["EDGE_TYPES"]["SUPERSEDES"]["target"], "AUTHORITY_ID")
+        for t in ("GOVERNS", "CONSTRAINS", "REFERENCES", "IMPLEMENTS",
+                  "VALIDATES", "OBSERVES", "GENERATES"):
+            self.assertEqual(R["EDGE_TYPES"][t]["target"], "PATH", t)
+
+    def test_S1_A_substitui_B_com_as_duas_na_arvore(self):
+        reg = base()
+        a = achar(reg, "A-BIBLIA-ENG-INTELIGENCIA")
+        a["SUPERSEDES"] = ["A-MOTOR-V2-REQUISITOS"]
+        achar(reg, "A-MOTOR-V2-REQUISITOS")["SUPERSEDED_BY"] = ["A-BIBLIA-ENG-INTELIGENCIA"]
+        achar(reg, "A-BIBLIA-INTELIGENCIA")["SUPERSEDED_BY"] = []
+        with tempfile.TemporaryDirectory() as td:
+            censo, _ = correr(reg, Path(td))
+        e = aresta(censo, "A-BIBLIA-ENG-INTELIGENCIA", "A-MOTOR-V2-REQUISITOS")
+        self.assertEqual(e["EDGE_STATE"], "OBSERVED")
+        self.assertEqual(e["PROOF_KIND"], "REGISTRY_RECIPROCAL")
+
+    def test_S2_A_substitui_B_e_B_ja_nao_tem_ficheiro_nesta_arvore(self):
+        """O caso real. Continua valido, e diz em voz alta que o alvo nao esta ca."""
+        with tempfile.TemporaryDirectory() as td:
+            censo, saida = correr(base(), Path(td))
+        e = aresta(censo, "A-BIBLIA-ENG-INTELIGENCIA", "A-BIBLIA-INTELIGENCIA")
+        self.assertEqual(e["TO_KIND"], "AUTHORITY_ID")
+        self.assertFalse(e["TO_IN_TREE"], "o alvo nao vive nesta arvore, e diz-se")
+        self.assertEqual(e["EDGE_STATE"], "OBSERVED")
+        self.assertNotIn("FAIL  BROKEN_POINTER", saida)
+
+    def test_S3_um_CARD_ID_que_nao_existe_reprova(self):
+        reg = base()
+        achar(reg, "A-BIBLIA-ENG-INTELIGENCIA")["SUPERSEDES"] = ["A-LEI-QUE-NUNCA-EXISTIU"]
+        with tempfile.TemporaryDirectory() as td:
+            censo, saida = correr(reg, Path(td))
+        e = aresta(censo, "A-BIBLIA-ENG-INTELIGENCIA", "A-LEI-QUE-NUNCA-EXISTIU")
+        self.assertEqual(e["PROOF_KIND"], "UNKNOWN_AUTHORITY_ID")
+        self.assertEqual(e["EDGE_STATE"], "DECLARED")
+        self.assertIn("FAIL  UNKNOWN_AUTHORITY_ID", saida)
+
+    def test_S4_um_caminho_inexistente_num_campo_que_exige_caminho_reprova(self):
+        """A prova que garante que nao amoleci o `BROKEN_POINTER` ao separa-lo."""
+        reg = base()
+        achar(reg, "A-AGENTS")["GOVERNS"].append("motor/ficheiro_que_nao_existe.py")
+        with tempfile.TemporaryDirectory() as td:
+            censo, saida = correr(reg, Path(td))
+        e = aresta(censo, "A-AGENTS", "motor/ficheiro_que_nao_existe.py")
+        self.assertEqual(e["TO_KIND"], "PATH")
+        self.assertEqual(e["PROOF_KIND"], "ABSENT")
+        self.assertIn("FAIL  BROKEN_POINTER", saida)
+
+    def test_S5_uma_lei_substituida_nao_continua_canonica(self):
+        reg = base()
+        achar(reg, "A-BIBLIA-INTELIGENCIA")["LIFECYCLE"] = "CANONICAL"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  SUPERSEDED_MARKED_CANONICAL", saida)
+
+    def test_S6_duas_leis_nao_reivindicam_o_mesmo_conceito(self):
+        reg = base()
+        gemea = dict(achar(reg, "A-BIBLIA-COLETA"))
+        gemea["CARD_ID"] = "A-BIBLIA-COLETA-GEMEA"
+        gemea["CANONICAL_PATH"] = "docs/biblia/BIBLIA-DA-COLETA-GEMEA.md"
+        reg["AUTHORITIES"].append(gemea)
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  DUPLICATE_CONCEPT_OWNER", saida)
+
+    def test_S7_meia_supersessao_reprova(self):
+        """Uma declaracao nao se prova a si propria: a outra ponta tem de confirmar."""
+        reg = base()
+        achar(reg, "A-BIBLIA-INTELIGENCIA")["SUPERSEDED_BY"] = []
+        with tempfile.TemporaryDirectory() as td:
+            censo, saida = correr(reg, Path(td))
+        e = aresta(censo, "A-BIBLIA-ENG-INTELIGENCIA", "A-BIBLIA-INTELIGENCIA")
+        self.assertEqual(e["PROOF_KIND"], "MISSING_RECIPROCAL")
+        self.assertEqual(e["EDGE_STATE"], "DECLARED")
+        self.assertIn("FAIL  SUPERSESSION_RECIPROCAL", saida)
+
+    def test_S8_a_exigencia_de_prova_vem_do_registo_e_nao_de_uma_copia(self):
+        """A lei estava escrita em dois sitios, e duas copias divergem."""
+        fonte = (RAIZ / "controle" / "censo_do_controle.py").read_text(encoding="utf-8")
+        self.assertNotIn('"GOVERNS": "TEXT_POINTER"', fonte,
+                         "o censo nao pode carregar a sua propria copia de observed_needs")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class C_OChaoMedeEstaArvoreOuNaoVale(unittest.TestCase):
+    """O chao da divida: linhagem provada e membros comparados, nao so contagens."""
+
+    def test_C1_o_chao_declara_onde_foi_medido(self):
+        C = json.loads(CHAO_REAL.read_text(encoding="utf-8"))
+        self.assertIn("MEDIDO_EM", C)
+        self.assertTrue(C["MEDIDO_EM"].get("HEAD"))
+
+    def test_C2_a_arvore_do_chao_esta_atras_desta(self):
+        C = json.loads(CHAO_REAL.read_text(encoding="utf-8"))
+        cabeca = C["MEDIDO_EM"]["HEAD"]
+        r = subprocess.run(["git", "-C", str(RAIZ), "merge-base",
+                            "--is-ancestor", cabeca, "HEAD"], capture_output=True)
+        self.assertEqual(r.returncode, 0,
+                         f"{cabeca} nao e antepassado de HEAD: o chao mede outra arvore")
+
+    def test_C3_a_migracao_guarda_a_prova_membro_a_membro(self):
+        C = json.loads(CHAO_REAL.read_text(encoding="utf-8"))
+        mig = C["MEDIDO_EM"].get("MIGRADO_DE")
+        self.assertTrue(mig, "um chao migrado sem prova e um tecto sem dono")
+        self.assertTrue(mig.get("PORQUE"))
+        for cat, p in mig["PROVA"].items():
+            with self.subTest(categoria=cat):
+                self.assertEqual(p["NOVOS"], [],
+                                 "migrar nao pode trazer divida nova")
+                self.assertLessEqual(p["HOJE"], p["TETO_ANTIGO"])
+
+    def test_C4_nenhum_teto_subiu_na_migracao(self):
+        C = json.loads(CHAO_REAL.read_text(encoding="utf-8"))
+        for cat, p in C["MEDIDO_EM"]["MIGRADO_DE"]["PROVA"].items():
+            with self.subTest(categoria=cat):
+                self.assertLessEqual(C["TETO"][cat], p["TETO_ANTIGO"],
+                                     "teto nao sobe — nunca")
+
+    def test_C5_a_razao_de_um_defeito_nao_vive_dentro_da_identidade_dele(self):
+        """`A-DIARIO (6)` fazia o numero de copias fazer parte de QUEM o defeito e."""
+        C = json.loads(CHAO_REAL.read_text(encoding="utf-8"))
+        for cat, membros in C["MEMBROS"].items():
+            for m in membros:
+                with self.subTest(membro=m):
+                    self.assertNotIn(" (", m, "a razao mora na coluna PORQUE")
+
+    def test_C6_um_mesmo_membro_em_duas_categorias_guarda_duas_razoes(self):
+        C = json.loads(CHAO_REAL.read_text(encoding="utf-8"))
+        duplos = [m for m in C["MEMBROS"]["DIVERGENT_CANONICAL_COPY"]
+                  if m in C["MEMBROS"]["STALE_AUTHORITY"]]
+        self.assertTrue(duplos, "esta prova precisa de um membro em duas categorias")
+        for m in duplos:
+            a = C["PORQUE"].get(f"DIVERGENT_CANONICAL_COPY/{m}", "")
+            b = C["PORQUE"].get(f"STALE_AUTHORITY/{m}", "")
+            self.assertTrue(a and b and a != b,
+                            f"{m}: uma razao apagou a outra")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class P_APromocaoDaBibliaAtacada(unittest.TestCase):
+    """§34 · os oito ataques a promocao. Todos tem de morrer.
+
+        PROMOVER E MUDAR QUEM E A LEI. NAO E MUDAR O QUE ESTA CONSTRUIDO.
+    """
+
+    def test_P0_a_biblia_esta_canonica_no_texto_e_no_registo(self):
+        R = base()
+        c = achar(R, "A-BIBLIA-ENG-INTELIGENCIA")
+        self.assertEqual(c["LIFECYCLE"], "CANONICAL")
+        cabeca = (RAIZ / c["CANONICAL_PATH"]).read_text(encoding="utf-8")[:2000]
+        self.assertIn("STATUS = CANONICAL", cabeca)
+
+    def test_P1_existe_exatamente_uma_biblia_canonica_da_inteligencia(self):
+        R = base()
+        donas = [a["CARD_ID"] for a in R["AUTHORITIES"]
+                 if a.get("CONCEPT_OWNER") == "LEI_DA_INTELIGENCIA"
+                 and a["LIFECYCLE"] == "CANONICAL" and not a.get("IS_POINTER")]
+        self.assertEqual(donas, ["A-BIBLIA-ENG-INTELIGENCIA"], donas)
+
+    def test_P2_uma_segunda_biblia_canonica_reprova(self):
+        reg = base()
+        gemea = dict(achar(reg, "A-BIBLIA-ENG-INTELIGENCIA"))
+        gemea["CARD_ID"] = "A-BIBLIA-ENG-INTELIGENCIA-2"
+        gemea["CANONICAL_PATH"] = "docs/biblia/BIBLIA-INTELLIGENCE-V2.md"
+        reg["AUTHORITIES"].append(gemea)
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  DUPLICATE_CONCEPT_OWNER", saida)
+
+    def test_P3_a_autoridade_antiga_nao_ressuscita(self):
+        reg = base()
+        achar(reg, "A-BIBLIA-INTELIGENCIA")["LIFECYCLE"] = "CANONICAL"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  SUPERSEDED_MARKED_CANONICAL", saida)
+        self.assertIn("FAIL  DUPLICATE_CONCEPT_OWNER", saida)
+
+    def test_P4_a_canonica_e_esta_copia_e_nao_uma_branch_lateral(self):
+        """Promover e trazer a lei para ca. Deixar a ref numa branch lateral
+        seria promover um ficheiro que esta arvore nao carrega."""
+        c = achar(base(), "A-BIBLIA-ENG-INTELIGENCIA")
+        self.assertEqual(c.get("CANONICAL_REF", ""), "")
+        self.assertTrue((RAIZ / c["CANONICAL_PATH"]).exists())
+
+    def test_P5_apontar_a_canonica_de_volta_para_a_branch_lateral_reprova(self):
+        reg = base()
+        achar(reg, "A-BIBLIA-ENG-INTELIGENCIA")["CANONICAL_REF"] = \
+            "origin/research/intelligence-bible-engineering-v1"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  STALE_AUTHORITY", saida)
+
+    def test_P6_o_texto_da_lei_nao_pode_discordar_do_registo(self):
+        """O ataque mais silencioso: promover num sitio so."""
+        reg = base()
+        achar(reg, "A-BIBLIA-ENG-INTELIGENCIA")["LIFECYCLE"] = "CANDIDATE"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  BIBLE_STATUS_MATCHES_REGISTRY", saida)
+
+    def test_P7_o_motor_v2_continua_subordinado_e_nao_dono(self):
+        m = achar(base(), "A-MOTOR-V2-REQUISITOS")
+        self.assertEqual(m["LIFECYCLE"], "SUBORDINATE")
+        self.assertNotEqual(m["CONCEPT_OWNER"], "LEI_DA_INTELIGENCIA")
+
+    def test_P8_um_handoff_nao_vira_autoridade_com_a_promocao(self):
+        reg = base()
+        h = achar(reg, "H-DELTA-108")
+        h["GOVERNS"] = ["BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"]
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  HANDOFF_AS_AUTHORITY", saida)
+
+    def test_P9_a_promocao_nao_declarou_runtime_nenhum(self):
+        """PROMOCAO != IMPLEMENTACAO. A Biblia continua a dizer o que autoriza."""
+        texto = (RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md").read_text(encoding="utf-8")
+        self.assertIn("IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32",
+                      texto)
+        self.assertIn("Promoção não é implementação", texto)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class M_UmArtefactoGeradoNaoCarimbaOProprioCommit(unittest.TestCase):
+    """M1–M5 · a prova de frescor do mapa, atacada.
+
+        commit 8e1947d2  ->  PROVENANCE.HEAD = c293be65
+        commit c293be65  ->  PROVENANCE.HEAD = 44e2de1b
+
+    Um ficheiro commitado nao pode conter o SHA do commit que o contem: o carimbo
+    nasce SEMPRE a nomear o commit anterior. Isso nao e deriva nem indisciplina —
+    e construcao. Perseguir o ponto fixo por regerar-e-commitar e um ciclo que
+    nunca fecha, e eu persegui-o uma vez.
+
+    Estas provas nao inventam mecanismo nenhum: medem o que `C-MAPA` ja construiu
+    — `impressao_da_arvore.py` + `CADEIA-DO-MAPA.json`. A pergunta certa ja la
+    estava, e nao e «que commit?», e «que fontes?».
+    """
+
+    def test_M1_guardar_o_mapa_regerado_nao_mexe_na_impressao(self):
+        """A saida da cadeia esta FORA do universo medido — toda ela."""
+        for saida in ("system-map/data/architecture.generated.json",
+                      "system-map/data/state.generated.json",
+                      "system-map/data/casco.generated.json",
+                      "system-map/data/sources.generated.json",
+                      "italia-portale/client/system-map/state.generated.json"):
+            with self.subTest(saida=saida):
+                self.assertTrue(IMPRESSAO.excluido(saida),
+                                "um artefacto que a cadeia escreve nao pode "
+                                "entrar na impressao que prova a cadeia")
+
+    def test_M2_uma_fonte_de_arquitetura_esta_dentro_do_universo_medido(self):
+        for fonte in ("system-map/data/architecture.declared.json",
+                      "system-map/scripts/generate_system_map.py",
+                      "controle/AUTORIDADES-CANONICAS.json",
+                      "AGENTS.md"):
+            with self.subTest(fonte=fonte):
+                self.assertFalse(IMPRESSAO.excluido(fonte),
+                                 "mexer numa fonte TEM de mudar a impressao")
+
+    def test_M3_a_impressao_muda_quando_o_sha_de_uma_fonte_muda(self):
+        linhas = ["aaa system-map/data/architecture.declared.json", "bbb AGENTS.md"]
+        outras = ["ccc system-map/data/architecture.declared.json", "bbb AGENTS.md"]
+        self.assertNotEqual(IMPRESSAO._selar(linhas), IMPRESSAO._selar(outras))
+        self.assertEqual(IMPRESSAO._selar(linhas), IMPRESSAO._selar(linhas[::-1]),
+                         "a ordem do disco nao pode entrar na impressao")
+
+    def test_M4_o_universo_medido_e_declarado_e_nao_adivinhado(self):
+        """Nao existe «ficheiro irrelevante fora do universo».
+
+        O universo e TODO ficheiro rastreado menos o que a cadeia escreve. Nao
+        ha terceira categoria: ou o ficheiro e fonte, ou e saida da propria
+        cadeia. Um HEAD que mude por causa de qualquer outra coisa muda a
+        impressao, e isso e a resposta certa — «nao sei se este mapa e o desta
+        arvore» e melhor que um verde.
+
+        ⚠️ **`LEI["EXCLUIDO"]` DEIXOU DE EXISTIR, E A LEI FICOU MAIS FORTE.**
+        Eram doze caminhos escritos a mao que queriam dizer «as saidas da
+        cadeia» — o mesmo que cada passo ja declara em `OUTPUTS`. Quando o G5
+        trouxe treze passos novos, catorze ficheiros que a cadeia escreve
+        ficaram DENTRO da impressao que ela carimba, e cada passagem movia a
+        impressao. O dono resolveu-o onde devia: a exclusao passou a DERIVAR
+        de `REGERAR` + `REGERAR_A_MAO`, e so `EXCLUIDO_EXTRA` fica a mao.
+
+            UMA LISTA DAS SAIDAS AO LADO DE UMA LISTA DAS SAIDAS
+            NAO E REDUNDANCIA: E A SEGUNDA A FICAR PARA TRAS.
+
+        Esta prova seguia a chave antiga e rebentava com `KeyError` — nao
+        reprovava, NAO CORRIA. Passa a medir a propriedade pela funcao que a
+        casa expoe, que e o que ela sempre quis medir.
+        """
+        self.assertEqual(IMPRESSAO.LEI["ALGORITMO"], "sha256")
+
+        excluidos = IMPRESSAO._excluidos()
+        self.assertTrue(excluidos, "o universo nao exclui nada: a cadeia "
+                                   "deixou de declarar OUTPUTS?")
+
+        # ⚠️ E O PREFIXO OUTRA VEZ. A primeira versao desta correccao exigia
+        # `system-map/data/` ou `italia-portale/`, e apanhou
+        # `regras/LEIA-ANTES-DE-COLETAR.md` — uma saida LEGITIMA da cadeia, que
+        # o gerador do mapa escreve, e que simplesmente nao mora numa das duas
+        # pastas que alguem tinha em mente no dia em que escreveu a regra.
+        #
+        #     «SAIDA DA CADEIA» E UMA PROPRIEDADE DO DONO, NAO DA PASTA.
+        #
+        # A pergunta e «quem escreve isto?», e a cadeia ja responde por escrito.
+        import cadeia_do_mapa as CAD   # noqa: E402 — a gaveta ja esta no path
+        saidas = set()
+        for grupo in (CAD.ordem_escrita(), CAD.passos_a_mao()):
+            for passo in grupo:
+                for o in passo.get("OUTPUTS", []):
+                    saidas.add(o["PATH"] if isinstance(o, dict) else o)
+        extra = tuple(IMPRESSAO.LEI.get("EXCLUIDO_EXTRA", ()))
+
+        for e in sorted(excluidos):
+            with self.subTest(excluido=e):
+                self.assertTrue(
+                    e in saidas or e.startswith(extra),
+                    "saiu do universo sem ser saida declarada da cadeia "
+                    "nem EXCLUIDO_EXTRA — quem escreve este ficheiro?")
+
+        # A fonte continua DENTRO — e por isso mexer nela muda a impressao.
+        for fonte in ("AGENTS.md",
+                      "system-map/data/architecture.declared.json"):
+            with self.subTest(fonte=fonte):
+                self.assertFalse(IMPRESSAO.excluido(fonte))
+
+    def test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore(self):
+        """A prova empirica de que a perseguicao era desnecessaria.
+
+        O carimbo commitado ja e igual a impressao da arvore commitada — sem
+        nenhum ciclo de regerar-e-commitar, e num commit cujo PROVENANCE.HEAD
+        nomeia, como sempre, o commit anterior.
+        """
+        rc = subprocess.run(
+            [sys.executable, str(RAIZ / "system-map" / "scripts" / "impressao_da_arvore.py"),
+             "--conferir-carimbo"], capture_output=True, text=True)
+        self.assertIn("IMPRESSAO_DO_CARIMBO=IGUAL", rc.stdout,
+                      "o ponto fixo da FONTE tem de ser alcancavel: " + rc.stdout[-400:])
+
+    def test_M6_o_carimbo_de_commit_continua_a_nomear_o_commit_anterior(self):
+        """E isso fica DITO, nao escondido — em codigo, nao so em prosa minha."""
+        for f in ("system-map/scripts/impressao_da_arvore.py",
+                  "system-map/scripts/publicar_no_deploy.mjs"):
+            texto = (RAIZ / f).read_text(encoding="utf-8")
+            with self.subTest(ficheiro=f):
+                self.assertIn("ANTERIOR", texto)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+def lei(cabecalho: str, corpo: str) -> str:
+    """Uma lei sintetica: cabecalho declarado + corpo. Para atacar o detector."""
+    return f"# LEI\n\n```text\n{cabecalho}\n```\n\n{corpo}\n"
+
+
+CABECALHO_CANONICO = ("BIBLE_ID = X\nVERSION = V1\nSTATUS = CANONICAL\n"
+                      "IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32")
+FECHO_LIMITADO = ("## HARD STOP\n\nAutoriza a primeira missão da secção 32, e mais nada.")
+CORRENTE_OK = "```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n```"
+
+
+class B_UmaLeiNaoPodeContradizerSeASiPropria(unittest.TestCase):
+    """B1–B6 · a prova semantica da constituicao, atacada.
+
+    O defeito real: a promocao mudou o cabecalho e a §31 da Biblia e deixou
+    intacto o veredito que ela tinha emitido sobre si propria quando era
+    candidata. `STATUS = CANONICAL` no inicio, `CANONICAL = NO` no fim.
+
+        UM DOCUMENTO COM DUAS RESPOSTAS PARA A MESMA PERGUNTA NAO TEM NENHUMA.
+
+    E o que nao pode acontecer no conserto: apagar a fotografia antiga. Uma lei
+    viva carrega a propria historia — o que separa as duas e a MARCA, nunca a
+    ausencia de uma delas.
+    """
+
+    def test_B0_a_prova_apanha_o_defeito_REAL_que_existiu(self):
+        """A unica que importa: correr contra a Biblia de antes da cirurgia."""
+        antes = subprocess.run(
+            ["git", "-C", str(RAIZ), "show",
+             "b1029ce6:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"],
+            capture_output=True, text=True).stdout
+        self.assertTrue(antes, "o commit de referencia tem de existir")
+        achados = PORTAO.contradicoes_da_lei(antes)
+        self.assertTrue(any("CANONICAL=NO" in x for x in achados), achados)
+        self.assertTrue(any("HARD STOP" in x for x in achados), achados)
+
+    def test_B1_corrente_concorda_com_o_cabecalho(self):
+        d = lei(CABECALHO_CANONICO, CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(d), [])
+
+    def test_B2_uma_fotografia_antiga_marcada_como_historica_e_legitima(self):
+        velho = ("```text\nVEREDITO = HISTORICO\nDATA = 2026-09-13\n"
+                 "CANONICAL = NO\nRUNTIME_IMPLEMENTED = NO\n```")
+        d = lei(CABECALHO_CANONICO, velho + "\n\n" + CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(d), [],
+                         "apagar a historia seria pior que a contradicao")
+
+    def test_B3_o_mesmo_veredito_sem_a_marca_reprova(self):
+        velho = "```text\nVEREDITO = CORRENTE\nCANONICAL = NO\n```"
+        d = lei(CABECALHO_CANONICO, velho + "\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(d)
+        self.assertTrue(any("CANONICAL=NO" in x for x in achados), achados)
+
+    def test_B4_negar_toda_implementacao_debaixo_de_um_cabecalho_que_autoriza(self):
+        corpo = ("```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n"
+                 "IMPLEMENTATION_AUTHORIZED = NENHUMA\n```\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo))
+        self.assertTrue(any("IMPLEMENTATION_AUTHORIZED=NENHUMA" in x for x in achados), achados)
+
+    def test_B4b_um_fecho_que_nega_o_que_o_cabecalho_autoriza(self):
+        """A forma exacta da frase que sobreviveu a promocao real."""
+        fecho = ("## HARD STOP\n\nEsta Bíblia não autoriza iniciar implementação "
+                 "da Intelligence.")
+        achados = PORTAO.contradicoes_da_lei(
+            lei(CABECALHO_CANONICO, CORRENTE_OK + "\n\n" + fecho))
+        self.assertTrue(any("HARD STOP" in x for x in achados), achados)
+
+    def test_B5_autorizar_tudo_debaixo_de_um_cabecalho_que_limita(self):
+        corpo = ("```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n"
+                 "IMPLEMENTATION_AUTHORIZED = TODA_A_INTELLIGENCE\n```\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo))
+        self.assertTrue(any("TODA_A_INTELLIGENCE" in x for x in achados), achados)
+
+    def test_B5b_um_fecho_que_nomeia_fronteira_que_o_cabecalho_nao_declara(self):
+        cab = CABECALHO_CANONICO.replace(
+            "IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32",
+            "IMPLEMENTATION_AUTHORIZED = NO")
+        achados = PORTAO.contradicoes_da_lei(lei(cab, CORRENTE_OK + "\n\n" + FECHO_LIMITADO))
+        self.assertTrue(any("nao declara" in x for x in achados), achados)
+
+    def test_B6_runtime_NO_nao_reprova_uma_lei_canonica(self):
+        """A prova que impede o portao de ensinar a casa a mentir.
+
+        Ser lei e estar construido sao perguntas diferentes. Se `RUNTIME = NO`
+        reprovasse debaixo de `STATUS = CANONICAL`, a saida mais barata era
+        escrever `IMPLEMENTED = YES` — e a Biblia passava a mentir para passar.
+        """
+        corpo = ("```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n"
+                 "INTELLIGENCE_RUNTIME_IMPLEMENTED = NO\n"
+                 "INTELLIGENCE_IMPLEMENTATION_STARTED = NO\n"
+                 "REAL_ITALY_FLOW_OBSERVED = NO\n"
+                 "COLLECTION_FOUNDATION_CLOSED = NAO\n```\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo)), [])
+
+    def test_B7_dois_vereditos_correntes_sao_duas_verdades(self):
+        d = lei(CABECALHO_CANONICO,
+                CORRENTE_OK + "\n\n" + CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(d)
+        self.assertTrue(any("CORRENTE" in x and "tem de ser 1" in x for x in achados), achados)
+
+    def test_B8_a_prova_nao_e_um_grep_por_prosa(self):
+        """Prosa a CITAR o estado antigo nao pode reprovar a lei."""
+        corpo = ("Durante meses esta lei dizia de si `CANONICAL = NO`, e a frase "
+                 "«esta Bíblia não autoriza iniciar implementação» fechava o "
+                 "documento.\n\n" + CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo)), [],
+                         "narrar nao e declarar")
+
+    def test_B9_a_biblia_real_desta_arvore_nao_se_contradiz(self):
+        corpo = (RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md").read_text(encoding="utf-8")
+        self.assertEqual(PORTAO.contradicoes_da_lei(corpo), [])
+
+    def test_B10_a_fotografia_de_2026_09_13_continua_no_documento(self):
+        """NAO APAGAR HISTORIA. A prova que impede o conserto preguicoso."""
+        corpo = (RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md").read_text(encoding="utf-8")
+        self.assertIn("VEREDITO = HISTORICO", corpo)
+        self.assertIn("CANONICAL = NO", corpo)
+        self.assertIn("COLLECTION_OWNER_COLLISION_FOUND = YES", corpo)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class R_OQueBloqueiaORuntimeDaIntelligence(unittest.TestCase):
+    """GATE C · porque o runtime NAO comecou, medido em vez de alegado.
+
+    A Biblia foi promovida. Isso mudou quem e a lei — nao mudou o que a maquina
+    consegue fazer. Dois contratos, ambos canonicos e ambos NESTA arvore,
+    impedem o runtime hoje:
+
+        docs/operacao/TRAVA-DA-INTELIGENCIA.json
+            COLLECTION_FOUNDATION_CLOSED != SIM -> INTELLIGENCE_IMPLEMENTATION_BLOCKED
+            e o que ela bloqueia inclui, por escrito, «desenvolvimento NOVO de
+            inteligencia» e «ligar sinais».
+
+        BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md secao 32
+            a primeira missao apos promocao exige ONE REAL WAITING_ROOM ITEM.
+
+    Estas provas nao pedem licenca para nada: medem os dois, hoje. No dia em que
+    a fundacao fechar e a Sala tiver um item, elas passam a dizer outra coisa —
+    e e ai, e so ai, que o runtime pode nascer.
+
+        A TRAVA NAO IMPEDE MEDIR O QUE A INTELIGENCIA VAI ESPERAR DA COLETA.
+        E isto e exatamente isso.
+    """
+
+    def test_R1_a_fundacao_da_coleta_nao_esta_fechada_medido_hoje(self):
+        """Medido nas estradas, e nao lido do campo que a propria trava declara.
+
+        `DECLARED != OBSERVED` vale para a trava tambem: o ficheiro dela diz
+        `COLLECTION_FOUNDATION_CLOSED: NAO` e `MEDIDO_EM: 2026-09-08`. Acreditar
+        nisso seria herdar uma fotografia — o erro que esta casa ja cometeu
+        quatro vezes.
+        """
+        E = json.loads((RAIZ / "system-map" / "data" / "estradas-it.generated.json")
+                       .read_text(encoding="utf-8"))
+        fechadas = E["ROUTE_CLASSES_ARCHITECTURE_CLOSED"]
+        total = E["ROUTE_CLASSES_REQUIRED_TOTAL"]
+        self.assertEqual(len(fechadas), 0,
+                         f"se isto deixou de ser 0, re-medir a trava: {fechadas}")
+        self.assertEqual(total, "UNKNOWN",
+                         "enquanto nao se souber quantas estradas sao precisas, "
+                         "«todas as necessarias estao fechadas» fala de um "
+                         "conjunto que ninguem conhece")
+
+    def test_R2_a_trava_bloqueia_por_escrito_o_que_esta_missao_pediu(self):
+        T = json.loads((RAIZ / "docs" / "operacao" / "TRAVA-DA-INTELIGENCIA.json")
+                       .read_text(encoding="utf-8"))
+        self.assertEqual(T["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+        impede = " · ".join(T["O_QUE_A_TRAVA_IMPEDE"])
+        self.assertIn("desenvolvimento NOVO de inteligencia", impede)
+        self.assertIn("ligar sinais", impede)
+
+    def test_R3_a_sala_de_espera_real_continua_vazia(self):
+        """Re-medida, nao herdada. A Collection pode ter andado em paralelo."""
+        sys.path.insert(0, str(RAIZ / "admissao"))
+        import sala_de_espera as SALA                                # noqa: E402
+        morada = Path(SALA.MORADA)
+        corridas = sorted(morada.glob("*.json")) if morada.is_dir() else []
+        self.assertEqual(corridas, [],
+                         "se ha itens reais, a secao 32 da Biblia passa a poder "
+                         f"correr: {corridas[:3]}")
+
+    def test_R4_nenhum_runtime_de_intelligence_nasceu_enquanto_a_trava_fecha(self):
+        """A prova que reprova no dia em que alguem contornar isto.
+
+        Nao e uma lista de nomes proibidos — seria contornavel escolhendo outro
+        nome. E a espinha a continuar a dizer de si propria o que ela e.
+        """
+        espinha = (RAIZ / "provas" / "espinha_da_intelligence.py").read_text(encoding="utf-8")
+        self.assertIn("NAO E RUNTIME PRODUTIVO", espinha)
+        self.assertIn("IMPLEMENTED = NO", espinha)
+        self.assertIn("NAO le a Sala de Espera real", espinha)
+
+    def test_R5_a_promocao_da_biblia_nao_desbloqueou_a_trava(self):
+        """PROMOVER A LEI != AUTORIZAR A OBRA.
+
+        As duas coisas ja foram confundidas neste projeto. A Biblia e canonica
+        desde hoje, e a trava continua fechada — sao portoes de frentes
+        diferentes, e nenhum abre o outro.
+        """
+        R = base()
+        self.assertEqual(achar(R, "A-BIBLIA-ENG-INTELIGENCIA")["LIFECYCLE"], "CANONICAL")
+        T = json.loads((RAIZ / "docs" / "operacao" / "TRAVA-DA-INTELIGENCIA.json")
+                       .read_text(encoding="utf-8"))
+        self.assertEqual(T["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

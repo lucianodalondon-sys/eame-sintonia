@@ -124,7 +124,24 @@ INSTRUMENTOS = ("system-map/scripts/censo_do_congelamento.py",
                 # RECOMMENDATIONS **para os bloquear**. Congelá-la seria trancar
                 # a própria fechadura: os 14 critérios de destrave deixariam de
                 # poder ser corrigidos, e a fundação nunca poderia fechar.
-                "leis/fundacao_da_coleta.py")
+                "leis/fundacao_da_coleta.py",
+                # ⚠️ MEDIR QUEM SAO OS DONOS NAO E LIGAR SINAIS.
+                # `provas/arbitragem_da_intelligence.py` escreve SIGNAL,
+                # CROSSING e OPPORTUNITY por extenso — como este censo escreve
+                # as marcas fortes — porque e assim que os PROCURA. Ele conta
+                # ficheiros por camada; nao calcula sinal, nota nem
+                # recomendacao, que e a pergunta que `_especie` diz fazer.
+                # O contrato da trava ja o autoriza por escrito:
+                # «medir o que a inteligencia futura vai esperar da coleta».
+                "provas/arbitragem_da_intelligence.py",
+                # ⚠️ O REGISTO DE QUEM MANDA NAO E O QUE ELE REGISTA.
+                # `controle/AUTORIDADES-CANONICAS.json` caia em CONTRACT por
+                # declarar "SCHEMA" — mas o contrato que ele declara e o de
+                # GOVERNANCA: que autoridade existe, onde mora e quem a
+                # supersede. Congela-lo trancaria o registo que diz quem pode
+                # destrancar, pelo mesmo motivo que `fundacao_da_coleta.py`
+                # esta nesta lista.
+                "controle/AUTORIDADES-CANONICAS.json")
 
 
 def _especie(rel, texto):
