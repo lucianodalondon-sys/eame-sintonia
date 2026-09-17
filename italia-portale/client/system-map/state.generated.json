@@ -957,6 +957,7 @@
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
+      "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/SOURCE-ID-WIRING-GAP-V1.md",
@@ -2663,9 +2664,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "7d75e25a7a758cd4d9f62d71b40182a5a5cb944d",
-    "GENERATED_AT": "2026-09-16T21:16:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6fcbb68f3c4b6dd7288ca66ad6571f143721408180ad3df80b9996e7f2a48e31"
+    "HEAD": "7f7d31ef0a36516ba6ea5cc66e6fbdcfac1b594b",
+    "GENERATED_AT": "2026-09-17T07:10:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d066776d35250384211b042814af8b572ed00d15a7e82d15e0b24d9009ef254a"
   },
   "FAMILIES": [
     {
@@ -46329,8 +46330,8 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 100,
-          "snippet": "with open(os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),",
+          "line": 149,
+          "snippet": "if \"cadeia_canonica.sh\" in linha and linha.rstrip().endswith(\"\\\\\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
             "FROM": "C-CADEIA-V21",
@@ -49581,7 +49582,7 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 339,
+          "line": 451,
           "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -49597,7 +49598,7 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 340,
+          "line": 452,
           "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -49613,7 +49614,7 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 341,
+          "line": 453,
           "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -49629,7 +49630,7 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 373,
+          "line": 474,
           "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -49801,7 +49802,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 341,
+          "line": 453,
           "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-REGRESSAO--READS-->C-TESTES",
@@ -57320,7 +57321,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 235,
+          "line": 347,
           "snippet": "\"guarda/preservar_coleta.py\": \"ESCREVE\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -57336,7 +57337,7 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 241,
+          "line": 353,
           "snippet": "\"guarda/memoria_descartavel.py\": \"LE\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -61258,7 +61259,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 206,
+          "line": 318,
           "snippet": "with open(os.path.join(RAIZ, \"guarda\", \"catalogo_importar.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IMPORTAR--READS-->C-TESTES",
@@ -88106,7 +88107,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -88176,6 +88177,22 @@
           "file": "tests/test_fase_italiana_no_workflow.py",
           "line": 26,
           "snippet": "WF = os.path.join(RAIZ, \".github\", \"workflows\", \"sintonia-scrap.yml\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
+            "FROM": "C-SINTONIA-SCRAP",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 516,
+          "snippet": "with open(os.path.join(WORKFLOWS, \"sintonia-scrap.yml\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
             "FROM": "C-SINTONIA-SCRAP",
@@ -90614,7 +90631,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 300,
+          "line": 412,
           "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-CI-PERSIST",
@@ -90910,7 +90927,7 @@
       "evidence": [
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 317,
+          "line": 429,
           "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-PROVA-COLETA",
@@ -94131,7 +94148,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1080,
+  "UNCLAIMED_FILES_COUNT": 1081,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -94320,7 +94337,7 @@
     "edges_proven": 1015,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2071,
+    "files_tracked": 2072,
     "files_covered": 991,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

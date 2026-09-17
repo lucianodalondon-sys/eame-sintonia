@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "7d75e25a7a758cd4d9f62d71b40182a5a5cb944d",
-    "GENERATED_AT": "2026-09-16T21:16:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6fcbb68f3c4b6dd7288ca66ad6571f143721408180ad3df80b9996e7f2a48e31"
+    "HEAD": "7f7d31ef0a36516ba6ea5cc66e6fbdcfac1b594b",
+    "GENERATED_AT": "2026-09-17T07:10:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d066776d35250384211b042814af8b572ed00d15a7e82d15e0b24d9009ef254a"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "ffeb5562d550b4713286c7ef6b8f3f7ff13a35d3",
+      "sha": "b7a3780c978e025c367688ebf96c9b740ef3b67b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6521,6 +6521,13 @@
     {
       "path": "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
       "sha": "761f2fcce19d2734de30684a46b3955d088e3b97",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
+      "sha": "24874eb7ddb42c2ab2e54af21de7fa1cabfe7ce8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -14164,7 +14171,7 @@
     },
     {
       "path": "tests/test_porta_de_producao.py",
-      "sha": "cf8665c9214c57f099f75136c1a1c3c7b1caf5bb",
+      "sha": "2d46818153772c9902f2494854ca007e201b8aa1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -57986,7 +57993,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 373,
+        "line": 474,
         "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
       }
     },
@@ -57997,7 +58004,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 300,
+        "line": 412,
         "snippet": "with open(os.path.join(WORKFLOWS, \"auditoria-live.yml\"),"
       }
     },
@@ -58008,8 +58015,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 341,
+        "line": 453,
         "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
+      }
+    },
+    {
+      "from_file": "tests/test_porta_de_producao.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_porta_de_producao.py",
+        "line": 516,
+        "snippet": "with open(os.path.join(WORKFLOWS, \"sintonia-scrap.yml\"),"
       }
     },
     {
@@ -58019,7 +58037,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 341,
+        "line": 453,
         "snippet": "\"supabase-conexao.yml\", \"calendario-regressoes.yml\"}"
       }
     },
@@ -58030,7 +58048,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 339,
+        "line": 451,
         "snippet": "ESCRITORES = {\"supabase-migrate.yml\", \"supabase-fichas-adama.yml\","
       }
     },
@@ -58041,7 +58059,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 340,
+        "line": 452,
         "snippet": "\"supabase-raw-roundtrip.yml\", \"supabase-storage.yml\","
       }
     },
@@ -58052,7 +58070,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 206,
+        "line": 318,
         "snippet": "with open(os.path.join(RAIZ, \"guarda\", \"catalogo_importar.py\"),"
       }
     },
@@ -58063,7 +58081,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 241,
+        "line": 353,
         "snippet": "\"guarda/memoria_descartavel.py\": \"LE\","
       }
     },
@@ -58074,7 +58092,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 235,
+        "line": 347,
         "snippet": "\"guarda/preservar_coleta.py\": \"ESCREVE\","
       }
     },
@@ -58085,8 +58103,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 100,
-        "snippet": "with open(os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
+        "line": 149,
+        "snippet": "if \"cadeia_canonica.sh\" in linha and linha.rstrip().endswith(\"\\\\\"):"
       }
     },
     {
@@ -58096,7 +58114,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_porta_de_producao.py",
-        "line": 317,
+        "line": 429,
         "snippet": "with open(os.path.join(RAIZ, \"provas\", \"auditoria_live.sh\"),"
       }
     },
@@ -62245,10 +62263,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2071,
+    "files_tracked": 2072,
     "files_readable": 798,
     "files_code_dir": 856,
-    "file_edges": 4293,
+    "file_edges": 4294,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

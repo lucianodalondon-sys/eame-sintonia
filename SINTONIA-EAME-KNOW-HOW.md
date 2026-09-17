@@ -10,13 +10,13 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§131**: a revisão independente correu e deu **FAIL por UM blocker que não é a coleta**: a isenção nova em `tests/test_porta_de_producao.py` opera sobre o ficheiro inteiro quando promete operar sobre a linha (o `sem_comentarios` faz join antes do `splitlines`), e um escritor novo de produção esconde-se com uma isca. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado** — nenhum contraexemplo derrubou o observado. Replay do workflow adiado por contrato da revisão. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§131 (revisto no mesmo dia)**: a revisão independente deu FAIL por UM blocker que não é a coleta (a isenção da porta de produção operava por ficheiro prometendo linha), e o blocker foi **FECHADO** em missão própria (commit `7f7d31ef`), validado por red team independente em **4 rounds até zero** — os furos de cada round (espaço dobrado, `run: >` e cabeçalhos `>2`/`> #`, plain scalar multilinha, isca inline) viraram regressão versionada. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado**. Falta só o replay canário pelo workflow real. `BIG_COLLECTION = NÃO AUTORIZADA`.
 
 **§130 (2026-09-16):** a primeira coleta controlada ACONTECEU. `SOURCE_TO_SALA_REAL_OBSERVED = YES` — aquisição real, egresso IT por corrida, porta canónica, Postgres descartável, 6/6 fontes executadas até à verdade de cada uma, 4 unidades na Sala — **3 relidas por outro processo; a do T3-008 não foi medida (a bancada morreu antes; correção da revisão §131)** —, reexecução com reuso provada no banco. BG-01..06 fechados na mesma janela — e o sétimo defeito, que nenhum plano tinha visto: **texto acentuado em argv atravessa a conversão ANSI do Windows**; dado passa a viajar por stdin em UTF-8 explícito. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
 **Passo anterior — CUMPRIDO (2026-09-16):** FECHAR OS SEIS PORTÕES **e** executar a primeira coleta controlada (§130). Plano com o fecho e a execução: `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §7-B/§7-C/§10-C.
-**Passo anterior — CUMPRIDO (2026-09-17):** REVISÃO INDEPENDENTE da primeira coleta (§131). Veredito: FAIL por um blocker (guarda da porta de produção), com a prova da coleta **sustentada**. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md`.
-**Próximo passo autorizado (2026-09-17):** consertar a isenção da guarda da porta de produção (granularidade de linha física + teste-contraexemplo, §131) — por missão que **não** seja o revisor — e então o `INDEPENDENT_WORKFLOW_CANARY_REPLAY` (IT-T3-002 pela fase `italia-documento`, teardown medido fisicamente). Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Passo anterior — CUMPRIDO (2026-09-17):** REVISÃO INDEPENDENTE da primeira coleta (§131, veredito FAIL com a prova da coleta **sustentada**) **e** o fecho do blocker dela (commit `7f7d31ef`, red team 4 rounds → 0). Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` (§13 = o fecho).
+**Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **missão independente** (não quem consertou), com teardown medido fisicamente (processos, porta 54329, cluster). Pré-condições já medidas: runners online, egresso IT. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -15858,3 +15858,41 @@ NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO corrigiu código nenhum: revisor que conserta e revê o próprio conserto
     não é revisor.
 ```
+
+## O FECHO DO BLOCKER — 2026-09-17, mesma data, missão própria
+
+O conserto veio no commit `7f7d31ef`, por missão que não foi a do revisor, e
+foi validado por red team independente que iterou ATÉ ZERO — e as três
+primeiras versões do conserto CAÍRAM. A lição durável cresceu:
+
+```
+NÃO BASTA «NÃO DESTRUIR LINHAS ANTES DE DECIDIR».
+A GUARDA TEM DE LER NA GRANULARIDADE QUE O EXECUTOR RECEBE —
+E O EXECUTOR NÃO RECEBE O FICHEIRO: RECEBE O QUE O YAML LHE ENTREGA.
+
+round 1  espaço dobrado fura gatilho de substring com UM espaço;
+         `run: >` dobra linhas sem backslash nenhum;
+         isca completa na MESMA linha isenta o escritor ao lado
+         (search solto ≠ prova ancorada por invocação)
+round 2  o cabeçalho do fold aceita `>2`, `>-2`, `> # comentário`
+round 3  plain scalar e quoted scalar dobram SEM SINAL NENHUM na linha
+round 4  zero — com FP=0 nos 17 workflows reais
+```
+
+O desenho que sobreviveu: (1) gatilho por regex `\s+`; (2) isenção ancorada
+no início de CADA invocação — nunca `search` no resto da linha; (3) folds do
+YAML dobrados antes de decidir; (4) uma SEGUNDA PASSADA com o texto todo
+dobrado que SÓ ACUSA — juntar linhas pode acusar, nunca isentar. Cada furo
+de cada round é regressão versionada (testes 13-17 da guarda).
+
+Fronteira declarada, que fica: ofuscação de shell no token do script
+(variável no caminho, aspas a partir o nome). Nenhuma guarda estática por
+texto vê isso — a antiga também não via; quem cobre essa classe é a
+blindagem de runtime, que segue como dívida nomeada da escala.
+
+E a segunda correção desta data: a revisão tinha chamado `c88690ca` de
+trunk por medir `origin/claude/sintonia-eame-repo-setup-xccfob` — a branch
+que o ambiente rotula de «main». O trunk canônico `claude/it-trunk-v1`
+está em `9d6dcbbd`, merge-base = ele próprio, Collection 11 à frente / 0
+atrás. «MAIN» DE AMBIENTE NÃO É TRUNK DE PROJETO — trunk mede-se na branch
+que a coordenação nomeia. A correção está no §1 do dono canônico.

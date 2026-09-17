@@ -33,12 +33,32 @@ entrega: a primeira fica de pé; a segunda espera o conserto.
 
 ## 1 · GIT
 
+> ⚠️ **CORREÇÃO DE TOPOLOGIA — 2026-09-17.** A linha `REMOTE_TRUNK_HEAD real =
+> c88690ca` da tabela abaixo está **ERRADA**: a revisão consultou
+> `origin/claude/sintonia-eame-repo-setup-xccfob` (a branch que o ambiente
+> rotula de «main») como se fosse o trunk. **Não é.** O trunk canônico é
+> `claude/it-trunk-v1`, remedido diretamente no remoto em 2026-09-17:
+>
+> ```
+> origin/claude/it-trunk-v1 = 9d6dcbbd08210b0c463b1cb25222edc4f8d45d9b
+> MERGE_BASE                = 9d6dcbbd (o próprio trunk)
+> COLLECTION                = 11 à frente · 0 atrás — fast-forward possível
+> ```
+>
+> A frase «o trunk oficial andou 45 commits» descreve a branch errada e cai
+> junto. O erro **não altera nada do resto**: o escopo auditado
+> (`9d6dcbbd..7d75e25a`) já era o certo, porque `9d6dcbbd` era o trunk de
+> verdade — a revisão acertou o intervalo pelo motivo errado. Blocker e prova
+> SOURCE→SALA intactos. A tabela original fica abaixo, como foi escrita,
+> porque apagar o erro apagaria a lição: **«main» de ambiente não é trunk de
+> projeto; trunk se mede na branch nomeada pela coordenação.**
+
 | medição | valor |
 |---|---|
 | `CURRENT_BRANCH` | `claude/it-collection-sala-v1` |
 | `LOCAL_HEAD` = `REMOTE_COLLECTION_HEAD` | `7d75e25a` — nada por publicar |
-| `REMOTE_TRUNK_HEAD` real | `c88690ca` — **mudou** desde a fotografia da coordenação (`9d6dcbbd`) |
-| topologia | `9d6dcbbd` (o trunk esperado) **é ancestral** desta branch; o trunk oficial andou 45 commits com missões alheias (sensores, creators). Escopo auditado: os **10 commits** `9d6dcbbd..7d75e25a` |
+| `REMOTE_TRUNK_HEAD` real | ~~`c88690ca`~~ — **ERRADO, ver a correção acima**: era outra branch |
+| topologia | `9d6dcbbd` (o trunk esperado) **é ancestral** desta branch; ~~o trunk oficial andou 45 commits com missões alheias~~ (branch errada). Escopo auditado: os **10 commits** `9d6dcbbd..7d75e25a` — correto |
 | `WORKTREE_DIRTY` | 0 · `LOCAL_UNPUBLISHED` | 0 |
 
 ## 2 · O DIFF INTEIRO, EXPLICADO
@@ -279,3 +299,31 @@ Caminho para a candidatura: (1) consertar a isenção da guarda com
 granularidade de linha física + teste-contraexemplo; (2) rodar o
 `INDEPENDENT_WORKFLOW_CANARY_REPLAY` (IT-T3-002, fase `italia-documento`) com
 teardown medido fisicamente; (3) só então fast-forward na coordenação.
+
+---
+
+## 13 · ADENDO — O BLOCKER-1 FOI FECHADO (2026-09-17)
+
+> Registrado aqui porque este ficheiro é o dono do blocker. O veredito acima
+> é histórico e **não muda**: descreve o HEAD `7d75e25a`. O fecho veio em
+> missão própria, commit **`7f7d31ef`** («collection: fechar a isencao da
+> porta de producao por linha real»), que este revisor **não** revisou — a
+> validação foi red team independente, em **4 rounds até zero**:
+>
+> | round | o que caiu |
+> |---|---|
+> | 1 | a 1ª versão do conserto: espaço dobrado furava o gatilho; `run: >` dobrava fora da vista; isca completa na mesma linha isentava o escritor |
+> | 2 | a 2ª versão: cabeçalhos de fold `>2` e `> # comentário` não dobravam |
+> | 3 | a 3ª versão: plain/quoted scalar multilinha dobra sem sinal nenhum |
+> | 4 | **nada — RED_TEAM_GUARD_BLOCKERS = 0**, FP = 0 nos 17 workflows reais, isenção falsa não costurável |
+>
+> Cada furo dos 4 rounds ficou como regressão versionada (testes 13-17 da
+> classe `AIsencaoDaBancadaEEstreitaDeVerdade`). Limite declarado que
+> permanece: ofuscação de shell no token do script — fronteira de qualquer
+> guarda estática por texto, idêntica à da guarda antiga; a blindagem de
+> runtime (portão 5b distinguir produção; `_e_descartavel` e o `?host=`)
+> segue como dívida nomeada da escala (§11).
+>
+> `INDEPENDENT_REVIEW_BLOCKER_1 = CLOSED` · o que falta para a candidatura
+> agora é **só** o item (2): o replay canário pelo workflow real, por missão
+> independente. `BIG_COLLECTION_AUTHORIZED = NO` continua.

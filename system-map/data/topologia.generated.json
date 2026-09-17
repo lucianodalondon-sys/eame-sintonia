@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-17T04:08:42+00:00",
-  "HEAD": "7d75e25a7a758cd4d9f62d71b40182a5a5cb944d",
+  "GENERATED_AT": "2026-09-17T10:13:30+00:00",
+  "HEAD": "7f7d31ef0a36516ba6ea5cc66e6fbdcfac1b594b",
   "BRANCH": "claude/it-collection-sala-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "6fcbb68f3c4b6dd7288ca66ad6571f143721408180ad3df80b9996e7f2a48e31",
+  "SOURCE_TREE_FINGERPRINT": "d066776d35250384211b042814af8b572ed00d15a7e82d15e0b24d9009ef254a",
   "FICHEIROS_NA_IMPRESSAO": 2220,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2904,14 +2904,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6fcbb68f3c4b6dd7288ca66ad6571f143721408180ad3df80b9996e7f2a48e31",
+    "VERSAO": "d066776d35250384211b042814af8b572ed00d15a7e82d15e0b24d9009ef254a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6fcbb68f3c4b6dd7288ca66ad6571f143721408180ad3df80b9996e7f2a48e31",
+    "VERSAO": "d066776d35250384211b042814af8b572ed00d15a7e82d15e0b24d9009ef254a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4129,7 +4129,7 @@
    {
     "PATH": "tests/test_porta_de_producao.py",
     "PAPEL": "FONTE",
-    "VERSAO": "cf8665c9214c57f099f75136c1a1c3c7b1caf5bb",
+    "VERSAO": "2d46818153772c9902f2494854ca007e201b8aa1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4464,7 +4464,7 @@
    }
   ],
   "INPUTS_COUNT": 632,
-  "INPUTS_DIGEST": "7a527d57427748c7bc3238440b11554f103be54f74d036434a62b0869dc31026",
+  "INPUTS_DIGEST": "1db9455ba952fb5a1aa99b480ccd7d4575a3f4c98449f6316136a7c07690749e",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4490,15 +4490,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 430,
+  "DOCUMENTOS_LIDOS": 431,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "90cdf566d41fdb2a9301c41af632ab6cdc09aa3a37c7db338e8fb8c79cb49261",
-  "SEMANTIC_HASH": "4123caa5113c912b39d127a130d5f3a256157bc39c1518632ec980069f660b41"
+  "MEASUREMENT_HASH": "6bb9b9f94ded5e547e66a0406cf2b8a91fb86cdc7279c9d0b382a5c5c30cd0a2",
+  "SEMANTIC_HASH": "16247b00c9a3325d506cfe5c471fb7046a1bbe164eec9415337ea4502d92d783"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -8608,7 +8608,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 100,
+      "LINHA": 149,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CADEIA-V21--READS-->C-TESTES",
@@ -10182,7 +10182,7 @@
      },
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 339,
+      "LINHA": 451,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -10190,7 +10190,7 @@
      },
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 340,
+      "LINHA": 452,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -10198,7 +10198,7 @@
      },
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 341,
+      "LINHA": 453,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -10206,7 +10206,7 @@
      },
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 373,
+      "LINHA": 474,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -10620,7 +10620,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 341,
+      "LINHA": 453,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-REGRESSAO--READS-->C-TESTES",
@@ -15098,7 +15098,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 235,
+      "LINHA": 347,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -15106,7 +15106,7 @@
      },
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 241,
+      "LINHA": 353,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -17322,7 +17322,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 206,
+      "LINHA": 318,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IMPORTAR--READS-->C-TESTES",
@@ -32090,6 +32090,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_porta_de_producao.py",
+      "LINHA": 516,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_preflight_de_egresso.py",
       "LINHA": 167,
       "SUPPORTS": "YES",
@@ -33897,7 +33905,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 300,
+      "LINHA": 412,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CI-PERSIST",
@@ -33941,7 +33949,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_porta_de_producao.py",
-      "LINHA": 317,
+      "LINHA": 429,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-PROVA-COLETA",
@@ -36578,6 +36586,7 @@
     "docs/operacao/C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1.md",
     "docs/operacao/CENSO-DA-INTELLIGENCE.md",
     "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md",
+    "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
     "handoff/KNOW-HOW-DELTA-ARBITRAGEM-DA-INTELLIGENCE.md",
     "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md"
    ],
@@ -42515,6 +42524,7 @@
     "tests/test_c10_6d_portas_canonicas.py",
     "tests/test_c10_8b_live_disparador.py",
     "tests/test_fase_italiana_no_workflow.py",
+    "tests/test_porta_de_producao.py",
     "tests/test_preflight_de_egresso.py",
     "tests/test_scrap_flow01_caminho_canonico.py",
     "tests/test_scrap_rc01_release_candidate.py"
