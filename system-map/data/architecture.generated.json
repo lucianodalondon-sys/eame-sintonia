@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "3c0b36bf60b25ac5f0820c73d3a56000c7ceba58",
-    "GENERATED_AT": "2026-09-16T19:29:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d82c3296f29f106676c0f25b0e8cddfc31d1baefb59894085c8d847e819afd90"
+    "HEAD": "8cf2a272311e4783cb9add13a59afbd45ff47f0b",
+    "GENERATED_AT": "2026-09-16T21:06:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cf0a1972db7932f9bdce1017850b958e8ea39460393a5ab373c76a41aa646e3c"
   },
   "FILES": [
     {
@@ -6478,7 +6478,7 @@
     },
     {
       "path": "docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md",
-      "sha": "fff7d4519cb8d88dc19fb8d34f1d96768e0f8aa9",
+      "sha": "57579f69995ec1193c9a823f929bf0e57e5391aa",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11020,6 +11020,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/primeira_coleta_controlada_italia.py",
+      "sha": "5eb69a31e99dd8f93891b11e5b19a0600405339d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/primeira_rota_paga.py",
       "sha": "b7908971a535e4c90e49c6d8f59f49355ec22718",
       "ext": ".py",
@@ -12779,6 +12786,13 @@
     {
       "path": "system-map/data/pedido.observado.json",
       "sha": "926a3c77af754087e406439ee123e9112e275822",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/data/primeira-coleta-controlada.observado.json",
+      "sha": "61efc24159bb8a2794f419fbdd802a0eaec50862",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -41235,6 +41249,105 @@
       }
     },
     {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 43,
+        "snippet": "import _gavetas                                    # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 70,
+        "snippet": "import sala_de_espera as espera                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 68,
+        "snippet": "import coleta_checkpoint as cc                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 69,
+        "snippet": "import italy_executor as ie                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 99,
+        "snippet": "\"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 109,
+        "snippet": "\"runs.ndjson\")"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 72,
+        "snippet": "import orquestrador as orq                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 71,
+        "snippet": "from pedido import Pedido                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_coleta_controlada_italia.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/primeira_coleta_controlada_italia.py",
+        "line": 48,
+        "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
       "from_file": "provas/primeira_rota_paga.py",
       "to_file": "coleta/adaptador_youtube.py",
       "type": "IMPORTS",
@@ -62132,10 +62245,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2069,
-    "files_readable": 797,
-    "files_code_dir": 854,
-    "file_edges": 4284,
+    "files_tracked": 2071,
+    "files_readable": 798,
+    "files_code_dir": 856,
+    "file_edges": 4293,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

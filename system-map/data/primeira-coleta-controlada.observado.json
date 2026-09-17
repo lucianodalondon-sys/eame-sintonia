@@ -4,7 +4,7 @@
  "MEDIDO_EM": "2026-09-16",
  "AMBIENTE": "DESCARTAVEL — runner eame-sintonia-local (esta maquina), producao intocada",
  "SOURCE_TO_SALA_REAL_OBSERVED": true,
- "NOTA_T3_008": "a primeira tentativa registou RAW=FAIL (RAW_PERSISTENCE_FAILED, transiente de spawn do psql nesta maquina); a corrida seguinte atravessou inteira ate a Sala. O FAIL honesto ficou no rastro.",
+ "NOTA_T3_008": "a primeira tentativa registou RAW=FAIL (RAW_PERSISTENCE_FAILED, transiente de spawn do psql nesta maquina) e NAO chegou a Sala — e o que a linha dela mostra. A corrida seguinte (...234734, linha propria no fim) mostrou no banco RAW PASS, DERIVED PASS e 1 linha na Sala; a leitura noutro processo NAO foi medida para ela. FAIL transiente + recuperacao em corrida nova: os dois ficam, cada um com a sua prova.",
  "NOTA_T2_002": "ADMISSION=NAO_SE_APLICA x4: o universo T2 nao tem regra de admissao por decisao ja registada (MEDICAO-DA-REGRA-T2). Verdade, nao avaria.",
  "CORRIDAS": [
   {
@@ -310,8 +310,25 @@
    "COST_USD": 0,
    "ITEM_COUNT": 1,
    "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "ALVO_DO_PEDIDO": "T3",
+   "RUN_ID": "IT-T3-2026-09-16-234734-a6084afdfb2f788b",
+   "ORIGEM_DA_MEDICAO": "consultas directas ao banco descartavel nesta sessao — NAO passou pelo corredor, e por isso os campos que so o corredor mede estao NAO MEDIDO",
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "PASS"
+   },
+   "ETAPA_RAW_PASSED": 1,
+   "ETAPA_DERIVED_PASSED": 1,
+   "SALA_ROWS": 1,
+   "SALA_READ_OTHER_PROCESS": "NAO MEDIDO — a bancada foi destruida antes desta leitura",
+   "NETWORK_REQUEST_OBSERVED": "NAO MEDIDO pelo corredor (a corrida foi real e o executor foi a fonte; o ledger desse OPS de diagnostico nao foi colhido)",
+   "NOTA": "e esta corrida que recuperou do RAW=FAIL transiente da tentativa anterior (...234422). O que se afirma dela e SO o que o banco mostrou: RAW PASS, DERIVED PASS, 1 linha na sala_de_espera para este run_id."
   }
  ],
  "NOTA_HISTORICO": "as 10 linhas incluem TENTATIVAS iniciais em que o medidor desta prova errou uma consulta (coluna adivinhada) DEPOIS de a corrida ja ter adquirido: as linhas com ERROR de RuntimeError sao defeito do MEDIDOR, corrigido na hora, e nao da estrada. A historia fica porque apagar tentativa e reescrever historia.",
- "CORRIDAS_COM_ERRO_DO_MEDIDOR": 2
+ "CORRIDAS_COM_ERRO_DO_MEDIDOR": 2,
+ "PROVENIENCIA": "CONSOLIDADO POR SCRIPT na sessao de 2026-09-16, a partir dos RESULTADO.json que provas/primeira_coleta_controlada_italia.py escreveu em cada OPS_ROOT temporario (5 invocacoes), MAIS a linha da segunda corrida de IT-T3-008 abaixo, que veio de consultas directas ao banco descartavel na mesma sessao (etapa_da_corrida e sala_de_espera), porque essa corrida foi disparada por um comando de diagnostico e nao pelo corredor. O egresso pre-aquisicao foi medido pelo portao canonico (superficie/rede.py --portao-de-egresso IT -> PASS, saida 0) na mesma maquina e sessao, ANTES do canario; o corredor manual nao executa os portoes do workflow — a fase italia-documento executa."
 }

@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-17T00:04:48+00:00",
-  "HEAD": "3c0b36bf60b25ac5f0820c73d3a56000c7ceba58",
+  "GENERATED_AT": "2026-09-17T00:10:32+00:00",
+  "HEAD": "8cf2a272311e4783cb9add13a59afbd45ff47f0b",
   "BRANCH": "claude/it-collection-sala-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d82c3296f29f106676c0f25b0e8cddfc31d1baefb59894085c8d847e819afd90",
+  "SOURCE_TREE_FINGERPRINT": "cf0a1972db7932f9bdce1017850b958e8ea39460393a5ab373c76a41aa646e3c",
   "FICHEIROS_NA_IMPRESSAO": 2219,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2897,14 +2897,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d82c3296f29f106676c0f25b0e8cddfc31d1baefb59894085c8d847e819afd90",
+    "VERSAO": "cf0a1972db7932f9bdce1017850b958e8ea39460393a5ab373c76a41aa646e3c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d82c3296f29f106676c0f25b0e8cddfc31d1baefb59894085c8d847e819afd90",
+    "VERSAO": "cf0a1972db7932f9bdce1017850b958e8ea39460393a5ab373c76a41aa646e3c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4457,7 +4457,7 @@
    }
   ],
   "INPUTS_COUNT": 631,
-  "INPUTS_DIGEST": "78e08211d690e986393efffdb8e6b79aa8fab5b62fbf8559f654536a4fc8f2f6",
+  "INPUTS_DIGEST": "2cc23d1862d8b173ad9cfe200989bb857ee36774ec6bb9e70db86c4eb87b4afe",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4490,8 +4490,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e1b61c4db89fc4fa59436100df507584389097bcf23582361171dff9926ae306",
-  "SEMANTIC_HASH": "bfffb72d10851c53a2fe270722bd91fe1a69b6da620d1423b973947f1f1ba4de"
+  "MEASUREMENT_HASH": "dbf9f81cdc8d3adf4a0272c62e1298e8c53868f6343377ef3c0ce907d3b6bc22",
+  "SEMANTIC_HASH": "396ff10ff3fff023e17510cb31cbc9a4d34ec2b66fa099913330337ed5d1a350"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -38982,6 +38982,7 @@
     "provas/o_censo_do_acervo.py",
     "provas/o_legado_fora_do_fluxo.py",
     "provas/o_raw_local_nao_e_duravel.py",
+    "provas/primeira_coleta_controlada_italia.py",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_de_identidade_it.py",
     "system-map/scripts/relatorio_do_fluxo.py",
@@ -40373,6 +40374,7 @@
     "provas/objeto_e_observacao_no_postgres.py",
     "provas/os_portoes_da_collection.py",
     "provas/pacote_de_revisao_t3.py",
+    "provas/primeira_coleta_controlada_italia.py",
     "provas/qualidade_t3.py",
     "provas/rastro_no_postgres.py",
     "provas/run_duravel_no_postgres.py",
@@ -41192,7 +41194,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/a_fonte_t4_italiana_atravessa.py"
+    "provas/a_fonte_t4_italiana_atravessa.py",
+    "provas/primeira_coleta_controlada_italia.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,

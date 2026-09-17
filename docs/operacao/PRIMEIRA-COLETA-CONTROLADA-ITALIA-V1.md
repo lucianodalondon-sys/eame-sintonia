@@ -708,7 +708,7 @@ PILOT_SOURCES_EXECUTED       = 6/6     — cada uma até à SUA verdade
 | `IT-T4-001` | IT ✓ | 1 csv | `NOT_APPLICABLE` | 0 | `NAO_SEI` | 0 | **como o plano previu** — CSV sem derivador; chegar à Sala seria FAIL |
 | `IT-T3-002` | IT ✓ | 1 pdf | 1 | 1 | `SIM` | **1** | o canário — a estrada inteira numa corrida |
 | `IT-T3-002` 2ª | IT ✓ | 1 (mesmos bytes) | `reused=1` | 0 novos | `SIM` | **1** | §25: novo RUN, nova observação, **um** storage_object, derivado reutilizado |
-| `IT-T3-008` | IT ✓ | 1 pdf 2,7 MB | 1ª tent. `FAIL` transiente → 2ª `PASS` | 1 | `SIM` | **1** | o FAIL honesto ficou no rastro (`RAW_PERSISTENCE_FAILED`); a corrida nova atravessou |
+| `IT-T3-008` | IT ✓ | 1 pdf 2,7 MB | 1ª corrida: `RAW=FAIL` transiente (`RAW_PERSISTENCE_FAILED`), Sala **0** — é o que a linha dela mostra. 2ª corrida (`…234734`, medida por consulta directa ao banco, fora do corredor): `RAW PASS` · `DERIVED PASS` · **1 na Sala**; a leitura noutro processo **não foi medida** para ela (a bancada morreu antes) | | | | | duas corridas, cada uma com a sua prova e os seus limites — ver a linha própria no observado |
 | `IT-T3-010` | IT ✓ | 1 pdf | 1 | 1 | `SIM` | **1** | a fonte das 19 falhas históricas respondeu `HEALTHY` — `APOL:2026:N10:BR-COLLINA` |
 | `IT-T2-002` | IT ✓ | 4 zonas pdf | 4 | 4 | `NAO_SE_APLICA` ×4 | 0 | T2 não tem regra de admissão, por decisão registada — verdade, não avaria |
 | `IT-T2-004` | IT ✓ | 1 html | `NOT_APPLICABLE` | 0 | `NAO_SEI` | 0 | HTML sem derivador — a paragem declarada |
@@ -731,6 +731,18 @@ falham intermitentemente no Windows (`rc≠0` com stderr vazio) — o rastro
 regista honesto e a corrida seguinte recupera; o teardown `9z-IT` com `|| true`
 pode deixar a porta 54329 presa se o `stop` falhar (a corrida seguinte falha
 fechada, sem tocar produção).
+
+**Limites desta execução manual, ditos em voz alta:** o corredor foi disparado
+à mão, e por isso os portões pré-aquisição do **workflow** não correram por ele
+— o egresso foi provado pelo portão canónico na mesma sessão **antes** do
+canário, e medido por corrida no ledger; a Sala foi provada por `--portao` +
+microprova antes de autorizar. A fase `italia-documento` é quem os corre em
+produção de processo. E o corredor aceita qualquer `SOURCE_ID` por argv — a
+defesa contra candidata é o BG-06 no coletor mais a disciplina de nomear as
+seis; nenhuma candidata entrou (medido no observado). O piloto também escreveu
+544 decisões no `LIVRO-DE-DECISOES.json` versionado — **revertidas**, porque
+referiam artefactos de um banco descartável já destruído; o livro da admissão
+não é redirecionável por ambiente, e essa dívida fica nomeada.
 
 ---
 

@@ -1628,6 +1628,7 @@
       "provas/portas_canonicas_no_postgres.py",
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
+      "provas/primeira_coleta_controlada_italia.py",
       "provas/primeira_rota_paga.py",
       "provas/qualidade_t3.py",
       "provas/queda_e_repeticao_da_v1.py",
@@ -1896,6 +1897,7 @@
       "system-map/data/material-italiano-na-sala.observado.json",
       "system-map/data/pedido-t4.observado.json",
       "system-map/data/pedido.observado.json",
+      "system-map/data/primeira-coleta-controlada.observado.json",
       "system-map/data/provas-de-execucao.json",
       "system-map/data/rota-m2.observada.json",
       "system-map/scripts/CADEIA-DO-MAPA.json",
@@ -2661,9 +2663,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "3c0b36bf60b25ac5f0820c73d3a56000c7ceba58",
-    "GENERATED_AT": "2026-09-16T19:29:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d82c3296f29f106676c0f25b0e8cddfc31d1baefb59894085c8d847e819afd90"
+    "HEAD": "8cf2a272311e4783cb9add13a59afbd45ff47f0b",
+    "GENERATED_AT": "2026-09-16T21:06:36-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cf0a1972db7932f9bdce1017850b958e8ea39460393a5ab373c76a41aa646e3c"
   },
   "FAMILIES": [
     {
@@ -93976,8 +93978,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1079,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/primeira_coleta_controlada_italia.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1081,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -94166,9 +94170,9 @@
     "edges_proven": 1014,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2069,
+    "files_tracked": 2071,
     "files_covered": 990,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 147,
     "roles_declared_only": 7,
     "roles_unknown": 56,
