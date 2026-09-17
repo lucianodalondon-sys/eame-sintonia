@@ -974,3 +974,276 @@ BLOCKER                                    = EGRESS_COUNTRY_CODE = BR (ProtonVPN
 BIG_COLLECTION_AUTHORIZED                  = NO
 NENHUMA CORREÇÃO FUNCIONAL                 = feita por este replay
 ```
+
+## 17 · INDEPENDENT_WORKFLOW_CANARY_REPLAY_3 — 2026-09-17
+
+> Terceiro replay independente pelo **workflow real** (`sintonia-scrap.yml`,
+> fase `italia-documento`, fonte `IT-T3-002`), por agente de sessão nova, com
+> o túnel do ProtonVPN ligado à mão pelo operador ANTES da missão e medido de
+> novo ANTES do dispatch. A pergunta única: depois do `CLI_POSTGRES_BINDING_FIX`
+> (§15), o workflow real chega à Sala quando consegue passar o portão IT?
+> **A resposta é não, e desta vez a estrada foi corrida**: os três portões
+> (bancada, Sala, egresso) passaram, o passo 6 correu, o orquestrador ligou a
+> `MemoriaPostgres` — e a primeira chamada ao `psql` a partir do Python morreu
+> com «programa não encontrado». Veredito **FAIL**, não BLOCKED. Nenhuma
+> correção foi feita.
+
+```
+MISSÃO                 INDEPENDENT_WORKFLOW_CANARY_REPLAY_3 · IT-T3-002 · italia-documento
+MEDIDO EM              2026-09-17 (dispatch 14:12:23Z · fim 14:16:57Z)
+MODEL_EFFECTIVE        Fable 5.1 (claude-fable-5-1) · effort high
+HEAD AUDITADO          350921524f4fcc8bd81450f0159efc513fd0d220  = REMOTE_COLLECTION_HEAD antes e depois
+TRUNK                  origin/claude/it-trunk-v1 = 9d6dcbbd · merge-base = o trunk · 17 à frente / 0 atrás
+WORKTREE               limpa antes e depois (0 ficheiros) · LOCAL_UNPUBLISHED 0
+
+EGRESS_BEFORE_DISPATCH ipinfo 14:12:18Z → 205.147.30.6 · Milan · Lombardy · IT · AS208172 Proton AG
+                       (processos ProtonVPN.Client/WireGuardService vivos; a mesma leitura durante a
+                       corrida às 14:13:37Z e depois dela às 14:23Z)
+                       ⚠ ifconfig.co diz «US» para o MESMO IP: discordância entre bases de geolocalização.
+                       O portão do workflow (`superficie/rede.py:175`) mede pelo ipinfo — e só por ele.
+
+GITHUB_WORKFLOW_RUN_ID 35232024024 · run_number 8 · run_attempt 1 · event workflow_dispatch · created_at 14:12:26Z
+GITHUB_RUN_URL         https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/35232024024
+GITHUB_RUN_HEAD_SHA    35092152… — o auditado
+RUNNER                 SINTONIA-EAME-LOCAL (input runner=1 · runner_id 21 · C:\actions-runner-eame)
+                       antes do dispatch: os dois runners online e busy=false (API)
+RUN_IDS_BEFORE         35227662328 (replay 2, 13:32Z, failure) · 35215565657 (replay 1, 11:25Z, success)
+GITHUB_RUN_CONCLUSION  failure   (passo 6 · rodar a fase · exit 1 · 7,3 s)
+
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_3      = FAIL
+WORKFLOW_REAL_CANARY                      = FAIL
+WORKFLOW_EXECUTED                         = YES         (todos os passos correram; o 6 falhou)
+WORKFLOW_FLOW_OBSERVED                    = YES         (observado A PARTIR-SE — na primeira chamada ao psql)
+SOURCE_TO_SALA_REAL_OBSERVED              = YES         (§130 — mantido; este replay não o repete nem o reverte)
+CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = YES         (a pilha de erro prova `MemoriaPostgres` ligada pela porta CLI)
+COLLECTION_INTEGRATION_CANDIDATE          = NO
+BLOCKER                                   = passo 6: `guarda/memoria_postgres.py:117 _psql` → `subprocess.run(["psql", …])`
+                                            → `FileNotFoundError [WinError 2]`. O executável `psql` não foi
+                                            encontrado pelo Python dentro do job. Zero linhas no banco
+                                            descartável. Mecanismo de raiz: NÃO PROVADO (ver 17.5).
+BIG_COLLECTION_AUTHORIZED                 = NO
+```
+
+**A frase que resume:** o workflow atravessou os três portões, o orquestrador
+adquiriu IT-T3-002 da rede (boletim novo, `SA-16-09.pdf`, 814.266 bytes,
+14:16:32Z), guardou os bytes em ficheiro e, ao ir escrever a primeira linha no
+banco descartável, não encontrou o `psql`. Adquiriu — e não preservou. O
+conserto do §133 **foi consumido** (a memória ligada era Postgres), e é
+exatamente por ter sido consumido que a corrida caiu onde nunca tinha caído.
+
+### 17.1 · A ordem, provada por hora de início (API `jobs`, não o YAML)
+
+| # | passo | início → fim (UTC) | conclusão | prova no log |
+|---|-------|--------------------|-----------|--------------|
+| 2 | checkout | 14:12:42 → 14:13:04 | success | ref `claude/it-collection-sala-v1` |
+| 3 | 0 · o ref tem os scripts | 14:13:04 → 14:13:05 | success | `SCRIPTS_PRESENTES=YES` |
+| 4 | 1 · interpretador | 14:13:05 → 14:13:06 | success | `INTERPRETADOR=py` |
+| 5–8 | 2, 3, 4, 5 | 14:13:06 | skipped | condição de fase |
+| 9 | 5a-IT · bancada nasce | 14:13:06 → 14:16:23 | success | `MIGRATION_001…007, 009…032 = PASS` (31 linhas, 14:13:28 → 14:16:18) |
+| 10 | 5b · Sala gate | 14:16:23 → 14:16:23 | success | `SALA_DE_ESPERA=PASS · BACKEND=POSTGRES` |
+| 11 | 5c · egresso | 14:16:23 → 14:16:25 | success | `EGRESS_COUNTRY_CODE: IT · EGRESS_REQUIRED: IT · EGRESS_GATE: PASS` · `CHECKER: https://ipinfo.io/json` |
+| 12 | 6 · rodar a fase | 14:16:25 → 14:16:33 | **failure** | `FASE=italia-documento · RUNNER=SINTONIA-EAME-LOCAL` → traceback → `exit code 1` |
+| 13 | 7 · liquidar | 14:16:33 | skipped | só fase paga |
+| 14 | 8 · devolver | 14:16:33 → 14:16:34 | success | `NADA_MUDOU=YES · a fase nao produziu arquivo novo` |
+| 15 | 9z-IT · bancada morre | 14:16:34 → 14:16:36 | success | `bancada destruida: cluster e ops-root removidos` |
+| 16 | 9 · custo | 14:16:36 → 14:16:37 | success | `COST_USD_LIQUIDADO=0` |
+
+`GATE_ORDER = 5a-IT → 5b → 5c → 6 ✗ → 8 → 9z-IT`. Os portões correram
+ANTES da rede: a aquisição de IT-T3-002 aconteceu dentro do passo 6
+(`COLLECTION_RUN_STARTED_AT 14:16:26.814Z`), depois de o 5c ter dito PASS
+às 14:16:25. Nenhum portão correu depois da rede.
+
+### 17.2 · O banco descartável
+
+```
+POSTGRES_TEMP_STARTED  = YES   porta 127.0.0.1:54329 LISTENING (PID 74456) medida na máquina às 14:13:37Z;
+                               6 processos postgres.exe nesse instante; cluster `_temp\pg-italia-35232024024` presente
+HOST / DATABASE / PORT = localhost · descartavel · 54329   (env do job: `***localhost:54329/descartavel`)
+MIGRATIONS             = 31 aplicadas (001–007, 009–032; a 008 é verificação e o aplicador salta-a) · 0 falhadas
+                         (contagem no banco NÃO medida: o cluster morreu no 9z-IT antes de qualquer leitura)
+PERSISTENCIA_ESTADO    = DESCARTAVEL — por inferência forte, não por impressão: a linha `persistencia: …`
+                         nunca chegou a ser impressa (o crash antecede `orquestrador.py:1080`), mas a pilha
+                         de erro passa por `memoria_postgres.py:197 copia_em`, e `MemoriaPostgres` só nasce
+                         no ramo DESCARTAVEL de `orquestrador/persistencia.py:145-150`, que exige
+                         `BANCO_DESCARTAVEL_URL` provada descartável (`guarda/banco_descartavel.py`).
+MEMORIA                = MemoriaPostgres   (pela pilha)
+BANCO_DO_RASTRO        = Banco (coleta_checkpoint) — composto no mesmo ramo; NÃO exercido antes do crash
+BANCO_DESCARTAVEL_URL  = consumida pela porta CLI: YES (é a única variável que `dependencias_do_runtime` lê)
+```
+
+### 17.3 · O corredor, elo a elo
+
+| elo | resultado | prova |
+|-----|-----------|-------|
+| REQUEST | `colete pragas --filtro pais=IT --filtro fonte=IT-T3-002` | passo 6, ramo `italia-documento` do YAML |
+| ORCHESTRATOR | CALLED = YES · DIRECT_COLLECTOR_CALL_BY_WORKFLOW = NO | o YAML só chama `orquestrador/orquestrador.py`; a pilha nasce em `main:1076` |
+| EXECUTOR | `italia-recorrente @ adapter-v1` · ESTADO SUCCESS | `data/colheita/italia/IT-T3-2026-09-17-141626-b9586dcaa2c7281b/RETORNO.json` no checkout do runner (escrito 14:16:32Z) |
+| RUN | COLLECTION_RUN_ID = `IT-T3-2026-09-17-141626-b9586dcaa2c7281b` · cunhado pelo orquestrador · **linha no banco: NÃO** | o `insert` da corrida vive em `preservar_coleta.py:1314`, depois do ponto do crash (`:1303`) |
+| NETWORK_ACQUISITION | **YES** · `https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-16-09.pdf` · 814.266 bytes · `application/pdf` · sha256 `c5ae3bfe76d9…0bdc` · SOURCE_DATE 2026-09-16 · CAPTURED_AT 14:16:32.734Z | `colheita.json` + `RETORNO.json` no checkout do runner; é um documento NOVO (o replay 1 trouxe o `SA-02-09`) |
+| RAW | RAW_OBSERVATIONS = **0** · RAW_OBSERVATION_ID = **inexistente** · bytes em ficheiro: SIM | `enviar_os_bytes` (`preservar_coleta.py:1283`) escreveu `XX/it-t3-002/DOCUMENT/c5ae3bfe76d9bef6-…-SA-16-09.pdf` (814.266 bytes, pasta ignorada pelo Git) e o ops-root (destruído no 9z-IT); a primeira leitura ao banco (`copia_em`) foi a que rebentou |
+| STORAGE | STORAGE_OBJECTS = 0 no banco · STORAGE_REUSED = NÃO SE APLICA | nenhuma linha escrita |
+| DERIVED | NOT_RUN | `pela_derivacao` em `orquestrador.py:972`, depois do crash em `:956` |
+| STRUCTURED | NOT_RUN | `pela_estruturacao` em `:988` |
+| ADMISSION | NOT_RUN | `pela_porta` em `:1008` |
+| READY | 0 | nunca chegou |
+| SALA_ROWS | **0** | nunca chegou |
+
+### 17.4 · O erro, tal como o log o mostra
+
+```
+File "…\orquestrador\orquestrador.py", line 1076, in main         recibo = correr(p, …, memoria=runtime.memoria, …)
+File "…\orquestrador\orquestrador.py", line 956,  in correr       recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria, …)
+File "…\orquestrador\orquestrador.py", line 244,  in pela_entrada r = ing.receber(itens, corrida=recibo, armazem=armazem, memoria=memoria, …)
+File "…\coleta\ingresso.py",           line 1332, in receber      recibo = preservar(_corrida_completa(corrida), para_o_raw, armazem, …
+File "…\guarda\preservar_coleta.py",   line 1303, in preservar    ja_la = conferir_o_que_ja_existe(run, plano, memoria)
+File "…\guarda\preservar_coleta.py",   line 678,  in conferir_…   copia = memoria.copia_em(caminho)
+File "…\guarda\memoria_postgres.py",   line 197,  in copia_em     linhas = self._linhas(
+File "…\guarda\memoria_postgres.py",   line 151,  in _linhas      for linha in self._psql(sql).splitlines():
+File "…\guarda\memoria_postgres.py",   line 117,  in _psql        r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
+  … subprocess.py:1538 _execute_child → _winapi.CreateProcess
+FileNotFoundError: [WinError 2] O sistema não pode encontrar o arquivo especificado
+##[error]Process completed with exit code 1.                       (14:16:33.08Z · processo 65700 · 7,33 s)
+```
+
+`cmd = ["psql", "-X", "-q", "-A", "-t", "-F", …, "-f", "-", url]`. O que
+falhou foi o `CreateProcess` — o Windows não localizou um executável chamado
+`psql` — e **não** uma ligação recusada: um servidor morto teria sido um
+`psql` encontrado, a correr e a sair com código ≠ 0, e a linha seguinte
+(`memoria_postgres.py:119-120`) levantaria `IOError` com o `stderr` do
+`psql`. Foi outra exceção. Logo, o servidor descartável não foi sequer
+interrogado.
+
+### 17.5 · O que está provado e o que NÃO está sobre a causa
+
+```
+PROVADO      o Python do passo 6 não encontrou `psql` no PATH do job.
+PROVADO      o 5a-IT escreveu a pasta do psql no GITHUB_PATH na forma POSIX:
+             `echo "$PGBIN" >> "$GITHUB_PATH"`, com PGBIN=/c/Users/London1/orca/pgtmp/pgsql/bin
+             (sintonia-scrap.yml:343,360). As migrations no MESMO passo não dependem disso:
+             `PATH="$PGBIN:$PATH" bash motor/cadeia_canonica.sh migrations …` (:354).
+PROVADO      o 5b (Sala gate) NÃO abre ligação: `exigir_canonica → estado_operacional → backend()`
+             só lê variáveis e constrói `_Postgres(url)` (`sala_de_espera.py:741-799, 457-458`).
+             O primeiro `psql` lançado a partir do Python em todo o job foi o do passo 6.
+             UM PORTÃO QUE MEDE CONFIGURAÇÃO NÃO MEDE CONETIVIDADE.
+NÃO PROVADO  o mecanismo. Reprodução local, só leitura, com ambiente limpo à maneira do runner
+             (PowerShell sem variáveis MSYS, PATH mínimo com o prefixo POSIX, `bash --noprofile
+             --norc`, depois `py`): `which psql` acha; `shutil.which("psql")` acha;
+             `subprocess.run(["psql","--version"])` devolve 0 e «psql (PostgreSQL) 16.4».
+             Ou seja: se o runner tivesse aplicado a linha do GITHUB_PATH ao passo 6, o psql
+             teria sido encontrado. Nem o log do run (688 linhas) nem o Worker log do runner
+             registam a aplicação (ou não) do prepend. Candidatos, sem prova: o runner não
+             aplicou o prepend; aplicou-o numa forma que o CreateProcess não lê; outra coisa.
+FACTO SOLTO  o Worker log mostra, no fim do 5a-IT (14:16:23Z), «Scan all processes … Kill process
+             '72132'» — o runner matou a árvore do processo do passo que arrancou o postgres.
+             Se o servidor sobreviveu até ao passo 6 NÃO foi medido nesta corrida (a minha
+             amostra de 14:13:37Z é anterior). Não é a causa do crash (17.4), mas fica aberto.
+```
+
+### 17.6 · Produção
+
+```
+PRODUCTION_DB_WRITES = 0 · PRODUCTION_MIGRATIONS = 0 · PRODUCTION_SALA_WRITES = 0 · PRODUCTION_COLLECTION_RUNS = 0
+```
+Provado pelo caminho: `SINTONIA_SALA_DSN` (descartável) vence `SUPABASE_DB_URL`
+em `sala_de_espera.py:741`; `persistencia.py` lê só `BANCO_DESCARTAVEL_URL`
+e nunca cai para o cofre; e nenhum `psql` chegou a correr — logo nenhum banco,
+de espécie nenhuma, foi contactado. Produção não foi consultada por este revisor.
+
+### 17.7 · Teardown, medido na máquina (14:23:33Z)
+
+```
+TEARDOWN_STEP_EXECUTED       = YES   (9z-IT, always(), 14:16:34 → 14:16:36)
+POSTGRES_PROCESS_LEFT_FOR_RUN = 0    (tasklist postgres.exe/pg_ctl.exe = 0; Win32_Process com o run id na
+                                      linha de comando = 4, TODOS da cadeia de medição: 3 bash.exe + 1 powershell.exe
+                                      — a armadilha do §14.7/§16.6, de novo; número honesto 0)
+PORT_54329_LISTENING         = 0
+TEMP_CLUSTER_LEFT            = NO    (_temp\pg-italia-35232024024 ausente)
+TEMP_OPS_ROOT_LEFT           = NO    (_temp\ops-italia-35232024024 ausente — e com ele os bytes preservados
+                                      «no ops-root», que o colheita.json declarava em STORAGE_LOCATION)
+PEGADA FORA DO _temp         = `XX/it-t3-002/DOCUMENT/c5ae3bfe…-SA-16-09.pdf` e `data/colheita/italia/…` no
+                               checkout do runner — ambos ignorados pelo Git (.gitignore:89,99); `git status`
+                               do checkout: 0 linhas. O checkout do run seguinte apaga-os (§134, item 4).
+```
+
+### 17.8 · Ledger e remoto
+
+```
+data/collection-ledger/italy/observations.ndjson  antes 3ea37f88… (175 linhas) · depois 3ea37f88… (175)
+                                                  no worktree E no checkout do runner (o recibo nunca foi escrito:
+                                                  `guardar_recibo` vem depois do crash)
+data/samples/RUN-MANIFEST.json (runner)           antes 89f3ce41… · depois 89f3ce41…
+REMOTE_COLLECTION_HEAD                            35092152… antes e depois (o passo 8 disse NADA_MUDOU=YES)
+TRACKED_LEDGER_UNEXPECTED_DELTA                   = NO
+```
+
+### 17.9 · Red team (agente separado, só leitura, 25 ataques)
+
+| # | ataque | veredito | prova |
+|---|--------|----------|-------|
+| 1 | run não é a despachada | REFUTADO | `created_at 14:12:26Z` · dispatch 14:12:23Z · `run_number 8` · env `ops-italia-35232024024` no passo 6 |
+| 2 | SHA não é o auditado | REFUTADO | `headSha 35092152…` = HEAD local = remoto |
+| 3 | runner errado | REFUTADO | `RUNNER=SINTONIA-EAME-LOCAL` · caminhos `C:\actions-runner-eame\…` |
+| 4 | egresso não IT (ifconfig.co diz US) | REFUTADO | o portão mede pelo ipinfo e só por ele (`rede.py:175`); `EGRESS_GATE: PASS` |
+| 5 | portões depois da rede | REFUTADO | 5b/5c às 14:16:23-25; aquisição às 14:16:26-32 dentro do 6 |
+| 6 | Supabase usada | REFUTADO | crash em `MemoriaPostgres(localhost:54329/descartavel)`; nenhum psql correu |
+| 7 | PERSISTENCIA não DESCARTAVEL | REFUTADO (por inferência) | `MemoriaPostgres` só nasce no ramo DESCARTAVEL (`persistencia.py:145-150`) |
+| 8 | memoria None | REFUTADO | `preservar_coleta.py:1302 if memoria is not None:` guarda o ponto do crash |
+| 9 | banco_do_rastro None | REFUTADO (não exercido) | composto no mesmo ramo (`:148`) |
+| 10 | RUN inexistente no banco | CONFIRMADO COMO FACTO | insert em `:1314`, depois do crash |
+| 11 | RAW só em ficheiro | CONFIRMADO COMO FACTO | `XX/…SA-16-09.pdf` existe; `raw_asset` = 0 |
+| 12 | raw_asset zero | CONFIRMADO COMO FACTO | idem |
+| 13 | ID vindo de SHA | NÃO SE APLICA | nenhuma linha, nenhum id |
+| 14 | storage inventado | REFUTADO | `ArmazemLocal.enviar` escreve bytes reais com guarda de caminho |
+| 15 | DERIVED não executado | CONFIRMADO COMO FACTO | `:972` depois do crash |
+| 16 | STRUCTURED não executado | CONFIRMADO COMO FACTO | `:988` |
+| 17 | Admissão ≠ READY | NÃO SE APLICA | `:1008` nunca alcançado |
+| 18 | Sala zero | CONFIRMADO COMO FACTO | idem |
+| 19 | teardown falso | REFUTADO | medições do 17.7 |
+| 20 | outro workflow confundido (system-map 35229862059 em curso) | REFUTADO | corre em runner da GitHub; não toca esta máquina |
+| 21 | conclusion a esconder passo partido | REFUTADO | `failure` É o passo partido, com exit 1 real |
+| 22 | REUSED chamado NEW | NÃO SE APLICA | nenhuma decisão de reuso chegou a existir |
+| 23 | causa = servidor morto pelo kill do 5a-IT | REFUTADO | servidor morto ⇒ `IOError` com stderr do psql (`:119-120`); observado ⇒ `FileNotFoundError` do `CreateProcess` |
+| 24 | 5b prova conetividade | CONFIRMADO: NÃO PROVA | só configuração (`sala_de_espera.py:741-799`) |
+| 25 | prepend POSIX aplicado? | NÃO PROVADO | nenhuma linha de log; reprodução local não reproduz a falha |
+
+`RED_TEAM_REPLAY_3_BLOCKERS = 0`. O red team apertou a frase da causa
+(«psql não encontrado no PATH do job; mecanismo de raiz não provado») e
+acrescentou o facto de a aquisição de rede ter acontecido antes do crash.
+
+### 17.10 · Testes (portões estáticos, os mesmos dos §14/§16)
+
+```
+tests/test_porta_de_producao.py + tests/test_fase_italiana_no_workflow.py + tests/test_a_porta_cli_liga_o_banco.py
+→ 79 passed · 1 failed (78 s) · a falha é a mesma, pelo nome
+  (`NenhumEscritorAntigoSobrou::test_o_inventario_de_quem_fala_de_raw_asset_esta_fechado`, separador do Windows)
+NEW_FAILURES = 0 · NEW_ERRORS = 0 · worktree depois dos testes: 0 ficheiros
+interpretador: /c/actions-runner-2/_work/_tool/Python/3.12.10/x64/python.exe + site-packages emprestado de Python312
+```
+
+### 17.11 · O que este replay NÃO reescreve, e o que NÃO fez
+
+- Não reescreve o §130 (a coleta aconteceu por outra porta), o §14 (replay 1),
+  o §15 (o conserto existe e foi consumido) nem o §16 (replay 2).
+- Não corrigiu código, workflow, teste ou guarda. Não disparou replay 4. Não
+  correu orquestrador nem coletor à mão. Não tocou produção, migration LIVE,
+  Intelligence, Portal, deploy ou trunk.
+- Não recuperou os bytes do `SA-16-09.pdf` para o acervo: estão numa pasta
+  ignorada do checkout do runner e o próximo checkout apaga-os. Isso é uma
+  decisão de coordenação, não do revisor.
+
+### 17.12 · Veredito
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_3       = FAIL
+WORKFLOW_REAL_CANARY                       = FAIL
+WORKFLOW_EXECUTED                          = YES
+WORKFLOW_FLOW_OBSERVED                     = YES (observado a partir-se na primeira chamada ao psql)
+SOURCE_TO_SALA_REAL_OBSERVED               = YES (§130, mantido)
+CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW  = YES (ligado — e foi a ligação que rebentou)
+COLLECTION_INTEGRATION_CANDIDATE           = NO
+BLOCKER                                    = passo 6: `subprocess.run(["psql", …])` em `guarda/memoria_postgres.py:117`
+                                             → FileNotFoundError [WinError 2]. O psql não está no PATH que o Python
+                                             do job vê. Adquirido da rede: SIM. Preservado no banco: NÃO. Sala: 0.
+BIG_COLLECTION_AUTHORIZED                  = NO
+NENHUMA CORREÇÃO FUNCIONAL                 = feita por este replay
+```

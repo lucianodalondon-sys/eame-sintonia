@@ -16257,3 +16257,106 @@ NAO corrigiu código, workflow, teste ou guarda. NAO ligou a VPN. NAO fez replay
 NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
 ```
+
+# §135 · O WORKFLOW PASSOU O PORTÃO IT, LIGOU O BANCO — E O PYTHON NÃO ACHOU O psql
+
+## O QUE MUDOU
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_3      = FAIL         2026-09-17 · run GitHub 35232024024 · HEAD 35092152
+WORKFLOW_REAL_CANARY                      = FAIL         o passo 6 correu e caiu em 7,3 s
+WORKFLOW_FLOW_OBSERVED                    = YES          observado a partir-se — na PRIMEIRA chamada ao psql
+CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = YES          a porta CLI ligou `MemoriaPostgres`; a pilha de erro passa por ela
+SOURCE_TO_SALA_REAL_OBSERVED              = YES          §130 mantido
+COLLECTION_INTEGRATION_CANDIDATE          = NO
+BIG_COLLECTION                            = NÃO AUTORIZADA
+```
+
+Um revisor de sessão nova, com o túnel do ProtonVPN ligado à mão pelo
+operador e medido de novo antes do dispatch (ipinfo: Milan · IT · Proton AG),
+despachou UMA corrida real (IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD
+`35092152`, 14:12:23Z). Pela primeira vez, os três portões passaram numa
+corrida real — bancada na 54329 (31 migrations), Sala gate, egresso IT — e o
+passo 6 correu. O orquestrador adquiriu da rede um boletim NOVO da Campania
+(`SA-16-09.pdf`, 814.266 bytes, 14:16:32Z), escreveu os bytes em ficheiro
+(`XX/` e ops-root) e, ao fazer a primeira pergunta ao banco descartável:
+
+```
+guarda/memoria_postgres.py:117  subprocess.run(["psql", …])  →  FileNotFoundError: [WinError 2]
+```
+
+O Windows não localizou um executável chamado `psql`. Zero linhas no banco:
+sem RUN, sem `raw_asset`, sem DERIVED, sem Sala. O 9z-IT destruiu o cluster e
+o ops-root; produção intocada; ledger e remoto sem alteração.
+
+## O QUE SE APRENDEU
+
+```
+1 · ADQUIRIR NÃO É PRESERVAR — e a corrida provou-o com bytes reais. O executor trouxe 814 KB da
+    rede italiana; a preservação canónica (a linha no banco) nunca nasceu. Os bytes ficaram numa
+    pasta ignorada pelo Git, que o checkout seguinte apaga. Rede paga por nada — exatamente o que
+    os comentários do próprio YAML avisavam.
+
+2 · O CONSERTO DO §133 FOI CONSUMIDO. E foi por ter sido consumido que a corrida caiu onde nunca
+    tinha caído: o replay 1 (§132) corria sem memória e «passava». Uma ligação que existe rebenta;
+    uma ligação que não existe passa em silêncio. O crash é PROGRESSO medido, não regressão.
+
+3 · O SALA GATE (5b) MEDE CONFIGURAÇÃO, NÃO CONETIVIDADE. `exigir_canonica → estado_operacional →
+    backend()` lê variáveis e constrói `_Postgres(url)` sem abrir ligação (`sala_de_espera.py:741-799`).
+    Passou — e não podia ter apanhado um `psql` fora do PATH. O primeiro `psql` lançado a partir do
+    Python em todo o job foi o do passo 6. UM PORTÃO QUE MEDE CONFIGURAÇÃO NÃO MEDE CONETIVIDADE.
+
+4 · «psql NÃO ENCONTRADO» ≠ «SERVIDOR MORTO». Um servidor morto é um psql ENCONTRADO que sai com
+    código ≠ 0 e vira `IOError` com o stderr (`memoria_postgres.py:119-120`). O observado foi
+    `FileNotFoundError` do `CreateProcess`: o binário não foi localizado. Ler a espécie da exceção
+    antes de ler a causa.
+
+5 · O MECANISMO DE RAIZ NÃO ESTÁ PROVADO. O 5a-IT escreve a pasta do psql no GITHUB_PATH na forma
+    POSIX (`/c/Users/London1/orca/pgtmp/pgsql/bin`, `sintonia-scrap.yml:360`); as migrations do
+    mesmo passo não dependem disso (`PATH="$PGBIN:$PATH"`, :354). Reprodução local só-leitura, com
+    ambiente limpo à maneira do runner (PowerShell sem variáveis MSYS, PATH mínimo com o prefixo
+    POSIX, `bash --noprofile --norc`, `py`): `which`, `shutil.which` e `subprocess.run(["psql",
+    "--version"])` TODOS acham o psql. Se o runner tivesse aplicado a linha, teria funcionado.
+    Nenhum log (run: 688 linhas; Worker do runner) regista a aplicação do prepend. Fica NÃO SEI:
+    candidatos são «o runner não aplicou», «aplicou numa forma que o CreateProcess não lê», «outra
+    coisa». Não se corrige o que não se provou — e este revisor não corrigiu nada.
+
+6 · O RUNNER MATA A ÁRVORE DO PASSO QUE ARRANCOU O POSTGRES. Worker log, fim do 5a-IT (14:16:23Z):
+    «Scan all processes … Kill process '72132'». Se o servidor sobreviveu até ao passo 6 não foi
+    medido nesta corrida (a amostra física de 14:13:37Z é anterior). Não é a causa deste crash
+    (ponto 4), mas é a pergunta seguinte, e quem corrigir o PATH vai esbarrar nela se for verdade.
+
+7 · DUAS BASES DE GEOLOCALIZAÇÃO DISCORDAM SOBRE O MESMO IP. 205.147.30.6: ipinfo diz Milan/IT/Proton;
+    ifconfig.co diz US. O portão mede pelo ipinfo e só por ele (`superficie/rede.py:175`). Medir por
+    outro serviço para «confirmar» daria um não que o portão não daria. O checker é lei; a
+    discordância é facto a registar, não a resolver por votação.
+
+8 · A ARMADILHA DA CONTAGEM (§132/§134) BATEU PELA TERCEIRA VEZ: Win32_Process com o run id na linha
+    de comando devolve 4 — três `bash.exe` da cadeia de medição e o `powershell.exe`. Número
+    honesto: 0. Já está escrito duas vezes; escreve-se a terceira porque voltou a acontecer.
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · a pergunta principal TEM resposta: o conserto da CLI funciona quando o workflow passa o portão
+    IT? Liga, sim. Mas a ligação não consegue lançar o psql dentro do job. FAIL, com causa
+    localizada (memoria_postgres.py:117) e mecanismo por provar (ponto 5).
+2 · o próximo passo é de quem corrige, não de quem revê: provar COMO o PATH chega ao Python do
+    passo 6 (um passo de diagnóstico que imprima `PATH` e `shutil.which("psql")` antes do
+    orquestrador daria a resposta em 10 s), e só depois mexer. Sem replay 4 antes disso.
+3 · o pré-portão de revisor do §134 (egresso medido antes do dispatch) funcionou: IT antes,
+    durante e depois. Mantém-se.
+4 · os bytes do `SA-16-09.pdf` (boletim de 16/09/2026) existem só no checkout do runner, em pasta
+    ignorada; o próximo checkout apaga-os. Recuperá-los para o acervo é decisão de coordenação.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO reescreve o §130 (a coleta aconteceu), o §132 (replay 1), o §133 (o conserto existe e foi consumido) nem o §134 (replay 2).
+NAO corrigiu código, workflow, teste ou guarda. NAO fez replay 4. NAO correu orquestrador nem coletor à mão.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
+Dono canónico do detalhe: docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §17.
+```
