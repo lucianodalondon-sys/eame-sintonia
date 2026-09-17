@@ -25,11 +25,27 @@ POLÍTICA DE ARREDONDAMENTO — única, para todos os consumidores:
   · derivados de contagens brutas, **nunca** de percentuais já arredondados;
   · cobertura ponderada por uso = 100 − peso do balde não resolvido, calculada dos brutos.
 
+POLÍTICA DE GRAFIA — única, em `formatar_publicavel()`: inteiro com ponto de milhar
+(4521 → 4.521), decimal com vírgula (82.1 → 82,1). Nenhum teste reescreve esta regra.
+
+CONTRATO DE TEST_COUNT_CURRENT — «quantos testes existem na suíte quando descoberta sob o
+contrato canónico de teste», e NÃO «quantos testes o Python desta máquina importou hoje».
+`unittest` conta 1 teste-fantasma por módulo que não carrega, e por isso um ambiente sem
+um módulo obrigatório publicava uma contagem MENOR em silêncio (4.478 sem PyYAML, 4.521
+com — medido em 2026-09-17, a diferença eram 2 módulos de 45 testes). Quando qualquer
+módulo de `tests/` não carrega, o valor é NOT_MEASURABLE com a causa escrita, e o
+`--sync` recusa-se a escrever. Ver `descobrir_suite()`.
+
     python3 pacote/metricas_canonicas.py            # tabela legível
     python3 pacote/metricas_canonicas.py --json     # máquina
+    python3 pacote/metricas_canonicas.py --sync     # reescreve os marcadores pelo dono
+    python3 pacote/metricas_canonicas.py --check    # só mede o drift; exit 1 se houver,
+                                                    # exit 2 se um valor não for mensurável
 """
+import contextlib
 import datetime
 import gzip
+import io
 import json
 import os
 import re
@@ -73,6 +89,71 @@ def pct(part, whole):
     return round(100.0 * part / whole, 1) if whole else None
 
 
+# Valor de uma métrica que o ambiente NÃO deixa derivar. Não é None calado, não é zero,
+# não é a contagem parcial: é um estado com nome, e o `--sync` recusa-se a publicá-lo.
+NAO_MENSURAVEL = 'NOT_MEASURABLE'
+
+
+def formatar_publicavel(v):
+    """A grafia com que TODO documento publica um valor do ledger — dono único.
+
+    1786 → '1.786' · 4521 → '4.521' · 98 → '98' · 82.1 → '82,1' · ['a', 'b'] → '`a` · `b`'.
+    Um teste que precise comparar um número publicado usa isto; não reescreve a regra.
+    """
+    if isinstance(v, bool):
+        return str(v)
+    if isinstance(v, float):
+        return ('%g' % v).replace('.', ',')
+    if isinstance(v, list):
+        return ' · '.join(f'`{x}`' for x in v)
+    if isinstance(v, int):
+        return f'{v:,}'.replace(',', '.')
+    return str(v)
+
+
+def descobrir_suite(start_dir=None):
+    """Descobre a suíte com um loader NOVO e devolve `(n, erros)`.
+
+    `n` é `countTestCases()` — que inclui 1 teste-fantasma por módulo que não carregou.
+    `erros` é a lista `(módulo, causa)` desses módulos: vem de `TestLoader.errors` (o
+    traceback de cada import falhado) e da própria suíte (todo caso que o `unittest.loader`
+    fabricou no lugar de um módulo — `_FailedTest`, módulo pulado no import).
+
+    O contrato: `n` só é A CONTAGEM quando `erros` está vazio. Com erros, `n` é «quantos
+    o Python desta máquina importou hoje», e esse número não se publica.
+    """
+    loader = unittest.TestLoader()
+    # Um módulo de teste que imprime ao ser importado não pode sujar a saída do ledger;
+    # o que interessa dele — o traceback — está em `loader.errors`.
+    with contextlib.redirect_stdout(io.StringIO()):
+        suite = loader.discover(start_dir or os.path.join(ROOT, 'tests'))
+    causas = {}
+    for e in loader.errors:
+        mod = re.search(r'Failed to import test module: (\S+)', e)
+        ultima = e.strip().splitlines()[-1].strip() if e.strip() else 'erro sem mensagem'
+        causas[mod.group(1) if mod else '?'] = ultima
+
+    fantasmas = []
+
+    def andar(s):
+        for t in s:
+            if isinstance(t, unittest.TestSuite):
+                andar(t)
+            elif t.__class__.__module__ == 'unittest.loader':
+                fantasmas.append(t.id())
+    andar(suite)
+
+    # O id de um fantasma é `unittest.loader._FailedTest.<módulo>` (ou `ModuleSkipped.<módulo>`):
+    # o último pedaço é o nome do módulo que não entrou.
+    erros = {}
+    for fid in fantasmas:
+        nome = fid.rsplit('.', 1)[-1]
+        erros[nome] = causas.get(nome, 'módulo substituído pelo loader sem traceback (pulado no import?)')
+    for nome, causa in causas.items():
+        erros.setdefault(nome, causa)
+    return suite.countTestCases(), sorted(erros.items())
+
+
 class Ledger(dict):
     # Denominador que a FONTE nao guarda e um estado declarado, nunca um None calado.
     # Medido em 2026-08-29: das 63 metricas, 26 saiam com DENOMINATOR=None, e DUAS delas
@@ -97,9 +178,21 @@ def build():
     L = Ledger()
 
     # ---------------------------------------------------------------- provas
-    suite = unittest.defaultTestLoader.discover(os.path.join(ROOT, 'tests'))
-    L.add('TEST_COUNT_CURRENT', suite.countTestCases(), unit='count',
-          source='tests/', derivation='unittest.defaultTestLoader.discover().countTestCases()')
+    n, erros = descobrir_suite()
+    if erros:
+        # Falhar fechado: um módulo que não carrega vale 1 no countTestCases(), e o
+        # número que sai é «quantos este Python importou», não «quantos existem».
+        # Publicar esse número é o defeito que este ficheiro existe para impedir.
+        lista = ' · '.join(f'{m} ({c})' for m, c in erros)
+        L.add('TEST_COUNT_CURRENT', NAO_MENSURAVEL, unit='count', source='tests/',
+              status=NAO_MENSURAVEL,
+              derivation=f'CAUSE=TEST_DISCOVERY_INCOMPLETE — {len(erros)} módulo(s) de tests/ '
+                         f'não carregam neste ambiente: {lista}. A contagem só é a contagem '
+                         f'quando TestLoader.errors está vazio (descobrir_suite()).')
+    else:
+        L.add('TEST_COUNT_CURRENT', n, unit='count', source='tests/',
+              derivation='unittest.TestLoader().discover(tests/).countTestCases(), com '
+                         'TestLoader.errors vazio (descobrir_suite())')
 
     # ---------------------------------------------------------------- fontes
     atlas = _doc('fontes', 'ATLAS-DE-FONTES-EAME.md')
@@ -430,7 +523,40 @@ def build():
 # Marcador de sincronização. Um documento escreve `<!--M:NOME-->valor<!--/M-->` e o
 # comando `--sync` reescreve o valor a partir do ledger. É o que impede o número
 # publicado de envelhecer sem que ninguém perceba: o teste reprova, o sync conserta.
-MARK = re.compile(r'<!--M:([A-Z0-9_]+)-->(.*?)<!--/M-->', re.S)
+#
+# O valor vive NUMA linha e não contém `<`. Antes (`(.*?)` com re.S) um `<!--M:` aberto e
+# sem fecho casava até ao PRÓXIMO `<!--/M-->` do ficheiro — medido em 2026-09-17 no
+# SINTONIA-EAME-KNOW-HOW.md: 642.359 caracteres entre a linha 13 e a linha 16639, que um
+# `--sync` teria substituído por «4.478». Agora um `<!--M:` que não seja um marcador
+# inteiro é MALFORMADO e o sync recusa o ficheiro (marcadores_malformados()) — salvo
+# quando está dentro de código inline (`...`), que é como a prosa CITA a sintaxe.
+#
+# Um marcador INTEIRO é vivo sempre, dentro ou fora de crase (ENTRADA-PARA-CLAUDE-DESIGN.md
+# publica `<!--M:SOURCE_ID_COUNT-->…<!--/M-->` dentro de crase, e é um valor corrente).
+# Por isso um documento HISTÓRICO nunca escreve um marcador inteiro: seria reescrito.
+MARK = re.compile(r'<!--M:([A-Z0-9_]+)-->([^<\n]*)<!--/M-->')
+ABERTURA = re.compile(r'<!--M:')
+
+
+class MetricaNaoMensuravel(RuntimeError):
+    """Um documento publica uma métrica que este ambiente não consegue derivar."""
+
+
+class MarcadorMalformado(ValueError):
+    """Um `<!--M:` que não é um marcador inteiro numa linha só."""
+
+
+def _em_codigo_inline(txt, pos):
+    ini = txt.rfind('\n', 0, pos) + 1
+    return txt.count('`', ini, pos) % 2 == 1
+
+
+def marcadores_malformados(txt):
+    """Linhas (1-based) onde há `<!--M:` fora de crase que não abre um marcador inteiro."""
+    inicios = {m.start() for m in MARK.finditer(txt)}
+    return [txt.count('\n', 0, m.start()) + 1
+            for m in ABERTURA.finditer(txt)
+            if m.start() not in inicios and not _em_codigo_inline(txt, m.start())]
 
 
 def documentos_com_numero():
@@ -449,41 +575,127 @@ def documentos_com_numero():
             yield os.path.join(ROOT, f)
 
 
-def sync(check_only=False):
-    L = build()
-    mudou = []
-    for path in documentos_com_numero():
-        with open(path, encoding='utf-8') as fh:
+def sincronizar(L, documentos, check_only=False):
+    """Alinha os marcadores de `documentos` ao ledger `L`. Tudo ou nada.
+
+    Devolve a lista `(ficheiro, METRIC_ID, antes, depois)` do que está (ou estava)
+    desalinhado. Levanta — e NÃO escreve em ficheiro nenhum — se:
+      · algum documento publica uma métrica NOT_MEASURABLE (MetricaNaoMensuravel): o
+        ambiente não deixa derivar o valor, e um valor que não se deriva não se publica;
+      · algum documento tem `<!--M:` que não é marcador inteiro (MarcadorMalformado).
+    Um ficheiro nunca é reescrito enquanto outro está bloqueado: ou o pacote fica todo
+    coerente, ou fica como estava.
+    """
+    mudou, planos, malformados, nao_mensuraveis = [], [], [], []
+    for path in documentos:
+        # newline='' preserva o fim de linha do ficheiro: em Windows, `open(..., 'w')` sem
+        # isto reescrevia LF como CRLF e um sync mudava o ficheiro inteiro, não o número.
+        with open(path, encoding='utf-8', newline='') as fh:
             txt = fh.read()
         if '<!--M:' not in txt:
             continue
+        rel = os.path.relpath(path, ROOT)
+        linhas = marcadores_malformados(txt)
+        if linhas:
+            malformados.append((rel, linhas))
+            continue
 
-        def repl(m, _path=path):
+        def repl(m, _rel=rel):
             mid, atual = m.group(1), m.group(2)
-            v = L[mid]['VALUE'] if mid in L else atual
-            if isinstance(v, float):
-                novo = ('%g' % v).replace('.', ',')
-            elif isinstance(v, list):
-                novo = ' · '.join(f'`{x}`' for x in v)
-            else:
-                novo = f'{v:,}'.replace(',', '.')
+            if mid not in L:
+                return m.group(0)
+            if L[mid]['STATUS'] == NAO_MENSURAVEL:
+                nao_mensuraveis.append((_rel, mid, L[mid]['DERIVATION']))
+                return m.group(0)
+            novo = formatar_publicavel(L[mid]['VALUE'])
             if novo != atual:
-                mudou.append((os.path.relpath(_path, ROOT), mid, atual, novo))
+                mudou.append((_rel, mid, atual, novo))
             return f'<!--M:{mid}-->{novo}<!--/M-->'
-        novo_txt = MARK.sub(repl, txt)
-        if novo_txt != txt and not check_only:
-            with open(path, 'w', encoding='utf-8') as fh:
-                fh.write(novo_txt)
+        planos.append((path, txt, MARK.sub(repl, txt)))
+
+    if malformados:
+        raise MarcadorMalformado(
+            'marcador `<!--M:` aberto sem fecho na mesma linha — nada foi escrito: '
+            + ' · '.join(f'{rel}:{",".join(map(str, ls))}' for rel, ls in malformados))
+    if nao_mensuraveis:
+        causas = {mid: causa for _, mid, causa in nao_mensuraveis}
+        docs = sorted({f'{rel} ({mid})' for rel, mid, _ in nao_mensuraveis})
+        raise MetricaNaoMensuravel(
+            'nada foi escrito — documento publica métrica que este ambiente não deriva: '
+            + ' · '.join(docs) + ' — '
+            + ' — '.join(f'{mid}: {causa}' for mid, causa in causas.items()))
+    if not check_only:
+        _escrever_tudo_ou_nada([(p, t, n) for p, t, n in planos if n != t])
     return mudou
+
+
+def _escrever_tudo_ou_nada(planos):
+    """Duas fases: primeiro TODOS os temporários, depois TODAS as trocas — com desfazer.
+
+    O red team de 2026-09-17 provou que um `PermissionError` no segundo ficheiro deixava o
+    primeiro já reescrito (§139). Agora um ficheiro que não se deixa escrever é descoberto
+    antes de qualquer troca; e se uma troca falhar, as já feitas voltam ao texto original.
+    """
+    temporarios = []
+    try:
+        for path, _txt, novo in planos:
+            if not os.access(path, os.W_OK):
+                raise PermissionError(f'sem permissão de escrita: {path}')
+            tmp = path + '.sync-tmp'
+            with open(tmp, 'w', encoding='utf-8', newline='') as fh:
+                fh.write(novo)
+            temporarios.append((path, tmp))
+    except BaseException:
+        for _path, tmp in temporarios:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+        raise
+    trocados = []
+    try:
+        for (path, txt, _novo), (_p, tmp) in zip(planos, temporarios):
+            os.replace(tmp, path)
+            trocados.append((path, txt))
+    except BaseException:
+        for path, txt in trocados:
+            with open(path, 'w', encoding='utf-8', newline='') as fh:
+                fh.write(txt)
+        for _path, tmp in temporarios:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+        raise
+
+
+def sync(check_only=False):
+    return sincronizar(build(), documentos_com_numero(), check_only=check_only)
 
 
 HEADER = f"{'METRIC_ID':<34}{'VALUE':>10}  {'UNIT':<6}{'DENOM':>8}  DONO"
 
 
 def main():
-    if '--sync' in sys.argv:
-        for rel, mid, antes, depois in sync():
+    # Consola cp1252 não pode derrubar o dono por causa de um acento na mensagem.
+    for fluxo in (sys.stdout, sys.stderr):
+        if hasattr(fluxo, 'reconfigure'):
+            fluxo.reconfigure(errors='backslashreplace')
+    if '--sync' in sys.argv or '--check' in sys.argv:
+        check = '--check' in sys.argv
+        L = build()
+        conta = L['TEST_COUNT_CURRENT']
+        print(f"TEST_COUNT_CURRENT = {conta['VALUE']}")
+        if conta['STATUS'] == NAO_MENSURAVEL:
+            print(f"  {conta['DERIVATION']}")
+        try:
+            fora = sincronizar(L, documentos_com_numero(), check_only=check)
+        except (MetricaNaoMensuravel, MarcadorMalformado) as e:
+            print(f'{type(e).__name__}: {e}')
+            print('SYNC = REFUSED' if not check else 'CHECK = NOT_MEASURABLE')
+            sys.exit(2)
+        for rel, mid, antes, depois in fora:
             print(f'{rel}: {mid} {antes!r} -> {depois!r}')
+        if check:
+            print(f'DRIFT = {len(fora)}')
+            sys.exit(1 if fora else 0)
+        print(f'SYNC = OK ({len(fora)} marcador(es) reescrito(s))')
         return
     L = build()
     if '--json' in sys.argv:

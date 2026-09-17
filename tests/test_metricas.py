@@ -17,11 +17,15 @@ listados em `HISTORICOS` são poupados.
 import os
 import re
 import sys
+import tempfile
+import textwrap
 import unittest
+from unittest import mock
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+import metricas_canonicas as mc                                 # noqa: E402
 from metricas_canonicas import build, Ledger                    # noqa: E402
 
 DOCS = os.path.join(ROOT, 'docs')
@@ -37,15 +41,11 @@ HISTORICOS = {
 }
 
 
-def br(v):
-    """Formata como os documentos escrevem: milhar com ponto, decimal com vírgula.
-
-    Preserva a precisão que o dono guardou — 1,17 não pode virar 1,2 no caminho, senão
-    o teste passa a exigir do documento um número que a evidência não tem.
-    """
-    if isinstance(v, float):
-        return ('%g' % v).replace('.', ',')
-    return f'{v:,}'.replace(',', '.')
+# A grafia publicável tem UM dono: `metricas_canonicas.formatar_publicavel`. Este ficheiro
+# tinha uma cópia própria (`br`) — e `test_canonico`/`test_handoff` tinham uma terceira
+# grafia, sem ponto de milhar. Três grafias do mesmo número foi o que fez alguém digitar
+# 4414 à mão para pôr um teste verde (§138). Uma regra, um sítio.
+br = mc.formatar_publicavel
 
 
 # METRIC_ID -> documentos que publicam aquele número como afirmação CORRENTE
@@ -103,15 +103,20 @@ class TestDocumentoBateComODono(unittest.TestCase):
 
     def test_todo_numero_publicado_vem_do_dono(self):
         for metric, docs in BINDINGS.items():
-            valor = self.L[metric]['VALUE']
-            alvo = br(valor)
+            m = self.L[metric]
             for rel in docs:
-                with self.subTest(metrica=metric, documento=rel, valor=alvo):
+                with self.subTest(metrica=metric, documento=rel, valor=br(m['VALUE'])):
                     self.assertNotIn(rel, HISTORICOS,
                                      'documento histórico não deve ser amarrado a valor corrente')
+                    # Sem valor derivado não há com que comparar — e isso é vermelho, não
+                    # verde: o número que o documento publica está sem prova.
+                    self.assertNotEqual(mc.NAO_MENSURAVEL, m['STATUS'],
+                                        f'{metric} não é mensurável neste ambiente, e {rel} '
+                                        f'publica um valor sem prova — {m["DERIVATION"]}')
+                    alvo = br(m['VALUE'])
                     self.assertIn(alvo, self.doc(rel),
                                   f'{rel} não publica {metric} = {alvo} '
-                                  f'(dono: {self.L[metric]["SOURCE"]})')
+                                  f'(dono: {m["SOURCE"]})')
 
     def test_o_ledger_declara_dono_e_derivacao_para_toda_metrica(self):
         for mid, m in self.L.items():
@@ -171,9 +176,16 @@ class TestNumeroCorrenteTemDono(unittest.TestCase):
     """
 
     def test_nenhum_marcador_esta_desatualizado(self):
-        """O teste reprova, o `--sync` conserta. Sem isto o marcador e decorativo."""
-        from metricas_canonicas import sync
-        fora = sync(check_only=True)
+        """O teste reprova, o `--sync` conserta. Sem isto o marcador e decorativo.
+
+        Se o dono nao consegue derivar um valor publicado (NOT_MEASURABLE), isto e
+        VERMELHO com a causa escrita — nunca verde por falta de comparacao.
+        """
+        from metricas_canonicas import sync, MetricaNaoMensuravel, MarcadorMalformado
+        try:
+            fora = sync(check_only=True)
+        except (MetricaNaoMensuravel, MarcadorMalformado) as e:
+            self.fail(f'{type(e).__name__}: {e}')
         self.assertEqual([], fora,
                          'documento publica valor diferente do dono: %s — '
                          'rode python3 pacote/metricas_canonicas.py --sync' % fora)
@@ -342,6 +354,221 @@ class TestPercentualNaoSaiSemDenominador(unittest.TestCase):
     def test_o_marcador_existe_e_e_unico(self):
         self.assertEqual('NOT_PRESERVED',
                          Ledger.DENOMINADOR_NAO_PRESERVADO)
+
+
+class TestAContagemDeTestesFalhaFechada(unittest.TestCase):
+    """§139 — TEST_COUNT_CURRENT nao e «quantos testes o Python desta maquina importou».
+
+    Medido em 2026-09-17: sem PyYAML o dono publicava 4.478; com PyYAML, 4.521. A
+    diferenca eram DOIS modulos (`test_c10_4c_rota_aposentada`, 21 casos, e
+    `test_c10_6d_portas_canonicas`, 24 casos) que `import yaml` no topo: quando nao
+    carregam, `unittest` poe 1 teste-fantasma no lugar de cada um — 45 − 2 = 43. Nenhum
+    dos dois numeros era a contagem; eram dois ambientes. O contrato agora: modulo que
+    nao carrega ⇒ NOT_MEASURABLE com a causa, e o sync recusa-se a escrever.
+    """
+
+    _n = 0
+
+    def _suite(self, **modulos):
+        """Suite descartavel. Os nomes levam um sufixo unico: `discover()` guarda o modulo
+        em sys.modules, e dois `test_a` em pastas diferentes seriam «o mesmo» modulo."""
+        d = tempfile.mkdtemp(prefix='suite-')
+        self.addCleanup(lambda: __import__('shutil').rmtree(d, ignore_errors=True))
+        type(self)._n += 1
+        tag = f'p{type(self)._n}_{os.getpid()}'
+        nomes = {}
+        for nome, corpo in modulos.items():
+            nomes[nome] = f'test_{tag}_{nome}'
+            with open(os.path.join(d, nomes[nome] + '.py'), 'w', encoding='utf-8') as f:
+                f.write(textwrap.dedent(corpo))
+        return d, nomes
+
+    DOIS = '''
+        import unittest
+        class T(unittest.TestCase):
+            def test_a(self): pass
+            def test_b(self): pass
+    '''
+
+    def test_suite_completa_conta_sem_fantasma(self):
+        d, _ = self._suite(a=self.DOIS)
+        self.assertEqual((2, []), mc.descobrir_suite(d))
+
+    def test_modulo_que_nao_carrega_e_declarado_pelo_nome_e_pela_causa(self):
+        d, nomes = self._suite(a=self.DOIS,
+                               b='import modulo_que_nao_existe_para_esta_prova\n')
+        n, erros = mc.descobrir_suite(d)
+        # unittest CONTA o fantasma: 2 reais + 1 no lugar do modulo que nao carregou.
+        # E por isso que um numero com erros nao e a contagem.
+        self.assertEqual(3, n)
+        self.assertEqual(1, len(erros))
+        self.assertEqual(nomes['b'], erros[0][0])
+        self.assertIn('ModuleNotFoundError', erros[0][1])
+        self.assertIn('modulo_que_nao_existe_para_esta_prova', erros[0][1])
+
+    def test_modulo_que_sai_no_import_tambem_e_descoberta_incompleta(self):
+        """`tests/test_comunicacao.py` faz `raise SystemExit(1)` ao ser importado."""
+        d, nomes = self._suite(a=self.DOIS, z='raise SystemExit(1)\n')
+        n, erros = mc.descobrir_suite(d)
+        self.assertEqual(3, n)
+        self.assertEqual([(nomes['z'], 'SystemExit: 1')], erros)
+
+    def test_o_ledger_nao_publica_numero_parcial(self):
+        """Com descoberta incompleta o VALUE e NOT_MEASURABLE, com a causa — nao 4478."""
+        erros = [('test_c10_6d_portas_canonicas', "ModuleNotFoundError: No module named 'yaml'")]
+        with mock.patch.object(mc, 'descobrir_suite', return_value=(4478, erros)):
+            m = mc.build()['TEST_COUNT_CURRENT']
+        self.assertEqual(mc.NAO_MENSURAVEL, m['VALUE'])
+        self.assertEqual(mc.NAO_MENSURAVEL, m['STATUS'])
+        self.assertIn('CAUSE=TEST_DISCOVERY_INCOMPLETE', m['DERIVATION'])
+        self.assertIn('test_c10_6d_portas_canonicas', m['DERIVATION'])
+        self.assertIn("No module named 'yaml'", m['DERIVATION'])
+        self.assertNotIn('4478', m['DERIVATION'] + str(m['VALUE']))
+
+    def test_o_ledger_publica_a_contagem_quando_a_descoberta_e_completa(self):
+        with mock.patch.object(mc, 'descobrir_suite', return_value=(4521, [])):
+            m = mc.build()['TEST_COUNT_CURRENT']
+        self.assertEqual(4521, m['VALUE'])
+        self.assertEqual('DERIVED', m['STATUS'])
+        self.assertEqual('4.521', mc.formatar_publicavel(m['VALUE']))
+
+    def _ledger(self, valor, status='DERIVED'):
+        L = Ledger()
+        L.add('TEST_COUNT_CURRENT', valor, unit='count', source='tests/', status=status,
+              derivation='prova' if status == 'DERIVED' else 'CAUSE=TEST_DISCOVERY_INCOMPLETE — prova')
+        L.add('SOURCE_ID_COUNT', 37, unit='count', source='atlas', derivation='prova')
+        return L
+
+    def _doc(self, texto):
+        d = tempfile.mkdtemp(prefix='doc-')
+        self.addCleanup(lambda: __import__('shutil').rmtree(d, ignore_errors=True))
+        p = os.path.join(d, 'DOC.md')
+        with open(p, 'w', encoding='utf-8', newline='') as f:
+            f.write(texto)
+        return p
+
+    def _le(self, p):
+        with open(p, encoding='utf-8') as f:
+            return f.read()
+
+    def test_o_sync_recusa_escrever_um_valor_que_nao_se_deriva(self):
+        p = self._doc('TESTES_REAIS = <!--M:TEST_COUNT_CURRENT-->4.478<!--/M-->\n')
+        antes = self._le(p)
+        with self.assertRaises(mc.MetricaNaoMensuravel) as cm:
+            mc.sincronizar(self._ledger(mc.NAO_MENSURAVEL, mc.NAO_MENSURAVEL), [p])
+        self.assertIn('TEST_DISCOVERY_INCOMPLETE', str(cm.exception))
+        self.assertIn('DOC.md', str(cm.exception))
+        self.assertEqual(antes, self._le(p), 'o sync escreveu apesar de nao ter valor')
+        # check_only recusa da mesma forma — nao devolve «drift zero» por nao ter comparado
+        with self.assertRaises(mc.MetricaNaoMensuravel):
+            mc.sincronizar(self._ledger(mc.NAO_MENSURAVEL, mc.NAO_MENSURAVEL), [p], check_only=True)
+
+    def test_o_sync_e_tudo_ou_nada(self):
+        """Um ficheiro bloqueado segura os outros: nunca fica meio pacote sincronizado."""
+        ok = self._doc('<!--M:SOURCE_ID_COUNT-->31<!--/M--> fontes\n')
+        bloqueado = self._doc('<!--M:TEST_COUNT_CURRENT-->4.478<!--/M--> provas\n')
+        with self.assertRaises(mc.MetricaNaoMensuravel):
+            mc.sincronizar(self._ledger(mc.NAO_MENSURAVEL, mc.NAO_MENSURAVEL), [ok, bloqueado])
+        self.assertIn('-->31<!--', self._le(ok), 'um consumidor foi reescrito com outro bloqueado')
+
+    def test_um_ficheiro_que_nao_se_deixa_escrever_segura_os_outros(self):
+        """Red team §139: PermissionError no 2.o ficheiro deixava o 1.o ja reescrito."""
+        import stat
+        p1 = self._doc('<!--M:SOURCE_ID_COUNT-->31<!--/M-->\n')
+        p2 = self._doc('<!--M:SOURCE_ID_COUNT-->31<!--/M-->\n')
+        os.chmod(p2, stat.S_IREAD)
+        self.addCleanup(os.chmod, p2, stat.S_IREAD | stat.S_IWRITE)
+        with self.assertRaises(PermissionError):
+            mc.sincronizar(self._ledger(4521), [p1, p2])
+        self.assertIn('-->31<!--', self._le(p1), 'o primeiro ficheiro foi reescrito com o segundo bloqueado')
+        self.assertEqual([], [f for f in os.listdir(os.path.dirname(p1)) if f.endswith('.sync-tmp')])
+
+    def test_o_sync_preserva_o_fim_de_linha_do_ficheiro(self):
+        p = self._doc('a <!--M:SOURCE_ID_COUNT-->31<!--/M--> b\r\nsegunda linha\r\n')
+        mc.sincronizar(self._ledger(4521), [p])
+        with open(p, 'rb') as f:
+            self.assertEqual(b'a <!--M:SOURCE_ID_COUNT-->37<!--/M--> b\r\nsegunda linha\r\n', f.read())
+
+    def test_o_sync_reescreve_na_grafia_do_dono_e_o_check_ve_drift_zero_depois(self):
+        p = self._doc('TESTES_REAIS = <!--M:TEST_COUNT_CURRENT-->4478<!--/M-->\n')
+        L = self._ledger(4521)
+        self.assertEqual([('DOC.md', 'TEST_COUNT_CURRENT', '4478', '4.521')],
+                         [(os.path.basename(r), *resto)
+                          for r, *resto in mc.sincronizar(L, [p], check_only=True)])
+        self.assertIn('-->4478<!--', self._le(p), 'check_only escreveu')
+        mc.sincronizar(L, [p])
+        self.assertIn('TESTES_REAIS = <!--M:TEST_COUNT_CURRENT-->4.521<!--/M-->', self._le(p))
+        self.assertEqual([], mc.sincronizar(L, [p], check_only=True))
+
+    def test_marcador_aberto_sem_fecho_recusa_em_vez_de_engolir_o_documento(self):
+        """No know-how, um `<!--M:` aberto na linha 13 casava 642.359 caracteres."""
+        p = self._doc('um carimbo <!--M:TEST_COUNT_CURRENT--> digitado\n'
+                      'muita\nhistoria\n'
+                      'valor: <!--M:SOURCE_ID_COUNT-->31<!--/M-->\n')
+        antes = self._le(p)
+        with self.assertRaises(mc.MarcadorMalformado) as cm:
+            mc.sincronizar(self._ledger(4521), [p])
+        self.assertIn('DOC.md:1', str(cm.exception))
+        self.assertEqual(antes, self._le(p))
+
+    def test_citacao_da_sintaxe_em_codigo_inline_nao_e_marcador(self):
+        p = self._doc('sem marcador `<!--M:NOME-->` dentro do texto\n'
+                      'e `<!--M:X-->1.786→1.788` como registo\n'
+                      'valor: <!--M:SOURCE_ID_COUNT-->31<!--/M-->\n')
+        self.assertEqual([('DOC.md', 'SOURCE_ID_COUNT', '31', '37')],
+                         [(os.path.basename(r), *resto)
+                          for r, *resto in mc.sincronizar(self._ledger(4521), [p])])
+        txt = self._le(p)
+        self.assertIn('`<!--M:NOME-->`', txt)
+        self.assertIn('-->37<!--', txt)
+
+    def test_um_marcador_inteiro_e_vivo_mesmo_dentro_de_crase(self):
+        """ENTRADA-PARA-CLAUDE-DESIGN.md publica um valor corrente dentro de crase."""
+        p = self._doc('`<!--M:SOURCE_ID_COUNT-->31<!--/M-->` SOURCE_IDs\n')
+        mc.sincronizar(self._ledger(4521), [p])
+        self.assertIn('`<!--M:SOURCE_ID_COUNT-->37<!--/M-->`', self._le(p))
+
+    def test_o_know_how_nao_tem_marcador_vivo(self):
+        """O know-how e registo. Um marcador inteiro la seria reescrito pelo sync —
+        e reescrever o que se registou e apagar historia (o §138 citava
+        `<!--M:TEST_COUNT_CURRENT-->4414<!--/M-->` inteiro: o 4414 historico ia virar o
+        valor corrente na primeira sincronizacao)."""
+        with open(os.path.join(ROOT, 'SINTONIA-EAME-KNOW-HOW.md'), encoding='utf-8') as f:
+            kh = f.read()
+        self.assertEqual([], [m.group(0) for m in mc.MARK.finditer(kh)])
+        self.assertEqual([], mc.marcadores_malformados(kh))
+
+    def test_a_grafia_publicavel_tem_um_dono(self):
+        for v, esperado in ((1786, '1.786'), (4521, '4.521'), (98, '98'), (148964, '148.964'),
+                            (82.1, '82,1'), (1.17, '1,17'), (['a', 'b'], '`a` · `b`'),
+                            (mc.NAO_MENSURAVEL, 'NOT_MEASURABLE')):
+            with self.subTest(valor=v):
+                self.assertEqual(esperado, mc.formatar_publicavel(v))
+
+    def test_nenhuma_contagem_corrente_esta_escrita_no_dono(self):
+        """4478 e 4521 sao medidas de um dia; a suite cresce. O dono deriva, nao lembra.
+
+        Le o CODIGO (AST), nao o texto: docstrings e comentarios podem citar a historia.
+        """
+        import ast
+        with open(mc.__file__, encoding='utf-8') as f:
+            arvore = ast.parse(f.read())
+        docstrings = set()
+        for no in ast.walk(arvore):
+            if isinstance(no, (ast.Module, ast.FunctionDef, ast.ClassDef)) and no.body:
+                primeiro = no.body[0]
+                if isinstance(primeiro, ast.Expr) and isinstance(primeiro.value, ast.Constant):
+                    docstrings.add(id(primeiro.value))
+        medidas = ('4414', '4478', '4521', '4.414', '4.478', '4.521')
+        for no in ast.walk(arvore):
+            if not isinstance(no, ast.Constant) or id(no) in docstrings:
+                continue
+            with self.subTest(linha=no.lineno, valor=no.value):
+                if isinstance(no.value, int):
+                    self.assertNotIn(no.value, (4414, 4478, 4521))
+                elif isinstance(no.value, str):
+                    self.assertFalse(any(m in no.value for m in medidas),
+                                     'uma medida de um dia esta escrita no codigo do dono')
 
 
 # ⚠️ SEM ISTO, `python3 tests/test_metricas.py` NAO CORRIA NADA.
