@@ -2672,9 +2672,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "d37cb1926e417fc4306176f688c829bfb79ca61c",
-    "GENERATED_AT": "2026-09-17T14:00:47-03:00",
-    "SOURCE_TREE_FINGERPRINT": "bd71a00eb051e1d259d7c97fb71394bcbd88566d0f0c2ad86802fa62c6c6b543"
+    "HEAD": "cdbe2d7a4baae87ca8c2d87f5e42983087862910",
+    "GENERATED_AT": "2026-09-17T19:16:19-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d850c102b882edb7551cafecb9fc0a7b8e98589ba1a80b54d689e0b8b4e05282"
   },
   "FAMILIES": [
     {
@@ -25670,7 +25670,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "generator",
@@ -25692,9 +25692,11 @@
         "pacote/v21_handoff_json.py"
       ],
       "file_count": 11,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "pacote/metricas_canonicas.py"
+      ],
       "produces": [
         "HANDOFF-V2-PAUSE.json",
         "build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/RELATIONSHIPS/convergence-links.json",
@@ -25952,7 +25954,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_handoff.py:97"
+          "tests/test_canonico.py:331"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -36162,10 +36164,12 @@
       ],
       "file_count": 185,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 15 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_biblia.py",
+        "tests/test_canonico.py",
         "tests/test_coleta_externa.py",
+        "tests/test_handoff.py",
         "tests/test_integracao_biblia.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_metricas.py",
@@ -43180,7 +43184,7 @@
       "evidence": [
         {
           "file": "pacote/metricas_canonicas.py",
-          "line": 105,
+          "line": 198,
           "snippet": "atlas = _doc('fontes', 'ATLAS-DE-FONTES-EAME.md')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-PACOTE-CAMADAS",
@@ -43716,7 +43720,7 @@
       "evidence": [
         {
           "file": "pacote/metricas_canonicas.py",
-          "line": 257,
+          "line": 350,
           "snippet": "bench = _sample('ASK-SINTONIA-benchmark.json')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-PACOTE-CAMADAS",
@@ -43955,7 +43959,7 @@
         },
         {
           "file": "tests/test_metricas.py",
-          "line": 209,
+          "line": 221,
           "snippet": "with open(os.path.join(ROOT, 'data', 'samples', 'ASK-SINTONIA-benchmark.json'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ASK-SINTONIA--READS-->C-TESTES",
@@ -55431,7 +55435,7 @@
       "evidence": [
         {
           "file": "tests/test_handoff.py",
-          "line": 169,
+          "line": 179,
           "snippet": "d = amostra('DATA-CLOCK-manifest.json')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-TESTES",
@@ -71898,8 +71902,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Montagem do pacote por camadas tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Montagem do pacote por camadas tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_canonico.py",
+          "line": 331,
+          "snippet": "import metricas_canonicas as mc",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PACOTE-CAMADAS--IMPORTS-->C-TESTES",
+            "FROM": "C-PACOTE-CAMADAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_handoff.py",
           "line": 97,
@@ -71918,8 +71938,8 @@
         },
         {
           "file": "tests/test_metricas.py",
-          "line": 25,
-          "snippet": "from metricas_canonicas import build, Ledger                    # noqa: E402",
+          "line": 28,
+          "snippet": "import metricas_canonicas as mc                                 # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PACOTE-CAMADAS--IMPORTS-->C-TESTES",
             "FROM": "C-PACOTE-CAMADAS",
@@ -76084,7 +76104,7 @@
         },
         {
           "file": "tests/test_handoff.py",
-          "line": 157,
+          "line": 167,
           "snippet": "import proveniencia as pv",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-TESTES",
@@ -91597,7 +91617,7 @@
       "evidence": [
         {
           "file": "tests/test_metricas.py",
-          "line": 232,
+          "line": 244,
           "snippet": "with open(os.path.join(ROOT, 'superficie', 'ask_sintonia.py'), encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-ASK-SINTONIA",
@@ -91909,7 +91929,7 @@
       "evidence": [
         {
           "file": "pacote/metricas_canonicas.py",
-          "line": 272,
+          "line": 365,
           "snippet": "casos = _doc('apresentacao', 'CASOS-PARA-APRESENTACAO.md')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-PACOTE-CAMADAS",
@@ -94429,7 +94449,7 @@
       "evidence": [
         {
           "file": "pacote/metricas_canonicas.py",
-          "line": 151,
+          "line": 244,
           "snippet": "x6 = _sample('X-006-substance-normalisation.json')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-V21-INGEST--READS-->C-PACOTE-CAMADAS",
@@ -94445,7 +94465,7 @@
         },
         {
           "file": "pacote/metricas_canonicas.py",
-          "line": 173,
+          "line": 266,
           "snippet": "x7 = _sample('X-007-canonical-agro-dictionary.json')['full_corpus']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-V21-INGEST--READS-->C-PACOTE-CAMADAS",
@@ -95450,7 +95470,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 182,
+      "PECAS_EM_DESACORDO": 183,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -95467,8 +95487,8 @@
   ],
   "COUNTS": {
     "components": 212,
-    "components_proven": 36,
-    "components_pending": 168,
+    "components_proven": 35,
+    "components_pending": 169,
     "components_broken": 0,
     "components_unknown": 8,
     "edges": 1085,

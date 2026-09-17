@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§139**, que corrige o §138 (ver o aviso no fim desta linha). **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`. **⚠️ CORRIGIDO PELO §139 (2026-09-17, mesmo dia):** a verificação independente derrubou o `INTEGRATION_BLOCKERS_FIX = PASS` — o «drift zero» do §138 era de UM ambiente; noutro processo o dono media `4.521` e o drift eram 9 ficheiros. A causa está provada (dois módulos com `import yaml`, 45 casos − 2 fantasmas = 43) e o dono passou a falhar fechado: qualquer módulo de `tests/` que não carregue ⇒ `TEST_COUNT_CURRENT = NOT_MEASURABLE` e `--sync` recusa. Nesta máquina a suíte NUNCA carrega inteira (10 módulos por `fcntl`, 1 por amostra que nunca esteve no Git) — logo `INTEGRATION_BLOCKERS_FIX = FAIL` até um ambiente completo medir e sincronizar.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§133 (2026-09-17):** o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`). Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou.
 **§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -16636,7 +16636,7 @@ CONSEQUÊNCIA trunk intocado; o candidato precisou de cirurgia mínima (esta sec
 ## OS DOIS BLOCKERS, TAL COMO ERAM
 
 ```
-BLOCKER 1    docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md:9 — `<!--M:TEST_COUNT_CURRENT-->4414<!--/M-->`, digitado no
+BLOCKER 1    docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md:9 — marcador `M:TEST_COUNT_CURRENT` = `4414`, digitado no
              commit 8cf2a272. O dono escreve «4.414» (com ponto de milhar) e muda os 8 consumidores de uma vez;
              só um mudou, e sem ponto. A mensagem do commit diz porquê: «exigido por test_canonico — que voltou a
              VERDE». Ou seja: o número foi digitado PARA PÔR UM TESTE VERDE. É exatamente o defeito que o dono das
@@ -16723,4 +16723,130 @@ NAO corrigiu os riscos não bloqueantes do gate: fallback SUPABASE_DB_URL na Sal
 "psql" nu · PDFs de XX/ contados pelo mapa · replay 4 na mesma sessão do fix. NAO corrigiu o conflito de formato
 do ponto 2 — está entregue à coordenação.
 NEXT_STEP = NOVA SESSÃO INDEPENDENTE NA LINHA IT OFICIAL → RERUN COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK.
+```
+
+---
+
+# §139 · A VERIFICAÇÃO INDEPENDENTE DERRUBOU O PASS DO §138 — A CONTAGEM DE TESTES ERA O RETRATO DE UM AMBIENTE, E AGORA FALHA FECHADA
+
+## O QUE MUDOU
+
+```
+INTEGRATION_BLOCKERS_FIX (§138)                          = FAIL    revogado pelo Hermes em 2026-09-17: novo processo mediu TEST_COUNT_CURRENT = 4521,
+                                                                    os documentos diziam 4.478, METRIC_DRIFT_AFTER = 9 ficheiros (8 docs + este know-how)
+STALE_PSQL_TEST_BLOCKER                                  = CLOSED  continua fechado — não reabriu (test_preservar_coleta_no_banco igual nas duas bases)
+MANUAL_METRIC_STAMP_BLOCKER                              = OPEN    o carimbo manual desapareceu; o número publicado (4.478) continua SEM PROVA, porque
+                                                                    nenhum ambiente medido até hoje carrega tests/ inteiro — ver PROVA
+METRIC_STABILITY_FIX                                     = FAIL    o dono já não mente; mas «sync → check → drift zero» exige um ambiente completo,
+                                                                    e esta máquina não o é (nem o Windows em geral, nem o repositório sozinho)
+TEST_COUNT_CURRENT                                       = NOT_MEASURABLE   nesta máquina, nos dois interpretadores medidos; CAUSE=TEST_DISCOVERY_INCOMPLETE
+COLLECTION_INTEGRATION_GATE                              = NOT_RERUN
+COLLECTION_IN_TRUNK                                      = NO      trunk 9d6dcbbd intocado
+BIG_COLLECTION                                           = NÃO AUTORIZADA
+```
+
+## O QUE · POR QUÊ · PROVA · CONSEQUÊNCIA
+
+```
+O QUE        o §138 declarou «8 documentos → 4.478 · sync(check_only=True) = []» e INTEGRATION_BLOCKERS_FIX = PASS.
+             O Hermes, em três invocações novas, mediu COUNT = 4521 e drift em 9 ficheiros. O PASS era falso.
+POR QUÊ      TEST_COUNT_CURRENT era `unittest.discover().countTestCases()`, e o unittest CONTA 1 teste-fantasma por
+             módulo que NÃO carrega. O número dependia de que módulos o Python da máquina conseguia importar — era
+             «quantos importei hoje», não «quantos existem». Dois ambientes, dois números, ambos publicáveis.
+             O 9.º ficheiro do drift era ESTE know-how: a linha 13 cita a sintaxe do marcador sem fecho, e a regex do
+             sync (`(.*?)` com re.S) casava dali até ao próximo fecho de marcador — 642.359 caracteres (linha 13 →
+             linha 16639, onde o §138 citava um marcador INTEIRO). Um `--sync` teria substituído esse trecho todo
+             por «4.478». Ninguém correu o sync; só o check.
+PROVA        candidato cdbe2d7a. Medido em processos separados, o mesmo `py` (3.12.10):
+               B · sem PyYAML         COUNT = 4478 · TestLoader.errors = 13 · 166 módulos carregam
+               A · com PyYAML 6.0.3   COUNT = 4521 · TestLoader.errors = 11 · 168 módulos carregam
+             A diferença, módulo a módulo: test_c10_4c_rota_aposentada (21 casos) e test_c10_6d_portas_canonicas
+             (24 casos) fazem `import yaml` no topo. Sem PyYAML valem 1 fantasma cada: 45 − 2 = 43. CAUSE_OF_43_DELTA = PROVED.
+             Os 11 que NÃO carregam em nenhum dos dois: 10 importam ferramentas/reel_transcricao.py, cuja linha 77 é
+             `import fcntl` (só POSIX) — test_c10_1_source_id · _3_location · _4_route_gate · _4b_um_caminho_so ·
+             _5_collection_flow · _5d_decisao_instagram · _6_crash_retry · _6b_run_duravel · _audio_only ·
+             test_reel_transcricao; e tests/test_comunicacao.py:223 faz `raise SystemExit(1)` ao importar porque
+             `comunicacao_universo.montar()` devolve zero células sem data/samples/COMPETITOR-CROSSWALK.json — ficheiro
+             que NUNCA esteve no Git (git log vazio). Logo, a partir do REPOSITÓRIO SOZINHO, em qualquer sistema, a
+             descoberta é incompleta — e todo número já publicado (3.874 · 3.888 · 4.359 · 4.414 · 4.478 · 4.521)
+             continha pelo menos um fantasma.
+             DONO DO AMBIENTE DE TESTE: NENHUM no Git. Sem requirements/pyproject/tox; .github/workflows/banco-descartavel.yml
+             :407-410 declara de propósito «não há requirements.txt — dependências declaram-se no passo que as usa»
+             (`pip install pyyaml` no passo 2b6). Observado, não decretado: Python 3.12 nos workflows · PyYAML instalado
+             pelo passo · runners ubuntu (POSIX). Não se criou ficheiro de dependências: contrariaria a regra escrita
+             da casa, e não tornaria a contagem mensurável aqui (fcntl é sistema; o crosswalk é dado ausente).
+             ESTABILIDADE (3 processos, esta máquina): --sync → EXIT 2, SYNC = REFUSED, nada escrito · --check → EXIT 2,
+             CHECK = NOT_MEASURABLE · --check → idem. git status igual antes e depois dos três.
+CONSEQUÊNCIA o dono (pacote/metricas_canonicas.py) passou a:
+               · descobrir com um TestLoader NOVO e ler TestLoader.errors + os fantasmas da suíte (descobrir_suite());
+               · com qualquer erro, publicar TEST_COUNT_CURRENT = NOT_MEASURABLE, STATUS = NOT_MEASURABLE, e a causa por
+                 nome de módulo e última linha do traceback — nunca 4478, 4521 ou outro parcial;
+               · --sync/--check recusam (exit 2) enquanto um documento publicar uma métrica não mensurável, e são
+                 TUDO OU NADA: um ficheiro bloqueado segura os outros;
+               · o marcador vive numa linha e não contém «<»; uma abertura de marcador fora de crase que não seja
+                 marcador inteiro é MALFORMADA e trava o sync; dentro de crase é citação (a prosa cita a sintaxe assim).
+                 Um marcador INTEIRO é vivo sempre — por isso o know-how não pode ter nenhum, e a citação do §138
+                 (linha «BLOCKER 1») foi regrafada para `M:TEST_COUNT_CURRENT` = `4414`, sem mudar o que regista;
+               · a grafia publicável tem UM dono, formatar_publicavel(): 4521 → 4.521 · 82.1 → 82,1. test_metricas
+                 deixou de ter cópia própria; test_canonico e test_handoff comparam na grafia do dono e ficam
+                 VERMELHOS com a causa quando o dono não deriva — nunca verdes por não ter comparado.
+             O que NÃO se tocou: ferramentas/reel_transcricao.py:77 (runtime; a cura é a mesma do admissao.py —
+             fcntl em POSIX, msvcrt em Windows — mas é fora do escopo desta cirurgia) · tests/test_comunicacao.py
+             (a amostra ausente é achado, não correção) · PROMPT-PARA-NOVA-CONTA-CLAUDE.md (é copiado e colado e por
+             regra própria não leva marcador; diz «721 testes» desde antes, segurado só por test_handoff).
+             NEXT_STEP: ambiente COMPLETO (POSIX + PyYAML + crosswalk presente, ou as duas curas acima) mede,
+             `--sync` reescreve os consumidores, `--check` em processo novo dá DRIFT = 0. Só então
+             MANUAL_METRIC_STAMP_BLOCKER fecha. Depois: NOVA SESSÃO INDEPENDENTE · IT LINE OFFICIAL · RERUN
+             COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK.
+```
+
+## O QUE SE APRENDEU
+
+```
+1 · UM PASS MEDIDO NUM SÓ AMBIENTE NÃO É UM PASS. «drift zero» com o `py` da máquina era o retrato daquele `py`.
+    A verificação independente tem de correr em processo novo — e, se puder, noutro interpretador.
+
+2 · countTestCases() CONTA O QUE NÃO CARREGOU. O unittest fabrica um _FailedTest por módulo que falha o import e
+    ele entra na soma. Um número de testes só é «o número» com TestLoader.errors vazio. Antes disso é NOT_MEASURABLE.
+
+3 · UM NÚMERO PARCIAL PUBLICADO É PIOR QUE NENHUM. 4.478 e 4.521 pareciam precisos; nenhum era a suíte. Falhar
+    fechado, com a causa escrita, é o único estado honesto quando o ambiente não deixa medir.
+
+4 · CITAR A SINTAXE DO MARCADOR NUM .md DA RAIZ É ESCREVER UM MARCADOR. O sync anda por docs/ e pela raiz; o
+    know-how é raiz. A prosa cita dentro de crase, nunca um marcador inteiro — e o dono agora trava o resto.
+
+5 · DUAS GRAFIAS DO MESMO NÚMERO EM DOIS TESTES FORAM O MOTIVO DE ALGUÉM DIGITAR 4414. A grafia é do dono; o
+    teste importa a função, não a regra.
+
+6 · O DONO DO AMBIENTE DE TESTE NÃO EXISTE, E ISSO ESTÁ ESCRITO COMO DECISÃO. Enquanto for assim, o dono da
+    métrica só pode declarar o que mediu: quais módulos carregaram e quais não, e porquê.
+```
+
+## REGRESSÃO E RED TEAM DESTA SECÇÃO
+
+```
+REGRESSÃO    10 ficheiros, comparados PELO NOME, base = cópia limpa de cdbe2d7a (git archive) vs. worktree, mesmo `py` com PyYAML:
+             test_metricas 21→35 casos (14 novos, TestAContagemDeTestesFalhaFechada, 14/14 verdes) · test_canonico 33 ·
+             test_handoff 14 · test_preservar_coleta_no_banco 31 (AProvaEmPostgresEACuaTranca 8/8 OK — o blocker do psql
+             NÃO reabriu) · test_a_sala_de_espera_tem_um_dono 18 · test_o_censo_da_sala_de_espera 14 (escreve
+             data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json — revertido, como no §138) · test_fronteira_mede_a_sala_canonica 18 ·
+             test_fronteira_mede_producao 15 · test_porta_de_producao 42 · test_a_linhagem_do_ready_e_do_raw_asset 11.
+             NEW_FAILURES = 0 · NEW_ERRORS = 0. Continuam vermelhos, pelo mesmo nome e agora com a causa escrita
+             (NOT_MEASURABLE): test_todo_numero_publicado_vem_do_dono (4 subtestes) · test_nenhum_marcador_esta_desatualizado ·
+             test_o_total_de_testes_declarado_vem_da_suite · test_a_contagem_de_testes_do_handoff_bate. Os 3 «curados» em
+             test_porta_de_producao são artefacto da base sem .git (lêem o SHA do Git), não cura desta missão.
+             Sem PyYAML (o `py` nu desta máquina) os mesmos nomes; test_metricas 35 casos, mesmos 5 vermelhos.
+RED TEAM     agente separado, só leitura, 14 alegações + extra. 13 NÃO PROVADAS (count muda com o Python · PyYAML ausente dá
+             número menor · dois processos dão drift · teste aceita stale · teste aceita 4521 · falso vermelho de grafia ·
+             4521 hardcoded · caminho físico virou contrato · requirements concorrente · check ≠ sync · loader.errors ignorado ·
+             módulo que não importa conta · know-how com PASS falso como último estado). 1 PROVADA e CORRIGIDA na mesma
+             missão: «sync toca só um consumidor» — um PermissionError no 2.º ficheiro deixava o 1.º já reescrito. Agora
+             _escrever_tudo_ou_nada(): verifica permissão, escreve TODOS os temporários, só depois troca, e desfaz as trocas
+             se uma falhar; teste com ficheiro só-leitura (test_um_ficheiro_que_nao_se_deixa_escrever_segura_os_outros).
+             De brinde: o sync preservava mal o fim de linha em Windows (LF → CRLF no ficheiro inteiro); agora lê e escreve
+             com newline='' e há teste byte a byte. RED_TEAM_BLOCKERS = 0 depois da correção.
+             Achados NÃO bloqueantes, entregues à coordenação: tests/es/ não tem __init__.py e os seus 2 ficheiros (≈70 def
+             test_) NUNCA entram na descoberta nem na contagem (correm à parte no adama-es-gate.yml) · a CAUSA do
+             NOT_MEASURABLE muda com o ambiente (13 vs 11 módulos) embora o VALUE seja estável · o PROMPT diz «Esperado:
+             721 testes» e test_handoff fica vermelho em qualquer ambiente até alguém medir num ambiente completo.
 ```
