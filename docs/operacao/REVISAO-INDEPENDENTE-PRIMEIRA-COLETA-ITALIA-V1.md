@@ -1247,3 +1247,146 @@ BLOCKER                                    = passo 6: `subprocess.run(["psql", �
 BIG_COLLECTION_AUTHORIZED                  = NO
 NENHUMA CORREÇÃO FUNCIONAL                 = feita por este replay
 ```
+
+## 18 · ADENDO — O BLOCKER DO §17 FOI FECHADO NO CÓDIGO (2026-09-17)
+
+> Missão de correção, não de revisão: um dono para «qual `psql` este processo
+> usa», declarado pelo workflow em caminho nativo, consumido pelas três portas
+> do runtime, e o portão da Sala a falar com o banco de verdade. Provado em
+> Windows real contra PostgreSQL 16.4 real, com o PATH sem `psql`. **Não** se
+> disparou o workflow: quem corrige não valida o próprio conserto — o replay
+> 4 é de sessão nova.
+
+```
+MISSÃO                 FECHAR O BLOCKER DO psql NO RUNTIME WINDOWS
+MEDIDO EM              2026-09-17
+MODEL_EFFECTIVE        Fable 5.1 (claude-fable-5-1) · effort high
+INITIAL_HEAD           930a09c7ecbf20361f94c285676208717dec3a78 = REMOTE_COLLECTION_HEAD
+TRUNK                  origin/claude/it-trunk-v1 = 9d6dcbbd · merge-base = o trunk · 18 à frente / 0 atrás · não integrado
+WORKTREE               limpa antes
+
+ROOT_CAUSE_EXACT       NÃO PROVADA (mantém-se o §17.5: o Python do passo 6 não viu o psql que o
+                       shell do mesmo job via; nenhum log regista o prepend; reprodução local não reproduz)
+EXPLICIT_EXECUTABLE_CONTRACT = NECESSÁRIO — foi observado que a descoberta implícita por PATH falha
+```
+
+### 18.1 · Censo — quem usa `psql` (antes de mexer)
+
+| ficheiro | classe | como resolvia | nome nu | caminho explícito | env | dono |
+|---|---|---|---|---|---|---|
+| `guarda/memoria_postgres.py` (`_psql`, `aplicar`) | RUNTIME | PATH do processo | sim | não | não | — |
+| `coleta/coleta_checkpoint.py::Banco.executa` | RUNTIME | PATH do processo | sim | não | não | — |
+| `admissao/sala_de_espera.py::_Postgres` (`_consultar`, `_executar`) | RUNTIME | PATH do processo | sim | não | não | — |
+| `motor/cadeia_canonica.sh` (5 chamadas) | RUNTIME (shell) | `PATH="$PGBIN:$PATH"` dado pelo 5a-IT | sim | via PATH explícito | não | workflow |
+| `provas/*.py` (≈40 chamadas) | PROOF | a bancada põe o pgbin no PATH | sim | `exe("psql")` só na bancada | não | cada prova |
+| `guarda/es/adama_es_gate.py`, `leis/calendario_handoff.py` | SCRIPT | PATH (CI Linux, handoff ES) | sim | não | não | — |
+| `tests/test_lugar_do_fato.py` | TEST | PATH | sim | não | não | — |
+| `.github/workflows/sintonia-scrap.yml` 5a-IT | SCRIPT | `$PGBIN/psql.exe` absoluto | não | sim | `SINTONIA_PG_PORTATIL` | workflow |
+
+`CANONICAL_PSQL_OWNER` antes = **nenhum**.
+
+### 18.2 · Baseline do defeito (Postgres real, pgbin retirado do PATH, código de 930a09c7)
+
+```
+OLD_MEMORY_RESULT = FileNotFoundError: [WinError 2]
+OLD_TRACE_RESULT  = FileNotFoundError: [WinError 2]
+OLD_SALA_RESULT   = FileNotFoundError: [WinError 2]        (_Postgres._consultar("select 1"))
+OLD_SALA_GATE     = PASS (BACKEND=POSTGRES) — sem abrir ligação   ← exigir_canonica() aprovava sem falar com o banco
+```
+
+### 18.3 · O conserto
+
+```
+FIX            guarda/cliente_postgres.py — UM dono: resolver_psql() · comando_psql() · como_foi_resolvido()
+               contrato SINTONIA_PSQL_EXE (caminho NATIVO; declarado inválido = recusa, sem cair para o PATH;
+               sem declaração = shutil.which; nada = ClientePostgresAusente)
+FILES_CHANGED  guarda/cliente_postgres.py (novo) · guarda/memoria_postgres.py · coleta/coleta_checkpoint.py ·
+               admissao/sala_de_espera.py (_psql_exe, sondar, exigir_canonica sonda, --portao imprime SONDA) ·
+               .github/workflows/sintonia-scrap.yml (5a-IT declara SINTONIA_PSQL_EXE por cygpath -w) ·
+               tests/test_psql_argv.py (a guarda vê a cabeça do dono) · tests/test_cliente_postgres.py (novo) ·
+               provas/o_cliente_psql_e_declarado.py (novo)
+SINTONIA_PSQL_EXE      = C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe   (na prova; no workflow: cygpath -w "$PGBIN/psql.exe")
+NATIVE_PATH_PROOF      = cygpath -w /c/Users/London1/orca/pgtmp/pgsql/bin/psql.exe → C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe
+                         (medido nesta máquina, no mesmo Git bash que o runner usa)
+```
+
+### 18.4 · Prova real (provas/o_cliente_psql_e_declarado.py · 35 casos · 35 PASS)
+
+```
+PATH_WITHOUT_PSQL_PROOF = shutil.which("psql") = None no processo da prova e no PATH passado aos filhos
+MEMORIA_POSTGRES_REAL   = PASS  select "1" · insert real · contagem 1
+BANCO_REAL              = PASS  select [["7"]] · insert real · contagem 2
+SALA_REAL               = PASS  exigir_canonica → SONDA=OK · PSQL_ORIGEM=DECLARADO · ler() real
+SALA_GATE_REAL_DB       = PASS  processo `--portao` exit 0 · «SALA_DE_ESPERA=PASS · BACKEND=POSTGRES · SONDA=OK · PSQL_ORIGEM=DECLARADO»
+CLI_SUBPROCESS          = PASS  orquestrador.py, sem rede, fixture do §133, PATH sem psql, exit 0, «persistencia: DESCARTAVEL»
+RUN_ROWS=1 · RAW_ROWS=1 · STORAGE_ROWS=1 · DERIVED_ROWS=1 · STRUCTURED_ROWS=1
+NEGATIVE_TESTS          = 9 (vazio+sem PATH · inexistente · outro exe · POSIX · PATH+inválido não cai · PATH+válido diferente vence ·
+                             espaço · acento · ordem) — todos PASS
+SALA_GATE_FAIL          = psql ausente → exit 1 BLOCKED · sem declaração e sem PATH → exit 1 · banco parado → exit 1 «connection refused»
+teardown                = porto fechado · cluster removido · RUN-MANIFEST/LIVRO restaurados byte a byte
+```
+
+### 18.5 · Regressão (mesmo interpretador do §17.10)
+
+```
+BASELINE_TESTS = 12 ficheiros → 178 passed · 8 failed · 82 skipped   (930a09c7, antes de qualquer edição)
+FINAL_TESTS    = 13 ficheiros → 201 passed · 8 failed · 82 skipped   (os 23 verdes novos: 21 em test_cliente_postgres, 2 em test_psql_argv)
+NEW_FAILURES   = 0 · NEW_ERRORS = 0
+as 8 falhas de base, pelo nome: 6× test_a_sala_de_espera_tem_um_dono (contrato READY COL-LAW-043 na fixture; separador do
+Windows) · 1× test_o_censo_da_sala_de_espera (byte a byte; a suíte escreve O-CENSO-DA-SALA-DE-ESPERA.json — revertido) ·
+1× test_porta_de_producao (separador do Windows, a mesma do §14.10) — nenhuma toca psql
+```
+
+### 18.6 · Red team (agente separado, só leitura)
+
+| # | ataque | veredito | prova |
+|---|--------|----------|-------|
+| 1 | runtime do caminho italia-documento ainda lança `"psql"` nu | REFUTADO | os 5 sítios pedem ao dono: `memoria_postgres.py` (`_psql`, `aplicar`), `coleta_checkpoint.py` (`Banco.executa`), `sala_de_espera.py` (`_consultar`, `_executar`); `portas_live.MemoriaSupabase` herda `_psql` sem lista própria |
+| 1b | `motor/cadeia_canonica.sh` (bash, `psql` nu) | NÃO SE APLICA | corre no passo shell 5a-IT com `PATH="$PGBIN:$PATH"` explícito; bash resolve por PATH, nunca foi o defeito do §135 |
+| 2 | resolvedores concorrentes | REFUTADO | um só no runtime (`cliente_postgres.py`); `exe("psql")`, `PGBIN`, `SINTONIA_PG_PORTATIL` só na bancada das provas e no workflow; `VARIAVEL = "SINTONIA_PSQL_EXE"` só no dono (travado por teste) |
+| 3 | POSIX passado ao Python; cygpath garantido? | REFUTADO | 5a-IT: `command -v cygpath \|\| exit 1`; `cygpath -w` → `C:\…`; o passo corre em `shell: bash` (Git for Windows, que traz o cygpath); o dono recusa `/c/…` |
+| 4 | declarado inválido cai para o PATH | REFUTADO | declarado não-vazio que não serve → `raise`, nunca `which`; provado no teste unitário 6 e no caso N6 da prova |
+| 5 | PATH continua obrigatório no runtime | REFUTADO | `initdb`/`pg_ctl` por nome só em provas; migrations pelo `.sh` com PATH explícito |
+| 6 | Sala gate continua só a olhar configuração | REFUTADO | `exigir_canonica()` → `backend().sondar()` → `select 1` real; `--portao` chega lá; `estado_operacional()` continua sem sondar, de propósito (usado por provas de fronteira) |
+| 7 | Sala gate passa com banco morto | REFUTADO | `_consultar` rc≠0 → `SalaIndisponivel` → `SALA_DE_ESPERA=BLOCKED`, exit 1; provado com o banco parado («connection refused») |
+| 8/9 | um dono usa o resolvedor e outro não | REFUTADO | os três importam `guarda.cliente_postgres`; `portas_live` não redefine `_psql` |
+| 10 | produção como fallback | REFUTADO | o dono importa só `os`, `shutil`; nenhuma DSN, nenhum SUPABASE, nenhum `banco_descartavel` |
+| 11 | testes com mock em vez de Postgres real | NÃO É BLOCKER | o `psql.exe` falso (`MZ`) só prova a lógica de resolução; as asserções reais (initdb, pg_ctl, select/insert, três donos, CLI) estão na prova, corrida como processo pelo último teste, com skip COM motivo em vez de PASS |
+| 12 | caminho com espaço quebra | REFUTADO | forma-lista sem `shell=True` em todos os sítios; espaço e acento provados por junção NTFS |
+| 13 | SQL volta ao argv | REFUTADO | todos os sítios com `-f -` + stdin e DSN por último; nenhum `-c` |
+| 14 | DSN aparece em log | REFUTADO | `--portao` imprime só o caminho do exe e a origem; erros passam por `_sanitiza`; o workflow ecoa só o caminho do exe |
+| 15 | runtime importa provas/ | REFUTADO | nenhum `import provas` nos ficheiros editados nem no dono |
+| 16 | segundo dono, dependência nova, guardas antigas cegas | REFUTADO | stdlib só; `def _psql(` continua único em `memoria_postgres.py`; a guarda AST vê `[resolver_psql(), url, "-c", sql]` como DSN adiantada |
+| 17 | escape inválido em docstring (`-W error`) | REFUTADO | só escapes válidos nos ficheiros editados |
+| 18 | 5b corre antes de 5a-IT declarar a variável | REFUTADO | 5a-IT escreve `SINTONIA_PSQL_EXE` no `GITHUB_ENV` antes de 5b/5c; travado por teste |
+
+`RED_TEAM_BLOCKERS = 0`. Observações do red team, registadas e não bloqueantes:
+
+- **O1** · `select 1` prova que o psql lança e que HÁ um Postgres vivo; não prova que a DSN aponta
+  ao banco certo. Isso é de outro dono (`banco_descartavel` + migrations), não do portão.
+- **O2** · `SINTONIA_PSQL_EXE` só com espaços é tratada como não declarada (cai para o PATH).
+  Defensável: espaço em branco não é declaração. Fica escrito.
+- **O3** · `guarda/es/adama_es_gate.py` e `leis/calendario_handoff.py` continuam a lançar `'psql'`
+  nu — scripts autónomos do handoff ES, fora do caminho italiano; colheriam o mesmo erro num
+  Python Windows sem psql no PATH. Não é este blocker.
+- **O4** · caminho relativo era aceite e resolvia-se contra o cwd de cada subprocesso.
+  **Fechado nesta missão**: o dono recusa caminho relativo (teste 5b).
+
+### 18.7 · O que esta missão NÃO fez
+
+- Não disparou o workflow. `INDEPENDENT_WORKFLOW_CANARY_REPLAY_4 = NOT_RUN`.
+- Não provou a causa exata do PATH; declarou o contrato explícito como necessário porque a falha da descoberta implícita **foi observada**.
+- Não tocou DSN, trava de Supabase, identidade, SOURCE_ID, Admission, derivadores, retry, crash recovery.
+- Não tocou produção, migration LIVE, Intelligence, Portal, deploy, trunk.
+
+### 18.8 · Veredito
+
+```
+PSQL_RUNTIME_BINDING_FIX                  = PASS
+REPLAY_3_BLOCKER                          = CLOSED_IN_CODE
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_4      = NOT_RUN
+COLLECTION_INTEGRATION_CANDIDATE          = NOT_YET
+BIG_COLLECTION_AUTHORIZED                 = NO
+NEXT_STEP                                 = INDEPENDENT_WORKFLOW_CANARY_REPLAY_4 (sessão nova; exigir no 5a-IT «psql declarado: C:\…»
+                                            e no 5b «SONDA=OK · PSQL_ORIGEM=DECLARADO»)
+```

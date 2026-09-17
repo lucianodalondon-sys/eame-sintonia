@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "350921524f4fcc8bd81450f0159efc513fd0d220",
-    "GENERATED_AT": "2026-09-17T10:50:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e53f58be1705be4ab2f7fb01ce9abeb6c98569b565174b0e828d42412316c1d6"
+    "HEAD": "930a09c7ecbf20361f94c285676208717dec3a78",
+    "GENERATED_AT": "2026-09-17T11:45:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e1197bd52c580c4bea36dce9230854fbd686f13dd2997761409ed492ac4fd3a0"
   },
   "FILES": [
     {
@@ -122,7 +122,7 @@
     },
     {
       "path": ".github/workflows/sintonia-scrap.yml",
-      "sha": "7c897cf97da5dd4ea11692b7a65a54e1b7e4e795",
+      "sha": "a2b526d166cccf063e11014d14fd83a2cc9b4265",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "37f5aa9ac558fe50f6df66b90ce13ab92b07611d",
+      "sha": "22f4b91d179bdc3ea257a9b3de8c64e2355bdf24",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -297,7 +297,7 @@
     },
     {
       "path": "admissao/sala_de_espera.py",
-      "sha": "f65b84dd59f162b0c962bc8f37b8c951bb311074",
+      "sha": "e207de26ee4101b99030f3de1752049e91addfc4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1263,7 +1263,7 @@
     },
     {
       "path": "coleta/coleta_checkpoint.py",
-      "sha": "f946bb5da8cf0879c23562d4cbb05bb693b9c76e",
+      "sha": "fedb342f438f63652ff06e85a197f8265cea39f6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6527,7 +6527,7 @@
     },
     {
       "path": "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
-      "sha": "a29bd1ebbc916a03cd9be4df6724e09da4e252b4",
+      "sha": "9f499d835b51850e4f40529f6edaf8a19a1dd56a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7458,7 +7458,7 @@
     },
     {
       "path": "guarda/memoria_postgres.py",
-      "sha": "a255a79248b380a9d8d954c6b8e1675247489247",
+      "sha": "9e56ed35ea3fe992711613738aa2a2a8db9e7488",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14276,7 +14276,7 @@
     },
     {
       "path": "tests/test_psql_argv.py",
-      "sha": "0f7fa50a69072cadf043e6d8c1378e3c77b58ed1",
+      "sha": "353be2525a9012118fe2ba85716045431f9cf00a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15304,7 +15304,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 367,
+        "line": 384,
         "snippet": "PYTHONIOENCODING=utf-8 $PY admissao/sala_de_espera.py --portao"
       }
     },
@@ -15491,7 +15491,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 454,
+        "line": 471,
         "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\"
       }
     },
@@ -15502,7 +15502,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 379,
+        "line": 396,
         "snippet": "PYTHONIOENCODING=utf-8 $PY superficie/rede.py --portao-de-egresso IT"
       }
     },
@@ -16712,7 +16712,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/coleta_checkpoint.py",
-        "line": 556,
+        "line": 563,
         "snippet": "import rastro_da_coleta as rastro"
       }
     },
@@ -21651,7 +21651,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "guarda/memoria_postgres.py",
-        "line": 61,
+        "line": 62,
         "snippet": "from guarda.preservar_derivado import MemoriaDoDerivado"
       }
     },
@@ -59122,6 +59122,39 @@
       }
     },
     {
+      "from_file": "tests/test_psql_argv.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_psql_argv.py",
+        "line": 249,
+        "snippet": "\"admissao/sala_de_espera.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_psql_argv.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_psql_argv.py",
+        "line": 248,
+        "snippet": "for rel in (\"guarda/memoria_postgres.py\", \"coleta/coleta_checkpoint.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_psql_argv.py",
+      "to_file": "guarda/memoria_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_psql_argv.py",
+        "line": 248,
+        "snippet": "for rel in (\"guarda/memoria_postgres.py\", \"coleta/coleta_checkpoint.py\","
+      }
+    },
+    {
       "from_file": "tests/test_qualidade_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -62675,7 +62708,7 @@
     "files_tracked": 2077,
     "files_readable": 803,
     "files_code_dir": 861,
-    "file_edges": 4328,
+    "file_edges": 4331,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

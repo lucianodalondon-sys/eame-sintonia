@@ -2151,13 +2151,14 @@
       "territory": "Z-GUARDA",
       "kind": "engine",
       "icon": "▷",
-      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133).",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133). ⚠️ 2026-09-17, mais tarde: ganhou `guarda/cliente_postgres.py` — o dono de QUAL psql este processo usa (SINTONIA_PSQL_EXE, caminho nativo, falha fechada; sem declaracao, o PATH; nunca um caminho inventado). O replay 3 (run 35232024024, know-how §135) caiu na primeira `subprocess.run([\"psql\", ...])` do runtime com FileNotFoundError; agora MemoriaPostgres, coleta_checkpoint.Banco e a Sala `_Postgres` pedem o executavel a este dono, e o Sala gate sonda o banco (`select 1`) pelo mesmo psql (know-how §136).",
       "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         "guarda/banco_descartavel.py",
+        "guarda/cliente_postgres.py",
         "guarda/memoria_descartavel.py",
         "guarda/memoria_postgres.py",
         "guarda/portas_live.py",

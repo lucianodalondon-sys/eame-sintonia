@@ -16360,3 +16360,138 @@ NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
 Dono canónico do detalhe: docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §17.
 ```
+
+# §136 · O RUNTIME PASSOU A DECLARAR O psql — E O PORTÃO DA SALA PASSOU A FALAR COM O BANCO
+
+## O QUE MUDOU
+
+```
+PSQL_RUNTIME_BINDING_FIX                  = PASS         2026-09-17 · Windows real · PostgreSQL 16.4 real · PATH sem psql
+REPLAY_3_BLOCKER                          = CLOSED_IN_CODE   (run 35232024024, §135)
+CANONICAL_PSQL_OWNER                      = guarda/cliente_postgres.py · UMA variável: SINTONIA_PSQL_EXE
+SALA_GATE                                 = sonda real (`select 1`) pelo MESMO psql do runtime, antes da rede
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_4      = NOT_RUN      quem corrige não valida o próprio conserto
+COLLECTION_INTEGRATION_CANDIDATE          = NOT_YET
+BIG_COLLECTION                            = NÃO AUTORIZADA
+```
+
+## O CENSO ANTES DE MEXER
+
+Quem lançava `psql` e como (censo completo do repositório, 2026-09-17):
+
+```
+RUNTIME   guarda/memoria_postgres.py:115,137      ["psql", …]   nome nu · confiava no PATH   → agora resolver_psql()
+RUNTIME   coleta/coleta_checkpoint.py:129 Banco   ['psql', …]   nome nu · confiava no PATH   → agora resolver_psql()
+RUNTIME   admissao/sala_de_espera.py:481,528     ["psql", …]   nome nu · confiava no PATH   → agora self._psql_exe()
+RUNTIME   motor/cadeia_canonica.sh (5 sítios)     psql  (bash)  o workflow dá-lhe PATH="$PGBIN:$PATH" explícito no 5a-IT;
+          shell, não Python: o CreateProcess não entra aqui. Mantido.
+PROOF     provas/*.py (≈40 sítios)                nome nu       correm nesta máquina com a bancada a pôr o pgbin no PATH
+SCRIPT    guarda/es/adama_es_gate.py · leis/calendario_handoff.py   CI Linux do handoff ES; fora do caminho italiano
+TEST      tests/test_lugar_do_fato.py             nome nu       só corre com DSN de teste
+DONO      nenhum. Não existia «qual psql este processo usa» em lado nenhum.
+```
+
+A reprodução do defeito, antes do conserto, com Postgres real e o pgbin
+retirado do PATH:
+
+```
+OLD_MEMORY_RESULT = FileNotFoundError [WinError 2]
+OLD_TRACE_RESULT  = FileNotFoundError [WinError 2]
+OLD_SALA_RESULT   = FileNotFoundError [WinError 2]
+OLD_SALA_GATE     = PASS (BACKEND=POSTGRES) — sem abrir ligação        ← o portão que não media
+```
+
+## O CONTRATO
+
+```
+SINTONIA_PSQL_EXE = caminho NATIVO do executável (Windows: C:\…\psql.exe). `/c/…` recusa-se.
+
+1  declarada → o ficheiro existe E chama-se psql/psql.exe → usa-se EXATAMENTE ele.
+   Inválida (não existe, outro nome, forma POSIX) → ClientePostgresAusente. NUNCA se cai
+   para o PATH por cima de uma declaração errada: isso mascararia configuração errada
+   com um acerto por acaso.
+2  não declarada → shutil.which("psql") — a máquina de quem desenvolve, o CI Linux.
+3  nada → ClientePostgresAusente, com a frase que diz o que declarar.
+
+Nunca: inventar caminho, instalar, descarregar, cair para produção. O dono não sabe o
+que é uma DSN — isso continua em guarda/banco_descartavel.py e em quem compõe.
+```
+
+O workflow declara no 5a-IT, onde já sabe onde está o psql:
+
+```
+PSQL_NATIVO="$(cygpath -w "$PGBIN/psql.exe")"          # /c/… → C:\…  (cygpath é do Git for Windows, o mesmo bash)
+echo "SINTONIA_PSQL_EXE=$PSQL_NATIVO" >> "$GITHUB_ENV"   # nível de job: 5b, 5c e 6 vêem-na
+```
+
+e continua a escrever `$PGBIN` no GITHUB_PATH — para o shell. O runtime Python
+não depende disso.
+
+## O QUE SE PROVOU (provas/o_cliente_psql_e_declarado.py · 35 casos · 35 PASS)
+
+```
+bancada        PostgreSQL 16.4 portátil, porto livre, 31 migrations pela cadeia canónica
+PATH           sem NENHUMA pasta com psql: shutil.which("psql") = None, no processo e nos filhos
+declaração     SINTONIA_PSQL_EXE = C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe (nativo)
+MemoriaPostgres  select real = "1" · insert real (tabela de prova) · contagem confere
+Banco (rastro)   select real = [["7"]] · insert real
+Sala             exigir_canonica() → SONDA=OK · PSQL_ORIGEM=DECLARADO · leitura real (ler → None)
+Sala gate        como PROCESSO: exit 0 · «SALA_DE_ESPERA=PASS · BACKEND=POSTGRES · SONDA=OK · PSQL_ORIGEM=DECLARADO»
+CLI              orquestrador.py como PROCESSO, sem rede, fixture do §133, PATH sem psql:
+                 exit 0 · RUN=1 · RAW=1 · STORAGE=1 · DERIVED=1 · STRUCTURED=1 · «persistencia: DESCARTAVEL»
+negativos        vazio+PATH sem psql → FAIL · inexistente → FAIL · pg_ctl.exe no lugar → FAIL · /c/… → FAIL
+                 PATH com psql + declaração inválida → FAIL (não cai para o PATH)
+                 PATH com psql + declaração válida diferente → o explícito vence
+                 caminho com espaço → funciona · caminho com acento (çãõ) → funciona   (junções NTFS, sem cópia)
+Sala gate FAIL   psql declarado inexistente → exit 1 BLOCKED · sem declaração e sem PATH → exit 1
+                 banco parado → exit 1 BLOCKED «connection refused»   — tudo ANTES da rede
+teardown         porto fechado, cluster removido, acervo versionado restaurado byte a byte
+```
+
+## O QUE SE APRENDEU
+
+```
+1 · DESCOBERTA IMPLÍCITA POR PATH NÃO É CONTRATO. Foi observado (§135) que o Python do job não
+    achou o psql que o shell do mesmo job achava. O mecanismo exato continua NÃO PROVADO — e
+    não precisa de ser provado para a lição valer: quem cria a bancada sabe onde está o psql;
+    que o diga. A causa exata do PATH fica registada como NÃO SEI; o contrato explícito fica
+    registado como NECESSÁRIO.
+
+2 · UM PORTÃO QUE MEDE CONFIGURAÇÃO NÃO MEDE CONETIVIDADE. O 5b dizia PASS a ler variáveis.
+    Agora faz `select 1` pelo mesmo psql do runtime. Falha com psql ausente e com banco parado,
+    antes de qualquer rede — e diz por quê.
+
+3 · DECLARAÇÃO ERRADA NÃO PODE SER MASCARADA POR ACERTO DO PATH. A tentação era «se o declarado
+    não serve, tenta o PATH». Isso deixaria um typo no workflow passar em silêncio numa máquina
+    que por acaso tem psql — e rebentar na outra. Falha fechada.
+
+4 · A GUARDA DO §130 (DSN por último) QUASE FICOU CEGA. Trocar "psql" por resolver_psql() tirava
+    a lista de dentro do detector AST, que só via listas com cabeça literal "psql". A guarda
+    passou a reconhecer a cabeça do dono. Um conserto que desliga uma guarda antiga em silêncio
+    é meio conserto.
+
+5 · JUNÇÃO NTFS PROVA ESPAÇO E ACENTO SEM COPIAR 57 MB. `mklink /J` põe o mesmo bin com outro
+    nome; o psql real corre por lá. Uma cópia parcial (psql.exe sem as DLL) não corre.
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · o blocker do replay 3 está fechado EM CÓDIGO. Não está fechado no workflow real: quem corrige
+    não valida o próprio conserto. INDEPENDENT_WORKFLOW_CANARY_REPLAY_4 fica para sessão nova,
+    com o mesmo contrato do §17 da revisão — e agora com o 5b a ter de mostrar SONDA=OK.
+2 · o replay 4 deve ler no 5a-IT a linha «psql declarado: C:\…\psql.exe» e no 5b
+    «SONDA=OK · PSQL_ORIGEM=DECLARADO». Sem essas duas linhas, a corrida não passou por aqui.
+3 · a causa exata do PATH continua aberta e NÃO bloqueia: se alguém a quiser fechar, um passo de
+    diagnóstico a imprimir PATH e shutil.which("psql") antes do orquestrador responde em 10 s.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO declara a causa exata do PATH (NÃO SEI, §135 ponto 5). NAO reescreve §130-§135.
+NAO fez replay 4. NAO disparou GitHub Actions. NAO tocou DSN, trava de Supabase, identidade, Admission, derivadores.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
+Dono canónico do detalhe: docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §18.
+```

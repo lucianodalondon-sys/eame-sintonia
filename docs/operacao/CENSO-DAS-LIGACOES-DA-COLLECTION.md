@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  350921524f4fcc8bd81450f0159efc513fd0d220
+HEAD_DA_MEDICAO  930a09c7ecbf20361f94c285676208717dec3a78
 BRANCH           claude/it-collection-sala-v1
-GERADO_EM        2026-09-17T10:50:12-03:00
+GERADO_EM        2026-09-17T11:45:10-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -484,7 +484,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:367 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/sintonia-scrap.yml:384 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -1502,7 +1502,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA, C-PEDIDO, C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:454; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
+| **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:139; .github/workflows/sintonia-scrap.yml:471; system-map/data/pedido-t4.observado.json:1 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/executor_texto_de_pdf.py`, `guarda/preservar_documento.py` |
