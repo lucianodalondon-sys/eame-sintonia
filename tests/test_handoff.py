@@ -121,7 +121,17 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
                              f'{m}: o valor no prompt diverge do ledger')
 
     def test_a_contagem_de_testes_do_handoff_bate(self):
-        n = self.L['TEST_COUNT_CURRENT']['VALUE']
+        """Compara na grafia do DONO (4.521), nao numa terceira grafia (4521) — §138.
+
+        Se o dono nao deriva a contagem neste ambiente, isto e vermelho com a causa.
+        O PROMPT e copiado e colado e por isso nao leva marcador: o numero la e
+        digitado, e este teste e o unico que o segura.
+        """
+        import metricas_canonicas as mc
+        m = self.L['TEST_COUNT_CURRENT']
+        self.assertNotEqual(mc.NAO_MENSURAVEL, m['STATUS'],
+                            f'a contagem nao e mensuravel neste ambiente — {m["DERIVATION"]}')
+        n = re.escape(mc.formatar_publicavel(m['VALUE']))
         self.assertRegex(sem_marcador(HANDOFF), rf'\*\*{n} testes',
                          'o handoff publica uma contagem de testes que nao e a atual')
         self.assertRegex(texto(PROMPT), rf'Esperado: {n} testes')
