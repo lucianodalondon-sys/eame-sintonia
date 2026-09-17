@@ -16495,3 +16495,106 @@ NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
 Dono canónico do detalhe: docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §18.
 ```
+
+# §137 · O WORKFLOW REAL LEVOU IT-T3-002 ATÉ À SALA — E O CONSERTO DO psql FOI VISTO A TRABALHAR
+
+## O QUE MUDOU
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_4      = PASS         2026-09-17 · run GitHub 35248220496 · HEAD c3796f32 · SINTONIA-EAME-LOCAL
+WORKFLOW_REAL_CANARY                      = PASS
+PSQL_RUNTIME_BINDING_OBSERVED_IN_WORKFLOW = YES          5a-IT «psql declarado: C:\…\psql.exe» · 5b «SONDA=OK · PSQL_ORIGEM=DECLARADO»
+SOURCE_TO_SALA_REAL_OBSERVED              = YES          pelo WORKFLOW (o §130 tinha-o provado só pelo corredor de prova)
+COLLECTION_AUTOMATICA_BASICA              = PROVADA
+COLLECTION_INTEGRATION_CANDIDATE          = YES
+BIG_COLLECTION                            = NÃO AUTORIZADA
+```
+
+Com o túnel em Milão medido antes, durante e depois, UMA corrida real
+(IT-T3-002, `italia-documento`, runner 1, HEAD `c3796f32`, 16:42:12Z)
+atravessou tudo: bancada na 54329 (31 migrations), o psql declarado em caminho
+nativo, a Sala a sondar o banco de verdade, o egresso IT, o orquestrador, a
+aquisição de rede (boletim de Salerno de 16/09/2026, 814.266 bytes, capturado
+às 16:46:27Z), RAW, STORAGE, DERIVED, STRUCTURED, ADMISSION e a Sala. E o
+teardown deixou a máquina a zero.
+
+## COMO SE VIU — A SONDA VIVA
+
+O banco descartável morre no 9z-IT. Ler o recibo depois é ler o que o
+processo DIZ que fez. Desta vez um segundo processo, só-leitura, bateu na
+porta 54329 a cada segundo enquanto ela existiu, e anotou o que o BANCO dizia:
+
+```
+16:46:08  runs=0 raw=0 so=0 der=0 est=0 sala=0 mig=30      (5a-IT, migrations a correr)
+16:46:12  … mig=31                                          (5a-IT fechou a bancada; 16:46:15 o runner mata a árvore do passo)
+16:46:42  runs=1 raw=1 so=1 der=0 est=0 sala=0 mig=31      (passo 6: RUN e RAW já no banco — o servidor sobreviveu ao kill)
+16:47:24  runs=1 raw=1 so=1 der=1 est=1 sala=1 mig=31      (DERIVED, STRUCTURED, SALA)
+16:47:54  porta 54329 fechou                                (9z-IT)
+RUN_ROW   IT-T3-2026-09-17-164621-78b9d648812d7d47 · rodando → concluida · coleta/italy_executor.py · 16:46:21 → 16:46:27
+RAW_ROW   id=1 · IT-T3-002 · sha c5ae3bfe… · storage_object_id 1 · FORWARD_IDENTIFIED · 16:46:41
+SO_ROW    id=1 · XX/it-t3-002/DOCUMENT/c5ae…-SA-16-09.pdf · sha c5ae3bfe…
+DER_ROW   id=1 · raw_asset_id 1 · TEXT_EXTRACTION · texto-de-pdf · 16:47:04
+ETAPA     RAW=PASS · DERIVED=PASS
+```
+
+`RAW_OBSERVATION_ID = 1` — o `bigserial` da linha, não o sha. RUN ≠
+observação ≠ conteúdo ≠ cópia, cada um com a sua linha. A Sala: `sala=1`
+lido vivo; o conteúdo da linha não foi lido — a última ronda da sonda apanhou
+o servidor a fechar. Fica dito.
+
+## O QUE SE APRENDEU
+
+```
+1 · UMA SONDA VIVA VALE MAIS QUE UM RECIBO. O recibo é o processo a contar a sua história; a sonda é o
+    banco a contar a dele, ao mesmo tempo. Quando as duas batem certo (RUN concluida, raw id=1, storage
+    id=1, derived id=1, etapas RAW/DERIVED PASS), a estrada foi observada e não só declarada.
+    Preço: um loop de bash com o psql portátil e a senha da bancada, ligado ANTES do dispatch.
+
+2 · O SERVIDOR SOBREVIVE AO KILL DO RUNNER. O Worker log volta a mostrar «Scan all processes … Kill
+    process» no fim do 5a-IT (§17.5 tinha-o deixado aberto). A sonda leu o banco 27 s e 69 s depois
+    do kill. O runner mata a árvore do bash do passo; o postmaster, arrancado por pg_ctl -w, já não é
+    filho de ninguém. Pergunta fechada.
+
+3 · CAPTURA INDEPENDENTE DO MESMO CONTEÚDO É O CASO NORMAL DE UM BOLETIM SEMANAL. O SA-16-09.pdf foi
+    buscado de novo à rede (CAPTURED_AT dentro do passo 6; o ficheiro em XX/ reescrito às 16:46:28Z) e
+    tem o mesmo sha do replay 3. Banco novo, linha nova, mesmos bytes. Não é REUSED — é a Bíblia a dizer
+    «mesmo conteúdo não é a mesma coleta» (INDEPENDENT_CAPTURES_SAME_CONTENT). O derivado saiu PASSED,
+    não REUSED, porque o banco nasceu vazio. Chamar-lhe NEW é certo; chamar-lhe «documento novo» não.
+
+4 · TRÊS RUÍDOS QUE NÃO SÃO FALHAS, E QUE UM SUCCESS VERDE NÃO ESCONDE PORQUE ESTÃO ESCRITOS:
+    · ERROR = «Could not find platform independent libraries <prefix>» — o stderr do `py` desta
+      máquina (§134, item 5) apanhado como texto; STATUS = SUCCESS.
+    · «manifesto: 6 campo(s) … NOT_PRESERVED» — a confissão do contrato de proveniência, igual
+      desde o replay 1.
+    · TRANSPORTAVEIS_AUSENTES na fronteira (FACT_TIME, FACT_LOCATION, …) — medidos, não exigidos,
+      EXIGIDOS_EM_FALTA = {}.
+    Cada um tem dono e história; nenhum é o blocker desta corrida. Ficam para a coordenação.
+
+5 · O QUE PASSOU NÃO É O QUE FICA AUTORIZADO. Um canário, uma fonte, uma corrida, um boletim. Isto
+    prova que a estrada existe e funciona pelo workflow. Não prova cadência, não prova seis fontes,
+    não prova Big Collection. COLLECTION_INTEGRATION_CANDIDATE = YES é um pedido à coordenação, não
+    uma autorização.
+
+6 · INDEPENDÊNCIA DECLARADA, NÃO FINGIDA. Este replay correu na MESMA sessão que fez o conserto do
+    §136, por decisão da coordenação. O red team correu em contexto separado, sem ter visto o conserto
+    a nascer. Está escrito nos dois donos; quem ler decide se chega.
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · NEXT_STEP = COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK. Este replay não integra nada.
+2 · a sonda viva passa a ser ferramenta de revisor: ligar antes do dispatch, ler enquanto a porta viver.
+    Uma versão que também leia a linha da Sala ANTES do 9z-IT (não só o COUNT) fecha a última lacuna.
+3 · o recibo italiano continua a não voltar ao Git (RECIBO_ITALIANO_NAO_VOLTA, §132); o checkout
+    seguinte apaga-o. Decisão de coordenação, não de revisor.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO reescreve §130–§136. NAO corrigiu nada. NAO fez replay 5. NAO correu orquestrador nem coletor à mão.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO integrou trunk. NAO tocou produção, migration LIVE, Intelligence, Portal, deploy.
+Dono canónico do detalhe: docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §19.
+```

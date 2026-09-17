@@ -1390,3 +1390,228 @@ BIG_COLLECTION_AUTHORIZED                 = NO
 NEXT_STEP                                 = INDEPENDENT_WORKFLOW_CANARY_REPLAY_4 (sessão nova; exigir no 5a-IT «psql declarado: C:\…»
                                             e no 5b «SONDA=OK · PSQL_ORIGEM=DECLARADO»)
 ```
+
+## 19 · INDEPENDENT_WORKFLOW_CANARY_REPLAY_4 — 2026-09-17
+
+> Quarto replay pelo **workflow real** (`sintonia-scrap.yml`, fase
+> `italia-documento`, fonte `IT-T3-002`), depois do conserto do §18. A pergunta
+> única: o workflow real, a executar o conserto do `psql`, leva IT-T3-002 pelo
+> fluxo canónico até à Sala de Espera? **Sim, e foi observado** — não no YAML,
+> não no recibo apenas: numa sonda só-leitura ao banco descartável, viva
+> durante a corrida, e no log de cada passo. Nenhuma correção foi feita.
+>
+> ⚠️ **Ressalva de independência, declarada:** este replay foi corrido pela
+> MESMA sessão que fez o conserto do §18, por decisão da coordenação, que
+> deu a missão nesta sessão. O red team (§19.9) correu em contexto separado,
+> sem ter visto o conserto a ser feito. Se a coordenação quiser um replay por
+> sessão nova, o contrato é este mesmo.
+
+```
+MISSÃO                 INDEPENDENT_WORKFLOW_CANARY_REPLAY_4 · IT-T3-002 · italia-documento
+MEDIDO EM              2026-09-17 (dispatch 16:42:12Z · fim 16:47:46Z)
+MODEL_EFFECTIVE        Fable 5.1 (claude-fable-5-1) · effort high
+HEAD AUDITADO          c3796f32a81bac0fd2d7deb5471d9c931df1313e  = REMOTE_COLLECTION_HEAD antes e depois = EXECUTED_HEAD
+TRUNK                  origin/claude/it-trunk-v1 = 9d6dcbbd · merge-base = o trunk · 21 à frente / 0 atrás · não integrado
+WORKTREE               limpa antes e depois (0 ficheiros) · LOCAL_UNPUBLISHED 0
+
+EGRESS_BEFORE_DISPATCH ipinfo 16:41:24Z e 16:42:08Z → 205.147.30.6 · Milan · Lombardy · IT · AS208172 Proton AG
+                       (a mesma leitura durante a corrida às 16:43:35Z e depois às 16:49Z; ifconfig.co continua a dizer
+                       «US» para o mesmo IP — divergência registada, regra inalterada: o portão mede pelo ipinfo)
+
+GITHUB_WORKFLOW_RUN_ID 35248220496 · run_number 9 · run_attempt 1 · event workflow_dispatch · created_at 16:42:15Z
+GITHUB_RUN_URL         https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/35248220496
+GITHUB_RUN_HEAD_SHA    c3796f32… — o auditado
+RUNNER                 SINTONIA-EAME-LOCAL (input runner=1 · C:\actions-runner-eame) · os dois online e busy=false antes
+RUN_IDS_BEFORE         35232024024 (replay 3, failure) · 35227662328 (replay 2, failure) · 35215565657 (replay 1, success)
+                       + dois runs do workflow `system-map` em curso em runners da GitHub (não tocam esta máquina)
+GITHUB_RUN_CONCLUSION  success   (todos os passos success; o 6 correu 62 s)
+
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_4      = PASS
+WORKFLOW_REAL_CANARY                      = PASS
+PSQL_RUNTIME_BINDING_OBSERVED_IN_WORKFLOW = YES
+SOURCE_TO_SALA_REAL_OBSERVED              = YES  (pelo workflow real — não só pelo corredor de prova do §130)
+COLLECTION_AUTOMATICA_BASICA              = PROVADA
+COLLECTION_INTEGRATION_CANDIDATE          = YES
+BIG_COLLECTION_AUTHORIZED                 = NO
+```
+
+### 19.1 · A ordem, provada por hora de início (API `jobs`) e pela sonda viva do banco
+
+| # | passo | início → fim (UTC) | conclusão | prova no log / no banco |
+|---|-------|--------------------|-----------|-------------------------|
+| 2 | checkout | 16:42:32 → 16:42:58 | success | ref `claude/it-collection-sala-v1` |
+| 3 | 0 · scripts | 16:42:58 | success | `SCRIPTS_PRESENTES=YES` |
+| 4 | 1 · interpretador | 16:42:58 → 16:42:59 | success | `INTERPRETADOR=py` |
+| 9 | 5a-IT · bancada nasce | 16:42:59 → 16:46:15 | success | `MIGRATION_001…007, 009…032 = PASS` · sonda: `mig=30` às 16:46:08, `mig=31` às 16:46:12 · **`psql declarado: C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe`** (16:46:10) |
+| 10 | 5b · Sala gate | 16:46:15 → 16:46:18 | success | **`SALA_DE_ESPERA=PASS · BACKEND=POSTGRES · SONDA=OK · PSQL_ORIGEM=DECLARADO`** · `psql: C:\…\psql.exe` |
+| 11 | 5c · egresso | 16:46:18 → 16:46:20 | success | `EGRESS_COUNTRY_CODE: IT · CHECKER: https://ipinfo.io/json · EGRESS_GATE: PASS` |
+| 12 | 6 · rodar a fase | 16:46:20 → 16:47:22 | success | `CORRIDA SUCCESS · IT-T3-2026-09-17-164621-78b9d648812d7d47` · `persistencia: DESCARTAVEL (localhost:54329/descartavel)` · sonda: `runs=1 raw=1 so=1` às 16:46:42; `der=1 est=1 sala=1` às 16:47:24 |
+| 14 | 8 · devolver | 16:47:22 → 16:47:26 | success | `NADA_MUDOU=YES` (o recibo italiano fica no runner: dívida conhecida RECIBO_ITALIANO_NAO_VOLTA) |
+| 15 | 9z-IT · bancada morre | 16:47:26 → 16:47:30 | success | `bancada destruida` · sonda: `porta 54329 fechou` às 16:47:54 |
+| 16 | 9 · custo | 16:47:30 → 16:47:31 | success | `COST_USD_LIQUIDADO=0` |
+
+`GATE_ORDER = 5a-IT (bancada → migrations → SINTONIA_PSQL_EXE declarado) → 5b (sonda real) → 5c (egresso IT) → 6 (orquestrador → aquisição 16:46:21-27 → RAW 16:46:41 → DERIVED 16:47:04 → STRUCTURED → ADMISSION → SALA ≤16:47:24) → 9z-IT`. A aquisição de rede aconteceu dentro do passo 6, depois dos três portões. Nenhum portão correu depois da rede.
+
+### 19.2 · A prova principal: o contrato do psql foi consumido
+
+```
+SINTONIA_PSQL_EXE_DECLARED    = YES   5a-IT, 16:46:10Z: «psql declarado: C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe»
+PSQL_NATIVE_PATH              = C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe   (Windows, absoluto; não `/c/…`)
+PSQL_DECLARED_BEFORE_RUNTIME  = YES   5a-IT (16:46:10) < 5b (16:46:15) < 6 (16:46:20); a variável entrou pelo GITHUB_ENV
+SALA_REAL_PROBE               = PASS  5b: SONDA=OK — o `select 1` correu pelo psql declarado, ANTES da rede
+PSQL_ORIGEM                   = DECLARADO
+SALA_GATE                     = PASS
+EGRESS_GATE                   = PASS
+```
+
+O que o passo 6 provou por si: o mesmo processo Python que no replay 3 morreu
+em `memoria_postgres.py:117` com «programa não encontrado» escreveu desta vez
+uma RUN, um `raw_asset`, um `storage_object`, um derivado, um documento
+estruturado e uma linha na Sala — todos lidos vivos pela sonda, no banco
+descartável, antes do teardown. A porta CLI ligou o banco (§133) e o banco
+respondeu (§136).
+
+### 19.3 · O banco descartável
+
+```
+POSTGRES_TEMP_STARTED = YES   porta 127.0.0.1:54329 LISTENING (PID 25004) às 16:43:35Z; 7 postgres.exe; cluster `_temp\pg-italia-35248220496`
+HOST / PORT / DATABASE = localhost · 54329 · descartavel
+MIGRATIONS            = 31   (log: 001–007, 009–032 = PASS; banco: `schema_migracao` = 31 lido vivo às 16:46:12Z)
+O servidor SOBREVIVEU ao fim do 5a-IT: o Worker log volta a mostrar «Kill process '76616'» às 16:46:15Z (a árvore do
+passo), e a sonda leu o banco às 16:46:42Z e 16:47:24Z. A pergunta aberta do §17.5 está respondida: não mata o servidor.
+```
+
+### 19.4 · Persistência real
+
+```
+PERSISTENCIA_ESTADO = DESCARTAVEL       (recibo: MORADA localhost:54329/descartavel · VARIAVEL BANCO_DESCARTAVEL_URL · AMBIENTE_RETIRADO [])
+MEMORIA             = MemoriaPostgres   (recibo) — EXERCIDA: INGRESSO.BANCO = «SELECT em raw_asset por run_id…»; raw_asset id=1 lido vivo
+BANCO_DO_RASTRO     = Banco             (recibo) — EXERCIDO: `etapa_da_corrida` RAW=PASS, DERIVED=PASS lidas vivas; INGRESSO.RASTRO ESTADO=PASS
+SALA                = _Postgres         — EXERCIDA: 5b SONDA=OK; passo 6 `prontos para a inteligencia: 1 -> postgres:public.sala_de_espera?run_id=…`; `sala=1` lido vivo
+```
+
+### 19.5 · O corredor, elo a elo
+
+| elo | resultado | prova |
+|-----|-----------|-------|
+| REQUEST | `colete pragas --filtro pais=IT --filtro fonte=IT-T3-002` | passo 6, ramo `italia-documento` |
+| ORCHESTRATOR | CALLED = YES · DIRECT_COLLECTOR_CALL_BY_WORKFLOW = NO | o YAML só chama `orquestrador/orquestrador.py`; `PLANO PARA: PEST / DISEASE / WEEDS (T3)` no log |
+| EXECUTOR | `coleta/italy_executor.py @ b9dfd3d2` · SUCCESS | log + `RETORNO.json` no checkout do runner |
+| RUN | COLLECTION_RUN_ID = `IT-T3-2026-09-17-164621-78b9d648812d7d47` · **linha no banco: SIM** | sonda: `RUN_ROW … rodando` (16:46:46) → `concluida` (16:47:06), actor `coleta/italy_executor.py`, 16:46:21+00 → 16:46:27+00 |
+| NETWORK_ACQUISITION | **YES** · `…/bollettini_2026/pdf/SA-16-09.pdf` · 814.266 bytes · sha256 `c5ae3bfe…0bdc` · CAPTURED_AT 16:46:27.836Z (dentro do passo 6) | `colheita.json`; o ficheiro em `XX/` foi reescrito às 16:46:28Z com bytes idênticos aos do replay 3 — captura independente do mesmo conteúdo |
+| RAW | RAW_OBSERVATIONS = **1** · RAW_OBSERVATION_ID = **1** (= `raw_asset.id`, bigserial) | sonda: `RAW_ROW id=1 · run_id … · IT-T3-002 · sha c5ae… · storage_object_id 1 · FORWARD_IDENTIFIED · 16:46:41`; recibo: `PARA_A_DERIVACAO[0].RAW_ASSET_ID = 1` |
+| STORAGE | STORAGE_OBJECTS = **1** · STORAGE_NEW (linha) = YES (banco nasceu vazio) · bytes pré-existentes em `XX/` do replay 3, reescritos iguais | sonda: `SO_ROW id=1 · XX/it-t3-002/DOCUMENT/c5ae…-SA-16-09.pdf · sha c5ae…` |
+| DERIVED | **PASS** (não REUSED) | sonda: `DER_ROW id=1 · raw_asset_id 1 · TEXT_EXTRACTION · texto-de-pdf · 16:47:04`; recibo: `BALDES {PASSED 1, REUSED 0}` · `ESTADO_DA_ETAPA PASS` · `RASTRO EMITIDO` |
+| STRUCTURED | **PASS** (INSERTED) | recibo: `DERIVED_ARTIFACT_ID 1 · PARENT_SHA256 c5ae… · TEXTO «GIUNTA REGIONALE DELLA CAMPANIA … BOLLETTINO FITOSANITARIO DELLA PROVINCIA DI SALERNO…»`; sonda: `est=1` |
+| ADMISSION | `pela porta de admissao: SIM 1` · FRONTEIRA `STRUCTURED -> ADMISSION` MEDIDOS 1 · EXIGIDOS_EM_FALTA {} | recibo `ADMISSAO` |
+| READY | 1 · `ESTADO_DOS_ITENS = PRONTO_PARA_INTELIGENCIA` | log: `prontos para a inteligencia: 1 -> postgres:public.sala_de_espera?run_id=…` · recibo `espera: PASSED` |
+| SALA_ROWS | **1** | sonda: `sala=1` às 16:47:24Z (COUNT vivo). ⚠️ O conteúdo da linha NÃO foi lido: a última ronda da sonda (16:47:25) apanhou o servidor a fechar no 9z-IT. O `raw_observation_id` dentro da linha fica provado pelo código (`pousar` escreve o `RAW_ASSET_ID` da unidade) e pelo recibo, não por leitura direta. |
+
+### 19.6 · Produção
+
+```
+PRODUCTION_DB_WRITES = 0 · PRODUCTION_MIGRATIONS = 0 · PRODUCTION_SALA_WRITES = 0 · PRODUCTION_COLLECTION_RUNS = 0
+```
+Provado pelo caminho: `persistencia: DESCARTAVEL (localhost:54329/descartavel)` no log; `SINTONIA_SALA_DSN` (descartável)
+vence `SUPABASE_DB_URL`; a Sala pousou em `postgres:public.sala_de_espera` do banco de 54329 (a sonda viu `sala=1` lá).
+Produção não foi consultada por este revisor.
+
+### 19.7 · Teardown, medido na máquina (16:49:12Z)
+
+```
+PORT_54329_LISTENING = 0 · POSTGRES_PROCESS_LEFT = 0 · PG_CTL_PROCESS_LEFT = 0
+TEMP_CLUSTER_LEFT = NO · TEMP_OPS_ROOT_LEFT = NO
+PEGADA NO CHECKOUT DO RUNNER: `data/samples/RUN-MANIFEST.json` e `data/samples/LIVRO-DE-DECISOES.json` modificados (o recibo
+e a decisão desta corrida; não voltam ao Git — RECIBO_ITALIANO_NAO_VOLTA, §132), `XX/…SA-16-09.pdf` reescrito, `data/colheita/`
+(ignorada). O checkout do run seguinte apaga tudo isto (§134, item 4).
+```
+
+### 19.8 · Ledger, Git e ruído conhecido
+
+```
+data/collection-ledger/italy/observations.ndjson  3ea37f88… (175 linhas) antes e depois, no worktree E no runner
+TRACKED_LEDGER_UNEXPECTED_DELTA = NO · REMOTE_COLLECTION_HEAD = c3796f32 antes e depois · worktree 0
+RUÍDO CONHECIDO, NÃO BLOQUEANTE: o recibo traz ERROR = «Could not find platform independent libraries <prefix>» — é o stderr do
+lançador `py` desta máquina (§134, item 5), capturado como texto; STATUS = SUCCESS. E «manifesto: 6 campo(s) do contrato ficaram
+NOT_PRESERVED» (DATASET_ID, EVIDENCE_PATH, OUTPUT_WRITTEN_AT, RAW_EVIDENCE_PATH, RAW_EVIDENCE_STATE, SOURCE_VERSION) — a confissão
+do contrato de proveniência, já assim no replay 1. E `TRANSPORTAVEIS_AUSENTES` na fronteira (FACT_TIME, FACT_LOCATION, …): campos
+transportáveis em falta, não exigidos — a Admissão mediu-os e deixou passar com `EXIGIDOS_EM_FALTA {}`.
+```
+
+### 19.9 · Red team (agente separado, só leitura, contexto sem o conserto)
+
+| # | ataque | veredito | prova |
+|---|--------|----------|-------|
+| 1 | run errado | REFUTADO | `created_at 16:42:15Z` · dispatch 16:42:12Z · `run_number 9` · passo 6 `RUNNER=SINTONIA-EAME-LOCAL · REF=claude/it-collection-sala-v1` · RUN_ID no log e no banco |
+| 2 | SHA errado | REFUTADO | `headSha c3796f32…` = HEAD local = remoto; sha dos bytes igual no banco, no colheita.json e no recibo |
+| 3 | runner errado | REFUTADO | `runner=1 → eame-sintonia-local` (YAML); `RUNNER=SINTONIA-EAME-LOCAL` no log |
+| 4 | VPN não IT | REFUTADO | 5c `EGRESS_COUNTRY_CODE=IT · EGRESS_GATE=PASS`; o portão mede pelo ipinfo e UNKNOWN também bloqueia (`rede.py:175,252`); ver NP-3 |
+| 5 | psql ainda descoberto por PATH | REFUTADO (com NP-2) | `resolver_psql()` devolve a declaração quando existe; a variável está no GITHUB_ENV desde o 5a-IT; 5b `PSQL_ORIGEM=DECLARADO`; o passo 6 escreveu no banco |
+| 6 | SINTONIA_PSQL_EXE não declarado | REFUTADO | 5a-IT: `psql declarado: C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe` |
+| 7 | caminho não nativo | REFUTADO | `cygpath -w` → `C:\…\psql.exe`, absoluto, barras invertidas; o dono recusa `/c/…` e relativos |
+| 8 | Sala PASS sem `select 1` real | REFUTADO | `sondar()` exige `_consultar("select 1") == ["1"]` (`sala_de_espera.py:497-500`); `exigir_canonica → backend().sondar()`; 5b `SONDA=OK` |
+| 9 | PSQL_ORIGEM ≠ DECLARADO | REFUTADO | 5b `PSQL_ORIGEM=DECLARADO` |
+| 10 | banco descartável não usado | REFUTADO | `persistencia: DESCARTAVEL (localhost:54329/descartavel)`; a sonda viu as linhas em 54329; SUPABASE_DB_URL presente no job e nunca lida pelo runtime |
+| 11 | MemoriaPostgres não exercida | REFUTADO | RAW_ROW/SO_ROW/RUN_ROW vivas; `INGRESSO.BANCO = SELECT em raw_asset…`; `PERSISTENCIA.MEMORIA = MemoriaPostgres` |
+| 12 | orquestrador não chamado | REFUTADO | o YAML chama só `orquestrador.py`; `PLANO PARA … fonte=IT-T3-002` no log |
+| 13 | coletor chamado diretamente | REFUTADO | o workflow nunca invoca o coletor; o orquestrador escolhe `italy_executor.py` |
+| 14 | RUN só em memória | REFUTADO | RUN_ROW viva: `rodando → concluida`, 16:46:21 → 16:46:27 |
+| 15 | RAW só em ficheiro | REFUTADO | RAW_ROW id=1 viva, `FORWARD_IDENTIFIED`, `storage_object_id 1`; ETAPA RAW=PASS |
+| 16 | raw_asset zero | REFUTADO | sonda 16:46:42 `raw=1` |
+| 17 | RAW ID vindo de SHA | REFUTADO | `RAW_OBSERVATION_ID = raw_asset.id` (`ingresso.py:463-467`); id=1 ≠ sha `c5ae…` |
+| 18 | storage inventado | REFUTADO | SO_ROW id=1, caminho `XX/…SA-16-09.pdf`, sha confere; linha NOVA num banco novo, bytes pré-existentes do replay 3 reescritos iguais = INDEPENDENT_CAPTURES_SAME_CONTENT |
+| 19 | REUSED chamado NEW | REFUTADO | banco nasceu vazio ⇒ derivado genuinamente novo ⇒ `PASSED 1, REUSED 0` é a resposta coerente |
+| 20 | DERIVED não executado | REFUTADO | DER_ROW id=1 viva (`TEXT_EXTRACTION · texto-de-pdf · 16:47:04`); ETAPA DERIVED=PASS |
+| 21 | STRUCTURED não executado | REFUTADO | recibo `ESTRUTURADOS[{DERIVED_ARTIFACT_ID 1, ESTADO INSERTED, TEXTO «GIUNTA REGIONALE…»}]`; sonda `est=1` (COUNT; ver NP-1) |
+| 22 | Admissão confundida com READY | REFUTADO | `pousar()` só devolve POUSOU depois de impor o contrato de 19 campos (`sala:204-225,634`); `prontos para a inteligencia: 1 -> postgres:public.sala_de_espera?run_id=…`; conteúdo da linha não lido (NP-1) |
+| 23 | Sala zero | REFUTADO | sonda 16:47:24 `sala=1`; recibo `prontos 1 · PRONTO_PARA_INTELIGENCIA` |
+| 24 | produção tocada | REFUTADO | egresso IT; banco 54329; `AMBIENTE_RETIRADO []`; SUPABASE_DB_URL não lida |
+| 25 | teardown falso | REFUTADO | 9z-IT `bancada destruida`; máquina: porta fechada, 0 postgres, 0 pg_ctl, pastas ausentes; sonda: porta fechou 16:47:54 |
+| 26 | outro workflow confundido | REFUTADO | os dois `system-map` correm em runners da GitHub; este é `sintonia-scrap`, self-hosted, ids distintos |
+| 27 | success a esconder passo partido | REFUTADO | os três ruídos estão escritos e documentados como não bloqueantes (§19.8); `EXIGIDOS_EM_FALTA {}` |
+| 28 | aquisição servida de cache | REFUTADO | `baixar()` corre sempre `curl … url` (só `forcarBuf`, de teste, o evita); `CAPTURED_AT` carimbado depois do fetch, dentro do passo 6 |
+| 29 | o runner matou a árvore do 5a-IT | CONFIRMADO (facto, não blocker) | Worker log «Kill process '76616'» 16:46:15; o postmaster (`pg_ctl -w start`) sobreviveu: `mig=31` 16:46:12, linhas às 16:46:41/16:47:04 |
+| 30 | o prepend do GITHUB_PATH ainda pesa no passo 6 | NÃO SE APLICA | o passo 6 é Python e lê `SINTONIA_PSQL_EXE`; o prepend serve só às migrations em bash do 5a-IT |
+
+`RED_TEAM_REPLAY_4_BLOCKERS = 0`. As duas linhas exigidas pelo §136/§18 foram observadas tal e qual.
+
+Lacunas que o red team NÃO conseguiu fechar (ficam escritas, não escondidas):
+
+- **NP-1** · o CONTEÚDO da linha da Sala e do documento estruturado não foi lido: a sonda leu `sala=1` e `est=1`
+  (COUNT) às 16:47:24 e a ronda seguinte apanhou o servidor a fechar. READY assenta em COUNT + recibo + o
+  código de `pousar()` que impõe o contrato; não numa leitura direta da linha.
+- **NP-2** · o passo 6 não imprime a origem do psql; só o 5b o faz. Como o `$PGBIN` também estava no PATH, esta
+  corrida não ISOLA que o passo 6 falharia sem a declaração. Provado: o 5b usou DECLARADO e o passo 6 escreveu
+  no banco pelo mesmo ambiente. Inferido: passo 6 = DECLARADO.
+- **NP-3** · o país real de saída: ipinfo diz IT, ifconfig.co diz US para o mesmo IP. O portão é o ipinfo, por
+  contrato, e é coerente consigo próprio; o egresso prova o ambiente de execução, não a geografia do dado.
+
+### 19.10 · Regressão
+
+```
+13 ficheiros (os mesmos do §18.5) → 202 passed · 8 failed · 82 skipped (146 s)
+os 8 vermelhos são os MESMOS do §18.5, pelo nome (diff vazio) e pela causa (contrato READY na fixture; separador do
+Windows; byte a byte do censo) · NEW_FAILURES = 0 · NEW_ERRORS = 0 · worktree depois dos testes: 0 ficheiros
+(202 e não 201: o teste 5b «caminho relativo recusa» entrou no fim da missão anterior)
+interpretador: /c/actions-runner-2/_work/_tool/Python/3.12.10/x64/python.exe + site-packages emprestado de Python312
+```
+
+### 19.11 · O que este replay NÃO fez
+
+- Não corrigiu código, workflow, teste ou guarda. Não disparou replay 5. Não correu orquestrador nem coletor à mão.
+- Não apagou os bytes de `XX/` do replay 3 (a corrida reescreveu-os com o mesmo conteúdo; o banco novo tem a sua própria linha).
+- Não tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk. Não integrou. Não autoriza Big Collection.
+
+### 19.12 · Veredito
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_4       = PASS
+WORKFLOW_REAL_CANARY                       = PASS
+PSQL_RUNTIME_BINDING_OBSERVED_IN_WORKFLOW  = YES
+SOURCE_TO_SALA_REAL_OBSERVED               = YES
+COLLECTION_AUTOMATICA_BASICA               = PROVADA
+COLLECTION_INTEGRATION_CANDIDATE           = YES
+BIG_COLLECTION_AUTHORIZED                  = NO
+NEXT_STEP                                  = COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK
+RESSALVA                                   = replay corrido pela sessão que fez o conserto; red team em contexto separado
+```
