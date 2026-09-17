@@ -154,9 +154,15 @@ class MemoriaPostgres(Memoria):
             -t   só as linhas, sem cabeçalho nem rodapé
             -F   o separador de campos
         """
+        # ⚠️ O SQL ENTRA POR STDIN EM UTF-8 EXPLICITO — Windows, 2026-09-16.
+        # Por ARGV, texto acentuado atravessa a conversao ANSI e chega em
+        # CP1252 ao banco UTF-8; `text=True` sem `encoding` faz o mesmo
+        # estrago do lado do stdin. Foi um 0x92 (a aspa curva do texto de um
+        # boletim italiano) que apanhou isto na primeira coleta controlada.
         cmd = ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
-               "-v", "ON_ERROR_STOP=1", "-c", sql, self.url]
-        r = subprocess.run(cmd, capture_output=True, text=True)
+               "-v", "ON_ERROR_STOP=1", "-f", "-", self.url]
+        r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace")
         if r.returncode != 0:
             raise IOError(r.stderr.strip()[:400])
         return r.stdout
@@ -176,10 +182,14 @@ class MemoriaPostgres(Memoria):
         return linhas[0]
 
     def aplicar(self, sql):
+        # `encoding="utf-8"`: `text=True` sozinho codifica o stdin na codepage
+        # da maquina (cp1252 no Windows) e o texto do documento chegava
+        # mutilado ao banco UTF-8. Mesma lei do `_psql` acima.
         self.aplicacoes += 1
         r = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1",
                             self.url],
-                           input=sql, capture_output=True, text=True)
+                           input=sql, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace")
         if r.returncode != 0:
             raise IOError(r.stderr.strip()[:400])
 

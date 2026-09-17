@@ -83,7 +83,16 @@ case "$ETAPA" in
     # registro, a primeira execução aplica o que falta e ANOTA o que já
     # existia — a anotação vem da resposta do banco ("already exists"), não
     # de suposição sobre até onde alguém foi.
-    psql -v ON_ERROR_STOP=1 -q -c "
+    # ⚠️ O BOOTSTRAP ENTRA POR STDIN, NAO POR -c — E ISSO E WINDOWS, nao gosto.
+    # Medido em 2026-09-16: quando um processo NATIVO (python) lanca o bash
+    # que lanca o psql, o texto acentuado passado em ARGV chega ao psql em
+    # CP1252 (0xE3 para o a-til), enquanto os ficheiros de -f continuam
+    # UTF-8. Nao existe UMA client_encoding que sirva as duas rotas ao
+    # mesmo tempo: UTF8 rebenta no argv, WIN1252 rebenta nos ficheiros.
+    #
+    #     TEXTO ACENTUADO NAO VIAJA EM ARGV NO WINDOWS.
+    #     BYTES POR STDIN VIAJAM INTEIROS NOS DOIS SISTEMAS.
+    psql -v ON_ERROR_STOP=1 -q -f - "$URL" >/dev/null <<'SQL_BOOTSTRAP'
       create table if not exists public.schema_migracao (
         versao      text primary key,
         aplicada_em timestamptz not null default now(),
@@ -93,7 +102,8 @@ case "$ETAPA" in
         'Infraestrutura do aplicador de migrations, não schema de domínio. '
         'Existe para que a cadeia NÃO reaplique o que já foi aplicado — '
         'reaplicar pode ressuscitar coluna que uma migration posterior '
-        'aposentou, e foi por isso que ele nasceu.';" "$URL" >/dev/null
+        'aposentou, e foi por isso que ele nasceu.';
+SQL_BOOTSTRAP
     for f in $(ls "$RAIZ"/supabase/migrations/*.sql | grep -v '/008_' | sort); do
       num=$(basename "$f" | cut -c1-3)
       sha=$(sha256sum "$f" | cut -d' ' -f1)

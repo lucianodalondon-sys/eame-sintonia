@@ -289,11 +289,20 @@ class _Trava:
         self.fd = None
 
     def __enter__(self):
-        import fcntl
+        # ⚠️ `fcntl` NAO EXISTE NO WINDOWS — e a estrada morria na porta, com
+        # ModuleNotFoundError, exactamente como ja tinha morrido na admissao.
+        # O conserto e o MESMO precedente: `admissao/admissao.py::_prender` —
+        # `fcntl.flock` em POSIX, `msvcrt.locking` em Windows, exclusiva e
+        # nao-bloqueante nos dois, com o mesmo desfecho (EsperaOcupada).
         os.makedirs(os.path.dirname(self.caminho), exist_ok=True)
         self.fd = os.open(self.caminho, os.O_CREAT | os.O_RDWR, 0o644)
         try:
-            fcntl.flock(self.fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            if os.name != "nt":
+                import fcntl                                   # noqa: PLC0415
+                fcntl.flock(self.fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            else:
+                import msvcrt                                  # noqa: PLC0415
+                msvcrt.locking(self.fd, msvcrt.LK_NBLCK, 1)
         except OSError as erro:
             os.close(self.fd)
             self.fd = None
@@ -305,9 +314,17 @@ class _Trava:
         return self
 
     def __exit__(self, *_):
-        import fcntl
         if self.fd is not None:
-            fcntl.flock(self.fd, fcntl.LOCK_UN)
+            if os.name != "nt":
+                import fcntl                                   # noqa: PLC0415
+                fcntl.flock(self.fd, fcntl.LOCK_UN)
+            else:
+                import msvcrt                                  # noqa: PLC0415
+                try:
+                    os.lseek(self.fd, 0, os.SEEK_SET)
+                    msvcrt.locking(self.fd, msvcrt.LK_UNLCK, 1)
+                except OSError:
+                    pass
             os.close(self.fd)
             self.fd = None
 
@@ -455,11 +472,17 @@ class _Postgres(object):
 
         `tests/test_psql_argv.py` reprova quem voltar a trocar a ordem.
         """
+        # ⚠️ E O SQL ENTRA POR STDIN, EM UTF-8 EXPLICITO. Texto acentuado em
+        # ARGV atravessa a conversao ANSI do Windows e chega em CP1252 — e um
+        # WHERE que cite texto italiano rebentava no banco UTF-8. `text=True`
+        # sem `encoding` usa a codepage da maquina: o mesmo defeito por outra
+        # porta. Medido em 2026-09-16.
         r = subprocess.run(
             ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
              "-R", self.SEP_LINHA,
-             "-v", "ON_ERROR_STOP=1", "-c", sql, self.url],
-            capture_output=True, text=True, env=_ambiente_psql())
+             "-v", "ON_ERROR_STOP=1", "-f", "-", self.url],
+            input=sql, capture_output=True, text=True,
+            encoding="utf-8", errors="replace", env=_ambiente_psql())
         if r.returncode != 0:
             raise SalaIndisponivel(_sanitiza(r.stderr))
         # ⚠️ NAO SE USA `splitlines()`. Um `texto` com mudanca de linha dentro
@@ -497,11 +520,16 @@ class _Postgres(object):
         # ⚠️ A DSN POR ÚLTIMO — mesma razão de `_consultar`, e aqui é a ESCRITA:
         # com a DSN à frente, o `-f -` era ignorado no Windows e o pousar não
         # pousava nada, com cara de sucesso.
+        # ⚠️ `encoding="utf-8"` E OBRIGATORIO: `text=True` sozinho codifica o
+        # stdin na codepage da maquina (cp1252 no Windows), e o TEXTO de um
+        # READY italiano — acentos por todo o lado — chegava mutilado ou
+        # recusado pelo banco UTF-8. O pousar escrevia lixo com cara de PASS.
         r = subprocess.run(
             ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
              "-R", self.SEP_LINHA,
              "-v", "ON_ERROR_STOP=1", "--single-transaction", "-f", "-", self.url],
-            input=script, capture_output=True, text=True, env=_ambiente_psql())
+            input=script, capture_output=True, text=True,
+            encoding="utf-8", errors="replace", env=_ambiente_psql())
         return r.returncode, r.stdout.replace(self.SEP_LINHA, "\n"), _sanitiza(r.stderr)
 
     def morada(self, run_id):

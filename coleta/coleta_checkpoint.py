@@ -97,14 +97,14 @@ class Banco:
         # `provas/preservar_coleta_no_postgres.py::_psql` e
         # `guarda/portas_live.py` já escrevem assim, e continuam a correr igual.
         #
-        # ⚠️ ESTE COMENTÁRIO JÁ MENTIU, E A REVIEW APANHOU-O.
-        # Ele nomeava `admissao/sala_de_espera.py` como exemplo do padrão certo.
-        # É FALSO, e foi medido em 2026-09-15: nas linhas 447 e 486 desse
-        # ficheiro a DSN vem ANTES de `-c` e de `-f`, que é exactamente o
-        # defeito descrito aqui em cima. A Sala tem a MESMA doença, e ela NÃO
-        # foi consertada nesta missão — pertence à missão
-        # `FIX_PROOF_INFRASTRUCTURE_FIRST`, junto com os outros sítios de
-        # `provas/` e `guarda/es/`.
+        # ⚠️ ESTE COMENTÁRIO JÁ MENTIU DUAS VEZES, NOS DOIS SENTIDOS.
+        # Primeiro nomeou a Sala como exemplo do padrão certo quando ela ainda
+        # tinha a DSN adiantada (apanhado por review em 2026-09-15). Depois
+        # ficou a afirmar o defeito quando ele JÁ ESTAVA consertado — em
+        # 2026-09-16 a Sala, as provas e o `motor/cadeia_canonica.sh` foram
+        # todos corrigidos, com guarda AST em `tests/test_psql_argv.py`.
+        # Um comentário que descreve o estado de outro ficheiro envelhece
+        # sozinho; a guarda executável não.
         #
         # O erro não foi de medição distraída: foi de medição TRUNCADA. A busca
         # cortava cada linha aos 150 caracteres, e as opções do início cabiam no
@@ -113,9 +113,22 @@ class Banco:
         #
         #     LER METADE DA LINHA E DIZER QUE SE MEDIU A LINHA
         #     É UMA AFIRMAÇÃO SEM PROVA, E ELA ENTROU AQUI COMO SE FOSSE UMA.
+        # ⚠️ O SQL ENTRA POR STDIN, E O ENCODING E EXPLICITO — WINDOWS, 2026-09-16.
+        # Quando um processo NATIVO lanca o psql, texto acentuado em ARGV
+        # atravessa a conversao ANSI do Windows e chega em CP1252 (o em-dash
+        # vira 0x97, o a-til vira 0xE3) — e o banco UTF-8 recusa. Ficheiro e
+        # stdin nao passam por essa conversao. O canario italiano insere texto
+        # COM acentos; por argv ele rebentava exactamente aqui.
+        #
+        #     TEXTO ACENTUADO NAO VIAJA EM ARGV NO WINDOWS.
+        #     DADO VIAJA POR STDIN, DECLARADO UTF-8 DOS DOIS LADOS.
+        #
+        # `encoding='utf-8'` nao e enfeite: `text=True` sozinho usa a codepage
+        # da maquina (cp1252 aqui), e o defeito voltava por outra porta.
         cmd = ['psql', '-q', '-v', 'ON_ERROR_STOP=1',
-               '-tAF', '\x1f', '-c', sql, self.dsn]
-        r = subprocess.run(cmd, capture_output=True, text=True)
+               '-tAF', '\x1f', '-f', '-', self.dsn]
+        r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
+                           encoding='utf-8', errors='replace')
         if r.returncode != 0:
             raise RuntimeError(ap.redigir(r.stderr.strip())[:400])
         return [l.split('\x1f') for l in r.stdout.strip().split('\n') if l]

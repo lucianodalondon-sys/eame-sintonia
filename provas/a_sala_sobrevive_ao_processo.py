@@ -81,9 +81,13 @@ def _recusa_o_que_nao_e_descartavel(url):
 
 
 def _psql(url, sql, ler=True):
+    # O SQL entra por STDIN em UTF-8 explicito: por ARGV, texto acentuado
+    # atravessa a conversao ANSI do Windows e chega em CP1252 ao banco UTF-8.
+    # Foi exactamente esta prova que rebentou com 0x97 (o em-dash) em 16/09.
     cmd = ["psql", "-X", "-q", "-A", "-t", "-F", "\x1f", "-v", "ON_ERROR_STOP=1",
-           "-c", sql, url]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+           "-f", "-", url]
+    r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip())
     return [l for l in r.stdout.splitlines() if l.strip()] if ler else None
