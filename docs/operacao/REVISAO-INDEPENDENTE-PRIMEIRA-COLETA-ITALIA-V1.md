@@ -697,3 +697,280 @@ NENHUMA CORREÇÃO FUNCIONAL         = feita por este replay
 > `RAW_OBSERVATIONS >= 1` e `PERSISTENCIA = DESCARTAVEL` no recibo, não
 > `conclusion=success`. `TEARDOWN_FOOTPRINT` e `RECIBO_ITALIANO_NAO_VOLTA`
 > (§14.9) ficam como estavam. `BIG_COLLECTION_AUTHORIZED = NO` continua.
+
+---
+
+## 16 · INDEPENDENT_WORKFLOW_CANARY_REPLAY_2 — 2026-09-17
+
+> Segundo replay independente pelo **workflow real** (`sintonia-scrap.yml`,
+> fase `italia-documento`, fonte `IT-T3-002`), por agente de sessão nova que
+> **não** implementou o conserto do §15 e que **não corrigiu nada** durante o
+> exame. A pergunta única: depois do `CLI_POSTGRES_BINDING_FIX`, o workflow
+> real chega à Sala? **A pergunta ficou sem resposta**: o portão de egresso
+> (5c) bloqueou a corrida ANTES da rede porque o runner saía por Brasil, e o
+> passo 6 nunca correu. Veredito **BLOCKED**, não FAIL — a estrada não foi
+> corrida; nada nela foi medido, nem a favor nem contra.
+
+```
+MISSÃO                 INDEPENDENT_WORKFLOW_CANARY_REPLAY_2 · IT-T3-002 · italia-documento
+MEDIDO EM              2026-09-17 (dispatch 13:31:58Z · fim 13:36:03Z)
+HEAD AUDITADO          b8e07e0375be92491e837cef9f12169dac2b3291  = REMOTE_COLLECTION_HEAD antes e depois
+TRUNK                  origin/claude/it-trunk-v1 = 9d6dcbbd · merge-base = o trunk · 16 à frente / 0 atrás
+WORKTREE               limpa antes e depois (0 ficheiros) · LOCAL_UNPUBLISHED 0
+
+GITHUB_WORKFLOW_RUN_ID 35227662328 · run_attempt 1 · event workflow_dispatch · created_at 13:32:00Z
+GITHUB_RUN_URL         https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/35227662328
+GITHUB_RUN_HEAD_SHA    b8e07e03… — o auditado (o checkout imprime-o no log às 13:32:34Z)
+RUNNER                 SINTONIA-EAME-LOCAL (input runner=1 · runner_id 21 · C:\actions-runner-eame)
+                       antes do dispatch: os dois runners online e busy=false (API)
+RUN_IDS_BEFORE         35215565657 (o replay 1, 11:25Z) — único run deste workflow nesta branch
+GITHUB_RUN_CONCLUSION  failure   (passo 5c · portão de egresso · exit 1)
+
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_2 = BLOCKED
+WORKFLOW_REAL_CANARY                 = NOT_RUN     (o passo 6 foi `skipped`; o orquestrador nunca correu)
+WORKFLOW_FLOW_OBSERVED               = NO          (não observado — não «observado a partir-se»)
+SOURCE_TO_SALA_REAL_OBSERVED         = YES         (§130 — mantido; este replay não o repete nem o reverte)
+CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED
+COLLECTION_INTEGRATION_CANDIDATE     = NO
+BLOCKER                              = EGRESS_COUNTRY_CODE = BR no runner SINTONIA-EAME-LOCAL: o ProtonVPN
+                                       desta máquina estava sem túnel ativo (só a placa Ethernet «Up»;
+                                       IP público 177.95.91.48, Telefônica Brasil, São Paulo). O portão 5c
+                                       respondeu EGRESS_GATE=BLOCKED e o workflow parou ali, por desenho.
+BIG_COLLECTION_AUTHORIZED            = NO
+```
+
+**A frase que resume:** o workflow correu até ao portão de egresso e o
+portão disse **não** — pela primeira vez numa corrida real. A bancada
+descartável nasceu, as 31 migrations passaram, o Sala gate aprovou o
+ambiente, e às 13:35:42Z o `superficie/rede.py --portao-de-egresso IT` mediu
+`BR` e saiu com 1. O passo 6 (a fase) ficou `skipped`. Não houve orquestrador,
+não houve rede de aquisição, não houve RUN, não houve linha em banco nenhum.
+O conserto do §15 **não foi observado** — nem a funcionar nem a falhar.
+`UNKNOWN` não vira PASS e não vira FAIL.
+
+### 16.1 · Pré-portões (antes da rede)
+
+```
+STATIC_GATES                 = tests/test_porta_de_producao.py + tests/test_fase_italiana_no_workflow.py
+                               + tests/test_a_porta_cli_liga_o_banco.py → 79 passed · 1 failed (72 s)
+NEW_FAILURES_BEFORE_REPLAY   = 0   (a falha é a mesma do §14.10: separador de caminho do Windows,
+                                    `NenhumEscritorAntigoSobrou::test_o_inventario_de_quem_fala_de_raw_asset_esta_fechado`)
+WORKTREE depois dos testes   = 0 ficheiros (a suíte não escreveu no acervo)
+interpretador                = /c/actions-runner-2/_work/_tool/Python/3.12.10/x64/python.exe com o
+                               site-packages emprestado de Python312 (pytest 9.1.1); `py` desta máquina
+                               imprime «Could not find platform independent libraries» e não tem pytest
+```
+
+O que os pré-portões **não** mediram, e deviam: o egresso da máquina. Ver
+16.11.
+
+### 16.2 · A ordem, provada por hora de início (API `jobs`, não o YAML)
+
+| # | passo | início → fim (UTC) | conclusão | prova no log |
+|---|---|---|---|---|
+| 2 | checkout | 13:32:08 → 13:32:34 | success | `c93f6920..b8e07e03` fetch · imprime `b8e07e0375be92491e837cef9f12169dac2b3291` |
+| 3 | 0 · o ref tem os scripts | 13:32:34 | success | `SCRIPTS_PRESENTES=YES` |
+| 4 | 1 · interpretador | 13:32:34 | success | `INTERPRETADOR=py` |
+| 9 | **5a-IT** · bancada nasce | 13:32:35 → 13:35:40 | success | `MIGRATION_001…007, 009…032=PASS` (31 linhas · 0 não-PASS) |
+| 10 | **5b** · Sala gate | 13:35:40 → 13:35:41 | success | `SALA_DE_ESPERA=PASS · BACKEND=POSTGRES` · env do passo já traz `SINTONIA_SALA_DSN=***localhost:54329/descartavel` e `BANCO_DESCARTAVEL_URL=***localhost:54329/descartavel` |
+| 11 | **5c** · egresso | 13:35:41 → 13:35:42 | **failure** | `EGRESS_COUNTRY_CODE=BR · EGRESS_REQUIRED=IT · EGRESS_GATE=BLOCKED` · `##[error]Process completed with exit code 1` |
+| 12 | **6** · rodar a fase | 13:35:42 | **skipped** | — |
+| 14 | 8 · devolver | 13:35:42 → 13:35:45 | success | `NADA_MUDOU=YES` — nenhum commit, nenhum push |
+| 15 | **9z-IT** · bancada morre | 13:35:45 → 13:35:48 | success | `bancada destruida: cluster e ops-root removidos` |
+| 16 | 9 · custo | 13:35:48 → 13:35:50 | success | `COST_USD_LIQUIDADO=0` |
+
+`GATE_ORDER = 5a-IT → 5b → 5c ✗`. Os portões correram **antes** da rede de
+aquisição — e um deles fechou. Passos 2, 3, 4, 5 e 7 `skipped` pela condição
+de fase. Nenhum `continue-on-error`; o `|| true` do `pg_ctl stop` do 9z-IT é
+o único que correu, e a amostragem física (16.3) prova que o stop aconteceu.
+
+### 16.3 · O Postgres descartável, visto por fora (amostragem de 2 s nesta máquina)
+
+```
+13:32:36Z  passo 5a-IT   pg-italia-35227662328 existe · 54329 sem LISTEN · postgres.exe = 1     (initdb)
+13:32:43Z … 13:35:44Z    LISTEN = 1 · postgres.exe = 6 · cluster em disco                        (vivo, migrations)
+13:32:43Z … 13:35:40Z    contagens no banco (segunda ligação, só leitura): schema_migracao 30 → 31;
+                         collection_run 0 · raw_asset 0 · storage_object 0 · derived_artifact 0 ·
+                         documento_estruturado 0 · etapa_da_corrida 0 · sala_de_espera 0 — SEMPRE
+13:35:44Z  passo 9z-IT   psql: «o sistema de banco de dados está desligando»
+13:35:50Z  em diante     LISTEN = 0 · postgres.exe = 0 · cluster = 0 · ops-root = 0
+```
+
+```
+POSTGRES_TEMP_STARTED = YES · HOST = 127.0.0.1 · PORT = 54329 · DATABASE = descartavel
+MIGRATIONS = PASS · 31 (001–007, 009–032) · lidas no banco: schema_migracao = 31
+ITALY_OPS_ROOT = $RUNNER_TEMP/ops-italia-35227662328 — declarado no env, NUNCA criado (o passo 6 não correu)
+```
+
+Ao contrário do §14.2, esta revisão **abriu** uma segunda ligação ao banco
+descartável, só leitura, a cada 2 s, para que RAW/STORAGE/SALA pudessem ser
+lidos no próprio banco e não só no recibo. Serviu para provar o zero: nada foi
+escrito por ninguém.
+
+### 16.4 · O corredor, elo a elo
+
+| elo | resultado | prova |
+|---|---|---|
+| REQUEST | NOT_RUN | o `case italia-documento` do passo 6 nunca executou (`skipped`) |
+| ORCHESTRATOR | NOT_RUN | `ORCHESTRATOR_CALLED = NO` — zero linhas de `orquestrador/orquestrador.py` em passo executado |
+| RUN | NOT_RUN | `collection_run = 0` no banco durante toda a vida da bancada · `COLLECTION_RUN_ID = NENHUM` |
+| RAW | NOT_RUN | `raw_asset = 0` · `RAW_OBSERVATIONS = 0` · `RAW_OBSERVATION_ID = NÃO EXISTE` |
+| STORAGE | NOT_RUN | `storage_object = 0` · `STORAGE_REUSED = NOT_APPLICABLE` |
+| DERIVED | NOT_RUN | `derived_artifact = 0` |
+| STRUCTURED | NOT_RUN | `documento_estruturado = 0` |
+| ADMISSION | NOT_RUN | sem item, sem decisão; `LIVRO-DE-DECISOES.json` do checkout do runner igual ao HEAD |
+| READY | 0 | — |
+| SALA_ROWS | 0 | `sala_de_espera = 0` |
+| PERSISTENCIA.ESTADO | NOT_MEASURED | não há recibo: `RUN-MANIFEST.json` do checkout do runner igual ao HEAD |
+| MEMORIA / BANCO_DO_RASTRO | NOT_MEASURED | idem |
+| NETWORK_ACQUISITION | NO | a única rede desta corrida foi o `GET https://ipinfo.io/json` do portão |
+| DIRECT_COLLECTOR_CALL | NO | `italy_pilot_collect.mjs` / `italy_executor.py` não aparecem em passo executado |
+
+`NOT_RUN` aqui é literal: não é «correu e não produziu», é «não correu».
+`REUSED` não aparece em lado nenhum. `NAO_SEI` não foi convertido em nada.
+
+### 16.5 · Produção — zero, por ausência de caminho executado
+
+```
+PRODUCTION_MIGRATIONS = 0        única chamada a cadeia_canonica.sh migrations: DSN descartável literal (yml l.354)
+PRODUCTION_DB_WRITES = 0         nenhum passo executado escreve em banco; o único banco vivo era o descartável, e ficou a zero
+PRODUCTION_SALA_WRITES = 0       a Sala não recebeu item; SINTONIA_SALA_DSN (descartável) estava no env do 5b e do 5c
+PRODUCTION_COLLECTION_RUNS = 0   não houve RUN
+LIVE_DEPLOY = 0                  passo 8: NADA_MUDOU=YES · origin/claude/it-collection-sala-v1 = b8e07e03 antes e depois
+```
+
+`SUPABASE_DB_URL` continua no env do job (mascarado), herdado por todos os
+passos — a dívida de blindagem do §6a **permanece** e não foi tocada. Esta
+revisão não fez SELECT nem ligação à produção.
+
+### 16.6 · Teardown — prova física, não log
+
+Medido nesta máquina às 13:37:43Z (100 s depois do fim) e reconfirmado:
+
+```
+TEARDOWN_STEP_EXECUTED        = YES  (9z-IT, always(), 13:35:45 → 13:35:48, success)
+POSTGRES_PROCESS_LEFT_FOR_RUN = 0    (Win32_Process com CommandLine *35227662328*, EXCLUINDO a árvore de quem mede;
+                                      tasklist postgres.exe = 0 · pg_ctl.exe = 0)
+PORT_54329_LISTENING          = NO   (netstat: 0 linhas)
+TEMP_CLUSTER_LEFT             = NO   (…\_temp\pg-italia-35227662328 não existe)
+TEMP_OPS_ROOT_LEFT            = NO   (…\_temp\ops-italia-35227662328 nunca existiu; RUNNER_TEMP vazio; .pgpw ausente)
+TEARDOWN                      = PASS
+TEARDOWN_FOOTPRINT            = 0 nesta corrida (XX/ e data/colheita/ não nasceram: o passo 6 não correu)
+                                — a dívida do §14.9 fica como estava, NÃO medida a favor
+```
+
+⚠️ A armadilha do §132 mordeu outra vez, mais fundo: a primeira contagem
+deu **4** com o PID do PowerShell excluído — eram os três `bash.exe` da
+cadeia da própria medição (o comando continha o run id) mais o PowerShell.
+Excluir o PID de quem mede não chega; é a **árvore** de quem mede.
+
+### 16.7 · Livro versionado e o checkout do runner
+
+```
+data/collection-ledger/italy/observations.ndjson   175 linhas · sha256 3ea37f88…  ANTES = DEPOIS
+TRACKED_LEDGER_UNEXPECTED_DELTA = NO   (no worktree desta revisão: 0 ficheiros, antes e depois)
+```
+
+No checkout do runner (`C:\actions-runner-eame\_work\eame-sintonia\eame-sintonia`)
+o `actions/checkout` desta corrida **apagou** a pegada do replay 1 (`XX/`,
+`data/colheita/`, os dois JSON modificados) — confirma o «o checkout seguinte
+limpa» do §14.9. Depois desta corrida: HEAD `b8e07e03`, 0 ficheiros
+modificados, 0 ignorados fora do padrão. `RECIBO_GERADO = NO ·
+RECIBO_ACESSIVEL_NO_RUNNER = NOT_APPLICABLE · RECIBO_RETORNADO_PELO_WORKFLOW = NO`
+— a dívida `RECIBO_ITALIANO_NAO_VOLTA` não foi exercida.
+
+### 16.8 · A causa, medida por fora do workflow
+
+```
+13:38:19Z  curl https://ipinfo.io/json (esta máquina)   ip 177.95.91.48 · São Paulo · country BR · AS27699 TELEFÔNICA BRASIL
+13:38:19Z  superficie/rede.py --portao-de-egresso IT     EGRESS_COUNTRY_CODE=BR · EGRESS_GATE=BLOCKED (mesma resposta do 5c)
+           HTTPS_PROXY / HTTP_PROXY                       vazios (a rota não está na variável — como no know-how)
+           processos                                       ProtonVPN.Client.exe · ProtonVPNService.exe · ProtonVPN.NrptWatchdog.exe vivos
+           adaptadores «Up»                                Ethernet (Intel I211) · Topaz Loopback — NENHUM túnel
+```
+
+O cliente da VPN está aberto e o túnel não. Não é defeito de código, de
+workflow nem de bancada: é o ambiente de rede desta máquina neste momento.
+O replay 1 (11:25Z) e a primeira coleta (§130) passaram no mesmo portão
+porque a VPN estava ligada nessas horas.
+
+### 16.9 · Red team do replay 2 (agente separado, só leitura)
+
+Agente separado, só leitura, 23 ataques (os 22 do contrato + a causa). Leu o
+log do job, a amostragem física, o diagnóstico do runner, o checkout do runner,
+a API do GitHub e o repositório; não editou, não disparou, não correu nada.
+
+| # | ataque | veredito | prova |
+|---|---|---|---|
+| 1 | run não é o recém-despachado | REFUTADO | `created_at 13:32:00Z` · `run_number 7` · dispatch 13:31:58Z (2 s) · Worker diag traz o run id · só 2 runs nesta branch |
+| 2 | SHA não é o auditado | REFUTADO | `head_sha b8e07e03…` · checkout imprime-o às 13:32:34Z · `HEAD is now at c93f6920` no log é o estado ANTES do fetch (o runner reaproveita a pasta) |
+| 3 | banco não era descartável | REFUTADO | `initdb` em `_temp/pg-italia-<run>` · `-p 54329 -h 127.0.0.1` · as únicas URLs do log: 13× `***localhost:54329/descartavel` + 1× `postgres@localhost:54329/postgres` |
+| 4–7, 9, 10, 13, 22 | PERSISTENCIA / memória / rastro / RAW de ficheiro / ID de SHA / storage inventado / Admission≠READY / REUSED | NÃO SE APLICA | o orquestrador nunca correu (passo 6 `skipped`); não há recibo; `collection_run = 0` |
+| 8, 11, 12, 14 | raw_asset não escrito / DERIVED / STRUCTURED / Sala zero | CONFIRMADO COMO FACTO, NÃO DERRUBA | `0|0|0|0|0|0|0|31` às 13:35:40Z — é o que o revisor alega, porque a aquisição não aconteceu |
+| 15 | Supabase usada em silêncio | REFUTADO | zero hosts fora de localhost/127.0.0.1/github/ipinfo no log · `SUPABASE_DB_URL` só no bloco `env:` mascarado · o único leitor executado é `sala_de_espera.py:741`, e `SINTONIA_SALA_DSN` (descartável) vem primeiro · `cadeia_canonica.sh` usa o argumento literal |
+| 16 | gates depois da rede | REFUTADO | 5a-IT 13:32:35 → 5b 13:35:40 → 5c 13:35:41 → 6 skipped; a única rede antes dos portões é o `git fetch` do checkout; a única rede do 5c é o próprio checker |
+| 17 | workflow chamou collector direto | REFUTADO | `italy_pilot_collect`/`italy_executor` só no eco do passo 0 (`[ -f "$f" ]`) e em comentário do YAML; passo 6 `skipped` |
+| 18 | teardown deixou Postgres | REFUTADO | 13:41Z: netstat 0 · tasklist 0 · `_temp` vazio · 4 processos com o run id = a própria cadeia de medição do red team (bash→bash→bash→powershell); fora dela 0 |
+| 19 | recurso temporário vivo | REFUTADO | `.pgpw` apagado no próprio 5a-IT · `ops-italia-<run>` nunca existiu (`ops=[]` nas 156 amostras) · `pg-italia-<run>` ausente |
+| 20 | outro run confundido | REFUTADO, com ressalva | único run criado ≥ 13:25Z; o `system-map.yml` 35226510721 (13:21Z, mesma branch e SHA) corre em runners do GitHub (`ubuntu-latest`), não no runner 21 — ver nota abaixo |
+| 21 | vermelho a esconder etapa | REFUTADO | Worker diag: 16 passos, UM `Step result: Failed` (o 5c, exit 1) · `continue-on-error` = 0 · os `\|\| true` (git add/pull do 8, pg_ctl stop do 9z-IT) provados inócuos · a 008 é saltada por desenho (`cadeia_canonica.sh:107`) e `schema_migracao = 31` |
+| 23 | a causa: egresso BR, VPN desligada | CONFIRMADO | 5c: `EGRESS_COUNTRY_CODE=BR · EGRESS_GATE=BLOCKED` · medição própria 13:41:58Z: BR, São Paulo, Telefônica |
+
+Livro versionado: 175 linhas, sha256 `3ea37f88…`, igual no worktree e no
+checkout do runner; ponteiro remoto `b8e07e03` — nenhum push saiu deste run.
+
+```
+RED_TEAM_REPLAY_2_BLOCKERS = 0
+```
+
+O red team sobre o veredito: «BLOCKED é defensável e é o único veredito
+honesto — a estrada nunca foi pisada, porque um portão anterior à aquisição
+mediu o país errado e parou tudo como devia; FAIL seria dizer que a estrada
+partiu, e ela não chegou a ser corrida.»
+
+**Nota (ressalva do ataque 20), fora do escopo deste replay:** o run
+`system-map.yml` 35226510721, disparado pelo push de `b8e07e03` às 13:21Z em
+runners do GitHub, tinha `COLETA CHECK = failure` (13:22:41Z) e `MAP RULES
+CHECK` em progresso quando o red team olhou. Não é este run, não é esta
+máquina, não toca a 54329; fica nomeado para quem for dono do CI dessa
+branch.
+
+### 16.10 · O que este replay NÃO reescreve, e o que NÃO fez
+
+- Não reescreve o §130 (a coleta aconteceu) nem o §14 (o replay 1 partiu-se
+  em STORAGE) nem o §15 (o conserto existe no código e está provado como
+  processo). O conserto **não foi observado no workflow** — nem bem nem mal.
+- Não ligou a VPN, não repetiu o dispatch, não correu o orquestrador nem o
+  coletor à mão, não fez replay 3. «Não repetir automaticamente» é do
+  contrato desta missão; ligar a VPN é decisão de gente.
+- Não corrigiu código, workflow, teste ou guarda. Nada mudou em `b8e07e03`
+  além deste documento, do know-how e do mapa.
+
+### 16.11 · O que a coordenação precisa de decidir antes do replay 3
+
+1. **Ligar o túnel do ProtonVPN a um servidor italiano na máquina do runner**
+   e medir, ANTES de despachar, `curl -s https://ipinfo.io/json` → `country: IT`.
+   Custa 5 segundos; a corrida gasta 3 minutos a construir a bancada antes de
+   fazer essa pergunta.
+2. Só então `INDEPENDENT_WORKFLOW_CANARY_REPLAY_3`, por sessão nova, com o
+   mesmo contrato: `RAW_OBSERVATIONS >= 1`, `PERSISTENCIA = DESCARTAVEL`,
+   `SALA_ROWS >= 1`, teardown físico, red team.
+3. Opcional, e **não** para este revisor decidir: um pré-portão de egresso
+   antes do 5a-IT pouparia a bancada quando a VPN está desligada. A ordem
+   atual (Sala primeiro, porque não custa rede) é deliberada e continua
+   correta; o que se paga é uma bancada de 3 minutos construída para nada.
+
+### 16.12 · Veredito
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_2       = BLOCKED
+WORKFLOW_REAL_CANARY                       = NOT_RUN
+WORKFLOW_EXECUTED                          = PARTIAL (até ao portão de egresso, inclusive)
+WORKFLOW_FLOW_OBSERVED                     = NO
+SOURCE_TO_SALA_REAL_OBSERVED               = YES (§130, mantido)
+CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW  = NOT_MEASURED
+COLLECTION_INTEGRATION_CANDIDATE           = NO
+BLOCKER                                    = EGRESS_COUNTRY_CODE = BR (ProtonVPN sem túnel na máquina do runner) — portão 5c fechou antes da rede
+BIG_COLLECTION_AUTHORIZED                  = NO
+NENHUMA CORREÇÃO FUNCIONAL                 = feita por este replay
+```

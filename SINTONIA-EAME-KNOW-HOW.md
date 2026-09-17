@@ -10,7 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§133**: o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`) — provas/ e portas_live viraram subclasses. Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team de arquitetura 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou. Falta o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2`, por sessão nova. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§134**: o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**§133 (2026-09-17):** o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`). Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou.
 **§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§131 (2026-09-17, revisto no mesmo dia):** a revisão independente deu FAIL por UM blocker que não é a coleta (a isenção da porta de produção operava por ficheiro prometendo linha), e o blocker foi **FECHADO** em missão própria (commit `7f7d31ef`), validado por red team independente em **4 rounds até zero** — os furos de cada round (espaço dobrado, `run: >` e cabeçalhos `>2`/`> #`, plain scalar multilinha, isca inline) viraram regressão versionada. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado**. Falta só o replay canário pelo workflow real. `BIG_COLLECTION = NÃO AUTORIZADA`.
 
@@ -20,7 +21,8 @@
 **Passo anterior — CUMPRIDO (2026-09-17):** REVISÃO INDEPENDENTE da primeira coleta (§131, veredito FAIL com a prova da coleta **sustentada**) **e** o fecho do blocker dela (commit `7f7d31ef`, red team 4 rounds → 0). Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` (§13 = o fecho).
 **Passo anterior — CUMPRIDO (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY` (§132) — executado por missão independente, veredito **FAIL** com a coleta do §130 **mantida**: o workflow corre, a estrada parte-se em STORAGE pela porta CLI do orquestrador. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14.
 **Passo anterior — CUMPRIDO (2026-09-17):** `CLI_POSTGRES_BINDING_FIX` (§133) — a porta CLI liga o banco descartável declarado; trava e adaptador promovidos a `guarda/`; prova como processo contra Postgres real; red team 0 blockers. Dono do blocker: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §15.
-**Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **sessão nova** (quem consertou não dispara), com teardown medido fisicamente e exigindo `RAW_OBSERVATIONS >= 1` e `PERSISTENCIA = DESCARTAVEL` no recibo — `conclusion=success` já enganou uma vez. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Passo anterior — BLOCKED (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (§134) — despachado por sessão nova (run `35227662328`, HEAD `b8e07e03`); o portão de egresso fechou a corrida antes da rede (`EGRESS_COUNTRY_CODE = BR`); a estrada não foi corrida e a pergunta ficou sem resposta. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §16.
+**Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_3` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **sessão nova**, **depois** de gente ligar o túnel do ProtonVPN a um servidor italiano na máquina do runner e de o revisor medir `country: IT` (ipinfo) ANTES do dispatch; com teardown medido fisicamente e exigindo `RAW_OBSERVATIONS >= 1`, `PERSISTENCIA = DESCARTAVEL` e `SALA_ROWS >= 1` no recibo/banco — `conclusion=success` já enganou uma vez e `conclusion=failure` já disse a verdade uma vez. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -16145,4 +16147,113 @@ regressão                               28 ficheiros de teste: 11 vermelhos ANT
 NAO disparou o workflow. NAO coletou IT-T3-002 outra vez. NAO tocou produção.
 NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO integra trunk. NAO promove candidata.
+```
+
+---
+
+# §134 · O PORTÃO DE EGRESSO FECHOU UMA CORRIDA REAL — E O REPLAY 2 FICOU SEM RESPOSTA
+
+## O QUE MUDOU
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY_2      = BLOCKED      2026-09-17 · run GitHub 35227662328 · HEAD b8e07e03
+WORKFLOW_REAL_CANARY                      = NOT_RUN      o passo 6 foi `skipped`; o orquestrador nunca correu
+CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED o conserto do §133 não foi visto nem bem nem mal
+SOURCE_TO_SALA_REAL_OBSERVED              = YES          §130 mantido
+COLLECTION_INTEGRATION_CANDIDATE          = NO
+BIG_COLLECTION                            = NÃO AUTORIZADA
+```
+
+Um revisor de sessão nova despachou UMA corrida real (IT-T3-002, runner
+SINTONIA-EAME-LOCAL, HEAD `b8e07e03`, 13:31:58Z) e observou, por API, por
+log e por amostragem física de 2 s: bancada descartável a nascer na 54329
+(13:32:36Z), 31 migrations PASS (lidas também no banco: `schema_migracao = 31`),
+Sala gate PASS com `SINTONIA_SALA_DSN` e `BANCO_DESCARTAVEL_URL` já no
+ambiente — e o portão de egresso a responder:
+
+```
+EGRESS_COUNTRY_CODE = BR · EGRESS_REQUIRED = IT · EGRESS_GATE = BLOCKED · exit 1     (13:35:42Z)
+```
+
+O passo 6 ficou `skipped`. Zero RUN, zero `raw_asset`, zero Sala — não por
+defeito, por **ausência de corrida**. O 9z-IT correu na mesma (`always()`) e a
+máquina ficou a zero: processos, porta, cluster, ops-root. Produção intocada.
+Livro versionado igual antes e depois. `conclusion = failure`, e desta vez o
+vermelho do GitHub dizia a verdade toda.
+
+## POR QUÊ — A LIÇÃO DURÁVEL
+
+```
+O PORTÃO QUE NUNCA TINHA FECHADO, FECHOU.
+    §130 e §132 passaram no 5c porque a VPN estava ligada. Às 13:35Z de hoje o
+    ProtonVPN desta máquina estava ABERTO e SEM TÚNEL (só a placa Ethernet
+    «Up»; IP público 177.95.91.48, Telefônica, São Paulo). O portão mediu BR e
+    parou a corrida ANTES de qualquer aquisição. É exactamente o desenho:
+    UNKNOWN != IT, e BR != IT.
+
+BLOCKED NÃO É FAIL.
+    FAIL é «a estrada correu e partiu-se» (§132). BLOCKED é «a estrada não
+    correu, por causa externa, e a pergunta ficou sem resposta». Converter um
+    em outro mente nos dois sentidos: FAIL acusaria um conserto que não foi
+    observado; PASS daria crédito a um fluxo que ninguém viu.
+
+O PRÉ-PORTÃO QUE FALTAVA AO REVISOR ERA O EGRESSO DA MÁQUINA.
+    O contrato pedia testes antes da rede. Nenhum teste mede se a máquina sai
+    por Itália. `curl -s https://ipinfo.io/json` custa 5 s; a corrida gastou
+    3 min 5 s (initdb + 31 migrations) a construir uma bancada para ouvir
+    «não» à pergunta que se podia ter feito primeiro. A ORDEM do workflow
+    (Sala antes do egresso, porque a Sala não custa rede) continua certa; o
+    que faltou foi o revisor medir o egresso ANTES do dispatch.
+
+A ÁRVORE DE QUEM MEDE, NÃO SÓ O PID.
+    §132 avisou: excluir o próprio PID ao contar processos pelo run id. Hoje,
+    com o PID do PowerShell excluído, a contagem deu 4 — eram os três
+    `bash.exe` da cadeia do próprio comando (que continha o run id) mais o
+    PowerShell. O número honesto era 0.
+```
+
+## PROVA
+
+```
+docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §16     o dono canónico deste replay
+https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/35227662328
+ordem (API jobs)   5a-IT 13:32:35→13:35:40 · 5b 13:35:40→41 · 5c 13:35:41→42 FAILURE · 6 skipped · 8 13:35:42→45 · 9z-IT 13:35:45→48
+físico             amostragem 2 s: LISTEN 54329 0→1 (13:32:43Z) →0 (13:35:50Z); postgres.exe 0→1→6→0; cluster nasce e morre;
+                   contagens no banco descartável (2.ª ligação, só leitura) sempre 0 em collection_run/raw_asset/
+                   storage_object/derived_artifact/documento_estruturado/etapa_da_corrida/sala_de_espera; schema_migracao 31
+causa              5c no log: EGRESS_COUNTRY_CODE=BR · medição própria 13:38:19Z: ipinfo → BR, São Paulo; ProtonVPN.Client.exe
+                   vivo, nenhum adaptador de túnel «Up»; HTTPS_PROXY/HTTP_PROXY vazios
+testes             antes: 79 verdes, 1 vermelho pré-existente (separador do Windows, o mesmo do §14.10) · NEW_FAILURES = 0
+                   (interpretador: python da tool-cache do runner 2 + site-packages emprestado de Python312; `py` sem pytest)
+red team           agente separado, só leitura, 23 ataques — resultado no §16.9 do dono canónico
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · o replay 2 NÃO respondeu à pergunta principal. O conserto do §133 continua provado só
+    como PROCESSO (provas/a_porta_cli_liga_o_banco.py); no workflow, continua por observar.
+2 · antes de qualquer replay 3: ligar o túnel do ProtonVPN a um servidor italiano NA MÁQUINA
+    DO RUNNER e medir `country: IT` por ipinfo ANTES de despachar. Decisão de gente, não de
+    agente: este revisor não ligou a VPN nem repetiu o dispatch («não repetir automaticamente»).
+3 · pré-portão de revisor, a partir de agora: egresso da máquina medido e registado antes do
+    dispatch, ao lado dos testes. Um replay que não o mede pode pagar 3 minutos de bancada por
+    uma resposta que já se sabia.
+4 · o checkout do run seguinte APAGA a pegada do anterior (XX/, data/colheita/, RUN-MANIFEST e
+    LIVRO modificados) — confirmado: o checkout desta corrida limpou a do run 35215565657.
+    TEARDOWN_FOOTPRINT e RECIBO_ITALIANO_NAO_VOLTA ficam como estavam; não foram exercidas.
+5 · `gh` chega deslogado a cada sessão; o token vive no Git Credential Manager e empresta-se
+    por comando (`git credential fill`), sem o escrever em ficheiro. O `py` desta máquina
+    imprime «Could not find platform independent libraries» — o runner usou-o na mesma
+    (INTERPRETADOR=py) e todos os passos que correram, correram; pytest só com o
+    site-packages emprestado.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO reescreve o §130 (a coleta aconteceu), o §132 (o replay 1 partiu-se em STORAGE) nem o §133 (o conserto existe).
+NAO corrigiu código, workflow, teste ou guarda. NAO ligou a VPN. NAO fez replay 3.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
 ```
