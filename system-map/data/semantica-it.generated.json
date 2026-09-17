@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "774e1e6d0b7aa4f3c9f0ecf4477b0e61b8d3f24c"
+    "HEAD": "3c0b36bf60b25ac5f0820c73d3a56000c7ceba58"
   },
   "VOCABULARIOS": [
     {
@@ -1262,6 +1262,7 @@
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
         ".github/workflows/banco-descartavel.yml",
+        "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/golden_path_pdf.py",
         "coleta/rota_forward_documento.py",

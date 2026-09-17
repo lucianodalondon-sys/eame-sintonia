@@ -1,0 +1,317 @@
+{
+ "O_QUE_ISTO_E": "PRIMEIRA COLETA CONTROLADA ITALIA V1 — aquisicao REAL pela porta canonica, fonte a fonte, ate onde cada uma chega de verdade. Banco PostgreSQL 16.4 descartavel local (porta 54329), Sala canonica POSTGRES, egresso IT medido na mesma maquina e sessao.",
+ "COMO_REFAZER": "BANCO_DESCARTAVEL_URL=... python3 provas/primeira_coleta_controlada_italia.py <SOURCE_ID...>",
+ "MEDIDO_EM": "2026-09-16",
+ "AMBIENTE": "DESCARTAVEL — runner eame-sintonia-local (esta maquina), producao intocada",
+ "SOURCE_TO_SALA_REAL_OBSERVED": true,
+ "NOTA_T3_008": "a primeira tentativa registou RAW=FAIL (RAW_PERSISTENCE_FAILED, transiente de spawn do psql nesta maquina); a corrida seguinte atravessou inteira ate a Sala. O FAIL honesto ficou no rastro.",
+ "NOTA_T2_002": "ADMISSION=NAO_SE_APLICA x4: o universo T2 nao tem regra de admissao por decisao ja registada (MEDICAO-DA-REGRA-T2). Verdade, nao avaria.",
+ "CORRIDAS": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ERROR": "OSError: ERRO:  sequÃªncia de bytes Ã© invÃ¡lida para codificaÃ§Ã£o \"UTF8\": 0x92"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ERROR": "RuntimeError: psql:<stdin>:1: ERRO:  não existe a coluna \"resultado\"\nLINE 1: select resultado, count(*) from public.decisao_de_coleta whe...\n               ^"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ERROR": "RuntimeError: psql:<stdin>:1: ERRO:  não existe a coluna \"run_id\"\nLINE 1: select count(*) from public.storage_object where run_id = 'I...\n                                                         ^"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ALVO_DO_PEDIDO": "T3",
+   "RUN_ID": "IT-T3-2026-09-16-234023-764c40a020738f7c",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 1,
+   "OBSERVATION_RESULTS": [
+    "BASELINE_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 1,
+   "STORAGE": 1,
+   "MEDIA_TYPES": [
+    "application/pdf"
+   ],
+   "SHA256": [
+    "d5aa781c258dc001"
+   ],
+   "DOCUMENT_IDS": [
+    "CAMPANIA:SA:09-09-2026"
+   ],
+   "DERIVED": 1,
+   "STRUCTURED": 1,
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "PASS"
+   },
+   "ADMISSION": {
+    "SIM": 1
+   },
+   "SALA_ROWS": 1,
+   "SALA_READ_OTHER_PROCESS": 1,
+   "COST_USD": 0,
+   "ITEM_COUNT": 1,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T4-001",
+   "ALVO_DO_PEDIDO": "T4",
+   "RUN_ID": "IT-T4-2026-09-16-234209-3736bf7583214932",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 1,
+   "OBSERVATION_RESULTS": [
+    "BASELINE_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 1,
+   "STORAGE": 1,
+   "MEDIA_TYPES": [
+    "text/csv"
+   ],
+   "SHA256": [
+    "d8f20c7383d15372"
+   ],
+   "DOCUMENT_IDS": [
+    "MINSALUTE:FTS6:20260914"
+   ],
+   "DERIVED": 0,
+   "STRUCTURED": 0,
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "NOT_APPLICABLE"
+   },
+   "ADMISSION": {
+    "NAO_SEI": 1
+   },
+   "SALA_ROWS": 0,
+   "SALA_READ_OTHER_PROCESS": 0,
+   "COST_USD": 0,
+   "ITEM_COUNT": 1,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "ALVO_DO_PEDIDO": "T3",
+   "RUN_ID": "IT-T3-2026-09-16-234309-426e7b92a5457375",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 1,
+   "OBSERVATION_RESULTS": [
+    "NEW_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 1,
+   "STORAGE": 1,
+   "MEDIA_TYPES": [
+    "application/pdf"
+   ],
+   "SHA256": [
+    "d5aa781c258dc001"
+   ],
+   "DOCUMENT_IDS": [
+    "CAMPANIA:SA:09-09-2026"
+   ],
+   "DERIVED": 0,
+   "STRUCTURED": 0,
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "PASS"
+   },
+   "ADMISSION": {
+    "SIM": 1
+   },
+   "SALA_ROWS": 1,
+   "SALA_READ_OTHER_PROCESS": 1,
+   "COST_USD": 0,
+   "ITEM_COUNT": 1,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "ALVO_DO_PEDIDO": "T3",
+   "RUN_ID": "IT-T3-2026-09-16-234422-7deae70c8d5e56e1",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 1,
+   "OBSERVATION_RESULTS": [
+    "NEW_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 1,
+   "STORAGE": 1,
+   "MEDIA_TYPES": [
+    "application/pdf"
+   ],
+   "SHA256": [
+    "a8d9c53af8f73027"
+   ],
+   "DOCUMENT_IDS": [
+    "ARIF:SETTIMANALE:2026:N37"
+   ],
+   "DERIVED": 0,
+   "STRUCTURED": 0,
+   "ETAPAS": {
+    "RAW": "FAIL"
+   },
+   "ADMISSION": {
+    "NAO_SEI": 1
+   },
+   "SALA_ROWS": 0,
+   "SALA_READ_OTHER_PROCESS": 0,
+   "COST_USD": 0,
+   "ITEM_COUNT": 1,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "ALVO_DO_PEDIDO": "T3",
+   "RUN_ID": "IT-T3-2026-09-16-234945-8bdb90c7585881cb",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 1,
+   "OBSERVATION_RESULTS": [
+    "BASELINE_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 1,
+   "STORAGE": 1,
+   "MEDIA_TYPES": [
+    "application/pdf"
+   ],
+   "SHA256": [
+    "2ba23d223429131e"
+   ],
+   "DOCUMENT_IDS": [
+    "APOL:2026:N10:BR-COLLINA"
+   ],
+   "DERIVED": 1,
+   "STRUCTURED": 1,
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "PASS"
+   },
+   "ADMISSION": {
+    "SIM": 1
+   },
+   "SALA_ROWS": 1,
+   "SALA_READ_OTHER_PROCESS": 1,
+   "COST_USD": 0,
+   "ITEM_COUNT": 1,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "ALVO_DO_PEDIDO": "T2",
+   "RUN_ID": "IT-T2-2026-09-16-235111-5b17c3f193dac2bf",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 4,
+   "OBSERVATION_RESULTS": [
+    "NEW_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 4,
+   "STORAGE": 4,
+   "MEDIA_TYPES": [
+    "application/pdf"
+   ],
+   "SHA256": [
+    "af3f2fbd94f55746",
+    "895c2451bfcf6aa2",
+    "4c2ee1eed48f7ee5",
+    "cc67a0047ab08b13"
+   ],
+   "DOCUMENT_IDS": [
+    "ARPAV:Z01:20260910225756",
+    "ARPAV:Z09:20260916172154",
+    "ARPAV:Z16:20260910225735",
+    "ARPAV:Z24:20260916171434"
+   ],
+   "DERIVED": 4,
+   "STRUCTURED": 4,
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "PASS"
+   },
+   "ADMISSION": {
+    "NAO_SE_APLICA": 4
+   },
+   "SALA_ROWS": 0,
+   "SALA_READ_OTHER_PROCESS": 0,
+   "COST_USD": 0,
+   "ITEM_COUNT": 4,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "ALVO_DO_PEDIDO": "T2",
+   "RUN_ID": "IT-T2-2026-09-16-235407-fa0fc8012378b654",
+   "EXECUTOR": "coleta/italy_executor.py",
+   "STATUS_DA_CORRIDA": "SUCCESS",
+   "NETWORK_REQUEST_OBSERVED": true,
+   "EGRESS_DA_CORRIDA": "IT",
+   "OBSERVATIONS": 1,
+   "OBSERVATION_RESULTS": [
+    "NEW_DOCUMENT"
+   ],
+   "HTTP_SAUDE": [
+    "HEALTHY"
+   ],
+   "RAW": 1,
+   "STORAGE": 1,
+   "MEDIA_TYPES": [
+    "text/html"
+   ],
+   "SHA256": [
+    "cb9cc344f7530626"
+   ],
+   "DOCUMENT_IDS": [
+    "SIAS:PRECIPITAZIONE_GIORNALIERA:WINDOW_END_2026-09-15"
+   ],
+   "DERIVED": 0,
+   "STRUCTURED": 0,
+   "ETAPAS": {
+    "RAW": "PASS",
+    "DERIVED": "NOT_APPLICABLE"
+   },
+   "ADMISSION": {
+    "NAO_SEI": 1
+   },
+   "SALA_ROWS": 0,
+   "SALA_READ_OTHER_PROCESS": 0,
+   "COST_USD": 0,
+   "ITEM_COUNT": 1,
+   "ERROR": "Could not find platform independent libraries <prefix>"
+  }
+ ],
+ "NOTA_HISTORICO": "as 10 linhas incluem TENTATIVAS iniciais em que o medidor desta prova errou uma consulta (coluna adivinhada) DEPOIS de a corrida ja ter adquirido: as linhas com ERROR de RuntimeError sao defeito do MEDIDOR, corrigido na hora, e nao da estrada. A historia fica porque apagar tentativa e reescrever historia.",
+ "CORRIDAS_COM_ERRO_DO_MEDIDOR": 2
+}

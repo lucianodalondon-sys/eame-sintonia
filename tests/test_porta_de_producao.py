@@ -341,14 +341,31 @@ class NenhumaOutraPortaGanhouPoder(unittest.TestCase):
                   "supabase-conexao.yml", "calendario-regressoes.yml"}
 
     def test_o_conjunto_de_escritores_nao_cresceu(self):
+        # ⚠️ A PORTA DE PRODUÇÃO É QUEM ESCREVE ONDE PRODUÇÃO MORA.
+        # A fase italiana (2026-09-16) corre `cadeia_canonica.sh migrations`
+        # contra um PostgreSQL DESCARTÁVEL em localhost, com DSN literal
+        # `...@localhost:54329/descartavel` — o mesmo critério da trava das
+        # provas (host local + banco da lista curta). Contá-la como porta de
+        # produção diria que um banco que nasce e morre com o job é produção.
+        # A isenção é ESTREITA: só chamadas da cadeia cuja MESMA linha traz a
+        # DSN literal de localhost/descartavel; um secret ou uma URL de fora
+        # continuam a acusar.
+        def escreve_producao(texto):
+            if "SUPABASE_SECRET_KEY" in texto:
+                return True
+            for linha in texto.splitlines():
+                if ("cadeia_canonica.sh migrations" in linha
+                        or "cadeia_canonica.sh importacoes" in linha):
+                    if "@localhost" in linha and "/descartavel" in linha:
+                        continue          # bancada descartável, não produção
+                    return True
+            return False
+
         achados = set()
         for nome in os.listdir(WORKFLOWS):
             with open(os.path.join(WORKFLOWS, nome), encoding="utf-8") as f:
                 t = sem_comentarios(f.read())
-            escreve = ("SUPABASE_SECRET_KEY" in t
-                       or "cadeia_canonica.sh migrations" in t
-                       or "cadeia_canonica.sh importacoes" in t)
-            if escreve:
+            if escreve_producao(t):
                 achados.add(nome)
         novos = achados - self.ESCRITORES
         self.assertEqual(novos, set(), "porta de escrita nova: %s" % novos)

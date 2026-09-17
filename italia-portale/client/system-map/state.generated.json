@@ -2043,9 +2043,11 @@
       "tests/test_evolucao.py",
       "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
+      "tests/test_fase_italiana_no_workflow.py",
       "tests/test_fechar_ground_truth_t3.py",
       "tests/test_fila_italia_decisoes.py",
       "tests/test_fonte_atravessa.py",
+      "tests/test_fontes_explicitas_no_coletor.py",
       "tests/test_forward_instrumentado.py",
       "tests/test_fronteira_mede_a_sala_canonica.py",
       "tests/test_fronteira_mede_producao.py",
@@ -2081,6 +2083,7 @@
       "tests/test_o_controle_separa_lei_de_mencao.py",
       "tests/test_o_mapa_da_intelligence_nao_mente.py",
       "tests/test_o_pedido_atravessa.py",
+      "tests/test_o_pedido_nao_mente.py",
       "tests/test_o_pedido_t4_atravessa.py",
       "tests/test_o_raw_fala.py",
       "tests/test_observabilidade.py",
@@ -2100,6 +2103,7 @@
       "tests/test_preservar_derivado.py",
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
+      "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
       "tests/test_radar_futuro.py",
       "tests/test_rastro_pg.py",
@@ -2657,9 +2661,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "774e1e6d0b7aa4f3c9f0ecf4477b0e61b8d3f24c",
-    "GENERATED_AT": "2026-09-16T17:19:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "37bbaf3470340db3744e3a75e2ed67c837eeffc4af9d6da7aeddbb46509c20c0"
+    "HEAD": "3c0b36bf60b25ac5f0820c73d3a56000c7ceba58",
+    "GENERATED_AT": "2026-09-16T19:29:14-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d82c3296f29f106676c0f25b0e8cddfc31d1baefb59894085c8d847e819afd90"
   },
   "FAMILIES": [
     {
@@ -3175,7 +3179,9 @@
       "file_count": 3,
       "status": "PENDING",
       "status_reason": "portao que ninguem chama.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "guarda/es/adama_es_gate.py"
+      ],
       "produces": [
         "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json"
       ],
@@ -3825,8 +3831,8 @@
         "PROVA": [
           ".github/workflows/apify-conexao.yml:68",
           ".github/workflows/apify-sensores.yml:117",
-          ".github/workflows/sintonia-scrap.yml:205",
-          ".github/workflows/sintonia-scrap.yml:281"
+          ".github/workflows/sintonia-scrap.yml:206",
+          ".github/workflows/sintonia-scrap.yml:282"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -3967,7 +3973,7 @@
         "repetido · 308764028a95… — 2 registos, 1 URL(s) → 1 objeto(s): dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo (Highcard®, Max-Ace® Rice Cropping Solution)",
         "repetido · ef688c782159… — 2 registos, 1 URL(s) → 1 objeto(s): dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo (Highcard®, Max-Ace® Rice Cropping Solution)",
         "documentos com procedência recuperável no Git: 141 de 141",
-        "OS 43 DO GOLDEN PATH ESTÃO AQUI? 0 de 43 — são DOIS ACERVOS diferentes, medidos por impressão digital e não por nome de ficheiro"
+        "OS 43 DO GOLDEN PATH ESTÃO AQUI? 0 de 58 — são DOIS ACERVOS diferentes, medidos por impressão digital e não por nome de ficheiro"
       ],
       "status_reason": "AMARELO, e não verde, de propósito. Os 195 objetos estão preservados — e um armazém cheio com o livro de entrada em branco PARECE saúde e é o contrário. Enquanto houver objeto sem linha que o reclame, este cartão não tem caminho para ficar verde.",
       "evidence_text": "system-map/data/armazem-it.generated.json → LACUNA_DO_ARMAZEM + QUEM_ESCREVEU + DOIS_ACERVOS; data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
@@ -14951,7 +14957,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:343"
+          ".github/workflows/sintonia-scrap.yml:379"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -15878,6 +15884,7 @@
         "C-CI-PERSIST",
         "C-CI-REGRESSAO",
         "C-PROVA-COLETA",
+        "C-SINTONIA-SCRAP",
         "C-SUPABASE"
       ],
       "outbound": [
@@ -15937,11 +15944,13 @@
         "QUEM": [
           "C-CI-PERSIST",
           "C-CI-REGRESSAO",
-          "C-PROVA-COLETA"
+          "C-PROVA-COLETA",
+          "C-SINTONIA-SCRAP"
         ],
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/calendario-regressoes.yml:169",
+          ".github/workflows/sintonia-scrap.yml:354",
           ".github/workflows/supabase-migrate.yml:92",
           "provas/preflight_022_live.sh:120",
           "provas/trava_de_drift_de_migration.sh:95"
@@ -17952,7 +17961,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:208"
+          ".github/workflows/sintonia-scrap.yml:209"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18063,8 +18072,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:202",
-          ".github/workflows/sintonia-scrap.yml:202"
+          ".github/workflows/sintonia-scrap.yml:203",
+          ".github/workflows/sintonia-scrap.yml:203"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18207,8 +18216,8 @@
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:146",
           ".github/workflows/comunicacao-publica.yml:147",
-          "pedido/receitas.py:248",
-          "orquestrador/orquestrador.py:827"
+          "pedido/receitas.py:277",
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18307,8 +18316,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:205",
-          ".github/workflows/sintonia-scrap.yml:206"
+          ".github/workflows/sintonia-scrap.yml:206",
+          ".github/workflows/sintonia-scrap.yml:207"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18874,7 +18883,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:105",
-          "orquestrador/orquestrador.py:827"
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18893,7 +18902,7 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "§",
       "views": [
         "opportunity",
@@ -18907,9 +18916,11 @@
         "leis/v21_datas.py"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-V21-INGEST, C-V21-OPORTUNIDADE.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-V21-INGEST, C-V21-OPORTUNIDADE.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "leis/calendario_handoff.py"
+      ],
       "produces": [
         "data/samples/DATA-CLOCK-manifest.json"
       ],
@@ -19838,7 +19849,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:510"
+          "orquestrador/orquestrador.py:511"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -20328,7 +20339,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:122",
-          "orquestrador/orquestrador.py:827"
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -20996,8 +21007,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "pedido/receitas.py:207",
-          "orquestrador/orquestrador.py:827"
+          "pedido/receitas.py:236",
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -21216,7 +21227,7 @@
       "family": "F-GOVERNANCA",
       "status": "PROVEN",
       "ui_status": "green",
-      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 22 · NAO_SEI 9 · SIM 12. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
+      "what": "A conta desta corrida, do PDF guardado até à porta. 64 ocorrências → 58 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 22 · NAO_SEI 9 · SIM 12. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
         "RUN_ID: DERIV-PDF-20260914T164000Z",
@@ -21229,11 +21240,11 @@
         "pré-voo: executor disponível SIM (pdftotext)",
         "PRONTIDÃO: esta estrada mede DOCUMENTO, não FATO. O tempo e o lugar do fato pertencem ao claim, e o claim ainda não é extraído (COL-LAW-502).",
         "",
-        "OCORRÊNCIAS de PDF: 49",
-        "CONTEÚDOS ÚNICOS: 43",
+        "OCORRÊNCIAS de PDF: 64",
+        "CONTEÚDOS ÚNICOS: 58",
         "ocorrências do mesmo conteúdo: 6 — repetição, NÃO perda",
         "",
-        "ENTRADA DA DERIVAÇÃO: 43",
+        "ENTRADA DA DERIVAÇÃO: 58",
         "DERIVADOS QUE EXISTEM: 43",
         "emitidos NESTA corrida: 0 · guardados NESTA corrida: 0 · já existiam: 43",
         "PERDIDOS: 0 — medido entre etapas comparáveis (entrada da derivação × derivados), nunca ocorrências menos conteúdos",
@@ -21753,7 +21764,7 @@
           "coleta/derivacao_forward.py:325",
           "coleta/golden_path_pdf.py:51",
           "coleta/rota_forward_documento.py:71",
-          "orquestrador/orquestrador.py:57"
+          "orquestrador/orquestrador.py:58"
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -23251,8 +23262,8 @@
         ],
         "PLANO": "OBSERVED",
         "PROVA": [
-          "pedido/receitas.py:171",
-          "orquestrador/orquestrador.py:827"
+          "pedido/receitas.py:170",
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -23498,21 +23509,21 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "git-measurement",
-      "what": "49 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 62.7 MB. São 43 documentos diferentes: 6 deles foram buscados mais de uma vez, e isso é REPETIÇÃO, não perda — nada sumiu.",
+      "what": "64 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 70.2 MB. São 58 documentos diferentes: 6 deles foram buscados mais de uma vez, e isso é REPETIÇÃO, não perda — nada sumiu.",
       "why_here": "Enquanto o mapa dizia «corpus» numa palavra só, isto parecia alimento do sistema. Separar o guardado do legível foi o que permitiu ver — e fechar — o corte.",
       "files": [],
-      "file_count": 49,
+      "file_count": 64,
       "facts": [
-        "OCORRÊNCIAS (caminhos no disco): 49",
-        "CONTEÚDOS ÚNICOS (impressão digital): 43",
+        "OCORRÊNCIAS (caminhos no disco): 64",
+        "CONTEÚDOS ÚNICOS (impressão digital): 58",
         "o mesmo conteúdo em mais de um caminho: 6 ocorrência(s), em 6 conteúdo(s)",
         "PERDIDOS: 0 — repetição NÃO é perda. cada copia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu. E a repeticao nao e fotocopia: censo_de_identidade_it.py classificou os 6 grupos pela prova de captura e deu 6/6 INDEPENDENT_CAPTURES_SAME_CONTENT — duas idas reais a fonte que trouxeram os mesmos bytes.",
-        "tamanho em disco: 62.7 MB",
-        "ocorrências COM derivação localizável: 49 de 49",
-        "ocorrências SEM derivação: 0",
+        "tamanho em disco: 70.2 MB",
+        "ocorrências COM derivação localizável: 49 de 64",
+        "ocorrências SEM derivação: 15",
         "derivados únicos que as servem: 43 — uma derivação serve todas as ocorrências do mesmo conteúdo",
         "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
-        "62.7 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
+        "70.2 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
         "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
         "repetido · e612807928b5… em 2 caminhos: data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
         "repetido · 59da05274359… em 2 caminhos: data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
@@ -23522,7 +23533,7 @@
         "repetido · 3d3c1bc0e963… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf",
         "CAPTURAS DISTINTAS: 24 — caminho diferente NÃO prova captura diferente, e SHA igual NÃO prova a mesma captura",
         "veredito dos grupos repetidos: INDEPENDENT_CAPTURES_SAME_CONTENT: 6",
-        "cópias SEM prova de captura em registo nenhum: 11 — G-40",
+        "cópias SEM prova de captura em registo nenhum: 26 — G-40",
         "0c2723e66201… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T13:49:59.548Z | 2026-09-07T15:37:53.953Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
         "3d3c1bc0e963… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:44.653Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
         "420e08ef15be… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-02 | 2026-09-07T13:49:59.548Z. Ator: curl HTTP GET com User-Agent de navegador, do IP de saida italiano | recolha manual por VPN.",
@@ -25494,8 +25505,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:204",
-          ".github/workflows/sintonia-scrap.yml:204"
+          ".github/workflows/sintonia-scrap.yml:205",
+          ".github/workflows/sintonia-scrap.yml:205"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -25612,7 +25623,7 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:139",
-          ".github/workflows/sintonia-scrap.yml:400",
+          ".github/workflows/sintonia-scrap.yml:454",
           "system-map/data/pedido-t4.observado.json:1"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
@@ -28011,7 +28022,7 @@
           "pasta": "supabase/migrations",
           "prova": {
             "file": "provas/a_fase_10_entra_no_acervo.py",
-            "line": 562,
+            "line": 564,
             "snippet": "escreve em alvo"
           }
         },
@@ -30930,7 +30941,7 @@
         "valida": false,
         "e_workflow": false,
         "executa": false,
-        "executores_que_chama": 8
+        "executores_que_chama": 9
       },
       "vocabulario": {
         "papel": "NAO SEI",
@@ -30938,9 +30949,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 162,
+        "palavras": 178,
         "por_lingua": {},
-        "sem_marca_de_lingua": 162,
+        "sem_marca_de_lingua": 178,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -32151,7 +32162,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:157",
-          "orquestrador/orquestrador.py:827"
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -32255,7 +32266,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:331"
+          ".github/workflows/sintonia-scrap.yml:367"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -32445,8 +32456,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "pedido/receitas.py:286",
-          "orquestrador/orquestrador.py:827"
+          "pedido/receitas.py:315",
+          "orquestrador/orquestrador.py:861"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -33039,8 +33050,8 @@
           ".github/workflows/scrap-evidencia.yml:82",
           ".github/workflows/scrap-social.yml:277",
           ".github/workflows/scrap-social.yml:278",
-          ".github/workflows/sintonia-scrap.yml:207",
-          ".github/workflows/sintonia-scrap.yml:207",
+          ".github/workflows/sintonia-scrap.yml:208",
+          ".github/workflows/sintonia-scrap.yml:208",
           "tests/test_m2_rota_forward.py:1"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
@@ -33334,6 +33345,7 @@
       "outbound": [
         "C-APIFY-POOL",
         "C-ASK-SINTONIA",
+        "C-CADEIA-V21",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
@@ -33792,7 +33804,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "motor/cadeia_canonica.sh:195"
+          "motor/cadeia_canonica.sh:205"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -35826,9 +35838,11 @@
         "tests/test_evolucao.py",
         "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
+        "tests/test_fase_italiana_no_workflow.py",
         "tests/test_fechar_ground_truth_t3.py",
         "tests/test_fila_italia_decisoes.py",
         "tests/test_fonte_atravessa.py",
+        "tests/test_fontes_explicitas_no_coletor.py",
         "tests/test_forward_instrumentado.py",
         "tests/test_fronteira_mede_a_sala_canonica.py",
         "tests/test_fronteira_mede_producao.py",
@@ -35864,6 +35878,7 @@
         "tests/test_o_controle_separa_lei_de_mencao.py",
         "tests/test_o_mapa_da_intelligence_nao_mente.py",
         "tests/test_o_pedido_atravessa.py",
+        "tests/test_o_pedido_nao_mente.py",
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_o_raw_fala.py",
         "tests/test_observabilidade.py",
@@ -35883,6 +35898,7 @@
         "tests/test_preservar_derivado.py",
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
+        "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
         "tests/test_radar_futuro.py",
         "tests/test_rastro_pg.py",
@@ -35921,7 +35937,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 179,
+      "file_count": 183,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36099,7 +36115,7 @@
       },
       "paises_dado": {
         "ESPANHA": 42,
-        "ITALIA": 38,
+        "ITALIA": 41,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -36111,6 +36127,7 @@
           "ANTES_DO_B2",
           "APOSENTADOS",
           "ASR_COMPLETO",
+          "AS_SEIS_DO_PILOTO",
           "BINARIOS",
           "BINDINGS",
           "BLOQUEADAS",
@@ -36149,6 +36166,7 @@
           "MINIMOS",
           "ONDE",
           "PASTAS_DA_COLLECTION",
+          "PASTAS_PY",
           "PEDIDOS",
           "POSITIVOS",
           "PROIBIDO",
@@ -36173,13 +36191,13 @@
           "VOCABULARIO_DA_COLLECTION",
           "_GAVETA_DE"
         ],
-        "palavras": 874,
+        "palavras": 896,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 862,
+        "sem_marca_de_lingua": 884,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -36782,7 +36800,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/sintonia-scrap.yml:206"
+          ".github/workflows/sintonia-scrap.yml:207"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -40241,7 +40259,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 55,
+          "line": 56,
           "snippet": "import admissao as adm  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-ORQUESTRADOR",
@@ -40423,7 +40441,7 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 232,
+          "line": 236,
           "snippet": "import admissao as adm",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
@@ -43066,7 +43084,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 257,
+          "line": 286,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-RECEITAS",
@@ -46116,7 +46134,7 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 97,
+          "line": 101,
           "snippet": "r = subprocess.run([\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-PROVA-COLETA",
@@ -46269,7 +46287,7 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 195,
+          "line": 205,
           "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--RUNS-->C-SUPABASE",
@@ -49604,7 +49622,7 @@
         },
         {
           "file": "tests/test_porta_de_producao.py",
-          "line": 356,
+          "line": 373,
           "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -52069,7 +52087,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 263,
+          "line": 292,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-RECEITAS",
@@ -53293,7 +53311,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 60,
+          "line": 61,
           "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-ORQUESTRADOR",
@@ -54871,7 +54889,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 387,
+          "line": 416,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -55320,7 +55338,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 58,
+          "line": 59,
           "snippet": "import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-ORQUESTRADOR",
@@ -56415,7 +56433,7 @@
       "evidence": [
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
-          "line": 693,
+          "line": 695,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-COLETA",
@@ -57703,7 +57721,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 510,
+          "line": 511,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DOCUMENTO--READS-->C-ORQUESTRADOR",
@@ -58998,7 +59016,7 @@
       "kind": "technical",
       "status": "UNKNOWN",
       "payload": "dado",
-      "reason": "entraram 43 documentos, saíram 43 textos — cada um com pai e impressão digital do pai. PERDIDOS: 0. A conta é entre etapas comparáveis (documentos × textos), nunca ocorrências menos conteúdos.",
+      "reason": "entraram 58 documentos, saíram 43 textos — cada um com pai e impressão digital do pai. PERDIDOS: 0. A conta é entre etapas comparáveis (documentos × textos), nunca ocorrências menos conteúdos.",
       "evidence": [
         {
           "file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -59082,7 +59100,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 552,
+          "line": 553,
           "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-ORQUESTRADOR",
@@ -60233,7 +60251,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 213,
+          "line": 242,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTES-EU--READS-->C-RECEITAS",
@@ -60940,7 +60958,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 258,
+          "line": 287,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-RECEITAS",
@@ -60956,7 +60974,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 259,
+          "line": 288,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-RECEITAS",
@@ -60991,7 +61009,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 217,
+          "line": 218,
           "snippet": "if [ ! -f data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json ]; then",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-SINTONIA-SCRAP",
@@ -61599,7 +61617,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 57,
+          "line": 58,
           "snippet": "import ingresso as ing  # noqa: E402  — a porta de entrada da coleta",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-ORQUESTRADOR",
@@ -62182,7 +62200,7 @@
         },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
-          "line": 249,
+          "line": 253,
           "snippet": "import ingresso as ing",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
@@ -64965,7 +64983,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 193,
+          "line": 190,
           "snippet": "\"roda\": [\"coleta/italy_executor.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-RECEITAS",
@@ -65079,7 +65097,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -65099,7 +65117,7 @@
         },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
-          "line": 185,
+          "line": 189,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_executor.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
@@ -65115,7 +65133,7 @@
         },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
-          "line": 200,
+          "line": 204,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"coleta\", \"italy_recurrent_collect.mjs\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
@@ -65146,9 +65164,25 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_italia_na_porta_canonica.py",
-          "line": 139,
-          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\",",
+          "file": "tests/test_fontes_explicitas_no_coletor.py",
+          "line": 39,
+          "snippet": "COLETOR = os.path.join(RAIZ, \"coleta\", \"italy_pilot_collect.mjs\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fontes_explicitas_no_coletor.py",
+          "line": 123,
+          "snippet": "\"italy_recurrent_collect.mjs\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -65163,8 +65197,40 @@
         },
         {
           "file": "tests/test_italia_na_porta_canonica.py",
-          "line": 185,
-          "snippet": "r = subprocess.run([\"node\", \"coleta/italy_pilot_collect.mjs\"],",
+          "line": 83,
+          "snippet": "pathToFileURL(%s + \"/coleta/italy_pilot_collect.mjs\").href);",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 149,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_pedido_nao_mente.py",
+          "line": 88,
+          "snippet": "self.assertIn(\"italy_executor.py\", r[\"COMANDO\"])",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-TESTES",
             "FROM": "C-IT-COLETA",
@@ -65576,7 +65642,7 @@
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
-          "line": 233,
+          "line": 237,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -65622,7 +65688,7 @@
       "kind": "technical",
       "status": "UNKNOWN",
       "payload": "dado",
-      "reason": "49 ocorrências de PDF entram, e são 43 documentos diferentes: 6 estão guardados em dois sítios. O executor nomeia o texto pela impressão digital do pai, então conteúdo repetido dá UM texto — e isso é REPETIÇÃO, não perda. O original não foi tocado: IMUTAVEL.",
+      "reason": "64 ocorrências de PDF entram, e são 58 documentos diferentes: 6 estão guardados em dois sítios. O executor nomeia o texto pela impressão digital do pai, então conteúdo repetido dá UM texto — e isso é REPETIÇÃO, não perda. O original não foi tocado: IMUTAVEL.",
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
@@ -66163,11 +66229,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
           "line": 55,
+          "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fontes_explicitas_no_coletor.py",
+          "line": 80,
           "snippet": "\"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
@@ -66797,7 +66879,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 389,
+          "line": 418,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -69389,7 +69471,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 248,
+          "line": 277,
           "snippet": "\"id\": \"comunicacao-publica\", \"roda\": ['coleta/comunicacao_coleta.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -69405,7 +69487,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -69456,7 +69538,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -69542,7 +69624,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -69594,7 +69676,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 207,
+          "line": 236,
           "snippet": "\"id\": \"eppo\", \"roda\": ['coleta/eppo_gd.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -69610,7 +69692,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -69645,7 +69727,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 171,
+          "line": 170,
           "snippet": "\"id\": \"italia-recorrente\", \"roda\": ['coleta/italy_executor.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -69661,7 +69743,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -69677,7 +69759,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 220,
+          "line": 200,
           "snippet": "\"id\": \"italia-recorrente\", \"roda\": ['coleta/italy_executor.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -69693,7 +69775,39 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 249,
+          "snippet": "\"id\": \"italia-recorrente\", \"roda\": ['coleta/italy_executor.py']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -70373,7 +70487,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -70408,7 +70522,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 286,
+          "line": 315,
           "snippet": "\"id\": \"scrap-colheita\", \"roda\": ['coleta/scrap_colheita.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -70424,7 +70538,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 827,
+          "line": 861,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -70507,7 +70621,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -70606,6 +70720,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_o_pedido_nao_mente.py",
+          "line": 39,
+          "snippet": "import orquestrador as orq  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 463,
           "snippet": "import orquestrador as orq",
@@ -70670,7 +70800,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 19 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -70801,8 +70931,24 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_fase_italiana_no_workflow.py",
+          "line": 130,
+          "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", self.ramo)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_italia_na_porta_canonica.py",
-          "line": 170,
+          "line": 180,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -70836,22 +70982,6 @@
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 378,
           "snippet": "'orquestrador/orquestrador.py'):",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_medir_admission_t3_atual.py",
-          "line": 56,
-          "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", ficheiros)",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -71736,7 +71866,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -71790,6 +71920,22 @@
           "file": "tests/test_o_canario_da_collection.py",
           "line": 86,
           "snippet": "from pedido import ALVOS",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_pedido_nao_mente.py",
+          "line": 37,
+          "snippet": "from pedido import Pedido  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -74295,7 +74441,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 56,
+          "line": 57,
           "snippet": "import proveniencia as pv  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-ORQUESTRADOR",
@@ -74556,7 +74702,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 385,
+          "line": 414,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -74572,7 +74718,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 391,
+          "line": 420,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -77750,7 +77896,7 @@
       "evidence": [
         {
           "file": "coleta/coleta_checkpoint.py",
-          "line": 543,
+          "line": 556,
           "snippet": "import rastro_da_coleta as rastro",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RASTRO--IMPORTS-->C-COLETA-BASE",
@@ -78487,7 +78633,7 @@
         {
           "file": "orquestrador/orquestrador.py",
           "line": 54,
-          "snippet": "from receitas import resolver, Plano  # noqa: E402",
+          "snippet": "from receitas import (resolver, Plano,  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-ORQUESTRADOR",
             "FROM": "C-RECEITAS",
@@ -78887,7 +79033,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -78909,6 +79055,22 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 55,
           "snippet": "from receitas import EXECUTORES            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+            "FROM": "C-RECEITAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_o_pedido_nao_mente.py",
+          "line": 38,
+          "snippet": "from receitas import resolver, FILTROS_DO_RESOLVEDOR, filtros_consumidos  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
             "FROM": "C-RECEITAS",
@@ -81052,7 +81214,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 63,
+          "line": 64,
           "snippet": "import sala_de_espera as espera        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-ORQUESTRADOR",
@@ -81167,7 +81329,7 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 162,
+          "line": 166,
           "snippet": "import sala_de_espera as _espera                          # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
@@ -81234,7 +81396,7 @@
       "evidence": [
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 689,
+          "line": 693,
           "snippet": "[sys.executable, os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-COLETA",
@@ -82509,7 +82671,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 303,
+          "line": 332,
           "snippet": "\"roda\": [\"coleta/scrap_colheita.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-RECEITAS",
@@ -87233,7 +87395,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 205,
+          "line": 206,
           "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-APIFY-POOL",
@@ -87249,7 +87411,7 @@
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 281,
+          "line": 282,
           "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-APIFY-POOL",
@@ -87284,12 +87446,47 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 343,
+          "line": 379,
           "snippet": "PYTHONIOENCODING=utf-8 $PY superficie/rede.py --portao-de-egresso IT",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-ASK-SINTONIA",
             "FROM": "C-SINTONIA-SCRAP",
             "TO": "C-ASK-SINTONIA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-CADEIA-V21",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Cadeia canonica V2.1. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/sintonia-scrap.yml",
+          "line": 354,
+          "snippet": "PATH=\"$PGBIN:$PATH\" bash motor/cadeia_canonica.sh migrations 'postgresql://postgres:descartavel@localhost:54329/descartavel'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-CADEIA-V21",
+            "FROM": "C-SINTONIA-SCRAP",
+            "TO": "C-CADEIA-V21",
             "RELATION_TYPE": "RUNS",
             "PLANE": "CODE"
           },
@@ -87319,7 +87516,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 208,
+          "line": 209,
           "snippet": "coleta/coletor.py; do",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-BASE",
@@ -87354,23 +87551,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 202,
-          "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-INSTAGRAM",
-            "FROM": "C-SINTONIA-SCRAP",
-            "TO": "C-COLETA-INSTAGRAM",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 202,
+          "line": 203,
           "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-INSTAGRAM",
@@ -87387,6 +87568,22 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 203,
+          "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-INSTAGRAM",
+            "FROM": "C-SINTONIA-SCRAP",
+            "TO": "C-COLETA-INSTAGRAM",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/sintonia-scrap.yml",
+          "line": 204,
           "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-INSTAGRAM",
@@ -87402,7 +87599,7 @@
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 203,
+          "line": 204,
           "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-INSTAGRAM",
@@ -87437,7 +87634,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 205,
+          "line": 206,
           "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-YOUTUBE",
@@ -87453,7 +87650,7 @@
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 206,
+          "line": 207,
           "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-COLETA-YOUTUBE",
@@ -87488,7 +87685,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 204,
+          "line": 205,
           "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-NAVEGADOR",
@@ -87504,7 +87701,7 @@
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 204,
+          "line": 205,
           "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-NAVEGADOR",
@@ -87539,7 +87736,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 400,
+          "line": 454,
           "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-ORQUESTRADOR",
@@ -87673,7 +87870,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 331,
+          "line": 367,
           "snippet": "PYTHONIOENCODING=utf-8 $PY admissao/sala_de_espera.py --portao",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-SALA-DE-ESPERA",
@@ -87708,7 +87905,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 207,
+          "line": 208,
           "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-SCRAP-SOCIAL",
@@ -87724,7 +87921,7 @@
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 207,
+          "line": 208,
           "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-SCRAP-SOCIAL",
@@ -87755,7 +87952,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -87809,6 +88006,22 @@
           "file": "tests/test_c10_8b_live_disparador.py",
           "line": 30,
           "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
+            "FROM": "C-SINTONIA-SCRAP",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_fase_italiana_no_workflow.py",
+          "line": 26,
+          "snippet": "WF = os.path.join(RAIZ, \".github\", \"workflows\", \"sintonia-scrap.yml\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--READS-->C-TESTES",
             "FROM": "C-SINTONIA-SCRAP",
@@ -87890,7 +88103,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 206,
+          "line": 207,
           "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-TRANSCRICAO",
@@ -88260,7 +88473,7 @@
       "evidence": [
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 186,
+          "line": 196,
           "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-CADEIA-V21",
@@ -88276,7 +88489,7 @@
         },
         {
           "file": "motor/cadeia_canonica.sh",
-          "line": 187,
+          "line": 197,
           "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-CADEIA-V21",
@@ -88879,7 +89092,7 @@
         },
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
-          "line": 312,
+          "line": 314,
           "snippet": "ok, e = ficheiro(url, os.path.join(MIGRACOES, \"026_a_observacao_ganha_identidade.sql\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-PROVA-COLETA",
@@ -93928,7 +94141,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 179,
+      "PECAS_EM_DESACORDO": 180,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -93945,16 +94158,16 @@
   ],
   "COUNTS": {
     "components": 210,
-    "components_proven": 37,
-    "components_pending": 165,
+    "components_proven": 36,
+    "components_pending": 166,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1067,
-    "edges_proven": 1013,
+    "edges": 1068,
+    "edges_proven": 1014,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2065,
-    "files_covered": 986,
+    "files_tracked": 2069,
+    "files_covered": 990,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

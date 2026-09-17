@@ -10,10 +10,10 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — **§129 (revê o §128)**: o runner italiano é a **própria bancada** — `SINTONIA-EAME-LOCAL` e `-LOCAL-2` são dois processos de runner nesta máquina —, e o PostgreSQL 16.4 portátil já estava no disco fora do repositório. Arrancado, ligado, consultado e destruído na mesma sessão em que o portão do egresso deu `PASS`. `PILOT_ENVIRONMENT_DECISION = OPTION_A`; a Supabase de produção **não** precisa de ser autorizada. O `BG-04` passou de leitura de código a prova de hardware: `rc=0` sem executar, na leitura **e** na escrita. O §128 mantém-se no resto.
+**Última atualização material:** 2026-09-16 — **§130**: a primeira coleta controlada ACONTECEU. `SOURCE_TO_SALA_REAL_OBSERVED = YES` — aquisição real, egresso IT por corrida, porta canónica, Postgres descartável, 6/6 fontes executadas até à verdade de cada uma, 4 unidades na Sala relidas por outro processo, reexecução com reuso provada no banco. BG-01..06 fechados na mesma janela — e o sétimo defeito, que nenhum plano tinha visto: **texto acentuado em argv atravessa a conversão ANSI do Windows**; dado passa a viajar por stdin em UTF-8 explícito. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
-**Passo anterior — CUMPRIDO (2026-09-16):** ESCOLHER E PROVAR A BANCADA. `SELECTED_PILOT_ENVIRONMENT = runner eame-sintonia-local (+ -2) com PostgreSQL 16.4 portátil`. Prova em `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §10-B. Nenhuma coleta, nenhuma migration, produção não tocada.
-**Próximo passo autorizado (2026-09-16):** **FECHAR O `BG-04`** — a ordem dos argumentos do `psql` em `admissao/sala_de_espera.py` (linhas 447 e 486). É o único portão que, por si só, torna a bancada já provada inútil. Depois `BG-03`, `BG-01`, e por fim `BG-05` e `BG-06`. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`. Preparar ≠ coletar — CAN DO ≠ DID DO.
+**Passo anterior — CUMPRIDO (2026-09-16):** FECHAR OS SEIS PORTÕES **e** executar a primeira coleta controlada (§130). Plano com o fecho e a execução: `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §7-B/§7-C/§10-C.
+**Próximo passo autorizado (2026-09-16):** REVISÃO INDEPENDENTE da primeira coleta antes de qualquer escala — e as dívidas nomeadas no §130 (flake de spawn do psql, crash-recovery, derivador CSV/HTML, regra T2). ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -15675,4 +15675,104 @@ NAO aplicou migration nenhuma, nem no banco descartavel.
 NAO chamou a Sala, nao correu Collection, nao escreveu em producao.
 NAO instalou Docker, WSL nem PostgreSQL, e nao alterou o runner.
 NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+```
+
+---
+
+# §130 · A PRIMEIRA COLETA CONTROLADA ACONTECEU — E O SETIMO DEFEITO ERA O ALFABETO
+
+## O QUE MUDOU
+
+```
+SOURCE_TO_SALA_REAL_OBSERVED = YES        2026-09-16, pela primeira vez.
+
+Aquisicao REAL pela rede (egresso IT medido POR CORRIDA), pela porta
+canonica — Pedido -> orquestrador -> executor —, contra PostgreSQL 16.4
+descartavel NESTA maquina, com a unidade a pousar na Sala canonica e a ser
+RELIDA POR OUTRO PROCESSO. As duas metades do §128 viraram um inteiro.
+
+    CANARY IT-T3-002 = PASS               1 PDF da Campania, estrada inteira
+    PILOT 6/6 EXECUTADAS                  cada fonte ate a SUA verdade
+    BG-01..BG-06 = PASS                   fechados nesta mesma janela
+```
+
+O placar honesto, que e o produto: 4 unidades na Sala (T3-002 x2, T3-008,
+T3-010) · T4-001 parou em DERIVED=NOT_APPLICABLE (CSV sem derivador — se
+chegasse a Sala era FAIL) · T2-004 idem (HTML) · T2-002 parou em
+ADMISSION=NAO_SE_APLICA x4 (T2 nao tem regra de admissao, por decisao
+registada). Reexecucao provada no banco: mesmos bytes -> UM storage_object,
+DUAS observacoes, derivado REUSED, DOCUMENT_ID pelo nome nativo e nunca
+pelo SHA.
+
+## O SETIMO DEFEITO — nenhum plano o tinha visto
+
+Fechar o BG-04 (ordem dos argumentos) destapou o irmao dele:
+
+```
+No Windows, quando um processo NATIVO lanca o psql, TEXTO ACENTUADO EM
+ARGV atravessa a conversao ANSI e chega em CP1252 ao banco UTF-8:
+
+    a-til  -> 0xE3        em-dash -> 0x97        aspa curva -> 0x92
+
+E `text=True` sem `encoding` no subprocess faz o MESMO estrago no stdin
+(codifica na codepage da maquina). Nao existe UMA client_encoding que
+sirva: UTF8 rebenta no argv, WIN1252 rebenta nos ficheiros de -f.
+```
+
+O canario rebentou exactamente ai — no STRUCTURED, com a aspa curva do
+boletim da Campania. A lei que fecha as duas portas de uma vez:
+
+    TEXTO ACENTUADO NAO VIAJA EM ARGV NO WINDOWS.
+    DADO VIAJA POR STDIN, DECLARADO UTF-8 DOS DOIS LADOS
+    (`-f -` + input= + encoding='utf-8').
+
+Corrigido em: coleta_checkpoint.Banco.executa · sala_de_espera._consultar/
+_executar · preservar_coleta_no_postgres._psql/aplicar ·
+a_sala_sobrevive_ao_processo._psql · o bootstrap da cadeia_canonica
+(heredoc em vez de -c). E a trava do backend FICHEIRO da Sala ganhou o
+msvcrt que a admissao ja tinha — fcntl nao existe no Windows.
+
+## PROVA
+
+```
+system-map/data/primeira-coleta-controlada.observado.json   o observado, 6/6
+provas/primeira_coleta_controlada_italia.py                 o corredor canonico
+docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md       §7-B, §7-C, §10-C
+
+migrations pela cadeia canonica     31/31 PASS, objetos conferidos no banco
+SALA_DE_ESPERA=PASS (saida 0)       primeira vez nesta maquina
+guarda nova                         tests/test_psql_argv (AST, zero tolerancia
+                                    no runtime; yml so-ubuntu fora por criterio
+                                    lido do proprio ficheiro)
+provas novas                        test_o_pedido_nao_mente (14) ·
+                                    test_fontes_explicitas_no_coletor (8) ·
+                                    test_fase_italiana_no_workflow (15)
+red team pre-rede                   16 ataques, 0 vetos (agente separado)
+livro versionado                    mesmo sha antes/depois · 175 observacoes
+producao                            0 escritas · variaveis ausentes na sessao
+```
+
+## O QUE FICA ABERTO, COM NOME
+
+```
+1 · spawns de psql sob tempestade de processos falham intermitentemente no
+    Windows (rc!=0, stderr vazio). O rastro regista honesto
+    (RAW_PERSISTENCE_FAILED) e a corrida seguinte recupera. Nao mascarar:
+    e o proximo candidato a investigacao antes da Big Collection.
+2 · CRASH_RECOVERY = NOT_RUN_WITH_REASON nesta janela.
+3 · RETRY_PROOF = NOT_OBSERVED — nenhuma falha de transporte natural.
+4 · derivador de CSV e de HTML continuam por decidir (arquitectura).
+5 · T2 sem regra de admissao: as 4 zonas ARPAV ficam fora da Sala ate a
+    regra existir — decisao de outra missao.
+6 · a prova a_sala_sobrevive_ao_processo corre fundo no Windows mas tem
+    passos de tempestade intermitentes; no CI Linux e verde.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO promove IT-T3-005 nem candidata nenhuma.
+NAO tocou producao, migration LIVE, Intelligence, Portal ou deploy.
+NAO fabricou retry nem crash para encher tabela de provas.
 ```

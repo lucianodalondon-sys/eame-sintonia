@@ -306,6 +306,42 @@ PERGUNTAR À TABELA NÃO É PERGUNTAR AO DONO.
 
 ## 7 · OS PORTÕES
 
+> ⚠️ **FECHADOS EM 2026-09-16 — e a execução aconteceu.** Ver **§7-B · O FECHO**
+> e **§10-C · EXECUÇÃO REAL**. O texto original de cada portão fica por baixo,
+> datado: é o retrato do problema que justificou o conserto.
+
+### 7-B · O FECHO DOS SEIS, MEDIDO
+
+| gate | antes | correção | prova | final |
+|---|---|---|---|---|
+| `BG-01` | nenhuma fase italiana no workflow | fase `italia-documento`: bancada 5a-IT antes dos portões 5b/5c, ramo que deriva o alvo do SOURCE_ID e chama **só** o orquestrador, teardown 9z-IT `always()` | `tests/test_fase_italiana_no_workflow` (15) | **PASS** |
+| `BG-02` | sem ambiente com egresso IT + Sala não-produção | bancada = runner `eame-sintonia-local` + PostgreSQL 16.4 portátil; cluster nasce e morre com o job | migrations 31/31 `PASS` · `SALA_DE_ESPERA=PASS` (saída 0) · `EGRESS=IT PASS` na mesma máquina e sessão | **PASS** |
+| `BG-03` | `import "C:/…"` lido como protocolo — 14+10 vermelhos | `pathToFileURL` nos dois drivers, o mesmo conserto do próprio coletor | `test_italia_na_porta_canonica` 22/22 · `test_alvo_estruturado` 17→1 (a 1 é pré-existente) · provado com espaço e acento | **PASS** |
+| `BG-04` | DSN antes das opções: `rc=0` sem executar, leitura e escrita | DSN por último em **43 sítios** de 30 ficheiros + Sala (447/486) + `cadeia_canonica.sh` (6) — **e** dado por stdin em UTF-8 explícito (ver §7-C) | guarda AST `tests/test_psql_argv` + prova observada: `_consultar`→`42`, `_executar`→escreveu e releu, controle negativo confirmado | **PASS** |
+| `BG-05` | `T4+fonte=IT-T4-001` colhia `EU-T4-001`, filtro morria calado | resolver promove quem consome os filtros declarados; entrada T4 do `italia-recorrente`; portão `FILTRO_NAO_CONSUMIDO` antes da rede | `tests/test_o_pedido_nao_mente` (14) — e a corrida **real** de T4 colheu `MINSALUTE:FTS6:20260914` | **PASS** |
+| `BG-06` | corrida sem fontes nomeadas colhia as 7, com a candidata dentro | sem conjunto por omissão: `FONTES_AUSENTES` no runtime, `--fonte` obrigatório na CLI; `PILOT_SOURCES` fica como capacidade | `tests/test_fontes_explicitas_no_coletor` (8) | **PASS** |
+
+### 7-C · O SÉTIMO DEFEITO, QUE NENHUM PLANO TINHA VISTO
+
+Fechar o BG-04 revelou um irmão dele: **texto acentuado em argv atravessa a
+conversão ANSI do Windows e chega em CP1252 ao banco UTF-8** (o `ã` vira
+`0xE3`, a aspa curva vira `0x92`) — e `text=True` sem `encoding` no
+`subprocess` faz o mesmo estrago no stdin. O canário italiano rebentou
+exactamente aí, no STRUCTURED, com o texto do boletim da Campânia.
+
+```
+TEXTO ACENTUADO NÃO VIAJA EM ARGV NO WINDOWS.
+DADO VIAJA POR STDIN, DECLARADO UTF-8 DOS DOIS LADOS.
+```
+
+Corrigido em: `coleta/coleta_checkpoint.py::Banco.executa` ·
+`admissao/sala_de_espera.py::_consultar/_executar` ·
+`provas/preservar_coleta_no_postgres.py::_psql/aplicar` ·
+`provas/a_sala_sobrevive_ao_processo.py::_psql` · o bootstrap de
+`motor/cadeia_canonica.sh` (heredoc em vez de `-c`). E a trava do backend
+FICHEIRO da Sala ganhou o `msvcrt` que a admissão já tinha (`fcntl` não
+existe no Windows).
+
 ### MUST_FIX_BEFORE_PILOT
 
 #### `BG-01` · O workflow canónico não tem fase italiana
@@ -648,6 +684,53 @@ A execução seguinte **não pode**:
 - usar `SHA256` como `DOCUMENT_ID`, `source location` como `fact location`, ou
   `publication time` como `fact time`;
 - deixar a Intelligence tocar em nada.
+
+---
+
+## 10-C · EXECUÇÃO REAL — 2026-09-16
+
+> A primeira coleta controlada **aconteceu**. Aquisição real pela rede, egresso
+> IT medido por corrida, pela porta canónica (Pedido → orquestrador → executor),
+> contra PostgreSQL 16.4 descartável nesta máquina. Produção intocada; o livro
+> versionado inalterado (mesmo sha, 175 observações). O observado integral vive
+> em `system-map/data/primeira-coleta-controlada.observado.json`; o corredor é
+> `provas/primeira_coleta_controlada_italia.py`.
+
+```
+SOURCE_TO_SALA_REAL_OBSERVED = YES     — pela primeira vez na história do projeto
+CANARY (IT-T3-002)           = PASS    — RAW→STORAGE→DERIVED→STRUCTURED→SIM→SALA,
+                                         1 linha, relida por OUTRO processo
+PILOT_SOURCES_EXECUTED       = 6/6     — cada uma até à SUA verdade
+```
+
+| fonte | rede | RAW | DERIVED | STRUCTURED | ADMISSION | SALA | leitura |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|---|
+| `IT-T4-001` | IT ✓ | 1 csv | `NOT_APPLICABLE` | 0 | `NAO_SEI` | 0 | **como o plano previu** — CSV sem derivador; chegar à Sala seria FAIL |
+| `IT-T3-002` | IT ✓ | 1 pdf | 1 | 1 | `SIM` | **1** | o canário — a estrada inteira numa corrida |
+| `IT-T3-002` 2ª | IT ✓ | 1 (mesmos bytes) | `reused=1` | 0 novos | `SIM` | **1** | §25: novo RUN, nova observação, **um** storage_object, derivado reutilizado |
+| `IT-T3-008` | IT ✓ | 1 pdf 2,7 MB | 1ª tent. `FAIL` transiente → 2ª `PASS` | 1 | `SIM` | **1** | o FAIL honesto ficou no rastro (`RAW_PERSISTENCE_FAILED`); a corrida nova atravessou |
+| `IT-T3-010` | IT ✓ | 1 pdf | 1 | 1 | `SIM` | **1** | a fonte das 19 falhas históricas respondeu `HEALTHY` — `APOL:2026:N10:BR-COLLINA` |
+| `IT-T2-002` | IT ✓ | 4 zonas pdf | 4 | 4 | `NAO_SE_APLICA` ×4 | 0 | T2 não tem regra de admissão, por decisão registada — verdade, não avaria |
+| `IT-T2-004` | IT ✓ | 1 html | `NOT_APPLICABLE` | 0 | `NAO_SEI` | 0 | HTML sem derivador — a paragem declarada |
+
+**Reexecução (§25), medida no banco:** `SAME_BYTES=YES` (sha `d5aa781c…` nas
+duas corridas) · `STORAGE_REUSED=YES` (as duas observações apontam para o
+storage_object **1**; um único objeto para o sha) · `NEW_RUN=YES` ·
+`NEW_OBSERVATION=YES` (raw_asset 1 e 3) · `DOCUMENT_ID_RULE` = nome nativo
+(`CAMPANIA:SA:09-09-2026`), nunca o SHA.
+
+**Retry (§26):** `RETRY_PROOF = NOT_OBSERVED` — nenhuma falha de transporte
+ocorreu naturalmente, e não se fabrica falha contra fonte real.
+**Crash (§27):** `CRASH_RECOVERY = NOT_RUN_WITH_REASON` — sem mecanismo de
+injeção seguro nesta janela; fica como dívida antes da Big Collection.
+**Custo (§30):** `COST_USD = 0` em todas, escrito pelo orquestrador porque a
+rota é declarada gratuita; `ITEM_COUNT` veio preenchido (1 e 4).
+
+**Riscos residuais desta bancada:** spawns de psql sob tempestade de processos
+falham intermitentemente no Windows (`rc≠0` com stderr vazio) — o rastro
+regista honesto e a corrida seguinte recupera; o teardown `9z-IT` com `|| true`
+pode deixar a porta 54329 presa se o `stop` falhar (a corrida seguinte falha
+fechada, sem tocar produção).
 
 ---
 
