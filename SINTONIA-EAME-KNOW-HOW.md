@@ -10,13 +10,15 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§131 (revisto no mesmo dia)**: a revisão independente deu FAIL por UM blocker que não é a coleta (a isenção da porta de produção operava por ficheiro prometendo linha), e o blocker foi **FECHADO** em missão própria (commit `7f7d31ef`), validado por red team independente em **4 rounds até zero** — os furos de cada round (espaço dobrado, `run: >` e cabeçalhos `>2`/`> #`, plain scalar multilinha, isca inline) viraram regressão versionada. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado**. Falta só o replay canário pelo workflow real. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§132**: o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**§131 (2026-09-17, revisto no mesmo dia):** a revisão independente deu FAIL por UM blocker que não é a coleta (a isenção da porta de produção operava por ficheiro prometendo linha), e o blocker foi **FECHADO** em missão própria (commit `7f7d31ef`), validado por red team independente em **4 rounds até zero** — os furos de cada round (espaço dobrado, `run: >` e cabeçalhos `>2`/`> #`, plain scalar multilinha, isca inline) viraram regressão versionada. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado**. Falta só o replay canário pelo workflow real. `BIG_COLLECTION = NÃO AUTORIZADA`.
 
 **§130 (2026-09-16):** a primeira coleta controlada ACONTECEU. `SOURCE_TO_SALA_REAL_OBSERVED = YES` — aquisição real, egresso IT por corrida, porta canónica, Postgres descartável, 6/6 fontes executadas até à verdade de cada uma, 4 unidades na Sala — **3 relidas por outro processo; a do T3-008 não foi medida (a bancada morreu antes; correção da revisão §131)** —, reexecução com reuso provada no banco. BG-01..06 fechados na mesma janela — e o sétimo defeito, que nenhum plano tinha visto: **texto acentuado em argv atravessa a conversão ANSI do Windows**; dado passa a viajar por stdin em UTF-8 explícito. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
 **Passo anterior — CUMPRIDO (2026-09-16):** FECHAR OS SEIS PORTÕES **e** executar a primeira coleta controlada (§130). Plano com o fecho e a execução: `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §7-B/§7-C/§10-C.
 **Passo anterior — CUMPRIDO (2026-09-17):** REVISÃO INDEPENDENTE da primeira coleta (§131, veredito FAIL com a prova da coleta **sustentada**) **e** o fecho do blocker dela (commit `7f7d31ef`, red team 4 rounds → 0). Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` (§13 = o fecho).
-**Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **missão independente** (não quem consertou), com teardown medido fisicamente (processos, porta 54329, cluster). Pré-condições já medidas: runners online, egresso IT. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Passo anterior — CUMPRIDO (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY` (§132) — executado por missão independente, veredito **FAIL** com a coleta do §130 **mantida**: o workflow corre, a estrada parte-se em STORAGE pela porta CLI do orquestrador. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14.
+**Próximo passo autorizado (2026-09-17):** consertar a porta CLI do orquestrador (ligar `memoria`/`banco_do_rastro` quando o ambiente declara o banco descartável, com a trava `_e_descartavel`) **ou** decidir que o workflow chama a porta que liga — decisão de desenho da coordenação, UMA porta e não duas — por missão que **não** seja o revisor do §132; mais um teste que EXECUTE a porta CLI contra um banco descartável e exija `RAW_OBSERVATIONS >= 1`. Só depois: novo replay canário independente com teardown físico, e só então candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -15896,3 +15898,112 @@ que o ambiente rotula de «main». O trunk canônico `claude/it-trunk-v1`
 está em `9d6dcbbd`, merge-base = ele próprio, Collection 11 à frente / 0
 atrás. «MAIN» DE AMBIENTE NÃO É TRUNK DE PROJETO — trunk mede-se na branch
 que a coordenação nomeia. A correção está no §1 do dono canônico.
+
+---
+
+# §132 · O WORKFLOW CORREU INTEIRO — E A ESTRADA PARTIU-SE NA PORTA DE LINHA DE COMANDO DO ORQUESTRADOR
+
+## O QUE MUDOU
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY = FAIL         2026-09-17 · run GitHub 35215565657
+WORKFLOW_EXECUTED                  = YES          pela primeira vez: o sintonia-scrap.yml
+                                                  correu a fase italia-documento de verdade
+WORKFLOW_FLOW_OBSERVED             = NO           a estrada parou em STORAGE
+SOURCE_TO_SALA_REAL_OBSERVED       = YES          §130 mantido — outra porta, outra prova
+COLLECTION_INTEGRATION_CANDIDATE   = NO
+```
+
+Um revisor independente despachou UMA corrida real (IT-T3-002, runner
+SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e observou, por hora de início e por
+amostragem física da máquina: Postgres descartável a nascer na 54329, 31
+migrations PASS, Sala gate e egresso IT ANTES da rede, orquestrador chamado
+com fonte explícita, RUN cunhada pelo dono, PDF NOVO adquirido (o boletim
+SA-16-09, sha `c5ae3bfe…`, e não os bytes do §130), teardown a deixar zero
+processos, zero porta, zero cluster, zero OPS_ROOT, produção intocada.
+
+E o recibo da corrida disse, sem rodeio:
+
+```
+INGRESSO.PARA_A_DERIVACAO = []    RASTRO = NAO_EMITIDO    BANCO = "NAO MEDIDO — nao houve leitura do banco"
+DERIVACAO.CHAMADO = false         ESTRUTURACAO.CHAMADO = false
+ADMISSAO = NAO_SEI 1 («o item veio sem texto nenhum»)    prontos 0    Sala 0
+```
+
+## POR QUÊ — A LIÇÃO DURÁVEL
+
+```
+orquestrador/orquestrador.py:1052   main() chama correr(p, so_plano=, seco=, so_a_porta=, colheita_da_corrida=)
+                                    SEM memoria= e SEM banco_do_rastro=  (defaults None)
+orquestrador · ingresso · preservar_coleta · derivacao_forward
+                                    ZERO leituras de os.environ — BANCO_DESCARTAVEL_URL e SINTONIA_SALA_DSN,
+                                    que o passo 5a-IT exporta, nunca chegam à estrada
+MemoriaPostgres(                    construída SÓ em provas/ e tests/ — nunca em código de runtime
+provas/primeira_coleta_controlada_italia.py:134
+                                    a primeira coleta chamou orq.correr(p, memoria=MemoriaPostgres(URL),
+                                    banco_do_rastro=Banco(URL)) EM PROCESSO — o corredor ligou o banco
+```
+
+    A PORTA QUE A PROVA USOU NÃO É A PORTA QUE O WORKFLOW USA.
+    O CORREDOR LIGAVA O BANCO POR FORA; A PORTA CLI NÃO SABE QUE ELE EXISTE.
+    UM BANCO CRIADO, MIGRADO E APROVADO PELO PORTÃO — E NUNCA ESCRITO —
+    É UM PORTÃO QUE MEDIU O AMBIENTE CERTO PARA UMA ESTRADA QUE NÃO PASSA LÁ.
+
+Isto é o `MODULE EXISTS != EDGE EXISTS != FLOW EXISTS` do BG-01, medido no
+metal: o código existe (YES), os 15 testes do YAML passam (YES), o workflow
+executa (YES) — e o fluxo não chega à Sala (NO). O próprio orquestrador já
+tinha escrito duas vezes «a estrada partia-se aqui» (comentários em
+`orquestrador.py:940-967`) e fechou a derivação e a estruturação; a ligação
+do banco na porta CLI ficou aberta. Nenhum teste executa essa porta contra um
+banco.
+
+## PROVA
+
+```
+docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §14     o dono canónico deste replay
+https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/35215565657
+                                                                       run, jobs, steps, logs
+recibo da corrida     data/samples/RUN-MANIFEST.json no workspace do runner (não commitado; excerto no §14.4)
+ordem                 API jobs: 5a-IT 11:26:13→11:29:26 · 5b 11:29:26→28 · 5c 11:29:28→31 · 6 11:29:31→40 · 9z-IT 11:29:42→45
+físico                amostragem 20 s: LISTEN 54329 1→0 e postgres.exe 6→0 durante o 9z-IT; depois 0/0/0/0
+testes                antes = depois: 56 verdes, 1 vermelho pré-existente (separador de caminho, só Windows,
+                      falha igual no trunk 9d6dcbbd nesta máquina) · NEW_FAILURES = 0
+red team              agente separado, só leitura, 23 ataques (22 do contrato + a causa) → 0 blockers;
+                      causa confirmada; pegada fora do _temp e recibo que não volta, nomeados
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · a candidatura a trunk ESPERA o conserto da porta CLI (ou a decisão de que o
+    workflow chame a porta que liga) — por missão que não seja o revisor;
+    conserto mínimo nomeado em §14.12 do dono canónico.
+2 · o próximo replay tem de exigir RAW_OBSERVATIONS >= 1 no recibo, e não
+    «conclusion=success»: este run foi VERDE no GitHub com a estrada partida.
+    SUCESSO DE PROCESSO != ESTRADA INTEIRA (é o CW-08/G-RUN-02 a morder de novo).
+3 · quem mede processos sobrantes por linha de comando tem de EXCLUIR O PRÓPRIO
+    PID: a primeira contagem do teardown deu 1 — era o powershell da medição,
+    que continha o nome do cluster na própria linha de comando.
+4 · a corrida escreve RUN-MANIFEST.json e LIVRO-DE-DECISOES.json no workspace
+    do runner (caminhos fixos): não vazou para o Git (passo 8 não os leva),
+    mas é a mesma dívida ADMISSION_LEDGER_NOT_ENV_REDIRECTABLE, agora com
+    duas caras.
+    E a pegada é maior que o teardown: o 9z-IT apaga cluster e OPS_ROOT, mas
+    o ArmazemLocal(RAIZ) deixou a cópia do PDF em XX/ e a colheita em
+    data/colheita/ no checkout do runner (ignorados pelo git; o checkout
+    seguinte limpa). E o passo 8 nunca devolve o RECIBO da fase italiana —
+    «o que não tem recibo não aconteceu» vale para o runner também.
+    Dívidas nomeadas: TEARDOWN_FOOTPRINT · RECIBO_ITALIANO_NAO_VOLTA.
+5 · o Python312 desta máquina está sem python.exe; `py` resolve para o
+    tool-cache do runner 2 e não tem pytest. Os portões correram com o
+    site-packages emprestado. Divida de bancada, não de repositório.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO reescreve o §130 — a primeira coleta ACONTECEU pela porta em processo.
+NAO corrigiu código nenhum: revisor que conserta e revê o próprio conserto não é revisor.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
+```

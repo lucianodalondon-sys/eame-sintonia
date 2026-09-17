@@ -327,3 +327,345 @@ teardown medido fisicamente; (3) só então fast-forward na coordenação.
 > `INDEPENDENT_REVIEW_BLOCKER_1 = CLOSED` · o que falta para a candidatura
 > agora é **só** o item (2): o replay canário pelo workflow real, por missão
 > independente. `BIG_COLLECTION_AUTHORIZED = NO` continua.
+
+
+---
+
+## 14 · INDEPENDENT_WORKFLOW_CANARY_REPLAY — 2026-09-17
+
+> Replay independente pelo **workflow real** (`sintonia-scrap.yml`, fase
+> `italia-documento`, fonte `IT-T3-002`), por agente que **não** implementou
+> nem consertou nada do que aqui se mede, e que **não corrigiu nada** durante
+> o exame. Evidência primária: o run do GitHub, os logs dele, o recibo que a
+> corrida escreveu no workspace do runner, e a medição física desta máquina
+> durante e depois do run.
+
+```
+MISSÃO                 INDEPENDENT_WORKFLOW_CANARY_REPLAY · IT-T3-002 · italia-documento
+MEDIDO EM              2026-09-17 (dispatch 11:25:00Z · fim 11:30:00Z)
+HEAD AUDITADO          c93f6920c65649c6a5e65ce6a055411a81e6943c  = REMOTE_COLLECTION_HEAD antes e depois
+TRUNK                  origin/claude/it-trunk-v1 = 9d6dcbbd · merge-base = o trunk · 13 à frente / 0 atrás
+WORKTREE               limpa antes e depois (0 ficheiros) · LOCAL_UNPUBLISHED 0
+
+GITHUB_WORKFLOW_RUN_ID 35215565657 · run_attempt 1 · event workflow_dispatch
+GITHUB_RUN_URL         https://github.com/lucianodalondon-sys/eame-sintonia/actions/runs/35215565657
+GITHUB_RUN_HEAD_SHA    c93f6920… — o auditado (checkout imprime o SHA no log)
+RUNNER                 SINTONIA-EAME-LOCAL (input runner=1 · runner_id 21 · C:\actions-runner-eame)
+                       antes do dispatch: os dois runners online e busy=false (API)
+RUN_IDS_BEFORE         nenhum run deste workflow nesta branch; 5 runs antigos noutras branches
+GITHUB_RUN_CONCLUSION  success
+
+INDEPENDENT_WORKFLOW_CANARY_REPLAY = FAIL
+WORKFLOW_EXECUTED                  = YES
+WORKFLOW_FLOW_OBSERVED             = NO
+SOURCE_TO_SALA_REAL_OBSERVED       = YES  (§130 — mantido; este replay não o repete nem o reverte)
+COLLECTION_INTEGRATION_CANDIDATE   = NO
+BLOCKER                            = a porta de linha de comando do orquestrador NÃO liga o banco:
+                                     `orquestrador/orquestrador.py:1052` chama `correr()` sem
+                                     `memoria=` e sem `banco_do_rastro=` (defaults None, l.758)
+                                     → RAW nunca chega a `raw_asset` → DERIVED e STRUCTURED não
+                                     correm → ADMISSION = NAO_SEI («sem texto nenhum») → SALA = 0
+BIG_COLLECTION_AUTHORIZED          = NO
+```
+
+**A frase que resume:** o workflow **executou**, na ordem certa, com Postgres
+descartável, 31 migrations, Sala gate e egresso IT **antes** da rede,
+orquestrador chamado, fonte explícita, RUN cunhada pelo dono, PDF novo
+adquirido pela rede e preservado em ficheiro, teardown físico limpo e produção
+intocada. E a estrada **partiu-se no elo STORAGE**: o banco que o passo 5a-IT
+construiu e o passo 5b aprovou nunca recebeu uma linha, porque a porta CLI do
+orquestrador não sabe que ele existe. A primeira coleta (§130) passou por
+**outra porta** — o corredor `provas/primeira_coleta_controlada_italia.py:134`
+chamava `orq.correr(p, memoria=MemoriaPostgres(URL), banco_do_rastro=Banco(URL))`
+em processo. `WORKFLOW_CODE_EXISTS = YES · TESTED = YES · EXECUTED = YES ·
+FLOW_OBSERVED = NO`.
+
+### 14.1 · A ordem, provada por hora de início (API `jobs`, não o YAML)
+
+| # | passo | início → fim (UTC) | conclusão | prova no log |
+|---|---|---|---|---|
+| 2 | checkout | 11:25:19 → 11:26:12 | success | `checkout -B claude/it-collection-sala-v1 …` · imprime `c93f6920…` |
+| 3 | 0 · o ref tem os scripts | 11:26:12 | success | `SCRIPTS_PRESENTES=YES` |
+| 4 | 1 · interpretador | 11:26:12 → 11:26:13 | success | `INTERPRETADOR=py` |
+| 9 | **5a-IT** · bancada nasce | 11:26:13 → 11:29:26 | success | `MIGRATION_001…007, 009…032 = PASS` (31 linhas; a 008 fora por desenho) |
+| 10 | **5b** · Sala gate | 11:29:26 → 11:29:28 | success | `SALA_DE_ESPERA=PASS · BACKEND=POSTGRES` · env do passo já traz `SINTONIA_SALA_DSN=***localhost:54329/descartavel` |
+| 11 | **5c** · egresso | 11:29:28 → 11:29:31 | success | `EGRESS_COUNTRY_CODE=IT · EGRESS_REQUIRED=IT · EGRESS_GATE=PASS` (ipinfo.io) |
+| 12 | **6** · rodar a fase | 11:29:31 → 11:29:40 | success | `FASE=italia-documento · RUNNER=SINTONIA-EAME-LOCAL · REF=claude/it-collection-sala-v1` |
+| 14 | 8 · devolver | 11:29:40 → 11:29:42 | success | `NADA_MUDOU=YES` — nenhum commit, nenhum push |
+| 15 | **9z-IT** · bancada morre | 11:29:42 → 11:29:45 | success | `bancada destruida: cluster e ops-root removidos` |
+| 16 | 9 · custo | 11:29:45 | success | `COST_USD_LIQUIDADO=0` |
+
+`GATE_ORDER = 5a-IT → 5b → 5c → 6 → 9z-IT`, **observada** e não só declarada.
+Os passos 2, 3, 4, 5 e 7 foram `skipped` pela condição de fase, como o YAML
+manda. Nenhum `continue-on-error`; o único `|| true` que correu nesta corrida
+é o `pg_ctl stop` do 9z-IT, e a amostragem física (abaixo) prova que o stop
+aconteceu de verdade.
+
+### 14.2 · O Postgres descartável, visto por fora
+
+Amostragem a cada 20 s **nesta máquina** (o runner 1 corre aqui), durante o run:
+
+```
+11:26:19  passo 5a-IT   pg-italia-35215565657 existe · porta 54329 sem LISTEN · postgres.exe = 1   (initdb)
+11:26:39 … 11:29:24     idem · porta 54329 LISTEN · postgres.exe = 6–7                              (cluster vivo, migrations)
+11:29:44  passo 9z-IT   cluster ainda em disco · ops-italia-35215565657 existe · LISTEN = 0 · postgres.exe = 0
+11:30:04  completed     cluster = 0 · ops-root = 0 · LISTEN = 0 · postgres.exe = 0
+```
+
+```
+POSTGRES_TEMP_STARTED = YES · DATABASE = descartavel · HOST = 127.0.0.1 · PORT = 54329
+MIGRATIONS_STARTED = YES · MIGRATIONS_APPLIED = 31 (001–007, 009–032) · MIGRATIONS_FAILED = 0
+```
+
+A contagem 31/31 é a mesma aritmética honesta do §8 (a 008 é verificação e o
+aplicador salta-a). `select count(*) from schema_migracao` **não** foi medido:
+o banco morreu no 9z-IT, por desenho, e esta revisão não abriu segunda ligação.
+
+### 14.3 · A fase 6 — o que o workflow pediu e o que a máquina fez
+
+```
+FASE = italia-documento · SOURCE_ID = IT-T3-002 (explícito: FONTE_IT='IT-T3-002' no log)
+ASSUNTO = colete pragas · FILTRO_PAIS = IT · FILTRO_FONTE = IT-T3-002
+ORCHESTRATOR_CALLED = YES            py orquestrador/orquestrador.py "colete pragas" --filtro pais=IT --filtro fonte=IT-T3-002
+COLLECTOR_DIRECTLY_CALLED_BY_WORKFLOW = NO   (o coletor só aparece no COMANDO do recibo, chamado PELO executor)
+RUN_ID = IT-T3-2026-09-17-112933-23c76a2063b482c3   cunhado pelo orquestrador; o executor recebe-o por --run-id
+EXECUTOR = coleta/italy_executor.py @ b9dfd3d2 · de 11:29:33Z a 11:29:40Z
+NETWORK_ACQUISITION_OBSERVED = YES   OBSERVATIONS = 1 · BASELINE_DOCUMENT · HEALTH_STATE = HEALTHY · COST_USD = 0
+```
+
+O item adquirido é **novo** — não é reuso dos bytes do §130:
+
+```
+url            https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-16-09.pdf
+DOCUMENT_ID    CAMPANIA:SA:16-09-2026        (§130 tinha CAMPANIA:SA:09-09-2026 — o boletim da semana seguinte)
+SHA256         c5ae3bfe76d9…                 (§130: d5aa781c…)  · BYTES 814266 · application/pdf · SOURCE_DATE 2026-09-16
+RAW_OBSERVATION_ID   = NÃO EXISTE — nenhuma linha em raw_asset (ver 14.4)
+DOCUMENT_ID_PROVENANCE = nome nativo do boletim (documentIdDe() em coleta/italy_pilot_collect.mjs); não é SHA
+STORAGE_REUSED = NO · NEW_OBSERVATION = NO (no banco) · RAW em ficheiro = SIM (OPS_ROOT, destruído no 9z-IT)
+```
+
+### 14.4 · Onde a estrada partiu — o recibo da corrida, sem o resumo
+
+O recibo que o orquestrador escreveu (`data/samples/RUN-MANIFEST.json`, no
+workspace do runner, **não commitado**):
+
+```
+INGRESSO.PARA_A_PORTA        1 item  · RAW_OBJECT_CREATED true · RAW_PRESERVED_BEFORE_PARSE true
+                             STORAGE_LOCATION ../../_temp/ops-italia-35215565657/data/collection-store/italy/IT-T3-002/…/SA-16-09.pdf
+INGRESSO.PARA_A_DERIVACAO    []
+INGRESSO.RUN_STATE           PARTIAL
+INGRESSO.RASTRO              NAO_EMITIDO
+INGRESSO.BANCO               "NAO MEDIDO — nao houve leitura do banco"
+DERIVACAO.CHAMADO            false  · "nenhuma observacao preservada nesta corrida para derivar"
+ESTRUTURACAO.CHAMADO         false
+ADMISSAO                     itens 1 · NAO_SEI 1 · prontos 0 · espera null
+LIVRO-DE-DECISOES            +1 decisão: NAO_SEI · regra «legivel» · «o item veio sem texto nenhum»
+```
+
+E a causa, lida no código do HEAD auditado, **sem alterar nada**:
+
+| onde | o que diz |
+|---|---|
+| `orquestrador/orquestrador.py:1052` | `main()` chama `correr(p, so_plano=…, seco=…, so_a_porta=…, colheita_da_corrida=…)` — **sem** `memoria=` e **sem** `banco_do_rastro=` |
+| `orquestrador/orquestrador.py:757-758` | `def correr(…, memoria=None, banco_do_rastro=None, …)` |
+| `orquestrador.py` · `coleta/ingresso.py` · `guarda/preservar_coleta.py` · `coleta/derivacao_forward.py` | **0** ocorrências de `os.environ`/`getenv` — `BANCO_DESCARTAVEL_URL` e `SINTONIA_SALA_DSN`, que o 5a-IT exporta, nunca são lidos pela estrada |
+| repositório inteiro, fora de `provas/` e `tests/` | **0** construções de `MemoriaPostgres(` |
+| `guarda/preservar_coleta.py:1302/1348` | `RAW_OBSERVATIONS` só existe quando `memoria is not None` |
+| `coleta/ingresso.py:1367` (comentário do dono) | «Sem banco, `preservar()` nao devolve `RAW_OBSERVATIONS` e a lista sai vazia» |
+| `provas/primeira_coleta_controlada_italia.py:134` | a primeira coleta chamou `orq.correr(p, memoria=_pg.MemoriaPostgres(URL), banco_do_rastro=cc.Banco(URL))` — **em processo, banco ligado pelo corredor** |
+
+Consequência exata: pela porta que o workflow usa, o `raw_asset` nunca nasce;
+`unidades_para_a_derivacao()` (`ingresso.py:674`) só entrega o que o banco
+confirmou; DERIVED e STRUCTURED não são chamados; a admissão julga o item da
+entrada — um PDF sem texto — e responde `NAO_SEI`, com razão; a Sala recebe 0.
+O próprio orquestrador já tinha escrito este furo no passado (comentário em
+`orquestrador.py:961-967`, «UMA ETAPA QUE CORRE DEPOIS DO BURACO NAO FECHA O
+BURACO») — fechou-o para a derivação e deixou aberta a **ligação do banco na
+porta CLI**. Nenhum dos 15 testes de `test_fase_italiana_no_workflow.py`
+podia apanhar isto: leem YAML.
+
+**Alternativas consideradas e descartadas:** não é o `PSQL_SPAWN_FLAKE` (esse
+regista `RAW_PERSISTENCE_FAILED`; aqui `RASTRO=NAO_EMITIDO` e `BANCO=NAO
+MEDIDO`, isto é, o banco nem foi tentado); não é derivador ausente (a derivação
+**não foi chamada**, `CHAMADO=false`); não é o Sala gate (passou, mas mede o
+ambiente, não a estrada).
+
+### 14.5 · O corredor, elo a elo
+
+| elo | resultado | prova |
+|---|---|---|
+| REQUEST | PASS | pedido com fonte explícita, `PEDIDO.filtros = {pais: IT, fonte: IT-T3-002}` |
+| ORCHESTRATOR | PASS | recibo assinado, RUN_ID do dono, executor escolhido pelo consumo de filtros |
+| EXECUTOR | PASS | `italia-recorrente → coleta/italy_executor.py @ b9dfd3d2` |
+| RUN | PASS | `IT-T3-2026-09-17-112933-23c76a2063b482c3` · STATUS SUCCESS |
+| RAW (ficheiro) | PASS | 814 266 bytes no OPS_ROOT, sha `c5ae3bfe…`, `RAW_PRESERVED_BEFORE_PARSE=true` |
+| **STORAGE (banco)** | **FAIL** | `raw_asset` nunca escrito: `BANCO=NAO MEDIDO`, `RASTRO=NAO_EMITIDO`, `PARA_A_DERIVACAO=[]` |
+| DERIVED | NOT_RUN | `DERIVACAO.CHAMADO=false` |
+| STRUCTURED | NOT_RUN | `ESTRUTURACAO.CHAMADO=false` |
+| ADMISSION | coerente com o que recebeu: `NAO_SEI 1` | item sem texto; a resposta certa para a pergunta errada |
+| READY | 0 | `prontos 0` |
+| SALA_ROWS | 0 | `espera null` |
+| SALA_READ_OTHER_PROCESS | NOT_APPLICABLE | não há linha para reler |
+
+`REUSED` não aparece em lado nenhum, e não foi convertido em nada.
+`UNKNOWN` não foi convertido em `PASS`.
+
+### 14.6 · Produção — zero, por ausência de caminho executado
+
+```
+PRODUCTION_MIGRATIONS = 0        única chamada a cadeia_canonica.sh migrations: DSN descartável literal (yml l.354)
+PRODUCTION_DB_WRITES = 0         nenhum banco recebeu raw_asset nesta corrida (14.4); SINTONIA_SALA_DSN (descartável)
+                                 precede SUPABASE_DB_URL na Sala (sala_de_espera.py:741), e a Sala não foi escrita (prontos 0)
+PRODUCTION_COLLECTION_RUNS = 0   o recibo foi para o RUN-MANIFEST do workspace do runner, não commitado
+PRODUCTION_SALA_WRITES = 0
+LIVE_DEPLOY = 0                  passo 8: NADA_MUDOU=YES · origin/claude/it-collection-sala-v1 = c93f6920 depois do run
+```
+
+`SUPABASE_DB_URL` continua no env do job (mascarado) e herdado por todos os
+passos — a dívida de blindagem do §6a (5b não distingue produção; furo
+`?host=`) **permanece** e não foi tocada. Esta revisão não fez SELECT nem
+ligação à produção.
+
+### 14.7 · Teardown — prova física, não log
+
+Medido nesta máquina em 11:30:34Z (65 s depois do fim), e reconfirmado:
+
+```
+TEARDOWN_STEP_EXECUTED        = YES  (9z-IT, always(), 11:29:42 → 11:29:45, success)
+POSTGRES_PROCESS_LEFT_FOR_RUN = 0    (Win32_Process com CommandLine *pg-italia-35215565657*, excluindo o PID da medição;
+                                      tasklist postgres.exe/pg_ctl.exe = 0)
+PORT_54329_LISTENING          = NO   (netstat: 0 linhas em qualquer estado)
+TEMP_CLUSTER_LEFT             = NO   (C:\actions-runner-eame\_work\_temp\pg-italia-35215565657 não existe)
+TEMP_OPS_ROOT_LEFT            = NO   (…\ops-italia-35215565657 não existe; RUNNER_TEMP vazio; .pgpw ausente)
+PEGADA_FORA_DO_TEMP           = SIM  (XX/ e data/colheita/ no checkout do runner — ver 14.9, item 3; não é o que o contrato mede, e fica nomeado)
+```
+
+⚠️ Armadilha medida e registada: a **primeira** contagem de processos deu `1`
+— era o próprio `powershell` da medição, cuja linha de comando continha o
+nome do cluster. Excluir o PID de quem mede é obrigatório. Ver §132 do
+know-how.
+
+### 14.8 · Livro versionado e o workspace do runner
+
+```
+data/collection-ledger/italy/observations.ndjson   175 linhas · sha256 3ea37f88…  ANTES = DEPOIS
+TRACKED_LEDGER_UNEXPECTED_DELTA = NO   (no worktree desta revisão: 0 ficheiros)
+```
+
+No **workspace do runner** (`C:\actions-runner-eame\_work\eame-sintonia\eame-sintonia`,
+efémero, limpo pelo próximo checkout) a corrida deixou dois ficheiros
+rastreados modificados e **não commitados**: `data/samples/RUN-MANIFEST.json`
+(+139, o recibo) e `data/samples/LIVRO-DE-DECISOES.json` (+18, a decisão
+NAO_SEI). É a dívida já nomeada `ADMISSION_LEDGER_NOT_ENV_REDIRECTABLE` (§8,
+§11) — e o RUN-MANIFEST tem o mesmo caminho fixo. Classificado como
+**esperado por dívida conhecida**, não como delta inesperado; o passo 8 não os
+leva (só adiciona `INSTAGRAM-*`/`YOUTUBE-*`/`SCRAP-*`).
+
+### 14.9 · Red team do replay (agente separado, só leitura)
+
+Agente separado, só leitura, 23 ataques (os 22 do contrato + a leitura da
+causa). Resultado: **0 blockers** contra a prova, e a causa raiz **confirmada**
+de forma independente (`orquestrador.py:1050-1052` sem `memoria`/`banco_do_rastro`;
+zero leituras de ambiente em orquestrador/ingresso/preservar; `MemoriaPostgres`
+só em `provas/` e `tests/`; `preservar_coleta.py:1346-1347` devolve `[]` sem
+memória). O que o red team acrescentou, e esta revisão adota:
+
+1. **CANNOT_MEASURE honesto:** banco descartável, OPS_ROOT e `servidor.log`
+   foram destruídos por desenho. O `created_at` exacto e «nenhum run anterior
+   nesta branch» o red team não pôde ver (o `gh` do processo dele estava
+   deslogado — a credencial ficou só na memória desta sessão); esta revisão
+   mediu-os pela API autenticada **antes** do dispatch (cabeçalho: nenhum run
+   nesta branch, 5 noutras — coerente com o `run_number 6` do Worker log do
+   runner, `_diag/Worker_20260917-112513-utc.log`).
+2. O ataque 12 foi confirmado com uma descarga própria do PDF (GET público,
+   **fora** do pipeline, guardado fora do repositório): 814 266 bytes, sha
+   `c5ae3bfe…`, `%PDF-1.7` — boletim semanal genuinamente novo. Fica registado
+   porque é uma segunda ida à fonte, feita pelo revisor e não pela máquina.
+3. **A pegada da corrida é maior que o teardown.** Fora do `_temp`, no
+   checkout do runner (ignorados pelo git, `!!`): `XX/it-t3-002/DOCUMENT/c5ae3bfe76d9bef6-…-SA-16-09.pdf`
+   (814 266 B, o mesmo sha — a cópia do `ArmazemLocal(RAIZ)`),
+   `data/colheita/italia/colheita.json`, `data/colheita/italia/<RUN_ID>/RETORNO.json`,
+   mais os dois JSON rastreados modificados (14.8). «cluster e ops-root
+   removidos» é literalmente verdade; o 9z-IT **não cobre** o armazém nem a
+   colheita. O checkout seguinte limpa (`git clean -ffdx`); o teardown não.
+   Dívida nomeada: `TEARDOWN_FOOTPRINT`.
+4. `NADA_MUDOU=YES` não prova que nada foi produzido: o passo 8 só stagea
+   `INSTAGRAM-*`/`YOUTUBE-*`/`SCRAP-*`, logo o **recibo** da fase italiana
+   (`RUN-MANIFEST.json`) nunca volta ao repositório por esta porta — e «o que
+   não tem recibo não aconteceu» é lei do próprio orquestrador. Hoje o recibo
+   vive no workspace do runner até o checkout seguinte o apagar. Dívida
+   nomeada: `RECIBO_ITALIANO_NAO_VOLTA`. Esta revisão copiou-o para fora do
+   repositório antes que isso acontecesse (excerto em 14.4).
+5. Nenhum teste podia apanhar o blocker: `test_fase_italiana_no_workflow.py:130`
+   só verifica que o YAML **nomeia** `orquestrador/orquestrador.py`; nenhum
+   teste abre a porta CLI em subprocesso contra um banco.
+6. Alternativas descartadas de forma independente: o psql nunca foi lançado
+   (sem memória não há SQL); o derivador usa `pdftotext`
+   (`executor_texto_de_pdf.py:131`), presente na máquina, e **não foi
+   chamado**; os bytes estavam presentes (`PAYLOAD.ESTADO=PRESENTE`); o campo
+   `ERROR` é ruído de stderr do `py` (D6).
+7. O ficheiro de evidência consolidada desta revisão ainda não existia quando o
+   red team arrancou (foi escrito segundos depois); ele trabalhou só com os
+   logs, os diffs e os diagnósticos locais do runner — o que reforça a
+   independência da confirmação.
+
+```
+RED_TEAM_REPLAY_BLOCKERS = 0
+```
+
+### 14.10 · Testes, antes e depois
+
+```
+py 3.12.10 (tool-cache do runner) + pytest 9.1.1 (site-packages emprestado — o Python312 desta máquina está sem python.exe)
+antes  : tests/test_porta_de_producao.py + tests/test_fase_italiana_no_workflow.py → 56 passed · 1 failed
+depois : idem → 56 passed · 1 failed (a mesma)
+NEW_FAILURES = 0 · NEW_ERRORS = 0
+PRODUCTION_GUARD = PASS (41/42; a falha é pré-existente) · WORKFLOW_STATIC_GATE = PASS (15/15)
+```
+
+A única falha — `NenhumEscritorAntigoSobrou::test_o_inventario_de_quem_fala_de_raw_asset_esta_fechado`
+— compara `guarda\…` com `guarda/…` (separador do Windows) e **falha igual num
+worktree do trunk `9d6dcbbd` nesta máquina**: pré-existente, só Windows, não
+introduzida pelos 13 commits. Não foi corrigida (não é desta missão).
+
+### 14.11 · O que este replay NÃO reescreve
+
+- A primeira coleta (§130) **aconteceu** e a sua prova continua de pé:
+  `SOURCE_TO_SALA_REAL_OBSERVED = YES`. Ela passou pela porta em processo do
+  corredor, e o corredor ligou o banco. Este replay mede **outra porta** — a
+  do workflow — e essa não liga.
+- O BLOCKER-1 (§6b) continua **fechado**; a guarda passou 41/42 com a mesma
+  falha de base.
+- Nada foi corrigido: workflow, Python, testes, guardas, orquestrador e
+  coletor estão como em `c93f6920`.
+
+### 14.12 · Conserto mínimo — nomeado, NÃO feito, para missão que não seja este revisor
+
+1. A porta CLI do orquestrador tem de ligar o banco quando o ambiente o
+   declara (`BANCO_DESCARTAVEL_URL` / `SINTONIA_SALA_DSN`, com a trava
+   `_e_descartavel` — e a mesma trava que hoje só vive em `provas/`), ou o
+   workflow tem de chamar a porta que liga. Decisão de desenho da
+   coordenação: **uma** porta, não duas.
+2. Um teste que **execute** a porta CLI contra um banco descartável e exija
+   `RAW_OBSERVATIONS ≥ 1` — os 15 testes do YAML não veem isto, e a estrada
+   já se partiu neste sítio duas vezes antes (comentários em
+   `orquestrador.py:940-967`).
+3. Só depois: novo `INDEPENDENT_WORKFLOW_CANARY_REPLAY`, por missão
+   independente, com o mesmo teardown físico.
+4. Dívidas não bloqueantes, nomeadas pelo red team: `TEARDOWN_FOOTPRINT`
+   (9z-IT não cobre `XX/` nem `data/colheita/`) e `RECIBO_ITALIANO_NAO_VOLTA`
+   (o passo 8 nunca devolve o `RUN-MANIFEST.json` da fase italiana).
+
+### 14.13 · Veredito
+
+```
+INDEPENDENT_WORKFLOW_CANARY_REPLAY = FAIL
+WORKFLOW_REAL_CANARY               = FAIL
+WORKFLOW_EXECUTED                  = YES
+WORKFLOW_FLOW_OBSERVED             = NO
+SOURCE_TO_SALA_REAL_OBSERVED       = YES (§130, mantido)
+COLLECTION_INTEGRATION_CANDIDATE   = NO
+BLOCKER                            = orquestrador.main() não liga memoria/banco_do_rastro → STORAGE nunca acontece pela porta do workflow
+BIG_COLLECTION_AUTHORIZED          = NO
+NENHUMA CORREÇÃO FUNCIONAL         = feita por este replay
+```
