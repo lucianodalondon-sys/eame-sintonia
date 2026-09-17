@@ -85,6 +85,26 @@ def _e_literal(no):
     return isinstance(no, ast.Constant) and isinstance(no.value, str)
 
 
+#: Os nomes pelos quais o runtime pede o executável ao dono
+#: (`guarda/cliente_postgres.py`). Uma lista cuja cabeça é UMA CHAMADA a um
+#: destes é uma chamada psql — e a ordem dos argumentos dela é lei igual.
+#: Sem isto, trocar `"psql"` por `resolver_psql()` deixaria a lista INVISÍVEL
+#: a esta guarda: o conserto do §135 teria desligado a guarda do §130.
+CABECAS_DO_DONO = {"resolver_psql", "_psql_exe", "comando_psql"}
+
+
+def _e_cabeca_psql(no):
+    """`"psql"` literal, ou uma chamada ao dono do executável."""
+    if _e_literal(no):
+        return no.value == "psql"
+    if isinstance(no, ast.Call):
+        f = no.func
+        nome = f.id if isinstance(f, ast.Name) else (
+            f.attr if isinstance(f, ast.Attribute) else "")
+        return nome in CABECAS_DO_DONO
+    return False
+
+
 def violacoes_python(caminho):
     """As chamadas psql deste ficheiro com um não-literal fora do lugar."""
     try:
@@ -96,7 +116,7 @@ def violacoes_python(caminho):
         if not isinstance(no, ast.List) or not no.elts:
             continue
         primeiro = no.elts[0]
-        if not (_e_literal(primeiro) and primeiro.value == "psql"):
+        if not _e_cabeca_psql(primeiro):
             continue
         ultimo = len(no.elts) - 1
         for i, e in enumerate(no.elts[1:], 1):
@@ -203,6 +223,35 @@ class ADsnVemPorUltimo(unittest.TestCase):
                              "o detector reprovou a ordem correcta")
         finally:
             os.unlink(nome)
+
+    def test_o_detector_ve_a_lista_com_a_cabeca_do_dono(self):
+        """`[resolver_psql(), url, "-q", ...]` é a DSN adiantada — e tem de
+        reprovar tal como `["psql", url, ...]`. A cabeça do dono não é um
+        passe livre; é só outra grafia de «isto é uma chamada psql»."""
+        import tempfile
+        mau = "x = [resolver_psql(), url, \"-q\", \"-c\", sql]\n"
+        bom = ("x = [cp.resolver_psql(), \"-X\", \"-q\", \"-A\", \"-t\", \"-F\", sep,\n"
+               "     \"-v\", \"ON_ERROR_STOP=1\", \"-f\", \"-\", url]\n")
+        for fonte, esperado in ((mau, True), (bom, False)):
+            with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False,
+                                             encoding="utf-8") as fh:
+                fh.write(fonte)
+                nome = fh.name
+            try:
+                self.assertEqual(bool(violacoes_python(nome)), esperado, fonte)
+            finally:
+                os.unlink(nome)
+
+    def test_os_donos_do_runtime_nao_lancam_psql_pelo_nome_nu(self):
+        """As três portas do runtime pedem o executável ao dono. Uma lista
+        `["psql", ...]` num destes ficheiros é o defeito do replay 3 de volta."""
+        for rel in ("guarda/memoria_postgres.py", "coleta/coleta_checkpoint.py",
+                    "admissao/sala_de_espera.py"):
+            arvore = ast.parse(io.open(os.path.join(RAIZ, rel), encoding="utf-8").read())
+            nus = [no.lineno for no in ast.walk(arvore)
+                   if isinstance(no, ast.List) and no.elts
+                   and _e_literal(no.elts[0]) and no.elts[0].value == "psql"]
+            self.assertEqual(nus, [], "%s lanca psql pelo nome nu nas linhas %s" % (rel, nus))
 
     def test_o_detector_de_shell_apanha_e_aceita(self):
         self.assertTrue(PADRAO_SHELL_MAU.search('psql "$URL" -v x -q -c "y"'))

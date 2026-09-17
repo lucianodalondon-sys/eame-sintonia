@@ -43,6 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import apify_pool as ap  # noqa: E402  — dono único da rotação
+from guarda.cliente_postgres import resolver_psql  # noqa: E402 — QUAL psql, um dono
 
 PROIBIDO_NA_IDENTIDADE = ('token', 'run_id', 'runid', 'dataset', 'captured_at',
                           'capturado', 'coletado_em', 'pool_position')
@@ -125,7 +126,13 @@ class Banco:
         #
         # `encoding='utf-8'` nao e enfeite: `text=True` sozinho usa a codepage
         # da maquina (cp1252 aqui), e o defeito voltava por outra porta.
-        cmd = ['psql', '-q', '-v', 'ON_ERROR_STOP=1',
+        #
+        # ⚠️ A CABECA DA LISTA NAO E 'psql'. O replay canario 3 (run GitHub
+        # 35232024024, know-how §135) provou que o Python do job nao tinha
+        # psql no PATH. Quem diz qual executavel usar e
+        # `guarda/cliente_postgres.py` (SINTONIA_PSQL_EXE, ou o PATH quando
+        # nada esta declarado; falha fechada quando nenhum serve).
+        cmd = [resolver_psql(), '-q', '-v', 'ON_ERROR_STOP=1',
                '-tAF', '\x1f', '-f', '-', self.dsn]
         r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
                            encoding='utf-8', errors='replace')

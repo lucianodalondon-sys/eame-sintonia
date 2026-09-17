@@ -357,6 +357,23 @@ jobs:
           echo "BANCO_DESCARTAVEL_URL=postgresql://postgres:descartavel@localhost:54329/descartavel" >> "$GITHUB_ENV"
           echo "PGPASSWORD=descartavel" >> "$GITHUB_ENV"
           echo "ITALY_OPS_ROOT=$RUNNER_TEMP/ops-italia-$GITHUB_RUN_ID" >> "$GITHUB_ENV"
+          # ⚠️ O WORKFLOW DECLARA O psql; NÃO O DEIXA À DESCOBERTA DO PATH.
+          # O replay canário 3 (run 35232024024, know-how §135) passou os três
+          # portões e caiu na primeira `subprocess.run(["psql", …])` do runtime:
+          # FileNotFoundError. A linha do GITHUB_PATH abaixo continua para o
+          # shell (o `.sh` das migrations), mas o runtime Python lê SÓ a
+          # declaração explícita, em caminho NATIVO — `cygpath -w` converte
+          # `/c/…` para `C:\…`, que é o que o CreateProcess do Python lê.
+          #
+          #     QUEM CRIA A BANCADA SABE ONDE ESTÁ O psql. QUE O DIGA.
+          #
+          # `cygpath` é do Git for Windows, o mesmo bash que corre este passo;
+          # se faltar, o passo falha AQUI, com a frase certa, e não no passo 6.
+          command -v cygpath >/dev/null || { echo 'CYGPATH_AUSENTE: nao consigo declarar o psql em caminho nativo'; exit 1; }
+          PSQL_NATIVO="$(cygpath -w "$PGBIN/psql.exe")"
+          [ -f "$PGBIN/psql.exe" ] || { echo 'PSQL_AUSENTE: '"$PGBIN"'/psql.exe nao existe'; exit 1; }
+          echo "SINTONIA_PSQL_EXE=$PSQL_NATIVO" >> "$GITHUB_ENV"
+          echo "psql declarado: $PSQL_NATIVO"
           echo "$PGBIN" >> "$GITHUB_PATH"
 
       # A SALA VEM PRIMEIRO de propósito: não custa rede nenhuma, e é a pergunta

@@ -87,6 +87,12 @@ import telemetria as tel                           # noqa: E402
 # Escrever aqui outra palavra para «esta corrida ja contou outra historia»
 # daria duas palavras para o mesmo facto.
 from preservar_coleta import RUN_ID_CONFLICT     # noqa: E402
+# ⚠️ QUAL `psql` ESTE PROCESSO USA TEM UM DONO, e ele e `guarda/cliente_postgres.py`.
+# O replay canario 3 (run GitHub 35232024024, know-how §135) caiu na primeira
+# chamada `["psql", ...]` do runtime com FileNotFoundError — e ESTE portao
+# tinha dito PASS sem abrir ligacao. O nome nu confiava no PATH; o dono nao.
+from guarda.cliente_postgres import (            # noqa: E402
+    ClientePostgresAusente, como_foi_resolvido, resolver_psql)
 
 MORADA = os.path.join(RAIZ, "data", "samples", "PRONTO-PARA-INTELIGENCIA")
 
@@ -337,6 +343,11 @@ class _Ficheiro(object):
     PORQUE = ("o ficheiro vive no workspace do runner: nao sobrevive ao job "
               "nem ao checkout seguinte. Serve prova offline, nao operacao.")
 
+    def sondar(self):
+        """O ficheiro nao tem servidor para sondar: a pasta existe ou nasce."""
+        os.makedirs(MORADA, exist_ok=True)
+        return {"SONDA": "OK", "PSQL": None, "PSQL_ORIGEM": "NAO_SE_APLICA"}
+
     def morada(self, run_id):
         return os.path.relpath(caminho_da_corrida(run_id), RAIZ)
 
@@ -457,6 +468,39 @@ class _Postgres(object):
     def __init__(self, url):
         self.url = url
 
+    # ── qual psql, e a prova de que ele fala com o banco ────────────────
+    @staticmethod
+    def _psql_exe():
+        """O executavel vem do dono (`guarda/cliente_postgres.py`), nunca do
+        nome nu. Sem psql utilizavel, a Sala esta INDISPONIVEL — e di-lo."""
+        try:
+            return resolver_psql()
+        except ClientePostgresAusente as ex:
+            raise SalaIndisponivel(str(ex))
+
+    def sondar(self):
+        """UMA leitura inofensiva, REAL, pelo mesmo psql que o runtime usa.
+
+        ⚠️ ATE 2026-09-17 O PORTAO DA SALA MEDIA CONFIGURACAO, NAO CONETIVIDADE.
+        `exigir_canonica()` lia variaveis, construia este objecto e dizia PASS.
+        O replay canario 3 (run GitHub 35232024024, know-how §135) passou por
+        aqui com PASS e caiu na primeira chamada ao psql do runtime — o
+        executavel nao estava no PATH do job. Um portao que aprova um ambiente
+        onde o cliente nao lanca nao mediu nada.
+
+            CAN DO != DID DO.  «A sala sobrevive a este job?» so tem resposta
+            se alguem lhe falar — e este `select 1` fala.
+
+        Nao cria tabela, nao escreve, nao muda estado. Falha (levanta) se o
+        executavel nao existe OU se o banco nao responde — ANTES da rede.
+        """
+        linhas = self._consultar("select 1")
+        if linhas != ["1"]:
+            raise SalaIndisponivel(
+                "a sonda `select 1` nao devolveu 1 (veio %r)" % (linhas[:3],))
+        r = como_foi_resolvido()
+        return {"SONDA": "OK", "PSQL": r["PSQL"], "PSQL_ORIGEM": r["ORIGEM"]}
+
     # ── as duas maneiras de falar com o banco ───────────────────────────
     def _consultar(self, sql):
         """Lê. `-X` para não herdar o `~/.psqlrc` de quem corre isto.
@@ -478,7 +522,7 @@ class _Postgres(object):
         # sem `encoding` usa a codepage da maquina: o mesmo defeito por outra
         # porta. Medido em 2026-09-16.
         r = subprocess.run(
-            ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
+            [self._psql_exe(), "-X", "-q", "-A", "-t", "-F", self.SEP,
              "-R", self.SEP_LINHA,
              "-v", "ON_ERROR_STOP=1", "-f", "-", self.url],
             input=sql, capture_output=True, text=True,
@@ -525,7 +569,7 @@ class _Postgres(object):
         # READY italiano — acentos por todo o lado — chegava mutilado ou
         # recusado pelo banco UTF-8. O pousar escrevia lixo com cara de PASS.
         r = subprocess.run(
-            ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
+            [self._psql_exe(), "-X", "-q", "-A", "-t", "-F", self.SEP,
              "-R", self.SEP_LINHA,
              "-v", "ON_ERROR_STOP=1", "--single-transaction", "-f", "-", self.url],
             input=script, capture_output=True, text=True,
@@ -796,6 +840,12 @@ def exigir_canonica():
         raise SalaIndisponivel(
             "a sala canonica nao esta activa (BACKEND=%s · CANONICO=%s): %s"
             % (e["BACKEND"], e["CANONICO"], e["PORQUE"]))
+    # ⚠️ CONFIGURACAO NAO E CONETIVIDADE. Ate 2026-09-17 o portao parava aqui
+    # e dizia PASS; o replay canario 3 passou por ele e morreu na primeira
+    # chamada ao psql. Agora o portao FALA com o banco, pelo mesmo psql que o
+    # runtime vai usar: `select 1`, inofensivo, antes de qualquer rede. Sem
+    # executavel ou sem resposta, levanta — e o workflow para no 5b.
+    e.update(backend().sondar())
     return e
 
 
@@ -890,8 +940,11 @@ def main(argv=None):
             print("  %s" % erro)
             print("  COLETAR PARA UMA SALA QUE NAO SOBREVIVE E PAGAR REDE POR NADA.")
             return 1
-        print("SALA_DE_ESPERA=PASS · BACKEND=%s" % e["BACKEND"])
+        print("SALA_DE_ESPERA=PASS · BACKEND=%s · SONDA=%s · PSQL_ORIGEM=%s"
+              % (e["BACKEND"], e.get("SONDA"), e.get("PSQL_ORIGEM")))
         print("  %s" % e["PORQUE"])
+        if e.get("PSQL"):
+            print("  psql: %s" % e["PSQL"])
         return 0
     print(__doc__.strip().split("\n")[0])
     e = estado_operacional()

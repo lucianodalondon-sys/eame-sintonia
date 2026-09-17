@@ -58,6 +58,7 @@ pacote global só para uma porta continua proibido nesta casa.
 import re
 import subprocess
 
+from guarda.cliente_postgres import resolver_psql
 from guarda.preservar_derivado import MemoriaDoDerivado
 
 _SEGREDO = re.compile(r"postgres(ql)?://[^\s\"']*")
@@ -111,8 +112,15 @@ class MemoriaPostgres(MemoriaDoDerivado):
         leu `-v -t`, a saída voltou com cabeçalho e rodapé, e
         `int('count\\n0\\n(1 row)')` rebentou no CI. Não se conserta isso a
         apanhar `(1 row)` com as mãos: conserta-se pedindo a saída certa.
+
+        ⚠️ A CABEÇA DA LISTA NÃO É `"psql"`. O replay canário 3 (run GitHub
+        35232024024, know-how §135) caiu AQUI com `FileNotFoundError`: o
+        Python do job não tinha `psql` no PATH, e o nome nu confiava nele.
+        Quem diz qual executável usar é `guarda/cliente_postgres.py` — a
+        declaração `SINTONIA_PSQL_EXE`, ou o PATH quando nada está declarado,
+        e falha fechada quando nenhum serve. Nunca um caminho inventado.
         """
-        cmd = ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
+        cmd = [resolver_psql(), "-X", "-q", "-A", "-t", "-F", self.SEP,
                "-v", "ON_ERROR_STOP=1", "-f", "-", self.url]
         r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
@@ -134,7 +142,7 @@ class MemoriaPostgres(MemoriaDoDerivado):
         # da máquina (cp1252 no Windows) e o texto do documento chegava
         # mutilado ao banco UTF-8. Mesma lei do `_psql` acima.
         self.aplicacoes += 1
-        r = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1",
+        r = subprocess.run([resolver_psql(), "-X", "-q", "-v", "ON_ERROR_STOP=1",
                             "-f", "-", self.url],
                            input=sql, capture_output=True, text=True,
                            encoding="utf-8", errors="replace")
