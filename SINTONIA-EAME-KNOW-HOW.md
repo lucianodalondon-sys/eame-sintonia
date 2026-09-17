@@ -10,7 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§134**: o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§138**: o primeiro `COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK` deu **FAIL** (candidato `d37cb192`, trunk `9d6dcbbd` **intocado**) por DOIS blockers que não são do fluxo: um carimbo `<!--M:TEST_COUNT_CURRENT-->` digitado à mão fora do dono (`4414`, commit `8cf2a272`) e um teste que ainda exigia o contrato antigo `psql -c` quando o runtime manda o SQL por stdin com `-f -`. Fecho cirúrgico nesta secção: o dono corrido (8 documentos → `4.478`, drift zero) e o teste alinhado ao contrato real (red team 20 mutantes / 20 mortos; independente do psql da máquina). `INTEGRATION_BLOCKERS_FIX = PASS` · `COLLECTION_INTEGRATION_GATE = NOT_RERUN` · `COLLECTION_IN_TRUNK = NO`. Achado novo, NÃO corrigido, entregue à coordenação: `test_canonico` e `test_handoff` exigem o número SEM ponto de milhar e o dono escreve COM ponto — é esse conflito que levou alguém a digitar `4414`. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§133 (2026-09-17):** o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`). Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou.
 **§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§131 (2026-09-17, revisto no mesmo dia):** a revisão independente deu FAIL por UM blocker que não é a coleta (a isenção da porta de produção operava por ficheiro prometendo linha), e o blocker foi **FECHADO** em missão própria (commit `7f7d31ef`), validado por red team independente em **4 rounds até zero** — os furos de cada round (espaço dobrado, `run: >` e cabeçalhos `>2`/`> #`, plain scalar multilinha, isca inline) viraram regressão versionada. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado**. Falta só o replay canário pelo workflow real. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -16597,4 +16598,129 @@ NAO reescreve §130–§136. NAO corrigiu nada. NAO fez replay 5. NAO correu orq
 NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO integrou trunk. NAO tocou produção, migration LIVE, Intelligence, Portal, deploy.
 Dono canónico do detalhe: docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md §19.
+```
+
+---
+
+# §138 · O PRIMEIRO GATE DE INTEGRAÇÃO COLLECTION→TRUNK REPROVOU POR DOIS BLOCKERS QUE NÃO ERAM DO FLUXO — E A CIRURGIA FOI MÍNIMA
+
+## O QUE MUDOU
+
+```
+COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK (1.ª corrida) = FAIL    2026-09-17 · gate independente · candidato d37cb192 · trunk 9d6dcbbd
+COLLECTION_IN_TRUNK                                      = NO      o trunk ficou INTOCADO; a topologia continua a permitir fast-forward (23 à frente / 0 atrás)
+INTEGRATION_BLOCKERS_FIX                                 = PASS    esta secção · missão cirúrgica, dois blockers, nada mais
+MANUAL_METRIC_STAMP_BLOCKER                              = CLOSED  o dono corrido: 8 documentos → 4.478 · sync(check_only=True) = []
+STALE_PSQL_TEST_BLOCKER                                  = CLOSED  o teste prova `-f -` + stdin UTF-8 e PROÍBE `-c` · red team 20 mutantes / 20 mortos
+COLLECTION_INTEGRATION_GATE                              = NOT_RERUN   quem corrige os blockers não corre o gate na mesma missão
+BIG_COLLECTION                                           = NÃO AUTORIZADA
+```
+
+## O QUE · POR QUÊ · PROVA · CONSEQUÊNCIA
+
+```
+O QUE        o primeiro gate de coordenação Collection→trunk reprovou ANTES da integração por dois blockers
+             não funcionais do fluxo: um marcador canónico editado fora do dono, e um teste stale do contrato
+             antigo `psql -c`. O runtime estava certo; o pacote não era coerente.
+POR QUÊ      integração exige PACOTE COERENTE, não apenas runtime a funcionar. Um número digitado à mão e um
+             teste que defende um defeito já curado são, cada um, motivo bastante — a missão do gate proibia
+             «estado gerado manualmente» e NEW_FAILURES > 0.
+PROVA        gate independente (sessão nova, trunk noutro worktree); teste que passa no trunk e falha no
+             candidato (test_1_a_saida_e_pedida_sem_cabecalho_nem_rodape); dono das métricas identificado
+             (pacote/metricas_canonicas.py --sync); runtime atual (guarda/memoria_postgres.py) a usar
+             `-f -` + input=sql + encoding utf-8, de propósito, desde o §130/§136.
+CONSEQUÊNCIA trunk intocado; o candidato precisou de cirurgia mínima (esta secção) e precisa de NOVA revisão
+             independente. Esta secção NÃO declara integração feita.
+```
+
+## OS DOIS BLOCKERS, TAL COMO ERAM
+
+```
+BLOCKER 1    docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md:9 — `<!--M:TEST_COUNT_CURRENT-->4414<!--/M-->`, digitado no
+             commit 8cf2a272. O dono escreve «4.414» (com ponto de milhar) e muda os 8 consumidores de uma vez;
+             só um mudou, e sem ponto. A mensagem do commit diz porquê: «exigido por test_canonico — que voltou a
+             VERDE». Ou seja: o número foi digitado PARA PÔR UM TESTE VERDE. É exatamente o defeito que o dono das
+             métricas existe para impedir (cabeçalho de pacote/metricas_canonicas.py).
+BLOCKER 2    tests/test_preservar_coleta_no_banco.py::AProvaEmPostgresEACuaTranca::test_1 exigia `-c` no argv.
+             O adaptador canónico manda o SQL por stdin (`-f -`) desde o §130 (0x92 da Campania: texto acentuado
+             não viaja em argv no Windows). Nesta máquina, sem psql no PATH, a falha aparecia ANTES do `-c`:
+             ClientePostgresAusente — o teste dependia do psql da máquina para medir uma montagem de lista.
+```
+
+## COMO SE FECHOU — E O QUE NÃO SE TOCOU
+
+```
+BLOCKER 1    py pacote/metricas_canonicas.py --sync           (o interpretador `py` desta máquina, o mesmo do gate)
+             8 ficheiros: docs/apresentacao/PILOTO-CLASSIFICACAO.md · docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md ·
+             docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md (4414→4.478) · docs/piloto/O-QUE-PODEMOS-DIZER.md ·
+             docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md · docs/piloto/VEREDITO-M10-HANDOFF.md ·
+             docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md · HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md (4.359→4.478)
+             sync(check_only=True) antes = 8 desatualizados · depois = []   ·   ZERO edição manual
+             tests/test_metricas.py pelo `py` canónico: verde.
+BLOCKER 2    SÓ o teste mudou. O runtime NÃO foi tocado. O teste agora prova:
+             argv  = <psql resolvido> -X -q -A -t -F <SEP> -v ON_ERROR_STOP=1 -f - <DSN>   (DSN em último)
+             stdin = o SQL · text=True · encoding="utf-8" · capture_output   ·   `-c` PROIBIDO · SQL fora do argv
+             a cabeça da lista é o que guarda/cliente_postgres.resolver_psql devolveu — substituída no teste por um
+             executável fictício, patch no NOME que guarda/memoria_postgres importou; o subprocess.run espiado é
+             o mesmo de antes, e passou a guardar os kwargs.
+RED TEAM     20 mutantes do _psql, 20 mortos: sem -A · sem -t · -v sem valor · -F sem SEP · volta -c · -c E -f ·
+             -f ficheiro · SQL fora do input · SQL no argv E no input · encoding cp1252 · sem encoding · implementação
+             antiga (psql nu + -c) · cabeça nua · DSN adiantada · sem text · sem capture_output · flags por índice ·
+             sem -X · sem -q · sem -f.
+             Independência do psql da máquina: PASS sem declaração e sem PATH · PASS com SINTONIA_PSQL_EXE inválido ·
+             PASS com psql real no PATH · PASS com PATH=só system32.
+POSTGRES     provas/o_cliente_psql_e_declarado.py 35/35 PASS · provas/a_porta_cli_liga_o_banco.py 36 casos PASS ·
+             provas/preservar_coleta_no_postgres.py 19 casos PASS — cluster portátil descartável, teardown
+             {PORTO_VIVO: false, CLUSTER_SOBROU: false}, worktree limpa depois. objeto_e_observacao NÃO reaberta.
+REGRESSÃO    a lista exata dos 13 ficheiros do gate não está preservada neste repositório; correram os 10 que a
+             missão nomeou + 5 (test_metricas, test_handoff, test_canonico, test_a_sala_de_espera_tem_um_dono,
+             test_o_censo_da_sala_de_espera), comparados PELO NOME no candidato, antes e depois:
+             antes  10 ficheiros → 3 failed · 195 passed · 8 skipped ;  5 extras → 16 failed · 88 passed
+             depois 15 ficheiros → 18 failed · 284 passed · 8 skipped
+             NEW_FAILURES = 0 · NEW_ERRORS = 0 · curado: test_1_a_saida_e_pedida_sem_cabecalho_nem_rodape
+             (o teste do censo escreve data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json — revertido, como no §18.5)
+```
+
+## O QUE SE APRENDEU
+
+```
+1 · O TESTE SERVE AO CONTRATO. O CONTRATO NÃO SE REVERTE PARA SERVIR AO TESTE. Um teste verde no trunk e vermelho no
+    candidato não é, por si, prova de regressão: pode ser o teste a defender o defeito que o candidato curou. Lê-se o
+    contrato primeiro, e só depois se decide quem muda. Aqui mudou o teste, e o runtime ficou como estava.
+
+2 · UM NÚMERO DIGITADO PARA PÔR UM TESTE VERDE É O DEFEITO QUE O DONO EXISTE PARA IMPEDIR — e o commit 8cf2a272
+    disse-o na própria mensagem. Quando um teste só fica verde com um valor escrito à mão, o problema é do TESTE ou
+    do DONO, nunca da mão. Achado, medido, NÃO corrigido (fora do escopo desta cirurgia):
+      · tests/test_canonico.py:327 exige `TESTES_REAIS = 4478` (inteiro cru) — regex de 2026-08-28 (1e3f5bb5);
+      · tests/test_handoff.py:125 exige `**4478 testes` (inteiro cru);
+      · o dono escreve `4.478` (ponto de milhar) desde 2026-09-07 (b8321b07).
+    Os dois testes e o dono discordam do FORMATO do mesmo número. O trunk tem o mesmo conflito (o documento do trunk
+    diz `4.359`). Os dois testes estão vermelhos antes e depois desta missão, pelo mesmo nome — não é regressão, é
+    uma lei em dois sítios com duas grafias. Decisão de coordenação: ou o dono escreve o inteiro cru, ou as regex
+    aceitam o ponto. Nunca uma mão a escolher por eles.
+
+3 · O VALOR DO DONO DEPENDE DE QUE MÓDULOS CARREGAM. unittest.discover().countTestCases() conta 1 por módulo que
+    NÃO carrega. Com o `py` desta máquina: 13 módulos não carregam → 4.478. Com o site-packages emprestado (que traz
+    PyYAML): 11 não carregam (test_c10_4c_rota_aposentada e test_c10_6d_portas_canonicas passam a contar) → 4.521.
+    O carimbo publicado é o do interpretador canónico — o mesmo com que o gate mediu «4.478». Medir SEMPRE com o
+    mesmo interpretador; e um carimbo diferente noutro ambiente não é drift do documento, é ambiente diferente.
+    Fica dito para quem ler «4.521 not found» num pytest com PYTHONPATH emprestado.
+
+4 · UM TESTE DE MONTAGEM DE COMANDO NÃO PODE PRECISAR DO COMANDO INSTALADO. A pergunta é «que lista e que stdin o
+    adaptador pediu?», não «há PostgreSQL aqui?». Substitui-se o DONO da resolução (o nome importado pelo adaptador),
+    não o subprocess a mais nem as flags. Antes, o teste caía em ClientePostgresAusente sem medir nada.
+
+5 · ARGV É CONFIGURAÇÃO. STDIN É CONTEÚDO. O SQL nunca mais aparece na lista; o teste passou a afirmar isso
+    (assertNotIn "select 1" no argv), para que voltar ao `-c` seja vermelho e não silêncio.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO reescreve §130–§137. NAO integrou trunk. NAO fez fast-forward. NAO correu o gate de integração.
+NAO fez replay 5, NAO coleta, NAO segunda fonte, NAO Big Collection, NAO produção, NAO migration LIVE, NAO deploy.
+NAO corrigiu os riscos não bloqueantes do gate: fallback SUPABASE_DB_URL na Sala · dois ficheiros cross-lane com
+"psql" nu · PDFs de XX/ contados pelo mapa · replay 4 na mesma sessão do fix. NAO corrigiu o conflito de formato
+do ponto 2 — está entregue à coordenação.
+NEXT_STEP = NOVA SESSÃO INDEPENDENTE NA LINHA IT OFICIAL → RERUN COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK.
 ```

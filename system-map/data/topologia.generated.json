@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-17T16:59:54+00:00",
-  "HEAD": "bfda37229dadf09f0d38faa28f2ed9b98210773b",
+  "GENERATED_AT": "2026-09-17T22:14:00+00:00",
+  "HEAD": "d37cb1926e417fc4306176f688c829bfb79ca61c",
   "BRANCH": "claude/it-collection-sala-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a707a3960919d86cad6ba3ee9612f05107af0fe1bc0cd7444ec17b5f2f70bcc3",
+  "SOURCE_TREE_FINGERPRINT": "bd71a00eb051e1d259d7c97fb71394bcbd88566d0f0c2ad86802fa62c6c6b543",
   "FICHEIROS_NA_IMPRESSAO": 2228,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2946,14 +2946,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a707a3960919d86cad6ba3ee9612f05107af0fe1bc0cd7444ec17b5f2f70bcc3",
+    "VERSAO": "bd71a00eb051e1d259d7c97fb71394bcbd88566d0f0c2ad86802fa62c6c6b543",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a707a3960919d86cad6ba3ee9612f05107af0fe1bc0cd7444ec17b5f2f70bcc3",
+    "VERSAO": "bd71a00eb051e1d259d7c97fb71394bcbd88566d0f0c2ad86802fa62c6c6b543",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4227,7 +4227,7 @@
    {
     "PATH": "tests/test_preservar_coleta_no_banco.py",
     "PAPEL": "FONTE",
-    "VERSAO": "2d64960608affca0e3101dde4e3c8ebec6b4e1e8",
+    "VERSAO": "6fb6e3bdc141112f8d3a8337409ba54ed861a404",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4520,7 +4520,7 @@
    }
   ],
   "INPUTS_COUNT": 640,
-  "INPUTS_DIGEST": "9703a47b22f4b74a3c8bc5b0ab91e2110a1d17ae182838243119f678f260d4ab",
+  "INPUTS_DIGEST": "76e2fd089170d87641a53db15f6420bdec29efbc40ffdc0506839fc6a7fee9eb",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4553,8 +4553,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "09605122b8d1ce0552e5d74929e1af94b5a4490594a92508299f1306accee422",
-  "SEMANTIC_HASH": "a7fa76c224ecdb4463f5fee69783816a2fdaca5d0592bb379741d04b2dca125e"
+  "MEASUREMENT_HASH": "2420bc18ae8a9c3a0368d6d32c43b80be5fab333e23842bdbc7cab552d1ca94e",
+  "SEMANTIC_HASH": "9c9c16c1a78bd294431175bc83c2b9fd666289903611a80f4635d4bf78a72d61"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15434,7 +15434,7 @@
      },
      {
       "FICHEIRO": "tests/test_preservar_coleta_no_banco.py",
-      "LINHA": 654,
+      "LINHA": 701,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
@@ -40340,6 +40340,7 @@
    "DOCUMENTADO_COMO_CLI": [
     "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
     "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+    "SINTONIA-EAME-KNOW-HOW.md",
     "docs/operacao/CENSO-SALA-DE-ESPERA-ANTES-DA-BIG-COLLECTION-V1.md"
    ],
    "E_ENTRYPOINT": false,
@@ -43823,6 +43824,7 @@
     "sala_de_espera",
     "sqlite_master",
     "test_italia_na_porta_canonica",
+    "unittest",
     "urllib",
     "v",
     "v_coleta_por_hora",
