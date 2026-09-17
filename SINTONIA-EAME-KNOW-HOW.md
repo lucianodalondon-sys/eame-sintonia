@@ -10,10 +10,13 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-16 — **§130**: a primeira coleta controlada ACONTECEU. `SOURCE_TO_SALA_REAL_OBSERVED = YES` — aquisição real, egresso IT por corrida, porta canónica, Postgres descartável, 6/6 fontes executadas até à verdade de cada uma, 4 unidades na Sala relidas por outro processo, reexecução com reuso provada no banco. BG-01..06 fechados na mesma janela — e o sétimo defeito, que nenhum plano tinha visto: **texto acentuado em argv atravessa a conversão ANSI do Windows**; dado passa a viajar por stdin em UTF-8 explícito. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§131**: a revisão independente correu e deu **FAIL por UM blocker que não é a coleta**: a isenção nova em `tests/test_porta_de_producao.py` opera sobre o ficheiro inteiro quando promete operar sobre a linha (o `sem_comentarios` faz join antes do `splitlines`), e um escritor novo de produção esconde-se com uma isca. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado** — nenhum contraexemplo derrubou o observado. Replay do workflow adiado por contrato da revisão. `BIG_COLLECTION = NÃO AUTORIZADA`.
+
+**§130 (2026-09-16):** a primeira coleta controlada ACONTECEU. `SOURCE_TO_SALA_REAL_OBSERVED = YES` — aquisição real, egresso IT por corrida, porta canónica, Postgres descartável, 6/6 fontes executadas até à verdade de cada uma, 4 unidades na Sala — **3 relidas por outro processo; a do T3-008 não foi medida (a bancada morreu antes; correção da revisão §131)** —, reexecução com reuso provada no banco. BG-01..06 fechados na mesma janela — e o sétimo defeito, que nenhum plano tinha visto: **texto acentuado em argv atravessa a conversão ANSI do Windows**; dado passa a viajar por stdin em UTF-8 explícito. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Integração da Sources — FEITA (2026-09-16):** `SOURCES_INTEGRATED = SIM` · `INTEGRATION_MODE = FAST_FORWARD`. Fotografia histórica daquele momento, não estado a manter: o trunk `claude/it-trunk-v1` saiu de `8ad9d9a263a0557040642722459373e6dae3f396` e passou a apontar para `f887b016ef65bd862652874503dd8af673f45a76`, que era a cabeça de `claude/it-sources-atlas-v1` (9 à frente / 0 atrás, merge-base = trunk). O fast-forward não criou commit novo; o commit de recalibração do System Map vem **depois** desta linha e fica à frente dela. (O ponteiro anterior, «PREPARAR ADAMA REFERENCE» com trunk `f888b363` / Reference `91998964` / Sources `2f0863d1`, ficou cumprido pelos commits `db8de065`…`3bdb34ba`.)
 **Passo anterior — CUMPRIDO (2026-09-16):** FECHAR OS SEIS PORTÕES **e** executar a primeira coleta controlada (§130). Plano com o fecho e a execução: `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §7-B/§7-C/§10-C.
-**Próximo passo autorizado (2026-09-16):** REVISÃO INDEPENDENTE da primeira coleta antes de qualquer escala — e as dívidas nomeadas no §130 (flake de spawn do psql, crash-recovery, derivador CSV/HTML, regra T2). ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Passo anterior — CUMPRIDO (2026-09-17):** REVISÃO INDEPENDENTE da primeira coleta (§131). Veredito: FAIL por um blocker (guarda da porta de produção), com a prova da coleta **sustentada**. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md`.
+**Próximo passo autorizado (2026-09-17):** consertar a isenção da guarda da porta de produção (granularidade de linha física + teste-contraexemplo, §131) — por missão que **não** seja o revisor — e então o `INDEPENDENT_WORKFLOW_CANARY_REPLAY` (IT-T3-002 pela fase `italia-documento`, teardown medido fisicamente). Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -15775,4 +15778,83 @@ NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO promove IT-T3-005 nem candidata nenhuma.
 NAO tocou producao, migration LIVE, Intelligence, Portal ou deploy.
 NAO fabricou retry nem crash para encher tabela de provas.
+```
+
+---
+
+# §131 · A REVISÃO INDEPENDENTE SUSTENTOU A COLETA — E REPROVOU A ENTREGA POR UM TESTE DE SEGURANÇA
+
+## O QUE MUDOU
+
+```
+INDEPENDENT_FIRST_COLLECTION_REVIEW = FAIL        2026-09-17
+SOURCE_TO_SALA_REAL_OBSERVED        = YES         SUSTENTADO pela revisão
+COLLECTION_INTEGRATION_CANDIDATE    = NO          até fechar o blocker
+WORKFLOW_REPLAY                     = ADIADO      por contrato da revisão
+```
+
+Um revisor que não implementou nada auditou os 10 commits
+(`9d6dcbbd..7d75e25a`), reconstruiu a prova a partir do observado sem passar
+pelo relatório humano, tentou derrubar o canário, as identidades, o reuso, o
+T3-008 e as seis fontes — **e não conseguiu**. A coleta fica de pé. Dono
+canônico da revisão: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md`.
+
+O FAIL vem de outra coisa: a própria entrega afrouxou uma guarda.
+
+## A LIÇÃO DURÁVEL — UMA ISENÇÃO POR LINHA, ESCRITA DEPOIS DE UM JOIN, É UMA ISENÇÃO POR FICHEIRO
+
+`tests/test_porta_de_producao.py` ganhou uma isenção para a bancada italiana
+(«só a MESMA linha com `@localhost` e `/descartavel`»). Mas o texto que chega
+à isenção já passou por `sem_comentarios()`, que faz `" ".join(...)` — o YAML
+inteiro vira UMA linha, e o `for linha in texto.splitlines()` itera sobre ela.
+Medido na revisão, com a lógica literal do teste:
+
+```
+acrescentar `cadeia_canonica.sh migrations "$SUPABASE_DB_URL"` ao
+sintonia-scrap.yml            → guarda nova NÃO ACUSA · regra antiga ACUSAVA
+
+ficheiro novo com o escritor + um echo benigno
+`...@localhost:54329/descartavel` noutra linha
+                              → NÃO ACUSA (a isca isenta o ficheiro)
+```
+
+    QUEM ESCREVE «MESMA LINHA» TEM DE PROVAR QUE AINDA HÁ LINHAS.
+    DEPOIS DE UM JOIN, A GRANULARIDADE PROMETIDA JÁ NÃO EXISTE —
+    E UMA GUARDA DE SEGURANÇA COM GRANULARIDADE ERRADA NÃO AVISA NINGUÉM.
+
+Conserto mínimo (missão futura, NÃO o revisor): isenção sobre as linhas
+FÍSICAS do YAML + teste-contraexemplo com o escritor malicioso acima.
+
+## O QUE MAIS A REVISÃO MEDIU (e onde está escrito)
+
+```
+NEW_FAILURES=0 · NEW_ERRORS=0     89 testes dirigidos; a única falha é
+                                  pré-existente e declarada pelo próprio commit
+BG-01..06                         reconfirmados; BG-01 é código+teste de YAML,
+                                  WORKFLOW_EXECUTED=NO — o replay continua devido
+System Map                        REGERAR_EXIT=0 · VALIDAR_EXIT=0 · PASS
+Produção                          sem caminho executável até a Sala de produção
+                                  no workflow commitado (set -eu, zero
+                                  continue-on-error); MAS a defesa é UMA linha
+                                  de echo — 5b não distingue descartável de
+                                  produção, e `_e_descartavel` tem furo
+                                  `?host=` (pré-existente, provado no metal)
+Correção de leitura               §130 dizia «4 unidades relidas»: são 4 na
+                                  Sala, 3 relidas — a do T3-008 não foi medida
+Migrations                        32 ficheiros, 31 aplicáveis (008 é
+                                  verificação, fora por desenho) — 31/31 honesto
+Prova espaço/acento (BG-03)       não existia versionada; o mecanismo
+                                  pathToFileURL foi provado à parte na revisão
+psql fora do perímetro            6 chamadas DSN-à-frente restam em provas/*.sh
+                                  (ubuntu ou sem chamador); a guarda AST não
+                                  varre provas/*.sh
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO reescreve a história da primeira coleta — ela ACONTECEU (§130).
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO corrigiu código nenhum: revisor que conserta e revê o próprio conserto
+    não é revisor.
 ```
