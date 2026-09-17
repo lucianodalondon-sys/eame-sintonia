@@ -10,7 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-17 — **§132**: o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Última atualização material:** 2026-09-17 — **§133**: o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`) — provas/ e portas_live viraram subclasses. Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team de arquitetura 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou. Falta o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2`, por sessão nova. `BIG_COLLECTION = NÃO AUTORIZADA`.
+**§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§131 (2026-09-17, revisto no mesmo dia):** a revisão independente deu FAIL por UM blocker que não é a coleta (a isenção da porta de produção operava por ficheiro prometendo linha), e o blocker foi **FECHADO** em missão própria (commit `7f7d31ef`), validado por red team independente em **4 rounds até zero** — os furos de cada round (espaço dobrado, `run: >` e cabeçalhos `>2`/`> #`, plain scalar multilinha, isca inline) viraram regressão versionada. `SOURCE_TO_SALA_REAL_OBSERVED = YES` **sustentado**. Falta só o replay canário pelo workflow real. `BIG_COLLECTION = NÃO AUTORIZADA`.
 
 **§130 (2026-09-16):** a primeira coleta controlada ACONTECEU. `SOURCE_TO_SALA_REAL_OBSERVED = YES` — aquisição real, egresso IT por corrida, porta canónica, Postgres descartável, 6/6 fontes executadas até à verdade de cada uma, 4 unidades na Sala — **3 relidas por outro processo; a do T3-008 não foi medida (a bancada morreu antes; correção da revisão §131)** —, reexecução com reuso provada no banco. BG-01..06 fechados na mesma janela — e o sétimo defeito, que nenhum plano tinha visto: **texto acentuado em argv atravessa a conversão ANSI do Windows**; dado passa a viajar por stdin em UTF-8 explícito. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -18,7 +19,8 @@
 **Passo anterior — CUMPRIDO (2026-09-16):** FECHAR OS SEIS PORTÕES **e** executar a primeira coleta controlada (§130). Plano com o fecho e a execução: `docs/operacao/PRIMEIRA-COLETA-CONTROLADA-ITALIA-V1.md` §7-B/§7-C/§10-C.
 **Passo anterior — CUMPRIDO (2026-09-17):** REVISÃO INDEPENDENTE da primeira coleta (§131, veredito FAIL com a prova da coleta **sustentada**) **e** o fecho do blocker dela (commit `7f7d31ef`, red team 4 rounds → 0). Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` (§13 = o fecho).
 **Passo anterior — CUMPRIDO (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY` (§132) — executado por missão independente, veredito **FAIL** com a coleta do §130 **mantida**: o workflow corre, a estrada parte-se em STORAGE pela porta CLI do orquestrador. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14.
-**Próximo passo autorizado (2026-09-17):** consertar a porta CLI do orquestrador (ligar `memoria`/`banco_do_rastro` quando o ambiente declara o banco descartável, com a trava `_e_descartavel`) **ou** decidir que o workflow chama a porta que liga — decisão de desenho da coordenação, UMA porta e não duas — por missão que **não** seja o revisor do §132; mais um teste que EXECUTE a porta CLI contra um banco descartável e exija `RAW_OBSERVATIONS >= 1`. Só depois: novo replay canário independente com teardown físico, e só então candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
+**Passo anterior — CUMPRIDO (2026-09-17):** `CLI_POSTGRES_BINDING_FIX` (§133) — a porta CLI liga o banco descartável declarado; trava e adaptador promovidos a `guarda/`; prova como processo contra Postgres real; red team 0 blockers. Dono do blocker: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §15.
+**Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **sessão nova** (quem consertou não dispara), com teardown medido fisicamente e exigindo `RAW_OBSERVATIONS >= 1` e `PERSISTENCIA = DESCARTAVEL` no recibo — `conclusion=success` já enganou uma vez. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
 
 ---
@@ -16006,4 +16008,141 @@ NAO reescreve o §130 — a primeira coleta ACONTECEU pela porta em processo.
 NAO corrigiu código nenhum: revisor que conserta e revê o próprio conserto não é revisor.
 NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
 NAO tocou produção, migration LIVE, Intelligence, Portal, deploy ou trunk.
+```
+
+---
+
+# §133 · A PORTA CLI PASSOU A LIGAR O BANCO — E A PROVA DEIXOU DE SER A ÚNICA PORTA QUE LIGAVA
+
+## O QUE MUDOU
+
+```
+CLI_POSTGRES_BINDING_FIX          = PASS         2026-09-17
+WORKFLOW_REPLAY_BLOCKER           = CLOSED       o do §132 (run 35215565657) — no código; no workflow, por provar
+WORKFLOW_REAL_CANARY_REPLAY_2     = NOT_RUN      quem conserta não revê o próprio conserto
+COLLECTION_INTEGRATION_CANDIDATE  = NOT_YET      espera o replay 2, por sessão nova
+```
+
+A porta de linha de comando do orquestrador — a que o `sintonia-scrap.yml`
+chama — passou a COMPOR a persistência antes de `correr()`:
+
+```
+orquestrador/orquestrador.py::main()
+    runtime = persistencia.dependencias_do_runtime()      # lê SÓ BANCO_DESCARTAVEL_URL
+    correr(p, ..., memoria=runtime.memoria, banco_do_rastro=runtime.banco_do_rastro)
+    recibo["PERSISTENCIA"] = {ESTADO: DESCARTAVEL | AUSENTE, MORADA, AMBIENTE_RETIRADO, PORQUE, ...}
+```
+
+E as três peças que faltavam ao runtime mudaram de casa, sem cópia:
+
+```
+guarda/banco_descartavel.py     a trava — UMA — que decompõe a URL e fecha as portas laterais
+                                (?host=, hostaddr, service, dbname, host parecido) e nomeia as
+                                variáveis PG* que a libpq lê por baixo da URL
+guarda/memoria_postgres.py      o adaptador Postgres canónico (psql por stdin UTF-8, DSN em último,
+                                id inteiro, tempo normalizado, erro sem segredo)
+orquestrador/persistencia.py    a composição: fail closed, sem efeito no import, sem fallback para
+                                SUPABASE_DB_URL nem SINTONIA_SALA_DSN; com a bancada declarada tira
+                                PGHOST/PGHOSTADDR/PGPORT/PGDATABASE/PGSERVICE/PGSERVICEFILE/PGOPTIONS
+                                do ambiente do processo e escreve-o no recibo
+```
+
+`provas/preservar_coleta_no_postgres.py` e `guarda/portas_live.MemoriaSupabase`
+passaram a SUBCLASSES do adaptador canónico: a prova acrescenta só a trava à
+entrada; a porta LIVE só sabe de onde vem a URL — e, de caminho, deixou o
+`-c` em argv (o defeito do Windows do §130) e ganhou `documento_do_derivado`.
+Um dialeto, uma implementação, três chamadores.
+`provas/a_sala_sobrevive_ao_processo.py` deixou a trava por pedaços de texto
+e importa a canónica. O workflow NÃO mudou uma linha.
+
+## POR QUÊ — A LIÇÃO DURÁVEL
+
+```
+PROVA NÃO É RUNTIME.
+    O adaptador Postgres completo desta casa vivia em provas/. O runtime não
+    o podia importar — e, como não importava, corria sem memória. A prova
+    passava porque LIGAVA O BANCO POR FORA (orq.correr(memoria=...)). O
+    workflow usa outra porta. §132 mediu o preço: banco criado, migrado,
+    aprovado pelo portão, nunca escrito.
+
+DEPENDÊNCIA DECLARADA != DEPENDÊNCIA LIGADA.
+    BANCO_DESCARTAVEL_URL estava no ambiente do job. Ninguém a lia.
+
+A PORTA QUE A PROVA USA TEM DE SER A PORTA QUE O WORKFLOW USA.
+    Por isso a prova nova NÃO chama correr(): sobe um Postgres 16, aplica as
+    migrations pela cadeia canónica, e lança orquestrador/orquestrador.py
+    COMO PROCESSO, com a variável no ambiente e nada passado por Python.
+
+A TRAVA OLHA PARA A URL; O CARTEIRO TAMBÉM LÊ OS BILHETES NA PAREDE.
+    Medido pelo red team na libpq real: `?dbname=postgres` troca o banco por
+    baixo da morada, e `PGHOSTADDR=52.1.2.3` manda a ligação para fora com a
+    URL a dizer localhost. Uma trava de URL sem limpar o ambiente é meia trava.
+
+UMA PORTA PRODUTIVA — não «porta CLI partida + porta de prova a funcionar».
+UMA TRAVA — não três travas divergentes.
+```
+
+## PROVA
+
+```
+provas/a_porta_cli_liga_o_banco.py      36 casos · CLI_POSTGRES_BINDING_PROVEN=PASS · ~1 min
+    banco       Postgres 16.4 portátil, 127.0.0.1:<porto livre>/descartavel, nasce e morre na prova
+    migrations  cadeia canónica, 31 PASS
+    porta       py orquestrador/orquestrador.py "colete clima" --filtro pais=IT --filtro fonte=IT-T2-002
+                   --so-a-porta --colheita-da-corrida=<fixture>      (reprocessamento; NETWORK_REAL = 0)
+    fixture     boletim ARPAV versionado (agro_01.pdf, sha f88c89d7…), livro e envelope declarados
+                pelo próprio italy_executor.colher() num ITALY_OPS_ROOT descartável
+    no banco    RUN_ROWS=1 · RAW_OBSERVATIONS=1 · raw_asset.id inteiro · storage_object ligado ·
+                DERIVED=1 · STRUCTURED=1 · etapa_da_corrida RAW=PASS DERIVED=PASS · RUN_ID recibo == banco
+    2ª corrida  mesmos bytes → nova RUN, nova observação (id 2), UM storage_object, derivado REUSED
+    ataques     Supabase em BANCO_DESCARTAVEL_URL → exit 2 BANCO_RECUSADO antes de escrever (manifesto
+                e collection_run intocados); ?host=db.remoto → recusado; PGHOSTADDR=127.0.0.2 +
+                PGSERVICE no ambiente → a corrida escreve na bancada na mesma e o recibo lista as duas
+                variáveis retiradas; sem a variável e com SUPABASE_DB_URL no ambiente →
+                PERSISTENCIA=AUSENTE, RASTRO=NAO_EMITIDO, zero linhas em banco nenhum
+    caminho fixo RUN-MANIFEST.json e LIVRO-DE-DECISOES.json fotografados, restaurados byte a byte,
+                e o `git status` deles igual ao de antes
+    teardown    porto fechado, cluster removido, pasta da fixture removida
+tests/test_a_porta_cli_liga_o_banco.py  23 testes: trava (incl. dbname, PG*), composição (incl. o
+                                        ambiente do processo), AST do main(), workflow inalterado, runtime
+                                        não importa provas/ (por nome nu também — com as DUAS dívidas
+                                        pré-existentes nomeadas), um só _psql em guarda/, a prova como processo
+red team de arquitetura                 agente separado, só leitura, 19 ataques → 0 blockers; os 3 achados
+                                        (dbname, PG*, teste cego ao nome nu) fechados na mesma missão
+regressão                               28 ficheiros de teste: 11 vermelhos ANTES = 11 vermelhos DEPOIS, pelos
+                                        mesmos nomes (todos pré-existentes, Windows/separador/-c antigo);
+                                        583 verdes = 562 + 21 novos · NEW_FAILURES = 0 · NEW_ERRORS = 0
+```
+
+## CONSEQUÊNCIA
+
+```
+1 · o blocker do §132 está fechado NO CÓDIGO; falta prová-lo NO WORKFLOW — e isso é o
+    INDEPENDENT_WORKFLOW_CANARY_REPLAY_2 (IT-T3-002), por sessão nova. Quem consertou
+    não o dispara.
+2 · o próximo replay tem de exigir RAW_OBSERVATIONS >= 1 e PERSISTENCIA=DESCARTAVEL no
+    recibo — «conclusion=success» já enganou uma vez.
+3 · o workflow NÃO mudou: continua a chamar só orquestrador/orquestrador.py e a exportar
+    BANCO_DESCARTAVEL_URL no 5a-IT. Foi o orquestrador que passou a ler o que já lhe davam.
+    A outra porta shell (comunicacao-publica.yml) chama o orquestrador SEM a variável e
+    corre AUSENTE — o mesmo de sempre, agora escrito no recibo.
+4 · dívidas que ficam como estavam, nomeadas e NÃO tocadas: TEARDOWN_FOOTPRINT ·
+    RECIBO_ITALIANO_NAO_VOLTA · ERROR=stderr (D6) · retry não observado · crash recovery
+    não provado · derivador CSV/HTML · regra T2 de Admissão · a Sala ainda cai de
+    SINTONIA_SALA_DSN para SUPABASE_DB_URL (outro dono) · dois imports de provas/ por
+    nome nu em runtime (instagram_coleta → corrigir_custo; corrida_da_inteligencia →
+    espinha_da_intelligence), agora nomeados no teste.
+5 · a Sala continua a ser outro dono: SINTONIA_SALA_DSN não liga a memória da Collection,
+    e BANCO_DESCARTAVEL_URL não configura a Sala. No piloto são o mesmo banco por decisão
+    do 5a-IT, não por lei nova.
+6 · aprendido na bancada: `pg_ctl start` sob `capture_output=True` pendura para sempre —
+    o postmaster herda os pipes. O workflow já sabia (`>/dev/null`); a prova aprendeu.
+```
+
+## O QUE ESTA SECÇÃO NÃO REGISTA
+
+```
+NAO disparou o workflow. NAO coletou IT-T3-002 outra vez. NAO tocou produção.
+NAO autoriza Big Collection.  BIG_COLLECTION = NAO AUTORIZADA.
+NAO integra trunk. NAO promove candidata.
 ```

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-17T11:50:48+00:00",
-    "HEAD": "c93f6920c65649c6a5e65ce6a055411a81e6943c",
+    "GENERATED_AT": "2026-09-17T13:17:01+00:00",
+    "HEAD": "11c8ef098f2a5fae4ca856fca74a8c4d6de40372",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c2b86fe8b16c041124498ac7610c8f1cc3be2d0a3bd00945a1a413e4a23c10a6",
-    "FICHEIROS_NA_IMPRESSAO": 2220,
+    "SOURCE_TREE_FINGERPRINT": "2cd3c964a26722099d88c0e2161128e36b0028591b78b5531b24383ea66eb8d4",
+    "FICHEIROS_NA_IMPRESSAO": 2225,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -697,6 +697,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "guarda/banco_descartavel.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "39a75642656edc5b068774352247fd5ae3e7a854",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "guarda/catalogo_importar.py",
         "PAPEL": "FONTE",
         "VERSAO": "21614cbd570ef1034d9994c02e39ef039be1b7e7",
@@ -739,9 +746,16 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "guarda/memoria_postgres.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a255a79248b380a9d8d954c6b8e1675247489247",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "guarda/portas_live.py",
         "PAPEL": "FONTE",
-        "VERSAO": "2decb3e61b8fe78f344c414cc7e96b7195be78c9",
+        "VERSAO": "d68ce4a1c74f018526fb69ea267e8a1fb1e482d3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -893,8 +907,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 126,
-    "INPUTS_DIGEST": "68746706b76dfdab6e52a1233ac8d70d1637355db9a2f63517b85348658b800b",
+    "INPUTS_COUNT": 128,
+    "INPUTS_DIGEST": "5e95a1ab5a065f71256ec9d982bca4edbd9b2c3b7097bcdd83e899b29b581175",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -3307,6 +3321,24 @@
       "no_ci": true
     },
     {
+      "ficheiro": "guarda/banco_descartavel.py",
+      "gaveta": "guarda",
+      "linhas": 164,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "guarda/memoria_postgres.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "guarda/catalogo_importar.py",
       "gaveta": "guarda",
       "linhas": 693,
@@ -3411,9 +3443,27 @@
       "no_ci": true
     },
     {
+      "ficheiro": "guarda/memoria_postgres.py",
+      "gaveta": "guarda",
+      "linhas": 285,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "guarda/portas_live.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "guarda/portas_live.py",
       "gaveta": "guarda",
-      "linhas": 340,
+      "linhas": 134,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -3421,7 +3471,7 @@
       ],
       "ferramentas": [],
       "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
+      "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": false,
@@ -3475,7 +3525,7 @@
         "coleta/executor_texto_de_pdf.py",
         "coleta/executor_transcricao_midia.py",
         "guarda/memoria_descartavel.py",
-        "guarda/portas_live.py",
+        "guarda/memoria_postgres.py",
         "guarda/preservar_documento.py"
       ],
       "no_ci": true
@@ -3567,14 +3617,14 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 126,
+    "ficheiros_de_codigo": 128,
     "pontos_de_entrada": 94,
     "executores_que_saem_para_fora": 23,
     "sem_chamador_e_fora_do_ci": 47,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 73,
-    "deitam_fora_alguma_coisa": 35,
-    "deitam_fora_SEM_escrever_o_motivo": 1,
+    "deitam_fora_alguma_coisa": 37,
+    "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 3,
     "decisoes_escondidas_ao_todo": 3
   },
@@ -3750,7 +3800,8 @@
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
-      "coleta/ropf_pre_requisito.py"
+      "coleta/ropf_pre_requisito.py",
+      "guarda/portas_live.py"
     ],
     "decisoes_escondidas": [
       {

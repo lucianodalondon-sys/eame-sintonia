@@ -669,3 +669,31 @@ BLOCKER                            = orquestrador.main() não liga memoria/banco
 BIG_COLLECTION_AUTHORIZED          = NO
 NENHUMA CORREÇÃO FUNCIONAL         = feita por este replay
 ```
+
+---
+
+## 15 · ADENDO — O BLOCKER DO §14 FOI FECHADO NO CÓDIGO (2026-09-17)
+
+> Registado aqui porque este ficheiro é o dono do blocker. O veredito do §14
+> é histórico e **não muda**: descreve o run `35215565657` sobre o HEAD
+> `c93f6920`. O fecho veio em missão própria (`CLI_POSTGRES_BINDING_FIX`),
+> que **não** foi a do revisor do §14, e que **não** disparou o workflow:
+>
+> ```
+> orquestrador/orquestrador.py::main()   compõe memoria + banco_do_rastro ANTES de correr()
+>                                        (orquestrador/persistencia.py — lê SÓ BANCO_DESCARTAVEL_URL)
+> guarda/banco_descartavel.py            a trava, UMA, no runtime (host/hostaddr/service/dbname; PG*)
+> guarda/memoria_postgres.py             o adaptador Postgres canónico; provas/ e portas_live são subclasses
+> provas/a_porta_cli_liga_o_banco.py     a porta como PROCESSO contra Postgres 16 real: 36 casos PASS
+>                                        (RUN, raw_asset.id, storage_object, DERIVED, STRUCTURED, reuso,
+>                                        recusa de Supabase/?host=/PGHOSTADDR, produção-sem-bancada)
+> red team de arquitetura                19 ataques → 0 blockers; 3 achados fechados na mesma missão
+> regressão                              11 vermelhos antes = 11 depois, pelos mesmos nomes · NEW_FAILURES = 0
+> ```
+>
+> Detalhe no know-how §133. O que este adendo **não** diz: que o workflow
+> chega à Sala. Isso só o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (IT-T3-002,
+> sessão nova, quem consertou não dispara) pode dizer — e tem de exigir
+> `RAW_OBSERVATIONS >= 1` e `PERSISTENCIA = DESCARTAVEL` no recibo, não
+> `conclusion=success`. `TEARDOWN_FOOTPRINT` e `RECIBO_ITALIANO_NAO_VOLTA`
+> (§14.9) ficam como estavam. `BIG_COLLECTION_AUTHORIZED = NO` continua.

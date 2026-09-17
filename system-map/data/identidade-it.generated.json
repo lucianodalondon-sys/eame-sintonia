@@ -1,26 +1,20 @@
 {
   "IDENTIDADE_DO_ARTEFATO": {
     "O_QUE_E": "CAMINHO, CAPTURA, CONTEUDO e COPIA sao quatro especies. Caminho diferente NAO prova captura diferente; SHA igual NAO prova a mesma captura. Cada grupo abaixo foi classificado pela PROVA DE CAPTURA de cada caminho, nunca pelo nome da pasta.",
-    "COPIAS_NO_DISCO": 64,
-    "CONTEUDOS_UNICOS": 58,
+    "COPIAS_NO_DISCO": 58,
+    "CONTEUDOS_UNICOS": 51,
     "CAPTURAS_DISTINTAS": 24,
-    "COPIAS_SEM_PROVA_DE_CAPTURA": 26,
+    "COPIAS_SEM_PROVA_DE_CAPTURA": 20,
     "ONDE_FALTA_PROVA": [
       "XX/it-t2-002/DOCUMENT/2891a5f27c9ed1e5-ub622d4acfd5a1de6-agro_01.pdf",
       "XX/it-t2-002/DOCUMENT/33cbbf87a7a4164a-ub64085ae1fb54667-agro_24.pdf",
-      "XX/it-t2-002/DOCUMENT/4c2ee1eed48f7ee5-u227eebaf8a74910a-agro_16.pdf",
       "XX/it-t2-002/DOCUMENT/667bd6ddb3dcfd0e-u227eebaf8a74910a-agro_16.pdf",
       "XX/it-t2-002/DOCUMENT/7d5445c7f306512c-u4e3faed3eb79e4fc-agro_09.pdf",
-      "XX/it-t2-002/DOCUMENT/895c2451bfcf6aa2-u4e3faed3eb79e4fc-agro_09.pdf",
-      "XX/it-t2-002/DOCUMENT/af3f2fbd94f55746-ub622d4acfd5a1de6-agro_01.pdf",
       "XX/it-t2-002/DOCUMENT/c5f23ca85425dfb0-u4e3faed3eb79e4fc-agro_09.pdf",
-      "XX/it-t2-002/DOCUMENT/cc67a0047ab08b13-ub64085ae1fb54667-agro_24.pdf",
       "XX/it-t2-002/DOCUMENT/da22e74dcf341689-u227eebaf8a74910a-agro_16.pdf",
       "XX/it-t2-002/DOCUMENT/e9001c3a0bb4c1d7-ub622d4acfd5a1de6-agro_01.pdf",
+      "XX/it-t2-002/DOCUMENT/f88c89d73d6a132a-ub622d4acfd5a1de6-agro_01.pdf",
       "XX/it-t2-002/DOCUMENT/fd20715069940529-ub64085ae1fb54667-agro_24.pdf",
-      "XX/it-t3-002/DOCUMENT/d5aa781c258dc001-udb175ff860c77e30-SA-09-09.pdf",
-      "XX/it-t3-008/DOCUMENT/a8d9c53af8f73027-u62d20829b1d781be-Notiziario_Agrometeorologico_N37_09-09-2026.pdf",
-      "XX/it-t3-010/DOCUMENT/2ba23d223429131e-ude47533837d548b1-Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
       "data/samples/IT-ARPAV-VENETO/boll_agro_settimanale.pdf",
       "data/samples/IT-ARPAV-VENETO/fineestate_310826.pdf",
       "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf",
@@ -35,7 +29,8 @@
     ],
     "GRUPOS_COM_MAIS_DE_UMA_COPIA": 6,
     "VEREDITO": {
-      "INDEPENDENT_CAPTURES_SAME_CONTENT": 6
+      "INDEPENDENT_CAPTURES_SAME_CONTENT": 5,
+      "UNKNOWN": 1
     },
     "GRUPOS": [
       {
@@ -155,9 +150,17 @@
       },
       {
         "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
-        "ESTADO": "INDEPENDENT_CAPTURES_SAME_CONTENT",
-        "PORQUE": "2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:42.531Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
+        "ESTADO": "UNKNOWN",
+        "PORQUE": "pelo menos um caminho nao tem prova de captura em nenhum dos tres registos",
         "COPIAS": [
+          {
+            "CAMINHO": "XX/it-t2-002/DOCUMENT/f88c89d73d6a132a-ub622d4acfd5a1de6-agro_01.pdf",
+            "REGISTO": "CAPTURA_DESCONHECIDA",
+            "CAPTURED_AT": null,
+            "SOURCE_URL": null,
+            "ATOR": null,
+            "RUN_ID": null
+          },
           {
             "CAMINHO": "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
             "REGISTO": "LIVRO_DO_COLETOR",

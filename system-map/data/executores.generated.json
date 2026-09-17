@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "c93f6920c65649c6a5e65ce6a055411a81e6943c",
+  "HEAD": "11c8ef098f2a5fae4ca856fca74a8c4d6de40372",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 75,
- "TOTAL_CAMINHOS_RELEVANTES": 66,
+ "TOTAL_FICHEIROS": 78,
+ "TOTAL_CAMINHOS_RELEVANTES": 67,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 9,
-  "NOT_INSTRUMENTED": 61,
+  "NOT_APPLICABLE": 11,
+  "NOT_INSTRUMENTED": 62,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 64,
+   "NOT_INSTRUMENTED": 65,
    "NOT_APPLICABLE": 0
   }
  },
@@ -206,14 +206,14 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 75,
-  "TOTAL_RELEVANT_PATHS": 66,
+  "TOTAL_FILES_SCANNED": 78,
+  "TOTAL_RELEVANT_PATHS": 67,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 11,
   "TOTAL_ORCHESTRATORS": 5,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 4,
-  "TOTAL_CHECKPOINT_OWNERS": 3,
+  "TOTAL_CHECKPOINT_OWNERS": 4,
   "TOTAL_TELEMETRY_EMITTERS": 4,
   "TOTAL_UNKNOWN": 36,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
@@ -1654,6 +1654,30 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "guarda/banco_descartavel.py",
+   "GAVETA": "guarda",
+   "LINHAS": 164,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "guarda/catalogo_importar.py",
    "GAVETA": "guarda",
    "LINHAS": 693,
@@ -1728,9 +1752,33 @@
    "STATE": "NOT_APPLICABLE"
   },
   {
+   "EXECUTOR_ID": "guarda/memoria_postgres.py",
+   "GAVETA": "guarda",
+   "LINHAS": 285,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "PRESERVATION_OWNER"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "guarda/portas_live.py",
    "GAVETA": "guarda",
-   "LINHAS": 340,
+   "LINHAS": 134,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -2102,7 +2150,7 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1088,
+   "LINHAS": 1119,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -2121,6 +2169,32 @@
    "USA_CHECKPOINT": false,
    "PAPEIS": [
     "ORCHESTRATOR"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_INSTRUMENTED"
+  },
+  {
+   "EXECUTOR_ID": "orquestrador/persistencia.py",
+   "GAVETA": "orquestrador",
+   "LINHAS": 151,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": true,
+   "PAPEIS": [
+    "CHECKPOINT_OWNER"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
