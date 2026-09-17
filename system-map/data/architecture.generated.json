@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "930a09c7ecbf20361f94c285676208717dec3a78",
-    "GENERATED_AT": "2026-09-17T11:45:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e1197bd52c580c4bea36dce9230854fbd686f13dd2997761409ed492ac4fd3a0"
+    "HEAD": "308df98658a74c94866ad2a1a7e29156d8aeaea1",
+    "GENERATED_AT": "2026-09-17T13:20:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "de6cba0e0ac256dcc65cf2e04e0f4a53ef1e95b51b37cc2fc9b3f634f81a9072"
   },
   "FILES": [
     {
@@ -7408,6 +7408,13 @@
       "code_dir": true
     },
     {
+      "path": "guarda/cliente_postgres.py",
+      "sha": "7a211dab1837d79aa962d5406494c66493d1c782",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "guarda/es/adama_es_gate.py",
       "sha": "6e805856b80b350ac3b7714770838970100741e0",
       "ext": ".py",
@@ -10866,6 +10873,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_cliente_psql_e_declarado.py",
+      "sha": "958fd6d4cda445511b15c7c5c1fffb68d5a1cc63",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_corte_de_cr1.py",
       "sha": "fec4673393cb68fd3d22000b0a6513063268983d",
       "ext": ".py",
@@ -12771,7 +12785,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0e01c4ed68151e9486fd5f16661549c04f766218",
+      "sha": "4400df8da8cd9cd7aa0612633ea7c3689e4bf0db",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13752,6 +13766,13 @@
     {
       "path": "tests/test_cicatrizes_brasil.py",
       "sha": "552985ef5ebec590ae95fbf977e725fa5cf27c56",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_cliente_postgres.py",
+      "sha": "3124e92cbe8746317e37fd17fd015bbbe125f6aa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16025,6 +16046,17 @@
     },
     {
       "from_file": "admissao/sala_de_espera.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/sala_de_espera.py",
+        "line": 94,
+        "snippet": "from guarda.cliente_postgres import (            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/sala_de_espera.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -16703,6 +16735,17 @@
         "file": "coleta/coleta_checkpoint.py",
         "line": 45,
         "snippet": "import apify_pool as ap  # noqa: E402  — dono único da rotação"
+      }
+    },
+    {
+      "from_file": "coleta/coleta_checkpoint.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/coleta_checkpoint.py",
+        "line": 46,
+        "snippet": "from guarda.cliente_postgres import resolver_psql  # noqa: E402 — QUAL psql, um dono"
       }
     },
     {
@@ -21642,6 +21685,17 @@
         "file": "guarda/memoria_descartavel.py",
         "line": 43,
         "snippet": "from guarda.preservar_derivado import MemoriaDoDerivado"
+      }
+    },
+    {
+      "from_file": "guarda/memoria_postgres.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/memoria_postgres.py",
+        "line": 61,
+        "snippet": "from guarda.cliente_postgres import resolver_psql"
       }
     },
     {
@@ -39080,6 +39134,72 @@
       }
     },
     {
+      "from_file": "provas/o_cliente_psql_e_declarado.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_cliente_psql_e_declarado.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_cliente_psql_e_declarado.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_cliente_psql_e_declarado.py",
+        "line": 147,
+        "snippet": "import sala_de_espera as se"
+      }
+    },
+    {
+      "from_file": "provas/o_cliente_psql_e_declarado.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_cliente_psql_e_declarado.py",
+        "line": 78,
+        "snippet": "r = subprocess.run([sys.executable, os.path.join(\"admissao\", \"sala_de_espera.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/o_cliente_psql_e_declarado.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_cliente_psql_e_declarado.py",
+        "line": 139,
+        "snippet": "import coleta_checkpoint as cc"
+      }
+    },
+    {
+      "from_file": "provas/o_cliente_psql_e_declarado.py",
+      "to_file": "guarda/memoria_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_cliente_psql_e_declarado.py",
+        "line": 133,
+        "snippet": "from guarda.memoria_postgres import MemoriaPostgres"
+      }
+    },
+    {
+      "from_file": "provas/o_cliente_psql_e_declarado.py",
+      "to_file": "provas/a_porta_cli_liga_o_banco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_cliente_psql_e_declarado.py",
+        "line": 52,
+        "snippet": "import a_porta_cli_liga_o_banco as cli  # noqa: E402  (a bancada e a fixture do §133)"
+      }
+    },
+    {
       "from_file": "provas/o_corte_de_cr1.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -53633,6 +53753,94 @@
       }
     },
     {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 171,
+        "snippet": "texto = _fonte(\".github\", \"workflows\", \"sintonia-scrap.yml\")"
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 42,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 221,
+        "snippet": "import sala_de_espera as se"
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 136,
+        "snippet": "\"admissao/sala_de_espera.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 135,
+        "snippet": "DONOS = (\"guarda/memoria_postgres.py\", \"coleta/coleta_checkpoint.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 125,
+        "snippet": "fonte = _fonte(\"guarda\", \"cliente_postgres.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "guarda/memoria_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 135,
+        "snippet": "DONOS = (\"guarda/memoria_postgres.py\", \"coleta/coleta_checkpoint.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_cliente_postgres.py",
+      "to_file": "provas/o_cliente_psql_e_declarado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_cliente_postgres.py",
+        "line": 233,
+        "snippet": "[sys.executable, os.path.join(\"provas\", \"o_cliente_psql_e_declarado.py\")],"
+      }
+    },
+    {
       "from_file": "tests/test_col_e7_contrato_do_texto.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -62705,10 +62913,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2077,
-    "files_readable": 803,
-    "files_code_dir": 861,
-    "file_edges": 4331,
+    "files_tracked": 2080,
+    "files_readable": 806,
+    "files_code_dir": 864,
+    "file_edges": 4348,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

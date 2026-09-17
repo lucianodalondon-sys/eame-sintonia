@@ -1,14 +1,14 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "11c8ef098f2a5fae4ca856fca74a8c4d6de40372",
+  "HEAD": "308df98658a74c94866ad2a1a7e29156d8aeaea1",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 78,
+ "TOTAL_FICHEIROS": 79,
  "TOTAL_CAMINHOS_RELEVANTES": 67,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 11,
+  "NOT_APPLICABLE": 12,
   "NOT_INSTRUMENTED": 62,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
@@ -206,7 +206,7 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 78,
+  "TOTAL_FILES_SCANNED": 79,
   "TOTAL_RELEVANT_PATHS": 67,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 11,
@@ -402,7 +402,7 @@
   {
    "EXECUTOR_ID": "coleta/coleta_checkpoint.py",
    "GAVETA": "coleta",
-   "LINHAS": 942,
+   "LINHAS": 949,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1704,6 +1704,30 @@
    "STATE": "NOT_INSTRUMENTED"
   },
   {
+   "EXECUTOR_ID": "guarda/cliente_postgres.py",
+   "GAVETA": "guarda",
+   "LINHAS": 131,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": false,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": true,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "guarda/importar_italia.py",
    "GAVETA": "guarda",
    "LINHAS": 250,
@@ -1754,7 +1778,7 @@
   {
    "EXECUTOR_ID": "guarda/memoria_postgres.py",
    "GAVETA": "guarda",
-   "LINHAS": 285,
+   "LINHAS": 293,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  930a09c7ecbf20361f94c285676208717dec3a78
+HEAD_DA_MEDICAO  308df98658a74c94866ad2a1a7e29156d8aeaea1
 BRANCH           claude/it-collection-sala-v1
-GERADO_EM        2026-09-17T11:45:10-03:00
+GERADO_EM        2026-09-17T13:20:27-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -38,13 +38,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/ES-RESEARCHERS-OLIVE.json`, `data/samples/ES-VOICE-LINKEDIN.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 25 |
-| **arestas provadas** | entram 7 · saem 25 |
+| **arestas no mapa** | entram 8 · saem 26 |
+| **arestas provadas** | entram 8 · saem 26 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 32 |
+| **prova das ligações** | CODE 34 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -490,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | C-INT-ESPINHA |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 18 |
-| **arestas provadas** | entram 3 · saem 17 |
+| **arestas no mapa** | entram 3 · saem 20 |
+| **arestas provadas** | entram 3 · saem 19 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 20 · NÃO SEI 1 |
+| **prova das ligações** | CODE 22 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -968,24 +968,24 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `guarda/banco_descartavel.py`, `guarda/memoria_descartavel.py`, `guarda/memoria_postgres.py`, `guarda/portas_live.py`, `guarda/preservar_coleta.py` |
+| **peça real** | `guarda/banco_descartavel.py`, `guarda/cliente_postgres.py`, `guarda/memoria_descartavel.py`, `guarda/memoria_postgres.py`, `guarda/portas_live.py` _(e mais 1)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | admissao/admissao.py:73; admissao/sala_de_espera.py:89; coleta/ingresso.py:84 |
-| **porquê** | estas pecas importam-na — C-ADMISSAO · C-DONO-DO-DERIVADO · C-INGRESSO · C-PERSISTENCIA-DA-PORTA-CLI · C-SALA-DE-ESPERA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | admissao/admissao.py:73; admissao/sala_de_espera.py:89; coleta/coleta_checkpoint.py:46 |
+| **porquê** | estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DONO-DO-DERIVADO · C-INGRESSO · C-PERSISTENCIA-DA-PORTA-CLI — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 22 |
-| **arestas provadas** | entram 1 · saem 22 |
+| **arestas no mapa** | entram 1 · saem 23 |
+| **arestas provadas** | entram 1 · saem 23 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 23 |
+| **prova das ligações** | CODE 24 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
