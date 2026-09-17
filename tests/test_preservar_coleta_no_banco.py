@@ -554,7 +554,34 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
 
         Aqui o comando é lido como o psql o leria: cada sinalizador tem de
         aparecer, e o `-v` tem de estar colado ao seu valor.
+
+        ⚠️ O CONTRATO MUDOU EM 2026-09-17, E ESTE TESTE FICOU A EXIGIR O
+        ANTIGO. Exigia `-c` — o SQL no argv — quando o adaptador canónico
+        (`guarda/memoria_postgres.py`) passou, de propósito, a mandar o SQL
+        por stdin com `-f -`: texto acentuado não viaja em argv no Windows
+        (know-how §130, o 0x92 de um boletim da Campania). O primeiro gate de
+        integração Collection→trunk reprovou por isto: um teste verde no
+        trunk e vermelho no candidato, a defender um defeito já curado.
+
+            O TESTE SERVE AO CONTRATO. O CONTRATO NÃO SE REVERTE PARA
+            SERVIR AO TESTE.
+
+        O contrato que este teste prova, e que o runtime consome:
+
+            <psql resolvido> -X -q -A -t -F <SEP> -v ON_ERROR_STOP=1 -f - <DSN>
+            stdin = o SQL · text · encoding utf-8 · capture_output
+
+        ARGV É CONFIGURAÇÃO. STDIN É O CONTEÚDO. A pergunta aqui é «que
+        comando e que conteúdo o adaptador pediu?», não «há PostgreSQL nesta
+        máquina?». Por isso a cabeça da lista — quem decide qual `psql` é
+        `guarda/cliente_postgres.py` — é substituída por um executável
+        fictício, e o `subprocess.run` que já era espiado passa a guardar
+        também os kwargs. Sem isso o teste dependia do PATH da máquina e
+        caía em `ClientePostgresAusente` antes de medir fosse o que fosse.
         """
+        from unittest import mock
+        from guarda import memoria_postgres as adaptador
+
         capturado = {}
 
         class Espia(self.pg.MemoriaPostgres):
@@ -562,22 +589,30 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
                 self.url = "postgresql://u@localhost:5432/descartavel"
 
         def falso_run(cmd, **kw):
-            capturado["cmd"] = cmd
+            capturado["cmd"] = list(cmd)
+            capturado["kwargs"] = dict(kw)
             class R:
                 returncode = 0
                 stdout = "1\n"
                 stderr = ""
             return R()
 
-        antigo = self.pg.subprocess.run
-        self.pg.subprocess.run = falso_run
-        try:
-            Espia()._psql("select 1")
-        finally:
-            self.pg.subprocess.run = antigo
+        # Um caminho que não existe em máquina nenhuma: nunca é executado,
+        # e é exactamente o que o dono da resolução devolveu que tem de ir
+        # para a cabeça do comando — nunca um `"psql"` nu.
+        psql_ficticio = os.path.join(os.sep, "bancada-ficticia", "psql.exe")
+        with mock.patch.object(adaptador, "resolver_psql",
+                               return_value=psql_ficticio), \
+             mock.patch.object(self.pg.subprocess, "run", falso_run):
+            saida = Espia()._psql("select 1")
+        self.assertEqual(saida, "1\n")
 
         cmd = capturado["cmd"]
-        for sinalizador in ("-X", "-q", "-A", "-t", "-F", "-v", "-c"):
+        kwargs = capturado["kwargs"]
+
+        # a cabeça é o executável que o dono resolveu
+        self.assertEqual(cmd[0], psql_ficticio)
+        for sinalizador in ("-X", "-q", "-A", "-t", "-F", "-v", "-f"):
             self.assertIn(sinalizador, cmd, "falta %s" % sinalizador)
         # o valor do -v tem de vir LOGO a seguir a ele
         self.assertEqual(cmd[cmd.index("-v") + 1], "ON_ERROR_STOP=1")
@@ -585,6 +620,18 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         self.assertEqual(cmd[cmd.index("-F") + 1], self.pg.MemoriaPostgres.SEP)
         # nenhum sinalizador se meteu entre outro e o seu valor
         self.assertNotEqual(cmd[cmd.index("-v") + 1][:1], "-")
+        # o SQL entra por stdin: `-f -`, e NUNCA `-c`
+        self.assertEqual(cmd[cmd.index("-f") + 1], "-")
+        self.assertNotIn("-c", cmd, "o SQL voltou ao argv: é o defeito do 0x92")
+        self.assertNotIn("select 1", cmd, "o SQL nao viaja no argv")
+        # a DSN em ÚLTIMO: o psql do Windows não permuta opções (BG-04)
+        self.assertEqual(cmd[-1], "postgresql://u@localhost:5432/descartavel")
+
+        # o conteúdo vai por stdin, em texto, UTF-8 — e a saída é capturada
+        self.assertEqual(kwargs.get("input"), "select 1")
+        self.assertIs(kwargs.get("text"), True)
+        self.assertEqual(kwargs.get("encoding"), "utf-8")
+        self.assertTrue(kwargs.get("capture_output"))
 
     def test_2_o_separador_de_campos_nao_aparece_em_dado_nenhum(self):
         """Uma unidade de separação do ASCII. Não existe em caminho, URL nem
