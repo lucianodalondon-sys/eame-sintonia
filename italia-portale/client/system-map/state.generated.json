@@ -2663,9 +2663,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "8cf2a272311e4783cb9add13a59afbd45ff47f0b",
-    "GENERATED_AT": "2026-09-16T21:06:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cf0a1972db7932f9bdce1017850b958e8ea39460393a5ab373c76a41aa646e3c"
+    "HEAD": "5408b560a36290bcf7cdfc211fa6d3ae96b13f76",
+    "GENERATED_AT": "2026-09-16T21:11:19-03:00",
+    "SOURCE_TREE_FINGERPRINT": "db7d727da5491f374668000bc7b991673942a2616e74358ef0d63627f989b5ce"
   },
   "FAMILIES": [
     {
@@ -23649,6 +23649,7 @@
         "C-PADRAO-COLETA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTAS-REAIS",
+        "C-PROVA-SALA-ITALIANA",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
@@ -30024,9 +30025,10 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/o_material_italiano_chega_a_sala.py",
+        "provas/primeira_coleta_controlada_italia.py",
         "provas/red_team_collection_ate_a_sala.py"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -30040,6 +30042,7 @@
         "C-ESTRADA-PDF",
         "C-INGRESSO",
         "C-IT-COLETA",
+        "C-IT-PRESERVAR",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
         "C-PROVA-COLETA",
@@ -30049,7 +30052,7 @@
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -30076,18 +30079,20 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 4 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 4 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 6 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "coleta/golden_path_pdf.py",
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson",
         "data/samples/LIVRO-DE-DECISOES.json",
         "provas/preservar_coleta_no_postgres.py",
         "system-map/data/material-italiano-na-sala.observado.json"
@@ -50761,11 +50766,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 1 linha de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_material_italiano_chega_a_sala.py",
           "line": 48,
+          "snippet": "import coleta_checkpoint as cc                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-COLETA-BASE",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 68,
           "snippet": "import coleta_checkpoint as cc                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-SALA-ITALIANA",
@@ -64911,11 +64932,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_material_italiano_chega_a_sala.py",
           "line": 49,
+          "snippet": "import italy_executor as ie                        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 69,
           "snippet": "import italy_executor as ie                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-PROVA-SALA-ITALIANA",
@@ -66155,6 +66192,57 @@
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-IT-PRESERVAR",
             "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-PROVA-SALA-ITALIANA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 99,
+          "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 109,
+          "snippet": "\"runs.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-SALA-ITALIANA",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -70400,12 +70488,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 1 linha de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_material_italiano_chega_a_sala.py",
           "line": 141,
           "snippet": "import orquestrador as orq",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 72,
+          "snippet": "import orquestrador as orq                         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-SALA-ITALIANA",
             "FROM": "C-ORQUESTRADOR",
@@ -71747,11 +71851,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_material_italiano_chega_a_sala.py",
           "line": 51,
+          "snippet": "from pedido import Pedido                          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-PEDIDO",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 71,
           "snippet": "from pedido import Pedido                          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-PROVA-SALA-ITALIANA",
@@ -76048,12 +76168,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta O material italiano chega a Sala — ida, volta e repeticao. Provado por 1 linha de codigo.",
+      "reason": "Provas da coleta canonica alimenta O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_material_italiano_chega_a_sala.py",
           "line": 85,
           "snippet": "\"preservar_coleta_no_postgres.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 48,
+          "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-PROVA-SALA-ITALIANA",
             "FROM": "C-PROVA-COLETA",
@@ -81722,11 +81858,27 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 2 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por O material italiano chega a Sala — ida, volta e repeticao. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_material_italiano_chega_a_sala.py",
           "line": 50,
+          "snippet": "import sala_de_espera as espera                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-SALA-ITALIANA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/primeira_coleta_controlada_italia.py",
+          "line": 70,
           "snippet": "import sala_de_espera as espera                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-SALA-ITALIANA",
@@ -93978,10 +94130,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/primeira_coleta_controlada_italia.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 1081,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 1080,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -94166,13 +94316,13 @@
     "components_pending": 166,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1068,
-    "edges_proven": 1014,
+    "edges": 1069,
+    "edges_proven": 1015,
     "edges_unknown": 54,
     "business_edges": 4,
     "files_tracked": 2071,
-    "files_covered": 990,
-    "files_code_unclaimed": 1,
+    "files_covered": 991,
+    "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,
     "roles_unknown": 56,
