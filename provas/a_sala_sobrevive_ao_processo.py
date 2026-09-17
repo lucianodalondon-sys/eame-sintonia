@@ -69,14 +69,18 @@ def caso(nome, obtido, esperado):
 def _recusa_o_que_nao_e_descartavel(url):
     """⚠️ UMA PROVA QUE PODE APONTAR PARA PRODUÇÃO APONTA PARA PRODUÇÃO UM DIA.
 
-    A mesma trava que `provas/preservar_coleta_no_postgres.py` já tinha: o
-    endereço tem de ser visivelmente local. Não é zelo — é a diferença entre
-    um teste e um incidente.
+    A trava é a canónica, de `guarda/banco_descartavel.py` — a mesma do
+    runtime e de `provas/preservar_coleta_no_postgres.py`. A versão anterior
+    procurava pedaços de texto (`localhost` em qualquer sítio da URL), e
+    `localhost.atacante.example` passava. Três travas divergentes não são
+    defesa em profundidade: são três sítios onde a mesma pergunta pode ter
+    resposta diferente.
     """
-    local = ("localhost" in url or "127.0.0.1" in url or "@postgres:" in url
-             or url.startswith("postgresql:///"))
-    if not local:
-        print("RECUSADO: o endereco nao e visivelmente local. Esta prova ESCREVE.")
+    from guarda.banco_descartavel import porque_nao_e_descartavel
+    motivo = porque_nao_e_descartavel(url)
+    if motivo:
+        print("RECUSADO: o endereco nao prova ser descartavel (%s). Esta prova "
+              "ESCREVE." % motivo)
         raise SystemExit(2)
 
 

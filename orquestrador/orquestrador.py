@@ -59,6 +59,7 @@ import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
 import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED
 from guarda import preservar_documento as pdoc  # noqa: E402 — o dono do STRUCTURED documental
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
+import persistencia  # noqa: E402 — quem liga a memoria ao banco descartavel
 
 NAO_SEI_RUN = "NAO SEI"
 import sala_de_espera as espera        # noqa: E402
@@ -1049,8 +1050,34 @@ def main() -> int:
         print(f"PEDIDO RECUSADO: {ex}")
         return 2
 
+    # ── AS DEPENDÊNCIAS DE PERSISTÊNCIA NASCEM AQUI, ANTES DA CORRIDA ─────
+    # ⚠️ ISTO CHAMAVA `correr()` SEM `memoria` E SEM `banco_do_rastro`, e o
+    # replay canário pelo workflow real (run 35215565657, know-how §132)
+    # mediu o preço: o workflow criava e migrava um Postgres descartável, o
+    # portão da Sala aprovava-o, e a corrida nunca lhe escrevia uma linha —
+    # `RAW_OBSERVATIONS` vazio, DERIVED e STRUCTURED por chamar, a Admissão a
+    # responder NAO_SEI a um documento sem texto. A primeira coleta (§130)
+    # passara por OUTRA porta: o corredor de prova ligava o banco em processo.
+    #
+    #     DEPENDÊNCIA DECLARADA != DEPENDÊNCIA LIGADA.
+    #     A PORTA QUE A PROVA USOU NÃO É A PORTA QUE O WORKFLOW USA.
+    #
+    # Quem compõe é `orquestrador/persistencia.py`, a partir do ambiente e de
+    # UMA variável (`BANCO_DESCARTAVEL_URL`), com a trava canónica de
+    # `guarda/banco_descartavel.py`. Fail closed: variável presente e não
+    # descartável recusa ANTES de a corrida nascer; variável ausente corre
+    # sem memória e o recibo di-lo. Nunca se cai para produção.
+    try:
+        runtime = persistencia.dependencias_do_runtime()
+    except persistencia.BancoRecusado as ex:
+        print(str(ex))
+        return 2
+
     recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta,
-                    colheita_da_corrida=colheita_de)
+                    colheita_da_corrida=colheita_de,
+                    memoria=runtime.memoria,
+                    banco_do_rastro=runtime.banco_do_rastro)
+    recibo["PERSISTENCIA"] = runtime.para_json()
     plano = recibo.pop("_plano")
     print(plano.em_palavras())
     print()
@@ -1065,6 +1092,10 @@ def main() -> int:
     if not seco:
         guardar_recibo({k: v for k, v in recibo.items() if k != "SAIDA"})
     print(f"CORRIDA {recibo['STATUS']} · {recibo['RUN_ID']}")
+    # A morada nunca traz utilizador nem senha: `morada_sem_segredo` só
+    # devolve host:porto/banco. Ausência também se imprime — é informação.
+    print(f"  persistencia: {runtime.ESTADO}"
+          + (f" ({runtime.MORADA})" if runtime.MORADA else ""))
     print(f"  executor {recibo['ACTOR']} @ {recibo['ACTOR_VERSION']}")
     print(f"  de {recibo['STARTED_AT']} a {recibo['FINISHED_AT']}")
     if recibo["ERROR"]:

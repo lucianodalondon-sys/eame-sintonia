@@ -649,10 +649,15 @@ class AProvaEmPostgresEACuaTranca(unittest.TestCase):
         self.assertIn("descartavel", self.pg.BANCOS_PERMITIDOS)
         for proibido in ("producao", "prod", "postgres", "eame-sintonia"):
             self.assertNotIn(proibido, self.pg.BANCOS_PERMITIDOS)
-        fonte = open(os.path.join(RAIZ, "provas",
-                                  "preservar_coleta_no_postgres.py"),
+        # A trava decompõe a URL, e desde 2026-09-17 mora no dono canónico
+        # (`guarda/banco_descartavel.py`), de onde a prova a importa.
+        fonte = open(os.path.join(RAIZ, "guarda", "banco_descartavel.py"),
                      encoding="utf-8").read()
         self.assertIn("urlparse", fonte)
+        prova = open(os.path.join(RAIZ, "provas",
+                                  "preservar_coleta_no_postgres.py"),
+                     encoding="utf-8").read()
+        self.assertIn("guarda.banco_descartavel", prova)
 
     def test_os_cenarios_do_postgres_correm_tambem_aqui(self):
         """O ENSAIO. Os mesmos casos, contra o banco descartável local.

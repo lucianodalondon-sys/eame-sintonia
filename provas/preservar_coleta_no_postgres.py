@@ -58,330 +58,41 @@ MIGRACAO_025 = os.path.join(RAIZ, "supabase", "migrations",
 MIGRACAO_026 = os.path.join(RAIZ, "supabase", "migrations",
                             "026_a_observacao_ganha_identidade.sql")
 
-HOSTS_LOCAIS = ("localhost", "127.0.0.1", "::1", "[::1]")
-# Os UNICOS nomes de banco que esta casa aceita para uma prova. Sao os que os
-# workflows criam e deitam fora; qualquer outro — sobretudo um chamado como a
-# producao — nao passa. Acrescentar um nome aqui e uma decisao consciente, e e
-# esse o ponto: a lista e curta para que crescer doa.
-# `social` entrou em 2026-09-08 para a prova do contrato de persistencia
-# social. Banco proprio de proposito: herdar linhas de outra prova faria um
-# caso passar por causa do estado alheio.
-# `objeto` entrou em 2026-09-10 para a prova da migration 025, que separa a
-# copia da observacao. Banco proprio de proposito: herdar linhas de outra prova
-# faria um caso passar por causa do estado alheio.
-BANCOS_PERMITIDOS = ("descartavel", "derivado", "social", "objeto")
+# ── A TRAVA E O ADAPTADOR MUDARAM DE CASA — 2026-09-17 ─────────────────────
+# ⚠️ ISTO ERA O ÚNICO ADAPTADOR POSTGRES COMPLETO DESTA CASA, E ERA PROVA.
+# O runtime não o podia importar, e não importava: a porta CLI do orquestrador
+# corria sem memória, e o replay canário pelo workflow real (run 35215565657,
+# know-how §132) mediu o preço. A implementação genérica vive agora em
+# `guarda/memoria_postgres.py`; a trava que decompõe a URL, em
+# `guarda/banco_descartavel.py`. Esta prova IMPORTA de lá — nunca o contrário.
+#
+#     PROVA NÃO É RUNTIME. PROVAS → IMPLEMENTAÇÃO CANÓNICA. NUNCA RUNTIME → PROVAS.
+#
+# Os nomes antigos continuam a existir aqui (`_e_descartavel`, `HOSTS_LOCAIS`,
+# `BANCOS_PERMITIDOS`, `_lit`, `MemoriaPostgres`) porque outras provas e
+# testes os importam por este caminho. São o MESMO objeto, não uma cópia.
+from guarda.banco_descartavel import (  # noqa: E402
+    BANCOS_PERMITIDOS, HOSTS_LOCAIS, e_descartavel as _e_descartavel)
+from guarda.memoria_postgres import (  # noqa: E402
+    MemoriaPostgres as _MemoriaPostgresCanonica, lit as _lit)
 
 
-def _e_descartavel(url: str) -> bool:
-    """O endereço tem de ser local **e** o banco tem de chamar-se descartável.
+class MemoriaPostgres(_MemoriaPostgresCanonica):
+    """A porta canónica, com a trava DESTA prova à entrada.
 
-    ⚠️ A VERSÃO ANTERIOR PROCURAVA PEDAÇOS DE TEXTO — `localhost`, `@db:`,
-    `@postgres:` — em qualquer sítio da URL. Isso não é uma trava: um servidor
-    chamado `db.exemplo.com` contém `db.`, e um host
-    `localhost.atacante.example` contém `localhost`. Comparar pedaços de texto
-    onde se devia comparar **estrutura** é como conferir um passaporte pelas
-    letras que aparecem nele.
-
-    Aqui a URL é **decomposta**, e as duas partes são exigidas separadamente:
-
-        hostname   tem de ser EXATAMENTE um dos locais
-        database   tem de estar na lista curta: `descartavel`, `derivado`
-
-    E é lista de PERMISSÃO, não de bloqueio: bloqueio falha por omissão — basta
-    esquecer um nome. Permissão falha fechado, que é o lado certo para falhar.
+    O adaptador não decide se o banco é descartável — quem compõe decide.
+    Aqui quem compõe é a prova, e a prova recusa-se a arrancar contra
+    qualquer coisa que não prove ser local e descartável. Um dedo enganado a
+    apontar para produção não passa daqui.
     """
-    from urllib.parse import urlparse
-    try:
-        u = urlparse(url or "")
-    except ValueError:
-        return False
-    if u.scheme not in ("postgres", "postgresql"):
-        return False
-    if (u.hostname or "").lower() not in HOSTS_LOCAIS:
-        return False
-    return (u.path or "").lstrip("/") in BANCOS_PERMITIDOS
-
-
-def _lit(v):
-    """Um valor como literal SQL. `None` vira `null`, e nunca a palavra 'None'.
-
-    ⚠️ ISTO NAO E DECORACAO. As chaves de identidade tem campos que PODEM ser
-    nulos — `document_key` na tentativa sem prova, `storage_object_id` numa
-    linha nao preservada. Interpolar `None` faria a consulta procurar a
-    STRING 'None', encontrar nada, e o escritor concluir que a observacao nao
-    existe. Um retry entraria outra vez, e a duplicata teria vindo de uma
-    conversao de tipo.
-    """
-    if v is None:
-        return "null"
-    return "'" + str(v).replace("'", "''") + "'"
-
-
-class MemoriaPostgres(Memoria):
-    """A porta do banco falada por `psql`. Lê de volta com `SELECT`, como deve."""
 
     def __init__(self, url):
         if not _e_descartavel(url):
             raise SystemExit(
                 "RECUSADO: '%s' nao parece um banco descartavel local. "
                 "Esta prova nunca corre contra producao." % url)
-        self.url = url
-        self.aplicacoes = 0
+        super().__init__(url)
 
-    # O SEPARADOR DE CAMPOS. Uma unidade de separação do ASCII, que nunca
-    # aparece num caminho, numa URL nem num hash.
-    SEP = "\x1f"
-
-    def _psql(self, sql):
-        """Uma saída que uma máquina consegue ler, e sem surpresas.
-
-        ⚠️ A VERSÃO ANTERIOR MONTAVA ISTO POR ÍNDICE:
-
-            cmd = ["psql", url, "-v", "ON_ERROR_STOP=1", "-c", sql]
-            cmd[3:3] = ["-t", "-A", "-F", sep]
-
-        O `[3:3]` inseria os sinalizadores **entre** o `-v` e o
-        `ON_ERROR_STOP=1`. O `psql` leu `-v -t`, ou seja «define uma variável
-        chamada `-t`», e o resto virou lixo posicional. A saída voltou alinhada,
-        com cabeçalho e rodapé, e `int('count\\n0\\n(1 row)')` rebentou no CI.
-
-        Não se conserta isso a apanhar `count`/`(1 row)` com as mãos: isso seria
-        aprender a ler a saída errada. Conserta-se **pedindo a saída certa**:
-
-            -X   não ler o `~/.psqlrc` de quem quer que corra isto
-            -q   sem ruído
-            -A   sem alinhamento
-            -t   só as linhas, sem cabeçalho nem rodapé
-            -F   o separador de campos
-        """
-        # ⚠️ O SQL ENTRA POR STDIN EM UTF-8 EXPLICITO — Windows, 2026-09-16.
-        # Por ARGV, texto acentuado atravessa a conversao ANSI e chega em
-        # CP1252 ao banco UTF-8; `text=True` sem `encoding` faz o mesmo
-        # estrago do lado do stdin. Foi um 0x92 (a aspa curva do texto de um
-        # boletim italiano) que apanhou isto na primeira coleta controlada.
-        cmd = ["psql", "-X", "-q", "-A", "-t", "-F", self.SEP,
-               "-v", "ON_ERROR_STOP=1", "-f", "-", self.url]
-        r = subprocess.run(cmd, input=sql, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace")
-        if r.returncode != 0:
-            raise IOError(r.stderr.strip()[:400])
-        return r.stdout
-
-    def _valor(self, sql):
-        """Um escalar, e a garantia de que veio sozinho.
-
-        Se o `psql` alguma vez voltar a mandar cabeçalho ou rodapé, isto
-        rebenta com uma mensagem que diz o que veio — em vez de tentar
-        adivinhar qual das linhas era o número.
-        """
-        linhas = [x for x in self._psql(sql).splitlines() if x.strip()]
-        if len(linhas) != 1:
-            raise IOError(
-                "esperava UM valor e vieram %d linhas: %r. O psql voltou a "
-                "mandar cabecalho ou rodape." % (len(linhas), linhas[:4]))
-        return linhas[0]
-
-    def aplicar(self, sql):
-        # `encoding="utf-8"`: `text=True` sozinho codifica o stdin na codepage
-        # da maquina (cp1252 no Windows) e o texto do documento chegava
-        # mutilado ao banco UTF-8. Mesma lei do `_psql` acima.
-        self.aplicacoes += 1
-        r = subprocess.run(["psql", "-X", "-q", "-v", "ON_ERROR_STOP=1",
-                            self.url],
-                           input=sql, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace")
-        if r.returncode != 0:
-            raise IOError(r.stderr.strip()[:400])
-
-    # O `psql` devolve tudo como texto, e `raw_asset.id` e `bigserial`. Mesma
-    # razao do dialeto acima: a porta descartavel devolve `17` e esta devolveria
-    # `"17"`, e o mesmo campo com dois tipos e dois contratos com um nome so.
-    INTEIROS = ("id",)
-
-    def _linhas(self, sql, colunas):
-        fora = []
-        for linha in self._psql(sql).splitlines():
-            if not linha.strip():
-                continue
-            valores = linha.split("\x1f")
-            d = {c: (v if v != "" else None) for c, v in zip(colunas, valores)}
-            for c in self.INTEIROS:
-                if d.get(c) is not None:
-                    d[c] = int(d[c])
-            fora.append(d)
-        return fora
-
-    # O TEMPO TEM DE VOLTAR NA MESMA FORMA EM QUE FOI ESCRITO.
-    # O Postgres guarda `timestamptz` e devolve `2026-09-08 00:00:00+00`; nos
-    # escrevemos `2026-09-08T00:00:00Z`. Comparar as duas formas daria um
-    # METADATA_CONFLICT falso — e conflito falso e pior do que conflito
-    # nenhum, porque ensina toda a gente a ignorar o alarme.
-    #
-    # A normalizacao mora AQUI, no adaptador, porque e um assunto de dialeto.
-    # O dono da escrita nao tem de saber como cada banco imprime uma data.
-    #
-    # ⚠️ E ELA CORTAVA EM SEGUNDOS, produzindo o conflito falso que o paragrafo
-    # acima existe para evitar. Enquanto `captured_at` vinha do `STARTED_AT` da
-    # corrida — que esta casa formata sem milissegundos — o ida-e-volta batia
-    # por coincidencia. No dia em que o coletor passou a declarar a hora REAL
-    # da captura, o livro italiano trouxe `2026-09-07T15:37:40.362Z`, a coluna
-    # guardou os 362ms, e este leitor devolveu `15:37:40Z`: DEZ observacoes
-    # boas sairam `METADATA_CONFLICT`, e a estrada parou antes do DERIVED.
-    #
-    #     UM LEITOR QUE ARREDONDA FAZ A CONFERENCIA COMPARAR
-    #     O QUE FOI ESCRITO COM O QUE ELE PROPRIO DEIXOU PASSAR.
-    #
-    # Os zeros a direita saem, entao um instante escrito sem milissegundos
-    # continua a voltar exactamente como voltava. Nenhum valor antigo muda.
-    _ISO = ("regexp_replace(to_char(%s at time zone 'UTC', "
-            "'YYYY-MM-DD\"T\"HH24:MI:SS.US'), '\\.?0+$', '') || 'Z'")
-
-    COLS_RUN = ("run_id", "actor", "actor_version", "source_country",
-                "started_at", "rule_version", "capture_method", "status",
-                "finished_at")
-    # 026: a identidade da observacao entra na projecao. Sem ela o writer
-    # pergunta «ja ha linha neste caminho?» e recebe a linha SEM saber se ela e
-    # a mesma observacao — que e a pergunta que a chave de idempotencia
-    # responde. E a conferencia POS-ESCRITA leria `null` onde escreveu estado.
-    COLS_OBJ = ("run_id", "storage_path", "media_type", "bytes", "sha256",
-                "captured_at", "source_url",
-                "identity_state", "source_id", "document_key",
-                "document_key_basis")
-    # A leitura da corrida traz o `id`, porque e dela que sai o
-    # `RAW_OBSERVATION_ID`. E `COLS_OBS` tambem: uma chave que encontra uma
-    # linha tem de poder dizer QUAL linha encontrou.
-    # A COPIA tem as colunas DELA, e `id` esta la porque e ele que a chave da
-    # tentativa sem prova usa. A OBSERVACAO traz `id` pela mesma razao: quem
-    # encontra uma linha pela chave precisa de poder dizer QUAL linha achou.
-    COLS_COPIA = ("id", "storage_path", "media_type", "bytes", "sha256")
-    COLS_OBS = ("id", "storage_object_id", "attempts") + COLS_OBJ
-
-    COLS_OBJ_DA_CORRIDA = ("id",) + COLS_OBJ
-    TEMPOS = ("started_at", "finished_at", "captured_at", "derived_at")
-
-    def _select(self, colunas):
-        return ", ".join(self._ISO % c if c in self.TEMPOS else c
-                         for c in colunas)
-
-    def corrida(self, run_id):
-        linhas = self._linhas(
-            "select %s from public.collection_run where run_id = '%s'"
-            % (self._select(self.COLS_RUN), run_id), self.COLS_RUN)
-        return linhas[0] if linhas else None
-
-    # ── AS TRES PERGUNTAS, CADA UMA COM A SUA CHAVE ─────────────────────
-    # `objeto_em(storage_path)` foi retirado: ele perguntava pela COPIA e
-    # respondia com a primeira OBSERVACAO do endereco. Com o endereco unico
-    # isso acertava por acidente; depois da fase 10 devolveria uma linha ao
-    # acaso com cara de determinismo.
-    def copia_em(self, storage_path):
-        linhas = self._linhas(
-            "select %s from public.storage_object where storage_path = '%s'"
-            % (self._select(self.COLS_COPIA), storage_path.replace("'", "''")),
-            self.COLS_COPIA)
-        return linhas[0] if linhas else None
-
-    def observacao_identificada(self, run_id, source_id, document_key, sha256):
-        linhas = self._linhas(
-            "select %s from public.raw_asset where identity_state = '%s'"
-            " and run_id = %s and source_id = %s and document_key = %s"
-            " and sha256 = %s"
-            % (self._select(self.COLS_OBS), "FORWARD_IDENTIFIED",
-               _lit(run_id), _lit(source_id), _lit(document_key),
-               _lit(sha256)), self.COLS_OBS)
-        return linhas[0] if linhas else None
-
-    def tentativa_sem_prova(self, run_id, source_id, storage_object_id, sha256):
-        # `is not distinct from`, e nao `=`: sem copia o id e nulo dos dois
-        # lados, e `null = null` nao e verdade. A linha nao preservada ficaria
-        # invisivel a propria chave que devia encontra-la.
-        linhas = self._linhas(
-            "select %s from public.raw_asset where identity_state = '%s'"
-            " and run_id = %s and source_id = %s"
-            " and storage_object_id is not distinct from %s and sha256 = %s"
-            % (self._select(self.COLS_OBS), "FORWARD_IDENTITY_UNPROVEN",
-               _lit(run_id), _lit(source_id), _lit(storage_object_id),
-               _lit(sha256)), self.COLS_OBS)
-        return linhas[0] if linhas else None
-
-    def observacoes_em(self, storage_path):
-        """TODAS. Devolve lista para que ninguem lhe chame uma linha."""
-        return self._linhas(
-            "select %s from public.raw_asset where storage_path = '%s'"
-            " order by id"
-            % (self._select(self.COLS_OBS), storage_path.replace("'", "''")),
-            self.COLS_OBS)
-
-    def objetos_da_corrida(self, run_id):
-        return self._linhas(
-            "select %s from public.raw_asset where run_id = '%s' "
-            "order by storage_path"
-            % (self._select(self.COLS_OBJ_DA_CORRIDA), run_id),
-            self.COLS_OBJ_DA_CORRIDA)
-
-    def contar(self, tabela):
-        return int(self._valor("select count(*) from public.%s" % tabela))
-
-    # ── as leituras que o dono do DERIVADO precisa ───────────────────────
-    # Vivem aqui porque este e o adaptador do Postgres — a porta e uma so, e o
-    # dialeto tambem. `MemoriaDoDerivado` declara-as; isto implementa-as.
-    COLS_RAW = ("id", "run_id", "storage_path", "media_type", "bytes",
-                "sha256", "captured_at", "source_url")
-    COLS_DER = ("id", "raw_asset_id", "parent_sha256", "kind", "producer",
-                "producer_version", "pipeline_version", "parameters_hash",
-                "serie_posicao", "sha256", "bytes", "media_type",
-                "storage_path", "derived_at")
-
-    def raw_por_id(self, raw_asset_id):
-        # JOIN SO DE LEITURA com a corrida, pelo `source_country`. Sem coluna
-        # nova: a informacao ja existe, uma tabela ao lado.
-        # TODAS as colunas do bruto levam o prefixo `a.`. Sem isso o `run_id`
-        # fica ambiguo — ele existe nas duas tabelas do join, e o Postgres
-        # recusa, com razao: nao lhe cabe adivinhar de qual se fala.
-        cols = self.COLS_RAW + ("source_country",)
-        sel = ", ".join(self._ISO % ("a." + c) if c in self.TEMPOS else "a." + c
-                        for c in self.COLS_RAW)
-        linhas = self._linhas(
-            "select %s, r.source_country from public.raw_asset a "
-            "join public.collection_run r on r.run_id = a.run_id "
-            "where a.id = %d" % (sel, int(raw_asset_id)), cols)
-        return linhas[0] if linhas else None
-
-    def derivado_com_identidade(self, identidade):
-        # `is not distinct from` em vez de `=`: em SQL, NULL = NULL e
-        # DESCONHECIDO, e sem isto a linha de `serie_posicao` NULL nunca seria
-        # reencontrada — o writer acharia sempre que e a primeira vez, e o
-        # reencontro viraria colisao.
-        def _v(x):
-            return "null" if x is None else "'%s'" % str(x).replace("'", "''")
-        onde = " and ".join("%s is not distinct from %s" % (c, _v(identidade[c]))
-                            for c in identidade)
-        linhas = self._linhas(
-            "select %s from public.derived_artifact where %s"
-            % (self._select(self.COLS_DER), onde), self.COLS_DER)
-        return linhas[0] if linhas else None
-
-
-
-    # ── A PORTA DO DOCUMENTO ESTRUTURADO (migration 030) ────────────────
-    COLS_DOC = ("derived_artifact_id", "run_id", "source_id", "hash_texto",
-                "document_id", "source_url", "titulo")
-
-    def documento_do_derivado(self, derived_artifact_id):
-        """A linha que ja estrutura este derivado, ou `None`.
-
-        ⚠️ O `texto` NAO vem. Ele pode ter megabytes, e quem pergunta «ja
-        existe registo para este derivado?» nao precisa do corpo — precisa do
-        `hash_texto`, que e o que o writer compara.
-
-            COMPARAR PELO RESUMO E LER O CORPO SAO DUAS PERGUNTAS.
-        """
-        linhas = self._linhas(
-            "select %s from public.documento_estruturado"
-            " where derived_artifact_id = %d"
-            % (self._select(self.COLS_DOC), int(derived_artifact_id)),
-            self.COLS_DOC)
-        return linhas[0] if linhas else None
 
 # ─────────────────────────────────────────────────────────────────────────
 # OS CENÁRIOS — os mesmos do banco local, contra o motor de verdade

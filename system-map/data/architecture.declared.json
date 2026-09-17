@@ -490,6 +490,25 @@
       ]
     },
     {
+      "id": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
+      "name": "A prova de que a porta CLI liga o banco — como PROCESSO, contra Postgres 16 real",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "what": "Sobe um Postgres 16 portatil (ou usa BANCO_DESCARTAVEL_URL), aplica as migrations pela cadeia canonica, e lanca `orquestrador/orquestrador.py` como subprocesso — a mesma porta que o workflow chama — com a variavel no ambiente e nada passado por Python. Le no banco: collection_run, raw_asset (id inteiro), storage_object ligado, derived_artifact, documento_estruturado, etapa_da_corrida; reprocessa os mesmos bytes numa RUN nova e confere UM storage_object e derivado REUSED; ataca com Supabase em BANCO_DESCARTAVEL_URL, `?host=` remoto e producao-sem-bancada. 33 casos. Restaura RUN-MANIFEST.json e LIVRO-DE-DECISOES.json byte a byte. Sem rede: o material entra pela porta canonica de reprocessamento (`--so-a-porta --colheita-da-corrida`).",
+      "why_here": "A primeira coleta controlada foi provada com `orq.correr(memoria=..., banco_do_rastro=...)` em processo — e foi por isso que o defeito da porta CLI ficou invisivel ate ao replay canario. A PORTA QUE A PROVA USA TEM DE SER A PORTA QUE O WORKFLOW USA. Esta prova nao chama `correr()`.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_porta_cli_liga_o_banco.py"
+      ]
+    },
+    {
       "id": "C-IT-CONTAS",
       "name": "A conta da coleta italiana",
       "territory": "Z-PROVA",
@@ -1889,6 +1908,25 @@
       ]
     },
     {
+      "id": "C-PERSISTENCIA-DA-PORTA-CLI",
+      "name": "A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha",
+      "territory": "Z-ORQUESTRADOR",
+      "kind": "engine",
+      "icon": "⇥",
+      "what": "Antes de `correr()`, a porta de linha de comando do orquestrador compoe `memoria` e `banco_do_rastro` a partir de UMA variavel — `BANCO_DESCARTAVEL_URL` — com a trava canonica do banco descartavel e o adaptador Postgres canonico — ambos na gaveta do dono da escrita (`guarda/banco_descartavel.py`, `guarda/memoria_postgres.py`, peca C-DONO-DA-ESCRITA). Sem a variavel: corre sem memoria e o recibo diz `PERSISTENCIA=AUSENTE`. Com a variavel e sem prova de descartavel: recusa ANTES de a corrida nascer. Nunca cai para SUPABASE_DB_URL nem para SINTONIA_SALA_DSN.",
+      "why_here": "O replay canario pelo workflow real (run GitHub 35215565657, 2026-09-17, know-how §132) mediu: o sintonia-scrap.yml criava e migrava um Postgres descartavel, o portao da Sala aprovava-o, e a corrida nunca lhe escrevia uma linha — `main()` chamava `correr()` sem `memoria`/`banco_do_rastro`, ninguem lia o ambiente, e o adaptador Postgres so existia em provas/. A primeira coleta (§130) passara por OUTRA porta: o corredor de prova ligava o banco em processo. DEPENDENCIA DECLARADA != DEPENDENCIA LIGADA. PROVA NAO E RUNTIME. Esta peca e a aresta, e nao um segundo orquestrador: nao cunha RUN_ID, nao escolhe executor, nao decide nada — liga o que o ambiente prova, num sitio so.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "orquestrador/persistencia.py"
+      ],
+      "views": [
+        "audit",
+        "infra"
+      ]
+    },
+    {
       "id": "C-ADMISSAO",
       "name": "A porta de admissao",
       "territory": "Z-ADMISSAO",
@@ -2113,13 +2151,15 @@
       "territory": "Z-GUARDA",
       "kind": "engine",
       "icon": "▷",
-      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`.",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133).",
       "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
+        "guarda/banco_descartavel.py",
         "guarda/memoria_descartavel.py",
+        "guarda/memoria_postgres.py",
         "guarda/portas_live.py",
         "guarda/preservar_coleta.py"
       ],
@@ -4032,6 +4072,16 @@
       "source": "provas/espinha_da_intelligence.py",
       "declared_by": "missao C-INT-SYSTEM-MAP-AUDIT-01",
       "declared_at": "2026-09-14"
+    },
+    {
+      "from": "C-PERSISTENCIA-DA-PORTA-CLI",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "kind": "expected",
+      "reason": "A porta CLI compoe as dependencias de persistencia ANTES de correr(): `orquestrador/orquestrador.py` importa `persistencia` (na convencao do scanner, a aresta vai de quem e importado para quem importa). Declarada porque o replay canario (run 35215565657) provou que ate 2026-09-17 esta aresta NAO existia: o workflow exportava BANCO_DESCARTAVEL_URL e ninguem a lia. O scanner encontra-a sozinho no import; a prova `provas/a_porta_cli_liga_o_banco.py` OBSERVA-a com a porta como processo contra Postgres 16 real.",
+      "source": "provas/a_porta_cli_liga_o_banco.py",
+      "declared_by": "missao CLI_POSTGRES_BINDING_FIX",
+      "declared_at": "2026-09-17"
     }
   ],
   "DECLARED_BLOBS": {
