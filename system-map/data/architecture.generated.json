@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "it-source-collection-readiness-v1",
-    "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
-    "GENERATED_AT": "2026-09-18T14:29:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "882dd1fc041dc7cf1bb6574c8478def6856b690c2a03feb9b5c8179d9a490af9"
+    "HEAD": "12e664560fd1a3495da8875d63166ea116c8f872",
+    "GENERATED_AT": "2026-09-18T18:13:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b16025b7f256fa29673ac6e0d280fffc1a0bb1505e6fd25a935957b5658ed08c"
   },
   "FILES": [
     {
@@ -177,6 +177,27 @@
       "code_dir": false
     },
     {
+      "path": "ADDENDUM-01-NAO-ANCORAR-NO-INDICE.md",
+      "sha": "aef60a6aff0638539c72c03347be7a2b20d27220",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "ADDENDUM-02-FOUNDATION-GATE-CLOSURE.md",
+      "sha": "7b1919324fb2e8d932ed727a8a8663e92086c338",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "ADDENDUM-03-DENOMINADOR-IT-CORRIGIDO.md",
+      "sha": "2611affa74d60382dd4cefe0ab62ca5e34191b66",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "AGENTS.md",
       "sha": "4298bb24b5561b4be9b74491beea803c72302bb8",
       "ext": ".md",
@@ -242,6 +263,13 @@
     {
       "path": "HANDOFF-V2-PAUSE.md",
       "sha": "0e19eef5629560905424741dc7d5da2ff1bf7db9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "MISSAO-SOURCE-COLLECTION-READINESS-V1.md",
+      "sha": "50fb7eeb923829133e0f24bae5d494e19b463eed",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1838,6 +1866,13 @@
     {
       "path": "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "sha": "c6e594b879e293487c8e87d3ad47c881414d78f4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/SOURCE-COLLECTION-READINESS-V1.json",
+      "sha": "957ee94107f967eca9005173e3150a0d03ecee7f",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -6547,6 +6582,20 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/SOURCE-COLLECTION-READINESS-CENSO-V1.md",
+      "sha": "d0810c4a49aaeecce6b6b30f288f8d20a91f4a41",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/SOURCE-COLLECTION-READINESS-V1.md",
+      "sha": "1d3c65dc9d930cb856055a26a159254cb2d02377",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "sha": "4d5586139e3e6f7132f0a5718ed0b37afbd430b2",
       "ext": ".md",
@@ -10789,6 +10838,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/medir_source_collection_readiness.py",
+      "sha": "5073c0cac8d52d5b7d8b778abac074e1f48156e1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/medir_source_id_wiring_gap.py",
       "sha": "3de53563d19d96db77ef99af6a3ef8d0b9ac94db",
       "ext": ".py",
@@ -11444,6 +11500,13 @@
       "sha": "99824c4296662d76f02f6707de7943def7165a42",
       "ext": ".mjs",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/italy_contracts_onboarded.json",
+      "sha": "c5a264dca1314056a19e0c7046091bf733775dc8",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -14508,6 +14571,13 @@
     {
       "path": "tests/test_social_sessao.py",
       "sha": "86b0b36807a00122bb55f2de7a16aa7cbd40d327",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_source_collection_readiness.py",
+      "sha": "61a258388e97dc2ab9ea78e46890ffee0006146c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -38207,6 +38277,160 @@
       }
     },
     {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 47,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 62,
+        "snippet": "COLETOR = RAIZ / \"coleta\" / \"italy_pilot_collect.mjs\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 59,
+        "snippet": "OBSERVACOES = RAIZ / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 60,
+        "snippet": "CORRIDAS = RAIZ / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "data/derivados/SOURCE-COLLECTION-READINESS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 51,
+        "snippet": "SAIDA_JSON = RAIZ / \"data\" / \"derivados\" / \"SOURCE-COLLECTION-READINESS-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 58,
+        "snippet": "RELEVANCIA = RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-RELEVANCIA-DE-FONTE.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 61,
+        "snippet": "MANIFESTO_DE_CORRIDAS = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 55,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "docs/operacao/SOURCE-COLLECTION-READINESS-CENSO-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 52,
+        "snippet": "SAIDA_MD = RAIZ / \"docs\" / \"operacao\" / \"SOURCE-COLLECTION-READINESS-CENSO-V1.md\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 49,
+        "snippet": "from receitas import EXECUTORES  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "pedido/receitas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 456,
+        "snippet": "RAIZ / \"pedido\" / \"receitas.py\", RELEVANCIA, OBSERVACOES, CORRIDAS, MANIFESTO_DE_CORRIDAS)]),"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 455,
+        "snippet": "(FONTES_GERADAS, INDICE, TABELA, RAIZ / \"regras\" / \"italy_contracts.mjs\", COLETOR,"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 167,
+        "snippet": "% (json.dumps((RAIZ / \"regras\" / \"italy_contracts.mjs\").resolve().as_uri()),"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_collection_readiness.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_collection_readiness.py",
+        "line": 63,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
       "from_file": "provas/medir_source_id_wiring_gap.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -43737,6 +43961,28 @@
         "file": "regras/italy_contract_test.mjs",
         "line": 158,
         "snippet": "const { medir } = await import(\"./italy_source_health.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/italy_contracts.mjs",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/italy_contracts.mjs",
+        "line": 36,
+        "snippet": "import TABELA_ONBOARDED from \"./italy_contracts_onboarded.json\" with { type: \"json\" };"
+      }
+    },
+    {
+      "from_file": "regras/italy_contracts.mjs",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/italy_contracts.mjs",
+        "line": 36,
+        "snippet": "import TABELA_ONBOARDED from \"./italy_contracts_onboarded.json\" with { type: \"json\" };"
       }
     },
     {
@@ -61912,6 +62158,72 @@
       }
     },
     {
+      "from_file": "tests/test_source_collection_readiness.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_source_collection_readiness.py",
+        "line": 29,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_source_collection_readiness.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_collection_readiness.py",
+        "line": 35,
+        "snippet": "COLETOR = os.path.join(RAIZ, \"coleta\", \"italy_pilot_collect.mjs\")"
+      }
+    },
+    {
+      "from_file": "tests/test_source_collection_readiness.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_collection_readiness.py",
+        "line": 36,
+        "snippet": "LEDGER = os.path.join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "tests/test_source_collection_readiness.py",
+      "to_file": "data/derivados/SOURCE-COLLECTION-READINESS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_collection_readiness.py",
+        "line": 33,
+        "snippet": "JSON = os.path.join(RAIZ, \"data\", \"derivados\", \"SOURCE-COLLECTION-READINESS-V1.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_source_collection_readiness.py",
+      "to_file": "provas/medir_source_collection_readiness.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_source_collection_readiness.py",
+        "line": 31,
+        "snippet": "import medir_source_collection_readiness as msc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_source_collection_readiness.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_collection_readiness.py",
+        "line": 34,
+        "snippet": "TABELA = os.path.join(RAIZ, \"regras\", \"italy_contracts_onboarded.json\")"
+      }
+    },
+    {
       "from_file": "tests/test_source_id.py",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -63277,10 +63589,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2089,
-    "files_readable": 813,
-    "files_code_dir": 872,
-    "file_edges": 4376,
+    "files_tracked": 2099,
+    "files_readable": 815,
+    "files_code_dir": 875,
+    "file_edges": 4398,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

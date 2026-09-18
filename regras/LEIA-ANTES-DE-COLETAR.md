@@ -73,6 +73,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 | onde vive | `regras/contratos_de_fonte.py` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |
+| onde vive | `regras/italy_contracts_onboarded.json` |
 | onde vive | `regras/italy_pilot_guards.mjs` |
 | onde vive | `regras/italy_scheduling_guards.mjs` |
 | onde vive | `regras/italy_source_health.mjs` |

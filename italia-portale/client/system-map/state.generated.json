@@ -12,6 +12,9 @@
       ".gitattributes",
       ".gitignore",
       ".vercelignore",
+      "ADDENDUM-01-NAO-ANCORAR-NO-INDICE.md",
+      "ADDENDUM-02-FOUNDATION-GATE-CLOSURE.md",
+      "ADDENDUM-03-DENOMINADOR-IT-CORRIGIDO.md",
       "AGENTS.md",
       "BIBLIA-CANONICA-DA-COLETA.md",
       "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
@@ -22,6 +25,7 @@
       "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "HANDOFF-V2-PAUSE.json",
       "HANDOFF-V2-PAUSE.md",
+      "MISSAO-SOURCE-COLLECTION-READINESS-V1.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
@@ -286,6 +290,7 @@
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "data/derivados/SOURCE-COLLECTION-READINESS-V1.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
       "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
@@ -960,6 +965,8 @@
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
       "docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
+      "docs/operacao/SOURCE-COLLECTION-READINESS-CENSO-V1.md",
+      "docs/operacao/SOURCE-COLLECTION-READINESS-V1.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/SOURCE-ID-WIRING-GAP-V1.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
@@ -1595,6 +1602,7 @@
       "provas/italy_pilot_negativos.mjs",
       "provas/linkedin_local_first.py",
       "provas/medir_admission_t3_atual.py",
+      "provas/medir_source_collection_readiness.py",
       "provas/medir_source_id_wiring_gap.py",
       "provas/modelo_de_objetos_da_intelligence.py",
       "provas/mutacao_da_autorizacao.py",
@@ -1693,6 +1701,7 @@
       "regras/contratos_de_fonte.py",
       "regras/italy_contract_test.mjs",
       "regras/italy_contracts.mjs",
+      "regras/italy_contracts_onboarded.json",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/italy_source_health.mjs",
@@ -2145,6 +2154,7 @@
       "tests/test_security_secret_shapes.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
+      "tests/test_source_collection_readiness.py",
       "tests/test_source_id.py",
       "tests/test_source_id_wiring_gap.py",
       "tests/test_source_owner_identity.py",
@@ -2167,8 +2177,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 697 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 157. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 697 ficheiros e 157 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 699 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 157. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 699 ficheiros e 157 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -2681,9 +2691,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "it-source-collection-readiness-v1",
-    "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
-    "GENERATED_AT": "2026-09-18T14:29:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "882dd1fc041dc7cf1bb6574c8478def6856b690c2a03feb9b5c8179d9a490af9"
+    "HEAD": "12e664560fd1a3495da8875d63166ea116c8f872",
+    "GENERATED_AT": "2026-09-18T18:13:27-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b16025b7f256fa29673ac6e0d280fffc1a0bb1505e6fd25a935957b5658ed08c"
   },
   "FAMILIES": [
     {
@@ -4165,8 +4175,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 262",
-        "desses, mostrados aqui: 40 (ficam de fora 222)"
+        "enderecos que o codigo realmente chama: 265",
+        "desses, mostrados aqui: 40 (ficam de fora 225)"
       ],
       "status_reason": "210 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 205, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -4190,6 +4200,7 @@
         "C-PACOTE-CAMADAS",
         "C-PADRAO-COLETA",
         "C-PROVA-AUTORIDADE-FONTE",
+        "C-PROVA-COLETA",
         "C-RECEITAS",
         "C-SITE-INGEST",
         "C-TERRITORIOS",
@@ -27166,11 +27177,12 @@
         "regras/contratos_de_fonte.py",
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
+        "regras/italy_contracts_onboarded.json",
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
         "regras/italy_source_health.mjs"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -27183,20 +27195,22 @@
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-PRESERVAR",
-        "C-LEITORES"
+        "C-LEITORES",
+        "C-PROVA-COLETA"
       ],
       "outbound": [
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-PROVA-AUTORIDADE-FONTE",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {
-        "ITALIA": 6
+        "ITALIA": 7
       },
       "paises_dado": {
-        "ITALIA": 40
+        "ITALIA": 44
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -27244,6 +27258,7 @@
         "provas/italy_accounting.mjs",
         "provas/italy_pilot_negativos.mjs",
         "regras/italy_contracts.mjs",
+        "regras/italy_contracts_onboarded.json",
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
         "regras/italy_source_health.mjs"
@@ -31647,6 +31662,7 @@
         "provas/implementacoes_candidatas.py",
         "provas/linkedin_local_first.py",
         "provas/medir_admission_t3_atual.py",
+        "provas/medir_source_collection_readiness.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/mutacao_da_autorizacao.py",
         "provas/mutacao_da_linhagem_do_ready.py",
@@ -31693,7 +31709,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 78,
+      "file_count": 79,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -31710,6 +31726,7 @@
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-APIFY-POOL",
+        "C-AS-FONTES",
         "C-ASK-SINTONIA",
         "C-AUTORIZACAO-DE-GASTO",
         "C-BIBLIA",
@@ -31735,6 +31752,7 @@
         "C-EXECUTOR-TEXTO-PDF",
         "C-INGRESSO",
         "C-IT-COLETA",
+        "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
         "C-MAPA-TESTES",
         "C-NAVEGADOR",
@@ -31765,6 +31783,7 @@
         "C-CADEIA-V21",
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
+        "C-IT-CONTRATOS",
         "C-MAPA-TESTES",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
@@ -31784,7 +31803,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 7,
+        "ITALIA": 11,
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
@@ -31795,6 +31814,8 @@
           "ALVOS",
           "ARRANCAM",
           "ASSIMETRIA",
+          "AS_SEIS_DA_BIG_COLLECTION",
+          "BLOCKERS",
           "BLOQUEADAS",
           "BOTOES",
           "CADEIA",
@@ -31805,6 +31826,8 @@
           "CAMPOS_PROIBIDOS",
           "CANDIDATAS_A",
           "CANDIDATOS",
+          "CAPACIDADE_ANTES",
+          "CAPACIDADE_EU",
           "CASOS",
           "COLS_031",
           "COLUNA_DO_DESTINO",
@@ -31828,6 +31851,7 @@
           "FEITAS",
           "FIXTURES",
           "FONTE_DO_POSITIVO",
+          "FORMA_DECLARADA",
           "GRUPOS_DE_ALVO",
           "IGNORAR",
           "IMPLEMENTACOES",
@@ -31852,6 +31876,7 @@
           "SAIDAS_DA_PORTA",
           "SENTINELAS_MEDIDAS",
           "SE_DECLARAM",
+          "SHAPES",
           "STATUS_PROIBIDO",
           "TERMOS_ITALIANOS_SEM_AUTORIDADE",
           "_GAVETAS_IT",
@@ -31859,11 +31884,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1437,
+        "palavras": 1541,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1435,
+        "sem_marca_de_lingua": 1539,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -31915,6 +31940,12 @@
         {
           "onde": "GIT",
           "file": "provas/gate_de_aceitacao_tematica.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "regras/italy_contracts.mjs",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -31988,6 +32019,7 @@
         "data/derivados/O-CENSO-DO-ACERVO.json",
         "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
         "data/derivados/REGISTO-DE-ARTEFATOS.json",
+        "data/derivados/SOURCE-COLLECTION-READINESS-V1.json",
         "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
         "data/derivados/texto/RAW-024abdb692be926a.txt",
         "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
@@ -32040,6 +32072,8 @@
         "data/samples/ES-T4-001/eppo-dictionary.json",
         "data/samples/ES-T8-002-posts.json",
         "data/samples/LIVRO-DE-DECISOES.json",
+        "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
+        "data/samples/RUN-MANIFEST.json",
         "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
         "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
         "data/samples/T3-DISPLAY-TRANSLATION-PTBR-V1.json",
@@ -32048,8 +32082,10 @@
         "data/samples/T3-SAMPLING-FRAME-V1.json",
         "docs/biblia/CONFORMIDADE-ITALIA.md",
         "docs/biblia/leis.json",
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
         "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
+        "docs/operacao/SOURCE-COLLECTION-READINESS-CENSO-V1.md",
         "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
         "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
         "docs/operacao/T3-REVIEW-PACKET-V1.md",
@@ -32089,6 +32125,8 @@
         "provas/pacote_de_revisao_t3.py",
         "provas/preservar_coleta_no_postgres.py",
         "provas/superficie_do_scrap_v1.py",
+        "regras/italy_contracts.mjs",
+        "regras/italy_contracts_onboarded.json",
         "regras/sensor_coleta.py",
         "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
         "supabase/migrations/022_o_derivado_ganha_casa.sql",
@@ -39903,6 +39941,7 @@
         "tests/test_security_secret_shapes.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
+        "tests/test_source_collection_readiness.py",
         "tests/test_source_id.py",
         "tests/test_source_id_wiring_gap.py",
         "tests/test_source_owner_identity.py",
@@ -39920,7 +39959,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 188,
+      "file_count": 189,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -40102,8 +40141,8 @@
         "ESPANHA": 2
       },
       "paises_dado": {
+        "ITALIA": 43,
         "ESPANHA": 42,
-        "ITALIA": 41,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -40339,6 +40378,7 @@
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
         "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
         "data/derivados/REGISTO-DE-ARTEFATOS.json",
+        "data/derivados/SOURCE-COLLECTION-READINESS-V1.json",
         "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
         "data/raw/IT-ROTULOS/_MANIFESTO.json",
         "data/review/inbox/T3-HUMAN-QUALITY-GATE-RESULTS-V1.json",
@@ -40592,6 +40632,7 @@
         "regras/comunicacao_identidade.py",
         "regras/comunicacao_universo.py",
         "regras/italy_contracts.mjs",
+        "regras/italy_contracts_onboarded.json",
         "regras/proveniencia.py",
         "regras/sensor_coleta.py",
         "regras/sensor_medir.py",
@@ -47056,6 +47097,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 55,
+          "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-COLETA",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -69277,7 +69353,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_t4_italiana_atravessa.py",
@@ -69315,6 +69391,22 @@
           "file": "provas/a_linhagem_do_ready.py",
           "line": 222,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 62,
+          "snippet": "COLETOR = RAIZ / \"coleta\" / \"italy_pilot_collect.mjs\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
             "FROM": "C-IT-COLETA",
@@ -69669,7 +69761,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
@@ -70204,18 +70296,85 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 63,
+          "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 455,
+          "snippet": "(FONTES_GERADAS, INDICE, TABELA, RAIZ / \"regras\" / \"italy_contracts.mjs\", COLETOR,",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 237,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_collection_readiness.py",
+          "line": 34,
+          "snippet": "TABELA = os.path.join(RAIZ, \"regras\", \"italy_contracts_onboarded.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
             "FROM": "C-IT-CONTRATOS",
@@ -70584,12 +70743,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
           "line": 85,
           "snippet": "with open(LIVRO, encoding=\"utf-8\") as fh:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 59,
+          "snippet": "OBSERVACOES = RAIZ / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 60,
+          "snippet": "CORRIDAS = RAIZ / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
             "FROM": "C-IT-PRESERVAR",
@@ -70887,7 +71078,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
@@ -70941,6 +71132,22 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 277,
           "snippet": "'data/collection-ledger/italy/observations.ndjson'):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_collection_readiness.py",
+          "line": 36,
+          "snippet": "LEDGER = os.path.join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
             "FROM": "C-IT-PRESERVAR",
@@ -79450,6 +79657,41 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 61,
+          "snippet": "MANIFESTO_DE_CORRIDAS = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-COLETA",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -80540,6 +80782,41 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-IT-CONTRATOS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica escreve em O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 167,
+          "snippet": "% (json.dumps((RAIZ / \"regras\" / \"italy_contracts.mjs\").resolve().as_uri()),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--WRITES-->C-IT-CONTRATOS",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-MAPA-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -81215,7 +81492,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -81365,6 +81642,22 @@
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 390,
           "snippet": "import nenhuma_compra_sem_autorizacao as sr02",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_collection_readiness.py",
+          "line": 31,
+          "snippet": "import medir_source_collection_readiness as msc  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
             "FROM": "C-PROVA-COLETA",
@@ -83660,7 +83953,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -83698,6 +83991,22 @@
           "file": "provas/as_fases_novas_atravessam.py",
           "line": 38,
           "snippet": "import receitas                        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-RECEITAS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 49,
+          "snippet": "from receitas import EXECUTORES  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-RECEITAS",
@@ -83855,8 +84164,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/medir_source_collection_readiness.py",
+          "line": 456,
+          "snippet": "RAIZ / \"pedido\" / \"receitas.py\", RELEVANCIA, OBSERVACOES, CORRIDAS, MANIFESTO_DE_CORRIDAS)]),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--READS-->C-PROVA-COLETA",
+            "FROM": "C-RECEITAS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/mutacao_da_release_v1.py",
           "line": 40,
@@ -99220,7 +99545,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1083,
+  "UNCLAIMED_FILES_COUNT": 1090,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -99405,12 +99730,12 @@
     "components_pending": 171,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1085,
-    "edges_proven": 1031,
+    "edges": 1089,
+    "edges_proven": 1035,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2089,
-    "files_covered": 1006,
+    "files_tracked": 2099,
+    "files_covered": 1009,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T20:53:50+00:00",
-  "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
+  "GENERATED_AT": "2026-09-18T21:37:31+00:00",
+  "HEAD": "12e664560fd1a3495da8875d63166ea116c8f872",
   "BRANCH": "it-source-collection-readiness-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d9ffc63567c9b36736d30253a7033a107ad6a80ee9a34c19c5328692f4895211",
+  "SOURCE_TREE_FINGERPRINT": "b16025b7f256fa29673ac6e0d280fffc1a0bb1505e6fd25a935957b5658ed08c",
   "FICHEIROS_NA_IMPRESSAO": 2247,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2363,6 +2363,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/medir_source_collection_readiness.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "5073c0cac8d52d5b7d8b778abac074e1f48156e1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/medir_source_id_wiring_gap.py",
     "PAPEL": "FONTE",
     "VERSAO": "3de53563d19d96db77ef99af6a3ef8d0b9ac94db",
@@ -2974,14 +2981,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d9ffc63567c9b36736d30253a7033a107ad6a80ee9a34c19c5328692f4895211",
+    "VERSAO": "b16025b7f256fa29673ac6e0d280fffc1a0bb1505e6fd25a935957b5658ed08c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d9ffc63567c9b36736d30253a7033a107ad6a80ee9a34c19c5328692f4895211",
+    "VERSAO": "b16025b7f256fa29673ac6e0d280fffc1a0bb1505e6fd25a935957b5658ed08c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4456,6 +4463,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_source_collection_readiness.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "61a258388e97dc2ab9ea78e46890ffee0006146c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_source_id.py",
     "PAPEL": "FONTE",
     "VERSAO": "8e676b70656c32c35fb796fc06bf3c451cc467e0",
@@ -4568,8 +4582,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 647,
-  "INPUTS_DIGEST": "c0ee9e6c9e39e5b1b59fbf1280e48ddea1c30d03516680adc808e6defc3d167b",
+  "INPUTS_COUNT": 649,
+  "INPUTS_DIGEST": "89acdb5e8fff95a7964d23a7d9057f3e410ffc69038ce3b529489168b0375e5b",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4595,15 +4609,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 431,
+  "DOCUMENTOS_LIDOS": 437,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "7b24f016827efb07701ecfbf83a7ff569c9ee781e02d2e5a98c25e0ede92385d",
-  "SEMANTIC_HASH": "d68d9177034079e1903d6da6ffc8d4145666cb8eb6d28f75475e9e72f4210834"
+  "MEASUREMENT_HASH": "8717b49c417ea3531a994752644a814c144b18e644ed6f7be0b55f3590196840",
+  "SEMANTIC_HASH": "527f012b6cd46668bf6da96afffbbf1ee547005671a2b2850c33ae8562eebe48"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7325,6 +7339,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-AUTORIDADE-FONTE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-COLETA",
+    "FROM": "C-AS-FONTES",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-PROVA-COLETA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -19855,6 +19891,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 62,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/so_a_colheita_atravessa.py",
       "LINHA": 124,
       "SUPPORTS": "YES",
@@ -20279,6 +20323,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-COLETA",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 455,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-TESTES",
@@ -20293,6 +20367,14 @@
      {
       "FICHEIRO": "tests/test_alvo_estruturado_resolvido.py",
       "LINHA": 237,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_source_collection_readiness.py",
+      "LINHA": 34,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -20534,6 +20616,22 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 60,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/medir_source_id_wiring_gap.py",
       "LINHA": 40,
       "SUPPORTS": "YES",
@@ -20726,6 +20824,14 @@
      {
       "FICHEIRO": "tests/test_observabilidade_estrada.py",
       "LINHA": 277,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_source_collection_readiness.py",
+      "LINHA": 36,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
@@ -25400,6 +25506,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-COLETA",
+    "FROM": "C-PROCEDENCIA",
+    "TO": "C-PROVA-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 61,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-PROCEDENCIA--READS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
     "FROM": "C-PROCEDENCIA",
     "TO": "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -25792,6 +25920,14 @@
      {
       "FICHEIRO": "tests/test_scrap_rc01_release_candidate.py",
       "LINHA": 390,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_source_collection_readiness.py",
+      "LINHA": 31,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
@@ -26381,6 +26517,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-COLETA--RUNS-->C-CADEIA-V21",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-PROVA-COLETA--WRITES-->C-IT-CONTRATOS",
+    "FROM": "C-PROVA-COLETA",
+    "TO": "C-IT-CONTRATOS",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 167,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-COLETA--WRITES-->C-IT-CONTRATOS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -27564,6 +27722,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 49,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/o_canario_da_collection.py",
       "LINHA": 54,
       "SUPPORTS": "YES",
@@ -27837,6 +28003,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/medir_source_collection_readiness.py",
+      "LINHA": 456,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "provas/mutacao_da_release_v1.py",
       "LINHA": 40,
@@ -36217,12 +36391,12 @@
     ]
    }
   ],
-  "COUNT": 1019
+  "COUNT": 1023
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 152,
   "CARTOES_AUDITADOS": 152,
-  "ARESTAS_RELACIONADAS": 1019,
+  "ARESTAS_RELACIONADAS": 1023,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -36565,7 +36739,7 @@
    "CODE": 166,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 358,
+   "PROOF": 362,
    "READ": 233,
    "RULE": 151,
    "WRITE": 8
@@ -36938,6 +37112,7 @@
    "SO_MEDEM_ESTE": [
     "provas/a_autoridade_da_fonte.py",
     "provas/a_taxonomia_tem_um_dono.py",
+    "provas/medir_source_collection_readiness.py",
     "provas/o_censo_da_sala_de_espera.py",
     "provas/o_corte_de_cr1.py",
     "system-map/scripts/generate_system_map.py",
@@ -36961,7 +37136,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 0,
-   "SAEM": 19,
+   "SAEM": 20,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "DATA",
@@ -38318,6 +38493,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/medir_source_collection_readiness.py",
     "system-map/scripts/generate_system_map.py",
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_system_map.py"
@@ -38857,6 +39033,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_maquina_depois_do_crash.py",
+    "provas/medir_source_collection_readiness.py",
     "provas/o_pedido_t4_atravessa.py",
     "tests/test_a_operacao_aguenta_concorrencia.py",
     "tests/test_o_pedido_t4_atravessa.py"
@@ -39077,7 +39254,8 @@
    "SO_MEDEM_ESTE": [
     "provas/a_corrida_existe_em_cada_rota.py",
     "provas/candidatos_tematicos.py",
-    "provas/chain.py"
+    "provas/chain.py",
+    "provas/medir_source_collection_readiness.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -39645,6 +39823,7 @@
     "provas/a_linhagem_do_ready.py",
     "provas/a_unidade_pousa_na_espera.py",
     "provas/italy_pilot_negativos.mjs",
+    "provas/medir_source_collection_readiness.py",
     "provas/o_pedido_atravessa.py",
     "provas/o_raw_fala.py",
     "provas/o_raw_local_nao_e_duravel.py",
@@ -39658,7 +39837,8 @@
     "tests/test_o_pedido_nao_mente.py",
     "tests/test_observabilidade_estrada.py",
     "tests/test_raw_observation_id_volta.py",
-    "tests/test_retorno_da_coleta.py"
+    "tests/test_retorno_da_coleta.py",
+    "tests/test_source_collection_readiness.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "docs/operacao/ITALIA-NA-PORTA-CANONICA.md",
@@ -39734,6 +39914,7 @@
     "regras/contratos_de_fonte.py",
     "regras/italy_contract_test.mjs",
     "regras/italy_contracts.mjs",
+    "regras/italy_contracts_onboarded.json",
     "regras/italy_pilot_guards.mjs",
     "regras/italy_scheduling_guards.mjs",
     "regras/italy_source_health.mjs"
@@ -39743,14 +39924,17 @@
     "provas/a_autoridade_da_fonte.py",
     "provas/a_collection_preserva_o_fato.py",
     "provas/italy_pilot_negativos.mjs",
+    "provas/medir_source_collection_readiness.py",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py",
+    "tests/test_source_collection_readiness.py",
     "tests/test_source_id.py",
     "tests/test_source_owner_identity.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
-    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md"
+    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+    "docs/operacao/SOURCE-COLLECTION-READINESS-V1.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -39762,8 +39946,8 @@
     "leis",
     "pathlib"
    ],
-   "ENTRAM": 8,
-   "SAEM": 8,
+   "ENTRAM": 9,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -39822,6 +40006,7 @@
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/a_porta_le_italiano.py",
     "provas/italy_pilot_negativos.mjs",
+    "provas/medir_source_collection_readiness.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/o_censo_da_sala_de_espera.py",
     "provas/o_censo_do_acervo.py",
@@ -39835,7 +40020,8 @@
     "system-map/scripts/scan_sources.py",
     "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
     "tests/test_fontes_explicitas_no_coletor.py",
-    "tests/test_observabilidade_estrada.py"
+    "tests/test_observabilidade_estrada.py",
+    "tests/test_source_collection_readiness.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -40146,6 +40332,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/a_taxonomia_tem_um_dono.py",
+    "provas/medir_source_collection_readiness.py",
     "provas/o_mapa_nao_mente.py",
     "system-map/scripts/cadeia_do_mapa.py",
     "system-map/scripts/generate_system_map.py",
@@ -40899,7 +41086,7 @@
     "e"
    ],
    "ENTRAM": 0,
-   "SAEM": 26,
+   "SAEM": 27,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
@@ -41174,6 +41361,7 @@
     "provas/implementacoes_candidatas.py",
     "provas/linkedin_local_first.py",
     "provas/medir_admission_t3_atual.py",
+    "provas/medir_source_collection_readiness.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/mutacao_da_autorizacao.py",
     "provas/mutacao_da_linhagem_do_ready.py",
@@ -41327,6 +41515,7 @@
     "tests/test_rastro_pg.py",
     "tests/test_sala_duravel.py",
     "tests/test_scrap_flow01_caminho_canonico.py",
+    "tests/test_source_collection_readiness.py",
     "tests/test_source_id_wiring_gap.py",
     "tests/test_ui_revisao_t3_ptbr.py"
    ],
@@ -41386,8 +41575,8 @@
     "unnest",
     "urllib"
    ],
-   "ENTRAM": 76,
-   "SAEM": 20,
+   "ENTRAM": 79,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -42428,6 +42617,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/medir_source_collection_readiness.py",
     "provas/mutacao_da_release_v1.py",
     "provas/mutacao_do_fluxo_canonico.py",
     "provas/o_canario_da_collection.py",
@@ -43862,6 +44052,7 @@
     "tests/test_security_secret_shapes.py",
     "tests/test_social_persistencia_pg.py",
     "tests/test_social_sessao.py",
+    "tests/test_source_collection_readiness.py",
     "tests/test_source_id.py",
     "tests/test_source_id_wiring_gap.py",
     "tests/test_source_owner_identity.py",

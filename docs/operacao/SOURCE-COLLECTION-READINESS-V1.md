@@ -349,3 +349,58 @@ Collection. Esses ficheiros e os 101 brutos (77 MB em `data/collection-store/ita
 commitados**, como nunca foram em ramo nenhum; o que viaja é o livro (`observations.ndjson` +175,
 `runs.ndjson` +175), o recibo (`RUN-MANIFEST.json` +180 corridas) e o livro de decisões da Admissão
 (+2588 linhas). `COST_USD = 0` em todas.
+
+---
+
+## 9 · REGRESSÃO E MAPA — MEDIDOS NESTA MÁQUINA, POR NOME
+
+Suíte inteira (`py -m unittest discover -s tests`, PyYAML emprestado), três vezes: base `d915f85a`
+antes de qualquer alteração, árvore alterada, e árvore commitada `12e66456`. Comparação por
+**nome** de teste, deduplicando subTests (contar linhas inventa «falhas novas» que já existiam).
+
+```
+BASE d915f85a           Ran 4764 tests · 100 FAIL/ERROR · 73 nomes distintos
+FINAL 12e66456          Ran 4774 tests · 101 FAIL/ERROR · 72 nomes distintos
+NEW_FAILURES            0    (nenhum nome só na final)
+FIXED                   1    test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore
+                             (o mapa regerado e commitado alcança o ponto fixo)
+TESTES NOVOS            10   tests/test_source_collection_readiness.py (10/10)
+```
+
+O que a suíte da árvore alterada (antes do commit) apanhou, e o que se fez com cada coisa:
+
+| falha (nome) | causa | o que se fez |
+|---|---|---|
+| `test_C1_a_sala_desta_arvore_esta_vazia` · `test_R3_a_sala_de_espera_real_continua_vazia` · `test_a_suite_nao_deixou_nada_no_acervo` (×2) · `test_rt7b_…` · `test_rt14_…` | os canários deixaram no disco 88 pastas de bruto (77 MB) e 13 corridas na Sala em ficheiro (`data/samples/PRONTO-PARA-INTELIGENCIA/`) | movidos para fora da árvore (`%TEMP%\sc-readiness\acervo-canarios\`); a lei «a Sala desta árvore está vazia» é a trava da inteligência, e os canários não a abrem |
+| `test_T5_raw_imutavel` · `test_T6_ocorrencias_batem_com_a_corrida` · `test_sao_53_fichas` · `test_as_46_…` · `test_9_e_10_…` · `test_nao_revisavel_…` · `test_o_frame_e_maior_…` | os mesmos brutos no disco entravam na população do pacote de revisão T3 | idem — voltam a 53 / 49 sem tocar no pacote |
+| `test_T8_o_markdown_nao_contradiz_o_estado_gerado` | o censo de estradas passou a reconhecer IT-T2-001 e IT-T3-011 como PROVEN pelo livro; `SOURCES_ROUTE_UNKNOWN` 23 → 22 | números do markdown `MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md` atualizados ao gerado, com nota datada |
+| `test_reobservacao_nunca_guarda_objecto_novo` | a primeira `SEEN_AGAIN` com `RAW_PATH` no livro (IT-T2-001); o coletor escreve o caminho de propósito desde a correção «NAO CRIEI O OBJECTO AGORA != NAO HA BYTES» | teste alinhado à lei escrita: reobservação nunca cria objeto, e o caminho, se existe, é o de uma observação anterior com os mesmos bytes |
+| `test_toda_decisao_do_livro_veio_das_keywords_de_hoje` | canários T2 no universo T2 escreveram `NAO_SE_APLICA`/`NAO_SEI` no livro; o teste exigia zero decisões de T2 | teste alinhado: zero **juízos** (SIM/NAO) de T2; `NAO_SE_APLICA` tem de dizer «nao ha regra escrita» |
+| `test_quem_criou_objecto_tem_caminho_e_quem_nao_criou_nao_tem` | já falhava na base (IT-T3-010 da Big Collection, `RAW_OBJECT_CREATED = False` com caminho); ganhou dois subTests | pré-existente — não tocado |
+| `test_o_ficheiro_bate_com_o_gerador` · `test_os_publicadores_ausentes_entraram` · `test_o_json_no_disco_…` | já falhavam na base nesta máquina (CRLF em `data/samples/PIEMONTE-FD/pagina.html`) | pré-existente — não tocado |
+
+**Guardas Node dos contratos** (`node regras/italy_contract_test.mjs`): base 350 ok / 72 falhas;
+final 352 ok / 72 falhas, **os mesmos 72 nomes** (as 72 são fichas GREEN sem amostra preservada e o
+placar do JSON mestre — de outra missão). Uma guarda nova foi apanhada e refinada no caminho: bytes
+recusados pela validação de assinatura são hashados como evidência e nunca preservados
+(`RAW_PRESERVED_BEFORE_PARSE: false`), e a guarda diz isso em vez de os confundir com RAW.
+
+**Provas do COLETA CHECK do CI**, corridas na árvore final e numa cópia descartável da base:
+`valida_biblia` PASS · `paridade_da_lingua` PASS · `fluxo_no_seco` PASS · `o_dedupe_tem_constraint`
+PASS · `o_executor_conta_se` PASS. Falham **igual** na base e na final (mesmos nomes):
+`testa_coleta_canonica` (item e2e-1 → NAO) · `testa_golden_path_pdf` (T25) ·
+`o_encanamento_tem_uma_porta` (P3, P11) · `a_fronteira_da_coleta` · `o_mapa_nao_mente`. E
+`padrao_da_coleta::DOCUMENTO_TEM_IMPRESSAO_DIGITAL` (observações sem sha256) já era FAIL na base
+com 31 e passa a 110: são as observações **FAILED** dos canários — sem bytes, sem sha —, que o
+livro guarda de propósito. O número piorou porque a coleta tentou 107 fontes; a métrica não
+distingue «falhou a olhar» de «documento sem impressão».
+
+**System Map.** `py system-map/scripts/correr_a_cadeia.py REGERAR` + `VALIDAR`:
+`SYSTEM_MAP_CHECK=PASS`. Carimbo pós-commit: `IMPRESSAO_DO_CARIMBO=IGUAL` (2247 ficheiros-fonte).
+Bateria de testes do mapa, na final e na base: `test_freshness.mjs` PASS (49) ·
+`test_impressao_da_arvore` PASS na árvore commitada · `test_papel_e_leitura_humana` PASS ·
+`test_system_map` 6 reprovadas ⊂ 7 na base · `test_verdade_da_collection_actual` 2 = 2 ·
+`test_base_da_auditoria` 1 = 1 · `test_quatro_planos` 2 = 2 · `test_cadeia_declara_io` 2 = 2.
+**Nenhuma reprovação nova no mapa.** Peças relidas e recarimbadas uma a uma em
+`architecture.declared.json` (nunca `--stamp` de tudo): C-IT-COLETA, C-IT-CONTRATOS, C-RECEITAS,
+C-PROVA-COLETA.
