@@ -1968,6 +1968,7 @@
       "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+      "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_demanda_de_dados_da_italia.py",
@@ -2046,6 +2047,7 @@
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
+      "tests/test_comunicacao_universo_falha_fechado.py",
       "tests/test_consumo_da_referencia_adama.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
@@ -2121,6 +2123,7 @@
       "tests/test_raw_observation_id_volta.py",
       "tests/test_red_team_estrada.py",
       "tests/test_reel_transcricao.py",
+      "tests/test_reel_transcricao_trava.py",
       "tests/test_relatorio_do_fluxo.py",
       "tests/test_relevance_priority_sobrecarga.py",
       "tests/test_retorno_da_coleta.py",
@@ -2196,16 +2199,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "8 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "titulo": "7 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
-        "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
+        "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json"
       ]
     },
     {
@@ -2672,9 +2675,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "3487ae15ee89a8333f07d1983149fabf163f0283",
-    "GENERATED_AT": "2026-09-17T20:01:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3ea3178e4913b61a29898c1f16e2f031340ed00a6105b728c4f6fef295f44483"
+    "HEAD": "385b754c3c4ce5ba984e6ea0adbded3cfdc94e8d",
+    "GENERATED_AT": "2026-09-18T00:48:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "dcb08014d31468e7ab1ada808eada01bccd51896754471440099fc0fdbe33ef3"
   },
   "FAMILIES": [
     {
@@ -3984,7 +3987,7 @@
         "repetido · 308764028a95… — 2 registos, 1 URL(s) → 1 objeto(s): dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo (Highcard®, Max-Ace® Rice Cropping Solution)",
         "repetido · ef688c782159… — 2 registos, 1 URL(s) → 1 objeto(s): dois produtos que apontam para o MESMO endereco: e RELACAO LOGICA, e nao exige byte novo (Highcard®, Max-Ace® Rice Cropping Solution)",
         "documentos com procedência recuperável no Git: 141 de 141",
-        "OS 43 DO GOLDEN PATH ESTÃO AQUI? 0 de 51 — são DOIS ACERVOS diferentes, medidos por impressão digital e não por nome de ficheiro"
+        "OS 43 DO GOLDEN PATH ESTÃO AQUI? 0 de 43 — são DOIS ACERVOS diferentes, medidos por impressão digital e não por nome de ficheiro"
       ],
       "status_reason": "AMARELO, e não verde, de propósito. Os 195 objetos estão preservados — e um armazém cheio com o livro de entrada em branco PARECE saúde e é o contrário. Enquanto houver objeto sem linha que o reclame, este cartão não tem caminho para ficar verde.",
       "evidence_text": "system-map/data/armazem-it.generated.json → LACUNA_DO_ARMAZEM + QUEM_ESCREVEU + DOIS_ACERVOS; data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
@@ -16401,7 +16404,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -16413,9 +16416,11 @@
         "system-map/scripts/censo_do_corpus_it.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/censo_do_corpus_it.py"
+      ],
       "produces": [],
       "inbound": [
         "C-EXECUTOR-TEXTO-PDF"
@@ -16478,7 +16483,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/censo_de_identidade_it.py:241",
+          "system-map/scripts/censo_de_identidade_it.py:248",
           "tests/test_observabilidade_estrada.py:35"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -16964,7 +16969,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -16976,9 +16981,11 @@
         "system-map/scripts/censo_de_identidade_it.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/censo_de_identidade_it.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CENSO-CORPUS-IT",
@@ -16998,7 +17005,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_de_identidade_it.py",
-            "line": 346,
+            "line": 343,
             "snippet": "escreve em destino"
           }
         }
@@ -17013,7 +17020,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/censo_de_identidade_it.py:346): produz dado",
+      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/censo_de_identidade_it.py:343): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -21250,7 +21257,7 @@
       "family": "F-GOVERNANCA",
       "status": "PROVEN",
       "ui_status": "green",
-      "what": "A conta desta corrida, do PDF guardado até à porta. 58 ocorrências → 51 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 22 · NAO_SEI 9 · SIM 12. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
+      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 22 · NAO_SEI 9 · SIM 12. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
         "RUN_ID: DERIV-PDF-20260914T164000Z",
@@ -21263,11 +21270,11 @@
         "pré-voo: executor disponível SIM (pdftotext)",
         "PRONTIDÃO: esta estrada mede DOCUMENTO, não FATO. O tempo e o lugar do fato pertencem ao claim, e o claim ainda não é extraído (COL-LAW-502).",
         "",
-        "OCORRÊNCIAS de PDF: 58",
-        "CONTEÚDOS ÚNICOS: 51",
-        "ocorrências do mesmo conteúdo: 7 — repetição, NÃO perda",
+        "OCORRÊNCIAS de PDF: 49",
+        "CONTEÚDOS ÚNICOS: 43",
+        "ocorrências do mesmo conteúdo: 6 — repetição, NÃO perda",
         "",
-        "ENTRADA DA DERIVAÇÃO: 51",
+        "ENTRADA DA DERIVAÇÃO: 43",
         "DERIVADOS QUE EXISTEM: 43",
         "emitidos NESTA corrida: 0 · guardados NESTA corrida: 0 · já existiam: 43",
         "PERDIDOS: 0 — medido entre etapas comparáveis (entrada da derivação × derivados), nunca ocorrências menos conteúdos",
@@ -21374,10 +21381,10 @@
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
-      "parado_na_coleta": [
+      "entregue_a_inteligencia": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
       ],
+      "parado_na_coleta": [],
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
@@ -23535,37 +23542,37 @@
       "status": "UNKNOWN",
       "ui_status": "gray",
       "proof": "git-measurement",
-      "what": "58 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 63.2 MB. São 51 documentos diferentes: 6 deles foram buscados mais de uma vez, e isso é REPETIÇÃO, não perda — nada sumiu.",
+      "what": "49 ocorrências de PDF italiano guardadas — boletins regionais, bilanci fitosanitari, diretrizes, 62.7 MB. São 43 documentos diferentes: 6 deles foram buscados mais de uma vez, e isso é REPETIÇÃO, não perda — nada sumiu.",
       "why_here": "Enquanto o mapa dizia «corpus» numa palavra só, isto parecia alimento do sistema. Separar o guardado do legível foi o que permitiu ver — e fechar — o corte.",
       "files": [],
-      "file_count": 58,
+      "file_count": 49,
       "facts": [
-        "OCORRÊNCIAS (caminhos no disco): 58",
-        "CONTEÚDOS ÚNICOS (impressão digital): 51",
-        "o mesmo conteúdo em mais de um caminho: 7 ocorrência(s), em 6 conteúdo(s)",
+        "OCORRÊNCIAS (caminhos no disco): 49",
+        "CONTEÚDOS ÚNICOS (impressão digital): 43",
+        "o mesmo conteúdo em mais de um caminho: 6 ocorrência(s), em 6 conteúdo(s)",
         "PERDIDOS: 0 — repetição NÃO é perda. cada copia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu. E a repeticao nao e fotocopia: censo_de_identidade_it.py classificou os 6 grupos pela prova de captura e deu 6/6 INDEPENDENT_CAPTURES_SAME_CONTENT — duas idas reais a fonte que trouxeram os mesmos bytes.",
-        "tamanho em disco: 63.2 MB",
-        "ocorrências COM derivação localizável: 50 de 58",
-        "ocorrências SEM derivação: 8",
+        "tamanho em disco: 62.7 MB",
+        "ocorrências COM derivação localizável: 49 de 49",
+        "ocorrências SEM derivação: 0",
         "derivados únicos que as servem: 43 — uma derivação serve todas as ocorrências do mesmo conteúdo",
         "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
-        "63.2 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
+        "62.7 MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
         "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
-        "repetido · f88c89d73d6a… em 3 caminhos: XX/it-t2-002/DOCUMENT/f88c89d73d6a132a-ub622d4acfd5a1de6-agro_01.pdf | data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
         "repetido · e612807928b5… em 2 caminhos: data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-008/Notiziario_Agrometeorologico_N36_02-09-2026.pdf",
         "repetido · 59da05274359… em 2 caminhos: data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-010/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf",
         "repetido · 0c2723e66201… em 2 caminhos: data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-02-09.pdf",
         "repetido · 420e08ef15be… em 2 caminhos: data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf",
+        "repetido · f88c89d73d6a… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
         "repetido · 3d3c1bc0e963… em 2 caminhos: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf | data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_09.pdf",
         "CAPTURAS DISTINTAS: 24 — caminho diferente NÃO prova captura diferente, e SHA igual NÃO prova a mesma captura",
-        "veredito dos grupos repetidos: INDEPENDENT_CAPTURES_SAME_CONTENT: 5 · UNKNOWN: 1",
-        "cópias SEM prova de captura em registo nenhum: 20 — G-40",
+        "veredito dos grupos repetidos: INDEPENDENT_CAPTURES_SAME_CONTENT: 6",
+        "cópias SEM prova de captura em registo nenhum: 11 — G-40",
         "0c2723e66201… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T13:49:59.548Z | 2026-09-07T15:37:53.953Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
         "3d3c1bc0e963… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:44.653Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
         "420e08ef15be… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-02 | 2026-09-07T13:49:59.548Z. Ator: curl HTTP GET com User-Agent de navegador, do IP de saida italiano | recolha manual por VPN.",
         "59da05274359… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:49:05.748Z | 2026-09-07T15:37:57.488Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
         "e612807928b5… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:36:30.583Z | 2026-09-07T15:38:27.742Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano.",
-        "f88c89d73d6a… → UNKNOWN: pelo menos um caminho nao tem prova de captura em nenhum dos tres registos"
+        "f88c89d73d6a… → INDEPENDENT_CAPTURES_SAME_CONTENT: 2 capturas distintas, com provas separadas. Quando: 2026-09-07T14:31:58.541Z | 2026-09-07T15:37:42.531Z. Ator: coletor-piloto | curl HTTP GET com User-Agent de navegador, do IP de saida italiano."
       ],
       "status_reason": "CINZENTO porque o mapa continua a não conseguir LER um PDF — o scanner não abre ficheiro binário, e isso não mudou. O que mudou é que já não precisa: o executor abriu-os e o texto vive ao lado, como artefato próprio, esse sim legível e contado.",
       "evidence_text": "system-map/data/corpus-it.generated.json → ACERVO_EM_PDF + OCORRENCIA_E_CONTEUDO; system-map/data/identidade-it.generated.json → IDENTIDADE_DO_ARTEFATO",
@@ -23723,7 +23730,7 @@
           "coleta/italy_executor.py:87",
           "medidas/padrao_da_coleta.py:65",
           "provas/a_collection_preserva_o_fato.py:85",
-          "provas/a_porta_cli_liga_o_banco.py:212"
+          "provas/a_porta_cli_liga_o_banco.py:219"
         ],
         "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -36057,6 +36064,7 @@
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
+        "tests/test_comunicacao_universo_falha_fechado.py",
         "tests/test_consumo_da_referencia_adama.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
@@ -36132,6 +36140,7 @@
         "tests/test_raw_observation_id_volta.py",
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao.py",
+        "tests/test_reel_transcricao_trava.py",
         "tests/test_relatorio_do_fluxo.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_retorno_da_coleta.py",
@@ -36164,7 +36173,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 185,
+      "file_count": 187,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36595,6 +36604,7 @@
         "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
         "data/samples/CHANGE-EVENTS-es-2025-2026.json",
         "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
         "data/samples/CROSS-MARKET-prothioconazole-cereal.json",
         "data/samples/DATA-CLOCK-manifest.json",
         "data/samples/DESIGN-DATA-CONTRACT-V1.json",
@@ -36833,6 +36843,7 @@
         "referencia/adama/SNAPSHOTS.json",
         "referencia/adama/SOURCE-ID-MAP.json",
         "regras/comunicacao_identidade.py",
+        "regras/comunicacao_universo.py",
         "regras/italy_contracts.mjs",
         "regras/proveniencia.py",
         "regras/sensor_coleta.py",
@@ -36893,9 +36904,11 @@
         "tests/fixtures/ARESTAS/so_comentario.py",
         "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
         "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+        "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
         "tests/fixtures/yt-raw-minimo.json",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c4h_ponte_de_midia.py",
+        "tests/test_comunicacao.py",
         "tests/test_m2_rota_forward.py"
       ],
       "consumes_plane": "CODE",
@@ -46416,7 +46429,7 @@
       "evidence": [
         {
           "file": "provas/a_porta_cli_liga_o_banco.py",
-          "line": 197,
+          "line": 204,
           "snippet": "r = subprocess.run([bash, os.path.join(\"motor\", \"cadeia_canonica.sh\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CADEIA-V21--READS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -47254,8 +47267,8 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_de_identidade_it.py",
-          "line": 241,
-          "snippet": "from censo_do_corpus_it import e_italiano  # noqa: E402",
+          "line": 248,
+          "snippet": "from censo_do_corpus_it import e_italiano, pdfs_italianos_rastreados  # noqa: E402,F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-CORPUS-IT--IMPORTS-->C-CENSO-IDENTIDADE-IT",
             "FROM": "C-CENSO-CORPUS-IT",
@@ -59441,7 +59454,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_do_corpus_it.py",
-          "line": 276,
+          "line": 319,
           "snippet": "reg = os.path.join(RAIZ, 'data', 'derivados', 'REGISTO-DE-ARTEFATOS.json')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-CENSO-CORPUS-IT",
@@ -59697,7 +59710,7 @@
       "kind": "technical",
       "status": "UNKNOWN",
       "payload": "dado",
-      "reason": "entraram 51 documentos, saíram 43 textos — cada um com pai e impressão digital do pai. PERDIDOS: 0. A conta é entre etapas comparáveis (documentos × textos), nunca ocorrências menos conteúdos.",
+      "reason": "entraram 43 documentos, saíram 43 textos — cada um com pai e impressão digital do pai. PERDIDOS: 0. A conta é entre etapas comparáveis (documentos × textos), nunca ocorrências menos conteúdos.",
       "evidence": [
         {
           "file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -61721,7 +61734,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Quem esta autorizado a ser coletado tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Quem esta autorizado a ser coletado tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
@@ -61754,6 +61767,22 @@
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_comunicacao_universo_falha_fechado.py",
+          "line": 47,
+          "snippet": "import comunicacao_universo as uni  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE--IMPORTS-->C-TESTES",
+            "FROM": "C-IDENTIDADE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -61772,12 +61801,44 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Quem esta autorizado a ser coletado alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Quem esta autorizado a ser coletado alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
           "line": 173,
           "snippet": "_fonte = io.open(os.path.join(ROOT, 'regras', 'comunicacao_identidade.py'),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE--READS-->C-TESTES",
+            "FROM": "C-IDENTIDADE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_comunicacao_universo_falha_fechado.py",
+          "line": 69,
+          "snippet": "self.destino = os.path.join(self.saida, 'UNIVERSO-CONTAS-V1.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IDENTIDADE--READS-->C-TESTES",
+            "FROM": "C-IDENTIDADE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_comunicacao_universo_falha_fechado.py",
+          "line": 221,
+          "snippet": "with io.open(os.path.join(ROOT, 'regras', 'comunicacao_universo.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-TESTES",
             "FROM": "C-IDENTIDADE",
@@ -65610,7 +65671,7 @@
       "evidence": [
         {
           "file": "provas/a_porta_cli_liga_o_banco.py",
-          "line": 236,
+          "line": 243,
           "snippet": "import italy_executor as ie",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -66436,7 +66497,7 @@
       "kind": "technical",
       "status": "UNKNOWN",
       "payload": "dado",
-      "reason": "58 ocorrências de PDF entram, e são 51 documentos diferentes: 7 estão guardados em dois sítios. O executor nomeia o texto pela impressão digital do pai, então conteúdo repetido dá UM texto — e isso é REPETIÇÃO, não perda. O original não foi tocado: IMUTAVEL.",
+      "reason": "49 ocorrências de PDF entram, e são 43 documentos diferentes: 6 estão guardados em dois sítios. O executor nomeia o texto pela impressão digital do pai, então conteúdo repetido dá UM texto — e isso é REPETIÇÃO, não perda. O original não foi tocado: IMUTAVEL.",
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
@@ -66895,7 +66956,7 @@
       "evidence": [
         {
           "file": "provas/a_porta_cli_liga_o_banco.py",
-          "line": 212,
+          "line": 219,
           "snippet": "\"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -71166,7 +71227,7 @@
       "evidence": [
         {
           "file": "provas/a_porta_cli_liga_o_banco.py",
-          "line": 246,
+          "line": 253,
           "snippet": "cmd = [sys.executable, os.path.join(\"orquestrador\", \"orquestrador.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-PROVA-PORTA-CLI-LIGA-O-BANCO",
@@ -78132,7 +78193,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 801,
+          "line": 814,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPA-SCAN",
@@ -88757,7 +88818,7 @@
         {
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 354,
-          "snippet": "PATH=\"$PGBIN:$PATH\" bash motor/cadeia_canonica.sh migrations 'postgresql://postgres:descartavel@localhost:54329/descartavel'",
+          "snippet": "PATH=\"$PGBIN:$PATH\" bash motor/cadeia_canonica.sh migrations '<DSN-REDIGIDA>'",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SINTONIA-SCRAP--RUNS-->C-CADEIA-V21",
             "FROM": "C-SINTONIA-SCRAP",
@@ -92803,7 +92864,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 26 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -93014,7 +93075,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 35 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 36 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -95300,7 +95361,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1081,
+  "UNCLAIMED_FILES_COUNT": 1082,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -95464,7 +95525,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 184,
+      "PECAS_EM_DESACORDO": 186,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -95481,16 +95542,16 @@
   ],
   "COUNTS": {
     "components": 212,
-    "components_proven": 34,
-    "components_pending": 170,
+    "components_proven": 32,
+    "components_pending": 172,
     "components_broken": 0,
     "components_unknown": 8,
     "edges": 1085,
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2080,
-    "files_covered": 999,
+    "files_tracked": 2083,
+    "files_covered": 1001,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

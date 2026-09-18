@@ -807,11 +807,11 @@
  ],
  "ACERVO_EM_PDF": {
   "O_QUE_E": "O acervo italiano em PDF, e o estado da derivacao dele. OCORRENCIA e o caminho no disco; CONTEUDO sao os bytes, identificados por SHA-256. Uma MESMA derivacao serve todas as ocorrencias do mesmo conteudo — por isso ha mais ocorrencias do que derivados, e isso NAO e falta. RAW_EXISTS=SIM, TEXT_DERIVATION_EXISTS=SIM.",
-  "OCORRENCIAS": 58,
-  "CONTEUDOS_UNICOS": 51,
-  "MEGABYTES": 63.2,
-  "OCORRENCIAS_COM_DERIVACAO": 50,
-  "OCORRENCIAS_SEM_DERIVACAO": 8,
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
+  "MEGABYTES": 62.7,
+  "OCORRENCIAS_COM_DERIVACAO": 49,
+  "OCORRENCIAS_SEM_DERIVACAO": 0,
   "DERIVADOS_UNICOS": 43,
   "COMO_SE_LIGA": "pelo PARENT_SHA256 do registo de artefatos. Nome de ficheiro e indicio; impressao digital e prova.",
   "CARACTERES": "NAO MEDIDO e NAO CANONICO — abrir PDF e derivar, nao medir. E nem sobre o texto ja derivado ha regra de contagem escrita: a mesma pasta da contas diferentes conforme a quebra de linha. Entra por porta propria, com contrato.",
@@ -1118,16 +1118,6 @@
     ]
    },
    {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/f88c89d73d6a132a-ub622d4acfd5a1de6-agro_01.pdf",
-    "BYTES": 463630,
-    "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
-    "TEM_TEXTO_DERIVADO": true,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": [
-     "data/derivados/texto/RAW-f88c89d73d6a132a.txt"
-    ]
-   },
-   {
     "FICHEIRO": "data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf",
     "BYTES": 463423,
     "SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
@@ -1321,90 +1311,18 @@
     "ONDE_ESTA_O_TEXTO": [
      "data/derivados/texto/RAW-4e12affad7fedd91.txt"
     ]
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/33cbbf87a7a4164a-ub64085ae1fb54667-agro_24.pdf",
-    "BYTES": 4162,
-    "SHA256": "33cbbf87a7a4164a6cf18c5edaeff2c84a1edf33990ade503a5ab7b2fd5866d8",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/667bd6ddb3dcfd0e-u227eebaf8a74910a-agro_16.pdf",
-    "BYTES": 4162,
-    "SHA256": "667bd6ddb3dcfd0e26279e0c92fdab44babdf9c0d55255bde62e6429bc2823fb",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/da22e74dcf341689-u227eebaf8a74910a-agro_16.pdf",
-    "BYTES": 4162,
-    "SHA256": "da22e74dcf341689542e2ae8b8291e90d3fdb12bb54a5fd48986849d6eeb1fee",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/fd20715069940529-ub64085ae1fb54667-agro_24.pdf",
-    "BYTES": 4162,
-    "SHA256": "fd2071506994052983a3fbfb86b1802293c92cd40ea07a220bc2bb851d456f6c",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/2891a5f27c9ed1e5-ub622d4acfd5a1de6-agro_01.pdf",
-    "BYTES": 4161,
-    "SHA256": "2891a5f27c9ed1e58d1dc030022a3b33e36b9090889484044ada6f26406f1db8",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/7d5445c7f306512c-u4e3faed3eb79e4fc-agro_09.pdf",
-    "BYTES": 4161,
-    "SHA256": "7d5445c7f306512c66355eed9bd83aedb7d681b605d99a75ace14be3e428cde7",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/c5f23ca85425dfb0-u4e3faed3eb79e4fc-agro_09.pdf",
-    "BYTES": 4161,
-    "SHA256": "c5f23ca85425dfb08ba932a0dd33aed3b55d9e148830b957e0a38bdf5f92083a",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
-   },
-   {
-    "FICHEIRO": "XX/it-t2-002/DOCUMENT/e9001c3a0bb4c1d7-ub622d4acfd5a1de6-agro_01.pdf",
-    "BYTES": 4161,
-    "SHA256": "e9001c3a0bb4c1d7c91ea243a649cb50d7bd40fc1d5372832aadf03eb91a6e9c",
-    "TEM_TEXTO_DERIVADO": false,
-    "CARACTERES_JA_DERIVADOS": 0,
-    "ONDE_ESTA_O_TEXTO": []
    }
   ]
  },
  "OCORRENCIA_E_CONTEUDO": {
   "O_QUE_E": "OCORRENCIA e CONTEUDO sao especies diferentes. A contagem NUNCA subtrai uma da outra: a diferenca entre elas e repeticao, nao perda. COL-LAW-501.",
-  "OCORRENCIAS": 58,
-  "CONTEUDOS_UNICOS": 51,
-  "OCORRENCIAS_DE_CONTEUDO_REPETIDO": 7,
+  "OCORRENCIAS": 49,
+  "CONTEUDOS_UNICOS": 43,
+  "OCORRENCIAS_DE_CONTEUDO_REPETIDO": 6,
   "CONTEUDOS_COM_MAIS_DE_UM_CAMINHO": 6,
   "PERDA": 0,
   "PORQUE_NAO_E_PERDA": "cada copia repetida continua no disco, com o seu caminho e a sua procedencia. Nada sumiu. E a repeticao nao e fotocopia: censo_de_identidade_it.py classificou os 6 grupos pela prova de captura e deu 6/6 INDEPENDENT_CAPTURES_SAME_CONTENT — duas idas reais a fonte que trouxeram os mesmos bytes.",
   "ONDE_SE_REPETE": [
-   {
-    "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
-    "CAMINHOS": [
-     "XX/it-t2-002/DOCUMENT/f88c89d73d6a132a-ub622d4acfd5a1de6-agro_01.pdf",
-     "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
-     "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf"
-    ]
-   },
    {
     "SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
     "CAMINHOS": [
@@ -1431,6 +1349,13 @@
     "CAMINHOS": [
      "data/samples/IT-BOLLETTINI-VPN-2026/pdf/CAMP_SA-26-08.pdf",
      "data/samples/IT-SOURCE-SAMPLES/IT-T3-002/SA-26-08.pdf"
+    ]
+   },
+   {
+    "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+    "CAMINHOS": [
+     "data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf",
+     "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf"
     ]
    },
    {
@@ -3454,21 +3379,21 @@
    "PORQUE": "e uma lista/recibo; a prosa que tem e descricao de campo, nao conteudo colhido"
   },
   {
-   "FICHEIRO": "data/samples/COMPETITOR-azoxy-prothio-italy.json",
+   "FICHEIRO": "data/raw/IT-ROTULOS/_MANIFESTO.json",
    "REGISTOS_COM_IDENTIFICADOR": 0,
-   "OBJETOS_DENTRO_DE_LISTAS": 4,
+   "OBJETOS_DENTRO_DE_LISTAS": 163,
    "REGISTOS": 0,
    "REGISTOS_COM_TEXTO": 0,
    "CARACTERES_DE_TEXTO": 0,
    "CAMPOS_DE_TEXTO_USADOS": {},
-   "GAVETA": "UNKNOWN",
-   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+   "GAVETA": "TEXT_NOT_EXPECTED",
+   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
   },
   {
-   "FICHEIRO": "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
-   "REGISTOS_COM_IDENTIFICADOR": 1,
-   "OBJETOS_DENTRO_DE_LISTAS": 10,
-   "REGISTOS": 1,
+   "FICHEIRO": "data/samples/COMPETITOR-azoxy-prothio-italy.json",
+   "REGISTOS_COM_IDENTIFICADOR": 0,
+   "OBJETOS_DENTRO_DE_LISTAS": 4,
+   "REGISTOS": 0,
    "REGISTOS_COM_TEXTO": 0,
    "CARACTERES_DE_TEXTO": 0,
    "CAMPOS_DE_TEXTO_USADOS": {},
@@ -4015,6 +3940,17 @@
    "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
   },
   {
+   "FICHEIRO": "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
+   "REGISTOS_COM_IDENTIFICADOR": 1,
+   "OBJETOS_DENTRO_DE_LISTAS": 10,
+   "REGISTOS": 1,
+   "REGISTOS_COM_TEXTO": 0,
+   "CARACTERES_DE_TEXTO": 0,
+   "CAMPOS_DE_TEXTO_USADOS": {},
+   "GAVETA": "UNKNOWN",
+   "PORQUE": "nao tem prosa e o nome nao diz se devia ter. NAO SEI — e este nao sei e a resposta honesta, nao uma falha da medicao"
+  },
+  {
    "FICHEIRO": "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
    "REGISTOS_COM_IDENTIFICADOR": 0,
    "OBJETOS_DENTRO_DE_LISTAS": 139,
@@ -4029,17 +3965,6 @@
    "FICHEIRO": "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
    "REGISTOS_COM_IDENTIFICADOR": 0,
    "OBJETOS_DENTRO_DE_LISTAS": 27,
-   "REGISTOS": 0,
-   "REGISTOS_COM_TEXTO": 0,
-   "CARACTERES_DE_TEXTO": 0,
-   "CAMPOS_DE_TEXTO_USADOS": {},
-   "GAVETA": "TEXT_NOT_EXPECTED",
-   "PORQUE": "e uma lista/recibo; nunca foi para ter prosa"
-  },
-  {
-   "FICHEIRO": "data/raw/IT-ROTULOS/_MANIFESTO.json",
-   "REGISTOS_COM_IDENTIFICADOR": 0,
-   "OBJETOS_DENTRO_DE_LISTAS": 163,
    "REGISTOS": 0,
    "REGISTOS_COM_TEXTO": 0,
    "CARACTERES_DE_TEXTO": 0,
