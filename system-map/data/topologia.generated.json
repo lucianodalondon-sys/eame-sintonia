@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T21:57:42+00:00",
-  "HEAD": "efbe71088eb7923dec4890060ce0ac4bbc9eea95",
-  "BRANCH": "claude/it-trunk-v1",
+  "GENERATED_AT": "2026-09-18T22:08:51+00:00",
+  "HEAD": "cdb5c1129072244912174ce153db4784a24e45fc",
+  "BRANCH": "claude/house-guard-fixture-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc",
-  "FICHEIROS_NA_IMPRESSAO": 2247,
+  "SOURCE_TREE_FINGERPRINT": "272eec75428299318fca7d2519f2a02021ee09f5d0767fd33c83871895e6447d",
+  "FICHEIROS_NA_IMPRESSAO": 2238,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc",
+    "VERSAO": "272eec75428299318fca7d2519f2a02021ee09f5d0767fd33c83871895e6447d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc",
+    "VERSAO": "272eec75428299318fca7d2519f2a02021ee09f5d0767fd33c83871895e6447d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4199,7 +4199,7 @@
    {
     "PATH": "tests/test_persistencia_operacional.py",
     "PAPEL": "FONTE",
-    "VERSAO": "fc61cd5b4a241fa6e3b6487ec8c4d33617615b4d",
+    "VERSAO": "d3920253d0a0a2f07bd14b2a14e68e06cee9bcca",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4576,7 +4576,7 @@
    }
   ],
   "INPUTS_COUNT": 648,
-  "INPUTS_DIGEST": "546d928d764eac06764f491db6b8ee4daf108896c101e942104428676e5e4df7",
+  "INPUTS_DIGEST": "45d94110c45982ebfed99db159a0cbcfe5eca8da23309f9acef408132bae361a",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4609,8 +4609,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "79a172dac96956345920d4e6ac972123eea7644fc9778a968b04bd7b3bf508bb",
-  "SEMANTIC_HASH": "2b52a7b8879669b503b7792f30a0cc1332722009576f4f3f44864b9c13b64cb1"
+  "MEASUREMENT_HASH": "c4eb70d7a06bab40634343337e0b78f04376716fcefc5eb4de67549113cc825f",
+  "SEMANTIC_HASH": "4e45e68cce41ffd40f4177b198bb7e1e2fa11ef00c109937247b86b90481860b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -43018,6 +43018,7 @@
    "SO_MEDEM_ESTE": [
     "provas/a_porta_cli_liga_o_banco.py",
     "provas/o_video_tem_consumidor.py",
+    "tests/test_persistencia_operacional.py",
     "tests/test_scrap_convergencia.py",
     "tests/test_security_secret_shapes.py",
     "tests/test_social_sessao.py",

@@ -26,7 +26,20 @@ from orquestrador import persistencia as P  # noqa: E402
 from guarda import banco_operacional as OP  # noqa: E402
 from guarda import banco_descartavel as DESC  # noqa: E402
 
-SENHA = "SENHA-QUE-NAO-PODE-APARECER-EM-LADO-NENHUM"
+#: ⚠️ O VALOR TEM DE SE DECLARAR FALSO, E NÃO BASTA O NOME DA CONSTANTE DIZÊ-LO.
+#: Aqui esteve `SENHA-QUE-NAO-PODE-APARECER-EM-LADO-NENHUM` — uma frase que
+#: anuncia ser fixture a quem LÊ, e que para o scanner é apenas uma senha
+#: literal com forma de senha. `guarda/social_guarda.py` reprovou-a, e reprovou
+#: bem: ela não usa nenhuma das palavras que o contrato dele reconhece.
+#:
+#:     FIXTURE WITH SECRET SHAPE IS SECRET TO THE SCANNER.
+#:     ENTAO A FIXTURE DECLARA-SE, OU CONSTROI-SE EM TEMPO DE EXECUCAO.
+#:
+#: `dummy` está na família de placeholders que a guarda aceita, e a asserção que
+#: importa não mudou: estas três DSN continuam a levar uma senha, e os testes de
+#: não-vazamento continuam a exigir que ela NÃO apareça em texto nem em exceção.
+#: O que mudou foi a forma do valor — o propósito da prova ficou intacto.
+SENHA = "dummy-password"
 OPERACIONAL_OK = "postgresql://postgres:%s@127.0.0.1:54330/sala_italia" % SENHA
 DESCARTAVEL_OK = "postgresql://postgres:%s@localhost:54329/descartavel" % SENHA
 PRODUCAO = "postgresql://u:%s@db.abcdefgh.supabase.co:5432/postgres" % SENHA
