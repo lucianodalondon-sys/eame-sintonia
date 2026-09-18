@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  39daea89b0f98f506c62704161054b3a35982dab
+HEAD_DA_MEDICAO  3487ae15ee89a8333f07d1983149fabf163f0283
 BRANCH           claude/it-collection-sala-v1
-GERADO_EM        2026-09-17T19:59:24-03:00
+GERADO_EM        2026-09-17T20:01:09-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1631,7 +1631,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json`, `regras/comunicacao_identidade.py`, `regras/comunicacao_lote.py`, `regras/comunicacao_universo.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | green — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED). |
+| **status operacional** | yellow — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-COLETA |
 | **prova de quem ativa** | .github/workflows/comunicacao-publica.yml:104 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |

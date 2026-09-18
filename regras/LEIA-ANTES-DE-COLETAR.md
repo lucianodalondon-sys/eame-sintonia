@@ -85,7 +85,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 
 | | |
 |---|---|
-| estado | PROVEN — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED). |
+| estado | PENDING — so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json` |
 | onde vive | `regras/comunicacao_identidade.py` |
 | onde vive | `regras/comunicacao_lote.py` |

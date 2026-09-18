@@ -2672,9 +2672,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "39daea89b0f98f506c62704161054b3a35982dab",
-    "GENERATED_AT": "2026-09-17T19:59:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "04039376452fd701326cf161e93c03fbcde2411ee81dc881286e114087c2c3cf"
+    "HEAD": "3487ae15ee89a8333f07d1983149fabf163f0283",
+    "GENERATED_AT": "2026-09-17T20:01:09-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3ea3178e4913b61a29898c1f16e2f031340ed00a6105b728c4f6fef295f44483"
   },
   "FAMILIES": [
     {
@@ -21335,7 +21335,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛨",
       "views": [
         "acervo",
@@ -21350,9 +21350,11 @@
         "regras/comunicacao_universo.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "so peca de prova a importa. NENHUM modulo de runtime a importa (DECLARED_RULE_NOT_ENFORCED).  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "regras/comunicacao_universo.py"
+      ],
       "produces": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json"
       ],
@@ -36164,11 +36166,12 @@
       ],
       "file_count": 185,
       "status": "PENDING",
-      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 15 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "tests/test_biblia.py",
         "tests/test_canonico.py",
         "tests/test_coleta_externa.py",
+        "tests/test_comunicacao.py",
         "tests/test_handoff.py",
         "tests/test_integracao_biblia.py",
         "tests/test_lugar_do_fato.py",
@@ -36993,16 +36996,7 @@
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [
-        {
-          "pasta": "data/samples/COMPETITOR-PUBLIC-COMM",
-          "prova": {
-            "file": "ferramentas/reel_transcricao.py",
-            "line": 1442,
-            "snippet": "escreve em caminho"
-          }
-        }
-      ],
+      "escreve_na_pasta": [],
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
@@ -52627,7 +52621,7 @@
         },
         {
           "file": "tests/test_comunicacao.py",
-          "line": 27,
+          "line": 28,
           "snippet": "import comunicacao_classificar as cl      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--IMPORTS-->C-TESTES",
@@ -53510,7 +53504,7 @@
       "evidence": [
         {
           "file": "ferramentas/reel_transcricao.py",
-          "line": 92,
+          "line": 91,
           "snippet": "import artefato as art          # noqa: E402 — o contrato de artefato, dono único",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TRANSCRICAO",
@@ -61731,7 +61725,7 @@
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
-          "line": 28,
+          "line": 29,
           "snippet": "import comunicacao_identidade as ident    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--IMPORTS-->C-TESTES",
@@ -61747,7 +61741,7 @@
         },
         {
           "file": "tests/test_comunicacao.py",
-          "line": 29,
+          "line": 30,
           "snippet": "import comunicacao_universo as uni        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--IMPORTS-->C-TESTES",
@@ -61782,7 +61776,7 @@
       "evidence": [
         {
           "file": "tests/test_comunicacao.py",
-          "line": 153,
+          "line": 173,
           "snippet": "_fonte = io.open(os.path.join(ROOT, 'regras', 'comunicacao_identidade.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-TESTES",
@@ -86242,7 +86236,7 @@
       "evidence": [
         {
           "file": "ferramentas/reel_transcricao.py",
-          "line": 94,
+          "line": 93,
           "snippet": "import social_matriz as mz      # noqa: E402 — a política de rota, dono único",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-TRANSCRICAO",
@@ -86258,7 +86252,7 @@
         },
         {
           "file": "ferramentas/reel_transcricao.py",
-          "line": 95,
+          "line": 94,
           "snippet": "import falhas as fx            # noqa: E402 — a língua única do erro, dono único",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-TRANSCRICAO",
@@ -95470,7 +95464,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 183,
+      "PECAS_EM_DESACORDO": 184,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -95487,8 +95481,8 @@
   ],
   "COUNTS": {
     "components": 212,
-    "components_proven": 35,
-    "components_pending": 169,
+    "components_proven": 34,
+    "components_pending": 170,
     "components_broken": 0,
     "components_unknown": 8,
     "edges": 1085,
