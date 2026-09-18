@@ -17678,3 +17678,82 @@ omissão, com mais passos.
 existe** como atributo nem reaparece no código. Repor a linha reprova. Prova:
 17 testes novos · 113 na regressão de Admissão/Collection · 2 vermelhos
 pré-existentes, os mesmos no trunk-base · `RED_TEAM_BLOCKERS = 0`.
+
+
+# §149 · AS TRÊS PRIMEIRAS FONTES SOCIAIS ITALIANAS — E DUAS ARMADILHAS DE IDENTIDADE QUE O `200` ESCONDE
+
+**Data:** 2026-09-18 · **Branch:** `claude/it-social-sources-v1` · **Base:** `cdb5c112`
+
+O T8 italiano estava vazio. O Atlas tinha `EU-T8-001` (avaliação de rota, não fonte) e
+`ES-T8-001..003` — que o próprio derivado já classificava como **`CITADAS_SEM_FICHA`**:
+identidade citada numa tabela, sem ficha, invisível ao resolvedor.
+
+```
+SOURCE_ID CITADO  !=  FICHA  !=  FONTE ALCANÇÁVEL PELO RESOLVEDOR
+```
+
+Ficam registadas `IT-T8-001` (YouTube), `IT-T8-002` (LinkedIn) e `IT-T8-003` (Instagram),
+com ficha completa e alcançáveis: `ITALIA 157 → 160` no derivado regenerado.
+
+## A primeira armadilha: o `channelId` que o HTML oferece não é o do canal
+
+Um `re.search(r'(UC[\w-]{22})')` no HTML de `@agronotizietv` devolve
+`UCxypgXkKSbXuHn5hfmpXyvQ`. O feed prova que esse ID é **«Agrimeccanica - Agronotizie»**,
+outro canal, com outro conteúdo (maquinário, não agronomia). O ID certo —
+`UCUs2Mg7jvUTRt7_MSOFYM5Q` — está em `channelMetadataRenderer`, e o RSS confirma-o pelo
+título: «Agronotizie - Notizie per l'agricoltura».
+
+```
+O PRIMEIRO IDENTIFICADOR QUE APARECE NA PÁGINA É O DE ALGUÉM.
+NÃO NECESSARIAMENTE O DESTA FONTE.
+```
+
+Uma página de canal carrega IDs de canais **vinculados**. Ler o primeiro é herdar a
+identidade do vizinho — e o erro atravessa calado, porque o feed responde `200` e traz
+vídeos reais. Confirmar sempre o ID contra o **nome** que o próprio feed declara.
+
+## A segunda: `HTTP 200` anónimo não prova que o perfil existe
+
+Medido com controlo negativo — um handle inventado, `zzz_nao_existe_xyz_9931`:
+
+```
+instagram.com/<handle_real>/    -> 200 · 628.490 bytes
+instagram.com/<handle_falso>/   -> 200 · 628.503 bytes     <- indistinguível
+/embed/ nos dois               -> 200 · ~627.3 KB, sem username no HTML
+api/v1/users/web_profile_info  -> 429 nos dois
+navegador real (handle real)   -> «AgroNotizie (@agronotizie)» · 29,8 mil seguidores
+navegador real (handle falso)  -> «Profile não está disponível»
+```
+
+O `200` é o shell da aplicação, servido antes de saber quem se pediu. **Sem controlo
+negativo, qualquer handle inventado entraria no Atlas como fonte viva.**
+
+```
+TODA SONDA DE EXISTÊNCIA PRECISA DE UM CASO QUE A FAÇA DIZER «NÃO».
+UMA SONDA QUE NUNCA DIZ «NÃO» NÃO ESTÁ A MEDIR NADA.
+```
+
+Consequência gravada nas fichas: `ACCESS_METHOD = BROWSER` e
+`AUTOMATION_FEASIBILITY = BAIXA` para Instagram — não por preferência, por medição. E o
+LinkedIn anónimo renderizou à primeira visita e caiu em `/authwall` à segunda: registado
+como **facto de acesso instável**, não como fonte inválida (`BLOCKED ≠ DEAD`).
+
+## Canal ≠ site, e isso decidiu-se pela lei, não pela conveniência
+
+`IT-T1-021` é o **site** AgroNotizie. Reutilizar esse `SOURCE_ID` para o canal de YouTube
+teria sido cómodo e errado: COL-LAW-034 separa `ORIGIN_ID ≠ CHANNEL_ID`. Três fontes
+novas, mesmo publicador (Image Line, Faenza), identidades distintas.
+
+## Estado
+
+```
+IT_T8_SOURCE_IDS_BEFORE = nenhum      IT_T8_SOURCE_IDS_AFTER = IT-T8-001..003
+UNIVERSO HISTÓRICO VARRIDO = 703 versões · 5 emissores · 282 identidades · COLISÃO 0
+RESOLVER_REACHABLE = 3/3 · LIVE = 3/3 · FULL_FICHA = 3/3
+RELEVÂNCIA = NAO_AVALIADA nas três — pacote entregue ao owner, RESULTADO vazio em 3/3
+SYSTEM_MAP_CHECK = PASS · test_source_id 6/6 · RED_TEAM_BLOCKERS = 0
+```
+
+Nenhum adapter foi escrito, nenhum `alvosDe` tocado, nenhuma coleta iniciada: a missão
+respondeu **qual fonte é, onde está, como se identifica e se o resolvedor a conhece** —
+não como colhê-la.
