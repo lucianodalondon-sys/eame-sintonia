@@ -193,9 +193,22 @@ def ler(caminho: str) -> list[str]:
         return []
 
 
+# A DSN NAO VIAJA NO TRECHO DE PROVA. O trecho e copiado tal como esta para o
+# artefato publicado (architecture → state → o cliente do portal), e a lei do
+# mapa e «nenhuma credencial no estado» (tests/test_observabilidade_estrada.py
+# T21 · `postgresql://\S+`). A linha 5a-IT do sintonia-scrap.yml TEM de trazer a
+# DSN literal da bancada descartavel — e a isencao de linha fisica que a porta
+# de producao exige (know-how §131) — e o scanner copiava-a para o estado.
+# Duas leis certas a colidir num trecho de 160 caracteres: resolve-se aqui,
+# porque e o scanner quem publica. A aresta continua provada pela mesma linha;
+# so a morada do banco deixa de ser reproduzida.
+_DSN_NO_TRECHO = re.compile(r"postgres(?:ql)?://[^\s'\"]+")
+
+
 def prova(caminho: str, n: int, linha: str) -> dict:
     """Toda aresta carrega uma destas. Sem isto, a aresta nao existe."""
-    return {"file": caminho, "line": n, "snippet": linha.strip()[:160]}
+    trecho = _DSN_NO_TRECHO.sub("<DSN-REDIGIDA>", linha.strip())
+    return {"file": caminho, "line": n, "snippet": trecho[:160]}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
