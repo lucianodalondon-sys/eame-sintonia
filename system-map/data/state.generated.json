@@ -2678,10 +2678,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-operational-persistence-v1",
-    "HEAD": "9a420cb8581133ef81446c278d14dd284c8b58ab",
-    "GENERATED_AT": "2026-09-18T10:54:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7c1c4db09b0244537d6fcc5438827dc552f5fedbba793aec25de17dd08ee6aec"
+    "BRANCH": "claude/scrap-capabilities-wiring-v1",
+    "HEAD": "b8ebca8a43401ee17bdd1ff676dae0f1d0252306",
+    "GENERATED_AT": "2026-09-18T12:19:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0be35c5132a64b266b36edfbc3630bc3726b2c3314723ca0360302105187c4e5"
   },
   "FAMILIES": [
     {
@@ -31187,9 +31187,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 178,
+        "palavras": 185,
         "por_lingua": {},
-        "sem_marca_de_lingua": 178,
+        "sem_marca_de_lingua": 185,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -32661,9 +32661,9 @@
           "FASES",
           "NOMEADOS"
         ],
-        "palavras": 57,
+        "palavras": 79,
         "por_lingua": {},
-        "sem_marca_de_lingua": 57,
+        "sem_marca_de_lingua": 79,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -38841,7 +38841,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-operational-persistence-v1"
+        "branch claude/scrap-capabilities-wiring-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -55315,7 +55315,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 416,
+          "line": 430,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -67803,7 +67803,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 418,
+          "line": 432,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -75882,7 +75882,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 414,
+          "line": 428,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -75898,7 +75898,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 420,
+          "line": 434,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",

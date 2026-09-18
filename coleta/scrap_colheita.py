@@ -133,6 +133,47 @@ FASES = {
     #     O QUE NAO EXISTIA ERA A ARESTA DO PEDIDO ATE ELA.
     'canario-bluesky': ('BLUESKY', 'bluesky.author.incremental', {'limit': 1},
                         rc.COLHEITA),
+
+    # ── AS IRMAS DA MESMA FORMA DE INTEGRACAO ──────────────────────────────
+    # `canario-bluesky` nao era um caso especial: era o PRIMEIRO caso de uma
+    # forma. O registo do SCRAP declara-a, e ela le-se em tres campos:
+    #
+    #     ADAPTADOR = adaptador_aberto  ·  campo = ROTA  ·  ALVO = ONLINE
+    #
+    # Quatro capacidades PROVEN partilham exactamente esses tres, e o
+    # `scrap_executor.CHECK` responde `CAN_COLLECT_NOW` a todas as quatro:
+    # sem credencial, sem navegador autenticado, sem fornecedor pago. O que
+    # faltava as outras tres nao era rota, adaptador nem prova — era a fase.
+    #
+    #     UMA CAPACIDADE PROVADA SEM FASE E UM MOTOR SEM CABO.
+    #     A PROVA DIZ QUE ELA COLHE; A FASE E QUE DIZ QUE ALGUEM PODE PEDIR.
+    #
+    # ⚠️ PARTILHAR A FORMA NAO E PARTILHAR OS PARAMETROS, e por isso NENHUMA
+    # destas linhas foi copiada da de cima. Medido nas assinaturas reais:
+    #
+    #     bluesky.author.incremental    (*, handle,          limit, run_id, ...)
+    #     bluesky.account.discovery     (*, termo,           limit, run_id, ...)
+    #     telegram.channel.incremental  (*, canal,                  run_id, ...)
+    #     mastodon.hashtag.search       (*, instancia, tag,   limit, run_id, ...)
+    #
+    # Sao quatro enderecos diferentes de observacao — e cada um entra pelo seu
+    # nome em `NOMEADOS`, nunca pelo nome do vizinho. `telegram` nem sequer
+    # aceita `limit`: passa-lo seria um argumento que a rota engole sem usar.
+    #
+    # ESPECIE, medida e nao presumida:
+    #   · `telegram.channel.incremental` e `mastodon.hashtag.search` devolvem o
+    #     que a conta/tag PUBLICOU — material observado. COLHEITA.
+    #   · `bluesky.account.discovery` devolve CONTAS que existem para um termo:
+    #     entidades DE ONDE SE PODE COLHER, nao o que elas disseram. CATALOG,
+    #     pela mesma razao que `identidade-linkedin` o e.
+    #
+    #     DISCOVERY != CONTENT. UMA LISTA DE CONTAS NAO E UMA OBSERVACAO DELAS.
+    'canal-telegram':   ('TELEGRAM', 'telegram.channel.incremental', {},
+                         rc.COLHEITA),
+    'tag-mastodon':     ('MASTODON', 'mastodon.hashtag.search', {'limit': 1},
+                         rc.COLHEITA),
+    'contas-bluesky':   ('BLUESKY', 'bluesky.account.discovery', {'limit': 1},
+                         rc.CATALOG),
 }
 
 #: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
@@ -163,6 +204,27 @@ NOMEADOS = {
     # ela propria publicou. Nao e o SOURCE_ID, e nao e o handle: e onde se vai
     # perguntar. A rota chama-lhe `site_url`, e a traducao e esta linha.
     'identidade-linkedin': {'site': 'site_url'},
+    # ── UM ENDERECO POR ROTA, E NENHUM EMPRESTADO ──────────────────────────
+    # As quatro rotas de `adaptador_aberto` partilham a FORMA e nao os NOMES.
+    # Cada linha abaixo saiu da assinatura real da funcao que a rota executa,
+    # lida em `scrap_registo._MAPA[(plat, cap)]['ROTA']` — nao do vizinho:
+    #
+    #     telegram_canal    (*, canal,            run_id, country_scope, **_)
+    #     mastodon_tag      (*, instancia, tag,   limit, run_id, ...)
+    #     bluesky_contas    (*, termo,            limit, run_id, ...)
+    #
+    # `mastodon` precisa de DOIS: a instancia diz EM QUE SERVIDOR se pergunta
+    # (o Mastodon nao tem um so), e a tag diz O QUE se pergunta la. Sao duas
+    # perguntas, e por isso dois nomes.
+    #
+    # ⚠️ NENHUM destes e o SOURCE_ID. `--fonte` continua a descer a identidade
+    # provada da fonte; estes dizem apenas ONDE bater. A mesma lei que separa
+    # `handle` de SOURCE_ID no `canario-bluesky` separa-os aqui.
+    #
+    #     CANAL, TAG E TERMO SAO ENDERECOS. IDENTIDADE VEM DO PEDIDO.
+    'canal-telegram':    {'canal': 'canal'},
+    'tag-mastodon':      {'instancia': 'instancia', 'tag': 'tag'},
+    'contas-bluesky':    {'termo': 'termo'},
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.

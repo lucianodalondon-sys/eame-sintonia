@@ -363,7 +363,16 @@ EXECUTORES = {
         #
         #     PORTA-SE O COMPORTAMENTO, NAO O MECANISMO.
         #     E O MECANISMO QUE FICA E O QUE RECUSA MAIS CEDO.
-        "filtros_nomeados": ["teto", "handle", "site"],
+        "filtros_nomeados": ["teto", "handle", "site",
+                             # ── OS ENDERECOS DAS TRES FASES NOVAS ─────────
+                             # Cada um e o endereco de UMA rota de
+                             # `adaptador_aberto`, e nenhum e SOURCE_ID.
+                             # `scrap_colheita.py::NOMEADOS` declara, por fase,
+                             # qual destes ela aceita — e recusa os outros em
+                             # vez de os deixar morrer no `**_` do adaptador.
+                             #
+                             #     A LISTA AQUI ABRE; A LISTA DA FASE FECHA.
+                             "canal", "instancia", "tag", "termo"],
         # `identidade-linkedin` chegou da LINKEDIN-OP-01. Ela e a UNICA rota que
         # a politica canonica permite no LinkedIn: le o site DA PROPRIA
         # organizacao e traz de la o endereco que a organizacao publicou. Nunca
@@ -373,7 +382,12 @@ EXECUTORES = {
         #     IDENTITY != CONTENT. Pedir posts do LinkedIn continua a bater em
         #     `ROUTE_NOT_ALLOWED`, e nao ha receita que o contorne.
         "serve_fases": ["janela", "janela-perfis", "janela-objetos",
-                        "canario-bluesky", "identidade-linkedin"],
+                        "canario-bluesky", "identidade-linkedin",
+                        # As tres irmas da forma `adaptador_aberto/ROTA/ONLINE`.
+                        # Sem esta linha a fase existe em `scrap_colheita` e o
+                        # orquestrador continua a nao a saber pedir: a fase diz
+                        # O QUE CORRE, e `serve_fases` diz QUEM A ABRE.
+                        "canal-telegram", "tag-mastodon", "contas-bluesky"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.

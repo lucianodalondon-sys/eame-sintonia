@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  9a420cb8581133ef81446c278d14dd284c8b58ab
-BRANCH           claude/collection-operational-persistence-v1
-GERADO_EM        2026-09-18T10:54:24-03:00
+HEAD_DA_MEDICAO  b8ebca8a43401ee17bdd1ff676dae0f1d0252306
+BRANCH           claude/scrap-capabilities-wiring-v1
+GERADO_EM        2026-09-18T12:19:56-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
