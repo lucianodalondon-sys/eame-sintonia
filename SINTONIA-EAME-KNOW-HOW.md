@@ -17581,3 +17581,50 @@ respondia — `scrap_registo._MAPA` declara o dono de cada rota, e a assinatura
 de `native_caption` tem `teto_usd` e `autorizacao`, que nenhuma das outras tem.
 
     UM PARÂMETRO DE DINHEIRO NA ASSINATURA É UMA CONFISSÃO DE QUE A ROTA GASTA.
+
+---
+
+# §146 · A PRIMEIRA BIG COLLECTION CORREU, E O QUE ELA MEDIU NÃO ERA O QUE SE ESPERAVA MEDIR
+
+Seis fontes autorizadas, seis corridas, zero dólares, zero falhas de rota. O
+número que importa, porém, não é o das corridas: é o da **Sala**.
+
+    RUNS = 6   ·   RAW = +9   ·   DERIVED = +6   ·   READY = +2
+
+Nove observações entraram, duas pousaram. **A diferença não é falha de coleta —
+é a Admissão a fazer o seu trabalho**, e vale registá-la porque será o gargalo
+de todas as Big Collections seguintes.
+
+    UMA CORRIDA COM SUCESSO NÃO É UM DOCUMENTO ADMITIDO.
+    BAIXAR NÃO É COLHER; COLHER NÃO É ADMITIR.
+
+**O que a corrida revelou, medido artefacto a artefacto:**
+
+`TEXT_EXTRACTION` produziu texto em 6 dos 9 RAW. Os 3 que ficaram sem derivado
+responderam `NAO_SEI` na Admissão — e `NAO_SEI` está certo: *«não consegui ver»
+não é «não serve»*. Três RAW existem no disco e no banco, com SHA e procedência,
+à espera de um extractor que os leia.
+
+E um caso separado: `IT-T2-002` trouxe **4 itens** e a Admissão respondeu `NAO`
+aos quatro. Não é ausência de texto — houve `TEXT_EXTRACTION` nos quatro. É
+juízo de conteúdo, e é a resposta legítima de uma porta que julga.
+
+    NAO != NAO_SEI. UM É JUÍZO, O OUTRO É CONFISSÃO.
+    E UMA PORTA QUE NUNCA DIZ «NAO» NÃO É UMA PORTA.
+
+**O custo real, medido no banco e não no log:** `PAID_RUNS = 0`,
+`PAID_USD = 0`, `cost_usd` somado em todas as 7 corridas = 0. A wave gratuita
+não tocou nenhuma rota paga.
+
+**Volume, para dimensionar as próximas:** 8 ficheiros novos, +9,3 MB, média
+~1,2 MB por documento — PDF na maioria, um HTML, um CSV. A 255 GB livres, o
+disco não é o limite desta fase; o limite é **quantos pares fonte×propósito têm
+decisão humana**.
+
+    O TAMANHO DA BIG COLLECTION NÃO O DECIDE A MÁQUINA:
+    DECIDE-O O LIVRO DE RELEVÂNCIA.
+
+**A cobertura, sem maquilhagem:** de 12 territórios, **três** produziram
+corrida (T2, T3, T4) e **um** produziu READY (T3). T6 e T9 têm executor ligado e
+zero pares com relevância `SIM`; os outros seis territórios não têm executor.
+178 fontes no Atlas, 6 autorizadas, 6 corridas.

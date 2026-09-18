@@ -1651,6 +1651,7 @@
       "provas/red_team_da_release_v1.py",
       "provas/red_team_gate_fase_1d.py",
       "provas/red_team_persistencia_operacional.py",
+      "provas/red_team_wiring_youtube.py",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
@@ -2186,7 +2187,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 23 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 29 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2196,7 +2197,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "210 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 23 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 3. Elas trouxeram 3890 itens e 3006 atravessaram a régua. As outras 210 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 29 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 9. Elas trouxeram 3899 itens e 3008 atravessaram a régua. As outras 210 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -2679,10 +2680,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/scrap-capabilities-wiring-v1",
-    "HEAD": "65eadb2710206dd48b3335109958b20321e2ed47",
-    "GENERATED_AT": "2026-09-18T13:12:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9"
+    "BRANCH": "claude/it-trunk-v1",
+    "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
+    "GENERATED_AT": "2026-09-18T14:01:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b"
   },
   "FAMILIES": [
     {
@@ -4164,8 +4165,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 261",
-        "desses, mostrados aqui: 40 (ficam de fora 221)"
+        "enderecos que o codigo realmente chama: 262",
+        "desses, mostrados aqui: 40 (ficam de fora 222)"
       ],
       "status_reason": "210 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 205, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -8779,15 +8780,136 @@
             "erro": null,
             "prova": "system-map/data/golden-path-pdf.generated.json",
             "bruto": null
+          },
+          {
+            "run_id": "XX-T3-2026-09-18-171838-2e2bf63e760bb8e8",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "fonte": "IT-T2-002"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T2-002",
+            "pais": "NAO SEI",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 4,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T3-2026-09-18-171902-86ea44069922c633",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "fonte": "IT-T2-004"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T2-004",
+            "pais": "NAO SEI",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "fonte": "IT-T3-002"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-002",
+            "pais": "NAO SEI",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T3-2026-09-18-171923-b3a34519d8d1fa81",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "fonte": "IT-T3-010"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-010",
+            "pais": "NAO SEI",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "fonte": "IT-T3-008"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-008",
+            "pais": "NAO SEI",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T3-2026-09-18-172035-48e8b1ad851f9d53",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "fonte": "IT-T4-001"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T4-001",
+            "pais": "NAO SEI",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
           }
         ],
-        "total": 23,
+        "total": 29,
         "por_pais": {
           "ES": 10,
           "IT": 10,
-          "NAO SEI": 3
+          "NAO SEI": 9
         },
         "por_plataforma": {
+          "HTTP direto": 6,
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
           "LOCAL": 10,
@@ -9015,11 +9137,11 @@
           "IT-T9-012",
           "IT-T9-013"
         ],
-        "com_rendimento_medido": 22,
-        "com_custo_medido": 17,
+        "com_rendimento_medido": 28,
+        "com_custo_medido": 23,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3890,
-        "sobrou_total": 3006
+        "trouxe_total": 3899,
+        "sobrou_total": 3008
       },
       "memoria": [
         {
@@ -27950,6 +28072,7 @@
         "provas/readback_022_live.sh",
         "provas/red_team_da_release_v1.py",
         "provas/red_team_persistencia_operacional.py",
+        "provas/red_team_wiring_youtube.py",
         "provas/run_duravel_no_postgres.py",
         "provas/runtime_comum_no_postgres.py",
         "provas/runtime_pago_no_postgres.py",
@@ -27960,7 +28083,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 77,
+      "file_count": 78,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -38844,7 +38967,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/scrap-capabilities-wiring-v1"
+        "branch claude/it-trunk-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -53771,7 +53894,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 14 linhas de codigo.",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -79929,7 +80052,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -80047,6 +80170,22 @@
           "file": "provas/o_pedido_t4_atravessa.py",
           "line": 92,
           "snippet": "from receitas import EXECUTORES as EX_",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-RECEITAS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/red_team_wiring_youtube.py",
+          "line": 35,
+          "snippet": "import receitas                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-RECEITAS",
@@ -83678,7 +83817,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/as_fases_novas_atravessam.py",
@@ -83780,6 +83919,22 @@
           "file": "provas/red_team_da_release_v1.py",
           "line": 60,
           "snippet": "import scrap_colheita as sc                          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/red_team_wiring_youtube.py",
+          "line": 33,
+          "snippet": "import scrap_colheita as sc            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-COLHEITA",
@@ -86911,7 +87066,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 59 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 60 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -95646,8 +95801,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2088,
-    "files_covered": 1005,
+    "files_tracked": 2089,
+    "files_covered": 1006,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

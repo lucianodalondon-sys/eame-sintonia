@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/scrap-capabilities-wiring-v1",
-    "HEAD": "65eadb2710206dd48b3335109958b20321e2ed47",
-    "GENERATED_AT": "2026-09-18T13:12:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9"
+    "BRANCH": "claude/it-trunk-v1",
+    "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
+    "GENERATED_AT": "2026-09-18T14:01:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "c742ca5dea114779d10fa50647e211dd9acf1061",
+      "sha": "0c5b2edcc0c8dd784062568aa2a08f8e83c3f3e0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1690,14 +1690,14 @@
     },
     {
       "path": "data/collection-ledger/italy/observations.ndjson",
-      "sha": "946c37adfd85fad1c5e7b71df2558f5f4bbce46a",
+      "sha": "a81e24c6c123f9ee32b07021a41ed46824e9267a",
       "ext": ".ndjson",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/collection-ledger/italy/runs.ndjson",
-      "sha": "0d9dda3b8f6dab604aa0516071b982ec22d6d195",
+      "sha": "c8de78e678a13948b4667eb25c073344bd443cba",
       "ext": ".ndjson",
       "readable": false,
       "code_dir": false
@@ -4952,7 +4952,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "e7b9b47c10c1e47eb545bcb613ca8e84718a0798",
+      "sha": "406072741e8c192414c9b0b7269143af58ed9287",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5295,7 +5295,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "a816da535b8846953cda5d6265ccceb8f49678e2",
+      "sha": "072dea7bf1678045205d46cf149c83c60dcd289e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -11176,6 +11176,13 @@
     {
       "path": "provas/red_team_persistencia_operacional.py",
       "sha": "704fb7b972de57350ab862c32aa0f5bf5ace1804",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/red_team_wiring_youtube.py",
+      "sha": "a42388a3d3ffececca6c68a0d2d9e7afc6f4f4b9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -42699,6 +42706,50 @@
       }
     },
     {
+      "from_file": "provas/red_team_wiring_youtube.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_wiring_youtube.py",
+        "line": 33,
+        "snippet": "import scrap_colheita as sc            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_wiring_youtube.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_wiring_youtube.py",
+        "line": 129,
+        "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "provas/red_team_wiring_youtube.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_wiring_youtube.py",
+        "line": 34,
+        "snippet": "import retorno_da_coleta as rc         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_wiring_youtube.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_wiring_youtube.py",
+        "line": 35,
+        "snippet": "import receitas                        # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/reel_fala_qualidade.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63226,10 +63277,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2088,
-    "files_readable": 812,
-    "files_code_dir": 871,
-    "file_edges": 4372,
+    "files_tracked": 2089,
+    "files_readable": 813,
+    "files_code_dir": 872,
+    "file_edges": 4376,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

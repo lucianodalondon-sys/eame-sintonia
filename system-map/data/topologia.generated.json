@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T16:59:54+00:00",
-  "HEAD": "65eadb2710206dd48b3335109958b20321e2ed47",
-  "BRANCH": "claude/scrap-capabilities-wiring-v1",
+  "GENERATED_AT": "2026-09-18T17:27:49+00:00",
+  "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
+  "BRANCH": "claude/it-trunk-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
-  "FICHEIROS_NA_IMPRESSAO": 2237,
+  "SOURCE_TREE_FINGERPRINT": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b",
+  "FICHEIROS_NA_IMPRESSAO": 2246,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2741,6 +2741,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/red_team_wiring_youtube.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a42388a3d3ffececca6c68a0d2d9e7afc6f4f4b9",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/run_duravel_no_postgres.py",
     "PAPEL": "FONTE",
     "VERSAO": "7394d2e6a3e168d65454fa7337d7707793e907b6",
@@ -2967,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
+    "VERSAO": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
+    "VERSAO": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4561,8 +4568,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 646,
-  "INPUTS_DIGEST": "d0ee22277cf65b7a2ca9c99ae5826e41d5fdb04ef2e240ba38ca34651a3fb235",
+  "INPUTS_COUNT": 647,
+  "INPUTS_DIGEST": "852a77484f01e5f31c73180cd28f83ad31b1b3dd9176f1473e82daf1f30676d2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4595,8 +4602,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c166cdc18e2414d8bc984c096aaf738345c7b37bef265d29f33d816f45822ccf",
-  "SEMANTIC_HASH": "784059f91659146c9f0f15be606bea8e090f7436a9256ce1e37e44d08a8236c2"
+  "MEASUREMENT_HASH": "32584793e8de3d6b2949cd0262fad0eef5dadf929950c8fdd73edf3fed815711",
+  "SEMANTIC_HASH": "74e47deffd6b6f106ebe0f5409461cc4d91129c7ab6963cdaf2ca3385fe5b434"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -27597,6 +27604,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/red_team_wiring_youtube.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/so_a_colheita_atravessa.py",
       "LINHA": 41,
       "SUPPORTS": "YES",
@@ -29782,6 +29797,14 @@
      {
       "FICHEIRO": "provas/red_team_da_release_v1.py",
       "LINHA": 60,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/red_team_wiring_youtube.py",
+      "LINHA": 33,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-COLETA",
@@ -41185,6 +41208,7 @@
     "provas/readback_022_live.sh",
     "provas/red_team_da_release_v1.py",
     "provas/red_team_persistencia_operacional.py",
+    "provas/red_team_wiring_youtube.py",
     "provas/run_duravel_no_postgres.py",
     "provas/runtime_comum_no_postgres.py",
     "provas/runtime_pago_no_postgres.py",
@@ -43081,6 +43105,7 @@
    ],
    "SO_MEDEM_ESTE": [
     "provas/o_video_tem_consumidor.py",
+    "provas/red_team_wiring_youtube.py",
     "tests/test_c2_youtube_oficial.py",
     "tests/test_c4b_gpu_execucao.py",
     "tests/test_c8_convergencia.py",

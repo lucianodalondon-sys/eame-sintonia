@@ -4,8 +4,8 @@
  "O_QUE_E": "o que o sistema consegue contar HOJE sobre o proprio fluxo, lendo so o que ja existe no repositorio.",
  "DE_ONDE_VEM": "data/collection-ledger/italy/{runs,observations}.ndjson",
  "SEM_DADO_NAO_E_ZERO": "onde ninguem mediu, escreve-se NOT_INSTRUMENTED. Um relatorio que mostra 0 onde ninguem mediu convida a concluir que nada aconteceu — e pior do que nao existir.",
- "CORRIDAS": 28,
- "OBSERVACOES": 175,
+ "CORRIDAS": 34,
+ "OBSERVACOES": 184,
  "POR_CORRIDA": [
   {
    "RUN_ID": "PILOT_RUN_20260907153737_4c34b3",
@@ -567,38 +567,159 @@
    "STAGE": "NOT_INSTRUMENTED",
    "COST": "NOT_INSTRUMENTED",
    "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "XX-T3-2026-09-18-171838-2e2bf63e760bb8e8",
+   "STARTED_AT": "2026-09-18T17:18:39.255Z",
+   "FINISHED_AT": "2026-09-18T17:18:51.230Z",
+   "DURATION_MS": 11975,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 4,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 4
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "XX-T3-2026-09-18-171902-86ea44069922c633",
+   "STARTED_AT": "2026-09-18T17:19:03.331Z",
+   "FINISHED_AT": "2026-09-18T17:19:06.296Z",
+   "DURATION_MS": 2965,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+   "STARTED_AT": "2026-09-18T17:19:09.901Z",
+   "FINISHED_AT": "2026-09-18T17:19:15.742Z",
+   "DURATION_MS": 5841,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "XX-T3-2026-09-18-171923-b3a34519d8d1fa81",
+   "STARTED_AT": "2026-09-18T17:19:23.422Z",
+   "FINISHED_AT": "2026-09-18T17:19:28.703Z",
+   "DURATION_MS": 5281,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+   "STARTED_AT": "2026-09-18T17:19:37.697Z",
+   "FINISHED_AT": "2026-09-18T17:20:27.618Z",
+   "DURATION_MS": 49921,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "XX-T3-2026-09-18-172035-48e8b1ad851f9d53",
+   "STARTED_AT": "2026-09-18T17:20:35.466Z",
+   "FINISHED_AT": "2026-09-18T17:20:53.190Z",
+   "DURATION_MS": 17724,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
   }
  ],
  "POR_FONTE": {
-  "IT-T2-002": 136,
-  "IT-T2-004": 6,
-  "IT-T3-002": 2,
+  "IT-T2-002": 140,
+  "IT-T2-004": 7,
+  "IT-T3-002": 3,
   "IT-T3-005": 6,
-  "IT-T3-008": 2,
-  "IT-T3-010": 21,
-  "IT-T4-001": 2
+  "IT-T3-008": 3,
+  "IT-T3-010": 22,
+  "IT-T4-001": 3
  },
  "POR_DESTINO": {
   "BASELINE_DOCUMENT": 10,
   "DISCOVERY_FAILED": 19,
-  "NEW_DOCUMENT": 25,
+  "NEW_DOCUMENT": 34,
   "SEEN_AGAIN": 109,
   "TRANSPORT_OR_EMPTY": 12
  },
  "POR_MIME": {
-  "HTML": 12,
+  "HTML": 13,
   "NAO SEI": 31,
-  "PDF": 130,
-  "TEXTO": 2
+  "PDF": 137,
+  "TEXTO": 3
  },
  "POR_HORA": {
   "2026-09-07T15": 51,
   "2026-09-07T16": 93,
   "2026-09-14T15": 8,
-  "2026-09-14T16": 23
+  "2026-09-14T16": 23,
+  "2026-09-18T17": 9
  },
  "POR_ROTA": {
-  "RC-9": 175,
+  "RC-9": 184,
   "NOTA": "todo este ledger e da RC-9 (GIT_LEDGER), que e DIVIDA e nao estrada a fechar. As outras rotas nao emitem nada — nao e que tenham emitido zero."
  },
  "POR_ETAPA": {

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-18T17:00:33+00:00",
-    "HEAD": "65eadb2710206dd48b3335109958b20321e2ed47",
+    "GENERATED_AT": "2026-09-18T17:28:13+00:00",
+    "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
-    "FICHEIROS_NA_IMPRESSAO": 2237,
+    "SOURCE_TREE_FINGERPRINT": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b",
+    "FICHEIROS_NA_IMPRESSAO": 2246,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -27,14 +27,14 @@
       {
         "PATH": "data/collection-ledger/italy/observations.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "946c37adfd85fad1c5e7b71df2558f5f4bbce46a",
+        "VERSAO": "a81e24c6c123f9ee32b07021a41ed46824e9267a",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
       {
         "PATH": "data/collection-ledger/italy/runs.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "0d9dda3b8f6dab604aa0516071b982ec22d6d195",
+        "VERSAO": "c8de78e678a13948b4667eb25c073344bd443cba",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
@@ -48,7 +48,7 @@
       {
         "PATH": "data/samples/RUN-MANIFEST.json",
         "PAPEL": "FONTE",
-        "VERSAO": "a816da535b8846953cda5d6265ccceb8f49678e2",
+        "VERSAO": "072dea7bf1678045205d46cf149c83c60dcd289e",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_manifesto() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "e93cfed1a15f0ac28fc2dc78d79de5cd192bb89d9a43e992e4021ce6325fc600",
+    "INPUTS_DIGEST": "571018b3f9ffd006bdd9b151fe45e247bfe9006cee4356eb84589416027a15bd",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -14717,15 +14717,136 @@
         "erro": null,
         "prova": "system-map/data/golden-path-pdf.generated.json",
         "bruto": null
+      },
+      {
+        "run_id": "XX-T3-2026-09-18-171838-2e2bf63e760bb8e8",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T2-002"
+        },
+        "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T2-002",
+        "pais": "NAO SEI",
+        "missao": "PEST / DISEASE / WEEDS",
+        "trouxe": 4,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T3-2026-09-18-171902-86ea44069922c633",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T2-004"
+        },
+        "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T2-004",
+        "pais": "NAO SEI",
+        "missao": "PEST / DISEASE / WEEDS",
+        "trouxe": 1,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T3-002"
+        },
+        "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-002",
+        "pais": "NAO SEI",
+        "missao": "PEST / DISEASE / WEEDS",
+        "trouxe": 1,
+        "sobrou": 1,
+        "rendimento": 100,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T3-2026-09-18-171923-b3a34519d8d1fa81",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T3-010"
+        },
+        "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-010",
+        "pais": "NAO SEI",
+        "missao": "PEST / DISEASE / WEEDS",
+        "trouxe": 1,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T3-008"
+        },
+        "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-008",
+        "pais": "NAO SEI",
+        "missao": "PEST / DISEASE / WEEDS",
+        "trouxe": 1,
+        "sobrou": 1,
+        "rendimento": 100,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T3-2026-09-18-172035-48e8b1ad851f9d53",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T4-001"
+        },
+        "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T4-001",
+        "pais": "NAO SEI",
+        "missao": "PEST / DISEASE / WEEDS",
+        "trouxe": 1,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
       }
     ],
-    "total": 23,
+    "total": 29,
     "por_pais": {
       "ES": 10,
       "IT": 10,
-      "NAO SEI": 3
+      "NAO SEI": 9
     },
     "por_plataforma": {
+      "HTTP direto": 6,
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
       "LOCAL": 10,
@@ -14953,32 +15074,32 @@
       "IT-T9-012",
       "IT-T9-013"
     ],
-    "com_rendimento_medido": 22,
-    "com_custo_medido": 17,
+    "com_rendimento_medido": 28,
+    "com_custo_medido": 23,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3890,
-    "sobrou_total": 3006
+    "trouxe_total": 3899,
+    "sobrou_total": 3008
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
     "ficheiro_corridas": "data/collection-ledger/italy/runs.ndjson",
-    "observacoes": 175,
-    "corridas": 28,
+    "observacoes": 184,
+    "corridas": 34,
     "por_fonte": {
-      "IT-T2-002": 136,
-      "IT-T3-010": 21,
+      "IT-T2-002": 140,
+      "IT-T3-010": 22,
+      "IT-T2-004": 7,
       "IT-T3-005": 6,
-      "IT-T2-004": 6,
-      "IT-T3-002": 2,
-      "IT-T3-008": 2,
-      "IT-T4-001": 2
+      "IT-T3-002": 3,
+      "IT-T3-008": 3,
+      "IT-T4-001": 3
     },
-    "documentos_novos": 25,
+    "documentos_novos": 34,
     "ja_vistos": 109,
-    "com_sha256": 144,
-    "com_fact_time": 144,
-    "com_cadencia": 144,
-    "corridas_com_egress": 28,
+    "com_sha256": 153,
+    "com_fact_time": 153,
+    "com_cadencia": 153,
+    "corridas_com_egress": 34,
     "campos": [
       "BYTES",
       "CADENCE_STATE",
@@ -15726,9 +15847,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 261,
+  "ENDPOINTS_FOUND": 262,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 221,
+  "ENDPOINTS_TRUNCATED": 222,
   "COUNTS": {
     "sources": 210,
     "with_contract": 5,
@@ -15746,17 +15867,17 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 261,
+    "endpoints": 262,
     "endpoints_published": 40,
-    "endpoints_truncated": 221,
+    "endpoints_truncated": 222,
     "candidates": 241,
     "coletores": 51,
     "coletores_com_data": 19,
     "coletores_com_lugar": 33,
     "coletores_que_separam_fonte_do_fato": 21,
     "coletores_que_registam_descarte": 17,
-    "corridas_registadas": 51,
-    "observacoes_registadas": 175,
+    "corridas_registadas": 63,
+    "observacoes_registadas": 184,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 210,
     "citadas_sem_ficha": 4,
