@@ -15589,7 +15589,7 @@ raciocinio: por falta de procura.
 
 E o PostgreSQL que «faltava» tambem ja ca estava, fora do repositorio:
 
-    C:\Users\London1\orca\pgtmp\pgsql   ->  16.4 portatil
+    C:\Users\<utilizador>\orca\pgtmp\pgsql   ->  16.4 portatil
     initdb · pg_ctl · psql · postgres, todos a responder --version
 ```
 
@@ -16313,7 +16313,7 @@ o ops-root; produção intocada; ledger e remoto sem alteração.
     antes de ler a causa.
 
 5 · O MECANISMO DE RAIZ NÃO ESTÁ PROVADO. O 5a-IT escreve a pasta do psql no GITHUB_PATH na forma
-    POSIX (`/c/Users/London1/orca/pgtmp/pgsql/bin`, `sintonia-scrap.yml:360`); as migrations do
+    POSIX (`/c/Users/<utilizador>/orca/pgtmp/pgsql/bin`, `sintonia-scrap.yml:360`); as migrations do
     mesmo passo não dependem disso (`PATH="$PGBIN:$PATH"`, :354). Reprodução local só-leitura, com
     ambiente limpo à maneira do runner (PowerShell sem variáveis MSYS, PATH mínimo com o prefixo
     POSIX, `bash --noprofile --norc`, `py`): `which`, `shutil.which` e `subprocess.run(["psql",
@@ -16433,7 +16433,7 @@ não depende disso.
 ```
 bancada        PostgreSQL 16.4 portátil, porto livre, 31 migrations pela cadeia canónica
 PATH           sem NENHUMA pasta com psql: shutil.which("psql") = None, no processo e nos filhos
-declaração     SINTONIA_PSQL_EXE = C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe (nativo)
+declaração     SINTONIA_PSQL_EXE = C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe (nativo)
 MemoriaPostgres  select real = "1" · insert real (tabela de prova) · contagem confere
 Banco (rastro)   select real = [["7"]] · insert real
 Sala             exigir_canonica() → SONDA=OK · PSQL_ORIGEM=DECLARADO · leitura real (ler → None)
@@ -17027,4 +17027,188 @@ RED TEAM     agente separado, só leitura, 18 alegações, 5 mutantes numa cópi
              colado a um fragmento de comentário, `git check-ignore foo.lock` devolve 1, e data/samples/LIVRO-DE-DECISOES.json.lock
              está RASTREADO (72b9513a, 2026-09-13; não tocado aqui); (d) a guarda AST só olha o topo do módulo — um import
              dentro de try/if escaparia a ela, mas não à prova de subprocesso com fcntl bloqueado. RED_TEAM_BLOCKERS = 0.
+```
+
+# §141 · O GATE INDEPENDENTE REPROVOU O CANDIDATO EM TRÊS BLOCKERS QUE NÃO ERAM DO FLUXO — MAPA VELHO, CAMINHO PESSOAL E UM CENSO QUE CONTAVA O DISCO DO AUTOR
+
+## O QUE MUDOU
+
+```
+COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK (a18fe7e0)     = FAIL    gate independente, 2026-09-17: A · B · C abaixo; as três curas do §140 continuavam PASS
+BLOCKER_A_SYSTEM_MAP                                     = CLOSED  o mapa commitado tinha 2080 ficheiros e PROVENANCE.HEAD = 3487ae15; a árvore tem 2083.
+                                                                    Regerado pela cadeia canónica a partir da árvore inteira: FILES = 2083, os 3 ausentes presentes,
+                                                                    SYSTEM_MAP_CHECK = PASS
+BLOCKER_B_PERSONAL_PATH                                  = CLOSED  `C:\Users\<conta>\orca\pgtmp\…` em 4 ficheiros rastreados (12 linhas) + a forma POSIX em 3 ficheiros:
+                                                                    prova → dono SINTONIA_PG_PORTATIL com omissão portátil · workflow → $HOME · docs → `<utilizador>`.
+                                                                    depois: forma nativa 0 · forma POSIX/escapada 3, todas pré-existentes no trunk e fora do padrão
+                                                                    (ver PROVA B e red team #3)
+BLOCKER_C_GHOST_CENSUS                                   = CLOSED  identidade-it.generated.json publicava 58 cópias / 51 conteúdos; um clone limpo mede 49 / 43.
+                                                                    Os 9 a mais eram PDF de `XX/it-t2-002/` — pasta que o .gitignore exclui — no disco do autor.
+                                                                    A lista passou a vir de `git ls-files`; com fantasmas em XX/ o censo dá o MESMO fingerprint
+BLOCKER_D_DSN_NO_ESTADO (descoberto aqui)                = CLOSED  o scanner copiava a linha 5a-IT do workflow, com a DSN da bancada, para o estado publicado;
+                                                                    T21 (`postgresql://` no estado) reprovava. O trecho de prova passou a redigir DSN
+SYSTEM_MAP_CHECK                                         = PASS    P1..P10 · FILES 2083 · 0 `postgresql://` no estado · 0 `XX/` no estado
+TARGETED_GATE_TESTS                                      = 7/7 PASS  processo novo, árvore sem gerador a correr, 158,8 s, git status igual antes e depois
+LOCKING_VERDICT · CROSSWALK_VERDICT                      = PASS · PASS   test_reel_transcricao_trava 7 · test_comunicacao_universo_falha_fechado 18, processo novo
+TEST_COUNT_CURRENT · METRIC_DRIFT                        = 4759 · 0     --check em processo novo (PyYAML emprestado por PYTHONPATH), exit 0, nada escrito
+CENSO_CLEAN_ENV · CENSO_WITH_IGNORED_GHOSTS               = 49/43 · 49/43   fingerprint b530e11f… igual nos dois processos; VEREDITO {INDEPENDENT_CAPTURES_SAME_CONTENT: 6}
+COLLECTION_INTEGRATION_GATE                              = NOT_RERUN   é a próxima execução independente, não esta
+COLLECTION_IN_TRUNK                                      = NO      trunk claude/it-trunk-v1 @ 9d6dcbbd INTOCADO (local = remoto)
+BIG_COLLECTION                                           = NÃO AUTORIZADA
+```
+
+## O QUE · POR QUÊ · PROVA · CONSEQUÊNCIA
+
+```
+O QUE        O §140 fechou fcntl, crosswalk e contagem, e declarou o mapa regerado. O gate independente mediu o candidato
+             a18fe7e0 contra o trunk 9d6dcbbd e reprovou por três coisas que nenhuma das curas tocava: o mapa estava
+             velho, a árvore versionada carregava o caminho absoluto de UMA conta Windows, e um artefato gerado
+             publicava uma contagem que só a máquina do autor reproduz. Esta secção fecha os três PELA CAUSA, e um
+             quarto que só apareceu ao correr os 7 testes do gate numa árvore limpa.
+
+POR QUÊ      A · O mapa commitado em a18fe7e0 dizia PROVENANCE.HEAD = 3487ae15 e GENERATED_AT 20:01 — foi gerado ANTES
+             dos commits e1eec433 e 339cbde2, que trouxeram tests/test_reel_transcricao_trava.py,
+             tests/test_comunicacao_universo_falha_fechado.py e tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json.
+             «mapa regerado» na mensagem do commit não é prova: a prova é o carimbo dentro do ficheiro, e ele dizia outra
+             árvore. O portão 2b (impressao_da_arvore.py --conferir-carimbo) existe para isto e não foi corrido.
+             B · provas/a_porta_cli_liga_o_banco.py:78 gravava `C:\Users\<conta>\orca\pgtmp\pgsql\bin` como omissão da
+             bancada; o workflow (5a-IT e 9z-IT) gravava a mesma pasta na forma POSIX; dois documentos de operação e
+             este know-how citavam-na como medição. A guarda de credenciais desta casa (guarda/social_guarda.py ·
+             «caminho pessoal Windows») acusa exactamente isto, e três dos 7 testes do gate são essa guarda a correr
+             sobre a árvore rastreada — reprovavam nos 4 ficheiros. Identidade de máquina não é configuração: o DONO já
+             existia (SINTONIA_PG_PORTATIL, lido pelo workflow e pela prova), só a omissão era pessoal.
+             C · A cadeia do mapa (CADEIA-DO-MAPA.json) declara CENSO_DE_IDENTIDADE_IT e CENSO_DO_CORPUS_IT como
+             TRACKED_SOURCE_TREE · ORIGEM «git ls-files». O código fazia `os.walk(RAIZ)` — o disco inteiro menos .git.
+             Na máquina do autor existia XX/it-t2-002/DOCUMENT/ com 9 PDF (a raiz onde ing.ArmazemLocal escreve o bruto
+             de país desconhecido, ignorada de propósito — .gitignore:93-99). O gerador é IDÊNTICO nos dois lados
+             (mesmo blob); o CONJUNTO DE ENTRADA é que não era. O mesmo defeito contaminava corpus-it.generated.json
+             (ACERVO_EM_PDF 58/51, 8 «sem derivação» que eram os fantasmas) e, por ele, o teste A1 do gate: a descrição
+             dizia TEXT_DERIVATION_EXISTS=SIM com 8 ocorrências sem derivação. E armazem-it.generated.json herdava a
+             lista pela mesma função.
+             D · A linha 5a-IT `bash motor/cadeia_canonica.sh migrations '<DSN da bancada>'` TEM de trazer a DSN literal
+             na própria linha — é a isenção de linha física que a porta de produção exige (§131,
+             tests/test_porta_de_producao.py::AIsencaoDaBancadaEEstreitaDeVerdade). O scanner do mapa copia a linha
+             inteira como trecho de prova da aresta C-SINTONIA-SCRAP → C-CADEIA-V21, e o estado publicado passou a conter
+             `postgresql://…` — que T21 proíbe. Duas leis certas a colidir num trecho de 160 caracteres. A senha é a da
+             bancada descartável (nasce e morre com o job), mas a lei do estado é de FORMA, e o estado vai para o portal.
+
+PROVA        PRECHECK: BRANCH claude/it-collection-sala-v1 · HEAD a18fe7e0 = origin · DIRTY 0 · AHEAD/BEHIND 0/0 ·
+             MERGE_BASE com o trunk = 9d6dcbbd (o trunk está contido no candidato) · nenhum processo com este worktree
+             na linha de comando além dos meus (um bash do coordenador Hermes passou às 23:05:20 e morreu).
+             ─ A · `correr_a_cadeia.py REGERAR` (20 passos, CADEIA=OK, branch nomeada) → architecture.generated.json
+               FILES = 2083, os 3 ficheiros presentes, PROVENANCE.HEAD = a18fe7e0. `correr_a_cadeia.py VALIDAR` →
+               SYSTEM_MAP_CHECK=PASS. VALIDAR ESCREVE: medido por sha256 de todos os ficheiros antes/depois — reescreveu
+               1 ficheiro (sources.generated.json) e o delta contra HEAD é só PROVENANCE (GENERATED_AT · HEAD ·
+               SOURCE_TREE_FINGERPRINT), 3 linhas. Nenhum delta semântico.
+             ─ B · antes: `git grep -F 'Users\<conta>'` (forma com barra invertida, SEMPRE com -F) = 12 linhas em 4
+               ficheiros; forma POSIX `Users/<conta>` = 8 linhas em 6. Classificação: PROVA EXECUTÁVEL (provas/…:78) ·
+               CONFIGURAÇÃO com dono (workflow 5a-IT:343, 9z-IT:668 — `${SINTONIA_PG_PORTATIL:-…}`) · EXEMPLO
+               (tests/test_cliente_postgres.py:90, um caminho /c/… que o resolvedor tem de recusar) · DOCUMENTAÇÃO
+               HISTÓRICA (PRIMEIRA-COLETA ×3, REVISAO-INDEPENDENTE ×8, este know-how ×3). Cura: a prova passou a
+               `os.path.expanduser("~")/orca/pgtmp/pgsql/bin` como omissão, DEPOIS de SINTONIA_PG_PORTATIL e ANTES de
+               `initdb` no PATH — a mesma omissão que o workflow, que passou a `$HOME/orca/pgtmp/pgsql/bin` (HOME do
+               runner medido em docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md; os runners não definem
+               SINTONIA_PG_PORTATIL, verificado nos 4 .runner desta máquina). Nenhum segundo owner. Os documentos
+               guardam a medição com `<utilizador>` no lugar da conta — a prova de «caminho nativo, absoluto, com barras
+               invertidas» continua legível. depois: `git grep -F 'Users\<conta>'` = 0. `git grep -F 'Users/<conta>'` = 2,
+               AMBAS pré-existentes no trunk e fora do padrão orca\pgtmp: ITALY-FORWARD-ONLY-SCHEDULING-V1.md:18 é a tabela
+               que descreve a máquina de propósito (HOSTNAME, USER, HOME) e handoff/paused-v2/auditoria-pacote.json:662 é
+               pacote congelado sob MANIFESTO. Não tocadas; declaradas. Portabilidade: test_cliente_postgres 21 ·
+               test_porta_de_producao · test_fase_italiana_no_workflow · test_a_porta_cli_liga_o_banco (a prova subiu a
+               bancada portátil pela omissão nova e escreveu no banco) — 127 testes, 1 vermelho PRÉ-EXISTENTE
+               (test_o_inventario_de_quem_fala_de_raw_asset_esta_fechado compara `guarda\` com `guarda/`; igual em a18fe7e0).
+             ─ C · GENERATOR_OWNER = system-map/scripts/censo_de_identidade_it.py (censo) e censo_do_corpus_it.py (acervo)
+               · INPUT_OWNER = a árvore rastreada, `git ls-files` · INPUT_SELECTION_CONTRACT = CADEIA-DO-MAPA.json,
+               TRACKED_SOURCE_TREE dos dois passos (já declarado; o código é que não cumpria). Cura: censo_do_corpus_it
+               ganhou `ficheiros_rastreados()` (git ls-files -z, cwd=RAIZ, recusa se o git falhar — NÃO cai para os.walk)
+               e `pdfs_italianos_rastreados()`; `caminhos_de_pdf()` do censo de identidade importa-a (mesma direcção do
+               import de `e_italiano` que já existia; sem ciclo); censo_do_armazem_it herda. Sem editar JSON gerado.
+               CONTRAPROVA (worktree limpo em a18fe7e0 + os dois scripts): PROCESSO A, sem XX/ → 49 cópias · 43 conteúdos ·
+               VEREDITO {INDEPENDENT_CAPTURES_SAME_CONTENT: 6} · corpus 49/43 · fingerprint b530e11f3b3257602665268ab860d8b6
+               9e8c670be1e4e6084a5008a774746c28 (todos os campos canónicos + grupos + lista de PDF + acervo do corpus).
+               PROCESSO B, com 9 PDF ignorados em XX/it-t2-002/DOCUMENT/ (1 cópia byte a byte de agro_01.pdf + 8 sintéticos;
+               `git check-ignore` = ignorado) → fingerprint IGUAL. E o gerador ANTIGO (HEAD) sobre os mesmos fantasmas →
+               58 / 51 · {INDEPENDENT: 5, UNKNOWN: 1}: reproduz o artefato commitado, o que prova a causa e não só a cura.
+               A1 do gate: ACERVO_EM_PDF OCORRENCIAS_SEM_DERIVACAO = 0 na árvore rastreada.
+             ─ D · scan_repo.py::prova() passou a substituir `postgres(ql)?://…` por `<DSN-REDIGIDA>` no trecho. A
+               aresta continua provada pela mesma linha e ficheiro; só a morada do banco deixa de ser reproduzida.
+               state.generated.json: 0 `postgresql://`, 1 `<DSN-REDIGIDA>`. O workflow NÃO mudou nessa linha —
+               test_porta_de_producao (LEGITIMA) e test_fase_italiana_no_workflow continuam verdes.
+             ─ Os 7 do gate (test_13_a_medicao_repete · A1 · A5 · T1 · T21 · ArvoreReal · repositorio_esta_limpo_agora):
+               antes, na árvore limpa de a18fe7e0: 7 FAIL (49≠58 · TEXT_DERIVATION_EXISTS=SIM com 8 sem derivação · `:58`
+               no gerador · idem · postgresql:// no estado · 4 caminhos pessoais · idem). depois: 7/7 OK, 158,8 s, sem escrita.
+             ─ system-map/tests, candidato vs a18fe7e0 no mesmo Windows: test_system_map 129 PASS / 6 FAIL — os 6 são
+               subconjunto dos 7 FAIL da base (a base ainda reprovava scanner_e_deterministico); test_cadeia_declara_io
+               42 PASS / 2 FAIL BYTE A BYTE iguais à base (MEDIDO_VARRE declarado velho em 10 passos, p.ex. SCAN_REPO
+               1726 vs 2078 — dívida anterior, não desta secção); test_impressao_da_arvore 36 PASS; test_freshness 49
+               PASS; test_ordem_por_dependencia 68 PASS + 1 FAIL + UnicodeDecodeError (cp1252) — IGUAL à base, linha a
+               linha. Nenhum destes escreveu na árvore (git status e sha256 iguais).
+             ─ Regressão da suíte inteira, PELO NOME (`FAIL:/ERROR:`), mesmo py 3.12.10 + PyYAML, processos novos,
+               uma suíte de cada vez (duas ao mesmo tempo mentem — know-how anterior):
+                 base  a18fe7e0 (worktree destacado)  Ran 4750 · failures=89 · errors=9 · skipped=188 · 98 nomes vermelhos
+                 cand. (código desta secção)          Ran 4750 · failures=82 · errors=9 · skipped=188 · 91 nomes vermelhos
+               NEW_FAILURES = 0 · NEW_ERRORS = 0 · saíram do vermelho EXACTAMENTE os 7 do gate, e mais nenhum.
+               A árvore medida difere da commitada só por esta secção do know-how e pelo mapa regerado a seguir.
+             ─ TEST_SUITE_MUTATES_REPO = YES · PATHS_MUTATED = data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json
+               (3 linhas: MORADA_EXISTE false→true, FICHEIROS_JSON_VARRIDOS 629→638 — escrito por
+               provas/o_censo_da_sala_de_espera.py:55 via tests/test_atomicidade_da_intelligence.py:679; e 629→638 é
+               OUTRO censo a andar pelo disco a contar JSON não rastreado). Restaurado com `git checkout --` antes do
+               commit; não entra nesta cirurgia. Nenhum outro ficheiro rastreado mudou (sha256 de todos, antes/depois).
+             ─ Red team (agente separado, só leitura, 16 ataques): 14 mortos · 2 sobreviventes, os dois PROVADOS e tratados:
+               (#3) `research/italy-lastmile/LAST-MILE-REALITY-GAPS.json:246` versiona `C:\\Users\<conta>\\AppData\…\py.exe`
+               com a barra DUPLICADA (JSON), pré-existente no trunk 9d6dcbbd, fora do padrão orca\pgtmp — e a guarda
+               `social_guarda.py:82` NÃO o vê, porque a regex casa uma barra só. Não editado (artefato gerado por
+               pacote/lastmile_entregar.py; corrigir à mão seria editar gerado); o inventário passa a dizer TRÊS
+               ocorrências POSIX/escapadas pré-existentes, e a cegueira da guarda fica registada como dívida.
+               (#7) só o sub-censo de PDF tinha passado a ler o Git; `main()` (JSON em PASTAS, que inclui data/raw e
+               apanha `*.raw.json` ignorados) e `indice_de_quem_cita_pdf()` (data/, build/, docs/ inteiros, com
+               data/colheita/ ignorado e PRESENTE nesta máquina) continuavam sobre o disco. CORRIGIDO nesta secção:
+               os dois passaram a `ficheiros_rastreados()` filtrado por prefixo. Prova: nesta árvore o artefato é o
+               mesmo (mesmos conjuntos, mesmos TOTAIS 208 · 154 · 905 · 65502; só a ordem entre empates de
+               CARACTERES muda, porque `git ls-files` enumera por caminho); no worktree limpo, com um `.raw.json`
+               italiano ignorado + um `.md` ignorado em data/colheita/ a citar agro_01.pdf + um PDF fantasma em XX/,
+               o corpus-it.generated.json sai BYTE A BYTE igual ao sem fantasmas — e o script ANTIGO, sobre os mesmos
+               fantasmas, dá FICHEIROS_ITALIANOS 208→209, caracteres 65502→65576, ACERVO 49→50.
+               Observações do red team fora dos 16: o mapa regerado pôs C-IDENTIDADE e a peça do censo do corpo em
+               🟡 (ficheiro mudou depois da leitura humana) — NÃO se recarimbou (o --stamp é global; recarimbar sem
+               reler é mentir); .gitignore:117 continua a ser um comentário sem `#` a valer como padrão (pré-existente).
+
+CONSEQUÊNCIA · Um artefato gerado só é canónico se um clone limpo o reproduz. «Corri o gerador e commitei» não chega quando
+               o gerador lê o disco: o manifesto da cadeia já dizia «git ls-files», e agora o código diz o mesmo — nos
+               três varrimentos de censo_do_corpus_it (PDF, JSON em PASTAS, índice de quem cita PDF) e, por herança, no
+               censo de identidade e no do armazém. Outros censos desta casa ainda andam pelo disco (o da Sala de Espera
+               contou 629→638 JSON conforme a máquina; censo_das_estradas_it procura módulos por os.walk, mas só .py):
+               a classe do defeito fica registada, e o teste que a apanha é sempre o mesmo — regenerar num clone limpo.
+             · A omissão da bancada portátil é UMA (`~/orca/pgtmp/pgsql/bin`), escrita de forma portátil nos dois sítios
+               que a usam; o dono continua a ser SINTONIA_PG_PORTATIL. Quem não tiver essa pasta vê NOT_RUN com motivo.
+             · O trecho de prova do mapa redige DSN. Uma credencial de bancada num artefato público é credencial na forma,
+               e a lei do estado é de forma.
+             · O §140 disse «mapa regerado» e o carimbo dentro do mapa dizia outra árvore. O portão 2b existe para isso:
+               `impressao_da_arvore.py --conferir-carimbo` DEPOIS do commit do mapa. Esta secção é commitada ANTES do
+               mapa (o mapa nasce da árvore que a inclui), por isso o resultado do portão 2b não pode estar escrito aqui:
+               vive no bloco de entrega da missão e na próxima execução do gate, que o refaz.
+             · Não se tocou em trunk, produção, migrations, Supabase, deploy, Intelligence, Portal nem Big Collection.
+               O workflow mudou em 2 linhas (a omissão de PGBIN); a linha 5a-IT das migrations é a mesma.
+             PRÓXIMO PASSO: NOVA execução independente de COORDINATION_GATE_FOR_COLLECTION_TO_TRUNK sobre o HEAD desta
+             secção. Só ela decide COLLECTION_IN_TRUNK.
+```
+
+## O QUE SE APRENDEU
+
+```
+1 · GERADOR IGUAL + ENTRADA DIFERENTE = ARTEFATO DIFERENTE COM A MESMA ASSINATURA. O blob do censo era o mesmo nos dois
+    lados; a diferença estava numa pasta que o Git nem vê. O conjunto de entrada de um artefato canónico é o que o Git
+    rastreia — e o gerador tem de perguntar ao Git, não ao disco.
+
+2 · A MENSAGEM DO COMMIT NÃO É O CARIMBO. «mapa regerado» estava na mensagem; PROVENANCE.HEAD dizia 3487ae15. O único
+    carimbo que vale é o de dentro do ficheiro, e há um portão (2b) que o confere depois do commit.
+
+3 · IDENTIDADE DE MÁQUINA NÃO É CONFIGURAÇÃO. A omissão de um caminho pode ser portátil (`~`, `$HOME`) sem inventar um
+    segundo dono; e o documento que cita a medição guarda a forma (nativa, absoluta) sem guardar a conta.
+
+4 · DUAS LEIS CERTAS PODEM COLIDIR NUM TRECHO DE 160 CARACTERES. A DSN literal na linha (porta de produção) e nenhuma
+    DSN no estado (mapa) são ambas certas; resolve-se em quem PUBLICA, não em quem é medido.
+
+5 · `git grep` SEM -F NÃO PROVA AUSÊNCIA de um padrão com barra invertida: em BRE a barra é escape e o resultado é 0
+    falso. A prova de «0 ocorrências» leva -F sempre.
 ```
