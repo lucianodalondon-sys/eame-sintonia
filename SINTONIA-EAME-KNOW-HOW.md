@@ -17212,3 +17212,87 @@ CONSEQUÊNCIA · Um artefato gerado só é canónico se um clone limpo o reprodu
 5 · `git grep` SEM -F NÃO PROVA AUSÊNCIA de um padrão com barra invertida: em BRE a barra é escape e o resultado é 0
     falso. A prova de «0 ocorrências» leva -F sempre.
 ```
+
+---
+
+# §142 · A FASE ITALIANA NUNCA TEVE SALA — SÓ LABORATÓRIO, E UM LABORATÓRIO É APAGADO NO FIM
+
+## O QUE MUDOU
+
+Passou a existir uma **Sala operacional persistente não-produção** para a Collection
+Itália: PostgreSQL 16.4 local, porta **54330**, base `sala_italia`, cluster em
+`%USERPROFILE%\sintonia-sala-italia\cluster`. Declarada na secção **E** de
+`docs/biblia/CENSO-DA-INFRAESTRUTURA.md`, que é o dono do registo de ambientes.
+
+Antes dela, a fase italiana tinha **apenas** o PostgreSQL descartável que o passo
+`5a-IT` de `sintonia-scrap.yml` cria e deita fora com o job.
+
+## O QUE · POR QUÊ · PROVA · CONSEQUÊNCIA
+
+**O QUE.** A Collection italiana ganhou destino persistente para o READY. O
+laboratório descartável **continua a existir e continua a ser usado para testes** —
+vive na **54329**, chama-se `descartavel`, e é outro ambiente.
+
+**POR QUÊ.** O Gate D pedia uma coleta real pousando na Sala real, e a Sala real não
+existia. Havia três candidatos e os três estavam errados: o descartável é apagado no
+fim; a Supabase é produção, e o próprio workflow escreve `PRODUÇÃO NÃO É LABORATÓRIO`
+com todas as letras; o backend `FICHEIRO` está declarado **não canónico** pelo dono da
+Sala, que chama a queda para ele de «a mesma falha com outro nome».
+
+    PROVADO EM DESCARTÁVEL != POUSADO NA SALA.
+
+**PROVA.** 32/32 migrations pela cadeia canónica, 93 tabelas. Um READY escrito pelo
+dono (`admissao/sala_de_espera.py`), o **servidor inteiro desligado**, religado, e o
+registo lido noutro processo — continuava lá. Red team: DSN ausente, DSN inválida e
+banco offline **recusam** com `SalaIndisponivel`, sem cair para ficheiro. Produção
+intocada: `SUPABASE_DB_URL` ausente e `SINTONIA_SALA_DSN` tem precedência sobre ela.
+
+**CONSEQUÊNCIA.** O Gate D passa a ter destino identificável. **Não** foi executado:
+a coleta real é missão separada, e a Sala ficou vazia de propósito.
+
+## O QUE SE APRENDEU
+
+```
+1 · UMA TRAVA DE BANCADA DE PROVA NÃO É O CONTRATO DA SALA.
+    `provas/preservar_coleta_no_postgres.py` recusa qualquer DSN fora de
+    `guarda/banco_descartavel.py::BANCOS_PERMITIDOS` — e faz bem, porque nasceu para
+    nunca correr contra produção. Mas não é a dona da Sala: a dona é
+    `admissao/sala_de_espera.py`. A lista NÃO foi alargada — alargá-la poria um banco
+    não-descartável numa lista cujo nome diz o contrário. Fica a dívida declarada: as
+    bancadas de prova não conseguem exercitar a Sala operacional.
+
+2 · A SALA RECUSOU TRÊS VEZES ANTES DE ACEITAR, E CADA RECUSA É UMA LEI VIVA.
+    Item com 4 campos -> COL-LAW-043 exige 19. `ESTAGIO` inventado -> CHECK do banco,
+    que só aceita DOCUMENTO/FATO/ESTAGIO_DESCONHECIDO. READY sem corrida -> chave
+    estrangeira para `collection_run`. Nenhuma régua foi afrouxada: a corrida passou a
+    ser aberta pelo dono dela, `coleta_checkpoint.abrir_corrida`.
+
+3 · NÃO CHAMAR AUSÊNCIA DE BACKUP DE PASS. `BACKUP_STATUS = NOT_IMPLEMENTED`, e está
+    escrito assim. Recriar o cluster e reaplicar as migrations devolve a ESTRUTURA,
+    nunca o CONTEÚDO. Não bloqueia UMA coleta gratuita cujo material continua na fonte
+    e cujos bytes já estão preservados; bloqueia coleta recorrente ou em volume.
+
+4 · REBOOT EXIGE RELIGAR À MÃO, enquanto isto for verdade. Não há serviço Windows, e
+    instalar um não era o âmbito. `ligar_sala.cmd` liga; `preflight_sala.cmd` mede seis
+    perguntas e pára ao primeiro NÃO.
+
+5 · SEGREDO EM ARGV APARECE NA LISTA DE PROCESSOS. O preflight lê a DSN de um ficheiro
+    ao lado do cluster, fora do repositório, em vez de a receber por argumento. Senha,
+    `pgpass` e DSN nunca entram no Git.
+
+6 · DOIS AMBIENTES, DUAS PORTAS, DE PROPÓSITO. 54329 laboratório, 54330 operacional.
+    Um engano de porta tem de dar erro, e não escrita silenciosa no sítio errado.
+```
+
+## REGRESSÃO E RED TEAM DESTA SECÇÃO
+
+```
+MIGRATIONS                 32/32 PASS · 93 tabelas
+PERSISTENCE                PROVED — shutdown completo + restart + leitura noutro processo
+FALLBACK_TO_FILE           recusado (3 ataques)
+PRODUCTION_TOUCHED         NO
+PREFLIGHT                  PASS 6/6 · FAIL com SINTONIA_SALA_BACKEND=FICHEIRO
+BACKUP_STATUS              NOT_IMPLEMENTED
+CODE_FILES_CHANGED         0 — só documentação
+COLETA_REAL                NÃO EXECUTADA
+```

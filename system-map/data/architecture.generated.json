@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "385b754c3c4ce5ba984e6ea0adbded3cfdc94e8d",
-    "GENERATED_AT": "2026-09-18T00:48:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dcb08014d31468e7ab1ada808eada01bccd51896754471440099fc0fdbe33ef3"
+    "BRANCH": "claude/it-trunk-v1",
+    "HEAD": "f428a04ebec6306961251dda7351681cd8e8eed1",
+    "GENERATED_AT": "2026-09-18T03:57:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "19fd6d635bfcda26bf6683ee21d0218be176081a",
+      "sha": "1ce672ebc860e0718988543204e5099644d0dc4c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4965,6 +4965,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
+      "sha": "d2b40bed0f9ee869c45d1ef6a8d80dd22a01dbe2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "sha": "80d091c4ec9d72267c2bb1a683bd48b5a416a972",
       "ext": ".json",
@@ -5722,7 +5729,7 @@
     },
     {
       "path": "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
-      "sha": "56ec612daf78d428a24a1c6f4cea561f02a6e475",
+      "sha": "e2054a2cd92c0dfaee8d76ea90feb4a82e577de0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -27019,6 +27026,17 @@
         "file": "leis/relevancia_da_fonte.py",
         "line": 122,
         "snippet": "from admissao import (  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "leis/relevancia_da_fonte.py",
+      "to_file": "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/relevancia_da_fonte.py",
+        "line": 138,
+        "snippet": "LIVRO = os.path.join('data', 'samples', 'LIVRO-DE-RELEVANCIA-DE-FONTE.json')"
       }
     },
     {
@@ -63081,10 +63099,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2083,
+    "files_tracked": 2084,
     "files_readable": 808,
     "files_code_dir": 867,
-    "file_edges": 4362,
+    "file_edges": 4363,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

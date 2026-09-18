@@ -189,7 +189,122 @@ um ficheiro removido continua a pesar em cada clone, para sempre.
 
 ---
 
-# D · O QUE NÃO EXISTE — e por isso não foi inventado
+# E · A SALA OPERACIONAL PERSISTENTE — o ambiente que passou a existir
+
+> **Esta secção corrige uma linha da secção D.** Até `C-SALA-OPERACIONAL-PERSISTENTE-V1`
+> a casa tinha, para a fase italiana, **apenas PostgreSQL descartável**: o passo `5a-IT`
+> de `sintonia-scrap.yml` cria um cluster que nasce e morre com o job. Provar numa sala
+> que é apagada no fim não é provar que o READY sobrevive.
+>
+> **PROVADO EM DESCARTÁVEL ≠ POUSADO NA SALA.**
+
+| campo | valor |
+|---|---|
+| `ENVIRONMENT_NAME` | SINTONIA COLLECTION ITALIA — SALA OPERACIONAL NON-PROD |
+| `PURPOSE` | receber o READY persistente da Collection italiana antes da Intelligence |
+| `BACKEND` | PostgreSQL 16.4 |
+| `HOSTING` | máquina operacional atual, local persistente |
+| `HOST` · `PORT` | `127.0.0.1` · **54330** |
+| `DATABASE` | `sala_italia` |
+| `DSN_RESOLUTION` | `SINTONIA_SALA_DSN` (mecanismo canónico; **sem hardcode**) |
+| `PRODUCTION` | **NO** |
+| `DISPOSABLE` | **NO** |
+| `FALLBACK_TO_FILE` | **NO** — `POSTGRES` sem DSN levanta `SalaIndisponivel` |
+| `MIGRATIONS` | 32/32, pela cadeia canónica · 93 tabelas |
+| `OWNER` | `admissao/sala_de_espera.py` (dono existente; **nenhum dono novo**) |
+
+⚠️ **O laboratório continua a existir, e é outro.** O descartável de provas vive na
+**54329** e chama-se `descartavel`. Portas e nomes diferentes de propósito: um engano
+de porta tem de dar erro, e não escrita silenciosa no sítio errado.
+
+    SALA DE PROVA DESCARTÁVEL != SALA OPERACIONAL PERSISTENTE.
+
+## O que a prova mediu
+
+```
+escrever READY pelo dono  ->  POUSAR_OK · ESTADO: PASSED
+DESLIGAR o servidor       ->  pg_isready: nenhuma resposta
+religar                   ->  aceitando conexões
+ler noutro processo       ->  o registo continua lá
+```
+
+Não foi só o processo cliente que caiu: **o banco inteiro foi abaixo e voltou**.
+
+A Sala recusou três vezes antes de aceitar, e cada recusa é uma lei a funcionar:
+item com 4 campos → `COL-LAW-043` exige **19**; `ESTAGIO` inventado → `CHECK` do banco;
+READY sem corrida → **chave estrangeira** para `collection_run`. Nenhuma régua foi
+afrouxada: a corrida passou a ser aberta pelo dono dela, `coleta_checkpoint.abrir_corrida`.
+
+## `guarda/banco_descartavel.py` NÃO é o contrato desta Sala
+
+`provas/preservar_coleta_no_postgres.py` recusa qualquer DSN fora de
+`BANCOS_PERMITIDOS = ("descartavel", "derivado", "social", "objeto")` — e **faz bem**,
+porque nasceu para nunca correr contra produção. Mas é uma **bancada de prova**, não a
+dona da Sala. A dona é `admissao/sala_de_espera.py`.
+
+    UMA TRAVA DE BANCADA DE PROVA NÃO É O CONTRATO DA SALA.
+
+**Consequência medida:** as bancadas de prova não conseguem exercitar a Sala operacional.
+Fica declarado como dívida, e **não** foi resolvido alargando a lista — alargá-la poria um
+banco não-descartável numa lista cujo nome diz o contrário.
+
+## Ciclo de vida
+
+| | |
+|---|---|
+| `ENVIRONMENT_OWNER` | operador da máquina (hoje: Luciano) |
+| `START_POLICY` | manual — `sintonia-sala-italia\ligar_sala.cmd` |
+| `STOP_POLICY` | manual — `pg_ctl -D <cluster> stop -m fast` |
+| `REBOOT_BEHAVIOR` | **manual start required** — não há serviço Windows |
+| `DATA_RETENTION` | indefinida; o READY fica até a Intelligence o consumir |
+| `DECOMMISSION_RULE` | só por decisão humana explícita; apagar o cluster apaga READY não consumido |
+
+## Preflight — seis perguntas, falha fechado
+
+`sintonia-sala-italia\preflight_sala.cmd` — mede e **pára** ao primeiro NÃO:
+
+```
+1 postgres responde   2 database sala_italia   3 tabela sala_de_espera
+4 migrations atuais   5 host local             6 backend POSTGRES
+```
+
+Medido: `PREFLIGHT=PASS` (6/6). Com `SINTONIA_SALA_BACKEND=FICHEIRO` → `PREFLIGHT=FAIL`.
+
+## Backup — o que não existe, dito por extenso
+
+```
+BACKUP_STATUS    = NOT_IMPLEMENTED
+```
+
+| | |
+|---|---|
+| onde está o cluster | `%USERPROFILE%\sintonia-sala-italia\cluster` (69 MB) |
+| o que preservar | o directório do cluster inteiro, ou `pg_dump` de `sala_italia` |
+| como detectar perda | `preflight_sala.cmd` falha em 1, 2 ou 3 |
+| backup hoje | **nenhum ficheiro de backup existe** |
+| ferramenta disponível | `pg_dump.exe` e `pg_restore.exe` já estão na máquina |
+
+`RECOVERY_PROCEDURE = LIMITED` — recriar o cluster e reaplicar as 32 migrations devolve
+a **estrutura**, nunca o conteúdo. Sem backup, um READY perdido está perdido.
+
+**Isto bloqueia a primeira coleta real de UMA fonte?** **Não** — e a razão é medida, não
+opinião: o material dessa coleta é um boletim público que continua na fonte e cujos bytes
+já estão preservados em `data/collection-store/italy/IT-T3-010/`. Perder a Sala custaria
+repetir uma corrida gratuita, e não perder o documento. Para coleta **recorrente** ou em
+**volume**, a resposta muda — e aí o backup passa a ser pré-requisito.
+
+    NÃO CHAMAR AUSÊNCIA DE BACKUP DE PASS.
+
+## Segredos
+
+A senha e a DSN vivem **fora do repositório**, ao lado do cluster
+(`.senha-sala`, `pgpass.conf`, `SALA_DSN.txt`). Nada disso é versionado, e o preflight
+lê a DSN do ficheiro em vez de a receber por argumento — um segredo em `ARGV` aparece
+na lista de processos da máquina.
+
+---
+
+# F · O QUE NÃO EXISTE — e por isso não foi inventado
 
 | | medido |
 |---|---|

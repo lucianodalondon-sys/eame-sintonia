@@ -732,6 +732,7 @@
       "data/samples/ITALY-T3-005-MONITORAGGIO/points-2026-09-07.json",
       "data/samples/LIVRO-DE-DECISOES.json",
       "data/samples/LIVRO-DE-DECISOES.json.lock",
+      "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
       "data/samples/PADRAO-DA-COLETA-CHAO.json",
       "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
       "data/samples/PIEMONTE-FD/aggiornamento_2025_strategie2026_pt.txt",
@@ -2674,10 +2675,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-collection-sala-v1",
-    "HEAD": "385b754c3c4ce5ba984e6ea0adbded3cfdc94e8d",
-    "GENERATED_AT": "2026-09-18T00:48:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "dcb08014d31468e7ab1ada808eada01bccd51896754471440099fc0fdbe33ef3"
+    "BRANCH": "claude/it-trunk-v1",
+    "HEAD": "f428a04ebec6306961251dda7351681cd8e8eed1",
+    "GENERATED_AT": "2026-09-18T03:57:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a"
   },
   "FAMILIES": [
     {
@@ -15803,6 +15804,7 @@
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
       "changed_since_declared": [
         "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/biblia/CENSO-DA-INFRAESTRUTURA.md",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/biblia/CONFORMIDADE-ITALIA.md",
         "docs/biblia/MATRIZ-DE-CONFLITOS.md",
@@ -31975,22 +31977,24 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "rule_role": "DECLARES",
-      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "ROLE_MEASURED": "CONTRACT_OR_RULE",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M3_REGUA_QUE_ENUNCIA",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "CONTRACT_OR_RULE",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -31999,13 +32003,16 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SE_ATIVA",
+        "CLASSE": "NAO_SEI",
         "QUEM": [],
-        "PLANO": "CODE",
+        "PLANO": null,
         "PROVA": [
-          "rule_role medido: nao le nem escreve artefato: enuncia vocabulario ou contrato"
+          "leis/autorizacao_de_gasto.py:178",
+          "provas/arbitragem_da_intelligence.py:196",
+          "provas/mutacao_da_autorizacao.py:31",
+          "provas/nenhuma_compra_sem_autorizacao.py:111"
         ],
-        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+        "PORQUE": "estas pecas importam-na — C-AUTORIZACAO-DE-GASTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 18485,
       "y": 1970
@@ -38828,7 +38835,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/it-collection-sala-v1"
+        "branch claude/it-trunk-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -95361,7 +95368,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1082,
+  "UNCLAIMED_FILES_COUNT": 1083,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -95550,7 +95557,7 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2083,
+    "files_tracked": 2084,
     "files_covered": 1001,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
