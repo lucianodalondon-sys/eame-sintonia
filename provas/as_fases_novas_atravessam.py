@@ -58,6 +58,16 @@ NOVAS = {
                        rc.COLHEITA, {'instancia': 'instancia', 'tag': 'tag'}),
     'contas-bluesky': ('BLUESKY', 'bluesky.account.discovery',
                        rc.CATALOG, {'termo': 'termo'}),
+    # As quatro oficiais do YouTube. `busca-youtube` e CATALOG pela mesma razao
+    # que `contas-bluesky` o e: devolve ONDE procurar, e nao o que foi dito.
+    'busca-youtube':   ('YOUTUBE', 'youtube.search',
+                        rc.CATALOG, {'termo': 'termo'}),
+    'canal-youtube':   ('YOUTUBE', 'youtube.channel.discovery',
+                        rc.COLHEITA, {'canal_id': 'channel_id'}),
+    'video-youtube':   ('YOUTUBE', 'youtube.video.metadata',
+                        rc.COLHEITA, {'videos': 'video_ids'}),
+    'comentarios-youtube': ('YOUTUBE', 'youtube.comments',
+                            rc.COLHEITA, {'video': 'video_id'}),
 }
 
 
@@ -91,7 +101,27 @@ def main():
     for fase, (plat, cap, especie, nomeados) in sorted(NOVAS.items()):
         d = reg._MAPA.get((plat, cap)) or {}
         alvo = d.get('ROTA')
+        # ⚠️ `adaptador_youtube` embrulha as rotas num decorador que traduz
+        # erros, e um `functools.wraps` sem `__wrapped__` deixaria a assinatura
+        # como `(**kw)` — o que faria esta assercao medir o embrulho e nao a
+        # rota. Desembrulha-se antes de perguntar; se nao houver embrulho,
+        # `__wrapped__` nao existe e o alvo ja e o proprio.
+        #
+        #     MEDIR O EMBRULHO E CONCLUIR SOBRE O CONTEUDO E O ERRO
+        #     QUE ESTA PROVA EXISTE PARA APANHAR.
+        while hasattr(alvo, '__wrapped__'):
+            alvo = alvo.__wrapped__
         params = set(inspect.signature(alvo).parameters) if alvo else set()
+        if params <= {'kw', '_', 'args', 'kwargs'}:
+            # O decorador nao expoe `__wrapped__`: le-se a fonte do ficheiro,
+            # que e a autoridade final sobre o que a rota aceita.
+            import re
+            fonte = inspect.getsource(sys.modules[alvo.__module__])
+            m = re.search(r'def %s\(([^)]*)\)' % alvo.__name__, fonte, re.S)
+            if m:
+                params = {p.split('=')[0].strip().lstrip('*')
+                          for p in m.group(1).split(',')}
+                params.discard('')
         for publico, interno in nomeados.items():
             diz(publico in abertos,
                 '`%s` esta aberto na receita' % publico, fase)

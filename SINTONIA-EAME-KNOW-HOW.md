@@ -17543,3 +17543,41 @@ PRODUCTION_TOUCHED     NO
 SYSTEM_MAP_CHECK       PASS
 NEW_NETWORK_ACQUISITION NO
 ```
+
+---
+
+# §145 · UM ESTADO DE AMBIENTE FOI LIDO COMO UM ESTADO DE CAPACIDADE
+
+O censo das capacidades do SCRAP perguntou ao `scrap_executor.CHECK` o que
+estava executável, e ele respondeu `CREDENTIAL_MISSING` a cinco capacidades do
+YouTube. A resposta estava certa. **A leitura dela é que estava errada:** foi
+registada como *«o projeto não tem a chave»*, e o que ela dizia era *«este
+processo não tem a chave»*.
+
+    CREDENCIAL AUSENTE NESTE SHELL != CREDENCIAL AUSENTE NO SISTEMA.
+    UM ESTADO DE AMBIENTE NÃO É UM ESTADO DE CAPACIDADE.
+
+A medição que desfez o erro não tocou em código nenhum: declarou-se no ambiente
+um literal que não abre nada (`FIXTURE-NAO-E-SEGREDO`) e perguntou-se outra vez.
+Quatro das cinco passaram de `CREDENTIAL_MISSING` a `CAN_COLLECT_NOW`. O que
+faltava era uma variável, e ela já estava provisionada onde a coleta de facto
+corre — `.github/workflows/scrap-social.yml` injeta `YOUTUBE_DATA_API_KEY` por
+`secrets`, e `youtube_oficial.ENV_CHAVE` lê exactamente esse nome.
+
+**A quinta não passou, e é ela que prova que a distinção não é cosmética.**
+`youtube.native_caption` continuou fechada com a mesma chave declarada, porque a
+rota dela é `apify:transcricao` e o dono da credencial é `APIFY_TOKEN_POOL`.
+
+    CAPTION != TRANSCRIPT. UMA CHAVE NÃO ABRE A FECHADURA DA OUTRA.
+    CINCO CAPACIDADES COM O MESMO ESTADO PODEM TER TRÊS CAUSAS DIFERENTES.
+
+Um estado igual em capacidades diferentes convida a tratá-las como um bloco, e
+foi isso que aconteceu: «5 × YouTube sem credencial» escondia 4 capacidades a
+uma variável de distância e 1 atrás de um gate de gasto.
+
+**Como não repetir:** quando um estado de prontidão depender do ambiente,
+perguntar sempre *de quem é a credencial* antes de agrupar. O registo já
+respondia — `scrap_registo._MAPA` declara o dono de cada rota, e a assinatura
+de `native_caption` tem `teto_usd` e `autorizacao`, que nenhuma das outras tem.
+
+    UM PARÂMETRO DE DINHEIRO NA ASSINATURA É UMA CONFISSÃO DE QUE A ROTA GASTA.

@@ -372,7 +372,11 @@ EXECUTORES = {
                              # vez de os deixar morrer no `**_` do adaptador.
                              #
                              #     A LISTA AQUI ABRE; A LISTA DA FASE FECHA.
-                             "canal", "instancia", "tag", "termo"],
+                             "canal", "instancia", "tag", "termo",
+                             # Os quatro do YouTube oficial. `termo` ja estava
+                             # aberto acima e serve as duas buscas: e a lista
+                             # POR FASE que decide quem o recebe.
+                             "canal_id", "videos", "video"],
         # `identidade-linkedin` chegou da LINKEDIN-OP-01. Ela e a UNICA rota que
         # a politica canonica permite no LinkedIn: le o site DA PROPRIA
         # organizacao e traz de la o endereco que a organizacao publicou. Nunca
@@ -387,7 +391,12 @@ EXECUTORES = {
                         # Sem esta linha a fase existe em `scrap_colheita` e o
                         # orquestrador continua a nao a saber pedir: a fase diz
                         # O QUE CORRE, e `serve_fases` diz QUEM A ABRE.
-                        "canal-telegram", "tag-mastodon", "contas-bluesky"],
+                        "canal-telegram", "tag-mastodon", "contas-bluesky",
+                        # As quatro OFICIAIS do YouTube (Data API v3). A quinta
+                        # — `youtube.native_caption` — fica de fora porque a
+                        # rota dela e paga e o gate dela e outro.
+                        "busca-youtube", "canal-youtube", "video-youtube",
+                        "comentarios-youtube"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.

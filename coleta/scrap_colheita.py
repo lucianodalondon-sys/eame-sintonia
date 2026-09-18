@@ -174,6 +174,57 @@ FASES = {
                          rc.COLHEITA),
     'contas-bluesky':   ('BLUESKY', 'bluesky.account.discovery', {'limit': 1},
                          rc.CATALOG),
+
+    # ── AS QUATRO OFICIAIS DO YOUTUBE ──────────────────────────────────────
+    # Outra FORMA: `adaptador_youtube` / campo ROTA / ONLINE. Ela nao estava
+    # ligada por uma razao que se leu mal a primeira vez — e a correcao vale
+    # mais do que as fases:
+    #
+    #     `scrap_executor.CHECK` respondia `CREDENTIAL_MISSING` aqui, e isso foi
+    #     lido como «o projeto nao tem a chave». Nao tem: o PROCESSO LOCAL nao
+    #     tem. `.github/workflows/scrap-social.yml:311` injecta
+    #     `YOUTUBE_DATA_API_KEY` por `secrets`, e `youtube_oficial.ENV_CHAVE`
+    #     le exactamente esse nome. Medido: com a chave declarada no ambiente,
+    #     as quatro passam a `CAN_COLLECT_NOW` sem tocar em codigo.
+    #
+    #     CREDENCIAL AUSENTE NESTE SHELL != CREDENCIAL AUSENTE NO SISTEMA.
+    #     UM ESTADO DE AMBIENTE NAO E UM ESTADO DE CAPACIDADE.
+    #
+    # ⚠️ `youtube.native_caption` NAO entra aqui, e a medicao e que o diz: com
+    # a mesma chave declarada ela CONTINUA `CREDENTIAL_MISSING`, porque a rota
+    # dela e `apify:transcricao` e o dono da credencial e `APIFY_TOKEN_POOL`.
+    # Ela pertence a porta que gasta, e essa porta tem outro gate.
+    #
+    #     CAPTION != TRANSCRIPT. E UMA CHAVE NAO ABRE A FECHADURA DA OUTRA.
+    #
+    # PARAMETROS, lidos um a um em `coleta/adaptador_youtube.py` — sao quatro
+    # contratos diferentes e nenhum foi copiado do vizinho:
+    #
+    #     youtube_buscar       (*, termo,      run_id, country_scope, limit, ...)
+    #     youtube_uploads      (*, channel_id, run_id, country_scope, limit, ...)
+    #     youtube_metadata     (*, video_ids,  run_id, country_scope, ...)
+    #     youtube_comentarios  (*, video_id,   run_id, country_scope, ...)
+    #
+    # `video_ids` e PLURAL e `video_id` e SINGULAR: sao rotas diferentes, e
+    # trocar um pelo outro passaria uma lista onde se espera um id.
+    #
+    # ESPECIE, decidida pelo que cada rota devolve e nao por omissao:
+    #   · `search` devolve CANDIDATOS a partir de um termo — videos que podem
+    #     existir para aquela busca, e nao o que uma fonte publicou. CATALOG.
+    #   · `channel.discovery` devolve os uploads RECENTES de um canal: material
+    #     que aquele canal publicou. COLHEITA.
+    #   · `video.metadata` devolve o que o video declara de si. COLHEITA.
+    #   · `comments` devolve o que pessoas escreveram no video. COLHEITA.
+    #
+    #     SEARCH DEVOLVE ONDE PROCURAR; UPLOADS DEVOLVEM O QUE FOI PUBLICADO.
+    'busca-youtube':    ('YOUTUBE', 'youtube.search', {'limit': 25},
+                         rc.CATALOG),
+    'canal-youtube':    ('YOUTUBE', 'youtube.channel.discovery', {'limit': 25},
+                         rc.COLHEITA),
+    'video-youtube':    ('YOUTUBE', 'youtube.video.metadata', {},
+                         rc.COLHEITA),
+    'comentarios-youtube': ('YOUTUBE', 'youtube.comments', {},
+                            rc.COLHEITA),
 }
 
 #: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
@@ -225,6 +276,23 @@ NOMEADOS = {
     'canal-telegram':    {'canal': 'canal'},
     'tag-mastodon':      {'instancia': 'instancia', 'tag': 'tag'},
     'contas-bluesky':    {'termo': 'termo'},
+    # ── OS QUATRO ENDERECOS DO YOUTUBE, E NENHUM E O SOURCE_ID ─────────────
+    # Lidos em `coleta/adaptador_youtube.py`. `busca-youtube` reusa o nome
+    # publico `termo` porque a pergunta e a mesma — uma palavra de busca — mas
+    # a fase e outra e a lista dela e que fecha: `contas-bluesky` continua a
+    # nao aceitar `channel`, e vice-versa.
+    #
+    # ⚠️ `video` e `videos` sao NOMES DIFERENTES de proposito: a rota de
+    # metadata recebe `video_ids` (uma lista) e a de comentarios recebe
+    # `video_id` (um so). Um nome unico para os dois obrigaria a adivinhar a
+    # forma la dentro, e adivinhar e o que esta lista existe para impedir.
+    #
+    #     UM ID NAO E UMA LISTA DE IDS.
+    #     E NENHUM DELES E A FONTE: `--fonte` desce o SOURCE_ID provado.
+    'busca-youtube':        {'termo': 'termo'},
+    'canal-youtube':        {'canal_id': 'channel_id'},
+    'video-youtube':        {'videos': 'video_ids'},
+    'comentarios-youtube':  {'video': 'video_id'},
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.

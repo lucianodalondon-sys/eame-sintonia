@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T16:10:33+00:00",
-  "HEAD": "b8ebca8a43401ee17bdd1ff676dae0f1d0252306",
+  "GENERATED_AT": "2026-09-18T16:59:54+00:00",
+  "HEAD": "65eadb2710206dd48b3335109958b20321e2ed47",
   "BRANCH": "claude/scrap-capabilities-wiring-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "0be35c5132a64b266b36edfbc3630bc3726b2c3314723ca0360302105187c4e5",
-  "FICHEIROS_NA_IMPRESSAO": 2236,
+  "SOURCE_TREE_FINGERPRINT": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
+  "FICHEIROS_NA_IMPRESSAO": 2237,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -552,7 +552,7 @@
    {
     "PATH": "coleta/scrap_colheita.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d0819197f84a9844b092ddf5a1e5c65256fae5dd",
+    "VERSAO": "4b18922a95a7c81a70d8ba6fb5688477841b28c6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1854,7 +1854,7 @@
    {
     "PATH": "pedido/receitas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "afa68221bcfe6b33df124745ec63bb5316b0551f",
+    "VERSAO": "9e33b388dcef268ecdb5f469e74b3cc690edb14c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2121,6 +2121,13 @@
     "PATH": "provas/as_corridas_nao_se_cruzam.py",
     "PAPEL": "FONTE",
     "VERSAO": "4fbc97a061210057aa4e523139c1ec9520599739",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/as_fases_novas_atravessam.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "dae5bf6fae66a05008f327fec893a51dfe725497",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -2960,14 +2967,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0be35c5132a64b266b36edfbc3630bc3726b2c3314723ca0360302105187c4e5",
+    "VERSAO": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "0be35c5132a64b266b36edfbc3630bc3726b2c3314723ca0360302105187c4e5",
+    "VERSAO": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4554,8 +4561,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 645,
-  "INPUTS_DIGEST": "185c3e98638e350cd91681b60ec83bc5f24e58c4480d7c46ccb4648a27003364",
+  "INPUTS_COUNT": 646,
+  "INPUTS_DIGEST": "d0ee22277cf65b7a2ca9c99ae5826e41d5fdb04ef2e240ba38ca34651a3fb235",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4588,8 +4595,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3780da22d9086d1690388cac90fe47beb0e1564476eadb208c603f5197d21537",
-  "SEMANTIC_HASH": "318ba89941a6524caa1a25cd01b0e0267586a4fccaa24e0010e9d591ea2337f8"
+  "MEASUREMENT_HASH": "c166cdc18e2414d8bc984c096aaf738345c7b37bef265d29f33d816f45822ccf",
+  "SEMANTIC_HASH": "784059f91659146c9f0f15be606bea8e090f7436a9256ce1e37e44d08a8236c2"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -12958,6 +12965,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/as_fases_novas_atravessam.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/ensaio_do_texto_na_collection.py",
       "LINHA": 54,
       "SUPPORTS": "YES",
@@ -13024,14 +13039,6 @@
      {
       "FICHEIRO": "provas/queda_e_repeticao_da_v1.py",
       "LINHA": 264,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "provas/red_team_da_release_v1.py",
-      "LINHA": 208,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
@@ -13911,7 +13918,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 430,
+      "LINHA": 439,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -21088,7 +21095,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 432,
+      "LINHA": 441,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -25421,7 +25428,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 428,
+      "LINHA": 437,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -25429,7 +25436,7 @@
      },
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 434,
+      "LINHA": 443,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -27536,6 +27543,14 @@
      {
       "FICHEIRO": "provas/as_corridas_nao_se_cruzam.py",
       "LINHA": 44,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/as_fases_novas_atravessam.py",
+      "LINHA": 38,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
@@ -29717,6 +29732,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "provas/as_fases_novas_atravessam.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/censo_executavel_da_v1.py",
       "LINHA": 49,
       "SUPPORTS": "YES",
@@ -31605,6 +31628,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/as_fases_novas_atravessam.py",
+      "LINHA": 99,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/bluesky_trial_ao_vivo.py",
       "LINHA": 40,
       "SUPPORTS": "YES",
@@ -31647,14 +31678,6 @@
      {
       "FICHEIRO": "provas/bluesky_trial_ao_vivo.py",
       "LINHA": 159,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "provas/censo_executavel_da_v1.py",
-      "LINHA": 44,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
@@ -41111,6 +41134,7 @@
     "provas/alcance_da_pergunta_tematica.py",
     "provas/amostragem_neutra_t3.py",
     "provas/as_corridas_nao_se_cruzam.py",
+    "provas/as_fases_novas_atravessam.py",
     "provas/auditoria_live.sh",
     "provas/benchmark_tematico.py",
     "provas/bluesky_trial_ao_vivo.py",

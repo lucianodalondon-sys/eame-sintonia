@@ -1559,6 +1559,7 @@
       "provas/amostragem_neutra_t3.py",
       "provas/arbitragem_da_intelligence.py",
       "provas/as_corridas_nao_se_cruzam.py",
+      "provas/as_fases_novas_atravessam.py",
       "provas/as_travas_do_scrap_no_postgres.py",
       "provas/asr_banco.py",
       "provas/auditoria.py",
@@ -2679,9 +2680,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/scrap-capabilities-wiring-v1",
-    "HEAD": "b8ebca8a43401ee17bdd1ff676dae0f1d0252306",
-    "GENERATED_AT": "2026-09-18T12:19:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0be35c5132a64b266b36edfbc3630bc3726b2c3314723ca0360302105187c4e5"
+    "HEAD": "65eadb2710206dd48b3335109958b20321e2ed47",
+    "GENERATED_AT": "2026-09-18T13:12:13-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7920270397cae92d50cae331542be35d1ede65be822b497f7db3058f9f1ae6b9"
   },
   "FAMILIES": [
     {
@@ -27898,6 +27899,7 @@
         "provas/alcance_da_pergunta_tematica.py",
         "provas/amostragem_neutra_t3.py",
         "provas/as_corridas_nao_se_cruzam.py",
+        "provas/as_fases_novas_atravessam.py",
         "provas/auditoria_live.sh",
         "provas/benchmark_tematico.py",
         "provas/bluesky_trial_ao_vivo.py",
@@ -27958,7 +27960,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 76,
+      "file_count": 77,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -28104,6 +28106,7 @@
           "MUTACOES",
           "MUTANTES",
           "NEGACOES",
+          "NOVAS",
           "ONDE_SE_FALA",
           "PESADAS",
           "PROIBIDOS_NA_FILA_CEGA",
@@ -28123,11 +28126,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1400,
+        "palavras": 1437,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1398,
+        "sem_marca_de_lingua": 1435,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -31187,9 +31190,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 185,
+        "palavras": 192,
         "por_lingua": {},
-        "sem_marca_de_lingua": 185,
+        "sem_marca_de_lingua": 192,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -32661,9 +32664,9 @@
           "FASES",
           "NOMEADOS"
         ],
-        "palavras": 79,
+        "palavras": 105,
         "por_lingua": {},
-        "sem_marca_de_lingua": 79,
+        "sem_marca_de_lingua": 105,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -53768,7 +53771,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 13 linhas de codigo.",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -53790,6 +53793,22 @@
           "file": "provas/as_corridas_nao_se_cruzam.py",
           "line": 43,
           "snippet": "import retorno_da_coleta as rdc                             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-CONTRATO-DE-RETORNO",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/as_fases_novas_atravessam.py",
+          "line": 37,
+          "snippet": "import retorno_da_coleta as rc         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-CONTRATO-DE-RETORNO",
@@ -53933,22 +53952,6 @@
         {
           "file": "provas/queda_e_repeticao_da_v1.py",
           "line": 264,
-          "snippet": "import retorno_da_coleta as rc",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
-            "FROM": "C-CONTRATO-DE-RETORNO",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/red_team_da_release_v1.py",
-          "line": 208,
           "snippet": "import retorno_da_coleta as rc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-DE-RETORNO--IMPORTS-->C-PROVA-COLETA",
@@ -55315,7 +55318,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 430,
+          "line": 439,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -67803,7 +67806,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 432,
+          "line": 441,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -75882,7 +75885,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 428,
+          "line": 437,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -75898,7 +75901,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 434,
+          "line": 443,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -79926,7 +79929,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 9 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -79948,6 +79951,22 @@
           "file": "provas/as_corridas_nao_se_cruzam.py",
           "line": 44,
           "snippet": "from receitas import EXECUTORES                             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-RECEITAS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/as_fases_novas_atravessam.py",
+          "line": 38,
+          "snippet": "import receitas                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-RECEITAS",
@@ -83659,8 +83678,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/as_fases_novas_atravessam.py",
+          "line": 36,
+          "snippet": "import scrap_colheita as sc            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/censo_executavel_da_v1.py",
           "line": 49,
@@ -86876,7 +86911,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 58 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 59 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -86946,6 +86981,22 @@
           "file": "provas/_c106c_filho.py",
           "line": 75,
           "snippet": "import youtube_oficial as yt",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/as_fases_novas_atravessam.py",
+          "line": 99,
+          "snippet": "import scrap_registo as reg",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-SOCIAL",
@@ -87042,22 +87093,6 @@
           "file": "provas/bluesky_trial_ao_vivo.py",
           "line": 159,
           "snippet": "import scrap_http as http",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-PROVA-COLETA",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "provas/censo_executavel_da_v1.py",
-          "line": 44,
-          "snippet": "import scrap_capacidades as cap                                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-SOCIAL",
@@ -95611,8 +95646,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2087,
-    "files_covered": 1004,
+    "files_tracked": 2088,
+    "files_covered": 1005,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

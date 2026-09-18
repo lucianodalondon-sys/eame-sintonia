@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b8ebca8a43401ee17bdd1ff676dae0f1d0252306
+HEAD_DA_MEDICAO  65eadb2710206dd48b3335109958b20321e2ed47
 BRANCH           claude/scrap-capabilities-wiring-v1
-GERADO_EM        2026-09-18T12:19:56-03:00
+GERADO_EM        2026-09-18T13:12:13-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
