@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T13:53:08+00:00",
-  "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
+  "GENERATED_AT": "2026-09-18T15:13:58+00:00",
+  "HEAD": "9a420cb8581133ef81446c278d14dd284c8b58ab",
   "BRANCH": "claude/collection-operational-persistence-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397",
+  "SOURCE_TREE_FINGERPRINT": "7c1c4db09b0244537d6fcc5438827dc552f5fedbba793aec25de17dd08ee6aec",
   "FICHEIROS_NA_IMPRESSAO": 2235,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -833,6 +833,13 @@
     "PATH": "guarda/banco_descartavel.py",
     "PAPEL": "FONTE",
     "VERSAO": "39a75642656edc5b068774352247fd5ae3e7a854",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "guarda/banco_operacional.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "4d0a23a8965dd66235468b97b8dbf388667f1ecc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2720,6 +2727,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/red_team_persistencia_operacional.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "704fb7b972de57350ab862c32aa0f5bf5ace1804",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/run_duravel_no_postgres.py",
     "PAPEL": "FONTE",
     "VERSAO": "7394d2e6a3e168d65454fa7337d7707793e907b6",
@@ -2946,14 +2960,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397",
+    "VERSAO": "7c1c4db09b0244537d6fcc5438827dc552f5fedbba793aec25de17dd08ee6aec",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397",
+    "VERSAO": "7c1c4db09b0244537d6fcc5438827dc552f5fedbba793aec25de17dd08ee6aec",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4169,6 +4183,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_persistencia_operacional.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "fc61cd5b4a241fa6e3b6487ec8c4d33617615b4d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_pipeline.py",
     "PAPEL": "FONTE",
     "VERSAO": "69c58f5e55c697745f14af6392d165a68e50119a",
@@ -4533,8 +4554,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 642,
-  "INPUTS_DIGEST": "9dc3cb16acc717a77660e7cd796ed2b3616d05dd77e266bc7828dab5d1b5e1db",
+  "INPUTS_COUNT": 645,
+  "INPUTS_DIGEST": "41d66919be7cc6b6e8b3b95505ab94acd3b9314968bfb38d36ca30071dfa28e5",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4567,8 +4588,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "044f89ed9313c786c3c079ada1ef3058839913817b2391d01b0e8ee3b3bfd50f",
-  "SEMANTIC_HASH": "2405f53772730dcc0aac21fc95cbb24f2f6260b39ceae6ef36943f7f99e112dd"
+  "MEASUREMENT_HASH": "557bd23e334fcf2b24726e1343a9f7ee5e7c06d32e6ee5ea8482fc3aeca17f3a",
+  "SEMANTIC_HASH": "39cd6b8cb2cc1508d5067259fe0fe78e9df3dc41d6489978cd4b71ffbad98cd1"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -14788,6 +14809,14 @@
      },
      {
       "FICHEIRO": "orquestrador/persistencia.py",
+      "LINHA": 67,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "orquestrador/persistencia.py",
       "LINHA": 209,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -22537,6 +22566,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "provas/red_team_persistencia_operacional.py",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "provas/so_a_colheita_atravessa.py",
       "LINHA": 40,
       "SUPPORTS": "YES",
@@ -22735,6 +22772,14 @@
      {
       "FICHEIRO": "tests/test_o_pedido_nao_mente.py",
       "LINHA": 39,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_persistencia_operacional.py",
+      "LINHA": 25,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
@@ -38465,6 +38510,7 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "guarda/banco_descartavel.py",
+    "guarda/banco_operacional.py",
     "guarda/cliente_postgres.py",
     "guarda/memoria_descartavel.py",
     "guarda/memoria_postgres.py",
@@ -41114,6 +41160,7 @@
     "provas/raw_entre_jobs.py",
     "provas/readback_022_live.sh",
     "provas/red_team_da_release_v1.py",
+    "provas/red_team_persistencia_operacional.py",
     "provas/run_duravel_no_postgres.py",
     "provas/runtime_comum_no_postgres.py",
     "provas/runtime_pago_no_postgres.py",
@@ -41268,6 +41315,7 @@
     "guarda",
     "information_schema",
     "leis",
+    "orquestrador",
     "participacao_na_derivacao",
     "pathlib",
     "pedido",
@@ -43727,6 +43775,7 @@
     "tests/test_observabilidade_estrada.py",
     "tests/test_operacao.py",
     "tests/test_pacote_de_revisao_t3.py",
+    "tests/test_persistencia_operacional.py",
     "tests/test_pipeline.py",
     "tests/test_politica_da_coleta.py",
     "tests/test_porta_de_candidatas.py",
@@ -43871,6 +43920,7 @@
     "mapa_regfi",
     "metricas_canonicas",
     "novo",
+    "orquestrador",
     "pathlib",
     "pedido",
     "pessoa",

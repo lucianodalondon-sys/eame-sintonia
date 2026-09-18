@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-operational-persistence-v1",
-    "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
-    "GENERATED_AT": "2026-09-18T10:10:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397"
+    "HEAD": "9a420cb8581133ef81446c278d14dd284c8b58ab",
+    "GENERATED_AT": "2026-09-18T10:54:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7c1c4db09b0244537d6fcc5438827dc552f5fedbba793aec25de17dd08ee6aec"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "4fa72217946a9989450131afd45f47d8009486c0",
+      "sha": "2c80cdf891e20ab3b66c59f80cfe6cc8e6a1e2df",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7408,6 +7408,13 @@
       "code_dir": true
     },
     {
+      "path": "guarda/banco_operacional.py",
+      "sha": "4d0a23a8965dd66235468b97b8dbf388667f1ecc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "guarda/catalogo_importar.py",
       "sha": "21614cbd570ef1034d9994c02e39ef039be1b7e7",
       "ext": ".py",
@@ -11160,6 +11167,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/red_team_persistencia_operacional.py",
+      "sha": "704fb7b972de57350ab862c32aa0f5bf5ace1804",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/reel_fala_qualidade.py",
       "sha": "6927ebd7f240c5017a1e9e53a5ae51b20b957383",
       "ext": ".py",
@@ -12792,7 +12806,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4400df8da8cd9cd7aa0612633ea7c3689e4bf0db",
+      "sha": "977ea6cf5af54acac4ae48a36ccbe65c07053b4a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -14221,6 +14235,13 @@
     {
       "path": "tests/test_pacote_de_revisao_t3.py",
       "sha": "4c3c5af706954d645aa24fb510d594b14ddf5838",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_persistencia_operacional.py",
+      "sha": "fc61cd5b4a241fa6e3b6487ec8c4d33617615b4d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30451,6 +30472,17 @@
     },
     {
       "from_file": "orquestrador/persistencia.py",
+      "to_file": "guarda/banco_operacional.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/persistencia.py",
+        "line": 67,
+        "snippet": "from guarda.banco_operacional import (  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/persistencia.py",
       "to_file": "guarda/memoria_postgres.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -42591,6 +42623,28 @@
         "file": "provas/red_team_gate_fase_1d.py",
         "line": 40,
         "snippet": "VALIDADOR = os.path.join(RAIZ, \"system-map\", \"scripts\", \"validate_system_map.py\")"
+      }
+    },
+    {
+      "from_file": "provas/red_team_persistencia_operacional.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_persistencia_operacional.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/red_team_persistencia_operacional.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_persistencia_operacional.py",
+        "line": 19,
+        "snippet": "from orquestrador import persistencia as P  # noqa: E402"
       }
     },
     {
@@ -58577,6 +58631,28 @@
       }
     },
     {
+      "from_file": "tests/test_persistencia_operacional.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_persistencia_operacional.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_persistencia_operacional.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_persistencia_operacional.py",
+        "line": 25,
+        "snippet": "from orquestrador import persistencia as P  # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_pipeline.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63099,10 +63175,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2084,
-    "files_readable": 808,
-    "files_code_dir": 867,
-    "file_edges": 4363,
+    "files_tracked": 2087,
+    "files_readable": 811,
+    "files_code_dir": 870,
+    "file_edges": 4368,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

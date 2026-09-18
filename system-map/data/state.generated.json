@@ -1089,6 +1089,7 @@
     ],
     "guarda": [
       "guarda/banco_descartavel.py",
+      "guarda/banco_operacional.py",
       "guarda/catalogo_importar.py",
       "guarda/cliente_postgres.py",
       "guarda/es/adama_es_gate.py",
@@ -1648,6 +1649,7 @@
       "provas/red_team_collection_ate_a_sala.py",
       "provas/red_team_da_release_v1.py",
       "provas/red_team_gate_fase_1d.py",
+      "provas/red_team_persistencia_operacional.py",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
@@ -2104,6 +2106,7 @@
       "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
       "tests/test_pacote_de_revisao_t3.py",
+      "tests/test_persistencia_operacional.py",
       "tests/test_pipeline.py",
       "tests/test_politica_da_coleta.py",
       "tests/test_porta_de_candidatas.py",
@@ -2676,9 +2679,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-operational-persistence-v1",
-    "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
-    "GENERATED_AT": "2026-09-18T10:10:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397"
+    "HEAD": "9a420cb8581133ef81446c278d14dd284c8b58ab",
+    "GENERATED_AT": "2026-09-18T10:54:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7c1c4db09b0244537d6fcc5438827dc552f5fedbba793aec25de17dd08ee6aec"
   },
   "FAMILIES": [
     {
@@ -19569,7 +19572,7 @@
       "name": "O dono canônico da escrita do bruto (OBSERVED)",
       "territory": "Z-GUARDA",
       "kind": "engine",
-      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133). ⚠️ 2026-09-17, mais tarde: ganhou `guarda/cliente_postgres.py` — o dono de QUAL psql este processo usa (SINTONIA_PSQL_EXE, caminho nativo, falha fechada; sem declaracao, o PATH; nunca um caminho inventado). O replay 3 (run 35232024024, know-how §135) caiu na primeira `subprocess.run([\"psql\", ...])` do runtime com FileNotFoundError; agora MemoriaPostgres, coleta_checkpoint.Banco e a Sala `_Postgres` pedem o executavel a este dono, e o Sala gate sonda o banco (`select 1`) pelo mesmo psql (know-how §136).",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133). ⚠️ 2026-09-17, mais tarde: ganhou `guarda/cliente_postgres.py` — o dono de QUAL psql este processo usa (SINTONIA_PSQL_EXE, caminho nativo, falha fechada; sem declaracao, o PATH; nunca um caminho inventado). O replay 3 (run 35232024024, know-how §135) caiu na primeira `subprocess.run([\"psql\", ...])` do runtime com FileNotFoundError; agora MemoriaPostgres, coleta_checkpoint.Banco e a Sala `_Postgres` pedem o executavel a este dono, e o Sala gate sonda o banco (`select 1`) pelo mesmo psql (know-how §136). ⚠️ 2026-09-18: ganhou `guarda/banco_operacional.py` — a trava da bancada OPERACIONAL PERSISTENTE, com allowlist propria e separada da descartavel. O primeiro canario operacional real (IT-T3-010) mediu o preco de nao a ter: a corrida adquiriu o PDF, nao escreveu `raw_asset`, o DERIVED ficou sem sujeito e a Admissao respondeu NAO_SEI. `sala_italia` NAO foi acrescentada a BANCOS_PERMITIDOS: um banco que SOBREVIVE numa lista chamada «descartavel» e lido por provas que apagam o que tocam. Duas variaveis declaradas ao mesmo tempo levantam ModosEmConflito — falha fechada (know-how §144).",
       "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
       "departments": [
         "ENGENHARIA"
@@ -19586,13 +19589,14 @@
       "family": "F-COLETA",
       "files": [
         "guarda/banco_descartavel.py",
+        "guarda/banco_operacional.py",
         "guarda/cliente_postgres.py",
         "guarda/memoria_descartavel.py",
         "guarda/memoria_postgres.py",
         "guarda/portas_live.py",
         "guarda/preservar_coleta.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -19646,9 +19650,9 @@
           "IDENTIDADE_IMUTAVEL",
           "SENTINELAS"
         ],
-        "palavras": 89,
+        "palavras": 96,
         "por_lingua": {},
-        "sem_marca_de_lingua": 89,
+        "sem_marca_de_lingua": 96,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -27943,6 +27947,7 @@
         "provas/raw_entre_jobs.py",
         "provas/readback_022_live.sh",
         "provas/red_team_da_release_v1.py",
+        "provas/red_team_persistencia_operacional.py",
         "provas/run_duravel_no_postgres.py",
         "provas/runtime_comum_no_postgres.py",
         "provas/runtime_pago_no_postgres.py",
@@ -27953,7 +27958,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 75,
+      "file_count": 76,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 5 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36127,6 +36132,7 @@
         "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
         "tests/test_pacote_de_revisao_t3.py",
+        "tests/test_persistencia_operacional.py",
         "tests/test_pipeline.py",
         "tests/test_politica_da_coleta.py",
         "tests/test_porta_de_candidatas.py",
@@ -36180,7 +36186,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 187,
+      "file_count": 188,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -56884,12 +56890,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha. Provado por 2 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "orquestrador/persistencia.py",
           "line": 64,
           "snippet": "from guarda.banco_descartavel import (  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-PERSISTENCIA-DA-PORTA-CLI",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/persistencia.py",
+          "line": 67,
+          "snippet": "from guarda.banco_operacional import (  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
             "FROM": "C-DONO-DA-ESCRITA",
@@ -70828,7 +70850,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_t4_italiana_atravessa.py",
@@ -70946,6 +70968,22 @@
           "file": "provas/o_pedido_t4_atravessa.py",
           "line": 183,
           "snippet": "import orquestrador as orq",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/red_team_persistencia_operacional.py",
+          "line": 19,
+          "snippet": "from orquestrador import persistencia as P  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ORQUESTRADOR",
@@ -71574,7 +71612,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -71676,6 +71714,22 @@
           "file": "tests/test_o_pedido_nao_mente.py",
           "line": 39,
           "snippet": "import orquestrador as orq  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_persistencia_operacional.py",
+          "line": 25,
+          "snippet": "from orquestrador import persistencia as P  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -95557,8 +95611,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2084,
-    "files_covered": 1001,
+    "files_tracked": 2087,
+    "files_covered": 1004,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

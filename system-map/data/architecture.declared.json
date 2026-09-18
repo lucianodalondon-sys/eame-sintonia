@@ -2024,6 +2024,7 @@
         "provas/raw_entre_jobs.py",
         "provas/readback_022_live.sh",
         "provas/red_team_da_release_v1.py",
+        "provas/red_team_persistencia_operacional.py",
         "provas/run_duravel_no_postgres.py",
         "provas/runtime_comum_no_postgres.py",
         "provas/runtime_pago_no_postgres.py",
@@ -2152,13 +2153,14 @@
       "territory": "Z-GUARDA",
       "kind": "engine",
       "icon": "▷",
-      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133). ⚠️ 2026-09-17, mais tarde: ganhou `guarda/cliente_postgres.py` — o dono de QUAL psql este processo usa (SINTONIA_PSQL_EXE, caminho nativo, falha fechada; sem declaracao, o PATH; nunca um caminho inventado). O replay 3 (run 35232024024, know-how §135) caiu na primeira `subprocess.run([\"psql\", ...])` do runtime com FileNotFoundError; agora MemoriaPostgres, coleta_checkpoint.Banco e a Sala `_Postgres` pedem o executavel a este dono, e o Sala gate sonda o banco (`select 1`) pelo mesmo psql (know-how §136).",
+      "what": "O caminho que uma coleta NOVA deve seguir para nunca repetir o estado italiano: corrida → bytes → armazém → conferir → memória → LER DE VOLTA → reconciliar → fechar no banco. O número de linhas gravadas vem de um SELECT, nunca do número esperado. E a corrida só diz COMPLETE se o Postgres também disser `concluida`. ⚠️ 2026-09-17: ganhou duas portas de runtime — `guarda/memoria_postgres.py` (o adaptador Postgres canonico, UM so; `portas_live.MemoriaSupabase` e a prova em provas/ sao subclasses) e `guarda/banco_descartavel.py` (a trava do banco descartavel, UMA so, que decompoe a URL e nomeia as variaveis PG* que a libpq le por baixo dela). Ate ai o adaptador completo vivia em provas/ e o runtime corria sem memoria (know-how §132/§133). ⚠️ 2026-09-17, mais tarde: ganhou `guarda/cliente_postgres.py` — o dono de QUAL psql este processo usa (SINTONIA_PSQL_EXE, caminho nativo, falha fechada; sem declaracao, o PATH; nunca um caminho inventado). O replay 3 (run 35232024024, know-how §135) caiu na primeira `subprocess.run([\"psql\", ...])` do runtime com FileNotFoundError; agora MemoriaPostgres, coleta_checkpoint.Banco e a Sala `_Postgres` pedem o executavel a este dono, e o Sala gate sonda o banco (`select 1`) pelo mesmo psql (know-how §136). ⚠️ 2026-09-18: ganhou `guarda/banco_operacional.py` — a trava da bancada OPERACIONAL PERSISTENTE, com allowlist propria e separada da descartavel. O primeiro canario operacional real (IT-T3-010) mediu o preco de nao a ter: a corrida adquiriu o PDF, nao escreveu `raw_asset`, o DERIVED ficou sem sujeito e a Admissao respondeu NAO_SEI. `sala_italia` NAO foi acrescentada a BANCOS_PERMITIDOS: um banco que SOBREVIVE numa lista chamada «descartavel» e lido por provas que apagam o que tocam. Duas variaveis declaradas ao mesmo tempo levantam ModosEmConflito — falha fechada (know-how §144).",
       "why_here": "A Itália ficou com 195 arquivos guardados e zero linhas a dizer quem os trouxe. Esta peça é a garantia PARA A FRENTE do G-42. ✅ DEIXOU DE SER ALVO em 08/09/2026: uma captura italiana nova passou por ela em produção — corrida IT-CANARY, raw_asset 890, RUN_STATE=COMPLETE, byte conferido no armazém. UMA unidade, e o legado ficou intocado.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         "guarda/banco_descartavel.py",
+        "guarda/banco_operacional.py",
         "guarda/cliente_postgres.py",
         "guarda/memoria_descartavel.py",
         "guarda/memoria_postgres.py",
