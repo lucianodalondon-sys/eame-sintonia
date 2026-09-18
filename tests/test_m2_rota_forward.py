@@ -278,7 +278,13 @@ class Base(unittest.TestCase):
         ):
             b.executa(sql % self.PREFIXO)
 
-    def _travessia(self, universo=m2.UNIVERSO_PADRAO, unidade_extra=None):
+    #: O UNIVERSO E DECLARADO, e o valor e do TESTE (ADMISSION-EXPLICIT-UNIVERSE-V1).
+    #: Deixou de existir `m2.UNIVERSO_PADRAO`: a rota nao escolhe universo, e
+    #: estes testes medem a CADEIA — nao a regua de nenhum universo.
+    UNIVERSO_DO_TESTE = 'T3'
+
+    def _travessia(self, universo=None, unidade_extra=None):
+        universo = self.UNIVERSO_DO_TESTE if universo is None else universo
         """A travessia REAL, do bruto preservado ate a porta.
 
         Partilhada pelas classes de falha para que o defeito nasca DENTRO da
@@ -311,7 +317,8 @@ class M2_TravessiaUnica(Base):
 
     RUN = 'RUN-M2-E2E'
 
-    def _correr(self, universo=m2.UNIVERSO_PADRAO):
+    def _correr(self, universo=None):
+        universo = self.UNIVERSO_DO_TESTE if universo is None else universo
         return self._travessia(universo=universo)
         raw_id, pdf, armazem, memoria = self._bruto_real(self.RUN)
         unidade = {
@@ -484,7 +491,8 @@ class M2_TravessiaUnica(Base):
         try:
             saida = m2.atravessar(self.banco, unidade=unidade, run_id=self.RUN,
                                   armazem=ArmazemDeMentira(), memoria=memoria,
-                                  canal_id=self.canal_id)
+                                  canal_id=self.canal_id,
+                                  universo=self.UNIVERSO_DO_TESTE)
         finally:
             fwd.ex.derivar_um = original
         self.assertIsNone(saida['STRUCTURED'])
@@ -526,7 +534,8 @@ class M2_FalhaEmStructured(Base):
                 'PORQUE': 'defeito controlado da M2R'}
             m2.atravessar(self.banco, unidade=unidade, run_id=self.RUN,
                           armazem=armazem, memoria=memoria,
-                          canal_id=self.canal_id)
+                          canal_id=self.canal_id,
+                          universo=self.UNIVERSO_DO_TESTE)
         finally:
             sp.persistir_video = original
 

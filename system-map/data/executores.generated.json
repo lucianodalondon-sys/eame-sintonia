@@ -1,7 +1,7 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
+  "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
@@ -210,7 +210,7 @@
   "TOTAL_RELEVANT_PATHS": 67,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 11,
-  "TOTAL_ORCHESTRATORS": 5,
+  "TOTAL_ORCHESTRATORS": 6,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 4,
   "TOTAL_CHECKPOINT_OWNERS": 4,
@@ -1116,7 +1116,7 @@
   {
    "EXECUTOR_ID": "coleta/rota_forward_documento.py",
    "GAVETA": "coleta",
-   "LINHAS": 550,
+   "LINHAS": 611,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1136,6 +1136,7 @@
    "USA_DIAGNOSTICO": true,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
+    "ORCHESTRATOR",
     "TELEMETRY_EMITTER"
    ],
    "GOOD_PATH_PROVED": true,

@@ -419,8 +419,10 @@ def main():
     r_s = m2.estruturar(sql, unidade=unidade, run_id=RUN, canal_id=canal_id)
     dec = None
     if (r_s or {}).get("STATE") in ("OK", sp.REOBSERVADO):
+        # Universo DECLARADO (obrigatorio desde a ADMISSION-EXPLICIT-UNIVERSE-V1).
+        # O material desta prova e boletim fitossanitario italiano real: T3.
         dec = m2.admitir(sql, unidade=unidade, run_id=RUN,
-                         conteudo_id=r_s.get("CONTEUDO_ID"))
+                         conteudo_id=r_s.get("CONTEUDO_ID"), universo='T3')
     r_m2 = {"DERIVED": r_der, "STRUCTURED": r_s, "ADMISSION": dec}
     print("  STRUCTURED  %s" % (r_m2["STRUCTURED"] or {}).get("STATE"))
     print("  ADMISSION   %s · a porta respondeu: %s"

@@ -516,6 +516,19 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     porque um NAO_SEI faz alguem ir ver, e um NAO fecha o assunto.
     """
     if not palavras:
+        if not str(universo or '').strip():
+            # ⚠️ AUSENCIA DE UNIVERSO != UNIVERSO SEM REGRA. Sao duas faltas
+            # diferentes, e chamar-lhes o mesmo nome escondia a pior: um item
+            # julgado contra um universo que ninguem declarou recebia a resposta
+            # «nao ha regra escrita do que conta como «None»» — que se le como
+            # um buraco do lexico, e nao como um PEDIDO incompleto.
+            #
+            #     O UNIVERSO VEM DO PEDIDO. SEM PEDIDO NAO HA PERGUNTA.
+            return NAO_SE_APLICA, (
+                "UNIVERSO_NAO_DECLARADO: esta porta julga um par (item, "
+                "universo), e o universo vem do PEDIDO — nunca da fonte, do "
+                "territorio dela, da plataforma nem do conteudo. Sem universo "
+                "declarado nao ha pergunta: esta porta nao escolhe uma."), {}
         return NAO_SE_APLICA, (f"nao ha regra escrita do que conta como «{universo}». "
                                f"Sem regra, esta porta nao inventa uma."), {}
     texto = _dobrar(" ".join(str(item.get(k) or "") for k in

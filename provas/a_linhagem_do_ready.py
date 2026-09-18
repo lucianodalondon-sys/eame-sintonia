@@ -232,9 +232,11 @@ def medir(url, sala):
                "ROUTE_CLASS_ID": "RC-1", "TIPO": "nota_tecnica",
                "CAPTURED_AT": "2026-09-10T00:00:00Z",
                "URL": "https://exemplo.it/%s" % os.path.basename(pdf)}
+    # Universo DECLARADO (obrigatorio): o material e boletim fitossanitario
+    # italiano real — T3 —, e nao um default da rota.
     saida = m2.atravessar(sql, unidade=unidade, run_id=RUN,
                           armazem=_armazem(), memoria=_memoria(url),
-                          canal_id=canal_id)
+                          canal_id=canal_id, universo='T3')
     caso("L2_a_unidade_pousou_na_sala",
          (saida.get("READY") or {}).get("ESTADO") == espera.POUSOU,
          "estado=%s" % (saida.get("READY") or {}).get("ESTADO"))

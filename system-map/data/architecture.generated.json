@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
-    "GENERATED_AT": "2026-09-18T14:01:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b"
+    "BRANCH": "claude/admission-explicit-universe-v1",
+    "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
+    "GENERATED_AT": "2026-09-18T14:29:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "0c5b2edcc0c8dd784062568aa2a08f8e83c3f3e0",
+      "sha": "74218847e93ef7ef0a6405ad032cf3c4cb8e7663",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -290,7 +290,7 @@
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "de8b1c1a9cc4235049494174ecca7f46e47eb5d5",
+      "sha": "4c229f3951e250562eb9413f86a3b6450435f157",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1501,7 +1501,7 @@
     },
     {
       "path": "coleta/rota_forward_documento.py",
-      "sha": "ad082f7abc5477749273f24d3368b77052598e0a",
+      "sha": "734e7702a926ac5f1af24725006d335f2881a062",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10391,7 +10391,7 @@
     },
     {
       "path": "provas/a_linhagem_do_ready.py",
-      "sha": "430047cd85bcea2549f2d46fecf3e79aa120ad8a",
+      "sha": "0b0dd575964f9900b443cfd86ac673601888b902",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10433,7 +10433,7 @@
     },
     {
       "path": "provas/a_ponte_de_midia_no_postgres.py",
-      "sha": "6aa761768c95d38d18c1948f319aa5e51a4c72c1",
+      "sha": "1cf92a1fe090704c3ce92f2587c937454f101c6e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10475,7 +10475,7 @@
     },
     {
       "path": "provas/a_rota_m2_atravessa.py",
-      "sha": "829ac22391ec93d818fc2a3d754b720341e296aa",
+      "sha": "62a713971302cadaf69b36e9c31559c8fb901515",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10503,7 +10503,7 @@
     },
     {
       "path": "provas/a_unidade_pousa_na_espera.py",
-      "sha": "e136a763462639c06f8ddb919d52b3e08c7f6abb",
+      "sha": "baa20e82b6bf208a8b6143afc96a935b33d0c24b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14108,7 +14108,7 @@
     },
     {
       "path": "tests/test_m2_rota_forward.py",
-      "sha": "0b3cf6a2f090bcad417dd059744ca02450d27ec4",
+      "sha": "d78869da92cc9e8292a6515e8853e6333af7fd08",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -33879,7 +33879,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_linhagem_do_ready.py",
-        "line": 493,
+        "line": 495,
         "snippet": "\"ACTOR\": \"coleta/adaptador_instagram.py\","
       }
     },
@@ -35430,7 +35430,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 484,
+        "line": 486,
         "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
       }
     },
@@ -35771,7 +35771,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_unidade_pousa_na_espera.py",
-        "line": 315,
+        "line": 316,
         "snippet": "os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
       }
     },
@@ -35848,7 +35848,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_unidade_pousa_na_espera.py",
-        "line": 380,
+        "line": 381,
         "snippet": "\"preservar_coleta_no_postgres.py\"))"
       }
     },
@@ -56825,7 +56825,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 482,
+        "line": 489,
         "snippet": "import derivacao_forward as fwd"
       }
     },
@@ -56858,7 +56858,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 701,
+        "line": 710,
         "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
       }
     },
@@ -56935,7 +56935,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 463,
+        "line": 470,
         "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:"
       }
     },
@@ -56946,7 +56946,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 699,
+        "line": 708,
         "snippet": "'provas-de-execucao.json'),"
       }
     },

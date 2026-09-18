@@ -437,8 +437,12 @@ def main():
 
     dec = None
     if (r_s or {}).get("STATE") in ("OK", sp.REOBSERVADO):
+        # O UNIVERSO E DECLARADO, e agora e obrigatorio (ADMISSION-EXPLICIT-
+        # UNIVERSE-V1). Este fixture mede a PONTE DE MIDIA — audio -> texto — e
+        # nao a regua de nenhum universo; declara-se T3 para que a declaracao
+        # exista, nunca para herdar um default que ja nao existe.
         dec = m2.admitir(sql, unidade=unidade, run_id=RUN,
-                         conteudo_id=r_s.get("CONTEUDO_ID"))
+                         conteudo_id=r_s.get("CONTEUDO_ID"), universo='T3')
     _mede("ADMISSION_EXECUTED", bool(dec), "a peneira comum, sem regra especial")
     _mede("ADMISSION_DECISION", getattr(dec, "resultado", "NAO_CORREU"),
           "REJECTED legitimo NAO e pipeline partido")

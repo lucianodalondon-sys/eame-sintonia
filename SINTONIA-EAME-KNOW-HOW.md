@@ -17628,3 +17628,53 @@ decisão humana**.
 corrida (T2, T3, T4) e **um** produziu READY (T3). T6 e T9 têm executor ligado e
 zero pares com relevância `SIM`; os outros seis territórios não têm executor.
 178 fontes no Atlas, 6 autorizadas, 6 corridas.
+
+---
+
+# §148 · UM DEFAULT SILENCIOSO NUMA ROTA PARTILHADA É UMA DECISÃO DE NEGÓCIO SEM AUTOR
+
+`coleta/rota_forward_documento.py` trazia uma linha de aparência inofensiva:
+
+    UNIVERSO_PADRAO = 'T3'   # praga e doenca — o universo dos boletins
+
+Um valor por omissão, com comentário explicativo, numa rota **partilhada**. O que
+ele fazia de facto era **escolher a pergunta da Admissão** em nome de quem não a
+tinha feito.
+
+**O que a mediu:** um vídeo público do LinkedIn, trazido por uma fonte do
+território **T8**, foi julgado contra **T3**. A porta respondeu `NAO_SEI` — *«não
+encontrei nada de T3»* — e o relatório leu-se como se o conteúdo tivesse falhado.
+**Não falhou nada: a pergunta nunca foi feita.**
+
+    TERRITÓRIO É PROPRIEDADE DA FONTE.
+    UNIVERSO É PERGUNTA AO DOCUMENTO.
+    DUAS COISAS DIFERENTES COM O MESMO NOME — E O DEFAULT COLAPSAVA-AS.
+
+**A autoridade já dizia o certo antes da correção.** O orquestrador pergunta um
+universo por corrida, e esse universo é o `alvo` do pedido:
+`orquestrador.pela_porta(itens, universo, run_id)`. A Bíblia não mudou, o
+contrato não mudou — `BIBLE_CHANGE_REQUIRED = NO`. O que existia era uma rota a
+contradizer a autoridade em silêncio.
+
+    O DONO DA RÉGUA É A ADMISSÃO. O DECLARANTE DO UNIVERSO É O PEDIDO.
+
+**E a correção separou duas faltas que tinham o mesmo nome.** A porta respondia
+*«não há regra escrita do que conta como X»* tanto para um universo sem léxico
+como para um universo que ninguém declarou — e a segunda lia-se como buraco do
+vocabulário, escondendo que o **pedido** é que estava incompleto. Agora há
+`UNIVERSO_NAO_DECLARADO`, com nome próprio.
+
+    AUSÊNCIA DE UNIVERSO != UNIVERSO SEM RÉGUA.
+    UM NAO_SEI VERDADEIRO SOBRE A PERGUNTA ERRADA SOBREVIVE NO LIVRO
+    COMO SE FOSSE UMA MEDIÇÃO.
+
+**Consequências, e nenhuma é cosmética:** rotas partilhadas deixam de inventar
+universo; um pedido incompleto falha com nome (`UniversoNaoDeclarado`) em vez de
+julgar contra um palpite; e nada infere universo de `SOURCE_ID`, do território,
+da plataforma, do texto ou do endereço — inferir seria voltar a decidir por
+omissão, com mais passos.
+
+**A vigia que impede o regresso:** a suíte assere que `UNIVERSO_PADRAO` **não
+existe** como atributo nem reaparece no código. Repor a linha reprova. Prova:
+17 testes novos · 113 na regressão de Admissão/Collection · 2 vermelhos
+pré-existentes, os mesmos no trunk-base · `RED_TEAM_BLOCKERS = 0`.

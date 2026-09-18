@@ -87,8 +87,57 @@ GRAO_PRONTA = 'unidade pronta'
 
 POLICY_VERSION = 'm2:rota-forward-documento'
 
-# O universo da peneira. Vem de fora quando o chamador o souber; nao se inventa.
-UNIVERSO_PADRAO = 'T3'   # praga e doenca — o universo dos boletins agrometeorologicos
+#: O UNIVERSO NÃO TEM VALOR POR OMISSÃO — e isto é a correção inteira.
+#:
+#: Aqui esteve `UNIVERSO_PADRAO = 'T3'`, com o comentário «praga e doenca — o
+#: universo dos boletins agrometeorologicos». Era uma decisão de NEGÓCIO tomada
+#: por omissão, dentro de uma rota PARTILHADA, e invisível a quem lia o
+#: artefacto: um item chegava à porta carimbado «T3» sem que ninguém tivesse dito
+#: «T3».
+#:
+#: MEDIDO, e é o que obriga esta linha: um vídeo público do LinkedIn, trazido por
+#: uma fonte do território T8, foi julgado contra **T3**. A porta respondeu
+#: `NAO_SEI` — «nao encontrei nada de «T3»» — e o relatório leu-se como se o
+#: conteúdo tivesse falhado. Não falhou nada: **a pergunta nunca foi feita.**
+#:
+#:     TERRITÓRIO É PROPRIEDADE DA FONTE.
+#:     UNIVERSO É PERGUNTA AO DOCUMENTO.
+#:     DUAS COISAS DIFERENTES COM O MESMO NOME — e o default colapsava-as.
+#:
+#: A autoridade já dizia o certo antes desta correção: o orquestrador pergunta
+#: **um** universo por corrida, e esse universo é **o `alvo` do pedido**
+#: (`orquestrador.pela_porta(itens, universo, run_id)` · know-how §51.5 ·
+#: `ADMISSION_REMAINS_UNIVERSE_OWNER = YES` · `BIBLE_CHANGE_REQUIRED = NO`).
+#:
+#:     O DONO DA RÉGUA É A ADMISSÃO. O DECLARANTE DO UNIVERSO É O PEDIDO.
+#:
+#: Quem não o declarar **não recebe T3**: recebe uma recusa com nome. Não se
+#: infere universo de `SOURCE_ID`, do território da fonte, da plataforma, do
+#: texto nem do endereço — inferir seria voltar a decidir por omissão, agora com
+#: mais passos.
+SEM_UNIVERSO = None
+
+
+class UniversoNaoDeclarado(ValueError):
+    """A rota foi chamada sem universo. Ela NÃO escolhe um.
+
+    Falha antes de julgar, e falha com o nome do que falta: uma unidade julgada
+    contra o universo errado produz um `NAO_SEI` **verdadeiro sobre a pergunta
+    errada**, e esse resultado sobrevive no livro como se fosse uma medição.
+    """
+
+
+def universo_declarado(universo):
+    """→ o universo declarado, normalizado. Ou levanta, se ninguém o declarou."""
+    t = str(universo or '').strip()
+    if not t or t.upper() in ('NAO SEI', 'NÃO SEI', 'NOT_KNOWN', 'NONE'):
+        raise UniversoNaoDeclarado(
+            'UNIVERSO_NAO_DECLARADO: esta rota julga um par (item, universo), e o '
+            'universo vem do PEDIDO — `orquestrador.pela_porta(itens, universo, '
+            'run_id)`, com o `alvo` do pedido. Não há valor por omissão: um '
+            'universo inventado produz um `NAO_SEI` verdadeiro sobre a pergunta '
+            'errada. Declarar o universo do pedido, ou não chamar esta rota.')
+    return t.upper()
 
 
 def _ms(t0):
@@ -257,9 +306,15 @@ def item_para_a_porta(unidade):
     return item
 
 
-def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
+def admitir(banco, *, unidade, run_id, conteudo_id, universo,
             tentativa=None):
     """ADMISSION — a porta decide, e a costura conta a decisao.
+
+    ⚠️ O UNIVERSO É OBRIGATÓRIO, E NÃO TEM POR OMISSÃO. Ele vem do PEDIDO —
+    `orquestrador.pela_porta(itens, universo, run_id)`, com o `alvo` do pedido.
+    Quem não o declarar recebe `UniversoNaoDeclarado`, e a corrida não julga: uma
+    unidade julgada contra o universo errado devolve um `NAO_SEI` verdadeiro
+    sobre a pergunta errada, e esse resultado fica no livro como medição.
 
     ⚠️ UM «NAO» DA PORTA E UMA PROVA BOA.
     Ele sai por `rejected`, e nao por `error`: a peneira funcionou. Contar uma
@@ -267,6 +322,7 @@ def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
     fizesse o seu trabalho.
     """
     t0 = time.time()
+    universo = universo_declarado(universo)
     comum = dict(_identidade(unidade), run_id=run_id, actor='admissao',
                  actor_version=admissao.VERSAO_DA_REGRA,
                  policy_version=POLICY_VERSION)
@@ -469,8 +525,12 @@ def levar_a_espera(banco, *, unidade, decisao, run_id, tentativa=None):
 
 
 def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
-               universo=UNIVERSO_PADRAO):
+               universo):
     """A rota inteira, NUMA execucao: DERIVED → STRUCTURED → ADMISSION.
+
+    ⚠️ O UNIVERSO É OBRIGATÓRIO AQUI TAMBÉM, e pela mesma razão: esta é a rota
+    que um chamador usa quando quer a cadeia inteira, e era por ela que o default
+    silencioso entrava sem ninguém dar por isso. Ele vem do PEDIDO.
 
     ⚠️ SE STRUCTURED NAO PASSAR, ADMISSION NAO CORRE — E ISSO NAO E UM ERRO
     DELA. Ela sai `NOT_RUN`, porque nunca comecou. Marca-la FAIL faria UM
@@ -482,6 +542,7 @@ def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
     ADMISSION aparecem. Uma cadeia que continua depois de a primeira etapa nao
     entregar estaria a inventar o que atravessou.
     """
+    universo = universo_declarado(universo)
     recibo_d = derivar(banco, unidade=unidade, run_id=run_id,
                        armazem=armazem, memoria=memoria)
     texto, caminho = _texto_derivado(recibo_d, armazem)

@@ -2680,10 +2680,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "78f8fcdcd240191d0c681ee746be5c02d6bc9342",
-    "GENERATED_AT": "2026-09-18T14:01:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "abf68ffb1d72806d414693022c960398d8e14d26fbbaf22366c4787e6417d22b"
+    "BRANCH": "claude/admission-explicit-universe-v1",
+    "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
+    "GENERATED_AT": "2026-09-18T14:29:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16"
   },
   "FAMILIES": [
     {
@@ -32356,7 +32356,7 @@
           "provas/a_linhagem_do_ready.py:60",
           "provas/a_ponte_de_midia_no_postgres.py:67",
           "provas/a_rota_m2_atravessa.py:72",
-          "provas/a_rota_m2_atravessa.py:484"
+          "provas/a_rota_m2_atravessa.py:486"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -38967,7 +38967,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/it-trunk-v1"
+        "branch claude/admission-explicit-universe-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -41493,7 +41493,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 1029,
+          "line": 1042,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -47769,7 +47769,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 699,
+          "line": 708,
           "snippet": "'provas-de-execucao.json'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-EXECUTORES--READS-->C-TESTES",
@@ -56313,7 +56313,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 482,
+          "line": 489,
           "snippet": "import derivacao_forward as fwd",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-TESTES",
@@ -59265,7 +59265,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 463,
+          "line": 470,
           "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ESTRADAS-IT--READS-->C-TESTES",
@@ -77525,7 +77525,7 @@
       "evidence": [
         {
           "file": "provas/a_unidade_pousa_na_espera.py",
-          "line": 380,
+          "line": 381,
           "snippet": "\"preservar_coleta_no_postgres.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -81831,7 +81831,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 484,
+          "line": 486,
           "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--READS-->C-PROVA-ROTA-M2-ATRAVESSA",
@@ -82116,7 +82116,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 701,
+          "line": 710,
           "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--READS-->C-TESTES",
@@ -83352,7 +83352,7 @@
       "evidence": [
         {
           "file": "provas/a_unidade_pousa_na_espera.py",
-          "line": 315,
+          "line": 316,
           "snippet": "os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -87281,7 +87281,7 @@
       "evidence": [
         {
           "file": "provas/a_linhagem_do_ready.py",
-          "line": 493,
+          "line": 495,
           "snippet": "\"ACTOR\": \"coleta/adaptador_instagram.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-COLETA",

@@ -189,9 +189,10 @@ def medir(url, sala):
                "ROUTE_CLASS_ID": "RC-1", "TIPO": "nota_tecnica",
                "CAPTURED_AT": "2026-09-10T00:00:00Z",
                "URL": "https://exemplo.it/%s" % os.path.basename(pdf)}
+    # Universo DECLARADO (obrigatorio): o material e boletim italiano real — T3.
     saida = m2.atravessar(sql, unidade=unidade, run_id=RUN,
                           armazem=_armazem(), memoria=_memoria(url),
-                          canal_id=canal_id)
+                          canal_id=canal_id, universo='T3')
 
     decisao = saida.get("ADMISSION")
     caso("E2_a_porta_respondeu_SIM_a_um_documento_REAL",
