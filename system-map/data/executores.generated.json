@@ -1,14 +1,14 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "f428a04ebec6306961251dda7351681cd8e8eed1",
+  "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
- "TOTAL_FICHEIROS": 79,
+ "TOTAL_FICHEIROS": 80,
  "TOTAL_CAMINHOS_RELEVANTES": 67,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 12,
+  "NOT_APPLICABLE": 13,
   "NOT_INSTRUMENTED": 62,
   "PARTIAL": 3,
   "INSTRUMENTED": 2
@@ -206,7 +206,7 @@
   }
  },
  "DENOMINADORES": {
-  "TOTAL_FILES_SCANNED": 79,
+  "TOTAL_FILES_SCANNED": 80,
   "TOTAL_RELEVANT_PATHS": 67,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 11,
@@ -1678,6 +1678,30 @@
    "STATE": "NOT_APPLICABLE"
   },
   {
+   "EXECUTOR_ID": "guarda/banco_operacional.py",
+   "GAVETA": "guarda",
+   "LINHAS": 159,
+   "TEM_PORTA": false,
+   "ETAPAS_NOMEADAS": [],
+   "HAS_PRESERVED_INPUT": false,
+   "USA_CONTRATO_ARTEFATO": false,
+   "NETWORK_REQUIRED": true,
+   "PAID": false,
+   "PRODUCTION_REQUIRED": false,
+   "CAN_RUN_OFFLINE": false,
+   "USA_TELEMETRIA": false,
+   "USA_FALHAS": false,
+   "USA_DIAGNOSTICO": false,
+   "USA_CHECKPOINT": false,
+   "PAPEIS": [
+    "UNKNOWN"
+   ],
+   "GOOD_PATH_PROVED": false,
+   "FAULT_PATH_PROVED": false,
+   "PROVA": null,
+   "STATE": "NOT_APPLICABLE"
+  },
+  {
    "EXECUTOR_ID": "guarda/catalogo_importar.py",
    "GAVETA": "guarda",
    "LINHAS": 693,
@@ -2174,7 +2198,7 @@
   {
    "EXECUTOR_ID": "orquestrador/orquestrador.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 1119,
+   "LINHAS": 1121,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -2202,7 +2226,7 @@
   {
    "EXECUTOR_ID": "orquestrador/persistencia.py",
    "GAVETA": "orquestrador",
-   "LINHAS": 151,
+   "LINHAS": 214,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW"

@@ -64,19 +64,48 @@ import _gavetas  # noqa: E402,F401
 from guarda.banco_descartavel import (  # noqa: E402
     AMBIENTE_QUE_MUDA_O_DESTINO, BancoNaoDescartavel, ambiente_sem_desvio,
     morada_sem_segredo, porque_nao_e_descartavel)
+from guarda.banco_operacional import (  # noqa: E402
+    BancoNaoOperacional, porque_nao_e_operacional)
 
-#: A ÚNICA variável que liga a memória da Collection. Ver o cabeçalho.
+#: A variável que liga a memória da Collection numa bancada DESCARTÁVEL.
 VARIAVEL = "BANCO_DESCARTAVEL_URL"
 
-#: Os dois estados que o recibo pode declarar. Não há terceiro: «liguei a
-#: produção» não é um estado desta peça, é o defeito que ela existe para
-#: impedir.
+#: A variável que a liga numa bancada OPERACIONAL PERSISTENTE.
+#: ⚠️ SÃO DUAS VARIÁVEIS PORQUE SÃO DOIS MODOS, E NÃO DOIS NOMES PARA O MESMO.
+#: O primeiro canário operacional real (IT-T3-010) mediu o preço de haver só a
+#: primeira: a corrida adquiriu o PDF, não escreveu `raw_asset`, o DERIVED não
+#: teve sujeito, e a Admissão respondeu `NAO_SEI` a um documento sem texto.
+#:
+#:     BANCADA DESCARTÁVEL != BANCADA OPERACIONAL.
+#:     E NENHUMA DAS DUAS É A SALA.
+#:
+#: `SINTONIA_SALA_DSN` continua a ser da SALA e NÃO liga isto — inferi-la aqui
+#: seria dar à Collection uma memória que ninguém lhe declarou.
+VARIAVEL_OPERACIONAL = "SINTONIA_COLLECTION_DSN"
+
+#: Os estados que o recibo pode declarar. «Liguei a produção» não é um deles:
+#: é o defeito que esta peça existe para impedir.
 DESCARTAVEL = "DESCARTAVEL"
+OPERACIONAL = "OPERACIONAL"
 AUSENTE = "AUSENTE"
 
 
 class BancoRecusado(BancoNaoDescartavel):
     """`BANCO_DESCARTAVEL_URL` está declarada e NÃO prova ser descartável."""
+
+
+class BancoOperacionalRecusado(BancoNaoOperacional):
+    """A variável operacional está declarada e NÃO prova ser autorizada."""
+
+
+class ModosEmConflito(Exception):
+    """As duas variáveis declaradas ao mesmo tempo.
+
+        DUAS BANCADAS DECLARADAS NÃO SÃO UMA ESCOLHA: SÃO UMA DÚVIDA.
+
+    Escolher uma em silêncio faria a corrida escrever num banco que quem a
+    lançou não sabe qual é. Falha FECHADA.
+    """
 
 
 class Persistencia:
@@ -104,26 +133,61 @@ class Persistencia:
 def dependencias_do_runtime(env=None) -> Persistencia:
     """Compõe a persistência a partir do ambiente. Fail closed.
 
-    → `Persistencia` com memória e banco do rastro quando `BANCO_DESCARTAVEL_URL`
-      existe e prova ser descartável;
-    → `Persistencia` AUSENTE (dependências `None`) quando a variável não existe;
-    → levanta `BancoRecusado` quando existe e não prova — antes de qualquer
-      escrita, antes de a corrida nascer.
+    → `Persistencia` com memória e banco do rastro quando UMA das duas
+      variáveis existe e prova o que diz ser;
+    → `Persistencia` AUSENTE (dependências `None`) quando nenhuma existe;
+    → levanta `BancoRecusado` / `BancoOperacionalRecusado` quando existe e não
+      prova — antes de qualquer escrita, antes de a corrida nascer;
+    → levanta `ModosEmConflito` quando as DUAS existem.
+
+    ⚠️ DOIS MODOS, DOIS GUARDAS, E NENHUM HERDA A LISTA DO OUTRO.
+    A allowlist descartável e a allowlist operacional são ficheiros diferentes
+    de propósito: um banco que sobrevive não pode entrar numa lista chamada
+    «descartável», porque provas que apagam o que tocam leem essa lista.
     """
     e = os.environ if env is None else env
     url = (e.get(VARIAVEL) or "").strip()
-    if not url:
+    url_op = (e.get(VARIAVEL_OPERACIONAL) or "").strip()
+
+    # ── AS DUAS AO MESMO TEMPO NÃO SÃO UMA ESCOLHA ───────────────────────
+    # Preferir uma seria decidir por quem lançou a corrida, em silêncio, qual
+    # dos dois bancos leva a escrita. E o erro só apareceria depois — no banco
+    # errado, com dado real lá dentro.
+    if url and url_op:
+        raise ModosEmConflito(
+            "MODOS_EM_CONFLITO: %s e %s estao ambas declaradas. Nada foi "
+            "escrito; a corrida nao nasce. Declare UMA: a bancada descartavel "
+            "OU a bancada operacional." % (VARIAVEL, VARIAVEL_OPERACIONAL))
+
+    if not url and not url_op:
         return Persistencia(
             None, None, AUSENTE,
-            "%s nao declarada: a corrida corre sem memoria canonica — RAW fica "
-            "em ficheiro, RAW_OBSERVATIONS sai vazio e RASTRO=NAO_EMITIDO. Nunca "
-            "se cai para SUPABASE_DB_URL nem para SINTONIA_SALA_DSN." % VARIAVEL)
-    motivo = porque_nao_e_descartavel(url)
-    if motivo:
-        raise BancoRecusado(
-            "BANCO_RECUSADO: %s esta declarada e nao prova ser um banco "
-            "descartavel local (%s). Nada foi escrito; a corrida nao nasce. "
-            "PRODUCAO NAO E LABORATORIO." % (VARIAVEL, motivo))
+            "%s nem %s declaradas: a corrida corre sem memoria canonica — RAW "
+            "fica em ficheiro, RAW_OBSERVATIONS sai vazio e RASTRO=NAO_EMITIDO. "
+            "Nunca se cai para SUPABASE_DB_URL nem para SINTONIA_SALA_DSN."
+            % (VARIAVEL, VARIAVEL_OPERACIONAL))
+
+    if url_op:
+        motivo = porque_nao_e_operacional(url_op)
+        if motivo:
+            raise BancoOperacionalRecusado(
+                "BANCO_OPERACIONAL_RECUSADO: %s esta declarada e nao prova ser "
+                "uma bancada operacional autorizada (%s). Nada foi escrito; a "
+                "corrida nao nasce. ALLOWLIST EXPLICITA > HEURISTICA."
+                % (VARIAVEL_OPERACIONAL, motivo))
+        escolhida, estado, qual = url_op, OPERACIONAL, VARIAVEL_OPERACIONAL
+        porque = ("%s declarada e provada operacional autorizada; memoria e "
+                  "rastro ligados ao mesmo banco." % VARIAVEL_OPERACIONAL)
+    else:
+        motivo = porque_nao_e_descartavel(url)
+        if motivo:
+            raise BancoRecusado(
+                "BANCO_RECUSADO: %s esta declarada e nao prova ser um banco "
+                "descartavel local (%s). Nada foi escrito; a corrida nao nasce. "
+                "PRODUCAO NAO E LABORATORIO." % (VARIAVEL, motivo))
+        escolhida, estado, qual = url, DESCARTAVEL, VARIAVEL
+        porque = ("%s declarada e provada descartavel; memoria e rastro "
+                  "ligados ao mesmo banco." % VARIAVEL)
     # Os imports vivem aqui, e não no topo, de propósito: compor é o único
     # momento em que esta peça precisa deles, e importar este módulo não
     # deve arrastar o adaptador para quem só quer perguntar «há banco?».
@@ -145,6 +209,5 @@ def dependencias_do_runtime(env=None) -> Persistencia:
     from guarda.memoria_postgres import MemoriaPostgres
     import coleta_checkpoint as cc
     return Persistencia(
-        MemoriaPostgres(url), cc.Banco(url), DESCARTAVEL,
-        "%s declarada e provada descartavel; memoria e rastro ligados ao "
-        "mesmo banco." % VARIAVEL, morada_sem_segredo(url), retiradas)
+        MemoriaPostgres(escolhida), cc.Banco(escolhida), estado,
+        porque, morada_sem_segredo(escolhida), retiradas)

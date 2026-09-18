@@ -2675,10 +2675,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "f428a04ebec6306961251dda7351681cd8e8eed1",
-    "GENERATED_AT": "2026-09-18T03:57:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a"
+    "BRANCH": "claude/collection-operational-persistence-v1",
+    "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
+    "GENERATED_AT": "2026-09-18T10:10:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397"
   },
   "FAMILIES": [
     {
@@ -38835,7 +38835,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/it-trunk-v1"
+        "branch claude/collection-operational-persistence-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -50341,7 +50341,7 @@
       "evidence": [
         {
           "file": "orquestrador/persistencia.py",
-          "line": 146,
+          "line": 210,
           "snippet": "import coleta_checkpoint as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -56904,7 +56904,7 @@
         },
         {
           "file": "orquestrador/persistencia.py",
-          "line": 145,
+          "line": 209,
           "snippet": "from guarda.memoria_postgres import MemoriaPostgres",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",

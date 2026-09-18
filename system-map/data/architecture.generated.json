@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-trunk-v1",
-    "HEAD": "f428a04ebec6306961251dda7351681cd8e8eed1",
-    "GENERATED_AT": "2026-09-18T03:57:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a"
+    "BRANCH": "claude/collection-operational-persistence-v1",
+    "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
+    "GENERATED_AT": "2026-09-18T10:10:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "1ce672ebc860e0718988543204e5099644d0dc4c",
+      "sha": "4fa72217946a9989450131afd45f47d8009486c0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10076,14 +10076,14 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "639baa6c59d975fbe744756622e2adebe8a1e366",
+      "sha": "25ff9df824110b2d14ca6286956c266cab602ec4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "orquestrador/persistencia.py",
-      "sha": "ac899780090dc72642e1abd5a4fff3a993fdfaee",
+      "sha": "bad64bae1be1c8db8a52e7cf61b110e232ab75c7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30434,7 +30434,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/persistencia.py",
-        "line": 146,
+        "line": 210,
         "snippet": "import coleta_checkpoint as cc"
       }
     },
@@ -30456,7 +30456,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/persistencia.py",
-        "line": 145,
+        "line": 209,
         "snippet": "from guarda.memoria_postgres import MemoriaPostgres"
       }
     },

@@ -1069,7 +1069,9 @@ def main() -> int:
     # sem memória e o recibo di-lo. Nunca se cai para produção.
     try:
         runtime = persistencia.dependencias_do_runtime()
-    except persistencia.BancoRecusado as ex:
+    except (persistencia.BancoRecusado,
+            persistencia.BancoOperacionalRecusado,
+            persistencia.ModosEmConflito) as ex:
         print(str(ex))
         return 2
 

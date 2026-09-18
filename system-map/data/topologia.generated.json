@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T12:59:08+00:00",
-  "HEAD": "f428a04ebec6306961251dda7351681cd8e8eed1",
-  "BRANCH": "claude/it-trunk-v1",
+  "GENERATED_AT": "2026-09-18T13:53:08+00:00",
+  "HEAD": "c8a2d14b402d894b3904e512a60cb8eff90934c5",
+  "BRANCH": "claude/collection-operational-persistence-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a",
-  "FICHEIROS_NA_IMPRESSAO": 2232,
+  "SOURCE_TREE_FINGERPRINT": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397",
+  "FICHEIROS_NA_IMPRESSAO": 2235,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1707,14 +1707,14 @@
    {
     "PATH": "orquestrador/orquestrador.py",
     "PAPEL": "FONTE",
-    "VERSAO": "639baa6c59d975fbe744756622e2adebe8a1e366",
+    "VERSAO": "25ff9df824110b2d14ca6286956c266cab602ec4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "orquestrador/persistencia.py",
     "PAPEL": "FONTE",
-    "VERSAO": "ac899780090dc72642e1abd5a4fff3a993fdfaee",
+    "VERSAO": "bad64bae1be1c8db8a52e7cf61b110e232ab75c7",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2946,14 +2946,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a",
+    "VERSAO": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e8d3e3ace0bf62023f40840182bdcc0c2afdbbd50e79d7b78ec2ee0b70f9bb9a",
+    "VERSAO": "098c1098de9a8464a439492e34e13a06f0637232d34bb16bcf23a856ffb8f397",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4534,7 +4534,7 @@
    }
   ],
   "INPUTS_COUNT": 642,
-  "INPUTS_DIGEST": "3d01f67e6a4052d4cfd67419d2984c65c01675df869b282fa01c2b16ed4ff64d",
+  "INPUTS_DIGEST": "9dc3cb16acc717a77660e7cd796ed2b3616d05dd77e266bc7828dab5d1b5e1db",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4567,8 +4567,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5cc0c95805a6f64db48465c0687f950b01f990e6078c2b68354c0d27ecef419e",
-  "SEMANTIC_HASH": "b832841ee4c19609992ef41ee153151d38d67d077d3b110cd294d1e51616f60e"
+  "MEASUREMENT_HASH": "044f89ed9313c786c3c079ada1ef3058839913817b2391d01b0e8ee3b3bfd50f",
+  "SEMANTIC_HASH": "2405f53772730dcc0aac21fc95cbb24f2f6260b39ceae6ef36943f7f99e112dd"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -10944,7 +10944,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "orquestrador/persistencia.py",
-      "LINHA": 146,
+      "LINHA": 210,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -14788,7 +14788,7 @@
      },
      {
       "FICHEIRO": "orquestrador/persistencia.py",
-      "LINHA": 145,
+      "LINHA": 209,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",

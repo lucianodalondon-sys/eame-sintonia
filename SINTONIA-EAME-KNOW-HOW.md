@@ -17455,3 +17455,91 @@ MIGRATIONS_CHANGED          = NO
 BIG_COLLECTION_REMAINS_NEXT_PRIORITY = YES
 VOLUME_MEASUREMENT          = NOT_MEASURED
 ```
+
+---
+
+# §143 · A COLLECTION SABIA LIGAR-SE A UMA BANCADA QUE SE APAGA, E A NENHUMA QUE SOBREVIVE
+
+## O QUE MUDOU
+
+Nasceu `guarda/banco_operacional.py` e `orquestrador/persistencia.py` passou a
+conhecer DOIS modos: `BANCO_DESCARTAVEL_URL` (bancada que se deita fora) e
+`SINTONIA_COLLECTION_DSN` (bancada operacional persistente). As duas ao mesmo
+tempo levantam `ModosEmConflito` — falha FECHADA.
+
+## O QUE · POR QUE · PROVA · CONSEQUENCIA
+
+**O QUE.** A Collection ganhou porta explicita de persistencia operacional. A
+allowlist descartavel ficou **intacta**.
+
+**POR QUE.** O primeiro canario operacional real (IT-T3-010, run
+`XX-T3-2026-09-18-130704-dfbbd422a1b06e7c`) adquiriu o PDF, preservou os bytes,
+e parou. Medido: `RAW_OBSERVATION NO`, `DERIVED NO`, `ADMISSION NAO_SEI`,
+`READY 0`. A causa nao era defeito: o compositor so ligava memoria com
+`BANCO_DESCARTAVEL_URL`, e o guarda recusou `sala_italia` — **correctamente**,
+porque `sala_italia` nao e descartavel.
+
+    A CASA TINHA BANCADA DESCARTAVEL E TINHA SALA.
+    NAO TINHA BANCADA OPERACIONAL DA COLLECTION.
+
+**PROVA.** 14 testes de composicao + 18 ataques de red team, `RED_TEAM_BLOCKERS = 0`.
+Depois, com o PDF **ja preservado** e sem ir a rede:
+
+```
+persistencia: OPERACIONAL (127.0.0.1:54330/sala_italia)
+pela porta de admissao: SIM 1
+prontos para a inteligencia: 1 -> postgres:public.sala_de_espera
+collection_run 1 · raw_asset 1 · storage_object 1 · derived_artifact 1 · READY 1
+lineage 5/5 fecha · sha256 do banco == sha256 do PDF no disco
+```
+
+**CONSEQUENCIA.** O Gate D fecha. A Big Collection deixa de estar bloqueada por
+ausencia de persistencia operacional.
+
+## O QUE SE APRENDEU
+
+```
+1 · NAO SE RESOLVE UM BLOQUEIO ALARGANDO A LISTA ERRADA. Acrescentar
+    `sala_italia` a BANCOS_PERMITIDOS resolveria o sintoma e poria um banco que
+    SOBREVIVE numa lista chamada «descartavel» — lida por provas que existem
+    para apagar o que tocam.
+
+        UM BANCO QUE SOBREVIVE NUMA LISTA CHAMADA «DESCARTAVEL»
+        E UMA MENTIRA QUE SO SE DESCOBRE QUANDO ALGUEM APAGA O QUE NAO DEVIA.
+
+2 · MESMO BANCO FISICO != MESMO OWNER CONCEITUAL. `SINTONIA_COLLECTION_DSN` e
+    `SINTONIA_SALA_DSN` apontam hoje para o MESMO PostgreSQL, e continuam a ser
+    duas configuracoes de dois conceitos. A topologia foi decidida pelo SCHEMA e
+    nao por preferencia: `sala_de_espera` tem FK para `collection_run` e para
+    `raw_asset`, e FK nao atravessa bancos. SAME_DB e obrigatorio.
+
+3 · DUAS BANCADAS DECLARADAS NAO SAO UMA ESCOLHA: SAO UMA DUVIDA. Preferir uma
+    em silencio faria a corrida escrever num banco que quem a lancou nao sabe
+    qual e. `ModosEmConflito` recusa antes de a corrida nascer.
+
+4 · ALLOWLIST EXPLICITA > HEURISTICA DE BLOQUEIO. Uma heuristica «nao parece
+    producao» erra para o lado de deixar passar o que ninguem previu. Uma
+    allowlist erra para o lado de recusar o que ninguem declarou. So um desses
+    erros e seguro.
+
+5 · REPROCESSAR NAO E RECOLHER. `--colheita-da-corrida=` ja existia e leva
+    material JA preservado a porta, sem tocar a fonte. A corrida nova continua
+    nova: ela julga de novo, e as decisoes sao dela. NEW_NETWORK_ACQUISITION=NO.
+
+6 · O SUBPROCESSO NAO HERDA O PATH QUE O SHELL VE. O `psql` estava no PATH e o
+    runtime nao o achou: `SINTONIA_PSQL_EXE` com caminho NATIVO e o que resolve.
+    Medido, e nao suposto — o proprio erro nomeia a variavel.
+```
+
+## REGRESSAO E RED TEAM DESTA SECCAO
+
+```
+TESTES_DA_PORTA        14/14 OK
+RED_TEAM               18 ataques · RED_TEAM_BLOCKERS = 0
+REGRESSAO              88 testes · 1 falha PRE-EXISTENTE (identica no trunk)
+DISPOSABLE_ALLOWLIST   inalterada: ("descartavel","derivado","social","objeto")
+SALA_OWNER             preservado — SINTONIA_SALA_DSN nao liga a Collection
+PRODUCTION_TOUCHED     NO
+SYSTEM_MAP_CHECK       PASS
+NEW_NETWORK_ACQUISITION NO
+```
