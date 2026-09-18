@@ -2152,6 +2152,7 @@
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
       "tests/test_ui_revisao_t3_ptbr.py",
+      "tests/test_universo_explicito.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -2680,10 +2681,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/admission-explicit-universe-v1",
-    "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
-    "GENERATED_AT": "2026-09-18T14:29:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16"
+    "BRANCH": "claude/it-trunk-v1",
+    "HEAD": "efbe71088eb7923dec4890060ce0ac4bbc9eea95",
+    "GENERATED_AT": "2026-09-18T18:42:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc"
   },
   "FAMILIES": [
     {
@@ -4165,8 +4166,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 262",
-        "desses, mostrados aqui: 40 (ficam de fora 222)"
+        "enderecos que o codigo realmente chama: 263",
+        "desses, mostrados aqui: 40 (ficam de fora 223)"
       ],
       "status_reason": "210 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 205, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -36302,6 +36303,7 @@
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
         "tests/test_ui_revisao_t3_ptbr.py",
+        "tests/test_universo_explicito.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
@@ -36312,7 +36314,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 188,
+      "file_count": 189,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36525,6 +36527,7 @@
           "DEFEITO_MEDIDO",
           "DELEGADAS",
           "DESTINOS",
+          "DOC",
           "DONOS",
           "ESCRITORES",
           "ESPECIES",
@@ -36573,13 +36576,13 @@
           "VOCABULARIO_DA_COLLECTION",
           "_GAVETA_DE"
         ],
-        "palavras": 910,
+        "palavras": 922,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 898,
+        "sem_marca_de_lingua": 910,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -38967,7 +38970,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/admission-explicit-universe-v1"
+        "branch claude/it-trunk-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -41622,7 +41625,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 26 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -71738,7 +71741,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -71904,6 +71907,22 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 24,
           "snippet": "import orquestrador as orq                                        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_universo_explicito.py",
+          "line": 44,
+          "snippet": "import orquestrador as orq                                      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -73031,7 +73050,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -73149,6 +73168,22 @@
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 35,
           "snippet": "import pedido as pd                                               # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_universo_explicito.py",
+          "line": 46,
+          "snippet": "from pedido import Pedido, PedidoInvalido                      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -82048,7 +82083,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -82150,6 +82185,22 @@
           "file": "tests/test_sala_duravel.py",
           "line": 211,
           "snippet": "os.path.join(RAIZ, \"coleta\", \"rota_forward_documento.py\")):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--READS-->C-TESTES",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_universo_explicito.py",
+          "line": 194,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'rota_forward_documento.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--READS-->C-TESTES",
             "FROM": "C-ROTA-M2",
@@ -95801,8 +95852,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2089,
-    "files_covered": 1006,
+    "files_tracked": 2090,
+    "files_covered": 1007,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

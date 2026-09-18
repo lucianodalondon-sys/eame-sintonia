@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/admission-explicit-universe-v1",
-    "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
-    "GENERATED_AT": "2026-09-18T14:29:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16"
+    "BRANCH": "claude/it-trunk-v1",
+    "HEAD": "efbe71088eb7923dec4890060ce0ac4bbc9eea95",
+    "GENERATED_AT": "2026-09-18T18:42:41-03:00",
+    "SOURCE_TREE_FINGERPRINT": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc"
   },
   "FILES": [
     {
@@ -14557,6 +14557,13 @@
     {
       "path": "tests/test_ui_revisao_t3_ptbr.py",
       "sha": "76089b8e437e1d07adc5687907b0d429f623b43e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_universo_explicito.py",
+      "sha": "09b3360ea972de2e99cdf9c65ce271aa45bd5885",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -62198,6 +62205,61 @@
       }
     },
     {
+      "from_file": "tests/test_universo_explicito.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_explicito.py",
+        "line": 41,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_explicito.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_explicito.py",
+        "line": 43,
+        "snippet": "import admissao as adm                                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_explicito.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_universo_explicito.py",
+        "line": 194,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'rota_forward_documento.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_explicito.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_explicito.py",
+        "line": 44,
+        "snippet": "import orquestrador as orq                                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_explicito.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_explicito.py",
+        "line": 46,
+        "snippet": "from pedido import Pedido, PedidoInvalido                      # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63277,10 +63339,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2089,
-    "files_readable": 813,
-    "files_code_dir": 872,
-    "file_edges": 4376,
+    "files_tracked": 2090,
+    "files_readable": 814,
+    "files_code_dir": 873,
+    "file_edges": 4381,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

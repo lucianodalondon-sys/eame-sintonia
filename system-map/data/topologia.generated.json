@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-18T21:41:11+00:00",
-  "HEAD": "d915f85a86a7ef0d310859f7380159dbed65b48a",
-  "BRANCH": "claude/admission-explicit-universe-v1",
+  "GENERATED_AT": "2026-09-18T21:57:42+00:00",
+  "HEAD": "efbe71088eb7923dec4890060ce0ac4bbc9eea95",
+  "BRANCH": "claude/it-trunk-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16",
-  "FICHEIROS_NA_IMPRESSAO": 2238,
+  "SOURCE_TREE_FINGERPRINT": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc",
+  "FICHEIROS_NA_IMPRESSAO": 2247,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16",
+    "VERSAO": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "6bbcdb59cbed87638deabcc5d145b3d2b2bef1bcf6dca170b58909215feccf16",
+    "VERSAO": "84650e7ddd6cb897759ad2f16e70ccf30ff6a9e3b01ac90814d97c9dcf81dffc",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4505,6 +4505,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_universo_explicito.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "09b3360ea972de2e99cdf9c65ce271aa45bd5885",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_v21_datas.py",
     "PAPEL": "FONTE",
     "VERSAO": "1c743d7c3a76aa35e96635bce9f8070c731c5a04",
@@ -4568,8 +4575,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 647,
-  "INPUTS_DIGEST": "633a08596abb47975b06a0daf4a895214597c15e031aab492264abb15c63775f",
+  "INPUTS_COUNT": 648,
+  "INPUTS_DIGEST": "546d928d764eac06764f491db6b8ee4daf108896c101e942104428676e5e4df7",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4602,8 +4609,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0ba925a72c1b742b0ec669aa00179393a1c04d04e28d5b67020c0a11616ea1d9",
-  "SEMANTIC_HASH": "e234144af90e01ad397fb2a393db5f2fe6d98d4a8673656b8efa3f00dc14edc2"
+  "MEASUREMENT_HASH": "79a172dac96956345920d4e6ac972123eea7644fc9778a968b04bd7b3bf508bb",
+  "SEMANTIC_HASH": "2b52a7b8879669b503b7792f30a0cc1332722009576f4f3f44864b9c13b64cb1"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -22822,6 +22829,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_universo_explicito.py",
+      "LINHA": 44,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -23988,6 +24003,14 @@
      {
       "FICHEIRO": "tests/test_scrap_rc01_release_candidate.py",
       "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_universo_explicito.py",
+      "LINHA": 46,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -28712,6 +28735,14 @@
      {
       "FICHEIRO": "tests/test_sala_duravel.py",
       "LINHA": 211,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ROTA-M2--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_universo_explicito.py",
+      "LINHA": 194,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ROTA-M2--READS-->C-TESTES",
@@ -42705,7 +42736,8 @@
     "tests/test_m2_aresta_observada.py",
     "tests/test_m2_rota_forward.py",
     "tests/test_medir_admission_t3_atual.py",
-    "tests/test_sala_duravel.py"
+    "tests/test_sala_duravel.py",
+    "tests/test_universo_explicito.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": true,
@@ -43868,6 +43900,7 @@
     "tests/test_thread_parcial.py",
     "tests/test_trava_da_inteligencia.py",
     "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_universo_explicito.py",
     "tests/test_v21_datas.py",
     "tests/test_v21_geografia.py",
     "tests/test_v21_mercado.py",
