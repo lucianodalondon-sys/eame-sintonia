@@ -17678,3 +17678,100 @@ omissão, com mais passos.
 existe** como atributo nem reaparece no código. Repor a linha reprova. Prova:
 17 testes novos · 113 na regressão de Admissão/Collection · 2 vermelhos
 pré-existentes, os mesmos no trunk-base · `RED_TEAM_BLOCKERS = 0`.
+
+---
+
+# §149 · O ÁUDIO DO YOUTUBE ENTROU — E A PORTA QUE O TRAZ NÃO É A PORTA DOS DADOS
+
+**O QUE.** `https://www.youtube.com/watch?v=zaEk8LE6SOQ` (canal Agronotizie,
+`@agronotizietv`) foi adquirido ponta a ponta: URL pública → bytes de áudio →
+`ffprobe` → `faster-whisper` → transcrição. Não foi metadata, não foi legenda, não
+foi comentário, não foi `oEmbed`: **foram os bytes do som**.
+
+**POR QUÊ.** A Collection pede **fala**, e a fala é requisito, não conveniência. A
+Data API provou descoberta, canal, metadata e comentários — e nenhuma dessas coisas
+é som.
+
+**PROVA** — pela rota que já existia, `ferramentas/youtube_transcrever.py::_audio`,
+sem construir um segundo descarregador:
+
+```
+VIDEO_ID            zaEk8LE6SOQ
+VIDEO_PUBLIC        YES   (oEmbed 200; título e canal conferidos ao vivo)
+CAPTURE_TOOL        yt-dlp -f bestaudio/best -x --audio-format wav
+                            --postprocessor-args '-ac 1 -ar 16000'
+AUDIO_FETCH_RESULT  BAIXADO  em 11,8 s
+AUDIO_BYTES         7.809.414
+AUDIO_SHA256        0167e22599b5fed72b534c60bc05c728341057b9def4dee7e18a4d7acca2ad95
+AUDIO_DURATION      244,04 s     AUDIO_CODEC  pcm_s16le · 16 kHz · mono
+STREAMS             1 áudio · 0 vídeo      (medido por `ffprobe`, não pela flag)
+ASR                 fala_local · faster-whisper 1.2.1 · small · CTranslate2 · cpu/int8
+TRANSCRIPT_STATE    OK      TRANSCRIPT_CHARS = 3010      LANGUAGE = it (conf. 1,0)
+MACHINE_SECONDS     34,87   (7,0x tempo real)            COST_USD = 0
+```
+
+A primeira frase reconhecida — *«Buongiorno, sono Paolo Beccari di Agria Centro
+Studi, mi occupo di prove sperimentali su Scafoideus Titanus…»* — nomeia o
+interlocutor e a praga do título do vídeo. É a prova de que o som é **daquele**
+vídeo, e não de outro qualquer.
+
+**A LIÇÃO — e é a que separa esta secção da anterior.**
+
+```
+DADOS OFICIAIS  !=  ÁUDIO PÚBLICO
+API_KEY         !=  OAUTH
+```
+
+A execução `youtube-oficial` (RUN `35401296232`) correu **4/4 capacidades pela API**
+e não produziu um único byte de som — nem podia: `captions.*` exige OAuth, e
+`media` não tem rota oficial nenhuma. As capacidades passam a ser declaradas
+**separadas**, cada uma com a sua prova:
+
+```
+youtube.* (oficial)      PROVEN   API oficial 4/4 · RUN 35401296232
+youtube.public_audio     PROVEN   yt-dlp · bytes + SHA acima
+youtube.native_caption   PARTIAL  rota paga, 25% de falha já paga (§147)
+youtube.media            BLOCKED  descobrir é livre; o byte é o muro
+```
+
+**Três eixos, e nenhum se colapsa** — técnica, decisão do dono, e plataforma:
+
+```
+TECHNICALLY_WORKS          YES   medido: bytes no disco, SHA, ffprobe, transcript
+PROJECT_OWNER_AUTHORIZED   YES   decisão escrita do dono, escopo «só vídeo público»
+PLATFORM_POLICY_STATUS     DISALLOWED
+   Developer Policies III.E.1.a  «download, import, backup, cache, or store copies
+                                  of YouTube audiovisual content without YouTube's
+                                  prior written approval»
+   Developer Policies III.I.7    «separate, isolate, or modify the audio or video
+                                  components of any YouTube audiovisual content»
+   ToS §Permissions and Restrictions  «access the Service using any automated
+                                  means» (salvo motor de busca conforme robots.txt,
+                                  ou permissão escrita prévia)
+```
+
+A linha acima **não é apagada nem arredondada**: o dono autoriza o risco do
+**projeto**, não a plataforma. As duas frases sobrevivem lado a lado, e é isso que
+impede a próxima missão de confundir «conseguimos» com «podemos».
+
+**O que NÃO foi cruzado, e é a fronteira que se manteve:** sem cookie de terceiro,
+sem conta, sem CAPTCHA, sem token de sessão, sem login, sem contornar paywall ou
+acesso privado. Alvo público, acessível a qualquer navegador, sem autenticação.
+
+**RED TEAM — 5 ataques, `RED_TEAM_BLOCKERS = 0`.** `VIDEO_ID` inválido e `VIDEO_ID`
+inexistente devolvem `AUDIO_NAO_OBTIDO` com o erro real (*This video is
+unavailable*), **nunca** transcrição vazia; `ffprobe` sobre HTML e sobre ficheiro
+vazio devolve `ASR_FALHOU`, **nunca** `OK`; e o RAW preservado fora do repositório
+tem o **mesmo SHA256** do WAV do cache.
+
+```
+FALHA DE AQUISIÇÃO  !=  VÍDEO SEM FALA  !=  FALHA DO MOTOR
+AUDIO_NAO_OBTIDO    !=  REQUESTED_EMPTY !=  ASR_FALHOU
+```
+
+Três estados, três causas, três consertos. Colapsá-los apagaria a diferença entre
+«não ouvi», «ouvi e não havia nada» e «o reconhecedor partiu».
+
+**O que continua `NOT_RUN`:** a ligação à Collection (RUN, RAW Observation,
+Admission, Sala) e a rota canônica pelo `COLLECT`. O que existe hoje é a aquisição
+provada, e o RAW preservado **fora** do repositório com linhagem carimbada.
