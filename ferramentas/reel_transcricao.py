@@ -74,7 +74,6 @@ acima; esta gaveta entrega evidência, não veredito.
 """
 from __future__ import annotations
 
-import fcntl
 import json
 import os
 import re
@@ -1439,13 +1438,90 @@ def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):
     # O conserto e o minimo que fecha a corrida: um cadeado consultivo em volta
     # do ciclo inteiro, e a troca final por `os.replace`, que e atomica. Sem
     # fila, sem agendador, sem banco.
-    cadeado = open(caminho + '.lock', 'a+')
+    cadeado = os.open(caminho + '.lock', os.O_CREAT | os.O_RDWR, 0o644)
     try:
-        fcntl.flock(cadeado, fcntl.LOCK_EX)
+        _prender(cadeado)
         return _gravar_lote_travado(registos, caminho)
     finally:
-        fcntl.flock(cadeado, fcntl.LOCK_UN)
-        cadeado.close()
+        _soltar(cadeado)
+        os.close(cadeado)
+
+
+# ── O CADEADO, NOS DOIS SISTEMAS — E CONTINUA A SER O MESMO CADEADO ──────────
+#
+# ⚠️ `import fcntl` VIVIA NO TOPO DESTE FICHEIRO, E `fcntl` NAO EXISTE EM WINDOWS.
+# O efeito nao era «o cadeado e mais fraco no Windows»: era o MODULO NAO ABRIR.
+# Medido em 2026-09-17 (know-how §139): dez modulos de tests/ importam esta
+# gaveta, os dez morriam no `import`, e a contagem de testes da casa ficava
+# NOT_MEASURABLE por causa de uma linha que so corre ao gravar um lote.
+#
+#     UM MODULO QUE NAO IMPORTA NAO E UMA FERRAMENTA QUE RECUSOU.
+#     E A ESTRADA A ACABAR ANTES DE A ESTRADA COMECAR.
+#
+# O QUE **NAO** MUDOU: o cadeado continua EXCLUSIVO e BLOQUEANTE, pela razao
+# escrita em `gravar_lote()` — duas corridas a fechar o mesmo lote nao sao um
+# conflito, sao uma FILA, e transformar fila em erro perderia a observacao que
+# esta prova existe para nao perder. Em POSIX e o mesmo `flock` de sempre. Em
+# Windows e `msvcrt.locking`, que trava uma REGIAO do ficheiro e e igualmente
+# visivel entre processos.
+#
+# E o precedente medido desta casa, copiado de proposito e nao importado:
+# `admissao/admissao.py::_prender/_soltar` (o livro de decisoes). Importar a
+# porta de admissao a partir de uma ferramenta poria a ferramenta a depender
+# da porta, e a seta do mapa a apontar ao contrario. As regras sao as mesmas:
+#
+#   · SEM TETO DE ESPERA — um numero redondo de segundos nao e politica, e
+#     decide por sorteio quem leva a culpa numa fila legitima;
+#   · `LK_NBLCK` repetido por nos, e nunca `LK_LOCK` — o `LK_LOCK` tenta dez
+#     vezes com um segundo de intervalo e levanta: um teto herdado da biblioteca
+#     e tao arbitrario como um escrito a mao, e ainda por cima nao esta a vista;
+#   · POSIX sem `LOCK_NB` — quem espera pelo cadeado, espera pelo cadeado.
+#
+# Este NAO e o contrato da Sala de Espera (`admissao/sala_de_espera.py`), que
+# e nao-bloqueante de proposito: la, duas escritas da MESMA corrida na mesma
+# morada sao um conflito e devem gritar. Aqui muitas corridas DIFERENTES
+# acrescentam ao MESMO livro. Sao duas perguntas, e por isso dois cadeados.
+
+
+def _prender(fd) -> None:
+    """Cadeado exclusivo e BLOQUEANTE sobre `fd`, nos dois sistemas. → None."""
+    try:
+        import fcntl                                           # noqa: PLC0415
+    except ImportError:
+        pass
+    else:
+        fcntl.flock(fd, fcntl.LOCK_EX)
+        return
+    import msvcrt                                              # noqa: PLC0415
+    while True:
+        try:
+            os.lseek(fd, 0, os.SEEK_SET)
+            # UM BYTE CHEGA: o que importa e a REGIAO ser a mesma para todos
+            # os que a disputam, e nao o tamanho dela. O ficheiro de cadeado
+            # nunca tem conteudo — travar alem do fim e legitimo em Windows.
+            msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)
+            return
+        except OSError:
+            time.sleep(0.05)
+
+
+def _soltar(fd) -> None:
+    """Larga o cadeado. Nunca rebenta: isto corre dentro de um `finally`."""
+    try:
+        import fcntl                                           # noqa: PLC0415
+    except ImportError:
+        pass
+    else:
+        fcntl.flock(fd, fcntl.LOCK_UN)
+        return
+    import msvcrt                                              # noqa: PLC0415
+    try:
+        os.lseek(fd, 0, os.SEEK_SET)
+        msvcrt.locking(fd, msvcrt.LK_UNLCK, 1)
+    except OSError:
+        # Largar um cadeado que nao se chegou a prender nao e um erro, e
+        # rebentar aqui esconderia a excecao verdadeira que trouxe o `finally`.
+        pass
 
 
 def _gravar_lote_travado(registos, caminho):

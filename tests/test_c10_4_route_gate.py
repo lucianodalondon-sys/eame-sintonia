@@ -535,7 +535,9 @@ class OPortaoNaoMudaOsOutrosContratos(unittest.TestCase):
                     continue
                 if 'WhisperModel(' in io.open(os.path.join(raiz, f),
                                               encoding='utf-8').read():
-                    donos.append(rel)
+                    # O nome e sempre com `/`: em Windows `relpath` devolve `\`, e
+                    # este modulo so passou a carregar la em 2026-09-17 (§140).
+                    donos.append(rel.replace(os.sep, '/'))
         self.assertEqual(donos, ['ferramentas/fala_local.py'])
 
     def test_nenhum_fornecedor_pago_entra_nesta_rota(self):
