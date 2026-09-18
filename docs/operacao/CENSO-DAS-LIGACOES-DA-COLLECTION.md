@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  efbe71088eb7923dec4890060ce0ac4bbc9eea95
-BRANCH           claude/it-trunk-v1
-GERADO_EM        2026-09-18T18:42:41-03:00
+HEAD_DA_MEDICAO  cdb5c1129072244912174ce153db4784a24e45fc
+BRANCH           claude/it-social-sources-v1
+GERADO_EM        2026-09-18T18:58:49-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -844,7 +844,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `docs/fontes/ATLAS-DE-FONTES-EAME.md`, `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`, `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json` |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | UNKNOWN |
-| **status operacional** | yellow — 210 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 205, hoje so uma pessoa consegue ir la  |
+| **status operacional** | yellow — 213 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 208, hoje so uma pessoa consegue ir la  |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
 | **prova de quem ativa** | 3 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |

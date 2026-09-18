@@ -1196,6 +1196,111 @@ escolhido em todas as execuções.
 
 ---
 
+---
+
+### T8 · FARMERS & INFLUENCERS — ITALY · onda 1 (2026-09-18)
+
+*Três canais sociais italianos, um por plataforma. **Canal ≠ site** (COL-LAW-034:
+`ORIGIN_ID ≠ CHANNEL_ID`): `IT-T1-021` é o site AgroNotizie e continua a ser outra fonte.
+Nenhum destes SOURCE_ID foi reciclado — o universo histórico de 282 identidades não
+contém nenhum `IT-T8-*`.*
+
+#### IT-T8-001 · AgroNotizie — canale YouTube ufficiale
+
+```
+SOURCE_ID:                    IT-T8-001
+SOURCE_NAME:                  AgroNotizie - Notizie per l'agricoltura (canale YouTube ufficiale)
+SOURCE_OWNER:                 Image Line s.r.l. - Faenza (Ravenna)
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  VIDEO_CHANNEL - canale della testata agricola
+URL:                          https://www.youtube.com/@agronotizietv
+PLATFORM_NATIVE_ID:           UCUs2Mg7jvUTRt7_MSOFYM5Q
+ACCESS_METHOD:                RSS - https://www.youtube.com/feeds/videos.xml?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q
+CROPS:                        transversal
+TOPICS:                       mercati agricoli, tecnica agronomica, politica agricola, innovazione
+GEOGRAPHIC_GRANULARITY:       pais (ITALIA) - o canal nao declara recorte regional por video
+UPDATE_FREQUENCY:             ATIVO - 15 entradas no feed, ultima 2026-09-17
+HISTORICAL_DEPTH:             o feed publico expoe as 15 entradas mais recentes
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo e estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - yt:videoId existe no feed, mas a regra de DOCUMENT_ID nao foi contratada
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada
+RAW_EVIDENCE_PRESERVABLE:     SIM - feed XML preservado
+AUTOMATION_FEASIBILITY:       ALTA - RSS publico, sem chave
+COLLECTION_FEASIBILITY:       NAO MEDIDA nesta missao - missao de fonte, nao de coleta
+LEGAL_OR_ACCESS_RISK:         feed publico oficial da plataforma; sem login, sem scraping de pagina
+REAL_EXAMPLE:                 2026-09-17 "Mercati agricoli e volatilita dei prezzi: cosa fa l'Ue"
+ADAMA_USE_CASE:               voz publica italiana sobre mercado e tecnica agricola
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json (feed.xml, sha256 aed0b63a..., 43920 bytes)
+VERDICT:                      GREEN - canal aberto, exemplo real observado e preservado
+```
+
+#### IT-T8-002 · Image Line — pagina aziendale LinkedIn
+
+```
+SOURCE_ID:                    IT-T8-002
+SOURCE_NAME:                  Image Line - pagina aziendale LinkedIn (IT)
+SOURCE_OWNER:                 Image Line s.r.l. - Faenza (Ravenna)
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  SOCIAL - pagina institucional
+URL:                          https://it.linkedin.com/company/image-line
+PLATFORM_NATIVE_ID:           image-line (company vanity slug)
+ACCESS_METHOD:                BROWSER - pagina publica; leitura anonima instavel (ver ACCESS_STABILITY)
+CROPS:                        transversal
+TOPICS:                       AgroTech, AgroMarketing, AgroInnovation, servizi digitali per l'agricoltura
+GEOGRAPHIC_GRANULARITY:       organizacao (sede Faenza, Ravenna)
+UPDATE_FREQUENCY:             NAO SEI - cadencia de posts nao medida nesta missao
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - slug de empresa, verificado contra controlo negativo
+DOCUMENT_ID_AVAILABLE:        NAO SEI
+PUBLICATION_DATE_AVAILABLE:   NAO SEI
+RAW_EVIDENCE_PRESERVABLE:     PARCIAL - observacao por navegador registada; bytes da pagina nao descarregados
+AUTOMATION_FEASIBILITY:       NAO SEI - acesso anonimo caiu em /authwall na segunda visita
+COLLECTION_FEASIBILITY:       NAO MEDIDA nesta missao
+LEGAL_OR_ACCESS_RISK:         plataforma com muro de autenticacao; leitura anonima nao garantida
+REAL_EXAMPLE:                 h1 "Image Line" - 4.595 follower - Settore "Tecnologia, informazioni e internet" - Sede principale "Faenza, Ravenna" - 64 dipendenti
+ADAMA_USE_CASE:               canal corporativo do publisher agricola; liga imprensa (IT-T1-021) a comunicacao institucional
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T8-002/MANIFEST.json
+VERDICT:                      YELLOW - pagina real e observada, mas o acesso anonimo e instavel (authwall)
+```
+
+#### IT-T8-003 · AgroNotizie — profilo Instagram ufficiale
+
+```
+SOURCE_ID:                    IT-T8-003
+SOURCE_NAME:                  AgroNotizie - profilo Instagram ufficiale
+SOURCE_OWNER:                 Image Line s.r.l. - Faenza (Ravenna)
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  SOCIAL - profilo della testata agricola
+URL:                          https://www.instagram.com/agronotizie/
+PLATFORM_NATIVE_ID:           agronotizie (username)
+ACCESS_METHOD:                BROWSER - exige navegador; rotas anonimas HTTP nao distinguem perfil real de inexistente
+CROPS:                        transversal
+TOPICS:                       agricoltura a 360, notizie tecniche, community agronomica
+GEOGRAPHIC_GRANULARITY:       pais (ITALIA)
+UPDATE_FREQUENCY:             NAO SEI - cadencia nao medida nesta missao
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - username, verificado contra controlo negativo
+DOCUMENT_ID_AVAILABLE:        NAO SEI
+PUBLICATION_DATE_AVAILABLE:   NAO SEI
+RAW_EVIDENCE_PRESERVABLE:     PARCIAL - observacao por navegador registada; bytes nao descarregados
+AUTOMATION_FEASIBILITY:       BAIXA - HTTP anonimo devolve 200 e 628KB TAMBEM para handle inexistente; /embed/ e web_profile_info nao servem (200 indistinguivel / 429)
+COLLECTION_FEASIBILITY:       NAO MEDIDA nesta missao
+LEGAL_OR_ACCESS_RISK:         plataforma com muro de login; leitura publica limitada
+REAL_EXAMPLE:                 perfil "AgroNotizie (@agronotizie)" - 29,8 mil seguidores - 2.095 seguindo - bio "Parliamo di agricoltura, a 360" - destaques Plantgest / Fitogest / Fertilgest
+ADAMA_USE_CASE:               voz social italiana com audiencia agronomica declarada
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T8-003/MANIFEST.json
+VERDICT:                      YELLOW - perfil real e observado por navegador; rota anonima recusada por nao distinguir existencia
+```
+
 ### T7 · TECHNICAL NETWORK — SPAIN
 
 #### ES-T7-001..027 · Mídia técnica, associações e rede de assessores
