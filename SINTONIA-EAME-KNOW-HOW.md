@@ -25,6 +25,7 @@
 **Passo anterior — BLOCKED (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (§134) — despachado por sessão nova (run `35227662328`, HEAD `b8e07e03`); o portão de egresso fechou a corrida antes da rede (`EGRESS_COUNTRY_CODE = BR`); a estrada não foi corrida e a pergunta ficou sem resposta. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §16.
 **Próximo passo autorizado (2026-09-17):** `INDEPENDENT_WORKFLOW_CANARY_REPLAY_3` — IT-T3-002 pela fase real `italia-documento` do `sintonia-scrap.yml`, por **sessão nova**, **depois** de gente ligar o túnel do ProtonVPN a um servidor italiano na máquina do runner e de o revisor medir `country: IT` (ipinfo) ANTES do dispatch; com teardown medido fisicamente e exigindo `RAW_OBSERVATIONS >= 1`, `PERSISTENCIA = DESCARTAVEL` e `SALA_ROWS >= 1` no recibo/banco — `conclusion=success` já enganou uma vez e `conclusion=failure` já disse a verdade uma vez. Só depois, candidatura a trunk. ⚠️ `BIG_COLLECTION = NÃO AUTORIZADA`.
 **Decisão da coordenação, registada:** `HISTORY_REWRITE_DECISION = NÃO EXECUTAR AGORA` (§124, revê a pendência do §123). Motivo medido: HEAD saneado; os 12 valores são de SESSÃO e não de autenticação; 9 dos 12 provadamente expirados; os 3 restantes são afinidade/balanceamento, com validade até 07/09/2027; a reescrita atingiria um grande número de refs remotas. Não é revogação do §123 — o histórico continua a conter os valores, e quem retomar tem de remedir os 3 antes daquela data.
+**Decisão da coordenação, registada (2026-09-18):** `RAW_LIFECYCLE_DECISION = BIG COLLECTION PRIMEIRO, EVICTION DEPOIS` (§143). O RAW físico deixa de ser tratado como armazenamento infinito e passa a ser material temporário de aquisição e processamento; o valor permanente fica na identidade, procedência, lineage, texto / transcrição / OCR, dados estruturados, Admission, Sala e Intelligence. **Nada foi implementado e nada foi apagado:** `RAW_EVICTION_IMPLEMENTATION = NOT_IMPLEMENTED` · `RAW_AUTOMATIC_DELETE = NOT_AUTHORIZED` · `RETENTION_CONTRACT = A DEFINIR APÓS BIG COLLECTION`. O contrato de retenção só se desenha depois de a Big Collection medir volumes reais. Não inverter a ordem.
 
 ---
 
@@ -17295,4 +17296,162 @@ PREFLIGHT                  PASS 6/6 · FAIL com SINTONIA_SALA_BACKEND=FICHEIRO
 BACKUP_STATUS              NOT_IMPLEMENTED
 CODE_FILES_CHANGED         0 — só documentação
 COLETA_REAL                NÃO EXECUTADA
+```
+
+---
+
+# §143 · O RAW FÍSICO NÃO É UM DATA LAKE INFINITO — MAS A ORDEM É BIG COLLECTION PRIMEIRO, EVICTION DEPOIS
+
+## O QUE MUDOU
+
+Ficou **registada uma direção arquitetural**, e só isso: o RAW físico do SINTONIA
+passa a ser tratado como **material temporário de aquisição e processamento**, não
+como arquivo permanente. Nada foi implementado, nada foi apagado, nenhum contrato
+mudou.
+
+    ESTA SECÇÃO É UMA DECISÃO DE DIREÇÃO. NÃO É UMA AUTORIZAÇÃO DE APAGAR.
+
+## O QUE · POR QUÊ · PROVA · CONSEQUÊNCIA
+
+**O QUE.** O valor permanente do SINTONIA deve residir em identidade, procedência,
+lineage, texto extraído, transcrição integral, OCR quando aplicável, metadados,
+dados estruturados, Admission, Sala de Espera e resultados da Intelligence — e não
+nos bytes originais de vídeo, imagem, áudio e PDF. Depois de processamento completo
+e de uma política satisfeita, o RAW físico **poderá** tornar-se elegível para
+eviction e sair do storage, **sem** apagar a observação, a identidade, a procedência,
+os derivados ou a linhagem.
+
+**POR QUÊ.** O SINTONIA foi concebido para coleta contínua, potencialmente 24/7.
+Retenção ilimitada de RAW com Instagram, Meta, YouTube, LinkedIn, vídeo, áudio,
+imagem e PDF implica crescimento de armazenamento sem fim. Não é sustentável, e
+fingir que é adia o problema para o dia em que ele já não tem solução barata.
+
+    PRESERVAR CONHECIMENTO != PRESERVAR PARA SEMPRE TODOS OS BYTES.
+
+**PROVA / CONTEXTO.** Isto **não é prova operacional de eviction** — não existe
+eviction implementada, nem medição de volume real, nem contrato de retenção. É uma
+decisão de direção baseada no modelo de operação contínua, e a Big Collection é que
+fornecerá a medição que falta.
+
+E há um facto medido que reforça a ordem escolhida, vindo do lado oposto: o dono
+**forward** do RAW ainda não existe. O cartão da ponte de mídia, em
+`system-map/data/architecture.declared.json`, escreve-o com todas as letras —
+retenção de 30 dias de artefacto de workflow, `CANONICAL_FORWARD_PRESERVATION = NO`,
+e «o dono forward (Storage + raw_asset) continua por fazer», depois de uma corrida
+ter pago por 59.743 bytes de RAW que o job seguinte não encontrou.
+
+    RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB
+    != RAW DEVOLVIDO PARA INVESTIGAÇÃO != PRESERVAÇÃO FORWARD CANÓNICA
+
+Desenhar a porta de saída antes de a porta de entrada ter dono seria legislar sobre
+deitar fora aquilo que ainda não se sabe guardar.
+
+**CONSEQUÊNCIA.** A Big Collection acontece **primeiro**. O ciclo de vida do RAW fica
+explicitamente adiado, e nenhum agente deve implementá-lo ou apagar RAW antes da
+missão específica futura.
+
+## A PROCEDÊNCIA TEM DE SOBREVIVER AO RAW
+
+Quando o RAW físico puder ser removido, o sistema tem de continuar a saber
+**exatamente de onde o material veio**. A política futura deverá preservar, quando
+disponíveis **e comprovados**:
+
+```
+SOURCE_ID
+REQUESTED_URL  (ou o equivalente canónico já existente)
+OBSERVED_URL
+FINAL_URL após redirects, quando relevante
+PLATFORM_OBJECT_ID · POST_ID · VIDEO_ID · DOCUMENT_ID
+    — somente quando a própria fonte/plataforma PROVAR esses IDs
+
+RUN_ID · RAW_OBSERVATION_ID
+OBSERVED_AT · COLLECTED_AT
+CONTENT_TYPE / MIME
+RAW_SHA256 · RAW_ORIGINAL_SIZE
+
+referências para: TRANSCRIPT_FULL · EXTRACTED_TEXT_FULL · OCR_FULL
+                  STRUCTURED_DATA · LINEAGE
+```
+
+E as identidades não se fabricam. Nunca derivar `DOCUMENT_ID` de URL, SHA, filename,
+timestamp, storage_path ou slug.
+
+```
+URL NÃO É SOURCE_ID.
+URL NÃO É DOCUMENT_ID.
+SHA256 NÃO É DOCUMENT_ID — identifica os bytes observados.
+storage_path é ENDEREÇO FÍSICO, não identidade.
+RAW_OBSERVATION_ID = raw_asset.id, e sobrevive à remoção dos bytes.
+RUN != OBSERVATION != CONTENT != STORAGE OBJECT.
+```
+
+A existência de uma RAW OBSERVATION **permanece** mesmo que os bytes físicos sejam
+futuramente removidos. Apagar o ficheiro não apaga o facto de se ter observado.
+
+## O CAMINHO DO VÍDEO, COMO EXEMPLO CONCEITUAL
+
+```
+video.mp4                              → RAW temporário
+áudio / fala                           → DERIVED
+transcrição integral + timestamps      → DERIVED persistente
+trechos / entidades / dados            → STRUCTURED
+                                       → ADMISSION → SALA
+                                       → INTELLIGENCE cruza e produz sinais
+
+depois disso, e só depois:  RAW físico → EVICTION_ELIGIBLE → removível
+```
+
+    CAPTION != TRANSCRIPT.
+    VIDEO != AUDIO.
+
+## O QUE ESTA SECÇÃO NÃO AUTORIZA
+
+```
+RAW_EVICTION_IMPLEMENTATION = NOT_IMPLEMENTED
+RAW_AUTOMATIC_DELETE        = NOT_AUTHORIZED
+RETENTION_CONTRACT          = A DEFINIR APÓS BIG COLLECTION
+```
+
+**Nenhum RAW deve ser removido com base neste registo.** A ordem decidida é:
+
+```
+1 · executar a Big Collection
+2 · medir volumes reais
+3 · analisar a Collection
+4 · analisar a Intelligence
+5 · identificar que derivados precisam mesmo de sobreviver
+6 · desenhar o contrato de RAW lifecycle / eviction
+7 · red team
+8 · implementar
+```
+
+Não inverter esta ordem.
+
+## DIREÇÃO FUTURA — E O QUE DELA NÃO É CONTRATO
+
+A política futura **provavelmente** deverá distinguir estados como PROCESSING (RAW
+ainda necessário), RETRY / ERROR (RAW permanece se for preciso reprocessar),
+COLLECTION COMPLETE (que **ainda não** implica apagar), e só então INTELLIGENCE
+COMPLETE + derivados essenciais preservados + procedência preservada + lineage
+válida como condição de elegibilidade.
+
+**Estes estados NÃO ficam congelados como contrato agora.** São direção de projeto,
+a medir depois da Big Collection. Congelá-los hoje seria escrever a lei antes de ter
+o facto — exatamente o erro que este documento existe para impedir.
+
+## CARIMBOS DESTA SECÇÃO
+
+```
+DECISION_TYPE               = DIREÇÃO ARQUITETURAL REGISTADA
+RAW_EVICTION_IMPLEMENTED    = NO
+RAW_DELETED                 = NO
+CODE_FILES_CHANGED          = 0
+CONTRACT_CHANGED            = NO
+BIBLE_CHANGED               = NO
+COLLECTION_CHANGED          = NO
+INTELLIGENCE_CHANGED        = NO
+SYSTEM_MAP_CHANGED          = NO
+MIGRATIONS_CHANGED          = NO
+BIG_COLLECTION_REMAINS_NEXT_PRIORITY = YES
+VOLUME_MEASUREMENT          = NOT_MEASURED
 ```
