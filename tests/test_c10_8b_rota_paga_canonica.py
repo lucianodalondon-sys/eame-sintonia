@@ -167,10 +167,30 @@ def _colher(falso, *, gasto=TETO_USD, rede=TETO_REDE, com_chave=True,
 
 # ══════════════════════════════════════════════════════════════════════════
 class ACapacidadeNaoEARota(unittest.TestCase):
-    """CAPABILITY PROVEN != PAID ROUTE PROVEN."""
+    """CAPABILITY STATE != PAID ROUTE STATE."""
 
-    def test_1_a_capacidade_continua_PROVEN(self):
-        self.assertEqual(cap.estado(CAPAC), 'PROVEN')
+    def test_1_a_capacidade_e_PARTIAL_e_isso_e_a_medicao(self):
+        """⚠️ ESTE TESTE JA EXIGIU `PROVEN`, E O `PROVEN` ERA UM ARREDONDAMENTO.
+
+        O bruto pago que sustenta esta rota —
+        `data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz` —
+        tem 20 itens e 5 vieram com `transcript` vazio: 25% de falha, ja paga.
+        O ator devolve `chars`, `transcript` e `url`, e mais nada: nao declara
+        lingua nem especie.
+
+            UMA ROTA QUE FALHA 1 EM 4 E NAO DIZ O QUE ENTREGA NAO E `PROVEN`.
+
+        Enquanto esta linha exigiu `PROVEN`, tres papeis da casa contavam duas
+        historias: `social_matriz` ja lia ESTADO=PARTIAL para `FETCH_TRANSCRIPT`
+        e o C5 fechou com TRANSCRIPT_ROUTE_GATE=CLOSED. A ancora passou a ser a
+        medicao, e o eixo que esta classe defende nao mudou: o estado da
+        CAPACIDADE continua a ser lido de `scrap_capacidades`, e o estado da
+        ROTA continua a ser lido da matriz, pelos testes seguintes.
+        """
+        self.assertEqual(cap.estado(CAPAC), 'PARTIAL')
+        # E o que PARTIAL NAO significa: nao desliga a capacidade. So BLOCKED,
+        # UNKNOWN e NOT_EXECUTED e que tiram o direito de esperar objeto.
+        self.assertTrue(cap.promete_resultado(CAPAC))
 
     def test_2_a_rota_paga_e_a_padrao_porque_as_livres_estao_NAO(self):
         rotas = (mz.MATRIZ.get(PLAT) or {}).get(cap.da_matriz(CAPAC)) or []
