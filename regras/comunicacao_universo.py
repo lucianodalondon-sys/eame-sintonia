@@ -49,6 +49,7 @@ global não vira atividade francesa.
 """
 import json
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
@@ -90,13 +91,82 @@ ESTADOS = ['CANDIDATE', 'PARTIAL', 'PROVED', 'REJECTED', 'NOT_KNOWN']
 ESCOPOS = ['LOCAL_COUNTRY', 'REGIONAL_EUROPE', 'GLOBAL', 'PRODUCT', 'OTHER', NAO_SEI]
 
 
+class CrosswalkIndisponivel(RuntimeError):
+    """O COMPETITOR-CROSSWALK não está em condições de ser lido. NADA foi derivado.
+
+    A hierarquia é fechada de propósito, e cada folha é uma causa distinta:
+
+        CrosswalkAusente    o ficheiro não existe no caminho dado
+        CrosswalkIlegivel   existe e não é o crosswalk (JSON partido, forma errada,
+                            PROVED_POR_GRUPO em falta, vazio ou com contagens que
+                            não são inteiros)
+
+    POR QUE ISTO LEVANTA EM VEZ DE DEVOLVER `[]`
+    ---------------------------------------------
+    Até 2026-09-17 `grupos_do_crosswalk()` devolvia lista vazia quando o ficheiro
+    faltava, e `montar()` seguia em frente: lote vazio, 0 âncoras, 0 casas — e um
+    JSON com `SOURCE_ID`, `DATASET_OWNER` e `EVIDENCE_CLASS` iguais aos do universo
+    verdadeiro. Corrido pela linha de comando, ele ESCREVIA esse vazio por cima do
+    `UNIVERSO-CONTAS-V1.json` versionado. E o crosswalk NUNCA esteve no Git
+    (know-how §139): em qualquer clone, «correr o script» era «apagar o universo».
+
+        UM DERIVADO SEM FONTE NÃO É UM DERIVADO VAZIO. É UM NÃO-DERIVADO.
+        E ELE NÃO ESCREVE: NÃO CRIA PASTA, NÃO CRIA FICHEIRO, NÃO TOCA NO QUE LÁ ESTÁ.
+
+    Este ficheiro NÃO reconstrói o crosswalk, NÃO guarda uma cópia das contagens e
+    NÃO inventa grupos: sem a fonte, a resposta é uma recusa com a causa escrita.
+    """
+
+
+class CrosswalkAusente(CrosswalkIndisponivel):
+    pass
+
+
+class CrosswalkIlegivel(CrosswalkIndisponivel):
+    pass
+
+
 def grupos_do_crosswalk(caminho=CROSSWALK):
-    """→ [(GRUPO, PARES_PROVED)] em ordem decrescente. Lê, não copia."""
-    if not os.path.exists(caminho):
-        return []
-    with open(caminho, encoding='utf-8') as f:
-        d = json.load(f)
-    por_grupo = d.get('PROVED_POR_GRUPO') or {}
+    """→ [(GRUPO, PARES_PROVED)] em ordem decrescente. Lê, não copia.
+
+    Levanta `CrosswalkAusente` se o ficheiro não existe e `CrosswalkIlegivel` se
+    existe mas não tem a forma do crosswalk. Nunca devolve lista vazia: um crosswalk
+    sem nenhum par PROVED não é um tabuleiro — é uma fonte que não responde.
+    """
+    if not os.path.isfile(caminho):
+        raise CrosswalkAusente(
+            'COMPETITOR-CROSSWALK não encontrado em %s. O universo é DERIVADO dele e '
+            'não se monta sem ele: nada foi derivado e nada foi escrito. Este ficheiro '
+            'nunca esteve no Git — obtenha-o da rodada do crosswalk, ou passe outro '
+            'caminho em `montar(caminho=...)`.' % caminho)
+    try:
+        with open(caminho, encoding='utf-8') as f:
+            d = json.load(f)
+    except (OSError, ValueError) as e:
+        raise CrosswalkIlegivel(
+            '%s existe e não é JSON legível (%s). Nada foi derivado.' % (caminho, e)) from e
+    if not isinstance(d, dict):
+        raise CrosswalkIlegivel(
+            '%s tem JSON válido mas não é um objecto (é %s). Nada foi derivado.'
+            % (caminho, type(d).__name__))
+    por_grupo = d.get('PROVED_POR_GRUPO')
+    if not isinstance(por_grupo, dict) or not por_grupo:
+        raise CrosswalkIlegivel(
+            '%s não traz PROVED_POR_GRUPO com pelo menos um grupo (veio %r). Sem pares '
+            'PROVED não há critério de selecção, e um lote vazio não é um lote. Nada '
+            'foi derivado.' % (caminho, por_grupo))
+    for grupo, pares in por_grupo.items():
+        if not isinstance(grupo, str) or not grupo.strip() or isinstance(pares, bool)                 or not isinstance(pares, int) or pares < 0:
+            raise CrosswalkIlegivel(
+                '%s: PROVED_POR_GRUPO[%r] = %r não é uma contagem inteira de pares. '
+                'Nada foi derivado.' % (caminho, grupo, pares))
+    if not any(pares > 0 for pares in por_grupo.values()):
+        # O red team de 2026-09-17 provou que um crosswalk com todos os grupos a ZERO
+        # passava e montava um lote «dos cinco maiores» entre iguais a nada. Sem um par
+        # PROVED sequer não há critério de selecção — a fonte não respondeu.
+        raise CrosswalkIlegivel(
+            '%s: nenhum grupo em PROVED_POR_GRUPO tem um par PROVED (todos a zero). Sem '
+            'pares PROVED não há critério de selecção. Nada foi derivado.' % caminho)
     return sorted(por_grupo.items(), key=lambda kv: (-kv[1], kv[0]))
 
 
@@ -179,10 +249,28 @@ def montar(caminho=CROSSWALK):
     }
 
 
-if __name__ == '__main__':
-    corpo = montar()
-    os.makedirs(SAIDA, exist_ok=True)
-    destino = os.path.join(SAIDA, 'UNIVERSO-CONTAS-V1.json')
+def main(caminho=None, destino=None):
+    """A porta da linha de comando. Monta PRIMEIRO; so escreve se montou.
+
+    Sem crosswalk (ou com um ilegivel) imprime a causa e sai com codigo 2 — e
+    NAO cria a pasta de saida, NAO cria o ficheiro e NAO toca no que ja la esta.
+    Os caminhos leem-se dos nomes do modulo no momento da chamada, para que uma
+    prova possa aponta-los a uma casa de mentira sem mexer na de verdade.
+
+    A escrita fica AQUI, na forma `destino = os.path.join(SAIDA, 'X.json')` →
+    `open(destino, 'w')`, porque e essa a forma que o scanner do System Map
+    segue (`escritas_por_constante`): e assim que o mapa sabe que esta peca
+    produz o universo. Esconder a escrita atras de um temporario apagaria a seta
+    mais importante do cartao — medido em 2026-09-17, «o que sai: NAO SEI».
+    """
+    caminho = caminho or CROSSWALK
+    try:
+        corpo = montar(caminho)
+    except CrosswalkIndisponivel as e:
+        print('UNIVERSO = NAO_DERIVADO — %s: %s' % (type(e).__name__, e), file=sys.stderr)
+        return 2
+    destino = destino or os.path.join(SAIDA, 'UNIVERSO-CONTAS-V1.json')
+    os.makedirs(os.path.dirname(destino) or '.', exist_ok=True)
     with open(destino, 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
     print('empresas do primeiro lote: %s' % ', '.join(corpo['FIRST_BATCH_COMPANIES']))
@@ -190,3 +278,8 @@ if __name__ == '__main__':
     print('âncoras a resolver:  %d (empresa x país)' % corpo['ANCHOR_CELLS'])
     print('casas a resolver:    %d (empresa x país x plataforma)' % corpo['ACCOUNT_CELLS'])
     print('contas autorizadas a coletar: 0 — nenhuma casa foi resolvida ainda')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
