@@ -340,7 +340,7 @@ jobs:
         if: inputs.fase == 'italia-documento'
         run: |
           set -eu
-          PGBIN="${SINTONIA_PG_PORTATIL:-/c/Users/London1/orca/pgtmp/pgsql/bin}"
+          PGBIN="${SINTONIA_PG_PORTATIL:-$HOME/orca/pgtmp/pgsql/bin}"
           [ -x "$PGBIN/initdb.exe" ] || { echo 'PG_PORTATIL_AUSENTE: initdb nao achado em '"$PGBIN"; exit 1; }
           CLUSTER="$RUNNER_TEMP/pg-italia-$GITHUB_RUN_ID"
           rm -rf "$CLUSTER"
@@ -665,7 +665,7 @@ jobs:
       - name: 9z-IT · a bancada italiana morre (always)
         if: always() && inputs.fase == 'italia-documento'
         run: |
-          PGBIN="${SINTONIA_PG_PORTATIL:-/c/Users/London1/orca/pgtmp/pgsql/bin}"
+          PGBIN="${SINTONIA_PG_PORTATIL:-$HOME/orca/pgtmp/pgsql/bin}"
           CLUSTER="$RUNNER_TEMP/pg-italia-$GITHUB_RUN_ID"
           "$PGBIN/pg_ctl.exe" -D "$CLUSTER" -w -m fast stop >/dev/null 2>&1 || true
           rm -rf "$CLUSTER" "$RUNNER_TEMP/ops-italia-$GITHUB_RUN_ID"

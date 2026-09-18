@@ -518,7 +518,7 @@ detalhe que ninguém tinha ido ver:
 > `eame-sintonia-local` e `eame-sintonia-local-2` que o `sintonia-scrap.yml` pede.
 
 E o PostgreSQL que faltava **também já cá estava**, fora do repositório, em
-`C:\Users\London1\orca\pgtmp\pgsql` — binários portáteis 16.4, sem instalação,
+`C:\Users\<utilizador>\orca\pgtmp\pgsql` — binários portáteis 16.4, sem instalação,
 sem serviço e sem administrador.
 
 ```
@@ -553,7 +553,7 @@ ligados a **outro repositório** (`portal-sintonia`). Não servem esta missão.
 ```
 DISPOSABLE_POSTGRES_STARTED = YES
     initdb 16.4 · cluster novo e vazio · md5 · UTF8
-    fora do repositório: C:\Users\London1\orca\pgtmp\proof-bancada
+    fora do repositório: C:\Users\<utilizador>\orca\pgtmp\proof-bancada
     pg_ctl start · porta 54329 · a ouvir SÓ em 127.0.0.1
 
 CONNECTION_PROVED = YES
@@ -602,7 +602,7 @@ isso não é um erro: é um job pendurado até ao teto de tempo.
 
 | `REQUIREMENT` | porquê | tamanho |
 |---|---|---|
-| `REQ-01` · pôr `C:\Users\London1\orca\pgtmp\pgsql\bin` no `PATH` do job, ou usar caminho absoluto | os binários existem e **não estão no `PATH`** | uma linha de `env:` |
+| `REQ-01` · pôr `C:\Users\<utilizador>\orca\pgtmp\pgsql\bin` no `PATH` do job, ou usar caminho absoluto | os binários existem e **não estão no `PATH`** | uma linha de `env:` |
 | `REQ-02` · o job arranca e destrói o cluster (`initdb` → `pg_ctl start` → … → `pg_ctl stop` → apagar) | `_work` do self-hosted **persiste entre jobs** — medido: pastas de 30/08 e 11/09 ainda lá. Um cluster esquecido vira estado partilhado | um passo de setup e um de `always()` |
 | `REQ-03` · `SINTONIA_SALA_BACKEND=POSTGRES` + `SINTONIA_SALA_DSN=postgresql://postgres:descartavel@localhost:54329/descartavel` ao **nível do job** | a trava aceita **qualquer porta**; exige host local e nome na lista curta (`descartavel`, `derivado`, `social`, `objeto`) — lido em `provas/preservar_coleta_no_postgres.py` | duas linhas de `env:` |
 | `REQ-04` · alguém tem de deixar o runner ligado | ele **não é serviço**: é um processo iniciado à mão. Estava online e a ouvir hoje às 15:34Z, com 31 jobs no histórico | operacional, não código |

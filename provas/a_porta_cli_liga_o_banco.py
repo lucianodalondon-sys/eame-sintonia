@@ -75,7 +75,14 @@ FONTE = "IT-T2-002"
 ASSUNTO = "colete clima"
 CAMINHOS_FIXOS = (os.path.join("data", "samples", "RUN-MANIFEST.json"),
                   os.path.join("data", "samples", "LIVRO-DE-DECISOES.json"))
-PG_PORTATIL_POR_OMISSAO = r"C:\Users\London1\orca\pgtmp\pgsql\bin"
+# O DONO da bancada portátil é `SINTONIA_PG_PORTATIL` — o mesmo que o workflow
+# lê no 5a-IT. Esta é só a omissão, e é a MESMA do workflow, escrita de forma
+# portátil: `$HOME/orca/pgtmp/pgsql/bin`. A primeira versão gravava aqui o
+# caminho absoluto de UMA conta Windows (`C:\Users\<utilizador>\…`), e a guarda
+# de credenciais (guarda/social_guarda.py · «caminho pessoal Windows») acusou-o
+# na árvore versionada. Identidade de máquina não é configuração.
+PG_PORTATIL_POR_OMISSAO = os.path.join(os.path.expanduser("~"),
+                                       "orca", "pgtmp", "pgsql", "bin")
 
 CASOS = []
 try:

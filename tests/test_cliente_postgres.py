@@ -87,7 +87,7 @@ class ODonoResolveEFalhaFechado(unittest.TestCase):
         self.assertIn("nao se chama psql", str(cx.exception))
 
     def test_5_forma_POSIX_nao_e_nativa_e_recusa(self):
-        for c in ("/c/Users/London1/orca/pgtmp/pgsql/bin/psql.exe", "/d/pg/bin/psql"):
+        for c in ("/c/pg/portatil/pgsql/bin/psql.exe", "/d/pg/bin/psql"):
             self.assertIn("POSIX", cp.porque_nao_serve(c), c)
         # `/usr/bin/psql` (Linux) não é a forma POSIX-de-unidade; cai no isfile
         self.assertNotIn("POSIX", cp.porque_nao_serve("/usr/bin/psql"))

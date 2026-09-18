@@ -1118,7 +1118,7 @@ interrogado.
 ```
 PROVADO      o Python do passo 6 não encontrou `psql` no PATH do job.
 PROVADO      o 5a-IT escreveu a pasta do psql no GITHUB_PATH na forma POSIX:
-             `echo "$PGBIN" >> "$GITHUB_PATH"`, com PGBIN=/c/Users/London1/orca/pgtmp/pgsql/bin
+             `echo "$PGBIN" >> "$GITHUB_PATH"`, com PGBIN=/c/Users/<utilizador>/orca/pgtmp/pgsql/bin
              (sintonia-scrap.yml:343,360). As migrations no MESMO passo não dependem disso:
              `PATH="$PGBIN:$PATH" bash motor/cadeia_canonica.sh migrations …` (:354).
 PROVADO      o 5b (Sala gate) NÃO abre ligação: `exigir_canonica → estado_operacional → backend()`
@@ -1305,8 +1305,8 @@ FILES_CHANGED  guarda/cliente_postgres.py (novo) · guarda/memoria_postgres.py �
                .github/workflows/sintonia-scrap.yml (5a-IT declara SINTONIA_PSQL_EXE por cygpath -w) ·
                tests/test_psql_argv.py (a guarda vê a cabeça do dono) · tests/test_cliente_postgres.py (novo) ·
                provas/o_cliente_psql_e_declarado.py (novo)
-SINTONIA_PSQL_EXE      = C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe   (na prova; no workflow: cygpath -w "$PGBIN/psql.exe")
-NATIVE_PATH_PROOF      = cygpath -w /c/Users/London1/orca/pgtmp/pgsql/bin/psql.exe → C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe
+SINTONIA_PSQL_EXE      = C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe   (na prova; no workflow: cygpath -w "$PGBIN/psql.exe")
+NATIVE_PATH_PROOF      = cygpath -w /c/Users/<utilizador>/orca/pgtmp/pgsql/bin/psql.exe → C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe
                          (medido nesta máquina, no mesmo Git bash que o runner usa)
 ```
 
@@ -1442,7 +1442,7 @@ BIG_COLLECTION_AUTHORIZED                 = NO
 | 2 | checkout | 16:42:32 → 16:42:58 | success | ref `claude/it-collection-sala-v1` |
 | 3 | 0 · scripts | 16:42:58 | success | `SCRIPTS_PRESENTES=YES` |
 | 4 | 1 · interpretador | 16:42:58 → 16:42:59 | success | `INTERPRETADOR=py` |
-| 9 | 5a-IT · bancada nasce | 16:42:59 → 16:46:15 | success | `MIGRATION_001…007, 009…032 = PASS` · sonda: `mig=30` às 16:46:08, `mig=31` às 16:46:12 · **`psql declarado: C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe`** (16:46:10) |
+| 9 | 5a-IT · bancada nasce | 16:42:59 → 16:46:15 | success | `MIGRATION_001…007, 009…032 = PASS` · sonda: `mig=30` às 16:46:08, `mig=31` às 16:46:12 · **`psql declarado: C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe`** (16:46:10) |
 | 10 | 5b · Sala gate | 16:46:15 → 16:46:18 | success | **`SALA_DE_ESPERA=PASS · BACKEND=POSTGRES · SONDA=OK · PSQL_ORIGEM=DECLARADO`** · `psql: C:\…\psql.exe` |
 | 11 | 5c · egresso | 16:46:18 → 16:46:20 | success | `EGRESS_COUNTRY_CODE: IT · CHECKER: https://ipinfo.io/json · EGRESS_GATE: PASS` |
 | 12 | 6 · rodar a fase | 16:46:20 → 16:47:22 | success | `CORRIDA SUCCESS · IT-T3-2026-09-17-164621-78b9d648812d7d47` · `persistencia: DESCARTAVEL (localhost:54329/descartavel)` · sonda: `runs=1 raw=1 so=1` às 16:46:42; `der=1 est=1 sala=1` às 16:47:24 |
@@ -1455,8 +1455,8 @@ BIG_COLLECTION_AUTHORIZED                 = NO
 ### 19.2 · A prova principal: o contrato do psql foi consumido
 
 ```
-SINTONIA_PSQL_EXE_DECLARED    = YES   5a-IT, 16:46:10Z: «psql declarado: C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe»
-PSQL_NATIVE_PATH              = C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe   (Windows, absoluto; não `/c/…`)
+SINTONIA_PSQL_EXE_DECLARED    = YES   5a-IT, 16:46:10Z: «psql declarado: C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe»
+PSQL_NATIVE_PATH              = C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe   (Windows, absoluto; não `/c/…`)
 PSQL_DECLARED_BEFORE_RUNTIME  = YES   5a-IT (16:46:10) < 5b (16:46:15) < 6 (16:46:20); a variável entrou pelo GITHUB_ENV
 SALA_REAL_PROBE               = PASS  5b: SONDA=OK — o `select 1` correu pelo psql declarado, ANTES da rede
 PSQL_ORIGEM                   = DECLARADO
@@ -1547,7 +1547,7 @@ transportáveis em falta, não exigidos — a Admissão mediu-os e deixou passar
 | 3 | runner errado | REFUTADO | `runner=1 → eame-sintonia-local` (YAML); `RUNNER=SINTONIA-EAME-LOCAL` no log |
 | 4 | VPN não IT | REFUTADO | 5c `EGRESS_COUNTRY_CODE=IT · EGRESS_GATE=PASS`; o portão mede pelo ipinfo e UNKNOWN também bloqueia (`rede.py:175,252`); ver NP-3 |
 | 5 | psql ainda descoberto por PATH | REFUTADO (com NP-2) | `resolver_psql()` devolve a declaração quando existe; a variável está no GITHUB_ENV desde o 5a-IT; 5b `PSQL_ORIGEM=DECLARADO`; o passo 6 escreveu no banco |
-| 6 | SINTONIA_PSQL_EXE não declarado | REFUTADO | 5a-IT: `psql declarado: C:\Users\London1\orca\pgtmp\pgsql\bin\psql.exe` |
+| 6 | SINTONIA_PSQL_EXE não declarado | REFUTADO | 5a-IT: `psql declarado: C:\Users\<utilizador>\orca\pgtmp\pgsql\bin\psql.exe` |
 | 7 | caminho não nativo | REFUTADO | `cygpath -w` → `C:\…\psql.exe`, absoluto, barras invertidas; o dono recusa `/c/…` e relativos |
 | 8 | Sala PASS sem `select 1` real | REFUTADO | `sondar()` exige `_consultar("select 1") == ["1"]` (`sala_de_espera.py:497-500`); `exigir_canonica → backend().sondar()`; 5b `SONDA=OK` |
 | 9 | PSQL_ORIGEM ≠ DECLARADO | REFUTADO | 5b `PSQL_ORIGEM=DECLARADO` |
