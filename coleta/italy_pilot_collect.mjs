@@ -58,14 +58,34 @@ const SOURCE_DOCUMENT = "SOURCE_DOCUMENT";
 
 export const PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004", "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"];
 
+// ── O QUE ESTE COLETOR SABE PERCORRER — duas listas, uma capacidade ─────────
+// `PILOT_SOURCES` sao as sete com codigo proprio (um `case` por fonte, abaixo).
+// As restantes vem da TABELA DECLARATIVA (`regras/italy_contracts_onboarded.json`,
+// expandida em `regras/italy_contracts.mjs`): o contrato carrega `ACQUISITION`
+// e o coletor le a forma em vez de ter codigo por fonte. Uma fonte esta aqui
+// porque a casa sabe chegar-lhe — nao porque alguem a aprovou para colher.
+//
+//     CAPACIDADE != APROVACAO.  A relevancia vive noutro livro.
+export const FONTES_GENERICAS = Object.keys(CONTRACTS)
+  .filter(id => CONTRACTS[id].ACQUISITION && !PILOT_SOURCES.includes(id));
+export const FONTES_PERCORRIVEIS = [...PILOT_SOURCES, ...FONTES_GENERICAS];
+
 const sha = b => createHash("sha256").update(b).digest("hex");
 const agora = () => new Date().toISOString();
 
 function assinatura(buf) {
+  // BOM UTF-8 a frente de um HTML nao muda a especie; corpo gzip muda — e um
+  // corpo comprimido que chega sem ter sido pedido NAO e HTML: e outra coisa,
+  // e diz-se (a validacao de bytes reprova-o, em vez de o entregar ao parse).
+  if (buf.length >= 3 && buf[0] === 0xEF && buf[1] === 0xBB && buf[2] === 0xBF) buf = buf.subarray(3);
+  if (buf.length >= 2 && buf[0] === 0x1F && buf[1] === 0x8B) return "GZIP";
   const h = buf.subarray(0, 8).toString("latin1");
   if (h.startsWith("%PDF")) return "PDF";
   if (h.startsWith("PK")) return "ZIP";
   const t = buf.subarray(0, 400).toString("latin1").trimStart();
+  // Um feed RSS/Atom ou um XML tambem comeca por "<" e NAO e uma pagina: a
+  // descoberta generica de artigos ja tropecou num feed com cara de HTML.
+  if (/^<\?xml|^<rss|^<feed|^<urlset|^<sitemapindex/i.test(t)) return "XML";
   if (t.startsWith("<")) return "HTML";
   return "TEXTO";
 }
@@ -117,7 +137,11 @@ async function baixar(url, tentativas = 2) {
       // qualquer parse e ja reprova um HTML servido como PDF. Esta linha nao a
       // substitui nem a afrouxa — acrescenta o que a fonte disse de si.
       const { stdout } = await run("curl", ["-sSL", "--max-time", "90", "-A", UA,
-        "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-",
+        "-H", "Accept-Language: it-IT,it;q=0.9",
+        // Sem isto alguns servidores mandam gzip por conta propria e os bytes
+        // guardados nao sao o documento. Pede-se identidade; quem ignorar o
+        // pedido cai na validacao de bytes (GZIP != HTML), e fica escrito.
+        "-H", "Accept-Encoding: identity", "-o", "-",
         "-w", "\\n__S__%{http_code}\\t%{content_type}", url],
         { maxBuffer: 128e6, encoding: "buffer" });
       const s = stdout.toString("latin1");
@@ -154,8 +178,72 @@ export function estadoDeCadencia(c, ultimaObs, mudou) {
 
 // ---------- alvos por fonte ----------
 // Cada alvo: { url, nome, documentIdDe(buf) -> {DOCUMENT_ID, SOURCE_DATE, FACT_TIME} }
+// ── ALVOS GENERICOS — lidos da forma de aquisicao declarada no contrato ─────
+// Tres formas, uma funcao. O que muda por fonte e configuracao (entrada, padrao
+// do link, especie esperada), nunca codigo. Regras que valem para todas:
+//   - entrada inacessivel  -> erro (FAILED), nunca zero documentos
+//   - nenhum link casou    -> EMPTY_LIST (FAILED), nunca a entrada como documento
+//   - a propria entrada nunca e alvo numa forma de descoberta (landing page nao e documento)
+//   - so o primeiro link (MAX_ITEMS=1 por omissao): canario, nao Big Collection
+const ATIVOS_ESTATICOS = /\.(css|js|png|jpe?g|gif|svg|ico|woff2?|xml|rss)(\?|#|$)/i;
+// Uma pagina 2 de uma listagem e listagem na mesma: nao e documento. Excluir a
+// paginacao e o que impede a regra generica de registar a landing page como
+// se fosse um artigo (red team: «landing page registrada como documento final»).
+const PAGINACAO = /\/page\/\d+\/?(\?|#|$)|[?&](page|pagina|pag|p)=\d+/i;
+// Um feed RSS/Atom nao e um artigo, mesmo quando mora debaixo de /notizie/.
+const FEED = /\/(feed|rss|atom)\/?(\?|#|$)/i;
+function nomeDoAlvo(url, esperado) {
+  let nome = "";
+  try { nome = decodeURIComponent(new URL(url).pathname.split("/").filter(Boolean).pop() || ""); } catch { }
+  nome = nome.replace(/[^A-Za-z0-9._-]+/g, "_").slice(-120);
+  const ext = esperado === "PDF" ? ".pdf" : ".html";
+  if (!nome) nome = "documento" + ext;
+  else if (!/\.[A-Za-z0-9]{1,5}$/.test(nome)) nome += ext;
+  return nome;
+}
+export function linksDaEntrada(html, entrada, aq) {
+  const pad = aq.LINK_PATTERN ? new RegExp(aq.LINK_PATTERN, "i") : null;
+  const host = new URL(entrada).hostname.replace(/^www\./, "");
+  const entradaNorm = entrada.replace(/\/+$/, "");
+  const vistos = new Set(), fora = [];
+  for (const m of html.matchAll(/href\s*=\s*["']([^"'#]+)["']/gi)) {
+    let u;
+    try { u = new URL(m[1].trim(), entrada).href; } catch { continue; }
+    if (!/^https?:/i.test(u)) continue;
+    if (aq.STRIP_SUFFIX && u.endsWith(aq.STRIP_SUFFIX)) u = u.slice(0, -aq.STRIP_SUFFIX.length);
+    if (vistos.has(u)) continue;
+    vistos.add(u);
+    if (aq.SAME_HOST !== false && new URL(u).hostname.replace(/^www\./, "") !== host) continue;
+    if (ATIVOS_ESTATICOS.test(u) || PAGINACAO.test(u) || FEED.test(u)) continue;
+    if (u.replace(/\/+$/, "") === entradaNorm) continue;
+    if (pad && !pad.test(u)) continue;
+    fora.push(u);
+  }
+  return fora;
+}
+async function alvosGenericos(sourceId, c) {
+  const aq = c.ACQUISITION;
+  if (aq.SHAPE === "PDF_DIRECT")
+    return [{ url: aq.ENTRY_URL, nome: nomeDoAlvo(aq.ENTRY_URL, aq.EXPECTED), generico: true }];
+  const idx = await baixar(aq.ENTRY_URL);
+  if (idx.erro || idx.status !== 200 || !idx.buf?.length)
+    return { erro: `entrada inacessivel: ${idx.erro || idx.status}` };
+  const links = linksDaEntrada(idx.buf.toString("latin1"), aq.ENTRY_URL, aq);
+  if (!links.length)
+    return { erro: "EMPTY_LIST — a entrada nao listou nenhum documento que case com LINK_PATTERN. FAILED, nao zero documentos." };
+  const n = Math.max(1, Number(aq.MAX_ITEMS || 1));
+  return links.slice(0, n).map(u => ({ url: u, nome: nomeDoAlvo(u, aq.EXPECTED), generico: true }));
+}
+function identidadeGenerica() {
+  // Sem regra declarada nao ha identidade semantica — e escreve-se isso, em
+  // vez de a tirar do sha, do caminho ou do endereco (COL-LAW-505, COL-LAW-206).
+  return { DOCUMENT_ID: "NAO SEI", SEM_IDENTIDADE: true, SOURCE_DATE: null, SOURCE_DATE_ISO: null,
+           FACT_TIME: "UNKNOWN — a fonte nao expoe data do fato por regra generica" };
+}
+
 async function alvosDe(sourceId) {
   const c = CONTRACTS[sourceId];
+  if (c?.ACQUISITION && !PILOT_SOURCES.includes(sourceId)) return alvosGenericos(sourceId, c);
   switch (sourceId) {
     case "IT-T3-005":
       return [{ url: c.CANONICAL_ENTRY_URL, nome: "monitoraggio.html" }];
@@ -224,6 +312,7 @@ async function alvosDe(sourceId) {
 
 // ---------- identidade semantica ----------
 function identidade(sourceId, alvo, buf) {
+  if (alvo?.generico) return identidadeGenerica();
   // pdftotext 4.06 NAO aceita stdin. Grava temporario, le, apaga.
   const t = () => {
     try {
@@ -397,7 +486,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       const csvOk = !esperado ? String(r.buf.subarray(0, 400)).includes(String(c.EXPECTED_SIGNATURE)) : true;
       if ((esperado && sig !== esperado) || !csvOk) {
         saudeFonte = "FAILED";
-        const obs = { RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url, DOCUMENT_ID: null, RAW_SHA256: sha(r.buf), HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "BYTE_VALIDATION_FAILED", motivo: `esperava ${esperado || c.EXPECTED_SIGNATURE}, chegou ${sig} — HTTP 200 nao salva isto`, CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT };
+        // Os bytes recusados sao HASHADOS como evidencia e NAO sao preservados:
+        // a validacao corre ANTES de guardar, de proposito. Diz-se as duas coisas.
+        const obs = { RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url, DOCUMENT_ID: null, RAW_SHA256: sha(r.buf), HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "BYTE_VALIDATION_FAILED", motivo: `esperava ${esperado || c.EXPECTED_SIGNATURE}, chegou ${sig} — HTTP 200 nao salva isto`, RAW_PRESERVED_BEFORE_PARSE: false, PORQUE_NAO_PRESERVADO: "bytes recusados pela validacao de assinatura; o sha e evidencia do que chegou, nao de um RAW", CAPTURED_AT, COLLECTION_RUN_STARTED_AT: STARTED_AT };
         gravar(obs); detalhes.push(obs); continue;
       }
 
@@ -414,7 +505,24 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       const mesmoSha = anterior.filter(o => o.RAW_SHA256 === RAW_SHA256 && o.SOURCE_ID === sourceId);
       let OBSERVATION_RESULT, DOCUMENT_VERSION_ID;
 
-      if (mesmoDoc.some(o => o.RAW_SHA256 === RAW_SHA256)) {
+      if (ident.SEM_IDENTIDADE) {
+        // SEM IDENTIDADE SEMANTICA NAO HA «MUDOU NO LUGAR» NEM «MESMO DOCUMENTO,
+        // OUTRA VERSAO»: essas duas frases exigem saber QUE documento e. O que
+        // se consegue dizer e menos, e diz-se so isso: os mesmos bytes no mesmo
+        // endereco desta fonte ja foram vistos (SEEN_AGAIN), ou nao (NEW /
+        // BASELINE). Um `DOCUMENT_ID = NAO SEI` partilhado por todas as
+        // observacoes da fonte NUNCA as colapsa num documento so.
+        const mesmoEndereco = anterior.find(o => o.SOURCE_ID === sourceId && o.SOURCE_URL === alvo.url && o.RAW_SHA256 === RAW_SHA256);
+        if (mesmoEndereco) {
+          OBSERVATION_RESULT = "SEEN_AGAIN";
+          DOCUMENT_VERSION_ID = mesmoEndereco.DOCUMENT_VERSION_ID;
+          cont.SEEN_AGAIN++;
+        } else {
+          OBSERVATION_RESULT = primeira ? "BASELINE_DOCUMENT" : "NEW_DOCUMENT";
+          DOCUMENT_VERSION_ID = `v1_${RAW_SHA256.slice(0, 12)}`;
+          cont.NEW_DOCUMENTS++;
+        }
+      } else if (mesmoDoc.some(o => o.RAW_SHA256 === RAW_SHA256)) {
         OBSERVATION_RESULT = "SEEN_AGAIN";                       // CASO A
         DOCUMENT_VERSION_ID = mesmoDoc.find(o => o.RAW_SHA256 === RAW_SHA256).DOCUMENT_VERSION_ID;
         cont.SEEN_AGAIN++;
@@ -443,7 +551,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       // agora?»; `RAW_PATH` passa a responder «onde estao os bytes?». Sao duas
       // perguntas. `guardarRaw` ja era idempotente: se o ficheiro esta la,
       // devolve o sitio e nao escreve.
-      const g = guardarRaw(sourceId, ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, alvo.nome, r.buf);
+      // A pasta e ENDERECO, nao identidade: sem DOCUMENT_ID os bytes moram numa
+      // pasta que diz isso mesmo, e a versao (pelo sha) e que os distingue.
+      const g = guardarRaw(sourceId, ident.SEM_IDENTIDADE ? "_SEM_IDENTIDADE" : ident.DOCUMENT_ID, DOCUMENT_VERSION_ID, alvo.nome, r.buf);
       const rawCriado = g.criado, rawDir = g.dir;
       if (g.criado) cont.RAW_OBJECTS_CREATED++;
 
@@ -493,8 +603,14 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         // pode vir a dar 1045 linhas (IT-T2-004) ou 139 pontos (IT-T3-005), e
         // cada uma dessas unidades tera o alvo dela. Aqui diz-se apenas que a
         // materializacao DOCUMENTAL deste corte e um SOURCE_DOCUMENT.
-        ...(ident.DOCUMENT_ID && DOCUMENT_VERSION_ID
+        ...(ident.DOCUMENT_ID && DOCUMENT_VERSION_ID && !ident.SEM_IDENTIDADE
             ? { RESOLVED_STRUCTURED_TARGET: SOURCE_DOCUMENT } : {}),
+        // Sem identidade semantica nao nasceu identidade documental, e o alvo
+        // NAO se resolve — a ausencia do campo continua a ser a resposta certa.
+        // Fica escrito de onde vem o NAO SEI, para ninguem o ler como descuido.
+        ...(ident.SEM_IDENTIDADE
+            ? { DOCUMENT_ID_BASE: "NAO SEI — sem regra de identidade declarada no contrato; observacao identificada por SOURCE_ID + SOURCE_URL + bytes",
+                ACQUISITION_SHAPE: c.ACQUISITION?.SHAPE ?? null } : {}),
         BYTES: r.buf.length, MIME_ASSINATURA: sig,
         // ── A ESPECIE, COMO A FONTE A DECLAROU ─────────────────────────────
         // ⚠️ `MIME_ASSINATURA` E OUTRA COISA, E POR ISSO AS DUAS FICAM.
@@ -588,10 +704,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
                   + "candidata IT-T3-005, que nao esta no Atlas.");
     process.exit(2);
   }
-  const desconhecidas = fontes.filter(f => !PILOT_SOURCES.includes(f));
+  const desconhecidas = fontes.filter(f => !FONTES_PERCORRIVEIS.includes(f));
   if (desconhecidas.length) {
     console.error(`FONTE_DESCONHECIDA: ${desconhecidas.join(", ")} — este coletor `
-                  + `percorre ${PILOT_SOURCES.join(", ")}. Nao se finge que correu.`);
+                  + `percorre ${PILOT_SOURCES.length} fontes com codigo proprio (${PILOT_SOURCES.join(", ")}) `
+                  + `e ${FONTES_GENERICAS.length} pela tabela declarativa. Nao se finge que correu.`);
     process.exit(2);
   }
   const { resumo, detalhes } = await executarRodada({

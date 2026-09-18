@@ -84,12 +84,33 @@ class OLivroDizQuemGuardouBruto(unittest.TestCase):
                 self.assertEqual(bool(criou) and criou is True, tem)
 
     def test_reobservacao_nunca_guarda_objecto_novo(self):
-        """`SEEN_AGAIN` é «fui lá e está igual» — não é uma captura nova."""
+        """`SEEN_AGAIN` é «fui lá e está igual» — não é uma captura nova.
+
+        ⚠️ ISTO EXIGIA `RAW_PATH = None`, e o coletor deixou de o escrever assim
+        de propósito (coleta/italy_pilot_collect.mjs, «NAO CRIEI O OBJECTO AGORA
+        != NAO HA BYTES EM LADO NENHUM»): sem caminho, a porta de entrada
+        preservava o JSON da observacao como se fosse o documento. Duas
+        perguntas, dois campos — `RAW_OBJECT_CREATED` responde «criei agora?»,
+        `RAW_PATH` responde «onde estao os bytes?». O que a lei continua a
+        exigir, e este teste mede: uma reobservacao NUNCA cria objecto novo, e
+        o caminho que ela aponta, quando aponta, e o de uma observacao ANTERIOR
+        com os mesmos bytes (mesmo sha) — nunca um sitio novo.
+
+        Medido na SOURCE-COLLECTION-READINESS-V1: a primeira `SEEN_AGAIN` com
+        `RAW_PATH` escrita no livro (IT-T2-001) foi o que fez este teste cair.
+        """
+        vistos = {}
         for o in self.obs:
             if o.get("OBSERVATION_RESULT") == "SEEN_AGAIN":
-                with self.subTest(doc=o.get("DOCUMENT_ID")):
+                with self.subTest(doc=o.get("DOCUMENT_ID"), run=o.get("RUN_ID")):
                     self.assertIs(o.get("RAW_OBJECT_CREATED"), False)
-                    self.assertIsNone(o.get("RAW_PATH"))
+                    if o.get("RAW_PATH") is not None:
+                        anteriores = vistos.get((o.get("SOURCE_ID"), o.get("RAW_SHA256")), set())
+                        self.assertIn(o["RAW_PATH"], anteriores,
+                                      "reobservacao aponta para um caminho que nenhuma "
+                                      "observacao anterior com os mesmos bytes escreveu")
+            if o.get("RAW_PATH"):
+                vistos.setdefault((o.get("SOURCE_ID"), o.get("RAW_SHA256")), set()).add(o["RAW_PATH"])
 
     def test_um_objecto_guardado_por_impressao_digital(self):
         """Os objectos guardados e as impressões digitais distintas batem.

@@ -17628,3 +17628,89 @@ decisão humana**.
 corrida (T2, T3, T4) e **um** produziu READY (T3). T6 e T9 têm executor ligado e
 zero pares com relevância `SIM`; os outros seis territórios não têm executor.
 178 fontes no Atlas, 6 autorizadas, 6 corridas.
+
+---
+
+# §147 · CENTO E SETE FONTES PASSARAM A SER PERCORRÍVEIS SEM UMA LINHA DE CÓDIGO POR FONTE — E O ÍNDICE NÃO SABIA DAS SEIS QUE JÁ CORRIAM
+
+A pergunta da SOURCE-COLLECTION-READINESS-V1 era simples: das fontes que o
+Atlas já conhece na Itália e na Europa, quantas a casa consegue transformar
+em `SOURCE_COLLECTION_READY` agora, reutilizando o que existe. A resposta
+mediu-se em quatro autoridades — coletor, receita, livro italiano, recibo da
+corrida — e **nenhuma delas é o índice gerado**.
+
+    ANTES    6 / 170       DEPOIS   95 / 170       NOVAS   89
+    CONFIGURADAS 107 · CANÁRIO PASS 88 · CANÁRIO FAIL 19 · CUSTO US$ 0
+    BIG_COLLECTION_EXECUTABLE   6 → 6   (a relevância não mudou; não é da máquina)
+
+**O índice mentia para o lado confortável, e não por defeito de quem o
+escreveu.** A coluna «a máquina busca?» de `docs/fontes/INDICE-DE-FONTES.md`
+nasce de `scan_sources.py::dos_contratos()`, que lê **só**
+`docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`. Não lê `regras/italy_contracts.mjs`,
+não lê o coletor, não lê o ledger. Das seis fontes que a primeira Big
+Collection (§146) executou com corridas HEALTHY, o índice marcava «sim» em
+**uma**. Cinco universos, e nenhum se infere do outro:
+
+    DECLARED_CONTRACT != CAPABILITY != WIRING != FLOW_OBSERVED != READY != EXECUTABLE
+
+Por isso o censo desta missão (`provas/medir_source_collection_readiness.py`)
+escreve o rótulo do índice **ao lado** do readiness, nunca no lugar, e um teste
+reprova se alguém voltar a fundi-los. Os quatro contadores que a casa cita —
+210 fichas, 190 no carimbo do Atlas, 173 na escada, 5 «a máquina busca» — medem
+quatro coisas diferentes, têm quatro owners, e ficaram **separados**: acertar um
+para bater com outro seria apagar a divergência que os torna informativos.
+
+**Uma ferramenta, cento e sete linhas de configuração.** O coletor italiano
+tinha um `case` por fonte — sete fontes, sete blocos de código. A sondagem
+de 18/09 (egresso Itália) mostrou que o que abre por HTTP cabe em três formas:
+página → link → PDF, página → link → artigo HTML, e GET num documento fixo.
+A forma passou a viver no contrato (`ACQUISITION: SHAPE · ENTRY_URL ·
+LINK_PATTERN · EXPECTED`), lida de uma tabela declarativa
+(`regras/italy_contracts_onboarded.json`) que `regras/italy_contracts.mjs`
+expande no **mesmo** export `CONTRACTS`. Zero coletores novos, zero
+capacidades novas; um coletor ampliado sem quebrar contrato — o passo 4 da
+ordem «reutilizar primeiro».
+
+    O QUE MUDA POR FONTE É CONFIGURAÇÃO. O QUE MUDA POR FORMA É CÓDIGO.
+    CENTO E SETE `case` SERIAM CENTO E SETE SÍTIOS ONDE A MESMA LEI PODE FALHAR.
+
+**O que a forma genérica não inventa: identidade.** Sem regra medida por
+fonte, `DOCUMENT_ID` sai `NAO SEI` — a lei permite (COL-LAW-505), o sha não
+substitui. A observação identifica-se por fonte + endereço + bytes; sem
+identidade, nunca se afirma «o documento mudou no lugar» (isso exige saber
+*que* documento é), e o alvo estruturado não se resolve. O campo fica ausente,
+com `DOCUMENT_ID_BASE` a dizer porquê. Um `NAO SEI` partilhado por todas as
+observações de uma fonte **nunca as colapsa** num documento só — foi o
+primeiro ataque do red team, e o versionamento sem identidade foi escrito para
+ele.
+
+**O canário revelou um erro vestido de item.** O adaptador declarava toda
+observação do livro como COLHEITA — inclusive `DISCOVERY_FAILED`, sem bytes —
+e a Admissão respondia `NAO_SEI` a um erro, com o envelope a dizer `SUCCESS`
+e `ERROS = []`. Agora o erro viaja em `ERROS` e o estado diz `FAILED` ou
+`PARTIAL`. Rejeitado é «olhei e não serve»; erro é «não consegui olhar» — e
+uma porta que julga o que ninguém conseguiu olhar está a julgar ar.
+
+**READY não é «traz o boletim certo».** A descoberta genérica segue o
+*primeiro* link que casa; para trinta fontes isso é o PDF na pasta do
+exemplo real (o boletim), para outras é o primeiro PDF da home (um tarifário
+na ARPA Marche) ou uma página de contactos. O censo mostra o **documento
+observado** ao lado de cada READY, para que ninguém leia «pronta» como
+«relevante». Afinar `LINK_PATTERN` por fonte é configuração, não código, e é o
+próximo passo — depois da decisão humana de relevância, que continua a ser o
+único número que decide o tamanho da Big Collection (§146).
+
+**E a fundação não fecha — e sabemos porquê.** O censo de estradas mede 54
+fontes (`candidatas/ITALY-SOURCE-MASTER-V1.json`, fotografia aditiva de
+07/09) quando o Atlas tem 157 italianas; coerência interna (24+7+14+9 = 54)
+não é cobertura. `FOUNDATION_DENOMINATOR_STALE`, e zero das 12 classes de
+estrada fecha. A trava da inteligência, por sua vez, congela
+`regras/italy_contracts.mjs` porque o texto contém a palavra
+`RECOMMENDATION` (um campo a extrair dos boletins): a espécie sai da palavra,
+não da gaveta, ao contrário do que o docstring do classificador promete — e os
+dois testes da trava **já chegavam vermelhos** na base d915f85a. Contar a
+palavra certa no ficheiro errado é o mesmo erro que medir o universo errado
+com precisão.
+
+    COERÊNCIA INTERNA NÃO É COBERTURA.
+    UM CONTADOR QUE BATE CONSIGO MESMO AINDA PODE ESTAR A CONTAR OUTRA COISA.

@@ -47,7 +47,111 @@ ROWS                     ≠  UNIQUE_ORGANIZATIONS
 | `IT-T7-002` | MASAF | T7 | P0 | DISCOVERED | ODS | versao_da_publicacao + codice_organizz | no titulo do link: 'al 31 dice | nao declarada em texto | **1Y — tres edicoes anuais n** | não | NORMAL | MEDIUM | HEALTHY | GREEN |
 | `IT-T3-011` | AGRIOS — Alto Adige | T3 | P1 | DISCOVERED | PDF | ano_da_edicao | o ano no titulo da capa | anual, pelo proprio titulo | **NÃO SEI — uma edicao obser** | não | NORMAL | MEDIUM | HEALTHY | GREEN |
 | `IT-T5-002` | Fondazione Edmund Mach — | T5 | P1 | APPLICATION | HTML | handle | — | nenhuma | **IRREGULAR — repositorio al** | não | BAIXO | MEDIUM | HEALTHY | GREEN |
-| `IT-T9-008` | ADAMA Italia | T9 | P2 | BROWSER_DISCOVERED | BROWSER_RENDERED_EXTRACT | canonical_url + article_published_time | meta article:published_time e  | nenhuma | **NÃO SEI** | não | NORMAL | MEDIUM | HEALTHY | YELLOW |
+| `IT-T9-008` | ADAMA Italia S.r.l. | T9 | P2 | BROWSER_DISCOVERED | BROWSER_RENDERED_EXTRACT | canonical_url + article_published_time | meta article:published_time e  | nenhuma | **NÃO SEI** | não | NORMAL | MEDIUM | HEALTHY | YELLOW |
+| `IT-T1-002` | Provincia autonoma di Tr | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-003` | Regione Toscana | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-004` | Regione Liguria | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T1-005` | Regione Umbria | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T1-006` | Regione Calabria | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-007` | Regione Lazio | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-008` | Regione Lombardia | T1 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-009` | Regione Lazio | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-010` | Regione Abruzzo | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-011` | Regione Umbria | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-012` | Regione Autonoma Valle d | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-013` | Assosementi | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-014` | Ente Nazionale Risi | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T1-015` | Edagricole — New Busines | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-016` | Italia Olivicola Consorz | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-017` | Edagricole — New Busines | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-018` | Rivista di Agraria | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-019` | Societa Italiana di Agro | T1 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-020` | Regione Liguria | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-021` | Image Line | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T1-022` | OlivoNews | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T1-023` | SOI | T1 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T10-002` | BMTI — Borsa Merci Telem | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | HEALTHY | YELLOW |
+| `IT-T10-006` | Il Sole 24 Ore | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-007` | ISMEA | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-008` | Italmopa | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-009` | Camera di Commercio di B | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-010` | CSO Italy | T10 | NAO SEI | STATIC | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-011` | Ruminantia | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-012` | Consorzio Tutela Vini d' | T10 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-013` | Consorzio Arancia Rossa  | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-014` | Consorzio Tutela Grana P | T10 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T10-015` | Consorzio Tutela Prosecc | T10 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T10-016` | Alleanza Cooperative | T10 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T11-005` | Unione Italiana Vini | T11 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T12-003` | CIA | T12 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T12-004` | Confagricoltura | T12 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T12-005` | AIAB | T12 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T12-006` | CIA Agricoltori Italiani | T12 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-006` | ARPAC | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-007` | ARPA Sicilia | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-008` | ARPAT | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-009` | ISPRA | T2 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-010` | Provincia autonoma di Tr | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T2-011` | ARPA Lombardia | T2 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T2-012` | ARPA FVG | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-013` | ARPA Lazio | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-014` | ARPA Molise | T2 | NAO SEI | STATIC | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T2-015` | AIAM | T2 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-016` | ARPAM | T2 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-017` | CNR | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-018` | CNR | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-019` | ARPA Piemonte | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T2-020` | ARTA Abruzzo | T2 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-021` | ARPAL | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T2-022` | ARPA Valle d'Aosta | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T2-023` | ARPAB | T2 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T2-024` | ANBI | T2 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T3-013` | Regione Emilia-Romagna | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T3-014` | MASAF — Servizio Fitosan | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T3-015` | Regione Toscana | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T3-016` | Regione Veneto | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T3-017` | CNR | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T3-018` | CNR | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T3-019` | Universita di Torino | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T3-020` | SEI | T3 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T3-021` | SIPaV | T3 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-006` | CNR | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-007` | Institut Agricole Region | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-008` | Fondazione Agrion | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-009` | Fondazione Minoprio | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-010` | Fondazione Navarra | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-011` | Universita di Bari Aldo  | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-012` | Universita di Pisa | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-013` | CRPA | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-014` | Universita della Tuscia | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-015` | CNR | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-016` | Universita degli Studi d | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-017` | Universita di Firenze | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-018` | Universita di Bologna | T5 | NAO SEI | STATIC | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-019` | Universita di Padova | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-020` | Universita di Torino | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-021` | Universita di Firenze | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-022` | Firenze University Press | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-023` | SSICA | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-024` | Universita degli Studi d | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-025` | Scuola Superiore Sant'An | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-026` | Universita di Palermo | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-027` | Universita di Padova | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-028` | Universita di Udine | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-029` | Universita di Verona | T5 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-030` | Universita di Teramo | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-032` | Universita di Perugia | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-033` | Universita di Bologna | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-034` | Accademia dei Georgofili | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T5-035` | Accademia dei Georgofili | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T5-036` | Accademia dei Georgofili | T5 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T7-013` | CONAF | T7 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T7-014` | Consorzi Agrari d'Italia | T7 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T9-009` | Cifo | T9 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T9-010` | Serbios | T9 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T9-011` | Koppert Biological Syste | T9 | NAO SEI | DISCOVERED | HTML |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | YELLOW |
+| `IT-T9-012` | CBC Europe — Biogard | T9 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
+| `IT-T9-013` | Certis Belchim | T9 | NAO SEI | DISCOVERED | PDF |  | NAO SEI | NAO SEI | **NAO SEI — uma captura so** | não | NAO SEI | MEDIUM | UNKNOWN | GREEN |
 
 ---
 

@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 """O QUE O CONTRATO DE FONTE DECLARA — lido, nunca copiado.
 
-Os 13 contratos de fonte italianos vivem em `regras/italy_contracts.mjs`, e o
-dono deles é esse ficheiro. Ele declara, ANTES de qualquer execução:
+Os contratos de fonte italianos vivem em `regras/italy_contracts.mjs`, e o
+dono deles é esse ficheiro — 13 escritos à mão e, desde a
+SOURCE-COLLECTION-READINESS-V1, mais os que a tabela declarativa
+`regras/italy_contracts_onboarded.json` expande lá dentro (um export só, o
+`CONTRACTS`). Os 13 à mão declaram, ANTES de qualquer execução:
 
     SOURCE_LOCATION_RULE   onde está quem publica          13 de 13
     FACT_LOCATION_RULE     onde procurar o lugar do fato   13 de 13

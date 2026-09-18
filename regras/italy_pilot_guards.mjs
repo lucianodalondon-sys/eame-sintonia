@@ -2,7 +2,7 @@
 // Exportados para serem rodados dentro de italy_contract_test.mjs, no mesmo placar.
 import { readFileSync } from "node:fs";
 import { CONTRACTS } from "./italy_contracts.mjs";
-import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from "../coleta/italy_pilot_collect.mjs";
+import { PILOT_SOURCES, FONTES_PERCORRIVEIS, lerLedger, estadoDeCadencia } from "../coleta/italy_pilot_collect.mjs";
 
 export function guardasDoPiloto(T) {
   const led = lerLedger();
@@ -15,8 +15,15 @@ export function guardasDoPiloto(T) {
   T("toda observacao aponta RUN_ID e SOURCE_ID", led.every(o => o.RUN_ID && o.SOURCE_ID));
   T("toda observacao bem-sucedida tem DOCUMENT_ID e RAW_SHA256",
     led.filter(o => o.HEALTH_STATE !== "FAILED").every(o => o.DOCUMENT_ID && o.RAW_SHA256));
-  T("o piloto cobre exatamente as 7 fontes contratadas",
-    new Set(led.map(o => o.SOURCE_ID)).size === PILOT_SOURCES.length, String(new Set(led.map(o => o.SOURCE_ID)).size));
+  // A capacidade cresceu por tabela declarativa (SOURCE-COLLECTION-READINESS-V1):
+  // o ledger tem de conhecer TODAS as fontes que o coletor diz percorrer — as
+  // sete com codigo proprio e as da tabela — e nenhuma fora dessa lista.
+  const noLedger = new Set(led.map(o => o.SOURCE_ID));
+  T("o ledger cobre exatamente as fontes que o coletor sabe percorrer",
+    noLedger.size === FONTES_PERCORRIVEIS.length && FONTES_PERCORRIVEIS.every(id => noLedger.has(id)),
+    `${noLedger.size} no ledger vs ${FONTES_PERCORRIVEIS.length} percorriveis (${PILOT_SOURCES.length} com codigo proprio)`);
+  T("nenhuma fonte do ledger esta fora da capacidade declarada",
+    [...noLedger].every(id => FONTES_PERCORRIVEIS.includes(id)), [...noLedger].filter(id => !FONTES_PERCORRIVEIS.includes(id)).join(","));
 
   console.log("\n22 · FIRST_RUN = BASELINE");
   T("a primeira rodada esta marcada como baseline", r1.IS_BASELINE === true);
@@ -78,8 +85,14 @@ export function guardasDoPiloto(T) {
     sias.length > 0 && sias[0].parse.ROWS_IN_WINDOW > 11);
 
   console.log("\n28 · PARSER_FAILURE MUST NOT DESTROY CAPTURED_RAW");
-  T("toda observacao declara RAW preservado ANTES do parse",
-    led.filter(o => o.RAW_SHA256).every(o => o.RAW_PRESERVED_BEFORE_PARSE === true));
+  // Bytes que a validacao de assinatura RECUSOU sao hashados como evidencia e
+  // nunca preservados — a validacao corre antes de guardar, por desenho. Esses
+  // nao sao «RAW sem preservar»: sao «nao-RAW com sha». Todos os outros com sha
+  // continuam obrigados a declarar preservacao antes do parse.
+  T("toda observacao com RAW declara-o preservado ANTES do parse (bytes recusados nao sao RAW)",
+    led.filter(o => o.RAW_SHA256 && o.OBSERVATION_RESULT !== "BYTE_VALIDATION_FAILED").every(o => o.RAW_PRESERVED_BEFORE_PARSE === true));
+  T("bytes recusados pela validacao nunca dizem que foram preservados",
+    led.filter(o => o.OBSERVATION_RESULT === "BYTE_VALIDATION_FAILED").every(o => o.RAW_PRESERVED_BEFORE_PARSE !== true && !o.RAW_PATH));
   T("nenhuma observacao com erro de parse perdeu o RAW",
     led.filter(o => o.PARSE_ERROR).every(o => o.RAW_SHA256));
 

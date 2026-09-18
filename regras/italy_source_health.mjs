@@ -46,6 +46,13 @@ export function medir(id, { mutacao = null } = {}) {
   const mp = `${pasta}/MANIFEST.json`;
   if (!existsSync(mp)) return { SOURCE_ID: id, HEALTH: "UNKNOWN", motivo: "sem manifesto" };
   const m = JSON.parse(readFileSync(mp, "utf8"));
+  // Um manifesto de VALIDACAO DE FONTE (sem FILES) nao tem RAW contra o qual
+  // correr o contrato: a resposta e UNKNOWN — «nao medi» — e nunca FAILED.
+  if (!Array.isArray(m.FILES) || m.FILES.length === 0) {
+    return { SOURCE_ID: id, VALUE: c.VALUE, ROUTE_TYPE: c.ROUTE_TYPE, VERDICT: String(m.VERDICT || "").split(" ")[0],
+             HEALTH: "UNKNOWN", motivo: "manifesto sem amostra preservada (validacao de fonte, nao coleta)", falhas: [], degradacoes: [],
+             FORWARD_ONLY: c.HISTORICAL_OR_FORWARD === "FORWARD_ONLY", ARCHIVE_REQUIREMENT: c.ARCHIVE_REQUIREMENT };
+  }
 
   const falhas = [], degradacoes = [];
 

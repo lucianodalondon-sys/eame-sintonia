@@ -62,13 +62,13 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 ### O contrato de cada fonte italiana
 
-13 contratos executaveis: quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo — e COMO ELE FALHA.
+13 contratos executaveis escritos a mao — quem e, onde esta, como se acha, o que se espera de volta, como se sabe que e o documento certo e COMO ELE FALHA — mais a tabela declarativa de 107 fontes (italy_contracts_onboarded.json) que o mesmo ficheiro expande em contratos genericos com forma de aquisicao (ACQUISITION), DOCUMENT_ID declarado NAO SEI e as regras que a guarda exige. Um export, CONTRACTS; a tabela e configuracao, nao segunda autoridade.
 
 *Por que existe:* Os testes precisaram de ver vermelho: oito documentos foram corrompidos de proposito, na memoria e nunca no disco, e os oito reprovaram. Um PDF que virou «Access denied» com HTTP 200 reprovou — porque 200 nao e prova de nada. Teste que nunca viu vermelho nao e teste.
 
 | | |
 |---|---|
-| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
 | onde vive | `regras/contratos_de_fonte.py` |
 | onde vive | `regras/italy_contract_test.mjs` |

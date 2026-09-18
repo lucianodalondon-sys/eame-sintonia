@@ -327,8 +327,27 @@ def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
         ESTAR CERTO POR SORTE NAO E ESTAR CERTO.
         E ESTAR ERRADO AINDA SEM CONSEQUENCIA.
     """
-    unidades = []
+    # ── UMA OBSERVACAO FALHADA NAO E UMA UNIDADE COLHIDA ─────────────────────
+    # Medido nos canarios da SOURCE-COLLECTION-READINESS-V1: uma descoberta que
+    # falhou (DISCOVERY_FAILED, TRANSPORT_OR_EMPTY, BYTE_VALIDATION_FAILED)
+    # chegava aqui, era declarada COLHEITA com PAYLOAD ausente, atravessava a
+    # porta e recebia uma decisao NAO_SEI da Admissao — e o envelope dizia
+    # SUCCESS com ERROS vazio. Um erro vestido de item.
+    #
+    #     ERRO E «NAO CONSEGUI OLHAR». NAO E UM ITEM QUE A PORTA JULGA.
+    #     (COL-LAW-037 · COL-LAW-505: FAILED exige erros escritos;
+    #      SUCCESS com erros e PARTIAL.)
+    #
+    # A observacao falhada NAO desaparece: fica no livro italiano (append-only)
+    # e vai no envelope, em ERROS, com o motivo que o coletor escreveu.
+    colhidas, falhadas = [], []
     for x in itens:
+        if str(x.get("HEALTH_STATE") or "") == "FAILED" and not x.get("STORAGE_LOCATION"):
+            falhadas.append(x)
+        else:
+            colhidas.append(x)
+    unidades = []
+    for x in colhidas:
         onde = x.get("STORAGE_LOCATION") or ""
         # ⚠️ A UNIDADE VAI INTEIRA, e nao mutilada. A primeira versao desta
         # funcao construia um dicionario NOVO com seis campos do contrato — e
@@ -352,16 +371,25 @@ def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
             "PAYLOAD": {"ONDE": onde,
                         "ESTADO": rdc.estado_do_payload(onde, raiz)},
         })
+    erros = [{
+        "SOURCE_ID": x.get("SOURCE_ID") or "",
+        "SOURCE_URL": x.get("SOURCE_URL") or "",
+        "OBSERVATION_RESULT": x.get("OBSERVATION_RESULT") or "",
+        "MOTIVO": x.get("motivo") or "",
+        "RUN_ID": run_id,
+    } for x in falhadas]
     envelope = {
         "RUN_ID": run_id,
         "EXECUTOR_ID": EXECUTOR_ID,
         "EXECUTOR_VERSION": EXECUTOR_VERSION,
         # ZERO OBSERVACOES NAO E FALHA. Uma corrida que foi a fonte e nao
-        # encontrou nada correu bem — `EMPTY_SUCCESS != ERROR`.
-        "ESTADO": rdc.SUCCESS,
+        # encontrou nada correu bem — `EMPTY_SUCCESS != ERROR`. Mas uma corrida
+        # em que a fonte NAO se deixou olhar tem erro escrito, e o estado
+        # diz-lo: FAILED se nada se colheu, PARTIAL se se colheu algo.
+        "ESTADO": (rdc.SUCCESS if not erros else (rdc.PARTIAL if unidades else rdc.FAILED)),
         "COLHEITA": unidades,
         "SUPORTE": [],
-        "ERROS": [],
+        "ERROS": erros,
     }
     # ⚠️ O ENDERECO E DA CORRIDA — ver `leis/retorno_da_coleta.py`.
     # Este adapter tinha a MESMA colisao que o regulatorio: um caminho fixo

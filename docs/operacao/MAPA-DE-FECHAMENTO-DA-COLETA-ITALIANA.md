@@ -84,18 +84,24 @@ Célula: `ESTADO·ligação`. `!` = ausência conclusiva por contrato.
 
 ## C — AS FONTES, DEPOIS DA M1B
 
+> **Números movidos em 2026-09-18 (SOURCE-COLLECTION-READINESS-V1):** os canários dessa missão
+> deixaram observações no livro italiano, e o censo passou a reconhecer IT-T2-001 e IT-T3-011 como
+> `PROVEN` (HISTORICALLY_OBSERVED) e a tirar IT-T5-002 de `ROUTE_UNKNOWN`. O denominador continua a
+> ser o master de 54 — ver `docs/operacao/SOURCE-COLLECTION-READINESS-V1.md` §7
+> (`FOUNDATION_DENOMINATOR_STALE`, 54/157).
+
 | medida | valor |
 |---|---:|
 | total | 54 |
-| `SOURCES_WITH_PROVEN_ROUTE` | **7** |
-| `SOURCES_WITH_ONLY_CANDIDATE_ROUTE` | **24** |
-| `SOURCES_ROUTE_UNKNOWN` | **23** |
+| `SOURCES_WITH_PROVEN_ROUTE` | **11** |
+| `SOURCES_WITH_ONLY_CANDIDATE_ROUTE` | **21** |
+| `SOURCES_ROUTE_UNKNOWN` | **22** |
 | `SOURCES_BLOCKED` | **0** |
 
 | medida | valor |
 |---|---:|
-| `TOTAL_PROVEN_MEMBERSHIPS` | **8** |
-| `TOTAL_CANDIDATE_MEMBERSHIPS` | **38** |
+| `TOTAL_PROVEN_MEMBERSHIPS` | **12** |
+| `TOTAL_CANDIDATE_MEMBERSHIPS` | **34** |
 | `TOTAL_BLOCKED_MEMBERSHIPS` | **0** |
 
 | ROUTE_CLASS | provadas | candidatas | níveis de evidência |

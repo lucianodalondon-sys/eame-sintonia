@@ -29,6 +29,12 @@
 //   Atraso so existe com: EXPECTED_UPDATE + DEADLINE PROVADA + DEADLINE VENCIDA + SEM NOVA VERSAO.
 //   Estados corretos: NO_CHANGE · EXPECTED_NO_CHANGE · UPDATE_DUE · OVERDUE_UPDATE · CADENCE_UNKNOWN
 
+// ── A TABELA DECLARATIVA DAS FONTES ONBOARDED (SOURCE-COLLECTION-READINESS-V1) ──
+// Uma linha por fonte; o contrato completo nasce de `contratoGenerico()` la em
+// baixo. O dono do contrato continua a ser ESTE ficheiro (um export, `CONTRACTS`):
+// a tabela e configuracao, nao uma segunda autoridade.
+import TABELA_ONBOARDED from "./italy_contracts_onboarded.json" with { type: "json" };
+
 export const ROUTE_TYPES = ["STATIC_ROUTE", "PREDICTABLE_ROUTE", "DISCOVERED_ROUTE", "APPLICATION_ROUTE", "BROWSER_DISCOVERED_ROUTE"];
 export const HEALTH_STATES = ["HEALTHY", "DEGRADED", "FAILED", "UNKNOWN"];
 
@@ -415,5 +421,98 @@ export const CONTRACTS = {
     NEGATIVE_CONTROL: { descricao: "extrato sem published_time", esperado: "FAILED por falta de identidade" }
   }
 };
+
+// ── CONTRATO GENERICO — SOURCE-COLLECTION-READINESS-V1 ──────────────────────
+// As fontes do Atlas que a sondagem de 2026-09-18 provou abrirem por HTTP cabem
+// em TRES formas de aquisicao que o coletor ja percorria com codigo por fonte:
+// pagina -> link -> PDF (PDF_DISCOVERY_PAGE), pagina -> link -> artigo HTML
+// (HTML_ARTICLE_DISCOVERY) e GET num documento fixo (PDF_DIRECT). Em vez de um
+// `case` por fonte, o coletor le a forma da tabela.
+//
+// O QUE ESTE CONTRATO NAO INVENTA. A identidade semantica do documento
+// (DOCUMENT_ID) exige regra declarada por fonte — data no nome, numero de
+// edicao, campo do cabecalho. Nenhuma linha da tabela tem essa regra medida,
+// e por isso o DOCUMENT_ID sai `NAO SEI`, que a lei permite (COL-LAW-505) e o
+// sha nao substitui. A observacao identifica-se pela fonte, pelo endereco e
+// pelos bytes; versao "mudou no lugar" NAO se afirma sem identidade.
+//
+//     UMA FONTE CONFIGURADA NAO E UMA FONTE APROVADA.
+//     A tabela diz COMO se chega; o Livro de Relevancia diz SE se vai.
+const ASSINATURA_POR_FORMA = { PDF: "%PDF", HTML: "<" };
+const FORMAS_GENERICAS = ["PDF_DISCOVERY_PAGE", "HTML_ARTICLE_DISCOVERY", "PDF_DIRECT"];
+
+export function aquisicaoDe(linha) {
+  const forma = linha.SHAPE;
+  const esperado = String(linha.EXPECTED || "").toUpperCase();
+  if (!FORMAS_GENERICAS.includes(forma))
+    throw new Error(`SHAPE desconhecida em italy_contracts_onboarded.json: ${linha.SOURCE_ID} -> ${forma}`);
+  if (!ASSINATURA_POR_FORMA[esperado])
+    throw new Error(`EXPECTED desconhecido em italy_contracts_onboarded.json: ${linha.SOURCE_ID} -> ${esperado}`);
+  if (!/^https?:\/\//.test(String(linha.ENTRY_URL || "")))
+    throw new Error(`ENTRY_URL ausente ou invalida na tabela onboarded: ${linha.SOURCE_ID}`);
+  return {
+    SHAPE: forma, ENTRY_URL: linha.ENTRY_URL, EXPECTED: esperado,
+    LINK_PATTERN: linha.LINK_PATTERN || null, SAME_HOST: linha.SAME_HOST !== false,
+    STRIP_SUFFIX: linha.STRIP_SUFFIX || null, MAX_ITEMS: Number(linha.MAX_ITEMS || 1)
+  };
+}
+
+export function contratoGenerico(linha) {
+  const aq = aquisicaoDe(linha);
+  const esperado = aq.EXPECTED;
+  const fixo = aq.SHAPE === "PDF_DIRECT";
+  return {
+    OWNER_ID: "NAO SEI", OWNER: linha.OWNER || linha.NAME || "NAO SEI",
+    TERRITORY: linha.TERRITORY, VALUE: "NAO SEI",
+    CANONICAL_ENTRY_URL: aq.ENTRY_URL,
+    DISCOVERY_METHOD: fixo
+      ? "GET direto no documento observado (documento fixo; descoberta de edicoes novas NAO configurada)"
+      : `GENERICO: abrir ENTRY_URL e seguir o primeiro link que casa com LINK_PATTERN (${aq.SHAPE})`,
+    RETRIEVAL_METHOD: "GET direto no documento",
+    ROUTE_TYPE: fixo ? "STATIC_ROUTE" : "DISCOVERED_ROUTE",
+    ACCESS_INSTRUMENT: "HTTP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
+    OUTPUT_TYPE: esperado, EXPECTED_SIGNATURE: ASSINATURA_POR_FORMA[esperado], MIN_BYTES: 1000,
+    ACQUISITION: aq,
+    IDENTITY_KEYS: [],
+    DOCUMENT_ID_RULE: "NAO SEI — a fonte nao expoe identificador proprio observado por regra generica; o DOCUMENT_ID sai NAO SEI e a observacao identifica-se pela fonte, pelo endereco e pelos bytes (nunca por identidade inventada)",
+    DOCUMENT_DATE_FIELD: "NAO SEI", VERSION_FIELD: "NAO SEI",
+    EXPECTED_CONTENT_MARKERS: null,
+    DECLARED_FREQUENCY: "NAO SEI", OBSERVED_FREQUENCY: "NAO SEI — uma captura so",
+    UPDATE_BEHAVIOR: "NAO SEI", HISTORICAL_OR_FORWARD: "NAO SEI", ARCHIVE_REQUIREMENT: "NAO SEI",
+    EXPECTED_FAILURES: [
+      "entrada inacessivel (transporte, 403, 404) = FAILED, nunca zero documentos",
+      "entrada sem nenhum link que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+      `documento cuja assinatura de bytes nao e ${esperado} = BYTE_VALIDATION_FAILED (HTTP 200 nao salva)`
+    ],
+    FAIL_CLOSED_RULE: `sem link descoberto ou com bytes que nao sao ${esperado}, e FAILED — nunca se regista a pagina de entrada como documento`,
+    FALLBACK: "nenhum",
+    SOURCE_LOCATION_RULE: "NAO SEI",
+    FACT_LOCATION_RULE: "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    EVIDENCE_CLASS: "NAO SEI",
+    AUTOMATION_FEASIBILITY: "MEDIUM — rota generica; identidade semantica por medir",
+    NEGATIVE_CONTROL: { descricao: "entrada que nao lista nenhum link que case com LINK_PATTERN", esperado: "EMPTY_LIST -> FAILED, nunca a pagina de entrada como documento" },
+    ONBOARDED_BY: "SOURCE-COLLECTION-READINESS-V1",
+    EVIDENCE: linha.EVIDENCE || null,
+    SONDAGEM: linha.SONDAGEM || null
+  };
+}
+
+// Uma linha da tabela para uma fonte que JA tem contrato escrito a mao (ex.:
+// IT-T2-001, ARPAE) nao o reescreve: acrescenta-lhe SO a forma de aquisicao,
+// para o coletor generico a saber percorrer. O contrato a mao continua a mandar
+// em tudo o resto.
+for (const linha of TABELA_ONBOARDED.FONTES) {
+  if (!/^IT-T\d+-\d{3}$/.test(String(linha.SOURCE_ID || "")))
+    throw new Error(`SOURCE_ID invalido na tabela onboarded: ${linha.SOURCE_ID}`);
+  if (CONTRACTS[linha.SOURCE_ID]) {
+    if (CONTRACTS[linha.SOURCE_ID].ACQUISITION)
+      throw new Error(`${linha.SOURCE_ID} aparece duas vezes na tabela onboarded`);
+    CONTRACTS[linha.SOURCE_ID].ACQUISITION = aquisicaoDe(linha);
+    CONTRACTS[linha.SOURCE_ID].ONBOARDED_BY = "SOURCE-COLLECTION-READINESS-V1 (so a forma de aquisicao; o contrato a mao manda no resto)";
+    continue;
+  }
+  CONTRACTS[linha.SOURCE_ID] = contratoGenerico(linha);
+}
+export const ONBOARDED_IDS = TABELA_ONBOARDED.FONTES.map(l => l.SOURCE_ID);
 
 export const CONTRACT_IDS = Object.keys(CONTRACTS);
