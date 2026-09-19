@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-19T13:04:17+00:00",
-    "HEAD": "0ebe7539e29fe1f1313c4ce03cf402410f5a0611",
+    "GENERATED_AT": "2026-09-19T15:21:01+00:00",
+    "HEAD": "534c69aa22aaa56c54580583912a7deb05442050",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f",
-    "FICHEIROS_NA_IMPRESSAO": 2241,
+    "SOURCE_TREE_FINGERPRINT": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79",
+    "FICHEIROS_NA_IMPRESSAO": 2242,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,7 +132,7 @@
       {
         "PATH": "coleta/adaptador_youtube.py",
         "PAPEL": "FONTE",
-        "VERSAO": "b28dc4743d095e5ec50b0cd3fad07850fb2caafa",
+        "VERSAO": "a3b3fcd12482bc187f864386bb68b0c1e07254b7",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -922,7 +922,7 @@
       }
     ],
     "INPUTS_COUNT": 130,
-    "INPUTS_DIGEST": "ed1369000cfa07af40a1ff6c678efac0ee4c97f5c876f1c11115e2cefe200e41",
+    "INPUTS_DIGEST": "bc6d6444246dd67bc861036f42a0dc06c8d1c767b69389914d8d3775ff743974",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1447,6 +1447,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/adaptador_instagram.py",
+        "coleta/adaptador_youtube.py",
         "coleta/comunicacao_coleta.py",
         "coleta/executor_transcricao_midia.py",
         "ferramentas/instagram_transcrever.py",
@@ -1616,6 +1617,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_youtube.py",
         "ferramentas/fala_local.py",
         "ferramentas/instagram_transcrever.py"
       ],
@@ -1727,7 +1729,7 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 575,
+      "linhas": 756,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-19T13:04:09+00:00",
-    "HEAD": "0ebe7539e29fe1f1313c4ce03cf402410f5a0611",
+    "GENERATED_AT": "2026-09-19T15:24:59+00:00",
+    "HEAD": "534c69aa22aaa56c54580583912a7deb05442050",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f",
-    "FICHEIROS_NA_IMPRESSAO": 2241,
+    "SOURCE_TREE_FINGERPRINT": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79",
+    "FICHEIROS_NA_IMPRESSAO": 2242,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -13447,6 +13447,21 @@
   ],
   "MEMORIA_DA_COLETA": [
     {
+      "ficheiro": "coleta/adaptador_youtube.py",
+      "como_se_chama": "",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/agrifood_ue.py",
       "como_se_chama": "coleta/agrifood_ue.py cereal/prices IT 2024 2025 2026",
       "carimba_data": [
@@ -15349,6 +15364,27 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/watch?v='",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 657
+        },
+        {
+          "file": "coleta/youtube_janela.py",
+          "line": 329
+        },
+        {
+          "file": "ferramentas/youtube_transcrever.py",
+          "line": 158
+        },
+        {
+          "file": "tests/test_c13_executor_wiring.py",
+          "line": 284
+        }
+      ]
+    },
+    {
       "endpoint": "https://api.apify.com/v2",
       "usado_por": [
         {
@@ -15639,19 +15675,6 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/watch?v='",
-      "usado_por": [
-        {
-          "file": "coleta/youtube_janela.py",
-          "line": 329
-        },
-        {
-          "file": "ferramentas/youtube_transcrever.py",
-          "line": 158
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com/channel",
       "usado_por": [
         {
@@ -15847,9 +15870,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 263,
+  "ENDPOINTS_FOUND": 265,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 223,
+  "ENDPOINTS_TRUNCATED": 225,
   "COUNTS": {
     "sources": 210,
     "with_contract": 5,
@@ -15867,15 +15890,15 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 263,
+    "endpoints": 265,
     "endpoints_published": 40,
-    "endpoints_truncated": 223,
+    "endpoints_truncated": 225,
     "candidates": 241,
-    "coletores": 51,
-    "coletores_com_data": 19,
-    "coletores_com_lugar": 33,
+    "coletores": 52,
+    "coletores_com_data": 20,
+    "coletores_com_lugar": 34,
     "coletores_que_separam_fonte_do_fato": 21,
-    "coletores_que_registam_descarte": 17,
+    "coletores_que_registam_descarte": 18,
     "corridas_registadas": 63,
     "observacoes_registadas": 184,
     "fontes_ja_coletadas": 4,

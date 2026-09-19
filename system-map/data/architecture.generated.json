@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-capability-v1",
-    "HEAD": "0ebe7539e29fe1f1313c4ce03cf402410f5a0611",
-    "GENERATED_AT": "2026-09-19T10:03:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f"
+    "HEAD": "534c69aa22aaa56c54580583912a7deb05442050",
+    "GENERATED_AT": "2026-09-19T12:20:17-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "21bb11bf34202343de64cec011cd55126d4b08ad",
+      "sha": "f349806a3bc96ae8d3498171048ccbb0457506b5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1242,7 +1242,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "b28dc4743d095e5ec50b0cd3fad07850fb2caafa",
+      "sha": "a3b3fcd12482bc187f864386bb68b0c1e07254b7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7066,7 +7066,7 @@
     },
     {
       "path": "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
-      "sha": "d98a2022939eab5fbd4f2a54f1653030e8f67b03",
+      "sha": "66b393d64ea6edb7dffa1c075cfe84566fb70e47",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13687,6 +13687,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c13_executor_wiring.py",
+      "sha": "d6b18045f87238623729e9cd61cca1083d3cd2aa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c13_route_gate.py",
       "sha": "925bf21afaad1f70f13d933d12e524bc1510f77a",
       "ext": ".py",
@@ -16804,6 +16811,28 @@
         "file": "coleta/adaptador_youtube.py",
         "line": 396,
         "snippet": "import apify_pool as ap"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 645,
+        "snippet": "import fala_local as fl"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 644,
+        "snippet": "import youtube_transcrever as ytv"
       }
     },
     {
@@ -52029,6 +52058,105 @@
       }
     },
     {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 33,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 34,
+        "snippet": "import adaptador_youtube as ay     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 36,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 37,
+        "snippet": "import scrap_executor as ex        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 38,
+        "snippet": "import scrap_registo as reg        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 39,
+        "snippet": "import social_envelope as env      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 35,
+        "snippet": "import fala_local as fl            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 41,
+        "snippet": "import youtube_transcrever as ytv  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_executor_wiring.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_executor_wiring.py",
+        "line": 40,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c13_route_gate.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63503,10 +63631,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2093,
-    "files_readable": 816,
-    "files_code_dir": 875,
-    "file_edges": 4394,
+    "files_tracked": 2094,
+    "files_readable": 817,
+    "files_code_dir": 876,
+    "file_edges": 4405,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

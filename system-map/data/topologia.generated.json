@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-19T13:05:58+00:00",
-  "HEAD": "0ebe7539e29fe1f1313c4ce03cf402410f5a0611",
+  "GENERATED_AT": "2026-09-19T15:22:36+00:00",
+  "HEAD": "534c69aa22aaa56c54580583912a7deb05442050",
   "BRANCH": "claude/youtube-capability-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f",
-  "FICHEIROS_NA_IMPRESSAO": 2241,
+  "SOURCE_TREE_FINGERPRINT": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79",
+  "FICHEIROS_NA_IMPRESSAO": 2242,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -279,7 +279,7 @@
    {
     "PATH": "coleta/adaptador_youtube.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b28dc4743d095e5ec50b0cd3fad07850fb2caafa",
+    "VERSAO": "a3b3fcd12482bc187f864386bb68b0c1e07254b7",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f",
+    "VERSAO": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f",
+    "VERSAO": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3619,6 +3619,13 @@
     "PATH": "tests/test_c12_x_censo.py",
     "PAPEL": "FONTE",
     "VERSAO": "bfec41cc1069da956c2299abe16636e9080ab481",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_c13_executor_wiring.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d6b18045f87238623729e9cd61cca1083d3cd2aa",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4589,8 +4596,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 650,
-  "INPUTS_DIGEST": "7a027a76d6215f2bb19bfd84129131fa51a29402005b595bc999ff440164f4ba",
+  "INPUTS_COUNT": 651,
+  "INPUTS_DIGEST": "c0d9ca1bd9ce6312193fcac176b23655d95cb400084a0890b1d20d261619b4b7",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4623,8 +4630,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "3eea9151c632d6a04c08f0310a50d8bf8361bbce5815bb9225c93b594bf90efb",
-  "SEMANTIC_HASH": "7322fbdc76a049de7c4ca6288b0be875bd982f4ce42d319855be89385fad328d"
+  "MEASUREMENT_HASH": "e03965c8757e50ae39a8dc95cc8402d6d6b1fc231983634f5a97bdfa37bc447d",
+  "SEMANTIC_HASH": "eb9baf9c31f1ba82e1701221699525a211817748630aac81d23f059dad864ec0"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -34886,6 +34893,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "coleta/adaptador_youtube.py",
+      "LINHA": 644,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "coleta/adaptador_youtube.py",
+      "LINHA": 645,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -43790,6 +43813,7 @@
     "tests/test_c10_8b_rota_paga_canonica.py",
     "tests/test_c10_audio_only.py",
     "tests/test_c12_x_censo.py",
+    "tests/test_c13_executor_wiring.py",
     "tests/test_c13_route_gate.py",
     "tests/test_c13_youtube_public_audio.py",
     "tests/test_c2_youtube_oficial.py",

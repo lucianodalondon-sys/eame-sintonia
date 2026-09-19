@@ -2027,6 +2027,7 @@
       "tests/test_c10_8b_rota_paga_canonica.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
+      "tests/test_c13_executor_wiring.py",
       "tests/test_c13_route_gate.py",
       "tests/test_c13_youtube_public_audio.py",
       "tests/test_c2_youtube_oficial.py",
@@ -2685,9 +2686,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-capability-v1",
-    "HEAD": "0ebe7539e29fe1f1313c4ce03cf402410f5a0611",
-    "GENERATED_AT": "2026-09-19T10:03:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f"
+    "HEAD": "534c69aa22aaa56c54580583912a7deb05442050",
+    "GENERATED_AT": "2026-09-19T12:20:17-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c91040627a379015a915067cdce389d4148f704b4a561faf1fd59a9f2e06cd79"
   },
   "FAMILIES": [
     {
@@ -4169,8 +4170,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 263",
-        "desses, mostrados aqui: 40 (ficam de fora 223)"
+        "enderecos que o codigo realmente chama: 265",
+        "desses, mostrados aqui: 40 (ficam de fora 225)"
       ],
       "status_reason": "210 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 205, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -9148,6 +9149,21 @@
         "sobrou_total": 3008
       },
       "memoria": [
+        {
+          "ficheiro": "coleta/adaptador_youtube.py",
+          "como_se_chama": "",
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
+          "carimba_lugar": [
+            "COUNTRY"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": [
+            "RECUSAD"
+          ]
+        },
         {
           "ficheiro": "coleta/agrifood_ue.py",
           "como_se_chama": "coleta/agrifood_ue.py cereal/prices IT 2024 2025 2026",
@@ -36183,6 +36199,7 @@
         "tests/test_c10_8b_rota_paga_canonica.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
+        "tests/test_c13_executor_wiring.py",
         "tests/test_c13_route_gate.py",
         "tests/test_c13_youtube_public_audio.py",
         "tests/test_c2_youtube_oficial.py",
@@ -36322,7 +36339,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 191,
+      "file_count": 192,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -86248,7 +86265,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 51 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 52 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -88063,7 +88080,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 131 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 136 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -93020,12 +93037,44 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 156,
           "snippet": "import reel_transcricao as rt",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 644,
+          "snippet": "import youtube_transcrever as ytv",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 645,
+          "snippet": "import fala_local as fl",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-SCRAP-SOCIAL",
             "FROM": "C-TRANSCRICAO",
@@ -93177,7 +93226,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 27 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 29 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -95863,8 +95912,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2093,
-    "files_covered": 1009,
+    "files_tracked": 2094,
+    "files_covered": 1010,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,
