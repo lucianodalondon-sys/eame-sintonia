@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-capability-v1",
-    "HEAD": "5b87ea71010e2f36e414b1109517884f5f97ee61",
-    "GENERATED_AT": "2026-09-18T19:51:39-03:00",
+    "HEAD": "b713fce4b637030ff6f91ead0add3a4529d1de53",
+    "GENERATED_AT": "2026-09-19T01:54:10-03:00",
     "SOURCE_TREE_FINGERPRINT": "ec3ef1aef3f3d02a988ed2c84ff605c733f8c286821b18829239ba1bcc4b5348"
   },
   "FILES": [
@@ -7065,6 +7065,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
+      "sha": "d98a2022939eab5fbd4f2a54f1653030e8f67b03",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "sha": "64bddd19dcf58606aab5afdaa1c41229407348b4",
       "ext": ".md",
@@ -13680,6 +13687,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c13_youtube_public_audio.py",
+      "sha": "59ea01f6c20140ee115fadd2aacbba7a27be057a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c2_youtube_oficial.py",
       "sha": "e86df434df26e4e8afb939fad4495e19598ee0cb",
       "ext": ".py",
@@ -18224,6 +18238,17 @@
         "file": "coleta/scrap_capacidades.py",
         "line": 302,
         "snippet": "'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 134,
+        "snippet": "_C13 = 'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md'"
       }
     },
     {
@@ -51986,6 +52011,72 @@
       }
     },
     {
+      "from_file": "tests/test_c13_youtube_public_audio.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_youtube_public_audio.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_youtube_public_audio.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_youtube_public_audio.py",
+        "line": 24,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_youtube_public_audio.py",
+      "to_file": "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c13_youtube_public_audio.py",
+        "line": 81,
+        "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_youtube_public_audio.py",
+      "to_file": "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c13_youtube_public_audio.py",
+        "line": 86,
+        "snippet": "'docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_youtube_public_audio.py",
+      "to_file": "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c13_youtube_public_audio.py",
+        "line": 88,
+        "snippet": "'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_youtube_public_audio.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_youtube_public_audio.py",
+        "line": 25,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c2_youtube_oficial.py",
       "to_file": ".github/workflows/scrap-social.yml",
       "type": "READS",
@@ -63350,10 +63441,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2090,
-    "files_readable": 814,
-    "files_code_dir": 873,
-    "file_edges": 4382,
+    "files_tracked": 2092,
+    "files_readable": 815,
+    "files_code_dir": 874,
+    "file_edges": 4389,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

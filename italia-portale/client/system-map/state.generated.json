@@ -1034,6 +1034,7 @@
       "docs/sintonia-scrap/C10-8B-R-RAW-ENTRE-JOBS.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
+      "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
@@ -2026,6 +2027,7 @@
       "tests/test_c10_8b_rota_paga_canonica.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
+      "tests/test_c13_youtube_public_audio.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
@@ -2682,8 +2684,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-capability-v1",
-    "HEAD": "5b87ea71010e2f36e414b1109517884f5f97ee61",
-    "GENERATED_AT": "2026-09-18T19:51:39-03:00",
+    "HEAD": "b713fce4b637030ff6f91ead0add3a4529d1de53",
+    "GENERATED_AT": "2026-09-19T01:54:10-03:00",
     "SOURCE_TREE_FINGERPRINT": "ec3ef1aef3f3d02a988ed2c84ff605c733f8c286821b18829239ba1bcc4b5348"
   },
   "FAMILIES": [
@@ -33391,6 +33393,7 @@
         "docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md",
         "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
         "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
+        "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
         "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
         "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
         "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
@@ -36178,6 +36181,7 @@
         "tests/test_c10_8b_rota_paga_canonica.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
+        "tests/test_c13_youtube_public_audio.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
@@ -36315,7 +36319,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 189,
+      "file_count": 190,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36873,7 +36877,9 @@
         "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
         "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
         "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
+        "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
         "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
+        "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
         "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
         "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
         "ferramentas/apify_pool.py",
@@ -86238,7 +86244,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 49 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 50 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -88053,7 +88059,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 129 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 130 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -95664,7 +95670,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1083,
+  "UNCLAIMED_FILES_COUNT": 1084,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -95853,8 +95859,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2090,
-    "files_covered": 1007,
+    "files_tracked": 2092,
+    "files_covered": 1008,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,
