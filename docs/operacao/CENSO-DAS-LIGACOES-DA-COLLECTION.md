@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3704cdc06ff5fe5cbda894a89cbdf4962811aa72
+HEAD_DA_MEDICAO  0ebe7539e29fe1f1313c4ce03cf402410f5a0611
 BRANCH           claude/youtube-capability-v1
-GERADO_EM        2026-09-19T10:01:29-03:00
+GERADO_EM        2026-09-19T10:03:46-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
