@@ -1,0 +1,42 @@
+{
+ "SOURCE_ID": "IT-T8-001",
+ "CAPTURED_AT": "2026-09-19T04:36:23Z",
+ "MEASURED_ON_HEAD": "195bdb7bd8c3",
+ "REQUEST_URL": "https://www.youtube.com/@agronotizietv",
+ "METHOD": "navegador real (muro de consentimento UE aceite)",
+ "ACCESS_SHAPE": "BROWSER_PUBLIC para identidade; RSS_ATOM quando o egresso o permite",
+ "OBSERVED": {
+  "channel_title": "Agronotizie - Notizie per l'agricoltura",
+  "handle": "@agronotizietv",
+  "channel_id": "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+  "inscritos": "10,9 mil",
+  "videos": "1,8 mil",
+  "descricao": "Dal 2001 AgroNotizie e il punto di riferimento online sui principali temi che animano il panorama agricoltura italiano ed internazionale",
+  "ultimos_videos": [
+   {
+    "titulo": "Mercati agricoli e volatilita dei prezzi: cosa fa l'Ue",
+    "id": "oKh_fmYjGEQ",
+    "quando": "ha 1 dia"
+   },
+   {
+    "titulo": "Agricoltura e finanza tra criticita e opportunita",
+    "id": "AVVT85kITC8",
+    "quando": "ha 3 dias"
+   },
+   {
+    "titulo": "Suolo, resa e reddito: la ricetta rigenerativa di Yara",
+    "id": "MCnd9c2pzd8",
+    "quando": "ha 1 mes"
+   },
+   {
+    "titulo": "Infestanti resistenti, perche il controllo comincia dopo la raccolta",
+    "id": "7Ps4g3juOIU",
+    "quando": "ha 1 mes"
+   }
+  ]
+ },
+ "IDENTITY_PROOF": "channelMetadataRenderer.externalId == UCUs2Mg7jvUTRt7_MSOFYM5Q, confirmado pelo titulo do proprio canal",
+ "NEGATIVE_CONTROL": "um regex ingenuo no HTML devolve UCxypgXkKSbXuHn5hfmpXyvQ, que o feed prova ser 'Agrimeccanica - Agronotizie' — canal vizinho, outro conteudo. REJEITADO.",
+ "ACCESS_STABILITY": "INSTAVEL neste egresso: o feed RSS respondeu 200 com 15 entradas numa janela e 404 noutra. Canais de controlo do proprio Google (Google Developers, YouTube oficial) tambem devolveram 404 na mesma janela -> limitacao do egresso, NAO erro de identidade.",
+ "NOTE": "CAPTURE observada. Nenhum DOCUMENT_ID emitido (os videoId ficam como observacao, nao como identidade contratada)."
+}
