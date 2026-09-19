@@ -18199,3 +18199,99 @@ semântica dentro do adapter seria o adapter a decidir o que o contrato governa.
 dois têm de ser medidos: a fase em `scrap_colheita.FASES` (+ `NOMEADOS`) e o
 nome em `receitas::serve_fases`. Um sem o outro dá verde num sítio e silêncio
 no outro.
+
+
+# §155 · ADQUIRIR O FICHEIRO NÃO É ENTREGAR O FICHEIRO
+
+**O QUE.** O primeiro canário real do YouTube (`IT-T8-001`, run
+`XX-T8-2026-09-19-202445-33e272ebab26f54f`) adquiriu **bem** e preservou
+**mal**:
+
+```
+WAV real no disco ........ 7.112.072 bytes · 222,25 s · AUDIO=1 VIDEO=0
+RAW preservado ........... 1.232 bytes · media_type = application/json
+DERIVED .................. 0
+ADMISSION ................ NAO_SEI
+```
+
+O som ficou no disco, e o RAW guardou **o envelope que falava sobre ele**.
+
+**POR QUÊ.** `coleta/scrap_colheita.py::unidade()` assumia que a observação **é**
+o item — verdade para um post, uma legenda ou um perfil, onde os bytes são
+mesmo o JSON. Para mídia adquirida é falso: o objeto trazia `AUDIO_REFERENCE`,
+mas ninguém o traduzia para `STORAGE_LOCATION`, que é o campo que
+`coleta/ingresso.py::ficha()` lê. Sem caminho, ela caiu no fallback e serializou
+o envelope.
+
+```
+A OBSERVAÇÃO DESCREVE O ITEM. QUANDO HÁ FICHEIRO,
+ELA NÃO É O ITEM — ELA APONTA PARA ELE.
+```
+
+E a segunda metade: mesmo com o caminho, `leis/artefato.py::raw_do_disco` tem
+uma tabela de **quatro** extensões (`.pdf .txt .json .html`) e `.wav` não é
+nenhuma delas — sairia `NAO SEI`, que `ingresso` trata como «tenta», e foi
+assim que um `.mp4` foi parar ao `pdftotext`. A lei que resolve isso já existia:
+**o coletor declara a espécie e ela vence o nome do ficheiro.** Faltava o
+YouTube declará-la.
+
+**A CADEIA DE SILÊNCIOS.** Nenhum degrau gritou:
+
+```
+aquisição OK → RAW é JSON → nenhum derivador aceita JSON
+            → DERIVED = 0 → Admissão: NAO_SEI
+```
+
+A Admissão **não mentiu**: ela não tinha texto para ler. `NAO_SEI` era a
+resposta certa para um defeito três degraus acima.
+
+**PROVA.** `tests/test_ponte_audio_publico.py`, 26 provas sem rede:
+`RAW_MEDIA_TYPE=audio/wav`, `RAW_BYTES == os.path.getsize(WAV)`,
+`RAW_SHA256 == sha256(WAV)`, e a prova **negativa** — `RAW_SHA256 != sha256(JSON)`,
+que é a que falharia se o envelope voltasse a atravessar. Com o WAV real já
+adquirido: 7.112.072 bytes e sha `7785c505…` confirmados,
+`NETWORK_CALLS = 0`, `NEW_MEDIA_ACQUISITION = NO`. 12 ataques, 0 blockers.
+350 testes, `NEW_FAILURES = 0`.
+
+**DOIS DONOS, E NÃO UM.** A correção repartiu-se onde o conhecimento vive:
+
+| quem | o que faz | porquê |
+|---|---|---|
+| `adaptador_youtube` | declara `CONTENT_TYPE: audio/wav` | ele sabe que `_audio()` corre com `--audio-format wav`, e mediu com `ffprobe` |
+| `scrap_colheita` | traduz `AUDIO_REFERENCE` → `STORAGE_LOCATION` | é a fronteira SCRAP → Collection |
+
+```
+TRADUZIR NOME E FORMA != DECIDIR O QUE A COISA É.
+```
+
+A declaração fica **depois** de `fl.fluxos()` provar `VIDEO_STREAMS == 0` — e é
+por isso que um ficheiro com imagem levanta `CONTRACT_DRIFT` antes de chegar a
+chamar-se áudio.
+
+**FAIL-CLOSED EM TRÊS PONTOS.** Sem `AUDIO_REFERENCE`, sem `CONTENT_TYPE`, ou
+com um caminho que não existe no disco, a ponte **não atravessa** e o item segue
+o caminho antigo. Nenhum dos três se adivinha.
+
+```
+RAW_MEDIA_TYPE_AUDIO_WITH_JSON_BYTES = IMPOSSIBLE
+```
+— e não por disciplina: a espécie e os bytes vêm do MESMO ficheiro, porque
+`raw_do_disco` lê o caminho para calcular o sha.
+
+**O PASSADO FICOU PASSADO.** `raw_asset.id = 18` continua
+`application/json · 1232 bytes`, com `DERIVED = 0`. Reescrevê-lo faria a base
+mentir sobre o que aquela execução realmente fez.
+
+```
+OLD_RUN_MUTATED = NO.  CAN DO != DID DO.
+```
+
+**O QUE CONTINUA ABERTO.** `DOCUMENT_ID = NAO SEI`. O contrato declara
+`AGRONOTIZIE:YT:{VIDEO_ID}` e nenhum owner o materializa.
+`DOCUMENT_ID_WIRING_GAP = YES`, e não se fabricou nada para o fechar.
+
+**CONSEQUÊNCIA.** Toda capability que adquire MÍDIA precisa de duas coisas que
+não se deduzem uma da outra: o **caminho** dos bytes e a **espécie** deles,
+ambos declarados por quem os mediu. Instagram Reels e LinkedIn vão precisar
+exactamente disto — e agora há uma ponte para reutilizar em vez de um caminho
+para redescobrir.

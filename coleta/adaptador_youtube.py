@@ -700,6 +700,30 @@ def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=Non
         # O eixo da especie. Nao se deduz do fornecedor nem da extensao.
         'MEDIA_KIND': 'AUDIO',
         'ACQUISITION_STATE': AUDIO_ADQUIRIDO,
+        # ── A ESPÉCIE DOS BYTES, DECLARADA POR QUEM OS MEDIU ─────────────────
+        # ⚠️ ISTO FALTAVA, E O PRIMEIRO CANÁRIO REAL PAGOU O PREÇO.
+        #
+        # A aquisição correu bem: 7.112.072 bytes de WAV real, 222,25 s, um
+        # fluxo de som e zero de imagem. Mas o objeto não dizia O QUE os bytes
+        # ERAM, e por isso `ingresso.ficha()` caiu no seu fallback e preservou
+        # o **envelope JSON** (1232 bytes) em vez do som. `media_type` saiu
+        # `application/json`, `ingresso._cabe_na_capacidade` não encontrou
+        # derivador para JSON, e a Admissão respondeu `NAO_SEI` a um documento
+        # que nunca teve texto porque ninguém o transcreveu.
+        #
+        #     ADQUIRIR O FICHEIRO NÃO É ENTREGAR O FICHEIRO.
+        #
+        # `leis/artefato.py::raw_do_disco` já respeita a declaração do coletor
+        # desde o defeito do `.mp4` (a tabela de extensões dele só conhece
+        # quatro, e `.wav` não é uma delas) — a lei existia e estava certa,
+        # e continuava sem receber o dado de que precisa.
+        #
+        # E declara-se AQUI, depois de `fl.fluxos()` ter provado
+        # `VIDEO_STREAMS == 0` e `AUDIO_STREAMS >= 1`, e não no ingresso: quem
+        # sabe que `_audio()` corre com `--audio-format wav -ac 1 -ar 16000` é
+        # o dono da aquisição. O ingresso a adivinhar pela extensão seria a
+        # espécie decidida por quem nunca viu os bytes.
+        'CONTENT_TYPE': 'audio/wav',
         'AUDIO_REFERENCE': caminho,
         'AUDIO_BYTES': len(corpo),
         'AUDIO_SHA256': sha,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  606443c5527982937dc7687446abbe2d8a6f9182
-BRANCH           claude/youtube-public-audio-wiring-v1
-GERADO_EM        2026-09-19T16:12:56-03:00
+HEAD_DA_MEDICAO  9efbac40c272d16cbdffe9afada09f3cabdda99e
+BRANCH           claude/public-audio-raw-bridge-v1
+GERADO_EM        2026-09-19T17:06:58-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

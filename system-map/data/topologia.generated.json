@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-19T20:05:53+00:00",
-  "HEAD": "606443c5527982937dc7687446abbe2d8a6f9182",
-  "BRANCH": "claude/youtube-public-audio-wiring-v1",
+  "GENERATED_AT": "2026-09-19T21:05:24+00:00",
+  "HEAD": "9efbac40c272d16cbdffe9afada09f3cabdda99e",
+  "BRANCH": "claude/public-audio-raw-bridge-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407",
-  "FICHEIROS_NA_IMPRESSAO": 2247,
+  "SOURCE_TREE_FINGERPRINT": "2a3b041cb172f81a3482e47e926cfd651504da7bbb89b812f41c1248afe01a3d",
+  "FICHEIROS_NA_IMPRESSAO": 2248,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -279,7 +279,7 @@
    {
     "PATH": "coleta/adaptador_youtube.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a3b3fcd12482bc187f864386bb68b0c1e07254b7",
+    "VERSAO": "9c0e7b49b5b6841f5f945f4f57114eb8582131e1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -552,7 +552,7 @@
    {
     "PATH": "coleta/scrap_colheita.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b873f4d22785e79051a2afee69d3561f37deeb5e",
+    "VERSAO": "499049e459d8952e49aa289bef779c06cf5d3e0f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407",
+    "VERSAO": "2a3b041cb172f81a3482e47e926cfd651504da7bbb89b812f41c1248afe01a3d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407",
+    "VERSAO": "2a3b041cb172f81a3482e47e926cfd651504da7bbb89b812f41c1248afe01a3d",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3430,6 +3430,13 @@
     "PATH": "tests/test_atomicidade_da_intelligence.py",
     "PAPEL": "FONTE",
     "VERSAO": "8fe1ee4e74d6f17bdc89a63dd226908b7e45ed6d",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_audio_youtube_wiring.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "98826881fa816cc98ae513d69b337b7ac58238f8",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4603,8 +4610,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 652,
-  "INPUTS_DIGEST": "6ca5a1743a55a5281a3eedeac615c5124bd0ceb902a94cfd2aef049f77fbd37d",
+  "INPUTS_COUNT": 653,
+  "INPUTS_DIGEST": "5e4496f1b4dd1678fd9e2ba143041daf73fdf6045910448b29dd1a695eb9ded4",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4637,8 +4644,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e35fbe29613761b54fe71a17cc41480236e150bc612bbcc118521ca9765f8df8",
-  "SEMANTIC_HASH": "d938972e16792ac25bc479fc5fa705842eb559c2c9f14caecfaf7594371fabdc"
+  "MEASUREMENT_HASH": "2a1e35f98dfcc8b2d3babe7d839dd848b48a6084f8dab20d19f6027ec512e34c",
+  "SEMANTIC_HASH": "ed5dd860a088c8f3bcb404ce9bda6888ee5227b782f16152ab58f2c2298b02df"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -23981,6 +23988,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_audio_youtube_wiring.py",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_estagio_atravessa_a_fronteira.py",
       "LINHA": 353,
       "SUPPORTS": "YES",
@@ -27797,6 +27812,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_audio_youtube_wiring.py",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_italia_na_porta_canonica.py",
       "LINHA": 55,
       "SUPPORTS": "YES",
@@ -29988,6 +30011,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_audio_youtube_wiring.py",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_linkedin_op_01_operacional.py",
       "LINHA": 32,
       "SUPPORTS": "YES",
@@ -31998,6 +32029,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "tests/test_audio_youtube_wiring.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_audio_youtube_wiring.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_autoridade_da_fonte.py",
       "LINHA": 144,
       "SUPPORTS": "YES",
@@ -32072,22 +32119,6 @@
      {
       "FICHEIRO": "tests/test_c10_4c_rota_aposentada.py",
       "LINHA": 368,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_c10_5_collection_flow.py",
-      "LINHA": 51,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "tests/test_c10_5_collection_flow.py",
-      "LINHA": 52,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
@@ -42992,6 +43023,7 @@
     "provas/o_fluxo_canonico_do_scrap.py",
     "provas/o_scrap_chega_ao_acervo.py",
     "system-map/tests/test_verdade_da_collection_actual.py",
+    "tests/test_audio_youtube_wiring.py",
     "tests/test_linkedin_op_01_operacional.py",
     "tests/test_scrap_flow01_caminho_canonico.py"
    ],
@@ -43271,6 +43303,7 @@
     "system-map/scripts/generate_system_map.py",
     "system-map/tests/test_verdade_da_collection_actual.py",
     "system-map/tests/test_verdade_das_ligacoes.py",
+    "tests/test_audio_youtube_wiring.py",
     "tests/test_autoridade_da_fonte.py",
     "tests/test_c10_4_route_gate.py",
     "tests/test_c10_4b_um_caminho_so.py",
@@ -43802,6 +43835,7 @@
     "tests/test_arestas.py",
     "tests/test_armazem_italiano.py",
     "tests/test_atomicidade_da_intelligence.py",
+    "tests/test_audio_youtube_wiring.py",
     "tests/test_ausencia_na_fronteira_da_corrida.py",
     "tests/test_autoridade_da_fonte.py",
     "tests/test_autorizacao_de_gasto.py",

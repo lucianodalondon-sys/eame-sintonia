@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/youtube-public-audio-wiring-v1",
-    "HEAD": "606443c5527982937dc7687446abbe2d8a6f9182",
-    "GENERATED_AT": "2026-09-19T16:12:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407"
+    "BRANCH": "claude/public-audio-raw-bridge-v1",
+    "HEAD": "9efbac40c272d16cbdffe9afada09f3cabdda99e",
+    "GENERATED_AT": "2026-09-19T17:06:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2a3b041cb172f81a3482e47e926cfd651504da7bbb89b812f41c1248afe01a3d"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "b5d865fb96fd45dbfafa67bc9b60d43463f240e4",
+      "sha": "a041dfdf40bfb8b5b48f332cf2e0a722d97de151",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1242,7 +1242,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "a3b3fcd12482bc187f864386bb68b0c1e07254b7",
+      "sha": "9c0e7b49b5b6841f5f945f4f57114eb8582131e1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1529,7 +1529,7 @@
     },
     {
       "path": "coleta/scrap_colheita.py",
-      "sha": "b873f4d22785e79051a2afee69d3561f37deeb5e",
+      "sha": "499049e459d8952e49aa289bef779c06cf5d3e0f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13514,6 +13514,13 @@
     {
       "path": "tests/test_atomicidade_da_intelligence.py",
       "sha": "8fe1ee4e74d6f17bdc89a63dd226908b7e45ed6d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_audio_youtube_wiring.py",
+      "sha": "98826881fa816cc98ae513d69b337b7ac58238f8",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -49413,6 +49420,61 @@
       }
     },
     {
+      "from_file": "tests/test_audio_youtube_wiring.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_audio_youtube_wiring.py",
+        "line": 36,
+        "snippet": "import adaptador_youtube                           # noqa: E402  (regista as rotas)"
+      }
+    },
+    {
+      "from_file": "tests/test_audio_youtube_wiring.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_audio_youtube_wiring.py",
+        "line": 34,
+        "snippet": "import scrap_colheita as SC                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_audio_youtube_wiring.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_audio_youtube_wiring.py",
+        "line": 35,
+        "snippet": "import scrap_registo as SR                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_audio_youtube_wiring.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_audio_youtube_wiring.py",
+        "line": 33,
+        "snippet": "from pedido import Pedido                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_audio_youtube_wiring.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_audio_youtube_wiring.py",
+        "line": 32,
+        "snippet": "import receitas                                    # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_ausencia_na_fronteira_da_corrida.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63681,10 +63743,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2098,
-    "files_readable": 818,
-    "files_code_dir": 877,
-    "file_edges": 4407,
+    "files_tracked": 2099,
+    "files_readable": 819,
+    "files_code_dir": 878,
+    "file_edges": 4412,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

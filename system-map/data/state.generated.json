@@ -2003,6 +2003,7 @@
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
       "tests/test_atomicidade_da_intelligence.py",
+      "tests/test_audio_youtube_wiring.py",
       "tests/test_ausencia_na_fronteira_da_corrida.py",
       "tests/test_autoridade_da_fonte.py",
       "tests/test_autorizacao_de_gasto.py",
@@ -2689,10 +2690,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/youtube-public-audio-wiring-v1",
-    "HEAD": "606443c5527982937dc7687446abbe2d8a6f9182",
-    "GENERATED_AT": "2026-09-19T16:12:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407"
+    "BRANCH": "claude/public-audio-raw-bridge-v1",
+    "HEAD": "9efbac40c272d16cbdffe9afada09f3cabdda99e",
+    "GENERATED_AT": "2026-09-19T17:06:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2a3b041cb172f81a3482e47e926cfd651504da7bbb89b812f41c1248afe01a3d"
   },
   "FAMILIES": [
     {
@@ -36224,6 +36225,7 @@
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
         "tests/test_atomicidade_da_intelligence.py",
+        "tests/test_audio_youtube_wiring.py",
         "tests/test_ausencia_na_fronteira_da_corrida.py",
         "tests/test_autoridade_da_fonte.py",
         "tests/test_autorizacao_de_gasto.py",
@@ -36392,7 +36394,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 193,
+      "file_count": 194,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -39052,7 +39054,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/youtube-public-audio-wiring-v1"
+        "branch claude/public-audio-raw-bridge-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -73132,12 +73134,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
           "line": 25,
           "snippet": "from pedido import Pedido                                   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_audio_youtube_wiring.py",
+          "line": 33,
+          "snippet": "from pedido import Pedido                          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -80571,12 +80589,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
           "line": 26,
           "snippet": "from receitas import EXECUTORES                             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
+            "FROM": "C-RECEITAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_audio_youtube_wiring.py",
+          "line": 32,
+          "snippet": "import receitas                                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-TESTES",
             "FROM": "C-RECEITAS",
@@ -84524,8 +84558,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_audio_youtube_wiring.py",
+          "line": 34,
+          "snippet": "import scrap_colheita as SC                        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-TESTES",
+            "FROM": "C-SCRAP-COLHEITA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 32,
@@ -88150,8 +88200,40 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 136 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 138 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_audio_youtube_wiring.py",
+          "line": 35,
+          "snippet": "import scrap_registo as SR                         # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_audio_youtube_wiring.py",
+          "line": 36,
+          "snippet": "import adaptador_youtube                           # noqa: E402  (regista as rotas)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 144,
@@ -88300,38 +88382,6 @@
           "file": "tests/test_c10_4c_rota_aposentada.py",
           "line": 368,
           "snippet": "import scrap_capacidades as cap",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 51,
-          "snippet": "import scrap_capacidades as cap     # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 52,
-          "snippet": "import scrap_http as http           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
             "FROM": "C-SCRAP-SOCIAL",
@@ -95982,8 +96032,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2098,
-    "files_covered": 1011,
+    "files_tracked": 2099,
+    "files_covered": 1012,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

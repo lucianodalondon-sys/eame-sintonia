@@ -396,6 +396,47 @@ def unidade(objeto, *, run_id, fonte):
     # Um envelope legado, so com `TEXT`, sai daqui `UNKNOWN` — e continua
     # `UNKNOWN` do outro lado. A ausencia nao e promovida.
     fora[pv.CAMPO_DAS_UNIDADES] = pv.unidades_do_envelope(objeto)
+    # ── QUANDO A OBSERVAÇÃO TEM CORPO, O CORPO É QUE SE PRESERVA ────────────
+    # ⚠️ ATÉ AQUI ESTA FUNÇÃO ASSUMIA QUE A OBSERVAÇÃO **É** O ITEM. Para um
+    # post, uma legenda ou um perfil isso é verdade: os bytes são o JSON. Para
+    # mídia adquirida é **falso**, e o primeiro canário real do YouTube mediu
+    # o preço: um WAV de 7.112.072 bytes ficou no disco enquanto o RAW
+    # preservava 1232 bytes de envelope, com `media_type=application/json`.
+    # Sem espécie de áudio, `ingresso` não achou derivador; sem derivado, a
+    # Admissão respondeu `NAO_SEI` a um documento que nunca teve texto.
+    #
+    #     A OBSERVAÇÃO DESCREVE O ITEM. QUANDO HÁ FICHEIRO,
+    #     ELA NÃO É O ITEM — ELA APONTA PARA ELE.
+    #
+    # Esta é uma TRADUÇÃO, e não uma decisão: quem diz que o ficheiro existe e
+    # o que ele é foi o dono da aquisição, que o mediu com `ffprobe` antes de
+    # o declarar. Este adapter só põe esse facto no campo que a porta lê —
+    # `STORAGE_LOCATION` — e nunca inventa nenhum dos dois.
+    #
+    #     TRADUZIR NOME E FORMA != DECIDIR O QUE A COISA É.
+    #
+    # Fail-closed em três pontos, porque cada um já foi um defeito noutra
+    # família: sem referência declarada não há caminho; um caminho que não
+    # existe no disco não vira RAW de áudio; e sem `CONTENT_TYPE` do coletor
+    # não se adivinha pela extensão — ficaria `NAO SEI`, que o ingresso trata
+    # como «tenta», e foi assim que um `.mp4` foi parar ao `pdftotext`.
+    referencia = _limpo(objeto.get('AUDIO_REFERENCE'))
+    especie = _limpo(objeto.get('CONTENT_TYPE'))
+    if referencia and especie and os.path.isfile(referencia):
+        # Relativo à raiz, que é a língua de `STORAGE_LOCATION`. O caminho é
+        # ENDEREÇO, nunca identidade: quem identifica os bytes é o `sha256`
+        # que `raw_do_disco` calcula ao lê-los.
+        try:
+            rel = os.path.relpath(referencia, RAIZ).replace('\\', '/')
+        except ValueError:                       # noutro volume: fica absoluto
+            rel = referencia
+        fora['STORAGE_LOCATION'] = rel
+        fora['CONTENT_TYPE'] = especie
+        # `PRESENTE` é do vocabulário canónico de `leis/retorno_da_coleta.py`
+        # (`ESTADOS_DO_PAYLOAD`), e não uma palavra escolhida aqui: o payload
+        # existe, está no disco, e o endereço dele é este.
+        fora['PAYLOAD'] = {'ONDE': rel, 'ESTADO': rc.PRESENTE}
+        return fora
     # Sem ficheiro separado: a observação É o item, e isso diz-se.
     fora['PAYLOAD'] = {'ONDE': '', 'ESTADO': rc.PAYLOAD_NAO_SE_APLICA}
     return fora
