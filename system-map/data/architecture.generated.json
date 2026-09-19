@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-capability-v1",
-    "HEAD": "b713fce4b637030ff6f91ead0add3a4529d1de53",
-    "GENERATED_AT": "2026-09-19T01:54:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ec3ef1aef3f3d02a988ed2c84ff605c733f8c286821b18829239ba1bcc4b5348"
+    "HEAD": "bc68d4374d3220ab7ca604a59e138a9f35f3ff8a",
+    "GENERATED_AT": "2026-09-19T09:51:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "efba572254fd1e7b2fdd7a278e2dfe31b92b51ad",
+      "sha": "21bb11bf34202343de64cec011cd55126d4b08ad",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1522,7 +1522,7 @@
     },
     {
       "path": "coleta/scrap_capacidades.py",
-      "sha": "8f0d2c570619e506a15eb34e67b53db2f27f766c",
+      "sha": "44ea25f02ad4a5449efa0333cb64565f404fd672",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9670,7 +9670,7 @@
     },
     {
       "path": "leis/social_matriz.py",
-      "sha": "3260a718764a7566fb849f32b5d648399fc50d2a",
+      "sha": "013936e561c763f90e5dfc952c507a66102b6040",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13687,8 +13687,15 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c13_route_gate.py",
+      "sha": "925bf21afaad1f70f13d933d12e524bc1510f77a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c13_youtube_public_audio.py",
-      "sha": "59ea01f6c20140ee115fadd2aacbba7a27be057a",
+      "sha": "77355108c9c64dcbde2f2988bf01d7278a7ec34a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27124,7 +27131,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 406,
+        "line": 549,
         "snippet": "'scripts/instagram_janela.py'),"
       }
     },
@@ -27135,7 +27142,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 453,
+        "line": 596,
         "snippet": "'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),"
       }
     },
@@ -27146,8 +27153,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 265,
+        "line": 376,
         "snippet": "'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),"
+      }
+    },
+    {
+      "from_file": "leis/social_matriz.py",
+      "to_file": "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "leis/social_matriz.py",
+        "line": 405,
+        "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md',"
       }
     },
     {
@@ -52011,6 +52029,50 @@
       }
     },
     {
+      "from_file": "tests/test_c13_route_gate.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_route_gate.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_route_gate.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_route_gate.py",
+        "line": 22,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_route_gate.py",
+      "to_file": "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c13_route_gate.py",
+        "line": 112,
+        "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_c13_route_gate.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c13_route_gate.py",
+        "line": 23,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c13_youtube_public_audio.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63441,10 +63503,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2092,
-    "files_readable": 815,
-    "files_code_dir": 874,
-    "file_edges": 4389,
+    "files_tracked": 2093,
+    "files_readable": 816,
+    "files_code_dir": 875,
+    "file_edges": 4394,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

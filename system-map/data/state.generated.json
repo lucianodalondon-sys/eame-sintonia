@@ -2027,6 +2027,7 @@
       "tests/test_c10_8b_rota_paga_canonica.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
+      "tests/test_c13_route_gate.py",
       "tests/test_c13_youtube_public_audio.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
@@ -2684,9 +2685,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-capability-v1",
-    "HEAD": "b713fce4b637030ff6f91ead0add3a4529d1de53",
-    "GENERATED_AT": "2026-09-19T01:54:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ec3ef1aef3f3d02a988ed2c84ff605c733f8c286821b18829239ba1bcc4b5348"
+    "HEAD": "bc68d4374d3220ab7ca604a59e138a9f35f3ff8a",
+    "GENERATED_AT": "2026-09-19T09:51:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "993ad3f15b9f32b72e3d2fe39da73c1fb0a9b43fb5e40c780931441c44316c0f"
   },
   "FAMILIES": [
     {
@@ -33128,7 +33129,8 @@
         "coleta/instagram_janela.py",
         "docs/operacao/MAPA-DE-FECHAMENTO-DA-COLETA-ITALIANA.md",
         "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
-        "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md"
+        "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md",
+        "docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -36181,6 +36183,7 @@
         "tests/test_c10_8b_rota_paga_canonica.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
+        "tests/test_c13_route_gate.py",
         "tests/test_c13_youtube_public_audio.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
@@ -36319,7 +36322,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 190,
+      "file_count": 191,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36529,6 +36532,7 @@
           "COMPLETA",
           "CONTRATO",
           "CORRIDA",
+          "DECISOES_ANTIGAS",
           "DEFEITO_MEDIDO",
           "DELEGADAS",
           "DESTINOS",
@@ -36581,13 +36585,13 @@
           "VOCABULARIO_DA_COLLECTION",
           "_GAVETA_DE"
         ],
-        "palavras": 922,
+        "palavras": 1072,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 910,
+        "sem_marca_de_lingua": 1060,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -52228,7 +52232,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 406,
+          "line": 549,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -86244,7 +86248,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 50 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 51 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -88059,7 +88063,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 130 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 131 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -95859,8 +95863,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2092,
-    "files_covered": 1008,
+    "files_tracked": 2093,
+    "files_covered": 1009,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,
