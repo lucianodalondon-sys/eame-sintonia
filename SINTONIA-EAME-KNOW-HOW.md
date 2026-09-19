@@ -18129,3 +18129,73 @@ guarda distingue *historia* de *copia*, e so recusa a segunda.
 
     APPEND-ONLY PROTEGE A HISTORIA.
     NAO PROTEGE CONTRA ESCREVER A MESMA COISA QUATRO VEZES.
+
+
+# §154 · O EDGE VERDE ESCONDE O DEGRAU DE CIMA
+
+**O QUE.** O canário real da `IT-T8-001` parou antes de tocar a rede. Motivo
+medido: `coleta/scrap_colheita.py::FASES` **não tinha fase** para
+`youtube.public_audio`. A Collection conseguia pedir dez capabilities; aquela
+não estava entre elas.
+
+**POR QUÊ ninguém viu.** Porque o degrau de BAIXO já estava verde. O C13 provou
+`scrap_executor → social_rotas → scrap_registo → adaptador_youtube → _audio`,
+o `CHECK` respondia `CAN_COLLECT_NOW`, a rota estava no `_MAPA`. Tudo verdade —
+e nenhuma dessas provas olhava para o degrau ANTERIOR:
+
+```
+REQUEST → pedido/receitas → scrap_colheita → capability
+```
+
+O §151 já dizia «declarar uma porta não é ter uma porta». Faltava a metade
+seguinte, que este canário ensinou:
+
+```
+TER A PORTA NÃO É SABER PEDI-LA.
+CAPABILITY PROVEN != EDGE WIRED != COLLECTION REACHABLE
+```
+
+Uma prova de edge mede de um ponto INTERNO para fora. Ela nunca reprova por
+falta de quem a chame — e por isso não pode ser a única prova de uma capability.
+
+**PROVA.** `tests/test_audio_youtube_wiring.py`, 24 provas que entram pelo
+PEDIDO e não pelo executor: a fase existe, aponta para a capability certa, e a
+espécie é COLHEITA; o pedido seleciona-a; a rota é chamada **uma vez**; o objeto
+volta com `MEDIA_KIND=AUDIO` e o `SOURCE_ID` do pedido. `NETWORK_CALLS = 0`,
+`yt-dlp` nunca chamado. 13 ataques, 0 blockers. 342 testes, `NEW_FAILURES = 0`.
+
+**A PROVA ERRADA, E O QUE ELA ENSINOU.** A primeira versão desta suite chamou
+`colher(video=...)` e viu `video_id=None` chegar à rota. Parecia defeito do
+wiring. Era defeito da PROVA: a tradução `video → video_id` vive no `main()`
+da linha de comando (`scrap_colheita.py:714`), e `colher()` já recebe o nome
+traduzido.
+
+```
+ONDE A TRADUÇÃO VIVE É PARTE DO CONTRATO.
+```
+
+Não se mexeu no código para o teste passar — mediu-se onde a tradução acontece
+e corrigiu-se quem estava errado, que era o teste.
+
+**O CAMPO QUE DESCREVIA ERRADO.** `receitas.py::rotas` é **descritivo**, não
+roteamento: quem o lê é `orquestrador.py:880`, só para escrever `PLATFORM` no
+RECIBO. Mas ele dizia «Instagram, Bluesky, LinkedIn» enquanto `serve_fases` já
+abria quatro fases YouTube — ou seja, os recibos das corridas YouTube nomeavam
+as plataformas erradas.
+
+```
+CAMPO DESCRITIVO QUE DESCREVE ERRADO NÃO É INOFENSIVO:
+É UMA PROVA FALSA GUARDADA COM AR DE PROVA.
+```
+
+**O QUE FICOU EM ABERTO, DITO EM VOZ ALTA.** `DOCUMENT_ID` sai do SCRAP como
+`NAO SEI`. O contrato `regras/italy_contracts.mjs::IT-T8-001` declara
+`AGRONOTIZIE:YT:{VIDEO_ID}`, e **nenhum owner o materializa** —
+`regras/contratos_de_fonte.py` só valida que a REGRA existe.
+`DOCUMENT_ID_WIRING_GAP = YES`. Não se fabricou aqui: inventar identidade
+semântica dentro do adapter seria o adapter a decidir o que o contrato governa.
+
+**CONSEQUÊNCIA.** Ligar uma capability à Collection são DOIS registos, e os
+dois têm de ser medidos: a fase em `scrap_colheita.FASES` (+ `NOMEADOS`) e o
+nome em `receitas::serve_fases`. Um sem o outro dá verde num sítio e silêncio
+no outro.

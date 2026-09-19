@@ -2092,6 +2092,7 @@
       "tests/test_lingua_unica.py",
       "tests/test_linkedin_build_01_local_first.py",
       "tests/test_linkedin_op_01_operacional.py",
+      "tests/test_livro_de_relevancia_integro.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_m2_aresta_observada.py",
       "tests/test_m2_rota_forward.py",
@@ -2688,10 +2689,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/livro-relevancia-dedup-v1",
-    "HEAD": "4e74b5662ddd9a18dec9119442b764dfaee1af97",
-    "GENERATED_AT": "2026-09-19T15:49:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdfbb1e3bc3c45c5f4e16cc1dba7cd1e286b366b88d43e6a214824c600f7efa9"
+    "BRANCH": "claude/youtube-public-audio-wiring-v1",
+    "HEAD": "606443c5527982937dc7687446abbe2d8a6f9182",
+    "GENERATED_AT": "2026-09-19T16:12:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407"
   },
   "FAMILIES": [
     {
@@ -31384,9 +31385,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 192,
+        "palavras": 193,
         "por_lingua": {},
-        "sem_marca_de_lingua": 192,
+        "sem_marca_de_lingua": 193,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -32858,9 +32859,9 @@
           "FASES",
           "NOMEADOS"
         ],
-        "palavras": 105,
+        "palavras": 111,
         "por_lingua": {},
-        "sem_marca_de_lingua": 105,
+        "sem_marca_de_lingua": 111,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -36312,6 +36313,7 @@
         "tests/test_lingua_unica.py",
         "tests/test_linkedin_build_01_local_first.py",
         "tests/test_linkedin_op_01_operacional.py",
+        "tests/test_livro_de_relevancia_integro.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_m2_aresta_observada.py",
         "tests/test_m2_rota_forward.py",
@@ -36390,7 +36392,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 192,
+      "file_count": 193,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36866,6 +36868,7 @@
         "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
         "data/samples/ITALY-T3-005-MONITORAGGIO/headers.txt",
         "data/samples/LIVRO-DE-DECISOES.json",
+        "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
         "data/samples/POLITICA-RAW-ROTA-PAGA.json",
         "data/samples/PORTAO-DE-REDE-ES-CURRENT.json",
         "data/samples/PORTAO-DE-REDE-ES.json",
@@ -39049,7 +39052,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/livro-relevancia-dedup-v1"
+        "branch claude/youtube-public-audio-wiring-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -55523,7 +55526,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 475,
+          "line": 493,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -68011,7 +68014,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 477,
+          "line": 495,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -76122,7 +76125,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 473,
+          "line": 491,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -76138,7 +76141,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 479,
+          "line": 497,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -81492,7 +81495,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -81514,6 +81517,22 @@
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 317,
           "snippet": "import relevancia_da_fonte as rl",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RELEVANCIA-DA-FONTE--IMPORTS-->C-TESTES",
+            "FROM": "C-RELEVANCIA-DA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_livro_de_relevancia_integro.py",
+          "line": 115,
+          "snippet": "import relevancia_da_fonte as R",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RELEVANCIA-DA-FONTE--IMPORTS-->C-TESTES",
             "FROM": "C-RELEVANCIA-DA-FONTE",
@@ -95963,8 +95982,8 @@
     "edges_proven": 1031,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2097,
-    "files_covered": 1010,
+    "files_tracked": 2098,
+    "files_covered": 1011,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

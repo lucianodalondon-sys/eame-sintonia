@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/livro-relevancia-dedup-v1",
-    "HEAD": "4e74b5662ddd9a18dec9119442b764dfaee1af97",
-    "GENERATED_AT": "2026-09-19T15:49:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fdfbb1e3bc3c45c5f4e16cc1dba7cd1e286b366b88d43e6a214824c600f7efa9"
+    "BRANCH": "claude/youtube-public-audio-wiring-v1",
+    "HEAD": "606443c5527982937dc7687446abbe2d8a6f9182",
+    "GENERATED_AT": "2026-09-19T16:12:56-03:00",
+    "SOURCE_TREE_FINGERPRINT": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "bdbac0e02af07861b035b82ddd58eb2d1aa09b2e",
+      "sha": "b5d865fb96fd45dbfafa67bc9b60d43463f240e4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1529,7 +1529,7 @@
     },
     {
       "path": "coleta/scrap_colheita.py",
-      "sha": "4b18922a95a7c81a70d8ba6fb5688477841b28c6",
+      "sha": "b873f4d22785e79051a2afee69d3561f37deeb5e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10258,7 +10258,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "d58e694414b2a9d088d3d2f0e006dfca0a907856",
+      "sha": "d126aeed8fa0e9383e577c99b088e9a4e3dbe367",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14137,6 +14137,13 @@
     {
       "path": "tests/test_linkedin_op_01_operacional.py",
       "sha": "b7ca42d4e6ba03bdf6b29b59c2b529bc7318f0e2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_livro_de_relevancia_integro.py",
+      "sha": "be550c17884608dcc71fc608ee70515f6f2df3db",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -32846,7 +32853,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 479,
+        "line": 497,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -32857,7 +32864,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 475,
+        "line": 493,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -32868,7 +32875,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 477,
+        "line": 495,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -32890,7 +32897,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 473,
+        "line": 491,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -57007,6 +57014,28 @@
       }
     },
     {
+      "from_file": "tests/test_livro_de_relevancia_integro.py",
+      "to_file": "data/samples/LIVRO-DE-RELEVANCIA-DE-FONTE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_livro_de_relevancia_integro.py",
+        "line": 46,
+        "snippet": "with open(LIVRO, encoding='utf-8') as fh:"
+      }
+    },
+    {
+      "from_file": "tests/test_livro_de_relevancia_integro.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_livro_de_relevancia_integro.py",
+        "line": 115,
+        "snippet": "import relevancia_da_fonte as R"
+      }
+    },
+    {
       "from_file": "tests/test_lugar_do_fato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63652,10 +63681,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2097,
-    "files_readable": 817,
-    "files_code_dir": 876,
-    "file_edges": 4405,
+    "files_tracked": 2098,
+    "files_readable": 818,
+    "files_code_dir": 877,
+    "file_edges": 4407,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

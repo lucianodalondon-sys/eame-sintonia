@@ -225,6 +225,28 @@ FASES = {
                          rc.COLHEITA),
     'comentarios-youtube': ('YOUTUBE', 'youtube.comments', {},
                             rc.COLHEITA),
+
+    # ── A QUINTA: O SOM. E POR QUE ELA NAO VEIO COM AS OUTRAS QUATRO ───────
+    # `youtube.public_audio` foi provada ponta a ponta pelo C13, tem rota no
+    # `scrap_registo._MAPA`, e o `CHECK` responde `CAN_COLLECT_NOW`. Mesmo
+    # assim a Collection nao conseguia pedi-la: **nao havia fase**. O canario
+    # real parou aqui, e o diagnostico e exactamente o §151:
+    #
+    #     CAPABILITY PROVEN != EDGE WIRED != COLLECTION REACHABLE
+    #
+    # O C13 provou o degrau `scrap_executor -> adaptador_youtube`. Faltava o
+    # degrau ANTERIOR — `REQUEST -> scrap_colheita` — e ninguem tinha olhado
+    # para ele porque o edge ja estava verde.
+    #
+    # ESPECIE: COLHEITA, e nao CATALOG. O som de um video e o que aquele canal
+    # PUBLICOU — material observado, nao uma lista de onde procurar. A mesma
+    # regra que poe `busca-youtube` em CATALOG poe esta aqui em COLHEITA.
+    #
+    # FIXOS = {}: nao ha `limit`. Esta fase colhe UM video, o que o pedido
+    # nomear. Pedir um teto a uma rota que recebe um `video_id` seria um
+    # argumento que ela engole sem usar — o erro que o Telegram ja ensinou.
+    'audio-youtube':    ('YOUTUBE', 'youtube.public_audio', {},
+                         rc.COLHEITA),
 }
 
 #: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
@@ -293,6 +315,12 @@ NOMEADOS = {
     'canal-youtube':        {'canal_id': 'channel_id'},
     'video-youtube':        {'videos': 'video_ids'},
     'comentarios-youtube':  {'video': 'video_id'},
+    # `video`, e nunca `fonte`. A fase NAO pode derivar o video da source: uma
+    # fonte YouTube tem milhares de videos, e escolher um deles e uma decisao
+    # do PEDIDO. Sem `--video` a fase falha fechado, antes da rede.
+    #
+    #     VIDEO_ID != SOURCE_ID. HANDLE != SOURCE_ID.
+    'audio-youtube':        {'video': 'video_id'},
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.

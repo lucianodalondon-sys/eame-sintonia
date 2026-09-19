@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-19T19:11:46+00:00",
-  "HEAD": "4e74b5662ddd9a18dec9119442b764dfaee1af97",
-  "BRANCH": "claude/livro-relevancia-dedup-v1",
+  "GENERATED_AT": "2026-09-19T20:05:53+00:00",
+  "HEAD": "606443c5527982937dc7687446abbe2d8a6f9182",
+  "BRANCH": "claude/youtube-public-audio-wiring-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "fdfbb1e3bc3c45c5f4e16cc1dba7cd1e286b366b88d43e6a214824c600f7efa9",
-  "FICHEIROS_NA_IMPRESSAO": 2246,
+  "SOURCE_TREE_FINGERPRINT": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407",
+  "FICHEIROS_NA_IMPRESSAO": 2247,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -552,7 +552,7 @@
    {
     "PATH": "coleta/scrap_colheita.py",
     "PAPEL": "FONTE",
-    "VERSAO": "4b18922a95a7c81a70d8ba6fb5688477841b28c6",
+    "VERSAO": "b873f4d22785e79051a2afee69d3561f37deeb5e",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1854,7 +1854,7 @@
    {
     "PATH": "pedido/receitas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "d58e694414b2a9d088d3d2f0e006dfca0a907856",
+    "VERSAO": "d126aeed8fa0e9383e577c99b088e9a4e3dbe367",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fdfbb1e3bc3c45c5f4e16cc1dba7cd1e286b366b88d43e6a214824c600f7efa9",
+    "VERSAO": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fdfbb1e3bc3c45c5f4e16cc1dba7cd1e286b366b88d43e6a214824c600f7efa9",
+    "VERSAO": "669544c0c5b43188fa0d9cdb70def38a073d511efadf6b46bcc6a8d27b276407",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4057,6 +4057,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_livro_de_relevancia_integro.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "be550c17884608dcc71fc608ee70515f6f2df3db",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_lugar_do_fato.py",
     "PAPEL": "FONTE",
     "VERSAO": "5f9134b9f30a62f7f8833c21c252221dd56b7902",
@@ -4596,8 +4603,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 651,
-  "INPUTS_DIGEST": "b3b31d1d5e8a0137364b61c0e3ac3c105d233e0fc9a6935a5e3c0783d5642ee9",
+  "INPUTS_COUNT": 652,
+  "INPUTS_DIGEST": "6ca5a1743a55a5281a3eedeac615c5124bd0ceb902a94cfd2aef049f77fbd37d",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4630,8 +4637,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0e21629f99882a288e81025305becdc23d98034421c3803d2993857bf8d12781",
-  "SEMANTIC_HASH": "f57be6d6d7efb7466909365bdb5b270f9006cacba05ec8f697d5e9d141907848"
+  "MEASUREMENT_HASH": "e35fbe29613761b54fe71a17cc41480236e150bc612bbcc118521ca9765f8df8",
+  "SEMANTIC_HASH": "d938972e16792ac25bc479fc5fa705842eb559c2c9f14caecfaf7594371fabdc"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13953,7 +13960,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 475,
+      "LINHA": 493,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -21130,7 +21137,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 477,
+      "LINHA": 495,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -25479,7 +25486,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 473,
+      "LINHA": 491,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -25487,7 +25494,7 @@
      },
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 479,
+      "LINHA": 497,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -28344,6 +28351,14 @@
      {
       "FICHEIRO": "tests/test_linkedin_op_01_operacional.py",
       "LINHA": 317,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RELEVANCIA-DA-FONTE--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_livro_de_relevancia_integro.py",
+      "LINHA": 115,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RELEVANCIA-DA-FONTE--IMPORTS-->C-TESTES",
@@ -42716,6 +42731,7 @@
     "provas/mutacao_da_release_v1.py",
     "provas/nenhuma_compra_sem_autorizacao.py",
     "tests/test_autorizacao_de_gasto.py",
+    "tests/test_livro_de_relevancia_integro.py",
     "tests/test_relevance_priority_sobrecarga.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -43875,6 +43891,7 @@
     "tests/test_lingua_unica.py",
     "tests/test_linkedin_build_01_local_first.py",
     "tests/test_linkedin_op_01_operacional.py",
+    "tests/test_livro_de_relevancia_integro.py",
     "tests/test_lugar_do_fato.py",
     "tests/test_m2_aresta_observada.py",
     "tests/test_m2_rota_forward.py",

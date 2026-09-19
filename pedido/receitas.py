@@ -396,7 +396,12 @@ EXECUTORES = {
                         # — `youtube.native_caption` — fica de fora porque a
                         # rota dela e paga e o gate dela e outro.
                         "busca-youtube", "canal-youtube", "video-youtube",
-                        "comentarios-youtube"],
+                        "comentarios-youtube",
+                        # A quinta, que ficou para tras: o SOM. A capability
+                        # estava provada e com rota, mas sem fase — e sem esta
+                        # linha a fase existiria em `scrap_colheita` e o pedido
+                        # continuaria a nao a saber pedir. §151 outra vez.
+                        "audio-youtube"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.
@@ -417,7 +422,20 @@ EXECUTORES = {
         "retorno": {"ENVELOPE": "data/colheita/scrap/ENVELOPE.json"},
         "larga_em": ["data/colheita/scrap/"],
         "rotas": ["Instagram", "Bluesky",
-                  "LinkedIn (so identidade, rota indireta)"],
+                  "LinkedIn (so identidade, rota indireta)",
+                  # ⚠️ ISTO NAO E ROTEAMENTO — e medido: quem le `rotas` e
+                  # `orquestrador.py:880`, e so para escrever `PLATFORM` no
+                  # RECIBO da corrida. Nada seleciona executor por aqui.
+                  #
+                  # Mas um recibo que omite o YouTube mente sobre a corrida que
+                  # aconteceu: `serve_fases` ja abria quatro fases YouTube
+                  # antes desta missao, e o recibo continuava a dizer apenas
+                  # «Instagram, Bluesky, LinkedIn».
+                  #
+                  #     CAMPO DESCRITIVO QUE DESCREVE ERRADO NAO E INOFENSIVO:
+                  #     E UMA PROVA FALSA GUARDADA COM AR DE PROVA.
+                  "YouTube (oficial: busca, canal, video, comentarios; "
+                  "e o audio publico)"],
         "o_que_traz": "a janela publica da conta — o perfil e os objetos que "
                       "ela publicou — pelo executor canonico do SCRAP, com "
                       "RAW preservado antes de qualquer normalizacao; e, na "
