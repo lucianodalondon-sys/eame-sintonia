@@ -45,7 +45,23 @@ DECISOES_ANTIGAS = {
     'INSTAGRAM/FETCH_POST': ('ALLOWED', 'instagram_janela.py:embed', 'CONDICIONAL', 'PROVED'),
     'INSTAGRAM/FETCH_PROFILE': ('ALLOWED', 'graph:business_discovery', 'CONDICIONAL', 'CREDENTIAL_MISSING'),
     'INSTAGRAM/FETCH_TRANSCRIPT': ('ROUTE_NOT_ALLOWED', None, None, None),
-    'INSTAGRAM/INCREMENTAL': ('ALLOWED', 'instagram_janela.py:grade', 'CONDICIONAL', 'PROVED'),
+    # ── MUDOU NA C14-C, DE PROPÓSITO E COM PROVA ────────────────────────────
+    # Esta linha dizia `('ALLOWED', 'instagram_janela.py:grade', 'CONDICIONAL',
+    # 'PROVED')`. Era a ÚNICA capacidade remota do Instagram que chegava a
+    # `ALLOWED` sem declarar os três eixos — e medido: um
+    # `COLLECT(instagram.profile.discovery)` lançava o navegador num
+    # SUBPROCESSO, fora do alcance de qualquer bloqueio de socket.
+    #
+    # O dono autorizou a DESCOBERTA de perfis públicos (`OWNER_AUTHORIZED =
+    # SIM`, `LIMITE = PUBLIC_PROFILE_DISCOVERY_ONLY`), e a política da
+    # plataforma continua por medir (`NOT_MEASURED`). Enquanto ninguém a
+    # medir, a rota fica fechada:
+    #
+    #     AUTORIZAR NÃO É MEDIR. E SEM MEDIR, NÃO SAI.
+    #
+    # Prova em `tests/test_c14c_permissao_instagram.py`: SUBPROCESS_CALLS = 0,
+    # NETWORK_CALLS = 0, REMOTE_CAPABILITIES_WITHOUT_GATE = 0.
+    'INSTAGRAM/INCREMENTAL': ('ROUTE_NOT_ALLOWED', None, None, None),
     'LINKEDIN/DISCOVER_ACCOUNT': ('ALLOWED', 'descoberta-indireta:site-da-organizacao', 'SIM', 'POSSIBLE_NOT_PROVED'),
     'LINKEDIN/FETCH_POST': ('ROUTE_NOT_ALLOWED', None, None, None),
     'MASTODON/FETCH_PROFILE': ('ALLOWED', 'mastodon:/api/v1/accounts/lookup', 'SIM', 'POSSIBLE_NOT_PROVED'),

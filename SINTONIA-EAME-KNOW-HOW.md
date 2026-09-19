@@ -18380,3 +18380,97 @@ para terminar. E um teste antigo verde por coincidência não define arquitetura
 ```
 PASSAR PELA AUSÊNCIA DE RÉGUA NÃO É PASSAR PELA RÉGUA.
 ```
+
+
+# §157 · AUTORIZAR NÃO É MEDIR — E SEM MEDIR, NÃO SAI
+
+**O QUE.** O release gate da Big Collection parou na superfície de permissão do
+Instagram. Quatro capacidades respondiam `CAN_COLLECT_NOW`, e o primeiro
+diagnóstico disse «quatro sem portão». **Estava exagerado.** A medição correta:
+
+```
+capability                   CHECK            POLÍTICA            REMOTE_ALLOWED
+instagram.reel.capture       CAN_COLLECT_NOW  SEM_MAPA            False ✓
+instagram.reel.audio         CAN_COLLECT_NOW  SEM_MAPA            False ✓
+instagram.reel.transcribe    CAN_COLLECT_NOW  ROUTE_NOT_ALLOWED   False ✓
+instagram.profile.discovery  CAN_COLLECT_NOW  ALLOWED             True  ❌
+```
+
+O portão existia (`adaptador_instagram.politica()`) e barrava três. **Uma
+passava ao lado**, e a prova foi dura: `COLLECT(instagram.profile.discovery)`
+lançava o navegador num **SUBPROCESSO** — «lote congelado: 5 contas de
+Instagram» — e um bloqueio de socket no processo-pai não alcança um filho.
+
+```
+PERGUNTAR «CONSEGUE?» NÃO É PERGUNTAR «PODE?».
+UM PORTÃO QUE O PROCESSO-FILHO NÃO CONHECE NÃO É UM PORTÃO.
+```
+
+**POR QUÊ.** A rota declarava `PERMITIDA = CONDICIONAL` — uma condição do
+AMBIENTE (`DATACENTER_BLOCKED`, 302/429 deste IP). `mz.decisao()` traduzia isso
+para `ALLOWED`, que é uma decisão de NEGÓCIO.
+
+```
+UMA LIMITAÇÃO TÉCNICA NÃO É UMA AUTORIZAÇÃO.
+```
+
+**A LEI NOVA, e é a metade que o §150 não tinha.** Declarar os três eixos **não
+bastou**. `_autorizada_pelo_projeto` lia só `OWNER_AUTHORIZED` — o que servia
+enquanto a única rota com eixos era `yt-dlp:public_audio`, cuja política já
+estava **medida** (`DISALLOWED`) e cujo dono assumiu esse risco com todas as
+letras. `NOT_MEASURED` é um terceiro estado, e não se lê como os outros dois:
+
+```
+DISALLOWED    mediu-se, e a plataforma proíbe.  O dono PODE assumir o risco.
+ALLOWED       mediu-se, e a plataforma permite.
+NOT_MEASURED  NINGUÉM MEDIU. Não há risco assumido — há risco por conhecer,
+              e não se assume o que não se conhece.
+```
+
+**PROVA.** `tests/test_c14c_permissao_instagram.py`, 27 provas.
+`SUBPROCESS_CALLS = 0` e `NETWORK_CALLS = 0` no caso que antes lançava o
+navegador — e a fronteira instrumentada sela as **duas** saídas, socket e
+subprocesso, porque selar só a primeira foi o que deixou o defeito passar.
+`REMOTE_CAPABILITIES_WITHOUT_GATE = 0`. Mutação: o gate voltou a ler só
+`OWNER_AUTHORIZED` e **5 provas morderam**. 471 testes, `NEW_FAILURES = 0`.
+
+**O QUE A DECISÃO DO DONO PRODUZIU, E É O PONTO.** `OWNER_AUTHORIZED = SIM`,
+`LIMITE = PUBLIC_PROFILE_DISCOVERY_ONLY` (limite novo, porque o do áudio
+descreve bytes de mídia e esta rota não adquire mídia nenhuma), e
+`PLATFORM_POLICY_STATUS = NOT_MEASURED` — **não se fabricou prova de
+política**. Resultado: `REMOTE_ALLOWED = NO`.
+
+A autorização interna fica escrita e viva. No dia em que alguém medir a
+política, muda-se **um campo** e a rota abre sem se tocar em autorização
+nenhuma. O contrário — abrir agora e medir depois — é coletar primeiro e
+perguntar a seguir.
+
+**O QUE NÃO SE FEZ.** Não se baixou `PROVEN → BLOCKED` para reduzir a contagem
+(o estado da capacidade e a autorização remota são conceitos diferentes). Não
+se desligou o wiring: a rota continua registada, e `UNWIRED` não é substituto
+de segurança. Não se mediu a política do Instagram nesta missão.
+
+**O PREÇO, E ELE APARECEU.** Fechar a porta deixou **13 provas vermelhas** que
+a usavam de boa-fé — provas de transporte de parâmetro, de tradução de erro do
+navegador, e a travessia canónica do SCRAP. Nenhuma delas mede política; todas
+paravam no portão anterior.
+
+```
+UM TESTE QUE PARA NO PORTÃO ANTERIOR NÃO MEDE O PORTÃO SEGUINTE.
+```
+
+Cada uma passou a declarar a medição que lhe falta, **no seu próprio escopo**,
+com a razão escrita ao lado. E uma delas ensinou o resto:
+
+```
+UM DESTRAVE EM MEMÓRIA NÃO ATRAVESSA UM SUBPROCESSO.
+```
+
+`o_fluxo_canonico_do_scrap` corre o orquestrador, que lança o executor num
+segundo processo — que importa a lei do zero. A declaração teve de ser escrita
+**no ficheiro da árvore copiada**, que é descartável, e não em memória.
+
+**CONSEQUÊNCIA.** Toda rota remota que declare os eixos precisa dos **três**
+respondidos, e `NOT_MEASURED` fecha. O próximo release gate não pode olhar só
+o Instagram: tem de censar **toda** capability remota alcançável — LinkedIn
+incluído — e exigir `REMOTE_CAPABILITIES_WITHOUT_GATE = 0`.

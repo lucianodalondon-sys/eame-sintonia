@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/universe-routing-v1",
-    "HEAD": "e58c94b856109f79c117228238ddf181b867a714",
-    "GENERATED_AT": "2026-09-19T18:06:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fe308c3b514ef3d47c9347f1861045e6846f8c3283eb2261f7837a1b40941708"
+    "BRANCH": "claude/c14c-instagram-permission-v1",
+    "HEAD": "836a9c891b479acb550d2a736850858742953deb",
+    "GENERATED_AT": "2026-09-19T19:16:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "ce275f036da24f36a1b05377da7f432f869bea63",
+      "sha": "ea9ae5091b8386f274a671c63afbe7d040a4068b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9691,7 +9691,7 @@
     },
     {
       "path": "leis/social_matriz.py",
-      "sha": "013936e561c763f90e5dfc952c507a66102b6040",
+      "sha": "9417ccb2949c2f10739330fbbe961eac5d7fe271",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10965,7 +10965,7 @@
     },
     {
       "path": "provas/o_fluxo_canonico_do_scrap.py",
-      "sha": "97d2ac3668c8b5c6aa0e876cac494cd55d853de2",
+      "sha": "112885c78ab188a02944a529a17c14435ea66e4b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13723,7 +13723,7 @@
     },
     {
       "path": "tests/test_c13_route_gate.py",
-      "sha": "925bf21afaad1f70f13d933d12e524bc1510f77a",
+      "sha": "fe5e7ffa248337cad9694d80e6b6ed7d7161f068",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14535,7 +14535,7 @@
     },
     {
       "path": "tests/test_scrap_rc01_release_candidate.py",
-      "sha": "1b0338181f66eda5c9fb62dfc518690a58f3ce94",
+      "sha": "bb40cbb0ea17df192ff43bf9572e1c39a9891ec6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14634,6 +14634,13 @@
     {
       "path": "tests/test_universo_explicito.py",
       "sha": "09b3360ea972de2e99cdf9c65ce271aa45bd5885",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_universo_vem_do_pedido.py",
+      "sha": "47a2b39055f281ef5d43c8a0e48edee4730c4bd1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27202,7 +27209,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 549,
+        "line": 570,
         "snippet": "'scripts/instagram_janela.py'),"
       }
     },
@@ -27213,7 +27220,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 596,
+        "line": 653,
         "snippet": "'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),"
       }
     },
@@ -27224,7 +27231,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 376,
+        "line": 397,
         "snippet": "'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),"
       }
     },
@@ -27235,7 +27242,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "leis/social_matriz.py",
-        "line": 405,
+        "line": 426,
         "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md',"
       }
     },
@@ -39764,7 +39771,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_fluxo_canonico_do_scrap.py",
-        "line": 184,
+        "line": 216,
         "snippet": "diz(e['roda'] == ['coleta/scrap_colheita.py'],"
       }
     },
@@ -39777,6 +39784,28 @@
         "file": "provas/o_fluxo_canonico_do_scrap.py",
         "line": 56,
         "snippet": "import retorno_da_coleta as rc      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 113,
+        "snippet": "with open(alvo, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 117,
+        "snippet": "with open(alvo, 'w', encoding='utf-8') as f:"
       }
     },
     {
@@ -52293,7 +52322,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c13_route_gate.py",
-        "line": 112,
+        "line": 128,
         "snippet": "'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md')"
       }
     },
@@ -61610,7 +61639,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 468,
+        "line": 484,
         "snippet": "import adaptador_instagram as ai"
       }
     },
@@ -61643,7 +61672,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 869,
+        "line": 909,
         "snippet": "import instagram_janela as ij"
       }
     },
@@ -61720,7 +61749,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 628,
+        "line": 649,
         "snippet": "import social_scrap as ss"
       }
     },
@@ -61742,7 +61771,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 888,
+        "line": 933,
         "snippet": "import cdp"
       }
     },
@@ -61764,7 +61793,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_rc01_release_candidate.py",
-        "line": 896,
+        "line": 941,
         "snippet": "import falhas"
       }
     },
@@ -62715,6 +62744,50 @@
       }
     },
     {
+      "from_file": "tests/test_universo_vem_do_pedido.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_vem_do_pedido.py",
+        "line": 39,
+        "snippet": "import admissao as A                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_vem_do_pedido.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_vem_do_pedido.py",
+        "line": 38,
+        "snippet": "import rota_forward_documento as RF         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_vem_do_pedido.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_vem_do_pedido.py",
+        "line": 37,
+        "snippet": "import orquestrador as O                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_universo_vem_do_pedido.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_universo_vem_do_pedido.py",
+        "line": 40,
+        "snippet": "from pedido import Pedido                   # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_v21_datas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -63626,6 +63699,13 @@
         "constante": "DONO"
       }
     ],
+    "provas/o_fluxo_canonico_do_scrap.py": [
+      {
+        "pasta": "leis",
+        "line": 117,
+        "constante": "alvo"
+      }
+    ],
     "provas/o_mapa_nao_mente.py": [
       {
         "pasta": "system-map",
@@ -63794,11 +63874,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2100,
-    "files_readable": 820,
-    "files_code_dir": 879,
-    "file_edges": 4416,
-    "escritas_em_pasta": 74,
+    "files_tracked": 2101,
+    "files_readable": 821,
+    "files_code_dir": 880,
+    "file_edges": 4422,
+    "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

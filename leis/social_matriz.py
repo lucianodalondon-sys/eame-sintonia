@@ -177,7 +177,28 @@ CAPACIDADES = (
 # Quem quiser a separacao, declara-a — e o validador exige-a inteira.
 OWNER_AUTHORIZED = ('SIM', 'NAO')                    # decisao do PROJETO
 PLATFORM_POLICY_STATUS = ('ALLOWED', 'DISALLOWED', 'NOT_MEASURED')  # evidencia da PLATAFORMA
-LIMITES = ('PUBLIC_AUDIO_ONLY',)                     # que ESPECIE de midia a rota cobre
+LIMITES = ('PUBLIC_AUDIO_ONLY',
+           # ── O LIMITE DA DESCOBERTA DE PERFIL PUBLICO (C14-C) ────────────
+           # ⚠️ AMPLIAR ESTE VOCABULARIO E DECISAO DE DONO, E FOI-O.
+           # `PUBLIC_AUDIO_ONLY` nasceu para o som do YouTube e descreve
+           # BYTES DE MIDIA. `instagram.profile.discovery` nao adquire midia
+           # nenhuma: localiza um perfil publico e transporta os metadados
+           # estritamente necessarios a descoberta. Reutilizar o limite do
+           # audio para isso faria o limite prometer o que nao trava.
+           #
+           #     UM LIMITE QUE NAO DESCREVE O QUE A ROTA FAZ NAO E UM LIMITE.
+           #
+           # O QUE ELE PERMITE: localizar/identificar o perfil publico e os
+           # metadados publicos necessarios a descoberta.
+           #
+           # O QUE ELE NAO PERMITE, e a lista e fechada de proposito:
+           #   conteudo publicado pelo perfil · midia · comentarios ·
+           #   historico · perfil privado · autenticacao ou bypass.
+           #
+           # E NAO SE HERDA. Uma cadeia que peca internamente outra especie
+           # nao ganha esta autorizacao por passar por aqui — a lei da C14-B
+           # continua a valer, e o `LIMITE` e da ROTA, nao do pedido.
+           'PUBLIC_PROFILE_DISCOVERY_ONLY')
 
 #: Os tres campos, na ordem em que se leem. Uma rota declara-os TODOS ou nenhum.
 EIXOS = ('OWNER_AUTHORIZED', 'PLATFORM_POLICY_STATUS', 'LIMITE')
@@ -554,9 +575,45 @@ MATRIZ = {
               'https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/business_discovery/'),
         ],
         'INCREMENTAL': [
+            # ── DECISÃO DO DONO, C14-C · 2026-09-19 ──────────────────────────
+            # Esta rota era a ÚNICA capacidade remota do Instagram que chegava
+            # a `DECISAO = ALLOWED` sem declarar os três eixos. Medido: um
+            # `COLLECT(instagram.profile.discovery)` lançava o navegador num
+            # SUBPROCESSO — e um bloqueio de socket no processo-pai não o
+            # alcança. O portão existia (`adaptador_instagram.politica()`) e
+            # barrava as outras três capacidades; esta passava ao lado dele.
+            #
+            #     `PERMITIDA = CONDICIONAL` DESCREVE UMA CONDIÇÃO DO AMBIENTE.
+            #     TRADUZI-LA COMO `ALLOWED` TRANSFORMA UMA LIMITAÇÃO TÉCNICA
+            #     NUMA AUTORIZAÇÃO DE NEGÓCIO.
+            #
+            # Os três eixos, e cada um tem um dono diferente:
+            #
+            #   OWNER_AUTHORIZED = SIM        — decisão do dono do projeto,
+            #     ESTRITA: descobrir perfis PUBLICAMENTE VISÍVEIS, limitada à
+            #     identificação/localização e aos metadados públicos
+            #     necessários à descoberta. NÃO autoriza perfil privado,
+            #     login, bypass, posts, mídia, reels, stories, comentários,
+            #     histórico, mensagens, nem capacidades vizinhas.
+            #
+            #   PLATFORM_POLICY_STATUS = NOT_MEASURED — e fica assim. O
+            #     `robots.txt` vivo do `instagram.com` já foi medido para
+            #     FETCH_TRANSCRIPT (C10.5D), mas ninguém o mediu para ESTA
+            #     rota. Escrever `ALLOWED` por analogia seria fabricar prova.
+            #
+            #   LIMITE = PUBLIC_PROFILE_DISCOVERY_ONLY — o limite novo, que
+            #     descreve o que esta rota faz e nada além.
+            #
+            # O RESULTADO É FAIL-CLOSED, E ISSO É O PONTO: autorização interna
+            # existe, limite está escrito, e a rede continua fechada porque a
+            # política da plataforma ainda não foi provada.
+            #
+            #     AUTORIZAR NÃO É MEDIR. E SEM MEDIR, NÃO SAI.
             r('instagram_janela.py:grade', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',
               'já medido: os 12 itens mais recentes, legenda inteira, data exata, curtidas; '
-              'em reel, visualizações e duração', 'scripts/instagram_janela.py'),
+              'em reel, visualizações e duração', 'scripts/instagram_janela.py',
+              owner_authorized='SIM', platform_policy='NOT_MEASURED',
+              limite='PUBLIC_PROFILE_DISCOVERY_ONLY'),
         ],
         'FETCH_TRANSCRIPT': [
             # ── DECISÃO HUMANA, C10.5D · 2026-09-11 ──────────────────────────
@@ -924,10 +981,32 @@ def _autorizada_pelo_projeto(rota):
 
     Rota ANTIGA (sem eixos nenhuns) continua exactamente como era: esta funcao
     responde `True` e nada muda no caminho que ja corria.
+
+    ⚠️ E NAO BASTA O DONO AUTORIZAR — A POLITICA TEM DE TER SIDO MEDIDA.
+    Esta funcao lia SO `OWNER_AUTHORIZED`, e isso bastava enquanto a unica
+    rota com eixos era `yt-dlp:public_audio`, cuja `PLATFORM_POLICY_STATUS`
+    JA estava medida (`DISALLOWED`) e cujo dono assumiu esse risco com todas
+    as letras. `NOT_MEASURED` e um terceiro estado, e nao se le como os
+    outros dois:
+
+        DISALLOWED   = mediu-se, e a plataforma proibe.   O dono pode assumir.
+        ALLOWED      = mediu-se, e a plataforma permite.
+        NOT_MEASURED = NINGUEM MEDIU. Nao ha risco assumido — ha risco por
+                       conhecer, e nao se assume o que nao se conhece.
+
+            AUTORIZAR NAO E MEDIR. E SEM MEDIR, NAO SAI.
+
+    Por isso `NOT_MEASURED` fecha a porta mesmo com o dono a dizer SIM. A
+    autorizacao interna fica escrita e viva — no dia em que alguem medir a
+    politica, muda-se UM campo e a rota abre sem se tocar em autorizacao
+    nenhuma. O contrario — abrir agora e medir depois — e coletar primeiro e
+    perguntar a seguir.
     """
     if not _declara_eixos(rota):
         return True
-    return rota.get('OWNER_AUTHORIZED') == 'SIM'
+    if rota.get('OWNER_AUTHORIZED') != 'SIM':
+        return False
+    return rota.get('PLATFORM_POLICY_STATUS') != 'NOT_MEASURED'
 
 
 def _rota_padrao(rotas):

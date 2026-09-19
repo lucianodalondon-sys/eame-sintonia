@@ -465,11 +465,31 @@ class OTetoDeItensDesce(unittest.TestCase):
     """MIGRAR UM CAMINHO É MUDAR POR ONDE ELE PASSA, NÃO O QUE ELE LEVA."""
 
     def _espiar(self, *args):
+        """⚠️ A POLÍTICA É DESTRAVADA AQUI, E SÓ AQUI. Ver a nota gémea em
+        `UmaFalhaQueSabeChegaComNome._correr`.
+
+        Esta classe prova TRANSPORTE DE PARÂMETRO — que o `--teto` do pedido
+        chega à rota com o valor que o pedido declarou. A rota é substituída
+        por uma espia que devolve `[]` e nunca toca em nada. Mas a C14-C
+        fechou `INSTAGRAM/INCREMENTAL` (`PLATFORM_POLICY_STATUS =
+        NOT_MEASURED`), e com a política fechada a cadeia para ANTES de
+        chamar a espia — o envelope sai `ROUTE_NOT_ALLOWED` e o parâmetro
+        nunca é visto.
+
+            UM TESTE QUE PARA NO PORTÃO ANTERIOR NÃO MEDE O PORTÃO SEGUINTE.
+
+        A lei não é afrouxada: `test_c14c_permissao_instagram.py` prova que,
+        sem esta declaração local, nada sai — `SUBPROCESS_CALLS = 0`.
+        """
         import adaptador_instagram as ai
         import scrap_registo as reg
+        import social_matriz as mz
         pinar_o_banco()
         visto = {}
         orig = ai.janela
+        rota_ig = mz.MATRIZ['INSTAGRAM']['INCREMENTAL'][0]
+        politica_real = rota_ig.get('PLATFORM_POLICY_STATUS')
+        rota_ig['PLATFORM_POLICY_STATUS'] = 'ALLOWED'
 
         def espia(**kw):
             visto.clear()
@@ -483,6 +503,7 @@ class OTetoDeItensDesce(unittest.TestCase):
         finally:
             reg.registar('INSTAGRAM', 'instagram.profile.discovery',
                          adaptador='adaptador_instagram', rota=orig)
+            rota_ig['PLATFORM_POLICY_STATUS'] = politica_real
         return visto
 
     def test_rt55_o_teto_do_pedido_chega_a_rota(self):
@@ -865,9 +886,32 @@ class UmaFalhaQueSabeChegaComNome(unittest.TestCase):
 
     def _correr(self, excecao):
         """Corre o caminho real — portão, roteador, política, selo — e devolve
-        o par (objetos, trace). Só a ferramenta é falsa."""
+        o par (objetos, trace). Só a ferramenta é falsa.
+
+        ⚠️ A POLÍTICA É DESTRAVADA AQUI, E SÓ AQUI, E DIZ-SE PORQUÊ.
+        A C14-C fechou `INSTAGRAM/INCREMENTAL`: o dono autorizou a descoberta
+        de perfis públicos, mas a política da plataforma continua por medir
+        (`NOT_MEASURED`), e sem medição a rota não sai — de propósito.
+
+        Só que o que ESTA classe prova é outra coisa: que o estado de falha do
+        NAVEGADOR sobe com o nome certo em vez de virar `UNKNOWN_ERROR`. Para
+        o provar é preciso CHEGAR ao navegador, e com a política fechada a
+        cadeia para antes — a devolver `ROUTE_NOT_ALLOWED`, que é verdade e
+        não é o assunto desta prova.
+
+            UM TESTE QUE PARA NO PORTÃO ANTERIOR NÃO MEDE O PORTÃO SEGUINTE.
+
+        Então declara-se a medição que falta, no escopo desta prova apenas, e
+        restaura-se a seguir. Isto NÃO afrouxa a lei: `test_c14c_permissao_
+        instagram.py` prova que, sem esta declaração local, a rota não sai —
+        com `SUBPROCESS_CALLS = 0` e `NETWORK_CALLS = 0`.
+        """
         import instagram_janela as ij
+        import social_matriz as mz
         real = ij.perfis
+        rota = mz.MATRIZ['INSTAGRAM']['INCREMENTAL'][0]
+        politica_real = rota.get('PLATFORM_POLICY_STATUS')
+        rota['PLATFORM_POLICY_STATUS'] = 'ALLOWED'
 
         def rebenta(*_a, **_k):
             raise excecao
@@ -879,6 +923,7 @@ class UmaFalhaQueSabeChegaComNome(unittest.TestCase):
                               run_id='NS01-SEM-CHROME', camada='perfis')
         finally:
             ij.perfis = real
+            rota['PLATFORM_POLICY_STATUS'] = politica_real
 
     def test_ns08_o_dono_da_ferramenta_declara_o_estado(self):
         """`cdp` sabe que não alcançou o navegador, e passa a dizê-lo.

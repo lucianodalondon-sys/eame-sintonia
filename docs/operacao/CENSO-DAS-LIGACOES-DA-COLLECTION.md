@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e58c94b856109f79c117228238ddf181b867a714
-BRANCH           claude/universe-routing-v1
-GERADO_EM        2026-09-19T18:06:37-03:00
+HEAD_DA_MEDICAO  836a9c891b479acb550d2a736850858742953deb
+BRANCH           claude/c14c-instagram-permission-v1
+GERADO_EM        2026-09-19T19:16:53-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

@@ -2163,6 +2163,7 @@
       "tests/test_trava_da_inteligencia.py",
       "tests/test_ui_revisao_t3_ptbr.py",
       "tests/test_universo_explicito.py",
+      "tests/test_universo_vem_do_pedido.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
       "tests/test_v21_mercado.py",
@@ -2691,10 +2692,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/universe-routing-v1",
-    "HEAD": "e58c94b856109f79c117228238ddf181b867a714",
-    "GENERATED_AT": "2026-09-19T18:06:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fe308c3b514ef3d47c9347f1861045e6846f8c3283eb2261f7837a1b40941708"
+    "BRANCH": "claude/c14c-instagram-permission-v1",
+    "HEAD": "836a9c891b479acb550d2a736850858742953deb",
+    "GENERATED_AT": "2026-09-19T19:16:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731"
   },
   "FAMILIES": [
     {
@@ -28244,6 +28245,7 @@
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+        "C-SCRAP-LEIS",
         "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
@@ -28359,6 +28361,14 @@
           }
         },
         {
+          "pasta": "leis",
+          "prova": {
+            "file": "provas/o_fluxo_canonico_do_scrap.py",
+            "line": 117,
+            "snippet": "escreve em alvo"
+          }
+        },
+        {
           "pasta": "system-map",
           "prova": {
             "file": "provas/os_portoes_da_collection.py",
@@ -28374,6 +28384,12 @@
         {
           "onde": "GIT",
           "file": "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "leis/social_matriz.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
@@ -33121,7 +33137,8 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-COLETA-INSTAGRAM"
+        "C-COLETA-INSTAGRAM",
+        "C-PROVA-COLETA"
       ],
       "outbound": [
         "C-APIFY-POOL",
@@ -33164,9 +33181,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 494,
+        "palavras": 497,
         "por_lingua": {},
-        "sem_marca_de_lingua": 494,
+        "sem_marca_de_lingua": 497,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -36380,6 +36397,7 @@
         "tests/test_trava_da_inteligencia.py",
         "tests/test_ui_revisao_t3_ptbr.py",
         "tests/test_universo_explicito.py",
+        "tests/test_universo_vem_do_pedido.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
         "tests/test_v21_mercado.py",
@@ -36390,7 +36408,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 195,
+      "file_count": 196,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -36654,13 +36672,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1077,
+        "palavras": 1074,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1065,
+        "sem_marca_de_lingua": 1062,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -39051,7 +39069,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/universe-routing-v1"
+        "branch claude/c14c-instagram-permission-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -41706,7 +41724,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 27 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 28 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -52302,7 +52320,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 549,
+          "line": 570,
           "snippet": "'scripts/instagram_janela.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--READS-->C-SCRAP-LEIS",
@@ -52455,7 +52473,7 @@
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 869,
+          "line": 909,
           "snippet": "import instagram_janela as ij",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-INSTAGRAM--IMPORTS-->C-TESTES",
@@ -70515,7 +70533,7 @@
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 888,
+          "line": 933,
           "snippet": "import cdp",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-NAVEGADOR--IMPORTS-->C-TESTES",
@@ -71838,7 +71856,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -73147,7 +73165,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -73297,6 +73315,22 @@
           "file": "tests/test_universo_explicito.py",
           "line": 46,
           "snippet": "from pedido import Pedido, PedidoInvalido                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_universo_vem_do_pedido.py",
+          "line": 40,
+          "snippet": "from pedido import Pedido                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -77684,6 +77718,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-COLETA",
+      "to": "C-SCRAP-LEIS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica escreve em As leis do SCRAP — a taxonomia canonica da falha. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_fluxo_canonico_do_scrap.py",
+          "line": 117,
+          "snippet": "with open(alvo, 'w', encoding='utf-8') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--WRITES-->C-SCRAP-LEIS",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-SCRAP-LEIS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -82228,12 +82297,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A rota forward do documento (M2) tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_m2_rota_forward.py",
           "line": 23,
           "snippet": "import rota_forward_documento as m2   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--IMPORTS-->C-TESTES",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_universo_vem_do_pedido.py",
+          "line": 38,
+          "snippet": "import rota_forward_documento as RF         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--IMPORTS-->C-TESTES",
             "FROM": "C-ROTA-M2",
@@ -84279,7 +84364,7 @@
         },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
-          "line": 184,
+          "line": 216,
           "snippet": "diz(e['roda'] == ['coleta/scrap_colheita.py'],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-PROVA-COLETA",
@@ -85910,12 +85995,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/mutacao_da_release_v1.py",
           "line": 129,
           "snippet": "('M9 · a política aceita rota NÃO permitida', 'leis/social_matriz.py',",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-COLETA",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/o_fluxo_canonico_do_scrap.py",
+          "line": 113,
+          "snippet": "with open(alvo, encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-PROVA-COLETA",
             "FROM": "C-SCRAP-LEIS",
@@ -96092,12 +96193,12 @@
     "components_pending": 172,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1086,
-    "edges_proven": 1032,
+    "edges": 1087,
+    "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2100,
-    "files_covered": 1013,
+    "files_tracked": 2101,
+    "files_covered": 1014,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

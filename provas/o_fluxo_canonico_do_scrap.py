@@ -91,6 +91,35 @@ def arvore_com_o_falso(destino):
     shutil.copytree(os.path.join(RAIZ, 'data'), os.path.join(destino, 'data'),
                     symlinks=True)
     shutil.copy2(SHIM, os.path.join(destino, 'coleta', 'instagram_janela.py'))
+    # ── E A POLÍTICA DO INSTAGRAM É DESTRAVADA NA CÓPIA, E SÓ NELA ─────────
+    # ⚠️ NÃO SE FAZ ISTO EM MEMÓRIA, E A RAZÃO FOI MEDIDA. O driver corre num
+    # processo, e `orquestrador.correr()` lança `scrap_colheita.py` num
+    # SEGUNDO subprocesso — que importa `social_matriz` do zero e não vê
+    # alteração nenhuma feita em memória pelo pai.
+    #
+    #     UM DESTRAVE EM MEMÓRIA NÃO ATRAVESSA UM SUBPROCESSO.
+    #
+    # A C14-C fechou `INSTAGRAM/INCREMENTAL`: o dono autorizou a descoberta de
+    # perfis públicos, mas `PLATFORM_POLICY_STATUS = NOT_MEASURED`, e sem
+    # medição a rota não sai. Esta prova mede a TRAVESSIA (RT21-RT28), não a
+    # política — e com a porta fechada ela para no primeiro portão.
+    #
+    #     UM TESTE QUE PARA NO PORTÃO ANTERIOR NÃO MEDE O PORTÃO SEGUINTE.
+    #
+    # Então a declaração que falta é escrita NO FICHEIRO DA CÓPIA, que é
+    # descartável e morre com a prova. O ficheiro real não é tocado, e
+    # `tests/test_c14c_permissao_instagram.py` prova que, sem isto, nada sai.
+    alvo = os.path.join(destino, 'leis', 'social_matriz.py')
+    with open(alvo, encoding='utf-8') as f:
+        fonte_da_lei = f.read()
+    marca = "limite='PUBLIC_PROFILE_DISCOVERY_ONLY'"
+    if marca in fonte_da_lei:
+        with open(alvo, 'w', encoding='utf-8') as f:
+            f.write(fonte_da_lei.replace(
+                "owner_authorized='SIM', platform_policy='NOT_MEASURED',\n"
+                "              limite='PUBLIC_PROFILE_DISCOVERY_ONLY'",
+                "owner_authorized='SIM', platform_policy='ALLOWED',\n"
+                "              limite='PUBLIC_PROFILE_DISCOVERY_ONLY'"))
     return destino
 
 
@@ -101,6 +130,9 @@ for p in ('orquestrador','pedido','coleta','leis','regras','ferramentas',
           'medidas','guarda',''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 import orquestrador as orq, pedido as pd
+# A politica do Instagram ja vem destravada NO FICHEIRO desta copia — ver
+# `arvore_com_o_falso`. Nao se destrava em memoria aqui: o orquestrador lanca
+# o executor num segundo subprocesso, que importaria a lei do zero.
 fonte = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] != '-' else None
 p = pd.de_uma_frase('colete concorrentes')
 p.filtros.update({'fase': 'janela-perfis', 'pais': 'IT'})
