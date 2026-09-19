@@ -133,8 +133,25 @@ class ADeclaracaoEDoExecutor(unittest.TestCase):
              "filtros_nomeados": ["teto"]}
         self.assertEqual(filtros_consumidos(e), {"fase", "fonte", "teto"})
 
-    def test_14_o_resolvedor_declara_os_seus_tres(self):
-        self.assertEqual(set(FILTROS_DO_RESOLVEDOR), {"pais", "tema", "fase"})
+    def test_14_o_resolvedor_declara_os_seus_quatro(self):
+        """Os filtros que o resolvedor consome, e que por isso não descem.
+
+        ⚠️ ERAM TRÊS, E PASSARAM A SER QUATRO. `universo` entrou quando o
+        roteamento do universo deixou de ser emprestado do `alvo`: ele é a
+        PERGUNTA que a Admissão fará, lida pelo control plane depois de o
+        executor já ter corrido, e nenhum executor o consome — nem deve.
+
+            O UNIVERSO É DO PEDIDO E DA PORTA. NÃO É DA AQUISIÇÃO.
+
+        Sem ele nesta lista, declarar `universo` fazia a corrida ser recusada
+        com `FILTRO_NAO_CONSUMIDO` — a guarda do BG-05 a trabalhar bem sobre
+        um campo que nunca lhe pertenceu.
+
+        Esta trava continua a ser uma trava: acrescentar um quinto nome aqui
+        obriga a dizer por quê, e é exactamente para isso que ela existe.
+        """
+        self.assertEqual(set(FILTROS_DO_RESOLVEDOR),
+                         {"pais", "tema", "fase", "universo"})
 
 
 if __name__ == "__main__":

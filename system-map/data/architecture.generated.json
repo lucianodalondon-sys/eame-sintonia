@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/public-audio-raw-bridge-v1",
-    "HEAD": "9efbac40c272d16cbdffe9afada09f3cabdda99e",
-    "GENERATED_AT": "2026-09-19T17:06:58-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2a3b041cb172f81a3482e47e926cfd651504da7bbb89b812f41c1248afe01a3d"
+    "BRANCH": "claude/universe-routing-v1",
+    "HEAD": "e58c94b856109f79c117228238ddf181b867a714",
+    "GENERATED_AT": "2026-09-19T18:06:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fe308c3b514ef3d47c9347f1861045e6846f8c3283eb2261f7837a1b40941708"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "a041dfdf40bfb8b5b48f332cf2e0a722d97de151",
+      "sha": "ce275f036da24f36a1b05377da7f432f869bea63",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10111,7 +10111,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "25ff9df824110b2d14ca6286956c266cab602ec4",
+      "sha": "cfa9cca750f5c8895652ad07ee549981f7344aa5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10258,7 +10258,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "d126aeed8fa0e9383e577c99b088e9a4e3dbe367",
+      "sha": "0668118a9baf67a48c06ccd10c34a4621fd17a40",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10965,7 +10965,7 @@
     },
     {
       "path": "provas/o_fluxo_canonico_do_scrap.py",
-      "sha": "afc26212a57c014613cf83bad207448f965b3c37",
+      "sha": "97d2ac3668c8b5c6aa0e876cac494cd55d853de2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14269,7 +14269,7 @@
     },
     {
       "path": "tests/test_o_pedido_nao_mente.py",
-      "sha": "f0c95c6d04b3f40ef3a5e68cfee3bf4a1d8ff1e1",
+      "sha": "9ba7688e61caf7a457fc3d7d11067b7e2c141370",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14333,6 +14333,13 @@
     {
       "path": "tests/test_politica_da_coleta.py",
       "sha": "5ca2656b1812f493807349c57c947e51df2b0020",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_ponte_audio_publico.py",
+      "sha": "b5ae695612e51823212ca1ab765068a0e5476352",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30512,6 +30519,17 @@
     },
     {
       "from_file": "orquestrador/orquestrador.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 605,
+        "snippet": "import rota_forward_documento as _rf                    # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
       "to_file": "guarda/preservar_documento.py",
       "type": "READS",
       "payload": "artefacto",
@@ -39746,7 +39764,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_fluxo_canonico_do_scrap.py",
-        "line": 170,
+        "line": 184,
         "snippet": "diz(e['roda'] == ['coleta/scrap_colheita.py'],"
       }
     },
@@ -59287,6 +59305,39 @@
       }
     },
     {
+      "from_file": "tests/test_ponte_audio_publico.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ponte_audio_publico.py",
+        "line": 111,
+        "snippet": "import adaptador_youtube as ay"
+      }
+    },
+    {
+      "from_file": "tests/test_ponte_audio_publico.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ponte_audio_publico.py",
+        "line": 37,
+        "snippet": "import ingresso                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_ponte_audio_publico.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ponte_audio_publico.py",
+        "line": 36,
+        "snippet": "import scrap_colheita as SC          # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_porta_de_candidatas.py",
       "to_file": "AGENTS.md",
       "type": "READS",
@@ -63743,10 +63794,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2099,
-    "files_readable": 819,
-    "files_code_dir": 878,
-    "file_edges": 4412,
+    "files_tracked": 2100,
+    "files_readable": 820,
+    "files_code_dir": 879,
+    "file_edges": 4416,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

@@ -576,6 +576,36 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     return item
 
 
+def universo_do_pedido(p) -> str:
+    """O universo que a porta vai perguntar. → a string, ou levanta.
+
+    ⚠️ ELE VEM DO PEDIDO, E SÓ DO PEDIDO. Não se deriva do `alvo`, do
+    território da fonte, da plataforma nem do conteúdo — e é por isso que esta
+    função não recebe nenhum deles como alternativa.
+
+        ALVO = PARA QUE SERVE a coleta.
+        UNIVERSO = QUE PERGUNTA a porta faz ao conteúdo.
+        ALVO != UNIVERSO.
+
+    A régua de quem julga é `admissao.PERGUNTAS_DO_UNIVERSO`, e ela conhece
+    cinco: `T3 T4 T5 T7 T9`. Os alvos são treze. Emprestar um ao outro produz
+    perguntas que não existem — silenciosamente, porque a porta responde
+    `NAO_SE_APLICA` com toda a educação a um universo sem régua.
+
+    FAIL-CLOSED PELO DONO QUE JÁ EXISTE: a validação é de
+    `coleta/rota_forward_documento.universo_declarado`, que já levanta
+    `UniversoNaoDeclarado` para `None`, `''`, `'  '` e `'NAO SEI'` (§148).
+    Escrever aqui uma segunda verificação faria duas leis para a mesma
+    pergunta, e a partir daí nenhuma das duas valeria.
+
+    ⚠️ E NÃO HÁ FALLBACK. Nem para `p.alvo`, nem para um universo por omissão:
+    era exactamente disso que o §148 livrou esta casa, e um `or p.alvo` no fim
+    desta linha repunha o defeito com outra roupa.
+    """
+    import rota_forward_documento as _rf                    # noqa: PLC0415
+    return _rf.universo_declarado((p.filtros or {}).get("universo"))
+
+
 def pela_porta(itens: list, universo: str, run_id: str) -> dict:
     """Leva cada item a porta de admissao e guarda TODAS as decisoes.
 
@@ -1005,7 +1035,33 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
                       for e in estruturados]
         else:
             julgar = recibo["INGRESSO"].get("PARA_A_PORTA") or []
-        r = pela_porta(julgar, p.alvo, recibo["RUN_ID"])
+        # ── O UNIVERSO VEM DO PEDIDO, E NÃO DO ALVO ────────────────────────
+        # ⚠️ AQUI ESTAVA `pela_porta(julgar, p.alvo, ...)`, e isso era um
+        # campo EMPRESTADO. Medido no canário do YouTube: um pedido com
+        # `alvo=T8` e `universo=T5` declarado pelo humano chegava à porta a
+        # perguntar `T8` — que não tem régua escrita (só T3, T4, T5, T7 e T9
+        # têm). A Admissão responderia `NAO_SE_APLICA` a um texto que nunca
+        # seria julgado contra `T5`, e o relatório diria «testámos T5».
+        #
+        #     ALVO = PARA QUE SERVE a coleta · audiência, missão, finalidade.
+        #     UNIVERSO = QUE PERGUNTA a porta faz ao conteúdo.
+        #     ALVO != UNIVERSO.
+        #
+        # Funcionou durante meses por COINCIDÊNCIA: as corridas usavam alvos
+        # (`T3`, `T4`, `T9`) cujos nomes por acaso existem como universos.
+        #
+        #     COINCIDIR POR HÁBITO NÃO É ESTAR LIGADO.
+        #
+        # É o irmão do §148: lá o universo nascia de um default silencioso;
+        # aqui nascia de um campo vizinho. Nos dois casos a decisão de negócio
+        # ficava sem autor — e a correção é a mesma, que é ter autor.
+        #
+        # SEM FALLBACK PARA `p.alvo`. Quem não declarar recebe a recusa do
+        # dono canónico (`rota_forward_documento.universo_declarado`), que já
+        # existe e já levanta `UniversoNaoDeclarado`. Uma segunda exceção com
+        # a mesma função seria uma segunda lei.
+        universo = universo_do_pedido(p)
+        r = pela_porta(julgar, universo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r
         # ── UM FOSSIL DO SCRAP, RETIRADO — E A DIVIDA DELE, DECLARADA ───────
         # Aqui estava `pop("ENTRADOS")`. `ENTRADOS` era o segundo balde de

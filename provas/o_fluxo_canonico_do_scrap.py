@@ -104,6 +104,20 @@ import orquestrador as orq, pedido as pd
 fonte = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] != '-' else None
 p = pd.de_uma_frase('colete concorrentes')
 p.filtros.update({'fase': 'janela-perfis', 'pais': 'IT'})
+# ⚠️ O UNIVERSO E DECLARADO, E NAO HERDADO DO ALVO.
+# Esta prova mede a TRAVESSIA (RT21-RT28: run_id com um dono, colheita a
+# atravessar o ingresso, o carimbo da porta na unidade, o suporte que nunca
+# passa). Nenhuma das suas assercoes pede um veredito: `rt25` exige que a
+# porta tenha CORRIDO, e nao que ela diga SIM.
+#
+# Mas a porta so corre com um universo declarado, e este fluxo e o da
+# COMUNICACAO PUBLICA DE CONCORRENTES — que e o que `T9` pergunta, e esta
+# escrito no proprio `admissao.PERGUNTAS_DO_UNIVERSO['T9']`.
+#
+# A EVIDENCIA E A FASE, E NAO O ALVO: `janela-perfis` colhe a janela publica
+# de contas de concorrentes. O alvo desta frase tambem e T9 — e isso e
+# COINCIDENCIA, nao prova. Se o alvo mudasse amanha, esta linha nao mudava.
+p.filtros['universo'] = 'T9'
 if fonte:
     p.filtros['fonte'] = fonte
 recibo = orq.correr(p)

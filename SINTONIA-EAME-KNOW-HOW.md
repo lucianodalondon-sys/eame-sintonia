@@ -18295,3 +18295,88 @@ não se deduzem uma da outra: o **caminho** dos bytes e a **espécie** deles,
 ambos declarados por quem os mediu. Instagram Reels e LinkedIn vão precisar
 exactamente disto — e agora há uma ponte para reutilizar em vez de um caminho
 para redescobrir.
+
+
+# §156 · A FINALIDADE DA COLETA NÃO É A PERGUNTA DA PORTA
+
+**O QUE.** `orquestrador.py` passava `p.alvo` como universo à Admissão:
+
+```
+r = pela_porta(julgar, p.alvo, recibo["RUN_ID"])
+```
+
+Um pedido com `alvo=T8` e `universo=T5` — decisão humana, explícita — chegava à
+porta a perguntar **T8**. `T8` não tem régua escrita (só `T3 T4 T5 T7 T9` têm),
+e a Admissão responderia `NAO_SE_APLICA` com toda a educação a um texto que
+nunca seria julgado contra `T5`. O relatório diria «testámos T5».
+
+**POR QUÊ.** São duas perguntas diferentes, e o código tinha um campo só:
+
+```
+ALVO     = PARA QUE SERVE a coleta · audiência, missão, finalidade.
+UNIVERSO = QUE PERGUNTA a porta faz ao conteúdo.
+ALVO != UNIVERSO.
+```
+
+Funcionou durante meses por **coincidência**: as corridas usavam alvos (`T3`,
+`T4`, `T9`) cujos nomes por acaso existem também como universos. Os alvos são
+treze; os universos com régua são cinco.
+
+```
+COINCIDIR POR HÁBITO NÃO É ESTAR LIGADO.
+```
+
+É o irmão do §148. Lá o universo nascia de um **default silencioso**; aqui
+nascia de um **campo vizinho**. Nos dois casos a decisão de negócio ficava sem
+autor, e a correção é a mesma: ter autor.
+
+**PROVA.** `tests/test_universo_vem_do_pedido.py`, 22 provas.
+`alvo=T8 universo=T5 → T5` e — sobretudo — **não T8**. Sem universo:
+`UniversoNaoDeclarado`, sem fallback. Sobrevive a serialização, reload e
+reprocessamento (`NETWORK_CALLS = 0`). Mutação executada: reintroduzido
+`p.alvo` no código, **3 provas morderam**; restaurado, 22/22 verdes.
+`NEW_FAILURES = 0` contra o trunk.
+
+**O DONO NÃO FOI DUPLICADO.** A recusa é de
+`rota_forward_documento.universo_declarado`, que já existia desde o §148. Uma
+segunda exceção com a mesma função seria uma segunda lei, e a partir daí
+nenhuma das duas valeria.
+
+**ONDE O UNIVERSO VIVE, E POR QUÊ ALI.** `Pedido.filtros['universo']` —
+medido: sobrevive ao `para_json()` e ao round-trip. E `universo` entrou em
+`receitas.FILTROS_DO_RESOLVEDOR`, que tinha três nomes e passou a ter quatro:
+
+```
+O UNIVERSO É DO PEDIDO E DA PORTA. NÃO É DA AQUISIÇÃO.
+```
+
+Nenhum executor o consome, e **nenhum deve**: um coletor que conhece o universo
+passa a poder escolher o que colhe pela resposta que quer. Sem essa linha,
+declarar `universo` fazia a corrida ser recusada com `FILTRO_NAO_CONSUMIDO` —
+a guarda do BG-05 a trabalhar bem sobre um campo que nunca lhe pertenceu.
+
+**O QUE APARECEU QUANDO A COINCIDÊNCIA CAIU.** Seis provas ficaram vermelhas.
+Nenhuma delas declarava universo; passavam porque o alvo que usavam era, por
+acaso, um universo existente.
+
+```
+QUANDO SE DESFAZ UMA COINCIDÊNCIA, APARECE QUEM DEPENDIA DELA.
+```
+
+O censo dos 19 corredores mostrou que **só uma** delas chegava mesmo à porta:
+`provas/o_fluxo_canonico_do_scrap.py`. Declarou-se `T9` ali, e a evidência é a
+**fase** (`janela-perfis`, a janela pública de contas de concorrentes) e não o
+alvo — que também é T9 e continua a ser coincidência.
+
+**O QUE NÃO SE FEZ.** Não se preencheu universo nos outros corredores: os que
+não chegam à porta não precisam de o inventar. Não se fabricou universo
+retroativo para as 29 corridas do manifesto — elas já correram, e as decisões
+delas já estão no livro. Não se ensinou a Admissão que `T8` quer dizer `T5`.
+
+**CONSEQUÊNCIA.** Um pedido que pretende julgar conteúdo declara o universo, ou
+falha fechado. Um fluxo que não pretende julgar não atravessa a Admissão só
+para terminar. E um teste antigo verde por coincidência não define arquitetura:
+
+```
+PASSAR PELA AUSÊNCIA DE RÉGUA NÃO É PASSAR PELA RÉGUA.
+```

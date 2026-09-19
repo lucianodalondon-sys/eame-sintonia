@@ -503,7 +503,19 @@ CONTRATOS_OBRIGATORIOS = (
 #: executores, e por isso nao descem ao executor nem podem ser acusados de
 #: nao-consumidos. Um filtro fora desta lista OU e consumido pelo executor
 #: escolhido, OU a corrida e recusada antes da rede (BG-05).
-FILTROS_DO_RESOLVEDOR = ("pais", "tema", "fase")
+#:
+#: ⚠️ `universo` ENTROU AQUI PORQUE ELE NAO E DO EXECUTOR — E NEM DEVE SER.
+#: Ele e a PERGUNTA que a Admissao fara ao conteudo, e quem a le e o control
+#: plane (`orquestrador.universo_do_pedido`), depois de o executor ja ter
+#: corrido. Nenhum executor o consome, e nenhum deve: um coletor que conhece
+#: o universo passa a poder escolher o que colhe pela resposta que quer.
+#:
+#:     O UNIVERSO E DO PEDIDO E DA PORTA. NAO E DA AQUISICAO.
+#:
+#: Sem esta linha, declarar `universo` fazia a corrida ser recusada com
+#: `FILTRO_NAO_CONSUMIDO` — a guarda do BG-05 a fazer exactamente o trabalho
+#: dela sobre um campo que nunca lhe pertenceu. Medido.
+FILTROS_DO_RESOLVEDOR = ("pais", "tema", "fase", "universo")
 
 
 def filtros_consumidos(e: dict) -> set:
