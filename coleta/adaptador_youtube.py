@@ -548,6 +548,177 @@ def pronto_para_api(**_):
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# AUDIO PUBLICO — a rota do C13, ligada pelo caminho canonico
+# ══════════════════════════════════════════════════════════════════════════
+# A IMPLEMENTACAO NAO VIVE AQUI, E NAO FOI RECRIADA. Ela ja existia em
+# `ferramentas/youtube_transcrever.py::_audio`, ja foi provada ponta a ponta no
+# C13 (bytes, SHA, ffprobe, ASR), e esta rota LIMITA-SE A CHAMA-LA.
+#
+#     UM DOWNLOADER NOVO SERIA UMA SEGUNDA VERDADE SOBRE A MESMA AQUISICAO.
+#
+# O que esta funcao acrescenta e o que faltava: o EDGE. Resolver o alvo,
+# MEDIR o que chegou, montar o objeto da capability e — quando falha — dizer
+# QUAL foi a falha, em vez de devolver uma lista vazia que o roteador leria
+# como `ZERO_RESULTS`.
+#
+#     AUDIO_NAO_OBTIDO != ZERO_RESULTS.
+#     «NAO CONSEGUI O SOM» NAO E «ESTE VIDEO ESTA CALADO».
+ROTA_AUDIO_PUBLICO = 'yt-dlp:public_audio'
+LIMITE_AUDIO_PUBLICO = 'PUBLIC_AUDIO_ONLY'
+
+#: Estados proprios desta rota. NAO sao estados canonicos de falha — sao o
+#: nome nativo que viaja ao lado do canonico, em `NATIVE_REASON`.
+AUDIO_ADQUIRIDO = 'AUDIO_ADQUIRIDO'
+AUDIO_NAO_OBTIDO = 'AUDIO_NAO_OBTIDO'
+VIDEO_ID_AUSENTE = 'VIDEO_ID_AUSENTE'
+MEDIA_KIND_DIVERGE = 'MEDIA_KIND_MISMATCH'
+
+#: O VIDEO_ID do YouTube tem 11 caracteres desta familia. Validar a FORMA nao
+#: e fabricar identidade: e recusar o que nao tem forma de id.
+_ID_DO_YOUTUBE = re.compile(r'^[A-Za-z0-9_-]{11}$')
+
+
+def _video_id_de(video_id=None, video_url=None):
+    """→ o VIDEO_ID comprovado, ou None. NUNCA fabrica identidade.
+
+    Aceita o id dado, ou extrai-o do `v=` de um endereco de video. O que ele
+    NAO faz — e nao pode fazer — e derivar um id de um titulo, de um slug, de
+    um caminho ou de um hash. Sem id comprovado, a resposta e `None`, e quem
+    chamou recebe uma recusa com nome.
+    """
+    if video_id:
+        v = str(video_id).strip()
+        return v if _ID_DO_YOUTUBE.match(v) else None
+    if video_url:
+        import urllib.parse as up
+        alvo = str(video_url).strip()
+        v = (up.parse_qs(up.urlparse(alvo).query).get('v') or [''])[0].strip()
+        return v if _ID_DO_YOUTUBE.match(v) else None
+    return None
+
+
+def pronto_para_audio_publico(**_):
+    """→ (consigo?, estado). ZERO rede, ZERO download, ZERO dolar.
+
+    A pergunta que este CHECK responde e «consigo chegar la AGORA», e uma rota
+    local sem as ferramentas dela nao chega a lado nenhum. Descobrir que falta
+    o `yt-dlp` DEPOIS de tentar baixar seria descobri-lo tarde.
+
+    Nao toca a rede: so olha para o que esta instalado.
+    """
+    import shutil
+    faltam = [n for n in ('yt-dlp', 'ffmpeg', 'ffprobe') if not shutil.which(n)]
+    if faltam:
+        return (False, 'EXECUTOR_UNAVAILABLE')
+    return (True, '')
+
+
+def _classificar_falha(motivo):
+    """Traduz a falha da aquisicao para o vocabulario canonico de `leis/falhas`.
+
+    Tres causas, tres nomes, e nenhuma delas e `ZERO_RESULTS`:
+
+        o video nao existe / e privado / foi removido   -> SOURCE_GONE
+        a ferramenta local nao respondeu                -> EXECUTOR_UNAVAILABLE
+        o resto (a fonte nao serviu o som agora)        -> SOURCE_UNAVAILABLE
+    """
+    m = str(motivo or '').lower()
+    if any(x in m for x in ('unavailable', 'private', 'removed', 'deleted',
+                            'terminated', 'does not exist')):
+        return 'SOURCE_GONE'
+    if any(x in m for x in ('estourou o tempo', 'not found', 'no such file',
+                            'command not found')):
+        return 'EXECUTOR_UNAVAILABLE'
+    return 'SOURCE_UNAVAILABLE'
+
+
+def youtube_audio_publico(*, run_id, country_scope, video_id=None, video_url=None,
+                          medida=None, **_):
+    """A rota do audio publico. → lista de objetos da capability.
+
+    FRONTEIRA, e ela sobrevive na declaracao da matriz: so alvo PUBLICO. Sem
+    conta, sem cookie de terceiro, sem CAPTCHA, sem token de sessao, sem
+    contornar paywall ou acesso privado. Esta funcao nao tem — e nao pode
+    ganhar — parametro de sessao.
+    """
+    import youtube_transcrever as ytv
+    import fala_local as fl
+
+    vid = _video_id_de(video_id=video_id, video_url=video_url)
+    if not vid:
+        # FALHA FECHADO, e sem inventar identidade. O roteador grava o estado
+        # declarado aqui em vez de o reinterpretar.
+        raise _EstadoDaApi({
+            'STATE': 'CONTRACT_DRIFT',
+            'NATIVE_REASON': VIDEO_ID_AUSENTE,
+            'DETALHE': ('a rota de audio publico exige um VIDEO_ID comprovado; '
+                        'sem ele nao ha alvo, e derivar um seria fabricar identidade')})
+
+    url = 'https://www.youtube.com/watch?v=' + vid
+    caminho, motivo = ytv._audio(vid)
+    if not caminho:
+        raise _EstadoDaApi({
+            'STATE': _classificar_falha(motivo),
+            'NATIVE_REASON': AUDIO_NAO_OBTIDO,
+            'DETALHE': str(motivo)[:300]})
+
+    # ── O QUE CHEGOU, MEDIDO NOS BYTES ──────────────────────────────────────
+    # `-f bestaudio` diz o que foi PEDIDO; so o dono do `ffprobe` diz o que
+    # CHEGOU. E o dono e `fala_local` — um segundo sitio a chamar `ffprobe`
+    # seria um segundo dono da mesma pergunta.
+    video_streams, audio_streams, porque = fl.fluxos(caminho)
+    if porque:
+        raise _EstadoDaApi({
+            'STATE': 'EXECUTOR_UNAVAILABLE',
+            'NATIVE_REASON': MEDIA_KIND_DIVERGE,
+            'DETALHE': 'o ficheiro obtido nao pode ser medido: %s' % porque})
+    if video_streams:
+        # AUDIO_ONLY != VIDEO. O que veio traz imagem, e chama-lo de audio
+        # seria a primeira mentira do objeto.
+        raise _EstadoDaApi({
+            'STATE': 'CONTRACT_DRIFT',
+            'NATIVE_REASON': MEDIA_KIND_DIVERGE,
+            'DETALHE': 'pediu-se som e o ficheiro traz %d fluxo(s) de imagem'
+                       % video_streams})
+
+    import hashlib
+    with open(caminho, 'rb') as f:
+        corpo = f.read()
+    sha = hashlib.sha256(corpo).hexdigest()
+    dur = fl.duracao(caminho)
+    _v, _a, _p = fl.fluxos(caminho)
+
+    return [{
+        'OBJECT_KIND': 'PUBLIC_AUDIO',
+        # O VIDEO_ID e identidade NATIVA da publicacao, preservada como veio.
+        # Nao e SOURCE_ID: quem governa essa identidade e outra camada.
+        'VIDEO_ID': vid,
+        'SOURCE_URL': url,
+        'RUN_ID': run_id,
+        'ROUTE': ROTA_AUDIO_PUBLICO,
+        'EXECUTOR': 'adaptador_youtube.youtube_audio_publico',
+        # O eixo da especie. Nao se deduz do fornecedor nem da extensao.
+        'MEDIA_KIND': 'AUDIO',
+        'ACQUISITION_STATE': AUDIO_ADQUIRIDO,
+        'AUDIO_REFERENCE': caminho,
+        'AUDIO_BYTES': len(corpo),
+        'AUDIO_SHA256': sha,
+        'AUDIO_DURATION_S': dur,
+        'STREAMS': {'AUDIO': audio_streams, 'VIDEO': video_streams},
+        'LIMITE': LIMITE_AUDIO_PUBLICO,
+        'COUNTRY_SCOPE': country_scope,
+        'CAPTURED_AT': env.agora(),
+        # A LINHAGEM ATE AO VIDEO PAI. O som e DERIVADO do video: guardar o pai
+        # e o que permite a quem ler daqui a um ano saber de que video estes
+        # bytes sao o som.
+        'PARENT': {'KIND': 'VIDEO', 'VIDEO_ID': vid, 'SOURCE_URL': url,
+                   'MEDIA_KIND': 'AUDIO_ONLY'},
+        'NOT_A_TRANSCRIPT': ('estes sao BYTES DE SOM. Texto reconhecido e outra '
+                             'capacidade, com outro dono.'),
+    }]
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
 reg.registar(PLATAFORMA, 'youtube.channel.resolve', adaptador=NOME,
@@ -572,3 +743,13 @@ reg.registar(PLATAFORMA, 'youtube.native_caption', adaptador=NOME,
                   'A sonda le a chave paga e nao a do YouTube — sao dois donos diferentes.')
 reg.registar(PLATAFORMA, 'youtube.media', adaptador=NOME,
              nota='403 de IP de datacenter; so o runner local pode fechar esta medicao')
+reg.registar(PLATAFORMA, 'youtube.public_audio', adaptador=NOME,
+             pronto=pronto_para_audio_publico, rota=youtube_audio_publico,
+             nota='Rota LOCAL: `yt-dlp` + `ffmpeg` na maquina, custo zero. Reusa '
+                  '`ferramentas/youtube_transcrever.py::_audio` — nao ha segundo '
+                  'descarregador. A sonda olha so para o que esta instalado e nao '
+                  'toca a rede: sem as ferramentas, a resposta e EXECUTOR_UNAVAILABLE '
+                  'antes de se tentar baixar. LIMITE=PUBLIC_AUDIO_ONLY — sem sessao, '
+                  'sem cookie de terceiro, sem token de conta. AUDIO_ONLY != VIDEO: '
+                  'o objeto sai com MEDIA_KIND=AUDIO, e um ficheiro com imagem seria '
+                  'recusado em vez de rebatizado.')

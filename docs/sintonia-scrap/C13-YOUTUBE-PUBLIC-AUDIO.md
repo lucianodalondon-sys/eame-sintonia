@@ -188,5 +188,90 @@ Três estados, três causas, três consertos. Colapsá-los apagaria a diferença
 youtube.media      continua BLOCKED — AUDIO_ONLY não é aquisição de vídeo
 youtube.native_caption  continua PARTIAL — ver o C5; o áudio não a promove
 Collection         NOT_RUN — RUN, RAW Observation, Admission e Sala não correram
-rota canônica      NOT_RUN — esta prova não passou pelo COLLECT
+rota canônica      FECHADA em §10 — ver abaixo
 ```
+
+---
+
+## 10 · A rota canônica — o edge que faltava (C13 · WIRING)
+
+A §9 dizia `rota canônica NOT_RUN`: a prova de §4 foi feita **chamando a
+implementação**, e não pelo `COLLECT`. A matriz sabia pedir (§150) e o executor
+não conhecia a porta — `CHECK` respondia `DECLARED_WITHOUT_ROUTE`.
+
+**Agora responde outra coisa:**
+
+```
+CHECK('YOUTUBE','youtube.public_audio')
+  CAN                True
+  STATE              CAN_COLLECT_NOW
+  PRODUCTION_READY   True
+  COST_TO_CHECK_USD  0.0
+  MATRIZ_CAPABILITY  FETCH_AUDIO_BYTES
+  ADAPTER            adaptador_youtube
+```
+
+**A ligação é uma só, e entra pela matriz:**
+
+```
+scrap_executor → social_rotas → social_matriz → scrap_registo
+              → adaptador_youtube.youtube_audio_publico → youtube_transcrever._audio
+```
+
+`rota=`, e não `executa=`: quem tem matriz não contorna o roteador. Uma segunda
+rota registada seria uma segunda verdade sobre a mesma aquisição.
+
+**O QUE ESTA LIGAÇÃO NÃO FEZ.** Não criou descarregador: a implementação continua
+a ser `ferramentas/youtube_transcrever.py::_audio`, a mesma de §4. Não chama ASR —
+reconhecer fala é outra capacidade, com outro dono. Não aceita sessão, cookie,
+token nem credencial: o limite continua `PUBLIC_AUDIO_ONLY`.
+
+**A ESPÉCIE DO OBJETO.** `AUDIO_ONLY != VIDEO`. O envelope canônico **não tem**
+`AUDIO` em `CONTENT_TYPES`, e mediu-se que o caminho canônico **não obriga** ao
+envelope (`social_rotas._executar` usa o retorno da rota directo). O objecto é
+próprio da capability:
+
+```
+OBJECT_KIND        PUBLIC_AUDIO
+MEDIA_KIND         AUDIO
+ACQUISITION_STATE  AUDIO_ADQUIRIDO
+AUDIO_BYTES        os bytes medidos
+AUDIO_SHA256       os mesmos bytes, selados
+STREAMS            AUDIO>=1 · VIDEO=0  (medido pelo dono do ffprobe)
+PARENT             KIND=VIDEO · VIDEO_ID · SOURCE_URL  ← a linhagem
+LIMITE             PUBLIC_AUDIO_ONLY
+```
+
+`CONTENT_TYPES` **não foi alargado**. Se o caminho canônico obrigasse ao envelope,
+a resposta era `OUTPUT_GRAIN_BLOCKER = YES` e HARD STOP — nunca `MEDIA_KIND=VIDEO`
+para ficar verde.
+
+**A FALHA TEM NOME.** O roteador deriva `ESTADO = 'OK' if objetos else
+'ZERO_RESULTS'`, portanto devolver `[]` faria uma avaria do `yt-dlp` passar por
+«não havia nada». A rota declara o estado em vez disso:
+
+```
+yt-dlp falhou (vídeo indisponível)  →  RESULT=SOURCE_GONE          NATIVE_REASON=AUDIO_NAO_OBTIDO
+ferramenta partida                  →  RESULT=EXECUTOR_UNAVAILABLE NATIVE_REASON=AUDIO_NAO_OBTIDO
+sem VIDEO_ID comprovado             →  RESULT=CONTRACT_DRIFT       NATIVE_REASON=VIDEO_ID_AUSENTE
+veio imagem no ficheiro             →  RESULT=CONTRACT_DRIFT       NATIVE_REASON=MEDIA_KIND_MISMATCH
+```
+
+Nenhum deles é `ZERO_RESULTS`, e a taxonomia da casa lê o estado declarado em vez
+de o reinterpretar (`SOURCE_HEALTH=GONE`, `EXECUTOR_HEALTH=HEALTHY`).
+
+**PROVA.** `tests/test_c13_executor_wiring.py` — 22 testes, todos offline. O
+`_audio` é substituído e devolve um WAV real (construído com a biblioteca `wave`),
+o que prova **despacho** e não download. Medido: uma volta ao adaptador, uma só
+rota registada, `CHECK` sem rede (`socket.connect` proibido) e sem uma única
+chamada à aquisição.
+
+**O QUE CONTINUA FORA, e é honesto dizê-lo.** A ligação foi provada com a
+implementação **substituída**. A aquisição real, com bytes reais, é a de §4 — o
+canário `zaEk8LE6SOQ`. As duas provas são separadas de propósito, e nenhuma herda
+o carimbo da outra:
+
+```
+DISPATCH PROVADO  !=  DOWNLOAD EXECUTADO NESTA RONDA
+```
+

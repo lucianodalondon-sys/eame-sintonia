@@ -17916,3 +17916,112 @@ registry cita `docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md`, que
 **não existe**; e `validate_system_map.py` **escreve** quando corre (deixa 6
 ficheiros sujos de proveniência), pelo que a árvore não fica limpa só por
 validar.
+
+---
+
+# §151 · DECLARAR UMA PORTA NÃO É TER UMA PORTA
+
+**O QUE mudou.** `youtube.public_audio` passou a ter **edge executável**: a rota
+`youtube_audio_publico` vive em `coleta/adaptador_youtube.py`, está registada com
+`rota=` (e não `executa=`), e o caminho canónico
+`scrap_executor → social_rotas → social_matriz → scrap_registo → adaptador_youtube → _audio`
+fecha de ponta a ponta. O `CHECK` responde `CAN=True / STATE=CAN_COLLECT_NOW`.
+
+**POR QUÊ.** O §150 fechou a **matriz** — a casa já sabia *pedir* áudio. Mas o
+`CHECK` continuava a responder:
+
+```
+CHECK('YOUTUBE','youtube.public_audio')  →  CAN=False
+                                            STATE=DECLARED_WITHOUT_ROUTE
+```
+
+A capacidade estava **declarada** e o **registo** não a conhecia. São duas coisas
+diferentes, e a segunda é a que faz a coleta correr:
+
+```
+DECLARAR UMA PORTA != TER UMA PORTA.
+CAN DO != DID DO — e DECLARADO != LIGADO.
+```
+
+**A IMPLEMENTAÇÃO NÃO FOI RECRIADA.** `ferramentas/youtube_transcrever.py::_audio`
+já existia, já estava provada no C13 (bytes, SHA, ffprobe, ASR). A rota nova
+**chama-a** e não abre um segundo `yt-dlp`. Um segundo descarregador seria uma
+segunda verdade sobre a mesma aquisição, e a partir daí nenhuma das duas valeria.
+
+**O QUE A ROTA ACRESCENTA É O QUE FALTAVA — E É SOBRE NÃO MENTIR.** Três coisas:
+
+```
+1. resolve o alvo sem fabricar identidade
+2. MEDE o que chegou (o pedido diz «bestaudio»; só os bytes dizem o que veio)
+3. quando falha, DIZ QUAL FOI A FALHA
+```
+
+A terceira é a que mais importava. O roteador deriva o estado do resultado com
+`ESTADO = 'OK' if objetos else 'ZERO_RESULTS'` — portanto uma rota que devolvesse
+`[]` a seguir a um `yt-dlp` partido faria o trace dizer **«este vídeo não tinha
+nada para colher»**, que é uma frase diferente de «não consegui buscar o som»:
+
+```
+AUDIO_NAO_OBTIDO != ZERO_RESULTS
+«NÃO CONSEGUI O SOM» NÃO É «ESTE VÍDEO ESTÁ CALADO»
+```
+
+O mecanismo já existia e não foi inventado: `scrap_http.EstadoDaApi(rel)` deixa a
+**rota declarar o seu próprio estado canónico**, e o roteador grava-o em vez de o
+reinterpretar. Medido, com a implementação a devolver «Video unavailable»:
+
+```
+RESULT               SOURCE_GONE          (não ZERO_RESULTS)
+NATIVE_REASON        AUDIO_NAO_OBTIDO     (não ZERO_RESULTS)
+FAILURE_LAYER        SOURCE
+SOURCE_HEALTH        GONE
+EXECUTOR_HEALTH      HEALTHY
+ERRO                 SOURCE_GONE (razao nativa: AUDIO_NAO_OBTIDO): ERROR: [youtube] … Video unavailable
+```
+
+E com a ferramenta partida, o mesmo caminho distingue `EXECUTOR_UNAVAILABLE` de
+`SOURCE_GONE`: a culpa é atribuída a quem a tem.
+
+**A ESPÉCIE DO OBJETO — E PORQUE NÃO SE ALARGOU O ENVELOPE.** `AUDIO_ONLY != VIDEO`.
+O envelope canónico tem `CONTENT_TYPES = ('VIDEO','POST','PROFILE','CHANNEL',
+'COMMENT','ARTICLE','DISCOVERY')` — **não tem `AUDIO`**, e `envelope()` levanta
+excepção para o que não esteja lá. A tentação é acrescentar `'AUDIO'` à lista para
+o verde ficar fácil. Mediu-se primeiro **se o caminho canónico obriga ao envelope**:
+não obriga. `social_rotas._executar` faz `objetos = fn(...)` e usa o retorno
+directo; nem o roteador nem `scrap_executor` mencionam `social_envelope` ou
+`CONTENT_TYPE`. Logo não houve `OUTPUT_GRAIN_BLOCKER`, e o objecto é **próprio da
+capability** (`OBJECT_KIND=PUBLIC_AUDIO`, `MEDIA_KIND=AUDIO`, `AUDIO_BYTES`,
+`AUDIO_SHA256`, `STREAMS`, `PARENT` até ao vídeo pai) — sem alargar o vocabulário
+de outra pergunta. Se o caminho obrigasse, a resposta era HARD STOP e não
+`MEDIA_KIND=VIDEO`.
+
+**A SONDA DO `CHECK` É GRATUITA, E TEM DE SER.** `pronto_para_audio_publico` olha
+só para o que está instalado (`yt-dlp`, `ffmpeg`, `ffprobe`). Sem as ferramentas,
+responde `EXECUTOR_UNAVAILABLE` **antes** de se tentar baixar — porque descobrir
+que falta a ferramenta depois de tentar é descobri-lo tarde. Provado com a rede
+proibida (`socket.connect` a levantar) e com um espião na implementação: o `CHECK`
+responde igual e a aquisição **não é chamada nenhuma vez**.
+
+**PROVA.** 22 testes novos em `tests/test_c13_executor_wiring.py`, todos offline
+(o `_audio` é substituído e devolve um WAV real construído com a biblioteca `wave`
+do Python). O despacho chega ao adaptador **uma vez** e há **uma só** rota
+registada. Legado intacto: as quatro capacidades oficiais continuam `PROVEN`, a
+legenda `PARTIAL`, `youtube.media` `BLOCKED`.
+
+**CONSEQUÊNCIA.** `READY_FOR_COLLECTION_INTEGRATION` deixa de estar bloqueado pelo
+executor. O que continua fora: Collection, Admission e Sala — nada disso foi
+tocado, e `youtube.media` continua `BLOCKED`.
+
+**LIÇÃO DE MÉTODO, e ela é sobre provas que não provam.** Os primeiros testes
+desta missão davam verde e vermelho errados: procuravam palavras proibidas numa
+fatia que ia **até ao fim do ficheiro**, e essa fatia apanhava as notas do
+`reg.registar(...)` — onde `ffmpeg` aparece escrito precisamente porque a rota o
+**usa**. E `_audio` aparecia dentro do próprio nome `pronto_para_audio_publico`.
+
+```
+UMA PROVA QUE OLHA PARA O SÍTIO ERRADO NÃO É UMA PROVA FRACA — É UMA PROVA FALSA.
+```
+
+A correcção foi cortar o corpo da função nas suas fronteiras reais (`def` de topo,
+barra de secção, ou `reg.`). Vale para qualquer teste que leia código-fonte: o que
+se prova é **a função**, e não o ficheiro onde ela vive.
