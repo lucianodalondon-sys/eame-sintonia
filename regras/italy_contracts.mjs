@@ -413,7 +413,50 @@ export const CONTRACTS = {
     EVIDENCE_CLASS: "COMPANY_CLAIM", LEI: "COMPANY_CLAIM != REGULATORY_FACT — vale inclusive para a ADAMA",
     AUTOMATION_FEASIBILITY: "MEDIUM — exige navegador. BROWSER_REQUIRED != SOURCE_UNAUTOMATABLE.",
     NEGATIVE_CONTROL: { descricao: "extrato sem published_time", esperado: "FAILED por falta de identidade" }
-  }
-};
+    },
+
+    "IT-T8-001": {
+    // Este contrato NAO constroi rota nova. Ele DECLARA como esta fonte usa
+    // capacidades YouTube que ja existem e ja foram provadas no repositorio:
+    //   youtube.channel.discovery  ·  youtube.video.metadata  ·  youtube.public_audio
+    // Nao ha aqui yt-dlp, nao ha chamada a YouTube Data API, nao ha ASR e nao
+    // ha RSS proprio: quem faz isso sao os donos acima. Duplicar qualquer um
+    // deles criaria um segundo downloader, e um segundo downloader diverge.
+    OWNER_ID: "IT-OWN-IMAGE-LINE", OWNER: "Image Line Network S.r.l.",
+    TERRITORY: "T8", VALUE: "P1",
+    CANONICAL_ENTRY_URL: "https://www.youtube.com/@AgroNotizie",
+    SOURCE_NATIVE_ID: "UCUs2Mg7jvUTRt7_MSOFYM5Q",
+    SOURCE_NATIVE_ID_KIND: "YOUTUBE_CHANNEL_ID",
+    LEI_DA_IDENTIDADE: "SOURCE_ID != CHANNEL_ID. IT-T8-001 e a identidade do projeto; UCUs2... e a identidade da plataforma. O contrato liga as duas AQUI, e este e o unico sitio onde essa ligacao esta escrita. Derivar SOURCE_ID do handle, da URL, do slug ou do proprio channel_id e proibido.",
+    DISCOVERY_METHOD: "listagem de videos do canal pela capacidade ja provada youtube.channel.discovery",
+    RETRIEVAL_METHOD: "metadata por youtube.video.metadata; audio publico por youtube.public_audio",
+    ROUTE_TYPE: "APPLICATION_ROUTE",
+    CAPABILITIES_REUTILIZADAS: ["youtube.channel.discovery", "youtube.video.metadata", "youtube.public_audio"],
+    ACCESS_INSTRUMENT: "SCRAP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
+    SESSION_FORBIDDEN: "rota publica: sem cookie, sem login, sem sessao. Ver C13.",
+    OUTPUT_TYPE: "VIDEO_METADATA + PUBLIC_AUDIO",
+    IDENTITY_KEYS: ["video_id", "published_at"],
+    DOCUMENT_ID_RULE: "AGRONOTIZIE:YT:{VIDEO_ID}  —  o video_id nativo do YouTube e a identidade do ITEM, nao da FONTE. A fonte continua a ser IT-T8-001.",
+    DOCUMENT_DATE_FIELD: "published_at do video",
+    VERSION_FIELD: "nenhum — o YouTube nao versiona o video publicado",
+    DECLARED_FREQUENCY: "nao declarada pelo canal",
+    OBSERVED_FREQUENCY: "NÃO SEI — nao medido por captura repetida",
+    UPDATE_BEHAVIOR: "ADITIVO", HISTORICAL_OR_FORWARD: "HISTORICAL", ARCHIVE_REQUIREMENT: "NORMAL",
+    EXPECTED_FAILURES: [
+    "video sem video_id = FAILED por falta de identidade",
+    "video privado/removido = FAILED, nao DEGRADED",
+    "audio indisponivel = DEGRADED: a metadata continua valida sem ele"
+    ],
+    FAIL_CLOSED_RULE: "item sem video_id ou sem published_at nao tem identidade — FAILED",
+    FALLBACK: "nenhum. Nao cair para scraping de pagina nem para rota paga.",
+    SOURCE_LOCATION_RULE: "ITALIA — o canal e italiano e publica em italiano",
+    FACT_LOCATION_RULE: "UNKNOWN — canal italiano NAO prova fato ocorrido em Italia. Cada item tem de dizer de si. NUNCA inferir a partir do canal.",
+    TIME_RULE: "published_at e PUBLICATION_TIME. NAO e FACT_TIME.",
+    EVIDENCE_CLASS: "EDITORIAL_AGRONOMIC_MEDIA",
+    LEI: "MEDIA_EDITORIAL != REGULATORY_FACT — o canal noticia e comenta, nao autoriza nada.",
+    AUTOMATION_FEASIBILITY: "HIGH — capacidades ja provadas, rota publica, sem credencial de sessao",
+    NEGATIVE_CONTROL: { descricao: "item sem video_id", esperado: "FAILED por falta de identidade" }
+    }
+    };
 
 export const CONTRACT_IDS = Object.keys(CONTRACTS);

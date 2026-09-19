@@ -430,6 +430,42 @@ EXECUTORES = {
     }],
 }
 
+# ── T8 REUTILIZA O EXECUTOR DE T9. NAO O COPIA. ────────────────────────────
+# A IT-T8-001 (canal YouTube da AgroNotizie) e uma fonte T8 · FARMERS &
+# INFLUENCERS. O executor que sabe falar com o YouTube — `scrap-colheita` —
+# estava registado SO em T9, e por isso um pedido com `alvo="T8"` devolvia
+# plano VAZIO: o alvo existe em `pedido.ALVOS`, a fonte existe, a capability
+# existe, e mesmo assim nao havia caminho.
+#
+# As quatro saidas erradas, e por que nao se tomou nenhuma:
+#
+#   mover a fonte para T9 ......... mentiria sobre o territorio dela
+#   declarar que YouTube = T9 ..... confunde PLATAFORMA com TERRITORIO
+#   copiar a entrada para T8 ...... dois donos do mesmo executor divergem
+#   criar um segundo SCRAP ........ um segundo downloader diverge
+#
+#     TERRITORY != PLATFORM != ROUTE.
+#     T8 NAO E YOUTUBE. T9 NAO E YOUTUBE.
+#
+# O que se faz e registar A MESMA entrada (o MESMO objeto em memoria, por
+# referencia — nao uma copia) tambem sob T8. Quem escolhe continua a ser a
+# combinacao explicita SOURCE + REQUEST + CAPABILITY do resolvedor: `fase` e
+# `fonte` tem de vir declarados no pedido, e `serve_fases` continua a fechar
+# a porta as fases que este executor nao serve.
+#
+#     ISTO NAO DIZ «TODO T8 USA YOUTUBE».
+#     Diz que um pedido T8 que NOMEIE uma fase YouTube encontra quem a sirva.
+#
+# ⚠️ Onde a porta fecha, medido — e NAO e aqui. Um pedido T8 sem `fase` ainda
+# recebe este executor no PLANO: o resolvedor ordena candidatos, nao os
+# elimina. Quem recusa e `coleta/scrap_colheita.py`, que sem fase nomeada
+# levanta `KeyError` antes de qualquer rede (medido: NETWORK_CALLS = 0).
+#
+#     ESTAR NO PLANO != COLHER.
+#
+# Escrever aqui que o plano ficaria vazio seria mais bonito e seria falso.
+EXECUTORES["T8"] = [e for e in EXECUTORES["T9"] if e.get("id") == "scrap-colheita"]
+
 # Contratos que NENHUMA coleta pode dispensar. Nao sao conselhos: sem eles o
 # item nao consegue provar de onde veio nem quando aconteceu, e a inteligencia
 # recebe um numero sem passado.

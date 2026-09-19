@@ -18025,3 +18025,52 @@ UMA PROVA QUE OLHA PARA O SÍTIO ERRADO NÃO É UMA PROVA FRACA — É UMA PROVA
 A correcção foi cortar o corpo da função nas suas fronteiras reais (`def` de topo,
 barra de secção, ou `reg.`). Vale para qualquer teste que leia código-fonte: o que
 se prova é **a função**, e não o ficheiro onde ela vive.
+
+# §152 · UM TERRITORIO SEM EXECUTOR NAO E UM TERRITORIO SEM CAMINHO — E UM CAMINHO SEM PONTE
+
+**O QUE.** A fonte `IT-T8-001` (canal YouTube da AgroNotizie) existia com
+identidade provada, o alvo `T8` existia em `pedido.ALVOS`, a capability
+`youtube.public_audio` estava `CAN_COLLECT_NOW`, e o contrato de busca estava
+escrito. Mesmo assim, um pedido com `alvo="T8"` devolvia **plano vazio**.
+
+Medido: `pedido/receitas.py::EXECUTORES` so tinha entradas para
+`T2 T3 T4 T6 T9`. O executor que sabe falar com o YouTube — `scrap-colheita` —
+estava registado **so em T9**.
+
+**POR QUE.** Porque o territorio diz PARA QUE SERVE a fonte, e o executor diz
+COMO SE CHEGA LA. Sao duas perguntas, e nenhuma responde a outra:
+
+```
+TERRITORY != PLATFORM != ROUTE
+T8 NAO E YOUTUBE.  T9 NAO E YOUTUBE.
+```
+
+Havia quatro saidas faceis, e as quatro mentem:
+
+| saida | a mentira que ela conta |
+|---|---|
+| mover a fonte para T9 | que o canal serve concorrentes, e nao agricultores |
+| declarar `YouTube = T9` | que a plataforma escolhe o territorio |
+| copiar a entrada para T8 | dois donos do mesmo executor, que divergem no primeiro dia |
+| criar um segundo SCRAP | um segundo downloader, que diverge do primeiro |
+
+**PROVA.** `EXECUTORES["T8"]` passou a apontar, **por referencia**, para a mesma
+entrada `scrap-colheita` de T9 — o mesmo objeto em memoria, provado com `is`.
+Plano seco: `PLAN_TARGET=T8 · PLAN_EXECUTOR=scrap-colheita · SOURCE_ID=IT-T8-001`,
+`NETWORK_CALLS=0`. T9 continua com os seus dois executores, intacto.
+13 ataques de red team, 0 blockers. 324 testes, `NEW_FAILURES=0`.
+
+**CONSEQUENCIA.** Registar um executor sob um segundo territorio **nao** e
+declarar que aquele territorio usa aquela plataforma. Quem escolhe continua a
+ser a combinacao explicita SOURCE + REQUEST + CAPABILITY.
+
+E ha uma fronteira que se mediu e que nao se deve embelezar:
+
+```
+ESTAR NO PLANO != COLHER
+```
+
+Um pedido `T8` **sem** `fase` nomeada continua a receber este executor no plano
+— o resolvedor **ordena** candidatos, nao os elimina. Quem recusa e
+`coleta/scrap_colheita.py`, que levanta `KeyError` antes de tocar na rede.
+A porta existe; so nao esta onde da mais jeito dizer que esta.

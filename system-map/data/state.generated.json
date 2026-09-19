@@ -2688,10 +2688,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/it-t8-reconcile-v1",
-    "HEAD": "efd20a10cbb76436d7f4d90418b40bbd071a917a",
-    "GENERATED_AT": "2026-09-19T13:40:39-03:00",
-    "SOURCE_TREE_FINGERPRINT": "87e39185f3bb4e6eabf1b0c1d0075f0749fcad6c303a0156feefefae5408e214"
+    "BRANCH": "claude/it-t8-collection-gate-v1",
+    "HEAD": "db4ba876ae70bed7eec9d3d89b7f2c192b988034",
+    "GENERATED_AT": "2026-09-19T13:41:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "84660d4633618f23a075977b94abc657be4da2528fad4de0472cb6add13f8e33"
   },
   "FAMILIES": [
     {
@@ -39049,7 +39049,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/it-t8-reconcile-v1"
+        "branch claude/it-t8-collection-gate-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -55523,7 +55523,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 439,
+          "line": 475,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -68011,7 +68011,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 441,
+          "line": 477,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -76122,7 +76122,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 437,
+          "line": 473,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -76138,7 +76138,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 443,
+          "line": 479,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",

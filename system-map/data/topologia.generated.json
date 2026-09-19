@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-19T15:51:39+00:00",
-  "HEAD": "159848487485ecd18fd359be598ee15d6a400dbf",
-  "BRANCH": "claude/it-trunk-v1",
+  "GENERATED_AT": "2026-09-19T18:48:08+00:00",
+  "HEAD": "db4ba876ae70bed7eec9d3d89b7f2c192b988034",
+  "BRANCH": "claude/it-t8-collection-gate-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "36957c96eabbcc1f35704f510028d26c56e866e6b96538a25ebef1272446194b",
-  "FICHEIROS_NA_IMPRESSAO": 2251,
+  "SOURCE_TREE_FINGERPRINT": "84660d4633618f23a075977b94abc657be4da2528fad4de0472cb6add13f8e33",
+  "FICHEIROS_NA_IMPRESSAO": 2245,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1854,7 +1854,7 @@
    {
     "PATH": "pedido/receitas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "9e33b388dcef268ecdb5f469e74b3cc690edb14c",
+    "VERSAO": "d58e694414b2a9d088d3d2f0e006dfca0a907856",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2869,7 +2869,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "6c7d25d1536ab0cbe72ced3555a13f07d2fd57f2",
+    "VERSAO": "125bfde6594464ee5247f614729ef9a571fc0205",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "36957c96eabbcc1f35704f510028d26c56e866e6b96538a25ebef1272446194b",
+    "VERSAO": "84660d4633618f23a075977b94abc657be4da2528fad4de0472cb6add13f8e33",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "36957c96eabbcc1f35704f510028d26c56e866e6b96538a25ebef1272446194b",
+    "VERSAO": "84660d4633618f23a075977b94abc657be4da2528fad4de0472cb6add13f8e33",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4597,7 +4597,7 @@
    }
   ],
   "INPUTS_COUNT": 651,
-  "INPUTS_DIGEST": "5cb048bf85af51b8e5db98ab3553ea18b2e2bbe385912521c757dad57de60366",
+  "INPUTS_DIGEST": "9b1ea9fe46eb5d9d36acd371a07c7d70d32a4d0ea7dc6a4eb77968d198f5f14e",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4630,8 +4630,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e03965c8757e50ae39a8dc95cc8402d6d6b1fc231983634f5a97bdfa37bc447d",
-  "SEMANTIC_HASH": "be62901c65b0afc456e2b1dcf75554b226f07cb545ea03f9252cc93beba187c9"
+  "MEASUREMENT_HASH": "0e21629f99882a288e81025305becdc23d98034421c3803d2993857bf8d12781",
+  "SEMANTIC_HASH": "253aec562f0b1c428d72a255d565ad60d16e5a885e862fb2fefbd24dff8057fa"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13953,7 +13953,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 439,
+      "LINHA": 475,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -21130,7 +21130,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 441,
+      "LINHA": 477,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -25479,7 +25479,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 437,
+      "LINHA": 473,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -25487,7 +25487,7 @@
      },
      {
       "FICHEIRO": "pedido/receitas.py",
-      "LINHA": 443,
+      "LINHA": 479,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
