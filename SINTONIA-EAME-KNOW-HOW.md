@@ -17836,3 +17836,83 @@ Três estados, três causas, três consertos. Colapsá-los apagaria a diferença
 **O que continua `NOT_RUN`:** a ligação à Collection (RUN, RAW Observation,
 Admission, Sala) e a rota canônica pelo `COLLECT`. O que existe hoje é a aquisição
 provada, e o RAW preservado **fora** do repositório com linhagem carimbada.
+
+---
+
+# §150 · UM CAMPO SÓ NÃO CONSEGUE DIZER «EU POSSO» E «NÃO ME DEIXAM» AO MESMO TEMPO
+
+**O QUE mudou.** `social_matriz.py` passou a saber declarar **três eixos
+separados** numa rota, e ganhou a capacidade grossa `FETCH_AUDIO_BYTES` com a
+rota `yt-dlp:public_audio`.
+
+**POR QUÊ.** `PERMITIDA` responde «esta porta está aberta?» — e historicamente
+responde **duas** perguntas de uma vez: a plataforma permite? e a casa decidiu
+usar? Onde as duas coincidem, ninguém nota. Onde divergem — o dono autoriza por
+escrito o que a plataforma proíbe — um campo só obriga a escolher qual das duas
+apagar.
+
+```
+COLAPSAR OS DOIS EIXOS OBRIGA A APAGAR UM DELES.
+```
+
+O YouTube é exactamente esse caso desde o C13: o áudio público foi **adquirido de
+verdade** (bytes, SHA, ffprobe, ASR) e a plataforma **continua a proibir**
+(Developer Policies III.E.1.a, III.I.7, ToS §Permissions and Restrictions). As
+duas frases são verdadeiras ao mesmo tempo, e a matriz não tinha onde as pôr.
+
+**A EXTENSÃO É OPCIONAL, E É ISSO QUE A TORNA COMPATÍVEL.** `r()` ganhou três
+parâmetros nomeados, e uma rota que não os passe devolve **exactamente** o
+dicionário que devolvia antes — mesmas chaves, mesmos valores. As rotas antigas
+não se migram: a ambiguidade fica nomeada no seu lugar, em vez de espalhada por
+uma migração de centenas de linhas.
+
+```
+AUSENTE = NAO DECLARADO. E NAO DECLARADO NAO AUTORIZA.
+```
+
+**PROVA.**
+
+```
+decisao('YOUTUBE','FETCH_AUDIO_BYTES')
+  DECISAO=ALLOWED · ROTA=yt-dlp:public_audio · CLASSE=LOCAL_EXECUTOR
+  AUTH_MODE=PUBLIC · ESTADO=PROVED
+  OWNER_AUTHORIZED=SIM · PLATFORM_POLICY_STATUS=DISALLOWED · LIMITE=PUBLIC_AUDIO_ONLY
+
+LEGACY_ROUTE_DECISION_DRIFT = 0    32 decisoes antes, 33 depois, NENHUMA alterada
+                                    e nenhuma decisao antiga ganhou eixo por arrasto
+NEW_FAILURES = 0                   33 failed / 315 passed / 1 xfailed / 65 subtests,
+                                   identico a baseline pristina, 20 nomes iguais
+RED_TEAM_BLOCKERS = 0              8 ataques, 13 portoes (test_c13_route_gate.py)
+```
+
+**FAIL-CLOSED, e é onde a lei morde.** `conferir_matriz()` corre ao importar e
+recusa: declaração **parcial** dos eixos (ou os três, ou nenhum); valor fora do
+vocabulário fechado; `PLATFORM_POLICY_STATUS = DISALLOWED` sem
+`OWNER_AUTHORIZED = SIM`; e `LIMITE = PUBLIC_AUDIO_ONLY` com `CLASSE =
+LOCAL_SESSION` — porque «navegador local JÁ LOGADO» e «alvo público» não cabem no
+mesmo limite, e aceitar os dois faria o limite prometer o que não trava. Uma
+capacidade grossa fora do vocabulário também rebenta.
+
+**CONSEQUÊNCIA.** O YouTube passa a ter, declaradas e separadas:
+
+```
+youtube.* (oficial)        PROVEN    API v3, 4/4
+youtube.public_audio       PROVEN    bytes de som, C13
+youtube.native_caption     PARTIAL   rota paga, 25% de falha
+youtube.media              BLOCKED   o vídeo nunca foi adquirido
+```
+
+`FETCH_AUDIO_BYTES` nasceu ao lado de `FETCH_VIDEO_BYTES` e não dentro dele: usar
+a porta do vídeo para o som diria que o vídeo foi adquirido, e usar
+`FETCH_TRANSCRIPT` diria que o que veio foi texto. Nenhuma das duas é verdade.
+
+**O que NÃO ficou pronto, e fica dito:** o **executor** ainda não conhece a
+porta — `CHECK('YOUTUBE','youtube.public_audio')` responde
+`DECLARED_WITHOUT_ROUTE`. A matriz sabe pedir; falta registar a rota no adaptador
+para que a coleta possa executar. É o passo seguinte, e é de outra camada.
+
+**Dois achados medidos de passagem, e não corrigidos** (têm outro dono): o
+registry cita `docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md`, que
+**não existe**; e `validate_system_map.py` **escreve** quando corre (deixa 6
+ficheiros sujos de proveniência), pelo que a árvore não fica limpa só por
+validar.

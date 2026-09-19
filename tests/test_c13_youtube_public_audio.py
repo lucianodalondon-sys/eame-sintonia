@@ -119,18 +119,32 @@ class OsTresEixosNaoSeColapsam(unittest.TestCase):
                             'a matriz passou a autorizar audio sem linha escrita')
         self.assertEqual(d['DECISAO'], 'NOT_DECLARED')
 
-    def test_11_a_capacidade_de_audio_nao_reivindica_dono_grosso(self):
-        """ONE CONCEPT -> ONE OWNER: sem capacidade grossa, sem segundo dono."""
-        self.assertIsNone(cap.da_matriz(AUDIO))
+    def test_11_a_capacidade_de_audio_reivindica_UM_dono_grosso_e_um_so(self):
+        """⚠️ ESTE TESTE JA EXIGIU `None`, E O `None` ERA O GAP.
+
+        Enquanto a matriz nao tinha porta grossa para audio, a resposta certa era
+        `None` — e o teste vigiava isso. A porta passou a existir
+        (`FETCH_AUDIO_BYTES`, com os tres eixos declarados), entao o `None`
+        deixou de ser verdade. A vigia nao se apaga: reancora-se.
+
+            ONE CONCEPT -> ONE OWNER. E o dono grosso e UM.
+        """
+        self.assertEqual(cap.da_matriz(AUDIO), 'FETCH_AUDIO_BYTES')
+        donos = [n for n in cap.DECLARADAS if cap.da_matriz(n) == 'FETCH_AUDIO_BYTES']
+        self.assertEqual(donos, [AUDIO], 'a porta grossa ganhou um segundo dono')
 
     def test_12_o_estado_do_audio_nao_vem_da_matriz(self):
         """A matriz responde «esta rota pode ser usada?»; o registry, «correu?».
 
-        O audio pode estar PROVEN e a rota continuar fechada — e e isso que
-        impede a casa de confundir «conseguimos» com «podemos».
+        Os dois donos continuam separados, e prova-se com um caso vivo: a matriz
+        pode fechar uma rota sem que a capacidade tecnica deixe de existir. O
+        estado da CAPACIDADE le-se de `scrap_capacidades`; o da ROTA, da matriz.
         """
         self.assertEqual(cap.estado(AUDIO), cap.PROVEN)
-        self.assertIsNone(cap.da_matriz(AUDIO))
+        # a matriz tem a rota, e ela diz coisas que o registry nao diz
+        d = mz.decisao('YOUTUBE', 'FETCH_AUDIO_BYTES')
+        self.assertEqual(d['PLATFORM_POLICY_STATUS'], 'DISALLOWED')
+        self.assertEqual(cap.estado(AUDIO), cap.PROVEN)   # e isso nao a bloqueia
         # e a capacidade nao promete rota nenhuma: ela promete RESULTADO.
         self.assertTrue(cap.promete_resultado(AUDIO))
 

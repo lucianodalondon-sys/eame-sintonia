@@ -259,12 +259,12 @@ DECLARADAS = {
     # sessao e sem contornar paywall — nada disso foi cruzado, e o nome guarda
     # o limite para que uma missao futura nao o leia como licenca geral.
     #
-    # MATRIZ=None porque `social_matriz` NAO tem capacidade grossa para audio
-    # (`FETCH_AUDIO` nao existe la) e o contrato dela nao sabe expressar os tres
-    # eixos lado a lado. Nao se improvisa: fica registado como gap no relatorio
-    # e a linha grossa continua com o dono dela.
+    # MATRIZ = `FETCH_AUDIO_BYTES`, e nao `FETCH_VIDEO_BYTES` nem
+    # `FETCH_TRANSCRIPT`: uma diria que o VIDEO foi adquirido, a outra que o que
+    # veio foi TEXTO. A porta grossa e nova porque o conceito e novo, e a matriz
+    # passou a saber declarar os tres eixos ao lado dela.
     'youtube.public_audio': ('YOUTUBE', PROVEN, LOCAL, HEAVY_MEDIA_PROCESSING,
-                             _C13, None),
+                             _C13, 'FETCH_AUDIO_BYTES'),
 
     # ── X / TWITTER ───────────────────────────────────────────────────────
     'x.direct_post': ('X', PROVEN, ONLINE, None, _B, None),

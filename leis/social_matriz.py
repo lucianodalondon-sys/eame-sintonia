@@ -148,16 +148,127 @@ CAPACIDADES = (
     'DISCOVER_ACCOUNT', 'DISCOVER_POST', 'SEARCH_KEYWORD', 'SEARCH_HASHTAG',
     'FETCH_PROFILE', 'FETCH_POST', 'FETCH_VIDEO_METADATA', 'FETCH_VIDEO_BYTES',
     'FETCH_COMMENTS', 'FETCH_METRICS', 'FETCH_TRANSCRIPT', 'INCREMENTAL',
+    # O som de um video NAO e o video, e nao e a legenda. Nasceu com o C13:
+    # `youtube.public_audio` foi provado ponta a ponta e precisava de uma porta
+    # grossa propria. `FETCH_VIDEO_BYTES` implicaria video — e o video nunca foi
+    # adquirido; `FETCH_TRANSCRIPT` e texto, e o que foi adquirido sao bytes de
+    # som. O nome segue o paralelo ja existente.
+    'FETCH_AUDIO_BYTES',
 )
 
 
-def r(nome, classe, permitida, estado, custo, nota, evidencia=None):
-    """Uma rota candidata. `permitida` é SIM | NAO | CONDICIONAL."""
-    return {
+# ══════════════════════════════════════════════════════════════════════════
+# OS EIXOS QUE A `PERMITIDA` NAO CONSEGUE SEPARAR
+# ══════════════════════════════════════════════════════════════════════════
+# `PERMITIDA` responde «esta porta esta aberta?». Historicamente responde as
+# DUAS perguntas de uma vez: a plataforma permite? e a casa decidiu usar? Onde
+# as duas coincidem ninguem nota. Onde divergem — o dono autoriza o que a
+# plataforma proibe — um campo so obriga a escolher qual das duas apagar.
+#
+#     COLAPSAR OS DOIS EIXOS OBRIGA A APAGAR UM DELES.
+#
+# Por isso uma rota que precisa de os manter separados declara-os em campos
+# proprios, e so entao `PERMITIDA` passa a significar a decisao do PROJETO.
+#
+#     AUSENTE = NAO DECLARADO. E NAO DECLARADO NAO AUTORIZA.
+#
+# As rotas ANTIGAS nao se migram: continuam a ler-se como sempre se leram, e a
+# ambiguidade fica nomeada no seu lugar em vez de espalhada por uma migracao.
+# Quem quiser a separacao, declara-a — e o validador exige-a inteira.
+OWNER_AUTHORIZED = ('SIM', 'NAO')                    # decisao do PROJETO
+PLATFORM_POLICY_STATUS = ('ALLOWED', 'DISALLOWED', 'NOT_MEASURED')  # evidencia da PLATAFORMA
+LIMITES = ('PUBLIC_AUDIO_ONLY',)                     # que ESPECIE de midia a rota cobre
+
+#: Os tres campos, na ordem em que se leem. Uma rota declara-os TODOS ou nenhum.
+EIXOS = ('OWNER_AUTHORIZED', 'PLATFORM_POLICY_STATUS', 'LIMITE')
+
+
+class RotaInvalida(ValueError):
+    """A rota nao respeita o vocabulario fechado dos eixos."""
+
+
+def _declara_eixos(rota):
+    return [k for k in EIXOS if k in rota]
+
+
+def conferir_matriz():
+    """Levanta `RotaInvalida` na primeira rota que nao respeite a lei.
+
+    Corre no fim deste modulo: uma matriz invalida rebenta ao importar, nao no
+    dia em que alguem colhe. E fail-closed onde importa — uma rota que a
+    plataforma proibe e que ninguem autorizou nao fica disponivel por omissao.
+    """
+    for plat, caps in MATRIZ.items():
+        if plat.startswith('_'):
+            continue
+        for cap, rotas in caps.items():
+            if cap.startswith('_') or not isinstance(rotas, list):
+                continue
+            if cap not in CAPACIDADES:
+                raise RotaInvalida(
+                    '%s/%s: capacidade grossa fora do vocabulario fechado' % (plat, cap))
+            for rota in rotas:
+                eixos = _declara_eixos(rota)
+                if not eixos:
+                    continue
+                if len(eixos) != len(EIXOS):
+                    raise RotaInvalida(
+                        '%s/%s/%s: declaracao PARCIAL dos eixos (%s). Ou se declaram '
+                        'os tres, ou nenhum.' % (plat, cap, rota.get('ROTA'),
+                                                 ', '.join(eixos)))
+                if rota['OWNER_AUTHORIZED'] not in OWNER_AUTHORIZED:
+                    raise RotaInvalida('%s/%s/%s: OWNER_AUTHORIZED %r fora do vocabulario'
+                                       % (plat, cap, rota.get('ROTA'), rota['OWNER_AUTHORIZED']))
+                if rota['PLATFORM_POLICY_STATUS'] not in PLATFORM_POLICY_STATUS:
+                    raise RotaInvalida('%s/%s/%s: PLATFORM_POLICY_STATUS %r fora do vocabulario'
+                                       % (plat, cap, rota.get('ROTA'), rota['PLATFORM_POLICY_STATUS']))
+                if rota['LIMITE'] not in LIMITES:
+                    raise RotaInvalida('%s/%s/%s: LIMITE %r fora do vocabulario'
+                                       % (plat, cap, rota.get('ROTA'), rota['LIMITE']))
+                if (rota['PLATFORM_POLICY_STATUS'] == 'DISALLOWED'
+                        and rota['OWNER_AUTHORIZED'] != 'SIM'):
+                    raise RotaInvalida(
+                        '%s/%s/%s: a plataforma PROIBE e o dono nao autorizou. Uma '
+                        'proibicao nao vira permissao por a rota existir.'
+                        % (plat, cap, rota.get('ROTA')))
+                if (rota['LIMITE'] == 'PUBLIC_AUDIO_ONLY'
+                        and rota['CLASSE'] == 'LOCAL_SESSION'):
+                    # `LOCAL_SESSION` e, por definicao desta matriz, «navegador
+                    # local JA LOGADO». Alvo publico e sessao autenticada nao
+                    # cabem no mesmo limite: aceitar os dois faria o limite
+                    # prometer o que nao trava.
+                    raise RotaInvalida(
+                        '%s/%s/%s: LIMITE=PUBLIC_AUDIO_ONLY com CLASSE=LOCAL_SESSION. '
+                        'Sessao autenticada nao cabe num limite de alvo publico.'
+                        % (plat, cap, rota.get('ROTA')))
+    return True
+
+
+def r(nome, classe, permitida, estado, custo, nota, evidencia=None, *,
+      owner_authorized=None, platform_policy=None, limite=None):
+    """Uma rota candidata. `permitida` é SIM | NAO | CONDICIONAL.
+
+    OS EIXOS SAO OPCIONAIS, E A AUSENCIA DELES E O QUE MANTEM AS ROTAS ANTIGAS
+    INTACTAS. Sem eixos, esta funcao devolve exactamente o dicionario que
+    devolvia antes — mesmas chaves, mesmos valores. Com eixos, a rota ganha tres
+    campos a mais e `PERMITIDA` passa a significar a decisao do PROJETO, com a
+    evidencia da PLATAFORMA preservada ao lado, sem se apagar.
+
+        OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+
+    As duas frases convivem: o dono autoriza o risco do projeto, e a plataforma
+    continua a proibir. O que a casa NAO pode e escrever uma sem a outra.
+    """
+    rota = {
         'ROTA': nome, 'CLASSE': classe, 'PRIORIDADE': CLASSES[classe],
         'PERMITIDA': permitida, 'ESTADO': estado, 'CUSTO': custo,
         'NOTA': nota, 'EVIDENCIA': evidencia, 'MEDIDO_EM': MEDIDO_EM,
     }
+    if any(v is not None for v in (owner_authorized, platform_policy, limite)):
+        rota.update({'OWNER_AUTHORIZED': owner_authorized,
+                     'PLATFORM_POLICY_STATUS': platform_policy,
+                     'LIMITE': limite})
+    return rota
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -263,6 +374,38 @@ MATRIZ = {
               'objeto voltou SEM transcricao nos campos que o adaptador le. '
               'PROVIDER REACHED != CAPABILITY DELIVERED.',
               'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),
+        ],
+        # ── O SOM DE UM VIDEO PUBLICO — ROTA PROPRIA, EIXOS PROPRIOS ────────
+        # Nao entra por FETCH_VIDEO_BYTES (isso seria dizer que o VIDEO foi
+        # adquirido) nem por FETCH_TRANSCRIPT (isso seria dizer que o que veio
+        # foi TEXTO). O que foi medido foram BYTES DE SOM.
+        #
+        # E e a unica rota desta matriz que declara os tres eixos, porque e a
+        # unica onde os dois ultimos divergem: o dono autorizou por escrito, e a
+        # plataforma continua a proibir. `PERMITIDA = SIM` aqui significa a
+        # decisao do PROJETO — e a evidencia da PLATAFORMA sobrevive inteira ao
+        # lado, em vez de ser apagada.
+        #
+        #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+        'FETCH_AUDIO_BYTES': [
+            r('yt-dlp:public_audio', 'LOCAL_EXECUTOR', 'SIM', 'PROVED', 'zero',
+              'ROTA PROVADA em 2026-09-18 (C13), ponta a ponta: bytes de som de '
+              'video PUBLICO, com SHA256, ffprobe (1 fluxo de som, 0 de imagem) e '
+              'transcricao real. Executor: `ferramentas/youtube_transcrever.py` '
+              '(`_audio`), que chama `yt-dlp -f bestaudio/best`; nenhum '
+              'descarregador novo. FRONTEIRA: so alvo publico — sem conta, sem '
+              'cookie de terceiro, sem CAPTCHA, sem token de sessao, sem contornar '
+              'paywall ou acesso privado. NAO e rota de video (`youtube.media` '
+              'continua BLOCKED) e NAO e rota de legenda (`FETCH_TRANSCRIPT` '
+              'continua na rota paga). A plataforma proibe: Developer Policies '
+              'III.E.1.a (download/cache de conteudo audiovisual), III.I.7 '
+              '(separar os componentes de audio) e ToS §Permissions and '
+              'Restrictions (acesso por meio automatizado) — preservados aqui '
+              'porque apaga-los seria reescrever a evidencia.',
+              'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md',
+              owner_authorized='SIM',
+              platform_policy='DISALLOWED',
+              limite='PUBLIC_AUDIO_ONLY'),
         ],
     },
 
@@ -711,6 +854,12 @@ def decisao(platform, capability):
                       'ESTADO': escolhida['ESTADO'],
                       'AUTH_MODE': auth_mode(escolhida),
                       'PORQUE': escolhida['NOTA']})
+    # OS EIXOS SO APARECEM QUANDO A ROTA OS DECLARA. Sem eles, este dicionario
+    # e exactamente o que era antes — e e isso que prova que nenhuma decisao
+    # antiga mudou de forma nem de valor.
+    #
+    #     AUSENTE = NAO DECLARADO, e quem le sabe que nao foi declarado.
+    veredicto.update({k: escolhida[k] for k in EIXOS if k in escolhida})
     return veredicto
 
 
@@ -766,6 +915,21 @@ def actor_proibido(plataforma, actor):
     return False, ''
 
 
+def _autorizada_pelo_projeto(rota):
+    """Rota que declara os eixos so e viavel com decisao explicita do projeto.
+
+    FAIL-CLOSED, e o silencio nao autoriza:
+
+        OWNER_AUTHORIZED ausente  ->  rota indisponivel, nao permissao implicita
+
+    Rota ANTIGA (sem eixos nenhuns) continua exactamente como era: esta funcao
+    responde `True` e nada muda no caminho que ja corria.
+    """
+    if not _declara_eixos(rota):
+        return True
+    return rota.get('OWNER_AUTHORIZED') == 'SIM'
+
+
 def _rota_padrao(rotas):
     """A rota DEFAULT: PERMITIDA primeiro, BARATA depois, PROVADA por último.
 
@@ -780,9 +944,13 @@ def _rota_padrao(rotas):
     Uma rota que precisa de revisão não é a rota padrão de nada enquanto existir
     uma permitida ao lado: `CREDENTIAL_MISSING` é um estado que a casa conserta,
     e `CONDICIONAL` é uma dúvida que ela não conserta sozinha.
+
+    E uma rota que declara os eixos só entra se o DONO a autorizou — a plataforma
+    proibir nao a tira daqui, mas o dono nao autorizar tira.
     """
     viaveis = [x for x in rotas if x['PERMITIDA'] in ('SIM', 'CONDICIONAL')
-               and x['ESTADO'] not in ('ROUTE_NOT_ALLOWED',)]
+               and x['ESTADO'] not in ('ROUTE_NOT_ALLOWED',)
+               and _autorizada_pelo_projeto(x)]
     if not viaveis:
         return None
     return sorted(viaveis, key=lambda x: (x['PERMITIDA'] != 'SIM',
@@ -872,6 +1040,12 @@ def gap_apify():
             elif tem_apify:
                 linhas.append((plat, cap, 'APIFY DISPENSÁVEL', 'rota livre cobre: %s' % d['ROTA']))
     return linhas
+
+
+# ── A LEI CONFERE-SE AO IMPORTAR ────────────────────────────────────────────
+# Uma matriz invalida rebenta aqui, e nao no dia em que alguem colhe. E onde a
+# rota nova depende da declaracao, a ausencia dela FALHA FECHADO.
+conferir_matriz()
 
 
 def main():
