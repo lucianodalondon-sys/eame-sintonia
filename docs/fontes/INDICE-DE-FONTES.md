@@ -15,7 +15,7 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **210** |
+| fichas completas no atlas | **213** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
 | endereços que o código realmente chama | **265** |
@@ -25,7 +25,7 @@ sabe buscar sozinha.
 >
 > O cabeçalho do atlas diz **190 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **210**. Faltam **-20**.
+> **213**. Faltam **-23**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -41,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **173** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **176** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
@@ -165,7 +165,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
 | `FR-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### ITALIA · 157 fontes · 1 com contrato de busca
+### ITALIA · 160 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
@@ -318,6 +318,9 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T7-002` | MASAF — elenco delle OP e AOP riconosciute | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T7-013` | CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Fore | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T7-014` | Consorzi Agrari d'Italia — CAI | T7 · TECHNICAL NETWORK | 🟡 YELLOW | **não** |
+| `IT-T8-001` | Agronotizie - Notizie per l'agricoltura (canale YouTube uf | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
+| `IT-T8-002` | Image Line - pagina aziendale LinkedIn (IT) | T8 · FARMERS & INFLUENCERS | 🟡 YELLOW | **não** |
+| `IT-T8-003` | AgroNotizie - profilo Instagram ufficiale | T8 · FARMERS & INFLUENCERS | 🟡 YELLOW | **não** |
 | `IT-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 | `IT-T9-002` | Bayer CropScience Italia — comunicação pública | T9 · COMPETITORS | 🟡 YELLOW | **não** |
 | `IT-T9-008` | ADAMA Italia — comunicação pública | T9 · COMPETITORS | 🟡 YELLOW | **não** |

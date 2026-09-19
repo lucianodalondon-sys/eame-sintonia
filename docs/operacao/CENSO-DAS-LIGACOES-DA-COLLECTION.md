@@ -844,7 +844,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `docs/fontes/ATLAS-DE-FONTES-EAME.md`, `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`, `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json` |
 | **papel** | STORAGE · medido no plano CODE |
 | **dono** | UNKNOWN |
-| **status operacional** | yellow — 210 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 205, hoje so uma pessoa consegue ir la  |
+| **status operacional** | yellow — 213 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 208, hoje so uma pessoa consegue ir la  |
 | **QUEM ATIVA** | **NAO_SE_ATIVA** |
 | **prova de quem ativa** | 3 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre _(plano CODE)_ |
 | **porquê** | esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro. |
