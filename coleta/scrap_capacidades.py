@@ -125,6 +125,13 @@ _CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'
 _RE = 'docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md'
 _MZ = 'leis/social_matriz.py'
 _C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'
+#: O gate que mediu a rota paga de legenda do YouTube ponta a ponta. E ele, e
+#: nao o censo dos actors, quem sustenta o estado de `youtube.native_caption`:
+#: o censo conta actors e custo; o gate mediu ESTA rota e fechou-a.
+_C5 = 'docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md'
+#: O documento que mediu a aquisicao de AUDIO PUBLICO ponta a ponta — bytes,
+#: SHA, ffprobe e ASR. Prova propria: a rota oficial de dados nao a sustenta.
+_C13 = 'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md'
 _LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'
 _C11 = 'docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md'
 
@@ -217,9 +224,47 @@ DECLARADAS = {
     'youtube.search': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'SEARCH_KEYWORD'),
     'youtube.video.metadata': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'FETCH_VIDEO_METADATA'),
     'youtube.comments': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'FETCH_COMMENTS'),
-    'youtube.native_caption': ('YOUTUBE', PROVEN, ONLINE, None, _CE, 'FETCH_TRANSCRIPT'),
+    # PARTIAL, e o numero e que o diz: o bruto pago
+    # `data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz` tem 20
+    # itens e 5 vieram com `transcript` vazio — 25% de falha, ja paga. E o ator
+    # devolve `chars`, `transcript` e `url` e mais nada: nao declara lingua nem
+    # especie, entao o adaptador escreve `NOT_DECLARED_BY_PROVIDER`.
+    #
+    #     UMA ROTA QUE FALHA 1 EM 4 E NAO DIZ O QUE ENTREGA NAO E `PROVEN`.
+    #
+    # O carimbo anterior dizia PROVEN e contradizia as outras duas leis da casa:
+    # `social_matriz` ja lia ESTADO=PARTIAL para `FETCH_TRANSCRIPT`, e o
+    # C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE fechou com TRANSCRIPT_ROUTE_GATE=CLOSED.
+    # Tres papeis, duas historias. O precedente da casa esta duas dezenas de
+    # linhas abaixo: `x.native_caption` e PARTIAL exatamente por vir vazia.
+    #
+    # A PROVA passa a ser o C5 e nao o censo: quem mediu ESTA rota foi o gate.
+    # PARTIAL e PROVEN prometem resultado por igual (`SEM_PROMESSA` so cobre
+    # BLOCKED/UNKNOWN/NOT_EXECUTED), entao isto NAO desliga a capacidade — deixa
+    # de arredondar o que ela entrega.
+    'youtube.native_caption': ('YOUTUBE', PARTIAL, ONLINE, None, _C5, 'FETCH_TRANSCRIPT'),
     # O unico 403 da lista. Descobrir e livre; o byte e que e o muro.
     'youtube.media': ('YOUTUBE', BLOCKED, LOCAL, DATACENTER_BLOCKED, _AP, None),
+    # ── AUDIO PUBLICO: A OUTRA PORTA, E ELA NAO E A MESMA ──────────────────
+    # Nasceu do §149. `youtube.media` continua BLOCKED e NAO foi rebatizada:
+    # ela significa os bytes audiovisuais (video incluido), e o video nunca foi
+    # adquirido. O que esta provado e a ESPECIE SOM, por outra rota.
+    #
+    #     AUDIO_ONLY != VIDEO
+    #     DADOS OFICIAIS != AUDIO PUBLICO
+    #     API_KEY != OAUTH
+    #
+    # `public` no nome nao e decoracao: e a fronteira que foi medida. Alvo
+    # publico, sem conta, sem cookie de terceiro, sem CAPTCHA, sem token de
+    # sessao e sem contornar paywall — nada disso foi cruzado, e o nome guarda
+    # o limite para que uma missao futura nao o leia como licenca geral.
+    #
+    # MATRIZ=None porque `social_matriz` NAO tem capacidade grossa para audio
+    # (`FETCH_AUDIO` nao existe la) e o contrato dela nao sabe expressar os tres
+    # eixos lado a lado. Nao se improvisa: fica registado como gap no relatorio
+    # e a linha grossa continua com o dono dela.
+    'youtube.public_audio': ('YOUTUBE', PROVEN, LOCAL, HEAVY_MEDIA_PROCESSING,
+                             _C13, None),
 
     # ── X / TWITTER ───────────────────────────────────────────────────────
     'x.direct_post': ('X', PROVEN, ONLINE, None, _B, None),

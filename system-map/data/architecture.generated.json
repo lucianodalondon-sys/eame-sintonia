@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/house-guard-fixture-v1",
-    "HEAD": "cdb5c1129072244912174ce153db4784a24e45fc",
-    "GENERATED_AT": "2026-09-18T18:58:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "272eec75428299318fca7d2519f2a02021ee09f5d0767fd33c83871895e6447d"
+    "BRANCH": "claude/youtube-capability-v1",
+    "HEAD": "5b87ea71010e2f36e414b1109517884f5f97ee61",
+    "GENERATED_AT": "2026-09-18T19:51:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ec3ef1aef3f3d02a988ed2c84ff605c733f8c286821b18829239ba1bcc4b5348"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "74218847e93ef7ef0a6405ad032cf3c4cb8e7663",
+      "sha": "efba572254fd1e7b2fdd7a278e2dfe31b92b51ad",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1522,7 +1522,7 @@
     },
     {
       "path": "coleta/scrap_capacidades.py",
-      "sha": "082eacda6daed89bb9da1f9ebeb9c789aa3aa936",
+      "sha": "8f0d2c570619e506a15eb34e67b53db2f27f766c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13660,7 +13660,7 @@
     },
     {
       "path": "tests/test_c10_8b_rota_paga_canonica.py",
-      "sha": "0b39eb50e90178ec3475b9fde968a1e3594d6c1e",
+      "sha": "a8e312d17019745502cfe22c83d6fb1171a29326",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18222,7 +18222,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_capacidades.py",
-        "line": 257,
+        "line": 302,
         "snippet": "'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',"
       }
     },
@@ -18235,6 +18235,17 @@
         "file": "coleta/scrap_capacidades.py",
         "line": 127,
         "snippet": "_C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 131,
+        "snippet": "_C5 = 'docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md'"
       }
     },
     {
@@ -51706,7 +51717,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8b_rota_paga_canonica.py",
-        "line": 254,
+        "line": 274,
         "snippet": "fonte = _fonte('coleta/adaptador_youtube.py')"
       }
     },
@@ -51728,7 +51739,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8b_rota_paga_canonica.py",
-        "line": 250,
+        "line": 270,
         "snippet": "self.assertEqual(med.get('IMPLEMENTACAO'), 'coleta/coletor.py')"
       }
     },
@@ -51761,7 +51772,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8b_rota_paga_canonica.py",
-        "line": 267,
+        "line": 287,
         "snippet": "fonte = _fonte('coleta/scrap_executor.py')"
       }
     },
@@ -51783,7 +51794,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8b_rota_paga_canonica.py",
-        "line": 272,
+        "line": 292,
         "snippet": "self.assertNotIn('pintostudio', _fonte('coleta/social_rotas.py'))"
       }
     },
@@ -51794,7 +51805,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8b_rota_paga_canonica.py",
-        "line": 213,
+        "line": 233,
         "snippet": "registo = os.path.join(RAIZ, 'data/samples/SCRAP-YOUTUBE/yt-legenda-paga.json')"
       }
     },
@@ -51849,7 +51860,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8b_rota_paga_canonica.py",
-        "line": 579,
+        "line": 599,
         "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')"
       }
     },
@@ -63342,7 +63353,7 @@
     "files_tracked": 2090,
     "files_readable": 814,
     "files_code_dir": 873,
-    "file_edges": 4381,
+    "file_edges": 4382,
     "escritas_em_pasta": 74,
     "declared_missing_here": 0
   },

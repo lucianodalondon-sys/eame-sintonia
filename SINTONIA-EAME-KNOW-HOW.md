@@ -17631,6 +17631,67 @@ zero pares com relevância `SIM`; os outros seis territórios não têm executor
 
 ---
 
+# §147 · UM ESTADO DE CAPABILITY ANCORADO NA PROVA ERRADA DIVERGE EM SILÊNCIO
+
+O §145 deixou `youtube.native_caption` fora da wave gratuita pelo motivo certo
+(o dono da credencial é outro). Esta secção corrige **o estado dela**, que dizia
+`PROVEN` enquanto duas outras leis da casa já diziam outra coisa.
+
+    coleta/scrap_capacidades.py   youtube.native_caption = PROVEN
+    leis/social_matriz.py         FETCH_TRANSCRIPT       = PARTIAL
+    C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE  TRANSCRIPT_ROUTE_GATE = CLOSED
+
+Três papéis, duas histórias — e nenhuma missão tinha reparado. O que o bruto
+pago diz, medido em `data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz`:
+**20 itens, 5 com `transcript` vazio** (25% de falha, já paga), e o ator devolve
+`chars`, `transcript` e `url` — **não declara língua nem espécie**, por isso o
+adaptador escreve `NOT_DECLARED_BY_PROVIDER`.
+
+    UMA ROTA QUE FALHA 1 EM 4 E NÃO DIZ O QUE ENTREGA NÃO É `PROVEN`.
+
+**A causa não era o estado. Era a âncora.** A linha citava como prova o
+`CENSO-DOS-ACTORS-E-CUSTO-V1.md`, que conta actors e custo, e **não** o C5, que
+foi quem mediu *esta* rota ponta a ponta e a fechou. Quem fosse conferir abria o
+documento errado, não via contradição nenhuma, e seguia em frente.
+
+    ESTADO DE CAPABILITY TEM DE APONTAR PARA A PROVA QUE MEDIU AQUELA ROTA.
+    ANCORAR O ESTADO NO DOCUMENTO ERRADO PERMITE DIVERGÊNCIA SILENCIOSA.
+
+Corrigiu-se o par — estado **e** prova (`PARTIAL`, `_C5`). E mediu-se o que
+`PARTIAL` custa: **nada**. `SEM_PROMESSA` cobre só `BLOCKED`, `UNKNOWN` e
+`NOT_EXECUTED`, logo `promete_resultado` continua `True` e a capacidade continua
+ligada — deixou de se gabar, não deixou de servir.
+
+    DESPROMOVER UM ESTADO NÃO É DESLIGAR UMA CAPACIDADE.
+
+**O teste que se partiu é a parte que interessa.** `test_1_a_capacidade_continua_PROVEN`
+existia para vigiar aquela palavra, e gritou — fez o trabalho dele. A tentação
+era apagá-lo; o que se fez foi reancorá-lo na medição, registar no corpo do teste
+porque mudou, e **acrescentar** `assertTrue(promete_resultado)` para travar a
+leitura errada de que `PARTIAL` desliga. Red team por mutação: repor `PROVEN`
+no disco (com `__pycache__` limpo) **reprova** — a asserção mede, não passa por
+acaso.
+
+    UM TESTE QUE ANCORA UM FACTO ENVELHECE COM O FACTO.
+    REESCREVER A ÂNCORA É MANUTENÇÃO; APAGAR A ASSERÇÃO É PERDER A VIGIA.
+
+`YOUTUBE_NATIVE_CAPTION = PARTIAL` · `YOUTUBE_MEDIA = BLOCKED` (403 de datacenter
+e Developer Policies III.I.14/III.I.7; `tem_caminho = False`, sem rota escondida)
+· as quatro oficiais **intactas** e `PROVEN + WIRED`. `PAID_RUNS = 0` ·
+`PAID_USD = 0.00` — não havia autorização de gasto selada, e a guarda provou-o
+falhando fechada (`GastoRecusado · SEM_AUTORIZACAO_NAO_GASTEI`), pelo que o
+canário de um vídeo **não correu**. `NEW_FAILURES = 0` (8 vermelhos antes e
+depois, os mesmos nomes) · `RED_TEAM_BLOCKERS = 0` (20 ataques).
+
+`SYSTEM_MAP_CHECK = FAIL (P1_SEM_DRIFT)` **pré-existente**: medido com as
+alterações fora da árvore por `git stash`, o HEAD virgem já reprovava P1 — o mapa
+commitado nasceu em `65eadb27` e o HEAD é `78f8fcdc`. Regenerar **com** esta
+mudança não move um byte do mapa (é um valor dentro de um dicionário, não
+arquitetura). Não foi corrigido aqui: tem outro dono, e arrastá-lo seria scope
+leak.
+
+---
+
 # §148 · UM DEFAULT SILENCIOSO NUMA ROTA PARTILHADA É UMA DECISÃO DE NEGÓCIO SEM AUTOR
 
 `coleta/rota_forward_documento.py` trazia uma linha de aparência inofensiva:
