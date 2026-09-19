@@ -17678,3 +17678,96 @@ omissão, com mais passos.
 existe** como atributo nem reaparece no código. Repor a linha reprova. Prova:
 17 testes novos · 113 na regressão de Admissão/Collection · 2 vermelhos
 pré-existentes, os mesmos no trunk-base · `RED_TEAM_BLOCKERS = 0`.
+
+
+# §149 · AS TRÊS PRIMEIRAS FONTES SOCIAIS ITALIANAS — E TRÊS MANEIRAS DE UM `200` MENTIR
+
+**Data:** 2026-09-18 · **Branch:** `claude/it-social-sources-v2` · **Base:** `195bdb7b` (HEAD real do trunk)
+
+O T8 italiano estava vazio. O Atlas tinha `EU-T8-001` (avaliação de rota, não fonte) e
+`ES-T8-001..003` — que o próprio derivado já classificava como **`CITADAS_SEM_FICHA`**:
+identidade citada numa tabela, sem ficha, invisível ao resolvedor.
+
+```
+SOURCE_ID CITADO  ≠  FICHA  ≠  FONTE ALCANÇÁVEL PELO RESOLVEDOR
+```
+
+Ficam registadas `IT-T8-001` (YouTube), `IT-T8-002` (LinkedIn) e `IT-T8-003` (Instagram),
+com ficha completa e alcançáveis: `ITALIA 157 → 160` no derivado regenerado.
+
+## A base errada custa a missão inteira, e mede-se em dois comandos
+
+A primeira tentativa nasceu sobre `cdb5c112`, que já não era o trunk quando o trabalho
+começou. A branch foi **descartada** e o trabalho **refeito** — não *cherry-picked*, porque
+transplantar commits de uma base morta é herdar a medição dela.
+
+```
+git fetch && git rev-parse origin/<trunk>          # o HEAD real, agora
+git merge-base --is-ancestor <trunk> HEAD          # a minha base contém-no?
+```
+
+**Reemitir o mesmo número para a MESMA fonte não é reciclar.** Reciclar é dar um número
+gasto a uma fonte *diferente*. Medido: `IT-T8-001..003` apareciam só no commit da branch
+descartada, que não é ancestral do trunk — logo a identidade nunca foi consumida
+canonicamente, e voltar a usá-la para as mesmas três fontes é **continuidade**.
+
+## Três maneiras de o `200` mentir, todas medidas nesta missão
+
+**1 · O identificador que a página oferece pode ser do vizinho.** Um
+`re.search(r'(UC[\w-]{22})')` no HTML de `@agronotizietv` devolve
+`UCxypgXkKSbXuHn5hfmpXyvQ` — que o feed prova ser «Agrimeccanica - Agronotizie», outro
+canal, outro conteúdo. O correto, `UCUs2Mg7jvUTRt7_MSOFYM5Q`, está em
+`channelMetadataRenderer.externalId` e confirma-se pelo **nome que o próprio canal
+declara**. Uma página de canal carrega IDs de canais vinculados; ler o primeiro é herdar
+identidade alheia — e o erro atravessa calado, porque o feed errado responde `200` com
+vídeos reais.
+
+**2 · `HTTP 200` anónimo não prova que o perfil existe.** Controlo negativo com um handle
+inventado:
+
+```
+instagram.com/<real>/   -> 200 · 628.490 bytes
+instagram.com/<falso>/  -> 200 · 628.503 bytes    <- indistinguível
+/embed/ nos dois        -> 200 · ~627 KB, sem username no HTML
+web_profile_info        -> 429 nos dois
+navegador (real)        -> «AgroNotizie (@agronotizie)» · 29,8 mil seguidores
+navegador (falso)       -> «Profile não está disponível»
+```
+
+O `200` é o *shell* da aplicação, servido antes de a plataforma saber quem se pediu.
+
+```
+TODA SONDA DE EXISTÊNCIA PRECISA DE UM CASO QUE A FAÇA DIZER «NÃO».
+UMA SONDA QUE NUNCA DIZ «NÃO» NÃO ESTÁ A MEDIR NADA.
+```
+
+**3 · E o `404` também mente — para o outro lado.** O RSS do YouTube respondeu `200` com
+15 entradas numa janela e `404` noutra, para o mesmo `channel_id`. Antes de concluir
+«canal morto», corri o controlo certo: os feeds de **Google Developers** e do **canal
+oficial do YouTube** devolveram `404` no mesmo egresso, no mesmo minuto. Não era a fonte:
+era a rede. Registado como `ACCESS_STABILITY: INSTÁVEL`, nunca como `DEAD`.
+
+```
+UM ERRO QUE ATINGE TAMBÉM OS CONTROLOS NÃO É UM FACTO SOBRE A FONTE.
+BLOCKED ≠ DEAD · 404 NESTE EGRESSO ≠ 404 NO MUNDO
+```
+
+## Canal ≠ site, decidido pela lei e não pela conveniência
+
+`IT-T1-021` é o **site** AgroNotizie. Reutilizar esse `SOURCE_ID` para o canal de YouTube
+teria sido cómodo e errado: COL-LAW-034 separa `ORIGIN_ID ≠ CHANNEL_ID`. Três fontes
+novas, mesmo publicador (Image Line, Faenza), identidades distintas.
+
+## Estado
+
+```
+IT_T8_SOURCE_IDS_BEFORE = nenhum      IT_T8_SOURCE_IDS_AFTER = IT-T8-001..003
+UNIVERSO HISTÓRICO VARRIDO = 708 versões · 5 emissores · 285 identidades
+RESOLVER_REACHABLE = 3/3 · LIVE = 3/3 · FULL_FICHA = 3/3
+RELEVÂNCIA = NAO_AVALIADA nas três — pacote entregue ao owner, RESULTADO vazio em 3/3
+SYSTEM_MAP_CHECK = PASS · test_source_id 6/6 · RED_TEAM_BLOCKERS = 0
+```
+
+Nenhum adapter escrito, nenhum `alvosDe` tocado, nenhuma coleta iniciada: a missão
+respondeu **qual fonte é, onde está, como se identifica e se o resolvedor a conhece** —
+não como colhê-la.
