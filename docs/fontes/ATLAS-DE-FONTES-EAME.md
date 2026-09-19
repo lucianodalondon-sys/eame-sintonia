@@ -1196,6 +1196,122 @@ escolhido em todas as execuções.
 
 ---
 
+---
+
+### T8 · FARMERS & INFLUENCERS — ITALY · onda 1 (2026-09-18)
+
+
+> **Sobre a identidade destes três números.** `IT-T8-001..003` nasceram em
+> `claude/it-social-sources-v1` (base `cdb5c112`, descartada) e foram refeitos em
+> `claude/it-social-sources-v2` (base `195bdb7b`). Esta onda **porta-os semanticamente**
+> para o trunk `fd62d062` — a ficha foi copiada, o derivado foi regenerado, e nada da
+> branch antiga sobrescreveu o trunk. Os mesmos números voltam para **as mesmas três
+> fontes**, com a mesma evidência: isto é continuidade de identidade, **não** reciclagem —
+> reciclar seria dar um número gasto a uma fonte *diferente*. Medido: `IT-T8-001..003` só
+> aparecem em commits dessas branches, nenhuma ancestral do trunk; nenhum outro emissor os
+> usou.
+
+*Três canais sociais italianos, um por plataforma. **Canal ≠ site** (COL-LAW-034:
+`ORIGIN_ID ≠ CHANNEL_ID`): `IT-T1-021` é o site AgroNotizie e continua a ser outra fonte.
+Até esta onda, T8 italiano estava vazio — o Atlas tinha `EU-T8-001` (avaliação de rota) e
+`ES-T8-001..003`, que o derivado classifica como `CITADAS_SEM_FICHA`.*
+
+#### IT-T8-001 · AgroNotizie — canale YouTube ufficiale
+
+```
+SOURCE_ID:                    IT-T8-001
+SOURCE_NAME:                  Agronotizie - Notizie per l'agricoltura (canale YouTube ufficiale)
+SOURCE_OWNER:                 Image Line s.r.l. - Faenza (Ravenna)
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  VIDEO_CHANNEL - canale della testata agricola
+URL:                          https://www.youtube.com/@agronotizietv
+PLATFORM_NATIVE_ID:           UCUs2Mg7jvUTRt7_MSOFYM5Q
+ACCESS_METHOD:                BROWSER (identidade e listagem) | RSS https://www.youtube.com/feeds/videos.xml?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q quando o egresso o permite
+CROPS:                        transversal
+TOPICS:                       mercati agricoli, tecnica agronomica, difesa, politica agricola, innovazione
+GEOGRAPHIC_GRANULARITY:       pais (ITALIA) - o canal nao declara recorte regional por video
+UPDATE_FREQUENCY:             ATIVO - video mais recente ha 1 dia na data da medicao
+HISTORICAL_DEPTH:             1,8 mil videos declarados no canal
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo, estavel e verificado
+DOCUMENT_ID_AVAILABLE:        NAO SEI - existe videoId por item, mas a regra de DOCUMENT_ID nao foi contratada
+PUBLICATION_DATE_AVAILABLE:   SIM - data relativa na listagem; <published> exato no RSS
+RAW_EVIDENCE_PRESERVABLE:     SIM - RSS serve XML quando alcancavel
+AUTOMATION_FEASIBILITY:       MEDIA - RSS publico sem chave, mas o egresso desta medicao devolveu 404 numa janela (ver EVIDENCE)
+COLLECTION_FEASIBILITY:       NAO MEDIDA nesta missao - missao de fonte, nao de coleta
+LEGAL_OR_ACCESS_RISK:         canal publico; muro de consentimento UE no acesso por navegador
+REAL_EXAMPLE:                 "Mercati agricoli e volatilita dei prezzi: cosa fa l'Ue" (oKh_fmYjGEQ, ha 1 dia)
+ADAMA_USE_CASE:               voz publica italiana sobre mercado, defesa e tecnica agricola
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json (identidade reprovada em 2026-09-19 no trunk fd62d062: externalId + title + handle + ownerUrls convergentes)
+VERDICT:                      GREEN - canal aberto, identidade provada e exemplo real observado
+```
+
+#### IT-T8-002 · Image Line — pagina aziendale LinkedIn
+
+```
+SOURCE_ID:                    IT-T8-002
+SOURCE_NAME:                  Image Line - pagina aziendale LinkedIn (IT)
+SOURCE_OWNER:                 Image Line s.r.l. - Faenza (Ravenna)
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  SOCIAL - pagina institucional
+URL:                          https://it.linkedin.com/company/image-line
+PLATFORM_NATIVE_ID:           image-line (company vanity slug)
+ACCESS_METHOD:                BROWSER - pagina publica; leitura anonima instavel (ver EVIDENCE)
+CROPS:                        transversal
+TOPICS:                       AgroTech, AgroMarketing, AgroInnovation, servizi digitali per l'agricoltura
+GEOGRAPHIC_GRANULARITY:       organizacao (sede Faenza, Ravenna)
+UPDATE_FREQUENCY:             NAO SEI - cadencia de posts nao medida nesta missao
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - slug de empresa, verificado contra controlo negativo
+DOCUMENT_ID_AVAILABLE:        NAO SEI
+PUBLICATION_DATE_AVAILABLE:   NAO SEI
+RAW_EVIDENCE_PRESERVABLE:     PARCIAL - observacao por navegador registada; bytes nao descarregados
+AUTOMATION_FEASIBILITY:       NAO SEI - acesso anonimo caiu em /authwall numa das visitas
+COLLECTION_FEASIBILITY:       NAO MEDIDA nesta missao
+LEGAL_OR_ACCESS_RISK:         plataforma com muro de autenticacao; leitura anonima nao garantida
+REAL_EXAMPLE:                 h1 "Image Line" - 4.595 follower - Settore "Tecnologia, informazioni e internet" - Sede principale "Faenza, Ravenna" - 64 dipendenti
+ADAMA_USE_CASE:               canal corporativo do publisher agricola; liga imprensa (IT-T1-021) a comunicacao institucional
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T8-002/MANIFEST.json
+VERDICT:                      YELLOW - pagina real e observada, mas o acesso anonimo e instavel (authwall)
+```
+
+#### IT-T8-003 · AgroNotizie — profilo Instagram ufficiale
+
+```
+SOURCE_ID:                    IT-T8-003
+SOURCE_NAME:                  AgroNotizie - profilo Instagram ufficiale
+SOURCE_OWNER:                 Image Line s.r.l. - Faenza (Ravenna)
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  SOCIAL - profilo della testata agricola
+URL:                          https://www.instagram.com/agronotizie/
+PLATFORM_NATIVE_ID:           agronotizie (username)
+ACCESS_METHOD:                BROWSER - exige navegador; rotas anonimas HTTP nao distinguem perfil real de inexistente
+CROPS:                        transversal
+TOPICS:                       agricoltura a 360, notizie tecniche, community agronomica
+GEOGRAPHIC_GRANULARITY:       pais (ITALIA)
+UPDATE_FREQUENCY:             NAO SEI - cadencia nao medida nesta missao
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - username, verificado contra controlo negativo
+DOCUMENT_ID_AVAILABLE:        NAO SEI
+PUBLICATION_DATE_AVAILABLE:   NAO SEI
+RAW_EVIDENCE_PRESERVABLE:     PARCIAL - observacao por navegador registada; bytes nao descarregados
+AUTOMATION_FEASIBILITY:       BAIXA - HTTP anonimo devolve 200 e ~628KB TAMBEM para handle inexistente; /embed/ idem e web_profile_info devolve 429
+COLLECTION_FEASIBILITY:       NAO MEDIDA nesta missao
+LEGAL_OR_ACCESS_RISK:         plataforma com muro de login; leitura publica limitada
+REAL_EXAMPLE:                 perfil "AgroNotizie (@agronotizie)" - 29,8 mil seguidores - 2.095 seguindo - bio "Parliamo di agricoltura, a 360" - destaques Plantgest / Fitogest / Fertilgest
+ADAMA_USE_CASE:               voz social italiana com audiencia agronomica declarada
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T8-003/MANIFEST.json
+VERDICT:                      YELLOW - perfil real e observado por navegador; rota anonima recusada por nao distinguir existencia
+```
+
 ### T7 · TECHNICAL NETWORK — SPAIN
 
 #### ES-T7-001..027 · Mídia técnica, associações e rede de assessores
