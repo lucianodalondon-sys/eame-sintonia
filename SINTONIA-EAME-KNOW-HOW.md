@@ -18074,3 +18074,58 @@ Um pedido `T8` **sem** `fase` nomeada continua a receber este executor no plano
 — o resolvedor **ordena** candidatos, nao os elimina. Quem recusa e
 `coleta/scrap_colheita.py`, que levanta `KeyError` antes de tocar na rede.
 A porta existe; so nao esta onde da mais jeito dizer que esta.
+
+# §153 · UMA FUNCAO QUE ESCREVE NAO PODE TER NOME DE FUNCAO QUE LE
+
+**O QUE.** O `LIVRO-DE-RELEVANCIA-DE-FONTE.json` passou de **7 para 28**
+decisoes sozinho. Sete avaliacoes distintas, cada uma repetida **exactamente
+quatro vezes**. Nenhuma foi tomada por ninguem: tres eram copias acidentais.
+
+**POR QUE.** `leis/relevancia_da_fonte.py::registar()` **escreve no disco**.
+Eu li-a como «carregar o livro para a memoria» e chamei-a tres vezes em
+scripts de medicao, antes de consultar o portao. Cada chamada fez *append* das
+mesmas 7 linhas que tinha acabado de ler.
+
+```
+LER != CARREGAR != REGISTAR
+1 original + 3 releituras = 4 copias de cada linha
+```
+
+Quem so quer ler tem `ler_livro()` ao lado, e o portao `portao()` aceita as
+linhas em memoria — nenhum dos dois toca no ficheiro.
+
+**O SINAL QUE EU IGNOREI.** `registar()` devolveu **14** quando o livro tinha
+**7** linhas. Esse numero estava no ecra, eu li-o, e segui.
+
+```
+UM NUMERO QUE NAO BATE E UM DEFEITO A PEDIR LICENCA PARA ENTRAR.
+```
+
+**POR QUE 324 TESTES NAO VIRAM NADA.** Porque **nenhum olhava para o livro**.
+Ele e *dado*, nao codigo: nao tem import, nao tem chamada, nao aparece em
+cobertura. A suite inteira ficava verde com o livro a quadruplicar por corrida
+— e ficou. Foi o **owner do projeto** que apanhou o defeito, depois de eu ter
+empurrado o commit.
+
+```
+FICHEIRO DE DADO SEM GUARDA PROPRIA E UM FICHEIRO SEM TESTES,
+POR MAIS VERDE QUE A SUITE ESTEJA.
+```
+
+**PROVA.** `tests/test_livro_de_relevancia_integro.py` — 8 provas que leem o
+FICHEIRO: nenhuma linha byte-identica repetida, `TOTAL` bate com as linhas,
+cada par so repete com data/versao diferentes, e `registar()` fica fixada por
+teste como funcao que ESCREVE. Contraprova executada: no livro sabotado para
+28 a suite **reprova**; no livro corrigido passa 8/8.
+
+Correcao do dado: dedup **conservador**, so de linhas byte-identicas,
+preservando a ordem da primeira ocorrencia. As 6 decisoes anteriores
+sobreviveram byte-identicas (verificado contra `fd62d062`), a de `IT-T8-001`
+manteve-se, e **nenhuma avaliacao distinta se perdeu**: 7/7 pares preservados.
+
+**CONSEQUENCIA.** Uma reavaliacao legitima muda `AVALIADO_EM` e `VERSAO` — e
+por isso **nunca** e byte-identica. A lei append-only continua inteira: a
+guarda distingue *historia* de *copia*, e so recusa a segunda.
+
+    APPEND-ONLY PROTEGE A HISTORIA.
+    NAO PROTEGE CONTRA ESCREVER A MESMA COISA QUATRO VEZES.
