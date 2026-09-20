@@ -1,6 +1,6 @@
 {
  "DATASET": "LIFECYCLE-RED-TEAM-V1",
- "GERADO_EM": "2026-09-20T21:56:15.699295+00:00",
+ "GERADO_EM": "2026-09-20T22:58:38.585002+00:00",
  "ATAQUES": [
   {
    "ATAQUE": "toda promocao READY tem EVIDENCE_REF real",
@@ -20,12 +20,17 @@
   {
    "ATAQUE": "nenhuma bloqueada aparece em READY",
    "PASS": true,
-   "DETALHE": "50 bloqueadas, 0 em READY"
+   "DETALHE": "14 bloqueadas, 0 em READY"
   },
   {
-   "ATAQUE": "estado importado bate com a missao 04",
+   "ATAQUE": "as 50 do feed nao viraram READY sem canario novo",
    "PASS": true,
-   "DETALHE": "robots 50/50 · canary_failed 9/9"
+   "DETALHE": "block+reconciliacao 50 >= 50 da missao 04 · canary_failed 2 <= 9"
+  },
+  {
+   "ATAQUE": "nenhuma por reconciliar aparece em READY",
+   "PASS": true,
+   "DETALHE": "50 por reconciliar, 0 em READY"
   },
   {
    "ATAQUE": "nenhum DOCUMENT_ID fabricado pelo lifecycle",

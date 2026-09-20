@@ -1,0 +1,24 @@
+{
+ "DATASET": "SOURCE-PATTERN-GAP-V1",
+ "LEI": "UM EMPTY_LIST NAO PROVA QUE A FONTE NAO PUBLICA. Prova que o nosso padrao nao viu.",
+ "GERADO_EM": "2026-09-20T22:58:27.882884+00:00",
+ "COMO_FOI_MEDIDO": "padrao frouxo de diagnostico (so dominio + seccao editorial) contra o LINK_PATTERN estrito do contrato, na mesma corrida e na mesma pagina",
+ "FONTES_COM_CONTEUDO_QUE_O_PADRAO_PERDE": 7,
+ "FONTES_SEM_CONTEUDO_EDITORIAL_VISIVEL": 2,
+ "CAUSA": "link_pattern() exige (?:[a-z0-9]+(?:-[a-z0-9]+){2,}) — slug minusculo com 3+ palavras. Medido: os sites usam CamelCase (Avvisi-Comunicazioni), sublinhado (13_08_Aggiornamento) ou paginas de seccao sem slug de artigo.",
+ "PORQUE_NAO_CORRIGI_AGORA": "alargar o padrao mexe no gerador que produziu os 77 contratos, incluindo os 18 READY. Mudar a regua sem re-canariar os 18 arriscaria promover por um padrao que nunca foi provado neles. E uma missao com baseline proprio.",
+ "PROXIMO_PASSO_MINIMO": "alargar link_pattern para aceitar CamelCase e sublinhado, re-canariar os 77, comparar READY antes/depois",
+ "RECLASSIFICADAS": [
+  "IT-T7-029",
+  "IT-T5-046",
+  "IT-T12-017",
+  "IT-T2-029",
+  "IT-T5-053",
+  "IT-T8-007",
+  "IT-T9-018"
+ ],
+ "SEM_CONTEUDO_VISIVEL": [
+  "IT-T7-019",
+  "IT-T5-052"
+ ]
+}

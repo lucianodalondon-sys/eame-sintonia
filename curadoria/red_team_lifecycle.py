@@ -70,16 +70,33 @@ def main() -> int:
            else "%d bloqueadas, 0 em READY" % len(bloq))
 
     # 5. Os numeros batem com a missao 04 (de onde o estado foi importado).
+    #
+    # ⚠️ O UNIVERSO PODE TER MUDADO POR DECISAO, E ENTAO O TESTE E QUE ESTA
+    # DESATUALIZADO. As 50 ROUTE_BLOCKED passaram a RECONCILIATION_REQUIRED
+    # porque a integracao lhes deu rota nova — comparar com o numero cru da
+    # missao 04 acusaria uma reconciliacao legitima como se fosse perda.
+    #
+    #     UM TESTE MAL-CHAVEADO INVENTA BLOCKERS PROPRIOS.
+    #
+    # A conservacao que interessa e: nenhuma fonte DESAPARECEU, e nenhuma
+    # saiu de bloqueada para pronta sem canario novo.
     m04 = json.loads((CUR / "READY-FOR-COLLECTION-V1.json")
                      .read_text(encoding="utf-8"))["POR_ESTADO"]
     m = LC.metricas()
-    bate = (m[LC.CONTRACT_READY_ROUTE_BLOCKED] == m04["CONTRACT_READY_ROUTE_BLOCKED"]
-            and m[LC.CONTRACTED_CANARY_FAILED] == m04["CONTRACTED_CANARY_FAILED"])
-    ataque("estado importado bate com a missao 04", bate,
-           "robots %d/%d · canary_failed %d/%d" % (
-               m[LC.CONTRACT_READY_ROUTE_BLOCKED],
-               m04["CONTRACT_READY_ROUTE_BLOCKED"],
-               m[LC.CONTRACTED_CANARY_FAILED], m04["CONTRACTED_CANARY_FAILED"]))
+    bloqueio_ou_reconciliacao = (m[LC.CONTRACT_READY_ROUTE_BLOCKED]
+                                 + m[LC.RECONCILIATION_REQUIRED])
+    bate = (bloqueio_ou_reconciliacao >= m04["CONTRACT_READY_ROUTE_BLOCKED"]
+            and m[LC.CONTRACTED_CANARY_FAILED] <= m04["CONTRACTED_CANARY_FAILED"])
+    ataque("as 50 do feed nao viraram READY sem canario novo", bate,
+           "block+reconciliacao %d >= %d da missao 04 · canary_failed %d <= %d"
+           % (bloqueio_ou_reconciliacao, m04["CONTRACT_READY_ROUTE_BLOCKED"],
+              m[LC.CONTRACTED_CANARY_FAILED], m04["CONTRACTED_CANARY_FAILED"]))
+
+    # 5b. Nenhuma RECONCILIATION_REQUIRED escorregou para READY.
+    rec = {s for s, e in est.items() if e == LC.RECONCILIATION_REQUIRED}
+    ataque("nenhuma por reconciliar aparece em READY", not (rec & set(ready)),
+           "%d por reconciliar, 0 em READY" % len(rec)
+           if not (rec & set(ready)) else "intersecao=%s" % sorted(rec & set(ready)))
 
     # 6. O lifecycle nao fabrica DOCUMENT_ID. Nesta missao e sempre NAO SEI.
     txt = (CUR / "lifecycle.py").read_text(encoding="utf-8") + \

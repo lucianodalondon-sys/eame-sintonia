@@ -162,11 +162,94 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     return "FAIL", r
 
 
+def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, dict]:
+    """Escreve o contrato de uma fonte que tem identidade mas nao tem rota.
+
+    Reutiliza o MOLDE que as 77 fontes ja atravessaram
+    (`escrever_contratos.contrato_html`) — uma regua nova faria as fontes
+    novas entrarem por criterio diferente das que ja ca estao.
+
+        O MOLDE E O QUE TORNA A FONTE NOVA COMPARAVEL AS ANTIGAS.
+
+    O contrato escrito aqui NAO e uma prontidao: e uma hipotese de rota que
+    o canario a seguir tem de confirmar. Por isso a etapa termina em
+    CANARY_PENDING e enfileira o canario, nunca em READY.
+    """
+    import escrever_contratos as EC
+    import validar_contratos as VC
+
+    alloc = json.loads((RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json")
+                       .read_text(encoding="utf-8"))
+    n = next((x for x in alloc["NOVAS"] if x["SOURCE_ID"] == source_id), None)
+    if not n:
+        return "FAIL", {"PORQUE": "sem identidade alocada para esta fonte"}
+    if not n.get("URL"):
+        return "FAIL", {"PORQUE": "identidade sem endereco canonico"}
+
+    # ⚠️ NAO CONTRATAR O QUE O DONO EXCLUIU DE PROPOSITO.
+    #
+    # A missao 04 so escreveu contrato para quem tinha
+    # `SMALL_ADAPTATION_REQUIRED` a comecar por «NAO». As restantes ficaram
+    # de fora por DECISAO — precisam de capacidade que ainda nao existe
+    # («ramo de indice»: a entrada nao lista os itens, e o molde generico
+    # nunca os encontraria).
+    #
+    # Medido: as 7 que sobraram estao TODAS marcadas «SIM — ramo de indice».
+    # Contrata-las com o molde generico produziria contratos que passam na
+    # validacao e falham sempre no canario — um EMPTY_LIST garantido, com ar
+    # de trabalho feito.
+    #
+    #     UMA FILA UNIFORME PODE SER UMA DECISAO UNIFORME, NAO UM ESQUECIMENTO.
+    #     O GARGALO DELAS E CAPACIDADE, E CAPACIDADE TEM OUTRO DONO.
+    car = json.loads((RAIZ / "curadoria" / "SOURCE-CHARACTERIZATION-V1.json")
+                     .read_text(encoding="utf-8"))
+    f = next((x for x in car["FONTES"]
+              if x.get("CANDIDATE_ID") == n.get("CANDIDATE_ID")), {})
+    adaptacao = str(f.get("SMALL_ADAPTATION_REQUIRED", ""))
+    if adaptacao and not adaptacao.startswith("NAO"):
+        return "BLOCK", {"CLASSE": "CAPABILITY",
+                         "PORQUE": ("exige capacidade nova (%s) — o molde "
+                                    "generico daria EMPTY_LIST garantido; "
+                                    "dono: SCRAP ENGINEER" % adaptacao[:60])}
+    if f.get("FAMILY") not in ("HTML_SITE", None, ""):
+        return "BLOCK", {"CLASSE": "CAPABILITY",
+                         "PORQUE": "familia %s sem molde provado nesta arvore"
+                                   % f.get("FAMILY")}
+
+    novo = EC.contrato_html(n, f)
+
+    # O carimbo de procedencia faz parte do contrato, nao do script que o
+    # escreveu: sem ele o proprio validador da casa recusa a linha.
+    novo["SOURCE_CONTRACT_VERSION"] = EC.VERSAO
+    novo["SOURCE_CONTRACT_HASH"] = EC.hash_do_contrato(novo)
+    novo["ONBOARDED_BY"] = ("SOURCE-CURATOR-WORKER · contrato escrito pelo "
+                            "ciclo continuo a partir do molde da missao 04")
+
+    # Um contrato so entra na tabela depois de passar as MESMAS portas que
+    # validaram os 77 — validar depois de escrever seria escrever primeiro e
+    # perguntar depois.
+    ok, falhas = VC.validar([novo])
+    if falhas:
+        return "FAIL", {"PORQUE": "contrato reprovado: %s"
+                        % str(falhas[0])[:140], "CONTRATO": novo["SOURCE_ID"]}
+
+    d = json.loads(CONTRATOS.read_text(encoding="utf-8"))
+    if any(c["SOURCE_ID"] == source_id for c in d["FONTES"]):
+        return "OK", {"CONTRATO": source_id, "NOTA": "ja existia; nada reescrito"}
+    d["FONTES"].append(novo)
+    CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),
+                         encoding="utf-8")
+    return "OK", {"CONTRATO": source_id,
+                  "STRATEGY": novo["ACQUISITION"]["STRATEGY"],
+                  "INDEX_URL": novo["ACQUISITION"]["INDEX_URL"][:110]}
+
+
 ETAPAS = {
     F.VALIDATE_ROUTE: etapa_validate_route,
     F.CANARY: etapa_canary,
     F.REVALIDATE: etapa_canary,
     F.REPAIR: etapa_canary,
+    F.BUILD_CONTRACT: etapa_build_contract,
 }
 
 
@@ -174,9 +257,14 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
     """UMA etapa. Devolve o desfecho, ja persistido na fila e no livro."""
     sid, tipo, tid = tarefa["SOURCE_ID"], tarefa["TASK_TYPE"], tarefa["TASK_ID"]
     contrato = contratos.get(sid)
-    if not contrato:
+
+    # BUILD_CONTRACT e a unica etapa que corre SEM contrato — e o que ela
+    # existe para produzir. Exigir contrato aqui seria pedir o resultado
+    # como pre-condicao de si proprio.
+    if not contrato and tipo != F.BUILD_CONTRACT:
         F.bloquear(tid, "sem contrato nesta arvore")
-        return {"TASK_ID": tid, "SOURCE_ID": sid, "RESULTADO": "BLOCK",
+        return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
+                "RESULTADO": "BLOCK", "EVIDENCE_REF": "",
                 "PORQUE": "sem contrato"}
 
     fn = ETAPAS.get(tipo)
@@ -190,7 +278,16 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
 
     if resultado == "OK":
         F.concluir(tid, "%s OK" % tipo)
-        if tipo == F.VALIDATE_ROUTE:
+        if tipo == F.BUILD_CONTRACT:
+            # O contrato e uma HIPOTESE de rota. Quem a confirma e o canario,
+            # e por isso esta etapa nunca chega perto de READY.
+            if LC.estado_de(sid) != LC.CANARY_PENDING:
+                LC.registar(sid, LC.CANARY_PENDING,
+                            "contrato escrito e validado; falta provar a rota",
+                            evidence_ref=ref)
+            F.enfileirar(sid, F.VALIDATE_ROUTE, priority=55,
+                         motivo="contrato novo — validar rota e canariar")
+        elif tipo == F.VALIDATE_ROUTE:
             if LC.estado_de(sid) != LC.CANARY_PENDING:
                 LC.registar(sid, LC.CANARY_PENDING,
                             "rota permitida pelo portao do anfitriao",
@@ -246,6 +343,12 @@ def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> li
         if t is None:
             break
         r = executar_uma(t, contratos)
+        # ⚠️ BUILD_CONTRACT acrescenta linhas a tabela. Um dicionario lido uma
+        # vez no arranque nao ve o contrato que acabou de nascer, e o canario
+        # seguinte diria «sem contrato» sobre a fonte que o Bot acabou de
+        # contratar — um falso BLOCK produzido por cache, nao pela fonte.
+        if r.get("TASK_TYPE") == F.BUILD_CONTRACT and r["RESULTADO"] == "OK":
+            contratos = _contratos()
         feitos.append(r)
         if verboso:
             print("  %-12s %-10s %s  %s" % (r["SOURCE_ID"], r["RESULTADO"],

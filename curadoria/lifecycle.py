@@ -68,11 +68,27 @@ CONTRACTED_CANARY_FAILED = "CONTRACTED_CANARY_FAILED"
 SEMANTIC_REVIEW = "SEMANTIC_REVIEW"
 UNKNOWN = "UNKNOWN"
 
+# ⚠️ O ESTADO MEDIDO CONTRA UMA ROTA QUE JA NAO E A ROTA.
+#
+# Medido: as 50 fontes YouTube foram marcadas CONTRACT_READY_ROUTE_BLOCKED
+# porque `feeds/videos.xml` esta em Disallow. Entretanto a integracao
+# (5920d77d) deu-lhes uma rota NOVA — CANAL_PUBLICO_YOUTUBE_V1, que nao usa
+# o feed. O bloqueio continua verdadeiro sobre a rota velha e passou a ser
+# irrelevante sobre a fonte.
+#
+#     UM VEREDITO ENVELHECE QUANDO A PERGUNTA MUDA.
+#
+# Declarar READY seria promover com dado obsoleto; manter BLOCKED seria
+# condenar por uma rota que ninguem ja usa. Nenhuma das duas e verdade, e
+# por isso existe um terceiro nome: precisa de ser remedida contra a rota
+# de hoje. Nao e um bloqueio nem uma prontidao — e uma divida de medicao.
+RECONCILIATION_REQUIRED = "RECONCILIATION_REQUIRED"
+
 ESTADOS = frozenset({
     DISCOVERED, QUALIFYING, CONTRACT_PENDING, CANARY_PENDING, RETRY_AFTER,
     READY_FOR_COLLECTION, DEGRADED, REPAIRING, POLICY_BLOCK, AUTH_BLOCK,
     CAPABILITY_BLOCK, CONTRACT_READY_ROUTE_BLOCKED, CONTRACTED_CANARY_FAILED,
-    SEMANTIC_REVIEW, UNKNOWN,
+    SEMANTIC_REVIEW, UNKNOWN, RECONCILIATION_REQUIRED,
 })
 
 # Estados terminais para o worker: nao geram trabalho automatico novo.
