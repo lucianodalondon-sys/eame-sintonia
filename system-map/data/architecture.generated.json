@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/contract-provenance-cutover-v1",
-    "HEAD": "17b6552602e2aec7b98d220414517750a9797c70",
-    "GENERATED_AT": "2026-09-20T12:12:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6b3e01e40a824e632cbb53a9ec61b75056045d636f7928a8fa1e82d19e81e237"
+    "BRANCH": "claude/int-pilot-sala-v1",
+    "HEAD": "370ce450f4aac60d56540e654c159faa7c907917",
+    "GENERATED_AT": "2026-09-20T12:13:42-03:00",
+    "SOURCE_TREE_FINGERPRINT": "00d0691d2e82c3ce50ab9bd26edce38c9bf97afd0a5509e606e169c726304f51"
   },
   "FILES": [
     {
@@ -1908,6 +1908,13 @@
     {
       "path": "data/derivados/O-CENSO-DO-ACERVO.json",
       "sha": "f806e485d666791161b908c661fc3a20abbb8e27",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/O-PILOTO-DA-SALA.json",
+      "sha": "b609d0a443840d0160e6a55a2a7f046c5cc30758",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -6561,6 +6568,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/PILOTO-DA-SALA-DE-ESPERA-V1.md",
+      "sha": "9a85d49ff1258e02d142eee64dcad023c7f6bc72",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "sha": "0face360db38446639db2a633063a31b42fbd1e0",
       "ext": ".md",
@@ -11104,6 +11118,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_piloto_da_sala.py",
+      "sha": "869fbb2264a68e25b52e9832934b88a61732067b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_portao_da_big_collection.py",
       "sha": "b82780b9f68f9cfca158d3a90c243118f0461d66",
       "ext": ".py",
@@ -12981,7 +13002,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0054e52b91f2229296ed94545a2b428299a70326",
+      "sha": "8b7c986037cf997a8f8d09b90f733b99983910d1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -40795,6 +40816,28 @@
       }
     },
     {
+      "from_file": "provas/o_piloto_da_sala.py",
+      "to_file": "data/samples/IT-T4-001/IT-T4-001-adama-portfolio.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_piloto_da_sala.py",
+        "line": 177,
+        "snippet": "with open(PORTFOLIO, encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "provas/o_piloto_da_sala.py",
+      "to_file": "referencia/adama/AUTHORIZED-USES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_piloto_da_sala.py",
+        "line": 179,
+        "snippet": "with open(USOS, encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
       "from_file": "provas/o_portao_da_big_collection.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -64585,10 +64628,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2124,
-    "files_readable": 833,
-    "files_code_dir": 893,
-    "file_edges": 4472,
+    "files_tracked": 2127,
+    "files_readable": 834,
+    "files_code_dir": 894,
+    "file_edges": 4474,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

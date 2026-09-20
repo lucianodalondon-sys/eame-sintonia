@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  17b6552602e2aec7b98d220414517750a9797c70
-BRANCH           claude/contract-provenance-cutover-v1
-GERADO_EM        2026-09-20T12:12:26-03:00
+HEAD_DA_MEDICAO  370ce450f4aac60d56540e654c159faa7c907917
+BRANCH           claude/int-pilot-sala-v1
+GERADO_EM        2026-09-20T12:13:42-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1612,13 +1612,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 10 |
-| **arestas provadas** | entram 1 · saem 10 |
+| **arestas no mapa** | entram 1 · saem 11 |
+| **arestas provadas** | entram 1 · saem 11 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 11 |
+| **prova das ligações** | CODE 12 |
 | **lei da Bíblia** | NÃO SEI |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
