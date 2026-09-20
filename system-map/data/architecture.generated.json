@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "curator-04a-integration",
-    "HEAD": "64dfca4329c572cfa5d8a27194aadf157c194188",
-    "GENERATED_AT": "2026-09-20T15:13:44-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4fb9414ff5d379d41273a72372b641644ec8936eb8075d1af1ded4984f36b54c"
+    "BRANCH": "big-collection-release-v1",
+    "HEAD": "96dcd6bd65a724409e4b7d468096c008072dc23f",
+    "GENERATED_AT": "2026-09-20T15:15:38-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7c64c71a93f830cb2eb9f963bbefe44a2803dbd7a7b759381e1d56256858d613"
   },
   "FILES": [
     {
@@ -249,6 +249,13 @@
     {
       "path": "HANDOFF-V2-PAUSE.md",
       "sha": "0e19eef5629560905424741dc7d5da2ff1bf7db9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "MISSAO-BIG-COLLECTION-RELEASE.md",
+      "sha": "3cfdcbed706b028832c7ff9c19dad6840f98ffce",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1312,7 +1319,14 @@
     },
     {
       "path": "coleta/adaptadores_de_aquisicao.mjs",
-      "sha": "c9e3ad0bf2aae18d51033903267afb453ac6ea44",
+      "sha": "294aa13edb255bf5e8a9896a71fa040333465d95",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "sha": "e08d9366c39e4e880ff2ed6b2ffe0f85899eb58d",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -1321,6 +1335,13 @@
       "path": "coleta/agrifood_ue.py",
       "sha": "fe26635e77232549b7c0b65996590ebccf3ea97a",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/canario_youtube_canonico.mjs",
+      "sha": "e30b254df142ea62760a195b05ec409eb8a8c97a",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -13254,7 +13275,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0054e52b91f2229296ed94545a2b428299a70326",
+      "sha": "75b7e9f4f9c0f078e377cb9769e7260c8c68c47a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17323,6 +17344,72 @@
         "file": "coleta/adaptador_youtube.py",
         "line": 644,
         "snippet": "import youtube_transcrever as ytv"
+      }
+    },
+    {
+      "from_file": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptadores_de_aquisicao_test.mjs",
+        "line": 12,
+        "snippet": "import { canalPublicoYoutube, ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/adaptadores_de_aquisicao_test.mjs",
+        "line": 12,
+        "snippet": "import { canalPublicoYoutube, ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 14,
+        "snippet": "import { ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 14,
+        "snippet": "import { ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 13,
+        "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 13,
+        "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
       }
     },
     {
@@ -64986,10 +65073,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2164,
-    "files_readable": 834,
-    "files_code_dir": 894,
-    "file_edges": 4483,
+    "files_tracked": 2167,
+    "files_readable": 836,
+    "files_code_dir": 896,
+    "file_edges": 4489,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
