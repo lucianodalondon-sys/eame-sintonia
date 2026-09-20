@@ -63,6 +63,31 @@ export const CONTRACTS = {
     FACT_LOCATION_RULE: "a PROVINCIA do proprio arquivo. NUNCA a sede.",
     EVIDENCE_CLASS: "TECHNICAL_GUIDELINE + OBSERVED_FIELD_SIGNAL pontual (rotulo Presente/Non Presente)",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T3-002"` de `italy_pilot_collect.mjs` @ 380bf090,
+    // medido e não reinterpretado: abrir o índice de SA do ano, apanhar os
+    // href `SA-DD-MM.pdf` (relativos, resolvidos contra a pasta do ano) e
+    // ficar com o primeiro. O `ROUTE_TEMPLATE` em prosa acima fala em 5
+    // províncias; o `case` só colhia SA, e o bloco executável diz a MESMA
+    // verdade. Alargar às cinco é decisão de owner, não efeito colateral de
+    // uma migração.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/SA_2026.html",
+      BASE_URL: "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/",
+      LINK_PATTERN: 'href="([^"]*SA-\\d{2}-\\d{2}\\.pdf)"',
+      MAX_TARGETS: 1,
+    },
+    // `FACT_TIME` continua UNKNOWN, palavra por palavra como o `case` dizia:
+    // a data no nome é a da EDIÇÃO, não a da observação de campo.
+    IDENTITY: {
+      STRATEGY: "FILENAME_CAPTURE",
+      PATTERN: "^([A-Z]{2})-(\\d{2})-(\\d{2})\\.pdf$",
+      DOCUMENT_ID: "CAMPANIA:$1:$2-$3-2026",
+      SOURCE_DATE: "$2/$3/2026",
+      SOURCE_DATE_ISO: "2026-$3-$2",
+      FACT_TIME: "UNKNOWN — o boletim nao data a observacao de campo",
+    },
     NEGATIVE_CONTROL: { descricao: "pedir uma data que nao existe (SA-01-01.pdf)", esperado: "DOCUMENT_NOT_FOUND, nunca HTML tratado como boletim" }
   },
 
@@ -96,6 +121,33 @@ export const CONTRACTS = {
     FACT_LOCATION_RULE: "o COMPRENSORIO impresso no documento e os comuni listados. NUNCA a sede.",
     EVIDENCE_CLASS: "OBSERVED_FIELD_SIGNAL + COOPERATIVE_GUIDANCE",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T3-010"` @ 380bf090: a home lista os boletins; o
+    // primeiro href `Bollettino_Mosca…pdf` é a edição corrente.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "http://www.apol.it",
+      BASE_URL: "http://www.apol.it",
+      LINK_PATTERN: 'href="([^"]*Bollettino_Mosca[^"]*\\.pdf)"',
+      MAX_TARGETS: 1,
+    },
+    // A identidade vem de TRÊS sítios, como no `case`: o período impresso no
+    // cabeçalho (texto do PDF), o número da edição (nome do ficheiro) e o
+    // comprensorio (texto do PDF, opcional — o `case` punha "?" quando não
+    // o lia). `PDF_TEXT` é o pdftotext que o coletor já tinha; não há um
+    // segundo extractor.
+    IDENTITY: {
+      STRATEGY: "CONTENT_CAPTURE",
+      CAPTURES: {
+        periodo: { FROM: "PDF_TEXT", PATTERN: "MOSCA DELLE OLIVE\\s+((\\d{2})/(\\d{2})/(\\d{4}))\\s*-\\s*(\\d{2}/\\d{2}/\\d{4})" },
+        numero: { FROM: "FILENAME", PATTERN: "_n_(\\d+)_" },
+        comprensorio: { FROM: "PDF_TEXT", PATTERN: "COMPRENSORIO\\s*-?\\s*([A-Z]{2})\\s*-\\s*([A-Z ]+)", REQUIRED: false, DEFAULTS: ["?", "?"] },
+      },
+      DOCUMENT_ID: "APOL:{periodo.4}:N{numero.1}:{comprensorio.1}-{comprensorio.2}",
+      SOURCE_DATE: "{periodo.1} a {periodo.5}",
+      SOURCE_DATE_ISO: "{periodo.4}-{periodo.3}-{periodo.2}",
+      FACT_TIME: "UNKNOWN — o periodo e de validade, nao de observacao",
+    },
     NEGATIVE_CONTROL: { descricao: "indice sem nenhum link de boletim", esperado: "FAILED, nunca ZERO_DOCUMENTS" }
   },
 
@@ -130,6 +182,48 @@ export const CONTRACTS = {
     FACT_LOCATION_RULE: "Puglia regional; ha pontos de observacao citados no texto, ainda nao estruturados",
     EVIDENCE_CLASS: "OBSERVED_FIELD_SIGNAL + TECHNICAL_GUIDELINE (separar por bloco: 'Situazione Fitosanitaria' e OBSERVED, 'Programma di Difesa' e RECOMMENDED)",
     AUTOMATION_FEASIBILITY: "MEDIUM — rota e leitura sao faceis; o nome da cultura exige derivacao",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T3-008"` @ 380bf090. O índice de /bollettini é
+    // renderizado por JavaScript e o curl não vê os links (medido de novo em
+    // 2026-09-20: HTTP 200, 25.993 bytes, 0 links). Isso NÃO é lista vazia
+    // da fonte — é limite do nosso instrumento — e por isso há FALLBACK: a
+    // rota previsível, sondada para trás a partir de hoje. O alvo que sai
+    // daí carrega `descoberta_degradada`, e esse sinal é obrigatório: sem
+    // ele, uma descoberta degradada ficaria igual a uma normal no ledger.
+    //
+    // ⚠️ ROTA CORRIGIDA COM PROVA (2026-09-20):
+    //   OLD: NUMEROS = ENUM [37, 36, 35] — a lista fixa do `case`. Em
+    //        2026-09-20 já não apanhava a edição corrente (N38 de 16/09),
+    //        e a janela de 10 dias já não chegava à N37 (09/09).
+    //   NEW: NUMEROS = ISO_WEEK — N35=26/08, N36=02/09, N37=09/09, N38=16/09:
+    //        quatro de quatro edições coincidem com a semana ISO da data.
+    //   PROOF: GET …/2026/Notiziario_Agrometeorologico_N38_16-09-2026.pdf →
+    //        HTTP 200, application/pdf, 2.724.725 bytes, começa por %PDF.
+    //   A equivalência com o `case` está provada com ENUM em
+    //   `regras/cutover_equivalencia_test.mjs`; o contrato usa a regra provada.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "https://www.agrometeopuglia.it/bollettini",
+      BASE_URL: "https://www.agrometeopuglia.it",
+      LINK_PATTERN: 'href="([^"]*Notiziario_Agrometeorologico_N\\d+_[\\d-]+\\.pdf)"',
+      MAX_TARGETS: 1,
+      FALLBACK: {
+        STRATEGY: "CUSTOM_ADAPTER", ADAPTER_ID: "SONDA_DE_ROTA_DATADA_V1",
+        TEMPLATE: "https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/{AAAA}/Notiziario_Agrometeorologico_N{N}_{DD}-{MM}-{AAAA}.pdf",
+        DIAS_PARA_TRAS: 10,
+        NUMEROS: { RULE: "ISO_WEEK", OFFSETS: [0, -1] },
+        ACEITAR: { SIGNATURE: "%PDF", MIN_BYTES: 100000 },
+        DEGRADED_REASON: "INDEX_REQUIRES_BROWSER — indice e JavaScript; caiu para a rota previsivel do contrato",
+      },
+    },
+    IDENTITY: {
+      STRATEGY: "FILENAME_CAPTURE",
+      PATTERN: "_N(\\d+)_((\\d{2})-(\\d{2})-(\\d{4}))\\.pdf",
+      DOCUMENT_ID: "ARIF:SETTIMANALE:$5:N$1",
+      SOURCE_DATE: "$2",
+      SOURCE_DATE_ISO: "$5-$4-$3",
+      FACT_TIME: "UNKNOWN",
+    },
     NEGATIVE_CONTROL: { descricao: "PDF que nao contenha 'Situazione Fitosanitaria'", esperado: "FAILED" }
   },
 
@@ -161,6 +255,22 @@ export const CONTRACTS = {
     FACT_LOCATION_RULE: "COORDENADA do ponto (lat/lon com 4 casas). PREFERIR a coordenada ao municipio inferido, e NUNCA usar a sede.",
     EVIDENCE_CLASS: "OBSERVED_FIELD_SIGNAL + COOPERATIVE_GUIDANCE",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T3-005"` @ 380bf090: rota única e fixa; a
+    // identidade é o período impresso no corpo do HTML.
+    ACQUISITION: { STRATEGY: "STATIC_ENDPOINT", URL: "https://www.terretruria.it/monitoraggio", NAME: "monitoraggio.html" },
+    // `FACT_TIME` NÃO é UNKNOWN aqui, e NÃO é a data do boletim: cada ponto
+    // traz a sua própria data de campionamento. A frase é a do `case`.
+    IDENTITY: {
+      STRATEGY: "CONTENT_CAPTURE",
+      CAPTURES: {
+        periodo: { FROM: "RAW_UTF8", PATTERN: "Bollettino del periodo dal\\s*([\\d-]+)\\s*al\\s*((\\d+)-(\\d+)-(\\d+))" },
+      },
+      DOCUMENT_ID: "TERRETRURIA:{periodo.1}:{periodo.2}",
+      SOURCE_DATE: "{periodo.1} a {periodo.2}",
+      SOURCE_DATE_ISO: "{periodo.5}-{periodo.4}-{periodo.3}",
+      FACT_TIME: "por ponto — cada ponto traz sua propria data de campionamento",
+    },
     NEGATIVE_CONTROL: { descricao: "HTML sem nenhum bloco reports_points", esperado: "FAILED, nunca 'zero pontos monitorados'" }
   },
 
@@ -190,6 +300,25 @@ export const CONTRACTS = {
     SOURCE_LOCATION_RULE: "Roma", FACT_LOCATION_RULE: "ITALIA — nacional",
     EVIDENCE_CLASS: "REGULATORY_AUTHORIZATION",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T4-001"` @ 380bf090: a página do dataset anuncia
+    // o nome do CSV corrente; o ficheiro vive noutra pasta (BASE_URL), e a
+    // data no nome é a versão.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+      BASE_URL: "https://www.dati.salute.gov.it/sites/default/files/opendata/",
+      LINK_PATTERN: "opendata/(PROD_FTS_6_\\d{8}\\.csv)",
+      MAX_TARGETS: 1,
+    },
+    IDENTITY: {
+      STRATEGY: "FILENAME_CAPTURE",
+      PATTERN: "^PROD_FTS_6_((\\d{4})(\\d{2})(\\d{2}))\\.csv$",
+      DOCUMENT_ID: "MINSALUTE:FTS6:$1",
+      SOURCE_DATE: "$2-$3-$4",
+      SOURCE_DATE_ISO: "$2-$3-$4",
+      FACT_TIME: "UNKNOWN — o CSV traz datas de registro por linha, nao uma data de fato do arquivo",
+    },
     NEGATIVE_CONTROL: { descricao: "CSV sem a coluna sostanze_attive", esperado: "FAILED" }
   },
 
@@ -247,6 +376,22 @@ export const CONTRACTS = {
     EVIDENCE_CLASS: "AGROCLIMATIC_SIGNAL",
     LEI: "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T2-004"` @ 380bf090: rota fixa da grandeza; a
+    // identidade é o fim da janela impressa no cabeçalho da tabela, e a
+    // grandeza (PRECIPITAZIONE_GIORNALIERA) está no DOCUMENT_ID como o
+    // `case` a punha — era um literal do alvo, é um literal do molde.
+    ACQUISITION: { STRATEGY: "STATIC_ENDPOINT", URL: "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html", NAME: "NHEOWL0530_00.html" },
+    IDENTITY: {
+      STRATEGY: "CONTENT_CAPTURE",
+      CAPTURES: {
+        janela: { FROM: "RAW_LATIN1", PATTERN: "dal\\s*(\\d{2}/\\d{2}/\\d{4})\\s*al\\s*((\\d{2})/(\\d{2})/(\\d{4}))" },
+      },
+      DOCUMENT_ID: "SIAS:PRECIPITAZIONE_GIORNALIERA:WINDOW_END_{janela.5}-{janela.4}-{janela.3}",
+      SOURCE_DATE: "{janela.1} a {janela.2}",
+      SOURCE_DATE_ISO: "{janela.5}-{janela.4}-{janela.3}",
+      FACT_TIME: "por linha — cada celula tem sua propria data",
+    },
     NEGATIVE_CONTROL: { descricao: "tabela sem nenhuma linha de estacao", esperado: "FAILED, nunca zero chuva" }
   },
 
@@ -302,6 +447,38 @@ export const CONTRACTS = {
     SOURCE_LOCATION_RULE: "Teolo/Padova", FACT_LOCATION_RULE: "a ZONA do numero do arquivo",
     EVIDENCE_CLASS: "AGROCLIMATIC_SIGNAL", LEI: "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · cutover do `case`) ─────────────
+    // Copiado do `case "IT-T2-002"` @ 380bf090. O `case` tinha DUAS listas:
+    // as 4 zonas do piloto (1, 9, 16, 24) e as 29 publicadas (1..32 menos
+    // 17, 18, 19, que devolvem 404 consistente — facto da fonte, medido em
+    // `candidatas/italy_profiles.mjs`). As duas continuam a existir, mas
+    // como DADOS: o provider tem as 29, e `SUBCONJUNTOS.PILOTO` tem as 4.
+    // Quem corre escolhe o subconjunto; o despachador não sabe o que é uma
+    // zona.
+    ACQUISITION: {
+      STRATEGY: "TEMPLATE_ENUMERATION",
+      TEMPLATE: "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_{NN}.pdf",
+      VARS: {
+        NN: { PROVIDER: "ENUM", VALUES: [
+          "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16",
+          "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32",
+        ] },
+      },
+      SUBCONJUNTOS: { PILOTO: { NN: ["01", "09", "16", "24"] } },
+    },
+    // A identidade é a zona (nome do ficheiro) + o `/CreationDate` do PDF
+    // (bytes crus, latin1) — exactamente os dois sítios que o `case` lia.
+    IDENTITY: {
+      STRATEGY: "CONTENT_CAPTURE",
+      CAPTURES: {
+        zona: { FROM: "FILENAME", PATTERN: "^agro_(\\d{2})\\.pdf$" },
+        gerado: { FROM: "RAW_LATIN1", PATTERN: "/CreationDate\\s*\\(D:((\\d{4})(\\d{2})(\\d{2})\\d{6})" },
+      },
+      DOCUMENT_ID: "ARPAV:Z{zona.1}:{gerado.1}",
+      SOURCE_DATE: "{gerado.2}-{gerado.3}-{gerado.4}",
+      SOURCE_DATE_ISO: "{gerado.2}-{gerado.3}-{gerado.4}",
+      FACT_TIME: "UNKNOWN — o PDF nao expoe a data do fato medido, so a de geracao",
+    },
     NEGATIVE_CONTROL: { descricao: "capturar duas vezes seguidas sem mudanca", esperado: "SEEN_AGAIN + NO_CHANGE, com 0 objetos RAW novos. NUNCA DEGRADED, e NUNCA duas versoes." }
   },
 

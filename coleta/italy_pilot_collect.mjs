@@ -49,18 +49,17 @@ import {
 } from "../regras/procedencia_do_contrato.mjs";
 
 // ── O REGISTRY DE ADAPTERS ─────────────────────────────────────────────────
-// Vazio, e isso e uma medicao e nao um esquecimento: das sete fontes com
-// `case`, NENHUMA precisou de logica fora das tres estrategias declarativas.
-// Criar adapters agora seria construir a porta de saida antes de existir
-// alguem para sair por ela.
+// Nasceu vazio, e ficou vazio ate ao cutover dos sete `case`. Ao migrar
+// `IT-T3-008` mediu-se UM comportamento que o vocabulario finito nao
+// descreve sem inventar providers de relogio: a sondagem da rota previsivel
+// para tras a partir de hoje. Esse adapter vive em
+// `coleta/adaptadores_de_aquisicao.mjs`, le os parametros do BLOCO do
+// contrato, e o contrato NOMEIA-O — o despachador continua sem conhecer
+// SOURCE_ID nenhum.
 //
-//     UM REGISTRY VAZIO DIZ «NINGUEM PRECISOU AINDA».
+//     UM REGISTRY COM UM NOME EM USO DIZ «UMA FONTE PRECISOU, E ESTA ESCRITO».
 //     UM REGISTRY CHEIO DE NOMES POR USAR DIZ «ALGUEM ADIVINHOU».
-//
-// `CUSTOM_ADAPTER` existe no vocabulario para o dia em que uma fonte real
-// nao couber — e nesse dia o contrato NOMEIA o adapter, sem que o
-// despachador volte a conhecer SOURCE_ID.
-const ADAPTERS = Object.freeze({});
+import { ADAPTERS } from "./adaptadores_de_aquisicao.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -82,6 +81,17 @@ const COLLECTOR_VERSION = "pilot-v1";
 const SOURCE_DOCUMENT = "SOURCE_DOCUMENT";
 
 export const PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004", "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"];
+
+// ── A CAPACIDADE, LIDA DO CONTRATO ─────────────────────────────────────────
+// `PILOT_SOURCES` e HISTORIA: as sete que o piloto percorreu por `case`, e
+// fica escrita porque o ledger e as guardas contam com ela. A capacidade de
+// HOJE nao se digita — le-se do contrato: sabe-se percorrer quem declara
+// `ACQUISITION`. Foi a falta disto que fez a CLI recusar `IT-T3-011` como
+// FONTE_DESCONHECIDA com contrato executavel escrito e site a responder.
+//
+//     CAPACIDADE DIGITADA E CAPACIDADE DE ONTEM.
+export const FONTES_PERCORRIVEIS = Object.freeze(
+  Object.keys(CONTRACTS).filter((sid) => CONTRACTS[sid] && CONTRACTS[sid].ACQUISITION));
 
 const sha = b => createHash("sha256").update(b).digest("hex");
 const agora = () => new Date().toISOString();
@@ -178,167 +188,68 @@ export function estadoDeCadencia(c, ultimaObs, mudou) {
 }
 
 // ---------- alvos por fonte ----------
-// Cada alvo: { url, nome, documentIdDe(buf) -> {DOCUMENT_ID, SOURCE_DATE, FACT_TIME} }
-async function alvosDe(sourceId) {
+// Cada alvo: { url, nome, VARS?, descoberta_degradada? }
+//
+// ── O CONTRATO MANDA, E NÃO HÁ MAIS `switch` ─────────────────────────────
+// ⚠️ MEDIDO: esta função tinha SETE `case` por SOURCE_ID, e uma fonte sem
+// `case` recebia «fonte sem alvo definido no piloto» — mesmo com contrato
+// completo e site a responder HTTP 200. Foi o que aconteceu a `IT-T3-011`
+// na Big Collection.
+//
+//     SOURCE_ID NÃO É DESPACHANTE. O CONTRATO É.
+//
+// Os sete `case` foram migrados um a um para `ACQUISITION` no contrato, com
+// prova de equivalência (`regras/cutover_equivalencia_test.mjs`) contra a
+// cópia congelada do código antigo (`provas/fixtures/legado_italy_pilot_380bf090.mjs`).
+// O `switch` saiu por ficar vazio, não por alguém o apagar com pressa.
+// LEGACY_DISCOVERY_CASES = 0.
+//
+// `subconjunto` é a única escolha de quem corre: um nome que o contrato pode
+// declarar em `SUBCONJUNTOS` (o ARPAV declara PILOTO = 4 zonas). Fontes que
+// não o declaram ignoram-no. O despachador não sabe o que é uma zona.
+async function alvosDe(sourceId, { subconjunto = null } = {}) {
   const c = CONTRACTS[sourceId];
-  // ── O CONTRATO MANDA PRIMEIRO, E O SWITCH FICA PARA TRÁS ─────────────────
-  // ⚠️ MEDIDO: este `switch` tinha SETE fontes escritas à mão, e uma fonte
-  // sem `case` recebia «fonte sem alvo definido no piloto» — mesmo com
-  // contrato completo e site a responder HTTP 200. Foi o que aconteceu a
-  // `IT-T3-011` na Big Collection.
-  //
-  //     SOURCE_ID NÃO É DESPACHANTE. O CONTRATO É.
-  //
-  // Quem declara `ACQUISITION` é servido pelo motor declarativo e NÃO passa
-  // por baixo. Quem ainda não declara continua exactamente como estava — os
-  // sete `case` não se tocam, e por isso nenhuma fonte que já funcionava
-  // muda de comportamento.
-  //
-  //     MIGRAR É ABRIR UM CAMINHO NOVO, NÃO FECHAR O ANTIGO À FORÇA.
-  //
-  // O dia em que o último `case` tiver `ACQUISITION`, o `switch` inteiro sai
-  // — e sai por ficar vazio, não por alguém o apagar com pressa.
-  if (c && c.ACQUISITION) {
-    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS });
+  if (!c) return { erro: "fonte sem contrato" };
+  if (!c.ACQUISITION) {
+    // Contrato em prosa não corre. Diz-se com este nome para que o ledger
+    // distinga «a fonte não respondeu» de «ninguém escreveu como perguntar».
+    return { erro: "CONTRACT_NOT_EXECUTABLE — o contrato nao declara ACQUISITION" };
   }
-  switch (sourceId) {
-    case "IT-T3-005":
-      return [{ url: c.CANONICAL_ENTRY_URL, nome: "monitoraggio.html" }];
-    case "IT-T2-002":
-      // No piloto medimos 4. Na operacao forward-only medimos as 29 publicadas.
-      // As zonas 17, 18 e 19 devolvem 404 consistente: o site nao as publica. Fato da fonte.
-      const zonas = globalThis.__ARPAV_TODAS
-        ? Array.from({ length: 32 }, (_, i) => i + 1).filter(n => ![17, 18, 19].includes(n))
-        : [1, 9, 16, 24];
-      return zonas.map(n => ({ url: `https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_${String(n).padStart(2, "0")}.pdf`, nome: `agro_${String(n).padStart(2, "0")}.pdf`, zone: n }));
-    case "IT-T2-004":
-      return [{ url: "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html", nome: "NHEOWL0530_00.html", table: "PRECIPITAZIONE_GIORNALIERA" }];
-    case "IT-T3-010": {
-      const idx = await baixar("http://www.apol.it");
-      if (idx.erro || idx.status !== 200) return { erro: `indice inacessivel: ${idx.erro || idx.status}` };
-      const html = idx.buf.toString("latin1");
-      const links = [...html.matchAll(/href="([^"]*Bollettino_Mosca[^"]*\.pdf)"/gi)].map(m => new URL(m[1], "http://www.apol.it").href);
-      if (links.length === 0) return { erro: "EMPTY_LIST — o indice nao listou nenhum boletim. Isto e FAILED, nao zero documentos." };
-      const atual = links[0];
-      return [{ url: atual, nome: atual.split("/").pop() }];
-    }
-    case "IT-T3-002": {
-      const idx = await baixar("https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/SA_2026.html");
-      if (idx.erro || idx.status !== 200) return { erro: `indice inacessivel: ${idx.erro || idx.status}` };
-      // os href do indice sao RELATIVOS ("pdf/SA-02-09.pdf"), nao absolutos — resolver contra a pagina
-      const base = "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/";
-      const links = [...idx.buf.toString("latin1").matchAll(/href="([^"]*SA-\d{2}-\d{2}\.pdf)"/gi)].map(m => new URL(m[1], base).href);
-      if (links.length === 0) return { erro: "EMPTY_LIST — indice sem boletins. FAILED." };
-      return [{ url: links[0], nome: links[0].split("/").pop() }];
-    }
-    case "IT-T3-008": {
-      const idx = await baixar("https://www.agrometeopuglia.it/bollettini");
-      if (idx.erro || idx.status !== 200) return { erro: `indice inacessivel: ${idx.erro || idx.status}` };
-      const links = [...idx.buf.toString("latin1").matchAll(/href="([^"]*Notiziario_Agrometeorologico_N\d+_[\d-]+\.pdf)"/gi)].map(m => new URL(m[1], "https://www.agrometeopuglia.it").href);
-      if (links.length === 0) {
-        // ACHADO: o indice de agrometeopuglia.it e renderizado por JavaScript — o curl nao ve os links.
-        // Isto NAO e lista vazia da fonte: e limite do nosso instrumento. Por isso NAO e EMPTY_LIST/FAILED.
-        // Caimos para a ROTA PREVISIVEL que o contrato ja documenta, procurando a edicao corrente
-        // para tras a partir de hoje. A descoberta fica marcada como degradada, e o motivo vai no ledger.
-        const hoje = new Date();
-        for (let volta = 0; volta < 10; volta++) {
-          const d = new Date(hoje.getTime() - volta * 864e5);
-          const dd = String(d.getUTCDate()).padStart(2, "0"), mm = String(d.getUTCMonth() + 1).padStart(2, "0"), aa = d.getUTCFullYear();
-          // o numero da semana nao e adivinhavel: varremos os numeros plausiveis da temporada
-          for (const n of [37, 36, 35]) {
-            const u = `https://www.agrometeopuglia.it/bollettino-elettronico/settimanale/${aa}/Notiziario_Agrometeorologico_N${n}_${dd}-${mm}-${aa}.pdf`;
-            const t = await baixar(u, 1);
-            if (!t.erro && t.status === 200 && t.buf?.length > 100000 && t.buf.subarray(0,4).toString("latin1") === "%PDF")
-              return [{ url: u, nome: u.split("/").pop(), descoberta_degradada: "INDEX_REQUIRES_BROWSER — indice e JavaScript; caiu para a rota previsivel do contrato" }];
-          }
-        }
-        return { erro: "indice exige navegador E a rota previsivel nao achou edicao nos ultimos 10 dias" };
-      }
-      return [{ url: links[0], nome: links[0].split("/").pop() }];
-    }
-    case "IT-T4-001": {
-      const idx = await baixar("https://www.dati.salute.gov.it/it/dataset/fitosanitari/");
-      if (idx.erro || idx.status !== 200) return { erro: `pagina inacessivel: ${idx.erro || idx.status}` };
-      const m = idx.buf.toString("latin1").match(/opendata\/(PROD_FTS_6_(\d{8})\.csv)/);
-      if (!m) return { erro: "EMPTY_LIST — nenhuma versao de CSV anunciada na pagina. FAILED." };
-      return [{ url: `https://www.dati.salute.gov.it/sites/default/files/opendata/${m[1]}`, nome: m[1], sourceVersion: m[2] }];
-    }
-  }
-  return { erro: "fonte sem alvo definido no piloto" };
+  return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS, subconjunto });
 }
 
 // ---------- identidade semantica ----------
+// ── A IDENTIDADE É DECLARATIVA, E NÃO HÁ MAIS `switch` ───────────────────
+// ⚠️ MEDIDO: esta funcao tinha SETE ramos por SOURCE_ID. Quatro deles liam
+// o CONTEUDO do documento (a data no corpo do HTML, o /CreationDate do PDF,
+// o cabecalho lido por pdftotext). O motor ganhou `CONTENT_CAPTURE` para os
+// servir — UMA capacidade, e nao quatro — e os leitores de texto sao
+// injectados daqui: o motor nao abre ficheiros nem chama programas.
+//
+// `DOCUMENT_ID_RULE` continua em prosa, para gente, e NAO e lido aqui:
+//     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
+// LEGACY_IDENTITY_CASES = 0.
+//
+// pdftotext 4.06 NAO aceita stdin. Grava temporario, le, apaga. E o MESMO
+// extractor de sempre — nao ha um segundo PDF→texto nesta casa.
+function textoDoPdf(buf) {
+  try {
+    const tmp = `${STORE}/.tmp_${sha(buf).slice(0, 10)}.pdf`;
+    mkdirSync(STORE, { recursive: true });
+    writeFileSync(tmp, buf);
+    const out = execFileSync("pdftotext", ["-layout", "-enc", "UTF-8", tmp, "-"], { maxBuffer: 64e6, encoding: "utf8" });
+    rmSync(tmp, { force: true });
+    return out;
+  } catch { return ""; }
+}
 function identidade(sourceId, alvo, buf) {
-  // ── A IDENTIDADE DECLARATIVA VEM PRIMEIRO ────────────────────────────────
-  // ⚠️ MEDIDO: esta funcao tinha NOVE ramos por SOURCE_ID — mais do que o
-  // `alvosDe`. Generalizar so a descoberta produziria o falso fechamento
-  // «DISCOVERY_GENERIC = YES, IDENTITY_STILL_REQUIRES_SOURCE_CASE = YES».
-  //
-  // Quem declara `IDENTITY` no contrato e servido pelo motor. Quem nao
-  // declara cai no `switch` de sempre, sem mudanca de comportamento.
-  //
-  // `DOCUMENT_ID_RULE` continua em prosa, para gente, e NAO e lido aqui:
-  //     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
-  const _c = CONTRACTS[sourceId];
-  if (_c && _c.IDENTITY) {
-    const ident = identidadeDoContrato(sourceId, _c, alvo);
-    if (ident) return ident;
-  }
-  // pdftotext 4.06 NAO aceita stdin. Grava temporario, le, apaga.
-  const t = () => {
-    try {
-      const tmp = `${STORE}/.tmp_${sha(buf).slice(0, 10)}.pdf`;
-      mkdirSync(STORE, { recursive: true });
-      writeFileSync(tmp, buf);
-      const out = execFileSync("pdftotext", ["-layout", "-enc", "UTF-8", tmp, "-"], { maxBuffer: 64e6, encoding: "utf8" });
-      rmSync(tmp, { force: true });
-      return out;
-    } catch { return ""; }
-  };
-  switch (sourceId) {
-    case "IT-T3-005": {
-      const h = buf.toString("utf8");
-      const p = h.match(/Bollettino del periodo dal\s*([\d-]+)\s*al\s*([\d-]+)/);
-      const br = s => s ? s.split("-").reverse().join("-") : null;
-      return { DOCUMENT_ID: p ? `TERRETRURIA:${p[1]}:${p[2]}` : null, SOURCE_DATE: p ? `${p[1]} a ${p[2]}` : null, SOURCE_DATE_ISO: br(p?.[2]), FACT_TIME: "por ponto — cada ponto traz sua propria data de campionamento" };
-    }
-    case "IT-T2-002": {
-      const s = buf.toString("latin1");
-      const g = (s.match(/\/CreationDate\s*\(D:(\d{14})/) || [])[1];
-      const iso = g ? `${g.slice(0, 4)}-${g.slice(4, 6)}-${g.slice(6, 8)}` : null;
-      return { DOCUMENT_ID: g ? `ARPAV:Z${String(alvo.zone).padStart(2, "0")}:${g}` : null, SOURCE_DATE: iso, SOURCE_DATE_ISO: iso, FACT_TIME: "UNKNOWN — o PDF nao expoe a data do fato medido, so a de geracao" };
-    }
-    case "IT-T2-004": {
-      const h = buf.toString("latin1");
-      const w = h.match(/dal\s*(\d{2}\/\d{2}\/\d{4})\s*al\s*(\d{2}\/\d{2}\/\d{4})/);
-      const iso = w ? w[2].split("/").reverse().join("-") : null;
-      return { DOCUMENT_ID: w ? `SIAS:${alvo.table}:WINDOW_END_${iso}` : null, SOURCE_DATE: w ? `${w[1]} a ${w[2]}` : null, SOURCE_DATE_ISO: iso, FACT_TIME: "por linha — cada celula tem sua propria data" };
-    }
-    case "IT-T3-002": {
-      const m = alvo.nome.match(/^([A-Z]{2})-(\d{2})-(\d{2})\.pdf$/);
-      const iso = m ? `2026-${m[3]}-${m[2]}` : null;
-      return { DOCUMENT_ID: m ? `CAMPANIA:${m[1]}:${m[2]}-${m[3]}-2026` : null, SOURCE_DATE: m ? `${m[2]}/${m[3]}/2026` : null, SOURCE_DATE_ISO: iso, FACT_TIME: "UNKNOWN — o boletim nao data a observacao de campo" };
-    }
-    case "IT-T3-010": {
-      const txt = t();
-      const p = txt.match(/MOSCA DELLE OLIVE\s+(\d{2}\/\d{2}\/\d{4})\s*-\s*(\d{2}\/\d{2}\/\d{4})/);
-      const n = alvo.nome.match(/_n_(\d+)_/);
-      const compr = (txt.match(/COMPRENSORIO\s*-?\s*([A-Z]{2})\s*-\s*([A-Z ]+)/) || []);
-      const iso = p ? p[1].split("/").reverse().join("-") : null;
-      return { DOCUMENT_ID: n && p ? `APOL:${p[1].slice(-4)}:N${n[1]}:${(compr[1] || "?") + "-" + (compr[2] || "?").trim()}` : null, SOURCE_DATE: p ? `${p[1]} a ${p[2]}` : null, SOURCE_DATE_ISO: iso, FACT_TIME: "UNKNOWN — o periodo e de validade, nao de observacao" };
-    }
-    case "IT-T3-008": {
-      const n = alvo.nome.match(/_N(\d+)_([\d-]+)\.pdf/);
-      const iso = n ? n[2].split("-").reverse().join("-") : null;
-      return { DOCUMENT_ID: n ? `ARIF:SETTIMANALE:${iso?.slice(0, 4)}:N${n[1]}` : null, SOURCE_DATE: n ? n[2] : null, SOURCE_DATE_ISO: iso, FACT_TIME: "UNKNOWN" };
-    }
-    case "IT-T4-001": {
-      const v = alvo.sourceVersion;
-      const iso = v ? `${v.slice(0, 4)}-${v.slice(4, 6)}-${v.slice(6, 8)}` : null;
-      return { DOCUMENT_ID: v ? `MINSALUTE:FTS6:${v}` : null, SOURCE_DATE: iso, SOURCE_DATE_ISO: iso, FACT_TIME: "UNKNOWN — o CSV traz datas de registro por linha, nao uma data de fato do arquivo" };
-    }
-  }
-  return { DOCUMENT_ID: null };
+  const c = CONTRACTS[sourceId];
+  if (!c || !c.IDENTITY) return { DOCUMENT_ID: null };
+  return identidadeDoContrato(sourceId, c, alvo, { leitores: {
+    RAW_LATIN1: () => buf.toString("latin1"),
+    RAW_UTF8: () => buf.toString("utf8"),
+    PDF_TEXT: () => textoDoPdf(buf),
+  } });
 }
 
 // ---------- normalizacao (so SIAS neste piloto) ----------
@@ -388,7 +299,12 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     throw new Error("RUN_ID_AUSENTE: executarRodada() exige runId de quem coordena. "
                     + "Este coletor NAO cunha corrida.");
   }
-  globalThis.__ARPAV_TODAS = arpavZonas === "TODAS";
+  // `arpavZonas` fica na assinatura por compatibilidade com o corredor
+  // recorrente. O que ele escolhe e um SUBCONJUNTO declarado no contrato:
+  // sem "TODAS", corre-se o subconjunto `PILOTO` de quem o declarar (o ARPAV
+  // declara 4 zonas); com "TODAS", corre-se o provider inteiro. Fontes sem
+  // SUBCONJUNTOS ignoram a escolha. Nada aqui sabe o que e uma zona.
+  const subconjunto = arpavZonas === "TODAS" ? null : "PILOTO";
   // ── NAO HA CONJUNTO POR OMISSAO — BG-06 ────────────────────────────────
   // `apenas ?? PILOT_SOURCES` fazia uma corrida sem fontes nomeadas colher as
   // SETE — e a setima, IT-T3-005, tem ZERO mencoes no Atlas: e candidata
@@ -433,7 +349,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   for (const sourceId of FONTES) {
     cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
-    const alvos = await alvosDe(sourceId);
+    const alvos = await alvosDe(sourceId, { subconjunto });
     if (alvos?.erro) {
       cont.FAILED++;
       const obs = { RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null, HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "DISCOVERY_FAILED", motivo: alvos.erro, CAPTURED_AT: agora(), COLLECTION_RUN_STARTED_AT: STARTED_AT };
@@ -679,10 +595,12 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
                   + "candidata IT-T3-005, que nao esta no Atlas.");
     process.exit(2);
   }
-  const desconhecidas = fontes.filter(f => !PILOT_SOURCES.includes(f));
+  // A recusa mede a CAPACIDADE DE HOJE (quem tem `ACQUISITION` no contrato),
+  // e nao a lista historica do piloto. Continua a recusar antes da rede.
+  const desconhecidas = fontes.filter(f => !FONTES_PERCORRIVEIS.includes(f));
   if (desconhecidas.length) {
     console.error(`FONTE_DESCONHECIDA: ${desconhecidas.join(", ")} — este coletor `
-                  + `percorre ${PILOT_SOURCES.join(", ")}. Nao se finge que correu.`);
+                  + `percorre ${FONTES_PERCORRIVEIS.join(", ")}. Nao se finge que correu.`);
     process.exit(2);
   }
   const { resumo, detalhes } = await executarRodada({

@@ -14,7 +14,7 @@
 import { strict as assert } from "node:assert";
 import { readFileSync } from "node:fs";
 import {
-  alvosDoContrato, identidadeDoContrato, conferirAquisicao,
+  alvosDoContrato, identidadeDoContrato, conferirAquisicao, conferirIdentidade,
   ContratoInvalido, ESTRATEGIAS, PROVIDERS,
 } from "./motor_de_rota.mjs";
 import { CONTRACTS } from "./italy_contracts.mjs";
@@ -226,22 +226,186 @@ await TA("uma fonte fictícia HTML_LINK_DISCOVERY corre sem editar o coletor", a
 
 console.log("\n11 · M2 — o despachador não pode voltar a conhecer SOURCE_ID");
 
-T("M2 · alvosDe consulta ACQUISITION antes do switch", () => {
-  const src = readFileSync(
-    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8");
+// Até ao cutover estas duas provas mediam «o contrato vem ANTES do switch».
+// Depois dele o switch não existe, e a prova passa a medir isso mesmo:
+// LEGACY_DISCOVERY_CASES = 0 e LEGACY_IDENTITY_CASES = 0, no código, não
+// nos comentários (que têm o direito de citar o defeito antigo).
+const codigoDoColetor = () => readFileSync(
+  new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8")
+  .split("\n").filter((l) => !l.trim().startsWith("//")).join("\n");
+
+T("M2 · alvosDe vai ao motor e não tem switch por SOURCE_ID", () => {
+  const src = codigoDoColetor();
   const ini = src.indexOf("async function alvosDe");
-  const corpo = src.slice(ini, src.indexOf("switch (sourceId)", ini));
-  assert.ok(corpo.includes("alvosDoContrato"),
-    "o contrato deixou de ter precedência sobre o switch");
+  const corpo = src.slice(ini, src.indexOf("function textoDoPdf", ini));
+  assert.ok(corpo.includes("alvosDoContrato"), "a descoberta deixou de vir do contrato");
+  assert.ok(!corpo.includes("switch (sourceId)"), "o switch por SOURCE_ID voltou à descoberta");
+  assert.equal((src.match(/case "IT-/g) || []).length, 0, "há `case` por SOURCE_ID no coletor");
 });
 
-T("M2b · identidade consulta IDENTITY antes do switch", () => {
-  const src = readFileSync(
-    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8");
+T("M2b · identidade vai ao motor com os leitores injectados, e não tem switch", () => {
+  const src = codigoDoColetor();
   const ini = src.indexOf("function identidade(sourceId");
-  const corpo = src.slice(ini, ini + 1400);
-  assert.ok(corpo.includes("identidadeDoContrato"),
-    "a identidade declarativa deixou de vir primeiro");
+  const corpo = src.slice(ini, src.indexOf("export function normalizarSias", ini));
+  assert.ok(corpo.includes("identidadeDoContrato"), "a identidade deixou de vir do contrato");
+  for (const leitor of ["RAW_LATIN1", "RAW_UTF8", "PDF_TEXT"]) {
+    assert.ok(corpo.includes(leitor), `o coletor não injecta o leitor ${leitor}`);
+  }
+  assert.ok(!corpo.includes("switch (sourceId)"), "o switch por SOURCE_ID voltou à identidade");
+});
+
+console.log("\n12 · CONTENT_CAPTURE — a identidade que vive no conteúdo, sem o motor abrir nada");
+
+const specConteudo = {
+  IDENTITY: {
+    STRATEGY: "CONTENT_CAPTURE",
+    CAPTURES: {
+      janela: { FROM: "RAW_LATIN1", PATTERN: "dal\\s*(\\d{2}/\\d{2}/\\d{4})\\s*al\\s*((\\d{2})/(\\d{2})/(\\d{4}))" },
+      n: { FROM: "FILENAME", PATTERN: "_n_(\\d+)_" },
+      compr: { FROM: "PDF_TEXT", PATTERN: "COMPRENSORIO\\s*-\\s*([A-Z]{2})\\s*-\\s*([A-Z ]+)", REQUIRED: false, DEFAULTS: ["?", "?"] },
+    },
+    DOCUMENT_ID: "T:{janela.5}-{janela.4}-{janela.3}:N{n.1}:{compr.1}-{compr.2}",
+    SOURCE_DATE: "{janela.1} a {janela.2}",
+    SOURCE_DATE_ISO: "{janela.5}-{janela.4}-{janela.3}",
+    FACT_TIME: "por linha — cada celula tem sua propria data",
+  },
+};
+
+T("três capturas de três fontes de texto montam um DOCUMENT_ID", () => {
+  const id = identidadeDoContrato("X", specConteudo, { nome: "boll_n_9_del.pdf" }, { leitores: {
+    RAW_LATIN1: () => "Dati dal 26/08/2026 al 05/09/2026",
+    PDF_TEXT: () => "COMPRENSORIO - BR - COLLINA   \n",
+  } });
+  assert.equal(id.DOCUMENT_ID, "T:2026-09-05:N9:BR-COLLINA", "grupos recompostos e aparados (trim)");
+  assert.equal(id.SOURCE_DATE, "26/08/2026 a 05/09/2026");
+  assert.equal(id.SOURCE_DATE_ISO, "2026-09-05");
+  assert.equal(id.FACT_TIME, "por linha — cada celula tem sua propria data");
+});
+
+T("uma captura opcional que não casa usa os DEFAULTS; uma obrigatória que não casa anula tudo", () => {
+  const leitores = { RAW_LATIN1: () => "Dati dal 26/08/2026 al 05/09/2026", PDF_TEXT: () => "sem comprensorio" };
+  const id = identidadeDoContrato("X", specConteudo, { nome: "boll_n_9_del.pdf" }, { leitores });
+  assert.equal(id.DOCUMENT_ID, "T:2026-09-05:N9:?-?");
+  const nada = identidadeDoContrato("X", specConteudo, { nome: "boll_sem_numero.pdf" }, { leitores });
+  assert.equal(nada.DOCUMENT_ID, null, "IDENTITY_FAILED, não identidade a meio");
+  assert.equal(nada.SOURCE_DATE, null);
+  assert.equal(nada.FACT_TIME, "por linha — cada celula tem sua propria data", "FACT_TIME é do contrato, não do documento");
+});
+
+T("o leitor é preguiçoso: PDF_TEXT só se lê se uma captura o pedir", () => {
+  let lido = 0;
+  identidadeDoContrato("X", {
+    IDENTITY: { STRATEGY: "CONTENT_CAPTURE", CAPTURES: { a: { FROM: "FILENAME", PATTERN: "(x)" } }, DOCUMENT_ID: "T:{a.1}" },
+  }, { nome: "x" }, { leitores: { PDF_TEXT: () => { lido++; return ""; } } });
+  assert.equal(lido, 0);
+});
+
+T("captura que pede um leitor não injectado falha fechado, com nome", () => {
+  assert.throws(() => identidadeDoContrato("X", {
+    IDENTITY: { STRATEGY: "CONTENT_CAPTURE", CAPTURES: { a: { FROM: "PDF_TEXT", PATTERN: "(x)" } }, DOCUMENT_ID: "T:{a.1}" },
+  }, { nome: "x" }, { leitores: {} }), /PDF_TEXT/);
+});
+
+T("M7 · FROM fora do vocabulário, molde a apontar para captura inexistente, opcional sem DEFAULTS: os três são contrato inválido", () => {
+  assert.throws(() => conferirIdentidade("X", { STRATEGY: "CONTENT_CAPTURE", DOCUMENT_ID: "T:{a.1}",
+    CAPTURES: { a: { FROM: "o corpo do html", PATTERN: "(x)" } } }), /vocabulário/);
+  assert.throws(() => conferirIdentidade("X", { STRATEGY: "CONTENT_CAPTURE", DOCUMENT_ID: "T:{b.1}",
+    CAPTURES: { a: { FROM: "FILENAME", PATTERN: "(x)" } } }), /não há CAPTURES\.b/);
+  assert.throws(() => conferirIdentidade("X", { STRATEGY: "CONTENT_CAPTURE", DOCUMENT_ID: "T:{a.1}",
+    CAPTURES: { a: { FROM: "FILENAME", PATTERN: "(x)", REQUIRED: false } } }), /DEFAULTS/);
+});
+
+T("M8 · FACT_TIME de CONTENT_CAPTURE também não herda a data capturada", () => {
+  const id = identidadeDoContrato("X", {
+    IDENTITY: { STRATEGY: "CONTENT_CAPTURE", CAPTURES: { d: { FROM: "RAW_UTF8", PATTERN: "(\\d{4}-\\d{2}-\\d{2})" } },
+                DOCUMENT_ID: "T:{d.1}", SOURCE_DATE_ISO: "{d.1}" },
+  }, { nome: "x" }, { leitores: { RAW_UTF8: () => "pubblicato il 2026-09-16" } });
+  assert.equal(id.SOURCE_DATE_ISO, "2026-09-16");
+  assert.equal(id.FACT_TIME, "UNKNOWN", "FACT_TIME != PUBLISHED_AT");
+});
+
+console.log("\n13 · FALLBACK — só depois de EMPTY_LIST, e sempre com o sinal de degradação");
+
+const comFallback = (fallback) => ({
+  ACQUISITION: {
+    STRATEGY: "HTML_LINK_DISCOVERY", INDEX_URL: "https://exemplo.it/idx", LINK_PATTERN: 'href="([^"]*\\.pdf)"',
+    FALLBACK: { STRATEGY: "STATIC_ENDPOINT", URL: "https://exemplo.it/fixo.pdf", DEGRADED_REASON: "INDEX_REQUIRES_BROWSER — prova", ...fallback },
+  },
+});
+
+await TA("índice sem links → corre o fallback e o alvo carrega descoberta_degradada", async () => {
+  const r = await alvosDoContrato("X", comFallback({}), { buscar: indiceFalso("<p>nada</p>") });
+  assert.equal(r.length, 1);
+  assert.equal(r[0].url, "https://exemplo.it/fixo.pdf");
+  assert.equal(r[0].descoberta_degradada, "INDEX_REQUIRES_BROWSER — prova");
+});
+
+await TA("índice com links → o fallback NÃO corre e não há sinal", async () => {
+  const r = await alvosDoContrato("X", comFallback({}), { buscar: indiceFalso('<a href="a.pdf">a</a>') });
+  assert.equal(r[0].url, "https://exemplo.it/a.pdf");
+  assert.equal(r[0].descoberta_degradada, undefined);
+});
+
+await TA("índice INACESSÍVEL → erro, sem fallback: uma fonte caída não se esconde atrás de uma rota adivinhada", async () => {
+  const r = await alvosDoContrato("X", comFallback({}), { buscar: async () => ({ status: 503, buf: Buffer.alloc(0) }) });
+  assert.ok(r.erro && /inacessivel/.test(r.erro));
+});
+
+T("M9 · FALLBACK sem DEGRADED_REASON é contrato inválido; FALLBACK dentro de FALLBACK também", () => {
+  assert.throws(() => conferirAquisicao("X", { STRATEGY: "HTML_LINK_DISCOVERY", INDEX_URL: "https://e.it/", LINK_PATTERN: "(x)",
+    FALLBACK: { STRATEGY: "STATIC_ENDPOINT", URL: "https://e.it/f.pdf" } }), /DEGRADED_REASON/);
+  assert.throws(() => conferirAquisicao("X", { STRATEGY: "HTML_LINK_DISCOVERY", INDEX_URL: "https://e.it/", LINK_PATTERN: "(x)",
+    FALLBACK: { STRATEGY: "STATIC_ENDPOINT", URL: "https://e.it/f.pdf", DEGRADED_REASON: "x",
+      FALLBACK: { STRATEGY: "STATIC_ENDPOINT", URL: "https://e.it/g.pdf", DEGRADED_REASON: "y" } } }), /FALLBACK dentro de FALLBACK/);
+});
+
+console.log("\n14 · SUBCONJUNTOS — a lista curta vive no contrato, e quem corre só a nomeia");
+
+const enumerada = {
+  ACQUISITION: {
+    STRATEGY: "TEMPLATE_ENUMERATION", TEMPLATE: "https://e.it/z_{NN}.pdf",
+    VARS: { NN: { PROVIDER: "RANGE", FROM: 1, TO: 6, PAD: 2 } },
+    SUBCONJUNTOS: { PILOTO: { NN: ["01", "04"] } },
+  },
+};
+
+await TA("sem subconjunto: o provider inteiro; com PILOTO: só os declarados; VARS vai no alvo", async () => {
+  const todos = await alvosDoContrato("X", enumerada, {});
+  assert.equal(todos.length, 6);
+  const piloto = await alvosDoContrato("X", enumerada, { subconjunto: "PILOTO" });
+  assert.deepEqual(piloto.map((a) => a.nome), ["z_01.pdf", "z_04.pdf"]);
+  assert.deepEqual(piloto.map((a) => a.VARS.NN), ["01", "04"]);
+});
+
+await TA("um subconjunto que a fonte não declara é ignorado — a escolha é de quem corre, a lista é do contrato", async () => {
+  const r = await alvosDoContrato("X", enumerada, { subconjunto: "NAO_EXISTE" });
+  assert.equal(r.length, 6);
+});
+
+T("M10 · subconjunto que inventa um valor fora do provider é contrato inválido", () => {
+  assert.throws(() => conferirAquisicao("X", {
+    STRATEGY: "TEMPLATE_ENUMERATION", TEMPLATE: "https://e.it/z_{NN}.pdf",
+    VARS: { NN: { PROVIDER: "ENUM", VALUES: ["01", "02"] } },
+    SUBCONJUNTOS: { PILOTO: { NN: ["01", "99"] } },
+  }), /não está no provider/);
+});
+
+console.log("\n15 · O ADAPTER RECEBE O SEU BLOCO E O RELÓGIO — e não sabe se é fallback");
+
+await TA("CUSTOM_ADAPTER recebe { sourceId, contrato, aq, buscar, agora }", async () => {
+  let recebido = null;
+  await alvosDoContrato("X", {
+    ACQUISITION: { STRATEGY: "CUSTOM_ADAPTER", ADAPTER_ID: "ECO", PARAM: 42 },
+  }, { adapters: { ECO: (args) => { recebido = args; return [{ url: "u", nome: "n" }]; } }, agora: () => new Date("2026-09-20T00:00:00Z") });
+  assert.equal(recebido.aq.PARAM, 42, "o adapter lê os parâmetros do seu bloco");
+  assert.equal(recebido.agora().toISOString(), "2026-09-20T00:00:00.000Z");
+});
+
+T("o motor continua sem processo filho e sem relógio próprio", () => {
+  const src = readFileSync(new URL("./motor_de_rota.mjs", import.meta.url), "utf8");
+  for (const proibido of ["execFileSync", "child_process", "readFileSync", "Date.now()"]) {
+    assert.ok(!src.includes(proibido), `o motor contém ${proibido}`);
+  }
 });
 
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);

@@ -87,7 +87,7 @@ const { executarRodada } = await import(
 const bytesDaZona = (_fonte, alvo) => Buffer.concat([
   Buffer.from("%%PDF-1.4\\n/CreationDate (D:%s+02'00')\\n", "latin1"),
   Buffer.alloc(4096, "%s"),
-  Buffer.from(`\\n%% zona ${alvo.zone}\\n%%%%EOF\\n`, "latin1")]);
+  Buffer.from(`\\n%% zona ${alvo.nome}\\n%%%%EOF\\n`, "latin1")]);
 const r = await executarRodada({
   runId: "%s", apenas: ["%s"], forcarBuf: bytesDaZona, nota: "prova b1" });
 console.log(JSON.stringify(r.resumo));
