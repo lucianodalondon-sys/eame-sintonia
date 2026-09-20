@@ -24,10 +24,12 @@
       "HANDOFF-V2-PAUSE.json",
       "HANDOFF-V2-PAUSE.md",
       "MISSAO-CUTOVER-RECUPERADA.md",
+      "MISSAO-GARGALOS-BC2.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "RELATORIO-CUTOVER-RECUPERADO.md",
+      "RELATORIO-GARGALOS-BC2.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -217,6 +219,7 @@
       "coleta/es/corpus_es.py",
       "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
+      "coleta/executor_texto_de_html.py",
       "coleta/executor_texto_de_pdf.py",
       "coleta/executor_transcricao_midia.py",
       "coleta/filas.py",
@@ -286,6 +289,7 @@
       "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
       "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
+      "data/derivados/HTML-REPROCESSO-2026-09-20.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/O-CANARIO-DA-COLLECTION.json",
       "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
@@ -2015,6 +2019,7 @@
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
+      "tests/test_armazem_operacional_protegido.py",
       "tests/test_atomicidade_da_intelligence.py",
       "tests/test_audio_youtube_wiring.py",
       "tests/test_ausencia_na_fronteira_da_corrida.py",
@@ -2082,6 +2087,7 @@
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
       "tests/test_execucao_standalone.py",
+      "tests/test_executor_texto_de_html.py",
       "tests/test_falhas.py",
       "tests/test_fase_italiana_no_workflow.py",
       "tests/test_fechar_ground_truth_t3.py",
@@ -2213,7 +2219,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 145 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 195 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2223,7 +2229,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "213 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 145 corridas registadas, e o país delas é: ES 10 · IT 126 · NAO SEI 9. Elas trouxeram 4011 itens e 3021 atravessaram a régua. As outras 213 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 195 corridas registadas, e o país delas é: ES 10 · IT 176 · NAO SEI 9. Elas trouxeram 4061 itens e 3032 atravessaram a régua. As outras 213 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -2707,9 +2713,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/contract-provenance-cutover-v1",
-    "HEAD": "2234693275e277e5bf8acf0611c44c02e80fa8b0",
-    "GENERATED_AT": "2026-09-20T09:20:04-03:00",
-    "SOURCE_TREE_FINGERPRINT": "765b6509dbddb370941cf164bb2b10e1b3afcad00667ac961dacc9d1d6717b92"
+    "HEAD": "1d1292a2b803e718709800dc6df32a7f5a0fb234",
+    "GENERATED_AT": "2026-09-20T10:51:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6478f4890cafd317e94413f02b5660bb4507ffc3f7f4ece505d47be426949859"
   },
   "FAMILIES": [
     {
@@ -11523,16 +11529,1116 @@
             "erro": "Could not find platform independent libraries <prefix>",
             "prova": null,
             "bruto": null
+          },
+          {
+            "run_id": "IT-T9-2026-09-20-130925-85ec135302431e00",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T9-009",
+              "universo": "T9"
+            },
+            "que_pergunta": "COMPETITORS (T9) · PONTUAL · pedido manual · fonte=IT-T9-009 · pais=IT · universo=T9",
+            "pais": "IT",
+            "missao": "COMPETITORS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131011-4bac70792d947f23",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-004",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-004 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131015-9d87a14093237dd9",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-007",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-007 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131017-1a463c0036713f67",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-008",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-008 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131024-425fec1e9d78311c",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-010",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-010 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131031-183ea014a3b0ebfc",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-012",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-012 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131036-308c466d59485d9d",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-013",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-013 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131040-e61a57917992f6e9",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-017",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-017 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131044-5f7d6bf72866bca4",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-019",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-019 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-131048-3f0fa719fa4b1c72",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-022",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-022 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-131052-fb21fb302da95609",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-013",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-013 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-131056-885e6fcc9d3d4098",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-014",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-014 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-131100-017ce21ff8ebdea0",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-015",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-015 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-131109-e8d05fb158a4147c",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-016",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-016 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-131115-c48377c685317de3",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-018",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-018 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-131119-98284a2f7317a602",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-019",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-019 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131121-d710f83388b7e25a",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-006",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-006 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131125-8d14df1ddbe963fc",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-015",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-015 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131130-895a0314eae09400",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-024",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-024 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131134-416d0d69a8c8e948",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-025",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-025 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131138-25dca3fc1409d65d",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-027",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-027 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131143-3373b6aaa2b3f10c",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-028",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-028 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131154-4545d6b1e93089db",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-030",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-030 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131200-68afc47009a79970",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-033",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-033 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131205-10c1ea3a8c305043",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-034",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-034 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131209-2227949ce0ac6d0b",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-035",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-035 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-131211-efd0f7c5d86970a4",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-036",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-036 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T7-2026-09-20-131216-bde6d847dc5c70e1",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T7-013",
+              "universo": "T7"
+            },
+            "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-013 · pais=IT · universo=T7",
+            "pais": "IT",
+            "missao": "TECHNICAL NETWORK",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T9-2026-09-20-131220-6701c875ad0307e8",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T9-011",
+              "universo": "T9"
+            },
+            "que_pergunta": "COMPETITORS (T9) · PONTUAL · pedido manual · fonte=IT-T9-011 · pais=IT · universo=T9",
+            "pais": "IT",
+            "missao": "COMPETITORS",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131225-9b8ce6e748b0de21",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-002",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-002 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131231-12c05373a1595b48",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-003",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-003 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131239-85efef2e0a1798e5",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-006",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-006 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131246-fd5d6b5e9ad8ffd3",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-007",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-007 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131250-2e6404aab1f0eee8",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-009",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-009 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131255-48ab26838dae1cea",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-010",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-010 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131259-9254ee83ae889203",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-013",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-013 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131303-1fb659faa4973fa3",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-016",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-016 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131307-b976f0666cef9709",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-018",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-018 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131312-04ef1e095e6b133e",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-021",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-021 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T1-2026-09-20-131316-e817ee4315a09365",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T1-022",
+              "universo": "T1"
+            },
+            "que_pergunta": "CROP & PRODUCTION (T1) · PONTUAL · pedido manual · fonte=IT-T1-022 · pais=IT · universo=T1",
+            "pais": "IT",
+            "missao": "CROP & PRODUCTION",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T10-2026-09-20-131323-01ca1fe16adc35f8",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T10-007",
+              "universo": "T10"
+            },
+            "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-007 · pais=IT · universo=T10",
+            "pais": "IT",
+            "missao": "MARKET / TRADE / INDUSTRY",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T10-2026-09-20-131333-6ceca417c5a8ed06",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T10-009",
+              "universo": "T10"
+            },
+            "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-009 · pais=IT · universo=T10",
+            "pais": "IT",
+            "missao": "MARKET / TRADE / INDUSTRY",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T10-2026-09-20-131338-270ec87d13b34637",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T10-011",
+              "universo": "T10"
+            },
+            "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-011 · pais=IT · universo=T10",
+            "pais": "IT",
+            "missao": "MARKET / TRADE / INDUSTRY",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T10-2026-09-20-131342-a2ee35238787e4f9",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T10-013",
+              "universo": "T10"
+            },
+            "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-013 · pais=IT · universo=T10",
+            "pais": "IT",
+            "missao": "MARKET / TRADE / INDUSTRY",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T11-2026-09-20-131346-f2327038f4becc78",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T11-005",
+              "universo": "T11"
+            },
+            "que_pergunta": "EVENTS (T11) · PONTUAL · pedido manual · fonte=IT-T11-005 · pais=IT · universo=T11",
+            "pais": "IT",
+            "missao": "EVENTS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T12-2026-09-20-131350-eb9d676012ed87cf",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T12-004",
+              "universo": "T12"
+            },
+            "que_pergunta": "POLICY / AGRICULTURAL ENVIRONMENT (T12) · PONTUAL · pedido manual · fonte=IT-T12-004 · pais=IT · universo=T12",
+            "pais": "IT",
+            "missao": "POLICY / AGRICULTURAL ENVIRONMENT",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-132037-aba41be479bc3650",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-007",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-007 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-132040-07e48530d049b6ca",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-010",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-010 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-132042-1768cac9b782ee3d",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-019",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-019 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-132045-ccee285b6255c4cb",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-035",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-035 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
           }
         ],
-        "total": 145,
+        "total": 195,
         "por_pais": {
           "ES": 10,
-          "IT": 126,
+          "IT": 176,
           "NAO SEI": 9
         },
         "por_plataforma": {
-          "HTTP direto": 122,
+          "HTTP direto": 172,
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
           "LOCAL": 10,
@@ -11763,11 +12869,11 @@
           "IT-T9-012",
           "IT-T9-013"
         ],
-        "com_rendimento_medido": 137,
-        "com_custo_medido": 139,
+        "com_rendimento_medido": 187,
+        "com_custo_medido": 189,
         "custo_total_usd": 0.48,
-        "trouxe_total": 4011,
-        "sobrou_total": 3021
+        "trouxe_total": 4061,
+        "sobrou_total": 3032
       },
       "memoria": [
         {
@@ -22560,7 +23666,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/executor_texto_de_pdf.py:299",
+          "coleta/executor_texto_de_html.py:230",
           "coleta/executor_transcricao_midia.py:303",
           "guarda/memoria_descartavel.py:43",
           "provas/a_linhagem_do_reaproveitamento.py:323"
@@ -23258,9 +24364,10 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -23302,11 +24409,13 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "CAPACIDADE"
+          "CAPACIDADE",
+          "_BLOCOS",
+          "_INVISIVEIS"
         ],
-        "palavras": 15,
+        "palavras": 57,
         "por_lingua": {},
-        "sem_marca_de_lingua": 15,
+        "sem_marca_de_lingua": 57,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -30083,7 +31192,7 @@
           "coleta/coletor.py:76",
           "coleta/executor_transcricao_midia.py:72",
           "coleta/golden_path_pdf.py:52",
-          "coleta/ingresso.py:97"
+          "coleta/ingresso.py:99"
         ],
         "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -30925,7 +32034,7 @@
           "pasta": "data/derivados",
           "prova": {
             "file": "provas/a_collection_preserva_o_fato.py",
-            "line": 368,
+            "line": 378,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -38825,6 +39934,7 @@
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
+        "tests/test_armazem_operacional_protegido.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_audio_youtube_wiring.py",
         "tests/test_ausencia_na_fronteira_da_corrida.py",
@@ -38892,6 +40002,7 @@
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
         "tests/test_execucao_standalone.py",
+        "tests/test_executor_texto_de_html.py",
         "tests/test_falhas.py",
         "tests/test_fase_italiana_no_workflow.py",
         "tests/test_fechar_ground_truth_t3.py",
@@ -38998,7 +40109,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 197,
+      "file_count": 199,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -39385,6 +40496,7 @@
         "coleta/comunicacao_medir.py",
         "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py",
         "coleta/executor_transcricao_midia.py",
         "coleta/golden_path_pdf.py",
@@ -53165,7 +54277,7 @@
       "evidence": [
         {
           "file": "orquestrador/persistencia.py",
-          "line": 210,
+          "line": 220,
           "snippet": "import coleta_checkpoint as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -55898,8 +57010,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Executor · texto a partir de PDF. Provado por 1 linha de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Executor · texto a partir de PDF. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/executor_texto_de_html.py",
+          "line": 48,
+          "snippet": "import artefato as art  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-EXECUTOR-TEXTO-PDF",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-EXECUTOR-TEXTO-PDF",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "coleta/executor_texto_de_pdf.py",
           "line": 69,
@@ -56007,7 +57135,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 299,
+          "line": 301,
           "snippet": "\"VOCABULARIO\": \"leis/artefato.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
@@ -56213,7 +57341,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -56266,6 +57394,22 @@
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 47,
+          "snippet": "import artefato as art  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TESTES",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_executor_texto_de_html.py",
+          "line": 27,
           "snippet": "import artefato as art  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TESTES",
@@ -59215,7 +60359,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 91,
+          "line": 93,
           "snippet": "import diagnostico as dg                                    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DIAGNOSTICO--IMPORTS-->C-INGRESSO",
@@ -59708,7 +60852,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha. Provado por 3 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A composicao da persistencia na porta CLI · a aresta que o workflow nao tinha. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "orquestrador/persistencia.py",
@@ -59744,7 +60888,23 @@
         },
         {
           "file": "orquestrador/persistencia.py",
-          "line": 209,
+          "line": 170,
+          "snippet": "from guarda.preservar_coleta import raiz_do_armazem_local   # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-PERSISTENCIA-DA-PORTA-CLI",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/persistencia.py",
+          "line": 218,
           "snippet": "from guarda.memoria_postgres import MemoriaPostgres",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PERSISTENCIA-DA-PORTA-CLI",
@@ -61016,8 +62176,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Executor · texto a partir de PDF. Provado por 1 linha de codigo.",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Executor · texto a partir de PDF. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/executor_texto_de_html.py",
+          "line": 230,
+          "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TEXTO-PDF",
+            "FROM": "C-DONO-DO-DERIVADO",
+            "TO": "C-EXECUTOR-TEXTO-PDF",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "coleta/executor_texto_de_pdf.py",
           "line": 299,
@@ -63080,7 +64256,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -63118,6 +64294,22 @@
           "file": "tests/test_c4h_ponte_de_midia.py",
           "line": 27,
           "snippet": "import executor_texto_de_pdf as pdf                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-PDF",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_executor_texto_de_html.py",
+          "line": 25,
+          "snippet": "import executor_texto_de_html as H  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-PDF",
@@ -63227,12 +64419,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_reaproveitamento.py",
           "line": 483,
           "snippet": "\"executor_texto_de_pdf.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-PDF",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_executor_texto_de_html.py",
+          "line": 131,
+          "snippet": "src = open(os.path.join(RAIZ, \"coleta\", \"executor_texto_de_html.py\"), encoding=\"utf-8\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-PDF",
@@ -65769,7 +66977,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -65854,6 +67062,22 @@
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 48,
+          "snippet": "import ingresso as ing  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
+            "FROM": "C-INGRESSO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_executor_texto_de_html.py",
+          "line": 26,
           "snippet": "import ingresso as ing  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
@@ -66000,7 +67224,7 @@
         },
         {
           "file": "tests/test_c4g_a_especie_do_video.py",
-          "line": 200,
+          "line": 208,
           "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -68780,7 +70004,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 351,
+          "line": 356,
           "snippet": "import italy_executor as adapter",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-TESTES",
@@ -70158,7 +71382,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
@@ -70193,6 +71417,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_legado_fora_do_fluxo.py",
+          "line": 123,
+          "snippet": "\"observations.ndjson\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_observabilidade_estrada.py",
           "line": 276,
           "snippet": "for caminho in ('data/collection-ledger/italy/runs.ndjson',",
@@ -70212,6 +71452,22 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 277,
           "snippet": "'data/collection-ledger/italy/observations.ndjson'):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_id_wiring_gap.py",
+          "line": 198,
+          "snippet": "\"observations.ndjson\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-TESTES",
             "FROM": "C-IT-PRESERVAR",
@@ -74617,7 +75873,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -74652,6 +75908,22 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
+          "file": "tests/test_armazem_operacional_protegido.py",
+          "line": 29,
+          "snippet": "from orquestrador import persistencia  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_col_e7_contrato_do_texto.py",
           "line": 480,
           "snippet": "import orquestrador as orq",
@@ -74669,7 +75941,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 295,
+          "line": 300,
           "snippet": "import orquestrador as orq",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
@@ -74783,22 +76055,6 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 24,
           "snippet": "import orquestrador as orq                                        # noqa: E402",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
-            "FROM": "C-ORQUESTRADOR",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_universo_explicito.py",
-          "line": 44,
-          "snippet": "import orquestrador as orq                                      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-TESTES",
             "FROM": "C-ORQUESTRADOR",
@@ -74960,7 +76216,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 239,
+          "line": 244,
           "snippet": "with open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
@@ -75962,7 +77218,7 @@
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
-          "line": 353,
+          "line": 358,
           "snippet": "from pedido import de_uma_frase",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
@@ -78534,7 +79790,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 97,
+          "line": 99,
           "snippet": "import proveniencia as pv                                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-INGRESSO",
@@ -80800,7 +82056,7 @@
         },
         {
           "file": "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
-          "line": 239,
+          "line": 282,
           "snippet": "codigo = self._codigo_sem_prosa(\"provas/a_collection_preserva_o_fato.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-TESTES",
@@ -82403,7 +83659,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 90,
+          "line": 92,
           "snippet": "import rastro_da_coleta as rastro                           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RASTRO--IMPORTS-->C-INGRESSO",
@@ -98804,7 +100060,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1093,
+  "UNCLAIMED_FILES_COUNT": 1096,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -98993,8 +100249,8 @@
     "edges_proven": 1035,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2115,
-    "files_covered": 1022,
+    "files_tracked": 2121,
+    "files_covered": 1025,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2234693275e277e5bf8acf0611c44c02e80fa8b0
+HEAD_DA_MEDICAO  1d1292a2b803e718709800dc6df32a7f5a0fb234
 BRANCH           claude/contract-provenance-cutover-v1
-GERADO_EM        2026-09-20T09:20:04-03:00
+GERADO_EM        2026-09-20T10:51:16-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -227,7 +227,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/executor_texto_de_pdf.py` |
+| **peça real** | `coleta/executor_texto_de_html.py`, `coleta/executor_texto_de_pdf.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
@@ -998,7 +998,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:303; guarda/memoria_descartavel.py:43 |
+| **prova de quem ativa** | coleta/executor_texto_de_html.py:230; coleta/executor_transcricao_midia.py:303; guarda/memoria_descartavel.py:43 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
