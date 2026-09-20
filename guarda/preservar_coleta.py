@@ -420,28 +420,38 @@ def raiz_do_armazem_local(estado, env=None, raiz_da_arvore=RAIZ_DA_ARVORE) -> st
 
     OPERACIONAL  exige `SINTONIA_ARMAZEM_RAIZ` (absoluta, fora da arvore);
                  cria-a se faltar e deixa la o marcador.
-    outros       `SINTONIA_ARMAZEM_RAIZ` se declarada; senao a arvore (`XX/`).
+    outros       SEMPRE a arvore (`XX/`, residuo de medicao) — a variavel e
+                 IGNORADA de proposito.
+
+    ⚠️ A SEGUNDA LINHA E A SEPARACAO INTEIRA. A primeira versao desta funcao
+    usava a raiz declarada em qualquer modo, e a suite inteira — que corre
+    sem memoria (AUSENTE) — teria escrito o residuo de cada teste DENTRO do
+    armazem operacional so por a variavel estar no ambiente da maquina.
+    Nao apagava nada; poluia. Os bytes operacionais andam com a memoria
+    operacional, e mais nada:
+
+        BANCADA DESCARTAVEL != BANCADA OPERACIONAL != SUITE.
+        SO A OPERACIONAL ESCREVE NA RAIZ OPERACIONAL.
     """
     e = os.environ if env is None else env
+    if estado != "OPERACIONAL":
+        return os.path.normpath(os.path.abspath(raiz_da_arvore))
     declarada = (e.get(VARIAVEL_DA_RAIZ) or "").strip()
-    if declarada:
-        raiz = os.path.normpath(os.path.abspath(declarada))
-        arvore = os.path.normpath(os.path.abspath(raiz_da_arvore))
-        if raiz == arvore or raiz.startswith(arvore + os.sep):
-            raise ArmazemOperacionalSemRaiz(
-                "ARMAZEM_DENTRO_DA_ARVORE: %s=%s esta dentro do repositorio (%s). "
-                "Bytes operacionais dentro da arvore sao residuo de medicao, e a "
-                "suite apaga residuo." % (VARIAVEL_DA_RAIZ, declarada, arvore))
-        if estado == "OPERACIONAL":
-            marcar_operacional(raiz)
-        return raiz
-    if estado == "OPERACIONAL":
+    if not declarada:
         raise ArmazemOperacionalSemRaiz(
             "ARMAZEM_OPERACIONAL_SEM_RAIZ: a memoria e operacional e %s nao esta "
             "declarada. Nada foi escrito; a corrida nao nasce. Sem raiz, os bytes "
             "cairiam em <repo>/XX/, que e residuo de medicao e a suite apaga."
             % VARIAVEL_DA_RAIZ)
-    return os.path.normpath(os.path.abspath(raiz_da_arvore))
+    raiz = os.path.normpath(os.path.abspath(declarada))
+    arvore = os.path.normpath(os.path.abspath(raiz_da_arvore))
+    if raiz == arvore or raiz.startswith(arvore + os.sep):
+        raise ArmazemOperacionalSemRaiz(
+            "ARMAZEM_DENTRO_DA_ARVORE: %s=%s esta dentro do repositorio (%s). "
+            "Bytes operacionais dentro da arvore sao residuo de medicao, e a "
+            "suite apaga residuo." % (VARIAVEL_DA_RAIZ, declarada, arvore))
+    marcar_operacional(raiz)
+    return raiz
 
 
 def marcar_operacional(raiz: str) -> str:

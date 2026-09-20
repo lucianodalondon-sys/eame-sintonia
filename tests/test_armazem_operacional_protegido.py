@@ -39,12 +39,24 @@ class ARaizAndaComOModo(unittest.TestCase):
         self.assertEqual(pc.raiz_do_armazem_local(persistencia.AUSENTE, {}),
                          os.path.normpath(os.path.abspath(pc.RAIZ_DA_ARVORE)))
 
-    def test_raiz_dentro_da_arvore_e_recusada_em_qualquer_modo(self):
+    def test_raiz_operacional_dentro_da_arvore_e_recusada(self):
         dentro = os.path.join(RAIZ, "data", "armazem-que-nao-pode-existir")
-        for modo in (persistencia.OPERACIONAL, persistencia.DESCARTAVEL, persistencia.AUSENTE):
+        with self.assertRaises(pc.ArmazemOperacionalSemRaiz):
+            pc.raiz_do_armazem_local(persistencia.OPERACIONAL, {pc.VARIAVEL_DA_RAIZ: dentro})
+
+    def test_sem_memoria_operacional_a_variavel_e_ignorada(self):
+        """⚠️ A SUITE INTEIRA CORRE SEM MEMORIA. Se a variavel valesse aqui, o
+        residuo de cada teste cairia DENTRO do armazem operacional so por ela
+        estar no ambiente da maquina — nao apagava, poluia. So a bancada
+        OPERACIONAL escreve na raiz operacional."""
+        raiz = tempfile.mkdtemp(prefix="armazem-oper-")
+        self.addCleanup(shutil.rmtree, raiz, True)
+        for modo in (persistencia.DESCARTAVEL, persistencia.AUSENTE):
             with self.subTest(modo=modo):
-                with self.assertRaises(pc.ArmazemOperacionalSemRaiz):
-                    pc.raiz_do_armazem_local(modo, {pc.VARIAVEL_DA_RAIZ: dentro})
+                r = pc.raiz_do_armazem_local(modo, {pc.VARIAVEL_DA_RAIZ: raiz})
+                self.assertEqual(os.path.normpath(r), os.path.normpath(os.path.abspath(pc.RAIZ_DA_ARVORE)))
+        self.assertFalse(os.path.isfile(os.path.join(raiz, pc.MARCADOR_OPERACIONAL)),
+                         "marcou como operacional sem memoria operacional")
 
     def test_operacional_com_raiz_fora_da_arvore_ganha_marcador(self):
         raiz = tempfile.mkdtemp(prefix="armazem-oper-")
