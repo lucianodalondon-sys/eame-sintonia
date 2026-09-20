@@ -3314,6 +3314,124 @@
    "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
    "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
    "SOURCE_VERSION": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "IT-T8-2026-09-20-124634-589b90cf920ecb40",
+   "STATUS": "FAILED",
+   "PEDIDO": {
+    "alvo": "T8",
+    "acionamento": "MANUAL",
+    "escopo": "PONTUAL",
+    "filtros": {
+     "pais": "IT",
+     "fonte": "IT-T8-001"
+    }
+   },
+   "MISSION": "FARMERS & INFLUENCERS",
+   "COUNTRY": "IT",
+   "PLATFORM": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+   "ACTOR": "coleta/scrap_colheita.py",
+   "ACTOR_VERSION": "e58c94b8",
+   "CAPTURE_METHOD": "gratuito",
+   "INPUT": {
+    "pais": "IT",
+    "fonte": "IT-T8-001"
+   },
+   "QUERY": "FARMERS & INFLUENCERS (T8) · PONTUAL · pedido manual · fonte=IT-T8-001 · pais=IT",
+   "COMANDO": "coleta/scrap_colheita.py IT-T8-001 --run-id=IT-T8-2026-09-20-124634-589b90cf920ecb40",
+   "STARTED_AT": "2026-09-20T12:46:34Z",
+   "FINISHED_AT": "2026-09-20T12:46:35Z",
+   "COST_USD": 0,
+   "ITEM_COUNT_RAW": "NAO SEI",
+   "ITEM_COUNT_NORMALIZED": "NAO SEI",
+   "ERROR": "",
+   "ESTADO_DOS_ITENS": "ERRO",
+   "FONTES_DO_ASSUNTO": 4,
+   "FONTES_SEM_CAMINHO": 1,
+   "COLHEITA_ENCONTRADA": 0,
+   "COLHEITA_NAO_ENCONTRADA": "«data/colheita/scrap/IT-T8-2026-09-20-124634-589b90cf920ecb40/ENVELOPE.json» e o envelope declarado e nao existe: ou a corrida nao correu aqui, ou ela nao declarou o que fez. · «data/colheita/scrap/» nao existe nesta arvore: o executor declara que larga ai, e nao ha nada.",
+   "RETORNO": {
+    "ESTADO": "PARTIAL",
+    "COLHEITA": 0,
+    "SUPORTE": [],
+    "ERROS": [],
+    "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+   },
+   "PERSISTENCIA": {
+    "ESTADO": "AUSENTE",
+    "MORADA": null,
+    "PORQUE": "BANCO_DESCARTAVEL_URL nem SINTONIA_COLLECTION_DSN declaradas: a corrida corre sem memoria canonica — RAW fica em ficheiro, RAW_OBSERVATIONS sai vazio e RASTRO=NAO_EMITIDO. Nunca se cai para SUPABASE_DB_URL nem para SINTONIA_SALA_DSN.",
+    "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+    "AMBIENTE_RETIRADO": [],
+    "MEMORIA": null,
+    "BANCO_DO_RASTRO": null
+   },
+   "DATASET_ID": "NOT_PRESERVED",
+   "EVIDENCE_PATH": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "IT-T8-2026-09-20-124654-88a08fb38a637b67",
+   "STATUS": "FAILED",
+   "PEDIDO": {
+    "alvo": "T8",
+    "acionamento": "MANUAL",
+    "escopo": "PONTUAL",
+    "filtros": {
+     "pais": "IT",
+     "fonte": "IT-T8-001",
+     "fase": "canal-youtube"
+    }
+   },
+   "MISSION": "FARMERS & INFLUENCERS",
+   "COUNTRY": "IT",
+   "PLATFORM": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+   "ACTOR": "coleta/scrap_colheita.py",
+   "ACTOR_VERSION": "e58c94b8",
+   "CAPTURE_METHOD": "gratuito",
+   "INPUT": {
+    "pais": "IT",
+    "fonte": "IT-T8-001",
+    "fase": "canal-youtube"
+   },
+   "QUERY": "FARMERS & INFLUENCERS (T8) · PONTUAL · pedido manual · fase=canal-youtube · fonte=IT-T8-001 · pais=IT",
+   "COMANDO": "coleta/scrap_colheita.py canal-youtube IT-T8-001 --run-id=IT-T8-2026-09-20-124654-88a08fb38a637b67",
+   "STARTED_AT": "2026-09-20T12:46:54Z",
+   "FINISHED_AT": "2026-09-20T12:46:54Z",
+   "COST_USD": 0,
+   "ITEM_COUNT_RAW": "NAO SEI",
+   "ITEM_COUNT_NORMALIZED": "NAO SEI",
+   "ERROR": "",
+   "ESTADO_DOS_ITENS": "ERRO",
+   "FONTES_DO_ASSUNTO": 4,
+   "FONTES_SEM_CAMINHO": 1,
+   "COLHEITA_ENCONTRADA": 0,
+   "COLHEITA_NAO_ENCONTRADA": "«data/colheita/scrap/IT-T8-2026-09-20-124654-88a08fb38a637b67/ENVELOPE.json» e o envelope declarado e nao existe: ou a corrida nao correu aqui, ou ela nao declarou o que fez. · «data/colheita/scrap/» nao existe nesta arvore: o executor declara que larga ai, e nao ha nada.",
+   "RETORNO": {
+    "ESTADO": "PARTIAL",
+    "COLHEITA": 0,
+    "SUPORTE": [],
+    "ERROS": [],
+    "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+   },
+   "PERSISTENCIA": {
+    "ESTADO": "AUSENTE",
+    "MORADA": null,
+    "PORQUE": "BANCO_DESCARTAVEL_URL nem SINTONIA_COLLECTION_DSN declaradas: a corrida corre sem memoria canonica — RAW fica em ficheiro, RAW_OBSERVATIONS sai vazio e RASTRO=NAO_EMITIDO. Nunca se cai para SUPABASE_DB_URL nem para SINTONIA_SALA_DSN.",
+    "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+    "AMBIENTE_RETIRADO": [],
+    "MEMORIA": null,
+    "BANCO_DO_RASTRO": null
+   },
+   "DATASET_ID": "NOT_PRESERVED",
+   "EVIDENCE_PATH": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NOT_PRESERVED"
   }
  ]
 }

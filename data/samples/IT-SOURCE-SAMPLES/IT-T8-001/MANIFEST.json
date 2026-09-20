@@ -62,5 +62,61 @@
   "TRUNK": "fd62d0625c4a6aa1dd9322178bfaa21964bf1ca5",
   "FROM_BRANCH": "claude/it-social-sources-v2 @ 5e9ed0cf",
   "MODE": "porte semantico (ficha copiada, derivado regenerado) — NAO merge"
+ },
+ "CHARACTERIZATION": {
+  "AT": "2026-09-20T12:47:49Z",
+  "ON_TRUNK": "606974c3",
+  "REPRESENTATIVE_SAMPLE_COUNT": 22,
+  "SAMPLE_SOURCE": "15 do feed publico + 7 so na grelha da pagina",
+  "SAMPLE_PERIOD_START": "2026-05-26",
+  "SAMPLE_PERIOD_END": "2026-09-17",
+  "CONTENT_TYPES": [
+   "video longo",
+   "short"
+  ],
+  "TOPICS_OBSERVED": {
+   "agronomia/nutricao": 6,
+   "regulatorio UE": 4,
+   "culturas": 4,
+   "mercado/precos": 3,
+   "defesa fitossanitaria": 3,
+   "genetica/TEA": 2,
+   "clima/stress": 1
+  },
+  "LANGUAGES_OBSERVED": "italiano",
+  "SOURCE_LOCATION": "ITALIA",
+  "FACT_LOCATION": "UNKNOWN por item — UE/Bruxelas aparece como ASSUNTO, nao como lugar do fato",
+  "UPDATE_PATTERN": "~0.9 video/semana · ~4/mes, medido em 114 dias",
+  "HISTORICAL_DEPTH_OBSERVED": "1,8 mil videos declarados pelo canal; feed publico expoe 15",
+  "SOURCE_PATTERN_STABLE": "YES — publicacao continua, tema agricola constante, sem interrupcao na janela",
+  "CANONICAL_EXAMPLE": {
+   "video_id": "oKh_fmYjGEQ",
+   "titulo": "Mercati agricoli e volatilità dei prezzi: cosa fa l'Ue",
+   "published_at": "2026-09-17T09:57:34+00:00"
+  },
+  "EXPECTED_YIELD": "~4 itens/mes (MEDIUM) — YIELD != VALUE: o valor para a Intelligence so se sabe depois"
+ },
+ "CANARY": {
+  "AT": "2026-09-20T12:47:49Z",
+  "RUN_ID": "DIAG-T8-002",
+  "CAPABILITY": "youtube.channel.discovery",
+  "ESTADO": "PARTIAL",
+  "RESULT": "CREDENTIAL_MISSING",
+  "COST_STATE": "NOT_RUN",
+  "PAID_USD": 0,
+  "CHANNEL_RESOLVED": "YES — canal_id aceite e carimbado no envelope",
+  "VIDEOS_DISCOVERED": 0,
+  "VIDEO_METADATA_OBTAINED": "NO",
+  "SOURCE_ID_PRESERVED": "YES — SOURCE_ID_DO_PEDIDO=IT-T8-001 no envelope",
+  "RUN_PROVENANCE_PRESENT": "YES — RUN_RECEIPT em SUPORTE",
+  "FACT_TIME_FABRICATED": 0,
+  "FACT_LOCATION_FABRICATED": 0,
+  "LEITURA": "a rota oficial pede YOUTUBE_DATA_API_KEY, ausente nesta arvore. CREDENTIAL_MISSING != CAPABILITY_MISSING. A rota gratuita declarada em ACQUISITION derivou 5 alvos reais do mesmo canal, sem chave."
+ },
+ "CONTRACT_FIX": {
+  "AT": "2026-09-20T12:47:49Z",
+  "DEFEITO": "CANONICAL_ENTRY_URL apontava https://www.youtube.com/@AgroNotizie",
+  "MEDIDO": "@AgroNotizie -> UC5lOJg4v2kFjMunah3fL23g, canal homonimo de 6 inscritos e 7 videos",
+  "CORRECAO": "entrada canonica passa a ser /channel/UCUs2Mg7jvUTRt7_MSOFYM5Q; handle guardado a parte"
  }
 }

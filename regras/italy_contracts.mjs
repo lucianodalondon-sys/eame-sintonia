@@ -463,7 +463,14 @@ export const CONTRACTS = {
     // deles criaria um segundo downloader, e um segundo downloader diverge.
     OWNER_ID: "IT-OWN-IMAGE-LINE", OWNER: "Image Line Network S.r.l.",
     TERRITORY: "T8", VALUE: "P1",
-    CANONICAL_ENTRY_URL: "https://www.youtube.com/@AgroNotizie",
+    // MEDIDO ao vivo em 2026-09-20 por navegador: @AgroNotizie NAO e este canal.
+    // Resolve para UC5lOJg4v2kFjMunah3fL23g, um canal homonimo de 6 inscritos e
+    // 7 videos. O canal desta fonte atende por @agronotizietv, e e ele que tem
+    // o externalId abaixo. A entrada canonica passa a ser o proprio channel_id,
+    // que e estavel: handles sao renomeaveis, channel_id nao.
+    CANONICAL_ENTRY_URL: "https://www.youtube.com/channel/UCUs2Mg7jvUTRt7_MSOFYM5Q",
+    HANDLE_URL: "https://www.youtube.com/@agronotizietv",
+    HANDLE_ARMADILHA: "@AgroNotizie -> UC5lOJg4v2kFjMunah3fL23g (homonimo, 6 inscritos). NAO usar.",
     SOURCE_NATIVE_ID: "UCUs2Mg7jvUTRt7_MSOFYM5Q",
     SOURCE_NATIVE_ID_KIND: "YOUTUBE_CHANNEL_ID",
     LEI_DA_IDENTIDADE: "SOURCE_ID != CHANNEL_ID. IT-T8-001 e a identidade do projeto; UCUs2... e a identidade da plataforma. O contrato liga as duas AQUI, e este e o unico sitio onde essa ligacao esta escrita. Derivar SOURCE_ID do handle, da URL, do slug ou do proprio channel_id e proibido.",
@@ -494,7 +501,28 @@ export const CONTRACTS = {
     EVIDENCE_CLASS: "EDITORIAL_AGRONOMIC_MEDIA",
     LEI: "MEDIA_EDITORIAL != REGULATORY_FACT — o canal noticia e comenta, nao autoriza nada.",
     AUTOMATION_FEASIBILITY: "HIGH — capacidades ja provadas, rota publica, sem credencial de sessao",
-    NEGATIVE_CONTROL: { descricao: "item sem video_id", esperado: "FAILED por falta de identidade" }
+    NEGATIVE_CONTROL: { descricao: "item sem video_id", esperado: "FAILED por falta de identidade" },
+
+    // ── O BLOCO QUE O MOTOR LE ────────────────────────────────────────────
+    // Sem isto, `alvosDoContrato` recusa com «sem bloco ACQUISITION»: o
+    // contrato descrevia a rota em prosa (DISCOVERY_METHOD/RETRIEVAL_METHOD) e
+    // prosa nao executa. Nao foi preciso ESTRATEGIA nova nem adapter: o feed
+    // publico do canal E um indice de ligacoes, que e exactamente o que
+    // HTML_LINK_DISCOVERY ja sabia percorrer para quatro fontes medidas.
+    //
+    // O indice e o channel_id, NAO o handle: handles renomeiam-se e ja
+    // existe um homonimo (@AgroNotizie) a apontar para outro canal.
+    //
+    // MEDIDO em 2026-09-20: 15 entradas no feed -> 15 alvos unicos.
+    // O padrao cobre os dois formatos que o canal publica: `watch?v=` e
+    // `shorts/`. Medir so `watch?v=` dava 13 e perdia dois Shorts em silencio
+    // — e um Short e conteudo publicado, nao ruido.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "https://www.youtube.com/feeds/videos.xml?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q",
+      LINK_PATTERN: 'href="(https://www\\.youtube\\.com/(?:watch\\?v=|shorts/)[\\w-]{11})"',
+      MAX_TARGETS: 5,
+    },
     }
     };
 
