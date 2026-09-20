@@ -42,6 +42,14 @@ import worker as W            # noqa: E402
 
 DIARIO = RAIZ / "curadoria" / "SOURCE-CURATOR-RUN-LOG.ndjson"
 
+# ⚠️ PARAGEM LIMPA. Matar o processo perde a volta em curso e deixa uma
+# tarefa IN_PROGRESS que so a recuperacao de orfas resolve. Um ficheiro-
+# -bandeira lido ENTRE voltas para no unico instante em que nao ha trabalho
+# a meio — o estado fica coerente sem precisar de recuperacao.
+#
+#     PEDIR PARA PARAR != MATAR.
+PARAR = RAIZ / "curadoria" / "PARAR.flag"
+
 # Espera entre voltas quando nao ha NADA elegivel. Teto, nao valor fixo:
 # se houver tarefa adiada para daqui a 40 s, acorda-se aos 40 s.
 ESPERA_MAX = 120
@@ -104,6 +112,13 @@ def main() -> int:
                  v["QUEUE_ELIGIBLE_NOW"], v["QUEUE_WAITING_RETRY"]), flush=True)
 
         if a.voltas and n >= a.voltas:
+            break
+
+        if PARAR.exists():
+            print("  pedido de paragem lido entre voltas — a sair limpo",
+                  flush=True)
+            _anotar({"EVENTO": "PARAGEM_PEDIDA", "VOLTA": n,
+                     "MOTIVO": PARAR.read_text(encoding="utf-8").strip()[:120]})
             break
 
         # Dormir SO com a fila sem nada elegivel, e so ate o proximo relogio.
