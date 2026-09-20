@@ -293,7 +293,10 @@ export function ligacoesDoIndice(html, aq) {
 export function nomeDoAlvo(url, outputType) {
   let nome = "";
   try { nome = decodeURIComponent(new URL(url).pathname.split("/").filter(Boolean).pop() || ""); } catch { }
-  nome = nome.replace(/[^A-Za-z0-9._-]+/g, "_").slice(-120);
+  // ⚠️ 60 e nao 120: medido na Big Collection 2, com a pasta do documento ja
+  // limitada, 9 ficheiros continuavam acima dos 260 caracteres do MAX_PATH do
+  // Windows por causa do NOME. Fica a cauda, que e onde vive a extensao.
+  nome = nome.replace(/[^A-Za-z0-9._-]+/g, "_").slice(-60);
   const ext = String(outputType || "").toUpperCase() === "PDF" ? ".pdf" : ".html";
   if (!nome) return "documento" + ext;
   if (!/\.[A-Za-z0-9]{1,5}$/.test(nome)) nome += ext;

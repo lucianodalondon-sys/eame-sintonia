@@ -484,6 +484,56 @@ EXECUTORES = {
 # Escrever aqui que o plano ficaria vazio seria mais bonito e seria falso.
 EXECUTORES["T8"] = [e for e in EXECUTORES["T9"] if e.get("id") == "scrap-colheita"]
 
+
+# ── O COLETOR ITALIANO PASSA A SERVIR OS TERRITORIOS QUE O CONTRATO COBRE ────
+# ADDENDUM-01 (fast track), portado de it-source-collection-readiness-v1
+# (12e66456, provado em 18/09 por 94 canarios). `coleta/italy_pilot_collect.mjs`
+# deixou de ter um `case` por fonte: le a forma de aquisicao do contrato, e a
+# tabela `regras/italy_contracts_onboarded.json` declara fontes de T1, T5, T7,
+# T9, T10, T11 e T12 alem das de T2/T3/T4 que ja estavam aqui. Sem esta receita
+# o orquestrador imprimia a AJUDA para «colete culturas da italia» — medido na
+# Big Collection 2 (20/09): 41 pedidos recusados em 0,3 s, nenhum por culpa da
+# fonte. Um pedido desses territorios SEM `fonte` continua a nao inventar uma
+# — o coletor recusa alto (FONTES_AUSENTES, BG-06) — e por isso nao ha
+# `filtros_por_omissao`.
+#
+#     UM TERRITORIO COM EXECUTOR NAO E UM TERRITORIO COM COLHEITA APROVADA.
+#     A receita diz quem sabe ir; o Livro de Relevancia diz se vai.
+#
+# Em T9 ele entra em ULTIMO: o pedido de concorrentes sem `fonte` continua a
+# abrir o que abria antes; so um `fonte=IT-T9-0xx` o promove (regra BG-05).
+def _italia_recorrente_generico(o_que_traz: str) -> dict:
+    return {
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        "rotas": ["HTTP direto"],
+        "o_que_traz": o_que_traz,
+        "custo": "gratuito",
+    }
+
+
+for _alvo, _traz in (
+    ("T1", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
+           "pagina de entrada da fonte de producao nomeada no pedido"),
+    ("T5", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
+           "pagina de entrada da fonte cientifica nomeada no pedido"),
+    ("T7", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
+           "pagina de entrada da rede tecnica nomeada no pedido"),
+    ("T9", "o artigo ou documento publico do site do concorrente nomeado no "
+           "pedido (COMPANY_CLAIM != REGULATORY_FACT)"),
+    ("T10", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
+            "pagina de entrada da fonte de mercado nomeada no pedido"),
+    ("T11", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
+            "pagina de entrada do evento nomeado no pedido"),
+    ("T12", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
+            "pagina de entrada da fonte de politica agricola nomeada no pedido"),
+):
+    EXECUTORES.setdefault(_alvo, []).append(_italia_recorrente_generico(_traz))
+
 # Contratos que NENHUMA coleta pode dispensar. Nao sao conselhos: sem eles o
 # item nao consegue provar de onde veio nem quando aconteceu, e a inteligencia
 # recebe um numero sem passado.

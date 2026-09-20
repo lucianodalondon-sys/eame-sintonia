@@ -117,8 +117,24 @@ export function lerLedger() {
 function gravar(obs) { appendFileSync(ledgerPath(), JSON.stringify(obs) + "\n"); }
 
 // ---------- RAW imutavel ----------
+// ── A PASTA DO DOCUMENTO TEM TAMANHO MAXIMO, E O DOCUMENT_ID NAO ──────────
+// ⚠️ MEDIDO na Big Collection 2 (2026-09-20): com identidade pelo endereco
+// (IDENTITY_KIND = URL_PATH) o DOCUMENT_ID pode ter 300 caracteres, e a pasta
+// que nascia dele passava os 260 do MAX_PATH do Windows — 15 ficheiros que o
+// Node escreveu e o git nao conseguia abrir («Filename too long»). A
+// identidade continua inteira no ledger; so a PASTA fica limitada: 64
+// caracteres do id mais 12 do sha256 do id inteiro, que e o que garante que
+// dois ids longos diferentes nao caem na mesma pasta. Ids curtos (todos os
+// do piloto) ficam exactamente como estavam.
+//
+//     O NOME DA PASTA E ENDERECO DE DISCO. O DOCUMENT_ID E IDENTIDADE.
+export function pastaDoDocumento(documentId) {
+  const pasta = String(documentId).replace(/[:\/\\]/g, "_");
+  if (pasta.length <= 80) return pasta;
+  return pasta.slice(0, 64) + "_" + sha(Buffer.from(String(documentId), "utf8")).slice(0, 12);
+}
 function guardarRaw(sourceId, documentId, versionId, nome, buf) {
-  const dir = `${STORE}/${sourceId}/${documentId.replace(/[:\/\\]/g, "_")}/${versionId}`;
+  const dir = `${STORE}/${sourceId}/${pastaDoDocumento(documentId)}/${versionId}`;
   if (existsSync(`${dir}/${nome}`)) return { dir, criado: false };
   mkdirSync(dir, { recursive: true });
   writeFileSync(`${dir}/${nome}`, buf);
