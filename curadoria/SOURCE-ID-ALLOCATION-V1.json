@@ -1,0 +1,1006 @@
+{
+ "DATASET": "SOURCE-ID-ALLOCATION-V1",
+ "LEI": "SOURCE_ID = IT-T<territorio>-<sequencia>. Nada dele deriva da URL, do handle ou de hash. A sequencia continua do maior existente e NUNCA recicla um numero ja usado.",
+ "BASE_ATLAS": 185,
+ "MAIOR_POR_TERRITORIO_ANTES": {
+  "T1": 23,
+  "T10": 16,
+  "T11": 5,
+  "T12": 6,
+  "T2": 24,
+  "T3": 21,
+  "T4": 1,
+  "T5": 36,
+  "T6": 36,
+  "T7": 14,
+  "T8": 3,
+  "T9": 13
+ },
+ "ATRIBUIDOS": 84,
+ "SEM_TERRITORIO": 13,
+ "TERRITORIO_ALINHADO_POR_ORGANIZACAO": 1,
+ "LEI_CANAL_SITE": "COL-LAW-034 (ORIGIN_ID != CHANNEL_ID): canal e site da mesma organizacao sao DUAS fontes com dois SOURCE_ID. MESMA_ORGANIZACAO guarda o parentesco sem as fundir.",
+ "POR_TERRITORIO": {
+  "T7": 29,
+  "T12": 11,
+  "T5": 18,
+  "T9": 7,
+  "T11": 2,
+  "T8": 5,
+  "T2": 6,
+  "T10": 6
+ },
+ "NOVAS": [
+  {
+   "CANDIDATE_ID": "CAND-0182",
+   "SOURCE_ID": "IT-T7-015",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio Tutela Vini d'Abruzzo — Youtube ufficiale",
+   "URL": "https://www.youtube.com/@VinidAbruzzo",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0184",
+   "SOURCE_ID": "IT-T12-007",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARSAC» -> T12",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCEg22ii3Awy6eyRybNqO-8Q",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0185",
+   "SOURCE_ID": "IT-T5-037",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «CNR» -> T5",
+   "NOME": "CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCOiX7jy7G-NMPtaA9QaNQrg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0186",
+   "SOURCE_ID": "IT-T5-038",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «UNINA» -> T5",
+   "NOME": "UNINA Dipartimento di Agraria — Portici — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UC3HdHdHUZomg1l3K_UWv9PQ",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0020"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0020",
+   "SOURCE_ID": "IT-T5-039",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «UNINA» -> T5",
+   "NOME": "UNINA Dipartimento di Agraria — Portici",
+   "URL": "https://www.agraria.unina.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0186"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0188",
+   "SOURCE_ID": "IT-T5-040",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Ricerc» -> T5",
+   "NOME": "CRPV — Centro Ricerche Produzioni Vegetali — Youtube ufficiale",
+   "URL": "https://www.youtube.com/@rinovaricerche",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0022"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0022",
+   "SOURCE_ID": "IT-T5-041",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Ricerc» -> T5",
+   "NOME": "CRPV — Centro Ricerche Produzioni Vegetali",
+   "URL": "https://www.crpv.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0188"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0189",
+   "SOURCE_ID": "IT-T7-016",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Cooperativ» -> T7",
+   "NOME": "Cantina Sociale Cooperativa Riunite e CIV — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCHm8wgnyeNFP2luUq_lMPMg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0138"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0138",
+   "SOURCE_ID": "IT-T7-017",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Cooperativ» -> T7",
+   "NOME": "Cantina Sociale Cooperativa Riunite e CIV",
+   "URL": "https://www.riuniteciv.com/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0189"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0191",
+   "SOURCE_ID": "IT-T9-014",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9",
+   "NOME": "Conserve Italia — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCB3cnpKOvT56elhTKE7cjSg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0140"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0140",
+   "SOURCE_ID": "IT-T9-015",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9",
+   "NOME": "Conserve Italia",
+   "URL": "https://www.conserveitalia.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0191"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0192",
+   "SOURCE_ID": "IT-T5-042",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Fondazion» -> T5",
+   "NOME": "Fondazione per l'Agricoltura F.lli Navarra — Youtube ufficiale",
+   "URL": "https://www.youtube.com/@fondazionenavarra_Ferrara",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0194",
+   "SOURCE_ID": "IT-T11-006",
+   "TERRITORY": "T11",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Macfrut» -> T11",
+   "NOME": "Macfrut — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCS-EXLzpmRwcnJNsm9SWJdA",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0195",
+   "SOURCE_ID": "IT-T8-004",
+   "TERRITORY": "T8",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Terra e Vita» -> T8",
+   "NOME": "Terra e Vita — Edagricole — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCrCabYjtyqdzu1zXo95o7Jw",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0196",
+   "SOURCE_ID": "IT-T5-043",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Dipartiment» -> T5",
+   "NOME": "UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCDNXhv9mPzYo5FQKkg_oSWw",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0197",
+   "SOURCE_ID": "IT-T2-025",
+   "TERRITORY": "T2",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2",
+   "NOME": "ARPA Lazio — Youtube ufficiale",
+   "URL": "https://www.youtube.com/@arpa_lazio",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0198",
+   "SOURCE_ID": "IT-T2-026",
+   "TERRITORY": "T2",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2",
+   "NOME": "ARPA Liguria — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCTK_ULXg3gzn8el_oFk-5eA",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0199",
+   "SOURCE_ID": "IT-T2-027",
+   "TERRITORY": "T2",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2",
+   "NOME": "ARPA Lombardia — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCamw8rL1JPLjfa3Bx6ax8Eg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0200",
+   "SOURCE_ID": "IT-T7-018",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Confagricoltura» -> T7",
+   "NOME": "Confagricoltura Lombardia — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCfqqPifpfaZUI30hxiygmJw",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0153"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0153",
+   "SOURCE_ID": "IT-T7-019",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Confagricoltura» -> T7",
+   "NOME": "Confagricoltura Lombardia",
+   "URL": "https://www.confagricolturalombardia.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0200"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0201",
+   "SOURCE_ID": "IT-T7-020",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi — Youtube ufficiale",
+   "URL": "https://www.youtube.com/@consorziodibonificaesttici5074",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0155"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0155",
+   "SOURCE_ID": "IT-T7-021",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi",
+   "URL": "https://www.etvilloresi.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0201"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0202",
+   "SOURCE_ID": "IT-T7-022",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio di Tutela del Grana Padano — Youtube ufficiale",
+   "URL": "https://www.youtube.com/@GranaPadanoDOP",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0203",
+   "SOURCE_ID": "IT-T5-044",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Fondazion» -> T5",
+   "NOME": "Fondazione Minoprio — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/Fondazioneminoprio",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0204",
+   "SOURCE_ID": "IT-T2-028",
+   "TERRITORY": "T2",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2",
+   "NOME": "ARPA Marche — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCtBD35n-HE7x_MWnjc1kt7g",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0205",
+   "SOURCE_ID": "IT-T12-008",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ASSAM» -> T12",
+   "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCpiryXByW32kGxQXTlbnSXA",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0007"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0007",
+   "SOURCE_ID": "IT-T12-009",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ASSAM» -> T12",
+   "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche",
+   "URL": "https://www.assam.marche.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0205"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0206",
+   "SOURCE_ID": "IT-T12-010",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Regione» -> T12",
+   "NOME": "Regione Molise — Agricoltura — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCH_LCqE9qGb6TvpXwGudNbQ",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0207",
+   "SOURCE_ID": "IT-T7-023",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Associazion» -> T7",
+   "NOME": "ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e acque irrigue — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCFkdwOroXwCFMXHneVMeYqQ",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0208",
+   "SOURCE_ID": "IT-T7-024",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Assosementi» -> T7",
+   "NOME": "Assosementi — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCdJ3sb6r1X0pjU6XR9OMdGw",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0209",
+   "SOURCE_ID": "IT-T7-025",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «CIA» -> T7",
+   "NOME": "CIA — Agricoltori Italiani — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/CiaAgricoltori",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0210",
+   "SOURCE_ID": "IT-T7-026",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «CONAF» -> T7",
+   "NOME": "CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UC4LCuwIcRPhrE2mFJ8ZXtLg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0211",
+   "SOURCE_ID": "IT-T7-027",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Coldiretti» -> T7",
+   "NOME": "Coldiretti — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCEgJbey3UogPJPmdlBEAjKQ",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0212",
+   "SOURCE_ID": "IT-T7-028",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Confcooperative» -> T7",
+   "NOME": "Confcooperative Fedagripesca — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCJbuSrQ57Z-dAYGI7n2VwPg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0164"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0164",
+   "SOURCE_ID": "IT-T7-029",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Confcooperative» -> T7",
+   "NOME": "Confcooperative Fedagripesca",
+   "URL": "https://www.fedagripesca.confcooperative.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0212"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0213",
+   "SOURCE_ID": "IT-T9-016",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9",
+   "NOME": "Consorzi Agrari d'Italia — CAI — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UC84-4aKRmQbIG5eprbIaR9Q",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0214",
+   "SOURCE_ID": "IT-T7-030",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «FederBio» -> T7",
+   "NOME": "FederBio — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/FederBioItalia",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0165"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0165",
+   "SOURCE_ID": "IT-T7-031",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «FederBio» -> T7",
+   "NOME": "FederBio",
+   "URL": "https://feder.bio/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0214"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0215",
+   "SOURCE_ID": "IT-T5-045",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Istituto» -> T5",
+   "NOME": "ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/ISPRAVIDEO",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0216",
+   "SOURCE_ID": "IT-T9-017",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9",
+   "NOME": "Koppert Italia — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCmPpv0_TilfaF9Df5SzeFiQ",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0217",
+   "SOURCE_ID": "IT-T10-017",
+   "TERRITORY": "T10",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Myfruit» -> T10",
+   "NOME": "Myfruit.it — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/myfruitvideo",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0059"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0059",
+   "SOURCE_ID": "IT-T10-018",
+   "TERRITORY": "T10",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Myfruit» -> T10",
+   "NOME": "Myfruit.it",
+   "URL": "https://www.myfruit.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0217"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0061",
+   "SOURCE_ID": "IT-T5-046",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "tema dominante medido na amostra: SCIENCE -> T5",
+   "NOME": "Olio Officina",
+   "URL": "https://www.olioofficina.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0219"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0220",
+   "SOURCE_ID": "IT-T12-011",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «PSR» -> T12",
+   "NOME": "Pianeta PSR — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/reterurale",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0224",
+   "SOURCE_ID": "IT-T12-012",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Regione» -> T12",
+   "NOME": "Regione Piemonte — Agricoltura e cibo — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/LaRegionePiemonte",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0011"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0011",
+   "SOURCE_ID": "IT-T12-013",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Regione» -> T12",
+   "NOME": "Regione Piemonte — Agricoltura e cibo",
+   "URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0224"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0225",
+   "SOURCE_ID": "IT-T11-007",
+   "TERRITORY": "T11",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Agrilevante» -> T11",
+   "NOME": "Agrilevante — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/Agrilevante/feed",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0226",
+   "SOURCE_ID": "IT-T5-047",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Dipartiment» -> T5",
+   "NOME": "UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli Alimenti — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/unialdomoro",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0227",
+   "SOURCE_ID": "IT-T5-048",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Dipartiment» -> T5",
+   "NOME": "UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCKdQcnPtPZs3k08e5jrFSNQ",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0024"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0024",
+   "SOURCE_ID": "IT-T5-049",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Dipartiment» -> T5",
+   "NOME": "UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente",
+   "URL": "https://www.di3a.unict.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0227"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0228",
+   "SOURCE_ID": "IT-T7-032",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio Vino Chianti Classico — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/vinochianticlassico",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0174"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0174",
+   "SOURCE_ID": "IT-T7-033",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio Vino Chianti Classico",
+   "URL": "https://www.chianticlassico.com/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0228"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0229",
+   "SOURCE_ID": "IT-T7-034",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio del Vino Brunello di Montalcino — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/brunello1888",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0230",
+   "SOURCE_ID": "IT-T7-035",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Georgofili» -> T7",
+   "NOME": "Georgofili INFO — notiziario — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCosKzVZGcw6VR3sW9QKGkVw",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0231",
+   "SOURCE_ID": "IT-T12-014",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Regione» -> T12",
+   "NOME": "Regione Toscana — Agricoltura — Youtube ufficiale",
+   "URL": "https://www.youtube.com/c/RegioneToscanaUfficiale",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0232",
+   "SOURCE_ID": "IT-T10-019",
+   "TERRITORY": "T10",
+   "TERRITORY_REASON": "tema dominante medido na amostra: CLIMATE -> T2 | alinhado a T10: a mesma organizacao nao pode estar em dois territorios (COL-LAW-034 separa canal de site, nao de territorio)",
+   "NOME": "WineNews — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/winetv",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0065"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0065",
+   "SOURCE_ID": "IT-T10-020",
+   "TERRITORY": "T10",
+   "TERRITORY_REASON": "tema dominante medido na amostra: MARKET -> T10",
+   "NOME": "WineNews",
+   "URL": "https://winenews.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0232"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0233",
+   "SOURCE_ID": "IT-T12-015",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «provincia» -> T12",
+   "NOME": "APPA Trento — Agenzia provinciale protezione ambiente — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCxIuSXfCNVnzTLD3EJFcQng",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0235",
+   "SOURCE_ID": "IT-T5-050",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Universit» -> T5",
+   "NOME": "Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCWRr0vMGqdmyqzdm3bNGY4Q",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0236",
+   "SOURCE_ID": "IT-T8-005",
+   "TERRITORY": "T8",
+   "TERRITORY_REASON": "tema dominante medido na amostra: AGRICULTURAL_NEWS -> T8",
+   "NOME": "Agriumbria — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/Agriumbria",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0177"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0237",
+   "SOURCE_ID": "IT-T12-016",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Regione» -> T12",
+   "NOME": "Regione Valle d'Aosta — Agricoltura — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UC4wxlAIQauBZe7CDnLXkWqA",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0238",
+   "SOURCE_ID": "IT-T7-036",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio Tutela Prosecco DOC — Youtube ufficiale",
+   "URL": "https://www.youtube.com/user/ProseccoSuperiore",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0239",
+   "SOURCE_ID": "IT-T7-037",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio Tutela Vini Valpolicella — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCpdWeEtUCU1aHhJnj2TwheA",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0179"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0179",
+   "SOURCE_ID": "IT-T7-038",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio Tutela Vini Valpolicella",
+   "URL": "https://www.consorziovalpolicella.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": [
+    "CAND-0239"
+   ]
+  },
+  {
+   "CANDIDATE_ID": "CAND-0240",
+   "SOURCE_ID": "IT-T7-039",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio di Bonifica Piave — Youtube ufficiale",
+   "URL": "https://www.youtube.com/channel/UCmRWXB6nOPLc5x42XXhGrWg",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0241",
+   "SOURCE_ID": "IT-T8-006",
+   "TERRITORY": "T8",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Informatore» -> T8",
+   "NOME": "L'Informatore Agrario — canale YouTube",
+   "URL": "https://www.youtube.com/@informatoreagrario",
+   "FAMILY": "YOUTUBE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0004",
+   "SOURCE_ID": "IT-T10-021",
+   "TERRITORY": "T10",
+   "TERRITORY_REASON": "tema dominante medido na amostra: MARKET -> T10",
+   "NOME": "Plantgest — banca dati varieta",
+   "URL": "https://plantgest.imagelinenetwork.com/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0005",
+   "SOURCE_ID": "IT-T12-017",
+   "TERRITORY": "T12",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ERSA» -> T12",
+   "NOME": "ERSA FVG — Agenzia regionale per lo sviluppo rurale",
+   "URL": "https://www.ersa.fvg.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0012",
+   "SOURCE_ID": "IT-T2-029",
+   "TERRITORY": "T2",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «ARPA» -> T2",
+   "NOME": "ARPA Puglia",
+   "URL": "https://www.arpa.puglia.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0019",
+   "SOURCE_ID": "IT-T5-051",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «UNIRC» -> T5",
+   "NOME": "UNIRC Dipartimento di Agraria",
+   "URL": "https://www.agraria.unirc.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0021",
+   "SOURCE_ID": "IT-T5-052",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "tema dominante medido na amostra: SCIENCE -> T5",
+   "NOME": "Bulletin of Insectology",
+   "URL": "http://www.bulletinofinsectology.org/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0025",
+   "SOURCE_ID": "IT-T5-053",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "tema dominante medido na amostra: SCIENCE -> T5",
+   "NOME": "Phytopathologia Mediterranea",
+   "URL": "https://oajournals.fupress.net/index.php/pm",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0049",
+   "SOURCE_ID": "IT-T8-007",
+   "TERRITORY": "T8",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Rivista» -> T8",
+   "NOME": "Rivista di Frutticoltura e di Ortofloricoltura",
+   "URL": "https://www.rivistafrutticoltura.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0054",
+   "SOURCE_ID": "IT-T8-008",
+   "TERRITORY": "T8",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «News» -> T8",
+   "NOME": "Agroalimentare News",
+   "URL": "https://www.agroalimentarenews.com/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0055",
+   "SOURCE_ID": "IT-T9-018",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9",
+   "NOME": "FreshPlaza Italia",
+   "URL": "https://www.freshplaza.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0066",
+   "SOURCE_ID": "IT-T10-022",
+   "TERRITORY": "T10",
+   "TERRITORY_REASON": "tema dominante medido na amostra: MARKET -> T10",
+   "NOME": "Zootecnica International",
+   "URL": "https://www.zootecnicainternational.com/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0141",
+   "SOURCE_ID": "IT-T7-040",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio del Parmigiano Reggiano",
+   "URL": "https://www.parmigianoreggiano.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0142",
+   "SOURCE_ID": "IT-T7-041",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio di Bonifica della Romagna",
+   "URL": "https://www.bonificaromagna.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0143",
+   "SOURCE_ID": "IT-T7-042",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Consorzio» -> T7",
+   "NOME": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+   "URL": "https://www.consorziobalsamico.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0147",
+   "SOURCE_ID": "IT-T2-030",
+   "TERRITORY": "T2",
+   "TERRITORY_REASON": "tema dominante medido na amostra: CLIMATE -> T2",
+   "NOME": "Nomisma",
+   "URL": "https://www.nomisma.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0150",
+   "SOURCE_ID": "IT-T9-019",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "tema dominante medido na amostra: PORTFOLIO -> T9",
+   "NOME": "SCAM",
+   "URL": "https://www.scam.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0158",
+   "SOURCE_ID": "IT-T9-020",
+   "TERRITORY": "T9",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Italia» -> T9",
+   "NOME": "Sipcam Italia",
+   "URL": "https://www.sipcamitalia.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0161",
+   "SOURCE_ID": "IT-T7-043",
+   "TERRITORY": "T7",
+   "TERRITORY_REASON": "o nome da fonte diz o que ela E: «Federchimica» -> T7",
+   "NOME": "Agrofarma — Federchimica",
+   "URL": "https://agrofarma.federchimica.it/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0167",
+   "SOURCE_ID": "IT-T5-054",
+   "TERRITORY": "T5",
+   "TERRITORY_REASON": "tema dominante medido na amostra: SCIENCE -> T5",
+   "NOME": "Legacoop Agroalimentare",
+   "URL": "https://www.legacoopagroalimentare.coop/",
+   "FAMILY": "HTML_SITE",
+   "MESMA_ORGANIZACAO": null
+  }
+ ],
+ "SEM_TERRITORIO_DETALHE": [
+  {
+   "CANDIDATE_ID": "CAND-0190",
+   "NOME": "Cifo — Youtube ufficiale",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0193",
+   "NOME": "Granarolo — Youtube ufficiale",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0218",
+   "NOME": "Noi Siamo Agricoltura — canale YouTube",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0219",
+   "NOME": "Olio Officina — Youtube ufficiale",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0221",
+   "NOME": "Societa Entomologica Italiana — Youtube ufficiale",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0222",
+   "NOME": "Stato Brado — canale YouTube",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0223",
+   "NOME": "Agromoderni — canale YouTube",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0234",
+   "NOME": "Interpoma — Youtube ufficiale",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0177",
+   "NOME": "Agriumbria",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0023",
+   "NOME": "Journal of Plant Pathology",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0053",
+   "NOME": "AgroNews / Terra e Gusto ANSA",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0136",
+   "NOME": "Valagro",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0159",
+   "NOME": "TUTTOFOOD Milano",
+   "PORQUE": "nem o nome nem a amostra disseram a que territorio pertence — fica sem numero, de proposito"
+  }
+ ]
+}

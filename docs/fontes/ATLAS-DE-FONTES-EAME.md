@@ -7308,3 +7308,2959 @@ deixa ver.*
 | ITALY | 1?/17G/5Y | 16G/6Y | 1Y/8G/5Y | 1G | 17G/16Y | 36Y | 3G | – | 1?/3G/4Y | 11G/1Y | 1Y/1G | 2G/2Y |
 
 *(– = não investigado)*
+
+---
+
+## ONDA SOURCE CURATOR — 2026-09-20
+
+*84 fontes italianas trazidas pela fila de candidatas, todas com exemplo real
+capturado, amostra representativa (717 itens no total da onda) e contrato
+executavel escrito em `curadoria/italy_contracts_curator.json`.*
+
+> **O que estas fichas NAO afirmam.** Nenhuma delas foi coletada ainda. Ter
+> contrato e canario nao e ter corpus: `FONTE PRONTA != FONTE COLETADA`.
+> Os campos a `NAO SEI` sao medidas que faltam, nao defeitos da fonte —
+> e o Atlas proibe converter «nao consegui verificar» em RED.
+
+> **Canal e site sao duas fontes** (COL-LAW-034). Onde a mesma organizacao
+> aparece duas vezes, o campo `MESMA_ORGANIZACAO` guarda o parentesco sem
+> fundir as identidades.
+
+#### IT-T7-015 · Consorzio Tutela Vini d'Abruzzo — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-015
+SOURCE_NAME:                  Consorzio Tutela Vini d'Abruzzo — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio Tutela Vini d'Abruzzo
+COUNTRY:                      ITALY
+REGION:                       ABRUZZO
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@VinidAbruzzo
+PLATFORM_NATIVE_ID:           UCJi1Vrelq8obdmS_UXP3T2g
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       PORTFOLIO
+GEOGRAPHIC_GRANULARITY:       regiao (abruzzo) - observado na amostra
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2020-11-07 … 2025-03-11 (13 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCJi1Vrelq8obdmS_UXP3T2g), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 ADO ABRUZZO, LO STUDIO DEL CONSORZIO VINI D'ABRUZZO SULLA VOCAZIONALITA' REGIONALE (2025-03-11)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2020-11-07 .. 2025-03-11
+EXPECTED_YIELD:               0.06 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0182/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T12-007 · ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-007
+SOURCE_NAME:                  ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — Youtube ufficiale
+SOURCE_OWNER:                 ARSAC Calabria
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCEg22ii3Awy6eyRybNqO-8Q
+PLATFORM_NATIVE_ID:           UCEg22ii3Awy6eyRybNqO-8Q
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        vite
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2025-11-28 … 2026-02-20 (6 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCEg22ii3Awy6eyRybNqO-8Q), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Il Percoco di San Giorgio Albanese (2026-02-20)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-11-28 .. 2026-02-20
+EXPECTED_YIELD:               0.5 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0184/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-037 · CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-037
+SOURCE_NAME:                  CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo — Youtube ufficiale
+SOURCE_OWNER:                 CNR ISAFOM
+COUNTRY:                      ITALY
+REGION:                       CAMPANIA
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCOiX7jy7G-NMPtaA9QaNQrg
+PLATFORM_NATIVE_ID:           UCOiX7jy7G-NMPtaA9QaNQrg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       regiao (campania) - observado na amostra
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2015-09-15 … 2020-11-03 (10 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCOiX7jy7G-NMPtaA9QaNQrg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 OT4CLIMA Contributo SPA Lab ISAFOM (2020-11-03)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2015-09-15 .. 2020-11-03
+EXPECTED_YIELD:               0.04 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0185/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-038 · UNINA Dipartimento di Agraria — Portici — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-038
+SOURCE_NAME:                  UNINA Dipartimento di Agraria — Portici — Youtube ufficiale
+SOURCE_OWNER:                 UNINA Dipartimento di Agraria
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UC3HdHdHUZomg1l3K_UWv9PQ
+MESMA_ORGANIZACAO:            CAND-0020 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UC3HdHdHUZomg1l3K_UWv9PQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2021-07-19 … 2023-10-27 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC3HdHdHUZomg1l3K_UWv9PQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Sostenibilità agroalimentare - intervista al Prof.Danilo Ercolini (2023-10-27)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2021-07-19 .. 2023-10-27
+EXPECTED_YIELD:               0.03 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0186/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-039 · UNINA Dipartimento di Agraria — Portici
+
+```
+SOURCE_ID:                    IT-T5-039
+SOURCE_NAME:                  UNINA Dipartimento di Agraria — Portici
+SOURCE_OWNER:                 UNINA Dipartimento di Agraria
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.agraria.unina.it/
+MESMA_ORGANIZACAO:            CAND-0186 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Esami di Stato | Dipartimento di Agraria (19/06/2026)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo NAO SEI .. NAO SEI
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0020/esami-di-stato1 (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T5-040 · CRPV — Centro Ricerche Produzioni Vegetali — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-040
+SOURCE_NAME:                  CRPV — Centro Ricerche Produzioni Vegetali — Youtube ufficiale
+SOURCE_OWNER:                 CRPV
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@rinovaricerche
+MESMA_ORGANIZACAO:            CAND-0022 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCH-UMwlZXbrOb3RrL2GejMA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        patata
+TOPICS:                       CLIMATE, PHYTOSANITARY
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-12-01 … 2026-06-10 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCH-UMwlZXbrOb3RrL2GejMA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 IRRI-MIA, sensoristica IoT avanzata per un'irrigazione 4.0 (2026-06-10)
+REPRESENTATIVE_SAMPLE:        9 itens reais, periodo 2025-12-01 .. 2026-06-10
+EXPECTED_YIELD:               0.33 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0188/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 9 itens
+```
+
+#### IT-T5-041 · CRPV — Centro Ricerche Produzioni Vegetali
+
+```
+SOURCE_ID:                    IT-T5-041
+SOURCE_NAME:                  CRPV — Centro Ricerche Produzioni Vegetali
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.crpv.it/
+MESMA_ORGANIZACAO:            CAND-0188 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        uva
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-06-04 … 2026-09-23 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   NAO SEI - a amostra nao trouxe data declarada
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 linee-guida-pero_def.pdf (NAO SEI)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2025-06-04 .. 2026-09-23
+EXPECTED_YIELD:               0.13 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0022/linee-guida-pero_def.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-016 · Cantina Sociale Cooperativa Riunite e CIV — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-016
+SOURCE_NAME:                  Cantina Sociale Cooperativa Riunite e CIV — Youtube ufficiale
+SOURCE_OWNER:                 Cantina Sociale Cooperativa Riunite e CIV
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCHm8wgnyeNFP2luUq_lMPMg
+MESMA_ORGANIZACAO:            CAND-0138 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCHm8wgnyeNFP2luUq_lMPMg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        pero
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2020-10-12 … 2026-02-09 (8 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCHm8wgnyeNFP2luUq_lMPMg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Dei Cavalieri - La differenza è nel cuore (2026-02-09)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2020-10-12 .. 2026-02-09
+EXPECTED_YIELD:               0.03 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0189/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-017 · Cantina Sociale Cooperativa Riunite e CIV
+
+```
+SOURCE_ID:                    IT-T7-017
+SOURCE_NAME:                  Cantina Sociale Cooperativa Riunite e CIV
+SOURCE_OWNER:                 Cantina Sociale Cooperativa Riunite e CIV
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.riuniteciv.com/
+MESMA_ORGANIZACAO:            CAND-0189 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       MARKET, PORTFOLIO
+GEOGRAPHIC_GRANULARITY:       regiao (lazio) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2026-05-05 … 2026-08-05 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Raccontare, ascoltare, creare relazioni - Riunite & CIV (2026-08-05T07:10:39+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-05-05 .. 2026-08-05
+EXPECTED_YIELD:               0.23 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0138/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T9-014 · Conserve Italia — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T9-014
+SOURCE_NAME:                  Conserve Italia — Youtube ufficiale
+SOURCE_OWNER:                 Conserve Italia
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCB3cnpKOvT56elhTKE7cjSg
+MESMA_ORGANIZACAO:            CAND-0140 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCB3cnpKOvT56elhTKE7cjSg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       CLIMATE, SCIENCE, PHYTOSANITARY
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-12-19 … 2026-09-01 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCB3cnpKOvT56elhTKE7cjSg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Miglioramento genetico di pesche e percoche: le novità del progetto Maspes (2026-09-01)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-12-19 .. 2026-09-01
+EXPECTED_YIELD:               0.25 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0191/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T9-015 · Conserve Italia
+
+```
+SOURCE_ID:                    IT-T9-015
+SOURCE_NAME:                  Conserve Italia
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.conserveitalia.it/
+MESMA_ORGANIZACAO:            CAND-0191 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   NAO SEI - a amostra nao trouxe data declarada
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 16%20luglio%202026_Yoga%20Brand%20Award.pdf (NAO SEI)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo NAO SEI .. NAO SEI
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0140/16_20luglio_202026_Yoga_20Brand_20Award.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T5-042 · Fondazione per l'Agricoltura F.lli Navarra — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-042
+SOURCE_NAME:                  Fondazione per l'Agricoltura F.lli Navarra — Youtube ufficiale
+SOURCE_OWNER:                 Fondazione per l'Agricoltura F.lli Navarra
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@fondazionenavarra_Ferrara
+PLATFORM_NATIVE_ID:           UCm-f74uymvl9TOLWqf6GOpA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2025-05-28 … 2025-12-01 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCm-f74uymvl9TOLWqf6GOpA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Convegno UNAPera 27 novembre 2025 (2025-12-01)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-05-28 .. 2025-12-01
+EXPECTED_YIELD:               0.15 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0192/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T11-006 · Macfrut — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T11-006
+SOURCE_NAME:                  Macfrut — Youtube ufficiale
+SOURCE_OWNER:                 Macfrut
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T11
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCS-EXLzpmRwcnJNsm9SWJdA
+PLATFORM_NATIVE_ID:           UCS-EXLzpmRwcnJNsm9SWJdA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2021-09-28 … 2026-06-05 (11 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCS-EXLzpmRwcnJNsm9SWJdA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 MACFRUT 2026 | FINAL WRAP UP (2026-06-05)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2021-09-28 .. 2026-06-05
+EXPECTED_YIELD:               0.05 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0194/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T8-004 · Terra e Vita — Edagricole — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T8-004
+SOURCE_NAME:                  Terra e Vita — Edagricole — Youtube ufficiale
+SOURCE_OWNER:                 Terra e Vita
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCrCabYjtyqdzu1zXo95o7Jw
+PLATFORM_NATIVE_ID:           UCrCabYjtyqdzu1zXo95o7Jw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-06-15 … 2026-09-11 (10 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCrCabYjtyqdzu1zXo95o7Jw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Osservazione e progettualità: così si fronteggia il climate change in viticoltura (2026-09-11)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-06-15 .. 2026-09-11
+EXPECTED_YIELD:               0.8 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0195/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-043 · UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-043
+SOURCE_NAME:                  UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari — Youtube ufficiale
+SOURCE_OWNER:                 UNIBO DISTAL
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCDNXhv9mPzYo5FQKkg_oSWw
+PLATFORM_NATIVE_ID:           UCDNXhv9mPzYo5FQKkg_oSWw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2024-05-21 … 2025-05-13 (6 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCDNXhv9mPzYo5FQKkg_oSWw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Corso di laurea Scienze e tecnologie per il verde e il paesaggio (2025-05-13)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2024-05-21 .. 2025-05-13
+EXPECTED_YIELD:               0.12 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0196/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T2-025 · ARPA Lazio — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T2-025
+SOURCE_NAME:                  ARPA Lazio — Youtube ufficiale
+SOURCE_OWNER:                 ARPA Lazio
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T2
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@arpa_lazio
+PLATFORM_NATIVE_ID:           UC1vKirvt0hzsqE9zQAs9nTw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       regiao (lazio) - observado na amostra
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2018-05-17 … 2024-12-13 (10 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC1vKirvt0hzsqE9zQAs9nTw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Seminario ARPA Lazio - ANCI Lazio su materiali da scavo - Parte 2 di 2 (2024-12-13)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2018-05-17 .. 2024-12-13
+EXPECTED_YIELD:               0.03 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0197/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T2-026 · ARPA Liguria — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T2-026
+SOURCE_NAME:                  ARPA Liguria — Youtube ufficiale
+SOURCE_OWNER:                 ARPA Liguria
+COUNTRY:                      ITALY
+REGION:                       LIGURIA, PIEMONTE, VALLE D'AOSTA
+LANGUAGE:                     it
+TERRITORY:                    T2
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCTK_ULXg3gzn8el_oFk-5eA
+PLATFORM_NATIVE_ID:           UCTK_ULXg3gzn8el_oFk-5eA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       TECHNICAL_FIELD_SIGNAL, CLIMATE
+GEOGRAPHIC_GRANULARITY:       regiao (liguria, piemonte, valle d'aosta) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2024-03-19 … 2025-11-05 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCTK_ULXg3gzn8el_oFk-5eA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 25-09-2025: 30 anni di Arpal a Genova con il Consiglio SNPA e un workshop su ambiente e sa (2025-11-05)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2024-03-19 .. 2025-11-05
+EXPECTED_YIELD:               0.11 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0198/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T2-027 · ARPA Lombardia — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T2-027
+SOURCE_NAME:                  ARPA Lombardia — Youtube ufficiale
+SOURCE_OWNER:                 ARPA Lombardia
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     it
+TERRITORY:                    T2
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCamw8rL1JPLjfa3Bx6ax8Eg
+PLATFORM_NATIVE_ID:           UCamw8rL1JPLjfa3Bx6ax8Eg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE, CLIMATE
+GEOGRAPHIC_GRANULARITY:       regiao (lombardia) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-06-03 … 2026-07-09 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCamw8rL1JPLjfa3Bx6ax8Eg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Icmesa: Arpa Lombardia al summit per il cinquantesimo anniversario (2026-07-09)
+REPRESENTATIVE_SAMPLE:        4 itens reais, periodo 2026-06-03 .. 2026-07-09
+EXPECTED_YIELD:               0.78 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0199/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
+```
+
+#### IT-T7-018 · Confagricoltura Lombardia — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-018
+SOURCE_NAME:                  Confagricoltura Lombardia — Youtube ufficiale
+SOURCE_OWNER:                 Confagricoltura Lombardia
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCfqqPifpfaZUI30hxiygmJw
+MESMA_ORGANIZACAO:            CAND-0153 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCfqqPifpfaZUI30hxiygmJw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       regiao (lombardia) - observado na amostra
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2013-11-13 … 2015-02-19 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCfqqPifpfaZUI30hxiygmJw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Matteo Lasagna interviene a La Gabbia (2015-02-19)
+REPRESENTATIVE_SAMPLE:        5 itens reais, periodo 2013-11-13 .. 2015-02-19
+EXPECTED_YIELD:               0.08 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0200/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 5 itens
+```
+
+#### IT-T7-019 · Confagricoltura Lombardia
+
+```
+SOURCE_ID:                    IT-T7-019
+SOURCE_NAME:                  Confagricoltura Lombardia
+SOURCE_OWNER:                 Confagricoltura Lombardia
+COUNTRY:                      ITALY
+REGION:                       LAZIO, LOMBARDIA
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.confagricolturalombardia.it/
+MESMA_ORGANIZACAO:            CAND-0200 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        pomodoro
+TOPICS:                       CLIMATE, MARKET, SCIENCE, PORTFOLIO, REGULATORY
+GEOGRAPHIC_GRANULARITY:       regiao (lazio, lombardia) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2022-09-22 … 2026-10-19 (14 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 4 de 4 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Al via oggi la Fiera Millenaria di Gonzaga - Confagricoltura (2026-09-04T11:35:38+02:00)
+REPRESENTATIVE_SAMPLE:        4 itens reais, periodo 2022-09-22 .. 2026-10-19
+EXPECTED_YIELD:               0.07 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0153/al-via-oggi-la-fiera-millenaria-di-gonzaga.html (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
+```
+
+#### IT-T7-020 · Consorzio di Bonifica Est Ticino Villoresi — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-020
+SOURCE_NAME:                  Consorzio di Bonifica Est Ticino Villoresi — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio di Bonifica Est Ticino Villoresi
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@consorziodibonificaesttici5074
+MESMA_ORGANIZACAO:            CAND-0155 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCfYSI-_mzA0BWZwHcPrO0vg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2023-11-03 … 2026-06-22 (14 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCfYSI-_mzA0BWZwHcPrO0vg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 La Via del Marmo, mostra fotografica, via Dante, Milano | 18 giugno - 8 luglio 2026 (2026-06-22)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2023-11-03 .. 2026-06-22
+EXPECTED_YIELD:               0.1 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0201/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-021 · Consorzio di Bonifica Est Ticino Villoresi
+
+```
+SOURCE_ID:                    IT-T7-021
+SOURCE_NAME:                  Consorzio di Bonifica Est Ticino Villoresi
+SOURCE_OWNER:                 Consorzio di Bonifica Est Ticino Villoresi
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.etvilloresi.it/
+MESMA_ORGANIZACAO:            CAND-0201 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        riso
+TOPICS:                       REGULATORY, SCIENCE
+GEOGRAPHIC_GRANULARITY:       regiao (lombardia) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 2 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Accesso documentale e accesso civico – Est Ticino Villoresi (NAO SEI)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-09-18 .. 2026-09-18
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0155/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-022 · Consorzio di Tutela del Grana Padano — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-022
+SOURCE_NAME:                  Consorzio di Tutela del Grana Padano — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio di Tutela del Grana Padano
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@GranaPadanoDOP
+PLATFORM_NATIVE_ID:           UC_yfE6hgWx4FBDCz1PmLjxw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-05-25 … 2026-07-24 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC_yfE6hgWx4FBDCz1PmLjxw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Grana Padano Love | Cascata DE (2026-07-24)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-05-25 .. 2026-07-24
+EXPECTED_YIELD:               0.58 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0202/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-044 · Fondazione Minoprio — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-044
+SOURCE_NAME:                  Fondazione Minoprio — Youtube ufficiale
+SOURCE_OWNER:                 Fondazione Minoprio
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/Fondazioneminoprio
+PLATFORM_NATIVE_ID:           UCiECZ69Hbfmcsu8O54r3geQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2020-10-29 … 2024-06-19 (14 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCiECZ69Hbfmcsu8O54r3geQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Summer Party 2024 - Fondazione Minoprio (2024-06-19)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2020-10-29 .. 2024-06-19
+EXPECTED_YIELD:               0.07 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0203/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T2-028 · ARPA Marche — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T2-028
+SOURCE_NAME:                  ARPA Marche — Youtube ufficiale
+SOURCE_OWNER:                 ARPA Marche
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T2
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCtBD35n-HE7x_MWnjc1kt7g
+PLATFORM_NATIVE_ID:           UCtBD35n-HE7x_MWnjc1kt7g
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2021-04-16 … 2026-06-16 (10 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCtBD35n-HE7x_MWnjc1kt7g), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 GIORNATA DELLA TRASPARENZA 2026 (2026-06-16)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2021-04-16 .. 2026-06-16
+EXPECTED_YIELD:               0.04 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0204/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T12-008 · ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-008
+SOURCE_NAME:                  ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Youtube ufficiale
+SOURCE_OWNER:                 ASSAM Marche
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCpiryXByW32kGxQXTlbnSXA
+MESMA_ORGANIZACAO:            CAND-0007 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCpiryXByW32kGxQXTlbnSXA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        patata
+TOPICS:                       AGRICULTURAL_NEWS, PHYTOSANITARY, SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-01-13 … 2026-09-04 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCpiryXByW32kGxQXTlbnSXA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 AMAP dal Food Film Festival al Lido di Venezia (2026-09-04)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-01-13 .. 2026-09-04
+EXPECTED_YIELD:               0.27 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0205/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T12-009 · ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche
+
+```
+SOURCE_ID:                    IT-T12-009
+SOURCE_NAME:                  ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche
+SOURCE_OWNER:                 ASSAM Marche
+COUNTRY:                      ITALY
+REGION:                       LAZIO, MARCHE
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.assam.marche.it/
+MESMA_ORGANIZACAO:            CAND-0205 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       REGULATORY, MARKET, CLIMATE, AGRICULTURAL_NEWS, TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       regiao (lazio, marche) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2022-05-12 … 2026-01-01 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Avvisi e bandi (2022-10-21T06:59:23+02:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2022-05-12 .. 2026-01-01
+EXPECTED_YIELD:               0.02 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0007/avvisi-e-bandi (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T12-010 · Regione Molise — Agricoltura — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-010
+SOURCE_NAME:                  Regione Molise — Agricoltura — Youtube ufficiale
+SOURCE_OWNER:                 Regione Molise
+COUNTRY:                      ITALY
+REGION:                       MOLISE
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCH_LCqE9qGb6TvpXwGudNbQ
+PLATFORM_NATIVE_ID:           UCH_LCqE9qGb6TvpXwGudNbQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       regiao (molise) - observado na amostra
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2017-07-18 … 2022-11-18 (10 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCH_LCqE9qGb6TvpXwGudNbQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Automotive Regions Alliance, Regione Molise firma 'Dichiarazione di Lipsia' (2022-11-18)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2017-07-18 .. 2022-11-18
+EXPECTED_YIELD:               0.04 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0206/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-023 · ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e acque irrigue — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-023
+SOURCE_NAME:                  ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e acque irrigue — Youtube ufficiale
+SOURCE_OWNER:                 ANBI
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCFkdwOroXwCFMXHneVMeYqQ
+PLATFORM_NATIVE_ID:           UCFkdwOroXwCFMXHneVMeYqQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-03-17 … 2026-07-02 (8 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCFkdwOroXwCFMXHneVMeYqQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 ASSEMBLEA NAZIONALE - 2 luglio 2026 (2026-07-02)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-03-17 .. 2026-07-02
+EXPECTED_YIELD:               0.52 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0207/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-024 · Assosementi — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-024
+SOURCE_NAME:                  Assosementi — Youtube ufficiale
+SOURCE_OWNER:                 Assosementi
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCdJ3sb6r1X0pjU6XR9OMdGw
+PLATFORM_NATIVE_ID:           UCdJ3sb6r1X0pjU6XR9OMdGw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2023-12-07 … 2025-05-09 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCdJ3sb6r1X0pjU6XR9OMdGw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Macfrut 2025 Talk Assosementi Vivaisti (2025-05-09)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2023-12-07 .. 2025-05-09
+EXPECTED_YIELD:               0.05 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0208/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-025 · CIA — Agricoltori Italiani — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-025
+SOURCE_NAME:                  CIA — Agricoltori Italiani — Youtube ufficiale
+SOURCE_OWNER:                 CIA
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA, VENETO
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/CiaAgricoltori
+PLATFORM_NATIVE_ID:           UC0iNaYRRl9AJzjRxOHxIpsQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        riso
+TOPICS:                       CLIMATE, MARKET
+GEOGRAPHIC_GRANULARITY:       regiao (emilia-romagna, veneto) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-05-08 … 2026-09-15 (15 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC0iNaYRRl9AJzjRxOHxIpsQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 TG1 - Riso: produzione in calo e costi alle stelle. Con presidente Cia Fini e imprenditore (2026-09-15)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-05-08 .. 2026-09-15
+EXPECTED_YIELD:               0.81 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0209/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-026 · CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-026
+SOURCE_NAME:                  CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali — Youtube ufficiale
+SOURCE_OWNER:                 CONAF
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UC4LCuwIcRPhrE2mFJ8ZXtLg
+PLATFORM_NATIVE_ID:           UC4LCuwIcRPhrE2mFJ8ZXtLg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-05-21 … 2026-07-10 (11 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC4LCuwIcRPhrE2mFJ8ZXtLg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Isole di calore l'appello degli agronomi (2026-07-10)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-05-21 .. 2026-07-10
+EXPECTED_YIELD:               0.19 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0210/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-027 · Coldiretti — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-027
+SOURCE_NAME:                  Coldiretti — Youtube ufficiale
+SOURCE_OWNER:                 Coldiretti
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCEgJbey3UogPJPmdlBEAjKQ
+PLATFORM_NATIVE_ID:           UCEgJbey3UogPJPmdlBEAjKQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2026-09-07 … 2026-09-17 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCEgJbey3UogPJPmdlBEAjKQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 CARO FERTILIZZANTI | GLI AIUTI PER LE AZIENDE AGRICOLE (2026-09-17)
+REPRESENTATIVE_SAMPLE:        2 itens reais, periodo 2026-09-07 .. 2026-09-17
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0211/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 2 itens
+```
+
+#### IT-T7-028 · Confcooperative Fedagripesca — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-028
+SOURCE_NAME:                  Confcooperative Fedagripesca — Youtube ufficiale
+SOURCE_OWNER:                 Confcooperative Fedagripesca
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCJbuSrQ57Z-dAYGI7n2VwPg
+MESMA_ORGANIZACAO:            CAND-0164 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCJbuSrQ57Z-dAYGI7n2VwPg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS, MARKET
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2015-02-18 … 2017-01-24 (11 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCJbuSrQ57Z-dAYGI7n2VwPg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Maltempo, Intervista a Giampiero Calzolari, Alleanza Cooperative Agroalimentari. (2017-01-24)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2015-02-18 .. 2017-01-24
+EXPECTED_YIELD:               0.11 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0212/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-029 · Confcooperative Fedagripesca
+
+```
+SOURCE_ID:                    IT-T7-029
+SOURCE_NAME:                  Confcooperative Fedagripesca
+SOURCE_OWNER:                 Confcooperative Fedagripesca
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.fedagripesca.confcooperative.it/
+MESMA_ORGANIZACAO:            CAND-0212 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        riso, vivaismo
+TOPICS:                       AGRICULTURAL_NEWS, MARKET
+GEOGRAPHIC_GRANULARITY:       regiao (piemonte) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-09-16 … 2026-09-30 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 I Doc e le Pubblicazioni Agroalimentare (04/09/2026 15:11:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-09-16 .. 2026-09-30
+EXPECTED_YIELD:               1.5 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0164/I-Doc-e-Pubblicazioni (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T9-016 · Consorzi Agrari d'Italia — CAI — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T9-016
+SOURCE_NAME:                  Consorzi Agrari d'Italia — CAI — Youtube ufficiale
+SOURCE_OWNER:                 Consorzi Agrari d'Italia
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UC84-4aKRmQbIG5eprbIaR9Q
+PLATFORM_NATIVE_ID:           UC84-4aKRmQbIG5eprbIaR9Q
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-06-11 … 2025-10-16 (8 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC84-4aKRmQbIG5eprbIaR9Q), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Gianluca Lelli | Spazio Coldiretti (2025-10-16)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-06-11 .. 2025-10-16
+EXPECTED_YIELD:               0.44 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0213/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-030 · FederBio — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-030
+SOURCE_NAME:                  FederBio — Youtube ufficiale
+SOURCE_OWNER:                 FederBio
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/FederBioItalia
+MESMA_ORGANIZACAO:            CAND-0165 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCZb5Epldni2gfgoXoN15tGA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2024-10-23 … 2026-04-16 (10 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCZb5Epldni2gfgoXoN15tGA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Intervista a Maria Grazia Mammuccini, presidente di FederBio al TGCOM24. (2026-04-16)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2024-10-23 .. 2026-04-16
+EXPECTED_YIELD:               0.13 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0214/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-031 · FederBio
+
+```
+SOURCE_ID:                    IT-T7-031
+SOURCE_NAME:                  FederBio
+SOURCE_OWNER:                 FederBio
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://feder.bio/
+MESMA_ORGANIZACAO:            CAND-0214 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        riso, uva
+TOPICS:                       REGULATORY, PORTFOLIO, SCIENCE, MARKET
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2024-12-31 … 2026-07-29 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 2 de 4 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Report e Dossier - FederBio (NAO SEI)
+REPRESENTATIVE_SAMPLE:        4 itens reais, periodo 2024-12-31 .. 2026-07-29
+EXPECTED_YIELD:               0.05 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0165/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
+```
+
+#### IT-T5-045 · ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-045
+SOURCE_NAME:                  ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale — Youtube ufficiale
+SOURCE_OWNER:                 ISPRA
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/ISPRAVIDEO
+PLATFORM_NATIVE_ID:           UCUpCShTEkFvbXHCQRiWczjQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2026-06-29 … 2026-09-14 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCUpCShTEkFvbXHCQRiWczjQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Summer school Salina 2026- Riepilogo delle attività (2026-09-14)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-06-29 .. 2026-09-14
+EXPECTED_YIELD:               0.27 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0215/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T9-017 · Koppert Italia — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T9-017
+SOURCE_NAME:                  Koppert Italia — Youtube ufficiale
+SOURCE_OWNER:                 Koppert Italia
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCmPpv0_TilfaF9Df5SzeFiQ
+PLATFORM_NATIVE_ID:           UCmPpv0_TilfaF9Df5SzeFiQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        agrumi
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-05-07 … 2026-09-08 (11 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCmPpv0_TilfaF9Df5SzeFiQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Trianum: La salute della tua coltura inizia dalle radici. (2026-09-08)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-05-07 .. 2026-09-08
+EXPECTED_YIELD:               0.16 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0216/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T10-017 · Myfruit.it — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T10-017
+SOURCE_NAME:                  Myfruit.it — Youtube ufficiale
+SOURCE_OWNER:                 Myfruit.it
+COUNTRY:                      ITALY
+REGION:                       BASILICATA
+LANGUAGE:                     it
+TERRITORY:                    T10
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/myfruitvideo
+MESMA_ORGANIZACAO:            CAND-0059 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCfdN2DQZBfZo-7VgBqotYuQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       MARKET
+GEOGRAPHIC_GRANULARITY:       regiao (basilicata) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2025-11-26 … 2026-09-20 (15 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCfdN2DQZBfZo-7VgBqotYuQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Webinar Berry Trend 2026 | Berries in Italia: cosa frena la crescita? (2026-09-20)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-11-26 .. 2026-09-20
+EXPECTED_YIELD:               0.35 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0217/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T10-018 · Myfruit.it
+
+```
+SOURCE_ID:                    IT-T10-018
+SOURCE_NAME:                  Myfruit.it
+SOURCE_OWNER:                 Myfruit.it
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T10
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.myfruit.it/
+MESMA_ORGANIZACAO:            CAND-0217 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        nocciol
+TOPICS:                       MARKET, PORTFOLIO, AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       regiao (lazio) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2026-09-11 … 2026-09-17 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Frutta, il mercato non dà più certezze (2026-09-11T14:57:00+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-09-11 .. 2026-09-17
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0059/frutta-il-mercato-non-da-piu-certezze (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T5-046 · Olio Officina
+
+```
+SOURCE_ID:                    IT-T5-046
+SOURCE_NAME:                  Olio Officina
+SOURCE_OWNER:                 Olio Officina
+COUNTRY:                      ITALY
+REGION:                       MARCHE
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.olioofficina.it/
+MESMA_ORGANIZACAO:            CAND-0219 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        oliva
+TOPICS:                       SCIENCE, PORTFOLIO, MARKET
+GEOGRAPHIC_GRANULARITY:       regiao (marche) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-08-25 … 2026-09-19 (8 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Alla ricerca della “Miglior etichetta oliocentrica dell’anno” (2026-09-08T08:00:00+02:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-08-25 .. 2026-09-19
+EXPECTED_YIELD:               2.24 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0061/alla-ricerca-della-miglior-etichetta-oliocentrica-dell-anno-12846.htm (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T12-011 · Pianeta PSR — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-011
+SOURCE_NAME:                  Pianeta PSR — Youtube ufficiale
+SOURCE_OWNER:                 Pianeta PSR
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/reterurale
+PLATFORM_NATIVE_ID:           UCZvge-xP6fg5S5DvUxjNbGQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-05-19 … 2026-09-15 (14 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCZvge-xP6fg5S5DvUxjNbGQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Eccellenze Rurali :: Frantoio Ranchino (2026-09-15)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-05-19 .. 2026-09-15
+EXPECTED_YIELD:               0.82 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0220/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T12-012 · Regione Piemonte — Agricoltura e cibo — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-012
+SOURCE_NAME:                  Regione Piemonte — Agricoltura e cibo — Youtube ufficiale
+SOURCE_OWNER:                 Regione Piemonte
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/LaRegionePiemonte
+MESMA_ORGANIZACAO:            CAND-0011 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCZd755PSrP2Jm8zk38LgtHA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       regiao (piemonte) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-07-28 … 2026-09-18 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCZd755PSrP2Jm8zk38LgtHA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Auxil.IA, l'intelligenza artificiale a servizio della pubblica amministrazione (2026-09-18)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-07-28 .. 2026-09-18
+EXPECTED_YIELD:               0.67 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0224/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T12-013 · Regione Piemonte — Agricoltura e cibo
+
+```
+SOURCE_ID:                    IT-T12-013
+SOURCE_NAME:                  Regione Piemonte — Agricoltura e cibo
+SOURCE_OWNER:                 Regione Piemonte
+COUNTRY:                      ITALY
+REGION:                       LAZIO, PIEMONTE
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.regione.piemonte.it/web/temi/agricoltura
+MESMA_ORGANIZACAO:            CAND-0224 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        riso
+TOPICS:                       SCIENCE, AGRICULTURAL_NEWS, CLIMATE, REGULATORY, TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       regiao (lazio, piemonte) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2017-12-18 … 2026-09-17 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Agricoltura, tavolo verde sulla siccità (2026-09-08T11:37:40Z)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2017-12-18 .. 2026-09-17
+EXPECTED_YIELD:               0.01 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T11-007 · Agrilevante — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T11-007
+SOURCE_NAME:                  Agrilevante — Youtube ufficiale
+SOURCE_OWNER:                 Agrilevante
+COUNTRY:                      ITALY
+REGION:                       PUGLIA
+LANGUAGE:                     it
+TERRITORY:                    T11
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/Agrilevante/feed
+PLATFORM_NATIVE_ID:           UCxqWrxc-sInT6ODtyHUzZRA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       regiao (puglia) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2025-10-15 … 2025-10-21 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCxqWrxc-sInT6ODtyHUzZRA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 MechagriJobs:la filiera dell'agromeccanica raccontata alle nuove generazioni -Federacma,Fe (2025-10-21)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-10-15 .. 2025-10-21
+EXPECTED_YIELD:               4.67 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0225/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-047 · UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli Alimenti — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-047
+SOURCE_NAME:                  UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli Alimenti — Youtube ufficiale
+SOURCE_OWNER:                 UNIBA DiSSPA
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/unialdomoro
+PLATFORM_NATIVE_ID:           UCWD-2QiKuzZIA8WW1SAoH0w
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2025-09-11 … 2026-07-23 (14 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCWD-2QiKuzZIA8WW1SAoH0w), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Spot UniBa 2026 - Scegli il tuo ritmo (2026-07-23)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-09-11 .. 2026-07-23
+EXPECTED_YIELD:               0.31 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0226/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-048 · UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-048
+SOURCE_NAME:                  UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente — Youtube ufficiale
+SOURCE_OWNER:                 UNICT Di3A
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCKdQcnPtPZs3k08e5jrFSNQ
+MESMA_ORGANIZACAO:            CAND-0024 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCKdQcnPtPZs3k08e5jrFSNQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2021-05-03 … 2025-07-19 (6 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCKdQcnPtPZs3k08e5jrFSNQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Video promozionale ufficiale del Di3A - UniCT (2025-07-19)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2021-05-03 .. 2025-07-19
+EXPECTED_YIELD:               0.03 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0227/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-049 · UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente
+
+```
+SOURCE_ID:                    IT-T5-049
+SOURCE_NAME:                  UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente
+SOURCE_OWNER:                 UNICT Di3A
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.di3a.unict.it/
+MESMA_ORGANIZACAO:            CAND-0227 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE, REGULATORY
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-07-10 … 2026-09-17 (7 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Women in STEM 2026 | Dipartimento di Agricoltura, Alimentazione e Ambiente (07/09/2026)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-07-10 .. 2026-09-17
+EXPECTED_YIELD:               0.71 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0024/women-stem-2026 (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-032 · Consorzio Vino Chianti Classico — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-032
+SOURCE_NAME:                  Consorzio Vino Chianti Classico — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio Vino Chianti Classico
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/vinochianticlassico
+MESMA_ORGANIZACAO:            CAND-0174 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCC19gccUupOm590hcozwdBA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       regiao (toscana) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2025-03-28 … 2026-08-05 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCC19gccUupOm590hcozwdBA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Video territorio emozionale 2026 (2026-08-05)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2025-03-28 .. 2026-08-05
+EXPECTED_YIELD:               0.06 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0228/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-033 · Consorzio Vino Chianti Classico
+
+```
+SOURCE_ID:                    IT-T7-033
+SOURCE_NAME:                  Consorzio Vino Chianti Classico
+SOURCE_OWNER:                 Consorzio Vino Chianti Classico
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.chianticlassico.com/
+MESMA_ORGANIZACAO:            CAND-0228 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2026-02-20 … 2026-05-25 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Il Gallo Nero a Vinitaly 2026 - Chianti Classico (2026-03-19T15:52:58+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-02-20 .. 2026-05-25
+EXPECTED_YIELD:               0.22 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0174/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-034 · Consorzio del Vino Brunello di Montalcino — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-034
+SOURCE_NAME:                  Consorzio del Vino Brunello di Montalcino — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio del Vino Brunello di Montalcino
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/brunello1888
+PLATFORM_NATIVE_ID:           UCFEHyFgwGUYCa2OKHjDUd1g
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2024-02-20 … 2025-11-26 (8 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCFEHyFgwGUYCa2OKHjDUd1g), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Presentazione Brunello Forma 2021 - Valutazione annata (2025-11-26)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2024-02-20 .. 2025-11-26
+EXPECTED_YIELD:               0.09 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0229/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-035 · Georgofili INFO — notiziario — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-035
+SOURCE_NAME:                  Georgofili INFO — notiziario — Youtube ufficiale
+SOURCE_OWNER:                 Georgofili INFO
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCosKzVZGcw6VR3sW9QKGkVw
+PLATFORM_NATIVE_ID:           UCosKzVZGcw6VR3sW9QKGkVw
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        orticol
+TOPICS:                       TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-06-22 … 2026-08-25 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCosKzVZGcw6VR3sW9QKGkVw), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 3 giugno 2026 - I profili agraristici della legge 12 settembre 2025, n. 131 (2026-08-25)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-06-22 .. 2026-08-25
+EXPECTED_YIELD:               0.98 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0230/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T12-014 · Regione Toscana — Agricoltura — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-014
+SOURCE_NAME:                  Regione Toscana — Agricoltura — Youtube ufficiale
+SOURCE_OWNER:                 Regione Toscana
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/c/RegioneToscanaUfficiale
+PLATFORM_NATIVE_ID:           UC8fp1anRLt5xmyirKPIE_zg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       AGRICULTURAL_NEWS
+GEOGRAPHIC_GRANULARITY:       regiao (toscana) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-06-25 … 2026-09-08 (8 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC8fp1anRLt5xmyirKPIE_zg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Geografia e diritti umani: un modo diverso per guardare il mondo. L’Atlante delle Guerre (2026-09-08)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-06-25 .. 2026-09-08
+EXPECTED_YIELD:               0.75 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0231/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T10-019 · WineNews — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T10-019
+SOURCE_NAME:                  WineNews — Youtube ufficiale
+SOURCE_OWNER:                 WineNews
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T10
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/winetv
+MESMA_ORGANIZACAO:            CAND-0065 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCVc4Edn_BaeH00XULZ0SqgQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       CLIMATE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-07-14 … 2026-09-15 (4 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCVc4Edn_BaeH00XULZ0SqgQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Moët &amp; Chandon festeggia la vittoria di Kimi Antonelli a Monza e brinda al futuro dell (2026-09-15)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-07-14 .. 2026-09-15
+EXPECTED_YIELD:               0.44 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0232/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T10-020 · WineNews
+
+```
+SOURCE_ID:                    IT-T10-020
+SOURCE_NAME:                  WineNews
+SOURCE_OWNER:                 WineNews
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE, SICILIA, TOSCANA, UMBRIA
+LANGUAGE:                     it
+TERRITORY:                    T10
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://winenews.it/
+MESMA_ORGANIZACAO:            CAND-0232 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        melo
+TOPICS:                       MARKET, CLIMATE, AGRICULTURAL_NEWS, REGULATORY
+GEOGRAPHIC_GRANULARITY:       regiao (piemonte, sicilia, toscana, umbria) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2026-08-07 … 2026-09-18 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 2 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Non solo Vino: news e notizie dal mondo del food - WineNews (2026-09-18 11:50:05)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-08-07 .. 2026-09-18
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0065/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T12-015 · APPA Trento — Agenzia provinciale protezione ambiente — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-015
+SOURCE_NAME:                  APPA Trento — Agenzia provinciale protezione ambiente — Youtube ufficiale
+SOURCE_OWNER:                 APPA Trento
+COUNTRY:                      ITALY
+REGION:                       TRENTINO
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCxIuSXfCNVnzTLD3EJFcQng
+PLATFORM_NATIVE_ID:           UCxIuSXfCNVnzTLD3EJFcQng
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       CLIMATE
+GEOGRAPHIC_GRANULARITY:       regiao (trentino) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2024-12-06 … 2025-11-29 (9 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCxIuSXfCNVnzTLD3EJFcQng), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 SERR 2025: Il tesoro sommerso delle Miniere Urbane (2025-11-29)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2024-12-06 .. 2025-11-29
+EXPECTED_YIELD:               0.18 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0233/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T5-050 · Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T5-050
+SOURCE_NAME:                  Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari — Youtube ufficiale
+SOURCE_OWNER:                 Libera Universita di Bolzano
+COUNTRY:                      ITALY
+REGION:                       BOLZANO
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCWRr0vMGqdmyqzdm3bNGY4Q
+PLATFORM_NATIVE_ID:           UCWRr0vMGqdmyqzdm3bNGY4Q
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       regiao (bolzano) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-03-09 … 2026-09-19 (11 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCWRr0vMGqdmyqzdm3bNGY4Q), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Diplomverleihung/Consegna dei diplomi/Sourandeda di diploms (2026-09-19)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2026-03-09 .. 2026-09-19
+EXPECTED_YIELD:               0.4 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0235/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T8-005 · Agriumbria — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T8-005
+SOURCE_NAME:                  Agriumbria — Youtube ufficiale
+SOURCE_OWNER:                 Agriumbria
+COUNTRY:                      ITALY
+REGION:                       UMBRIA
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/Agriumbria
+MESMA_ORGANIZACAO:            CAND-0177 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCB345okRbU6TqQyWXd8D8oA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        riso
+TOPICS:                       AGRICULTURAL_NEWS, SCIENCE
+GEOGRAPHIC_GRANULARITY:       regiao (umbria) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2023-04-04 … 2026-03-23 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCB345okRbU6TqQyWXd8D8oA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Torna Agriumbria a Umbriafiere dal 27 al 29 marzo (2026-03-23)
+REPRESENTATIVE_SAMPLE:        9 itens reais, periodo 2023-04-04 .. 2026-03-23
+EXPECTED_YIELD:               0.03 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0236/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 9 itens
+```
+
+#### IT-T12-016 · Regione Valle d'Aosta — Agricoltura — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T12-016
+SOURCE_NAME:                  Regione Valle d'Aosta — Agricoltura — Youtube ufficiale
+SOURCE_OWNER:                 Regione Valle d'Aosta
+COUNTRY:                      ITALY
+REGION:                       VALLE D'AOSTA
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UC4wxlAIQauBZe7CDnLXkWqA
+PLATFORM_NATIVE_ID:           UC4wxlAIQauBZe7CDnLXkWqA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       regiao (valle d'aosta) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2024-09-11 … 2025-12-24 (6 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC4wxlAIQauBZe7CDnLXkWqA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 CONSPAR AGRICOLTORI VDA (2025-12-24)
+REPRESENTATIVE_SAMPLE:        9 itens reais, periodo 2024-09-11 .. 2025-12-24
+EXPECTED_YIELD:               0.09 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0237/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 9 itens
+```
+
+#### IT-T7-036 · Consorzio Tutela Prosecco DOC — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-036
+SOURCE_NAME:                  Consorzio Tutela Prosecco DOC — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio Tutela Prosecco DOC
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/user/ProseccoSuperiore
+PLATFORM_NATIVE_ID:           UC3VPPuduz1p_fouWblztteQ
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2025-04-09 … 2026-06-24 (6 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UC3VPPuduz1p_fouWblztteQ), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Conegliano Valdobbiadene Prosecco: an authentic excellence to preserve (2026-06-24)
+REPRESENTATIVE_SAMPLE:        7 itens reais, periodo 2025-04-09 .. 2026-06-24
+EXPECTED_YIELD:               0.1 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0238/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 7 itens
+```
+
+#### IT-T7-037 · Consorzio Tutela Vini Valpolicella — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-037
+SOURCE_NAME:                  Consorzio Tutela Vini Valpolicella — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio Tutela Vini Valpolicella
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCpdWeEtUCU1aHhJnj2TwheA
+MESMA_ORGANIZACAO:            CAND-0179 - canal e site sao fontes distintas (COL-LAW-034)
+PLATFORM_NATIVE_ID:           UCpdWeEtUCU1aHhJnj2TwheA
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2018-03-14 … 2020-10-26 (15 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCpdWeEtUCU1aHhJnj2TwheA), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 #ValpolicellaWineTalks with Stefan Metzner | The Valpolicella Wine Region (2020-10-26)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2018-03-14 .. 2020-10-26
+EXPECTED_YIELD:               0.11 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0239/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T7-038 · Consorzio Tutela Vini Valpolicella
+
+```
+SOURCE_ID:                    IT-T7-038
+SOURCE_NAME:                  Consorzio Tutela Vini Valpolicella
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.consorziovalpolicella.it/
+MESMA_ORGANIZACAO:            CAND-0239 - canal e site sao fontes distintas (COL-LAW-034)
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       UNKNOWN
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2024-10-08 … 2025-12-18 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 CSR.pdf (2025-12-18)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2024-10-08 .. 2025-12-18
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0179/CSR.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-039 · Consorzio di Bonifica Piave — Youtube ufficiale
+
+```
+SOURCE_ID:                    IT-T7-039
+SOURCE_NAME:                  Consorzio di Bonifica Piave — Youtube ufficiale
+SOURCE_OWNER:                 Consorzio di Bonifica Piave
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/channel/UCmRWXB6nOPLc5x42XXhGrWg
+PLATFORM_NATIVE_ID:           UCmRWXB6nOPLc5x42XXhGrWg
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        riso
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2021-10-25 … 2022-06-20 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCmRWXB6nOPLc5x42XXhGrWg), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Consorzio di bonifica Piave - Sistemazione idraulica canale Codolo a San Fior e Codogné (2022-06-20)
+REPRESENTATIVE_SAMPLE:        10 itens reais, periodo 2021-10-25 .. 2022-06-20
+EXPECTED_YIELD:               0.15 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0240/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
+```
+
+#### IT-T8-006 · L'Informatore Agrario — canale YouTube
+
+```
+SOURCE_ID:                    IT-T8-006
+SOURCE_NAME:                  L'Informatore Agrario — canale YouTube
+SOURCE_OWNER:                 L'Informatore Agrario
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  VIDEO_CHANNEL - canal oficial no YouTube
+URL:                          https://www.youtube.com/@informatoreagrario
+PLATFORM_NATIVE_ID:           UCLqKnJJf6VBExBf5qp8N74w
+ACCESS_METHOD:                RSS publico do canal (feeds/videos.xml) - sem chave, sem sessao
+CROPS:                        pomodoro
+TOPICS:                       AGRICULTURAL_NEWS, PHYTOSANITARY
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao semanal ou mais frequente
+HISTORICAL_DEPTH:             2026-06-19 … 2026-07-21 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - channel_id nativo (UCLqKnJJf6VBExBf5qp8N74w), estavel e verificado
+DOCUMENT_ID_AVAILABLE:        SIM - videoId nativo por item
+PUBLICATION_DATE_AVAILABLE:   SIM - <published> por entrada no feed
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       HIGH - rota publica sobre capacidade ja provada
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Biostimolanti su pomodoro: la sfida delle ondate di calore 2026 (2026-07-21)
+REPRESENTATIVE_SAMPLE:        8 itens reais, periodo 2026-06-19 .. 2026-07-21
+EXPECTED_YIELD:               1.09 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0241/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 8 itens
+```
+
+#### IT-T10-021 · Plantgest — banca dati varieta
+
+```
+SOURCE_ID:                    IT-T10-021
+SOURCE_NAME:                  Plantgest — banca dati varieta
+SOURCE_OWNER:                 Plantgest
+COUNTRY:                      ITALY
+REGION:                       LAZIO, PUGLIA, VENETO
+LANGUAGE:                     it
+TERRITORY:                    T10
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://plantgest.imagelinenetwork.com/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        orticol, pesco, uva, vite
+TOPICS:                       MARKET, SCIENCE, AGRICULTURAL_NEWS, CLIMATE, REGULATORY
+GEOGRAPHIC_GRANULARITY:       regiao (lazio, puglia, veneto) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Pesco, nuove varietà e astoni per gli impianti - News Plantgest (15/09/2026)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo NAO SEI .. NAO SEI
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0004/89677 (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T12-017 · ERSA FVG — Agenzia regionale per lo sviluppo rurale
+
+```
+SOURCE_ID:                    IT-T12-017
+SOURCE_NAME:                  ERSA FVG — Agenzia regionale per lo sviluppo rurale
+SOURCE_OWNER:                 ERSA FVG
+COUNTRY:                      ITALY
+REGION:                       FRIULI
+LANGUAGE:                     it
+TERRITORY:                    T12
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.ersa.fvg.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        olivo, orticol, patata, pero, pesco, soia
+TOPICS:                       REGULATORY, SCIENCE, PHYTOSANITARY, TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       regiao (friuli) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 ERSA FVG : AgriVolt Friuli: al via il progetto europeo per i giovani agricoltori del Friul (17-09-2026)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo NAO SEI .. NAO SEI
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0005/17-09-2026_AgriVoltFriuli_comunicato.html (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T2-029 · ARPA Puglia
+
+```
+SOURCE_ID:                    IT-T2-029
+SOURCE_NAME:                  ARPA Puglia
+SOURCE_OWNER:                 ARPA Puglia
+COUNTRY:                      ITALY
+REGION:                       BASILICATA, PUGLIA
+LANGUAGE:                     it
+TERRITORY:                    T2
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.arpa.puglia.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE, AGRICULTURAL_NEWS, TECHNICAL_FIELD_SIGNAL, MARKET
+GEOGRAPHIC_GRANULARITY:       regiao (basilicata, puglia) - observado na amostra
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2011-06-30 … 2020-05-25 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Agenzia Regionale per la Prevenzione e la Protezione dell'Ambiente - Reportistica (2020-05-25)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2011-06-30 .. 2020-05-25
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0012/pagina2864_reportistica.html (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T5-051 · UNIRC Dipartimento di Agraria
+
+```
+SOURCE_ID:                    IT-T5-051
+SOURCE_NAME:                  UNIRC Dipartimento di Agraria
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       CALABRIA, LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.agraria.unirc.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE, REGULATORY, PORTFOLIO, AGRICULTURAL_NEWS, TECHNICAL_FIELD_SIGNAL
+GEOGRAPHIC_GRANULARITY:       regiao (calabria, lazio) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2025-09-19 … 2026-08-24 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 7 de 8 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Guida%20Agraria%202026%20-%20EN.pdf (2025-09-19)
+REPRESENTATIVE_SAMPLE:        8 itens reais, periodo 2025-09-19 .. 2026-08-24
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0019/Guida_20Agraria_202026_20-_20EN.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 8 itens
+```
+
+#### IT-T5-052 · Bulletin of Insectology
+
+```
+SOURCE_ID:                    IT-T5-052
+SOURCE_NAME:                  Bulletin of Insectology
+SOURCE_OWNER:                 Bulletin of Insectology
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          http://www.bulletinofinsectology.org/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 First study of the diversity and relative importance of parasitoids of nymphs and adults o (2026/09/10)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo NAO SEI .. NAO SEI
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0021/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T5-053 · Phytopathologia Mediterranea
+
+```
+SOURCE_ID:                    IT-T5-053
+SOURCE_NAME:                  Phytopathologia Mediterranea
+SOURCE_OWNER:                 Phytopathologia Mediterranea
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://oajournals.fupress.net/index.php/pm
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        pero, vite
+TOPICS:                       SCIENCE
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2026-07-12 … 2026-07-19 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 First report of camellia ring spot associated virus 3 in Camellia japonica in Europe
+					 (2026-07-12)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-07-12 .. 2026-07-19
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0025/17185 (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T8-007 · Rivista di Frutticoltura e di Ortofloricoltura
+
+```
+SOURCE_ID:                    IT-T8-007
+SOURCE_NAME:                  Rivista di Frutticoltura e di Ortofloricoltura
+SOURCE_OWNER:                 Rivista di Frutticoltura e di Ortofloricoltura
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.rivistafrutticoltura.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        agrumi, floricol, melo, olivo, orticol, pero
+TOPICS:                       SCIENCE, AGRICULTURAL_NEWS, MARKET, PORTFOLIO, PHYTOSANITARY
+GEOGRAPHIC_GRANULARITY:       regiao (lazio) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2004-02-27 … 2026-07-09 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Notizie dalle aziende - Rivista di Frutticoltura e Ortofloricoltura (2026-07-09T11:15:57+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2004-02-27 .. 2026-07-09
+EXPECTED_YIELD:               0.0 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0049/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T8-008 · Agroalimentare News
+
+```
+SOURCE_ID:                    IT-T8-008
+SOURCE_NAME:                  Agroalimentare News
+SOURCE_OWNER:                 Agroalimentare News
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T8
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.agroalimentarenews.com/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       SCIENCE, MARKET, PORTFOLIO, AGRICULTURAL_NEWS, REGULATORY
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2014-12-29 … 2027-02-03 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 I Cento di Roma (2015-01-09T13:18:55+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2014-12-29 .. 2027-02-03
+EXPECTED_YIELD:               0.0 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0054/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T9-018 · FreshPlaza Italia
+
+```
+SOURCE_ID:                    IT-T9-018
+SOURCE_NAME:                  FreshPlaza Italia
+SOURCE_OWNER:                 FreshPlaza Italia
+COUNTRY:                      ITALY
+REGION:                       BASILICATA, CALABRIA, LAZIO, PUGLIA
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.freshplaza.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        pero, uva
+TOPICS:                       AGRICULTURAL_NEWS, MARKET, SCIENCE, PHYTOSANITARY
+GEOGRAPHIC_GRANULARITY:       regiao (basilicata, calabria, lazio, puglia) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-08-28 … 2026-09-20 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Ortaggi da serra in Ue (2026-09-20)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-08-28 .. 2026-09-20
+EXPECTED_YIELD:               0.91 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0055/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T10-022 · Zootecnica International
+
+```
+SOURCE_ID:                    IT-T10-022
+SOURCE_NAME:                  Zootecnica International
+SOURCE_OWNER:                 Zootecnica International
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T10
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.zootecnicainternational.com/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       MARKET
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2026-05-27 … 2026-09-17 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Shows & Fairs Archives - Zootecnica | Poultry Magazine (2026-08-31T12:30:41+02:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-05-27 .. 2026-09-17
+EXPECTED_YIELD:               0.19 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0066/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-040 · Consorzio del Parmigiano Reggiano
+
+```
+SOURCE_ID:                    IT-T7-040
+SOURCE_NAME:                  Consorzio del Parmigiano Reggiano
+SOURCE_OWNER:                 Consorzio del Parmigiano Reggiano
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.parmigianoreggiano.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       PORTFOLIO, MARKET, REGULATORY
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             2026-07-22 … 2026-08-04 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 NAO SEI (2026-08-04)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-07-22 .. 2026-08-04
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0141/palio-casina-2026 (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-041 · Consorzio di Bonifica della Romagna
+
+```
+SOURCE_ID:                    IT-T7-041
+SOURCE_NAME:                  Consorzio di Bonifica della Romagna
+SOURCE_OWNER:                 Consorzio di Bonifica della Romagna
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.bonificaromagna.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        NAO SEI - a amostra nao nomeou culturas
+TOPICS:                       REGULATORY
+GEOGRAPHIC_GRANULARITY:       regiao (lazio) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2025-09-13 … 2026-09-20 (5 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Documenti Elezioni 2025 - Consorzio di Bonifica della Romagna (2025-09-13)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2025-09-13 .. 2026-09-20
+EXPECTED_YIELD:               0.09 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0142/documenti-elezioni-2025 (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T7-042 · Consorzio di Tutela dell'Aceto Balsamico di Modena
+
+```
+SOURCE_ID:                    IT-T7-042
+SOURCE_NAME:                  Consorzio di Tutela dell'Aceto Balsamico di Modena
+SOURCE_OWNER:                 Consorzio di Tutela dell'Aceto Balsamico di Modena
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.consorziobalsamico.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        arancia, uva
+TOPICS:                       MARKET, TECHNICAL_FIELD_SIGNAL, SCIENCE, PORTFOLIO
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-07-14 … 2026-09-10 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Domenica 27 settembre torna Acetaie Aperte: Modena celebra l'Aceto Balsamico con visite ed (2026-07-29T14:47:48+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-07-14 .. 2026-09-10
+EXPECTED_YIELD:               0.36 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0143/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T2-030 · Nomisma
+
+```
+SOURCE_ID:                    IT-T2-030
+SOURCE_NAME:                  Nomisma
+SOURCE_OWNER:                 Nomisma
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     it
+TERRITORY:                    T2
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.nomisma.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        riso
+TOPICS:                       CLIMATE, TECHNICAL_FIELD_SIGNAL, SCIENCE, MARKET, REGULATORY
+GEOGRAPHIC_GRANULARITY:       regiao (toscana) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao mensal
+HISTORICAL_DEPTH:             2026-07-28 … 2026-09-14 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 3 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Politiche di promozione agroalimentare UE | L’analisi Nomisma (2026-07-28T08:26:16+00:00)
+REPRESENTATIVE_SAMPLE:        3 itens reais, periodo 2026-07-28 .. 2026-09-14
+EXPECTED_YIELD:               0.44 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0147/amostra (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
+```
+
+#### IT-T9-019 · SCAM
+
+```
+SOURCE_ID:                    IT-T9-019
+SOURCE_NAME:                  SCAM
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.scam.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        frumento, mais, melo, nocciol, orticol, pero
+TOPICS:                       PORTFOLIO, SCIENCE, REGULATORY
+GEOGRAPHIC_GRANULARITY:       regiao (lazio) - observado na amostra
+UPDATE_FREQUENCY:             ATIVO - publicacao esparsa
+HISTORICAL_DEPTH:             2022-11-28 … 2026-05-21 (3 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 3 de 4 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 CATALOGO-2026_2-compresso.pdf (NAO SEI)
+REPRESENTATIVE_SAMPLE:        4 itens reais, periodo 2022-11-28 .. 2026-05-21
+EXPECTED_YIELD:               0.02 itens/semana (observado)
+INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0150/CATALOGO-2026_2-compresso.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
+```
+
+#### IT-T9-020 · Sipcam Italia
+
+```
+SOURCE_ID:                    IT-T9-020
+SOURCE_NAME:                  Sipcam Italia
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T9
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.sipcamitalia.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        uva, vite
+TOPICS:                       COMPETITOR_COMMUNICATION
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             DORMENTE - sem publicacao ha mais de um ano na amostra
+HISTORICAL_DEPTH:             2023-02-16 … 2024-04-08 (2 datas)
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 2 de 2 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 342_EPIK_FISIO%20Sestino_maggio2025web.pdf (2023-02-16)
+REPRESENTATIVE_SAMPLE:        2 itens reais, periodo 2023-02-16 .. 2024-04-08
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita rara para detectar regresso, nao coleta regular · sem entrada de VALOR: a Int
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0158/342_EPIK_FISIO_20Sestino_maggio2025web.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 2 itens
+```
+
+#### IT-T7-043 · Agrofarma — Federchimica
+
+```
+SOURCE_ID:                    IT-T7-043
+SOURCE_NAME:                  Agrofarma — Federchimica
+SOURCE_OWNER:                 Agrofarma
+COUNTRY:                      ITALY
+REGION:                       NAO SEI
+LANGUAGE:                     it
+TERRITORY:                    T7
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://agrofarma.federchimica.it/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        riso
+TOPICS:                       REGULATORY, PORTFOLIO, MARKET
+GEOGRAPHIC_GRANULARITY:       NAO SEI - a amostra nao trouxe recorte geografico declarado
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   NAO SEI - a amostra nao trouxe data declarada
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Agrofarma e FederBio lanciano il Manifesto per il Biocontrollo (NAO SEI)
+REPRESENTATIVE_SAMPLE:        2 itens reais, periodo NAO SEI .. NAO SEI
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0161/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 2 itens
+```
+
+#### IT-T5-054 · Legacoop Agroalimentare
+
+```
+SOURCE_ID:                    IT-T5-054
+SOURCE_NAME:                  Legacoop Agroalimentare
+SOURCE_OWNER:                 NAO SEI - nao medido nesta missao
+COUNTRY:                      ITALY
+REGION:                       LAZIO, LOMBARDIA, PIEMONTE, PUGLIA
+LANGUAGE:                     it
+TERRITORY:                    T5
+SOURCE_TYPE:                  WEB_PORTAL - portal institucional
+URL:                          https://www.legacoopagroalimentare.coop/
+ACCESS_METHOD:                HTTP publico - descoberta por padrao de link na entrada
+CROPS:                        pero, riso
+TOPICS:                       SCIENCE, MARKET, AGRICULTURAL_NEWS, PORTFOLIO
+GEOGRAPHIC_GRANULARITY:       regiao (lazio, lombardia, piemonte, puglia) - observado na amostra
+UPDATE_FREQUENCY:             NAO SEI - a amostra nao permitiu medir o ritmo
+HISTORICAL_DEPTH:             NAO SEI
+SOURCE_IDENTITY_PRESERVABLE:  SIM - endereco canonico estavel
+DOCUMENT_ID_AVAILABLE:        NAO SEI - identidade pelo ENDERECO; a fonte nao expoe id proprio
+PUBLICATION_DATE_AVAILABLE:   SIM - data visivel em 1 de 4 itens da amostra
+RAW_EVIDENCE_PRESERVABLE:     SIM - bytes capturados e sha256 em manifesto
+AUTOMATION_FEASIBILITY:       MEDIUM - rota generica por descoberta de link
+COLLECTION_FEASIBILITY:       CONTRATO ESCRITO E CANARIO CORRIDO - ver curadoria/italy_contracts_curator.json
+LEGAL_OR_ACCESS_RISK:         canal publico; sem login, sem sessao, sem contorno de muro
+REAL_EXAMPLE:                 Sezione_Trasparenza_Legacoop_Agroalimentare_2025_A11.pdf (2026-03-16)
+REPRESENTATIVE_SAMPLE:        4 itens reais, periodo 2026-03-16 .. 2026-03-16
+EXPECTED_YIELD:               NAO SEI - amostra insuficiente para estimar ritmo
+INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e
+ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
+EVIDENCE:                     curadoria/evidencia/CAND-0167/Sezione_Trasparenza_Legacoop_Agroalimentare_2025_A11.pdf (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
+VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
+```
