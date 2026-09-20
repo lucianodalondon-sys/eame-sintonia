@@ -18474,3 +18474,135 @@ segundo processo — que importa a lei do zero. A declaração teve de ser escri
 respondidos, e `NOT_MEASURED` fecha. O próximo release gate não pode olhar só
 o Instagram: tem de censar **toda** capability remota alcançável — LinkedIn
 incluído — e exigir `REMOTE_CAPABILITIES_WITHOUT_GATE = 0`.
+
+
+# §158 · O CONTRATO QUE DESCREVE NÃO É O CONTRATO QUE EXECUTA
+
+**O QUE.** `coleta/italy_pilot_collect.mjs` escolhia como descobrir o documento
+por `switch (sourceId)`. Medido: **20 ramos** por SOURCE_ID — 7 em `alvosDe`,
+**9 em `identidade`**, 2 em parsing, 2 no runner. Uma fonte sem `case` recebia:
+
+```
+"fonte sem alvo definido no piloto"
+```
+
+E isso aconteceu de verdade: `IT-T3-011` (AGRIOS) falhou na Big Collection com
+zero itens. Eu classifiquei como falha da fonte. **Era falha nossa** — o site
+respondia HTTP 200 com 39.340 bytes e **quatro links PDF**.
+
+```
+UM SITE QUE RESPONDE E UMA COLETA QUE NÃO PERGUNTA
+PRODUZEM O MESMO ZERO, E NÃO SÃO A MESMA COISA.
+```
+
+**POR QUÊ NÃO BASTAVA GENERALIZAR.** O contrato já tinha `ROUTE_TEMPLATE`,
+`DISCOVERY_METHOD` e `RETRIEVAL_METHOD` — e nada disso era executável:
+
+```
+ROUTE_TEMPLATE em 6 de 14 contratos · ROUTE_VARS em 1 de 14
+```
+
+E o único `ROUTE_VARS` misturava dado com descrição:
+
+```json
+{"PROV": ["AV","BN","CE","NA","SA"],   ← executável
+ "DD": "dia com 2 digitos"}            ← frase para gente
+```
+
+```
+"DD": "dia com 2 digitos" DESCREVE. NÃO EXECUTA.
+```
+
+Um molde com `{NN}` e nenhuma instrução sobre o que é `NN` é uma frase com
+chavetas. Foi por isso que a missão anterior parou em vez de construir o motor:
+generalizar a leitura da prosa seria adivinhação com cara de automação.
+
+**A LEI JÁ EXISTIA.** `DO_EXISTING_LAWS_ALREADY_ALLOW_EXECUTABLE_SOURCE_CONTRACT
+= YES`. A Bíblia já tinha resolvido este exacto problema noutro sítio, e
+escreveu-o: *«o **em que forma** nunca teve campo, enum nem guarda, e vivia em
+prosa livre que nenhum código lê»*. Isto é `IMPLEMENTATION GAP`, não `LAW GAP` —
+e a correção é a mesma de então: dar campo estruturado ao que vivia em prosa.
+
+**O QUE SE FEZ.** `regras/motor_de_rota.mjs` — um bloco `ACQUISITION` com
+vocabulário fechado, **derivado dos sete `case` que já existiam**, não inventado:
+
+```
+STATIC_ENDPOINT        2 casos medidos (IT-T3-005, IT-T2-004)
+TEMPLATE_ENUMERATION   1 caso  (IT-T2-002, as 32 zonas do ARPAV)
+HTML_LINK_DISCOVERY    4 casos (IT-T3-002, -008, -010, IT-T4-001)
+CUSTOM_ADAPTER         0 casos — a porta de saída, para o dia em que faltar
+```
+
+```
+3 ESTRATÉGIAS COBREM OS 7 CASOS MEDIDOS.
+UM QUARTO NOME SERIA ARQUITETURA PARA UM CASO QUE NÃO EXISTE.
+```
+
+E os providers de variável: `LITERAL`, `ENUM`, `RANGE`. Um molde com variável
+sem provider é **recusado na conferência**, não a meio da corrida. `"dia com 2
+digitos"` como PROVIDER é recusado por não estar no vocabulário.
+
+**PROVA.** `regras/motor_de_rota_test.mjs`, 23 provas sem rede. Canário B com
+rede real: `IT-T3-011`, que **não tem `case`**, descobriu 3 alvos pelo contrato
+e produziu `DOCUMENT_ID = AGRIOS:DIRETTIVE:2026`. Mutação: removido o desvio do
+contrato no despachador → a sentinela mordeu; restaurado → 23/23.
+
+**A IDENTIDADE VEIO JUNTO, E ISSO NÃO É ZELO.** `identidade()` tinha **mais**
+ramos que `alvosDe` (9 vs 7). Generalizar só a descoberta produziria o falso
+fechamento que a própria missão nomeou:
+
+```
+DISCOVERY_GENERIC = YES  +  IDENTITY_STILL_REQUIRES_SOURCE_CASE = YES
+```
+
+`DOCUMENT_ID_RULE` continua em prosa e **não é lido**:
+`DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC`.
+
+**MIGRAR É ABRIR CAMINHO, NÃO FECHAR O ANTIGO.** Os sete `case` não foram
+tocados. Quem declara `ACQUISITION` usa o motor; quem não declara corre como
+sempre. `EXISTING_SOURCE_REGRESSION = PASS` por construção — as 7 fontes com
+`case` não têm `ACQUISITION`.
+
+```
+O DIA EM QUE O ÚLTIMO `case` TIVER CONTRATO, O SWITCH SAI POR FICAR VAZIO —
+E NÃO PORQUE ALGUÉM O APAGOU COM PRESSA.
+```
+
+**O REGISTRY DE ADAPTERS NASCEU VAZIO, E É MEDIÇÃO.** Nenhuma das sete fontes
+precisou de lógica fora das três estratégias.
+
+```
+UM REGISTRY VAZIO DIZ «NINGUÉM PRECISOU AINDA».
+UM REGISTRY CHEIO DE NOMES POR USAR DIZ «ALGUÉM ADIVINHOU».
+```
+
+**AS LEIS DE TEMPO NÃO CEDERAM.** `FACT_TIME` não tem fallback no motor: não
+herda `SOURCE_DATE`, não herda `PUBLISHED_AT`. A diretriz anual do AGRIOS diz
+quando foi **publicada**; quando o facto aconteceu no campo continua `UNKNOWN`.
+Duas provas guardam isso (M5, M6).
+
+**E O CONTRATO NÃO VIROU LINGUAGEM.** Zero `eval`, zero `new Function`, zero
+função serializada — provado por teste. `LINK_PATTERN` é uma string compilada
+com `new RegExp`: dado compilado, não código executado.
+
+**CONSEQUÊNCIA.**
+`ADDING_SOURCE_OF_SUPPORTED_FAMILY_REQUIRES_CENTRAL_CODE_CHANGE = NO`, provado
+com um contrato fictício que não existe no repositório e correu sem tocar no
+despachador. Mas:
+
+```
+ENGINE_READY_FOR_MORE_CONTRACTS != 54_SOURCES_READY
+```
+
+Uma fonte só fica pronta depois de ter contrato executável **e** canário. O motor
+está provado com **um**.
+
+**E O A2 FICOU DESATUALIZADO — dito, não apagado.** O
+`C-PLAN-A2-GENERIC-TRAVERSAL.md` apontava dois bloqueios; ambos foram medidos
+agora e **nenhum existe**: `NOT_APPLICABLE` já corre com razão escrita, e o
+`STRUCTURED` do caminho produtivo não passa pela quimera social descrita lá — o
+orquestrador usa `preservar_documento`. O documento fica como registo histórico.
+
+```
+OLD_MEASUREMENT SUPERSEDED_BY_CURRENT_MEASUREMENT.
+```

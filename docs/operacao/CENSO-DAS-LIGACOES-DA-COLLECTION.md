@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  836a9c891b479acb550d2a736850858742953deb
-BRANCH           claude/c14c-instagram-permission-v1
-GERADO_EM        2026-09-19T19:16:53-03:00
+HEAD_DA_MEDICAO  7b8d96ccb9031fed4322318121dfcb6eb273c44e
+BRANCH           claude/source-contract-executable-v2
+GERADO_EM        2026-09-19T20:36:18-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

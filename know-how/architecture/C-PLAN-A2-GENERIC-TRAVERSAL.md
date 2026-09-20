@@ -145,3 +145,34 @@ Não promover ID de arquitetura-alvo a fato de runtime sem migração/declaratio
 O próximo trabalho deve resolver **Structured dispatch/owners por espécie** e a persistência explícita da razão de `NOT_APPLICABLE`, mantendo a regra de uma única travessia e sem alterar Admission para fabricar lineage.
 
 Só depois faz sentido implementar o 3→1 real e provar uma unidade não-PDF até Admission/READY.
+
+---
+
+## ⚠️ MEDIÇÃO POSTERIOR — 2026-09-20 (§158)
+
+Os dois bloqueios que este documento nomeia foram remedidos e **nenhum existe**:
+
+```text
+A2_NOT_APPLICABLE_BLOCKER_STILL_EXISTS = NO
+   derivacao_forward escreve NOT_APPLICABLE com razao, e correu na Big Collection
+   (4 etapas NOT_APPLICABLE registadas com motivo)
+
+A2_STRUCTURED_BLOCKER_STILL_EXISTS = NO (no caminho produtivo)
+   rota_forward_documento ainda e a quimera descrita acima — exige unidade['PDF']
+   e usa canal_id — MAS o orquestrador NAO a usa. O caminho real medido e
+   orquestrador.pela_estruturacao -> guarda/preservar_documento.py
+```
+
+```text
+OLD_MEASUREMENT SUPERSEDED_BY_CURRENT_MEASUREMENT
+```
+
+Este registo **não se apaga**: ele prova o que se sabia quando se sabia, e a
+data em que deixou de valer. O que mudou está no §158 do know-how canónico.
+
+
+
+
+
+Este registo NAO se apaga: ele prova o que se sabia quando se sabia. O que
+mudou esta no §158 do know-how canonico.

@@ -359,6 +359,45 @@ export const CONTRACTS = {
     EVIDENCE_CLASS: "TECHNICAL_GUIDELINE",
     LEI: "TECHNICAL_GUIDELINE != CURRENT_FIELD_SIGNAL e != DEROGA. Se aparecer uma deroga, ela e OUTRO documento e provavelmente OUTRO canal.",
     AUTOMATION_FEASIBILITY: "MEDIUM",
+    // ── O BLOCO EXECUTÁVEL (contrato v2) ──────────────────────────────────
+    // ⚠️ ESTA FONTE FALHOU NA BIG COLLECTION E A CULPA NÃO ERA DELA.
+    // Medido: o site respondeu HTTP 200 com 39.340 bytes e QUATRO links PDF.
+    // O que devolveu zero foi `italy_pilot_collect.mjs`, com a frase
+    // «fonte sem alvo definido no piloto» — ela não tinha `case` no switch.
+    // Eu próprio classifiquei isso como falha de fonte; era falha nossa.
+    //
+    //     UM SITE QUE RESPONDE E UMA COLETA QUE NÃO PERGUNTA
+    //     PRODUZEM O MESMO ZERO, E NÃO SÃO A MESMA COISA.
+    //
+    // Nada aqui foi inventado: `INDEX_URL` é o `CANONICAL_ENTRY_URL` que já
+    // estava escrito, e `LINK_PATTERN` foi medido contra o HTML real. Os
+    // campos em prosa acima — `DISCOVERY_METHOD`, `aviso_de_idioma` — ficam
+    // onde estão, para quem lê; o runtime não os abre.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY",
+      INDEX_URL: "https://www.agrios.it/it/per-i-frutticoltori/documenti-e-disciplinari/",
+      // Dado, não código: uma string compilada com `new RegExp`. Sem `eval`,
+      // sem função serializada. O grupo 1 é o endereço a seguir.
+      LINK_PATTERN: 'href="([^"]*\\.pdf)"',
+      MAX_TARGETS: 4,
+    },
+    // A identidade tambem declarada — para nao deixar metade do problema
+    // resolvido. `ano_da_edicao` ja era a `IDENTITY_KEY` escrita acima; aqui
+    // ela ganha forma executavel.
+    //
+    // ⚠️ `FACT_TIME` FICA `UNKNOWN`, E ISSO E A RESPOSTA CERTA.
+    // Uma diretriz tecnica anual diz quando FOI PUBLICADA, nao quando um
+    // facto aconteceu no campo. Usar o ano da edicao como tempo do facto
+    // seria fabricar evidencia.
+    //
+    //     FACT_TIME != PUBLISHED_AT.
+    IDENTITY: {
+      STRATEGY: "FILENAME_CAPTURE",
+      PATTERN: "(20\\d{2})",
+      DOCUMENT_ID: "AGRIOS:DIRETTIVE:$1",
+      SOURCE_DATE: "$1",
+      FACT_TIME: "UNKNOWN — uma diretriz anual nao data o facto de campo",
+    },
     NEGATIVE_CONTROL: { descricao: "PDF de outro documento do mesmo site", esperado: "FAILED por marcador de titulo ausente" }
   },
 

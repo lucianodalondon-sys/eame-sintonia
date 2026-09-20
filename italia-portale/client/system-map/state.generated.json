@@ -2034,6 +2034,7 @@
       "tests/test_c13_executor_wiring.py",
       "tests/test_c13_route_gate.py",
       "tests/test_c13_youtube_public_audio.py",
+      "tests/test_c14c_permissao_instagram.py",
       "tests/test_c2_youtube_oficial.py",
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
@@ -2692,10 +2693,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/c14c-instagram-permission-v1",
-    "HEAD": "836a9c891b479acb550d2a736850858742953deb",
-    "GENERATED_AT": "2026-09-19T19:16:53-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731"
+    "BRANCH": "claude/source-contract-executable-v2",
+    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
+    "GENERATED_AT": "2026-09-19T20:36:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13"
   },
   "FAMILIES": [
     {
@@ -36268,6 +36269,7 @@
         "tests/test_c13_executor_wiring.py",
         "tests/test_c13_route_gate.py",
         "tests/test_c13_youtube_public_audio.py",
+        "tests/test_c14c_permissao_instagram.py",
         "tests/test_c2_youtube_oficial.py",
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
@@ -36408,7 +36410,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 196,
+      "file_count": 197,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -39069,7 +39071,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/c14c-instagram-permission-v1"
+        "branch claude/source-contract-executable-v2"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -86550,7 +86552,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 52 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 53 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -88365,7 +88367,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 139 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 144 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_audio_youtube_wiring.py",
@@ -96197,8 +96199,8 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2101,
-    "files_covered": 1014,
+    "files_tracked": 2102,
+    "files_covered": 1015,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

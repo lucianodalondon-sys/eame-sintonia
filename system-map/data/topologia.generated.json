@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-19T23:34:32+00:00",
-  "HEAD": "836a9c891b479acb550d2a736850858742953deb",
-  "BRANCH": "claude/c14c-instagram-permission-v1",
+  "GENERATED_AT": "2026-09-20T00:35:36+00:00",
+  "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
+  "BRANCH": "claude/source-contract-executable-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731",
-  "FICHEIROS_NA_IMPRESSAO": 2250,
+  "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
+  "FICHEIROS_NA_IMPRESSAO": 2252,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -468,7 +468,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "dba6079eaadf16891c712ef266520a573bd01454",
+    "VERSAO": "b84c9351638d62eec5462ebc4dfae7bc0c37a7c7",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2869,7 +2869,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "125bfde6594464ee5247f614729ef9a571fc0205",
+    "VERSAO": "c2d77dd78c1d4dc552f0bc0dc1fcc909775d13c4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2974,14 +2974,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731",
+    "VERSAO": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731",
+    "VERSAO": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3647,6 +3647,13 @@
     "PATH": "tests/test_c13_youtube_public_audio.py",
     "PAPEL": "FONTE",
     "VERSAO": "77355108c9c64dcbde2f2988bf01d7278a7ec34a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "tests/test_c14c_permissao_instagram.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "c3610f7fdfce0db9e5ffa9c7055462366d64d982",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4624,8 +4631,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 655,
-  "INPUTS_DIGEST": "1f0f12ccf7c7eee3727505131b4370699406303f3eebad363e05388ae6023a2f",
+  "INPUTS_COUNT": 656,
+  "INPUTS_DIGEST": "0810dc2787f618709ec37b2ad52f96d85f5583b2e537b41ac762d49f4b384daa",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4658,8 +4665,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c1021690730d3fc3b88c92cc7fa6fbbb731c60808df126e25b02baea754cbf6c",
-  "SEMANTIC_HASH": "60cc130cf713b008d3d49241883639c6b8a75eddad8e8faf24cb3b6eff99a6eb"
+  "MEASUREMENT_HASH": "0b9d7c6dbbf34141db3be594b515fb768cd3695da4019ae709aed0e5cbdc947e",
+  "SEMANTIC_HASH": "d372c7e0a43fc1185555a8bd738c7b4fb2bf9134fe849c754033d640db50e6c6"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -43967,6 +43974,7 @@
     "tests/test_c13_executor_wiring.py",
     "tests/test_c13_route_gate.py",
     "tests/test_c13_youtube_public_audio.py",
+    "tests/test_c14c_permissao_instagram.py",
     "tests/test_c2_youtube_oficial.py",
     "tests/test_c3_youtube_cutover.py",
     "tests/test_c4_gpu_local.py",
@@ -44119,6 +44127,7 @@
     "provas/medir_admission_t3_atual.py",
     "provas/nenhuma_compra_sem_autorizacao.py",
     "provas/o_dedupe_tem_constraint.py",
+    "provas/o_fluxo_canonico_do_scrap.py",
     "provas/o_forward_conta_se.py",
     "provas/os_portoes_da_collection.py",
     "provas/preservar_coleta_no_postgres.py",
@@ -44134,6 +44143,7 @@
     "system-map/tests/test_verdade_das_ligacoes.py",
     "tests/test_a_prova_e2e_segue_a_producao.py",
     "tests/test_atomicidade_da_intelligence.py",
+    "tests/test_c13_route_gate.py",
     "tests/test_c3_youtube_cutover.py",
     "tests/test_c4h_executor_de_midia.py",
     "tests/test_comunicacao.py",
@@ -44144,6 +44154,7 @@
     "tests/test_metricas.py",
     "tests/test_operacao.py",
     "tests/test_preservar_coleta_no_banco.py",
+    "tests/test_scrap_rc01_release_candidate.py",
     "tests/test_scrap_sr02_autorizacao_de_gasto.py",
     "tests/test_source_id.py",
     "tests/test_trava_da_inteligencia.py"

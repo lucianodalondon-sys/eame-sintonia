@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/c14c-instagram-permission-v1",
-    "HEAD": "836a9c891b479acb550d2a736850858742953deb",
-    "GENERATED_AT": "2026-09-19T19:16:53-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3f2d18a3b57116ae7b61a1a57116e833c310446d2165ce83d413d86fcb6cf731"
+    "BRANCH": "claude/source-contract-executable-v2",
+    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
+    "GENERATED_AT": "2026-09-19T20:36:18-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "ea9ae5091b8386f274a671c63afbe7d040a4068b",
+      "sha": "8c56942d621bb339ff228cd0c4d16ca21d6836b4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1445,7 +1445,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "dba6079eaadf16891c712ef266520a573bd01454",
+      "sha": "b84c9351638d62eec5462ebc4dfae7bc0c37a7c7",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -9390,7 +9390,7 @@
     },
     {
       "path": "know-how/architecture/C-PLAN-A2-GENERIC-TRAVERSAL.md",
-      "sha": "61645523ee65083e969115ea52dd48d18564a95d",
+      "sha": "6f3360feef076099b57a8d1ccd53d62f001633e1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11469,7 +11469,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "125bfde6594464ee5247f614729ef9a571fc0205",
+      "sha": "c2d77dd78c1d4dc552f0bc0dc1fcc909775d13c4",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13731,6 +13731,13 @@
     {
       "path": "tests/test_c13_youtube_public_audio.py",
       "sha": "77355108c9c64dcbde2f2988bf01d7278a7ec34a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c14c_permissao_instagram.py",
+      "sha": "c3610f7fdfce0db9e5ffa9c7055462366d64d982",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17914,7 +17921,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 161,
+        "line": 198,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -52404,6 +52411,72 @@
       }
     },
     {
+      "from_file": "tests/test_c14c_permissao_instagram.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c14c_permissao_instagram.py",
+        "line": 49,
+        "snippet": "import adaptador_instagram                 # noqa: E402  (regista as rotas)"
+      }
+    },
+    {
+      "from_file": "tests/test_c14c_permissao_instagram.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c14c_permissao_instagram.py",
+        "line": 50,
+        "snippet": "import adaptador_youtube                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c14c_permissao_instagram.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c14c_permissao_instagram.py",
+        "line": 47,
+        "snippet": "import scrap_capacidades as cap            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c14c_permissao_instagram.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c14c_permissao_instagram.py",
+        "line": 48,
+        "snippet": "import scrap_executor as SX                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c14c_permissao_instagram.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c14c_permissao_instagram.py",
+        "line": 212,
+        "snippet": "import scrap_registo as SR"
+      }
+    },
+    {
+      "from_file": "tests/test_c14c_permissao_instagram.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c14c_permissao_instagram.py",
+        "line": 46,
+        "snippet": "import social_matriz as mz                 # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c2_youtube_oficial.py",
       "to_file": ".github/workflows/scrap-social.yml",
       "type": "READS",
@@ -63874,10 +63947,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2101,
-    "files_readable": 821,
-    "files_code_dir": 880,
-    "file_edges": 4422,
+    "files_tracked": 2102,
+    "files_readable": 822,
+    "files_code_dir": 881,
+    "file_edges": 4428,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

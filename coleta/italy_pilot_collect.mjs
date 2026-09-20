@@ -36,6 +36,23 @@ import { pathToFileURL } from "node:url";
 // resolver os nomes curtos; o lado Node ficou com os imports da pasta unica, e
 // por isso este coletor NAO CARREGAVA — nao e sintaxe, e o caminho.
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
+// O motor declarativo de rota. Ele responde «que enderecos buscar?» a partir
+// do bloco `ACQUISITION` do contrato — e NAO le nenhum campo em prosa.
+import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.mjs";
+
+// ── O REGISTRY DE ADAPTERS ─────────────────────────────────────────────────
+// Vazio, e isso e uma medicao e nao um esquecimento: das sete fontes com
+// `case`, NENHUMA precisou de logica fora das tres estrategias declarativas.
+// Criar adapters agora seria construir a porta de saida antes de existir
+// alguem para sair por ela.
+//
+//     UM REGISTRY VAZIO DIZ «NINGUEM PRECISOU AINDA».
+//     UM REGISTRY CHEIO DE NOMES POR USAR DIZ «ALGUEM ADIVINHOU».
+//
+// `CUSTOM_ADAPTER` existe no vocabulario para o dia em que uma fonte real
+// nao couber — e nesse dia o contrato NOMEIA o adapter, sem que o
+// despachador volte a conhecer SOURCE_ID.
+const ADAPTERS = Object.freeze({});
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -156,6 +173,26 @@ export function estadoDeCadencia(c, ultimaObs, mudou) {
 // Cada alvo: { url, nome, documentIdDe(buf) -> {DOCUMENT_ID, SOURCE_DATE, FACT_TIME} }
 async function alvosDe(sourceId) {
   const c = CONTRACTS[sourceId];
+  // ── O CONTRATO MANDA PRIMEIRO, E O SWITCH FICA PARA TRÁS ─────────────────
+  // ⚠️ MEDIDO: este `switch` tinha SETE fontes escritas à mão, e uma fonte
+  // sem `case` recebia «fonte sem alvo definido no piloto» — mesmo com
+  // contrato completo e site a responder HTTP 200. Foi o que aconteceu a
+  // `IT-T3-011` na Big Collection.
+  //
+  //     SOURCE_ID NÃO É DESPACHANTE. O CONTRATO É.
+  //
+  // Quem declara `ACQUISITION` é servido pelo motor declarativo e NÃO passa
+  // por baixo. Quem ainda não declara continua exactamente como estava — os
+  // sete `case` não se tocam, e por isso nenhuma fonte que já funcionava
+  // muda de comportamento.
+  //
+  //     MIGRAR É ABRIR UM CAMINHO NOVO, NÃO FECHAR O ANTIGO À FORÇA.
+  //
+  // O dia em que o último `case` tiver `ACQUISITION`, o `switch` inteiro sai
+  // — e sai por ficar vazio, não por alguém o apagar com pressa.
+  if (c && c.ACQUISITION) {
+    return await alvosDoContrato(sourceId, c, { buscar: baixar, adapters: ADAPTERS });
+  }
   switch (sourceId) {
     case "IT-T3-005":
       return [{ url: c.CANONICAL_ENTRY_URL, nome: "monitoraggio.html" }];
@@ -224,6 +261,21 @@ async function alvosDe(sourceId) {
 
 // ---------- identidade semantica ----------
 function identidade(sourceId, alvo, buf) {
+  // ── A IDENTIDADE DECLARATIVA VEM PRIMEIRO ────────────────────────────────
+  // ⚠️ MEDIDO: esta funcao tinha NOVE ramos por SOURCE_ID — mais do que o
+  // `alvosDe`. Generalizar so a descoberta produziria o falso fechamento
+  // «DISCOVERY_GENERIC = YES, IDENTITY_STILL_REQUIRES_SOURCE_CASE = YES».
+  //
+  // Quem declara `IDENTITY` no contrato e servido pelo motor. Quem nao
+  // declara cai no `switch` de sempre, sem mudanca de comportamento.
+  //
+  // `DOCUMENT_ID_RULE` continua em prosa, para gente, e NAO e lido aqui:
+  //     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
+  const _c = CONTRACTS[sourceId];
+  if (_c && _c.IDENTITY) {
+    const ident = identidadeDoContrato(sourceId, _c, alvo);
+    if (ident) return ident;
+  }
   // pdftotext 4.06 NAO aceita stdin. Grava temporario, le, apaga.
   const t = () => {
     try {
