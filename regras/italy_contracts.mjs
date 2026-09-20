@@ -504,24 +504,39 @@ export const CONTRACTS = {
     NEGATIVE_CONTROL: { descricao: "item sem video_id", esperado: "FAILED por falta de identidade" },
 
     // ── O BLOCO QUE O MOTOR LE ────────────────────────────────────────────
-    // Sem isto, `alvosDoContrato` recusa com «sem bloco ACQUISITION»: o
-    // contrato descrevia a rota em prosa (DISCOVERY_METHOD/RETRIEVAL_METHOD) e
-    // prosa nao executa. Nao foi preciso ESTRATEGIA nova nem adapter: o feed
-    // publico do canal E um indice de ligacoes, que e exactamente o que
-    // HTML_LINK_DISCOVERY ja sabia percorrer para quatro fontes medidas.
+    // ⚠️ CORRIGIDO NO MESMO DIA EM QUE FOI ESCRITO. A primeira versao usava
+    // `feeds/videos.xml?channel_id=...` como INDEX_URL. Funcionava — devolvia
+    // 15 entradas — e mesmo assim estava ERRADA: o `robots.txt` do YouTube traz
+    // `Disallow: /feeds/videos.xml`, e o portao canonico
+    // `coleta/scrap_http.py::permitido()` recusa esse caminho. A nota do
+    // adaptador ja o dizia: «o feeds/videos.xml foi reprovado pelo portao».
     //
-    // O indice e o channel_id, NAO o handle: handles renomeiam-se e ja
-    // existe um homonimo (@AgroNotizie) a apontar para outro canal.
+    //     UMA ROTA QUE RESPONDE 200 NAO E UMA ROTA PERMITIDA.
+    //     QUEM DECIDE E O PORTAO, QUE LE O ROBOTS VIVO — NAO O CONTRATO.
     //
-    // MEDIDO em 2026-09-20: 15 entradas no feed -> 15 alvos unicos.
-    // O padrao cobre os dois formatos que o canal publica: `watch?v=` e
-    // `shorts/`. Medir so `watch?v=` dava 13 e perdia dois Shorts em silencio
-    // — e um Short e conteudo publicado, nao ruido.
+    // A entrada passa a ser `/channel/<id>/videos`, que o MESMO portao aprova
+    // (medido: permitido() == True). O indice e lido pelo fornecedor
+    // LOCAL_YTDLP — ja registado em `scrap_fornecedores.py`, nao pago, sem
+    // chave e sem cookie: o mesmo instrumento que `youtube.public_audio` usa.
+    //
+    // Por que CUSTOM_ADAPTER e nao HTML_LINK_DISCOVERY: a pagina do canal
+    // responde 200 com um MURO DE CONSENTIMENTO da UE («Prima di continuare»),
+    // sem nenhum videoId no HTML. Passar por ele exigiria cookie, e o contrato
+    // declara SESSION_FORBIDDEN. O vocabulario fechado nao descreve isto, e
+    // `CUSTOM_ADAPTER` e a porta de saida honesta que o motor ja preve: o
+    // contrato NOMEIA o adapter, nao carrega codigo.
+    //
+    // MEDIDO em 2026-09-20 (--flat-playlist --playlist-end 5):
+    //   canal      = Agronotizie - Notizie per l'agricoltura
+    //   channel_id = UCUs2Mg7jvUTRt7_MSOFYM5Q  (bate com SOURCE_NATIVE_ID)
+    //   5 video_id reais · sem API key · PAID_USD = 0
     ACQUISITION: {
-      STRATEGY: "HTML_LINK_DISCOVERY",
-      INDEX_URL: "https://www.youtube.com/feeds/videos.xml?channel_id=UCUs2Mg7jvUTRt7_MSOFYM5Q",
-      LINK_PATTERN: 'href="(https://www\\.youtube\\.com/(?:watch\\?v=|shorts/)[\\w-]{11})"',
+      STRATEGY: "CUSTOM_ADAPTER",
+      ADAPTER_ID: "youtube.channel.listing.local",
+      INDEX_URL: "https://www.youtube.com/channel/UCUs2Mg7jvUTRt7_MSOFYM5Q/videos",
+      PROVIDER: "LOCAL_YTDLP",
       MAX_TARGETS: 5,
+      ROBOTS_CHECKED: "2026-09-20 · /channel/ permitido · /feeds/videos.xml Disallow",
     },
     }
     };

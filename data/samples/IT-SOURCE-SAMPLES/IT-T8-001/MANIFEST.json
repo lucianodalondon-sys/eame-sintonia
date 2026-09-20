@@ -118,5 +118,44 @@
   "DEFEITO": "CANONICAL_ENTRY_URL apontava https://www.youtube.com/@AgroNotizie",
   "MEDIDO": "@AgroNotizie -> UC5lOJg4v2kFjMunah3fL23g, canal homonimo de 6 inscritos e 7 videos",
   "CORRECAO": "entrada canonica passa a ser /channel/UCUs2Mg7jvUTRt7_MSOFYM5Q; handle guardado a parte"
+ },
+ "FREE_ROUTE": {
+  "AT": "2026-09-20T14:46:59Z",
+  "ON_TRUNK": "606974c3",
+  "DEFEITO_CORRIGIDO": "o ACQUISITION escrito ontem usava feeds/videos.xml, que o robots.txt do YouTube barra (Disallow) e o portao canonico scrap_http.permitido() recusa. Funcionava e era ilegal.",
+  "ROBOTS_MEDIDO": {
+   "AT": "2026-09-20T14:46:59Z",
+   "/feeds/videos.xml": "Disallow -> permitido()=False",
+   "/channel/<id>/videos": "permitido()=True",
+   "/watch": "permitido()=True",
+   "/oembed": "permitido()=True"
+  },
+  "ROTA_NOVA": {
+   "STRATEGY": "CUSTOM_ADAPTER",
+   "ADAPTER_ID": "youtube.channel.listing.local",
+   "PROVIDER": "LOCAL_YTDLP",
+   "API_KEY": "NO",
+   "COOKIE": "NO",
+   "PAID_USD": 0,
+   "PROVA": "5 alvos derivados pelo motor; channel_id devolvido bate com SOURCE_NATIVE_ID"
+  },
+  "PORQUE_NAO_HTML_LINK_DISCOVERY": "/channel/ responde 200 com muro de consentimento UE e zero videoId no HTML; atravessa-lo exigiria cookie, e o contrato declara SESSION_FORBIDDEN",
+  "GUARDAS_PROVADAS": {
+   "IDENTITY_MISMATCH": "indice de outro canal e recusado",
+   "ADAPTER_NAO_REGISTADO": "ContratoInvalido"
+  }
+ },
+ "CANARY_2": {
+  "AT": "2026-09-20T14:46:59Z",
+  "RUN_ID": "CANARIO-T8-LIVRE-001",
+  "ESTADO": "PARTIAL",
+  "RESULT": "CREDENTIAL_MISSING",
+  "PAID_USD": 0,
+  "API_KEY_USED": "NO",
+  "TARGETS_DISCOVERED_VIA_CONTRACT": 5,
+  "ITEMS_PROCESSED_VIA_EXECUTOR": 0,
+  "BLOCKER": "DUAS CADEIAS. O contrato e lido pelo motor Node (italy_pilot_collect.mjs); o orquestrador corre pela cadeia Python (scrap_colheita -> adaptador_youtube), que nunca le ACQUISITION e pede API_OFICIAL.",
+  "OWNER_DO_BLOCKER": "SINTONIA SCRAP ENGINEER — registo da capacidade em coleta/adaptador_youtube.py",
+  "PORQUE_NAO_CORRIGI": "coleta/scrap_registo.py::registar proibe dois caminhos para a mesma capacidade (RegistoDuplicado). Ligar as duas cadeias e mudanca de arquitetura, fora do escopo de Source Curator."
  }
 }

@@ -244,5 +244,53 @@ T("M2b · identidade consulta IDENTITY antes do switch", () => {
     "a identidade declarativa deixou de vir primeiro");
 });
 
+TA("M3 · nenhum contrato aponta para caminho barrado pelo robots do YouTube", async () => {
+  // A regressao que esta suite nao apanhava: um ACQUISITION pode estar
+  // perfeitamente formado, responder 200, e mesmo assim ser ILEGAL.
+  // `feeds/videos.xml` esta em `Disallow` no robots.txt do YouTube e o portao
+  // canonico recusa-o — mas `conferirAquisicao` so valida a FORMA.
+  //
+  //     BEM FORMADO != PERMITIDO.
+  const { CONTRACTS } = await import("./italy_contracts.mjs");
+  const barrados = [];
+  for (const [id, c] of Object.entries(CONTRACTS)) {
+    const aq = c && c.ACQUISITION;
+    if (!aq) continue;
+    const alvo = `${aq.INDEX_URL || ""} ${aq.URL || ""} ${aq.TEMPLATE || ""}`;
+    if (/youtube\.com\/(feeds\/videos\.xml|results|youtubei|api\/|get_video|comment)/.test(alvo)) {
+      barrados.push(`${id}: ${alvo.trim()}`);
+    }
+  }
+  assert.deepEqual(barrados, [],
+    "contrato a apontar para caminho que o robots.txt do YouTube barra");
+});
+
+TA("M4 · todo ADAPTER_ID nomeado existe no registry do coletor", async () => {
+  // Um contrato pode nomear um adapter que ninguem registou. O motor so
+  // descobre isso a meio de uma corrida; aqui descobre-se antes.
+  const { CONTRACTS } = await import("./italy_contracts.mjs");
+  const src = readFileSync(
+    new URL("../coleta/italy_pilot_collect.mjs", import.meta.url), "utf8");
+  const orfaos = [];
+  for (const [id, c] of Object.entries(CONTRACTS)) {
+    const aq = c && c.ACQUISITION;
+    if (!aq || aq.STRATEGY !== "CUSTOM_ADAPTER") continue;
+    if (!src.includes(`"${aq.ADAPTER_ID}"`)) orfaos.push(`${id} -> ${aq.ADAPTER_ID}`);
+  }
+  assert.deepEqual(orfaos, [], "ADAPTER_ID nomeado no contrato sem entrada no registry");
+});
+
+// ⚠️ O SUMARIO TEM DE ESPERAR PELOS TESTES ASSINCRONOS.
+// Medido: com `TA` no ficheiro, o sumario corria no primeiro tick e imprimia
+// «PASSOU 23 · FALHOU 0» ANTES de os TA terminarem — e um TA reprovado nao
+// mudava o codigo de saida. A suite dava exit 0 com um FAIL no ecra.
+//
+//     UM SUMARIO QUE NAO ESPERA MEDE MENOS TESTES DO QUE CORREU.
+//     UM RUNNER QUE SAI 0 COM FAIL NO ECRA NAO E UM PORTAO.
+//
+// `setImmediate` nao bastava: os TA fazem `await import(...)`, que resolve em
+// microtasks encadeadas. Uma volta explicita pela fila de promessas garante
+// que todos ja registaram o seu resultado.
+await new Promise((r) => setTimeout(r, 0));
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);
 if (mau) process.exit(1);

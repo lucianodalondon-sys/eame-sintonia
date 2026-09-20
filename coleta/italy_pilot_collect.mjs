@@ -52,7 +52,66 @@ import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.m
 // `CUSTOM_ADAPTER` existe no vocabulario para o dia em que uma fonte real
 // nao couber — e nesse dia o contrato NOMEIA o adapter, sem que o
 // despachador volte a conhecer SOURCE_ID.
-const ADAPTERS = Object.freeze({});
+// ── O PRIMEIRO ADAPTER REAL ───────────────────────────────────────────────
+// E o dia previsto acima: uma fonte que nao cabe nas tres estrategias
+// declarativas. `IT-T8-001` (canal YouTube) precisa dele por uma razao MEDIDA,
+// e nao por comodidade:
+//
+//   · `feeds/videos.xml` seria um indice de ligacoes perfeito para
+//     HTML_LINK_DISCOVERY — mas o `robots.txt` do YouTube traz
+//     `Disallow: /feeds/videos.xml` e o portao canonico recusa-o.
+//   · `/channel/<id>/videos` e permitido pelo portao, mas responde 200 com um
+//     MURO DE CONSENTIMENTO da UE e ZERO videoId no HTML. Atravessa-lo exigiria
+//     cookie, e os contratos destas fontes declaram SESSION_FORBIDDEN.
+//
+//     ROTA QUE RESPONDE != ROTA PERMITIDA != ROTA QUE ENTREGA.
+//
+// Entre as duas, o que sobra e o fornecedor LOCAL_YTDLP, ja registado em
+// `scrap_fornecedores.py` e ja usado por `youtube.public_audio`: custo zero,
+// sem chave, sem cookie. Nao ha segundo descarregador.
+//
+// NAO E UM ADAPTER DE `IT-T8-001`. E um adapter de CANAL DE YOUTUBE: tudo o
+// que ele sabe vem do proprio contrato (`INDEX_URL`, `MAX_TARGETS`), e por isso
+// qualquer outra fonte YouTube o reutiliza escrevendo o mesmo ADAPTER_ID.
+// O despachador continua sem conhecer SOURCE_ID nenhum.
+async function listarCanalYouTubeLocal({ sourceId, contrato }) {
+  const aq = contrato.ACQUISITION;
+  const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : 10;
+  let saida;
+  try {
+    ({ stdout: saida } = await run("yt-dlp", [
+      "--flat-playlist", "--playlist-end", String(limite), "-J", aq.INDEX_URL,
+    ], { maxBuffer: 64 * 1024 * 1024 }));
+  } catch (err) {
+    // EXECUTOR_UNAVAILABLE nao e a fonte a falhar: e esta maquina sem a
+    // ferramenta. Diz-se com esse nome.
+    return { erro: `EXECUTOR_UNAVAILABLE — yt-dlp nao correu: ${String(err.message).slice(0, 160)}` };
+  }
+  const dados = JSON.parse(saida);
+  // A identidade do canal devolvida TEM de bater com a declarada. Sem isto,
+  // um INDEX_URL trocado colheria outro canal em silencio — que foi
+  // exactamente a armadilha do handle homonimo.
+  const declarado = contrato.SOURCE_NATIVE_ID;
+  if (declarado && dados.channel_id && dados.channel_id !== declarado) {
+    return { erro: `IDENTITY_MISMATCH — o indice devolveu ${dados.channel_id}, ` +
+                   `o contrato declara ${declarado}` };
+  }
+  const entradas = (dados.entries || []).filter((e) => e && e.id);
+  if (entradas.length === 0) {
+    return { erro: "EMPTY_LIST — o canal nao anuncia nenhum video nesta janela" };
+  }
+  return entradas.slice(0, limite).map((e) => ({
+    url: `https://www.youtube.com/watch?v=${e.id}`,
+    nome: e.id,
+    // `published_at` NAO vem daqui: `--flat-playlist` nao o traz de forma
+    // fiavel, e inventa-lo seria fabricar tempo. Fica para quem colhe o item.
+    titulo: e.title || null,
+  }));
+}
+
+const ADAPTERS = Object.freeze({
+  "youtube.channel.listing.local": listarCanalYouTubeLocal,
+});
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
