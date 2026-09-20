@@ -9,3 +9,15 @@ _lote_*.json
 _dec_*.json
 _c_*.json
 _ens_*.json
+
+# ESTADO VIVO DO CICLO CONTINUO — nao se versiona.
+# O status e o diario sao reescritos a cada volta do worker; commita-los
+# poe a worktree suja de segundo a segundo e faz o System Map acusar drift
+# que nao e arquitetura, e sim o Bot a trabalhar.
+#
+#     UM FICHEIRO QUE MUDA SOZINHO NAO PERTENCE AO COMMIT.
+#
+# O que fica versionado e o que NAO muda sozinho: o livro de transicoes,
+# a fila, os lotes e as provas.
+SOURCE-CURATOR-STATUS-LIVE.json
+SOURCE-CURATOR-RUN-LOG.ndjson
