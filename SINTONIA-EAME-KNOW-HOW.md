@@ -18686,3 +18686,72 @@ culturas 4 · mercado 3 · fitossanitário 3 · genética 2 · clima 1. Ritmo ~4
 `SOURCE_LOCATION = ITALIA`; `FACT_LOCATION = UNKNOWN` por item — a UE aparece como
 **assunto**, e assunto não é lugar do facto. `YIELD ≠ VALUE`: quanto rende mede-se agora,
 quanto vale só a Intelligence dirá.
+
+
+# §160 · UMA ROTA QUE RESPONDE 200 NÃO É UMA ROTA PERMITIDA
+
+**Data:** 2026-09-20 · **Branch:** `claude/it-t8-canary-v1` · **Base:** `606974c3`
+
+Escrevi um `ACQUISITION` para `IT-T8-001` usando `feeds/videos.xml`. Devolvia 15 entradas
+com título, data e descrição inteira. Estava errado.
+
+```
+robots.txt do youtube.com  ->  Disallow: /feeds/videos.xml     (lido ao vivo)
+scrap_http.permitido(feed) ->  (False, "robots.txt do host barra este caminho")
+scrap_http.permitido(/channel/…) -> (True, "…permite este caminho")
+```
+
+O projecto já sabia: a nota do registo dizia **«o feeds/videos.xml foi reprovado pelo
+portão»**, e `scrap_http.py` conta a história no cabeçalho — a rota funcionou nesta máquina
+e **não entrou**. Eu não li antes de escrever.
+
+```
+ROTA QUE RESPONDE ≠ ROTA PERMITIDA ≠ ROTA QUE ENTREGA.
+O PORTÃO LÊ O ROBOTS NA HORA. O CONTRATO OBEDECE AO PORTÃO, NÃO AO 200.
+```
+
+## A alternativa óbvia também não servia, e por outro motivo
+
+`/channel/<id>/videos` é permitido — mas responde 200 com o **muro de consentimento da UE**
+e zero `videoId` no HTML. Atravessá-lo pede cookie, e o contrato declara
+`SESSION_FORBIDDEN`. Sobrou o fornecedor `LOCAL_YTDLP`, já registado e já usado por
+`youtube.public_audio`: custo zero, sem chave, sem cookie. **Não há segundo descarregador.**
+
+Este foi o primeiro caso real de `CUSTOM_ADAPTER` — o registry estava vazio de propósito
+(«um registry cheio de nomes por usar diz que alguém adivinhou»). O adapter **não é de
+`IT-T8-001`**: tudo o que sabe vem do contrato, e outra fonte YouTube reutiliza-o
+escrevendo o mesmo `ADAPTER_ID`. Guarda que ficou: se o índice devolver um `channel_id`
+diferente do declarado, responde `IDENTITY_MISMATCH` em vez de colher o canal errado calado.
+
+## O teste que eu escrevi para provar a correcção estava a mentir
+
+Escrevi `M3` com `T(...)` e corpo `async`. O runner síncrono não espera a promessa: a
+rejeição era engolida e **o teste passava verde sobre o defeito**. Só o controlo negativo
+— reintroduzir `feeds/videos.xml` e exigir vermelho — o expôs.
+
+E havia um segundo, maior: o sumário corria antes dos `TA` terminarem, imprimindo
+`FALHOU 0` com um `FAIL` no ecrã, e saindo `0`.
+
+```
+UM TESTE ASSÍNCRONO NUM RUNNER SÍNCRONO PASSA SEMPRE.
+UM RUNNER QUE SAI 0 COM FAIL NO ECRÃ NÃO É UM PORTÃO.
+TESTE NOVO SÓ VALE DEPOIS DE O VER REPROVAR O DEFEITO QUE DIZ APANHAR.
+```
+
+## O canário continua PARTIAL, e a causa não é credencial
+
+```
+CONTRATO    -> motor_de_rota (Node) -> ACQUISITION -> 5 alvos, sem chave   ✅
+ORQUESTRADOR-> receitas -> scrap_colheita -> adaptador_youtube -> API_OFICIAL ❌
+```
+
+**São duas cadeias.** O bloco que escrevi vive na primeira; o canário corre pela segunda,
+que nunca lê `ACQUISITION`. E `scrap_registo.registar` proíbe registar dois caminhos para a
+mesma capacidade — «o segundo caminho é sempre o que ninguém mede». Portanto não há
+composição existente a usar: ligar as cadeias é **mudança de arquitectura**, com dono no
+SCRAP ENGINEER.
+
+```
+CONTRATO DECLARA ROTA ≠ EXECUTOR OBEDECE AO CONTRATO
+CREDENTIAL_MISSING descreve o SINTOMA; a causa é o desvio de cadeia.
+```
