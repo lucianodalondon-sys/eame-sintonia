@@ -18773,3 +18773,53 @@ morreram no executor antes de a corrida nascer); 90 fontes cuja primeira
 observação foi HEALTHY; 116 linhas `raw_asset` = 93 documentos + 21 envelopes
 JSON de observações falhadas + 2 da prova; 114 observações no ledger das 113
 corridas. Grão diferente documenta-se e fica diferente.
+
+
+# §161 · O BALCÃO NÃO É ARQUIVO, E UM INSTANTE NÃO É O SEU TEXTO
+
+**O QUE.** Missão de fecho de resíduos da Big Collection 2 (20/09/2026): três
+perguntas pequenas, três respostas medidas, nenhuma arquitetura nova.
+
+**1 · `data/colheita/italia` — classificado, não protegido.** É o BALCÃO entre
+o executor e a porta: `colheita.json` reescrito a cada corrida e um envelope
+`RETORNO.<run>.json` por corrida, que o orquestrador consome na mesma
+corrida. O `.gitignore` (linha 89) já o dizia: «não é arquivo; o arquivo é o
+livro append-only». A prova de que é **reconstruível** não é a frase: é
+`italy_executor.colher(run_id)`, que refaz o envelope a partir do ledger — foi
+assim que 46 envelopes apagados pelos cleanups voltaram a existir para o
+reprocessamento sem rede. Três cleanups o apagam (`rmtree(BALCAO)`);
+**nenhum foi neutralizado**, porque proteger o que se reconstrói custa
+manutenção e ensina a lição errada.
+
+    PROTEGE-SE O QUE NÃO VOLTA. O QUE VOLTA DO LIVRO, DOCUMENTA-SE.
+
+**2 · Os 4 HTML que «falharam a gravar» tinham gravado.** A conferência
+pós-escrita (`preservar_coleta._difere`) comparava `captured_at` como texto:
+o Postgres devolve `…03.44Z` (corta zeros à direita dos microssegundos) e o
+item dizia `…03.440Z`. `METADATA_CONFLICT` inventado pela representação,
+balde `unknown`, etapa RAW `FAIL` — com a linha escrita, os bytes iguais e a
+chave a devolver a linha. As quatro observações eram exactamente as que
+tinham milissegundos terminados em zero (`.440`, `.010`, `.430`, `.190`); as
+42 que passaram não tinham. Corrigido no dono: instantes ISO-8601
+comparam-se como instantes. Reprocessadas as quatro, sem rede: 4/4.
+
+    DOIS TEXTOS DIFERENTES DO MESMO INSTANTE NÃO SÃO UMA DIVERGÊNCIA.
+    UMA CONFERÊNCIA QUE LÊ REPRESENTAÇÃO EM VEZ DE VALOR INVENTA CONFLITO.
+
+Como se chegou lá, para a próxima vez: a consulta de identidade devolvia a
+linha *a posteriori*; então a falha não era de chave nem de bytes, era de
+**comparação** — e a única comparação campo a campo é a pós-escrita. Chamar
+`conferir_o_que_ficou_escrito()` directamente, com o plano do item e a
+memória real, mostrou a divergência em dez segundos.
+
+**3 · Os 7 históricos sem bytes são dívida conhecida.** Seis shas, sete
+objectos, todos de 18–19/09 noutras bancadas (SIAS ×2, Puglia N37, LinkedIn
+mp4 ×2, YouTube wav, monitoraggio). Indexados 1.094 ficheiros locais em nove
+raízes (samples, armazéns, Temp): zero coincidências de sha. Duas páginas
+(SIAS, monitoraggio) reescrevem-se todos os dias — esses bytes não voltam
+nem pela rede; o PDF da Puglia voltaria pela rede; LinkedIn e YouTube são
+política fechada. Nenhum ficheiro foi inventado; nenhuma rede foi aberta.
+
+**Achado lateral, não tocado:** `ingresso.ficha()` rebenta com «multiple
+values for CONTENT_TYPE» quando o ficheiro do `STORAGE_LOCATION` falta e o
+item declara `CONTENT_TYPE` — o caminho de fallback para o JSON da observação.
