@@ -334,17 +334,17 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
 | **prova de quem ativa** | pedido/receitas.py:170; orquestrador/orquestrador.py:892 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
-| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · dado** | V-YOUTUBE |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 14 |
+| **arestas no mapa** | entram 8 · saem 14 |
 | **arestas provadas** | entram 6 · saem 13 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
-| **data plane** | entram 0 · saem 0 |
+| **data plane** | entram 1 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 · NÃO SEI 2 · OBSERVED 1 |
+| **prova das ligações** | CODE 18 · NÃO SEI 3 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1858,21 +1858,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | — nenhum ficheiro |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | UNKNOWN |
-| **status operacional** | green — 2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito. |
+| **status operacional** | green — 3 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito. |
 | **QUEM ATIVA** | **CANAL_ABERTO_POR_ROTA** — C-APIFY-POOL, C-NAVEGADOR |
-| **prova de quem ativa** | coleta/youtube_janela.py:471; coleta/youtube_janela.py:37 _(plano CODE)_ |
+| **prova de quem ativa** | coleta/youtube_janela.py:471; coleta/italy_pilot_collect.mjs:306 _(plano CODE)_ |
 | **porquê** | um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal. |
 | **o que entra · dado** | C-AS-FONTES |
 | **o que entra · ficheiros** | — NÃO SEI |
-| **o que sai · dado** | C-COLETA-YOUTUBE, C-SCRAP-SOCIAL |
+| **o que sai · dado** | C-COLETA-YOUTUBE, C-IT-COLETA, C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 2 |
+| **arestas no mapa** | entram 3 · saem 3 |
 | **arestas provadas** | entram 0 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
-| **data plane** | entram 1 · saem 2 |
+| **data plane** | entram 1 · saem 3 |
 | **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
-| **prova das ligações** | NÃO SEI 5 |
+| **prova das ligações** | NÃO SEI 6 |
 | **lei da Bíblia** | COL-LAW-018/019 · a rota mais barata capaz vem primeiro |
 | **VEREDITO** | **OK** — canal, aberto por rota medida |
 

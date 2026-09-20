@@ -23483,7 +23483,8 @@
         "C-IT-CATALOGO",
         "C-IT-CONTRATOS",
         "C-IT-PRESERVAR",
-        "C-ORQUESTRADOR"
+        "C-ORQUESTRADOR",
+        "V-YOUTUBE"
       ],
       "outbound": [
         "C-IT-CONTAS",
@@ -39016,17 +39017,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 2 acao(oes) da coleta passam por aqui.",
+      "what": "Video publico: o que o canal do concorrente e o do sector poem no ar. Hoje 3 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
         "contas publicas mapeadas neste canal: 14",
         "dessas, autorizadas a coletar: 7",
-        "acoes da coleta que nomeiam este canal: 2",
+        "acoes da coleta que nomeiam este canal: 3",
+        "prova: coleta/italy_pilot_collect.mjs:73",
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/adaptador_youtube.py:39"
       ],
-      "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
+      "status_reason": "3 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -39043,6 +39045,7 @@
       ],
       "outbound": [
         "C-COLETA-YOUTUBE",
+        "C-IT-COLETA",
         "C-SCRAP-SOCIAL"
       ],
       "file_count": 0,
@@ -39062,6 +39065,7 @@
       "o_que_entra_vai_para": [],
       "saem_daqui_sem_destino": [
         "C-COLETA-YOUTUBE",
+        "C-IT-COLETA",
         "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": true,
@@ -39106,7 +39110,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "coleta/youtube_janela.py:471",
-          "coleta/youtube_janela.py:37"
+          "coleta/italy_pilot_collect.mjs:306"
         ],
         "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
       },
@@ -70660,9 +70664,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/youtube_janela.py",
-          "line": 37,
-          "snippet": "de rede, e por isso a camada `legendas` usa o navegador de verdade desta máquina,",
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 306,
+          "snippet": "return { erro: \"indice exige navegador E a rota previsivel nao achou edicao nos ultimos 10 dias\" };",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
           "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao.",
@@ -95852,6 +95856,34 @@
     },
     {
       "from": "V-YOUTUBE",
+      "to": "C-IT-COLETA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O que sai deste canal entra em «Colher as fontes italianas», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 73,
+          "snippet": "// NAO E UM ADAPTER DE `IT-T8-001`. E um adapter de CANAL DE YOUTUBE: tudo o",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "NO",
+          "WHY": "`VIAJA_POR` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "V-YOUTUBE",
       "to": "C-SCRAP-SOCIAL",
       "type": "VIAJA_POR",
       "payload": "coleta",
@@ -96246,9 +96278,9 @@
     "components_pending": 172,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1087,
+    "edges": 1088,
     "edges_proven": 1033,
-    "edges_unknown": 54,
+    "edges_unknown": 55,
     "business_edges": 4,
     "files_tracked": 2105,
     "files_covered": 1015,
