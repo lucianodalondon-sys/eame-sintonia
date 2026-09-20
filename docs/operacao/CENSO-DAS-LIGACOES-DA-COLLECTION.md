@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2a5169f105118bd1b8070351452744c019a0730b
+HEAD_DA_MEDICAO  0792e84bf186bb53a0c5ea9ea4683fd24ac0a0c5
 BRANCH           claude/contract-provenance-cutover-v1
-GERADO_EM        2026-09-20T07:48:51-03:00
+GERADO_EM        2026-09-20T08:37:20-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1654,7 +1654,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`, `regras/contratos_de_fonte.py`, `regras/cutover_equivalencia_test.mjs`, `regras/italy_contract_test.mjs`, `regras/italy_contracts.mjs` _(e mais 7)_ |
-| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de |
 | **QUEM ATIVA** | **NAO_SEI** |
@@ -1663,7 +1663,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/adaptadores_de_aquisicao.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | — NÃO SEI |
+| **o que sai · ficheiros** | `data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260914/v1_d8f20c7383d1/PROD_FTS_6_20260914.csv` |
 | **arestas no mapa** | entram 10 · saem 8 |
 | **arestas provadas** | entram 10 · saem 5 |
 | **OBSERVADAS** | 0 |
