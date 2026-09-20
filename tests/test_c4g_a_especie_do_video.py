@@ -177,14 +177,22 @@ class T3ASentinelaDisparou(unittest.TestCase):
     """
 
     def test_a_porta_conhece_pdf_E_midia_e_nada_mais(self):
-        """O registo cresceu de um para dois, e não para «qualquer coisa»."""
+        """O registo cresceu de um para dois, e não para «qualquer coisa».
+
+        Contagem fixa que SOBREVIVE: aqui a fixture (o registo de executores
+        em `_DONOS_DA_DERIVACAO`) define o universo. Cresceu de dois para
+        TRES em 20/09/2026 — `executor_texto_de_html`, declarado, porque 46
+        observacoes `text/html` da Big Collection 2 saiam NOT_APPLICABLE por
+        ninguem declarar a especie. Esta prova e a trava de metodo: uma
+        especie nova entra AQUI, com nome, e nao por acidente.
+        """
         exactos, familias = set(), set()
         for cap in ing._capacidades_de_derivacao():
             exactos.update(str(a).lower()
                            for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
             familias.update(str(f).lower()
                             for f in (cap.get("ACEITA_FAMILIAS") or ()))
-        self.assertEqual(exactos, {"application/pdf"})
+        self.assertEqual(exactos, {"application/pdf", "text/html", "application/xhtml+xml"})
         self.assertEqual(familias, {"audio", "video"},
                          "a porta passou a conhecer uma familia nova — declare-a "
                          "e reveja esta prova, que e a trava de metodo")

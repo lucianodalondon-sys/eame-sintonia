@@ -18677,3 +18677,99 @@ NAO_SEI 81 · NAO_SE_APLICA 14 · NAO 4 · Sala 4 → 17 · reconciliação estr
 aberto: 17 `collection_run` ficam «rodando» quando o RAW falha; o HTML não tem
 derivador (58 NOT_APPLICABLE); «primeiro endereço que casa» não é «documento
 relevante» — isso continua a ser do Livro de Relevância, não do contrato.
+
+
+# §160 · O STORAGE OPERACIONAL NÃO É RESÍDUO DE MEDIÇÃO — E A RÉGUA SÓ JULGA O QUE LÊ
+
+**O QUE.** Depois da Big Collection 2 (20/09/2026) três gargalos ficaram
+visíveis, e fecharam-se na mesma sessão, pela ordem que importava:
+
+```
+STORAGE  →  TESTES  →  HTML JULGÁVEL
+```
+
+**1 · Storage.** O orquestrador criava `ArmazemLocal(RAIZ)` em TODOS os modos,
+e a bancada OPERACIONAL (Sala em 127.0.0.1:54330) escreveu os 107 objectos em
+`<repo>/XX/` — que o `.gitignore` declara «RESÍDUO DE MEDIÇÃO, E NÃO ACERVO».
+A suíte inteira, corrida a seguir na mesma árvore, fez `rmtree(RAIZ/"XX")` no
+cleanup de um teste. A Sala ficou a apontar para 107 caminhos sem ficheiro.
+`RAW_SEM_STORAGE = 0` no SQL não viu nada: mede linhas, não bytes.
+
+```
+STORAGE OPERACIONAL != RESÍDUO DE MEDIÇÃO.
+TESTE NUNCA PODE APAGAR STORAGE OPERACIONAL.
+```
+
+A separação é a menor possível e espelha a da memória
+(`orquestrador/persistencia.py`): a raiz dos bytes vem de UMA variável,
+`SINTONIA_ARMAZEM_RAIZ`, **obrigatória no modo OPERACIONAL** (falha fechado
+antes de a corrida nascer) e **ignorada nos outros** — a suíte corre sem
+memória e teria posto o resíduo de cada teste dentro do armazém operacional
+só por a variável estar no ambiente da máquina. Medido: suíte lançada com a
+variável, parada aos 15 s, 136 ficheiros antes e depois; regra fechada antes
+de a deixar correr. A raiz operacional ganha um marcador
+(`ARMAZEM_OPERACIONAL.json`), e a limpeza de resíduo passa a ter dono
+(`apagar_armazem_de_medicao`): só apaga `<árvore>/XX` ou a pasta temporária
+do próprio teste, e recusa fechado marcador, raiz declarada e tudo o resto.
+Um teste sentinela prova que o gesto que apagou a BC2 já não chega ao
+operacional. Restauro: 123 objectos na Sala, 93 com bytes iguais ao sha
+(todos os 107 da BC2), 23 envelopes sem bytes esperados, 7 em falta reais —
+todos anteriores à BC2, de 18-19/09 noutras bancadas. Nenhum byte inventado.
+
+**2 · Testes.** Dez nomes reprovavam depois da BC2, e nenhum por o código
+mentir: contagens fixas sobre acervo mutável (`== 7` recibos, `== 13` legados,
+`== 0` equivalentes, «shas distintos == objectos criados»), um markdown com
+números de outro dia, e um conflito de lei antigo. A regra que ficou:
+
+```
+CONTAGEM FIXA SÓ SOBREVIVE QUANDO A PRÓPRIA FIXTURE DEFINE O UNIVERSO.
+O RESTO É INVARIANTE: O CONJUNTO ESPERADO DERIVA DA FIXTURE, NUNCA DE UM N.
+```
+
+O conflito de lei decidiu-se por escrito, não por número: `RAW_OBJECT_CREATED`
+responde «materializei agora?», `RAW_PATH` responde «onde estão os bytes?»,
+e a verdade de uma reobservação é o **sha**, não o disco desta árvore (o
+ledger é rastreado, o armazém do coletor não é inteiro; uma árvore nova volta
+a materializar os mesmos bytes, e isso é verdade, não defeito). E dois donos
+foram corrigidos onde erravam: a equivalência de bytes deixou de «provar» a
+aquisição de um corpo legado (`EQUIVALÊNCIA NÃO TRANSFERE PROVENIÊNCIA`), e
+uma observação sem `DOCUMENT_ID` deixou de atravessar a fronteira como
+unidade.
+
+**3 · HTML.** 46 observações `text/html` da BC2 saíam da derivação como
+`NOT_APPLICABLE` pela causa mais simples: nenhum executor declarava a espécie
+(`executor_para("text/html") = None`). A Admissão respondia `NAO_SEI` a
+documentos sem texto. Entrou `coleta/executor_texto_de_html.py` — a mesma
+ficha e a mesma ponte forward do executor de PDF, `html.parser` da
+biblioteca-padrão, `NETWORK_REQUIRED: NO`; não havia parser HTML em produção,
+logo não há segundo parser. Reprocessados os 46 **sem rede** (proxy morto,
+custo 0) pela porta canónica (`--so-a-porta --colheita-da-corrida`), com a
+régua intocada:
+
+```
+DERIVED 42 · FAILED 4 (RAW_PERSISTENCE_FAILED determinístico, causa NÃO SEI)
+ADMISSÃO  antes NAO_SEI 46  →  depois SIM 11 · NAO 4 · NAO_SEI 7 · NAO_SE_APLICA 24
+SALA 17 → 28 · reconciliação estrutural 0 · HTML_KIND: 27 conteúdo, 13 navegação, 6 misto
+```
+
+```
+UM DOCUMENTO SEM TEXTO NÃO É JULGADO. É ADIADO.
+A MISSÃO É DAR À RÉGUA MATERIAL JULGÁVEL — DEPOIS A RÉGUA DECIDE.
+```
+
+Os 24 `NAO_SE_APLICA` são T1/T2/T10/T11/T12 sem régua escrita; os 7 `NAO_SEI`
+que continuam `NAO_SEI` depois de o documento ser legível são resultado
+honesto, não falha. E o que ficou aberto, dito com nome: o reprocessamento
+exige os bytes do coletor em `<repo>/<STORAGE_LOCATION>` (o ingresso cai para
+o JSON da observação se o ficheiro faltar, e isso criaria um raw errado); 4
+passagens falham na etapa RAW com a linha escrita e sem mensagem —
+investigado até à consulta de identidade, que devolve a linha; o armazém do
+coletor em volume vive fora da árvore.
+
+**OS CONTADORES, COM GRÃO.** «113 vs 111 vs 90 vs 91 vs 116 vs 114 vs 93» não
+eram discordâncias: eram grãos. 113 pedidos selecionados; 113 executados; 109
+com `collection_run` (+2 corridas de prova do IT-T2-001 = 111 no banco; 4
+morreram no executor antes de a corrida nascer); 90 fontes cuja primeira
+observação foi HEALTHY; 116 linhas `raw_asset` = 93 documentos + 21 envelopes
+JSON de observações falhadas + 2 da prova; 114 observações no ledger das 113
+corridas. Grão diferente documenta-se e fica diferente.
