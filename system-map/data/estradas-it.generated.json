@@ -1036,7 +1036,7 @@
   "RC-9"
  ],
  "ROUTE_CLASSES_REQUIRED_TOTAL": "UNKNOWN",
- "ROUTE_CLASSES_REQUIRED_TOTAL_PORQUE": "23 fonte(s) sem rota conhecida. Ate a M1 provar, nenhuma delas garante caber nas 12 classes modeladas.",
+ "ROUTE_CLASSES_REQUIRED_TOTAL_PORQUE": "22 fonte(s) sem rota conhecida. Ate a M1 provar, nenhuma delas garante caber nas 12 classes modeladas.",
  "ROUTE_MEMBERSHIPS": [
   {
    "SOURCE_ID": "IT-T1-001",
@@ -1327,6 +1327,30 @@
    "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
   },
   {
+   "SOURCE_ID": "IT-T5-002",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (1 obs)",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-002",
+   "ROUTE_CLASS_ID": "RC-1",
+   "ROLE": "PRIMARY",
+   "STATE": "CANDIDATE",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: ",
+   "ACCESS_METHOD": "NÃO SEI",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
+  },
+  {
    "SOURCE_ID": "IT-T5-003",
    "ROUTE_CLASS_ID": "RC-1",
    "ROLE": "PRIMARY",
@@ -1520,27 +1544,27 @@
   },
   {
    "SOURCE_ID": "IT-T10-002",
-   "ROUTE_CLASS_ID": "RC-10",
-   "ROLE": "PRIMARY",
-   "STATE": "CANDIDATE",
-   "PROOF_KIND": "LIVE_METADATA_PROVEN",
-   "PROOF_REF": "probe 2026-09-07: link de planilha",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (1 obs)",
    "ACCESS_METHOD": "NÃO SEI",
-   "ACCESS_METHOD_STATE": "EXPECTED",
+   "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
-   "WHAT_IS_MISSING": "buscar o endereco e preserva-lo pela cadeia canonica: o link foi VISTO, o byte nao"
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
   },
   {
    "SOURCE_ID": "IT-T10-002",
-   "ROUTE_CLASS_ID": "RC-12",
+   "ROUTE_CLASS_ID": "RC-1",
    "ROLE": "PRIMARY",
    "STATE": "CANDIDATE",
-   "PROOF_KIND": "LIVE_METADATA_PROVEN",
-   "PROOF_REF": "probe 2026-09-07: RSS declarado no <head>",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: ",
    "ACCESS_METHOD": "NÃO SEI",
-   "ACCESS_METHOD_STATE": "EXPECTED",
+   "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
-   "WHAT_IS_MISSING": "buscar o endereco e preserva-lo pela cadeia canonica: o link foi VISTO, o byte nao"
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
   },
   {
    "SOURCE_ID": "IT-T10-004",
@@ -1616,21 +1640,21 @@
   }
  ],
  "ROUTE_MEMBERSHIP_COUNTS": {
-  "TOTAL_PROVEN_MEMBERSHIPS": 10,
+  "TOTAL_PROVEN_MEMBERSHIPS": 12,
   "TOTAL_CANDIDATE_MEMBERSHIPS": 38,
   "TOTAL_BLOCKED_MEMBERSHIPS": 0,
-  "TOTAL": 48
+  "TOTAL": 50
  },
  "ROUTE_RESOLUTION_COUNTS": {
-  "ONLY_CANDIDATE_ROUTE": 22,
-  "HAS_PROVEN_ROUTE": 9,
+  "ONLY_CANDIDATE_ROUTE": 21,
+  "HAS_PROVEN_ROUTE": 11,
   "REACHABLE_ROUTE_UNKNOWN": 14,
-  "ROUTE_UNKNOWN": 9
+  "ROUTE_UNKNOWN": 8
  },
  "POR_ROUTE_CLASS": {
   "RC-1": {
    "PROVEN_SOURCE_MEMBERSHIPS": 1,
-   "CANDIDATE_SOURCE_MEMBERSHIPS": 26,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 28,
    "BLOCKED_SOURCE_MEMBERSHIPS": 0,
    "EVIDENCE_LEVELS": [
     "DECLARED",
@@ -1683,7 +1707,7 @@
    "EVIDENCE_LEVELS": []
   },
   "RC-9": {
-   "PROVEN_SOURCE_MEMBERSHIPS": 9,
+   "PROVEN_SOURCE_MEMBERSHIPS": 11,
    "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
    "BLOCKED_SOURCE_MEMBERSHIPS": 0,
    "EVIDENCE_LEVELS": [
@@ -1692,12 +1716,11 @@
   },
   "RC-10": {
    "PROVEN_SOURCE_MEMBERSHIPS": 0,
-   "CANDIDATE_SOURCE_MEMBERSHIPS": 3,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 2,
    "BLOCKED_SOURCE_MEMBERSHIPS": 0,
    "EVIDENCE_LEVELS": [
     "EXPECTED",
-    "HISTORICALLY_OBSERVED",
-    "LIVE_METADATA_PROVEN"
+    "HISTORICALLY_OBSERVED"
    ]
   },
   "RC-11": {
@@ -1710,7 +1733,7 @@
   },
   "RC-12": {
    "PROVEN_SOURCE_MEMBERSHIPS": 0,
-   "CANDIDATE_SOURCE_MEMBERSHIPS": 8,
+   "CANDIDATE_SOURCE_MEMBERSHIPS": 7,
    "BLOCKED_SOURCE_MEMBERSHIPS": 0,
    "EVIDENCE_LEVELS": [
     "LIVE_METADATA_PROVEN"
@@ -1924,12 +1947,12 @@
   },
   "IT-T5-002": {
    "SOURCE_ID": "IT-T5-002",
-   "HAS_PROVEN_ROUTE": false,
-   "HAS_CANDIDATE_ROUTE": false,
-   "ROUTE_RESOLUTION_STATE": "ROUTE_UNKNOWN",
-   "MEMBERSHIPS": 0,
+   "HAS_PROVEN_ROUTE": true,
+   "HAS_CANDIDATE_ROUTE": true,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
    "FRONT_DOOR_ACCESS": false,
-   "CHEAPEST_NEXT_PROOF": "ALT_CANONICAL_URL: o erro foi de transporte (DNS/TLS/tempo), e pode ser o endereco e nao a fonte",
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
    "TOOL_REFUSED": false
   },
   "IT-T5-003": {
@@ -2174,12 +2197,12 @@
   },
   "IT-T10-002": {
    "SOURCE_ID": "IT-T10-002",
-   "HAS_PROVEN_ROUTE": false,
+   "HAS_PROVEN_ROUTE": true,
    "HAS_CANDIDATE_ROUTE": true,
-   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
    "MEMBERSHIPS": 2,
    "FRONT_DOOR_ACCESS": true,
-   "CHEAPEST_NEXT_PROOF": "CANONICAL_CHAIN_CAPTURE: buscar o endereco ja visto e preserva-lo pela cadeia",
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
    "TOOL_REFUSED": false
   },
   "IT-T10-003": {
@@ -2265,9 +2288,9 @@
  },
  "FONTES_IT": {
   "TOTAL": 54,
-  "SOURCES_WITH_PROVEN_ROUTE": 9,
-  "SOURCES_WITH_ONLY_CANDIDATE_ROUTE": 22,
-  "SOURCES_ROUTE_UNKNOWN": 23,
+  "SOURCES_WITH_PROVEN_ROUTE": 11,
+  "SOURCES_WITH_ONLY_CANDIDATE_ROUTE": 21,
+  "SOURCES_ROUTE_UNKNOWN": 22,
   "SOURCES_BLOCKED": 0,
   "PROVEN_PORQUE": "derivado de ROUTE_MEMBERSHIPS, nunca digitado. Descricao («boletim», «PDF») nao prova route class: CANDIDATE NAO E PROVEN.",
   "PROXY_ANTIGO_ACCESS_METHOD_NAO_SEI": 51,
@@ -2314,11 +2337,15 @@
  "GIT_COMO_BANCO_OPERACIONAL": [
   {
    "FICHEIRO": "data/collection-ledger/italy/observations.ndjson",
-   "LINHAS": 209
+   "LINHAS": 300
+  },
+  {
+   "FICHEIRO": "data/collection-ledger/italy/pastas-renomeadas-2026-09-20.json",
+   "LINHAS": 178
   },
   {
    "FICHEIRO": "data/collection-ledger/italy/runs.ndjson",
-   "LINHAS": 54
+   "LINHAS": 145
   }
  ],
  "ORQUESTRADOR": {
@@ -2337,8 +2364,8 @@
   "M1_BLOCKED_SEM_DECISAO_ESCRITA": [],
   "SOURCE_NETWORK_COVERAGE": "INCOMPLETE",
   "COVERAGE_PERGUNTA": "todas as fontes tem caminho percorrido?",
-  "COVERAGE_COM_ROTA_PROVADA": 9,
-  "COVERAGE_SEM_ROTA_PROVADA": 45,
+  "COVERAGE_COM_ROTA_PROVADA": 11,
+  "COVERAGE_SEM_ROTA_PROVADA": 43,
   "COVERAGE_E_DIVIDA_NAO_E_GATE": "M1 fechar NAO apaga isto. Continua divida operacional visivel, com proxima prova escrita por fonte. O que muda e que deixa de travar a missao seguinte.",
   "COLLECTION_FOUNDATION_CLOSED": false,
   "FUNDACAO_PERGUNTA": "toda CLASSE DE ESTRADA necessaria tem arquitetura e donos fechados, ou blocker escrito?",
