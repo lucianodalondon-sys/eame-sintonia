@@ -1,0 +1,96 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-030",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-20T12:37:28.014Z",
+  "METODO": "HTTP GET (urllib, User-Agent de navegador) pelo capturador do SOURCE CURATOR (curadoria/capturador.py)",
+  "EGRESS": "205.147.30.6 · Milano, IT · AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": null,
+   "SOURCE_URL": "https://www.nomisma.it/news/politiche-promozione-agroalimentare-ue-analisi-nomisma/",
+   "HTTP_STATUS": 200,
+   "BYTES": 296804,
+   "SHA256": "125556ccfc989a32b42ece6c0a577d155235a43272d0e6d74d91e40659730ea4",
+   "ASSINATURA_REAL_DOS_BYTES": "HTML",
+   "TITULO": "Politiche di promozione agroalimentare UE | L’analisi Nomisma",
+   "DATA_VISIVEL": "2026-07-28T08:26:16+00:00",
+   "FAMILY": "HTML_SITE",
+   "BYTES_IN_GIT": false,
+   "BYTES_ONDE": "curadoria/evidencia/CAND-0147/amostra na worktree do SOURCE CURATOR (claude/bot-de-fontes-v2-plano @ 376c0d9b), fora do Git por curadoria/.gitignore",
+   "BYTES_CONFERIDOS_EM": "2026-09-20 — sha256 dos bytes no disco do curator == SHA256 acima (18/18)"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "SHA256_VERIFIED_BYTES_NOT_IN_GIT",
+ "SOURCE_NAME": "Nomisma",
+ "OWNER": "Nomisma",
+ "TERRITORY": "T2",
+ "ACCESS_METHOD": "HTTP publico - descoberta por padrao de link na entrada (HTML_LINK_DISCOVERY, MATCH=URL)",
+ "CANARIO": {
+  "CORRIDO_EM": "2026-09-20T15:27:35.859530+00:00",
+  "CONTROLO_POSITIVO": {
+   "URL": "https://www.provincia.tn.it/",
+   "HTTP": 200,
+   "OK": true
+  },
+  "ALVO": "https://www.nomisma.it/eventi/aidea-forum-varignana-nomisma-confindustria-intelligenza-artificiale-imprese/",
+  "HTTP": 200,
+  "BYTES": 272857,
+  "ALVOS_DESCOBERTOS": 37,
+  "DOCUMENT_ID": "IT-T2-030:URL:eventi/aidea-forum-varignana-nomisma-confindustria-intelligenza-artificiale-imprese"
+ },
+ "ROBOTS_GATE": {
+  "EXECUTED": "YES",
+  "RESULT": "ALLOWED",
+  "HOST": "www.nomisma.it",
+  "CORRIDO_EM": "2026-09-20T15:58:15.321292+00:00"
+ },
+ "CARACTERIZACAO": {
+  "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY",
+  "INITIAL_COLLECTION_CADENCE": "WEEKLY",
+  "CADENCE_REASON": "publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+  "EXPECTED_ITEMS_PER_WEEK": 0.44,
+  "EXPECTED_ITEMS_PER_MONTH": 1.88,
+  "CONTENT_VALUE_TYPE": [
+   "CLIMATE",
+   "TECHNICAL_FIELD_SIGNAL",
+   "SCIENCE"
+  ],
+  "TOPICS_OBSERVED": [
+   "CLIMATE",
+   "TECHNICAL_FIELD_SIGNAL",
+   "SCIENCE",
+   "MARKET",
+   "REGULATORY"
+  ],
+  "GEOGRAPHIES_OBSERVED": [
+   "toscana"
+  ],
+  "LANGUAGES_OBSERVED": [
+   "it"
+  ],
+  "HISTORICAL_DEPTH_OBSERVED": "2026-07-28 … 2026-09-14 (3 datas)",
+  "SAMPLE_PERIOD": [
+   "2026-07-28",
+   "2026-09-14"
+  ],
+  "REPRESENTATIVE_SAMPLE_COUNT": 3,
+  "SOURCE_PATTERN_STABLE": "SIM",
+  "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0147/amostra",
+  "CARACTERIZADA_EM": "2026-09-20"
+ },
+ "PROVENIENCIA": {
+  "CANDIDATE_ID": "CAND-0147",
+  "SOURCE_CURATOR_HEAD": "376c0d9b",
+  "CAPTURADO_COMO": "curadoria/evidencia/CAND-0147/amostra",
+  "MANIFESTO_DE_ORIGEM": "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+  "PROMOVIDO_EM": "2026-09-20",
+  "PROMOVIDO_POR": "INTEGRACAO-04A (bancada curator-04a-integration)"
+ },
+ "WHAT_IT_PROVES": "que a entrada responde, que o LINK_PATTERN descobre um item (nao o indice) e que os bytes do item sao HTML — a rota canonica chega la",
+ "WHAT_IT_DOES_NOT_PROVE": "relevancia para a ADAMA · ritmo de publicacao · que o item descoberto seja agronomico (o padrao e de forma, nao de tema)",
+ "RAW_EVIDENCE_PORQUE": "os bytes entrariam no frame de revisao T3 (provas/amostragem_neutra_t3.py conta todo corpo em data/samples/IT-SOURCE-SAMPLES/*/*), que e uma populacao congelada com veredito humano; promover os bytes e passo separado, a decidir pelo dono do T3. O sha256 aqui e o de curadoria/REAL-EXAMPLE-MANIFEST-V1.json (versionado)."
+}

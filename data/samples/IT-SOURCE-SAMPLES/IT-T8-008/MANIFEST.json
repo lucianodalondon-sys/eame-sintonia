@@ -1,0 +1,94 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T8-008",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-20T12:31:48.949Z",
+  "METODO": "HTTP GET (urllib, User-Agent de navegador) pelo capturador do SOURCE CURATOR (curadoria/capturador.py)",
+  "EGRESS": "205.147.30.6 · Milano, IT · AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": null,
+   "SOURCE_URL": "https://www.agroalimentarenews.com/i-cento-di-roma/",
+   "HTTP_STATUS": 200,
+   "BYTES": 243558,
+   "SHA256": "f7713daf9e81561b9fac25ee4f8139d12237f608a7f51496e98b29e81b48a304",
+   "ASSINATURA_REAL_DOS_BYTES": "HTML",
+   "TITULO": "I Cento di Roma",
+   "DATA_VISIVEL": "2015-01-09T13:18:55+00:00",
+   "FAMILY": "HTML_SITE",
+   "BYTES_IN_GIT": false,
+   "BYTES_ONDE": "curadoria/evidencia/CAND-0054/amostra na worktree do SOURCE CURATOR (claude/bot-de-fontes-v2-plano @ 376c0d9b), fora do Git por curadoria/.gitignore",
+   "BYTES_CONFERIDOS_EM": "2026-09-20 — sha256 dos bytes no disco do curator == SHA256 acima (18/18)"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "SHA256_VERIFIED_BYTES_NOT_IN_GIT",
+ "SOURCE_NAME": "Agroalimentare News",
+ "OWNER": "Agroalimentare News",
+ "TERRITORY": "T8",
+ "ACCESS_METHOD": "HTTP publico - descoberta por padrao de link na entrada (HTML_LINK_DISCOVERY, MATCH=URL)",
+ "CANARIO": {
+  "CORRIDO_EM": "2026-09-20T15:27:35.859530+00:00",
+  "CONTROLO_POSITIVO": {
+   "URL": "https://www.provincia.tn.it/",
+   "HTTP": 200,
+   "OK": true
+  },
+  "ALVO": "https://www.agroalimentarenews.com/notizie/agroalimentarenews/gli-imprenditori-del-gusto/",
+  "HTTP": 200,
+  "BYTES": 244982,
+  "ALVOS_DESCOBERTOS": 2,
+  "DOCUMENT_ID": "IT-T8-008:URL:notizie/agroalimentarenews/gli-imprenditori-del-gusto"
+ },
+ "ROBOTS_GATE": {
+  "EXECUTED": "YES",
+  "RESULT": "ALLOWED",
+  "HOST": "www.agroalimentarenews.com",
+  "CORRIDO_EM": "2026-09-20T15:58:15.321292+00:00"
+ },
+ "CARACTERIZACAO": {
+  "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+  "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+  "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+  "EXPECTED_ITEMS_PER_WEEK": 0.0,
+  "EXPECTED_ITEMS_PER_MONTH": 0.02,
+  "CONTENT_VALUE_TYPE": [
+   "SCIENCE",
+   "MARKET",
+   "PORTFOLIO"
+  ],
+  "TOPICS_OBSERVED": [
+   "SCIENCE",
+   "MARKET",
+   "PORTFOLIO",
+   "AGRICULTURAL_NEWS",
+   "REGULATORY"
+  ],
+  "GEOGRAPHIES_OBSERVED": [],
+  "LANGUAGES_OBSERVED": [
+   "it"
+  ],
+  "HISTORICAL_DEPTH_OBSERVED": "2014-12-29 … 2027-02-03 (3 datas)",
+  "SAMPLE_PERIOD": [
+   "2014-12-29",
+   "2027-02-03"
+  ],
+  "REPRESENTATIVE_SAMPLE_COUNT": 3,
+  "SOURCE_PATTERN_STABLE": "SIM",
+  "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0054/amostra",
+  "CARACTERIZADA_EM": "2026-09-20"
+ },
+ "PROVENIENCIA": {
+  "CANDIDATE_ID": "CAND-0054",
+  "SOURCE_CURATOR_HEAD": "376c0d9b",
+  "CAPTURADO_COMO": "curadoria/evidencia/CAND-0054/amostra",
+  "MANIFESTO_DE_ORIGEM": "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+  "PROMOVIDO_EM": "2026-09-20",
+  "PROMOVIDO_POR": "INTEGRACAO-04A (bancada curator-04a-integration)"
+ },
+ "WHAT_IT_PROVES": "que a entrada responde, que o LINK_PATTERN descobre um item (nao o indice) e que os bytes do item sao HTML — a rota canonica chega la",
+ "WHAT_IT_DOES_NOT_PROVE": "relevancia para a ADAMA · ritmo de publicacao · que o item descoberto seja agronomico (o padrao e de forma, nao de tema)",
+ "RAW_EVIDENCE_PORQUE": "os bytes entrariam no frame de revisao T3 (provas/amostragem_neutra_t3.py conta todo corpo em data/samples/IT-SOURCE-SAMPLES/*/*), que e uma populacao congelada com veredito humano; promover os bytes e passo separado, a decidir pelo dono do T3. O sha256 aqui e o de curadoria/REAL-EXAMPLE-MANIFEST-V1.json (versionado)."
+}

@@ -15,7 +15,7 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **213** |
+| fichas completas no atlas | **297** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
 | endereços que o código realmente chama | **265** |
@@ -25,7 +25,7 @@ sabe buscar sozinha.
 >
 > O cabeçalho do atlas diz **190 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **213**. Faltam **-23**.
+> **297**. Faltam **-107**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -41,7 +41,7 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **176** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **260** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
 | 3 | **CONTRATADA** | tem contrato de busca escrito. | **5** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
@@ -165,7 +165,7 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · REGULATORY | 🟢 GREEN | sim |
 | `FR-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 
-### ITALIA · 160 fontes · 1 com contrato de busca
+### ITALIA · 244 fontes · 1 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
@@ -203,12 +203,31 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T10-014` | Consorzio di Tutela del Grana Padano | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
 | `IT-T10-015` | Consorzio Tutela Prosecco DOC | T10 · MARKET / TRADE / INDUSTRY | 🟡 YELLOW | **não** |
 | `IT-T10-016` | Alleanza delle Cooperative Italiane Agroalimentare | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-017` | Myfruit.it — Youtube ufficiale | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-018` | Myfruit.it | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-019` | WineNews — Youtube ufficiale | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-020` | WineNews | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-021` | Plantgest — banca dati varieta | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
+| `IT-T10-022` | Zootecnica International | T10 · MARKET / TRADE / INDUSTRY | 🟢 GREEN | **não** |
 | `IT-T11-001` | IT-T11-001 | T11 · EVENTS | 🟡 YELLOW | **não** |
 | `IT-T11-005` | SIMEI — Salone Internazionale Macchine per Enologia e Imbo | T11 · EVENTS | 🟢 GREEN | **não** |
+| `IT-T11-006` | Macfrut — Youtube ufficiale | T11 · EVENTS | 🟢 GREEN | **não** |
+| `IT-T11-007` | Agrilevante — Youtube ufficiale | T11 · EVENTS | 🟢 GREEN | **não** |
 | `IT-T12-003` | CIA — Agricoltori Italiani | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟡 YELLOW | **não** |
 | `IT-T12-004` | Confagricoltura | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟡 YELLOW | **não** |
 | `IT-T12-005` | AIAB — Associazione Italiana Agricoltura Biologica | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
 | `IT-T12-006` | CIA Toscana | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-007` | ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Ag | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-008` | ASSAM Marche — Agenzia Servizi Settore Agroalimentare dell | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-009` | ASSAM Marche — Agenzia Servizi Settore Agroalimentare dell | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-010` | Regione Molise — Agricoltura — Youtube ufficiale | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-011` | Pianeta PSR — Youtube ufficiale | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-012` | Regione Piemonte — Agricoltura e cibo — Youtube ufficiale | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-013` | Regione Piemonte — Agricoltura e cibo | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-014` | Regione Toscana — Agricoltura — Youtube ufficiale | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-015` | APPA Trento — Agenzia provinciale protezione ambiente — Yo | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-016` | Regione Valle d'Aosta — Agricoltura — Youtube ufficiale | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
+| `IT-T12-017` | ERSA FVG — Agenzia regionale per lo sviluppo rurale | T12 · POLICY / AGRICULTURAL ENVIRONMENT | 🟢 GREEN | **não** |
 | `IT-T2-001` | ARPAE — Bollettino agrometeorologico regionale | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-002` | ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-004` | SIAS Sicilia — agrometeorologia regional | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
@@ -231,6 +250,12 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T2-022` | ARPA Valle d'Aosta | T2 · CLIMATE / WATER / SOIL | 🟡 YELLOW | **não** |
 | `IT-T2-023` | ARPA Basilicata | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T2-024` | ANBI — Associazione Nazionale Consorzi di gestione e tutel | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-025` | ARPA Lazio — Youtube ufficiale | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-026` | ARPA Liguria — Youtube ufficiale | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-027` | ARPA Lombardia — Youtube ufficiale | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-028` | ARPA Marche — Youtube ufficiale | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-029` | ARPA Puglia | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
+| `IT-T2-030` | Nomisma | T2 · CLIMATE / WATER / SOIL | 🟢 GREEN | **não** |
 | `IT-T3-001` | IT-T3-001 | T3 · PEST / DISEASE / WEEDS | 🟡 YELLOW | **não** |
 | `IT-T3-002` | Campania — Bollettini fitosanitari regionali | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
 | `IT-T3-008` | ARIF Puglia / Agrometeo Puglia — rete fitosanitaria | T3 · PEST / DISEASE / WEEDS | 🟢 GREEN | **não** |
@@ -279,6 +304,24 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T5-034` | Accademia dei Georgofili | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T5-035` | Georgofili INFO — notiziario | T5 · SCIENCE | 🟡 YELLOW | **não** |
 | `IT-T5-036` | Georgofili — Accademia dei Georgofili (portale .net) | T5 · SCIENCE | 🟡 YELLOW | **não** |
+| `IT-T5-037` | CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali d | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-038` | UNINA Dipartimento di Agraria — Portici — Youtube ufficial | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-039` | UNINA Dipartimento di Agraria — Portici | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-040` | CRPV — Centro Ricerche Produzioni Vegetali — Youtube uffic | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-041` | CRPV — Centro Ricerche Produzioni Vegetali | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-042` | Fondazione per l'Agricoltura F.lli Navarra — Youtube uffic | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-043` | UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-A | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-044` | Fondazione Minoprio — Youtube ufficiale | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-045` | ISPRA — Istituto Superiore per la Protezione e la Ricerca  | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-046` | Olio Officina | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-047` | UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pia | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-048` | UNICT Di3A — Dipartimento di Agricoltura Alimentazione e A | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-049` | UNICT Di3A — Dipartimento di Agricoltura Alimentazione e A | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-050` | Libera Universita di Bolzano — Facolta di Scienze agrarie  | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-051` | UNIRC Dipartimento di Agraria | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-052` | Bulletin of Insectology | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-053` | Phytopathologia Mediterranea | T5 · SCIENCE | 🟢 GREEN | **não** |
+| `IT-T5-054` | Legacoop Agroalimentare | T5 · SCIENCE | 🟢 GREEN | **não** |
 | `IT-T6-001` | Andrea Lentini — registo cientifico ORCID (Università degl | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
 | `IT-T6-002` | Anita Nencioni — registo cientifico ORCID (Consiglio per l | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
 | `IT-T6-003` | Anna Aldrighetti — registo cientifico ORCID (University of | T6 · RESEARCHERS | 🟡 YELLOW | **não** |
@@ -318,9 +361,43 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T7-002` | MASAF — elenco delle OP e AOP riconosciute | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T7-013` | CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Fore | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T7-014` | Consorzi Agrari d'Italia — CAI | T7 · TECHNICAL NETWORK | 🟡 YELLOW | **não** |
+| `IT-T7-015` | Consorzio Tutela Vini d'Abruzzo — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-016` | Cantina Sociale Cooperativa Riunite e CIV — Youtube uffici | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-017` | Cantina Sociale Cooperativa Riunite e CIV | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-018` | Confagricoltura Lombardia — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-019` | Confagricoltura Lombardia | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-020` | Consorzio di Bonifica Est Ticino Villoresi — Youtube uffic | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-021` | Consorzio di Bonifica Est Ticino Villoresi | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-022` | Consorzio di Tutela del Grana Padano — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-023` | ANBI — Associazione Nazionale Consorzi di gestione e tutel | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-024` | Assosementi — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-025` | CIA — Agricoltori Italiani — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-026` | CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Fore | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-027` | Coldiretti — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-028` | Confcooperative Fedagripesca — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-029` | Confcooperative Fedagripesca | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-030` | FederBio — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-031` | FederBio | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-032` | Consorzio Vino Chianti Classico — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-033` | Consorzio Vino Chianti Classico | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-034` | Consorzio del Vino Brunello di Montalcino — Youtube uffici | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-035` | Georgofili INFO — notiziario — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-036` | Consorzio Tutela Prosecco DOC — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-037` | Consorzio Tutela Vini Valpolicella — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-038` | Consorzio Tutela Vini Valpolicella | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-039` | Consorzio di Bonifica Piave — Youtube ufficiale | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-040` | Consorzio del Parmigiano Reggiano | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-041` | Consorzio di Bonifica della Romagna | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-042` | Consorzio di Tutela dell'Aceto Balsamico di Modena | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
+| `IT-T7-043` | Agrofarma — Federchimica | T7 · TECHNICAL NETWORK | 🟢 GREEN | **não** |
 | `IT-T8-001` | Agronotizie - Notizie per l'agricoltura (canale YouTube uf | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
 | `IT-T8-002` | Image Line - pagina aziendale LinkedIn (IT) | T8 · FARMERS & INFLUENCERS | 🟡 YELLOW | **não** |
 | `IT-T8-003` | AgroNotizie - profilo Instagram ufficiale | T8 · FARMERS & INFLUENCERS | 🟡 YELLOW | **não** |
+| `IT-T8-004` | Terra e Vita — Edagricole — Youtube ufficiale | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
+| `IT-T8-005` | Agriumbria — Youtube ufficiale | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
+| `IT-T8-006` | L'Informatore Agrario — canale YouTube | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
+| `IT-T8-007` | Rivista di Frutticoltura e di Ortofloricoltura | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
+| `IT-T8-008` | Agroalimentare News | T8 · FARMERS & INFLUENCERS | 🟢 GREEN | **não** |
 | `IT-T9-001` | páginas de atualidades de BASF, Bayer, Syngenta, Corteva… | T9 · COMPETITORS | ⚪ NAO SEI | **não** |
 | `IT-T9-002` | Bayer CropScience Italia — comunicação pública | T9 · COMPETITORS | 🟡 YELLOW | **não** |
 | `IT-T9-008` | ADAMA Italia — comunicação pública | T9 · COMPETITORS | 🟡 YELLOW | **não** |
@@ -329,6 +406,13 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `IT-T9-011` | Koppert Italia | T9 · COMPETITORS | 🟡 YELLOW | **não** |
 | `IT-T9-012` | CBC Biogard | T9 · COMPETITORS | 🟢 GREEN | **não** |
 | `IT-T9-013` | Certis Belchim Italia | T9 · COMPETITORS | 🟡 YELLOW | **não** |
+| `IT-T9-014` | Conserve Italia — Youtube ufficiale | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-015` | Conserve Italia | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-016` | Consorzi Agrari d'Italia — CAI — Youtube ufficiale | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-017` | Koppert Italia — Youtube ufficiale | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-018` | FreshPlaza Italia | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-019` | SCAM | T9 · COMPETITORS | 🟢 GREEN | **não** |
+| `IT-T9-020` | Sipcam Italia | T9 · COMPETITORS | 🟢 GREEN | **não** |
 
 ---
 

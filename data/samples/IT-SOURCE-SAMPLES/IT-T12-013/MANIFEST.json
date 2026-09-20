@@ -1,0 +1,97 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T12-013",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-20T12:30:18.208Z",
+  "METODO": "HTTP GET (urllib, User-Agent de navegador) pelo capturador do SOURCE CURATOR (curadoria/capturador.py)",
+  "EGRESS": "205.147.30.6 · Milano, IT · AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": null,
+   "SOURCE_URL": "https://www.regione.piemonte.it/web/pinforma/notizie/agricoltura-tavolo-verde-sulla-siccita",
+   "HTTP_STATUS": 200,
+   "BYTES": 53773,
+   "SHA256": "159efed3b7f21446e8cd208820a46a2f498eae03ab5cbba7d6c63632438165bc",
+   "ASSINATURA_REAL_DOS_BYTES": "HTML",
+   "TITULO": "Agricoltura, tavolo verde sulla siccità",
+   "DATA_VISIVEL": "2026-09-08T11:37:40Z",
+   "FAMILY": "HTML_SITE",
+   "BYTES_IN_GIT": false,
+   "BYTES_ONDE": "curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita na worktree do SOURCE CURATOR (claude/bot-de-fontes-v2-plano @ 376c0d9b), fora do Git por curadoria/.gitignore",
+   "BYTES_CONFERIDOS_EM": "2026-09-20 — sha256 dos bytes no disco do curator == SHA256 acima (18/18)"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "SHA256_VERIFIED_BYTES_NOT_IN_GIT",
+ "SOURCE_NAME": "Regione Piemonte — Agricoltura e cibo",
+ "OWNER": "Regione Piemonte",
+ "TERRITORY": "T12",
+ "ACCESS_METHOD": "HTTP publico - descoberta por padrao de link na entrada (HTML_LINK_DISCOVERY, MATCH=URL)",
+ "CANARIO": {
+  "CORRIDO_EM": "2026-09-20T15:27:35.859530+00:00",
+  "CONTROLO_POSITIVO": {
+   "URL": "https://www.provincia.tn.it/",
+   "HTTP": 200,
+   "OK": true
+  },
+  "ALVO": "https://www.regione.piemonte.it/governo/bollettino/abbonati/2026/corrente/",
+  "HTTP": 200,
+  "BYTES": 19302,
+  "ALVOS_DESCOBERTOS": 34,
+  "DOCUMENT_ID": "IT-T12-013:URL:governo/bollettino/abbonati/2026/corrente"
+ },
+ "ROBOTS_GATE": {
+  "EXECUTED": "YES",
+  "RESULT": "ALLOWED",
+  "HOST": "www.regione.piemonte.it",
+  "CORRIDO_EM": "2026-09-20T15:58:15.321292+00:00"
+ },
+ "CARACTERIZACAO": {
+  "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+  "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+  "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+  "EXPECTED_ITEMS_PER_WEEK": 0.01,
+  "EXPECTED_ITEMS_PER_MONTH": 0.04,
+  "CONTENT_VALUE_TYPE": [
+   "SCIENCE",
+   "AGRICULTURAL_NEWS",
+   "CLIMATE"
+  ],
+  "TOPICS_OBSERVED": [
+   "SCIENCE",
+   "AGRICULTURAL_NEWS",
+   "CLIMATE",
+   "REGULATORY",
+   "TECHNICAL_FIELD_SIGNAL"
+  ],
+  "GEOGRAPHIES_OBSERVED": [
+   "lazio",
+   "piemonte"
+  ],
+  "LANGUAGES_OBSERVED": [
+   "it"
+  ],
+  "HISTORICAL_DEPTH_OBSERVED": "2017-12-18 … 2026-09-17 (4 datas)",
+  "SAMPLE_PERIOD": [
+   "2017-12-18",
+   "2026-09-17"
+  ],
+  "REPRESENTATIVE_SAMPLE_COUNT": 3,
+  "SOURCE_PATTERN_STABLE": "SIM",
+  "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita",
+  "CARACTERIZADA_EM": "2026-09-20"
+ },
+ "PROVENIENCIA": {
+  "CANDIDATE_ID": "CAND-0011",
+  "SOURCE_CURATOR_HEAD": "376c0d9b",
+  "CAPTURADO_COMO": "curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita",
+  "MANIFESTO_DE_ORIGEM": "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+  "PROMOVIDO_EM": "2026-09-20",
+  "PROMOVIDO_POR": "INTEGRACAO-04A (bancada curator-04a-integration)"
+ },
+ "WHAT_IT_PROVES": "que a entrada responde, que o LINK_PATTERN descobre um item (nao o indice) e que os bytes do item sao HTML — a rota canonica chega la",
+ "WHAT_IT_DOES_NOT_PROVE": "relevancia para a ADAMA · ritmo de publicacao · que o item descoberto seja agronomico (o padrao e de forma, nao de tema)",
+ "RAW_EVIDENCE_PORQUE": "os bytes entrariam no frame de revisao T3 (provas/amostragem_neutra_t3.py conta todo corpo em data/samples/IT-SOURCE-SAMPLES/*/*), que e uma populacao congelada com veredito humano; promover os bytes e passo separado, a decidir pelo dono do T3. O sha256 aqui e o de curadoria/REAL-EXAMPLE-MANIFEST-V1.json (versionado)."
+}

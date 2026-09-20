@@ -1,0 +1,93 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T7-042",
+ "CAPTURE": {
+  "CAPTURED_AT_UTC": "2026-09-20T12:36:36.336Z",
+  "METODO": "HTTP GET (urllib, User-Agent de navegador) pelo capturador do SOURCE CURATOR (curadoria/capturador.py)",
+  "EGRESS": "205.147.30.6 · Milano, IT · AS208172 Proton AG",
+  "EGRESS_KIND": "VPN_COMERCIAL — nao e ISP residencial italiano",
+  "AUTH_USED": "NENHUMA. Nao se tentou contornar autenticacao."
+ },
+ "FILES": [
+  {
+   "RAW_FILE": null,
+   "SOURCE_URL": "https://www.consorziobalsamico.it/news-blog/domenica-27-settembre-torna-acetaie-aperte/",
+   "HTTP_STATUS": 200,
+   "BYTES": 100806,
+   "SHA256": "55a3891377d132880ceab89732ca12ee8b5685f35a2b439657b65e99b996b202",
+   "ASSINATURA_REAL_DOS_BYTES": "HTML",
+   "TITULO": "Domenica 27 settembre torna Acetaie Aperte: Modena celebra l'Aceto Balsamico con visite ed esperienze uniche nelle acetaie",
+   "DATA_VISIVEL": "2026-07-29T14:47:48+00:00",
+   "FAMILY": "HTML_SITE",
+   "BYTES_IN_GIT": false,
+   "BYTES_ONDE": "curadoria/evidencia/CAND-0143/amostra na worktree do SOURCE CURATOR (claude/bot-de-fontes-v2-plano @ 376c0d9b), fora do Git por curadoria/.gitignore",
+   "BYTES_CONFERIDOS_EM": "2026-09-20 — sha256 dos bytes no disco do curator == SHA256 acima (18/18)"
+  }
+ ],
+ "RAW_EVIDENCE_STATE": "SHA256_VERIFIED_BYTES_NOT_IN_GIT",
+ "SOURCE_NAME": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+ "OWNER": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+ "TERRITORY": "T7",
+ "ACCESS_METHOD": "HTTP publico - descoberta por padrao de link na entrada (HTML_LINK_DISCOVERY, MATCH=URL)",
+ "CANARIO": {
+  "CORRIDO_EM": "2026-09-20T15:27:35.859530+00:00",
+  "CONTROLO_POSITIVO": {
+   "URL": "https://www.provincia.tn.it/",
+   "HTTP": 200,
+   "OK": true
+  },
+  "ALVO": "https://www.consorziobalsamico.it/news-blog/a-sostegno-della-filiera-del-vino-italiano/",
+  "HTTP": 200,
+  "BYTES": 98200,
+  "ALVOS_DESCOBERTOS": 6,
+  "DOCUMENT_ID": "IT-T7-042:URL:news-blog/a-sostegno-della-filiera-del-vino-italiano"
+ },
+ "ROBOTS_GATE": {
+  "EXECUTED": "YES",
+  "RESULT": "ALLOWED",
+  "HOST": "www.consorziobalsamico.it",
+  "CORRIDO_EM": "2026-09-20T15:58:15.321292+00:00"
+ },
+ "CARACTERIZACAO": {
+  "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY",
+  "INITIAL_COLLECTION_CADENCE": "WEEKLY",
+  "CADENCE_REASON": "publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+  "EXPECTED_ITEMS_PER_WEEK": 0.36,
+  "EXPECTED_ITEMS_PER_MONTH": 1.55,
+  "CONTENT_VALUE_TYPE": [
+   "MARKET",
+   "TECHNICAL_FIELD_SIGNAL",
+   "SCIENCE"
+  ],
+  "TOPICS_OBSERVED": [
+   "MARKET",
+   "TECHNICAL_FIELD_SIGNAL",
+   "SCIENCE",
+   "PORTFOLIO"
+  ],
+  "GEOGRAPHIES_OBSERVED": [],
+  "LANGUAGES_OBSERVED": [
+   "it"
+  ],
+  "HISTORICAL_DEPTH_OBSERVED": "2026-07-14 … 2026-09-10 (3 datas)",
+  "SAMPLE_PERIOD": [
+   "2026-07-14",
+   "2026-09-10"
+  ],
+  "REPRESENTATIVE_SAMPLE_COUNT": 3,
+  "SOURCE_PATTERN_STABLE": "SIM",
+  "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0143/amostra",
+  "CARACTERIZADA_EM": "2026-09-20"
+ },
+ "PROVENIENCIA": {
+  "CANDIDATE_ID": "CAND-0143",
+  "SOURCE_CURATOR_HEAD": "376c0d9b",
+  "CAPTURADO_COMO": "curadoria/evidencia/CAND-0143/amostra",
+  "MANIFESTO_DE_ORIGEM": "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+  "PROMOVIDO_EM": "2026-09-20",
+  "PROMOVIDO_POR": "INTEGRACAO-04A (bancada curator-04a-integration)"
+ },
+ "WHAT_IT_PROVES": "que a entrada responde, que o LINK_PATTERN descobre um item (nao o indice) e que os bytes do item sao HTML — a rota canonica chega la",
+ "WHAT_IT_DOES_NOT_PROVE": "relevancia para a ADAMA · ritmo de publicacao · que o item descoberto seja agronomico (o padrao e de forma, nao de tema)",
+ "RAW_EVIDENCE_PORQUE": "os bytes entrariam no frame de revisao T3 (provas/amostragem_neutra_t3.py conta todo corpo em data/samples/IT-SOURCE-SAMPLES/*/*), que e uma populacao congelada com veredito humano; promover os bytes e passo separado, a decidir pelo dono do T3. O sha256 aqui e o de curadoria/REAL-EXAMPLE-MANIFEST-V1.json (versionado)."
+}

@@ -10,6 +10,7 @@
   "LOTE-HTML-ARTIGO": "HTML_LINK_DISCOVERY MATCH=URL, OUTPUT_TYPE HTML (< exigido), endereco diferente da entrada",
   "LOTE-PDF-FIXO": "STATIC_ENDPOINT, OUTPUT_TYPE PDF"
  },
+ "ADENDA_04A": "INTEGRACAO-04A (2026-09-20): +18 linhas LOTE-HTML-ARTIGO vindas do SOURCE CURATOR (curadoria/italy_contracts_curator.json @ 376c0d9b) — SOMENTE as que ficaram READY_FOR_COLLECTION em curadoria/READY-FOR-COLLECTION-V1.json (canario PASS, robots ALLOWED). As 50 do YouTube (CONTRACT_READY_ROUTE_BLOCKED, ROBOTS_DISALLOWED_ROUTE), as 9 com canario FAIL e as 7 sem contrato NAO entram aqui: ficam como registo em curadoria/. Campos SONDAGEM que o canario nao mediu ficam NAO SEI.",
  "FONTES": [
   {
    "SOURCE_ID": "IT-T1-002",
@@ -2665,6 +2666,1248 @@
     "DOCUMENTO": "http://certisbelchim.it/pdf/Privacy-Statement_IT.pdf",
     "DOCUMENTO_ASSINATURA": "PDF",
     "DOCUMENTO_BYTES": 124190
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-039",
+   "OWNER": "UNINA Dipartimento di Agraria",
+   "NAME": "UNINA Dipartimento di Agraria — Portici",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agraria.unina.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?agraria\\.unina\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-039/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.agraria.unina.it/avvisi/bacheca-laureati/esami-di-stato1",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 61245,
+    "ALVOS_DESCOBERTOS": 7,
+    "DOCUMENT_ID": "IT-T5-039:URL:avvisi/bacheca-laureati/esami-di-stato1",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "SCIENCE"
+    ],
+    "TOPICS_OBSERVED": [
+     "SCIENCE"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "NAO SEI"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "NAO SEI",
+    "SAMPLE_PERIOD": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0020/esami-di-stato1",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0020",
+    "SOURCE_CONTRACT_HASH": "98af78f5036924c3",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.agraria.unina.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "OWNER": "Cantina Sociale Cooperativa Riunite e CIV",
+   "NAME": "Cantina Sociale Cooperativa Riunite e CIV",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.riuniteciv.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-017/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.riuniteciv.com/news-e-eventi/cantine-maschio-e-maratona-dles-dolomites-sedici-anni-sulla-stessa-strada/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 73671,
+    "ALVOS_DESCOBERTOS": 4,
+    "DOCUMENT_ID": "IT-T7-017:URL:news-e-eventi/cantine-maschio-e-maratona-dles-dolomites-sedici-anni-sulla-stessa-strada",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.23,
+    "EXPECTED_ITEMS_PER_MONTH": 0.98,
+    "CONTENT_VALUE_TYPE": [
+     "MARKET",
+     "PORTFOLIO"
+    ],
+    "TOPICS_OBSERVED": [
+     "MARKET",
+     "PORTFOLIO"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lazio"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-05-05 … 2026-08-05 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-05-05",
+     "2026-08-05"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0138/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0138",
+    "SOURCE_CONTRACT_HASH": "2f38525b6251be8a",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.riuniteciv.com",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "OWNER": "Consorzio di Bonifica Est Ticino Villoresi",
+   "NAME": "Consorzio di Bonifica Est Ticino Villoresi",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.etvilloresi.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?etvilloresi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-021/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://etvilloresi.it/attivita/progetti/progetto-la-via-del-marmo/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 149896,
+    "ALVOS_DESCOBERTOS": 17,
+    "DOCUMENT_ID": "IT-T7-021:URL:attivita/progetti/progetto-la-via-del-marmo",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "REGULATORY",
+     "SCIENCE"
+    ],
+    "TOPICS_OBSERVED": [
+     "REGULATORY",
+     "SCIENCE"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lombardia"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "NAO SEI",
+    "SAMPLE_PERIOD": [
+     "2026-09-18",
+     "2026-09-18"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0155/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0155",
+    "SOURCE_CONTRACT_HASH": "2cebb9be67f9ed32",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.etvilloresi.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-009",
+   "OWNER": "ASSAM Marche",
+   "NAME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.assam.marche.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?assam\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-009/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 151142,
+    "ALVOS_DESCOBERTOS": 2,
+    "DOCUMENT_ID": "IT-T12-009:URL:progetti-europei/progetti-europei-conclusi",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.02,
+    "EXPECTED_ITEMS_PER_MONTH": 0.07,
+    "CONTENT_VALUE_TYPE": [
+     "REGULATORY",
+     "MARKET",
+     "CLIMATE"
+    ],
+    "TOPICS_OBSERVED": [
+     "REGULATORY",
+     "MARKET",
+     "CLIMATE",
+     "AGRICULTURAL_NEWS",
+     "TECHNICAL_FIELD_SIGNAL"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lazio",
+     "marche"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2022-05-12 … 2026-01-01 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2022-05-12",
+     "2026-01-01"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0007/avvisi-e-bandi",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0007",
+    "SOURCE_CONTRACT_HASH": "1da23405d1e61c51",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.assam.marche.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-031",
+   "OWNER": "FederBio",
+   "NAME": "FederBio",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://feder.bio/",
+    "LINK_PATTERN": "^https?://(www\\.)?feder\\.bio/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-031/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://feder.bio/progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 147662,
+    "ALVOS_DESCOBERTOS": 6,
+    "DOCUMENT_ID": "IT-T7-031:URL:progetti/being-organic-eu-choose-the-european-organic-leaf-for-better-world",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.05,
+    "EXPECTED_ITEMS_PER_MONTH": 0.21,
+    "CONTENT_VALUE_TYPE": [
+     "REGULATORY",
+     "PORTFOLIO",
+     "SCIENCE"
+    ],
+    "TOPICS_OBSERVED": [
+     "REGULATORY",
+     "PORTFOLIO",
+     "SCIENCE",
+     "MARKET"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "en",
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2024-12-31 … 2026-07-29 (4 datas)",
+    "SAMPLE_PERIOD": [
+     "2024-12-31",
+     "2026-07-29"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 4,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0165/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0165",
+    "SOURCE_CONTRACT_HASH": "9c8c20330b7e877d",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "feder.bio",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "OWNER": "Myfruit.it",
+   "NAME": "Myfruit.it",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.myfruit.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-018/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.myfruit.it/news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 98168,
+    "ALVOS_DESCOBERTOS": 37,
+    "DOCUMENT_ID": "IT-T10-018:URL:news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "MARKET",
+     "PORTFOLIO",
+     "AGRICULTURAL_NEWS"
+    ],
+    "TOPICS_OBSERVED": [
+     "MARKET",
+     "PORTFOLIO",
+     "AGRICULTURAL_NEWS"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lazio"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "en"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-09-11 … 2026-09-17 (2 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-09-11",
+     "2026-09-17"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0059/frutta-il-mercato-non-da-piu-certezze",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0059",
+    "SOURCE_CONTRACT_HASH": "1fa48b7d8a93f07c",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.myfruit.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-013",
+   "OWNER": "Regione Piemonte",
+   "NAME": "Regione Piemonte — Agricoltura e cibo",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.regione.piemonte.it/governo/bollettino/abbonati/2026/corrente/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 19302,
+    "ALVOS_DESCOBERTOS": 34,
+    "DOCUMENT_ID": "IT-T12-013:URL:governo/bollettino/abbonati/2026/corrente",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.01,
+    "EXPECTED_ITEMS_PER_MONTH": 0.04,
+    "CONTENT_VALUE_TYPE": [
+     "SCIENCE",
+     "AGRICULTURAL_NEWS",
+     "CLIMATE"
+    ],
+    "TOPICS_OBSERVED": [
+     "SCIENCE",
+     "AGRICULTURAL_NEWS",
+     "CLIMATE",
+     "REGULATORY",
+     "TECHNICAL_FIELD_SIGNAL"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lazio",
+     "piemonte"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2017-12-18 … 2026-09-17 (4 datas)",
+    "SAMPLE_PERIOD": [
+     "2017-12-18",
+     "2026-09-17"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0011",
+    "SOURCE_CONTRACT_HASH": "4b7ff0fce14fbda4",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.regione.piemonte.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "OWNER": "UNICT Di3A",
+   "NAME": "UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.di3a.unict.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-049/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.di3a.unict.it/it/notizie/avvisi-esami-e-prove-itinere",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 42128,
+    "ALVOS_DESCOBERTOS": 6,
+    "DOCUMENT_ID": "IT-T5-049:URL:it/notizie/avvisi-esami-e-prove-itinere",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "DAILY",
+    "CADENCE_REASON": "publica em dias ou dentro da semana · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.71,
+    "EXPECTED_ITEMS_PER_MONTH": 3.04,
+    "CONTENT_VALUE_TYPE": [
+     "SCIENCE",
+     "REGULATORY"
+    ],
+    "TOPICS_OBSERVED": [
+     "SCIENCE",
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-07-10 … 2026-09-17 (7 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-07-10",
+     "2026-09-17"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0024/women-stem-2026",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0024",
+    "SOURCE_CONTRACT_HASH": "c26b2c56287df546",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.di3a.unict.it",
+    "INITIAL_COLLECTION_CADENCE": "DAILY",
+    "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "OWNER": "Consorzio Vino Chianti Classico",
+   "NAME": "Consorzio Vino Chianti Classico",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.chianticlassico.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-033/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.chianticlassico.com/news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 106349,
+    "ALVOS_DESCOBERTOS": 5,
+    "DOCUMENT_ID": "IT-T7-033:URL:news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.22,
+    "EXPECTED_ITEMS_PER_MONTH": 0.96,
+    "CONTENT_VALUE_TYPE": [
+     "UNKNOWN"
+    ],
+    "TOPICS_OBSERVED": [
+     "UNKNOWN"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-02-20 … 2026-05-25 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-02-20",
+     "2026-05-25"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0174/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0174",
+    "SOURCE_CONTRACT_HASH": "f2c2b3cb791b6419",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.chianticlassico.com",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-020",
+   "OWNER": "WineNews",
+   "NAME": "WineNews",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://winenews.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?winenews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-020/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://winenews.it/it/rassegna-stampa/dicono-di-noi/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 213686,
+    "ALVOS_DESCOBERTOS": 1,
+    "DOCUMENT_ID": "IT-T10-020:URL:it/rassegna-stampa/dicono-di-noi",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "MARKET",
+     "CLIMATE",
+     "AGRICULTURAL_NEWS"
+    ],
+    "TOPICS_OBSERVED": [
+     "MARKET",
+     "CLIMATE",
+     "AGRICULTURAL_NEWS",
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "piemonte",
+     "sicilia",
+     "toscana",
+     "umbria",
+     "veneto"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-08-07 … 2026-09-18 (2 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-08-07",
+     "2026-09-18"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0065/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0065",
+    "SOURCE_CONTRACT_HASH": "6d7e53ac53a52d84",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "winenews.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "OWNER": "Plantgest",
+   "NAME": "Plantgest — banca dati varieta",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://plantgest.imagelinenetwork.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?plantgest\\.imagelinenetwork\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-021/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 47192,
+    "ALVOS_DESCOBERTOS": 4,
+    "DOCUMENT_ID": "IT-T10-021:URL:it/eventi/giornate-tecniche-sul-noce-da-frutto/63565",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "MARKET",
+     "SCIENCE",
+     "AGRICULTURAL_NEWS"
+    ],
+    "TOPICS_OBSERVED": [
+     "MARKET",
+     "SCIENCE",
+     "AGRICULTURAL_NEWS",
+     "CLIMATE",
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lazio",
+     "puglia",
+     "veneto"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "NAO SEI",
+    "SAMPLE_PERIOD": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0004/89677",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0004",
+    "SOURCE_CONTRACT_HASH": "90882cb24279da72",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "plantgest.imagelinenetwork.com",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T8-008",
+   "OWNER": "Agroalimentare News",
+   "NAME": "Agroalimentare News",
+   "TERRITORY": "T8",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agroalimentarenews.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?agroalimentarenews\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T8-008/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.agroalimentarenews.com/notizie/agroalimentarenews/gli-imprenditori-del-gusto/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 244982,
+    "ALVOS_DESCOBERTOS": 2,
+    "DOCUMENT_ID": "IT-T8-008:URL:notizie/agroalimentarenews/gli-imprenditori-del-gusto",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.0,
+    "EXPECTED_ITEMS_PER_MONTH": 0.02,
+    "CONTENT_VALUE_TYPE": [
+     "SCIENCE",
+     "MARKET",
+     "PORTFOLIO"
+    ],
+    "TOPICS_OBSERVED": [
+     "SCIENCE",
+     "MARKET",
+     "PORTFOLIO",
+     "AGRICULTURAL_NEWS",
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2014-12-29 … 2027-02-03 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2014-12-29",
+     "2027-02-03"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0054/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0054",
+    "SOURCE_CONTRACT_HASH": "0d1f1d5b3e99bca1",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.agroalimentarenews.com",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "OWNER": "Zootecnica International",
+   "NAME": "Zootecnica International",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.zootecnicainternational.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-022/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://zootecnicainternational.com/news/newcastle-disease-hungary-broiler-farms/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 176190,
+    "ALVOS_DESCOBERTOS": 2,
+    "DOCUMENT_ID": "IT-T10-022:URL:news/newcastle-disease-hungary-broiler-farms",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.19,
+    "EXPECTED_ITEMS_PER_MONTH": 0.8,
+    "CONTENT_VALUE_TYPE": [
+     "MARKET"
+    ],
+    "TOPICS_OBSERVED": [
+     "MARKET"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "en"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-05-27 … 2026-09-17 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-05-27",
+     "2026-09-17"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0066/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0066",
+    "SOURCE_CONTRACT_HASH": "4ab009162dcbe5df",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.zootecnicainternational.com",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "OWNER": "Consorzio del Parmigiano Reggiano",
+   "NAME": "Consorzio del Parmigiano Reggiano",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.parmigianoreggiano.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?parmigianoreggiano\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-040/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.parmigianoreggiano.it/it/news/console-usa-benning/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 3007571,
+    "ALVOS_DESCOBERTOS": 9,
+    "DOCUMENT_ID": "IT-T7-040:URL:it/news/console-usa-benning",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "PORTFOLIO",
+     "MARKET",
+     "REGULATORY"
+    ],
+    "TOPICS_OBSERVED": [
+     "PORTFOLIO",
+     "MARKET",
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-07-22 … 2026-08-04 (2 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-07-22",
+     "2026-08-04"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0141/palio-casina-2026",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0141",
+    "SOURCE_CONTRACT_HASH": "dec5341f40347274",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.parmigianoreggiano.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "OWNER": "Consorzio di Bonifica della Romagna",
+   "NAME": "Consorzio di Bonifica della Romagna",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bonificaromagna.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-041/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.bonificaromagna.it/news/notte-delle-bonifiche-tricolore-un-segno-di-pace-dalla-romagna",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 47439,
+    "ALVOS_DESCOBERTOS": 3,
+    "DOCUMENT_ID": "IT-T7-041:URL:news/notte-delle-bonifiche-tricolore-un-segno-di-pace-dalla-romagna",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "CADENCE_REASON": "publica em meses · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.09,
+    "EXPECTED_ITEMS_PER_MONTH": 0.4,
+    "CONTENT_VALUE_TYPE": [
+     "REGULATORY"
+    ],
+    "TOPICS_OBSERVED": [
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "lazio"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "NAO SEI"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2025-09-13 … 2026-09-20 (5 datas)",
+    "SAMPLE_PERIOD": [
+     "2025-09-13",
+     "2026-09-20"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0142/documenti-elezioni-2025",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0142",
+    "SOURCE_CONTRACT_HASH": "c564c2ead02ed884",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.bonificaromagna.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY",
+    "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "OWNER": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+   "NAME": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.consorziobalsamico.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-042/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.consorziobalsamico.it/news-blog/a-sostegno-della-filiera-del-vino-italiano/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 98200,
+    "ALVOS_DESCOBERTOS": 6,
+    "DOCUMENT_ID": "IT-T7-042:URL:news-blog/a-sostegno-della-filiera-del-vino-italiano",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "WEEKLY",
+    "CADENCE_REASON": "publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.36,
+    "EXPECTED_ITEMS_PER_MONTH": 1.55,
+    "CONTENT_VALUE_TYPE": [
+     "MARKET",
+     "TECHNICAL_FIELD_SIGNAL",
+     "SCIENCE"
+    ],
+    "TOPICS_OBSERVED": [
+     "MARKET",
+     "TECHNICAL_FIELD_SIGNAL",
+     "SCIENCE",
+     "PORTFOLIO"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-07-14 … 2026-09-10 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-07-14",
+     "2026-09-10"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0143/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0143",
+    "SOURCE_CONTRACT_HASH": "6034cc60ef7d77fd",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.consorziobalsamico.it",
+    "INITIAL_COLLECTION_CADENCE": "WEEKLY",
+    "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-030",
+   "OWNER": "Nomisma",
+   "NAME": "Nomisma",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.nomisma.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?nomisma\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-030/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://www.nomisma.it/eventi/aidea-forum-varignana-nomisma-confindustria-intelligenza-artificiale-imprese/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 272857,
+    "ALVOS_DESCOBERTOS": 37,
+    "DOCUMENT_ID": "IT-T2-030:URL:eventi/aidea-forum-varignana-nomisma-confindustria-intelligenza-artificiale-imprese",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY",
+    "INITIAL_COLLECTION_CADENCE": "WEEKLY",
+    "CADENCE_REASON": "publica em semanas · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": 0.44,
+    "EXPECTED_ITEMS_PER_MONTH": 1.88,
+    "CONTENT_VALUE_TYPE": [
+     "CLIMATE",
+     "TECHNICAL_FIELD_SIGNAL",
+     "SCIENCE"
+    ],
+    "TOPICS_OBSERVED": [
+     "CLIMATE",
+     "TECHNICAL_FIELD_SIGNAL",
+     "SCIENCE",
+     "MARKET",
+     "REGULATORY"
+    ],
+    "GEOGRAPHIES_OBSERVED": [
+     "toscana"
+    ],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "2026-07-28 … 2026-09-14 (3 datas)",
+    "SAMPLE_PERIOD": [
+     "2026-07-28",
+     "2026-09-14"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 3,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0147/amostra",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0147",
+    "SOURCE_CONTRACT_HASH": "2848c30b3ece121c",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "www.nomisma.it",
+    "INITIAL_COLLECTION_CADENCE": "WEEKLY",
+    "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "OWNER": "Agrofarma",
+   "NAME": "Agrofarma — Federchimica",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://agrofarma.federchimica.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-043/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-20",
+    "REGRA": "canario do SOURCE CURATOR (curadoria/canario.py): abrir INDEX_URL, resolver todos os href, casar LINK_PATTERN, abrir o primeiro alvo e conferir a assinatura dos bytes",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": "NAO SEI",
+    "DOCUMENTO": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 62917,
+    "ALVOS_DESCOBERTOS": 3,
+    "DOCUMENT_ID": "IT-T7-043:URL:news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana",
+    "ORIGEM": "curadoria/CANARY-LOTE-HTML-ARTIGO.json @ 376c0d9b"
+   },
+   "ONBOARDED_BY": "SOURCE-CURATOR-04/04A (caracterizacao, canario e gate de rota de 2026-09-20) · integrado na INTEGRACAO-04A de 2026-09-20",
+   "CARACTERIZACAO": {
+    "ACTIVITY_STATE": "UNKNOWN",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "CADENCE_REASON": "ritmo nao medido: visita para medir, nao para colher · sem entrada de VALOR: a Intelligence ainda nao existe e nao opina aqui",
+    "EXPECTED_ITEMS_PER_WEEK": "NAO SEI",
+    "EXPECTED_ITEMS_PER_MONTH": "NAO SEI",
+    "CONTENT_VALUE_TYPE": [
+     "REGULATORY",
+     "PORTFOLIO",
+     "MARKET"
+    ],
+    "TOPICS_OBSERVED": [
+     "REGULATORY",
+     "PORTFOLIO",
+     "MARKET"
+    ],
+    "GEOGRAPHIES_OBSERVED": [],
+    "LANGUAGES_OBSERVED": [
+     "it"
+    ],
+    "HISTORICAL_DEPTH_OBSERVED": "NAO SEI",
+    "SAMPLE_PERIOD": [
+     "NAO SEI",
+     "NAO SEI"
+    ],
+    "REPRESENTATIVE_SAMPLE_COUNT": 2,
+    "SOURCE_PATTERN_STABLE": "SIM",
+    "CANONICAL_EXAMPLE": "curadoria/evidencia/CAND-0161/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "CARACTERIZADA_EM": "2026-09-20"
+   },
+   "CURADORIA": {
+    "CANDIDATE_ID": "CAND-0161",
+    "SOURCE_CONTRACT_HASH": "9b4bcb530d6f906f",
+    "SOURCE_CURATOR_HEAD": "376c0d9b",
+    "ROBOTS_GATE_RESULT": "ALLOWED",
+    "ROBOTS_HOST": "agrofarma.federchimica.it",
+    "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
+    "ACTIVITY_STATE": "UNKNOWN"
    }
   }
  ]

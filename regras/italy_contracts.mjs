@@ -699,7 +699,11 @@ export const CONTRACTS = {
     };
 
 // ── OS CONTRATOS ONBOARDED, EM LOTE (ADDENDUM-01 · FAST TRACK) ─────────────
-// 107 fontes que a missao SOURCE-COLLECTION-READINESS-V1 sondou em 2026-09-18
+// 105 fontes que a missao SOURCE-COLLECTION-READINESS-V1 sondou em 2026-09-18,
+// mais 18 que o SOURCE CURATOR (missao 04/04A) caracterizou, canarizou e passou
+// pelo gate de robots em 2026-09-20 — integradas na INTEGRACAO-04A, SOMENTE as
+// READY_FOR_COLLECTION (HTML). As 50 do YouTube NAO estao nesta tabela: a rota
+// feeds/videos.xml esta em Disallow, e nao ha executor para ela. Fontes
 // (HTTP 200, documento observado, assinatura conferida) e deixou numa tabela
 // declarativa com vocabulario proprio (SHAPE). Aqui entram TRADUZIDAS para o
 // vocabulario do motor de rota — STRATEGY / MATCH / INDEX_URL / LINK_PATTERN —
@@ -774,9 +778,16 @@ export function contratoGenerico(linha) {
     AUTOMATION_FEASIBILITY: "MEDIUM — rota generica; identidade semantica por medir",
     NEGATIVE_CONTROL: { descricao: "entrada que nao lista nenhum endereco que case com LINK_PATTERN", esperado: "EMPTY_LIST -> FAILED, nunca a pagina de entrada como documento" },
     BATCH_ID: linha.BATCH_ID,
-    ONBOARDED_BY: "SOURCE-COLLECTION-READINESS-V1 (sondagem 2026-09-18) · traduzido no CUTOVER-RECUPERADO 2026-09-20",
+    // A linha pode dizer de onde veio (INTEGRACAO-04A: as 18 do SOURCE CURATOR
+    // chegaram por outra sondagem, noutra data). Sem isso, o contrato expandido
+    // mentiria a proveniencia. A omissao continua a ser o fast track de 2026-09-18.
+    ONBOARDED_BY: linha.ONBOARDED_BY || "SOURCE-COLLECTION-READINESS-V1 (sondagem 2026-09-18) · traduzido no CUTOVER-RECUPERADO 2026-09-20",
     EVIDENCE: linha.EVIDENCE || null,
     SONDAGEM: linha.SONDAGEM || null,
+    // Caracterizacao medida pelo SOURCE CURATOR (cadencia, ritmo, NAO SEI incluidos).
+    // Passa inteira: o contrato nao a resume nem a corrige.
+    CARACTERIZACAO: linha.CARACTERIZACAO || null,
+    CURADORIA: linha.CURADORIA || null,
   };
 }
 
