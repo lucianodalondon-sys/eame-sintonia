@@ -277,7 +277,7 @@ corre depois desse commit; o resultado está na mensagem de entrega.
 | # | O quê | OWNER | MINIMUM_FIX |
 |---|---|---|---|
 | 1 | Promover os bytes das 18 (ver 3.3) | dono do T3 | copiar + sha + `pacote_de_revisao_t3.py --escrever` + veredito |
-| 2 | Cabeçalho do Atlas diz `<!--M:SOURCE_ID_COUNT-->190<!--/M-->` (linhas 9 e 7277); o ficheiro tinha 185 fichas e agora tem 269. Pré-existente, agora mais desfasado | dono do Atlas | remedir e actualizar o marcador (o mapa já regista `contagem_declarada`) |
+| 2 | Cabeçalho do Atlas diz `<!--M:SOURCE_ID_COUNT-->277<!--/M-->` (linhas 9 e 7277); o ficheiro tinha 185 fichas e agora tem 269. Pré-existente, agora mais desfasado | dono do Atlas | remedir e actualizar o marcador (o mapa já regista `contagem_declarada`) |
 | 3 | `C-IT-CONTRATOS` em `architecture.declared.json` diz «13 contratos executáveis»; são 136 (105 + 18 onboarded + 13 à mão). Pré-existente | dono do mapa | reler a peça, corrigir o `what`, carimbar numa releitura geral |
 | 4 | 5 dos 18 exemplos canónicos não são agronómicos (`esami-di-stato1`, `women-stem-2026`, `palio-casina-2026`, `documenti-elezioni-2025`, `dicono-di-noi`): o `LINK_PATTERN` é de forma, não de tema. Não é gate desta integração («linha na tabela = a casa sabe chegar; NÃO é aprovação de relevância») | Livro de Relevância / SOURCE CURATOR | rever o `LINK_PATTERN` das 5 ou deixar a relevância decidir na Admissão |
 | 5 | A suite reescreve `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` a cada corrida (resíduo de teste; restaurado 3× com `git checkout`) | dono do censo da Sala | o teste escreve em `%TEMP%`, não no repo |

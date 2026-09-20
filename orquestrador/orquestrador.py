@@ -60,6 +60,7 @@ import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED
 from guarda import preservar_documento as pdoc  # noqa: E402 — o dono do STRUCTURED documental
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
 import persistencia  # noqa: E402 — quem liga a memoria ao banco descartavel
+import fontes_prontas  # noqa: E402 — a porta «que fontes estao READY?» (SOURCE CURATOR -> COLLECTION)
 
 NAO_SEI_RUN = "NAO SEI"
 import sala_de_espera as espera        # noqa: E402
@@ -840,6 +841,32 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             "_plano": plano,
         }
 
+    # ── A COLLECTION SO CONSOME READY — SOURCE-CURATOR-INTEGRATION ─────────
+    # Quem prepara fonte e o SOURCE CURATOR; quem coleta e esta casa. Um
+    # pedido que nomeia uma fonte que o Curator CONHECE e nao tem em
+    # READY_FOR_COLLECTION nao vai a rede: recusa com o estado pelo nome.
+    #
+    #     NAO SEI != NAO READY. Fonte que o Curator nao conhece (fixture,
+    #     pais sem ciclo de vida) passa como passava — o recibo diz-o.
+    #
+    # `--seco` e `--so-a-porta` nao vao a fonte, logo nao pedem licenca a ela.
+    fonte_pedida = p.filtros.get("fonte")
+    if fonte_pedida and not (seco or so_a_porta):
+        try:
+            fontes_prontas.exigir_ready(fonte_pedida)
+        except fontes_prontas.FonteNaoReady as ex:
+            return {
+                "RUN_ID": novo_run_id(p),
+                "STATUS": "FONTE_NAO_READY",
+                "PEDIDO": p.para_json(),
+                "MISSION": p.assunto,
+                "COUNTRY": p.filtros.get("pais", "NAO SEI"),
+                "EXECUTOR_ESCOLHIDO": e.get("id", "NAO SEI"),
+                "FONTE": fonte_pedida,
+                "ERROR": str(ex),
+                "_plano": plano,
+            }
+
     # ── A CORRIDA NASCE AQUI, ANTES DE QUALQUER COISA CORRER ────────────────
     # ⚠️ O `RUN_ID` NASCIA OITO LINHAS DEPOIS DE O EXECUTOR JA TER CORRIDO.
     # O executor ia a fonte, trazia bytes, e so entao esta casa decidia como se
@@ -1151,6 +1178,11 @@ def main() -> int:
         print("(so o plano foi pedido; nada correu)")
         return 0
     if recibo["STATUS"] == "SEM_CAMINHO":
+        print(f"NAO CORREU · {recibo['ERROR']}")
+        return 1
+    if recibo["STATUS"] == "FONTE_NAO_READY":
+        # O SOURCE CURATOR conhece a fonte e nao a tem em READY. Nada foi a
+        # rede, nada e escrito no manifesto: nao houve corrida para registar.
         print(f"NAO CORREU · {recibo['ERROR']}")
         return 1
 

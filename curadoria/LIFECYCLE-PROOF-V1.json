@@ -1,0 +1,185 @@
+{
+ "DATASET": "LIFECYCLE-PROOF-V1",
+ "LEI": "sete provas isoladas da divisao SOURCE CURATOR prepara / COLLECTION coleta. Rede substituida na primitiva mais funda (worker.PORTAO / worker.SONDA); livro, fila, worker e interface correm de verdade sobre ficheiros proprios. Nao se inventa PASS: cada prova tem a sua contraprova.",
+ "GERADO_EM": "2026-09-20T23:15:09.319026+00:00",
+ "CASOS": [
+  {
+   "CASO": "A",
+   "TITULO": "o Curator promove so depois de rota + canario",
+   "PASS": true,
+   "REDE_REAL": false,
+   "ESTADO_A": "READY_FOR_COLLECTION",
+   "HISTORIA_A": [
+    "CANARY_PENDING",
+    "READY_FOR_COLLECTION"
+   ],
+   "EVIDENCE_REF_A": "EV-IT-PROVA-A-CANARY-0002",
+   "ETAPA_DA_PROVA": "CANARY",
+   "CONTRAPROVA_ROTA_BARRADA": {
+    "SOURCE_ID": "IT-PROVA-B",
+    "ESTADO": "CONTRACT_READY_ROUTE_BLOCKED",
+    "CANARIO_CHAMADO": false
+   },
+   "CONTRAPROVA_CANARIO_FALHOU": {
+    "SOURCE_ID": "IT-PROVA-D",
+    "ESTADO": "CONTRACTED_CANARY_FAILED"
+   },
+   "TAREFAS_EXECUTADAS": 2
+  },
+  {
+   "CASO": "B",
+   "TITULO": "a Collection consome READY sem onboarding pesado",
+   "PASS": true,
+   "REDE_REAL": false,
+   "READY_IDS": [
+    "IT-PROVA-A"
+   ],
+   "CHAMADAS_DE_REDE_DURANTE": {
+    "antes": [
+     3,
+     2
+    ],
+    "depois": [
+     3,
+     2
+    ]
+   },
+   "FICHA_ENTREGUE": {
+    "SOURCE_ID": "IT-PROVA-A",
+    "CAPABILITY": "HTML_LINK_DISCOVERY",
+    "ROUTE": "https://prova.invalid/a/",
+    "EVIDENCE_REF": "EV-IT-PROVA-A-CANARY-0002",
+    "STATUS": "READY_FOR_COLLECTION"
+   }
+  },
+  {
+   "CASO": "C",
+   "TITULO": "a Collection NAO consegue promover para READY (fail-closed)",
+   "PASS": true,
+   "REDE_REAL": false,
+   "RECUSAS_PELO_NOME": {
+    "CANARY_PENDING->READY": "TRANSICAO RECUSADA [IT-PROVA-C]: a Collection so pode marcar READY_FOR_COLLECTION -> DEGRADED; pediu CANARY_PENDING -> READY_FOR_COLLECTION",
+    "DEGRADED->READY": "TRANSICAO RECUSADA [IT-PROVA-C]: a Collection so pode marcar READY_FOR_COLLECTION -> DEGRADED; pediu DEGRADED -> READY_FOR_COLLECTION",
+    "REPAIRING->READY": "TRANSICAO RECUSADA [IT-PROVA-C]: a Collection so pode marcar READY_FOR_COLLECTION -> DEGRADED; pediu REPAIRING -> READY_FOR_COLLECTION"
+   },
+   "CONTROLO_POSITIVO_CURATOR_PROMOVE": true
+  },
+  {
+   "CASO": "D",
+   "TITULO": "fonte READY degradada gera SOURCE_REPAIR_NEEDED",
+   "PASS": true,
+   "REDE_REAL": false,
+   "RESPOSTA": {
+    "ACEITE": true,
+    "NOVO_ESTADO": "DEGRADED",
+    "TASK_ID": "T00006",
+    "FAILURE_TYPE": "HTTP_404",
+    "RUN_ID": "IT-T2-RUN-PROVA-D"
+   },
+   "READY_ANTES": [
+    "IT-PROVA-A",
+    "IT-PROVA-C"
+   ],
+   "READY_DEPOIS": [
+    "IT-PROVA-C"
+   ],
+   "TAREFA_NA_FILA_DO_CURATOR": {
+    "TASK_ID": "T00006",
+    "TASK_TYPE": "REPAIR",
+    "STATUS": "PENDING",
+    "PRIORITY": 80
+   },
+   "CONTRAPROVA_NAO_READY": {
+    "SOURCE_ID": "IT-PROVA-B",
+    "ACEITE": false,
+    "PORQUE": "so se reporta quebra de fonte que estava READY; esta esta em CONTRACT_READY_ROUTE_BLOCKED",
+    "REPAIR_CRIADO": false
+   }
+  },
+  {
+   "CASO": "E",
+   "TITULO": "a Collection segue para a proxima fonte sem iniciar reparo",
+   "PASS": true,
+   "REDE_REAL": false,
+   "LISTA_READY": [
+    "IT-PROVA-A",
+    "IT-PROVA-B",
+    "IT-PROVA-C",
+    "IT-PROVA-D"
+   ],
+   "VISITADAS": [
+    "IT-PROVA-A",
+    "IT-PROVA-B",
+    "IT-PROVA-C",
+    "IT-PROVA-D"
+   ],
+   "DEGRADADA": "IT-PROVA-B",
+   "ESTADO_DA_DEGRADADA": "DEGRADED",
+   "CANARIOS_CHAMADOS_PELA_COLLECTION": 0,
+   "REPAIR_FICOU_PENDENTE_PARA_O_CURATOR": [
+    "T00007"
+   ]
+  },
+  {
+   "CASO": "F",
+   "TITULO": "o Curator recebe o reparo, faz NOVO canario e so entao devolve READY",
+   "PASS": true,
+   "REDE_REAL": false,
+   "DECRETO_RECUSADO": "TRANSICAO RECUSADA [IT-PROVA-B]: READY exige canario: so se promove a partir de ['CANARY_PENDING', 'REPAIRING'], e veio de DEGRADED",
+   "CONTRAPROVA_CANARIO_DO_REPARO_FALHOU": {
+    "ESTADO": "CONTRACTED_CANARY_FAILED"
+   },
+   "HISTORIA_FINAL": [
+    "CONTRACTED_CANARY_FAILED",
+    "DEGRADED",
+    "REPAIRING",
+    "READY_FOR_COLLECTION"
+   ],
+   "EVIDENCE_REF_VELHO": "EV-IT-PROVA-B",
+   "EVIDENCE_REF_NOVO": "EV-IT-PROVA-B-REPAIR-0008",
+   "A_INTERFACE_ENTREGA_A_PROVA_NOVA": true
+  },
+  {
+   "CASO": "G",
+   "TITULO": "429 em A -> RETRY_AFTER; B, C, D trabalhadas durante a espera; A volta sozinha",
+   "PASS": true,
+   "REDE_REAL": false,
+   "ORDEM_DE_EXECUCAO": [
+    "IT-PROVA-A",
+    "IT-PROVA-B",
+    "IT-PROVA-C",
+    "IT-PROVA-D"
+   ],
+   "ESTADO_DA_TAREFA_A": "WAITING_RETRY",
+   "NEXT_ATTEMPT_AT_A": "2026-09-21T00:15:09.022555+00:00",
+   "TRABALHADAS_DURANTE_A_ESPERA_DE_A": [
+    "IT-PROVA-B",
+    "IT-PROVA-C",
+    "IT-PROVA-D"
+   ],
+   "SEGUNDOS_DE_PAREDE": 0.218,
+   "ELEGIVEIS_AOS_59_MIN": [],
+   "ELEGIVEIS_AOS_61_MIN": [
+    "IT-PROVA-A"
+   ],
+   "SEGUNDA_VOLTA": [
+    "IT-PROVA-A"
+   ],
+   "ESTADOS_FINAIS": {
+    "IT-PROVA-A": "READY_FOR_COLLECTION",
+    "IT-PROVA-B": "READY_FOR_COLLECTION",
+    "IT-PROVA-C": "READY_FOR_COLLECTION",
+    "IT-PROVA-D": "READY_FOR_COLLECTION"
+   },
+   "ESTADO_DE_A_DURANTE_A_ESPERA": [
+    "CANARY_PENDING",
+    "RETRY_AFTER",
+    "CANARY_PENDING",
+    "READY_FOR_COLLECTION"
+   ]
+  }
+ ],
+ "PASS_TOTAL": 7,
+ "CASOS_TOTAL": 7,
+ "LIVRO_DA_CASA_TOCADO": false
+}

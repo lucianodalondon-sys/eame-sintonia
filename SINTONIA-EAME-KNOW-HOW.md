@@ -18989,3 +18989,130 @@ observações (834,9 MB, 872/872 sha conferidos no armazém), 668 derivados, Adm
 · NAO 15 · NAO_SEI 518 · NAO_SE_APLICA 322; Sala 29 → 46; `PAID_USD = 0`; red team 0 em
 23 medidas. Ver `RELATORIO-BIG-COLLECTION-RELEASE.md`.
 
+
+---
+
+# §164 · O MOTOR ENTRA, A FOTOGRAFIA FICA — E READY POR REGRA NÃO É READY POR PROVA
+
+**O QUE.** SOURCE-CURATOR-INTEGRATION (20/09/2026, bancada
+`source-curator-integration-v1`, base `3c0ad4d7` = fim da BIG-COLLECTION-RELEASE):
+o motor do SOURCE CURATOR (lane `claude/source-curator-lifecycle-v1 @ d21e8e43`
+— livro de estado append-only, fila durável, worker de uma etapa por volta,
+interface READY/REPAIR) entra na linha operacional; o estado de cada fonte é
+**recalculado** a partir do que a casa executa hoje; e a divisão passa a ser
+executável: **SOURCE CURATOR prepara · COLLECTION coleta.** Nada foi coletado,
+`PAID_USD = 0`, zero pedidos de rede. Números em
+`RELATORIO-SOURCE-CURATOR-INTEGRATION.md`.
+
+**1 · Integrar o motor, nunca a fotografia — e a fotografia já estava cá.** A
+lane do curator trazia 27 `.py` e 7 JSON de estado. Dos JSON, um
+(`READY-FOR-COLLECTION-V1.json`) classifica as 50 fontes YouTube como
+`CONTRACT_READY_ROUTE_BLOCKED` pela rota `/feeds/videos.xml` — certo no dia
+dele, obsoleto no dia seguinte, porque a §163 provou `/channel/<ID>/videos`
+50/50. E esse ficheiro **já estava nesta linha** desde a 04A, byte a byte
+igual, como registo. O `semear_lifecycle.py` original lia-o como estado. Se
+tivesse corrido aqui, as 50 voltavam a bloqueadas e a Big Collection ficava
+desdita por um ficheiro velho. O resemeador foi reescrito para ler UMA
+entrada, `ESTADO-ACTUAL-DAS-FONTES-V1.json`, materializada do registo de
+contratos (`italy_contracts.mjs` conferido pelo motor de rota), da ficha no
+Atlas, do executor do território, do canário mais recente e do que a
+BCR-2026-09-20 observou. Um teste garante que `semear_uma()` não lê o campo
+`STATE` da fotografia; outro garante que nenhuma fonte do registo cita a
+fotografia como prova.
+
+    FOTOGRAFIA ANTIGA CERTA NO SEU DIA != VERDADE DE HOJE.
+    O ESTADO VIGENTE RECALCULA-SE; O REGISTO ANTIGO FICA COMO HISTÓRIA, E DIZ-SE QUE É.
+
+**2 · READY por regra não é READY por prova: 181 → 160.** A casa contava 181
+READY pela regra «contrato executável ∧ ficha no Atlas ∧ território com
+executor». O livro do lifecycle exige mais: uma promoção a READY leva
+`EVIDENCE_REF` de um canário ou de uma corrida real. Aplicado ao mesmo
+registo: 160 READY (105 `HTML_LINK_DISCOVERY`, 50 YouTube, 4 `STATIC_ENDPOINT`,
+1 `TEMPLATE_ENUMERATION`); **18 DEGRADED** — as fontes cuja corrida na BCR foi
+`ROUTE_FAILURE`, registadas pela Collection (`OWNER = COLLECTION`,
+`EVIDENCE_REF = RUN_ID`) com `REPAIR` na fila do Curator; **1
+CAPABILITY_BLOCK** (IT-T5-032, o `?` no nome da pasta — B1 — é defeito da
+casa, e o Curator fez a triagem depois do DEGRADED); **2 CANARY_PENDING**
+(IT-T5-002 e IT-T7-014: READY pela regra, mas sem nenhum canário PASS nesta
+árvore e com falha na BCR — sem prova não há READY, e ficam com `CANARY` na
+fila); 4 `CONTRACT_PENDING` (contratos à mão sem bloco executável, IT-T8-001
+entre eles, em linha própria); 1 `SEMANTIC_REVIEW` (IT-T3-005, sem ficha no
+Atlas — decisão humana). As 9 candidatas do curator cujo canário falhou na
+missão 04 entram como `CONTRACTED_CANARY_FAILED` com a fotografia como prova,
+**ditas como história**: não têm contrato no registo da Collection. Total no
+livro: 195. As 50 YouTube: **50 READY, 0 paradas**.
+
+    181 ERA «A CASA SABE CHEGAR». 160 É «A CASA PROVOU QUE CHEGA».
+    A DIFERENÇA NÃO É PERDA: É O QUE A BIG COLLECTION VIU, ESCRITO ONDE SE LÊ.
+
+**3 · Um 429 numa fonte READY é espera, não avaria.** Nove YouTube saíram da
+BCR como `POLICY_BLOCK` por 429. No livro continuam READY: a rota resolve, o
+portão permite, 41 irmãs colheram — o que a plataforma pediu foi tempo. A
+prova do 429 fica em `LIFECYCLE-EVIDENCE-V1.json`, para quem decidir a
+repetição (B10). Rebaixá-las seria transformar «devagar» em «avariada» — o
+mesmo erro, ao contrário, de promover por omissão.
+
+**4 · O motor vinha com um segundo leitor de robots — e a casa tem guarda para
+isso.** `gate_de_rota.py` usa `RobotFileParser`;
+`test_so_um_ficheiro_le_o_robots` só admite `coleta/scrap_http.py`. O worker
+passou a perguntar ao leitor da casa (`PORTAO = scrap_http.permitido`) e o
+canário passou a ser o do motor de rota pela porta de `canario_do_motor.mjs`
+(`alvosDoContrato` + registry de adapters, o mesmo que a Collection usa).
+`gate_de_rota.py`, `canario.py` e os outros 20 `.py` de curadoria manual
+ficaram na lane de origem. Duas primitivas de rede, injetáveis, e mais nada
+simulado: as provas substituem-nas e deixam livro, fila, worker e interface a
+correr de verdade.
+
+    FAKE ACIMA DO PORTÃO MEDE O FAKE. SUBSTITUI-SE A PRIMITIVA MAIS FUNDA.
+
+**5 · As provas apanharam dois defeitos do motor antes de ele entrar.** (a) O
+worker promovia `RETRY_AFTER → READY` directo; o próprio guarda do livro
+recusa («só se promove a partir de CANARY_PENDING ou REPAIRING»). Corrigido:
+a espera acaba, volta a `CANARY_PENDING`, e só então READY — a história fica
+com a espera escrita. (b) O relógio injetado chegava à fila mas não ao
+`adiar()`: `NEXT_ATTEMPT_AT` saía do relógio de parede e a prova de backoff
+não fechava por milissegundos. Corrigido: `executar_uma(..., agora=)`. Os dois
+só apareceram porque a prova G exige que B, C, D fiquem DONE **antes** do
+`NEXT_ATTEMPT_AT` de A e que A volte sozinha aos 61 minutos — com relógio
+injetado, em 0,3 s de parede.
+
+**6 · A porta da Collection é fail-closed só para o que o Curator conhece.**
+`orquestrador/fontes_prontas.py` tem três verbos (listar READY, exigir READY
+pelo nome, reportar avaria) e o orquestrador chama `exigir_ready` antes de a
+corrida nascer, quando o pedido nomeia uma fonte e vai à rede (`--seco` e
+`--so-a-porta` não pedem licença: não vão à fonte). Fonte conhecida e não
+READY → recibo `FONTE_NAO_READY` com o estado pelo nome, executor não chamado,
+manifesto não escrito. Fonte que o Curator **não** conhece passa como
+passava, e o recibo diz `CONHECIDA = False`.
+
+    NÃO SEI NÃO É READY — E TAMBÉM NÃO É BLOQUEIO. TRANSFORMAR «NÃO SEI»
+    EM RECUSA POR OMISSÃO É A OUTRA FORMA DE O FAIL-CLOSED MENTIR.
+
+**7 · Zona nova no mapa, e a gaveta com ela.** `curadoria/` entrou em
+`_gavetas.GAVETAS` e nasceu `Z-CURADORIA` (F-COLETA, entre candidatas e
+fontes) com cinco peças declaradas; `orquestrador/fontes_prontas.py` é peça de
+`Z-ORQUESTRADOR`. Duas coisas que o validador ensinou: `P8_UM_DONO` — os
+ficheiros de `tests/` são de `C-TESTES` por regra, e declará-los noutra peça
+é dois donos; e `P2_PASTA_BATE_COM_MAPA` só vale para pastas que são gavetas —
+enquanto `curadoria/` não estava em `GAVETAS`, os `.py` dela eram invisíveis
+ao `P9` sem ninguém reclamar. Baseline do mapa na árvore virgem medido ANTES
+da primeira edição: `PASS`, 212 peças; depois: `PASS`, 218.
+
+**8 · O que ficou por fazer, dito.** O canário canónico pela porta do motor
+(`canario_do_motor.mjs`) existe e devolve JSON em todos os ramos sem rede
+(fonte desconhecida, contrato sem bloco), mas **não correu contra a rede
+nesta missão** — a missão proibiu-a; o primeiro `--max 1` do worker sobre a
+fila real (18 `REPAIR` + 2 `CANARY`) é a próxima medição. Os blockers B1–B12
+da §163 continuam existentes e não foram tocados. A linha «Última atualização
+material» do cabeçalho deste ficheiro continua a dizer §140: ninguém a moveu
+desde então, e movê-la aqui seria mexer numa frase que não é minha.
+
+**Números que ficam.** Livro: 195 fontes · READY 160 · DEGRADED 18 ·
+CAPABILITY_BLOCK 1 · CONTRACT_PENDING 4 · SEMANTIC_REVIEW 1 ·
+CONTRACTED_CANARY_FAILED 9 (história) · CANARY_PENDING 2 · RETRY_AFTER 0 ·
+POLICY_BLOCK 0 · AUTH_BLOCK 0. Fila: 20 PENDING (18 REPAIR, 2 CANARY), 0
+bloqueadas. YouTube 50/50 READY. Provas: lifecycle 19/19, interface 7/7,
+divisão A–G 7/7, autonomia 7/7, red team 0 blockers em 11, doze famílias em
+`tests/test_source_curator_integration.py` 29/29. Mapa `PASS`. Métrica
+`TEST_COUNT_CURRENT = 5.035` (drift de 19 marcadores herdado da base,
+sincronizado). Ver `RELATORIO-SOURCE-CURATOR-INTEGRATION.md`.

@@ -1,0 +1,152 @@
+{
+ "DATASET": "LIFECYCLE-EVIDENCE-V1",
+ "CONTRATO": "SOURCE_CURATOR_EVIDENCE/v1",
+ "LEI": "prova por etapa. EVIDENCE_REF do livro aponta para aqui.",
+ "PROVAS": [
+  {
+   "EVIDENCE_REF": "EV-IT-T5-002-BIG_COLLECTION-0001",
+   "SOURCE_ID": "IT-T5-002",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:01.242253+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-192304-7a8b6c4fdde51ca6",
+    "CLASSE": "ROUTE_FAILURE",
+    "MOTIVO": "EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+    "DECISAO": "nao promovida: sem canario PASS nesta arvore; CANARY na fila"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-032-TRIAGEM-0002",
+   "SOURCE_ID": "IT-T5-032",
+   "ETAPA": "TRIAGEM",
+   "OBSERVED_AT": "2026-09-20T23:11:08.297188+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-192835-071795834987ba7b",
+    "CLASSE": "CAPABILITY_GAP",
+    "MOTIVO": "a corrida saiu sem nenhuma observacao e com zero itens: defeito da casa, nao da fonte (RELATORIO-BIG-COLLECTION-RELEASE §9 B1)",
+    "DONO": "colector italiano (pastaDoDocumento)",
+    "REFERENCIA": "RELATORIO-BIG-COLLECTION-RELEASE.md §9 B1"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-014-BIG_COLLECTION-0003",
+   "SOURCE_ID": "IT-T7-014",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:08.612770+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T7-2026-09-20-192945-702930783744b5b0",
+    "CLASSE": "ROUTE_FAILURE",
+    "MOTIVO": "indice inacessivel: curl: (35) Recv failure: Connection was reset\r\n",
+    "DECISAO": "nao promovida: sem canario PASS nesta arvore; CANARY na fila"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-042-BIG_COLLECTION-0004",
+   "SOURCE_ID": "IT-T5-042",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:10.441778+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-195530-9770fdf3cba4d5da",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-043-BIG_COLLECTION-0005",
+   "SOURCE_ID": "IT-T5-043",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:10.533039+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-195627-f961b7ed09315bc7",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-044-BIG_COLLECTION-0006",
+   "SOURCE_ID": "IT-T5-044",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:10.817782+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-195735-0644a2bd0c35f9b8",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-045-BIG_COLLECTION-0007",
+   "SOURCE_ID": "IT-T5-045",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:10.896895+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-195837-f9e1ba7d6ff68ecb",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-047-BIG_COLLECTION-0008",
+   "SOURCE_ID": "IT-T5-047",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:10.963947+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-195933-0c5477e1e6494134",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-048-BIG_COLLECTION-0009",
+   "SOURCE_ID": "IT-T5-048",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:11.031225+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-200029-12fe5c5c474248fb",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-050-BIG_COLLECTION-0010",
+   "SOURCE_ID": "IT-T5-050",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:11.305811+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T5-2026-09-20-200128-8d51dada77872f6a",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-016-BIG_COLLECTION-0011",
+   "SOURCE_ID": "IT-T7-016",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:11.431734+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T7-2026-09-20-200225-04b77de9788a8abe",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-018-BIG_COLLECTION-0012",
+   "SOURCE_ID": "IT-T7-018",
+   "ETAPA": "BIG_COLLECTION",
+   "OBSERVED_AT": "2026-09-20T23:11:11.498770+00:00",
+   "DADOS": {
+    "RUN_ID": "IT-T7-2026-09-20-200328-07eebfb4476f94f1",
+    "CLASSE": "RATE_LIMITED_429",
+    "MOTIVO": "status 429 / 3404 bytes",
+    "DECISAO": "continua READY: 429 e espera, nao avaria (RELATORIO §9 B10)"
+   }
+  }
+ ]
+}

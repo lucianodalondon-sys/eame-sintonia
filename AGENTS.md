@@ -435,6 +435,7 @@ pasta da sua peça:
 | | **COLETA** | |
 | 1 | O PEDIDO E O PLANO | `pedido/` + `.github/workflows/` |
 | 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
+| 2b | O CURADOR DE FONTES — quem promove a READY | `curadoria/` |
 | 3 | AS FONTES | `fontes/` |
 | 4 | AS FERRAMENTAS | `ferramentas/` |
 | 5 | OS VEICULOS | *(sem pasta — cartões medidos)* |

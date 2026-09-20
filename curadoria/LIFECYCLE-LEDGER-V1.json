@@ -1,0 +1,4037 @@
+{
+ "DATASET": "LIFECYCLE-LEDGER-V1",
+ "CONTRATO": "SOURCE_LIFECYCLE/v1",
+ "LEI": "append-only. O estado de uma fonte e a ultima transicao, nunca um campo sobrescrito. A Collection nao promove.",
+ "TRANSICOES": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:00.847133+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191037-b5e82a9d73b2782e",
+   "OBSERVED_AT": "2026-09-20T23:11:00.864007+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:00.880998+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191125-b882ffecc1f95bbb",
+   "OBSERVED_AT": "2026-09-20T23:11:00.895521+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:00.910523+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191052-d2ef01b581d7d551",
+   "OBSERVED_AT": "2026-09-20T23:11:00.926525+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-005",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "SEMANTIC_REVIEW",
+   "REASON": "contrato executavel sem ficha no Atlas — decisao humana, nao do worker",
+   "EVIDENCE_REF": "docs/fontes/ATLAS-DE-FONTES-EAME.md@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:00.944043+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T4-001",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:00.960038+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T4-001",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T4-2026-09-20-191216-de6067c40f5d4097",
+   "OBSERVED_AT": "2026-09-20T23:11:00.975559+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-001",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CONTRACT_PENDING",
+   "REASON": "contrato a mao sem bloco ACQUISITION executavel",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:00.993559+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.035563+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191023-ae818916b58ae92b",
+   "OBSERVED_AT": "2026-09-20T23:11:01.054563+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.068276+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-190938-7bdaa6931f24d3e1",
+   "OBSERVED_AT": "2026-09-20T23:11:01.083275+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.098826+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (4 observacoes, 4 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-190951-7f6c58f2c4154617",
+   "OBSERVED_AT": "2026-09-20T23:11:01.160921+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-002",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CONTRACT_PENDING",
+   "REASON": "contrato a mao sem bloco ACQUISITION executavel",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.181195+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.199735+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (3 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-191144-2773077f13fae128",
+   "OBSERVED_AT": "2026-09-20T23:11:01.218735+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-002",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.238255+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CONTRACT_PENDING",
+   "REASON": "contrato a mao sem bloco ACQUISITION executavel",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.300310+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-001",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CONTRACT_PENDING",
+   "REASON": "contrato a mao sem bloco ACQUISITION executavel",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.327312+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-002",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.346310+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-002",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191235-eb94a10a12884b64",
+   "OBSERVED_AT": "2026-09-20T23:11:01.362834+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-003",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.379833+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-003",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191247-1dba6f8f941c5b8c",
+   "OBSERVED_AT": "2026-09-20T23:11:01.396830+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-004",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.415832+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-004",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:01.432880+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-004",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191300-0374ba8f59677735",
+   "OBSERVED_AT": "2026-09-20T23:11:01.446882+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-005",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.481882+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-005",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191308-2f2ccea3aa242d38",
+   "OBSERVED_AT": "2026-09-20T23:11:01.499884+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.517881+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191324-803240b56549a13a",
+   "OBSERVED_AT": "2026-09-20T23:11:01.534403+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.552406+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191340-fce6e104e4f4af65",
+   "OBSERVED_AT": "2026-09-20T23:11:01.572946+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.590949+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191354-b5f6f135c505ff87",
+   "OBSERVED_AT": "2026-09-20T23:11:01.607947+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-009",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.623947+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-009",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191407-b2ebe9f3986b66c5",
+   "OBSERVED_AT": "2026-09-20T23:11:01.640944+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.657945+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191421-e54aa65268e07164",
+   "OBSERVED_AT": "2026-09-20T23:11:01.674947+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.700110+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191433-1536b525db16df88",
+   "OBSERVED_AT": "2026-09-20T23:11:01.717108+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-012",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.762645+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-012",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:01.908665+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-012",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191447-5c7a1ddd7de5c44a",
+   "OBSERVED_AT": "2026-09-20T23:11:01.927668+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:01.967710+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191455-05c83e78a2b754cd",
+   "OBSERVED_AT": "2026-09-20T23:11:01.985225+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.003233+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:02.020233+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-014",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191506-e479cbc3504800e6",
+   "OBSERVED_AT": "2026-09-20T23:11:02.040230+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.079224+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:02.097228+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-015",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191514-df2e417b03513734",
+   "OBSERVED_AT": "2026-09-20T23:11:02.115228+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.336779+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191525-bda65292ddf268cd",
+   "OBSERVED_AT": "2026-09-20T23:11:02.354771+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.376774+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:02.393780+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-017",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: status 400 / 155 bytes",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191539-34e0ef5fed39407a",
+   "OBSERVED_AT": "2026-09-20T23:11:02.413123+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.450124+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191549-1a2fb52953efaa4b",
+   "OBSERVED_AT": "2026-09-20T23:11:02.472126+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-019",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.490607+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-019",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191603-1321e1bd1b3b98e7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.510604+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-020",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:02.527602+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-020",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:02.545600+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-020",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191619-b3415351ccad4317",
+   "OBSERVED_AT": "2026-09-20T23:11:02.567603+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-021",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.063667+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-021",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191628-52120846fd64a5a5",
+   "OBSERVED_AT": "2026-09-20T23:11:03.079673+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-022",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.098668+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-022",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191639-403ffcb4c3d3619a",
+   "OBSERVED_AT": "2026-09-20T23:11:03.115388+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-023",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.133390+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-023",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:03.151396+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T1-023",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T1-2026-09-20-191659-0b158479b96676a0",
+   "OBSERVED_AT": "2026-09-20T23:11:03.167391+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-002",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.198907+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-002",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:03.329505+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-002",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193142-c5fd40d5faf505ab",
+   "OBSERVED_AT": "2026-09-20T23:11:03.346510+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.605052+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:03.623049+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-006",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193149-c29ef9fa74a76e74",
+   "OBSERVED_AT": "2026-09-20T23:11:03.641046+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.673050+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193156-a06aa070dc4ef38e",
+   "OBSERVED_AT": "2026-09-20T23:11:03.772049+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:03.930544+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:04.127674+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-008",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193214-ce1dfbaba93be0af",
+   "OBSERVED_AT": "2026-09-20T23:11:04.145673+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-009",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.177675+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-009",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193222-aee17e0ede6713e6",
+   "OBSERVED_AT": "2026-09-20T23:11:04.194671+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.212674+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193233-ea35142fd47b1e28",
+   "OBSERVED_AT": "2026-09-20T23:11:04.231673+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.247673+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193241-ca803f52619b2920",
+   "OBSERVED_AT": "2026-09-20T23:11:04.267047+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-012",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.282568+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-012",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193259-92e5795fd53fb95f",
+   "OBSERVED_AT": "2026-09-20T23:11:04.300568+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.320435+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193310-3ab39d3ab55079e0",
+   "OBSERVED_AT": "2026-09-20T23:11:04.336449+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.354451+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:04.372979+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-014",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: indice inacessivel: 503",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193323-0dc0793e28132e6d",
+   "OBSERVED_AT": "2026-09-20T23:11:04.389507+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.559594+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193348-c3850ea3fb2bbf57",
+   "OBSERVED_AT": "2026-09-20T23:11:04.588592+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.606594+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:04.626596+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-016",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193406-ce4313902ce7f8a0",
+   "OBSERVED_AT": "2026-09-20T23:11:04.690604+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-005",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.728590+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-005",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T11-2026-09-20-193416-a32a1573df372f02",
+   "OBSERVED_AT": "2026-09-20T23:11:04.749593+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-003",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.771595+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-003",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-193427-9c7955ad27e6b075",
+   "OBSERVED_AT": "2026-09-20T23:11:04.792592+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-004",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.814593+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-004",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-193451-7781e9732475a4b9",
+   "OBSERVED_AT": "2026-09-20T23:11:04.837595+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-005",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.853588+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-005",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-193504-873c2af8b2c30ea2",
+   "OBSERVED_AT": "2026-09-20T23:11:04.873590+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.893590+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-193518-be8dd1c3eee2e02e",
+   "OBSERVED_AT": "2026-09-20T23:11:04.912589+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.931594+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191709-ee11ba28a6ee3d86",
+   "OBSERVED_AT": "2026-09-20T23:11:04.951106+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:04.968933+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191720-fffc269df9127812",
+   "OBSERVED_AT": "2026-09-20T23:11:05.063443+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.082970+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191748-54127f65bd58e563",
+   "OBSERVED_AT": "2026-09-20T23:11:05.128014+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-009",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.152011+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-009",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191804-171c387334a865a9",
+   "OBSERVED_AT": "2026-09-20T23:11:05.170012+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.193017+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191813-6c145599e540087c",
+   "OBSERVED_AT": "2026-09-20T23:11:05.213021+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.232017+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191823-c0f415ea0aea1a27",
+   "OBSERVED_AT": "2026-09-20T23:11:05.254015+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-012",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.273018+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-012",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191836-919e3f90602af806",
+   "OBSERVED_AT": "2026-09-20T23:11:05.292014+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.313012+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191849-70d5e9e988309dc4",
+   "OBSERVED_AT": "2026-09-20T23:11:05.332017+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.355017+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191901-216f97bfbb992658",
+   "OBSERVED_AT": "2026-09-20T23:11:05.374700+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.396321+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191913-083fce2f9b36d00a",
+   "OBSERVED_AT": "2026-09-20T23:11:05.419092+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.443093+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191925-47134303ababe17a",
+   "OBSERVED_AT": "2026-09-20T23:11:05.466091+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.492090+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191943-dd3a73f7b3f32397",
+   "OBSERVED_AT": "2026-09-20T23:11:05.515223+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.541430+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:05.580335+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-018",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-191958-104d791e1ff0a7d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.606900+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-019",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.656240+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-019",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-192006-a06fe19a8aa05635",
+   "OBSERVED_AT": "2026-09-20T23:11:05.676266+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-020",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.701380+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-020",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-192025-b5580bb31a33bb29",
+   "OBSERVED_AT": "2026-09-20T23:11:05.723911+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-021",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.793568+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-021",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:05.823574+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-021",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-192035-f2ff213175213475",
+   "OBSERVED_AT": "2026-09-20T23:11:05.846627+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-022",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.889704+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-022",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-192042-43db4421b595a5c1",
+   "OBSERVED_AT": "2026-09-20T23:11:05.911231+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-023",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:05.940232+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-023",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:05.963230+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-023",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: status 404 / 362228 bytes",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-192054-428a0fc2bd872d80",
+   "OBSERVED_AT": "2026-09-20T23:11:05.991930+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-024",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.032548+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-024",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-192107-cf6ce157affc8110",
+   "OBSERVED_AT": "2026-09-20T23:11:06.054546+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.076565+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192119-8aa08a635041f2b8",
+   "OBSERVED_AT": "2026-09-20T23:11:06.100084+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.125091+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192133-dce004acfbdd6a1f",
+   "OBSERVED_AT": "2026-09-20T23:11:06.149085+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.171086+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192151-fd4d599532c61de6",
+   "OBSERVED_AT": "2026-09-20T23:11:06.196082+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.218267+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192205-9ef28cde9e906463",
+   "OBSERVED_AT": "2026-09-20T23:11:06.239268+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.259528+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:06.280133+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-017",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192219-bb11acec8f55fb18",
+   "OBSERVED_AT": "2026-09-20T23:11:06.302137+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.490829+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192225-9c8e82d0d6c5a33c",
+   "OBSERVED_AT": "2026-09-20T23:11:06.510825+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-019",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.532825+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-019",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192234-acb12f3848dacbd3",
+   "OBSERVED_AT": "2026-09-20T23:11:06.552826+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-020",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.575823+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-020",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192244-c98480cb05ad4fb3",
+   "OBSERVED_AT": "2026-09-20T23:11:06.597823+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-021",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.732964+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-021",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:06.752966+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T3-021",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T3-2026-09-20-192256-daac964c52058353",
+   "OBSERVED_AT": "2026-09-20T23:11:06.775970+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.817971+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192316-0320404b196cf313",
+   "OBSERVED_AT": "2026-09-20T23:11:06.839967+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.860969+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192326-404ba276fec1312e",
+   "OBSERVED_AT": "2026-09-20T23:11:06.944014+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:06.966540+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192337-e58047a9fb30c8ae",
+   "OBSERVED_AT": "2026-09-20T23:11:06.988065+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-009",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.015062+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-009",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192350-8c9ead7e399b416a",
+   "OBSERVED_AT": "2026-09-20T23:11:07.033063+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.068991+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192401-aa7b83aa0341733c",
+   "OBSERVED_AT": "2026-09-20T23:11:07.090991+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.111987+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192416-4ac43a25dc96719b",
+   "OBSERVED_AT": "2026-09-20T23:11:07.131598+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-012",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.178111+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-012",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192426-7b68be5ac851ce57",
+   "OBSERVED_AT": "2026-09-20T23:11:07.201111+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.221113+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192441-7d2927d2fb50c66d",
+   "OBSERVED_AT": "2026-09-20T23:11:07.246113+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.269110+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192455-af7a674717b940a9",
+   "OBSERVED_AT": "2026-09-20T23:11:07.291116+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.315114+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192508-6a134eecf66c22a3",
+   "OBSERVED_AT": "2026-09-20T23:11:07.339116+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.360116+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192521-499d7f627375a5c1",
+   "OBSERVED_AT": "2026-09-20T23:11:07.381114+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.402118+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192532-9aac8c847b3a9086",
+   "OBSERVED_AT": "2026-09-20T23:11:07.421121+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.446110+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192545-fb7dc64d6d3e53c1",
+   "OBSERVED_AT": "2026-09-20T23:11:07.470622+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-019",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.490627+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-019",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192556-28f6660efb053984",
+   "OBSERVED_AT": "2026-09-20T23:11:07.512138+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-020",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.533263+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-020",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192609-0b9eb8a12e27b822",
+   "OBSERVED_AT": "2026-09-20T23:11:07.557783+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-021",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.581784+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-021",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:07.602782+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-021",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou ROUTE_FAILURE em BCR-2026-09-20: EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192620-6b5325f61adff675",
+   "OBSERVED_AT": "2026-09-20T23:11:07.629779+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-022",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.671783+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-022",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192628-bdc09f811878fd5c",
+   "OBSERVED_AT": "2026-09-20T23:11:07.694838+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-023",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.715835+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-023",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192639-811c2a9f1ddf5820",
+   "OBSERVED_AT": "2026-09-20T23:11:07.893464+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-024",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.914995+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-024",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192653-3059d44865de3771",
+   "OBSERVED_AT": "2026-09-20T23:11:07.941985+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-025",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:07.964984+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-025",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192708-c824dabebd7f3b61",
+   "OBSERVED_AT": "2026-09-20T23:11:07.988991+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-026",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.014507+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-026",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192721-3c4f821504d60c1b",
+   "OBSERVED_AT": "2026-09-20T23:11:08.036506+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-027",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.057024+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-027",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192734-8b9ef001a8833894",
+   "OBSERVED_AT": "2026-09-20T23:11:08.078534+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-028",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.099238+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-028",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192753-50b3827b5360b47a",
+   "OBSERVED_AT": "2026-09-20T23:11:08.121439+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-029",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.145576+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-029",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192807-5c07ae2b2063e408",
+   "OBSERVED_AT": "2026-09-20T23:11:08.170159+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-030",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.191158+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-030",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192820-3218c890fbdc53ea",
+   "OBSERVED_AT": "2026-09-20T23:11:08.213160+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-032",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.234154+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-032",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (regras/italy_contracts_onboarded.json · SONDAGEM)",
+   "EVIDENCE_REF": "regras/italy_contracts_onboarded.json · SONDAGEM@2026-09-18",
+   "OBSERVED_AT": "2026-09-20T23:11:08.255158+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-032",
+   "PREVIOUS_STATE": "READY_FOR_COLLECTION",
+   "NEW_STATE": "DEGRADED",
+   "REASON": "Collection reportou CAPABILITY_GAP em BCR-2026-09-20: a corrida saiu sem nenhuma observacao e com zero itens: defeito da casa, nao da fonte (RELATORIO-BIG-COLLECTION-RELEASE §9 B1)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192835-071795834987ba7b",
+   "OBSERVED_AT": "2026-09-20T23:11:08.278184+00:00",
+   "OWNER": "COLLECTION",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-032",
+   "PREVIOUS_STATE": "DEGRADED",
+   "NEW_STATE": "CAPABILITY_BLOCK",
+   "REASON": "defeito da casa, nao da fonte: DOCUMENT_ID com `?` nao vira pasta no Windows (B1). Sai daqui por capacidade nova, nao por tentar de novo",
+   "EVIDENCE_REF": "EV-IT-T5-032-TRIAGEM-0002",
+   "OBSERVED_AT": "2026-09-20T23:11:08.314195+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-033",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.335184+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-033",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192843-147a52f842d703b2",
+   "OBSERVED_AT": "2026-09-20T23:11:08.357189+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-034",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.379187+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-034",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192855-65f932fb8ca2d940",
+   "OBSERVED_AT": "2026-09-20T23:11:08.401187+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-035",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.425704+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-035",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192906-7ab07ae1f5ec1c43",
+   "OBSERVED_AT": "2026-09-20T23:11:08.452703+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-036",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.472709+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-036",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-192919-8e956ede5a0f00ca",
+   "OBSERVED_AT": "2026-09-20T23:11:08.498714+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.533708+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-192932-34df68b28dff931e",
+   "OBSERVED_AT": "2026-09-20T23:11:08.557248+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.593774+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-009",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.647768+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-009",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-193035-161d1a1a177ee9c5",
+   "OBSERVED_AT": "2026-09-20T23:11:08.667766+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.692354+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-193048-12807feada3eb0ff",
+   "OBSERVED_AT": "2026-09-20T23:11:08.715869+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.738400+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-193058-ff56ab6f5e532dc1",
+   "OBSERVED_AT": "2026-09-20T23:11:08.762394+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-012",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.786913+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-012",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-193111-907ccf99fecc664f",
+   "OBSERVED_AT": "2026-09-20T23:11:08.812916+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.834912+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-193129-ceb8737f50fc7b23",
+   "OBSERVED_AT": "2026-09-20T23:11:08.859342+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-039",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.882332+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-039",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-193605-e847862f7bea0834",
+   "OBSERVED_AT": "2026-09-20T23:11:08.904332+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.927962+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193647-ade12313c500b54c",
+   "OBSERVED_AT": "2026-09-20T23:11:08.952482+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:08.975993+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193708-d8b65797a6a744b2",
+   "OBSERVED_AT": "2026-09-20T23:11:08.999005+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-009",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.021004+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-009",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-194020-6b4e0b0170a770dd",
+   "OBSERVED_AT": "2026-09-20T23:11:09.044005+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-031",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.068008+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-031",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193729-ff9505dfaa9a4440",
+   "OBSERVED_AT": "2026-09-20T23:11:09.091004+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.114002+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193916-eed8ac88a543c6c8",
+   "OBSERVED_AT": "2026-09-20T23:11:09.142968+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-013",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.165495+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-013",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-194040-44e86770cded37fb",
+   "OBSERVED_AT": "2026-09-20T23:11:09.190288+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.220407+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-193632-9cea5353f98faba7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.247406+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.271113+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193746-81a5352c4a43f429",
+   "OBSERVED_AT": "2026-09-20T23:11:09.350994+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-020",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.402988+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-020",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193931-9cf1af71c8c52959",
+   "OBSERVED_AT": "2026-09-20T23:11:09.474441+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.570958+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193949-fd0155aa51b02bac",
+   "OBSERVED_AT": "2026-09-20T23:11:09.599965+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.623963+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T8-2026-09-20-193904-6d7a31f62f27260f",
+   "OBSERVED_AT": "2026-09-20T23:11:09.650962+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.676967+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-193959-825e145dd3c5ad40",
+   "OBSERVED_AT": "2026-09-20T23:11:09.701959+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.729958+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193757-404268163998839b",
+   "OBSERVED_AT": "2026-09-20T23:11:09.754956+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.779524+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193826-d16655f6c9c2f725",
+   "OBSERVED_AT": "2026-09-20T23:11:09.805223+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.836840+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193837-9c12a69ffa7162d6",
+   "OBSERVED_AT": "2026-09-20T23:11:09.865905+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-030",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.889917+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-030",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-193550-f769be593ed8a5fb",
+   "OBSERVED_AT": "2026-09-20T23:11:09.915492+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.941511+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (1 observacoes, 1 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-193852-59f1dd4db82985d2",
+   "OBSERVED_AT": "2026-09-20T23:11:09.967339+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:09.992340+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (14 observacoes, 14 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-194050-455538597dca4500",
+   "OBSERVED_AT": "2026-09-20T23:11:10.016343+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-026",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.040876+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-026",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-194239-4b3bdf2151b93f3c",
+   "OBSERVED_AT": "2026-09-20T23:11:10.068876+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-027",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.098407+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-027",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-194451-2ad93dcd5a479ecc",
+   "OBSERVED_AT": "2026-09-20T23:11:10.125409+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-028",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.171970+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-028",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T2-2026-09-20-194647-78b19842a3d2aab3",
+   "OBSERVED_AT": "2026-09-20T23:11:10.199970+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-037",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.224962+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-037",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-194902-0fa02d374fbc43c5",
+   "OBSERVED_AT": "2026-09-20T23:11:10.252512+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-038",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.278300+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-038",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-195101-91178695d8875e2c",
+   "OBSERVED_AT": "2026-09-20T23:11:10.304559+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-040",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.333783+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-040",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T5-2026-09-20-195319-8652f3bb627e2469",
+   "OBSERVED_AT": "2026-09-20T23:11:10.359783+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-042",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.388780+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-042",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:10.416776+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-043",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.461037+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-043",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:10.488042+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-044",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.551562+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-044",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:10.576086+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-045",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.837781+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-045",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:10.863315+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-047",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.915897+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-047",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:10.939954+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-048",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:10.982085+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-048",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:11.009604+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-050",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.050223+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-050",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:11.111754+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.324046+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-190507-1de3b5b72cb820f7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.350215+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.377211+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:11.405731+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.448255+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "canario mais recente com PASS (data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json)",
+   "EVIDENCE_REF": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z",
+   "OBSERVED_AT": "2026-09-20T23:11:11.475256+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-020",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.517781+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-020",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-201606-ad0f226a13a6ec9b",
+   "OBSERVED_AT": "2026-09-20T23:11:11.546830+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-022",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.576352+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-022",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-201845-ae18ccdc43c848ff",
+   "OBSERVED_AT": "2026-09-20T23:11:11.605872+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-023",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.633403+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-023",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-202132-f3bc4f423daf6680",
+   "OBSERVED_AT": "2026-09-20T23:11:11.660931+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-024",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.689932+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-024",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-202419-42827795e818506f",
+   "OBSERVED_AT": "2026-09-20T23:11:11.715934+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-025",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.740934+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-025",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-202705-897c05bd82c11e5b",
+   "OBSERVED_AT": "2026-09-20T23:11:11.767933+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-026",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.794935+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-026",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-202948-362bb576cb62f7dc",
+   "OBSERVED_AT": "2026-09-20T23:11:11.824934+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-027",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:11.896510+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-027",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-203233-e7bd976820f7fcb1",
+   "OBSERVED_AT": "2026-09-20T23:11:12.051316+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-028",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.083879+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-028",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-203512-ad25fe78f26d1882",
+   "OBSERVED_AT": "2026-09-20T23:11:12.111883+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-030",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.138878+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-030",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-203807-132a21d388680511",
+   "OBSERVED_AT": "2026-09-20T23:11:12.166413+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-032",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.192420+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-032",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-204058-6b8e21d082e8a8cd",
+   "OBSERVED_AT": "2026-09-20T23:11:12.216809+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-034",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.244397+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-034",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-204351-a57d6bfb92beea10",
+   "OBSERVED_AT": "2026-09-20T23:11:12.270388+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-035",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.300916+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-035",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-204645-5a50f69c53304327",
+   "OBSERVED_AT": "2026-09-20T23:11:12.326922+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-036",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.352538+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-036",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-204937-e9161b0eee2a5513",
+   "OBSERVED_AT": "2026-09-20T23:11:12.379539+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-037",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.406071+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-037",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-205230-4883daad4d79429c",
+   "OBSERVED_AT": "2026-09-20T23:11:12.433590+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-039",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.461601+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-039",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T7-2026-09-20-205511-1922b5256d09507d",
+   "OBSERVED_AT": "2026-09-20T23:11:12.489132+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-004",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.520666+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-004",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T8-2026-09-20-205750-cab276717c694c6d",
+   "OBSERVED_AT": "2026-09-20T23:11:12.557674+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-005",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.585191+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-005",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T8-2026-09-20-210029-0ba57a1f33613529",
+   "OBSERVED_AT": "2026-09-20T23:11:12.616189+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.651219+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T8-2026-09-20-210310-d5c601178eef434c",
+   "OBSERVED_AT": "2026-09-20T23:11:12.684189+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.727194+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-210602-f4c184c1659f2066",
+   "OBSERVED_AT": "2026-09-20T23:11:12.759195+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.783711+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-210845-b9b4bc920d4423bf",
+   "OBSERVED_AT": "2026-09-20T23:11:12.811304+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.839301+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T9-2026-09-20-211129-0fdf5d1554aa9631",
+   "OBSERVED_AT": "2026-09-20T23:11:12.866297+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.899331+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-211431-6e543000f0c579f1",
+   "OBSERVED_AT": "2026-09-20T23:11:12.932341+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-019",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:12.962344+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T10-019",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T10-2026-09-20-211812-3babdf62c9941b36",
+   "OBSERVED_AT": "2026-09-20T23:11:12.996346+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-006",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.024403+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-006",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T11-2026-09-20-212112-2def310caa927ec4",
+   "OBSERVED_AT": "2026-09-20T23:11:13.051397+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.076398+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T11-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T11-2026-09-20-212421-98a2f8153561bb2e",
+   "OBSERVED_AT": "2026-09-20T23:11:13.102392+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.131444+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-212718-027b1c98484eb5db",
+   "OBSERVED_AT": "2026-09-20T23:11:13.162574+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-008",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.191579+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-008",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-213016-74cb11a35bcac6db",
+   "OBSERVED_AT": "2026-09-20T23:11:13.224886+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-010",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.251881+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-010",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (13 observacoes, 13 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-213329-ce1143d8fdd408c1",
+   "OBSERVED_AT": "2026-09-20T23:11:13.284883+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-011",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.312924+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-011",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-213618-204fec36f8df6d74",
+   "OBSERVED_AT": "2026-09-20T23:11:13.342459+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-012",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.367974+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-012",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-213929-4de53b036643cc92",
+   "OBSERVED_AT": "2026-09-20T23:11:13.395112+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-014",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.422105+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-014",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-214220-11668b73fe94a34c",
+   "OBSERVED_AT": "2026-09-20T23:11:13.449109+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-015",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.480105+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-015",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-214512-631b00b59950219f",
+   "OBSERVED_AT": "2026-09-20T23:11:13.509644+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-016",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato executavel (motor de rota), ficha no Atlas, territorio com executor",
+   "EVIDENCE_REF": "regras/italy_contracts.mjs@3c0ad4d7",
+   "OBSERVED_AT": "2026-09-20T23:11:13.538160+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-016",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "READY_FOR_COLLECTION",
+   "REASON": "corrida real com sucesso na Big Collection (15 observacoes, 15 HEALTHY)",
+   "EVIDENCE_REF": "BCR-2026-09-20:IT-T12-2026-09-20-214800-14bd711d6e11e558",
+   "OBSERVED_AT": "2026-09-20T23:11:13.569177+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.597156+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-019",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.625695+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-029",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.653696+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T7-029",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.684684+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-046",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.714688+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-046",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.751688+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.781259+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.808268+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-029",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.835258+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T2-029",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.867258+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-052",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.899259+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-052",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.936257+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-053",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:13.976262+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T5-053",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:14.003780+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-007",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:14.030821+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T8-007",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:14.059344+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-018",
+   "PREVIOUS_STATE": null,
+   "NEW_STATE": "CANARY_PENDING",
+   "REASON": "contrato do curator (fora do registo da Collection)",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:14.087345+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  },
+  {
+   "SOURCE_ID": "IT-T9-018",
+   "PREVIOUS_STATE": "CANARY_PENDING",
+   "NEW_STATE": "CONTRACTED_CANARY_FAILED",
+   "REASON": "canario da missao 04 nao trouxe item com identidade; sem contrato no registo da Collection, o worker nao a pode canariar aqui",
+   "EVIDENCE_REF": "HISTORIA:curadoria/READY-FOR-COLLECTION-V1.json @ 959ae46aca0b (2026-09-20T15:32:16.589673+00:00)",
+   "OBSERVED_AT": "2026-09-20T23:11:14.116343+00:00",
+   "OWNER": "SOURCE_CURATOR",
+   "VERSION": "SOURCE_LIFECYCLE/v1"
+  }
+ ]
+}

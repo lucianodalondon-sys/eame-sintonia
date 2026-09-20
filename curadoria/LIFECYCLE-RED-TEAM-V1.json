@@ -1,0 +1,62 @@
+{
+ "DATASET": "LIFECYCLE-RED-TEAM-V1",
+ "GERADO_EM": "2026-09-20T23:11:16.780361+00:00",
+ "ATAQUES": [
+  {
+   "ATAQUE": "toda promocao READY tem EVIDENCE_REF real",
+   "PASS": true,
+   "DETALHE": "160/160 com prova"
+  },
+  {
+   "ATAQUE": "READY da interface == READY do livro",
+   "PASS": true,
+   "DETALHE": "interface=160 livro=160"
+  },
+  {
+   "ATAQUE": "controlo positivo: o guarda diz NAO",
+   "PASS": true,
+   "DETALHE": "promocao sem canario recusada"
+  },
+  {
+   "ATAQUE": "nenhuma bloqueada aparece em READY",
+   "PASS": true,
+   "DETALHE": "2 bloqueadas, 0 em READY"
+  },
+  {
+   "ATAQUE": "toda READY do livro e executavel no registo actual",
+   "PASS": true,
+   "DETALHE": "160/160 executaveis"
+  },
+  {
+   "ATAQUE": "nenhuma YouTube parada pela rota velha",
+   "PASS": true,
+   "DETALHE": "50 YouTube, 0 em PARADOS"
+  },
+  {
+   "ATAQUE": "nenhum DOCUMENT_ID fabricado pelo lifecycle",
+   "PASS": true,
+   "DETALHE": "o cadastro de fonte nao cunha documento"
+  },
+  {
+   "ATAQUE": "nenhuma tarefa orfa presa em curso",
+   "PASS": true,
+   "DETALHE": "IN_PROGRESS=0"
+  },
+  {
+   "ATAQUE": "o worker nao toca acervo nem cunha RUN_ID",
+   "PASS": true,
+   "DETALHE": "nenhuma referencia de escrita"
+  },
+  {
+   "ATAQUE": "o retry tem teto observavel",
+   "PASS": true,
+   "DETALHE": "MAX_ATTEMPTS=5"
+  },
+  {
+   "ATAQUE": "metricas mostram os zeros",
+   "PASS": true,
+   "DETALHE": "21 contadores"
+  }
+ ],
+ "RED_TEAM_BLOCKERS": 0
+}

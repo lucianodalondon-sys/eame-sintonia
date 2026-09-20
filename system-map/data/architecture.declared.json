@@ -75,6 +75,16 @@
       "folder": "candidatas"
     },
     {
+      "id": "Z-CURADORIA",
+      "family": "F-COLETA",
+      "name": "· o curador de fontes",
+      "why": "Entre a candidata e a fonte que se coleta ha um dono do ESTADO da fonte: quem valida a rota, corre o canario, promove a READY_FOR_COLLECTION e recebe de volta a avaria (SOURCE_REPAIR_NEEDED). A Collection deixou de fazer onboarding no meio da coleta — ela pergunta «que fontes estao READY agora?» e coleta. SOURCE CURATOR PREPARA. COLLECTION COLETA.",
+      "views": [
+        "acervo"
+      ],
+      "folder": "curadoria"
+    },
+    {
       "id": "Z-FONTES",
       "family": "F-COLETA",
       "name": "· as fontes",
@@ -4013,6 +4023,148 @@
         "provas/consumo_da_referencia_adama.py",
         "docs/intelligence/INTELLIGENCE-INPUT-CONTRACT-V1.md"
       ]
+    },
+    {
+      "id": "C-CURATOR-LIFECYCLE",
+      "name": "O ciclo de vida da fonte — livro, fila e worker",
+      "territory": "Z-CURADORIA",
+      "kind": "engine",
+      "icon": "⟳",
+      "what": "O livro append-only do estado de cada fonte (o estado e a ultima transicao, nunca um campo sobrescrito), a fila duravel no disco (um 429 adia UMA tarefa, nunca a fila) e o worker que faz uma etapa por volta. Quem promove a READY e o Curator, so ele; a Collection so pode marcar READY -> DEGRADED.",
+      "why_here": "Ate aqui a fonte nao tinha dono do estado: ficava READY por regra (contrato + ficha + executor) e era a Collection que descobria, a meio da coleta, que a rota ja nao servia. O motor do SOURCE CURATOR (lane claude/source-curator-lifecycle-v1) entrou aqui SEM o segundo leitor de robots dele — o portao e o da casa (coleta/scrap_http.py) e o canario e o do motor de rota.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "curadoria/lifecycle.py",
+        "curadoria/fila.py",
+        "curadoria/evidencia.py",
+        "curadoria/worker.py",
+        "curadoria/canario_do_motor.mjs",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json"
+      ]
+    },
+    {
+      "id": "C-CURATOR-ESTADO-ACTUAL",
+      "name": "O estado actual das fontes — e o resemeador",
+      "territory": "Z-CURADORIA",
+      "kind": "engine",
+      "icon": "◎",
+      "what": "Materializa, a partir do registo que a Collection executa hoje (regras/italy_contracts.mjs conferido pelo motor de rota, a ficha no Atlas, o territorio com executor, o canario mais recente e o resultado da Big Collection), o ficheiro contra o qual o ciclo de vida se semeia. O resemeador traduz isso em transicoes do livro — nunca le a fotografia do curator.",
+      "why_here": "FOTOGRAFIA ANTIGA CERTA NO SEU DIA != VERDADE DE HOJE. O snapshot do curator (READY-FOR-COLLECTION-V1.json) classificava 50 fontes YouTube como bloqueadas pela rota velha; a Big Collection provou a rota nova, 50/50. Semear do snapshot destruiria essa prova. Por isso o estado vigente e RECALCULADO do que a casa executa.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "curadoria/estado_actual_das_fontes.mjs",
+        "curadoria/semear_lifecycle.py",
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json"
+      ]
+    },
+    {
+      "id": "C-CURATOR-INTERFACE",
+      "name": "O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED",
+      "territory": "Z-CURADORIA",
+      "kind": "contract",
+      "icon": "⇄",
+      "what": "Duas frases, e so: o Curator entrega a lista READY (derivada do livro a cada chamada — uma fonte degradada sai no mesmo instante) e a Collection devolve SOURCE_REPAIR_NEEDED (marca DEGRADED e poe REPAIR na fila do Curator). A ficha do contrato de cada fonte vem do estado actual, nunca da fotografia.",
+      "why_here": "Acoplar implementacoes e o que faz uma missao de fontes virar uma segunda Collection. A Collection nao precisa de saber que existe fila ou canario: precisa de saber quais fontes estao prontas AGORA e de ter onde dizer quando uma quebrou.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "curadoria/interface_collection.py",
+        "curadoria/READY-SOURCES-V1.json"
+      ]
+    },
+    {
+      "id": "C-CURATOR-PROVAS",
+      "name": "As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta",
+      "territory": "Z-CURADORIA",
+      "kind": "proof",
+      "icon": "⊟",
+      "what": "Os ataques ao livro (a Collection nao promove; READY exige canario e prova; DEGRADED nao volta por decreto), as sete provas isoladas da divisao (A-G, com contraprova cada uma, rede substituida na primitiva mais funda), a prova de autonomia com um processo que morre a serio (os._exit) e o red team da propria missao. Os doze testes da integracao vivem em tests/test_source_curator_integration.py, na peca C-TESTES, como todos os testes da suite.",
+      "why_here": "Um teste que nunca diz «nao» nao mede nada. Cada lei desta zona tem aqui o caso que a faz falhar — e a prova de que a Collection nao promove so vale porque se tentou promover e se mostrou a recusa pelo nome.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "files": [
+        "curadoria/test_lifecycle.py",
+        "curadoria/test_interface_collection.py",
+        "curadoria/provar_divisao.py",
+        "curadoria/provar_autonomia.py",
+        "curadoria/red_team_lifecycle.py",
+        "curadoria/LIFECYCLE-PROOF-V1.json",
+        "curadoria/LIFECYCLE-AUTONOMY-V1.json",
+        "curadoria/LIFECYCLE-RED-TEAM-V1.json"
+      ]
+    },
+    {
+      "id": "C-CURATOR-REGISTOS",
+      "name": "Os registos do SOURCE CURATOR — a historia das missoes 02 a 04",
+      "territory": "Z-CURADORIA",
+      "kind": "contract",
+      "icon": "▤",
+      "what": "O que o curator mediu nas missoes 02, 03 e 04: candidatas caracterizadas, SOURCE_ID atribuidos, contratos escritos, canarios corridos e o funil ate READY. Sao REGISTO E HISTORIA: dizem o que era verdade no dia em que foram gerados. O estado vigente de cada fonte vive no livro (C-CURATOR-LIFECYCLE), semeado do estado actual, nunca daqui.",
+      "why_here": "Ficam no repositorio porque sao prova de como cada fonte foi conhecida — e ficam declarados como historia porque um deles (READY-FOR-COLLECTION-V1.json) ja classificou 50 fontes por uma rota que a casa trocou no dia seguinte.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "curadoria/ATLAS-WRITE-V1.json",
+        "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
+        "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
+        "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+        "curadoria/CONTRACT-VALIDATION-V1.json",
+        "curadoria/FUNIL-DO-CURATOR-V1.json",
+        "curadoria/HANDOFF-INTEGRACAO-04.md",
+        "curadoria/READY-FOR-COLLECTION-V1.json",
+        "curadoria/REAL-EXAMPLE-INDEX-V1.json",
+        "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+        "curadoria/RELATORIO-MISSAO-02.md",
+        "curadoria/RELATORIO-MISSAO-03.md",
+        "curadoria/SAMPLE-MANIFEST-V1.json",
+        "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+        "curadoria/SOURCE-CURATOR-DECISIONS-V1.json",
+        "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+        "curadoria/italy_contracts_curator.json"
+      ]
+    },
+    {
+      "id": "C-PORTA-FONTES-PRONTAS",
+      "name": "A porta «que fontes estao READY agora?» — o lado da Collection",
+      "territory": "Z-ORQUESTRADOR",
+      "kind": "gate",
+      "icon": "⊢",
+      "what": "Tres verbos, e so: listar as fontes READY (do livro do Curator), exigir READY para uma fonte nomeada (recusa pelo nome se o Curator a conhece e nao a tem em READY; NAO SEI para o que ele nao conhece) e reportar avaria (SOURCE_REPAIR_NEEDED — sinaliza e segue, nao repara). O orquestrador chama-a antes de a corrida nascer, quando o pedido nomeia uma fonte e vai a rede.",
+      "why_here": "A Collection so consome READY, e isso tem de ser fail-closed no codigo que corre, nao em prosa. Vive no orquestrador porque e ele que decide se a corrida nasce; e nao promove, nao repara e nao importa o worker — um teste tenta faze-lo.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "orquestrador/fontes_prontas.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [
@@ -4098,6 +4250,15 @@
       "source": "provas/a_porta_cli_liga_o_banco.py",
       "declared_by": "missao CLI_POSTGRES_BINDING_FIX",
       "declared_at": "2026-09-17"
+    },
+    {
+      "from": "C-PORTA-FONTES-PRONTAS",
+      "to": "C-CURATOR-INTERFACE",
+      "type": "ALIMENTA",
+      "reason": "SOURCE_REPAIR_NEEDED: a Collection devolve ao Curator a fonte que quebrou na mao dela (reportar_avaria -> source_repair_needed). E uma chamada, nao um import — o scanner prova o import no sentido inverso; esta seta declara o caminho de volta.",
+      "source": "curadoria/LIFECYCLE-PROOF-V1.json",
+      "declared_by": "missao SOURCE-CURATOR-INTEGRATION",
+      "declared_at": "2026-09-20"
     }
   ],
   "DECLARED_BLOBS": {
