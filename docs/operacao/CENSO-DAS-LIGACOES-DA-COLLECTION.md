@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ad53edfa7c0478b3d52df348bdf610356cc3838f
+HEAD_DA_MEDICAO  f1ca99ee85e61f79207863e1ffd4f662a172a557
 BRANCH           claude/contract-provenance-cutover-v1
-GERADO_EM        2026-09-20T07:41:48-03:00
+GERADO_EM        2026-09-20T07:45:52-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
