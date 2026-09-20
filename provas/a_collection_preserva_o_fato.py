@@ -238,7 +238,17 @@ def correr():
     obs = observacoes()
     textos = textos_por_impressao()
     recibos, prontos, nao_passaram = [], [], []
+    sem_identidade = 0
     for o in obs:
+        # ⚠️ UMA OBSERVACAO SEM DOCUMENT_ID NAO E UMA UNIDADE. E IDENTITY_FAILED:
+        # ha bytes (e sha), nao ha documento. Medido em 20/09/2026: a Big
+        # Collection 2 deixou no livro duas observacoes assim (IT-T3-011), com
+        # o mesmo sha de um texto ja extraido — e esta prova levava-as a
+        # fronteira com CONTENT_ID=None. Julgar o que nao tem identidade e
+        # fabricar uma unidade; conta-se, e nao se atravessa.
+        if not o.get("DOCUMENT_ID"):
+            sem_identidade += 1
+            continue
         sha = str(o.get("RAW_SHA256") or "").lower()
         caminho = textos.get(sha[:16])
         if not caminho:

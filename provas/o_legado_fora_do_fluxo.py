@@ -186,7 +186,22 @@ def ficha(item, cat, canonicos, disponibilidade):
     # ⚠️ O DOCUMENTO PROVAR O PUBLICADOR NAO PROVA A AQUISICAO.
     # Sao dois factos, e o segundo e o que falta a todos os treze.
     conteudo_prova_publicador = bool(achadas)
-    aquisicao_provada = bool(obs)
+    # ⚠️ EQUIVALENCIA NAO TRANSFERE PROVENIENCIA — decisao escrita em 20/09/2026.
+    # Isto era `bool(obs)`: bastava existir uma observacao canonica DESTES
+    # bytes para os cinco campos ORIGINAL_* do corpo legado virarem True. Mas a
+    # observacao canonica e OUTRA aquisicao — outra corrida, outro actor, outra
+    # data. Ela prova que a casa hoje sabe colher estes bytes; nao prova quem,
+    # quando nem como colheu ESTE corpo, que continua sem corrida. A propria
+    # `dispor()` ja o dizia («CONTENT_EQUIVALENCE != SAME_OBSERVATION»), e o
+    # teste da classe EquivalenciaNaoTransfereIdentidade tambem. Ficou visivel
+    # quando a Big Collection 2 colheu pela porta um PDF igual a um dos treze:
+    # o legado «ganhou» proveniencia sem ninguem a ter medido.
+    #
+    #     MESMOS BYTES NOUTRA CORRIDA NAO SAO A AQUISICAO DESTE CORPO.
+    #
+    # A equivalencia continua a contar — em SAME_BYTES_EXIST_IN_CANONICAL_FLOW
+    # e na disposicao EQUIVALENTE. So nao promove o que nao mediu.
+    aquisicao_provada = False
 
     return OrderedDict([
         ("ITEM", item["ITEM_ID"]),

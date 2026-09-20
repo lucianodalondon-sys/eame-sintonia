@@ -537,10 +537,23 @@ class OReprocessamentoNaoFabricaColheita(unittest.TestCase):
 
     def test_a_fronteira_recusa_ficar_calada_sobre_o_que_nao_atravessou(self):
         """`ingresso.conferir_fronteira` mede a travessia; não a adivinha."""
+        # ⚠️ ISTO EXIGIA `SOURCE_LOCATION` transportado em TODOS os recibos —
+        # verdade enquanto so as sete fontes do piloto (todas com sede no
+        # gazetteer) tinham texto nesta arvore. Uma fonte cujo contrato declara
+        # um lugar que o gazetteer nao cobre («Terlano (BZ)», IT-T3-011) sai
+        # honestamente NAO SEI, e NAO SEI nao se transporta — transporta-se a
+        # BASE. O invariante: transportado <=> valor conhecido; quando nao e,
+        # a razao esta escrita e o campo nao esta em falta.
         for recibo in self.r["RECIBOS"]:
             fronteira = recibo["FRONTEIRA"]
-            self.assertEqual([], fronteira["EXIGIDOS_EM_FALTA"])
-            self.assertIn("SOURCE_LOCATION", fronteira["TRANSPORTADOS"])
+            with self.subTest(doc=recibo.get("DOCUMENT_ID"), fonte=recibo.get("SOURCE_ID")):
+                self.assertEqual([], fronteira["EXIGIDOS_EM_FALTA"])
+                lugar = recibo["SOURCE_LOCATION"]
+                if lugar["VALOR"] != NAO_SEI:
+                    self.assertIn("SOURCE_LOCATION", fronteira["TRANSPORTADOS"])
+                else:
+                    self.assertNotIn("SOURCE_LOCATION", fronteira["TRANSPORTADOS"])
+                    self.assertTrue(lugar.get("BASE"), "NAO SEI sem razao escrita")
 
     def test_o_que_o_contrato_de_fonte_nao_prova_sai_NAO_SEI(self):
         """`node` pode não existir na máquina — e aí a resposta é `NAO SEI`.

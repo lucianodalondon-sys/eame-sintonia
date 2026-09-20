@@ -71,56 +71,99 @@ class OLivroDizQuemGuardouBruto(unittest.TestCase):
         cls.obs = _livro()
 
     def test_quem_criou_objecto_tem_caminho_e_quem_nao_criou_nao_tem(self):
-        """`RAW_OBJECT_CREATED` e `RAW_PATH` contam a MESMA história.
+        """`RAW_OBJECT_CREATED` e `RAW_PATH` respondem a DUAS perguntas.
 
-        Se um dia divergirem, este teste cai — e é isso que se quer: o campo
-        deixaria de ser prova de que houve objecto guardado.
+        ⚠️ DECISAO DE LEI, escrita em 20/09/2026. Isto exigia
+        `RAW_OBJECT_CREATED is True  <=>  RAW_PATH is not None`. Era a lei
+        antiga: «os dois contam a mesma historia». O coletor deixou de a
+        seguir de proposito (coleta/italy_pilot_collect.mjs, «NAO CRIEI O
+        OBJECTO AGORA != NAO HA BYTES EM LADO NENHUM»): sem caminho numa
+        SEEN_AGAIN, a porta de entrada preservava o JSON da observacao como se
+        fosse o documento. A lei que vale e a do coletor — e ficou aqui, e nao
+        num numero:
+
+            RAW_OBJECT_CREATED  «esta corrida materializou o objecto?»
+            RAW_PATH            «onde estao os bytes?»
+
+        O que continua obrigatorio: criou => ha caminho; ha caminho => ha
+        documento e ha bytes (sha); falhou => nem caminho nem criacao.
         """
         for o in self.obs:
-            criou = o.get("RAW_OBJECT_CREATED")
+            criou = o.get("RAW_OBJECT_CREATED") is True
             tem = o.get("RAW_PATH") is not None
             with self.subTest(doc=o.get("DOCUMENT_ID"),
                               result=o.get("OBSERVATION_RESULT")):
-                self.assertEqual(bool(criou) and criou is True, tem)
+                if criou:
+                    self.assertTrue(tem, "criou o objecto e nao diz onde")
+                if tem:
+                    self.assertTrue(o.get("DOCUMENT_ID"), "caminho sem documento")
+                    self.assertTrue(o.get("RAW_SHA256"), "caminho sem impressao digital")
+                    self.assertNotEqual(o.get("HEALTH_STATE"), "FAILED",
+                                        "observacao FAILED com caminho de bytes")
+                if o.get("HEALTH_STATE") == "FAILED" and not o.get("DOCUMENT_ID"):
+                    self.assertFalse(criou)
+                    self.assertFalse(tem)
 
     def test_reobservacao_nunca_guarda_objecto_novo(self):
         """`SEEN_AGAIN` é «fui lá e está igual» — não é uma captura nova.
 
-        ⚠️ ISTO EXIGIA `RAW_PATH = None`, e o coletor deixou de o escrever assim
-        de propósito (coleta/italy_pilot_collect.mjs, «NAO CRIEI O OBJECTO AGORA
-        != NAO HA BYTES EM LADO NENHUM»): sem caminho, a porta de entrada
-        preservava o JSON da observacao como se fosse o documento. Duas
-        perguntas, dois campos — `RAW_OBJECT_CREATED` responde «criei agora?»,
-        `RAW_PATH` responde «onde estao os bytes?». O que a lei continua a
-        exigir, e este teste mede: uma reobservacao NUNCA cria objecto novo, e
-        o caminho que ela aponta, quando aponta, e o de uma observacao ANTERIOR
-        com os mesmos bytes (mesmo sha) — nunca um sitio novo.
+        O invariante e sobre BYTES, nao sobre o disco desta arvore: uma
+        reobservacao tem os MESMOS bytes (mesmo sha256) de uma observacao
+        anterior do MESMO documento da MESMA fonte — nunca bytes novos com o
+        nome de «visto outra vez». E, quando as duas apontam para ficheiro, e
+        o mesmo ficheiro (mesmo nome).
 
-        Medido na SOURCE-COLLECTION-READINESS-V1: a primeira `SEEN_AGAIN` com
-        `RAW_PATH` escrita no livro (IT-T2-001) foi o que fez este teste cair.
+        ⚠️ `RAW_OBJECT_CREATED` PODE ser True numa SEEN_AGAIN, e isso e
+        verdade e nao defeito: o ledger e rastreado no Git e o armazem do
+        coletor nao e inteiro; uma arvore nova conhece o documento pelo livro
+        e nao tem os bytes no disco — e o coletor volta a materializa-los,
+        com o MESMO sha. Medido em 20/09/2026 na Big Collection 2 (CAMPANIA
+        SA-16-09, MINSALUTE 20260914). Exigir `False` aqui era exigir que o
+        disco desta arvore fosse a fonte da verdade; a fonte da verdade e o
+        sha.
         """
-        vistos = {}
+        vistas = {}
         for o in self.obs:
+            chave = (o.get("SOURCE_ID"), o.get("DOCUMENT_ID"))
             if o.get("OBSERVATION_RESULT") == "SEEN_AGAIN":
                 with self.subTest(doc=o.get("DOCUMENT_ID"), run=o.get("RUN_ID")):
-                    self.assertIs(o.get("RAW_OBJECT_CREATED"), False)
-                    if o.get("RAW_PATH") is not None:
-                        anteriores = vistos.get((o.get("SOURCE_ID"), o.get("RAW_SHA256")), set())
-                        self.assertIn(o["RAW_PATH"], anteriores,
-                                      "reobservacao aponta para um caminho que nenhuma "
-                                      "observacao anterior com os mesmos bytes escreveu")
-            if o.get("RAW_PATH"):
-                vistos.setdefault((o.get("SOURCE_ID"), o.get("RAW_SHA256")), set()).add(o["RAW_PATH"])
+                    anteriores = vistas.get(chave, [])
+                    self.assertTrue(anteriores, "SEEN_AGAIN sem observacao anterior do mesmo documento")
+                    shas = {a.get("RAW_SHA256") for a in anteriores}
+                    self.assertIn(o.get("RAW_SHA256"), shas,
+                                  "reobservacao com bytes que nenhuma anterior tinha: isso e NEW_DOCUMENT ou CHANGED_IN_PLACE")
+                    if o.get("RAW_PATH"):
+                        nomes = {os.path.basename(a["RAW_PATH"]) for a in anteriores
+                                 if a.get("RAW_PATH") and a.get("RAW_SHA256") == o.get("RAW_SHA256")}
+                        if nomes:
+                            self.assertIn(os.path.basename(o["RAW_PATH"]), nomes,
+                                          "reobservacao aponta para um ficheiro com outro nome")
+            if o.get("DOCUMENT_ID") and o.get("RAW_SHA256"):
+                vistas.setdefault(chave, []).append(o)
 
     def test_um_objecto_guardado_por_impressao_digital(self):
-        """Os objectos guardados e as impressões digitais distintas batem.
+        """Os objectos guardados e as impressões digitais batem — POR CORRIDA.
 
-        É esta igualdade que autoriza dizer «um objecto guardado = um
-        `raw_asset`». Se ela quebrar, a inferência deixa de valer.
+        ⚠️ ISTO DIZIA «criados == shas distintos» sobre o livro inteiro. Era
+        verdade enquanto cada sha so tinha sido materializado uma vez. Desde
+        20/09/2026 o mesmo sha pode ser criado em duas corridas (arvore nova
+        sem os bytes no disco — ver o teste anterior) e dois documentos de
+        fontes diferentes podem ter bytes iguais. O invariante que autoriza
+        «um objecto guardado = um raw_asset»: DENTRO de uma corrida, cada
+        (fonte, sha) e criado no maximo uma vez, e todo objecto criado tem
+        sha e caminho.
         """
-        criados = [o for o in self.obs if o.get("RAW_OBJECT_CREATED") is True]
-        shas = {str(o.get("RAW_SHA256") or "").lower() for o in criados}
-        self.assertEqual(len(criados), len(shas))
+        por_corrida = collections.defaultdict(list)
+        for o in self.obs:
+            if o.get("RAW_OBJECT_CREATED") is True:
+                self.assertTrue(o.get("RAW_SHA256"), "objecto criado sem sha256")
+                self.assertTrue(o.get("RAW_PATH"), "objecto criado sem caminho")
+                por_corrida[o.get("RUN_ID")].append((o.get("SOURCE_ID"), str(o.get("RAW_SHA256")).lower()))
+        self.assertTrue(por_corrida, "nenhum objecto criado no livro: o teste cegou")
+        for run, chaves in por_corrida.items():
+            with self.subTest(run=run):
+                self.assertEqual(len(chaves), len(set(chaves)),
+                                 "a mesma (fonte, sha) criada duas vezes na mesma corrida")
 
 
 # ═════════════════════════════════════════════════════════════════════════════

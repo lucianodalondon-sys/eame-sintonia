@@ -107,8 +107,32 @@ class EquivalenciaNaoTransfereIdentidade(unittest.TestCase):
         self.assertIn("NAO recebe a identidade", porque)
         self.assertIn("CONTENT_EQUIVALENCE != SAME_OBSERVATION", porque)
 
-    def test_hoje_nenhum_dos_treze_tem_equivalente(self):
-        self.assertEqual(_art()["CANONICAL_EQUIVALENTS"], 0)
+    def test_a_equivalencia_e_medida_no_ledger_e_nao_fixada(self):
+        """⚠️ ISTO DIZIA `CANONICAL_EQUIVALENTS == 0` — «hoje nenhum dos treze
+        tem equivalente». Era verdade no dia em que se escreveu e deixou de
+        ser em 20/09/2026, quando a Big Collection 2 colheu pela porta um PDF
+        com os mesmos bytes de um dos treze. Um numero fixo sobre acervo
+        mutavel reprova por o mundo andar, nao por o codigo mentir.
+
+        O invariante: CANONICAL_EQUIVALENTS e o numero de corpos cujo sha256
+        aparece no ledger italiano (o ledger e a fixture), e cada um desses
+        corpos tem a disposicao EQUIVALENTE — nunca LEGACY_KEEP.
+        """
+        art = _art()
+        ledger = os.path.join(RAIZ, "data", "collection-ledger", "italy",
+                              "observations.ndjson")
+        import io
+        import json
+        with io.open(ledger, encoding="utf-8") as fh:
+            shas = {str(json.loads(l).get("RAW_SHA256") or "").lower()
+                    for l in fh if l.strip()}
+        equivalentes = [f for f in art["ITEMS"]
+                        if f.get("SHA256") and str(f["SHA256"]).lower() in shas]
+        self.assertEqual(art["CANONICAL_EQUIVALENTS"], len(equivalentes))
+        self.assertEqual({f["ITEM"] for f in equivalentes},
+                         {f["ITEM"] for f in art["ITEMS"] if f["SAME_BYTES_EXIST_IN_CANONICAL_FLOW"]})
+        for f in equivalentes:
+            self.assertEqual(f["DISPOSITION"], L.EQUIVALENTE, f["ITEM"])
 
 
 class ARecoletaEUmaObservacaoNOVA(unittest.TestCase):
@@ -142,8 +166,23 @@ class OUnknownPermanece(unittest.TestCase):
             self.assertIsNone(f["ORIGINAL_URL_PROVEN"])
 
     def test_preservar_nao_e_admitir(self):
+        """⚠️ ISTO DIZIA `LEGACY_KEEP == 13`: os treze corpos, no dia em que
+        nenhum tinha equivalente canonico. Em 20/09/2026 um ganhou (Big
+        Collection 2) e passou, por lei, a EQUIVALENTE. O invariante: as
+        disposicoes cobrem TODOS os corpos, uma por corpo; LEGACY_KEEP e
+        exactamente quem tem corpo, nao tem equivalente e nao tem recoleta
+        provada; e nenhuma disposicao manda apagar.
+        """
         art = _art()
-        self.assertEqual(art["DISPOSITIONS"][L.LEGACY_KEEP]["QUANTOS"], 13)
+        fichas = art["ITEMS"]
+        soma = sum(d["QUANTOS"] for d in art["DISPOSITIONS"].values())
+        self.assertEqual(soma, len(fichas), "uma disposicao por corpo")
+        keep_esperado = {f["ITEM"] for f in fichas
+                         if f["BODY_EXISTS"] and not f["SAME_BYTES_EXIST_IN_CANONICAL_FLOW"]
+                         and f["RECOLLECTION_POSSIBLE"] != "SIM"}
+        self.assertEqual(set(art["DISPOSITIONS"][L.LEGACY_KEEP]["ITENS"]), keep_esperado)
+        self.assertEqual(art["DISPOSITIONS"][L.LEGACY_KEEP]["QUANTOS"], len(keep_esperado))
+        self.assertTrue(keep_esperado, "nenhum corpo em LEGACY_KEEP: o teste cegou")
         self.assertIn("PRESERVAR != ADMITIR",
                       art["ITEMS"][0]["WHY"])
         self.assertIn("Nenhuma disposicao manda apagar",

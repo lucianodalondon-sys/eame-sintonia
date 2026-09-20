@@ -14706,6 +14706,1896 @@
       "versao": "5",
       "corrida": "IT-T12-2026-09-20-112824-3cd72e6e91a2b083",
       "quando": "2026-09-20T11:28:37Z"
+    },
+    {
+      "item": "derived:42",
+      "universo": "T9",
+      "resultado": "NAO_SEI",
+      "regra": "pertence ao universo",
+      "motivo": "so uma palavra de «T9» aparece (novita), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+      "evidencia": {
+        "palavras": [
+          "novita"
+        ],
+        "sinais": 1,
+        "sinais_minimos": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3313,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T9-009",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "ae58a29f75c3bc24c041aa483f98c7e50bebeb0ed1128820472600323f1a",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "novita"
+            ],
+            "sinais": 1,
+            "sinais_minimos": 2,
+            "resultado": "NAO_SEI"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-130925-85ec135302431e00",
+      "quando": "2026-09-20T13:09:29Z"
+    },
+    {
+      "item": "derived:43",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6921,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-004",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "c2939dcd783e4d0f997b3b26351713666841e10ff5d6b86220c874d26950",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131011-4bac70792d947f23",
+      "quando": "2026-09-20T13:10:14Z"
+    },
+    {
+      "item": "https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano/",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131015-9d87a14093237dd9",
+      "quando": "2026-09-20T13:10:17Z"
+    },
+    {
+      "item": "derived:44",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6286,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-008",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "96e653bc4c1e13b069829f5cb1dcb3c5599098d7a6c9a29fbb7919e6ed2e",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131017-1a463c0036713f67",
+      "quando": "2026-09-20T13:10:23Z"
+    },
+    {
+      "item": "https://www.appa.provincia.tn.it/Documenti-e-dati",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131024-425fec1e9d78311c",
+      "quando": "2026-09-20T13:10:30Z"
+    },
+    {
+      "item": "derived:45",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 7684,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-012",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "481a149ec821d7e0cff660bb0c1aae558386c55cd575336aabb26caa2e02",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131031-183ea014a3b0ebfc",
+      "quando": "2026-09-20T13:10:36Z"
+    },
+    {
+      "item": "derived:46",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5966,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-013",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "3e14abfa5887c8795a21e8e886716f8dcab2fa10e7bfbdc27ca620852427",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131036-308c466d59485d9d",
+      "quando": "2026-09-20T13:10:40Z"
+    },
+    {
+      "item": "derived:47",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5480,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-017",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "3217745e1e4e93b60db5d161e2801df8effe497939b49163e1d35cf0d15d",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131040-e61a57917992f6e9",
+      "quando": "2026-09-20T13:10:44Z"
+    },
+    {
+      "item": "derived:48",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 8371,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-019",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "21f80115dcadc912b10a6bc90cff9b7faa3ef0aa7158172da7d2de966897",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131044-5f7d6bf72866bca4",
+      "quando": "2026-09-20T13:10:48Z"
+    },
+    {
+      "item": "derived:49",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 7051,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-022",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "243d77f91d6fa4c98addf205a0b0e6e5c738af6cd33e26bd784479652092",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-131048-3f0fa719fa4b1c72",
+      "quando": "2026-09-20T13:10:52Z"
+    },
+    {
+      "item": "derived:50",
+      "universo": "T3",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T3», e fala claramente de outro universo (T9: novita). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T9": [
+            "novita"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 1853,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-013",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "18ffea3450bd915a05a7f55f101a91f4cdfc4803949ada8162d02d915f35",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T9": [
+                "novita"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-131052-fb21fb302da95609",
+      "quando": "2026-09-20T13:10:56Z"
+    },
+    {
+      "item": "derived:51",
+      "universo": "T3",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T3», e fala claramente de outro universo (T5: ricerca; T4: registro, ministero). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T5": [
+            "ricerca"
+          ],
+          "T4": [
+            "registro",
+            "ministero"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2416,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-014",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "88c09414ad7032d44edfc7867de167872b8131fa742e478ca3623eca8a57",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T5": [
+                "ricerca"
+              ],
+              "T4": [
+                "registro",
+                "ministero"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-131056-885e6fcc9d3d4098",
+      "quando": "2026-09-20T13:11:00Z"
+    },
+    {
+      "item": "derived:52",
+      "universo": "T3",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T3», e fala claramente de outro universo (T5: ricerca, universita; T7: soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T5": [
+            "ricerca",
+            "universita"
+          ],
+          "T7": [
+            "soci"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3708,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-015",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "b07cb2bd7ec27c073a292d29f60dcca2e332a17856ba1252624e3c336893",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T5": [
+                "ricerca",
+                "universita"
+              ],
+              "T7": [
+                "soci"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-131100-017ce21ff8ebdea0",
+      "quando": "2026-09-20T13:11:08Z"
+    },
+    {
+      "item": "derived:53",
+      "universo": "T3",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T3», e fala claramente de outro universo (T5: ricerca; T7: soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T5": [
+            "ricerca"
+          ],
+          "T7": [
+            "soci"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2920,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-016",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "fe363232040ee92fb96a5e4213a9ba2f68daa75613fad5c323c453f041e1",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T5": [
+                "ricerca"
+              ],
+              "T7": [
+                "soci"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-131109-e8d05fb158a4147c",
+      "quando": "2026-09-20T13:11:14Z"
+    },
+    {
+      "item": "derived:54",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "pertence ao universo",
+      "motivo": "so uma palavra de «T3» aparece (trappola), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+      "evidencia": {
+        "palavras": [
+          "trappola"
+        ],
+        "sinais": 1,
+        "sinais_minimos": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 7686,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-018",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "5a0b12f272ffd6d11830ebd46dee7ba669e7f6310c6b2881e1bfb0627f08",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "trappola"
+            ],
+            "sinais": 1,
+            "sinais_minimos": 2,
+            "resultado": "NAO_SEI"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-131115-c48377c685317de3",
+      "quando": "2026-09-20T13:11:18Z"
+    },
+    {
+      "item": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca/progetti-corso",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-131119-98284a2f7317a602",
+      "quando": "2026-09-20T13:11:21Z"
+    },
+    {
+      "item": "derived:55",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "pertence ao universo",
+      "motivo": "so uma palavra de «T5» aparece (ricerca), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+      "evidencia": {
+        "palavras": [
+          "ricerca"
+        ],
+        "sinais": 1,
+        "sinais_minimos": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4642,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-006",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "dd578400686a730ae2124ea1442961dfb6f08f0f19f6ec748774a8021f7b",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "ricerca"
+            ],
+            "sinais": 1,
+            "sinais_minimos": 2,
+            "resultado": "NAO_SEI"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131121-d710f83388b7e25a",
+      "quando": "2026-09-20T13:11:25Z"
+    },
+    {
+      "item": "derived:56",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de ricerca, universita, istituto, pubblicazione — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "ricerca",
+          "universita",
+          "istituto",
+          "pubblicazione"
+        ],
+        "sinais": 4,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5272,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-015",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "9397764bcf72da395947d6cc324c24e9c377472649bc3fb788ceedd92620",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "ricerca",
+              "universita",
+              "istituto",
+              "pubblicazione"
+            ],
+            "sinais": 4,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131125-8d14df1ddbe963fc",
+      "quando": "2026-09-20T13:11:29Z"
+    },
+    {
+      "item": "derived:57",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, universita, tesi — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "universita",
+          "tesi"
+        ],
+        "sinais": 4,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5563,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-024",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "c1e398fde7a777a7cbd615d694c4108308f45c09c11f63fb8e50ecad0191",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "universita",
+              "tesi"
+            ],
+            "sinais": 4,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131130-895a0314eae09400",
+      "quando": "2026-09-20T13:11:33Z"
+    },
+    {
+      "item": "derived:58",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, universita, istituto — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "universita",
+          "istituto",
+          "pubblicazione",
+          "sperimentazione"
+        ],
+        "sinais": 6,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6517,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-025",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "e34b4cb8eb58e9d6739fc0acef387f9c3c814dd146ae2eb4c27ceec35630",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "universita",
+              "istituto",
+              "pubblicazione",
+              "sperimentazione"
+            ],
+            "sinais": 6,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131134-416d0d69a8c8e948",
+      "quando": "2026-09-20T13:11:38Z"
+    },
+    {
+      "item": "derived:59",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de ricerca, universita, pubblicazione — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "ricerca",
+          "universita",
+          "pubblicazione"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2019,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-027",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "9fd55b28f3ee69afbb0ebc6d405066f61aeeb7b8fb0ce427b772335eec24",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "ricerca",
+              "universita",
+              "pubblicazione"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131138-25dca3fc1409d65d",
+      "quando": "2026-09-20T13:11:42Z"
+    },
+    {
+      "item": "derived:60",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca"
+        ],
+        "sinais": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2463,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-028",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "50a45d9eeef8530bd2393e39cb9a58f3db26c36fdb6a4c50fb94d45b0c94",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca"
+            ],
+            "sinais": 2,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131143-3373b6aaa2b3f10c",
+      "quando": "2026-09-20T13:11:54Z"
+    },
+    {
+      "item": "derived:61",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "universita"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 7042,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-030",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "59402c1c9a73d9a00dacd5b54d687b2ebb4fddd0d386cf1df5d90fd2bc0d",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "universita"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131154-4545d6b1e93089db",
+      "quando": "2026-09-20T13:11:59Z"
+    },
+    {
+      "item": "derived:62",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, universita, istituto — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "universita",
+          "istituto",
+          "tesi"
+        ],
+        "sinais": 5,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4162,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-033",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "e0c35dd4255e63b8ed2611fb09015e29a79faacdafadb6fe72b62283a86e",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "universita",
+              "istituto",
+              "tesi"
+            ],
+            "sinais": 5,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131200-68afc47009a79970",
+      "quando": "2026-09-20T13:12:04Z"
+    },
+    {
+      "item": "derived:63",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, rivista — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "rivista"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6281,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-034",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "276d543815598efbe2b93a58ef0dd3376fa4ad3e9905bc65416f8c938c1a",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "rivista"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131205-10c1ea3a8c305043",
+      "quando": "2026-09-20T13:12:08Z"
+    },
+    {
+      "item": "https://georgofili.it/elenco-atti-georgofili",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131209-2227949ce0ac6d0b",
+      "quando": "2026-09-20T13:12:11Z"
+    },
+    {
+      "item": "derived:64",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, rivista — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "rivista"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6281,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-036",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "ff3a21e902e6c91dbee9e19fdac7047ddc010eb31d771265fdda242479a5",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "rivista"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-131211-efd0f7c5d86970a4",
+      "quando": "2026-09-20T13:12:15Z"
+    },
+    {
+      "item": "derived:65",
+      "universo": "T7",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de agronomo, agronomi, soci — que e do que «T7» trata",
+      "evidencia": {
+        "palavras": [
+          "agronomo",
+          "agronomi",
+          "soci"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6249,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T7-013",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "fbf68e95f3ba0bd186aca6fdb33ae136dd79eee64f0b06252358d5ff5093",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "agronomo",
+              "agronomi",
+              "soci"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T7-2026-09-20-131216-bde6d847dc5c70e1",
+      "quando": "2026-09-20T13:12:19Z"
+    },
+    {
+      "item": "derived:66",
+      "universo": "T9",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de campagna, novita — que e do que «T9» trata",
+      "evidencia": {
+        "palavras": [
+          "campagna",
+          "novita"
+        ],
+        "sinais": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 8580,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T9-011",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "b705c4fa2b83ce2fbfa51ae8e310c6541e9b307f042a655f51dcb300b28d",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "campagna",
+              "novita"
+            ],
+            "sinais": 2,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-131220-6701c875ad0307e8",
+      "quando": "2026-09-20T13:12:24Z"
+    },
+    {
+      "item": "derived:67",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2334,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-002",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "d206b0e88e387da38265636b6cc89e4ac099aad94a056c89f069224ea876",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131225-9b8ce6e748b0de21",
+      "quando": "2026-09-20T13:12:31Z"
+    },
+    {
+      "item": "derived:68",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3708,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-003",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "0212d836e05668d731754e4efc544b2921ca417c17293d4e3f1c07b4ccc2",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131231-12c05373a1595b48",
+      "quando": "2026-09-20T13:12:39Z"
+    },
+    {
+      "item": "derived:69",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 23447,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-006",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "0ce7e01d16cc63468ca1ef0e7fcf5a39f2ed8aa0f4c91fb04f506dae6fc9",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131239-85efef2e0a1798e5",
+      "quando": "2026-09-20T13:12:46Z"
+    },
+    {
+      "item": "derived:70",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6290,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-007",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "e4aa69c8ee805aa9469bf314fde61bb3f9bf0e3a74938bc8ca5a0bb4504d",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131246-fd5d6b5e9ad8ffd3",
+      "quando": "2026-09-20T13:12:50Z"
+    },
+    {
+      "item": "derived:71",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5731,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-009",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "61e719de791e6c64ddccede4aea8292bc4b98fa0dc1c261adb9d22150ad1",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131250-2e6404aab1f0eee8",
+      "quando": "2026-09-20T13:12:54Z"
+    },
+    {
+      "item": "derived:72",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 6900,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-010",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "e0007a139412174bf489fbd6b2030dd76a9e5840a57b32ee60bac65409a3",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131255-48ab26838dae1cea",
+      "quando": "2026-09-20T13:12:59Z"
+    },
+    {
+      "item": "derived:73",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2373,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-013",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "7650d702e8fcb330e79f19ef59f15f0cb41b2eaeb4a25ded760cd1653230",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131259-9254ee83ae889203",
+      "quando": "2026-09-20T13:13:03Z"
+    },
+    {
+      "item": "derived:74",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 1552,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-016",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "2483b872cdcbe31fb22f2a8f059af278e985c7483256d7bb4dda249d586d",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131303-1fb659faa4973fa3",
+      "quando": "2026-09-20T13:13:07Z"
+    },
+    {
+      "item": "derived:75",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 11692,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-018",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "c10ff98d48b1701fc086e2ed000d5fa0b92387beaeb05e32448d91e1d1f9",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131307-b976f0666cef9709",
+      "quando": "2026-09-20T13:13:11Z"
+    },
+    {
+      "item": "derived:76",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4698,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-021",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "75a6073b37f114b215582c152c6b6babec6df3bf20bbadf28f82504ae73e",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131312-04ef1e095e6b133e",
+      "quando": "2026-09-20T13:13:15Z"
+    },
+    {
+      "item": "derived:77",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3731,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-022",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "ee5ce81c7b87dbab6cf907d3bdbe37ac1f758e89da84722530c0ec00f7e4",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-131316-e817ee4315a09365",
+      "quando": "2026-09-20T13:13:22Z"
+    },
+    {
+      "item": "derived:78",
+      "universo": "T10",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T10». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 16269,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T10-007",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "2acfda24643036ffb7b018ef11370eeb47f7f5d0beb61e7b622cec37c97f",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-131323-01ca1fe16adc35f8",
+      "quando": "2026-09-20T13:13:32Z"
+    },
+    {
+      "item": "derived:79",
+      "universo": "T10",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T10». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4826,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T10-009",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "f53b73a74cd7dab83cf613c2ad5bbe6966f232cf5c0a8870eb1f1d1d11d4",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-131333-6ceca417c5a8ed06",
+      "quando": "2026-09-20T13:13:37Z"
+    },
+    {
+      "item": "derived:80",
+      "universo": "T10",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T10». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5486,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T10-011",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "f605d0d141fc45f3705922a2006a3f5b0398b23aaa2678aa37faddf08772",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-131338-270ec87d13b34637",
+      "quando": "2026-09-20T13:13:41Z"
+    },
+    {
+      "item": "derived:81",
+      "universo": "T10",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T10». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3846,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T10-013",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "e606300b76b0f68ac14a7b0fbd13b56d080378fe4fd0f70453be1d4be2bf",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-131342-a2ee35238787e4f9",
+      "quando": "2026-09-20T13:13:45Z"
+    },
+    {
+      "item": "derived:82",
+      "universo": "T11",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T11». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3556,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T11-005",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "198d0811fd000b665ef8b72124298b2dc35b2c2a4924b920b2a2d3f0f516",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T11-2026-09-20-131346-f2327038f4becc78",
+      "quando": "2026-09-20T13:13:50Z"
+    },
+    {
+      "item": "derived:83",
+      "universo": "T12",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T12». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3383,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T12-004",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "553ed4153c5e254d4708601222cd5ec5789f26edf47575785d4cc4f944e3",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T12-2026-09-20-131350-eb9d676012ed87cf",
+      "quando": "2026-09-20T13:13:54Z"
+    },
+    {
+      "item": "https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano/",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-132037-aba41be479bc3650",
+      "quando": "2026-09-20T13:20:39Z"
+    },
+    {
+      "item": "https://www.appa.provincia.tn.it/Documenti-e-dati",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-132040-07e48530d049b6ca",
+      "quando": "2026-09-20T13:20:42Z"
+    },
+    {
+      "item": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca/progetti-corso",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-132042-1768cac9b782ee3d",
+      "quando": "2026-09-20T13:20:44Z"
+    },
+    {
+      "item": "https://georgofili.it/elenco-atti-georgofili",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-132045-ccee285b6255c4cb",
+      "quando": "2026-09-20T13:20:46Z"
     }
   ]
 }

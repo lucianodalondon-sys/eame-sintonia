@@ -7,6 +7,7 @@ parece uma boa noticia. Estes testes existem para que o numero so possa
 descer por o valor existir mesmo.
 """
 import importlib.util
+import io
 import json
 import os
 import sys
@@ -176,13 +177,34 @@ class AsGuARDAS_ESTRUTURAIS(unittest.TestCase):
             W._json = real
 
     def test_o_recibo_da_coleta_e_um_estagio_da_trilha(self):
-        """Mutante: saltar o estagio do recibo."""
+        """Mutante: saltar o estagio do recibo.
+
+        ⚠️ ISTO DIZIA `== 7`, e 7 era o numero de itens com recibo NO DIA em
+        que o teste foi escrito (as sete fontes do piloto). O acervo e mutavel
+        — a Big Collection 2 (20/09/2026) pos o IT-T3-011 no ledger e o numero
+        passou a 8 — e um teste que fixa uma contagem sobre acervo mutavel
+        reprova por o mundo ter andado, nao por o codigo ter mentido.
+
+        O invariante VERDADEIRO, que mata o mesmo mutante: os itens com
+        recibo PRESENTE sao exactamente os itens cujo sha256 esta no ledger
+        italiano (a fixture define o universo), e nao sao zero. Saltar o
+        estagio dava zero; inventar recibo dava um item cujo sha nao esta la.
+        """
         art = _artefato()
-        com_recibo = [t for t in art["ITEMS"]
+        com_recibo = {t["ITEM_ID"] for t in art["ITEMS"]
                       if any(e["TO"] == "COLLECTION_LEDGER" and
-                             e["STATUS"] == W.PRESENT for e in t["EDGES"])]
-        self.assertEqual(len(com_recibo), 7,
-                         "o estagio do recibo desapareceu da trilha")
+                             e["STATUS"] == W.PRESENT for e in t["EDGES"])}
+        ledger = os.path.join(RAIZ, "data", "collection-ledger", "italy",
+                              "observations.ndjson")
+        with io.open(ledger, encoding="utf-8") as fh:
+            shas_no_ledger = {str(json.loads(l).get("RAW_SHA256") or "").lower()
+                              for l in fh if l.strip()}
+        esperados = {t["ITEM_ID"] for t in art["ITEMS"]
+                     if str(t.get("DOC_SHA256") or "").lower() in shas_no_ledger}
+        self.assertTrue(esperados, "nenhum item do lote tem sha no ledger: o teste cegou")
+        self.assertEqual(com_recibo, esperados,
+                         "o estagio do recibo nao bate com o ledger: %s"
+                         % sorted(com_recibo ^ esperados))
 
     def test_o_primeiro_edge_perdido_e_o_primeiro_e_nao_o_ultimo(self):
         """Mutante: atribuir a culpa ao ultimo estagio.
