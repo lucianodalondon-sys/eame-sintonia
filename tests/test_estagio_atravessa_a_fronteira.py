@@ -67,7 +67,12 @@ class Bancada(unittest.TestCase):
         self.pay = _payload()
         if not self.pay:
             self.skipTest("sem byte real no armazem")
-        self.addCleanup(shutil.rmtree, os.path.join(RAIZ, "XX"), True)
+        # ⚠️ NUNCA `rmtree(RAIZ/"XX")` A SECO. Medido em 20/09/2026: `XX/` era
+        # o ArmazemLocal da bancada OPERACIONAL e esta limpeza apagou os 107
+        # objectos da Big Collection 2. A limpeza passa pelo dono dos bytes,
+        # que so apaga RESIDUO de medicao e recusa fechado o que carregar o
+        # marcador operacional ou for a raiz declarada em SINTONIA_ARMAZEM_RAIZ.
+        self.addCleanup(ing.apagar_armazem_de_medicao, os.path.join(RAIZ, "XX"))
 
     def unidade(self, **kw):
         base = {"id": "e-1", "texto": "Bollettino agrometeorologico con dati.",
@@ -364,7 +369,12 @@ class ACorridaInteiraProvadaACorrer(unittest.TestCase):
         self.addCleanup(lambda: os.environ.__setitem__("ITALY_OPS_ROOT", antes)
                         if antes else os.environ.pop("ITALY_OPS_ROOT", None))
         self.addCleanup(shutil.rmtree, os.path.join(RAIZ, adapter.BALCAO), True)
-        self.addCleanup(shutil.rmtree, os.path.join(RAIZ, "XX"), True)
+        # ⚠️ NUNCA `rmtree(RAIZ/"XX")` A SECO. Medido em 20/09/2026: `XX/` era
+        # o ArmazemLocal da bancada OPERACIONAL e esta limpeza apagou os 107
+        # objectos da Big Collection 2. A limpeza passa pelo dono dos bytes,
+        # que so apaga RESIDUO de medicao e recusa fechado o que carregar o
+        # marcador operacional ou for a raiz declarada em SINTONIA_ARMAZEM_RAIZ.
+        self.addCleanup(ing.apagar_armazem_de_medicao, os.path.join(RAIZ, "XX"))
 
         self.livro = admissao.LIVRO
         try:

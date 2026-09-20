@@ -82,7 +82,9 @@ import artefato as art                                    # noqa: E402
 # um deles mudasse a ligacao partia-se em silencio — que e a pior maneira de
 # uma linhagem se perder.
 from guarda.preservar_coleta import (ArmazemLocal, PASSAGEM,  # noqa: E402
-                                     PASSAGENS, preservar)
+                                     PASSAGENS, preservar,
+                                     ArmazemOperacionalSemRaiz, ArmazemProtegido,
+                                     apagar_armazem_de_medicao, raiz_do_armazem_local)
 # ⚠️ O DONO DO RASTRO, E NAO UMA SEGUNDA TELEMETRIA.
 # `medidas/rastro_da_coleta.py` ja escreve as passagens de DERIVED, STRUCTURED
 # e ADMISSION. A etapa RAW estava no vocabulario (`telemetria.ETAPAS_DA_COLETA`)
@@ -543,7 +545,10 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
 #:
 #:     UMA ORDEM QUE DECIDE SEM QUE NINGUÉM A TENHA DECIDIDO
 #:     É UMA REGRA ESCONDIDA NUM `import`.
-_DONOS_DA_DERIVACAO = ("executor_texto_de_pdf", "executor_transcricao_midia")
+# `executor_texto_de_html` entrou em 20/09/2026: 46 observacoes `text/html` da
+# Big Collection 2 saiam NOT_APPLICABLE porque ninguem declarava a especie.
+_DONOS_DA_DERIVACAO = ("executor_texto_de_pdf", "executor_transcricao_midia",
+                       "executor_texto_de_html")
 
 
 def _executores_de_derivacao():

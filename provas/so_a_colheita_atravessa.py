@@ -192,7 +192,10 @@ def a_cadeia_com_um_item_real():
     finally:
         shutil.rmtree(ops, ignore_errors=True)
         shutil.rmtree(os.path.join(RAIZ, adapter.BALCAO), ignore_errors=True)
-        shutil.rmtree(os.path.join(RAIZ, "XX"), ignore_errors=True)
+        # ⚠️ Nao `rmtree(RAIZ/"XX")` a seco: em 20/09/2026 `XX/` era o armazem
+        # da bancada OPERACIONAL. A limpeza passa pelo dono dos bytes, que so
+        # apaga residuo de medicao e recusa fechado o que for operacional.
+        ing.apagar_armazem_de_medicao(os.path.join(RAIZ, "XX"))
         if antes is None:
             os.environ.pop("ITALY_OPS_ROOT", None)
         else:

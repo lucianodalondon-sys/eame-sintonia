@@ -377,6 +377,135 @@ class ArmazemLocal(Armazem):
         return alvo if os.path.isfile(alvo) else None
 
 
+# ── ONDE FICA A RAIZ DO ARMAZEM LOCAL — E QUEM PODE APAGA-LA ─────────────────
+# ⚠️ MEDIDO EM 20/09/2026, DEPOIS DA BIG COLLECTION 2. O orquestrador criava
+# `ArmazemLocal(RAIZ)` em TODOS os modos, e a bancada OPERACIONAL (Sala em
+# 127.0.0.1:54330) escreveu os bytes dos 107 objectos em `<repo>/XX/` — que o
+# `.gitignore` declara «RESIDUO DE MEDICAO, E NAO ACERVO». A suite inteira,
+# corrida a seguir na mesma arvore, fez `shutil.rmtree(RAIZ/"XX")` no cleanup
+# de um teste: a Sala ficou a apontar para 107 caminhos sem ficheiro.
+#
+#     STORAGE OPERACIONAL != RESIDUO DE MEDICAO.
+#     TESTE NUNCA PODE APAGAR STORAGE OPERACIONAL.
+#
+# A separacao e a MENOR possivel e espelha a que `orquestrador/persistencia.py`
+# ja faz para a memoria: a raiz dos bytes vem de UMA variavel, e no modo
+# OPERACIONAL ela e OBRIGATORIA — memoria operacional com bytes em residuo foi
+# exactamente o defeito medido. Nos outros modos (DESCARTAVEL, AUSENTE) nada
+# muda: a raiz continua a ser a arvore, e os bytes caem em `XX/` como sempre.
+#
+# E o escopo de uma limpeza NAO se prova pelo nome da pasta: prova-se por um
+# MARCADOR que so o armazem operacional carrega, e pela raiz declarada. Quem
+# quer apagar residuo passa por `apagar_armazem_de_medicao`, que recusa
+# fechado tudo o que parecer operacional.
+VARIAVEL_DA_RAIZ = "SINTONIA_ARMAZEM_RAIZ"
+MARCADOR_OPERACIONAL = "ARMAZEM_OPERACIONAL.json"
+RAIZ_DA_ARVORE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+class ArmazemOperacionalSemRaiz(Exception):
+    """Memoria operacional declarada e nenhuma raiz para os bytes.
+
+    Falha ANTES de a corrida nascer, com o nome do que falta. Escrever os
+    bytes em `<repo>/XX/` seria repetir o defeito medido.
+    """
+
+
+class ArmazemProtegido(Exception):
+    """Alguem tentou apagar um caminho que parece storage operacional."""
+
+
+def raiz_do_armazem_local(estado, env=None, raiz_da_arvore=RAIZ_DA_ARVORE) -> str:
+    """→ a raiz onde `ArmazemLocal` escreve, para este modo de persistencia.
+
+    OPERACIONAL  exige `SINTONIA_ARMAZEM_RAIZ` (absoluta, fora da arvore);
+                 cria-a se faltar e deixa la o marcador.
+    outros       `SINTONIA_ARMAZEM_RAIZ` se declarada; senao a arvore (`XX/`).
+    """
+    e = os.environ if env is None else env
+    declarada = (e.get(VARIAVEL_DA_RAIZ) or "").strip()
+    if declarada:
+        raiz = os.path.normpath(os.path.abspath(declarada))
+        arvore = os.path.normpath(os.path.abspath(raiz_da_arvore))
+        if raiz == arvore or raiz.startswith(arvore + os.sep):
+            raise ArmazemOperacionalSemRaiz(
+                "ARMAZEM_DENTRO_DA_ARVORE: %s=%s esta dentro do repositorio (%s). "
+                "Bytes operacionais dentro da arvore sao residuo de medicao, e a "
+                "suite apaga residuo." % (VARIAVEL_DA_RAIZ, declarada, arvore))
+        if estado == "OPERACIONAL":
+            marcar_operacional(raiz)
+        return raiz
+    if estado == "OPERACIONAL":
+        raise ArmazemOperacionalSemRaiz(
+            "ARMAZEM_OPERACIONAL_SEM_RAIZ: a memoria e operacional e %s nao esta "
+            "declarada. Nada foi escrito; a corrida nao nasce. Sem raiz, os bytes "
+            "cairiam em <repo>/XX/, que e residuo de medicao e a suite apaga."
+            % VARIAVEL_DA_RAIZ)
+    return os.path.normpath(os.path.abspath(raiz_da_arvore))
+
+
+def marcar_operacional(raiz: str) -> str:
+    """Deixa na raiz o marcador que a limpeza de medicao le e respeita."""
+    import datetime                                          # noqa: PLC0415
+    os.makedirs(raiz, exist_ok=True)
+    marcador = os.path.join(raiz, MARCADOR_OPERACIONAL)
+    if not os.path.isfile(marcador):
+        with open(marcador, "w", encoding="utf-8") as fh:
+            json.dump({"ARMAZEM": "OPERACIONAL",
+                       "LEI": "TESTE NUNCA PODE APAGAR STORAGE OPERACIONAL",
+                       "DONO": "guarda/preservar_coleta.py::ArmazemLocal",
+                       "MARCADO_EM": datetime.datetime.now(datetime.timezone.utc)
+                       .strftime("%Y-%m-%dT%H:%M:%SZ")}, fh, ensure_ascii=False, indent=1)
+    return marcador
+
+
+def _tem_marcador(caminho: str) -> bool:
+    atual = os.path.normpath(os.path.abspath(caminho))
+    while True:
+        if os.path.isfile(os.path.join(atual, MARCADOR_OPERACIONAL)):
+            return True
+        pai = os.path.dirname(atual)
+        if pai == atual:
+            return False
+        atual = pai
+
+
+def apagar_armazem_de_medicao(caminho: str, env=None, raiz_da_arvore=RAIZ_DA_ARVORE,
+                              dentro_de=None) -> bool:
+    """Apaga RESIDUO de medicao — e so isso. Falha fechado se parecer operacional.
+
+    Permitido:  `<arvore>/XX` (o residuo por omissao), ou um caminho dentro de
+                `dentro_de` (a pasta temporaria que o proprio teste criou).
+    Recusado:   caminho com marcador operacional (nele ou num pai), caminho
+                igual ou dentro de `SINTONIA_ARMAZEM_RAIZ`, e qualquer outro.
+    → True se apagou, False se nao havia nada para apagar.
+    """
+    import shutil                                            # noqa: PLC0415
+    e = os.environ if env is None else env
+    alvo = os.path.normpath(os.path.abspath(caminho))
+    if _tem_marcador(alvo):
+        raise ArmazemProtegido("ARMAZEM_PROTEGIDO: %s carrega o marcador %s — e "
+                               "storage operacional, nao residuo." % (alvo, MARCADOR_OPERACIONAL))
+    declarada = (e.get(VARIAVEL_DA_RAIZ) or "").strip()
+    if declarada:
+        raiz = os.path.normpath(os.path.abspath(declarada))
+        if alvo == raiz or alvo.startswith(raiz + os.sep) or raiz.startswith(alvo + os.sep):
+            raise ArmazemProtegido("ARMAZEM_PROTEGIDO: %s e (ou contem) a raiz declarada "
+                                   "em %s." % (alvo, VARIAVEL_DA_RAIZ))
+    residuo = os.path.normpath(os.path.join(os.path.abspath(raiz_da_arvore), "XX"))
+    permitido = alvo == residuo
+    if dentro_de:
+        base = os.path.normpath(os.path.abspath(dentro_de))
+        permitido = permitido or alvo == base or alvo.startswith(base + os.sep)
+    if not permitido:
+        raise ArmazemProtegido("ARMAZEM_PROTEGIDO: %s nao e o residuo <arvore>/XX nem esta "
+                               "dentro da pasta temporaria do teste." % alvo)
+    if not os.path.isdir(alvo):
+        return False
+    shutil.rmtree(alvo, ignore_errors=True)
+    return True
+
+
 class ArmazemDeMentira(Armazem):
     """Armazém de teste: um dicionário, e uma maneira de o mandar falhar."""
 

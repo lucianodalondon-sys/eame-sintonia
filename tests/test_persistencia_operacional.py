@@ -25,6 +25,16 @@ import _gavetas  # noqa: E402,F401
 from orquestrador import persistencia as P  # noqa: E402
 from guarda import banco_operacional as OP  # noqa: E402
 from guarda import banco_descartavel as DESC  # noqa: E402
+from guarda import preservar_coleta as PC  # noqa: E402
+
+# ⚠️ Desde 20/09/2026 a memoria OPERACIONAL exige a raiz dos bytes
+# (`SINTONIA_ARMAZEM_RAIZ`, fora da arvore): memoria operacional com bytes em
+# `<repo>/XX/` foi o defeito que apagou a Big Collection 2. As provas do modo
+# operacional declaram uma raiz temporaria propria — o que a lei pede a quem
+# corre a serio. O caso «sem raiz» prova-se em
+# tests/test_armazem_operacional_protegido.py.
+import tempfile  # noqa: E402
+ARMAZEM = tempfile.mkdtemp(prefix="armazem-oper-prova-")
 
 #: ⚠️ O VALOR TEM DE SE DECLARAR FALSO, E NÃO BASTA O NOME DA CONSTANTE DIZÊ-LO.
 #: Aqui esteve `SENHA-QUE-NAO-PODE-APARECER-EM-LADO-NENHUM` — uma frase que
@@ -59,7 +69,7 @@ class APortaOperacional(unittest.TestCase):
             P.dependencias_do_runtime({P.VARIAVEL: PRODUCAO})
 
     def test_C_modo_operacional_autorizado_liga(self):
-        r = P.dependencias_do_runtime({P.VARIAVEL_OPERACIONAL: OPERACIONAL_OK})
+        r = P.dependencias_do_runtime({P.VARIAVEL_OPERACIONAL: OPERACIONAL_OK, PC.VARIAVEL_DA_RAIZ: ARMAZEM})
         self.assertEqual(r.ESTADO, P.OPERACIONAL)
         self.assertIsNotNone(r.memoria)
         self.assertIsNotNone(r.banco_do_rastro)
@@ -97,10 +107,10 @@ class APortaOperacional(unittest.TestCase):
     def test_H_duas_configuracoes_falham_fechado(self):
         with self.assertRaises(P.ModosEmConflito):
             P.dependencias_do_runtime({P.VARIAVEL: DESCARTAVEL_OK,
-                                       P.VARIAVEL_OPERACIONAL: OPERACIONAL_OK})
+                                       P.VARIAVEL_OPERACIONAL: OPERACIONAL_OK, PC.VARIAVEL_DA_RAIZ: ARMAZEM})
 
     def test_I_segredo_nunca_aparece_no_recibo(self):
-        r = P.dependencias_do_runtime({P.VARIAVEL_OPERACIONAL: OPERACIONAL_OK})
+        r = P.dependencias_do_runtime({P.VARIAVEL_OPERACIONAL: OPERACIONAL_OK, PC.VARIAVEL_DA_RAIZ: ARMAZEM})
         texto = "%s %s %s" % (r.PORQUE, r.MORADA, r.para_json())
         self.assertNotIn(SENHA, texto)
         self.assertIn("127.0.0.1:54330/sala_italia", r.MORADA)
