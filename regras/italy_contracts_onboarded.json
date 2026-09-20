@@ -9,7 +9,7 @@
   "LOTE-PDF-INDICE": "HTML_LINK_DISCOVERY MATCH=URL, OUTPUT_TYPE PDF (%PDF exigido)",
   "LOTE-HTML-ARTIGO": "HTML_LINK_DISCOVERY MATCH=URL, OUTPUT_TYPE HTML (< exigido), endereco diferente da entrada",
   "LOTE-PDF-FIXO": "STATIC_ENDPOINT, OUTPUT_TYPE PDF",
-  "LOTE-YOUTUBE-CANAL": "CUSTOM_ADAPTER CANAL_PUBLICO_YOUTUBE_V1 (pagina publica /channel/<CHANNEL_ID>/videos, alvos /watch?v=), OUTPUT_TYPE HTML (< exigido); identidade generica pelo ENDERECO do alvo (URL_PATH), que carrega o videoId"
+  "LOTE-YOUTUBE-CANAL": "CUSTOM_ADAPTER CANAL_PUBLICO_YOUTUBE_V1 (pagina publica /channel/<CHANNEL_ID>/videos, alvos /watch?v=), OUTPUT_TYPE HTML (< exigido); identidade declarada na linha: videoId nativo lido do endereco do alvo (PLATFORM_NATIVE_ID, DOCUMENT_ID <SOURCE_ID>:YT:<videoId>), como o curator declarou"
  },
  "ADENDA_04A": "INTEGRACAO-04A (2026-09-20): +18 linhas LOTE-HTML-ARTIGO vindas do SOURCE CURATOR (curadoria/italy_contracts_curator.json @ 376c0d9b) — SOMENTE as que ficaram READY_FOR_COLLECTION em curadoria/READY-FOR-COLLECTION-V1.json (canario PASS, robots ALLOWED). As 50 do YouTube (CONTRACT_READY_ROUTE_BLOCKED, ROBOTS_DISALLOWED_ROUTE), as 9 com canario FAIL e as 7 sem contrato NAO entram aqui: ficam como registo em curadoria/. Campos SONDAGEM que o canario nao mediu ficam NAO SEI.",
  "ADENDA_BCR": "BIG-COLLECTION-RELEASE (2026-09-20): +50 linhas LOTE-YOUTUBE-CANAL - as 50 fontes YouTube do SOURCE CURATOR que a 04A deixou de fora por ROBOTS_DISALLOWED_ROUTE (rota feeds/videos.xml). A rota nova, /channel/<CHANNEL_ID>/videos, e o adapter CANAL_PUBLICO_YOUTUBE_V1 do registry canonico (claude/youtube-canonical-free-route-v1 @ 48999d13). Canario canonico pelo motor em 2026-09-20: 50/50 rota resolvida, robots ALLOWED pelo leitor unico da casa, identidade do canal confirmada, 5-15 alvos cada; PAID_USD=0. Zero codigo por SOURCE_ID: o adapter le CHANNEL_ID do bloco ACQUISITION. Nada de feed, nada de yt-dlp, nada de chave, cookie ou login. Linha na tabela = a casa sabe chegar; NAO e aprovacao de relevancia.",
@@ -3943,7 +3943,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=G-AJsmMac24",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T2-025:URL:watch?v=G-AJsmMac24",
+    "DOCUMENT_ID": "IT-T2-025:YT:G-AJsmMac24",
     "LATENCY_MS": 3547,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -3990,7 +3990,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T2-025:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T2-025:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T2-026",
@@ -4023,7 +4039,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=MrKFwfVaKbs",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T2-026:URL:watch?v=MrKFwfVaKbs",
+    "DOCUMENT_ID": "IT-T2-026:YT:MrKFwfVaKbs",
     "LATENCY_MS": 3304,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4074,7 +4090,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T2-026:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T2-026:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T2-027",
@@ -4107,7 +4139,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=8nwl4ps_Bnk",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T2-027:URL:watch?v=8nwl4ps_Bnk",
+    "DOCUMENT_ID": "IT-T2-027:YT:8nwl4ps_Bnk",
     "LATENCY_MS": 3746,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4156,7 +4188,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T2-027:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T2-027:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T2-028",
@@ -4189,7 +4237,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=d7PnihG9Npg",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T2-028:URL:watch?v=d7PnihG9Npg",
+    "DOCUMENT_ID": "IT-T2-028:YT:d7PnihG9Npg",
     "LATENCY_MS": 3378,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4234,7 +4282,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T2-028:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T2-028:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-037",
@@ -4267,7 +4331,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=v8KLSChzhrg",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-037:URL:watch?v=v8KLSChzhrg",
+    "DOCUMENT_ID": "IT-T5-037:YT:v8KLSChzhrg",
     "LATENCY_MS": 3345,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4314,7 +4378,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-037:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-037:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-038",
@@ -4347,7 +4427,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=JAi_fM7aQ_g",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-038:URL:watch?v=JAi_fM7aQ_g",
+    "DOCUMENT_ID": "IT-T5-038:YT:JAi_fM7aQ_g",
     "LATENCY_MS": 3286,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4392,7 +4472,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-038:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-038:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-040",
@@ -4425,7 +4521,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=Noo7qL2-sfA",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-040:URL:watch?v=Noo7qL2-sfA",
+    "DOCUMENT_ID": "IT-T5-040:YT:Noo7qL2-sfA",
     "LATENCY_MS": 3449,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4472,7 +4568,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-040:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-040:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-042",
@@ -4505,7 +4617,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=lfCFDe-D6W8",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-042:URL:watch?v=lfCFDe-D6W8",
+    "DOCUMENT_ID": "IT-T5-042:YT:lfCFDe-D6W8",
     "LATENCY_MS": 3664,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4550,7 +4662,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-042:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-042:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-043",
@@ -4583,7 +4711,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=cfZB5u-eqBQ",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-043:URL:watch?v=cfZB5u-eqBQ",
+    "DOCUMENT_ID": "IT-T5-043:YT:cfZB5u-eqBQ",
     "LATENCY_MS": 3556,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4628,7 +4756,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-043:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-043:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-044",
@@ -4661,7 +4805,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=6fV5VeL0JpA",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-044:URL:watch?v=6fV5VeL0JpA",
+    "DOCUMENT_ID": "IT-T5-044:YT:6fV5VeL0JpA",
     "LATENCY_MS": 3448,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4706,7 +4850,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-044:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-044:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-045",
@@ -4739,7 +4899,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=XOmTOA34X2M",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-045:URL:watch?v=XOmTOA34X2M",
+    "DOCUMENT_ID": "IT-T5-045:YT:XOmTOA34X2M",
     "LATENCY_MS": 3362,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4784,7 +4944,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-045:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-045:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-047",
@@ -4817,7 +4993,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=TatQAqCTZBU",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-047:URL:watch?v=TatQAqCTZBU",
+    "DOCUMENT_ID": "IT-T5-047:YT:TatQAqCTZBU",
     "LATENCY_MS": 3554,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4862,7 +5038,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-047:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-047:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-048",
@@ -4895,7 +5087,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=Ya6W2z8LgeE",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-048:URL:watch?v=Ya6W2z8LgeE",
+    "DOCUMENT_ID": "IT-T5-048:YT:Ya6W2z8LgeE",
     "LATENCY_MS": 3596,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -4940,7 +5132,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-048:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-048:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T5-050",
@@ -4973,7 +5181,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=hktVMpetyz8",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T5-050:URL:watch?v=hktVMpetyz8",
+    "DOCUMENT_ID": "IT-T5-050:YT:hktVMpetyz8",
     "LATENCY_MS": 3380,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5020,7 +5228,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-050:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T5-050:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-015",
@@ -5053,7 +5277,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=f-Up25Lyn9I",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 1227587,
-    "DOCUMENT_ID": "IT-T7-015:URL:watch?v=f-Up25Lyn9I",
+    "DOCUMENT_ID": "IT-T7-015:YT:f-Up25Lyn9I",
     "LATENCY_MS": 3838,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5100,7 +5324,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-015:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-015:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-016",
@@ -5133,7 +5373,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=JtyyTXrJdfU",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-016:URL:watch?v=JtyyTXrJdfU",
+    "DOCUMENT_ID": "IT-T7-016:YT:JtyyTXrJdfU",
     "LATENCY_MS": 3524,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5178,7 +5418,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-016:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-016:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-018",
@@ -5211,7 +5467,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=VdYW-u72ih4",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-018:URL:watch?v=VdYW-u72ih4",
+    "DOCUMENT_ID": "IT-T7-018:YT:VdYW-u72ih4",
     "LATENCY_MS": 3347,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5258,7 +5514,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-018:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-018:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-020",
@@ -5291,7 +5563,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=KCljlthxCrM",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-020:URL:watch?v=KCljlthxCrM",
+    "DOCUMENT_ID": "IT-T7-020:YT:KCljlthxCrM",
     "LATENCY_MS": 3566,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5336,7 +5608,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-020:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-020:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-022",
@@ -5369,7 +5657,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=z-agNQiXQOk",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-022:URL:watch?v=z-agNQiXQOk",
+    "DOCUMENT_ID": "IT-T7-022:YT:z-agNQiXQOk",
     "LATENCY_MS": 3401,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5414,7 +5702,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-022:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-022:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-023",
@@ -5447,7 +5751,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=qZJlZRFw-qI",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-023:URL:watch?v=qZJlZRFw-qI",
+    "DOCUMENT_ID": "IT-T7-023:YT:qZJlZRFw-qI",
     "LATENCY_MS": 3605,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5492,7 +5796,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-023:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-023:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-024",
@@ -5525,7 +5845,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=_4snVpnEE_g",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-024:URL:watch?v=_4snVpnEE_g",
+    "DOCUMENT_ID": "IT-T7-024:YT:_4snVpnEE_g",
     "LATENCY_MS": 3365,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5570,7 +5890,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-024:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-024:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-025",
@@ -5603,7 +5939,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=P4-2w_PHeMw",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-025:URL:watch?v=P4-2w_PHeMw",
+    "DOCUMENT_ID": "IT-T7-025:YT:P4-2w_PHeMw",
     "LATENCY_MS": 3400,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5653,7 +5989,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-025:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-025:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-026",
@@ -5686,7 +6038,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=AttwCVnZBjg",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-026:URL:watch?v=AttwCVnZBjg",
+    "DOCUMENT_ID": "IT-T7-026:YT:AttwCVnZBjg",
     "LATENCY_MS": 3567,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5731,7 +6083,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-026:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-026:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-027",
@@ -5764,7 +6132,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=EWDM0gFy2v4",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-027:URL:watch?v=EWDM0gFy2v4",
+    "DOCUMENT_ID": "IT-T7-027:YT:EWDM0gFy2v4",
     "LATENCY_MS": 4063,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5809,7 +6177,23 @@
     "ACTIVITY_STATE": "UNKNOWN"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-027:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-027:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-028",
@@ -5842,7 +6226,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=tPHXkdGDS4M",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-028:URL:watch?v=tPHXkdGDS4M",
+    "DOCUMENT_ID": "IT-T7-028:YT:tPHXkdGDS4M",
     "LATENCY_MS": 3815,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5889,7 +6273,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-028:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-028:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-030",
@@ -5922,7 +6322,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=qlqQhCqYHsw",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-030:URL:watch?v=qlqQhCqYHsw",
+    "DOCUMENT_ID": "IT-T7-030:YT:qlqQhCqYHsw",
     "LATENCY_MS": 3316,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -5967,7 +6367,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-030:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-030:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-032",
@@ -6000,7 +6416,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=jYJZ4eC-QFc",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-032:URL:watch?v=jYJZ4eC-QFc",
+    "DOCUMENT_ID": "IT-T7-032:YT:jYJZ4eC-QFc",
     "LATENCY_MS": 3424,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6047,7 +6463,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-032:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-032:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-034",
@@ -6080,7 +6512,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=aQ-91EdP28c",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-034:URL:watch?v=aQ-91EdP28c",
+    "DOCUMENT_ID": "IT-T7-034:YT:aQ-91EdP28c",
     "LATENCY_MS": 5993,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6125,7 +6557,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-034:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-034:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-035",
@@ -6158,7 +6606,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=Ilp3Q2SLLxw",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-035:URL:watch?v=Ilp3Q2SLLxw",
+    "DOCUMENT_ID": "IT-T7-035:YT:Ilp3Q2SLLxw",
     "LATENCY_MS": 22536,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6203,7 +6651,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-035:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-035:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-036",
@@ -6236,7 +6700,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=OAhs-NYuB2Q",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-036:URL:watch?v=OAhs-NYuB2Q",
+    "DOCUMENT_ID": "IT-T7-036:YT:OAhs-NYuB2Q",
     "LATENCY_MS": 4043,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6281,7 +6745,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-036:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-036:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-037",
@@ -6314,7 +6794,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=cFdHgPJSBII",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-037:URL:watch?v=cFdHgPJSBII",
+    "DOCUMENT_ID": "IT-T7-037:YT:cFdHgPJSBII",
     "LATENCY_MS": 3455,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6359,7 +6839,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-037:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-037:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T7-039",
@@ -6392,7 +6888,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=05nHzgN72rw",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T7-039:URL:watch?v=05nHzgN72rw",
+    "DOCUMENT_ID": "IT-T7-039:YT:05nHzgN72rw",
     "LATENCY_MS": 3643,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6437,7 +6933,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T7-039:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T7-039:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T8-004",
@@ -6470,7 +6982,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=s-x7v5HkA4g",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T8-004:URL:watch?v=s-x7v5HkA4g",
+    "DOCUMENT_ID": "IT-T8-004:YT:s-x7v5HkA4g",
     "LATENCY_MS": 3874,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6515,7 +7027,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T8-004:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T8-004:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T8-005",
@@ -6548,7 +7076,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=8wKSHfZw3uw",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T8-005:URL:watch?v=8wKSHfZw3uw",
+    "DOCUMENT_ID": "IT-T8-005:YT:8wKSHfZw3uw",
     "LATENCY_MS": 3615,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6597,7 +7125,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T8-005:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T8-005:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T8-006",
@@ -6630,7 +7174,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=xCTbV-g_CV8",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T8-006:URL:watch?v=xCTbV-g_CV8",
+    "DOCUMENT_ID": "IT-T8-006:YT:xCTbV-g_CV8",
     "LATENCY_MS": 3758,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6677,7 +7221,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T8-006:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T8-006:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T9-014",
@@ -6710,7 +7270,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=D317qbCYAcU",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T9-014:URL:watch?v=D317qbCYAcU",
+    "DOCUMENT_ID": "IT-T9-014:YT:D317qbCYAcU",
     "LATENCY_MS": 3707,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6759,7 +7319,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T9-014:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T9-014:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T9-016",
@@ -6792,7 +7368,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=FipIBIiQs_4",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T9-016:URL:watch?v=FipIBIiQs_4",
+    "DOCUMENT_ID": "IT-T9-016:YT:FipIBIiQs_4",
     "LATENCY_MS": 3865,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6837,7 +7413,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T9-016:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T9-016:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T9-017",
@@ -6870,7 +7462,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=g86yGl2W1NU",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T9-017:URL:watch?v=g86yGl2W1NU",
+    "DOCUMENT_ID": "IT-T9-017:YT:g86yGl2W1NU",
     "LATENCY_MS": 3569,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6915,7 +7507,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T9-017:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T9-017:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T10-017",
@@ -6948,7 +7556,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=n26xEq3oR8k",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T10-017:URL:watch?v=n26xEq3oR8k",
+    "DOCUMENT_ID": "IT-T10-017:YT:n26xEq3oR8k",
     "LATENCY_MS": 3351,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -6995,7 +7603,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T10-017:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T10-017:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T10-019",
@@ -7028,7 +7652,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=BZ2m6BYoMqg",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T10-019:URL:watch?v=BZ2m6BYoMqg",
+    "DOCUMENT_ID": "IT-T10-019:YT:BZ2m6BYoMqg",
     "LATENCY_MS": 3351,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7073,7 +7697,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T10-019:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T10-019:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T11-006",
@@ -7106,7 +7746,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=6IvCOoNJgso",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T11-006:URL:watch?v=6IvCOoNJgso",
+    "DOCUMENT_ID": "IT-T11-006:YT:6IvCOoNJgso",
     "LATENCY_MS": 3417,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7151,7 +7791,23 @@
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T11-006:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T11-006:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T11-007",
@@ -7184,7 +7840,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=Fd_JW_vEnYE",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T11-007:URL:watch?v=Fd_JW_vEnYE",
+    "DOCUMENT_ID": "IT-T11-007:YT:Fd_JW_vEnYE",
     "LATENCY_MS": 3362,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7231,7 +7887,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T11-007:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T11-007:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-007",
@@ -7264,7 +7936,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=N46ITiIO1-0",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-007:URL:watch?v=N46ITiIO1-0",
+    "DOCUMENT_ID": "IT-T12-007:YT:N46ITiIO1-0",
     "LATENCY_MS": 3645,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7309,7 +7981,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-007:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-007:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-008",
@@ -7342,7 +8030,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=UFDvMCOAKgA",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-008:URL:watch?v=UFDvMCOAKgA",
+    "DOCUMENT_ID": "IT-T12-008:YT:UFDvMCOAKgA",
     "LATENCY_MS": 3414,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7391,7 +8079,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-008:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-008:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-010",
@@ -7424,7 +8128,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=2G5acM0dBvQ",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-010:URL:watch?v=2G5acM0dBvQ",
+    "DOCUMENT_ID": "IT-T12-010:YT:2G5acM0dBvQ",
     "LATENCY_MS": 4016,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7471,7 +8175,23 @@
     "ACTIVITY_STATE": "DORMANT"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-010:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-010:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-011",
@@ -7504,7 +8224,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=nC7_AbhgN4s",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-011:URL:watch?v=nC7_AbhgN4s",
+    "DOCUMENT_ID": "IT-T12-011:YT:nC7_AbhgN4s",
     "LATENCY_MS": 3364,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7549,7 +8269,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-011:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-011:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-012",
@@ -7582,7 +8318,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=fyJbJEOmquQ",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-012:URL:watch?v=fyJbJEOmquQ",
+    "DOCUMENT_ID": "IT-T12-012:YT:fyJbJEOmquQ",
     "LATENCY_MS": 3414,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7629,7 +8365,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-012:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-012:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-014",
@@ -7662,7 +8414,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=zVR3ZZmuiVg",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-014:URL:watch?v=zVR3ZZmuiVg",
+    "DOCUMENT_ID": "IT-T12-014:YT:zVR3ZZmuiVg",
     "LATENCY_MS": 3633,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7709,7 +8461,23 @@
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-014:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-014:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-015",
@@ -7742,7 +8510,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=-cPOCEaZ0vY",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-015:URL:watch?v=-cPOCEaZ0vY",
+    "DOCUMENT_ID": "IT-T12-015:YT:-cPOCEaZ0vY",
     "LATENCY_MS": 3384,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7789,7 +8557,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-015:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-015:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   },
   {
    "SOURCE_ID": "IT-T12-016",
@@ -7822,7 +8606,7 @@
     "DOCUMENTO": "https://www.youtube.com/watch?v=IXmtJ5pF1nQ",
     "DOCUMENTO_ASSINATURA": "NAO SEI - so a descoberta foi sondada; os bytes do alvo medem-se na corrida",
     "DOCUMENTO_BYTES": "NAO SEI",
-    "DOCUMENT_ID": "IT-T12-016:URL:watch?v=IXmtJ5pF1nQ",
+    "DOCUMENT_ID": "IT-T12-016:YT:IXmtJ5pF1nQ",
     "LATENCY_MS": 3893,
     "ORIGEM": "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json (canario50.mjs + robots_gate_50.json, PAID_USD=0)"
    },
@@ -7869,7 +8653,23 @@
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
    },
    "TIME_RULE": "published e PUBLICATION_TIME. NAO e FACT_TIME.",
-   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal."
+   "FACT_LOCATION_RULE": "UNKNOWN — canal italiano NAO prova facto ocorrido em Italia. NUNCA inferir a partir do canal.",
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "video": {
+      "FROM": "URL",
+      "PATTERN": "[?&]v=([A-Za-z0-9_-]{11})(?:[&#]|$)"
+     }
+    },
+    "DOCUMENT_ID": "IT-T12-016:YT:{video.1}",
+    "FACT_TIME": "UNKNOWN - o published_at do video e PUBLICATION_TIME, nao FACT_TIME; a pagina nao data o facto (TIME_RULE do curator)"
+   },
+   "IDENTITY_KEYS": [
+    "video_id"
+   ],
+   "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
+   "DOCUMENT_ID_RULE": "IT-T12-016:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
   }
  ]
 }

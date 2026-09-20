@@ -478,7 +478,15 @@ T("nenhum contrato genérico fabrica tempo ou lugar do facto", () => {
     if (!c.BATCH_ID) continue;
     assert.ok(String(c.IDENTITY.FACT_TIME).startsWith("UNKNOWN"), `${sid}: FACT_TIME não é UNKNOWN`);
     assert.ok(!("FACT_LOCATION" in c.IDENTITY), `${sid}: IDENTITY declara FACT_LOCATION`);
-    assert.equal(c.IDENTITY_KIND, "URL_PATH", `${sid}: a identidade não diz que é pelo endereço`);
+    // A tabela diz COM QUE a identidade se faz: pelo endereço (URL_PATH) ou por um
+    // identificador nativo da plataforma que a LINHA declarou (PLATFORM_NATIVE_ID,
+    // BIG-COLLECTION-RELEASE: o videoId do YouTube). Nunca "NAO SEI", nunca calado.
+    assert.ok(["URL_PATH", "PLATFORM_NATIVE_ID"].includes(c.IDENTITY_KIND), `${sid}: a identidade não diz com que se faz (${c.IDENTITY_KIND})`);
+    if (c.IDENTITY_KIND === "PLATFORM_NATIVE_ID") {
+      assert.ok(!c.IDENTITY.DOCUMENT_ID.includes(":URL:"), `${sid}: diz PLATFORM_NATIVE_ID e usa o endereço`);
+      assert.ok(/\{[A-Za-z_]+\.\d+\}/.test(c.IDENTITY.DOCUMENT_ID), `${sid}: PLATFORM_NATIVE_ID sem captura no DOCUMENT_ID`);
+      assert.ok(!/[?*"<>|]/.test(c.IDENTITY.DOCUMENT_ID), `${sid}: DOCUMENT_ID com caractere que o coletor não consegue pôr em pasta`);
+    }
   }
 });
 

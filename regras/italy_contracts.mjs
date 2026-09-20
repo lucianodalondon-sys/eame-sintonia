@@ -762,10 +762,18 @@ export function contratoGenerico(linha) {
     ACCESS_INSTRUMENT: "HTTP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
     OUTPUT_TYPE: tipo, EXPECTED_MIME: MIME_POR_TIPO[tipo], EXPECTED_SIGNATURE: ASSINATURA_POR_TIPO[tipo], MIN_BYTES: 1000,
     ACQUISITION: aq,
-    IDENTITY_KEYS: ["url_path"],
-    IDENTITY_KIND: "URL_PATH",
-    DOCUMENT_ID_RULE: `${linha.SOURCE_ID}:URL:{caminho do endereco} — identidade pelo ENDERECO, nao semantica; a fonte nao expoe identificador proprio por regra generica`,
-    IDENTITY: {
+    // A linha PODE declarar a identidade executavel (mesmo vocabulario do motor,
+    // conferida por conferirIdentidade no arranque). Sem isso vale a generica
+    // pelo endereco. Medido no BIG-COLLECTION-RELEASE: o alvo YouTube e
+    // /watch?v=<videoId>; o endereco inteiro como DOCUMENT_ID carrega `?`, e o
+    // colector faz do DOCUMENT_ID o nome da pasta — no Windows, mkdir ENOENT.
+    // O videoId nativo e a identidade que o curator declarou; e o `?` fica fora.
+    IDENTITY_KEYS: linha.IDENTITY ? (linha.IDENTITY_KEYS || Object.keys(linha.IDENTITY.CAPTURES || {})) : ["url_path"],
+    IDENTITY_KIND: linha.IDENTITY ? (linha.IDENTITY_KIND || "NAO SEI") : "URL_PATH",
+    DOCUMENT_ID_RULE: linha.IDENTITY
+      ? (linha.DOCUMENT_ID_RULE || `${linha.IDENTITY.DOCUMENT_ID} — identidade declarada na linha (${linha.IDENTITY_KIND || "NAO SEI"})`)
+      : `${linha.SOURCE_ID}:URL:{caminho do endereco} — identidade pelo ENDERECO, nao semantica; a fonte nao expoe identificador proprio por regra generica`,
+    IDENTITY: linha.IDENTITY || {
       STRATEGY: "CONTENT_CAPTURE",
       CAPTURES: { doc: { FROM: "URL", PATTERN: "^https?://[^/]+/?(.*?)/?$" } },
       DOCUMENT_ID: `${linha.SOURCE_ID}:URL:{doc.1}`,
@@ -811,7 +819,7 @@ for (const linha of TABELA_ONBOARDED.FONTES) {
       throw new Error(`${linha.SOURCE_ID} tem contrato executavel a mao E linha na tabela onboarded — a tabela nao pode contradizer o contrato`);
     CONTRACTS[linha.SOURCE_ID].ACQUISITION = linha.ACQUISITION;
     CONTRACTS[linha.SOURCE_ID].IDENTITY = contratoGenerico(linha).IDENTITY;
-    CONTRACTS[linha.SOURCE_ID].IDENTITY_KIND = "URL_PATH";
+    CONTRACTS[linha.SOURCE_ID].IDENTITY_KIND = contratoGenerico(linha).IDENTITY_KIND;
     CONTRACTS[linha.SOURCE_ID].BATCH_ID = linha.BATCH_ID;
     CONTRACTS[linha.SOURCE_ID].ONBOARDED_BY = "SOURCE-COLLECTION-READINESS-V1 (so a forma de aquisicao e a identidade generica; o contrato a mao manda no resto)";
     continue;

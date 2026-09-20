@@ -142,6 +142,11 @@ class ATabelaDoDonoTemAs18ESoAs18(unittest.TestCase):
                 self.assertGreater(r["SONDAGEM"]["ALVOS_DESCOBERTOS"], 0)
                 self.assertIn("BIG-COLLECTION-RELEASE", r["ONBOARDED_BY"])
                 self.assertNotIn("feeds/videos.xml", json.dumps(r["ACQUISITION"]))
+                # a identidade e a do curator: videoId nativo, nunca o endereco com `?`
+                self.assertEqual("PLATFORM_NATIVE_ID", r["IDENTITY_KIND"])
+                self.assertEqual(sid + ":YT:{video.1}", r["IDENTITY"]["DOCUMENT_ID"])
+                self.assertEqual("URL", r["IDENTITY"]["CAPTURES"]["video"]["FROM"])
+                self.assertRegex(r["SONDAGEM"]["DOCUMENT_ID"], r"^" + re.escape(sid) + r":YT:[A-Za-z0-9_-]{11}$")
 
     def test_nem_as_9_com_canario_fail_nem_as_7_sem_contrato(self):
         fail = [f["SOURCE_ID"] for f in self.ready["FONTES"] if f["STATE"] == "CONTRACTED_CANARY_FAILED"]
@@ -182,11 +187,11 @@ class OMotorNaoAlcancaAs50PeloFeed(unittest.TestCase):
         yt = [c["SOURCE_ID"] for c in _json(CURATOR)["FONTES"] if c["BATCH_ID"] == "LOTE-YOUTUBE-FEED"]
         prog = (
             "import { CONTRACTS, ONBOARDED_IDS } from './regras/italy_contracts.mjs';"
-            "import { conferirAquisicao, conferirIdentidade } from './regras/motor_de_rota.mjs';"
+            "import { conferirAquisicao, conferirIdentidade, identidadeDoContrato } from './regras/motor_de_rota.mjs';"
             "const as18 = %s; const yt = %s;"
             "const out = { faltam: as18.filter(i => !CONTRACTS[i] || CONTRACTS[i].ACQUISITION.STRATEGY !== 'HTML_LINK_DISCOVERY'),"
             "  yt_fora: yt.filter(i => !CONTRACTS[i] || !ONBOARDED_IDS.includes(i)),"
-            "  yt_pelo_canal: yt.filter(i => CONTRACTS[i] && CONTRACTS[i].ACQUISITION.STRATEGY === 'CUSTOM_ADAPTER' && CONTRACTS[i].ACQUISITION.ADAPTER_ID === 'CANAL_PUBLICO_YOUTUBE_V1' && CONTRACTS[i].ROUTE_TYPE === 'APPLICATION_ROUTE' && CONTRACTS[i].EXPECTED_SIGNATURE === '<'),"
+            "  yt_pelo_canal: yt.filter(i => CONTRACTS[i] && CONTRACTS[i].ACQUISITION.STRATEGY === 'CUSTOM_ADAPTER' && CONTRACTS[i].ACQUISITION.ADAPTER_ID === 'CANAL_PUBLICO_YOUTUBE_V1' && CONTRACTS[i].ROUTE_TYPE === 'APPLICATION_ROUTE' && CONTRACTS[i].EXPECTED_SIGNATURE === '<' && CONTRACTS[i].IDENTITY_KIND === 'PLATFORM_NATIVE_ID' && identidadeDoContrato(i, CONTRACTS[i], { url: 'https://www.youtube.com/watch?v=abcdefghijk', nome: 'abcdefghijk' }).DOCUMENT_ID === i + ':YT:abcdefghijk'),"
             "  yt_invalidos: yt.filter(i => { try { conferirAquisicao(i, CONTRACTS[i].ACQUISITION); conferirIdentidade(i, CONTRACTS[i].IDENTITY); return false; } catch (e) { return true; } }),"
             "  onboarded: ONBOARDED_IDS.length,"
             "  onboarded_by: as18.map(i => CONTRACTS[i].ONBOARDED_BY),"
