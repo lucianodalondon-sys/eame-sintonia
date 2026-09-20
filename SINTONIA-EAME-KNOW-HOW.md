@@ -18823,3 +18823,59 @@ política fechada. Nenhum ficheiro foi inventado; nenhuma rede foi aberta.
 **Achado lateral, não tocado:** `ingresso.ficha()` rebenta com «multiple
 values for CONTENT_TYPE» quando o ficheiro do `STORAGE_LOCATION` falta e o
 item declara `CONTENT_TYPE` — o caminho de fallback para o JSON da observação.
+
+# §162 · O ATLAS REGISTA O QUE SE CONHECE; A TABELA REGISTA O QUE SE SABE BUSCAR
+
+**O QUE.** Integração do handoff 04A do SOURCE CURATOR (20/09/2026): 84 fichas
+novas no Atlas, 18 contratos HTML na tabela que o motor lê, 50 fontes YouTube
+conscientemente de fora. Nenhuma coleta.
+
+**1 · Duas listas, dois significados — e o número que cada uma carrega.** O
+curator entregou 84 identidades (`IT-Txx-NNN`) e 77 contratos; o gate de robots
+deixou 18 prontas. A tentação era uma só lista: «integrar as 18». Medido, isso
+deixava 66 SOURCE_ID alocados numa branch e ausentes do trunk — e a alocação
+seguinte no trunk, que lê o Atlas para saber «o próximo número», escolheria um
+número já dado lá fora (o erro que `test_o_atlas_nao_colide_com_os_ids_cunhados_fora_dele`
+guarda, e que [[o-registo-de-source-id-esta-partido-em-quatro]] mediu). Por isso
+o Atlas leva as **84** — a unidade de identidade — e a tabela `onboarded.json`
+leva as **18** — a unidade de rota. Cada ficha das 66 ganhou uma linha
+`ESTADO_04A:` copiada do veredito do curator (`READY_FOR_COLLECTION` ·
+`CONTRACT_READY_ROUTE_BLOCKED` · `CONTRACTED_CANARY_FAILED` · `SEM_CONTRATO`),
+porque a ficha das 50 dizia «rota pública sobre capacidade já provada» e o
+gate do próprio curator, dois commits depois, disse Disallow. **A ficha não foi
+reescrita** — ganhou a medição ao lado, com data.
+
+    FONTE REGISTADA != FONTE COLECTÁVEL.
+    IDENTIDADE INTEGRA-SE INTEIRA; ROTA INTEGRA-SE SÓ A PROVADA.
+
+**2 · Uma tabela, um dono, e um teste que morde.** O curator escreveu o JSON
+«na mesma forma» da tabela onboarded e sugeriu que o dono lesse um segundo
+ficheiro. Medido: a forma não era a mesma (26 chaves contra 9, e 50 linhas com
+`STRATEGY=YOUTUBE_CHANNEL_FEED` que `contratoGenerico()` rebenta ao ler:
+`OUTPUT_TYPE desconhecido … VIDEO_METADATA`). Um segundo `readFileSync` seria
+uma segunda autoridade e um filtro por estado que alguém um dia esquece. As 18
+entraram **traduzidas** para a tabela existente; o ficheiro da curadoria ficou
+como registo em `curadoria/`, que nenhum `.mjs` lê — e há um teste que reprova
+se algum passar a ler. O teste foi posto à prova com três tabelas adulteradas
+(uma linha YouTube dentro · uma das 18 a menos · estratégia trocada): 3 de 3
+reprovaram, 3 testes cada; a tabela real passou 7 de 7. **Um teste que nunca
+viu vermelho não provou nada** ([[verificacao-que-passa-por-vazio]]).
+
+**3 · O que se traduz e o que se inventa.** `SONDAGEM.ENTRADA_STATUS = 200` é
+medido (o canário exige 200 na entrada para prosseguir); `ENTRADA_BYTES` não
+foi gravado — ficou `NAO SEI`. O contrato expandido passou a dizer de onde
+veio (`ONBOARDED_BY` vem da linha; a omissão continua a ser o fast track de
+18/09) — sem isso, 18 contratos afirmariam uma sondagem que não tiveram.
+
+**4 · Escrever só depois de conferir tudo.** O script de integração conferia o
+Atlas em terceiro lugar e escrevia amostras e tabela antes. A conferência
+falhou num separador `---` e deixou 18 pastas e uma tabela alterada para
+desfazer — duas vezes. Ordem certa: todas as asserções, depois todas as
+escritas; ou o desfazer faz parte do plano desde o início.
+
+**Números que ficam.** Baseline no HEAD `370ce450`: 4937 testes, 124 testes vermelhos (146 linhas
+com subteste). Depois, em `fcac49a3`: 4954 testes (+17 novos), os **mesmos 124**
+testes vermelhos — 0 novos por nome; 84 subtestes a mais dentro de um teste já
+vermelho (`test_o_espelho_do_mapa_so_ganhou_as_pecas_declaradas`, um por ficha
+nova), e 8 subtestes de `test_metricas` que só mudaram de valor (193→277
+fontes, 4.989→5.006 testes). Ver `RELATORIO-INTEGRACAO-04A.md`.
