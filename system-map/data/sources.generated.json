@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-20T00:36:00+00:00",
-    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
+    "GENERATED_AT": "2026-09-20T12:50:15+00:00",
+    "HEAD": "3c0f1835931ed9fd4735c5ec1a61e310ce0b0211",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
-    "FICHEIROS_NA_IMPRESSAO": 2252,
+    "SOURCE_TREE_FINGERPRINT": "a22904a802c78b56518dd5cfcef0902a056a3244e81ba23a7adcc6c7c9f8df26",
+    "FICHEIROS_NA_IMPRESSAO": 2253,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -48,7 +48,7 @@
       {
         "PATH": "data/samples/RUN-MANIFEST.json",
         "PAPEL": "FONTE",
-        "VERSAO": "072dea7bf1678045205d46cf149c83c60dcd289e",
+        "VERSAO": "6090054cb83c8ab06ac3699fe21360d1209c1f53",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_manifesto() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "6d163f25a7af21952a1736050d36ab394aa26e572f9e0d5e89e63e1337e656e4",
+    "INPUTS_DIGEST": "5314285a30e0859165ddae1ad47926537d12f8d2b33e7a88aa6142ea20096378",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -14939,17 +14939,61 @@
         "erro": null,
         "prova": null,
         "bruto": null
+      },
+      {
+        "run_id": "IT-T8-2026-09-20-124634-589b90cf920ecb40",
+        "fonte": null,
+        "plataforma": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+        "quem_foi_buscar": "coleta/scrap_colheita.py",
+        "com_que_parametros": {
+          "pais": "IT",
+          "fonte": "IT-T8-001"
+        },
+        "que_pergunta": "FARMERS & INFLUENCERS (T8) · PONTUAL · pedido manual · fonte=IT-T8-001 · pais=IT",
+        "pais": "IT",
+        "missao": "FARMERS & INFLUENCERS",
+        "trouxe": null,
+        "sobrou": null,
+        "rendimento": null,
+        "custou_usd": 0,
+        "estado": "FAILED",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "IT-T8-2026-09-20-124654-88a08fb38a637b67",
+        "fonte": null,
+        "plataforma": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+        "quem_foi_buscar": "coleta/scrap_colheita.py",
+        "com_que_parametros": {
+          "pais": "IT",
+          "fonte": "IT-T8-001",
+          "fase": "canal-youtube"
+        },
+        "que_pergunta": "FARMERS & INFLUENCERS (T8) · PONTUAL · pedido manual · fase=canal-youtube · fonte=IT-T8-001 · pais=IT",
+        "pais": "IT",
+        "missao": "FARMERS & INFLUENCERS",
+        "trouxe": null,
+        "sobrou": null,
+        "rendimento": null,
+        "custou_usd": 0,
+        "estado": "FAILED",
+        "erro": null,
+        "prova": null,
+        "bruto": null
       }
     ],
-    "total": 29,
+    "total": 31,
     "por_pais": {
       "ES": 10,
-      "IT": 10,
+      "IT": 12,
       "NAO SEI": 9
     },
     "por_plataforma": {
       "HTTP direto": 6,
       "INSTAGRAM": 1,
+      "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)": 2,
       "LINKEDIN": 5,
       "LOCAL": 10,
       "OPENALEX": 1,
@@ -15180,7 +15224,7 @@
       "IT-T9-013"
     ],
     "com_rendimento_medido": 28,
-    "com_custo_medido": 23,
+    "com_custo_medido": 25,
     "custo_total_usd": 0.48,
     "trouxe_total": 3899,
     "sobrou_total": 3008
@@ -15997,7 +16041,7 @@
     "coletores_com_lugar": 34,
     "coletores_que_separam_fonte_do_fato": 21,
     "coletores_que_registam_descarte": 18,
-    "corridas_registadas": 63,
+    "corridas_registadas": 65,
     "observacoes_registadas": 184,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 213,

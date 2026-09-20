@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-contract-executable-v2",
-    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
-    "GENERATED_AT": "2026-09-19T20:36:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13"
+    "BRANCH": "claude/it-t8-canary-v1",
+    "HEAD": "3c0f1835931ed9fd4735c5ec1a61e310ce0b0211",
+    "GENERATED_AT": "2026-09-20T09:49:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a22904a802c78b56518dd5cfcef0902a056a3244e81ba23a7adcc6c7c9f8df26"
   },
   "FILES": [
     {
@@ -4790,8 +4790,15 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/AMOSTRA-REPRESENTATIVA.json",
+      "sha": "b9a1739e61439020632ae1595b8bfc1617883917",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json",
-      "sha": "02dc1660143f7174e43eefd262d4ed0efb9634ce",
+      "sha": "e49574873ae997792fa35bac3e49d4d854ae724e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5316,7 +5323,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "072dea7bf1678045205d46cf149c83c60dcd289e",
+      "sha": "6090054cb83c8ab06ac3699fe21360d1209c1f53",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -11469,7 +11476,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "c2d77dd78c1d4dc552f0bc0dc1fcc909775d13c4",
+      "sha": "fe0934c221058ae000d0e40626b47bce7c2d0385",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -11491,6 +11498,20 @@
     {
       "path": "regras/italy_source_health.mjs",
       "sha": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/motor_de_rota.mjs",
+      "sha": "d91380fe451610eb74256044da7fa7bb293b1f68",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/motor_de_rota_test.mjs",
+      "sha": "c853a4b00c69ea498111b5c75a2f3d18e275d81a",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -17945,6 +17966,28 @@
         "file": "coleta/italy_pilot_collect.mjs",
         "line": 38,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 41,
+        "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 41,
+        "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
       }
     },
     {
@@ -44073,6 +44116,61 @@
       }
     },
     {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 231,
+        "snippet": "new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 20,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 20,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
       "from_file": "regras/proveniencia.py",
       "to_file": "data/samples/POLITICA-RAW-ROTA-PAGA.json",
       "type": "READS",
@@ -63947,10 +64045,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2102,
-    "files_readable": 822,
-    "files_code_dir": 881,
-    "file_edges": 4428,
+    "files_tracked": 2105,
+    "files_readable": 824,
+    "files_code_dir": 883,
+    "file_edges": 4435,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

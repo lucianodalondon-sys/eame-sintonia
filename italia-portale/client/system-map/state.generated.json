@@ -707,6 +707,7 @@
       "data/samples/IT-SOURCE-SAMPLES/IT-T7-002/MANIFEST.json",
       "data/samples/IT-SOURCE-SAMPLES/IT-T7-013/MANIFEST.json",
       "data/samples/IT-SOURCE-SAMPLES/IT-T7-014/MANIFEST.json",
+      "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/AMOSTRA-REPRESENTATIVA.json",
       "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json",
       "data/samples/IT-SOURCE-SAMPLES/IT-T8-002/MANIFEST.json",
       "data/samples/IT-SOURCE-SAMPLES/IT-T8-003/MANIFEST.json",
@@ -1700,6 +1701,8 @@
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/italy_source_health.mjs",
+      "regras/motor_de_rota.mjs",
+      "regras/motor_de_rota_test.mjs",
       "regras/proveniencia.py",
       "regras/rotulos_censo.py",
       "regras/sensor_coleta.py",
@@ -2180,8 +2183,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 700 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 160. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 700 ficheiros e 160 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 701 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 160. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 701 ficheiros e 160 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -2200,7 +2203,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 29 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 31 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2210,7 +2213,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "213 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 29 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 9. Elas trouxeram 3899 itens e 3008 atravessaram a régua. As outras 213 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 31 corridas registadas, e o país delas é: ES 10 · IT 12 · NAO SEI 9. Elas trouxeram 3899 itens e 3008 atravessaram a régua. As outras 213 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -2693,10 +2696,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-contract-executable-v2",
-    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
-    "GENERATED_AT": "2026-09-19T20:36:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13"
+    "BRANCH": "claude/it-t8-canary-v1",
+    "HEAD": "3c0f1835931ed9fd4735c5ec1a61e310ce0b0211",
+    "GENERATED_AT": "2026-09-20T09:49:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a22904a802c78b56518dd5cfcef0902a056a3244e81ba23a7adcc6c7c9f8df26"
   },
   "FAMILIES": [
     {
@@ -8958,17 +8961,61 @@
             "erro": null,
             "prova": null,
             "bruto": null
+          },
+          {
+            "run_id": "IT-T8-2026-09-20-124634-589b90cf920ecb40",
+            "fonte": null,
+            "plataforma": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+            "quem_foi_buscar": "coleta/scrap_colheita.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T8-001"
+            },
+            "que_pergunta": "FARMERS & INFLUENCERS (T8) · PONTUAL · pedido manual · fonte=IT-T8-001 · pais=IT",
+            "pais": "IT",
+            "missao": "FARMERS & INFLUENCERS",
+            "trouxe": null,
+            "sobrou": null,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "FAILED",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T8-2026-09-20-124654-88a08fb38a637b67",
+            "fonte": null,
+            "plataforma": "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)",
+            "quem_foi_buscar": "coleta/scrap_colheita.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T8-001",
+              "fase": "canal-youtube"
+            },
+            "que_pergunta": "FARMERS & INFLUENCERS (T8) · PONTUAL · pedido manual · fase=canal-youtube · fonte=IT-T8-001 · pais=IT",
+            "pais": "IT",
+            "missao": "FARMERS & INFLUENCERS",
+            "trouxe": null,
+            "sobrou": null,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "FAILED",
+            "erro": null,
+            "prova": null,
+            "bruto": null
           }
         ],
-        "total": 29,
+        "total": 31,
         "por_pais": {
           "ES": 10,
-          "IT": 10,
+          "IT": 12,
           "NAO SEI": 9
         },
         "por_plataforma": {
           "HTTP direto": 6,
           "INSTAGRAM": 1,
+          "Instagram, Bluesky, LinkedIn (so identidade, rota indireta), YouTube (oficial: busca, canal, video, comentarios; e o audio publico)": 2,
           "LINKEDIN": 5,
           "LOCAL": 10,
           "OPENALEX": 1,
@@ -9199,7 +9246,7 @@
           "IT-T9-013"
         ],
         "com_rendimento_medido": 28,
-        "com_custo_medido": 23,
+        "com_custo_medido": 25,
         "custo_total_usd": 0.48,
         "trouxe_total": 3899,
         "sobrou_total": 3008
@@ -23471,7 +23518,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 7 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -23483,7 +23530,8 @@
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
         "data/samples/IT-PROBE/probe-fase-c.json",
-        "regras/italy_contracts.mjs"
+        "regras/italy_contracts.mjs",
+        "regras/motor_de_rota.mjs"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -96009,8 +96057,11 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1087,
+  "UNCLAIMED_CODE_FILES": [
+    "regras/motor_de_rota.mjs",
+    "regras/motor_de_rota_test.mjs"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1090,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -96199,9 +96250,9 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2102,
+    "files_tracked": 2105,
     "files_covered": 1015,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 2,
     "roles_proven": 147,
     "roles_declared_only": 7,
     "roles_unknown": 58,
