@@ -167,5 +167,12 @@
    "FICHEIRO_AGORA": "data/collection-store/italy/IT-T9-009/IT-T9-009_URL_newsroom_cifo-a-tomato-world-2026-innovazione-e-st_aed081e8d671/v1_ae58a29f75c3/e-e-strategie-nutrizionali-per-il-pomodoro-da-industria.html"
   }
  ],
- "PORQUE_FICHEIROS": "o NOME do ficheiro (ate 120 chars) ainda passava o MAX_PATH; regras/motor_de_rota.mjs::nomeDoAlvo passa a guardar a cauda de 60 chars"
+ "PORQUE_FICHEIROS": "o NOME do ficheiro (ate 120 chars) ainda passava o MAX_PATH; regras/motor_de_rota.mjs::nomeDoAlvo passa a guardar a cauda de 60 chars",
+ "ACERVO_MOVIDO": {
+  "PORQUE": "a arvore versionada guarda o acervo curado do piloto (11 ficheiros de 606974c3); o acervo em volume da Big Collection 2 (93 ficheiros, 89 MB) vive FORA: (a) a guarda de credenciais reprova HTML publico com chaves de API de terceiros embutidas; (b) os testes de populacao contam o disco. Precedente: SOURCE-COLLECTION-READINESS-V1. Os bytes tambem estao em <raiz>/XX/ (ArmazemLocal da porta canonica).",
+  "DESTINO": "C:\\Users\\London1\\sintonia-sala-italia\\acervo-coletor-bc2",
+  "QUANTOS": 93,
+  "MANTIDOS_NA_ARVORE": 10,
+  "REGRA_DE_CAMINHO": "RAW_PATH do ledger 'data/collection-store/<resto>' -> DESTINO/<resto>"
+ }
 }

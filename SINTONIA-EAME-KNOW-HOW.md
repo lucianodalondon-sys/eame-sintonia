@@ -18606,3 +18606,74 @@ orquestrador usa `preservar_documento`. O documento fica como registo histórico
 ```
 OLD_MEASUREMENT SUPERSEDED_BY_CURRENT_MEASUREMENT.
 ```
+
+
+# §159 · O CUTOVER FECHA POR EQUIVALÊNCIA, E A COLETA EM VOLUME MEDE O QUE O CANÁRIO NÃO VÊ
+
+**O QUE.** Em 20/09/2026 (branch `claude/contract-provenance-cutover-v1`, sessão
+recuperada de uma queda) os sete `case` de `alvosDe()` e os sete de `identidade()`
+saíram de `coleta/italy_pilot_collect.mjs` e entraram no contrato. Não saíram por
+serem apagados — saíram por ficarem vazios:
+
+```
+LEGACY_DISCOVERY_CASES  7 → 0     LEGACY_IDENTITY_CASES  7 → 0
+CONTRATO_MOTOR_VERSAO   route-engine-v1 → route-engine-v2
+```
+
+A régua não foi uma frase: foi o código antigo **congelado** em
+`provas/fixtures/legado_italy_pilot_380bf090.mjs`, e a prova
+(`regras/cutover_equivalencia_test.mjs`, 50/50) correu os dois caminhos sobre os
+10 documentos brutos que o armazém já guardava — cada um numa pasta cujo nome é o
+`DOCUMENT_ID` que o `case` lhe dera. `DOCUMENT_ID`, `SOURCE_DATE`,
+`SOURCE_DATE_ISO` e `FACT_TIME` iguais **10/10**, incluindo os cinco `UNKNOWN`.
+
+```
+LEGACY_BEHAVIOR_CAPTURED  = a fixture.
+CONTRACT_BEHAVIOR_PROVEN  = a prova a passar.
+UMA FRASE NUM RELATÓRIO NÃO É NENHUM DOS DOIS.
+```
+
+**O QUE O MOTOR GANHOU — medido nos sete, não inventado.** Quatro dos sete liam a
+identidade no CONTEÚDO (data no HTML, `/CreationDate` do PDF, cabeçalho via
+pdftotext): nasceu `CONTENT_CAPTURE`, uma capacidade e não quatro, com os leitores
+**injectados** pelo coletor — o motor continua sem processo filho. Um (IT-T3-008)
+caía para a rota previsível quando o índice em JavaScript não listava nada: nasceu
+`ACQUISITION.FALLBACK` com `DEGRADED_REASON` obrigatório, e só `EMPTY_LIST` o abre —
+índice caído não se esconde atrás de rota adivinhada. Um (ARPAV) tinha duas listas
+de zonas: viraram `SUBCONJUNTOS`, dados do contrato que quem corre nomeia.
+
+**A ROTA CORRIGIDA COM PROVA.** A lista fixa `[37, 36, 35]` da Puglia já não apanhava
+a edição corrente em 20/09. N35, N36, N37 e N38 coincidem quatro em quatro com a
+semana ISO da data; `GET …N38_16-09-2026.pdf` → 200, `application/pdf`, 2.724.725
+bytes. O contrato usa `ISO_WEEK`; a equivalência com o `case` está provada com `ENUM`.
+
+**O LOTE.** As 107 fontes que a readiness-v1 sondara em 18/09 entraram traduzidas
+para o vocabulário do motor (`MATCH: "URL"` como variante do `HTML_LINK_DISCOVERY`,
+não quarta estratégia; identidade pelo endereço, dita com esse nome:
+`IDENTITY_KIND = URL_PATH`). Duas linhas foram recusadas pela guarda «a tabela não
+contradiz um contrato à mão» (IT-T3-011, IT-T2-001) — e é para isso que a guarda
+existe. READY_NOW 8 → 113 de 170.
+
+**O QUE SÓ A COLETA EM VOLUME MOSTROU.** Seis canários verdes não viram três coisas
+que 113 corridas viram:
+
+1. O orquestrador imprimia a AJUDA para «colete culturas da italia»: só T2/T3/T4
+   tinham receita. 41 recusas em 0,3 s, nenhuma por culpa da fonte.
+2. Desde `836a9c89` o pedido tem de levar `--filtro universo=Tn`; sem ele a corrida
+   morre **depois** de o coletor já ter escrito no ledger.
+3. Identidade pelo endereço faz pastas de 300 caracteres: 15 ficheiros que o Node
+   escreveu e o git não abria («Filename too long»). Pasta limitada a 64+12, nome a
+   60; o `DOCUMENT_ID` no ledger não muda — só o endereço de disco.
+
+```
+O NOME DA PASTA É ENDEREÇO DE DISCO. O DOCUMENT_ID É IDENTIDADE.
+UM CANÁRIO PROVA A ROTA. SÓ O VOLUME PROVA A CASA.
+```
+
+**BIG COLLECTION 2, pela porta canónica, Sala operacional 54330 (backup antes):**
+113 selecionadas · 109 corridas SUCCESS · 90 com documento · ADMISSÃO SIM 13 ·
+NAO_SEI 81 · NAO_SE_APLICA 14 · NAO 4 · Sala 4 → 17 · reconciliação estrutural
+0/0/0/0/0/0/0/0 · FACT_TIME_FABRICATED 0 · PAID_USD 0. E o que ficou honesto e
+aberto: 17 `collection_run` ficam «rodando» quando o RAW falha; o HTML não tem
+derivador (58 NOT_APPLICABLE); «primeiro endereço que casa» não é «documento
+relevante» — isso continua a ser do Livro de Relevância, não do contrato.

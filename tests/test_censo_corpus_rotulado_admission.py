@@ -180,9 +180,24 @@ class OLivroNaoEGabaritoENaoESujo(unittest.TestCase):
         conhecidas = {str(n) for n in range(1, int(adm.VERSAO_DA_REGRA) + 1)}
         self.assertTrue(versoes <= conhecidas,
                         f"versoes inesperadas no livro: {sorted(versoes - conhecidas)}")
-        self.assertEqual(
-            [d for d in livro if d["universo"] == "T2"], [],
-            "apareceu decisao de T2 no livro. T2 nao tem regra escrita.")
+        # T2 nao tem regra escrita — e por isso a porta NAO pode ter JULGADO
+        # nada de T2. O que ela pode ter feito, e faz desde que os canarios da
+        # SOURCE-COLLECTION-READINESS-V1 levaram fontes T2 ao seu proprio
+        # universo, e dizer `NAO_SE_APLICA`: «nao ha regra escrita do que conta
+        # como T2. Sem regra, esta porta nao inventa uma.» Isso e uma decisao
+        # guardada (COL-LAW-042: TODAS as decisoes sao guardadas), nao um
+        # juizo. Um SIM ou um NAO de T2 continuaria a ser o defeito.
+        # E `NAO_SEI` tambem nao e juizo: as perguntas do ESTAGIO (ha texto?
+        # ha identidade?) vem ANTES da pergunta do universo, e um documento
+        # sem texto legivel cai ai, seja de que universo for.
+        julgadas = [d for d in livro if d["universo"] == "T2"
+                    and d.get("resultado") not in ("NAO_SE_APLICA", "NAO_SEI")]
+        self.assertEqual(julgadas, [],
+                         "apareceu JUIZO de T2 no livro. T2 nao tem regra escrita: "
+                         "a porta so pode responder NAO_SE_APLICA ou NAO_SEI.")
+        for d in (d for d in livro if d["universo"] == "T2" and d.get("resultado") == "NAO_SE_APLICA"):
+            self.assertIn("nao ha regra escrita", str(d.get("motivo") or ""),
+                          "um NAO_SE_APLICA de T2 tem de dizer que e por falta de regra")
 
     def test_o_censo_nao_escreve_no_livro_real(self):
         antes = os.path.getmtime(adm.LIVRO)
