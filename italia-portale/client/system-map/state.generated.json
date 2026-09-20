@@ -326,6 +326,7 @@
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
       "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
       "data/derivados/texto/RAW-0c2723e66201f966.txt",
@@ -2761,9 +2762,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "big-collection-release-v1",
-    "HEAD": "96dcd6bd65a724409e4b7d468096c008072dc23f",
-    "GENERATED_AT": "2026-09-20T15:15:38-03:00",
-    "SOURCE_TREE_FINGERPRINT": "7c64c71a93f830cb2eb9f963bbefe44a2803dbd7a7b759381e1d56256858d613"
+    "HEAD": "5920d77d172772f8de56003baeb1b3b9990a2c01",
+    "GENERATED_AT": "2026-09-20T15:54:58-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e25848872a473ad8be63e1ad7841fa579c82903bea1d6f72b5f6291ac751d691"
   },
   "FAMILIES": [
     {
@@ -48954,7 +48955,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 34,
+          "line": 39,
           "snippet": "ATLAS = os.path.join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
@@ -60791,7 +60792,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 543,
+          "line": 549,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -72265,7 +72266,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 30,
+          "line": 35,
           "snippet": "DONO = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -72281,7 +72282,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 31,
+          "line": 36,
           "snippet": "MOTOR = os.path.join(RAIZ, \"regras\", \"motor_de_rota.mjs\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
@@ -73636,7 +73637,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 545,
+          "line": 551,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -81779,7 +81780,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 541,
+          "line": 547,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -81795,7 +81796,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 547,
+          "line": 553,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -101660,7 +101661,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1138,
+  "UNCLAIMED_FILES_COUNT": 1139,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101849,7 +101850,7 @@
     "edges_proven": 1035,
     "edges_unknown": 55,
     "business_edges": 4,
-    "files_tracked": 2167,
+    "files_tracked": 2168,
     "files_covered": 1029,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
