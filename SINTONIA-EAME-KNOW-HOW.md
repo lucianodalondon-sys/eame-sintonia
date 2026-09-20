@@ -18879,3 +18879,113 @@ testes vermelhos — 0 novos por nome; 84 subtestes a mais dentro de um teste j�
 vermelho (`test_o_espelho_do_mapa_so_ganhou_as_pecas_declaradas`, um por ficha
 nova), e 8 subtestes de `test_metricas` que só mudaram de valor (193→277
 fontes, 4.989→5.006 testes). Ver `RELATORIO-INTEGRACAO-04A.md`.
+
+# §163 · UMA ROTA QUE RESPONDE NÃO É UMA ROTA PERMITIDA — E UMA PASTA NÃO É UMA IDENTIDADE
+
+**O QUE.** BIG-COLLECTION-RELEASE (20/09/2026): a rota livre do YouTube
+(`claude/youtube-canonical-free-route-v1 @ 7857d7b7`) entra na bancada da 04A
+(`96dcd6bd`), as 50 fontes YouTube do SOURCE CURATOR entram na tabela do motor
+pela página pública do canal, e corre a primeira Big Collection com **as três
+famílias juntas**: 113 existentes, 18 HTML da 04A, 50 YouTube. Uma corrida por
+fonte, em processo próprio. `PAID_USD = 0`. Números em
+`RELATORIO-BIG-COLLECTION-RELEASE.md`.
+
+**1 · O mesmo host, duas rotas, o mesmo portão, dois vereditos.** O relatório
+04A dizia `YOUTUBE_BLOCKED = 50 · ROBOTS_DISALLOWED_ROUTE`; o briefing do dono
+dizia `ROBOTS_GATE = PASS`. As duas frases estão certas e falam de rotas
+diferentes: `feeds/videos.xml` está em `Disallow` no `robots.txt` de
+`www.youtube.com`; `/channel/<ID>/videos` e `/watch?v=` estão permitidas —
+re-medido nesta bancada pelo leitor único da casa
+(`coleta/scrap_http.permitido`), 50 de 50 canais. Herdar o veredito da lane
+teria sido fácil e teria sido «PRESENTE ≠ PROVADO»; o portão leu-se ao vivo, e
+o resultado ficou em `data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json`.
+Nota que o colector italiano (`italy_pilot_collect.mjs`, `curl`) **não chama**
+`permitido()` em tempo de coleta — o portão da rota italiana vive no
+onboarding, não na corrida. Quem integra uma rota nova mede-o à mão, ou não o
+mediu ninguém.
+
+    ROTA DIFERENTE = PERGUNTA DIFERENTE AO MESMO PORTÃO.
+    O PORTÃO DA ROTA ITALIANA É DE ONBOARDING, NÃO DE CORRIDA.
+
+**2 · Uma corrida que «falha sem razão» é a casa a falar de si.** O primeiro
+teste de fumo (IT-T7-015 pela porta canónica) saiu `FAILED`, `COLHEITA 0`,
+`ERROS []`, `PORQUE_ZERO_COLHEITA null`, e o orquestrador imprimiu como ERRO o
+aviso do Python desta máquina (`Could not find platform independent
+libraries`) — que a BC2 inteira também tinha no stderr das 113 corridas
+SUCCESS. Um aviso que aparece sempre não explica nada. A causa estava a chamar
+o colector directamente: `mkdir ENOENT` em
+`…/IT-T7-015_URL_watch?v=f-Up25Lyn9I/…`. O DOCUMENT_ID genérico da tabela é o
+ENDEREÇO do alvo, e `pastaDoDocumento()` faz dele o nome da pasta trocando
+apenas `: / \` — o `?` de `watch?v=` é ilegal em caminho Windows. Nenhuma
+camada acima disse «não consegui criar a pasta»: o executor devolveu zero
+itens e um `SUCCESS` de envelope que o orquestrador virou `FAILED` calado.
+
+    UM ZERO SEM RAZÃO ESCRITA É DEFEITO DA CASA, NÃO DA FONTE.
+    O DOCUMENT_ID É IDENTIDADE; A PASTA É ENDEREÇO DE DISCO. NÃO SÃO A MESMA COISA.
+
+A saída não foi remendar a pasta: foi dar às 50 a identidade que o curator já
+tinha declarado — o `videoId` nativo (`PLATFORM_NATIVE_ID`,
+`<SOURCE_ID>:YT:<videoId>`), lido do endereço do alvo com o mesmo vocabulário
+`CONTENT_CAPTURE` do motor. `contratoGenerico()` passou a honrar uma
+`IDENTITY` declarada na linha; as 123 linhas anteriores não mudam. O defeito da
+pasta continua lá, registado como dívida com dono e mínimo (o `LINK_PATTERN`
+do lote HTML admite query string): corrigi-lo não era desta missão, e
+corrigi-lo para obter verde seria mexer na régua com outro nome.
+
+**3 · Testes que dizem a verdade de ontem são reescritos, não apagados.**
+`test_integracao_04a_curator.py` afirmava «nenhuma das 50 está na tabela» e
+`motor_de_rota_test.mjs` afirmava «toda linha genérica tem `IDENTITY_KIND =
+URL_PATH`». As duas eram verdadeiras na 04A e deixaram de ser. Ficaram
+**mais** exigentes: as 50 têm de estar na tabela pelo canal e nunca pelo feed
+(sem `YOUTUBE_CHANNEL_FEED`, sem `feeds/videos.xml`, `CHANNEL_ID` igual ao do
+curator, `PLATFORM_NATIVE_ID` com captura e sem `? * " < > |` no DOCUMENT_ID).
+Um teste apagado não protege nada; um teste que só diz «isto mudou» também não.
+
+**4 · O limite de taxa é um sinal, não um obstáculo.** Depois de ~120 páginas
+`/watch` em 15 minutos, o YouTube passou a responder `302 → google.com/sorry
+→ 429` a todas — 8 fontes seguidas, 15/15 alvos cada, enquanto a descoberta
+pelo canal continuava a responder 200. Continuar «para cumprir a lista»
+gastaria 30 pedidos por fonte contra uma parede e prolongaria o bloqueio. O
+driver parou entre fontes, ganhou uma sonda de UM pedido antes de cada fonte
+YouTube (espera em passos de 5 min, tecto 60 min) e uma pausa de 45 s entre
+fontes; o bloqueio aliviou em ~15 min. **Não** se trocou de servidor VPN nem
+de UA: mudar de IP para escapar a um 429 é contorno, e contorno é o que a
+Bíblia proíbe.
+
+    SEGUIR COM A LISTA NÃO É O MESMO QUE COLETAR.
+    TROCAR DE IP PARA FUGIR A UM 429 É CONTORNO, COM OUTRO NOME.
+
+**5 · Onde a admissão se mede.** A rota italiana não escreve linha `ADMISSION`
+em `etapa_da_corrida` (as 6 que existem são da rota ES de 18/09). `SIM`
+mede-se na Sala (`sala_de_espera.pousado_em` na janela); `NAO`, `NAO_SEI` e
+`NAO_SE_APLICA` medem-se no Livro de Decisões (`data/samples/LIVRO-DE-DECISOES.json`,
+campo `corrida`), nunca no stdout. E os três não se somam: `NAO_SE_APLICA` é
+universo sem régua escrita (T1, T2, T10, T12 nesta corrida); `NAO_SEI` das
+páginas `/watch` é «o item veio sem texto nenhum» — a derivação HTML→texto não
+alcança o título e a descrição, que vivem no JSON embutido da página. **A rota
+do YouTube colhe RAW; não colhe ainda texto.** Isso é um extractor em falta, e
+extractor é capacidade nova — fica registado, não fica feito.
+
+    BAIXAR NÃO É COLHER; COLHER NÃO É ADMITIR.
+    NAO_SEI POR FALTA DE TEXTO É CONFISSÃO DA CASA, NÃO JUÍZO SOBRE A FONTE.
+
+**6 · Três armadilhas de bancada, medidas.** (a) `git add -A` depois de uma
+corrida apanha os bytes do colector em `data/collection-store/italy/` — 15
+páginas `/watch` (18 MB) entraram num commit e saíram por `--amend` antes de
+qualquer push; RAW fica no disco e fora do Git enquanto não houver política de
+retenção. (b) Gerar o mapa **antes** do `git add` de um ficheiro novo deixa
+`files_tracked` uma unidade abaixo e `P1_SEM_DRIFT` reprova — a lei do
+`AGENTS.md`, sentida na pele. (c) O Atlas é CRLF puro na worktree e LF no
+índice; inserir uma linha com `\r\r\n` fez o ficheiro «misto», o Git deixou de
+normalizar e o diff passou a 20.770 linhas por 50 inseridas — normalizar para
+CRLF puro devolveu as 50.
+
+**Números que ficam.** Baseline no HEAD `96dcd6bd`: 4954 testes, 199 falhas + 31 erros,
+190 skips, 112 nomes vermelhos. Código final `f93ee597`: 4954 testes, 200 + 31, os
+mesmos 112 nomes mais **1** (`test_M5_o_ponto_fixo…`, o mapa desfasado pelo `--amend`,
+fechado pelo commit final do mapa). Big Collection Release (18:59Z → 21:50Z): 181 fontes
+tentadas, 151 SUCCESS, 20 ROUTE_FAILURE, 9 POLICY_BLOCK (429), 1 CAPABILITY_GAP; 872
+observações (834,9 MB, 872/872 sha conferidos no armazém), 668 derivados, Admissão SIM 17
+· NAO 15 · NAO_SEI 518 · NAO_SE_APLICA 322; Sala 29 → 46; `PAID_USD = 0`; red team 0 em
+23 medidas. Ver `RELATORIO-BIG-COLLECTION-RELEASE.md`.
+
