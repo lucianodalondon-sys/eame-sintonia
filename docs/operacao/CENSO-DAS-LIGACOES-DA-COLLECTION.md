@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  92cfcdd9a41c0b483e768ece61a1c8b84a1a0da8
+HEAD_DA_MEDICAO  ae2ea00b16e4627d98f54c2284616920e1d92e16
 BRANCH           claude/it-t8-canary-v1
-GERADO_EM        2026-09-20T09:51:06-03:00
+GERADO_EM        2026-09-20T09:53:15-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

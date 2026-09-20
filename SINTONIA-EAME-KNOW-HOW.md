@@ -18606,3 +18606,83 @@ orquestrador usa `preservar_documento`. O documento fica como registo histórico
 ```
 OLD_MEASUREMENT SUPERSEDED_BY_CURRENT_MEASUREMENT.
 ```
+
+
+# §159 · UM CONTRATO PODE APONTAR PARA A FONTE ERRADA E PARECER CERTO
+
+**Data:** 2026-09-20 · **Branch:** `claude/it-t8-canary-v1` · **Base:** `606974c3`
+
+`IT-T8-001` tinha contrato, ficha e relevância `SIM`. Faltavam-lhe duas coisas, e nenhuma
+era uma capacidade nova.
+
+## O handle é um apelido, e apelidos têm homónimos
+
+O contrato dizia `CANONICAL_ENTRY_URL: "https://www.youtube.com/@AgroNotizie"`. Parece o
+canal certo — o nome é o da fonte. Medido ao vivo:
+
+```
+@AgroNotizie    -> UC5lOJg4v2kFjMunah3fL23g   «agronotizie»   6 inscritos · 7 vídeos
+@agronotizietv  -> UCUs2Mg7jvUTRt7_MSOFYM5Q   «Agronotizie…»  10,9 mil · 1,8 mil vídeos
+```
+
+O `externalId` correcto já estava no campo ao lado, no mesmo contrato. **A ficha estava
+certa e a porta de entrada estava errada** — e nada no sistema acusava, porque as duas
+linhas nunca eram comparadas uma com a outra.
+
+```
+UM CONTRATO PODE TER A IDENTIDADE CERTA E A ENTRADA ERRADA AO MESMO TEMPO.
+CONFERIR A FICHA NÃO É CONFERIR A PORTA.
+```
+
+A entrada canónica passou a ser `/channel/<externalId>`: **handles renomeiam-se,
+`channel_id` não**. O handle fica guardado num campo à parte, com o homónimo nomeado.
+
+## Prosa não executa, e o motor diz isso à letra
+
+`alvosDoContrato` recusava com «sem bloco `ACQUISITION`». O contrato descrevia a rota em
+`DISCOVERY_METHOD` e `RETRIEVAL_METHOD` — campos escritos para gente, que o motor não abre.
+
+Não foi preciso estratégia nova nem adapter: **o feed público de um canal é um índice de
+ligações**, exactamente o que `HTML_LINK_DISCOVERY` já percorria para quatro fontes. A
+capacidade que faltava não faltava; faltava declará-la no vocabulário fechado.
+
+```
+CAPABILITY EXISTE ≠ CONTRATO DECLARA ≠ MOTOR EXECUTA
+```
+
+**E medir só o formato óbvio perde conteúdo em silêncio.** `watch?v=` dava 13 alvos para 15
+entradas: os dois em falta eram **Shorts**, publicados pelo mesmo canal. Um Short é
+conteúdo publicado, não ruído. O padrão passou a cobrir `watch?v=` **e** `shorts/` — 15/15.
+
+## `CREDENTIAL_MISSING` não é a fonte a falhar
+
+O canário real correu pela cadeia canónica e devolveu `ESTADO=PARTIAL`,
+`RESULT=CREDENTIAL_MISSING`, `PAID_USD=0`: a rota oficial pede uma chave de API que não
+existe nesta árvore. O `SOURCE_ID` foi carimbado, o `RUN_RECEIPT` ficou, zero factos
+fabricados.
+
+```
+CREDENTIAL_MISSING ≠ CAPABILITY_MISSING ≠ SOURCE_DEAD
+ZERO LEGÍTIMO ≠ FALHA
+```
+
+Duas rotas para o mesmo canal, e a distinção importa: a oficial precisa de credencial; a
+declarada em `ACQUISITION` derivou 5 alvos reais **sem chave, sem cookie, sem custo**.
+
+## Classe da fonte e capacidade que a colhe são eixos diferentes
+
+T8 é a **classe da fonte** (`agricultor`, `influenciador` → T8, em `leis/territorios.py`).
+`scrap-colheita` é um **executor**, listado por território e partilhável. Uma fonte T8 usa
+capacidades YouTube sem violar nada — e não se cria executor por conveniência de rótulo.
+
+```
+TERRITÓRIO CLASSIFICA A FONTE. EXECUTOR PERCORRE A ROTA. NÃO SÃO O MESMO EIXO.
+```
+
+## Caracterização antes de decidir relevância
+
+22 vídeos únicos, 2026-05-26 → 2026-09-17 (114 dias): agronomia 6 · regulatório UE 4 ·
+culturas 4 · mercado 3 · fitossanitário 3 · genética 2 · clima 1. Ritmo ~4 itens/mês.
+`SOURCE_LOCATION = ITALIA`; `FACT_LOCATION = UNKNOWN` por item — a UE aparece como
+**assunto**, e assunto não é lugar do facto. `YIELD ≠ VALUE`: quanto rende mede-se agora,
+quanto vale só a Intelligence dirá.
