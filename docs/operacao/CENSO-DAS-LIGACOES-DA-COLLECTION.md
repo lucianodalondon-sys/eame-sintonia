@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7b8d96ccb9031fed4322318121dfcb6eb273c44e
-BRANCH           claude/source-contract-executable-v2
-GERADO_EM        2026-09-19T20:36:18-03:00
+HEAD_DA_MEDICAO  ad53edfa7c0478b3d52df348bdf610356cc3838f
+BRANCH           claude/contract-provenance-cutover-v1
+GERADO_EM        2026-09-20T07:41:48-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -327,7 +327,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/italy_executor.py`, `coleta/italy_find_docs.mjs`, `coleta/italy_pilot_collect.mjs`, `coleta/italy_probe.mjs`, `coleta/italy_recurrent_collect.mjs` |
+| **peça real** | `coleta/adaptadores_de_aquisicao.mjs`, `coleta/italy_executor.py`, `coleta/italy_find_docs.mjs`, `coleta/italy_pilot_collect.mjs`, `coleta/italy_probe.mjs` _(e mais 1)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
@@ -335,7 +335,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | pedido/receitas.py:170; orquestrador/orquestrador.py:892 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
+| **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/adaptadores_de_aquisicao.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 7 · saem 14 |
@@ -1450,21 +1450,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | — NÃO SEI |
-| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **prova de quem ativa** | regras/procedencia_do_contrato_test.mjs:159 |
+| **porquê** | estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 0 |
-| **arestas provadas** | entram 2 · saem 0 |
+| **arestas no mapa** | entram 2 · saem 1 |
+| **arestas provadas** | entram 2 · saem 1 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 2 |
+| **prova das ligações** | CODE 3 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-SAUDE-FONTE` · A saude de cada fonte
 
@@ -1653,7 +1653,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`, `regras/contratos_de_fonte.py`, `regras/italy_contract_test.mjs`, `regras/italy_contracts.mjs`, `regras/italy_pilot_guards.mjs` _(e mais 2)_ |
+| **peça real** | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`, `regras/contratos_de_fonte.py`, `regras/cutover_equivalencia_test.mjs`, `regras/italy_contract_test.mjs`, `regras/italy_contracts.mjs` _(e mais 7)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de |
@@ -1661,16 +1661,16 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; provas/a_autoridade_da_fonte.py:163 |
 | **porquê** | estas pecas importam-na — C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
+| **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/adaptadores_de_aquisicao.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 8 · saem 8 |
-| **arestas provadas** | entram 8 · saem 5 |
+| **arestas no mapa** | entram 10 · saem 8 |
+| **arestas provadas** | entram 10 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 · NÃO SEI 3 |
+| **prova das ligações** | CODE 15 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1882,10 +1882,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 37
-UNKNOWN            18
+UNKNOWN            19
 SYSTEM_GAP         9
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TERMINAL           1
 TOTAL              73
 ```

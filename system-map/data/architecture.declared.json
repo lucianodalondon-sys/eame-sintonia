@@ -375,6 +375,7 @@
         "TECNICO_CIENCIA"
       ],
       "files": [
+        "coleta/adaptadores_de_aquisicao.mjs",
         "coleta/italy_executor.py",
         "coleta/italy_find_docs.mjs",
         "coleta/italy_pilot_collect.mjs",
@@ -442,11 +443,16 @@
       "files": [
         "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
         "regras/contratos_de_fonte.py",
+        "regras/cutover_equivalencia_test.mjs",
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
-        "regras/italy_source_health.mjs"
+        "regras/italy_source_health.mjs",
+        "regras/motor_de_rota.mjs",
+        "regras/motor_de_rota_test.mjs",
+        "regras/procedencia_do_contrato.mjs",
+        "regras/procedencia_do_contrato_test.mjs"
       ]
     },
     {
@@ -526,6 +532,7 @@
       "files": [
         "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
         "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
+        "provas/fixtures/legado_italy_pilot_380bf090.mjs",
         "provas/italy_accounting.mjs",
         "provas/italy_pilot_negativos.mjs"
       ]

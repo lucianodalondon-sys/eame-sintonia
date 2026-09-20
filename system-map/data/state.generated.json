@@ -197,6 +197,7 @@
       "coleta/adaptador_linkedin.py",
       "coleta/adaptador_x.py",
       "coleta/adaptador_youtube.py",
+      "coleta/adaptadores_de_aquisicao.mjs",
       "coleta/agrifood_ue.py",
       "coleta/cellar.sh",
       "coleta/coleta_checkpoint.py",
@@ -1588,6 +1589,7 @@
       "provas/especie_do_texto_auditoria.py",
       "provas/espinha_da_intelligence.py",
       "provas/fechar_ground_truth_t3.py",
+      "provas/fixtures/legado_italy_pilot_380bf090.mjs",
       "provas/fluxo_no_seco.py",
       "provas/gate_de_aceitacao_tematica.py",
       "provas/gpu_asr_smoke.py",
@@ -1695,11 +1697,16 @@
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
       "regras/contratos_de_fonte.py",
+      "regras/cutover_equivalencia_test.mjs",
       "regras/italy_contract_test.mjs",
       "regras/italy_contracts.mjs",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/italy_source_health.mjs",
+      "regras/motor_de_rota.mjs",
+      "regras/motor_de_rota_test.mjs",
+      "regras/procedencia_do_contrato.mjs",
+      "regras/procedencia_do_contrato_test.mjs",
       "regras/proveniencia.py",
       "regras/rotulos_censo.py",
       "regras/sensor_coleta.py",
@@ -2693,10 +2700,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-contract-executable-v2",
-    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
-    "GENERATED_AT": "2026-09-19T20:36:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13"
+    "BRANCH": "claude/contract-provenance-cutover-v1",
+    "HEAD": "ad53edfa7c0478b3d52df348bdf610356cc3838f",
+    "GENERATED_AT": "2026-09-20T07:41:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3446393fa789557d7963dda41d68b43da270b399b7e4a47a9c0163a07dd98405"
   },
   "FAMILIES": [
     {
@@ -23417,13 +23424,14 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        "coleta/adaptadores_de_aquisicao.mjs",
         "coleta/italy_executor.py",
         "coleta/italy_find_docs.mjs",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_probe.mjs",
         "coleta/italy_recurrent_collect.mjs"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -23454,7 +23462,7 @@
         "ITALIA": 5
       },
       "paises_dado": {
-        "ITALIA": 19
+        "ITALIA": 20
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -23471,7 +23479,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 7 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 9 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -23479,11 +23487,13 @@
       "consumes": [
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "candidatas/italy_profiles.mjs",
+        "coleta/adaptadores_de_aquisicao.mjs",
         "coleta/italy_pilot_collect.mjs",
         "data/collection-ledger/italy/observations.ndjson",
-        "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
         "data/samples/IT-PROBE/probe-fase-c.json",
-        "regras/italy_contracts.mjs"
+        "regras/italy_contracts.mjs",
+        "regras/motor_de_rota.mjs",
+        "regras/procedencia_do_contrato.mjs"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -23530,10 +23540,11 @@
       "files": [
         "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
         "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
+        "provas/fixtures/legado_italy_pilot_380bf090.mjs",
         "provas/italy_accounting.mjs",
         "provas/italy_pilot_negativos.mjs"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -23553,7 +23564,7 @@
         "ITALIA": 4
       },
       "paises_dado": {
-        "ITALIA": 7
+        "ITALIA": 8
       },
       "pais": "ITALIA",
       "nivel": "INTERNO",
@@ -23569,12 +23580,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 4 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED_WHY": "le 5 artefato(s) e nao escreve nenhum medido: olha e da nota",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 4 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 5 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -23583,6 +23594,7 @@
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "coleta/italy_pilot_collect.mjs",
         "data/collection-ledger/italy/runs.ndjson",
+        "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
         "regras/italy_contracts.mjs"
       ],
       "consumes_plane": "CODE",
@@ -23598,7 +23610,8 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "regras/italy_contract_test.mjs:157"
+          "regras/cutover_equivalencia_test.mjs:27",
+          "regras/cutover_equivalencia_test.mjs:27"
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -23628,13 +23641,18 @@
       "files": [
         "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
         "regras/contratos_de_fonte.py",
+        "regras/cutover_equivalencia_test.mjs",
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
-        "regras/italy_source_health.mjs"
+        "regras/italy_source_health.mjs",
+        "regras/motor_de_rota.mjs",
+        "regras/motor_de_rota_test.mjs",
+        "regras/procedencia_do_contrato.mjs",
+        "regras/procedencia_do_contrato_test.mjs"
       ],
-      "file_count": 7,
+      "file_count": 12,
       "status": "PENDING",
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -23649,7 +23667,8 @@
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-PRESERVAR",
-        "C-LEITORES"
+        "C-LEITORES",
+        "C-RELATORIO-FLUXO"
       ],
       "outbound": [
         "C-IT-CATALOGO",
@@ -23662,9 +23681,9 @@
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 40
+        "ITALIA": 54
       },
-      "pais": "ITALIA",
+      "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "vocabulario": {
@@ -23700,19 +23719,25 @@
       "consumes": [
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "candidatas/italy_profiles.mjs",
+        "coleta/adaptadores_de_aquisicao.mjs",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs",
         "data/collection-ledger/italy/runs.ndjson",
+        "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
         "data/samples/IT-PROBE/probe-fase-c.json",
         "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
         "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
         "ferramentas/ods_peek.mjs",
+        "provas/fixtures/legado_italy_pilot_380bf090.mjs",
         "provas/italy_accounting.mjs",
         "provas/italy_pilot_negativos.mjs",
         "regras/italy_contracts.mjs",
         "regras/italy_pilot_guards.mjs",
         "regras/italy_scheduling_guards.mjs",
-        "regras/italy_source_health.mjs"
+        "regras/italy_source_health.mjs",
+        "regras/motor_de_rota.mjs",
+        "regras/procedencia_do_contrato.mjs",
+        "system-map/scripts/relatorio_do_fluxo.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -31942,7 +31967,9 @@
         "C-CONTRATO-TELEMETRIA",
         "C-IT-PRESERVAR"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-IT-CONTRATOS"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -31954,7 +31981,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/relatorio_do_fluxo.py",
-            "line": 192,
+            "line": 210,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -31992,8 +32019,10 @@
         "CLASSE": "NAO_SEI",
         "QUEM": [],
         "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "PROVA": [
+          "regras/procedencia_do_contrato_test.mjs:159"
+        ],
+        "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10895,
       "y": 1648
@@ -39071,7 +39100,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/source-contract-executable-v2"
+        "branch claude/contract-provenance-cutover-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -65642,8 +65671,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas tem o seu codigo importado por O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por O contrato de cada fonte italiana. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "regras/cutover_equivalencia_test.mjs",
+          "line": 26,
+          "snippet": "import { ADAPTERS, semanaIso } from \"../coleta/adaptadores_de_aquisicao.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "regras/italy_pilot_guards.mjs",
           "line": 5,
@@ -65677,8 +65722,34 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta O contrato de cada fonte italiana. Provado por 3 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta O contrato de cada fonte italiana. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "regras/cutover_equivalencia_test.mjs",
+          "line": 26,
+          "snippet": "import { ADAPTERS, semanaIso } from \"../coleta/adaptadores_de_aquisicao.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "regras/cutover_equivalencia_test.mjs",
+          "line": 287,
+          "snippet": "const src = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "regras/italy_pilot_guards.mjs",
           "line": 5,
@@ -65709,6 +65780,38 @@
           "file": "regras/italy_scheduling_guards.mjs",
           "line": 26,
           "snippet": "runner.indexOf(\"checarEgress()\") < runner.indexOf(\"italy_pilot_collect.mjs\"));",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "regras/motor_de_rota_test.mjs",
+          "line": 234,
+          "snippet": "new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "regras/procedencia_do_contrato_test.mjs",
+          "line": 32,
+          "snippet": "const src = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
             "FROM": "C-IT-COLETA",
@@ -66387,13 +66490,58 @@
     {
       "from": "C-IT-CONTAS",
       "to": "C-IT-CONTRATOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A conta da coleta italiana tem o seu codigo importado por O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/cutover_equivalencia_test.mjs",
+          "line": 27,
+          "snippet": "import { alvosDeLegado, identidadeLegada, LEGADO_FONTES, LEGADO_HEAD } from \"../provas/fixtures/legado_italy_pilot_380bf090.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTAS--IMPORTS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-CONTAS",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTAS",
+      "to": "C-IT-CONTRATOS",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A conta da coleta italiana alimenta O contrato de cada fonte italiana. Provado por 2 linhas de codigo.",
+      "reason": "A conta da coleta italiana alimenta O contrato de cada fonte italiana. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "regras/cutover_equivalencia_test.mjs",
+          "line": 27,
+          "snippet": "import { alvosDeLegado, identidadeLegada, LEGADO_FONTES, LEGADO_HEAD } from \"../provas/fixtures/legado_italy_pilot_380bf090.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "regras/italy_contract_test.mjs",
           "line": 157,
@@ -66533,12 +66681,44 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 38,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 41,
+          "snippet": "import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 49,
+          "snippet": "} from \"../regras/procedencia_do_contrato.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
             "FROM": "C-IT-CONTRATOS",
@@ -66584,12 +66764,32 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "UNKNOWN",
-      "reason": "O contrato de cada fonte italiana alimenta Colher as fontes italianas. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Colher as fontes italianas. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 38,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 41,
+          "snippet": "import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 49,
+          "snippet": "} from \"../regras/procedencia_do_contrato.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
           "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
@@ -81028,6 +81228,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-RELATORIO-FLUXO",
+      "to": "C-IT-CONTRATOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Relatório do fluxo alimenta O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/procedencia_do_contrato_test.mjs",
+          "line": 159,
+          "snippet": "const src = readFileSync(new URL(\"../system-map/scripts/relatorio_do_fluxo.py\", import.meta.url), \"utf8\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RELATORIO-FLUXO--READS-->C-IT-CONTRATOS",
+            "FROM": "C-RELATORIO-FLUXO",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -96195,12 +96430,12 @@
     "components_pending": 172,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1087,
-    "edges_proven": 1033,
+    "edges": 1089,
+    "edges_proven": 1035,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2102,
-    "files_covered": 1015,
+    "files_tracked": 2109,
+    "files_covered": 1022,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

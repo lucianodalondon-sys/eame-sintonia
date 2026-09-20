@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-contract-executable-v2",
-    "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
-    "GENERATED_AT": "2026-09-19T20:36:18-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13"
+    "BRANCH": "claude/contract-provenance-cutover-v1",
+    "HEAD": "ad53edfa7c0478b3d52df348bdf610356cc3838f",
+    "GENERATED_AT": "2026-09-20T07:41:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3446393fa789557d7963dda41d68b43da270b399b7e4a47a9c0163a07dd98405"
   },
   "FILES": [
     {
@@ -1248,6 +1248,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/adaptadores_de_aquisicao.mjs",
+      "sha": "c9e3ad0bf2aae18d51033903267afb453ac6ea44",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/agrifood_ue.py",
       "sha": "fe26635e77232549b7c0b65996590ebccf3ea97a",
       "ext": ".py",
@@ -1445,7 +1452,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "b84c9351638d62eec5462ebc4dfae7bc0c37a7c7",
+      "sha": "d7bad9f56c7f70d3032338d07cf0ade9e20586ce",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -10740,6 +10747,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/fixtures/legado_italy_pilot_380bf090.mjs",
+      "sha": "0a73005a5f9a2806fe25315301fac73415c78570",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/fluxo_no_seco.py",
       "sha": "a03d4f52a608121e08c3038675c36d258dc09647",
       "ext": ".py",
@@ -11461,6 +11475,13 @@
       "code_dir": true
     },
     {
+      "path": "regras/cutover_equivalencia_test.mjs",
+      "sha": "2465f4e4ce296397a911e5548789d29b7c27f006",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/italy_contract_test.mjs",
       "sha": "4448c6f6a2e5da146d41f21c9942b5aa4f9023e8",
       "ext": ".mjs",
@@ -11469,7 +11490,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "c2d77dd78c1d4dc552f0bc0dc1fcc909775d13c4",
+      "sha": "bbb555c0b251c05fcf8c7c50adef5072fb9c6552",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -11491,6 +11512,34 @@
     {
       "path": "regras/italy_source_health.mjs",
       "sha": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/motor_de_rota.mjs",
+      "sha": "37bafd062382f341607beb5e6ec9603327d6deff",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/motor_de_rota_test.mjs",
+      "sha": "a643d37c60172b226ca3d188eb89c263a519a1d8",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/procedencia_do_contrato.mjs",
+      "sha": "71273c48009709fa75dc7bd42f3d669e2fb8a449",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/procedencia_do_contrato_test.mjs",
+      "sha": "0d9f91bc314c0f097c77f9eb5010a754f99a12de",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -12848,7 +12897,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a55fe99c92ce2e7f204c02a556be56c38d091da3",
+      "sha": "65b996f899872924347f5b5402d6c968cbfe7805",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13100,7 +13149,7 @@
     },
     {
       "path": "system-map/scripts/relatorio_do_fluxo.py",
-      "sha": "54cddeb9774a35ca57cbb6d367f82c324ccf5934",
+      "sha": "047cf2053a9883146dd7b19cb36f77d1ee73a645",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14108,7 +14157,7 @@
     },
     {
       "path": "tests/test_italia_na_porta_canonica.py",
-      "sha": "2e2ef2d7a18960156fa44496c16bc373440027c0",
+      "sha": "405a14c2e96ec4c68dc44c190c0fb2bb35276941",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17916,13 +17965,24 @@
     },
     {
       "from_file": "coleta/italy_pilot_collect.mjs",
-      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 62,
+        "snippet": "import { ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 198,
-        "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
+        "line": 62,
+        "snippet": "import { ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
       }
     },
     {
@@ -17945,6 +18005,50 @@
         "file": "coleta/italy_pilot_collect.mjs",
         "line": 38,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 41,
+        "snippet": "import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 41,
+        "snippet": "import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/procedencia_do_contrato.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 49,
+        "snippet": "} from \"../regras/procedencia_do_contrato.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/procedencia_do_contrato.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 49,
+        "snippet": "} from \"../regras/procedencia_do_contrato.mjs\";"
       }
     },
     {
@@ -37902,6 +38006,17 @@
       }
     },
     {
+      "from_file": "provas/fixtures/legado_italy_pilot_380bf090.mjs",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/fixtures/legado_italy_pilot_380bf090.mjs",
+        "line": 25,
+        "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
+      }
+    },
+    {
       "from_file": "provas/fluxo_no_seco.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -43831,6 +43946,116 @@
       }
     },
     {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 26,
+        "snippet": "import { ADAPTERS, semanaIso } from \"../coleta/adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 26,
+        "snippet": "import { ADAPTERS, semanaIso } from \"../coleta/adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 287,
+        "snippet": "const src = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 103,
+        "snippet": "[\"IT-T3-005\", \"TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html\"],"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "provas/fixtures/legado_italy_pilot_380bf090.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 27,
+        "snippet": "import { alvosDeLegado, identidadeLegada, LEGADO_FONTES, LEGADO_HEAD } from \"../provas/fixtures/legado_italy_pilot_380bf090.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "provas/fixtures/legado_italy_pilot_380bf090.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 27,
+        "snippet": "import { alvosDeLegado, identidadeLegada, LEGADO_FONTES, LEGADO_HEAD } from \"../provas/fixtures/legado_italy_pilot_380bf090.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 24,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 24,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 25,
+        "snippet": "import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/cutover_equivalencia_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/cutover_equivalencia_test.mjs",
+        "line": 25,
+        "snippet": "import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
       "from_file": "regras/italy_contract_test.mjs",
       "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "type": "READS",
@@ -44070,6 +44295,149 @@
         "file": "regras/italy_source_health.mjs",
         "line": 14,
         "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 234,
+        "snippet": "new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\")"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 20,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 20,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/motor_de_rota_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/motor_de_rota_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 32,
+        "snippet": "const src = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 14,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 14,
+        "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 15,
+        "snippet": "import { CONTRATO_MOTOR_VERSAO } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 15,
+        "snippet": "import { CONTRATO_MOTOR_VERSAO } from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "regras/procedencia_do_contrato.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 13,
+        "snippet": "} from \"./procedencia_do_contrato.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "regras/procedencia_do_contrato.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 13,
+        "snippet": "} from \"./procedencia_do_contrato.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/procedencia_do_contrato_test.mjs",
+      "to_file": "system-map/scripts/relatorio_do_fluxo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/procedencia_do_contrato_test.mjs",
+        "line": 159,
+        "snippet": "const src = readFileSync(new URL(\"../system-map/scripts/relatorio_do_fluxo.py\", import.meta.url), \"utf8\");"
       }
     },
     {
@@ -63927,7 +64295,7 @@
     "system-map/scripts/relatorio_do_fluxo.py": [
       {
         "pasta": "system-map",
-        "line": 192,
+        "line": 210,
         "constante": "SAIDA"
       }
     ],
@@ -63947,10 +64315,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2102,
-    "files_readable": 822,
-    "files_code_dir": 881,
-    "file_edges": 4428,
+    "files_tracked": 2109,
+    "files_readable": 829,
+    "files_code_dir": 888,
+    "file_edges": 4457,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
