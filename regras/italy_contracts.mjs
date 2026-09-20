@@ -702,8 +702,12 @@ export const CONTRACTS = {
 // 105 fontes que a missao SOURCE-COLLECTION-READINESS-V1 sondou em 2026-09-18,
 // mais 18 que o SOURCE CURATOR (missao 04/04A) caracterizou, canarizou e passou
 // pelo gate de robots em 2026-09-20 — integradas na INTEGRACAO-04A, SOMENTE as
-// READY_FOR_COLLECTION (HTML). As 50 do YouTube NAO estao nesta tabela: a rota
-// feeds/videos.xml esta em Disallow, e nao ha executor para ela. Fontes
+// READY_FOR_COLLECTION (HTML). As 50 do YouTube ficaram de fora na 04A (a rota
+// feeds/videos.xml esta em Disallow) e entraram no BIG-COLLECTION-RELEASE
+// (2026-09-20) pela rota que o MESMO portao aprova: a pagina publica do canal,
+// /channel/<CHANNEL_ID>/videos, lida pelo adapter CANAL_PUBLICO_YOUTUBE_V1 do
+// registry canonico — STRATEGY CUSTOM_ADAPTER, OUTPUT_TYPE HTML (a pagina
+// /watch e o que se traz), identidade generica pelo endereco. Fontes
 // (HTTP 200, documento observado, assinatura conferida) e deixou numa tabela
 // declarativa com vocabulario proprio (SHAPE). Aqui entram TRADUZIDAS para o
 // vocabulario do motor de rota — STRATEGY / MATCH / INDEX_URL / LINK_PATTERN —
@@ -739,16 +743,22 @@ export function contratoGenerico(linha) {
   const aq = linha.ACQUISITION;
   if (!aq || !aq.STRATEGY) throw new Error(`linha sem ACQUISITION na tabela onboarded: ${linha.SOURCE_ID}`);
   const fixo = aq.STRATEGY === "STATIC_ENDPOINT";
-  const entrada = fixo ? aq.URL : aq.INDEX_URL;
+  // CUSTOM_ADAPTER nao tem INDEX_URL: a rota nasce dentro do adapter, a partir
+  // do bloco. A entrada canonica e a que a linha declara (a pagina publica da
+  // fonte), e a descoberta diz o nome do adapter — nunca um SOURCE_ID.
+  const adapter = aq.STRATEGY === "CUSTOM_ADAPTER";
+  const entrada = fixo ? aq.URL : adapter ? (linha.CANONICAL_ENTRY_URL || aq.INDEX_URL || "NAO SEI") : aq.INDEX_URL;
   return {
     OWNER_ID: "NAO SEI", OWNER: linha.OWNER || linha.NAME || "NAO SEI",
     TERRITORY: linha.TERRITORY, VALUE: "NAO SEI",
     CANONICAL_ENTRY_URL: entrada,
     DISCOVERY_METHOD: fixo
       ? "GET direto no documento observado (documento fixo; descoberta de edicoes novas NAO configurada)"
-      : "GENERICO: abrir INDEX_URL, resolver todos os href e ficar com os que casam com LINK_PATTERN (MATCH=URL)",
+      : adapter
+        ? `ADAPTER ${aq.ADAPTER_ID} do registry canonico (coleta/adaptadores_de_aquisicao.mjs): os parametros vivem no bloco ACQUISITION da linha; o despachador nao conhece SOURCE_ID`
+        : "GENERICO: abrir INDEX_URL, resolver todos os href e ficar com os que casam com LINK_PATTERN (MATCH=URL)",
     RETRIEVAL_METHOD: "GET direto no documento",
-    ROUTE_TYPE: fixo ? "STATIC_ROUTE" : "DISCOVERED_ROUTE",
+    ROUTE_TYPE: fixo ? "STATIC_ROUTE" : adapter ? "APPLICATION_ROUTE" : "DISCOVERED_ROUTE",
     ACCESS_INSTRUMENT: "HTTP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
     OUTPUT_TYPE: tipo, EXPECTED_MIME: MIME_POR_TIPO[tipo], EXPECTED_SIGNATURE: ASSINATURA_POR_TIPO[tipo], MIN_BYTES: 1000,
     ACQUISITION: aq,

@@ -531,6 +531,12 @@ for _alvo, _traz in (
             "pagina de entrada do evento nomeado no pedido"),
     ("T12", "o documento publico (PDF ou artigo HTML) descoberto a partir da "
             "pagina de entrada da fonte de politica agricola nomeada no pedido"),
+    # T8 entrou na tabela no BIG-COLLECTION-RELEASE (2026-09-20): tres canais
+    # YouTube (IT-T8-004/005/006) pela rota do canal, CUSTOM_ADAPTER
+    # CANAL_PUBLICO_YOUTUBE_V1. Aqui entra DEPOIS do `scrap-colheita` que T8 ja
+    # partilha com T9; um `fonte=IT-T8-0xx` promove-o (mesma regra BG-05 de T9).
+    ("T8", "o documento publico (pagina HTML) descoberto a partir da entrada da "
+           "fonte de agricultores/influenciadores nomeada no pedido"),
 ):
     EXECUTORES.setdefault(_alvo, []).append(_italia_recorrente_generico(_traz))
 

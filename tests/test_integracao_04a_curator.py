@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
-"""INTEGRAÇÃO-04A — as 18 fontes HTML do SOURCE CURATOR entram; as 50 do YouTube não.
+"""INTEGRAÇÃO-04A — as 18 fontes HTML do SOURCE CURATOR entram; as 50 do YouTube não
+pelo feed. (BIG-COLLECTION-RELEASE, 2026-09-20: as 50 entraram pela rota do canal.)
 
 O que este ficheiro prova, e por que cada prova existe:
 
-  * a tabela que o motor lê (`regras/italy_contracts_onboarded.json`) tem as 18 e
-    SÓ as 18 — o registo da curadoria (`curadoria/italy_contracts_curator.json`)
-    fica como registo, nunca como segunda fonte de verdade;
-  * nenhuma das 50 fontes YouTube (`CONTRACT_READY_ROUTE_BLOCKED`,
-    `ROBOTS_DISALLOWED_ROUTE`) é alcançável pelo motor: não está na tabela, não
-    há executor `YOUTUBE_CHANNEL_FEED`, e o dono do contrato não lê o ficheiro da
-    curadoria;
+  * a tabela que o motor lê (`regras/italy_contracts_onboarded.json`) tem as 18
+    com a forma do curator — o registo da curadoria
+    (`curadoria/italy_contracts_curator.json`) fica como registo, nunca como
+    segunda fonte de verdade;
+  * nenhuma das 50 fontes YouTube entra pelo FEED (`ROBOTS_DISALLOWED_ROUTE`):
+    não há executor `YOUTUBE_CHANNEL_FEED`, a tabela não tem essa estratégia nem
+    `feeds/videos.xml`, e o dono do contrato não lê o ficheiro da curadoria.
+    Desde o BIG-COLLECTION-RELEASE (2026-09-20) as 50 estão na tabela pela rota
+    do CANAL (`CUSTOM_ADAPTER` · `CANAL_PUBLICO_YOUTUBE_V1`, `/channel/<ID>/videos`),
+    que o MESMO portão de robots aprova — com o CHANNEL_ID do curator, sem
+    alteração, e zero código por SOURCE_ID;
   * a evidência das 18 foi promovida para o caminho canónico e os bytes batem
     com o sha256 do manifesto;
   * o Atlas carrega as 84 fichas, cada uma com `ESTADO_04A:` medido — 18
@@ -107,18 +112,36 @@ class ATabelaDoDonoTemAs18ESoAs18(unittest.TestCase):
                 self.assertEqual(cur[sid]["CARACTERIZACAO"], self.por_id[sid]["CARACTERIZACAO"],
                                  "a caracterizacao (com os NAO SEI) tem de chegar inteira")
 
-    def test_a_tabela_tem_105_mais_18(self):
-        self.assertEqual(123, len(self.onb["FONTES"]))
-        self.assertEqual(123, len(self.por_id), "SOURCE_ID repetido na tabela")
+    def test_a_tabela_tem_105_mais_18_mais_50(self):
+        self.assertEqual(173, len(self.onb["FONTES"]))
+        self.assertEqual(173, len(self.por_id), "SOURCE_ID repetido na tabela")
 
-    def test_nenhuma_das_50_youtube_esta_na_tabela(self):
-        yt = [c["SOURCE_ID"] for c in self.cur["FONTES"] if c["BATCH_ID"] == "LOTE-YOUTUBE-FEED"]
-        self.assertEqual(50, len(yt))
-        self.assertEqual([], [sid for sid in yt if sid in self.por_id])
+    def test_as_50_youtube_entram_pela_rota_do_canal_e_nunca_pelo_feed(self):
+        cur = {c["SOURCE_ID"]: c for c in self.cur["FONTES"] if c["BATCH_ID"] == "LOTE-YOUTUBE-FEED"}
+        self.assertEqual(50, len(cur))
+        # o registo do curator continua a dizer o que mediu: a rota do FEED esta barrada
         bloqueadas = [f for f in self.ready["FONTES"] if f["STATE"] == "CONTRACT_READY_ROUTE_BLOCKED"]
         self.assertEqual(50, len(bloqueadas))
         self.assertEqual({"ROBOTS_DISALLOWED_ROUTE"}, {f["BLOCK_REASON"] for f in bloqueadas})
-        self.assertEqual([], [f["SOURCE_ID"] for f in bloqueadas if f["SOURCE_ID"] in self.por_id])
+        self.assertEqual(set(cur), {f["SOURCE_ID"] for f in bloqueadas})
+        # e a tabela do motor tem as 50 pela rota do CANAL, com o CHANNEL_ID do curator
+        self.assertEqual([], [sid for sid in cur if sid not in self.por_id])
+        for sid, c in cur.items():
+            with self.subTest(source_id=sid):
+                r = self.por_id[sid]
+                self.assertEqual("LOTE-YOUTUBE-CANAL", r["BATCH_ID"])
+                self.assertEqual("HTML", r["OUTPUT_TYPE"])
+                self.assertEqual("CUSTOM_ADAPTER", r["ACQUISITION"]["STRATEGY"])
+                self.assertEqual("CANAL_PUBLICO_YOUTUBE_V1", r["ACQUISITION"]["ADAPTER_ID"])
+                self.assertEqual(c["ACQUISITION"]["CHANNEL_ID"], r["ACQUISITION"]["CHANNEL_ID"])
+                self.assertEqual(c["SOURCE_NATIVE_ID"], r["SOURCE_NATIVE_ID"])
+                self.assertEqual(c["CARACTERIZACAO"], r["CARACTERIZACAO"],
+                                 "a caracterizacao (com os NAO SEI) tem de chegar inteira")
+                self.assertEqual("ALLOWED", r["SONDAGEM"]["ROBOTS_GATE"])
+                self.assertEqual("YES", r["SONDAGEM"]["IDENTITY_MATCH"])
+                self.assertGreater(r["SONDAGEM"]["ALVOS_DESCOBERTOS"], 0)
+                self.assertIn("BIG-COLLECTION-RELEASE", r["ONBOARDED_BY"])
+                self.assertNotIn("feeds/videos.xml", json.dumps(r["ACQUISITION"]))
 
     def test_nem_as_9_com_canario_fail_nem_as_7_sem_contrato(self):
         fail = [f["SOURCE_ID"] for f in self.ready["FONTES"] if f["STATE"] == "CONTRACTED_CANARY_FAILED"]
@@ -134,7 +157,7 @@ class ATabelaDoDonoTemAs18ESoAs18(unittest.TestCase):
             self.assertNotIn("youtube.com/feeds", json.dumps(r["ACQUISITION"]), r["SOURCE_ID"])
 
 
-class OMotorNaoAlcancaAs50(unittest.TestCase):
+class OMotorNaoAlcancaAs50PeloFeed(unittest.TestCase):
 
     def test_o_dono_nao_le_o_ficheiro_da_curadoria(self):
         for p in (DONO, MOTOR):
@@ -155,25 +178,34 @@ class OMotorNaoAlcancaAs50(unittest.TestCase):
         self.assertEqual([], achados)
 
     @unittest.skipUnless(shutil.which("node"), "sem node nesta maquina")
-    def test_o_dono_expande_as_18_e_nenhuma_das_50(self):
+    def test_o_dono_expande_as_18_e_as_50_pela_rota_do_canal(self):
         yt = [c["SOURCE_ID"] for c in _json(CURATOR)["FONTES"] if c["BATCH_ID"] == "LOTE-YOUTUBE-FEED"]
         prog = (
             "import { CONTRACTS, ONBOARDED_IDS } from './regras/italy_contracts.mjs';"
+            "import { conferirAquisicao, conferirIdentidade } from './regras/motor_de_rota.mjs';"
             "const as18 = %s; const yt = %s;"
             "const out = { faltam: as18.filter(i => !CONTRACTS[i] || CONTRACTS[i].ACQUISITION.STRATEGY !== 'HTML_LINK_DISCOVERY'),"
-            "  yt_dentro: yt.filter(i => CONTRACTS[i] || ONBOARDED_IDS.includes(i)),"
+            "  yt_fora: yt.filter(i => !CONTRACTS[i] || !ONBOARDED_IDS.includes(i)),"
+            "  yt_pelo_canal: yt.filter(i => CONTRACTS[i] && CONTRACTS[i].ACQUISITION.STRATEGY === 'CUSTOM_ADAPTER' && CONTRACTS[i].ACQUISITION.ADAPTER_ID === 'CANAL_PUBLICO_YOUTUBE_V1' && CONTRACTS[i].ROUTE_TYPE === 'APPLICATION_ROUTE' && CONTRACTS[i].EXPECTED_SIGNATURE === '<'),"
+            "  yt_invalidos: yt.filter(i => { try { conferirAquisicao(i, CONTRACTS[i].ACQUISITION); conferirIdentidade(i, CONTRACTS[i].IDENTITY); return false; } catch (e) { return true; } }),"
             "  onboarded: ONBOARDED_IDS.length,"
-            "  onboarded_by: as18.map(i => CONTRACTS[i].ONBOARDED_BY) };"
+            "  onboarded_by: as18.map(i => CONTRACTS[i].ONBOARDED_BY),"
+            "  yt_onboarded_by: yt.map(i => CONTRACTS[i] ? CONTRACTS[i].ONBOARDED_BY : '') };"
             "console.log(JSON.stringify(out));" % (json.dumps(list(AS_18)), json.dumps(yt)))
         r = subprocess.run(["node", "--input-type=module", "-e", prog], cwd=RAIZ,
                            capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(0, r.returncode, r.stderr)
         out = json.loads(r.stdout.strip().splitlines()[-1])
         self.assertEqual([], out["faltam"])
-        self.assertEqual([], out["yt_dentro"])
-        self.assertEqual(123, out["onboarded"])
+        self.assertEqual([], out["yt_fora"])
+        self.assertEqual(50, len(out["yt_pelo_canal"]))
+        self.assertEqual([], out["yt_invalidos"], "as 50 passam conferirAquisicao + conferirIdentidade")
+        self.assertEqual(173, out["onboarded"])
         for ob in out["onboarded_by"]:
             self.assertIn("SOURCE-CURATOR", ob, "o contrato expandido tem de dizer de onde veio")
+        for ob in out["yt_onboarded_by"]:
+            self.assertIn("BIG-COLLECTION-RELEASE", ob)
+            self.assertIn("376c0d9b", ob, "a identidade veio do curator; a rota, da lane YouTube")
 
 
 class AEvidenciaDas18TemManifestoNoCaminhoCanonico(unittest.TestCase):

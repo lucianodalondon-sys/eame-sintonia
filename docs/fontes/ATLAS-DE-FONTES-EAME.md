@@ -7369,6 +7369,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0182/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7405,6 +7406,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0184/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7441,6 +7443,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0185/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7478,6 +7481,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0186/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7551,6 +7555,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0188/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 9 itens
 ```
 
@@ -7624,6 +7629,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0189/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7697,6 +7703,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0191/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7769,6 +7776,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0192/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7805,6 +7813,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0194/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7841,6 +7850,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0195/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7877,6 +7887,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0196/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7913,6 +7924,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0197/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 14 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7949,6 +7961,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0198/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -7985,6 +7998,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0199/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 4 itens
 ```
 
@@ -8022,6 +8036,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0200/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 5 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 5 itens
 ```
 
@@ -8095,6 +8110,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0201/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8167,6 +8183,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0202/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8203,6 +8220,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0203/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8239,6 +8257,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0204/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8276,6 +8295,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0205/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8348,6 +8368,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0206/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 13 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8384,6 +8405,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0207/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8420,6 +8442,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0208/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8456,6 +8479,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0209/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8492,6 +8516,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0210/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8528,6 +8553,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY_PROBE - ritmo nao medido: visita para medi
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0211/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 2 itens
 ```
 
@@ -8565,6 +8591,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0212/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8637,6 +8664,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0213/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8674,6 +8702,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0214/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8746,6 +8775,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0215/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 3 itens
 ```
 
@@ -8782,6 +8812,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0216/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8819,6 +8850,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0217/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8927,6 +8959,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0220/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -8964,6 +8997,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0224/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9036,6 +9070,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0225/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9072,6 +9107,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0226/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9109,6 +9145,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0227/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9182,6 +9219,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0228/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9254,6 +9292,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0229/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9290,6 +9329,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0230/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9326,6 +9366,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0231/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9363,6 +9404,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0232/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9435,6 +9477,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0233/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9471,6 +9514,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0235/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9508,6 +9552,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0236/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 9 itens
 ```
 
@@ -9544,6 +9589,7 @@ INITIAL_COLLECTION_CADENCE:   WEEKLY - publica em semanas · sem entrada de VALO
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0237/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 9 itens
 ```
 
@@ -9580,6 +9626,7 @@ INITIAL_COLLECTION_CADENCE:   MONTHLY - publica em meses · sem entrada de VALOR
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0238/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 7 itens
 ```
 
@@ -9617,6 +9664,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (UNKNOWN), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0239/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9689,6 +9737,7 @@ INITIAL_COLLECTION_CADENCE:   QUARTERLY_WATCH - parada ha mais de um ano: visita
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0240/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 10 itens
 ```
 
@@ -9725,6 +9774,7 @@ INITIAL_COLLECTION_CADENCE:   DAILY - publica em dias ou dentro da semana · sem
 ADAMA_USE_CASE:               NAO SEI - relevancia tematica medida (YES), uso por definir
 EVIDENCE:                     curadoria/evidencia/CAND-0241/videos.xml (sha256 em curadoria/REAL-EXAMPLE-MANIFEST-V1.json)
 ESTADO_04A:                   CONTRACT_READY_ROUTE_BLOCKED - BLOCK_REASON=ROBOTS_DISALLOWED_ROUTE: a rota feeds/videos.xml está em Disallow no robots.txt de www.youtube.com (gate de rota 04A, 2026-09-20); NÃO integrada como colectável; CANONICAL_ROUTE_READY=NO; a linha ACCESS_METHOD acima descreve a rota que o gate reprovou, não uma rota provada
+ESTADO_BCR:                   READY_FOR_COLLECTION - BIG-COLLECTION-RELEASE (2026-09-20): rota nova /channel/<PLATFORM_NATIVE_ID>/videos (adapter CANAL_PUBLICO_YOUTUBE_V1, registry canonico), aprovada pelo MESMO portao de robots que reprovou o feed; canario canonico pelo motor: identidade do canal confirmada, 15 alvos /watch descobertos, PAID_USD=0; integrada em regras/italy_contracts_onboarded.json (LOTE-YOUTUBE-CANAL). A ACCESS_METHOD acima (feed) continua barrada e NAO e usada
 VERDICT:                      GREEN - fonte aberta, exemplo real capturado e padrao observado em 8 itens
 ```
 
