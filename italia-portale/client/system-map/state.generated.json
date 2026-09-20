@@ -25,11 +25,13 @@
       "HANDOFF-V2-PAUSE.md",
       "MISSAO-CUTOVER-RECUPERADA.md",
       "MISSAO-GARGALOS-BC2.md",
+      "MISSAO-RESIDUOS-BC2.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "RELATORIO-CUTOVER-RECUPERADO.md",
       "RELATORIO-GARGALOS-BC2.md",
+      "RELATORIO-RESIDUOS-BC2.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -2080,6 +2082,7 @@
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
       "tests/test_comunicacao_universo_falha_fechado.py",
+      "tests/test_conferencia_compara_instantes.py",
       "tests/test_consumo_da_referencia_adama.py",
       "tests/test_espinha_da_intelligence.py",
       "tests/test_estagio_atravessa_a_fronteira.py",
@@ -2219,7 +2222,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 195 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 199 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2229,7 +2232,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "213 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 195 corridas registadas, e o país delas é: ES 10 · IT 176 · NAO SEI 9. Elas trouxeram 4061 itens e 3032 atravessaram a régua. As outras 213 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 199 corridas registadas, e o país delas é: ES 10 · IT 180 · NAO SEI 9. Elas trouxeram 4065 itens e 3033 atravessaram a régua. As outras 213 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -2713,9 +2716,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/contract-provenance-cutover-v1",
-    "HEAD": "1d1292a2b803e718709800dc6df32a7f5a0fb234",
-    "GENERATED_AT": "2026-09-20T10:51:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6478f4890cafd317e94413f02b5660bb4507ffc3f7f4ece505d47be426949859"
+    "HEAD": "17b6552602e2aec7b98d220414517750a9797c70",
+    "GENERATED_AT": "2026-09-20T12:12:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6b3e01e40a824e632cbb53a9ec61b75056045d636f7928a8fa1e82d19e81e237"
   },
   "FAMILIES": [
     {
@@ -12629,16 +12632,104 @@
             "erro": null,
             "prova": null,
             "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-144606-aca92ae55c0b9881",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-007",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-007 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T2-2026-09-20-144613-15058f8f093948a1",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T2-010",
+              "universo": "T2"
+            },
+            "que_pergunta": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-010 · pais=IT · universo=T2",
+            "pais": "IT",
+            "missao": "CLIMATE / WATER / SOIL",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T3-2026-09-20-144620-ce1d2edaef2e2fc0",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T3-019",
+              "universo": "T3"
+            },
+            "que_pergunta": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-019 · pais=IT · universo=T3",
+            "pais": "IT",
+            "missao": "PEST / DISEASE / WEEDS",
+            "trouxe": 1,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "IT-T5-2026-09-20-144624-321fa3994d5fb839",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "pais": "IT",
+              "fonte": "IT-T5-035",
+              "universo": "T5"
+            },
+            "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-035 · pais=IT · universo=T5",
+            "pais": "IT",
+            "missao": "SCIENCE",
+            "trouxe": 1,
+            "sobrou": 1,
+            "rendimento": 100,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
           }
         ],
-        "total": 195,
+        "total": 199,
         "por_pais": {
           "ES": 10,
-          "IT": 176,
+          "IT": 180,
           "NAO SEI": 9
         },
         "por_plataforma": {
-          "HTTP direto": 172,
+          "HTTP direto": 176,
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
           "LOCAL": 10,
@@ -12869,11 +12960,11 @@
           "IT-T9-012",
           "IT-T9-013"
         ],
-        "com_rendimento_medido": 187,
-        "com_custo_medido": 189,
+        "com_rendimento_medido": 191,
+        "com_custo_medido": 193,
         "custo_total_usd": 0.48,
-        "trouxe_total": 4061,
-        "sobrou_total": 3032
+        "trouxe_total": 4065,
+        "sobrou_total": 3033
       },
       "memoria": [
         {
@@ -39995,6 +40086,7 @@
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
         "tests/test_comunicacao_universo_falha_fechado.py",
+        "tests/test_conferencia_compara_instantes.py",
         "tests/test_consumo_da_referencia_adama.py",
         "tests/test_espinha_da_intelligence.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
@@ -40109,7 +40201,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 199,
+      "file_count": 200,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -100060,7 +100152,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1096,
+  "UNCLAIMED_FILES_COUNT": 1098,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -100249,8 +100341,8 @@
     "edges_proven": 1035,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2121,
-    "files_covered": 1025,
+    "files_tracked": 2124,
+    "files_covered": 1026,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

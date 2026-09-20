@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/contract-provenance-cutover-v1",
-    "HEAD": "1d1292a2b803e718709800dc6df32a7f5a0fb234",
-    "GENERATED_AT": "2026-09-20T10:51:16-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6478f4890cafd317e94413f02b5660bb4507ffc3f7f4ece505d47be426949859"
+    "HEAD": "17b6552602e2aec7b98d220414517750a9797c70",
+    "GENERATED_AT": "2026-09-20T12:12:26-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6b3e01e40a824e632cbb53a9ec61b75056045d636f7928a8fa1e82d19e81e237"
   },
   "FILES": [
     {
@@ -268,6 +268,13 @@
       "code_dir": false
     },
     {
+      "path": "MISSAO-RESIDUOS-BC2.md",
+      "sha": "e9d8f0bc86a9b0e42010a15193705bea004e6c78",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PORTAL-CAPABILITY-INVENTORY.md",
       "sha": "03b0da54fb4998f1a4cb93bbf639e5a873864187",
       "ext": ".md",
@@ -303,6 +310,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-RESIDUOS-BC2.md",
+      "sha": "204f81c227d8f7e53b7661b312722e7d0a8077b0",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
       "sha": "1f6d1e7688eaf93c71adcd17af1cf0d761faf5b1",
       "ext": ".md",
@@ -311,7 +325,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "64c62b47ff6af13578d80cb56dd60aee6323335c",
+      "sha": "b9ce6ed32698ef30de43a1d864c856c7365321ef",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1865,7 +1879,7 @@
     },
     {
       "path": "data/derivados/HTML-REPROCESSO-2026-09-20.json",
-      "sha": "58d28e29b723c40a1c7815d8d19cc241252ee1ca",
+      "sha": "cac75c4fd2f738588e3028fdf73491fdf10e3931",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5043,7 +5057,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "898fca50139ccf0a90737674994d5836f2dce923",
+      "sha": "cc36da231ecab049e6d9d7deee73ea4da08fa364",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5386,7 +5400,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "43dea84f7568c69204e23157cb1e05e8f1540d23",
+      "sha": "4bdaa5a05f54ce0034efd44ad63611667b89e201",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7591,7 +7605,7 @@
     },
     {
       "path": "guarda/preservar_coleta.py",
-      "sha": "3f7ab67f4fb0ee060753a461c6de91cde3d748f2",
+      "sha": "6a1986b7a17acefa40a482c6c0b96234626388ec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14053,6 +14067,13 @@
     {
       "path": "tests/test_comunicacao_universo_falha_fechado.py",
       "sha": "45d0caa39e48c209b4710c565efdb2748c55742a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_conferencia_compara_instantes.py",
+      "sha": "81464bb0ada83aeba814d92c18ab26cecdabdc57",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -55745,6 +55766,17 @@
       }
     },
     {
+      "from_file": "tests/test_conferencia_compara_instantes.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_conferencia_compara_instantes.py",
+        "line": 18,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
       "from_file": "tests/test_consumo_da_referencia_adama.py",
       "to_file": "provas/consumo_da_referencia_adama.py",
       "type": "IMPORTS",
@@ -64553,10 +64585,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2121,
-    "files_readable": 832,
-    "files_code_dir": 892,
-    "file_edges": 4471,
+    "files_tracked": 2124,
+    "files_readable": 833,
+    "files_code_dir": 893,
+    "file_edges": 4472,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
