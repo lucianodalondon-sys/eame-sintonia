@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/int-pilot-sala-v1",
-    "HEAD": "370ce450f4aac60d56540e654c159faa7c907917",
-    "GENERATED_AT": "2026-09-20T12:13:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "00d0691d2e82c3ce50ab9bd26edce38c9bf97afd0a5509e606e169c726304f51"
+    "HEAD": "49f27afb9a175992bdc63ac18fc32c4c149459d9",
+    "GENERATED_AT": "2026-09-20T15:32:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "416d942c6b4e9663990cd5b948541599d5a0cc3683797d2d3804247552268470"
   },
   "FILES": [
     {
@@ -1913,8 +1913,15 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/O-PILOTO-DA-SALA-R2-DELTA.json",
+      "sha": "7b94c1594f9f8798b955d6ff6cd056291e0a5366",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/O-PILOTO-DA-SALA.json",
-      "sha": "b609d0a443840d0160e6a55a2a7f046c5cc30758",
+      "sha": "7a9bd79c2df30baff69a61ebd3c7f2721e4611fa",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -6575,6 +6582,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/PILOTO-DA-SALA-R2-INCREMENTAL.md",
+      "sha": "6c3d11570b7e15ed4e4e51afc1a4be086f68bd74",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "sha": "0face360db38446639db2a633063a31b42fbd1e0",
       "ext": ".md",
@@ -11119,7 +11133,7 @@
     },
     {
       "path": "provas/o_piloto_da_sala.py",
-      "sha": "869fbb2264a68e25b52e9832934b88a61732067b",
+      "sha": "68c625de0cd2e59a99b7f555e3a8579c650269a6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40822,7 +40836,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_piloto_da_sala.py",
-        "line": 177,
+        "line": 245,
         "snippet": "with open(PORTFOLIO, encoding=\"utf-8\") as fh:"
       }
     },
@@ -40833,7 +40847,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_piloto_da_sala.py",
-        "line": 179,
+        "line": 247,
         "snippet": "with open(USOS, encoding=\"utf-8\") as fh:"
       }
     },
@@ -64628,7 +64642,7 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2127,
+    "files_tracked": 2129,
     "files_readable": 834,
     "files_code_dir": 894,
     "file_edges": 4474,

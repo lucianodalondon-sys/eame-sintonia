@@ -296,6 +296,7 @@
       "data/derivados/O-CANARIO-DA-COLLECTION.json",
       "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
+      "data/derivados/O-PILOTO-DA-SALA-R2-DELTA.json",
       "data/derivados/O-PILOTO-DA-SALA.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -964,6 +965,7 @@
       "docs/operacao/OUT-OF-FLOW-LEGACY-DECISION-V1.md",
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
       "docs/operacao/PILOTO-DA-SALA-DE-ESPERA-V1.md",
+      "docs/operacao/PILOTO-DA-SALA-R2-INCREMENTAL.md",
       "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
       "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md",
@@ -2719,9 +2721,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/int-pilot-sala-v1",
-    "HEAD": "370ce450f4aac60d56540e654c159faa7c907917",
-    "GENERATED_AT": "2026-09-20T12:13:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "00d0691d2e82c3ce50ab9bd26edce38c9bf97afd0a5509e606e169c726304f51"
+    "HEAD": "49f27afb9a175992bdc63ac18fc32c4c149459d9",
+    "GENERATED_AT": "2026-09-20T15:32:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "416d942c6b4e9663990cd5b948541599d5a0cc3683797d2d3804247552268470"
   },
   "FAMILIES": [
     {
@@ -33638,14 +33640,15 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "SONDA_CROP",
           "TERMOS_ADMIN",
           "TERMOS_AGRO"
         ],
-        "palavras": 28,
+        "palavras": 54,
         "por_lingua": {
-          "IT": 4
+          "IT": 11
         },
-        "sem_marca_de_lingua": 24,
+        "sem_marca_de_lingua": 43,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -44140,7 +44143,7 @@
       "evidence": [
         {
           "file": "provas/o_piloto_da_sala.py",
-          "line": 179,
+          "line": 247,
           "snippet": "with open(USOS, encoding=\"utf-8\") as fh:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-PROVA-PILOTO-SALA",
@@ -100280,7 +100283,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1100,
+  "UNCLAIMED_FILES_COUNT": 1102,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -100469,7 +100472,7 @@
     "edges_proven": 1036,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2127,
+    "files_tracked": 2129,
     "files_covered": 1027,
     "files_code_unclaimed": 0,
     "roles_proven": 148,

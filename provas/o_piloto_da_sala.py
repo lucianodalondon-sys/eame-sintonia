@@ -54,8 +54,27 @@ COMO CORRER
 
 `--desde` é a FASE 14: processa só o que pousou depois do carimbo, sem
 scheduler, sem daemon, sem plataforma nova.
+
+⚠️ `--desde` É UM FILTRO, NÃO UM CHECKPOINT — E A DIFERENÇA CUSTOU UMA RODADA
+------------------------------------------------------------------------------
+Uma data responde «o que pousou depois de quando?». Não responde «o que é que
+eu já processei?», que é a pergunta da incrementalidade. As duas só coincidem
+enquanto ninguém pousar um item com carimbo antigo, e ninguém correr o piloto
+duas vezes no mesmo dia.
+
+    FILTRO POR TEMPO  !=  CHECKPOINT POR IDENTIDADE.
+
+O checkpoint é `--desde-artefato`: lê o artefato da corrida anterior e subtrai,
+por `(RUN_ID, ORDEM)` — a chave que a própria migration 031 declara como
+endereço da linha. `ITEM_ID` **não** serve: ele é o nome que a fonte deu, e
+duas fontes podem dar o mesmo.
+
+E o par que fecha a idempotência é `(RUN_ID, ORDEM) + PIPELINE_VERSION`:
+reprocessar com a MESMA versão é ruído e sai vazio; mudar a versão obriga a
+reprocessar, porque a lógica deixou de ser a mesma.
 """
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -89,6 +108,27 @@ TERMOS_ADMIN = (
 # resultado seria escolher o número que dá a resposta que se queria.
 LIMIAR_AGRO = 20
 LIMIAR_FRACO = 5
+
+# ⚠️ A VERSÃO DO PIPELINE ENTRA NA CHAVE DE IDEMPOTÊNCIA.
+# Reprocessar com a mesma versão é ruído. Mudar a régua, o limiar ou o gate
+# muda a resposta — e aí reprocessar deixa de ser ruído e passa a ser dever.
+# Quem mexer em LIMIAR_AGRO, TERMOS_AGRO ou `cruzar()` tem de subir isto.
+PIPELINE_VERSION = "2"
+
+# As famílias que se ESPERA que tragam cultura. Um edital de universidade não
+# tem cultura e isso não é defeito — por isso ele não entra no denominador.
+FAMILIAS_QUE_ESPERAM_CROP = ("IT-T3",)
+
+# Culturas italianas, como aparecem nos boletins. Esta lista NÃO é ontologia
+# nem normalização canônica: é a sonda mínima para responder «o campo CROP
+# sobreviveu à derivação?». Achar a palavra não promove nada a CROP — o
+# contrato READY continua sem o campo, e é isso que a contagem mede.
+SONDA_CROP = (
+    "OLIVO", "OLIVE", "VITE", "UVA", "POMODORO", "AGRUMI", "ARANCIO",
+    "LIMONE", "MELO", "PERO", "PESCO", "ACTINIDIA", "FRUMENTO", "GRANO",
+    "MAIS", "PATATA", "CAROTA", "BARBABIETOLA", "FRAGOLA", "COLZA",
+    "NOCCIOLO", "MANDORLO", "CILIEGIO", "SUSINO", "ALBICOCCO", "CARCIOFO",
+)
 
 
 def normalizar(texto):
@@ -148,6 +188,34 @@ select coalesce(json_agg(t order by t.source_id, t.ordem), '[]'::json) from (
     return json.loads(_psql(dsn, sql).strip() or "[]")
 
 
+def medir_crop(item):
+    u"""O GARGALO DA PRIMEIRA RODADA, agora contado em vez de narrado.
+
+    Três estados, e são mesmo três:
+
+        NOT_EXPECTED  a família não devia trazer cultura (edital, FAQ)
+        PRESENT       o campo CROP chegou estruturado à Sala
+        LOST          a cultura está no TEXTO, e não está em campo nenhum
+
+    ⚠️ `LOST` é o achado, e não é o mesmo que ausência. Ausência seria a
+    cultura não existir no documento. `LOST` é ela existir, ter sido colhida,
+    ter sobrevivido até ao texto — e não ter campo onde pousar.
+
+        O DADO CHEGOU. A ESTRUTURA NÃO.
+    """
+    if not item["source_id"].startswith(FAMILIAS_QUE_ESPERAM_CROP):
+        return "NOT_EXPECTED", []
+    # O contrato READY de 19 campos não tem CROP. Isto não é uma busca
+    # esperançosa: é a confirmação de que o campo não existe para ninguém.
+    if "crop" in item:
+        return "PRESENT", [item["crop"]]
+    texto = normalizar(item["texto"])
+    achadas = sorted({c for c in SONDA_CROP if c in texto})
+    if achadas:
+        return "LOST_IN_DERIVATION", achadas
+    return "ABSENT_IN_TEXT", []
+
+
 def classificar(item):
     u"""USABLE != INSUFFICIENT, e a razão fica escrita.
 
@@ -201,8 +269,19 @@ def cruzar(itens, substancias, usos, vivos):
         esta substância, que o boletim recomenda,
         tem rótulo ADAMA AUTORIZADO para ESTA cultura?
 
-    Sem CROP no item da Sala, a pergunta não fecha, e a resposta correta é
-    `NOT_POSSIBLE` — não «provavelmente sim».
+    ⚠️ E ELE FALHA FECHADO SEMPRE — O QUE NÃO É O MESMO QUE SABER DECIDIR.
+    A 2ª rodada mediu isto e corrigiu uma afirmação da 1ª: `cruzar()` nunca lê
+    cultura de lado nenhum. Ele declara `JOIN_KEYS_MISSING = [CROP, ...]`
+    incondicionalmente, porque o contrato READY não tem o campo — e por isso
+    devolve `NOT_POSSIBLE` mesmo quando a palavra «MELO» está escrita no texto.
+
+        RECUSAR SEMPRE PELO MOTIVO CERTO  !=  SABER DISTINGUIR.
+
+    Isto é o comportamento correto hoje (INT-LAW-037: sem join key não há
+    crossing), e é honesto chamá-lo pelo nome: a decisão está **por construir**,
+    e só faz sentido construí-la quando `CROP` chegar como campo. Ler a cultura
+    do corpo do texto para fechar o join seria fabricar a chave — exatamente o
+    ataque que este gate existe para barrar.
     """
     reg_para_nome = {p["num_registrazione"]: p["produto"] for p in vivos}
     achados = []
@@ -253,16 +332,46 @@ def cruzar(itens, substancias, usos, vivos):
 def main():
     parser = argparse.ArgumentParser(description="O piloto da Sala de Espera")
     parser.add_argument("--dsn", required=True, help="DSN da Sala canônica")
-    parser.add_argument("--desde", help="AAAA-MM-DD — só o que pousou depois")
+    parser.add_argument("--desde", help="AAAA-MM-DD — filtro por tempo")
+    parser.add_argument("--desde-artefato", dest="desde_artefato",
+                        help="artefato da corrida anterior — CHECKPOINT por "
+                             "identidade (RUN_ID, ORDEM). Vence --desde.")
     parser.add_argument("--json", help="onde gravar o artefato")
     args = parser.parse_args()
 
     itens = ler_sala(args.dsn, args.desde)
+
+    # ── O CHECKPOINT ────────────────────────────────────────────────────
+    # Subtrai por identidade, não por tempo. E conta o que DESAPARECEU:
+    # um item processado que já não está na Sala é um facto sobre a Sala,
+    # não um erro de contagem — e ficaria invisível num filtro por data.
+    processados_antes = set()
+    sumidos = []
+    versao_anterior = None
+    if args.desde_artefato:
+        with open(args.desde_artefato, encoding="utf-8") as fh:
+            anterior = json.load(fh)
+        versao_anterior = anterior.get("PIPELINE_VERSION")
+        processados_antes = {(c["RUN_ID"], c["ORDEM"])
+                             for c in anterior.get("CENSO", [])}
+        presentes = {(i["run_id"], i["ordem"]) for i in itens}
+        sumidos = sorted(processados_antes - presentes)
+        if versao_anterior == PIPELINE_VERSION:
+            itens = [i for i in itens
+                     if (i["run_id"], i["ordem"]) not in processados_antes]
+        else:
+            # A lógica mudou. Reprocessar TUDO deixa de ser desperdício e
+            # passa a ser obrigação: a resposta de v1 não é a resposta de v2.
+            sys.stderr.write(
+                "PIPELINE_VERSION mudou (%s -> %s): reprocessando tudo\n"
+                % (versao_anterior, PIPELINE_VERSION))
+
     substancias, usos, vivos = ler_referencia_adama()
 
     censo = []
     for item in itens:
         classe, porque, agro, admin = classificar(item)
+        estado_crop, culturas = medir_crop(item)
         censo.append({
             "SOURCE_ID": item["source_id"],
             "RUN_ID": item["run_id"],
@@ -282,6 +391,8 @@ def main():
             "PORQUE": porque,
             "DENSIDADE_AGRO": agro,
             "DENSIDADE_ADMIN": admin,
+            "CROP_STATE": estado_crop,
+            "CROP_OBSERVED_IN_TEXT": culturas,
         })
 
     crossings = cruzar(itens, substancias, usos, vivos)
@@ -289,14 +400,36 @@ def main():
     # A contagem de independência. Texto idêntico NÃO é evidência nova
     # (INT-LAW-070..077): três source_id diferentes com o mesmo md5 são
     # UMA observação, não três.
-    import hashlib
+    #
+    # ⚠️ A DEPENDÊNCIA MEDE-SE CONTRA A SALA INTEIRA, NÃO CONTRA O DELTA.
+    # Um item novo que repete o texto de um item JÁ PROCESSADO é dependente
+    # — e olhar só para o delta não o veria, porque o gémeo dele ficou de
+    # fora do recorte. Medido na 2ª rodada: 12 dos 17 novos eram re-observação
+    # de texto que já estava na Sala. Vistos só entre si, pareciam 15 textos
+    # distintos; contra a Sala inteira, eram 3.
+    #
+    #     NOVO NA FILA  !=  NOVO COMO EVIDÊNCIA.
+    todos = ler_sala(args.dsn, None)
+    delta = {(i["run_id"], i["ordem"]) for i in itens}
     por_impressao = {}
-    for item in itens:
+    for item in todos:
         chave = hashlib.md5(item["texto"].encode("utf-8")).hexdigest()
         por_impressao.setdefault(chave, []).append(item["source_id"])
 
+    # Quantos itens do delta trazem texto que a Sala JÁ tinha antes dele?
+    md5_ja_processado = {
+        hashlib.md5(i["texto"].encode("utf-8")).hexdigest()
+        for i in todos if (i["run_id"], i["ordem"]) not in delta}
+    redundantes = [
+        {"SOURCE_ID": i["source_id"], "RUN_ID": i["run_id"],
+         "ORDEM": i["ordem"], "RAW_OBSERVATION_ID": i["raw_observation_id"]}
+        for i in itens
+        if hashlib.md5(i["texto"].encode("utf-8")).hexdigest()
+        in md5_ja_processado]
+
     artefato = {
         "SCHEMA": "sintonia.intelligence.piloto-da-sala/1",
+        "PIPELINE_VERSION": PIPELINE_VERSION,
         "O_QUE_ISTO_E": (
             "medição read-only da Sala de Espera. NÃO é INTELLIGENCE_RUN "
             "canônico, NÃO produz FACT, FINDING nem OPPORTUNITY."),
@@ -304,12 +437,34 @@ def main():
         "ENTRADA_A": "public.sala_de_espera",
         "ENTRADA_B": "referencia/adama/ (lida e citada, nunca escrita)",
         "FILTRO_INCREMENTAL": args.desde or "TODOS",
+        "CHECKPOINT": {
+            "MODO": ("IDENTIDADE (RUN_ID, ORDEM)" if args.desde_artefato
+                     else "NENHUM — corrida completa"),
+            "ARTEFATO_ANTERIOR": args.desde_artefato,
+            "PIPELINE_VERSION_ANTERIOR": versao_anterior,
+            "PREVIOUSLY_PROCESSED": len(processados_antes),
+            "PROCESSADOS_QUE_SUMIRAM_DA_SALA": [
+                {"RUN_ID": r, "ORDEM": o} for r, o in sumidos],
+        },
         "SALA_TOTAL": len(itens),
         "SALA_USABLE_FOR_INTELLIGENCE": sum(
             1 for c in censo if c["CLASSE"] == "USABLE_FOR_INTELLIGENCE"),
         "SALA_WEAK": sum(1 for c in censo if c["CLASSE"] == "WEAK"),
         "SALA_INSUFFICIENT": sum(
             1 for c in censo if c["CLASSE"] == "INSUFFICIENT_FOR_INTELLIGENCE"),
+        # ── CROP: o gargalo, contado ────────────────────────────────────
+        "ITEMS_EXPECTING_CROP": sum(
+            1 for c in censo if c["CROP_STATE"] != "NOT_EXPECTED"),
+        "ITEMS_WITH_CROP": sum(
+            1 for c in censo if c["CROP_STATE"] == "PRESENT"),
+        "ITEMS_MISSING_CROP": sum(
+            1 for c in censo if c["CROP_STATE"] in
+            ("LOST_IN_DERIVATION", "ABSENT_IN_TEXT")),
+        "CROP_LOST_IN_DERIVATION": sum(
+            1 for c in censo if c["CROP_STATE"] == "LOST_IN_DERIVATION"),
+        "DELTA_REDUNDANTE_VS_SALA": len(redundantes),
+        "DELTA_REDUNDANTE_ITENS": redundantes,
+        "SALA_INTEIRA_ITENS": len(todos),
         "TEXTOS_DISTINTOS": len(por_impressao),
         "OBSERVACOES_DUPLICADAS": {
             k[:12]: v for k, v in por_impressao.items() if len(v) > 1},
@@ -340,6 +495,12 @@ def main():
     print("SALA_USABLE_FOR_INTELLIGENCE = %d"
           % artefato["SALA_USABLE_FOR_INTELLIGENCE"])
     print("SALA_INSUFFICIENT            = %d" % artefato["SALA_INSUFFICIENT"])
+    print("ITEMS_EXPECTING_CROP         = %d" % artefato["ITEMS_EXPECTING_CROP"])
+    print("ITEMS_WITH_CROP              = %d" % artefato["ITEMS_WITH_CROP"])
+    print("CROP_LOST_IN_DERIVATION      = %d"
+          % artefato["CROP_LOST_IN_DERIVATION"])
+    print("DELTA_REDUNDANTE_VS_SALA     = %d"
+          % artefato["DELTA_REDUNDANTE_VS_SALA"])
     print("CROSSINGS_TENTADOS           = %d" % artefato["CROSSINGS_TENTADOS"])
     print("CROSSINGS_POSSIVEIS          = %d" % artefato["CROSSINGS_POSSIVEIS"])
     print("OPPORTUNITY_CANDIDATES       = %d"
