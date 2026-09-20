@@ -87,8 +87,8 @@ Célula: `ESTADO·ligação`. `!` = ausência conclusiva por contrato.
 | medida | valor |
 |---|---:|
 | total | 54 |
-| `SOURCES_WITH_PROVEN_ROUTE` | **7** |
-| `SOURCES_WITH_ONLY_CANDIDATE_ROUTE` | **24** |
+| `SOURCES_WITH_PROVEN_ROUTE` | **9** |
+| `SOURCES_WITH_ONLY_CANDIDATE_ROUTE` | **22** |
 | `SOURCES_ROUTE_UNKNOWN` | **23** |
 | `SOURCES_BLOCKED` | **0** |
 
