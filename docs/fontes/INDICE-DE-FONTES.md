@@ -18,14 +18,14 @@ sabe buscar sozinha.
 | fichas completas no atlas | **297** |
 | dessas, com contrato de busca escrito | **5** |
 | palavras de busca medidas no código | **103** em 34 grupos |
-| endereços que o código realmente chama | **266** |
-| desses, publicados no mapa | **40** (truncados: 226) |
+| endereços que o código realmente chama | **271** |
+| desses, publicados no mapa | **40** (truncados: 231) |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
-> O cabeçalho do atlas diz **190 fontes registradas**
+> O cabeçalho do atlas diz **277 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **297**. Faltam **-107**.
+> **297**. Faltam **-20**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:

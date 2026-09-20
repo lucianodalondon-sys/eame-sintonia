@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 22905,
+    "w": 23610,
     "h": 8580
   },
   "INVENTORY": {
@@ -28,6 +28,7 @@
       "MISSAO-GARGALOS-BC2.md",
       "MISSAO-INTEGRACAO-04A.md",
       "MISSAO-RESIDUOS-BC2.md",
+      "MISSAO-SOURCE-CURATOR-INTEGRATION.md",
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
@@ -284,9 +285,17 @@
       "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
       "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
+      "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
+      "curadoria/LIFECYCLE-AUTONOMY-V1.json",
+      "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "curadoria/LIFECYCLE-PROOF-V1.json",
+      "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "curadoria/LIFECYCLE-RED-TEAM-V1.json",
       "curadoria/READY-FOR-COLLECTION-V1.json",
+      "curadoria/READY-SOURCES-V1.json",
       "curadoria/REAL-EXAMPLE-INDEX-V1.json",
       "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
       "curadoria/RELATORIO-MISSAO-02.md",
@@ -295,7 +304,20 @@
       "curadoria/SOURCE-CHARACTERIZATION-V1.json",
       "curadoria/SOURCE-CURATOR-DECISIONS-V1.json",
       "curadoria/SOURCE-ID-ALLOCATION-V1.json",
-      "curadoria/italy_contracts_curator.json"
+      "curadoria/canario_do_motor.mjs",
+      "curadoria/estado_actual_das_fontes.mjs",
+      "curadoria/evidencia.py",
+      "curadoria/fila.py",
+      "curadoria/interface_collection.py",
+      "curadoria/italy_contracts_curator.json",
+      "curadoria/lifecycle.py",
+      "curadoria/provar_autonomia.py",
+      "curadoria/provar_divisao.py",
+      "curadoria/red_team_lifecycle.py",
+      "curadoria/semear_lifecycle.py",
+      "curadoria/test_interface_collection.py",
+      "curadoria/test_lifecycle.py",
+      "curadoria/worker.py"
     ],
     "data": [
       "data/collection-ledger/italy/logs/runs.log",
@@ -1548,6 +1570,7 @@
       "motor/v2_relatorio.py"
     ],
     "orquestrador": [
+      "orquestrador/fontes_prontas.py",
       "orquestrador/orquestrador.py",
       "orquestrador/persistencia.py"
     ],
@@ -2226,6 +2249,7 @@
       "tests/test_security_secret_shapes.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
+      "tests/test_source_curator_integration.py",
       "tests/test_source_id.py",
       "tests/test_source_id_wiring_gap.py",
       "tests/test_source_owner_identity.py",
@@ -2763,10 +2787,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "big-collection-release-v1",
-    "HEAD": "e3b1c77e910f9565ab2995adbf28b531e7eb107a",
-    "GENERATED_AT": "2026-09-20T19:09:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0413109901aa2559c75c0468c3b7323712dcd39791cf749e2de407be1391fdf8"
+    "BRANCH": "source-curator-integration-v1",
+    "HEAD": "333174d5c7833d7f48df4349b9eedbf9ac8fb019",
+    "GENERATED_AT": "2026-09-20T20:33:15-03:00",
+    "SOURCE_TREE_FINGERPRINT": "1b8ad0563c1e5214d652cb833ab2676400cc062e26fd6580836230a4c7654df3"
   },
   "FAMILIES": [
     {
@@ -2775,7 +2799,7 @@
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
       "x": 260,
       "y": 60,
-      "w": 21680,
+      "w": 22385,
       "h": 8260,
       "zones": [
         "Z-BIBLIA",
@@ -2783,6 +2807,7 @@
         "Z-PEDIDO",
         "Z-ORQUESTRADOR",
         "Z-CANDIDATAS",
+        "Z-CURADORIA",
         "Z-FONTES",
         "Z-EXECUCAO",
         "Z-VEICULOS",
@@ -2794,13 +2819,13 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 73
+      "count": 79
     },
     {
       "id": "F-ESPERA",
       "name": "A ESPERA",
       "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas",
-      "x": 12205,
+      "x": 12910,
       "y": 60,
       "w": 485,
       "h": 8260,
@@ -2813,7 +2838,7 @@
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 12910,
+      "x": 13615,
       "y": 60,
       "w": 9735,
       "h": 8260,
@@ -2829,7 +2854,7 @@
       "name": "GOVERNANCA",
       "why": "O que MEDE e o que REGULA a esteira, sem ser um passo dela. Prova e regra atravessam o sistema inteiro: nao colhem, nao transformam, nao entregam. Viviam em INTELIGENCIA por nao haver sitio para elas, e isso fazia 143 ligacoes de prova e de regra parecerem a coleta a falar com o motor. PROVA != INTELIGENCIA e REGRA != INTELIGENCIA — e nenhuma das duas e etapa operacional.",
       "transversal": true,
-      "x": 18385,
+      "x": 19090,
       "y": 60,
       "w": 2850,
       "h": 8260,
@@ -2843,7 +2868,7 @@
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 14735,
+      "x": 15440,
       "y": 60,
       "w": 3430,
       "h": 8260,
@@ -2913,7 +2938,7 @@
       "y": 190,
       "w": 405,
       "h": 8090,
-      "count": 2
+      "count": 3
     },
     {
       "id": "Z-CANDIDATAS",
@@ -2931,6 +2956,21 @@
       "count": 3
     },
     {
+      "id": "Z-CURADORIA",
+      "family": "F-COLETA",
+      "name": "· o curador de fontes",
+      "why": "Entre a candidata e a fonte que se coleta ha um dono do ESTADO da fonte: quem valida a rota, corre o canario, promove a READY_FOR_COLLECTION e recebe de volta a avaria (SOURCE_REPAIR_NEEDED). A Collection deixou de fazer onboarding no meio da coleta — ela pergunta «que fontes estao READY agora?» e coleta. SOURCE CURATOR PREPARA. COLLECTION COLETA.",
+      "views": [
+        "acervo"
+      ],
+      "folder": "curadoria",
+      "x": 3825,
+      "y": 190,
+      "w": 405,
+      "h": 8090,
+      "count": 5
+    },
+    {
       "id": "Z-FONTES",
       "family": "F-COLETA",
       "name": "· as fontes",
@@ -2939,7 +2979,7 @@
         "acervo"
       ],
       "folder": "fontes",
-      "x": 3825,
+      "x": 4530,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -2954,7 +2994,7 @@
         "acervo",
         "scrap"
       ],
-      "x": 4530,
+      "x": 5235,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -2969,7 +3009,7 @@
         "acervo",
         "scrap"
       ],
-      "x": 5235,
+      "x": 5940,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -2985,7 +3025,7 @@
         "infra"
       ],
       "folder": "ferramentas",
-      "x": 5940,
+      "x": 6645,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3001,7 +3041,7 @@
         "infra"
       ],
       "folder": "coleta",
-      "x": 6645,
+      "x": 7350,
       "y": 190,
       "w": 1235,
       "h": 8090,
@@ -3017,7 +3057,7 @@
         "infra"
       ],
       "folder": "guarda",
-      "x": 8180,
+      "x": 8885,
       "y": 190,
       "w": 1235,
       "h": 8090,
@@ -3033,7 +3073,7 @@
         "audit"
       ],
       "folder": "regras",
-      "x": 9715,
+      "x": 10420,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3048,7 +3088,7 @@
         "audit"
       ],
       "folder": "medidas",
-      "x": 10420,
+      "x": 11125,
       "y": 190,
       "w": 820,
       "h": 8090,
@@ -3063,7 +3103,7 @@
         "acervo"
       ],
       "folder": "admissao",
-      "x": 11540,
+      "x": 12245,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3078,7 +3118,7 @@
         "acervo",
         "audit"
       ],
-      "x": 12245,
+      "x": 12950,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3094,7 +3134,7 @@
         "opportunity"
       ],
       "folder": "motor",
-      "x": 12950,
+      "x": 13655,
       "y": 190,
       "w": 820,
       "h": 8090,
@@ -3110,7 +3150,7 @@
         "official"
       ],
       "folder": null,
-      "x": 14070,
+      "x": 14775,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3126,7 +3166,7 @@
         "portal"
       ],
       "folder": "pacote",
-      "x": 14775,
+      "x": 15480,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3142,7 +3182,7 @@
         "portal"
       ],
       "folder": "portoes",
-      "x": 15480,
+      "x": 16185,
       "y": 190,
       "w": 820,
       "h": 8090,
@@ -3158,7 +3198,7 @@
         "portal"
       ],
       "folder": "superficie",
-      "x": 16600,
+      "x": 17305,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3173,7 +3213,7 @@
         "entrega",
         "portal"
       ],
-      "x": 17305,
+      "x": 18010,
       "y": 190,
       "w": 820,
       "h": 8090,
@@ -3189,7 +3229,7 @@
         "science"
       ],
       "folder": "leis",
-      "x": 18425,
+      "x": 19130,
       "y": 190,
       "w": 1235,
       "h": 8090,
@@ -3205,7 +3245,7 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 19960,
+      "x": 20665,
       "y": 190,
       "w": 1235,
       "h": 8090,
@@ -3221,7 +3261,7 @@
         "acervo",
         "science"
       ],
-      "x": 21495,
+      "x": 22200,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3236,7 +3276,7 @@
         "audit"
       ],
       "folder": null,
-      "x": 22200,
+      "x": 22905,
       "y": 190,
       "w": 405,
       "h": 8090,
@@ -3394,7 +3434,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 8240,
+      "x": 8945,
       "y": 360
     },
     {
@@ -3600,7 +3640,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-LASTMILE · C-V21-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 3885,
+      "x": 4590,
       "y": 360
     },
     {
@@ -3700,7 +3740,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 21555,
+      "x": 22260,
       "y": 360
     },
     {
@@ -3826,7 +3866,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 11600,
+      "x": 12305,
       "y": 360
     },
     {
@@ -3939,7 +3979,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6705,
       "y": 360
     },
     {
@@ -4031,7 +4071,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18485,
+      "x": 19190,
       "y": 360
     },
     {
@@ -4135,7 +4175,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 8655,
+      "x": 9360,
       "y": 360
     },
     {
@@ -4222,7 +4262,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAO-BUILD · C-SITE-INGEST — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14835,
+      "x": 15540,
       "y": 360
     },
     {
@@ -4248,8 +4288,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 266",
-        "desses, mostrados aqui: 40 (ficam de fora 226)"
+        "enderecos que o codigo realmente chama: 271",
+        "desses, mostrados aqui: 40 (ficam de fora 231)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -4264,6 +4304,7 @@
       "outbound": [
         "C-CI-COLETA",
         "C-COLETA-PUBLICA",
+        "C-CURATOR-ESTADO-ACTUAL",
         "C-DECISAO-DA-FILA",
         "C-FONTE-DO-ATLAS",
         "C-IDENTIDADE",
@@ -9540,7 +9581,7 @@
         }
       ],
       "header_claim": {
-        "total": 190,
+        "total": 277,
         "line": 9,
         "green": 90,
         "yellow": 83,
@@ -9562,9 +9603,9 @@
           "IT-T4-002",
           "IT-T4-003"
         ],
-        "os_tres_numeros": "190 = o que o CABECALHO declara · 284 = SOURCE_IDs MENCIONADOS no texto · 297 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
-        "divergencia": -107,
-        "leitura": "O cabecalho do atlas diz 190 fontes registradas; fichas completas, com SOURCE_ID valido, ha 297. Faltam -107 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "os_tres_numeros": "277 = o que o CABECALHO declara · 284 = SOURCE_IDs MENCIONADOS no texto · 297 = FICHAS completas. Sao tres perguntas diferentes, e nenhuma delas e as outras duas.",
+        "divergencia": -20,
+        "leitura": "O cabecalho do atlas diz 277 fontes registradas; fichas completas, com SOURCE_ID valido, ha 297. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -24210,7 +24251,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 3885,
+      "x": 4590,
       "y": 682
     },
     {
@@ -24336,7 +24377,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 16660,
+      "x": 17365,
       "y": 360
     },
     {
@@ -24442,7 +24483,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15540,
+      "x": 16245,
       "y": 360
     },
     {
@@ -24534,7 +24575,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 15955,
+      "x": 16660,
       "y": 360
     },
     {
@@ -24745,7 +24786,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15540,
+      "x": 16245,
       "y": 682
     },
     {
@@ -24846,7 +24887,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-BLOCOS · C-AUDIT-CASCO · C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15955,
+      "x": 16660,
       "y": 682
     },
     {
@@ -24936,7 +24977,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 15540,
+      "x": 16245,
       "y": 1004
     },
     {
@@ -25031,7 +25072,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18900,
+      "x": 19605,
       "y": 360
     },
     {
@@ -25126,7 +25167,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10480,
+      "x": 11185,
       "y": 360
     },
     {
@@ -25334,7 +25375,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13010,
+      "x": 13715,
       "y": 360
     },
     {
@@ -25438,7 +25479,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 360
     },
     {
@@ -25549,7 +25590,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 360
     },
     {
@@ -25640,7 +25681,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 360
     },
     {
@@ -25752,7 +25793,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 682
     },
     {
@@ -25850,7 +25891,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 682
     },
     {
@@ -25926,7 +25967,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 682
     },
     {
@@ -26035,7 +26076,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 1004
     },
     {
@@ -26123,7 +26164,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 1004
     },
     {
@@ -26195,7 +26236,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 1004
     },
     {
@@ -26317,7 +26358,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11600,
       "y": 360
     },
     {
@@ -26412,7 +26453,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 1326
     },
     {
@@ -26514,7 +26555,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10480,
+      "x": 11185,
       "y": 682
     },
     {
@@ -26605,7 +26646,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 1326
     },
     {
@@ -26697,7 +26738,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 1326
     },
     {
@@ -26881,7 +26922,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 1648
     },
     {
@@ -26996,7 +27037,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 9070,
+      "x": 9775,
       "y": 360
     },
     {
@@ -27097,7 +27138,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 1648
     },
     {
@@ -27216,7 +27257,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-REGRA-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10895,
+      "x": 11600,
       "y": 682
     },
     {
@@ -27349,7 +27390,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6705,
+      "x": 7410,
       "y": 360
     },
     {
@@ -27461,7 +27502,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7120,
+      "x": 7825,
       "y": 360
     },
     {
@@ -27601,11 +27642,11 @@
           ".github/workflows/comunicacao-publica.yml:146",
           ".github/workflows/comunicacao-publica.yml:147",
           "pedido/receitas.py:277",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
+      "x": 8240,
       "y": 360
     },
     {
@@ -27705,7 +27746,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6705,
+      "x": 7410,
       "y": 682
     },
     {
@@ -27795,7 +27836,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 19315,
+      "x": 20020,
       "y": 360
     },
     {
@@ -27895,7 +27936,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 10480,
+      "x": 11185,
       "y": 1004
     },
     {
@@ -27983,7 +28024,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18485,
+      "x": 19190,
       "y": 682
     },
     {
@@ -28093,7 +28134,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18900,
+      "x": 19605,
       "y": 682
     },
     {
@@ -28267,12 +28308,519 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:105",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7120,
+      "x": 7825,
       "y": 682
+    },
+    {
+      "id": "C-CURATOR-ESTADO-ACTUAL",
+      "name": "O estado actual das fontes — e o resemeador",
+      "territory": "Z-CURADORIA",
+      "kind": "engine",
+      "what": "Materializa, a partir do registo que a Collection executa hoje (regras/italy_contracts.mjs conferido pelo motor de rota, a ficha no Atlas, o territorio com executor, o canario mais recente e o resultado da Big Collection), o ficheiro contra o qual o ciclo de vida se semeia. O resemeador traduz isso em transicoes do livro — nunca le a fotografia do curator.",
+      "why_here": "FOTOGRAFIA ANTIGA CERTA NO SEU DIA != VERDADE DE HOJE. O snapshot do curator (READY-FOR-COLLECTION-V1.json) classificava 50 fontes YouTube como bloqueadas pela rota velha; a Big Collection provou a rota nova, 50/50. Semear do snapshot destruiria essa prova. Por isso o estado vigente e RECALCULADO do que a casa executa.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
+        "curadoria/estado_actual_das_fontes.mjs",
+        "curadoria/semear_lifecycle.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-CURATOR-LIFECYCLE",
+        "C-CURATOR-REGISTOS",
+        "C-IT-CONTRATOS",
+        "C-PROCEDENCIA"
+      ],
+      "outbound": [
+        "C-CURATOR-INTERFACE",
+        "C-CURATOR-LIFECYCLE",
+        "C-CURATOR-PROVAS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "RELATORIO-BIG-COLLECTION-RELEASE.md",
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
+        "curadoria/READY-FOR-COLLECTION-V1.json",
+        "data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json",
+        "data/samples/RUN-MANIFEST.json",
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "regras/italy_contracts.mjs",
+        "regras/motor_de_rota.mjs"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "curadoria/interface_collection.py:49",
+          "curadoria/red_team_lifecycle.py:78",
+          "curadoria/worker.py:78",
+          "tests/test_source_curator_integration.py:51"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CURATOR-INTERFACE · C-CURATOR-LIFECYCLE · C-CURATOR-PROVAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 3885,
+      "y": 360
+    },
+    {
+      "id": "C-CURATOR-INTERFACE",
+      "name": "O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED",
+      "territory": "Z-CURADORIA",
+      "kind": "contract",
+      "what": "Duas frases, e so: o Curator entrega a lista READY (derivada do livro a cada chamada — uma fonte degradada sai no mesmo instante) e a Collection devolve SOURCE_REPAIR_NEEDED (marca DEGRADED e poe REPAIR na fila do Curator). A ficha do contrato de cada fonte vem do estado actual, nunca da fotografia.",
+      "why_here": "Acoplar implementacoes e o que faz uma missao de fontes virar uma segunda Collection. A Collection nao precisa de saber que existe fila ou canario: precisa de saber quais fontes estao prontas AGORA e de ter onde dizer quando uma quebrou.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⇄",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/READY-SOURCES-V1.json",
+        "curadoria/interface_collection.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CURATOR-PROVAS, C-PORTA-FONTES-PRONTAS.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-CURATOR-LIFECYCLE",
+        "C-CURATOR-REGISTOS"
+      ],
+      "outbound": [
+        "C-CURATOR-PROVAS",
+        "C-PORTA-FONTES-PRONTAS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/READY-SOURCES-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
+        "curadoria/READY-SOURCES-V1.json",
+        "curadoria/SOURCE-CHARACTERIZATION-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "curadoria/provar_divisao.py:45",
+          "orquestrador/fontes_prontas.py:37",
+          "tests/test_source_curator_integration.py:44"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CURATOR-PROVAS · C-PORTA-FONTES-PRONTAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 3885,
+      "y": 682
+    },
+    {
+      "id": "C-CURATOR-LIFECYCLE",
+      "name": "O ciclo de vida da fonte — livro, fila e worker",
+      "territory": "Z-CURADORIA",
+      "kind": "engine",
+      "what": "O livro append-only do estado de cada fonte (o estado e a ultima transicao, nunca um campo sobrescrito), a fila duravel no disco (um 429 adia UMA tarefa, nunca a fila) e o worker que faz uma etapa por volta. Quem promove a READY e o Curator, so ele; a Collection so pode marcar READY -> DEGRADED.",
+      "why_here": "Ate aqui a fonte nao tinha dono do estado: ficava READY por regra (contrato + ficha + executor) e era a Collection que descobria, a meio da coleta, que a rota ja nao servia. O motor do SOURCE CURATOR (lane claude/source-curator-lifecycle-v1) entrou aqui SEM o segundo leitor de robots dele — o portao e o da casa (coleta/scrap_http.py) e o canario e o do motor de rota.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⟳",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/canario_do_motor.mjs",
+        "curadoria/evidencia.py",
+        "curadoria/fila.py",
+        "curadoria/lifecycle.py",
+        "curadoria/worker.py"
+      ],
+      "file_count": 8,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-IT-COLETA",
+        "C-IT-CONTRATOS",
+        "C-SCRAP-SOCIAL"
+      ],
+      "outbound": [
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-CURATOR-INTERFACE",
+        "C-CURATOR-PROVAS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "coleta/adaptadores_de_aquisicao.mjs",
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
+        "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
+        "curadoria/LIFECYCLE-QUEUE-V1.json",
+        "curadoria/canario_do_motor.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/motor_de_rota.mjs"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "curadoria/interface_collection.py:45",
+          "curadoria/provar_autonomia.py:34",
+          "curadoria/red_team_lifecycle.py:93",
+          "curadoria/semear_lifecycle.py:60"
+        ],
+        "PORQUE": "estas pecas importam-na — C-CURATOR-ESTADO-ACTUAL · C-CURATOR-INTERFACE · C-CURATOR-PROVAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 3885,
+      "y": 1004
+    },
+    {
+      "id": "C-CURATOR-PROVAS",
+      "name": "As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta",
+      "territory": "Z-CURADORIA",
+      "kind": "proof",
+      "what": "Os ataques ao livro (a Collection nao promove; READY exige canario e prova; DEGRADED nao volta por decreto), as sete provas isoladas da divisao (A-G, com contraprova cada uma, rede substituida na primitiva mais funda), a prova de autonomia com um processo que morre a serio (os._exit) e o red team da propria missao. Os doze testes da integracao vivem em tests/test_source_curator_integration.py, na peca C-TESTES, como todos os testes da suite.",
+      "why_here": "Um teste que nunca diz «nao» nao mede nada. Cada lei desta zona tem aqui o caso que a faz falhar — e a prova de que a Collection nao promove so vale porque se tentou promover e se mostrou a recusa pelo nome.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊟",
+      "views": [
+        "acervo",
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/LIFECYCLE-AUTONOMY-V1.json",
+        "curadoria/LIFECYCLE-PROOF-V1.json",
+        "curadoria/LIFECYCLE-RED-TEAM-V1.json",
+        "curadoria/provar_autonomia.py",
+        "curadoria/provar_divisao.py",
+        "curadoria/red_team_lifecycle.py",
+        "curadoria/test_interface_collection.py",
+        "curadoria/test_lifecycle.py"
+      ],
+      "file_count": 8,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-CURATOR-INTERFACE",
+        "C-CURATOR-LIFECYCLE"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "FONTES"
+        ],
+        "palavras": 45,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 45,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/LIFECYCLE-AUTONOMY-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "curadoria/LIFECYCLE-PROOF-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "curadoria/LIFECYCLE-RED-TEAM-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "PROOF",
+      "ROLE_PLANE": "DECLARED",
+      "ROLE_EVIDENCE": "declarado `kind: proof` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto",
+      "OWNER": "INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
+        "curadoria/LIFECYCLE-PROOF-V1.json",
+        "curadoria/fila.py",
+        "curadoria/lifecycle.py",
+        "curadoria/worker.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 3885,
+      "y": 1326
+    },
+    {
+      "id": "C-CURATOR-REGISTOS",
+      "name": "Os registos do SOURCE CURATOR — a historia das missoes 02 a 04",
+      "territory": "Z-CURADORIA",
+      "kind": "contract",
+      "what": "O que o curator mediu nas missoes 02, 03 e 04: candidatas caracterizadas, SOURCE_ID atribuidos, contratos escritos, canarios corridos e o funil ate READY. Sao REGISTO E HISTORIA: dizem o que era verdade no dia em que foram gerados. O estado vigente de cada fonte vive no livro (C-CURATOR-LIFECYCLE), semeado do estado actual, nunca daqui.",
+      "why_here": "Ficam no repositorio porque sao prova de como cada fonte foi conhecida — e ficam declarados como historia porque um deles (READY-FOR-COLLECTION-V1.json) ja classificou 50 fontes por uma rota que a casa trocou no dia seguinte.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "curadoria/ATLAS-WRITE-V1.json",
+        "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
+        "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
+        "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+        "curadoria/CONTRACT-VALIDATION-V1.json",
+        "curadoria/FUNIL-DO-CURATOR-V1.json",
+        "curadoria/HANDOFF-INTEGRACAO-04.md",
+        "curadoria/READY-FOR-COLLECTION-V1.json",
+        "curadoria/REAL-EXAMPLE-INDEX-V1.json",
+        "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+        "curadoria/RELATORIO-MISSAO-02.md",
+        "curadoria/RELATORIO-MISSAO-03.md",
+        "curadoria/SAMPLE-MANIFEST-V1.json",
+        "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+        "curadoria/SOURCE-CURATOR-DECISIONS-V1.json",
+        "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+        "curadoria/italy_contracts_curator.json"
+      ],
+      "file_count": 17,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-CURATOR-INTERFACE",
+        "C-TESTES"
+      ],
+      "paises": {
+        "ITALIA": 1
+      },
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "STORAGE",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M9_NADA_AQUI_CORRE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "STORAGE",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "17 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre",
+      "OWNER": "INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "17 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
+      "x": 3885,
+      "y": 1648
     },
     {
       "id": "C-DATA-CLOCK",
@@ -28415,7 +28963,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-RECEITAS · C-REGRA-COLETA · C-SAUDE-FONTE · C-V21-INGEST · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 19315,
+      "x": 20020,
       "y": 682
     },
     {
@@ -28627,7 +29175,7 @@
         ],
         "PORQUE": "ha relogio declarado no `on:`."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 1648
     },
     {
@@ -28734,7 +29282,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7535,
+      "x": 8240,
       "y": 682
     },
     {
@@ -28823,7 +29371,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 8240,
+      "x": 8945,
       "y": 682
     },
     {
@@ -28921,7 +29469,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18485,
+      "x": 19190,
       "y": 1004
     },
     {
@@ -29060,7 +29608,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-ADMISSAO · C-COLETA-BASE · C-DONO-DO-DERIVADO · C-INGRESSO · C-PERSISTENCIA-DA-PORTA-CLI — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 8655,
+      "x": 9360,
       "y": 682
     },
     {
@@ -29160,7 +29708,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 9070,
+      "x": 9775,
       "y": 682
     },
     {
@@ -29242,11 +29790,11 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:512"
+          "orquestrador/orquestrador.py:513"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 8240,
+      "x": 8945,
       "y": 1004
     },
     {
@@ -29339,7 +29887,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAL-CASCO · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 16660,
+      "x": 17365,
       "y": 682
     },
     {
@@ -29435,7 +29983,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 1970
     },
     {
@@ -29527,7 +30075,7 @@
         ],
         "PORQUE": "a cadeia declara esta peca como PRODUTOR EXTERNO: o mapa consome o que ela deixa e nao a corre. Quem a corre e gente."
       },
-      "x": 6705,
+      "x": 7410,
       "y": 1004
     },
     {
@@ -29652,7 +30200,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 1970
     },
     {
@@ -29732,11 +30280,11 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:122",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7120,
+      "x": 7825,
       "y": 1004
     },
     {
@@ -29827,7 +30375,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18900,
+      "x": 19605,
       "y": 1004
     },
     {
@@ -29973,7 +30521,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7535,
+      "x": 8240,
       "y": 1004
     },
     {
@@ -30073,7 +30621,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 6705,
+      "x": 7410,
       "y": 1326
     },
     {
@@ -30163,7 +30711,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 1970
     },
     {
@@ -30253,7 +30801,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DECISAO-DA-FILA · C-SCRAP-COLHEITA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 19315,
+      "x": 20020,
       "y": 1004
     },
     {
@@ -30404,11 +30952,11 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:236",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7120,
+      "x": 7825,
       "y": 1326
     },
     {
@@ -30496,7 +31044,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11600,
       "y": 1004
     },
     {
@@ -30594,7 +31142,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18485,
+      "x": 19190,
       "y": 1326
     },
     {
@@ -30693,7 +31241,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 2292
     },
     {
@@ -30833,7 +31381,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 9775,
+      "x": 10480,
       "y": 360
     },
     {
@@ -30959,7 +31507,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8655,
+      "x": 9360,
       "y": 1004
     },
     {
@@ -31053,7 +31601,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 2292
     },
     {
@@ -31166,7 +31714,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7535,
+      "x": 8240,
       "y": 1326
     },
     {
@@ -31278,7 +31826,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13425,
+      "x": 14130,
       "y": 360
     },
     {
@@ -31438,7 +31986,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 2292
     },
     {
@@ -31510,7 +32058,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 22260,
+      "x": 22965,
       "y": 360
     },
     {
@@ -31631,7 +32179,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 2614
     },
     {
@@ -31723,7 +32271,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 13010,
+      "x": 13715,
       "y": 682
     },
     {
@@ -31819,7 +32367,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 13425,
+      "x": 14130,
       "y": 682
     },
     {
@@ -31920,7 +32468,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 2614
     },
     {
@@ -32012,7 +32560,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13010,
+      "x": 13715,
       "y": 1004
     },
     {
@@ -32088,7 +32636,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 22260,
+      "x": 22965,
       "y": 682
     },
     {
@@ -32191,7 +32739,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-CORRIDA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 2614
     },
     {
@@ -32263,7 +32811,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 22260,
+      "x": 22965,
       "y": 1004
     },
     {
@@ -32366,7 +32914,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 2936
     },
     {
@@ -32437,7 +32985,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 22260,
+      "x": 22965,
       "y": 1326
     },
     {
@@ -32604,6 +33152,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-CURATOR-LIFECYCLE",
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-PROVA-COLETA",
@@ -32668,11 +33217,11 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           "pedido/receitas.py:170",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 6705,
+      "x": 7410,
       "y": 1648
     },
     {
@@ -32772,7 +33321,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 2936
     },
     {
@@ -32811,7 +33360,7 @@
       ],
       "file_count": 12,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-CURATOR-ESTADO-ACTUAL, C-CURATOR-LIFECYCLE, C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
@@ -32828,6 +33377,8 @@
         "C-RELATORIO-FLUXO"
       ],
       "outbound": [
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-CURATOR-LIFECYCLE",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
@@ -32912,12 +33463,12 @@
         "PROVA": [
           "candidatas/italy_write_matrix.mjs:2",
           "coleta/canario_youtube_canonico.mjs:13",
-          "provas/a_autoridade_da_fonte.py:163",
-          "provas/italy_pilot_negativos.mjs:8"
+          "curadoria/canario_do_motor.mjs:23",
+          "curadoria/estado_actual_das_fontes.mjs:31"
         ],
-        "PORQUE": "estas pecas importam-na — C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CURATOR-ESTADO-ACTUAL · C-CURATOR-LIFECYCLE · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 9775,
+      "x": 10480,
       "y": 682
     },
     {
@@ -33019,7 +33570,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 9070,
+      "x": 9775,
       "y": 1004
     },
     {
@@ -33122,7 +33673,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 8240,
+      "x": 8945,
       "y": 1326
     },
     {
@@ -33204,7 +33755,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 8655,
+      "x": 9360,
       "y": 1326
     },
     {
@@ -33298,7 +33849,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 9070,
+      "x": 9775,
       "y": 1326
     },
     {
@@ -33479,7 +34030,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-MARCA · C-PORTAL-DADOS · C-PORTAL-MODELO · C-PORTAO-BUILD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 14835,
+      "x": 15540,
       "y": 682
     },
     {
@@ -33571,7 +34122,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 2936
     },
     {
@@ -33660,7 +34211,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 6000,
+      "x": 6705,
       "y": 682
     },
     {
@@ -33764,7 +34315,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18900,
+      "x": 19605,
       "y": 1326
     },
     {
@@ -33862,7 +34413,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 19315,
+      "x": 20020,
       "y": 1326
     },
     {
@@ -33960,7 +34511,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 3258
     },
     {
@@ -34064,7 +34615,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 3258
     },
     {
@@ -34240,7 +34791,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 3258
     },
     {
@@ -34381,7 +34932,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 3580
     },
     {
@@ -34622,7 +35173,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 3580
     },
     {
@@ -34720,7 +35271,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 3580
     },
     {
@@ -34830,7 +35381,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 3902
     },
     {
@@ -34933,7 +35484,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6705,
       "y": 1004
     },
     {
@@ -34976,6 +35527,7 @@
         "C-MAPA-TESTES",
         "C-PEDIDO",
         "C-PERSISTENCIA-DA-PORTA-CLI",
+        "C-PORTA-FONTES-PRONTAS",
         "C-PROCEDENCIA",
         "C-RECEITAS",
         "C-ROTA-M2",
@@ -35356,7 +35908,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 14835,
+      "x": 15540,
       "y": 1004
     },
     {
@@ -35469,7 +36021,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 10480,
+      "x": 11185,
       "y": 1326
     },
     {
@@ -35623,7 +36175,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-COLETA-YOUTUBE · C-INT-CONVERGENCIA · C-RELEVANCIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 9775,
+      "x": 10480,
       "y": 1004
     },
     {
@@ -35899,7 +36451,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 18485,
+      "x": 19190,
       "y": 1648
     },
     {
@@ -36006,6 +36558,84 @@
       "y": 1004
     },
     {
+      "id": "C-PORTA-FONTES-PRONTAS",
+      "name": "A porta «que fontes estao READY agora?» — o lado da Collection",
+      "territory": "Z-ORQUESTRADOR",
+      "kind": "gate",
+      "what": "Tres verbos, e so: listar as fontes READY (do livro do Curator), exigir READY para uma fonte nomeada (recusa pelo nome se o Curator a conhece e nao a tem em READY; NAO SEI para o que ele nao conhece) e reportar avaria (SOURCE_REPAIR_NEEDED — sinaliza e segue, nao repara). O orquestrador chama-a antes de a corrida nascer, quando o pedido nomeia uma fonte e vai a rede.",
+      "why_here": "A Collection so consome READY, e isso tem de ser fail-closed no codigo que corre, nao em prosa. Vive no orquestrador porque e ele que decide se a corrida nasce; e nao promove, nao repara e nao importa o worker — um teste tenta faze-lo.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊢",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "orquestrador/fontes_prontas.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CURATOR-INTERFACE"
+      ],
+      "outbound": [
+        "C-ORQUESTRADOR",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "PRINCIPAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "orquestrador/orquestrador.py:63",
+          "tests/test_source_curator_integration.py:43",
+          "tests/test_source_curator_integration.py:163"
+        ],
+        "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 2475,
+      "y": 1004
+    },
+    {
       "id": "C-PORTAL-CASCO",
       "name": "Casco do portal",
       "territory": "Z-SUPERFICIE",
@@ -36104,7 +36734,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PORTAO-BUILD · C-TELA-FIELD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 16660,
+      "x": 17365,
       "y": 1004
     },
     {
@@ -36287,7 +36917,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-LASTMILE · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 16660,
+      "x": 17365,
       "y": 1326
     },
     {
@@ -36429,7 +37059,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL · C-AUDIT-HARNESS · C-AUDIT-MARCA · C-PORTAL-CASCO · C-PORTAL-DADOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 16660,
+      "x": 17365,
       "y": 1648
     },
     {
@@ -36535,7 +37165,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15955,
+      "x": 16660,
       "y": 1004
     },
     {
@@ -36576,6 +37206,7 @@
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-CURATOR-ESTADO-ACTUAL",
         "C-DATA-CLOCK",
         "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
@@ -36649,7 +37280,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
-      "rule_role_evidence": "escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-RECEITAS — peca da esteira — le isso",
+      "rule_role_evidence": "escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-CURATOR-ESTADO-ACTUAL — peca da esteira — le isso",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
@@ -36657,7 +37288,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "rule_role medido: escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-RECEITAS — peca da esteira — le isso",
+      "ROLE_EVIDENCE": "rule_role medido: escreve data/samples/POLITICA-RAW-ROTA-PAGA.json, e C-CURATOR-ESTADO-ACTUAL — peca da esteira — le isso",
       "OWNER": "ENGENHARIA · INTELIGENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -36684,9 +37315,9 @@
           "coleta/golden_path_pdf.py:52",
           "coleta/ingresso.py:99"
         ],
-        "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-CURATOR-ESTADO-ACTUAL · C-DATA-CLOCK — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 9775,
+      "x": 10480,
       "y": 1326
     },
     {
@@ -36791,7 +37422,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 3902
     },
     {
@@ -36883,7 +37514,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 3902
     },
     {
@@ -36964,7 +37595,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 4224
     },
     {
@@ -37035,7 +37666,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 4224
     },
     {
@@ -37125,7 +37756,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 4224
     },
     {
@@ -37241,7 +37872,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 4546
     },
     {
@@ -37795,7 +38426,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 4546
     },
     {
@@ -37885,7 +38516,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 4546
     },
     {
@@ -37976,7 +38607,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 4868
     },
     {
@@ -38055,7 +38686,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 4868
     },
     {
@@ -38172,7 +38803,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 4868
     },
     {
@@ -38266,7 +38897,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 5190
     },
     {
@@ -38364,7 +38995,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 5190
     },
     {
@@ -38452,7 +39083,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 5190
     },
     {
@@ -38542,7 +39173,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 5512
     },
     {
@@ -38654,7 +39285,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 5512
     },
     {
@@ -38791,7 +39422,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 5512
     },
     {
@@ -38904,7 +39535,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 5834
     },
     {
@@ -38991,7 +39622,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 5834
     },
     {
@@ -39102,7 +39733,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 5834
     },
     {
@@ -39201,7 +39832,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 6156
     },
     {
@@ -39289,7 +39920,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 6156
     },
     {
@@ -39391,7 +40022,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 6156
     },
     {
@@ -39535,7 +40166,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 6478
     },
     {
@@ -39632,7 +40263,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 6478
     },
     {
@@ -39744,7 +40375,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 6478
     },
     {
@@ -39855,7 +40486,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 6800
     },
     {
@@ -39943,7 +40574,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 6800
     },
     {
@@ -40027,7 +40658,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 6800
     },
     {
@@ -40123,7 +40754,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 7122
     },
     {
@@ -40235,7 +40866,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 18900,
+      "x": 19605,
       "y": 1648
     },
     {
@@ -40341,7 +40972,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 10895,
+      "x": 11600,
       "y": 1326
     },
     {
@@ -40421,7 +41052,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 12305,
+      "x": 13010,
       "y": 360
     },
     {
@@ -40504,7 +41135,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 7122
     },
     {
@@ -40768,7 +41399,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 7122
     },
     {
@@ -40867,7 +41498,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 7444
     },
     {
@@ -41014,7 +41645,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10480,
+      "x": 11185,
       "y": 1648
     },
     {
@@ -41092,7 +41723,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 7444
     },
     {
@@ -41182,7 +41813,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10895,
+      "x": 11600,
       "y": 1648
     },
     {
@@ -41327,7 +41958,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-MARCA · C-INT-CONVERGENCIA · C-PACOTE-CAMADAS · C-PORTAL-DADOS · C-ROTULOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 19315,
+      "x": 20020,
       "y": 1648
     },
     {
@@ -41424,7 +42055,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUTORIZACAO-DE-GASTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 18485,
+      "x": 19190,
       "y": 1970
     },
     {
@@ -41514,7 +42145,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 7444
     },
     {
@@ -41625,14 +42256,14 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:605",
+          "orquestrador/orquestrador.py:606",
           "provas/a_linhagem_do_ready.py:60",
           "provas/a_ponte_de_midia_no_postgres.py:67",
           "provas/a_rota_m2_atravessa.py:72"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7120,
+      "x": 7825,
       "y": 1648
     },
     {
@@ -41803,11 +42434,11 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:157",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
+      "x": 8240,
       "y": 1648
     },
     {
@@ -41912,7 +42543,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11600,
+      "x": 12305,
       "y": 682
     },
     {
@@ -41997,7 +42628,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10480,
+      "x": 11185,
       "y": 1970
     },
     {
@@ -42099,11 +42730,11 @@
         "PLANO": "CODE",
         "PROVA": [
           "pedido/receitas.py:315",
-          "orquestrador/orquestrador.py:892"
+          "orquestrador/orquestrador.py:919"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6705,
+      "x": 7410,
       "y": 1970
     },
     {
@@ -42182,7 +42813,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 4590,
+      "x": 5295,
       "y": 360
     },
     {
@@ -42290,7 +42921,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8240,
+      "x": 8945,
       "y": 1648
     },
     {
@@ -42421,7 +43052,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-APIFY-POOL · C-CENSO-OBSERVABILIDADE · C-COLETA-BASE · C-COLETA-PUBLICA · C-CONTRATO-TELEMETRIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 18900,
+      "x": 19605,
       "y": 1970
     },
     {
@@ -42506,7 +43137,7 @@
         ],
         "PORQUE": "o `on:` so tem `workflow_dispatch`: a unica porta e a mao de alguem. NENHUM orquestrador o dispara, e `workflow_dispatch` prova exactamente isso."
       },
-      "x": 4590,
+      "x": 5295,
       "y": 682
     },
     {
@@ -42578,6 +43209,7 @@
         "C-ADMISSAO",
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
+        "C-CURATOR-LIFECYCLE",
         "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -42702,7 +43334,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7120,
+      "x": 7825,
       "y": 1970
     },
     {
@@ -42827,7 +43459,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 7766
     },
     {
@@ -42951,7 +43583,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 9775,
+      "x": 10480,
       "y": 1648
     },
     {
@@ -43062,7 +43694,7 @@
         ],
         "PORQUE": "o `on:` so tem `workflow_dispatch`: a unica porta e a mao de alguem. NENHUM orquestrador o dispara, e `workflow_dispatch` prova exactamente isso."
       },
-      "x": 4590,
+      "x": 5295,
       "y": 1004
     },
     {
@@ -43214,7 +43846,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-GERAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 15540,
+      "x": 16245,
       "y": 1326
     },
     {
@@ -43300,7 +43932,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
+      "x": 21140,
       "y": 7766
     },
     {
@@ -43454,7 +44086,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 8655,
+      "x": 9360,
       "y": 1648
     },
     {
@@ -43559,7 +44191,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21555,
       "y": 7766
     },
     {
@@ -43734,7 +44366,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17780,
+      "x": 18485,
       "y": 1648
     },
     {
@@ -43879,7 +44511,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17365,
+      "x": 18070,
       "y": 1326
     },
     {
@@ -43987,7 +44619,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17365,
+      "x": 18070,
       "y": 682
     },
     {
@@ -44112,7 +44744,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 17780,
+      "x": 18485,
       "y": 1970
     },
     {
@@ -44224,7 +44856,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17780,
+      "x": 18485,
       "y": 360
     },
     {
@@ -44349,7 +44981,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17365,
+      "x": 18070,
       "y": 1004
     },
     {
@@ -44532,7 +45164,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17365,
+      "x": 18070,
       "y": 360
     },
     {
@@ -44711,7 +45343,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17365,
+      "x": 18070,
       "y": 1648
     },
     {
@@ -44884,7 +45516,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17780,
+      "x": 18485,
       "y": 1326
     },
     {
@@ -44992,7 +45624,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17365,
+      "x": 18070,
       "y": 1970
     },
     {
@@ -45103,7 +45735,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17780,
+      "x": 18485,
       "y": 1004
     },
     {
@@ -45277,7 +45909,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 17780,
+      "x": 18485,
       "y": 682
     },
     {
@@ -45376,7 +46008,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PEDIDO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 19315,
+      "x": 20020,
       "y": 1970
     },
     {
@@ -45582,6 +46214,7 @@
         "tests/test_security_secret_shapes.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
+        "tests/test_source_curator_integration.py",
         "tests/test_source_id.py",
         "tests/test_source_id_wiring_gap.py",
         "tests/test_source_owner_identity.py",
@@ -45601,7 +46234,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 201,
+      "file_count": 202,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -45661,6 +46294,10 @@
         "C-CONTRATO-CAMPOS",
         "C-CONTRATO-DE-RETORNO",
         "C-CONTRATO-TELEMETRIA",
+        "C-CURATOR-ESTADO-ACTUAL",
+        "C-CURATOR-INTERFACE",
+        "C-CURATOR-LIFECYCLE",
+        "C-CURATOR-REGISTOS",
         "C-DATA-CLOCK",
         "C-DECISAO-DA-FILA",
         "C-DERIVA-DA-BASE",
@@ -45714,6 +46351,7 @@
         "C-PERSISTENCIA-DA-PORTA-CLI",
         "C-POLITICA-COLETA",
         "C-PORTA-FONTE",
+        "C-PORTA-FONTES-PRONTAS",
         "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
         "C-PROVA-ADAMA-REFERENCE",
@@ -46019,11 +46657,16 @@
         "controle/portao_do_controle.py",
         "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
         "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
+        "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
         "curadoria/HANDOFF-INTEGRACAO-04.md",
+        "curadoria/LIFECYCLE-LEDGER-V1.json",
         "curadoria/READY-FOR-COLLECTION-V1.json",
         "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
         "curadoria/italy_contracts_curator.json",
+        "curadoria/lifecycle.py",
+        "curadoria/semear_lifecycle.py",
+        "curadoria/worker.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
         "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
@@ -46218,6 +46861,7 @@
         "motor/corrida_da_inteligencia.py",
         "motor/v21_tm_colher.py",
         "motor/v21_traducao_trava.py",
+        "orquestrador/fontes_prontas.py",
         "orquestrador/orquestrador.py",
         "orquestrador/persistencia.py",
         "package.json",
@@ -46378,7 +47022,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
+      "x": 20725,
       "y": 8088
     },
     {
@@ -46493,7 +47137,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6000,
+      "x": 6705,
       "y": 1326
     },
     {
@@ -46672,7 +47316,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-INT-ACHADO · C-V21-FONTES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 13425,
+      "x": 14130,
       "y": 1004
     },
     {
@@ -46896,7 +47540,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-V21-CONTRATO · C-V21-OPORTUNIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 13010,
+      "x": 13715,
       "y": 1326
     },
     {
@@ -47003,7 +47647,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13425,
+      "x": 14130,
       "y": 1326
     },
     {
@@ -47155,7 +47799,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13010,
+      "x": 13715,
       "y": 1648
     },
     {
@@ -47270,7 +47914,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13425,
+      "x": 14130,
       "y": 1648
     },
     {
@@ -47472,7 +48116,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13010,
+      "x": 13715,
       "y": 1970
     },
     {
@@ -47572,7 +48216,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 13425,
+      "x": 14130,
       "y": 1970
     },
     {
@@ -47682,7 +48326,7 @@
         ],
         "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
       },
-      "x": 5295,
+      "x": 6000,
       "y": 360
     },
     {
@@ -47936,7 +48580,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma rota medida abre este canal, e ninguem o corre."
       },
-      "x": 5295,
+      "x": 6000,
       "y": 682
     },
     {
@@ -48053,7 +48697,7 @@
         ],
         "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
       },
-      "x": 5295,
+      "x": 6000,
       "y": 1004
     },
     {
@@ -48157,7 +48801,7 @@
         ],
         "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
       },
-      "x": 5295,
+      "x": 6000,
       "y": 1326
     },
     {
@@ -48267,7 +48911,7 @@
         ],
         "PORQUE": "um canal nao corre: e aberto por uma rota, e sao estas as rotas medidas que chegam aqui. A ROTA nao esta PROVADA como travessia — o mapa mede que o ficheiro nomeia o canal e sabe falar com a rede, e nao qual rota serviu qual canal."
       },
-      "x": 5295,
+      "x": 6000,
       "y": 1648
     },
     {
@@ -48276,7 +48920,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch big-collection-release-v1"
+        "branch source-curator-integration-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -48337,7 +48981,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 14130,
+      "x": 14835,
       "y": 360
     },
     {
@@ -48412,7 +49056,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 14130,
+      "x": 14835,
       "y": 682
     },
     {
@@ -48486,7 +49130,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 14130,
+      "x": 14835,
       "y": 1004
     },
     {
@@ -48572,7 +49216,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 14130,
+      "x": 14835,
       "y": 1326
     }
   ],
@@ -52304,6 +52948,41 @@
             "EDGE_ID": "C-AS-FONTES--READS-->C-COLETA-PUBLICA",
             "FROM": "C-AS-FONTES",
             "TO": "C-COLETA-PUBLICA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-CURATOR-ESTADO-ACTUAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta O estado actual das fontes — e o resemeador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 36,
+          "snippet": "const ATLAS = join(RAIZ, \"docs\", \"fontes\", \"ATLAS-DE-FONTES-EAME.md\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -64787,6 +65466,1097 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-CURATOR-ESTADO-ACTUAL",
+      "to": "C-CURATOR-INTERFACE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O estado actual das fontes — e o resemeador alimenta O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/interface_collection.py",
+          "line": 49,
+          "snippet": "ESTADO_ACTUAL = RAIZ / \"curadoria\" / \"ESTADO-ACTUAL-DAS-FONTES-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-CURATOR-INTERFACE",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-CURATOR-INTERFACE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-ESTADO-ACTUAL",
+      "to": "C-CURATOR-LIFECYCLE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O estado actual das fontes — e o resemeador alimenta O ciclo de vida da fonte — livro, fila e worker. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/worker.py",
+          "line": 78,
+          "snippet": "ESTADO_ACTUAL = RAIZ / \"curadoria\" / \"ESTADO-ACTUAL-DAS-FONTES-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-CURATOR-LIFECYCLE",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-CURATOR-LIFECYCLE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-ESTADO-ACTUAL",
+      "to": "C-CURATOR-PROVAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O estado actual das fontes — e o resemeador alimenta As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 78,
+          "snippet": "actual = json.loads((CUR / \"ESTADO-ACTUAL-DAS-FONTES-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 35,
+          "snippet": "IC.ESTADO_ACTUAL = RAIZ / \"curadoria\" / \"ESTADO-ACTUAL-DAS-FONTES-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-ESTADO-ACTUAL",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O estado actual das fontes — e o resemeador tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 46,
+          "snippet": "import semear_lifecycle as SEM        # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--IMPORTS-->C-TESTES",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-ESTADO-ACTUAL",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O estado actual das fontes — e o resemeador alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 51,
+          "snippet": "ESTADO_DA_CASA = CUR / \"ESTADO-ACTUAL-DAS-FONTES-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-TESTES",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 114,
+          "snippet": "src = (CUR / \"semear_lifecycle.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-TESTES",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-INTERFACE",
+      "to": "C-CURATOR-PROVAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED tem o seu codigo importado por As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/provar_divisao.py",
+          "line": 45,
+          "snippet": "import interface_collection as IC     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-INTERFACE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-INTERFACE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 24,
+          "snippet": "import interface_collection as IC     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-INTERFACE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-INTERFACE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 20,
+          "snippet": "import interface_collection as IC     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-INTERFACE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-INTERFACE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-INTERFACE",
+      "to": "C-PORTA-FONTES-PRONTAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED tem o seu codigo importado por A porta «que fontes estao READY agora?» — o lado da Collection. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/fontes_prontas.py",
+          "line": 37,
+          "snippet": "import interface_collection as IC  # noqa: E402 — o contrato, do lado do Curator",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-INTERFACE--IMPORTS-->C-PORTA-FONTES-PRONTAS",
+            "FROM": "C-CURATOR-INTERFACE",
+            "TO": "C-PORTA-FONTES-PRONTAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-INTERFACE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 44,
+          "snippet": "import interface_collection as IC     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-INTERFACE--IMPORTS-->C-TESTES",
+            "FROM": "C-CURATOR-INTERFACE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-LIFECYCLE",
+      "to": "C-CURATOR-ESTADO-ACTUAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker tem o seu codigo importado por O estado actual das fontes — e o resemeador. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/semear_lifecycle.py",
+          "line": 60,
+          "snippet": "import evidencia as EV    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/semear_lifecycle.py",
+          "line": 61,
+          "snippet": "import fila as F          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/semear_lifecycle.py",
+          "line": 62,
+          "snippet": "import lifecycle as LC    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-LIFECYCLE",
+      "to": "C-CURATOR-INTERFACE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker tem o seu codigo importado por O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/interface_collection.py",
+          "line": 45,
+          "snippet": "import fila as F          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-INTERFACE",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-INTERFACE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/interface_collection.py",
+          "line": 46,
+          "snippet": "import lifecycle as LC    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-INTERFACE",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-INTERFACE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-LIFECYCLE",
+      "to": "C-CURATOR-PROVAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker tem o seu codigo importado por As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta. Provado por 11 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/provar_autonomia.py",
+          "line": 34,
+          "snippet": "import fila as F",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/provar_divisao.py",
+          "line": 43,
+          "snippet": "import evidencia as EV                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/provar_divisao.py",
+          "line": 44,
+          "snippet": "import fila as F                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/provar_divisao.py",
+          "line": 46,
+          "snippet": "import lifecycle as LC                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/provar_divisao.py",
+          "line": 47,
+          "snippet": "import worker as W                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 23,
+          "snippet": "import fila as F                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 25,
+          "snippet": "import lifecycle as LC                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 19,
+          "snippet": "import fila as F                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 21,
+          "snippet": "import lifecycle as LC                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_lifecycle.py",
+          "line": 26,
+          "snippet": "import fila as F          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/test_lifecycle.py",
+          "line": 27,
+          "snippet": "import lifecycle as LC    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-LIFECYCLE",
+      "to": "C-CURATOR-PROVAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker alimenta As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 93,
+          "snippet": "txt = (CUR / \"lifecycle.py\").read_text(encoding=\"utf-8\") + \\",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 94,
+          "snippet": "(CUR / \"fila.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/red_team_lifecycle.py",
+          "line": 104,
+          "snippet": "wtxt = (CUR / \"worker.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-CURATOR-PROVAS",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-CURATOR-PROVAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-LIFECYCLE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 41,
+          "snippet": "import evidencia as EV                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 42,
+          "snippet": "import fila as F                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 45,
+          "snippet": "import lifecycle as LC                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 47,
+          "snippet": "import worker as W                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--IMPORTS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-LIFECYCLE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 50,
+          "snippet": "LIVRO_DA_CASA = CUR / \"LIFECYCLE-LEDGER-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 275,
+          "snippet": "src = (CUR / \"worker.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 298,
+          "snippet": "src = (CUR / \"lifecycle.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-REGISTOS",
+      "to": "C-CURATOR-ESTADO-ACTUAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os registos do SOURCE CURATOR — a historia das missoes 02 a 04 alimenta O estado actual das fontes — e o resemeador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 40,
+          "snippet": "const FOTO = join(RAIZ, \"curadoria\", \"READY-FOR-COLLECTION-V1.json\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-REGISTOS",
+      "to": "C-CURATOR-INTERFACE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os registos do SOURCE CURATOR — a historia das missoes 02 a 04 alimenta O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/interface_collection.py",
+          "line": 50,
+          "snippet": "CARACT = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-CURATOR-INTERFACE",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-CURATOR-INTERFACE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-REGISTOS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os registos do SOURCE CURATOR — a historia das missoes 02 a 04 alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 37,
+          "snippet": "CURATOR = os.path.join(RAIZ, \"curadoria\", \"italy_contracts_curator.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 38,
+          "snippet": "READY = os.path.join(RAIZ, \"curadoria\", \"READY-FOR-COLLECTION-V1.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 228,
+          "snippet": "for e in _json(os.path.join(RAIZ, \"curadoria\", \"REAL-EXAMPLE-MANIFEST-V1.json\"))[\"FILES\"]}",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 267,
+          "snippet": "\"REAL-EXAMPLE-MANIFEST-V1.json\", \"CANARY-LOTE-HTML-ARTIGO.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 268,
+          "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 268,
+          "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 269,
+          "snippet": "\"HANDOFF-INTEGRACAO-04.md\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 52,
+          "snippet": "FOTO = CUR / \"READY-FOR-COLLECTION-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-REGISTOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-DATA-CLOCK",
       "to": "C-RECEITAS",
       "type": "READS",
@@ -67959,7 +69729,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 512,
+          "line": 513,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DOCUMENTO--READS-->C-ORQUESTRADOR",
@@ -69338,7 +71108,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 554,
+          "line": 555,
           "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-ORQUESTRADOR",
@@ -74905,6 +76675,70 @@
     },
     {
       "from": "C-IT-COLETA",
+      "to": "C-CURATOR-LIFECYCLE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por O ciclo de vida da fonte — livro, fila e worker. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/canario_do_motor.mjs",
+          "line": 25,
+          "snippet": "import { ADAPTERS } from \"../coleta/adaptadores_de_aquisicao.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-CURATOR-LIFECYCLE",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-CURATOR-LIFECYCLE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-CURATOR-LIFECYCLE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "Colher as fontes italianas alimenta O ciclo de vida da fonte — livro, fila e worker. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/canario_do_motor.mjs",
+          "line": 25,
+          "snippet": "import { ADAPTERS } from \"../coleta/adaptadores_de_aquisicao.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
       "to": "C-IT-CONTAS",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -75885,6 +77719,186 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-CURATOR-ESTADO-ACTUAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por O estado actual das fontes — e o resemeador. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 31,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS, ONBOARDED_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 32,
+          "snippet": "import { conferirAquisicao, conferirIdentidade } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-CURATOR-ESTADO-ACTUAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O contrato de cada fonte italiana alimenta O estado actual das fontes — e o resemeador. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 31,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS, ONBOARDED_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 32,
+          "snippet": "import { conferirAquisicao, conferirIdentidade } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-CURATOR-LIFECYCLE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por O ciclo de vida da fonte — livro, fila e worker. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/canario_do_motor.mjs",
+          "line": 23,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CURATOR-LIFECYCLE",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CURATOR-LIFECYCLE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/canario_do_motor.mjs",
+          "line": 24,
+          "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-CURATOR-LIFECYCLE",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-CURATOR-LIFECYCLE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-CURATOR-LIFECYCLE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O contrato de cada fonte italiana alimenta O ciclo de vida da fonte — livro, fila e worker. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/canario_do_motor.mjs",
+          "line": 23,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "curadoria/canario_do_motor.mjs",
+          "line": 24,
+          "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -80251,7 +82265,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -80302,7 +82316,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -80388,7 +82402,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -80456,7 +82470,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -80507,7 +82521,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -80539,7 +82553,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -80571,7 +82585,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -81318,7 +83332,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -81369,7 +83383,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 892,
+          "line": 919,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -81452,7 +83466,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -81663,7 +83677,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -82761,7 +84775,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -82895,6 +84909,22 @@
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 35,
           "snippet": "import pedido as pd                                               # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
+            "FROM": "C-PEDIDO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 185,
+          "snippet": "from pedido import Pedido",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PEDIDO--IMPORTS-->C-TESTES",
             "FROM": "C-PEDIDO",
@@ -83342,6 +85372,130 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-TESTES",
             "FROM": "C-PORTA-FONTE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTES-PRONTAS",
+      "to": "C-CURATOR-INTERFACE",
+      "type": "ALIMENTA",
+      "reason": "SOURCE_REPAIR_NEEDED: a Collection devolve ao Curator a fonte que quebrou na mao dela (reportar_avaria -> source_repair_needed). E uma chamada, nao um import — o scanner prova o import no sentido inverso; esta seta declara o caminho de volta.  ⚪ NAO SEI: isto foi declarado por gente, e o scanner nao achou nenhuma linha de codigo que prove.",
+      "source": "curadoria/LIFECYCLE-PROOF-V1.json",
+      "declared_by": "missao SOURCE-CURATOR-INTEGRATION",
+      "declared_at": "2026-09-20",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "categoria": "DATA",
+      "DECLARED": "YES",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTES-PRONTAS",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta «que fontes estao READY agora?» — o lado da Collection tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 63,
+          "snippet": "import fontes_prontas  # noqa: E402 — a porta «que fontes estao READY?» (SOURCE CURATOR -> COLLECTION)",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTES-PRONTAS--IMPORTS-->C-ORQUESTRADOR",
+            "FROM": "C-PORTA-FONTES-PRONTAS",
+            "TO": "C-ORQUESTRADOR",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTES-PRONTAS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta «que fontes estao READY agora?» — o lado da Collection tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 43,
+          "snippet": "import fontes_prontas as FP           # noqa: E402  — o lado da Collection",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTES-PRONTAS--IMPORTS-->C-TESTES",
+            "FROM": "C-PORTA-FONTES-PRONTAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PORTA-FONTES-PRONTAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta «que fontes estao READY agora?» — o lado da Collection alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_curator_integration.py",
+          "line": 163,
+          "snippet": "src = (RAIZ / \"orquestrador\" / \"fontes_prontas.py\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PORTA-FONTES-PRONTAS--READS-->C-TESTES",
+            "FROM": "C-PORTA-FONTES-PRONTAS",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -85205,6 +87359,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-CURATOR-ESTADO-ACTUAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta alimenta O estado actual das fontes — e o resemeador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/estado_actual_das_fontes.mjs",
+          "line": 38,
+          "snippet": "const MANIFESTO = join(RAIZ, \"data\", \"samples\", \"RUN-MANIFEST.json\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--READS-->C-CURATOR-ESTADO-ACTUAL",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-CURATOR-ESTADO-ACTUAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -91558,7 +93747,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 605,
+          "line": 606,
           "snippet": "import rota_forward_documento as _rf                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTA-M2--IMPORTS-->C-ORQUESTRADOR",
@@ -92582,7 +94771,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 65,
+          "line": 66,
           "snippet": "import sala_de_espera as espera        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-ORQUESTRADOR",
@@ -96950,6 +99139,41 @@
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-COLETA-PUBLICA",
             "FROM": "C-SCRAP-SOCIAL",
             "TO": "C-COLETA-PUBLICA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-CURATOR-LIFECYCLE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O ciclo de vida da fonte — livro, fila e worker. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "curadoria/worker.py",
+          "line": 97,
+          "snippet": "import scrap_http as http  # noqa: WPS433 — o unico leitor de robots da casa",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CURATOR-LIFECYCLE",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-CURATOR-LIFECYCLE",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -105667,7 +107891,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1141,
+  "UNCLAIMED_FILES_COUNT": 1125,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -105831,7 +108055,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 186,
+      "PECAS_EM_DESACORDO": 192,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -105843,25 +108067,25 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 212
+      "TOTAL_DE_PECAS": 218
     }
   ],
   "COUNTS": {
-    "components": 212,
+    "components": 218,
     "components_proven": 32,
-    "components_pending": 172,
+    "components_pending": 178,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1090,
-    "edges_proven": 1035,
-    "edges_unknown": 55,
+    "edges": 1120,
+    "edges_proven": 1061,
+    "edges_unknown": 59,
     "business_edges": 4,
-    "files_tracked": 2170,
-    "files_covered": 1029,
+    "files_tracked": 2194,
+    "files_covered": 1069,
     "files_code_unclaimed": 0,
-    "roles_proven": 147,
-    "roles_declared_only": 7,
-    "roles_unknown": 58,
+    "roles_proven": 150,
+    "roles_declared_only": 8,
+    "roles_unknown": 60,
     "roles_conflict": 28,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 9,
