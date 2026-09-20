@@ -746,11 +746,45 @@ def conferir_os_bytes(plano: dict, armazem: Armazem) -> dict:
 # ─────────────────────────────────────────────────────────────────────────
 # 3 · O CONFLITO — `do nothing` não pode calar divergência
 # ─────────────────────────────────────────────────────────────────────────
+def _instante(v):
+    """→ datetime (UTC) se `v` for um instante ISO-8601; senão None.
+
+    ⚠️ MEDIDO EM 20/09/2026, NAS 4 PASSAGENS QUE «FALHARAM A GRAVAR».
+    O banco devolve `captured_at` como `2026-09-20T11:09:03.44Z` — o Postgres
+    corta os zeros à direita dos microssegundos — e o item dizia
+    `…03.440Z`. Comparados como TEXTO, divergiam; comparados como instantes,
+    são o mesmo. As quatro observações que caíram eram exactamente as que
+    tinham milissegundos terminados em zero (.440, .010, .430, .190); as 42
+    que passaram não tinham. Uma linha correcta no banco, um conflito
+    inventado pela representação.
+
+        DOIS TEXTOS DIFERENTES DO MESMO INSTANTE NÃO SÃO UMA DIVERGÊNCIA.
+    """
+    import datetime                                          # noqa: PLC0415
+    if v is None or isinstance(v, (int, float, bool)):
+        return None
+    if isinstance(v, datetime.datetime):
+        return v if v.tzinfo else v.replace(tzinfo=datetime.timezone.utc)
+    t = str(v).strip()
+    if len(t) < 19 or t[4] != "-" or t[10] not in "T ":
+        return None
+    try:
+        d = datetime.datetime.fromisoformat(t.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return d if d.tzinfo else d.replace(tzinfo=datetime.timezone.utc)
+
+
 def _difere(existente: dict, esperado: dict, campos) -> list:
     fora = []
     for c in campos:
         a, b = existente.get(c), esperado.get(c)
         if a is None and b is None:
+            continue
+        ia, ib = _instante(a), _instante(b)
+        if ia is not None and ib is not None:
+            if ia != ib:
+                fora.append({"CAMPO": c, "NO_BANCO": a, "NESTA_CORRIDA": b})
             continue
         if str(a) != str(b):
             fora.append({"CAMPO": c, "NO_BANCO": a, "NESTA_CORRIDA": b})

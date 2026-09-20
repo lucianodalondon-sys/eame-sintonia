@@ -37066,6 +37066,934 @@
    "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
    "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
    "SOURCE_VERSION": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "IT-T2-2026-09-20-144606-aca92ae55c0b9881",
+   "STATUS": "SUCCESS",
+   "PEDIDO": {
+    "alvo": "T2",
+    "acionamento": "MANUAL",
+    "escopo": "PONTUAL",
+    "filtros": {
+     "pais": "IT",
+     "fonte": "IT-T2-007",
+     "universo": "T2"
+    }
+   },
+   "MISSION": "CLIMATE / WATER / SOIL",
+   "COUNTRY": "IT",
+   "PLATFORM": "HTTP direto",
+   "ACTOR": "coleta/italy_executor.py",
+   "ACTOR_VERSION": "b9dfd3d2",
+   "CAPTURE_METHOD": "gratuito",
+   "INPUT": {
+    "pais": "IT",
+    "fonte": "IT-T2-007",
+    "universo": "T2"
+   },
+   "QUERY": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-007 · pais=IT · universo=T2",
+   "COMANDO": "coleta/italy_executor.py IT-T2-007 --run-id=IT-T2-2026-09-20-144606-aca92ae55c0b9881",
+   "STARTED_AT": "2026-09-20T14:46:06Z",
+   "FINISHED_AT": "2026-09-20T14:46:06Z",
+   "COST_USD": 0,
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 0,
+   "ERROR": "",
+   "ESTADO_DOS_ITENS": "NA_PORTA",
+   "FONTES_DO_ASSUNTO": 30,
+   "FONTES_SEM_CAMINHO": 5,
+   "COLHEITA_ENCONTRADA": 1,
+   "COLHEITA_NAO_ENCONTRADA": "colheita reprocessada da corrida «IT-T2-2026-09-20-110849-c6bceb4cee7da580» pela corrida «IT-T2-2026-09-20-144606-aca92ae55c0b9881»",
+   "RETORNO": {
+    "ESTADO": "PARTIAL",
+    "COLHEITA": 0,
+    "SUPORTE": [],
+    "ERROS": [],
+    "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+   },
+   "INGRESSO": {
+    "PARA_A_PORTA": [
+     {
+      "RUN_ID": "IT-T2-2026-09-20-110849-c6bceb4cee7da580",
+      "DOCUMENT_ID": "IT-T2-007:URL:temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano",
+      "DOCUMENT_VERSION_ID": "v1_b8ae0c047704",
+      "RAW_SHA256": "b8ae0c0477046f1a89f962801a8090f6b5f5808b789ffb6b6a6ded48a6ba72d8",
+      "RESOLVED_STRUCTURED_TARGET": "SOURCE_DOCUMENT",
+      "BYTES": 3828444,
+      "MIME_ASSINATURA": "HTML",
+      "CONTENT_TYPE": "text/html",
+      "SOURCE_DATE": null,
+      "SOURCE_DATE_ISO": null,
+      "CAPTURED_AT": "2026-09-20T11:09:03.440Z",
+      "COLLECTION_RUN_STARTED_AT": "2026-09-20T11:08:49.648Z",
+      "OBSERVATION_RESULT": "NEW_DOCUMENT",
+      "HEALTH_STATE": "HEALTHY",
+      "CADENCE_STATE": "UPDATED",
+      "EXPECTED_NEXT_UPDATE": "UNKNOWN",
+      "DECLARED_FREQUENCY": "NAO SEI",
+      "OBSERVED_FREQUENCY": "NAO SEI — uma captura so",
+      "RAW_OBJECT_CREATED": true,
+      "RAW_PRESERVED_BEFORE_PARSE": true,
+      "DISCOVERY_DEGRADED": null,
+      "PARSE_ERROR": null,
+      "parse": null,
+      "EXECUTOR_ID": "italia-recorrente",
+      "EXECUTOR_VERSION": "adapter-v1",
+      "STORAGE_LOCATION": "data/collection-store/italy/IT-T2-007/IT-T2-007_URL_temi-ambientali_aria_bollettino-qualita-dellaria-isola-di-vulcano_bollettini-giornalieri-qualita-dellaria-isola-di-vulcano/v1_b8ae0c047704/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano.html",
+      "ESPECIE": "COLHEITA",
+      "SHA256": "b8ae0c0477046f1a89f962801a8090f6b5f5808b789ffb6b6a6ded48a6ba72d8",
+      "PAYLOAD": {
+       "ONDE": "data/collection-store/italy/IT-T2-007/IT-T2-007_URL_temi-ambientali_aria_bollettino-qualita-dellaria-isola-di-vulcano_bollettini-giornalieri-qualita-dellaria-isola-di-vulcano/v1_b8ae0c047704/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano.html",
+       "ESTADO": "PRESENTE"
+      },
+      "ARTIFACT_ID": "RAW-b8ae0c0477046f1a",
+      "source_id": "IT-T2-007",
+      "url": "https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano/",
+      "artifact_type": "RAW",
+      "captured_at": "2026-09-20T11:09:03.440Z",
+      "raw_asset_id": 197
+     }
+    ],
+    "PARA_A_DERIVACAO": [
+     {
+      "RAW_ASSET_ID": 197,
+      "CAPTURED_AT": "2026-09-20T11:09:03.44Z",
+      "MEDIA_TYPE": "text/html",
+      "SOURCE_ID": "IT-T2-007",
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t2-007\\OBSERVATION\\b8ae0c0477046f1a-u135c1c38fe369209-bollettini-giornalieri-qualita-dellaria-isola-di-vulcano.html"
+     }
+    ],
+    "SEM_BYTES_PARA_DERIVAR": [],
+    "FONTE_PROVADA": "IT-T2-007",
+    "PRESERVADOS": 1,
+    "RECUSADOS": 0,
+    "PORQUE_RECUSADOS": [],
+    "RUN_STATE": "COMPLETE",
+    "RASTRO": {
+     "ACCOUNTED_INPUT": 1,
+     "UNACCOUNTED_INPUT": 0,
+     "ESTADO": "PASS",
+     "DIAGNOSTIC_CODE": null
+    },
+    "BANCO": "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. Leitura real do banco, nao contagem esperada."
+   },
+   "DERIVACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "RUNNER": "derivacao-forward",
+    "RUN_ID": "IT-T2-2026-09-20-144606-aca92ae55c0b9881",
+    "SOURCE_ID": "IT-T2-007",
+    "ROUTE_CLASS_ID": null,
+    "ESTADO_DA_ETAPA": "PASS",
+    "BALDES": {
+     "PASSED": 1,
+     "REJECTED": 0,
+     "ERROR": 0,
+     "NOT_RUN": 0,
+     "UNKNOWN": 0,
+     "REUSED": 0
+    },
+    "SAIRAM": 1,
+    "RASTRO": "EMITIDO",
+    "DERIVADOS": [
+     {
+      "RAW_ASSET_ID": 197,
+      "PORTA": "PASSED",
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-11a51b806bd3edd9f86ec28c8c42ecc51f3405045edf355da58e38c630694085.txt"
+     }
+    ],
+    "RESULTADOS": [
+     {
+      "RAW_ASSET_ID": 197,
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t2-007\\OBSERVATION\\b8ae0c0477046f1a-u135c1c38fe369209-bollettini-giornalieri-qualita-dellaria-isola-di-vulcano.html",
+      "CAPTURED_AT": "2026-09-20T11:09:03.44Z",
+      "SOURCE_ID": "IT-T2-007",
+      "ESTADO": "INSERTED",
+      "PORTA": "PASSED",
+      "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+      "LINHA": {
+       "id": 84,
+       "raw_asset_id": "197",
+       "parent_sha256": "b8ae0c0477046f1a89f962801a8090f6b5f5808b789ffb6b6a6ded48a6ba72d8",
+       "kind": "TEXT_EXTRACTION",
+       "producer": "texto-de-html",
+       "producer_version": "1",
+       "pipeline_version": "1",
+       "parameters_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+       "serie_posicao": null,
+       "sha256": "102ea6e6054ebd247f6b6058305abcee43535363b585a488fec2cce550112c61",
+       "bytes": "70457",
+       "media_type": "text/plain",
+       "storage_path": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-11a51b806bd3edd9f86ec28c8c42ecc51f3405045edf355da58e38c630694085.txt",
+       "derived_at": "2026-09-20T14:46:10Z"
+      },
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-11a51b806bd3edd9f86ec28c8c42ecc51f3405045edf355da58e38c630694085.txt",
+      "MOTIVO_DO_EXECUTOR": null,
+      "EXECUTOR_ID": "texto-de-html",
+      "MEDIA_TYPE": "text/html",
+      "TEXT_KIND": null,
+      "TEXT_RELATION": null,
+      "LANGUAGE": null,
+      "LANGUAGE_SOURCE": null
+     }
+    ]
+   },
+   "ESTRUTURACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "ESTRUTURADOS": [
+     {
+      "RAW_ASSET_ID": 197,
+      "SOURCE_ID": "IT-T2-007",
+      "DERIVED_ARTIFACT_ID": 84,
+      "PARENT_SHA256": "b8ae0c0477046f1a89f962801a8090f6b5f5808b789ffb6b6a6ded48a6ba72d8",
+      "CAPTURED_AT": "2026-09-20T11:09:03.44Z",
+      "ESTADO": "INSERTED",
+      "TEXTO": "Bollettini giornalieri - Qualità dell'aria isola di Vulcano - Arpa Sicilia\nRegione Marche\nTraduci\nLogin\nVai alla Ricerca Avanzata >>\nSkip to content\nMenu\nL’Agenzia\nAttività\nTemi Ambientali\nDocumentazione Ambientale\nAmministrazione Trasparente\nURP\nContatti\nArpa Sicilia / Temi Ambientali / Aria / Bollettino Qualità dell’Aria isola di Vulcano / Bollettini giornalieri – Qualità dell’aria isola di Vulcano\nBollettini giornalieri – Qualità dell’aria isola di Vulcano\nI dati di monitoraggio raccolti da ISPRA, unitamente a quelli di ARPA Sicilia, confluiscono nel presente bollettino.\nBollettini giornalieri 2026\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 17/09/2026\n1 files 5 downloads\nBollettino della qualità dell’aria – 16/09/2026\n1 files 4 downloads\nBollettino della qualità dell’aria – 15/09/2026\n1 files 6 downloads\nBollettino della qualità dell’aria – 14/09/2026\n1 files 7 downloads\nBollettino della qualità dell’aria – 10/09/2026\n1 files 9 downloads\nBollettino della qualità dell’aria – 09/09/2026\n1 files 10 downloads\nBollettino della qualità dell’aria – 08/09/2026\n1 files 10 downloads\nBollettino della qualità dell’aria – 07/09/2026\n1 files 14 downloads\nBollettino della qualità dell’aria – 03/09/2026\n1 files 12 downloads\nBollettino della qualità dell’aria – 02/09/2026\n1 files 14 downloads\nBollettino della qualità dell’aria – 01/09/2026\n1 files 13 downloads\nBollettino della qualità dell’aria – 31/08/2026\n1 files 18 downloads\nBollettino della qualità dell’aria – 27/08/2026\n1 files 23 downloads\nBollettino della qualità dell’aria – 26/08/2026\n1 files 18 downloads\nBollettino della qualità dell’aria – 25/08/2026\n2 files 21 downloads\nBollettino della qualità dell’aria – 24/08/2026\n1 files 19 downloads\nBollettino della qualità dell’aria – 20/08/2026\n1 files 21 downloads\nBollettino della qualità dell’aria – 19/08/2026\n1 files 22 downloads\nBollettino della qualità dell’aria – 18/08/2026\n1 files 20 downloads\nBollettino della qualità dell’aria – 17/08/2026\n1 files 27 downloads\n1\n2\n3\n…\n9\nNext\nBollettini mese di settembre 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/09/2025\n1 files 195 downloads\nBollettino della qualità dell’aria – 29/09/2025\n1 files 196 downloads\nBollettino della qualità dell’aria – 25/09/2025\n1 files 146 downloads\nBollettino della qualità dell’aria – 24/09/2025\n1 files 171 downloads\nBollettino della qaulità dell’aria – 22/09/2025\n1 files 161 downloads\nBollettino della qualità dell’aria – 17/09/2025\n1 files 177 downloads\nBollettino della qualità dell’aria – 16/09/2025\n1 files 161 downloads\nBolletrtino della qualità dell’aria – 15/09/2025\n1 files 202 downloads\nBollettino della qualità dell’aria – 11/09/2025\n1 files 153 downloads\nBollettino della qualità dell’aria – 10/09/2025\n1 files 155 downloads\nBollettino della qualità dell’aria – 09/09/2025\n1 files 194 downloads\nBollettino della qualità dell’aria – 08/09/2025\n1 files 190 downloads\nBollettino della qualità dell’aria – 04/09/2025\n1 files 199 downloads\nBollettino della qualità dell’aria – 03/09/2025\n1 files 186 downloads\nBollettino della qualità dell’aria – 02/09/2025\n1 files 159 downloads\nBollettini mese di agosto 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 28/08/2025\n1 files 207 downloads\nBollettino della qualità dell’aria – 27/08/2025\n1 files 184 downloads\nBollettino della qualità dell’aria – 26/08/2025\n1 files 210 downloads\nBollettino della qualità dell’aria – 25/08/2025\n1 files 171 downloads\nBollettino della qualità dell’aria – 20/08/2025\n1 files 168 downloads\nBollettino della qualità dell’aria – 19/08/2025\n1 files 184 downloads\nBollettino della qualità dell’aria – 18/08/2025\n1 files 168 downloads\nBollettino della qualità dell’aria – 13/08/2025\n1 files 205 downloads\nBollettino della qualità dell’aria – 12/08/2025\n1 files 183 downloads\nBollettino della qualità dell’aria – 11/08/2025\n1 files 203 downloads\nBollettino della qualità dell’aria – 07/08/2025\n1 files 184 downloads\nBollettino della qualità dell’aria – 06/08/2025\n1 files 203 downloads\nBollettino della qualità dell’aria – 05/08/2025\n1 files 184 downloads\nBollettino della qualità dell’aria – 04/08/2025\n1 files 172 downloads\nBollettini mese di luglio 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/07/2025\n1 files 162 downloads\nBollettino della qualità dell’aria – 29/07/2025\n1 files 199 downloads\nBollettino qualità dell’aria – 28/07/2025\n1 files 171 downloads\nBollettino della qualità dell’aria – 22/07/20205\n1 files 188 downloads\nBollettino della qualità dell’aria – 21/07/2025\n1 files 199 downloads\nBollettino della qualità dell’aria – 17/07/2025\n1 files 170 downloads\nBollettino della qualità dell’aria – 16/07/2025\n1 files 205 downloads\nBollettino della qualità dell’aria – 15/07/2025\n1 files 178 downloads\nBollettino della qualità dell’aria – 10/07/2025\n1 files 196 downloads\nBollettino della qualità dell’aria – 09/07/2025\n1 files 219 downloads\nBollettino della qualità dell’aria – 08/07/2025\nbb\n1 files 174 downloads\nBollettino della qualità dell’aria – 03/07/2025\n1 files 190 downloads\nBollettino della qualità dell’aria – 02/07/2025\n1 files 206 downloads\nBollettino della qualità dell’aria – 01/07/2025\n1 files 211 downloads\nBollettini mese di giugno 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/06/2025\n1 files 241 downloads\nBollettino della qualità dell’aria – 19/06/2025\n1 files 189 downloads\nBollettino della qualità dell’aria – 18/06/2025\n1 files 212 downloads\nBollettino della qualità dell’aria – 17/06/2025\n1 files 193 downloads\nBollettino della qualità dell’aria – 16/06/2025\n1 files 200 downloads\nBollettino della qualità dell’aria – 12/06/2025\n1 files 191 downloads\nBollettino della qualità dell’aria – 11/06/2025\n1 files 233 downloads\nBollettino della qualità dell’aria – 10/06/2025\n1 files 218 downloads\nBollettino della qualità dell’aria – 09/06/2025\n1 files 215 downloads\nBollettino della qualità dell’aria – 05/06/2025\n1 files 196 downloads\nBollettino della qualità dell’aria – 04/06/2025\n1 files 210 downloads\nBollettino della qualità dell’aria – 03/06/2025\n1 files 190 downloads\nBollettino della qualità dell’aria – 02/06/2025\n1 files 213 downloads\nBollettini mese di maggio 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 28/05/2025\n1 files 204 downloads\nBollettino della qualità dell’aria – 27/05/2025\n1 files 194 downloads\nBollettino della qualità dell’aria – 27/05/2025\n1 files 195 downloads\nBollettino della qualità dell’aria – 22/05/2025\n1 files 199 downloads\nBollettino della qualità dell’aria – 21/05/2025\n1 files 186 downloads\nBollettino della qualità dell’aria – 20/05/2025\n1 files 189 downloads\nBollettino della qualità dell’aria – 19/05/2025\n1 files 203 downloads\nBollettino della qualità dell’aria – 15/05/2025\n1 files 191 downloads\nBollettino della qualità dell’aria – 14/05/2025\n1 files 209 downloads\nBollettino della qualità dell’aria – 13/05/2025\n1 files 205 downloads\nBollettino della qualità dell’aria – 12/05/2025\n1 files 209 downloads\nBollettino della qualità dell’aria – 08/05/2025\n1 files 205 downloads\nBollettino della qualità dell’aria – 07/05/2025\n1 files 198 downloads\nBollettino della qualità dell’aria – 06/05/2025\n1 files 186 downloads\nBollettino della qualità dell’aria – 05/05/2025\n1 files 191 downloads\nBollettino della qualità dell’aria – 01/05/2025\n1 files 204 downloads\nBollettini mese di aprile 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 29/04/2025\n1 files 217 downloads\nBollettino della qualità dell’aria – 28/04/2025\n1 files 210 downloads\nBollettino della qualità dell’aria – 23/04/2025\n1 files 202 downloads\nBollettino della qualità dell’aria- 22/04/2025\n1 files 208 downloads\nBollettino della qualità dell’aria – 21/04/2025\n1 files 211 downloads\nBollettino della qualità dell’aria – 17/04/2025\n1 files 196 downloads\nBollettino della qualità dell’aria – 16/04/2025\n1 files 208 downloads\nBollettino della qualità dell’aria – 15/04/2025\n1 files 205 downloads\nBollettino della qualità dell’aria – 14/04/2025\n1 files 196 downloads\nBollettino della qualità dell’aria – 10/04/2025\n1 files 213 downloads\nBollettino della qualità dell’aria – 09/04/2025\n1 files 214 downloads\nBollettino della qualità dell’aria – 08/04/2025\n1 files 212 downloads\nBollettino della qualità dell’aria – 07/04/2025\n1 files 195 downloads\nBollettino della qualità dell’aria – 03/04/2025\n1 files 209 downloads\nBollettino della qualità dell’aria – 01/04/2025\n1 files 221 downloads\nBollettini mesi di marzo 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 29/05/2025\n1 files 227 downloads\nBollettino della qualità dell’aria – 31/03/2025\n1 files 214 downloads\nBollettino della qualità dell’aria – 27/03/2025\n1 files 223 downloads\nBollettino della qualità dell’aria – 26/03/2025\n1 files 216 downloads\nBollettino della qualità dell’aria – 25/03/2025\n1 files 207 downloads\nBollettino della qualità dell’aria – 24/03/2025\n1 files 210 downloads\nBollettino della qualità dell’aria – 20/03/2025\n1 files 248 downloads\nBollettino della qualità dell’aria – 19/03/2025\n1 files 211 downloads\nBollettino della qualità dell’aria – 18/03/2025\n1 files 251 downloads\nBollettino della qualità dell’aria – 17/03/2025\n1 files 232 downloads\nBollettino della qualità dell’aria – 13/03/2025\n1 files 220 downloads\nBollettino della qualità dell’aria – 12/03/2025\n1 files 244 downloads\nBollettino della qualità dell’aria – 11/03/2025\n1 files 233 downloads\nBollettino della qualità dell’aria – 10/03/2025\n1 files 217 downloads\nBollettino della qualità dell’aria – 06/03/2025\n1 files 221 downloads\nBollettino0 della qualità dell’aria – 05/03/2025\n1 files 210 downloads\nBollettino della qualità dell’aria – 04/03/2025\n1 files 257 downloads\nBollettino della qualità dell’aria – 03/03/2025\n1 files 229 downloads\nBollettini mesi di febbraio 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 27/02/2025\n1 files 216 downloads\nBollettino della qualità dell’aria – 26/02/2025\n1 files 241 downloads\nBollettino della qualità dell’aria – 25/02/2025\n1 files 239 downloads\nBollettino della qualità dell’aria – 24/02/2025\n1 files 258 downloads\nBollettino della qualità dell’aria – 20/02/2025\n1 files 224 downloads\nBollettino della qualità dell’aria – 19/02/2025\n1 files 234 downloads\nBollettino della qualità dell’aria – 18/02/2025\n1 files 224 downloads\nBollettino della qualità dell’aria – 17/02/2025\n1 files 231 downloads\nBollettino della qualità dell’aria – 13/02/2025\n1 files 231 downloads\nBollettino della qualità dell’aria – 12/02/2025\n1 files 238 downloads\nBollettino della qualità dell’aria – 11/02/2025\n1 files 242 downloads\nBollettino della qualità dell’aria – 10/02/2025\n1 files 238 downloads\nBollettino della qualità dell’aria – 06/02/2025\n1 files 230 downloads\nBollettino della qualità dell’aria – 05/02/2025\n1 files 284 downloads\nBollettini mesi di gennaio 2025\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 04/02/2025\n1 files 235 downloads\nBollettino della qualità dell’aria – 03/02/2025\n1 files 270 downloads\nBollettino della qualità dell’aria – 30/01/2025\n1 files 238 downloads\nBollettino della qualità dell’aria – 29/01/2025\n1 files 248 downloads\nBollettino della qualità dell’aria – 28/01/2025\n1 files 231 downloads\nBolletino della qualità dell’aria – 27/01/2025\n1 files 234 downloads\nBollettino della qualità dell’aria – 23/01/2025\n1 files 226 downloads\nBollettino della qualità dell’aria – 23/01/2025\n1 files 229 downloads\nBollettino della qualità dell’aria – 21/01/2025\n1 files 248 downloads\nBollettino della qualità dell’aria – 20/01/2025\n1 files 265 downloads\nBollettino della qualità dell’aria – 16/01/2025\n1 files 208 downloads\nBollettino della qualità dell’aria – 15/01/2025\n1 files 200 downloads\nBollettino della qualità dell’aria – 14/01/2025\n1 files 194 downloads\nBollettino della qualità dell’aria – 13/01/2025\n1 files 204 downloads\nBollettino della qualità dell’aria – 09/01/20025\n1 files 189 downloads\nBollettino della qualità dell’aria – 08/01/2025\n1 files 234 downloads\nBollettino della qualità dell’aria – 07/01/2025\n1 files 224 downloads\nBollettini mesi di dicembre 2024\nScarica Allegati\nTitle\nBollettino della qaulità dell’aria – 06/01/2025\n1 files 232 downloads\nBollettino della qualità dell’aria – 02/01/2025\n1 files 204 downloads\nBollettino della qualità dell’aria – 01/01/2025\n1 files 181 downloads\nBollettino della qualità dell’aria – 30/12/2024\n1 files 189 downloads\nBollettino della qualità dell’aria – 26/12/20247\n1 files 174 downloads\nBollettino della qualità dell’aria – 23/12/2024\n1 files 193 downloads\nBollettino della qualità dell’aria – 19/12/2024\n1 files 191 downloads\nBollettino della qualità dell’aria – 18/12/2024\n1 files 192 downloads\nBollettino della qualita dell’aria – 17/12/2024\n1 files 197 downloads\nBollettino della qualità dell’aria – 16/12/2024\n1 files 179 downloads\nBollettino della qualità dell’aria – 12/12/2024\n1 files 198 downloads\nBollettino della qualità dell’aria – 11/12/2024\n1 files 185 downloads\nBollettino della qualità dell’aria – 10/12/2024\n1 files 199 downloads\nBollettino della qualità dell’aria – 09/12/2024\n1 files 192 downloads\nBollettino della qualità dell’aria – 05/12/2024\n1 files 187 downloads\nBollettino della qualità dell’aria – 04/12/2024\n1 files 190 downloads\nBollettino della qualità dell’aria – 03/12/2024\n1 files 198 downloads\nBollettino della qualità dell’aria – 02/12/2024\n1 files 212 downloads\nBollettini mesi di novembre 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 28/11/2024\n1 files 244 downloads\nBollettino della qualità dell’aria – 27/11/2024\n1 files 214 downloads\nBollettino della qualità dell’aria – 26/11/2024\n1 files 194 downloads\nBollettino della qualità dell’aria – 25/11/2024\n1 files 192 downloads\nBollettino della qualità dell’aria – 21/11/2024\n1 files 188 downloads\nBollettino della qualità dell’aria – 20/11/2024\n1 files 200 downloads\nBollettino della qualità dell’aria – 19/11/2024\n1 files 195 downloads\nBollettino della qualità dell’aria – 18/11/2024\n1 files 193 downloads\nBollettino della qualità dell’aria – 14/11/2024\n1 files 201 downloads\nBollettino della qualità dell’aria – 13/11/2024\n1 files 202 downloads\nBollettino della qualità dell’aria – 12/11/2024\n1 files 185 downloads\nBollettino della qualità dell’aria – 11/11/2024\n1 files 183 downloads\nBollettino della qualità dell’aria – 07/11/2024\n1 files 200 downloads\nBollettino della qualità dell’aria – 05/11/2024\n1 files 210 downloads\nbollettino della qualità dell’aria – 04/11/2024\n1 files 182 downloads\nBollettino della qualità dell’aria – 06/11/2024\n1 files 205 downloads\nBollettini mesi di ottobre 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 26/11/2024\n1 files 194 downloads\nBollettino della qualità dell’aria – 30/10/2024\n1 files 187 downloads\nBollettino della qualità dell’aria – 29/10/2024\n1 files 191 downloads\nBollettino della qualità dell’aria – 28/10/2024\n1 files 195 downloads\nBollettino della qualità dell’aria – 24/10/2024\n1 files 197 downloads\nBollettino della qualità dell’aria – 22/10/2024\n1 files 193 downloads\nBollettino della qualità dell’aria – 21/10/2024\n1 files 189 downloads\nBollettino della qualità dell’aria – 17/10/2024\n1 files 185 downloads\nBollettino della qualità dell’aria – 16/10/2024\n1 files 206 downloads\nBollettino della qualità dell’aria – 15/10/2024\n1 files 188 downloads\nBollettino della qualità dell’aria – 14/10/2024\n1 files 211 downloads\nBollettino della qualità dell’aria – 10/10/2024\n1 files 235 downloads\nBollettino della qualità dell’aria – 09/10/2024\n1 files 226 downloads\nBollettino della qualità dell’aria – 08/10/2024\n1 files 202 downloads\nBollettino della qualità dell’aria – 07/10/2024\n1 files 229 downloads\nBollettino della qualità dell’aria – 03/10/2024\n1 files 218 downloads\nBollettino della qualità dell’aria – 02/10/2024\n1 files 231 downloads\nBollettino della qualità dell’aria – 01/10/2024\n1 files 231 downloads\nBollettini mesi di settembre 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/09/2024\n1 files 221 downloads\nBollettino della qualità dell’aria – 26/09/2024\n1 files 250 downloads\nBollettino della qualità dell’aria – 25/09/2024\n1 files 222 downloads\nBollettino della qualità dell’aria – 24/09/2024\n1 files 200 downloads\nBollettino della qualità dell’aria – 23/09/2024\n1 files 230 downloads\nBollettino della qualità dell’aria – 19/09/2024\n1 files 205 downloads\nBollettino della qualità dell’aria – 18/09/2024\n1 files 225 downloads\nBollettino della qualità dell’aria – 17/09/2024\n1 files 222 downloads\nBollettino della qualità dell’aria – 16/09/2024\n1 files 203 downloads\nBollettino della qualità dell’aria – 12/09/2024\n1 files 216 downloads\nBollettino della qualità dell’aria – 11/09/2024\n1 files 194 downloads\nBollettino della qualità dell’aria – 10/09/2024\n1 files 202 downloads\nBollettino della qualità dell’aria – 09/09/2024\n1 files 206 downloads\nBollettino della qualità dell’aria – 05/09/2024\n1 files 192 downloads\nBollettino della qualità dell’aria – 04/09/2024\n1 files 224 downloads\nBollettino della qualità dell’aria – 03/09/2024\n1 files 227 downloads\nBollettini mesi di agosto 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 02/09/2024\n1 files 232 downloads\nBollettino della qualità dell’aria – 29/08/2024\n1 files 213 downloads\nBollettino della qualità dell’aria – 28/08/2024\n1 files 204 downloads\nBollettino della qualità dell’aria – 27/08/2024\n1 files 212 downloads\nBollettino della qualità dell’aria – 26/08/2024\n1 files 212 downloads\nBollettino della qualità dell’aria – 22/08/2024\n1 files 223 downloads\nBollettino della qualità dell’aria – 21/08/2024\n1 files 207 downloads\nBollettino della qualità dell’aria – 20/08/2024\n1 files 186 downloads\nBollettino della qualità dell’aria – 19/08/2024\n1 files 190 downloads\nBollettino della qualità dell’aria – 15/08/2024\n1 files 236 downloads\nBollettino della qualtà dell’aria – 13/08/2024\n1 files 203 downloads\nBollettino della qualità dell’aria – 12/08/2024\n1 files 209 downloads\nBollettino della qualità dell’aria – 08/08/2024\n1 files 229 downloads\nBollettino della qualità dell’aria – 07/08/2024\n1 files 196 downloads\nBollettino della qualità dell’aria – 06/08/2024\n1 files 233 downloads\nBollettino della qualità dell’aria – 05/08/2024\n1 files 221 downloads\nBollettino della qualità dell’aria – 01/08/2024\n1 files 240 downloads\nBollettini mesi di luglio 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/07/2024\n1 files 235 downloads\nBollettino della qualità dell’aria – 30/07/2024\n1 files 225 downloads\nBollettino della qualità dell’aria – 29/07/2024\n1 files 230 downloads\nBollettino della qualità dell’aria – 25/07/2024\n1 files 220 downloads\nBollettino della qualità dell’aria – 24/07/2024\n1 files 232 downloads\nBollettino della qualità dell’aria – 23/07/2024\n1 files 221 downloads\nBollettino della qualità dell’aria – 22/07/2024\n1 files 227 downloads\nBollettino della qualità dell’aria – 18/07/2024\n1 files 217 downloads\nBollettino della qualità dell’aria – 17/07/2024\n1 files 202 downloads\nBollettino della qualità dell’aria – 16/07/2024\n1 files 205 downloads\nBollettino della qualità dell’aria – 15/07/2024\n1 files 194 downloads\nBollettino della qualità dell’aria – 11/07/2024\n1 files 201 downloads\nBollettino della qualità dell’aria – 10/07/2024\n1 files 197 downloads\nBollettino della qualità dell’aria – 09/07/2024\n1 files 205 downloads\nBollettino della qualità dell’aria – 08/07/2024\n1 files 201 downloads\nBollettino della qualità dell’aria – 04/07/2024\n1 files 215 downloads\nBollettino della qualità dell’aria – 03/07/2024\n1 files 214 downloads\nBollettino della qualità dell’aria – 02/07/2024\n1 files 204 downloads\nBollettino della qualità dell’aria – 01/07/2024\n1 files 246 downloads\nBollettini mesi di giugno 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 27/06/2024\n1 files 210 downloads\nBollettino della qualità dell’aria – 26/06/2024\n1 files 202 downloads\nBollettino della quakità dell’aria – 25/06/2024\n1 files 219 downloads\nBollettino della qualità dell’aria – 24/06/2024\n1 files 210 downloads\nBollettino della qualità dell’aria – 20/06/2024\n1 files 255 downloads\nBollettino della qualità dell’aria – 19/06/2024\n1 files 273 downloads\nBollettino della qualità dell’aria – 18/06/2024\n1 files 239 downloads\nBollettino della qualità dell’aria – 17/06/2024\n1 files 211 downloads\nBollettino della qualità dell’aria – 13/06/2024\n1 files 250 downloads\nBollettino della qualità dell’aria – 12/06/2024\n1 files 250 downloads\nBollettino della qualità dell’aria – 11/06/2024\n1 files 224 downloads\nBollettino della qualità dell’aria – 10/06/2024\n1 files 225 downloads\nBollettino della qualità dell’aria – 06/06/2024\n1 files 260 downloads\nBollettino della qualità dell’aria – 05/06/2024\n1 files 206 downloads\nBollettino della qualità dell’aria – 04/06/2024\n1 files 235 downloads\nBollettino della qualità dell’aria – 03/06/2024\n1 files 217 downloads\nBollettini mesi di maggio 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/05/2024\n1 files 225 downloads\nBollettino della qualità dell’aria – 29/05/2024\n1 files 219 downloads\nBollettino della qualità dell’aria – 28/05/2024\n1 files 212 downloads\nBollettino della qualità dell’aria – 27/05/2024\n1 files 218 downloads\nBollettino della qualità dell’aria – 23/05/2024\n1 files 227 downloads\nBollettino della qualità dell’aria – 22/05/2024\n1 files 210 downloads\nBollettino della qualità dell’aria – 21/05/2024\n1 files 231 downloads\nBollettino della qualità dell’aria – 20/05/2024\n1 files 250 downloads\nBollettino della qualità dell’aria – 16/05/2024\n1 files 267 downloads\nBollettino della qualità dell’aria – 15/05/2024\n1 files 213 downloads\nBollettino della qualità dell’aria – 14/05/2024\n1 files 206 downloads\nBollettino della qualità dell’aria – 13/05/2024\n1 files 215 downloads\nBollettino della qualità dell’aria – 09/05/2024\n1 files 246 downloads\nBollettino della qualità dell’aria – 08/05/2024\n1 files 222 downloads\nBollettino della qualità dell’aria – 07/05/2024\n1 files 241 downloads\nBollettino della qualità dell’aria – 02/05/2024\n1 files 217 downloads\nBollettino della qualità dell’aria – 01/05/2024\n1 files 213 downloads\nBollettini mesi di aprile 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 29/04/2024\n1 files 243 downloads\nBollettino della qualità dell’aria – 23/04/2024\n1 files 229 downloads\nBollettino della qualità dell’aria – 22/04/2024\n1 files 233 downloads\nBollettino della qualità dell’aria -18/04/2024\n1 files 218 downloads\nBollettino della qualità dell’aria – 17/04/2024\n1 files 242 downloads\nBollettino della qualità dell’aria – 16/04/2024\n1 files 214 downloads\nBollettino della qualità dell’aria – 15/04/2024\n1 files 219 downloads\nBollettino della qualità dell’aria – 11/04/2024\n1 files 248 downloads\nBollettino della qualità dell’aria – 10/04/2024\n1 files 223 downloads\nBollettino della qualità dell’aria – 09/04/2024\n1 files 220 downloads\nBollettino della qualità dell’aria – 08/04/2024\n1 files 220 downloads\nBollettino della qualità dell’aria – 04/04/2024\n1 files 229 downloads\nBollettgino della qualità dell’aria – 03/04/2024\n1 files 216 downloads\nBollettino della qualità dell’aria – 02/04/2024\n1 files 232 downloads\nBollettino della qualità dell’aria – 01/04/2024\n1 files 224 downloads\nBollettini mesi di marzo 2024\nScarica Allegati\nTitle\nBollettina della qualità dell’aria – 28/03/2024\n1 files 228 downloads\nBollettino della qualità dell’aria – 27/03/2024\n1 files 205 downloads\nBollettino della qualità dell’aria – 26/03/2024\n1 files 215 downloads\nBollettino della qualità dell’aria – 25/03/2024\n1 files 228 downloads\nBollettino della qualità dell’aria – 21/03/2024\n1 files 211 downloads\nBollettino della qualità dell’aria – 20/03/2024\n1 files 206 downloads\nBollettino della qualità dell’aria – 19/03/2024\n1 files 233 downloads\nBollettino della qualità dell’aria – 18/03/2024\n1 files 208 downloads\nBollettino della qualità dell’aria – 14/03/2024\n1 files 240 downloads\nBollettino della qualità dell’aria – 13/03/2024\n1 files 217 downloads\nBollettino della qualità dell’aria – 13/03/2024\n1 files 239 downloads\nBollettino della qualità dell’aria – 11/03/2024\n1 files 224 downloads\nBollettino della qualità dell’aria – 06/03/2024\n1 files 216 downloads\nBollettino della qualità dell’aria – 05/03/2024\n1 files 214 downloads\nBollettino della qualità dell’aria – 04/03/2024\n1 files 219 downloads\nBollettini mesi di febbraio 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 29/02/2024\n1 files 198 downloads\nBollettino della qualità dell’aria – 28/02/2024\n1 files 237 downloads\nBollettino della qualità dell’aria – 27/02/2024\n1 files 260 downloads\nBollettino della qualità dell’aria – 26/02/2024\n1 files 241 downloads\nBollettino della qualità dell’aria – 22/02/2024\n1 files 245 downloads\nBollettino della qualità dell’aria – 21/02/2024\n1 files 233 downloads\nBollettino della qualità dell’aria – 20/02/2024\n1 files 251 downloads\nBollettino della qualità dell’aria – 19/02/2024\n1 files 234 downloads\nBollettino della qualità dell’aria – 15/02/2024\n1 files 248 downloads\nBollettino della qualità dell’aria – 14/02/2024\n1 files 214 downloads\nBollettino della qualità dell’aria – 13/02/2024\n1 files 222 downloads\nBollettino della qualità dell’aria – 12/02/2024\n1 files 229 downloads\nBollettino della qualità dell’aria – 08/02/2024\n1 files 228 downloads\nBollettino della qualità della qualità dell’aria – 07/02/2024\n1 files 232 downloads\nBollettino della qualità dell’aria – 06/02/2024\n1 files 252 downloads\nBollettino della qualità dell’aria – 05/02/2024\n1 files 244 downloads\nBollettino della qualità dell’aria – 01/02/2024\n1 files 213 downloads\nBollettini mesi di gennaio 2024\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/01/2024\n1 files 228 downloads\nBollettino della qualità dell’aria – 30/01/2024\n1 files 220 downloads\nBollettino della qualità dell’aria – 29/01/2024\n1 files 214 downloads\nBollettino della qualità dell’aria – 25/01/2024\n1 files 218 downloads\nBollettino della qualità dell’aria – 24/01/2024\n1 files 233 downloads\nBollettino della qualità dell’aria – 23/01/2024\n1 files 241 downloads\nBollettino della qualità dell’aria – 22/01/2024\n1 files 243 downloads\nBollettino della qualità dell’aria – 18/01/2024\n1 files 242 downloads\nBollettino della qualità dell’aria – 17/01/2024\n1 files 240 downloads\nbollettino della qualità dell’aria – 16/01/2024\n1 files 239 downloads\nBollettino della qualità dell’aria – 15/01/2024\n1 files 238 downloads\nBollettino della qualità dell’aria – 11/01/2024\n1 files 241 downloads\nBollettino della qualità dell’aria – 10/01/2024\n1 files 236 downloads\nBollettino della qualità dell’aria – 09/01/2024\n1 files 232 downloads\nBollettino della qualità dell’aria – 08/01/2024\n1 files 225 downloads\nBollettino della qualità dell’aria – 04/01/2024\n1 files 230 downloads\nBollettino della qualità dell’aria – 03/01/2024\n1 files 234 downloads\nBollettino della qualità dell’aria – 02/01/2024\n1 files 245 downloads\nBollettino della qualità dell’aria – 01/01/2024\n1 files 218 downloads\nBollettini mesi di dicembre 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 28/12/2023\n1 files 261 downloads\nBollettino della qualità dell’aria – 27/12/2023\n1 files 228 downloads\nBollettino della qualità dell’aria – 26/12/2023\n1 files 254 downloads\nBollettino della qualità dell’aria – 21/12/2023\n1 files 219 downloads\nBollettino della qualità dell’aria – 20/12/2023\n1 files 222 downloads\nBollettino della qualità dell’aria – 19/12/2023\n1 files 258 downloads\nBollettino della qualità dell’aria – 18/12/2023\n1 files 256 downloads\nBollettino della qualità dell’aria – 14/12/2023\n1 files 246 downloads\nBollettino della qualità dell’aria 13/12/2023\n1 files 252 downloads\nBollettino della qualità dell’aria – 12/12/2023\n1 files 253 downloads\nBollettino della qualità dell’aria – 11/12/2023\n1 files 269 downloads\nBollettino della qualità dell’aria – 06/12/2023\n1 files 236 downloads\nBollettino della qualità dell’aria – 05/12/2023\n1 files 249 downloads\nBollettini mesi di novembre 2023\nScarica Allegati\nTitle\nbollettino della qualità dell’aria – 23/11/2023\n1 files 272 downloads\nbollettino della qualità dell’aria – 02/11/2023\n1 files 280 downloads\nBollettino della qualità dell’aria – 09/11/2023\n1 files 229 downloads\nBollettino della qualità dell’aria – 30/11/2023\n1 files 216 downloads\nBollettino della qualità dell’aria – 04/12/2023\n1 files 254 downloads\nBollettino della qualità dell’aria – 29/11/2023\n1 files 263 downloads\nBollettino della qualità dell’aria – 28/11/2023\n1 files 237 downloads\nBollettino della qualità dell’aria – 27/11/2023\n1 files 267 downloads\nBollettino della qualità dell’aria – 22/11/2023\n1 files 262 downloads\nBollettino della qualità dell’aria – 21/11/2023\n1 files 269 downloads\nBollettino della qualità dell’aria – 20/11/2023\n1 files 213 downloads\nBollettino della qualità dell’aria – 16/11/2023\n1 files 240 downloads\nBollettino della qualità dell’aria – 15/11/2023\n1 files 261 downloads\nBollettino della qualità dell’aria – 14/11/2023\n1 files 264 downloads\nBollettino della qualità dell’aria – 13/11/2023\n1 files 243 downloads\nBollettino della qualità dell’aria – 08/11/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 07/11/2023\n1 files 214 downloads\nBollettino della qualità dell’aria – 06/11/2023\n1 files 233 downloads\nBollettino della qualità dell’aria – 01/11/2023\n1 files 218 downloads\nBollettini mesi di ottobre 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/10/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 26/10/2023\n1 files 250 downloads\nBollettino della qualità dell’aria – 25/10/2023\n1 files 268 downloads\nBollettino della qualità dell’aria – 24/10/2023\n1 files 260 downloads\nBollettino della qualità dell’aria – 23/10/2023\n1 files 223 downloads\nBollettino della qualità dell’aria – 18/10/2023\n1 files 240 downloads\nBollettino della qualità dell’aria – 1710/2023\n1 files 252 downloads\nBollettino della qualità dell’aria – 16/10/20203\n1 files 233 downloads\nBollettino della qualità dell’aria – 12/10/2023\n1 files 224 downloads\nBollettino della qualità dell’aria – 11/10/2023\n1 files 221 downloads\nBollettino della qualità dell’aria – 10/10/2023\n1 files 229 downloads\nBollettino della qualità dell’aria – 09/10/2023\n1 files 229 downloads\nBollettino della qualità dell’aria – 05/10/2023\n1 files 233 downloads\nBollettino della qualità dell’aria – 04/10/2023\n1 files 234 downloads\nBollettino della qualità dell’aria – 03/10/2023\n1 files 229 downloads\nBollettino della qualità dell’aria – 02/10/2023\n1 files 236 downloads\nBollettini mesi di settembre 2023\nScarica Allegati\nTitle\nAnalisi delle tendenze anno 2024\n1 files 160 downloads\nBollettino della qualità dell’aria – 28/09/2023\n1 files 243 downloads\nBollettino della qualità dell’aria – 27/09/2023\n1 files 244 downloads\nBollettino della qualità dell’aria – 26/09/2023\n1 files 227 downloads\nBollettino della qualità dell’aria – 25/09/2023\n1 files 226 downloads\nBollettino della qualità dell’aria – 24/09/2023\n1 files 246 downloads\nBollettino della qualità dell’aria – 21/09/2023\n1 files 227 downloads\nBollettino della qualità dell’aria – 20/09/2023\n1 files 219 downloads\nBollettino della qualità dell’aria – 19/09/2023\n1 files 229 downloads\nBollettino della qualità dell’aria – 18/09/2023\n1 files 239 downloads\nBollettino della qualità dell’aria – 14/09/2023\n1 files 234 downloads\nBollettino della qualità dell’aria – 13/09/2023\n1 files 239 downloads\nBollettino della qualità dell’aria – 12/09/2023\n1 files 236 downloads\nBollettino della qualità dell’aria – 11/09/2023\n1 files 236 downloads\nBollettino della qualità dell’aria – 06/09/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 05/09/2023\n1 files 227 downloads\nBollettino della qualità dell’aria – 04/09/2023\n1 files 226 downloads\nBollettini mesi di agosto 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/08/2023\n1 files 238 downloads\nBollettino della qualità dell’aria – 30/08/2023\n1 files 236 downloads\nBollettino della qualità dell’aria – 29/08/2023\n1 files 230 downloads\nBollettino della qualità dell’aria – 28/08/2023\n1 files 253 downloads\nBollettino della qualità dell’aria – 10/08/2023\n1 files 243 downloads\nBollettino della qualità dell’aria – 09/08/2023\n1 files 233 downloads\nBollettino della qualità dell’aria – 08/08/2023\n1 files 227 downloads\nBollettino della qualità dell’aria – 07/08/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 03/08/2023\n1 files 253 downloads\nBollettino della qualità dell’aria – 02/08/2023\n1 files 255 downloads\nBollettino della qualità dell’aria – 01/08/2023\n1 files 280 downloads\nBollettini mesi di luglio - agosto 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 02/08/2023\n1 files 255 downloads\nBollettino della qualità dell’aria – 31/07/2023\n1 files 248 downloads\nBollettino della qualità dell’aria – 26/07/2023\n1 files 267 downloads\nBollettino della qualità dell’aria – 25/07/2023\n1 files 232 downloads\nBollettino della qualità dell’aria – 24/07/2023\n1 files 240 downloads\nBollettino della qualita dell’aria – 20/07/2023\n1 files 238 downloads\nBollettino della qualità dell’aria -19/07/2023\n1 files 242 downloads\nBollettino della qualità dell’aria – 18/07/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 13/07/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 12/07/2023\n1 files 255 downloads\nBollettino della qualita dell’aria – 11/07/2023\n1 files 258 downloads\nBollettino della qualità dell’aria – 10/07/2023\n1 files 253 downloads\nBollettino della qualità dell’aria – 06/07/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 05/07/2023\n1 files 251 downloads\nBollettino della qualità dell’aria – 04/07/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 03/07/2023\n1 files 260 downloads\nBollettini mese di giugno 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 29/06/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 28/06/2023\n1 files 263 downloads\nBollettino della qualità dell’aria – 27/06/2023\n1 files 243 downloads\nBollettino della qualità dell’aria – 26/06/2023\n1 files 278 downloads\nBollettino della qualità dell’aria – 25/06/2023\n1 files 263 downloads\nBollettino della qualità dell’aria – 24/06/2023\n1 files 298 downloads\nBollettino della qualità dell’aria – 23/06/2023\n1 files 272 downloads\nBollettino della qualità dell’aria – 22/06/2023\n1 files 265 downloads\nBollettino della qualità dell’aria – 21/06/2023\n1 files 251 downloads\nBollettino della qualità dell’aria – 20/06/2023\n1 files 264 downloads\nBollettino della qualità dell’aria – 19/06/2023\n1 files 244 downloads\nBollettino della qualità dell’aria – 18/06/2023\n1 files 277 downloads\nBollettino della qualità dell’aria – 17/06/2023\n1 files 283 downloads\nBollettino della qualità dell’aria – 16/06/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 15/06/2023\n1 files 250 downloads\nBollettino della qualità dell’aria – 14/06/2023\n1 files 262 downloads\nBollettino della qualità dell’aria – 13/06/2023\n1 files 244 downloads\nBollettino della qualità dell’aria – 12/06/2023\n1 files 275 downloads\nBollettino della qualità dell’aria – 11/06/2023\n1 files 257 downloads\nBollettino della qualità dell’aria – 10/06/2023\n1 files 275 downloads\n1\n2\nNext\nBollettini mese di maggio 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 13/11/2023\n1 files 243 downloads\nBollettino della qualità dell’aria – 31/05/2023\n1 files 280 downloads\nBollettino della qualità dell’aria – 30/05/2023\n1 files 281 downloads\nBollettino della qualità dell’aria – 29/05/2023\n1 files 296 downloads\nBollettino della qualità dell’aria – 28/05/2023\n1 files 284 downloads\nBolletino della qualità dell’aria – 27/05/2023\n1 files 263 downloads\nBollettino della qualità dell’aria – 26/05/2023\n1 files 246 downloads\nBollettino della qualità dell’aria – 25/05/2023\n1 files 277 downloads\nBollettino della qualità dell’aria – 24/05/2023\nBollettino della qualità dell’aria – 24/05/2023Bollettino della qualità dell’aria – 24/05/2023\n1 files 277 downloads\nBollettino della qualità dell’aria – 23/05/2023\n1 files 272 downloads\nBollettino della qualità dell’aria – 22/05/2023\n1 files 273 downloads\nBollettino della qualità dell’aria – 21/05/2023\n1 files 246 downloads\nBollettino della qualità dell’aria – 20/05/2023\n1 files 237 downloads\nBollettino della qualità dell’aria – 19/05/2023\n1 files 252 downloads\nBollettino della qualità dell’aria – 18/05/2023\n1 files 289 downloads\nBollettino della qualità dell’aria – 17/05/2023\n1 files 277 downloads\nBollettino della qualità dell’aria – 16/05/2023\n1 files 262 downloads\nBollettino della qualità dell’aria – 15/05/2023\n1 files 267 downloads\nBollettino della qualità dell’aria – 14/05/2023\nBollettino\n1 files 249 downloads\nBollettino della qualità dell’aria – 13/05/2023\n1 files 255 downloads\n1\n2\nNext\nBollettini mese di aprile 2023\nScarica Allegati\nTitle\nBolletino della qualità dell’aria – 30/04/2023\n1 files 240 downloads\nBollettino della qualità dell’aria – 29/04/2023\n1 files 245 downloads\nBollettino della qualità dell’aria – 28/04/2023\n1 files 237 downloads\nBollettino della qualità dell’aria – 27/04/2023\n1 files 252 downloads\nBollettino della qualità dell’aria – 26/04/2023\n1 files 239 downloads\nBollettino della qualità dell’aria – 25/04/2023\n1 files 215 downloads\nBollettino della qualità dell’aria – 24/04/2023\n1 files 257 downloads\nBollettino della qualità dell’aria – 23/04/2023\n1 files 215 downloads\nBollettino della qualità dell’aria – 22/04/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 21/04/2023\n1 files 242 downloads\nBollettino della qualità dell’aria – 20/04/2023\n1 files 217 downloads\nBollettino della qualità dell’aria – 19/04/2023\n1 files 222 downloads\nBollettino della qualità dell’aria – 18/04/2023\n1 files 223 downloads\nBollettino della qualità dell’aria – 17/04/2023\n1 files 252 downloads\nBollettino della qualità dell’aria – 16/04/2023\n1 files 231 downloads\nBollettino della qualità dell’aria – 15/04/2023\n1 files 218 downloads\nBollettino della qualità dell’aria – 14/04/2023\n1 files 205 downloads\nBollettino della qualità dell’aria – 13/04/2023\nBollettino della qualità dell’aria – 13/04/2023\n1 files 233 downloads\nBollettino della qualità dell’aria – 12/04/2023\n1 files 196 downloads\nBollettino della qualità dell’aria – 11/04/2023\n1 files 214 downloads\n1\n2\nNext\nBollettini mese di marzo 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/03/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 30/03/2023\n1 files 254 downloads\nBollettino della qualità dell’aria – 29/03/2023\n1 files 233 downloads\nBollettino della qualità dell’aria – 28/03/2023\n1 files 239 downloads\nBollettino della qualità dell’aria – 27/03/2023\n1 files 255 downloads\nBollettino della qualità dell’aria – 26/03/2023\n1 files 232 downloads\nBollettino della qualità dell’aria – 25/03/2023\n1 files 244 downloads\nBollettino della qualità dell’aria – 24/03/2023\n1 files 235 downloads\nBollettino della qualità dell’aria – 23/03/2023\n1 files 240 downloads\nBollettino della qualità dell’aria – 22/03/2023\n1 files 236 downloads\nBollettino della qualità dell’aria – 21/03/2023\n1 files 238 downloads\nBollettino della qualità dell’aria – 20/03/2023\n1 files 249 downloads\nBollettino della qualità dell’aria – 19/03/2023\n1 files 234 downloads\nBollettino della qualità dell’aria – 18/03/2023\n1 files 210 downloads\nBollettino della qualità dell’aria – 17/03/2023\n1 files 257 downloads\nBollettino della qualità dell’aria – 16/03/2023\n1 files 247 downloads\nBollettino della qualità dell’aria – 15/03/2023\n1 files 238 downloads\nBollettino della qualità dell’aria – 14/03/2023\n1 files 209 downloads\nBollettino della qualità dell’aria – 13/03/2023\n1 files 230 downloads\nBollettino della qualità dell’aria – 12/03/2023\n1 files 257 downloads\n1\n2\nNext\nBollettini mese di febbraio 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 28/02/2023\n1 files 205 downloads\nBollettino della qualità dell’aria – 27/02/2023\n1 files 229 downloads\nBollettino della qualità dell’aria – 26/02/2023\n1 files 234 downloads\nBollettino della qualità dell’aria – 25/02/2023\n1 files 226 downloads\nBollettino della qualità dell’aria – 24/02/2023\n1 files 235 downloads\nBolletino della qualità dell’aria – 23/02/2023\n1 files 218 downloads\nBolletino della qualità dell’aria – 22/02/2023\n1 files 226 downloads\nBollettino della qualità dell’aria – 21/02/2023\n1 files 202 downloads\nBollettino della qualità dell’aria – 20/02/2023\n1 files 212 downloads\nBollettino della qualità dell’aria – 19/02/2022\n1 files 230 downloads\nBollettino della qualità dell’aria – 18/02/2023\n1 files 244 downloads\nBollettino della qualita dell’aria – 17/02/2023\n1 files 240 downloads\nBollettino della qualità dell’aria – 16/02/2023\n1 files 213 downloads\nBollettino della qualità dell’aria – 15/02/2023\n1 files 239 downloads\nBollettino della qualità dell’aria – 14/02/2023\n1 files 230 downloads\nBollettino della qualità dell’aeria – 13/02/2023\n1 files 207 downloads\nBollettino della qualità dell’aria – 12/02/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 11/02/2023\n1 files 218 downloads\nBollettino della qualità dell’aria – 10/02/2023\n1 files 231 downloads\nBollettino della qualità dell’aria – 09/02/2023\n1 files 234 downloads\n1\n2\nNext\nBollettini mese di gennaio 2023\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 25/01/2024\n1 files 139 downloads\nBollettino della qualità dell’aria – 31/01/2023\n1 files 210 downloads\nBollettino della qualità dell’aria – 30/01/2023\n1 files 203 downloads\nBollettino della qualità dell’aria – 29/01/2023\n1 files 207 downloads\nBollettino della qualità dell’aria – 28/01/2023\n1 files 228 downloads\nBollettino della qualità dell’aria – 27/01/2023\n1 files 243 downloads\nBollettino della qualità dell’aria – 26/01/2023\n1 files 233 downloads\nBollettino della qualità dell’aria – 25/01/2023\n1 files 215 downloads\nBollettino della qualità dell’aria – 24/01/2023\n1 files 213 downloads\nBollettino della qualità dell’aria – 23/01/2023\n1 files 213 downloads\nBollettino della qualità dell’aria – 22/01/2023\n1 files 209 downloads\nBollettino della qualità dell’aria – 21/01/2023\n1 files 215 downloads\nBollettino della qualità dell’aria – 20/01/2023\n1 files 237 downloads\nBollettino della qualità dell’aria – 19/01/2023\n1 files 219 downloads\nBollettino della qualità dell’aria – 18/01/2023\n1 files 193 downloads\nBollettino della qualità dell’aria – 17/01/2023\n1 files 209 downloads\nBollettino della qualità dell’aria – 16/01/2023\n1 files 213 downloads\nBollettino della qualità dell’aria – 15/01/2023\n1 files 211 downloads\nBollettino della qualità dell’aria – 14/01/2023\n1 files 256 downloads\nBollettino della qualità dell’aria – 13/01/2023\n1 files 233 downloads\n1\n2\nNext\nBollettini mese di dicembre 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/12/2022\n1 files 214 downloads\nBollettino della qualità dell’aria – 30/12/2022\n1 files 265 downloads\nBollettino della qualità dell’aria – 29/12/2022\n1 files 201 downloads\nBollettino della qualità dell’aria – 28/12/2022\n1 files 209 downloads\nBollettino della qualità dell’aria – 27/12/2022\n1 files 213 downloads\nBollettino della qualità dell’aria – 26/12/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 25/12/2022\n1 files 226 downloads\nBollettino della qualità dell’aria – 24/12/2022\n1 files 212 downloads\nBollettino della qualità dell’aria – 23/12/2022\n1 files 236 downloads\nBollettino della qualità dell’aria – 22/12/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 21/12/2022\n1 files 206 downloads\nBollettino della qualità dell’aria – 20/12/2022\n1 files 210 downloads\nBollettino della qualità dell’aria – 19/12/2022\n1 files 210 downloads\nBollettino della qualità dell’aria – 18/12/2022\n1 files 212 downloads\nBollettino della qualità dell’aria – 17/12/2022\n1 files 232 downloads\nBollettino della qualoità dell’aria – 16/12/2022\n1 files 206 downloads\nBollettino della qualità dell’aria – 15/12/2022\n1 files 219 downloads\nBollettino della qualità dell’aria – 14/12/2022\n1 files 214 downloads\nBollettino della qualità dell’aria – 13/12/2022\n1 files 217 downloads\nBollettino della qualità dell’aria del 12/12/2022\n1 files 210 downloads\n1\n2\nNext\nBollettini mese di novembre 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/11/2022\n1 files 224 downloads\nBollettino della qualità dell’aria – 29/11/2022\n1 files 224 downloads\nBollettino della dell’aria 28/11/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 27/11/2022\n1 files 206 downloads\nBollettino della qualità dell’aria – 26/11/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 25/11/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 24/11/2022\n1 files 220 downloads\nBollettino della qualità dell’aria – 23/11/2022\n1 files 246 downloads\nBollettino della qualità dell’aria – 22/11/2022\n1 files 232 downloads\nBollettino della qualità dell’aria – 21/11/2022\n1 files 215 downloads\nBollettino della qualità dell’aria – 20/11/2022\n1 files 231 downloads\nBollettino della qualità dell’aria – 19/11/2022\n1 files 230 downloads\nBollettino della qualità dell’aria – 18/11/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 17/11/2022\n1 files 210 downloads\nBollettino della qualità dell’aria – 16/11/2022\n1 files 194 downloads\nBollettino della qualità dell’aria – 15/11/2022\n1 files 202 downloads\nBollettino della qualità dell’aria – 14/11/2022\n1 files 209 downloads\nBollettino della qualità dell’aria – 13/11/2022\n1 files 214 downloads\nBollettino della qualità dell’aria – 12/11/2022\n1 files 226 downloads\nBollettino della qualità dell’aria – 11/11/2022\n1 files 235 downloads\n1\n2\nNext\nBollettini mese di ottobre 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/10/2022\n1 files 213 downloads\nBollettino della qualità dell’aria – 30/10/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 29/10/2022\n1 files 243 downloads\nBollettino della qualità dell’aria -28/10/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 27/10/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 26/10/2022\n1 files 190 downloads\nBollettino della qualità dell’aria – 25/10/2022\n0 files 202 downloads\nBollettino della qualità dell’aria – 24/10/2022\n1 files 227 downloads\nBollettino della qualità dell’aria – 23/10/2022\n1 files 253 downloads\nollettino della qualità dell’aria – 22/10/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 21/10/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 20/10/2022\n1 files 217 downloads\nBollettino della qualità dell’aria – 19/10/2022\n1 files 220 downloads\nBollettino della qualità dell’aria – 18/10/2022\n1 files 217 downloads\nBollettino della qualità dell’aria – 17/10/2022\n1 files 219 downloads\nBollettino della qualità dell’aria – 16/10/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 15/10/2022\n1 files 239 downloads\nBollettino della qualità dell’aria – 14/10/2022\n1 files 228 downloads\nBollettino della qualità dell’aria – 13/10/2022\n1 files 204 downloads\nBollettino della qualità dell’aria – 12/10/2022\n1 files 218 downloads\n1\n2\nNext\nBollettini mese di settembre 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 08/11/2023\n1 files 241 downloads\nBollettino della qualità dell’aria – 30/09/2022\n1 files 217 downloads\nBollettino della qualità dell’aria – 29/09/2022\n1 files 231 downloads\nBollettino della qualità dell’aria – 28/09/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 26/09/2022\n1 files 223 downloads\nBollettino della qualità dell’aria – 25/09/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 24/09/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 23/09/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 22/09/2022\n1 files 236 downloads\nBolletino della qualità dell’aria – 21/09/2022\n1 files 249 downloads\nBollettino della qualità dell’aria – 20/09/2021\n1 files 237 downloads\nBollettino della qualità dell’aria – 19/09/2022\nBollettino della qualità dell’aria – 19/09/2022\n1 files 228 downloads\nBollettino della qualità dell’aria – 18/09/2022\n1 files 230 downloads\nBollettino della qualità dell’aria – 17/09/2022\n1 files 252 downloads\nBollettino della qualità dell’aria – 16/09/2022\n1 files 244 downloads\nBollettino della qualità dell’aria – 15/09/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 14/09/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 13/09/2022\n1 files 210 downloads\nBollettino della qualità dell’aria – 12/09/2022\n1 files 230 downloads\nBollettino della qualità dell’aria – 11/09/2022\n1 files 206 downloads\n1\n2\nNext\nBollettini mese di agosto 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/08/2022\n1 files 215 downloads\nBollettino della qualità dell’aria – 30/08/2022\n1 files 210 downloads\nBollettino della qualità dell’aria – 28/08/2022\n1 files 159 downloads\nBollettino della qualità dell’aria – 27/08/2022\n1 files 252 downloads\nBollettino della qualità dell’aria – 26/08/2022\n1 files 236 downloads\nBollettino della qualità dell’aria – 25/08/2022\n1 files 226 downloads\nBollettino della qualità dell’aria – 24/08/2022\n1 files 228 downloads\nBollettino della qualità dell’aria – 23/08/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 22/08/2022\n1 files 219 downloads\nBollettino della qualità dell’aria – 21/08/2022\n1 files 224 downloads\nBollettino della qualità dell’aria 20/08/2022\n1 files 251 downloads\nBollettino della qualità dellaria – 19/08/2022\n1 files 236 downloads\nBollettino della qualità dell’aria – 18/08/2022\n1 files 203 downloads\nBollettino della qualità dell’aria – 17/08/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 16/08/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 15/08/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 14/08/2022\n1 files 242 downloads\nBollettino della qualità dell’aria – 13/08/2022\n1 files 263 downloads\nBollettino della qualità dell’aria – 12/08/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 11/08/2022\n1 files 236 downloads\n1\n2\nNext\nBollettini mese di luglio 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/07/2022\n1 files 226 downloads\nBollettino della qualità dell’aria – 30/07/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 29/07/2022\n1 files 263 downloads\nBollettino della qualità dell’aria – 28/07/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 27/07/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 26/07/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 25/07/2022\n1 files 233 downloads\nBollettino della qualità dell’aria – 24/07/2022\n1 files 246 downloads\nBollettino della qualità dell’aria – 23/07/2022\n1 files 242 downloads\nBollettino della qualità dell’aria – 22/07/2022\n1 files 242 downloads\nBollettino della qualità dell’aria – 21/07/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 20/07/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 19/07/2022\n1 files 215 downloads\nBollettino della qualità dell’aria – 18/07/2022\n1 files 202 downloads\nBollettino della qualità dell’aria – 17/07/2022\n1 files 234 downloads\nBollettino della qualità dell’aria – 16/07/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 15/07/2022\n1 files 234 downloads\nBollettino della qualità dell’aria – 14/07/2022\n1 files 239 downloads\nBollettino della qualità dell’aria – 13/07/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 12/07/2022\n1 files 224 downloads\n1\n2\nNext\nBollettini mese di giugno 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/06/2022\n1 files 213 downloads\nBollettino della qualità dell’aria – 29/06/2022\n1 files 226 downloads\nBollettino della qualità dell’aria – 28/06/2022\n1 files 219 downloads\nBollettino della qualità dell’aria – 27/06/2022\n1 files 247 downloads\nBollettino della qualità dell’aria – 26/06/2022\n1 files 233 downloads\nBollettino della qualità dell’aria – 25/06/2022\n1 files 239 downloads\nBollettino della qualità dell’aria – 24/06/2022\n1 files 232 downloads\nBollettino della qualità dell’aria – 23/06/2022\n1 files 210 downloads\nBollettino della qualità dell’aria – 22/06/2022\n1 files 217 downloads\nBollettino della qualità dell’aria – 21/06/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 19/06/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 20/06/2022\n1 files 227 downloads\nBollettino della qualità dell’aria – 18/06/2022\n1 files 220 downloads\nBollettino della qualità dell’aria – 17/06/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 16/06/2022\n1 files 252 downloads\nBollettino della qualità dell’aria – 15/06/2022\n1 files 227 downloads\nBollettino della qualità dell’aria – 14/06/2022\n1 files 232 downloads\nBollettino della qualità dell’aria – 13/06/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 12/06/2022\n1 files 202 downloads\nBollettino della qualità dell’aria – 11/06/2022\n1 files 232 downloads\n1\n2\nNext\nBollettini mese di maggio 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/05/2022\n1 files 224 downloads\nBollettino della qualità dell’aria – 29/05/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 30/05/2022\n1 files 218 downloads\nBollettino della qualità dell’aria – 28/05/2022\n2 files 223 downloads\nBollettino della qualità dell’aria – 27/05/2022\n1 files 252 downloads\nBollettino della qualità dell’aria – 26/05/2022\n1 files 213 downloads\nBollettino della qualità dell’aria – 25/05/2022\n1 files 227 downloads\nBollettino della qualità dell’aria – 24/05/2022\n1 files 205 downloads\nBollettino della qualità dell’aria – 23/05/2022\n1 files 227 downloads\nBollettino della qualità dell’aria – 22/05/2022\n1 files 203 downloads\nBollettino della qualità dell’aria – 21/05/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 20/05/2022\n1 files 223 downloads\nBollettino della qualità dell’aria – 19/05/2022\nBollettino della qualità dell’aria – 19/05/2022Bollettino della qualità dell’aria – 19/05/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 18/05/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 17/05/2022\n1 files 234 downloads\nBollettino della qualità dell’aria – 16/05/2022\n1 files 234 downloads\nBollettino della qualità dell’aria – 15/05/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 14/05/2022\n1 files 245 downloads\nBollettino della qualità dell’aria – 13/05/2022\n1 files 240 downloads\nBollettino della qualità dell’aria – 12/05/2022\n1 files 227 downloads\n1\n2\nNext\nBollettini mese di aprile 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 30/04/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 29/04/2022\n1 files 236 downloads\nBollettino della qualità dell’aria – 28/04/2022\n1 files 231 downloads\nBollettino della qaulità dell’aria – 27/04/2022\n1 files 237 downloads\nBollettino della qualità dell’aria – 26/04/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 25/04/2022\n1 files 217 downloads\nBollettino della qualità dell’aria – 24/04/2022\n1 files 258 downloads\nBollettino della qualità dell’aria – 23/04/2022\n1 files 237 downloads\nBollettino della qualità dell’aria – 22/04/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 21/04/2022\n1 files 239 downloads\nBollettino della qualità dell’aria – 20/04/2022\n1 files 228 downloads\nBollettino della qualità dell’aria – 19/04/2022\n1 files 236 downloads\nBollettino della qualità dell’aria – 18/04/2022\n1 files 232 downloads\nBollettino della qualità dell’aria – 17/04/2022\n1 files 251 downloads\nBollettino della qualtà dell’aria – 16/04/2022\n1 files 237 downloads\nBollettino della qualità dell’aria – 15/04/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 14/04/2022\n1 files 215 downloads\nBollettino della qualità dell’aria – 13/04/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 12/04/2022\n1 files 224 downloads\nBollettino della qualità dell’aria – 11/04/2022\n1 files 232 downloads\n1\n2\nNext\nBollettini mese di marzo 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 31/03/2022\n1 files 268 downloads\nBollettino della qualità dell’aria – 30/03/2022\n1 files 246 downloads\nBollettino della qualità dell’aria – 29/03/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 28/03/2022\n1 files 219 downloads\nBollettino della qualità dell’aria – 27/03/2022\n1 files 214 downloads\nBollettino della qualità dell’aria – 26/03/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 25/03/022\n1 files 217 downloads\nBollettino della qualità dell’aria – 24/03/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 23/03/2022\n1 files 225 downloads\nBollettino della qualità dell’aria – 22/03/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 21/03/2022\n1 files 234 downloads\nBollettino della qualità dell’aria – 20/03/2022\n1 files 234 downloads\nBollettino della qualità dell’aria – 19/03/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 18/03/2022\n1 files 233 downloads\nBollettino della qualità dell’aria – 17/03/2022\n1 files 224 downloads\nBollettino della qualità dell’aria – 16/03/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 15/03/2022\n1 files 250 downloads\nBollettino della qualità dell’aria – 14/03/2022\n1 files 220 downloads\nBollettino della qualità dell’aria – 13/03/2022\n1 files 213 downloads\nBollettino della qualità dell’aria -12/03/2022\n1 files 215 downloads\n1\n2\nNext\nBollettini mese di Febbraio 2022\nScarica Allegati\nTitle\nBollettino della qualità dell’aria – 28/02/2022\n1 files 216 downloads\nBollettino della qualità dell’aria – 27/02/2022\n1 files 232 downloads\nBollettino della qualità dell’aria – 26/02/2022\n1 files 241 downloads\nBollettino della qualità dell’aria – 25/02/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 24/02/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 23/02/2022\n1 files 222 downloads\nBollettino della qualità dell’aria – 22/02/2022\n1 files 243 downloads\nBollettino della qualità dell’aria – 21/02/2022\n1 files 242 downloads\nBollettino della qualità dell’aria – 20/02/2022\n1 files 260 downloads\nBollettino della qualità dell’aria – 19/02/2022\n1 files 267 downloads\nBollettino della qualità dell’aria – 18/02/2022\n1 files 256 downloads\nBollettino della qualità dell’aria – 17/02/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 16/02/2022\n1 files 239 downloads\nBollettino della qualità dell’aria – 15/02/2022\n1 files 262 downloads\nBollettino della qualità dell’aria – 14/02/2022\n1 files 267 downloads\nbollettino della qualità dell’aria – 13/02/2022\n1 files 234 downloads\nBollettino della qualita dell’aria – 12/01/2022\n1 files 248 downloads\nBollettino della qualità dell’aria – 11/02/2022\n1 files 255 downloads\nBollettino della qualità dell’aria – 10/02/2022\n1 files 239 downloads\nBollettino della qualità dell’aria – 09/02/2022\n1 files 242 downloads\n1\n2\nNext\nBollettini mese di Gennaio 2022\nTitle\nBollettino della qualità dell’aria – 31/01/2022\n1 files 213 downloads\nBollettino della qualità dell’aria – 30/01/2022\n1 files 237 downloads\nBollettino della qualità dell’aria – 29/01/2022\n1 files 261 downloads\nBollettino della qualità dell’aria – 28/01/2022\n1 files 235 downloads\nBollettino della qualità dell’aria – 27/01/2022\n1 files 233 downloads\nBollettino della qualità dell’aria – 26/01/2022\n1 files 236 downloads\nBollettino della qualità dell’aria – 25/01/2022\n1 files 224 downloads\nBollettino della qualità dell’aria – 24/01/2022\n1 files 221 downloads\nBollettino della qualità dell’aria – 23/01/2022\n1 files 240 downloads\nBollettino della qualità dell’aria – 22/01/2022\n1 files 229 downloads\nBollettino della qualità dell’aria – 21/01/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 20/01/2022\n1 files 238 downloads\nBollettino della qualità dell’aria – 19/01/2022\n1 files 240 downloads\nBollettino della qualità dell’aria – 18/01/2022\n1 files 232 downloads\nBollettino della qualità dell’aria – 17/01/2022\n1 files 274 downloads\nBollettino della qualità dell’aria – 16/01/2022\n1 files 261 downloads\nBollettino della qualità dell’aria – 15/01/2022\n1 files 255 downloads\nBollettino della qualità dell’aria – 14/01/2022\n1 files 269 downloads\nBollettino della qualità dell’aria – 13/01/2022\n1 files 231 downloads\nBollettino della qualità dell’aria – 12/01/2022\n1 files 237 downloads\n1\n2\nNext\nBollettini mese di Dicembre 2021\nTitle\nBollettino della qualità dell’aria – 31/12/2021\n1 files 260 downloads\nBollettino della qualità dell’aria – 30/12/2021\n1 files 254 downloads\nBollettino della qualita dell’aria – 29/12/2021\n1 files 246 downloads\nBollettino della qualita dell’aria – 28/12/2021\n1 files 241 downloads\nBollettino della qualità dell’aria – 27/12/2021\n1 files 253 downloads\nBollettino della qualità dell’aria – 26/12/21\n1 files 254 downloads\nBollettino della qualità dell’aria – 25/12/2021\n1 files 278 downloads\nBollettino della qualtà dell’aria – 24/12/2021\n1 files 271 downloads\nBollettino della qualità dell’aria – 23/12/2021\n1 files 239 downloads\nBollettino della qualità dell’aria – 22/12/2021\n1 files 242 downloads\nAcque\nControlli sugli impianti di depurazione di acque reflue urbane\nMonitoraggio delle acque sotterranee\nMonitoraggio acque superficiali – invasi\nMonitoraggio acque superficiali – fiumi\nMonitoraggio Acque Superficiali – Acque di Transizione\nMonitoraggio della qualità delle acque destinate alla vita dei pesci\nMonitoraggio delle acque superficiali destinate alla produzione di acqua potabile\nMonitoraggio delle qualità delle acque destinate alla vita dei molluschi\nAgenti fisici\nRadiazioni non ionizzanti (elettromagnetismo)\nRadiazioni ionizzanti (radioattività)\nInquinamento acustico (rumore)\nAria\nBollettino Aria\nNOSE (Network for Odour SEnsitivity)\nPrevisioni della qualità dell’aria in Sicilia\nBollettino Qualità dell’Aria isola di Vulcano\nBollettini giornalieri\nTendenze settimanali\nTendenze mensili\nMonitoraggio sporopollinico\nPollNET\nLe stazioni di Arpa Sicilia\nZonizzazione e classificazione del territorio regionale\nLa rete aria e la classificazione delle stazioni\nL’inventario delle emissioni\nIl Piano Regionale di Tutela della Qualità dell’Aria\nI laboratori mobili\nBiodiversità\nOsservatorio Regionale della Biodiversità Siciliano (ORBS)\nMare\nMonitoraggio delle acque marino costiere\nMonitoraggio Ostreopsis ovata\nTutela dell’ambiente marino (Marine Strategy)\nProgetto Calypso\nLe motonavi Teti e Calypso\nCaratterizzazione delle microplastiche\nRifiuti\nAttività relative alla riduzione dei rischi da amianto\nControlli sugli impianti di recupero e smaltimento rifiuti\nInsediamenti produttivi\nControlli degli impianti soggetti ad AIA e AUA\nIspezioni ambientali integrate\nAttività di controllo delle emissioni in atmosfera nell’AERCA della Valle del Mela (ME)\nSuolo\nControlli dei siti contaminati, di interesse nazionale (SIN) e delle discariche\nControlli su terre e rocce da scavo\nMonitoraggio del consumo di suolo\nQuesta pagina ti è stata utile?\nSì No\nQuesto sito genera cookie. Alcuni di essi sono necessari per il suo corretto funzionamento. Possono essere presenti altri cookie, generati da terze parti per la creazione di pubblicità personalizzate: questi sono opzionali e possono essere disabilitati.\nEsamina le liste dei cookie, scegli quali cookie opzionali abilitare (se presenti), quindi clicca su 'Accetto'. Qui la nostra cookie policy.\nCookie necessari\nGoogle Analytics cookies\nCookie utili al funzionamento di Google Analytics (con anonimizzazione indirizzo IP per inibire la profilazione)\nSession cookies\nCookie utili al funzionamento della sessione utente del sito\nCookie opzionali\nScegli i cookie che desideri abilitare:\nFacebook cookies\nCookie contestuali alla visualizzazione del widget pagina Facebook\nGoogle Maps cookies\nCookie contestuali alla visualizzazione di Google Maps\nISSUU cookies\nCookie contestuali alla visualizzazione del widget ISSUU per l'embed di pdf sfogliabili\nTwitter cookies\nCookie contestuali alla visualizzazione del widget Twitter\nCookie necessari - Cookie opzionali - Privacy policy - Cookie policy\nAccetto tutti i cookie Accetto i cookie selezionati\nx\nCookies?\nInformazioni\nAgenzia Regionale per la Protezione dell'Ambiente\nComplesso Roosevelt, località Addaura\nLungomare Cristoforo Colombo snc – 90149 Palermo\nEmail: arpa@arpa.sicilia.it\nPEC: arpa@pec.arpa.sicilia.it\nSeguici su\nInformazioni sul Sito\nL’agenzia\nBandi di gara e contratti\nAlbo fornitori\nE- Procurement\nAmministrazione Trasparente\nFatturazione elettronica\nAmbienteinforma\nAlbo Pretorio\nConcorsi\nAltre Informazioni\nMappa del Sito\nPEC\nContatti\nPrivacy Policy\nCookie Policy\nURP\nIntranet Arpa Sicilia\nZimbra web mail\nAgenzia Regionale per la Protezione dell'Ambiente - C.F. 97169170822 - P.Iva 05086340824\nPowered by OLOMEDIA\nL’Agenzia\nOrganigramma e articolazione uffici\nComitato Unico di Garanzia (CUG)\nIndirizzi PEC istituzionali\nSistema SNPA\nAssoArpa\nArpa Sicilia sul territorio\nFare un’esperienza in Arpa Sicilia\nFatturazione elettronica\nRegolamenti\nBack\nAttività\nControlli\nMonitoraggi\nRicerca e innovazione\nCall for proposal – Aquatic Pollutants\nProgetto Corallo\nProgetto EdEn-MED\nBack\nEducazione ambientale\nArpa Sicilia per le scuole\nIniziative di educazione alla sostenibilità ambientale\nSussidi didattici\nPubblicazioni\nIl sistema Regionale INFEA\nLinee Guida di educazione ambientale e alla sostenibilità\nBack\nLaboratori\nIl laboratorio di metrologia\nBack\nComunicazione\nPiano di comunicazione\nPatrocini\nEventi\nBack\nAmbiente e salute\nEcoreati\nCitizen Science\nCleanair@school\nBack\nFormazione\nPareri su Valutazione Ambientale Strategica (VAS) e Valutazione di Impatto Ambientale (VIA)\nCertificazioni ambientali\nEco – Management and Audit Scheme (EMAS)\nGreen Public Procurement (GPP)\nIl Marchio Ecolabel UE\nBack\nModellistica sulla qualità dell’Aria\nLa sezione Regionale del Catasto Rifiuti\nTariffe\nBack\nTemi Ambientali\nAcque\nAgenti fisici\nAria\nBiodiversità\nMare\nRifiuti\nInsediamenti produttivi\nSuolo\nBack\nDocumentazione ambientale\nIl Piano Regionale di Tutela della Qualità dell’Aria\nL’annuario regionale dei dati ambientali\nStudi, ricerche e dossier dal territorio\nBack\nUfficio Relazioni con il Pubblico (URP)\nInvia una richiesta all’URP\nDiritto di accesso\nDomande frequenti – FAQ\nBack\nAlbo Pretorio on-line\nAlbo Online – Storico atti\nBack\nContatti\nIntranet Arpa Sicilia\nWordPress Download Manager - Best Download Management Plugin\nClose"
+     }
+    ],
+    "RECUSADOS": [],
+    "DONO": "guarda/preservar_documento.py"
+   },
+   "ADMISSAO": {
+    "itens": 1,
+    "por_resultado": {
+     "NAO_SE_APLICA": 1
+    },
+    "prontos": 0,
+    "ficheiro": "",
+    "espera": null,
+    "FRONTEIRA": {
+     "CONTRATO": "STRUCTURED -> ADMISSION",
+     "DONO": "coleta/ingresso.py::conferir_fronteira",
+     "MEDIDOS": 1,
+     "EXIGIDOS_EM_FALTA": {},
+     "TRANSPORTAVEIS_AUSENTES": {
+      "FACT_LOCATION": 1,
+      "FACT_LOCATION_BASIS": 1,
+      "FACT_TIME": 1,
+      "FACT_TIME_BASIS": 1,
+      "OBSERVED_AT": 1,
+      "PUBLISHED_AT": 1,
+      "SOURCE_DECLARED_EVIDENCE_CLASS": 1,
+      "SOURCE_LOCATION": 1
+     },
+     "COM_LINHAGEM": 1,
+     "A_LEI": "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT"
+    }
+   },
+   "PERSISTENCIA": {
+    "ESTADO": "OPERACIONAL",
+    "MORADA": "127.0.0.1:54330/sala_italia",
+    "PORQUE": "SINTONIA_COLLECTION_DSN declarada e provada operacional autorizada; memoria e rastro ligados ao mesmo banco.",
+    "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+    "ARMAZEM_RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\armazem",
+    "AMBIENTE_RETIRADO": [],
+    "MEMORIA": "MemoriaPostgres",
+    "BANCO_DO_RASTRO": "Banco"
+   },
+   "DATASET_ID": "NOT_PRESERVED",
+   "EVIDENCE_PATH": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "IT-T2-2026-09-20-144613-15058f8f093948a1",
+   "STATUS": "SUCCESS",
+   "PEDIDO": {
+    "alvo": "T2",
+    "acionamento": "MANUAL",
+    "escopo": "PONTUAL",
+    "filtros": {
+     "pais": "IT",
+     "fonte": "IT-T2-010",
+     "universo": "T2"
+    }
+   },
+   "MISSION": "CLIMATE / WATER / SOIL",
+   "COUNTRY": "IT",
+   "PLATFORM": "HTTP direto",
+   "ACTOR": "coleta/italy_executor.py",
+   "ACTOR_VERSION": "b9dfd3d2",
+   "CAPTURE_METHOD": "gratuito",
+   "INPUT": {
+    "pais": "IT",
+    "fonte": "IT-T2-010",
+    "universo": "T2"
+   },
+   "QUERY": "CLIMATE / WATER / SOIL (T2) · PONTUAL · pedido manual · fonte=IT-T2-010 · pais=IT · universo=T2",
+   "COMANDO": "coleta/italy_executor.py IT-T2-010 --run-id=IT-T2-2026-09-20-144613-15058f8f093948a1",
+   "STARTED_AT": "2026-09-20T14:46:13Z",
+   "FINISHED_AT": "2026-09-20T14:46:14Z",
+   "COST_USD": 0,
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 0,
+   "ERROR": "",
+   "ESTADO_DOS_ITENS": "NA_PORTA",
+   "FONTES_DO_ASSUNTO": 30,
+   "FONTES_SEM_CAMINHO": 5,
+   "COLHEITA_ENCONTRADA": 1,
+   "COLHEITA_NAO_ENCONTRADA": "colheita reprocessada da corrida «IT-T2-2026-09-20-110932-34a3d1b07ee72322» pela corrida «IT-T2-2026-09-20-144613-15058f8f093948a1»",
+   "RETORNO": {
+    "ESTADO": "PARTIAL",
+    "COLHEITA": 0,
+    "SUPORTE": [],
+    "ERROS": [],
+    "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+   },
+   "INGRESSO": {
+    "PARA_A_PORTA": [
+     {
+      "RUN_ID": "IT-T2-2026-09-20-110932-34a3d1b07ee72322",
+      "DOCUMENT_ID": "IT-T2-010:URL:Documenti-e-dati",
+      "DOCUMENT_VERSION_ID": "v1_dcfdb8467df3",
+      "RAW_SHA256": "dcfdb8467df3c430eb1a87a02a98146ffe80cc7662289d35de232b28204c8d8b",
+      "RESOLVED_STRUCTURED_TARGET": "SOURCE_DOCUMENT",
+      "BYTES": 72592,
+      "MIME_ASSINATURA": "HTML",
+      "CONTENT_TYPE": "text/html",
+      "SOURCE_DATE": null,
+      "SOURCE_DATE_ISO": null,
+      "CAPTURED_AT": "2026-09-20T11:09:38.010Z",
+      "COLLECTION_RUN_STARTED_AT": "2026-09-20T11:09:32.977Z",
+      "OBSERVATION_RESULT": "NEW_DOCUMENT",
+      "HEALTH_STATE": "HEALTHY",
+      "CADENCE_STATE": "UPDATED",
+      "EXPECTED_NEXT_UPDATE": "UNKNOWN",
+      "DECLARED_FREQUENCY": "NAO SEI",
+      "OBSERVED_FREQUENCY": "NAO SEI — uma captura so",
+      "RAW_OBJECT_CREATED": true,
+      "RAW_PRESERVED_BEFORE_PARSE": true,
+      "DISCOVERY_DEGRADED": null,
+      "PARSE_ERROR": null,
+      "parse": null,
+      "EXECUTOR_ID": "italia-recorrente",
+      "EXECUTOR_VERSION": "adapter-v1",
+      "STORAGE_LOCATION": "data/collection-store/italy/IT-T2-010/IT-T2-010_URL_Documenti-e-dati/v1_dcfdb8467df3/Documenti-e-dati.html",
+      "ESPECIE": "COLHEITA",
+      "SHA256": "dcfdb8467df3c430eb1a87a02a98146ffe80cc7662289d35de232b28204c8d8b",
+      "PAYLOAD": {
+       "ONDE": "data/collection-store/italy/IT-T2-010/IT-T2-010_URL_Documenti-e-dati/v1_dcfdb8467df3/Documenti-e-dati.html",
+       "ESTADO": "PRESENTE"
+      },
+      "ARTIFACT_ID": "RAW-dcfdb8467df3c430",
+      "source_id": "IT-T2-010",
+      "url": "https://www.appa.provincia.tn.it/Documenti-e-dati",
+      "artifact_type": "RAW",
+      "captured_at": "2026-09-20T11:09:38.010Z",
+      "raw_asset_id": 198
+     }
+    ],
+    "PARA_A_DERIVACAO": [
+     {
+      "RAW_ASSET_ID": 198,
+      "CAPTURED_AT": "2026-09-20T11:09:38.01Z",
+      "MEDIA_TYPE": "text/html",
+      "SOURCE_ID": "IT-T2-010",
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t2-010\\OBSERVATION\\dcfdb8467df3c430-u726a6af023e23f0d-Documenti-e-dati.html"
+     }
+    ],
+    "SEM_BYTES_PARA_DERIVAR": [],
+    "FONTE_PROVADA": "IT-T2-010",
+    "PRESERVADOS": 1,
+    "RECUSADOS": 0,
+    "PORQUE_RECUSADOS": [],
+    "RUN_STATE": "COMPLETE",
+    "RASTRO": {
+     "ACCOUNTED_INPUT": 1,
+     "UNACCOUNTED_INPUT": 0,
+     "ESTADO": "PASS",
+     "DIAGNOSTIC_CODE": null
+    },
+    "BANCO": "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. Leitura real do banco, nao contagem esperada."
+   },
+   "DERIVACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "RUNNER": "derivacao-forward",
+    "RUN_ID": "IT-T2-2026-09-20-144613-15058f8f093948a1",
+    "SOURCE_ID": "IT-T2-010",
+    "ROUTE_CLASS_ID": null,
+    "ESTADO_DA_ETAPA": "PASS",
+    "BALDES": {
+     "PASSED": 1,
+     "REJECTED": 0,
+     "ERROR": 0,
+     "NOT_RUN": 0,
+     "UNKNOWN": 0,
+     "REUSED": 0
+    },
+    "SAIRAM": 1,
+    "RASTRO": "EMITIDO",
+    "DERIVADOS": [
+     {
+      "RAW_ASSET_ID": 198,
+      "PORTA": "PASSED",
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-cc29d14703fe1c0aa6e385a970bc2625cb01dbbe67cdbe2285c57506201902d5.txt"
+     }
+    ],
+    "RESULTADOS": [
+     {
+      "RAW_ASSET_ID": 198,
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t2-010\\OBSERVATION\\dcfdb8467df3c430-u726a6af023e23f0d-Documenti-e-dati.html",
+      "CAPTURED_AT": "2026-09-20T11:09:38.01Z",
+      "SOURCE_ID": "IT-T2-010",
+      "ESTADO": "INSERTED",
+      "PORTA": "PASSED",
+      "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+      "LINHA": {
+       "id": 85,
+       "raw_asset_id": "198",
+       "parent_sha256": "dcfdb8467df3c430eb1a87a02a98146ffe80cc7662289d35de232b28204c8d8b",
+       "kind": "TEXT_EXTRACTION",
+       "producer": "texto-de-html",
+       "producer_version": "1",
+       "pipeline_version": "1",
+       "parameters_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+       "serie_posicao": null,
+       "sha256": "ade3ed388799b6586602f869f834e3f0a28b0ba6c35580eaf2e1ed4002aab50a",
+       "bytes": "5871",
+       "media_type": "text/plain",
+       "storage_path": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-cc29d14703fe1c0aa6e385a970bc2625cb01dbbe67cdbe2285c57506201902d5.txt",
+       "derived_at": "2026-09-20T14:46:18Z"
+      },
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-cc29d14703fe1c0aa6e385a970bc2625cb01dbbe67cdbe2285c57506201902d5.txt",
+      "MOTIVO_DO_EXECUTOR": null,
+      "EXECUTOR_ID": "texto-de-html",
+      "MEDIA_TYPE": "text/html",
+      "TEXT_KIND": null,
+      "TEXT_RELATION": null,
+      "LANGUAGE": null,
+      "LANGUAGE_SOURCE": null
+     }
+    ]
+   },
+   "ESTRUTURACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "ESTRUTURADOS": [
+     {
+      "RAW_ASSET_ID": 198,
+      "SOURCE_ID": "IT-T2-010",
+      "DERIVED_ARTIFACT_ID": 85,
+      "PARENT_SHA256": "dcfdb8467df3c430eb1a87a02a98146ffe80cc7662289d35de232b28204c8d8b",
+      "CAPTURED_AT": "2026-09-20T11:09:38.01Z",
+      "ESTADO": "INSERTED",
+      "TEXTO": "Documenti e dati / Homepage - APPA\nVai al contenuto principale Vai al menu di sezione Vai al footer\nProvincia autonoma di Trento\nProvincia autonoma di Trento\nAccedi all'area personale\nAPPA\nAgenzia Provinciale per la protezione dell'ambiente\nSeguici su\nCerca\nAmministrazione\nServizi\nNews\nDocumenti e dati\nTutti gli argomenti\nHomepage\nDocumenti e dati\nDocumenti e dati\nQui puoi trovare la documentazione prodotta e pubblicata dall'Agenzia provinciale per la protezione dell'ambiente - APPA.\nCerca in Documenti e dati\nFiltri\nTutti Aggiungi filtro\nTutti i documenti e dati\nAccordi tra enti\nAtti amministrativi\nAtti normativi\nDocumenti tecnici di supporto\nDati ambientali\nDataset\nRisorse\nPubblicazioni\nTutti i documenti e dati\nAccordi tra enti\nQui trovi i documenti relativi alle attività che consentono di instaurare o disciplinare un rapporto di collaborazione e cooperazione tra enti quali convenzioni, accordi, partnership/partenariati, sponsorship.\nVai alla pagina\nAtti amministrativi\nIn questa pagina trovi i link per informazioni su decreti, deliberazioni, determinazioni, ordinanze della Provincia di Trento in particolare: concessioni, iscrizioni, ordini, divieti, ecc.), pareri, proposte, atti di controllo.\nSi potrà inoltre consultare il nuovo albo telematico della Provincia nel quale sono assolti gli obblighi di pubblicazione di avvisi, atti e provvedimenti amministrativi di competenza della Provincia previsti dalla normativa statale o provinciale.\nVai alla pagina\nAtti normativi\nIn questa sezione trovi:\napprofondimenti mensili (risposte ed interpelli, circolari, comunicati, relazioni, raccomandazioni);\nnormative a tema ambientale emanate a livello provinciale, nazionale ed europeo.\nlink alle fonti degli atti normativi provinciali e regionali;\nVai alla pagina\nDocumenti tecnici di supporto\nQui puoi trovare varie tipologie di documento, anche di natura tecnica, prodotti dall'Agenzia provinciale per la protezione dell'ambiente o comunque inerenti ai propri compiti istituzionali come ad esempio presentazioni, rapporti tecnici, progetti e piani, albi, elenchi e graduatorie.\nVai alla pagina\nDati ambientali\nIn questa sezione è possibile visualizzare i principali dati ambientali elaborati da APPA, nell'ambito delle proprie attività di monitoraggio, controllo e protezione dell'ambiente; sarà possibile inoltre navigare e consultare gli applicativi più rilevanti a livello provinciale e nazionale per poter accedere a dati ambientali sempre costantemente aggiornati sulle tematiche ambientali più attuali.\nVai alla pagina\nDataset\nSezione che da accesso al riuso delle tabelle dati che vengono pubblicati nel portale istituzionale dell'Agenzia provinciale per la protezione dell'ambiente.\nSono raccolti qui i dataset che l'APPA pubblica su questo portale e che vengono poi raccolti nella rete dei portali dei dati aperti dati.trentino.it --> dati.gov.it --> data.europa.eu .\nVai alla pagina\nRisorse\nIn questa pagina trovi le tabelle di dati, o risorse; in ogni tabella hai la possibilità di filtrare e ordinare i dati pubblicati in base alle tue esigenze e quando i dati hanno una georeferenziazione hai la possibilità di visualizzare i dati in mappa.\nVai alla pagina\nPubblicazioni\nQuesta sezione è dedicata alle pubblicazioni di APPA. Puoi ricercare i titoli della pubblicazioni tramite la ricerca libera, l'argomento di riferimento, la parola chiave, l'anno della pubblicazione\nVai alla pagina\nE' stata utile la consultazione della pagina?\nSì No\nGrazie per il tuo contributo\nSegnala un problema\nMappa sito\nAPPA\nAgenzia Provinciale per la protezione dell'ambiente\nAmministrazione\nStrutture organizzative\nContatti degli Uffici e laboratori\nPersonale\nLuoghi\nSiti web tematici di APPA\nServizi\nNews\nAvvisi\nComunicati stampa\nApprofondimenti\nEventi\nAPPA informa - Newsletter periodica\nVedi tutto\nDocumenti e dati\nAccordi tra enti\nAtti amministrativi\nAtti normativi\nDocumenti tecnici di supporto\nDati ambientali\nVedi tutto\nInformazioni\nIl sito è gestito con il coordinamento dell'Agenzia provinciale per la protezione dell'ambiente\nAppa partecipa al Sistema Nazionale per la Protezione dell'Ambiente\nContatti\nPiazza Vittoria, 5 - 38122 Trento\n0461497701 - 0461497760\n0461497759\nappa@provincia.tn.it\nappa@pec.provincia.tn.it\nP.IVA 00337460224\nC.F. 00337460224\nSeguici su\nLinks\nInformativa Privacy\nInformativa Cookies\nNote legali e crediti\nSocial media policy\nAmministrazione trasparente\nAlbo telematico della Provincia\nDichiarazione di accessibilità\nPortale APPA \"old\"\nSegnala un problema\nPersonalizza i cookie\n© 2026 APPA powered by OpenCity v2.1.12-1.0.1 — concept & design by Designers Italia\nCerca\nCerca\nCerca\nSezioni\nTutti Amministrazione Servizi News Documenti e dati ...\nTutti gli argomenti\nTutti gli argomenti ...\nOpzioni\nTutte le date ...\nSezioni\nTutti gli argomenti\nOpzioni\nConferma\nAmministrazione\nStrutture organizzative\nContatti degli Uffici e laboratori\nPersonale\nLuoghi\nSiti web tematici di APPA\nServizi\nNews\nAvvisi\nComunicati stampa\nApprofondimenti\nEventi\nAPPA informa - Newsletter periodica\nPodcast\nDocumenti e dati\nAccordi tra enti\nAtti amministrativi\nAtti normativi\nDocumenti tecnici di supporto\nDati ambientali\nDataset\nRisorse\nPubblicazioni\nAmbiente\nAcqua\nAnalisi dell'acqua\nQualità dell'acqua\nAgenti fisici\nCampi elettromagnetici\nRadioattività\nRumore\nAria\nQualità dell'aria\nMonitoraggio dell'inquinamento atmosferico\nClima\nGestione dei rifiuti\nPartecipazione\nSuolo\nSviluppo sostenibile\nAcquisti pubblici verdi\nCertificazioni ambientali\nEco-marchi trentini\nEducazione ambientale e alla sostenibilità\nValutazioni ambientali\nValutazione ambientale strategica\nValutazione di impatto ambientale\nPubblica amministrazione\nPartecipazione\nCerca solo tra i contenuti attivi\nVerranno esclusi dalla ricerca i contenuti archiviati e non più validi come gli eventi terminati o i bandi scaduti.\nData inizio\nData fine\ngallery\n‹ › ×"
+     }
+    ],
+    "RECUSADOS": [],
+    "DONO": "guarda/preservar_documento.py"
+   },
+   "ADMISSAO": {
+    "itens": 1,
+    "por_resultado": {
+     "NAO_SE_APLICA": 1
+    },
+    "prontos": 0,
+    "ficheiro": "",
+    "espera": null,
+    "FRONTEIRA": {
+     "CONTRATO": "STRUCTURED -> ADMISSION",
+     "DONO": "coleta/ingresso.py::conferir_fronteira",
+     "MEDIDOS": 1,
+     "EXIGIDOS_EM_FALTA": {},
+     "TRANSPORTAVEIS_AUSENTES": {
+      "FACT_LOCATION": 1,
+      "FACT_LOCATION_BASIS": 1,
+      "FACT_TIME": 1,
+      "FACT_TIME_BASIS": 1,
+      "OBSERVED_AT": 1,
+      "PUBLISHED_AT": 1,
+      "SOURCE_DECLARED_EVIDENCE_CLASS": 1,
+      "SOURCE_LOCATION": 1
+     },
+     "COM_LINHAGEM": 1,
+     "A_LEI": "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT"
+    }
+   },
+   "PERSISTENCIA": {
+    "ESTADO": "OPERACIONAL",
+    "MORADA": "127.0.0.1:54330/sala_italia",
+    "PORQUE": "SINTONIA_COLLECTION_DSN declarada e provada operacional autorizada; memoria e rastro ligados ao mesmo banco.",
+    "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+    "ARMAZEM_RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\armazem",
+    "AMBIENTE_RETIRADO": [],
+    "MEMORIA": "MemoriaPostgres",
+    "BANCO_DO_RASTRO": "Banco"
+   },
+   "DATASET_ID": "NOT_PRESERVED",
+   "EVIDENCE_PATH": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "IT-T3-2026-09-20-144620-ce1d2edaef2e2fc0",
+   "STATUS": "SUCCESS",
+   "PEDIDO": {
+    "alvo": "T3",
+    "acionamento": "MANUAL",
+    "escopo": "PONTUAL",
+    "filtros": {
+     "pais": "IT",
+     "fonte": "IT-T3-019",
+     "universo": "T3"
+    }
+   },
+   "MISSION": "PEST / DISEASE / WEEDS",
+   "COUNTRY": "IT",
+   "PLATFORM": "HTTP direto",
+   "ACTOR": "coleta/italy_executor.py",
+   "ACTOR_VERSION": "b9dfd3d2",
+   "CAPTURE_METHOD": "gratuito",
+   "INPUT": {
+    "pais": "IT",
+    "fonte": "IT-T3-019",
+    "universo": "T3"
+   },
+   "QUERY": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-019 · pais=IT · universo=T3",
+   "COMANDO": "coleta/italy_executor.py IT-T3-019 --run-id=IT-T3-2026-09-20-144620-ce1d2edaef2e2fc0",
+   "STARTED_AT": "2026-09-20T14:46:20Z",
+   "FINISHED_AT": "2026-09-20T14:46:20Z",
+   "COST_USD": 0,
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 0,
+   "ERROR": "",
+   "ESTADO_DOS_ITENS": "NA_PORTA",
+   "FONTES_DO_ASSUNTO": 27,
+   "FONTES_SEM_CAMINHO": 11,
+   "COLHEITA_ENCONTRADA": 1,
+   "COLHEITA_NAO_ENCONTRADA": "colheita reprocessada da corrida «IT-T3-2026-09-20-111341-9b29b823b7d438ba» pela corrida «IT-T3-2026-09-20-144620-ce1d2edaef2e2fc0»",
+   "RETORNO": {
+    "ESTADO": "PARTIAL",
+    "COLHEITA": 0,
+    "SUPORTE": [],
+    "ERROS": [],
+    "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+   },
+   "INGRESSO": {
+    "PARA_A_PORTA": [
+     {
+      "RUN_ID": "IT-T3-2026-09-20-111341-9b29b823b7d438ba",
+      "DOCUMENT_ID": "IT-T3-019:URL:it/ricerca/progetti-di-ricerca/progetti-corso",
+      "DOCUMENT_VERSION_ID": "v1_0e4d72d9a6f3",
+      "RAW_SHA256": "0e4d72d9a6f3b5693c8e85aaaf2f53e665861b14a5062ba5f707d735f2250673",
+      "RESOLVED_STRUCTURED_TARGET": "SOURCE_DOCUMENT",
+      "BYTES": 71908,
+      "MIME_ASSINATURA": "HTML",
+      "CONTENT_TYPE": "text/html",
+      "SOURCE_DATE": null,
+      "SOURCE_DATE_ISO": null,
+      "CAPTURED_AT": "2026-09-20T11:13:46.430Z",
+      "COLLECTION_RUN_STARTED_AT": "2026-09-20T11:13:41.725Z",
+      "OBSERVATION_RESULT": "NEW_DOCUMENT",
+      "HEALTH_STATE": "HEALTHY",
+      "CADENCE_STATE": "UPDATED",
+      "EXPECTED_NEXT_UPDATE": "UNKNOWN",
+      "DECLARED_FREQUENCY": "NAO SEI",
+      "OBSERVED_FREQUENCY": "NAO SEI — uma captura so",
+      "RAW_OBJECT_CREATED": true,
+      "RAW_PRESERVED_BEFORE_PARSE": true,
+      "DISCOVERY_DEGRADED": null,
+      "PARSE_ERROR": null,
+      "parse": null,
+      "EXECUTOR_ID": "italia-recorrente",
+      "EXECUTOR_VERSION": "adapter-v1",
+      "STORAGE_LOCATION": "data/collection-store/italy/IT-T3-019/IT-T3-019_URL_it_ricerca_progetti-di-ricerca_progetti-corso/v1_0e4d72d9a6f3/progetti-corso.html",
+      "ESPECIE": "COLHEITA",
+      "SHA256": "0e4d72d9a6f3b5693c8e85aaaf2f53e665861b14a5062ba5f707d735f2250673",
+      "PAYLOAD": {
+       "ONDE": "data/collection-store/italy/IT-T3-019/IT-T3-019_URL_it_ricerca_progetti-di-ricerca_progetti-corso/v1_0e4d72d9a6f3/progetti-corso.html",
+       "ESTADO": "PRESENTE"
+      },
+      "ARTIFACT_ID": "RAW-0e4d72d9a6f3b569",
+      "source_id": "IT-T3-019",
+      "url": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca/progetti-corso",
+      "artifact_type": "RAW",
+      "captured_at": "2026-09-20T11:13:46.430Z",
+      "raw_asset_id": 199
+     }
+    ],
+    "PARA_A_DERIVACAO": [
+     {
+      "RAW_ASSET_ID": 199,
+      "CAPTURED_AT": "2026-09-20T11:13:46.43Z",
+      "MEDIA_TYPE": "text/html",
+      "SOURCE_ID": "IT-T3-019",
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t3-019\\OBSERVATION\\0e4d72d9a6f3b569-u82ca7955ba633bf5-progetti-corso.html"
+     }
+    ],
+    "SEM_BYTES_PARA_DERIVAR": [],
+    "FONTE_PROVADA": "IT-T3-019",
+    "PRESERVADOS": 1,
+    "RECUSADOS": 0,
+    "PORQUE_RECUSADOS": [],
+    "RUN_STATE": "COMPLETE",
+    "RASTRO": {
+     "ACCOUNTED_INPUT": 1,
+     "UNACCOUNTED_INPUT": 0,
+     "ESTADO": "PASS",
+     "DIAGNOSTIC_CODE": null
+    },
+    "BANCO": "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. Leitura real do banco, nao contagem esperada."
+   },
+   "DERIVACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "RUNNER": "derivacao-forward",
+    "RUN_ID": "IT-T3-2026-09-20-144620-ce1d2edaef2e2fc0",
+    "SOURCE_ID": "IT-T3-019",
+    "ROUTE_CLASS_ID": null,
+    "ESTADO_DA_ETAPA": "PASS",
+    "BALDES": {
+     "PASSED": 1,
+     "REJECTED": 0,
+     "ERROR": 0,
+     "NOT_RUN": 0,
+     "UNKNOWN": 0,
+     "REUSED": 0
+    },
+    "SAIRAM": 1,
+    "RASTRO": "EMITIDO",
+    "DERIVADOS": [
+     {
+      "RAW_ASSET_ID": 199,
+      "PORTA": "PASSED",
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-fc7e232108dae81e2db3df7d4e2e2af468da510b6344315494e39417026afa50.txt"
+     }
+    ],
+    "RESULTADOS": [
+     {
+      "RAW_ASSET_ID": 199,
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t3-019\\OBSERVATION\\0e4d72d9a6f3b569-u82ca7955ba633bf5-progetti-corso.html",
+      "CAPTURED_AT": "2026-09-20T11:13:46.43Z",
+      "SOURCE_ID": "IT-T3-019",
+      "ESTADO": "INSERTED",
+      "PORTA": "PASSED",
+      "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+      "LINHA": {
+       "id": 86,
+       "raw_asset_id": "199",
+       "parent_sha256": "0e4d72d9a6f3b5693c8e85aaaf2f53e665861b14a5062ba5f707d735f2250673",
+       "kind": "TEXT_EXTRACTION",
+       "producer": "texto-de-html",
+       "producer_version": "1",
+       "pipeline_version": "1",
+       "parameters_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+       "serie_posicao": null,
+       "sha256": "a75bcf2934c15f24a95cb70edfd7f727a283467e0860c648754181b10e57746b",
+       "bytes": "2525",
+       "media_type": "text/plain",
+       "storage_path": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-fc7e232108dae81e2db3df7d4e2e2af468da510b6344315494e39417026afa50.txt",
+       "derived_at": "2026-09-20T14:46:22Z"
+      },
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-fc7e232108dae81e2db3df7d4e2e2af468da510b6344315494e39417026afa50.txt",
+      "MOTIVO_DO_EXECUTOR": null,
+      "EXECUTOR_ID": "texto-de-html",
+      "MEDIA_TYPE": "text/html",
+      "TEXT_KIND": null,
+      "TEXT_RELATION": null,
+      "LANGUAGE": null,
+      "LANGUAGE_SOURCE": null
+     }
+    ]
+   },
+   "ESTRUTURACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "ESTRUTURADOS": [
+     {
+      "RAW_ASSET_ID": 199,
+      "SOURCE_ID": "IT-T3-019",
+      "DERIVED_ARTIFACT_ID": 86,
+      "PARENT_SHA256": "0e4d72d9a6f3b5693c8e85aaaf2f53e665861b14a5062ba5f707d735f2250673",
+      "CAPTURED_AT": "2026-09-20T11:13:46.43Z",
+      "ESTADO": "INSERTED",
+      "TEXTO": "Progetti in corso | Centro Interdipartimentale per l'Innovazione in campo Agro-ambientale – AGROINNOVA\nSalta al contenuto principale\nSearch\nfield Search\nFacebook\nX\nYouTube\nAltri social\nSwitch Language\nITA\nENG\nMYUNITO\nCentro Interdipartimentale per l'Innovazione in campo Agro-ambientale – AGROINNOVA\nSwitch Language\nITA\nENG\nIl Centro\nVai alla pagina Il Centro\nOrganizzazione\nRegolamenti\nStrutture del centro\nPersonale\nGallerie fotografiche\nFeeds RSS\nBandi e concorsi\nVai alla pagina Bandi e concorsi\nBandi\nBandi archiviati\nComunicazione\nRicerca\nVai alla pagina Ricerca\nRicerca di base ed applicata\nProgetti di Ricerca\nTrasferimento di tecnologie\nServizi\nVai alla pagina Servizi\nAgroinnova Diagnostics\nFacebook\nX\nYouTube\nAltri social\nCentro Interdipartimentale per l'Innovazione in campo Agro-ambientale – AGROINNOVA\nCerca\nRun the search\nIl Centro Espandi Il Centro\nOrganizzazione\nRegolamenti\nStrutture del centro\nPersonale\nGallerie fotografiche\nFeeds RSS\nBandi e concorsi Espandi Bandi e concorsi\nBandi\nBandi archiviati\nComunicazione\nRicerca Espandi Ricerca\nRicerca di base ed applicata\nProgetti di Ricerca\nTrasferimento di tecnologie\nServizi Espandi Servizi\nAgroinnova Diagnostics\nHome\nRicerca\nProgetti di Ricerca\nProgetti in corso\nAscolta\nDi seguito un elenco dei progetti in corso: cliccando sul titolo sono disponibili i dettagli dei singoli progetti.\nFertiCovery - Best available techniques to recover or recycle fertilising products from secondary raw materials\nFrom SOil to Soil: origin and remediation to KIWIfruit Vine Decline Syndrome (SOS-KIWI)\nGO-FITO - Gestione delle fitopatie e dei rischi fitosanitari delle colture cerealicole e orticole industriali tramite pratiche agricole sostenibili\nPieSOIL – Gruppo operativo per la Salute del Suolo in Piemonte\nPomodoro IDROPONICO ITALIA\nRIGENERA - tecniche innovative di agricoltura sostenibile e rigenerativa per le filiere cerealicole ed orticole\nTRANSITION - inTegRated And iNnovative StrategIes for susTainable fruIt prOductioN\nvineIArd-Sistema di supporto decisionale (DSS) per la diagnosi, il monitoraggio e la gestione di flavescenza dorata e mal dell’esca in vigneto e in vivaio mediante piattaforme digitali\nUltimo aggiornamento: 04/06/2026\nShare:\nFACEBOOK\nX\nLINKEDIN\nCONTATTI\nLargo Paolo Braccini, 2, 10095, Grugliasco, TO\nE-mail: direzione.agroinnova@unito.it\nPEC: agroinnova@pec.unito.it\nUniversità degli Studi di Torino\nVia Verdi, 8 - 10124 Torino\nP.I. 02099550010\nC.F. 80088230018\nFacebook\nX\nYouTube\nAltri social\nMappa del sito\nCookie settings"
+     }
+    ],
+    "RECUSADOS": [],
+    "DONO": "guarda/preservar_documento.py"
+   },
+   "ADMISSAO": {
+    "itens": 1,
+    "por_resultado": {
+     "NAO": 1
+    },
+    "prontos": 0,
+    "ficheiro": "",
+    "espera": null,
+    "FRONTEIRA": {
+     "CONTRATO": "STRUCTURED -> ADMISSION",
+     "DONO": "coleta/ingresso.py::conferir_fronteira",
+     "MEDIDOS": 1,
+     "EXIGIDOS_EM_FALTA": {},
+     "TRANSPORTAVEIS_AUSENTES": {
+      "FACT_LOCATION": 1,
+      "FACT_LOCATION_BASIS": 1,
+      "FACT_TIME": 1,
+      "FACT_TIME_BASIS": 1,
+      "OBSERVED_AT": 1,
+      "PUBLISHED_AT": 1,
+      "SOURCE_DECLARED_EVIDENCE_CLASS": 1,
+      "SOURCE_LOCATION": 1
+     },
+     "COM_LINHAGEM": 1,
+     "A_LEI": "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT"
+    }
+   },
+   "PERSISTENCIA": {
+    "ESTADO": "OPERACIONAL",
+    "MORADA": "127.0.0.1:54330/sala_italia",
+    "PORQUE": "SINTONIA_COLLECTION_DSN declarada e provada operacional autorizada; memoria e rastro ligados ao mesmo banco.",
+    "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+    "ARMAZEM_RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\armazem",
+    "AMBIENTE_RETIRADO": [],
+    "MEMORIA": "MemoriaPostgres",
+    "BANCO_DO_RASTRO": "Banco"
+   },
+   "DATASET_ID": "NOT_PRESERVED",
+   "EVIDENCE_PATH": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NOT_PRESERVED"
+  },
+  {
+   "RUN_ID": "IT-T5-2026-09-20-144624-321fa3994d5fb839",
+   "STATUS": "SUCCESS",
+   "PEDIDO": {
+    "alvo": "T5",
+    "acionamento": "MANUAL",
+    "escopo": "PONTUAL",
+    "filtros": {
+     "pais": "IT",
+     "fonte": "IT-T5-035",
+     "universo": "T5"
+    }
+   },
+   "MISSION": "SCIENCE",
+   "COUNTRY": "IT",
+   "PLATFORM": "HTTP direto",
+   "ACTOR": "coleta/italy_executor.py",
+   "ACTOR_VERSION": "b9dfd3d2",
+   "CAPTURE_METHOD": "gratuito",
+   "INPUT": {
+    "pais": "IT",
+    "fonte": "IT-T5-035",
+    "universo": "T5"
+   },
+   "QUERY": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-035 · pais=IT · universo=T5",
+   "COMANDO": "coleta/italy_executor.py IT-T5-035 --run-id=IT-T5-2026-09-20-144624-321fa3994d5fb839",
+   "STARTED_AT": "2026-09-20T14:46:24Z",
+   "FINISHED_AT": "2026-09-20T14:46:25Z",
+   "COST_USD": 0,
+   "ITEM_COUNT_RAW": 1,
+   "ITEM_COUNT_NORMALIZED": 1,
+   "ERROR": "",
+   "ESTADO_DOS_ITENS": "PRONTO_PARA_INTELIGENCIA",
+   "FONTES_DO_ASSUNTO": 39,
+   "FONTES_SEM_CAMINHO": 5,
+   "COLHEITA_ENCONTRADA": 1,
+   "COLHEITA_NAO_ENCONTRADA": "colheita reprocessada da corrida «IT-T5-2026-09-20-111928-053fe10137fe1367» pela corrida «IT-T5-2026-09-20-144624-321fa3994d5fb839»",
+   "RETORNO": {
+    "ESTADO": "PARTIAL",
+    "COLHEITA": 0,
+    "SUPORTE": [],
+    "ERROS": [],
+    "PORQUE_ZERO_COLHEITA": "este executor nao declara o que devolve (sem ENVELOPE nem LEGADO em `retorno`). Antes, era aqui que a heuristica adivinhava."
+   },
+   "INGRESSO": {
+    "PARA_A_PORTA": [
+     {
+      "RUN_ID": "IT-T5-2026-09-20-111928-053fe10137fe1367",
+      "DOCUMENT_ID": "IT-T5-035:URL:elenco-atti-georgofili",
+      "DOCUMENT_VERSION_ID": "v1_8833c367d959",
+      "RAW_SHA256": "8833c367d95943d0d8b617848e75a7144c098494524256de07205f01bff317e9",
+      "RESOLVED_STRUCTURED_TARGET": "SOURCE_DOCUMENT",
+      "BYTES": 102744,
+      "MIME_ASSINATURA": "HTML",
+      "CONTENT_TYPE": "text/html",
+      "SOURCE_DATE": null,
+      "SOURCE_DATE_ISO": null,
+      "CAPTURED_AT": "2026-09-20T11:19:33.190Z",
+      "COLLECTION_RUN_STARTED_AT": "2026-09-20T11:19:29.163Z",
+      "OBSERVATION_RESULT": "NEW_DOCUMENT",
+      "HEALTH_STATE": "HEALTHY",
+      "CADENCE_STATE": "UPDATED",
+      "EXPECTED_NEXT_UPDATE": "UNKNOWN",
+      "DECLARED_FREQUENCY": "NAO SEI",
+      "OBSERVED_FREQUENCY": "NAO SEI — uma captura so",
+      "RAW_OBJECT_CREATED": true,
+      "RAW_PRESERVED_BEFORE_PARSE": true,
+      "DISCOVERY_DEGRADED": null,
+      "PARSE_ERROR": null,
+      "parse": null,
+      "EXECUTOR_ID": "italia-recorrente",
+      "EXECUTOR_VERSION": "adapter-v1",
+      "STORAGE_LOCATION": "data/collection-store/italy/IT-T5-035/IT-T5-035_URL_elenco-atti-georgofili/v1_8833c367d959/elenco-atti-georgofili.html",
+      "ESPECIE": "COLHEITA",
+      "SHA256": "8833c367d95943d0d8b617848e75a7144c098494524256de07205f01bff317e9",
+      "PAYLOAD": {
+       "ONDE": "data/collection-store/italy/IT-T5-035/IT-T5-035_URL_elenco-atti-georgofili/v1_8833c367d959/elenco-atti-georgofili.html",
+       "ESTADO": "PRESENTE"
+      },
+      "ARTIFACT_ID": "RAW-8833c367d95943d0",
+      "source_id": "IT-T5-035",
+      "url": "https://georgofili.it/elenco-atti-georgofili",
+      "artifact_type": "RAW",
+      "captured_at": "2026-09-20T11:19:33.190Z",
+      "raw_asset_id": 200
+     }
+    ],
+    "PARA_A_DERIVACAO": [
+     {
+      "RAW_ASSET_ID": 200,
+      "CAPTURED_AT": "2026-09-20T11:19:33.19Z",
+      "MEDIA_TYPE": "text/html",
+      "SOURCE_ID": "IT-T5-035",
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t5-035\\OBSERVATION\\8833c367d95943d0-u2c5c79818924a34a-elenco-atti-georgofili.html"
+     }
+    ],
+    "SEM_BYTES_PARA_DERIVAR": [],
+    "FONTE_PROVADA": "IT-T5-035",
+    "PRESERVADOS": 1,
+    "RECUSADOS": 0,
+    "PORQUE_RECUSADOS": [],
+    "RUN_STATE": "COMPLETE",
+    "RASTRO": {
+     "ACCOUNTED_INPUT": 1,
+     "UNACCOUNTED_INPUT": 0,
+     "ESTADO": "PASS",
+     "DIAGNOSTIC_CODE": null
+    },
+    "BANCO": "SELECT em raw_asset por run_id, filtrado pelos caminhos do plano. Leitura real do banco, nao contagem esperada."
+   },
+   "DERIVACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "RUNNER": "derivacao-forward",
+    "RUN_ID": "IT-T5-2026-09-20-144624-321fa3994d5fb839",
+    "SOURCE_ID": "IT-T5-035",
+    "ROUTE_CLASS_ID": null,
+    "ESTADO_DA_ETAPA": "PASS",
+    "BALDES": {
+     "PASSED": 1,
+     "REJECTED": 0,
+     "ERROR": 0,
+     "NOT_RUN": 0,
+     "UNKNOWN": 0,
+     "REUSED": 0
+    },
+    "SAIRAM": 1,
+    "RASTRO": "EMITIDO",
+    "DERIVADOS": [
+     {
+      "RAW_ASSET_ID": 200,
+      "PORTA": "PASSED",
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-7749ead7de2302f9830cbb2a5b7e49e269e48eb469ff4a31e8e602bb906e1b00.txt"
+     }
+    ],
+    "RESULTADOS": [
+     {
+      "RAW_ASSET_ID": 200,
+      "PDF": "C:\\Users\\London1\\sintonia-sala-italia\\armazem\\XX\\it-t5-035\\OBSERVATION\\8833c367d95943d0-u2c5c79818924a34a-elenco-atti-georgofili.html",
+      "CAPTURED_AT": "2026-09-20T11:19:33.19Z",
+      "SOURCE_ID": "IT-T5-035",
+      "ESTADO": "INSERTED",
+      "PORTA": "PASSED",
+      "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+      "LINHA": {
+       "id": 87,
+       "raw_asset_id": "200",
+       "parent_sha256": "8833c367d95943d0d8b617848e75a7144c098494524256de07205f01bff317e9",
+       "kind": "TEXT_EXTRACTION",
+       "producer": "texto-de-html",
+       "producer_version": "1",
+       "pipeline_version": "1",
+       "parameters_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+       "serie_posicao": null,
+       "sha256": "198e8c5e3c41d268b40fe5787f4a5face53d84a1323fe6a236abc0fff278a4ff",
+       "bytes": "6355",
+       "media_type": "text/plain",
+       "storage_path": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-7749ead7de2302f9830cbb2a5b7e49e269e48eb469ff4a31e8e602bb906e1b00.txt",
+       "derived_at": "2026-09-20T14:46:27Z"
+      },
+      "STORAGE_PATH": "NAO_SEI/derivados/TEXT_EXTRACTION/texto-de-html-1-7749ead7de2302f9830cbb2a5b7e49e269e48eb469ff4a31e8e602bb906e1b00.txt",
+      "MOTIVO_DO_EXECUTOR": null,
+      "EXECUTOR_ID": "texto-de-html",
+      "MEDIA_TYPE": "text/html",
+      "TEXT_KIND": null,
+      "TEXT_RELATION": null,
+      "LANGUAGE": null,
+      "LANGUAGE_SOURCE": null
+     }
+    ]
+   },
+   "ESTRUTURACAO": {
+    "CHAMADO": true,
+    "UNIDADES": 1,
+    "ESTRUTURADOS": [
+     {
+      "RAW_ASSET_ID": 200,
+      "SOURCE_ID": "IT-T5-035",
+      "DERIVED_ARTIFACT_ID": 87,
+      "PARENT_SHA256": "8833c367d95943d0d8b617848e75a7144c098494524256de07205f01bff317e9",
+      "CAPTURED_AT": "2026-09-20T11:19:33.19Z",
+      "ESTADO": "INSERTED",
+      "TEXTO": "Elenco filtrato | Georgofili\nAccademia\nAccademia\nL'Accademia dei Georgofili: un punto di riferimento storico e scientifico per lo studio e la valorizzazione dell’agricoltura, dell’ambiente e del territorio.\nChi siamo\nCome operiamo\nStruttura e organizzazione\nAttività\nAttività\nScopri le iniziative promosse dall’Accademia dei Georgofili: eventi scientifici e culturali, mostre tematiche, una ricca biblioteca specializzata e un prezioso archivio storico che testimonia secoli di impegno per l’agricoltura e l’ambiente.\nAttività scientifiche\nAtti dei Georgofili\nQuaderni dei Georgofili\nRivista di storia dell’Agricoltura\nQuaderni della Rivista di storia dell'Agricoltura\nStoria dell’Agricoltura\nRicerca nelle banche dati\nAccademia post-Covid\nI Focus dei Georgofili\nArticoli in anteprima\nAttività divulgative\nProgetti divulgativi\nNotiziario dell’Accademia\nGeorgofili.info\nPubblicazioni e cataloghi\nOSA-News\nVisite virtuali\nAperitivo dei Georgofili\nValorizzazione culturale\nBiblioteca\nArchivio storico\nFototeca\nValorizzazione del patrimonio\nEsposizioni permanenti\nMostre\nRitratti dei Georgofili\nEventi e news\nEventi e news\nScopri tutte le novità sugli eventi organizzati e consigliati dall'Accademia. Segui i bandi e i premi indetti. Naviga tra le mostre virtuali e partecipa a quelle fisiche.\nEventi\nBandi e premi\nMostre\nComunicati stampa\nElenco fascicoli - Atti dei Georgofili\nStringa di ricerca\nAvvia ricerca\nFascicoli trovati: 39\nFascicolo\nI focus dei Georgofili, anno 2025\nAtti dei Georgofili - 2026\nFascicolo\nAtti dei Georgofili 2025, tomo II\nAtti dei Georgofili - 2025\nFascicolo\nAtti dei Georgofili 2025, tomo primo\nAtti dei Georgofili - 2025\nFascicolo\nI focus dei Georgofili, anno 2024\nSOMMARIO\nPresentazione di Massimo Vincenzini (p. 7)\nCristina Nali, Giacomo Lorenzini, Elisa Pellegrini, Gemma Bianchi, Piante, cambiamento climatico e stress ossidativo\nGiovanni Vannacci, Giuseppe Firrao e Sabrina Sarocco, I funghi questi sconosciuti. Parte 1: il lato oscuro\nGiovanni Vannacci, Giuseppe Firrao e Sabrina Sarocco, I funghi questi sconosciuti. Parte 2: come i funghi ci possono aiutare a salvare il mondo\nAtti dei Georgofili - 2024\nFascicolo\nAtti dei Georgofili 2024, tomo II\nAtti dei Georgofili - 2024\nFascicolo\nAtti dei Georgofili 2024, tomo I\nAtti dei Georgofili - 2024\nFascicolo\nI focus dei Georgofili, anno 2023\nSOMMARIO\nPresentazione di Massimo Vincenzini (p. 7)\nAggiornamento su “Vitigni resistenti” (9)\nBilancio del Carbonio in agricoltura: casi studio (15)\nRicreare la Rete Nazionale della Vivaistica Forestale (53)\nQuesiti e brevi risposte sui prodotti alimentari “alternativi alla carne” (57)\nLa sicurezza alimentare (71)\nAttualità e prospettive per il Biogas e il Biometano (91)\nAtti dei Georgofili - 2023\nFascicolo\nAtti dei Georgofili 2023\nSerie VIII – Vol. 20 (199° dall’inizio)\nAtti dei Georgofili - 2023\nFascicolo\nI focus dei Georgofili, anno 2022\nSOMMARIO\nPresentazione di Massimo Vincenzini (p. 7)\nCreare uno “spazio di dati” nazionale per l’agricoltura (p. 9)\nRiflessioni sulla possibilità di proporre all’UNESCO il Castagno Patrimonio dell’Umanità (p. 19)\nIncendi boschivi: nuovi paradigmi tra prevenzione, gestione e ricostituzione (p. 29)\nStrategia forestale nazionale (p. 41)\nLa revisione dei trattori agricoli o forestali, tra direttive e continui rinvii (p. 51)\nConsiderazioni sulla “Proposta di Regolamento del Parlamento Europeo e del Consiglio del 22 giugno 2022” relativa all’uso sostenibile dei prodotti fitosanitari (p. 85)\nPosizione della Accademia dei Georgofili sulla etichettatura fronte pacco degli alimenti (p. 93)\nAtti dei Georgofili - 2022\nFascicolo\nAtti dei Georgofili 2022\nAtti dei Georgofili - 2022\nFascicolo\nI focus dei Georgofili, anno 2021\nAtti dei Georgofili - 2021\nFascicolo\nL’Accademia per il post Covid-19\nAtti dei Georgofili - 2021\nFascicolo\nI Georgofili in occasione del vertice dei ministri dell’agricoltura del G20\nSupplemento agli Atti dei Georgofili 2021\nAtti dei Georgofili - 2021\nFascicolo\nAtti dei Georgofili 2021\nAtti dei Georgofili - 2021\nFascicolo\nL’Accademia per il post Covid-19\nAtti dei Georgofili - 2020\nFascicolo\nAtti dei Georgofili 2020\nAtti dei Georgofili - 2020\nFascicolo\nAtti dei Georgofili 2019\nAtti dei Georgofili - 2019\nFascicolo\nAtti dei Georgofili 2018\nAtti dei Georgofili - 2018\nFascicolo\nAtti dei Georgofili 2017\nAtti dei Georgofili - 2017\nFascicolo\nAtti dei Georgofili 2016\nSerie VIII – Vol. 13 (192° dall’inizio)\nAtti dei Georgofili - 2016\nFascicolo\nAtti dei Georgofili 2015\nAtti dei Georgofili - 2015\nFascicolo\nInaugurazione 262° Anno Accademico dei Georgofili\nAtti dei Georgofili - 2015\nFascicolo\nAtti dei Georgofili 2014\nAtti dei Georgofili - 2014\nFascicolo\nInaugurazione 261° Anno Accademico dei Georgofili\nAtti dei Georgofili - 2014\nFascicolo\nAtti dei Georgofili 2013\nAtti dei Georgofili - 2013\nFascicolo\nInaugurazione 260° Anno Accademico dei Georgofili\nAtti dei Georgofili - 2013\nFascicolo\nAtti dei Georgofili 2012\nContiene parte prima e parte seconda\nAtti dei Georgofili - 2012\nFascicolo\nInaugurazione 259° Anno Accademico dei Georgofili\nAtti dei Georgofili - 2012\nFascicolo\nAtti dei Georgofili 2011\nAA.VV.\nAtti dei Georgofili - 2011\nFascicolo\nInaugurazione 258° Anno Accademico dei Georgofili\nAtti dei Georgofili - 2011\nFascicolo\nAtti dei Georgofili 2010\nAA.VV.\nAtti dei Georgofili - 2010\nFascicolo\nInaugurazione 257° Anno Accademico dei Georgofili\nAtti dei Georgofili - 2010\nFascicolo\nAtti dei Georgofili 2009\nAtti dei Georgofili - 2009\nFascicolo\nInaugurazione del 256° Anno Accademico\nAtti dei Georgofili - 2009\nFascicolo\nAtti dei Georgofili 2008\nAtti dei Georgofili - 2008\nFascicolo\nInaugurazione 255° Anno Accademico\nAtti dei Georgofili - 2008\nFascicolo\nAtti dei Georgofili 2007\nAtti dei Georgofili - 2007\nFascicolo\nInaugurazione del 254° anno accademico\nAtti dei Georgofili - 2007\nFascicolo\nAtti dei Georgofili 2006\nAtti dei Georgofili - 2006\nAccademia dei Georgofili\nLogge Uffizi Corti, 50122 Firenze\nServizi\nIscriviti alla newsletter\nMotore di ricerca\nIstituzioni collegate\nInformazioni legali\nTermini e condizioni\nPrivacy e cookies\nAmministrazione trasparente\nResta in contatto\nContattaci\nSostieni l'Accademia\nProssimi appuntamenti\nUfficio stampa\nI nostri canali\nCon il contributo di\nCopyright © 2025 Accademia dei Georgofili - C.F. 01121970485. Tutti i diritti riservati.\nCrediti"
+     }
+    ],
+    "RECUSADOS": [],
+    "DONO": "guarda/preservar_documento.py"
+   },
+   "ADMISSAO": {
+    "itens": 1,
+    "por_resultado": {
+     "SIM": 1
+    },
+    "prontos": 1,
+    "ficheiro": "postgres:public.sala_de_espera?run_id=IT-T5-2026-09-20-144624-321fa3994d5fb839",
+    "espera": "PASSED",
+    "FRONTEIRA": {
+     "CONTRATO": "STRUCTURED -> ADMISSION",
+     "DONO": "coleta/ingresso.py::conferir_fronteira",
+     "MEDIDOS": 1,
+     "EXIGIDOS_EM_FALTA": {},
+     "TRANSPORTAVEIS_AUSENTES": {
+      "FACT_LOCATION": 1,
+      "FACT_LOCATION_BASIS": 1,
+      "FACT_TIME": 1,
+      "FACT_TIME_BASIS": 1,
+      "OBSERVED_AT": 1,
+      "PUBLISHED_AT": 1,
+      "SOURCE_DECLARED_EVIDENCE_CLASS": 1,
+      "SOURCE_LOCATION": 1
+     },
+     "COM_LINHAGEM": 1,
+     "A_LEI": "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT"
+    }
+   },
+   "PERSISTENCIA": {
+    "ESTADO": "OPERACIONAL",
+    "MORADA": "127.0.0.1:54330/sala_italia",
+    "PORQUE": "SINTONIA_COLLECTION_DSN declarada e provada operacional autorizada; memoria e rastro ligados ao mesmo banco.",
+    "VARIAVEL": "BANCO_DESCARTAVEL_URL",
+    "ARMAZEM_RAIZ": "C:\\Users\\London1\\sintonia-sala-italia\\armazem",
+    "AMBIENTE_RETIRADO": [],
+    "MEMORIA": "MemoriaPostgres",
+    "BANCO_DO_RASTRO": "Banco"
+   },
+   "DATASET_ID": "NOT_PRESERVED",
+   "EVIDENCE_PATH": "NOT_PRESERVED",
+   "OUTPUT_WRITTEN_AT": "NOT_PRESERVED",
+   "RAW_EVIDENCE_PATH": "NOT_PRESERVED",
+   "RAW_EVIDENCE_STATE": "NOT_PRESERVED",
+   "SOURCE_VERSION": "NOT_PRESERVED"
   }
  ]
 }
