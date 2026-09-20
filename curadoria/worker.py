@@ -1,0 +1,275 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""O WORKER DO SOURCE CURATOR — pega trabalho, faz UMA etapa, persiste, segue.
+
+    NUNCA DEPENDER DE UM HUMANO PARA CADA SOURCE_ID.
+
+O ciclo e deliberadamente burro e por isso e que sobrevive:
+
+    1. buscar proximo trabalho elegivel
+    2. executar UMA etapa
+    3. persistir o resultado
+    4. actualizar o estado da fonte
+    5. pegar o proximo
+
+Uma etapa por volta, nunca duas. Se o processo morre entre a 2 e a 3, quem
+reabrir o disco ve uma tarefa IN_PROGRESS e sabe que alguem comecou e nao
+fechou — que e a verdade. Um worker que fizesse o ciclo inteiro por fonte
+perderia tudo a meio e nao saberia dizer onde parou.
+
+---------------------------------------------------------------------------
+O QUE ESTE WORKER NAO FAZ
+
+    NAO COLETA. NAO CUNHA RUN_ID. NAO ESCREVE RAW.
+    NAO TOCA ADMISSION, SALA, INTELLIGENCE NEM BIG COLLECTION.
+
+O canario abre UM documento para provar que a rota resolve. Isso e prova
+sobre a FONTE, nao aquisicao de conteudo: nada e preservado como acervo.
+
+    VALIDAR != COLETAR.
+
+---------------------------------------------------------------------------
+HUMAN REVIEW — quando o worker para e chama alguem
+
+Custo, credencial, policy, conflito semantico, decisao irreversivel, e o
+UNKNOWN que nao se resolve sozinho. Tudo o resto ele decide, porque tudo o
+resto tem evidencia deterministica.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(RAIZ / "curadoria"))
+
+import canario as CANARIO          # noqa: E402
+import fila as F                   # noqa: E402
+import gate_de_rota as GATE        # noqa: E402
+import lifecycle as LC             # noqa: E402
+
+CONTRATO = "SOURCE_CURATOR_WORKER/v1"
+CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
+EVIDENCIA = RAIZ / "curadoria" / "LIFECYCLE-EVIDENCE-V1.json"
+
+# Classes de falha que NUNCA se tentam outra vez automaticamente.
+# Tentar de novo o que esta barrado por politica nao e persistencia: e contorno.
+NAO_INSISTIR = {"POLICY", "AUTH", "ROBOTS"}
+
+
+def agora() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _contratos() -> dict:
+    d = json.loads(CONTRATOS.read_text(encoding="utf-8"))
+    return {c["SOURCE_ID"]: c for c in d["FONTES"]}
+
+
+def _guardar_evidencia(source_id: str, etapa: str, dados: dict) -> str:
+    """A prova fica num ficheiro proprio do Curator, e a transicao guarda a
+    referencia. O livro de estado nao engorda com payloads."""
+    if EVIDENCIA.exists():
+        d = json.loads(EVIDENCIA.read_text(encoding="utf-8"))
+    else:
+        d = {"DATASET": "LIFECYCLE-EVIDENCE-V1", "CONTRATO": CONTRATO,
+             "LEI": "prova por etapa. EVIDENCE_REF do livro aponta para aqui.",
+             "PROVAS": []}
+    ref = "EV-%s-%s-%04d" % (source_id, etapa, len(d["PROVAS"]) + 1)
+    d["PROVAS"].append({"EVIDENCE_REF": ref, "SOURCE_ID": source_id,
+                        "ETAPA": etapa, "OBSERVED_AT": agora(), "DADOS": dados})
+    EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),
+                         encoding="utf-8")
+    return ref
+
+
+# ---------------------------------------------------------------------------
+# AS ETAPAS — cada uma devolve (RESULTADO, detalhe)
+#
+# RESULTADO ∈ {OK, RETRY, BLOCK, FAIL}
+#   OK     avanca o estado
+#   RETRY  transporte/429 — adia ESTA tarefa, nao a fila
+#   BLOCK  policy/robots/auth — para, e diz de quem e o servico que falta
+#   FAIL   a fonte respondeu e o que devolveu nao serve
+# ---------------------------------------------------------------------------
+def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
+    """O portao do anfitriao, lido AO VIVO.
+
+        ROTA QUE RESPONDE != ROTA PERMITIDA.
+
+    Um 200 nao torna uma rota legal. Esta etapa corre ANTES do canario de
+    proposito: nao se bate a uma porta que ja se sabe estar proibida.
+    """
+    aq = contrato.get("ACQUISITION", {})
+    url = aq.get("FEED_URL") or aq.get("INDEX_URL")
+    if not url:
+        return "FAIL", {"PORQUE": "contrato sem endereco de aquisicao"}
+    host = url.split("/")[2]
+    try:
+        rp, origem = GATE.robots_de(host)
+    except Exception as e:
+        return "RETRY", {"PORQUE": "robots.txt ilegivel: %s" % type(e).__name__}
+
+    if GATE.permitido(url, rp):
+        return "OK", {"ROTA": url, "ROBOTS": origem[:120], "PERMITIDO": True}
+
+    # ⚠️ NAO SEI != PROIBIDO — e aqui as duas coisas chegam pela MESMA porta.
+    # `robots_de` devolve Disallow-total em dois casos muito diferentes: o host
+    # proibiu mesmo, OU a rede nao deixou ler o ficheiro (e entao ele condena
+    # «por prudencia», dizendo-o no texto que devolve). Prudencia e a decisao
+    # certa para nao bater a porta; mas gravar CONTRACT_READY_ROUTE_BLOCKED por
+    # um timeout e condenar uma fonte boa por defeito do nosso lado — o mesmo
+    # erro que o proprio gate_de_rota documenta ter cometido com `nomisma.it`.
+    #
+    #     UM TIMEOUT NAO E UM DISALLOW.
+    #
+    # Logo: rede em baixo -> RETRY (volta depois, por conta propria).
+    #       Disallow lido de verdade -> BLOCK (para, e chama o dono da politica).
+    if "inacessivel" in origem:
+        return "RETRY", {"ROTA": url, "ROBOTS": origem[:120],
+                         "PORQUE": "robots nao pode ser lido — UNKNOWN, nao proibicao"}
+    return "BLOCK", {"CLASSE": "ROBOTS", "ROTA": url, "ROBOTS": origem[:120],
+                     "PORQUE": "o endereco do contrato casa com Disallow no robots vivo"}
+
+
+def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
+    """A corrida real: o contrato resolve e sai um ITEM com identidade?
+
+    Distinguir 429 de falha da fonte e o coracao da FASE 4: um 429 e a
+    plataforma a pedir tempo, nao a fonte a dizer que nao presta.
+    """
+    estrategia = contrato.get("ACQUISITION", {}).get("STRATEGY")
+    try:
+        if estrategia == "YOUTUBE_CHANNEL_FEED":
+            r = CANARIO.canario_youtube(contrato)
+        else:
+            r = CANARIO.canario_html(contrato)
+    except Exception as e:
+        return "RETRY", {"PORQUE": "%s: %s" % (type(e).__name__, str(e)[:120])}
+
+    if r.get("PASS"):
+        return "OK", r
+    if r.get("HTTP") in (429, 503):
+        return "RETRY", r
+    if r.get("HTTP") in (401, 403):
+        return "BLOCK", dict(r, CLASSE="AUTH")
+    if r.get("CLASSE") == "UNKNOWN":
+        return "RETRY", r
+    return "FAIL", r
+
+
+ETAPAS = {
+    F.VALIDATE_ROUTE: etapa_validate_route,
+    F.CANARY: etapa_canary,
+    F.REVALIDATE: etapa_canary,
+    F.REPAIR: etapa_canary,
+}
+
+
+def executar_uma(tarefa: dict, contratos: dict) -> dict:
+    """UMA etapa. Devolve o desfecho, ja persistido na fila e no livro."""
+    sid, tipo, tid = tarefa["SOURCE_ID"], tarefa["TASK_TYPE"], tarefa["TASK_ID"]
+    contrato = contratos.get(sid)
+    if not contrato:
+        F.bloquear(tid, "sem contrato nesta arvore")
+        return {"TASK_ID": tid, "SOURCE_ID": sid, "RESULTADO": "BLOCK",
+                "PORQUE": "sem contrato"}
+
+    fn = ETAPAS.get(tipo)
+    if not fn:
+        F.bloquear(tid, "etapa nao implementada neste worker: %s" % tipo)
+        return {"TASK_ID": tid, "SOURCE_ID": sid, "RESULTADO": "BLOCK",
+                "PORQUE": "etapa %s sem executor" % tipo}
+
+    resultado, detalhe = fn(sid, contrato)
+    ref = _guardar_evidencia(sid, tipo, detalhe)
+
+    if resultado == "OK":
+        F.concluir(tid, "%s OK" % tipo)
+        if tipo == F.VALIDATE_ROUTE:
+            if LC.estado_de(sid) != LC.CANARY_PENDING:
+                LC.registar(sid, LC.CANARY_PENDING,
+                            "rota permitida pelo portao do anfitriao",
+                            evidence_ref=ref)
+            F.enfileirar(sid, F.CANARY, priority=60,
+                         motivo="rota validada, falta o canario")
+        else:
+            # PROMOCAO. So daqui, e so com a prova do canario em mao.
+            LC.registar(sid, LC.READY_FOR_COLLECTION,
+                        "canario resolveu e trouxe um item com identidade",
+                        evidence_ref=ref)
+
+    elif resultado == "RETRY":
+        espera = detalhe.get("RETRY_AFTER_S")
+        F.adiar(tid, retry_after_s=espera, erro=detalhe.get("PORQUE", "")[:160])
+        if LC.estado_de(sid) not in (LC.RETRY_AFTER, LC.READY_FOR_COLLECTION):
+            LC.registar(sid, LC.RETRY_AFTER,
+                        "adiada: %s" % detalhe.get("PORQUE", "")[:120],
+                        evidence_ref=ref)
+
+    elif resultado == "BLOCK":
+        classe = detalhe.get("CLASSE", "UNKNOWN")
+        F.bloquear(tid, detalhe.get("PORQUE", classe)[:160])
+        novo = {"ROBOTS": LC.CONTRACT_READY_ROUTE_BLOCKED,
+                "AUTH": LC.AUTH_BLOCK,
+                "POLICY": LC.POLICY_BLOCK}.get(classe, LC.CAPABILITY_BLOCK)
+        if LC.estado_de(sid) != novo:
+            LC.registar(sid, novo, detalhe.get("PORQUE", "")[:200], evidence_ref=ref)
+
+    else:  # FAIL
+        F.concluir(tid, "canario reprovou")
+        if LC.estado_de(sid) != LC.CONTRACTED_CANARY_FAILED:
+            LC.registar(sid, LC.CONTRACTED_CANARY_FAILED,
+                        detalhe.get("PORQUE", "")[:200], evidence_ref=ref)
+
+    return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
+            "RESULTADO": resultado, "EVIDENCE_REF": ref,
+            "PORQUE": detalhe.get("PORQUE", "")[:160]}
+
+
+def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> list[dict]:
+    """O LOOP. Para quando a fila nao tem nada ELEGIVEL — o que nao e o mesmo
+    que a fila estar vazia: pode haver tarefas a espera do relogio delas, e
+    esperar por elas aqui seria exatamente o bloqueio que a FASE 4 proibe.
+    """
+    contratos = _contratos()
+    feitos = []
+    F.recuperar_orfas()
+    while True:
+        if max_tarefas and len(feitos) >= max_tarefas:
+            break
+        t = F.proxima()
+        if t is None:
+            break
+        r = executar_uma(t, contratos)
+        feitos.append(r)
+        if verboso:
+            print("  %-12s %-10s %s  %s" % (r["SOURCE_ID"], r["RESULTADO"],
+                                            r["TASK_TYPE"], r["PORQUE"][:70]),
+                  flush=True)
+        time.sleep(pausa)
+    return feitos
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--max", type=int, default=0, help="0 = ate esgotar elegiveis")
+    ap.add_argument("--pausa", type=float, default=0.8)
+    a = ap.parse_args()
+
+    print("WORKER DO SOURCE CURATOR — %s" % CONTRATO)
+    print("fila antes: %s" % json.dumps(F.metricas(), ensure_ascii=False))
+    feitos = correr(a.max, a.pausa)
+    print("\nfila depois: %s" % json.dumps(F.metricas(), ensure_ascii=False))
+    print("fontes:      %s" % json.dumps(
+        {k: v for k, v in LC.metricas().items() if v}, ensure_ascii=False))
+    print("executadas:  %d" % len(feitos))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
