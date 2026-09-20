@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  48999d132b0ade2bd4dc722ee6e47fb2139f1c9b
+HEAD_DA_MEDICAO  56f3062067de5b2f6a2a259a6085d6a1f6a654b1
 BRANCH           claude/youtube-canonical-free-route-v1
-GERADO_EM        2026-09-20T14:09:20-03:00
+GERADO_EM        2026-09-20T14:11:55-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
