@@ -1052,15 +1052,27 @@
   },
   {
    "SOURCE_ID": "IT-T2-001",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
+   "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
    "ROUTE_CLASS_ID": "RC-1",
    "ROLE": "PRIMARY",
    "STATE": "CANDIDATE",
-   "PROOF_KIND": "EXPECTED",
-   "PROOF_REF": "NÃO SEI (esperado HTML/PDF)",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: PDF",
    "ACCESS_METHOD": "NÃO SEI (esperado HTML/PDF)",
-   "ACCESS_METHOD_STATE": "EXPECTED",
+   "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
-   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
   },
   {
    "SOURCE_ID": "IT-T2-002",
@@ -1080,7 +1092,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (140 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (144 obs)",
    "ACCESS_METHOD": "NÃO SEI (esperado PDF/HTML)",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1104,7 +1116,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (7 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (8 obs)",
    "ACCESS_METHOD": "NÃO SEI",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1140,7 +1152,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (4 obs)",
    "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1188,7 +1200,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (4 obs)",
    "ACCESS_METHOD": "NÃO SEI",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1224,7 +1236,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (22 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (23 obs)",
    "ACCESS_METHOD": "NÃO SEI",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1244,15 +1256,27 @@
   },
   {
    "SOURCE_ID": "IT-T3-011",
+   "ROUTE_CLASS_ID": "RC-9",
+   "ROLE": "HISTORICAL",
+   "STATE": "PROVEN",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
+   "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
+   "ACCESS_METHOD_STATE": "DECLARED",
+   "BLOCKER": null,
+   "WHAT_IS_MISSING": "a memoria e Git, nao os donos canonicos (P-011)"
+  },
+  {
+   "SOURCE_ID": "IT-T3-011",
    "ROUTE_CLASS_ID": "RC-1",
    "ROLE": "PRIMARY",
    "STATE": "CANDIDATE",
-   "PROOF_KIND": "EXPECTED",
-   "PROOF_REF": "NÃO SEI (esperado PDF)",
+   "PROOF_KIND": "HISTORICALLY_OBSERVED",
+   "PROOF_REF": "MIME_ASSINATURA observado: PDF",
    "ACCESS_METHOD": "NÃO SEI (esperado PDF)",
-   "ACCESS_METHOD_STATE": "EXPECTED",
+   "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
-   "WHAT_IS_MISSING": "uma busca real: o catalogo descreve a forma, e descricao nao prova rota"
+   "WHAT_IS_MISSING": "uma captura pela cadeia canonica (Storage + raw_asset), como a do canario"
   },
   {
    "SOURCE_ID": "IT-T4-001",
@@ -1260,7 +1284,7 @@
    "ROLE": "HISTORICAL",
    "STATE": "PROVEN",
    "PROOF_KIND": "HISTORICALLY_OBSERVED",
-   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (3 obs)",
+   "PROOF_REF": "data/collection-ledger/italy/observations.ndjson (4 obs)",
    "ACCESS_METHOD": "CSV direto (4,6 MB), sem chave",
    "ACCESS_METHOD_STATE": "DECLARED",
    "BLOCKER": null,
@@ -1592,14 +1616,14 @@
   }
  ],
  "ROUTE_MEMBERSHIP_COUNTS": {
-  "TOTAL_PROVEN_MEMBERSHIPS": 8,
+  "TOTAL_PROVEN_MEMBERSHIPS": 10,
   "TOTAL_CANDIDATE_MEMBERSHIPS": 38,
   "TOTAL_BLOCKED_MEMBERSHIPS": 0,
-  "TOTAL": 46
+  "TOTAL": 48
  },
  "ROUTE_RESOLUTION_COUNTS": {
-  "ONLY_CANDIDATE_ROUTE": 24,
-  "HAS_PROVEN_ROUTE": 7,
+  "ONLY_CANDIDATE_ROUTE": 22,
+  "HAS_PROVEN_ROUTE": 9,
   "REACHABLE_ROUTE_UNKNOWN": 14,
   "ROUTE_UNKNOWN": 9
  },
@@ -1659,7 +1683,7 @@
    "EVIDENCE_LEVELS": []
   },
   "RC-9": {
-   "PROVEN_SOURCE_MEMBERSHIPS": 7,
+   "PROVEN_SOURCE_MEMBERSHIPS": 9,
    "CANDIDATE_SOURCE_MEMBERSHIPS": 0,
    "BLOCKED_SOURCE_MEMBERSHIPS": 0,
    "EVIDENCE_LEVELS": [
@@ -1710,12 +1734,12 @@
   },
   "IT-T2-001": {
    "SOURCE_ID": "IT-T2-001",
-   "HAS_PROVEN_ROUTE": false,
+   "HAS_PROVEN_ROUTE": true,
    "HAS_CANDIDATE_ROUTE": true,
-   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
-   "MEMBERSHIPS": 1,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
    "FRONT_DOOR_ACCESS": false,
-   "CHEAPEST_NEXT_PROOF": "CANONICAL_CHAIN_CAPTURE: buscar o endereco ja visto e preserva-lo pela cadeia",
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
    "TOOL_REFUSED": false
   },
   "IT-T2-002": {
@@ -1860,12 +1884,12 @@
   },
   "IT-T3-011": {
    "SOURCE_ID": "IT-T3-011",
-   "HAS_PROVEN_ROUTE": false,
+   "HAS_PROVEN_ROUTE": true,
    "HAS_CANDIDATE_ROUTE": true,
-   "ROUTE_RESOLUTION_STATE": "ONLY_CANDIDATE_ROUTE",
-   "MEMBERSHIPS": 1,
+   "ROUTE_RESOLUTION_STATE": "HAS_PROVEN_ROUTE",
+   "MEMBERSHIPS": 2,
    "FRONT_DOOR_ACCESS": true,
-   "CHEAPEST_NEXT_PROOF": "CANONICAL_CHAIN_CAPTURE: buscar o endereco ja visto e preserva-lo pela cadeia",
+   "CHEAPEST_NEXT_PROOF": "nada — ja provada",
    "TOOL_REFUSED": false
   },
   "IT-T3-012": {
@@ -2241,8 +2265,8 @@
  },
  "FONTES_IT": {
   "TOTAL": 54,
-  "SOURCES_WITH_PROVEN_ROUTE": 7,
-  "SOURCES_WITH_ONLY_CANDIDATE_ROUTE": 24,
+  "SOURCES_WITH_PROVEN_ROUTE": 9,
+  "SOURCES_WITH_ONLY_CANDIDATE_ROUTE": 22,
   "SOURCES_ROUTE_UNKNOWN": 23,
   "SOURCES_BLOCKED": 0,
   "PROVEN_PORQUE": "derivado de ROUTE_MEMBERSHIPS, nunca digitado. Descricao («boletim», «PDF») nao prova route class: CANDIDATE NAO E PROVEN.",
@@ -2290,19 +2314,19 @@
  "GIT_COMO_BANCO_OPERACIONAL": [
   {
    "FICHEIRO": "data/collection-ledger/italy/observations.ndjson",
-   "LINHAS": 184
+   "LINHAS": 209
   },
   {
    "FICHEIRO": "data/collection-ledger/italy/runs.ndjson",
-   "LINHAS": 34
+   "LINHAS": 54
   }
  ],
  "ORQUESTRADOR": {
   "EXISTE": true,
   "FICHEIRO": "orquestrador/orquestrador.py",
-  "EXECUTORES_ALCANCADOS": 6,
+  "EXECUTORES_ALCANCADOS": 12,
   "PROVA": "recebe um Pedido, resolve um Plano em `pedido/receitas.py` e despacha por subprocess. NAO coleta: escolhe quem coleta.",
-  "RESSALVA": "alcanca 6 dos executores medidos por censo_da_coleta.py — existir nao e cobrir. E `SINTONIA SCRAP` continua sendo COMPOSITE_EXECUTOR, nao um segundo orquestrador: ele coordena rotas de UMA aquisicao."
+  "RESSALVA": "alcanca 12 dos executores medidos por censo_da_coleta.py — existir nao e cobrir. E `SINTONIA SCRAP` continua sendo COMPOSITE_EXECUTOR, nao um segundo orquestrador: ele coordena rotas de UMA aquisicao."
  },
  "COLLECTION_FOUNDATION_CLOSED": false,
  "VEREDITOS": {
@@ -2313,8 +2337,8 @@
   "M1_BLOCKED_SEM_DECISAO_ESCRITA": [],
   "SOURCE_NETWORK_COVERAGE": "INCOMPLETE",
   "COVERAGE_PERGUNTA": "todas as fontes tem caminho percorrido?",
-  "COVERAGE_COM_ROTA_PROVADA": 7,
-  "COVERAGE_SEM_ROTA_PROVADA": 47,
+  "COVERAGE_COM_ROTA_PROVADA": 9,
+  "COVERAGE_SEM_ROTA_PROVADA": 45,
   "COVERAGE_E_DIVIDA_NAO_E_GATE": "M1 fechar NAO apaga isto. Continua divida operacional visivel, com proxima prova escrita por fonte. O que muda e que deixa de travar a missao seguinte.",
   "COLLECTION_FOUNDATION_CLOSED": false,
   "FUNDACAO_PERGUNTA": "toda CLASSE DE ESTRADA necessaria tem arquitetura e donos fechados, ou blocker escrito?",

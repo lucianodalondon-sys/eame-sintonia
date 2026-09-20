@@ -1,0 +1,1578 @@
+
+	<!DOCTYPE html>
+	<html lang="it">
+
+		<head>
+		    <meta charset="UTF-8" />
+		    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_new.ico">
+
+		    <title>AgroNotizie - Attualit&agrave;</title>
+		    <meta name="description" content="Agronotizie &egrave; la rivista online per l'agricoltura di Image Line con la newsletter settimanale dedicata a tecnica, economia e innovazione." />
+		    <meta name="keywords" content="Agronotizie, notizie agricoltura, news, internet, informazioni" />
+
+		    
+
+		    <meta name="application-name" content="AgroNotizie" />
+			
+			<meta name="robots" content="noydir" />
+			<meta name="robots" content="noodp" />
+
+			<link rel="apple-touch-icon" href="/dist/images/apple-touch-icon-iphone-60x60.png" />
+			<link rel="apple-touch-icon" sizes="76x76" href="/dist/images/apple-touch-icon-ipad-76x76.png" />
+			<link rel="apple-touch-icon" sizes="120x120" href="/dist/images/apple-touch-icon-iphone-retina-120x120.png" />
+			<link rel="apple-touch-icon" sizes="152x152" href="/dist/images/apple-touch-icon-ipad-retina-152x152.png" />
+
+			<meta http-equiv="content-language" content="it" />
+			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+			
+			
+
+		    <link rel="preconnect" href="https://www6.smartadserver.com" />
+		    <link rel="preconnect" href="https://code.jquery.com" />
+			<link rel="preconnect" href="https://kit.fontawesome.com" />
+			 
+		    <link rel="stylesheet" href="/ILN3/c_fonts/ubuntu/font-faces.css" />
+		    <link rel="stylesheet" href="/ILN3/c_fonts/open-sans/font-faces.css" />
+		    
+		    <link rel="stylesheet" href="/dist/css/bundle.css?ver=20221004111209" />
+		    <link rel="stylesheet" href="/dist/css/override.css?ver=20221117124108" />
+			
+			<script src="https://kit.fontawesome.com/a76507e9d9.js" crossorigin="anonymous"></script>
+			
+			<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+			
+	    	
+		
+		<script type="text/javascript">
+			var _sas = null;
+			var ILNsasObjects = ILNsasObjects || [];
+			
+			(function(){
+				_sas = document.createElement('script'); _sas.type = 'text/javascript'; _sas.async = true; _sas.src = '//ec-ns.sascdn.com/diff/js/smart.js';
+				_t = document.getElementsByTagName('script')[0]; _t.parentNode.insertBefore(_sas, _t);
+			})();
+			
+			function ILNexecSAS(){
+				var ILNsasLoaded = setInterval(function(){
+					if (typeof sas === 'object'){
+						sas.setup({domain: 'https://www6.smartadserver.com', renderMode: 0, async: true});
+						for (var i=0; i<ILNsasObjects.length; i++){
+								sas.call('std', {
+								siteId: ILNsasObjects[i].siteId,
+								pageId: ILNsasObjects[i].pageId,
+								formatId: ILNsasObjects[i].formatId,
+								target: ILNsasObjects[i].target
+							});
+						}
+						clearInterval(ILNsasLoaded);
+					}
+				}, 100);
+			}
+			
+			$(function(){
+				ILNexecSAS();
+				if (typeof(_gua)!='undefined' || typeof(GTMdataLayer)!='undefined'){
+					var $AdBlockCheck = $('<div>', {"id": "AdBlockCheck"});
+					$AdBlockCheck.addClass('ads').addClass('banner').addClass('AdSense');
+					$('body').append($AdBlockCheck);
+					window.setTimeout(function(){
+						if ($('#AdBlockCheck').is(':hidden')){
+							if (typeof(_gua)!='undefined') _gua('send', 'event', 'Ad Setting', 'Ad Blocker', 'Attivo');
+							if (typeof(GTMdataLayer)!='undefined') GTMdataLayer.push({'event': 'adblocker', 'il_ad_blocker': 'Attivo'});
+						}
+						$AdBlockCheck.remove();
+					}, 300);
+				}
+			});
+		</script>
+	
+	
+		
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			(function(){
+				_ga = document.createElement('script'); _ga.type = 'text/javascript'; _ga.async = true; _ga.src = '//www.google-analytics.com/ga.js';
+				_s = document.getElementsByTagName('script')[0]; _s.parentNode.insertBefore(_ga, _s);
+			})();
+			
+			_gaq.push(['_require', 'inpage_linkid', '//www.google-analytics.com/plugins/ga/inpage_linkid.js']);
+			_gaq.push(['_setAccount', 'UA-2086780-6']);
+			
+				_gaq.push(['_setDomainName', '.imagelinenetwork.com']);
+			
+			_gaq.push(['_setLocalGifPath', '/il_condiviso/_utm.gif']);
+			_gaq.push(['_setLocalRemoteServerMode']);
+			
+				_gaq.push(['_gat._anonymizeIp']);
+			
+			_gaq.push(['_trackPageview']);
+			
+			
+				$(function(){
+					$('a:not([href*="agronotizie.imagelinenetwork.com"]):not([href*=".iln.il"]):not([href*=".iln.local"]):not([href*=".imagelinenetwork.com"]):not([href*="imageline.it"]):not([href*="cloudfront.net"]):not([href*="smartadserver.com"])').filter('[href^="http://"],[href^="https://"]').each(function(i){
+						if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+						if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+						$(this).click(function(){
+							_gaq.push(['_trackEvent','outbound','click','[LINK] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']']);
+						});
+					});
+					$('a[href^="mailto:"][href*="@"]').each(function(i){
+						$(this).click(function(){
+							_gaq.push(['_trackEvent','outbound','click','[MAIL] '+$(this).text()+' [kLinkEmail:'+$(this).attr('href').replace(/mailto:/i,'')+']']);
+						});
+					});
+				});
+			
+				$(function(){
+					$('a[href$=".pdf"]').each(function(i){
+						if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+						if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+						$(this).click(function(){
+							_gaq.push(['_trackEvent','download','click','[PDF] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']']);
+						});
+					});
+				});
+			
+		</script>
+		
+	
+		
+		<script type="text/javascript">
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','_gua');
+			
+			_gua('create', 'UA-42660964-6', 'agronotizie.imagelinenetwork.com');
+			_gua('require', 'linkid', 'linkid.js');
+			
+				_gua('create', 'UA-42660964-44', '.imagelinenetwork.com', 'globalTracker');
+				_gua('globalTracker.require', 'linkid', 'linkid.js');
+			
+				_gua('set', 'anonymizeIp', true);
+				
+					_gua('globalTracker.set', 'anonymizeIp', true);
+				
+			var _guaObject = {
+				
+				'hitType': 'pageview'
+			};
+			_gua('send', _guaObject);
+			
+				_gua('globalTracker.send', _guaObject);
+				if (typeof ILNcookieAcceptAction === 'string' && typeof ILNcookieAcceptList === 'string'){
+					_gua('send', 'event', 'accettazione cookie', ILNcookieAcceptAction, ILNcookieAcceptList);
+					_gua('globalTracker.send', 'event', 'accettazione cookie', ILNcookieAcceptAction, ILNcookieAcceptList);
+				}
+			
+		</script>
+		
+		
+			<script type="text/javascript">
+				
+					$(function(){
+						$('a:not([href*="agronotizie.imagelinenetwork.com"]):not([href*=".iln.il"]):not([href*=".iln.local"]):not([href*=".imagelinenetwork.com"]):not([href*="imageline.it"]):not([href*="cloudfront.net"]):not([href*="smartadserver.com"])').filter('[href^="http://"],[href^="https://"]').each(function(i){
+							if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+							if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+							$(this).click(function(){
+								_gua('send', 'event', 'outbound', 'click', '[LINK] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']');
+								
+									_gua('globalTracker.send', 'event', 'outbound', 'click', '[LINK] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']');
+								
+							});
+						});
+						$('a[href^="mailto:"][href*="@"]').each(function(i){
+							$(this).click(function(){
+								_gua('send', 'event', 'outbound', 'click', '[MAIL] '+$(this).text()+' [kLinkEmail:'+$(this).attr('href').replace(/mailto:/i,'')+']');
+								
+									_gua('globalTracker.send', 'event', 'outbound', 'click', '[MAIL] '+$(this).text()+' [kLinkEmail:'+$(this).attr('href').replace(/mailto:/i,'')+']');
+								
+							});
+						});
+					});
+				
+					$(function(){
+						$('a[href$=".pdf"]').each(function(i){
+							if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+							if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+							$(this).click(function(){
+								_gua('send', 'event', 'download', 'click', '[PDF] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']');
+								
+									_gua('globalTracker.send', 'event', 'download', 'click', '[PDF] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']');
+								
+							});
+						});
+						$('a[href*="/materiali.cfm?fun=download"],a[href*="/download.cfm?idMat="],a[href*="/materiali/download?idMat="]').each(function(i){
+							if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+							if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+							$(this).click(function(){
+								var download = '[MAT] '+$(this).text()+' [kLinkUrl:'+$(this).attr('href')+']';
+								if ($(this).is('[rev]') && $(this).attr('rev')!='') download = $(this).attr('rev');
+								_gua('send', 'event', 'download', 'click', download);
+								
+									_gua('globalTracker.send', 'event', 'download', 'click', download);
+								
+							});
+						});
+					});
+				
+			</script>
+		
+			
+			<script type="text/javascript">
+				var tag = document.createElement('script');
+				tag.src = "//www.youtube.com/iframe_api";
+				var firstScriptTag = document.getElementsByTagName('script')[0];
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+				function onYouTubeIframeAPIReady(){
+					$(function(){
+						$('iframe[src^="http://www.youtube"]:not(.no-responsive),iframe[src^="https://www.youtube"]:not(.no-responsive)').each(function(){
+							var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+							var regExpMatch = $(this).attr('src').match(regExp);
+							var youtubeVideoId = (regExpMatch && regExpMatch[2].length==11) ? regExpMatch[2] : '';
+							if (youtubeVideoId!=''){
+								var youtubeVideoTitle = $(this).attr('title') ? $(this).attr('title') : youtubeVideoId;
+								var youtubeVideoWidth = $(this).attr('width') ? $(this).attr('width') : $(this).width();
+								var youtubeVideoHeight = $(this).attr('height') ? $(this).attr('height') : $(this).height();
+								if (youtubeVideoHeight/youtubeVideoWidth >= 0.7){
+									var youtubeVideoFormat = 'embed-responsive-4by3';
+								} else {
+									var youtubeVideoFormat = 'embed-responsive-16by9';
+								}
+								if (!$(this).parent().is('div') || !$(this).parent().hasClass('embed-responsive')){
+									$(this).after('<div class="embed-responsive '+youtubeVideoFormat+'"><div id="youtube-video-'+youtubeVideoId+'"></div></div>');
+								} else {
+									$(this).after('<div id="youtube-video-'+youtubeVideoId+'"></div>');
+								}
+								$(this).remove();
+								var youtubeVideoPlayer = new YT.Player('youtube-video-'+youtubeVideoId, {
+									videoId: youtubeVideoId,
+									host: 'https://www.youtube-nocookie.com',
+									width: '100%', height: '100%',
+									playerVars: {
+										'rel': 0, 'controls': 2, 'color': 'white', 'enablejsapi': 1, 'origin': 'https://agronotizie.imagelinenetwork.com/'
+									},
+									events: {
+										'onStateChange': function(event){
+											if (event.data == YT.PlayerState.PLAYING){
+												_gua('send', 'event', 'Video', 'Play', youtubeVideoTitle);
+												
+													_gua('globalTracker.send', 'event', 'Video', 'Play', youtubeVideoTitle);
+												
+											}
+											if (event.data == YT.PlayerState.PAUSED){
+												_gua('send', 'event', 'Video', 'Pause', youtubeVideoTitle);
+												
+													_gua('globalTracker.send', 'event', 'Video', 'Pause', youtubeVideoTitle);
+												
+											}
+											if (event.data == YT.PlayerState.ENDED){
+												_gua('send', 'event', 'Video', 'End', youtubeVideoTitle);
+												
+													_gua('globalTracker.send', 'event', 'Video', 'End', youtubeVideoTitle);
+												
+											}
+										}
+									}
+								});
+								$('#youtube-video-'+youtubeVideoId).addClass('embed-responsive-item');
+							}
+						});
+					});
+				}
+			</script>
+			
+		
+		
+		<script type="text/javascript">
+			window.GTMdataLayer = window.GTMdataLayer || [];
+		</script>
+		
+		
+			<script type="text/javascript">
+				GTMdataLayer.push({
+					'event': 'user_data'
+					,'il_user_profile': ''
+					,'il_user_name': ''
+					,'il_user_cap': ''
+					,'il_chiave_oggetto_db': ''
+					,'il_id_oggetto_db': '0'
+					,'il_lista_id_aziende': ''
+				});
+			</script>
+		
+		
+		<script type="text/javascript">
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','GTMdataLayer','GTM-PNHSDFM');
+		</script>
+		
+		
+			
+			<script type="text/javascript">
+				(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+					j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+					'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','GTMdataLayer','GTM-KG2JRBR');
+			</script>
+		
+			<script type="text/javascript">
+				$(function(){
+					$('a:not([href*="agronotizie.imagelinenetwork.com"]):not([href*=".iln.il"]):not([href*=".iln.local"]):not([href*=".imagelinenetwork.com"]):not([href*="imageline.it"]):not([href*="cloudfront.net"]):not([href*="smartadserver.com"])').filter('[href^="http://"],[href^="https://"]').each(function(i){
+						if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+						if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+						$(this).click(function(){
+							GTMdataLayer.push({
+								'event': 'outbound',
+								//'il_outbound': '',
+								'il_outbound_titolo': $(this).text(),
+								'il_outbound_link': $(this).attr('href'),
+								'il_outbound_tipo': '[LINK]'
+							});
+						});
+					});
+					$('a[href^="mailto:"][href*="@"]').each(function(i){
+						$(this).click(function(){
+							GTMdataLayer.push({
+								'event': 'outbound',
+								//'il_outbound': '',
+								'il_outbound_titolo': $(this).text(),
+								'il_outbound_link': $(this).attr('href').replace(/mailto:/i,''),
+								'il_outbound_tipo': '[MAIL]'
+							});
+						});
+					});
+				});
+			</script>
+		
+			<script type="text/javascript">
+				$(function(){
+					$('a[href$=".pdf"]').each(function(i){
+						if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+						if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+						$(this).click(function(){
+							idMat = $(this).attr('idmat') || '0';
+							GTMdataLayer.push({
+								'event': 'download',
+								//'il_download': '',
+								'il_download_nomefile': $(this).text(),
+								'il_download_link': $(this).attr('href'),
+								'il_download_tipo': '[PDF]',
+								'il_download_id': idMat
+							});
+						});
+					});
+					$('a[href*="/materiali.cfm?fun=download"],a[href*="/download.cfm?idMat="],a[href*="/materiali/download?idMat="]').each(function(i){
+						if ($(this).attr('target')!='_blank') $(this).attr('target','_blank');
+						if (!$(this).attr('rel')) $(this).attr('rel','noopener');
+						$(this).click(function(){
+							var downloadFile = $(this).attr('href');
+							if ($(this).is('[rev]') && $(this).attr('rev')!='') downloadFile = $(this).attr('rev');
+							idMat = $(this).attr('idmat') || '0';
+							GTMdataLayer.push({
+								'event': 'download',
+								//'il_download': '',
+								'il_download_nomefile': $(this).text(),
+								'il_download_link': downloadFile,
+								'il_download_tipo': '[MAT]',
+								'il_download_id': idMat
+							});
+						});
+					});
+				});
+			</script>
+		
+	    	
+			<!-- clarity.microsoft Tracking Code
+			<script type="text/javascript">
+				(function(c,l,a,r,i,t,y){
+					c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+					t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+					y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+				})(window, document, "clarity", "script", "k7tg5oqkn4");
+			</script>  -->
+
+		</head>
+
+		<body>
+			
+	
+	<link href="https://cdn.imagelinenetwork.com/iln3/c_stili/iln_bar_responsive.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="https://agronotizie.imagelinenetwork.com/ILN3/c_community/ILN_bar_responsive.js"></script>
+	<script type="text/javascript" src="https://cdn.imagelinenetwork.com/il_condiviso/js/jquery-plugins/jquery.cookie.js"></script>
+	
+	
+		<script type="text/javascript">
+			function ILNSSOauthCheck(data){
+				if (data.ILNusrToken && data.ILNusrToken!=''){
+					$.cookie('ILNSSOAUTH', data.ILNusrToken, {domain: 'agronotizie.imagelinenetwork.com', expires: 30});
+					location.reload();
+				}
+			}
+			$(document).ready(function(){
+				$.ajax({
+					url: 'https://autenticazione.imagelinenetwork.com/?function=check',
+					async: false,
+					contentType: 'application/json',
+					dataType: 'jsonp',
+					jsonp: 'callback',
+					jsonpCallback: 'ILNSSOauthCheck'
+				});
+			});
+		</script>
+	
+		<nav class="navbar navbar-inverse navbar-dark navbar-fixed-top fixed-top navbar-expand-lg" role="navigation" id="ILNbar">
+	
+		
+		<div class="hidden d-none">
+			<div class="navbar-collapse collapse" id="ILNbar-menu">
+				
+					<ul class="nav navbar-nav navbar-left">
+						
+								<li class="nav-item"><a class="nav-link" href="https://agronotizie.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="AgroNotizie"><span class="text-uppercase">Notizie</span></a></li>
+							
+							<li class="nav-item"><a class="nav-link" href="https://fitogest.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="Fitogest"><span class="text-uppercase">Agrofarmaci</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="https://fertilgest.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="Fertilgest"><span class="text-uppercase">Fertilizzanti</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="https://agronotizie.imagelinenetwork.com/agrimeccanica/?ref=ILNbar" target="_blank" title="Agrimeccanica"><span class="text-uppercase">Macchine</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="https://plantgest.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="Plantgest"><span class="text-uppercase">Piante</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="https://quadernodicampagna.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="QdC&reg; - Quaderno di Campagna&reg;">QdC<sup>&reg;</sup></a></li>
+							<li class="nav-item"><a class="nav-link" href="https://sdsondemand.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="SDS OnDemand"><span class="text-uppercase">SDS</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="https://clienti.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="Area Clienti"><span class="text-uppercase">Clienti ADV</span></a></li>
+						
+					</ul>
+				
+			</div>
+		</div>
+		
+		<div class="container-fluid">
+			
+			<div class="navbar-header">
+				
+				<button type="button" class="navbar-toggle navbar-toggler collapsed" data-toggle="collapse" data-target="#ILNbar-menu">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				
+				<a class="navbar-brand" id="ILNbar-logo" href="http://www.imagelinenetwork.com/?ref=ILNbar" target="_blank" title="www.imagelinenetwork.com :: Community e siti web per l'agricoltura">
+					<img class="img-responsive center-block" alt="Image Line Network" src="https://cdn.imagelinenetwork.com/iln3/c_grafica/ilnbar/logo-imageline.png" width="115" height="15" />
+					<strong>300.050</strong> utenti iscritti
+				</a>
+				
+				<a class="navbar-brand" id="ILNbar-heart" href="https://www.imagelinenetwork.com/it/una-mano-per-i-bambini/?ref=ILNbar" target="_blank" title="Una Mano per i Bambini">
+					<img alt="Una Mano per i Bambini" src="https://cdn.imagelinenetwork.com/iln3/c_grafica/ilnbar/una-mano-per-i-bambini.png" width="30" height="30" />
+				</a>
+				
+			</div>
+			
+			
+				<div class="navbar-right float-right">
+					
+						<a class="btn btn-xs btn-warning navbar-btn" href="https://autenticazione.imagelinenetwork.com/?function=login&amp;redirect=https%3A%2F%2Fagronotizie%2Eimagelinenetwork%2Ecom%2Fnotizie%2Dagricoltura%2Dattualita%2F"><i class="fa fas fa-sign-in fa-sign-in-alt"></i> Accedi</a>
+						<a class="btn btn-xs btn-primary navbar-btn" href="/agricoltura-per-me/user-register.cfm?ref=ILNbar"><i class="fa far fa-hand-o-right fa-hand-point-right"></i> Registrati</a>
+						<a class="navbar-link hidden-xs d-none d-md-inline" href="/agricoltura-per-me/user-forgot-password.cfm?ref=ILNbar">Non ricordi la password?</a>
+					
+				</div>
+			
+
+			
+            
+            
+		</div>
+			
+	</nav>
+	
+	
+			<div class="containerBody">
+				<div class="contentWrapWide bannerWrap">
+					
+		<div id="sas_19603"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 19603,
+				target: ''
+			});
+		</script>
+	
+				</div>
+				<header>
+					
+    <div class="secondaryNav">
+        <div class="contentWrapWide">
+	    	
+	<ul>
+		
+		<li><a href="/notizie-agricoltura-attualita/">Attualit&agrave;</a></li>
+		<li><a href="/leggi-agricoltura-normativa/">Normativa</a></li>
+		
+		<li><a href="/approfondimenti/">Approfondimenti</a></li>
+		<li><a href="/editoriali/">Editoriali</a></li>
+		<li><a href="/archivio/">Archivio</a></li>
+		<li><a href="/ricerca-articoli/">Ricerca</a></li>
+		<li><a href="/forum/">Forum</a></li>
+		
+        <li class="desktop-only searchItem">
+            <div class="searchFormWrap">
+                <form action="/ricerca/" class="searchForm">
+                    <div>
+                        <label for="ricercaDesktop" class="sr-only">Ricerca</label>
+                        <input type="search" name="cerca" id="ricercaDesktop" placeholder="Ricerca...">
+                        
+                        <button type="submit">
+                            <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Icona lente</title>
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-1618.000000, -9.000000)">
+                                        <g transform="translate(1620.104816, 10.617009)">
+                                            <circle id="Oval" stroke="#525252" stroke-width="3" transform="translate(11.236897, 11.732279) rotate(-45.000000) translate(-11.236897, -11.732279) " cx="11.2368973" cy="11.7322794" r="7.865855"></circle>
+                                            <path d="M16.796388,16.412243 C17.4177083,15.7909226 18.4250676,15.7909226 19.046388,16.412243 L22.796388,20.162243 C23.4177083,20.7835633 23.4177083,21.7909226 22.796388,22.412243 C22.1750676,23.0335633 21.1677083,23.0335633 20.546388,22.412243 L16.796388,18.662243 C16.1750676,18.0409226 16.1750676,17.0335633 16.796388,16.412243 Z" id="Rectangle" fill="#525252"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </li>
+        
+        <li class="tablet-only has-children js-dropdown">
+            <div class="searchFormWrap">
+            	<form action="/ricerca/" class="searchForm">
+                    <div>
+                        <label for="ricercaTablet" class="sr-only">Ricerca</label>
+                        <input type="search" name="cerca" id="ricercaTablet" placeholder="Ricerca...">
+                        <button type="submit">
+                            <svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <title>Icona lente</title>
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-1618.000000, -9.000000)">
+                                        <g transform="translate(1620.104816, 10.617009)">
+                                            <circle id="Oval" stroke="#525252" stroke-width="3" transform="translate(11.236897, 11.732279) rotate(-45.000000) translate(-11.236897, -11.732279) " cx="11.2368973" cy="11.7322794" r="7.865855"></circle>
+                                            <path d="M16.796388,16.412243 C17.4177083,15.7909226 18.4250676,15.7909226 19.046388,16.412243 L22.796388,20.162243 C23.4177083,20.7835633 23.4177083,21.7909226 22.796388,22.412243 C22.1750676,23.0335633 21.1677083,23.0335633 20.546388,22.412243 L16.796388,18.662243 C16.1750676,18.0409226 16.1750676,17.0335633 16.796388,16.412243 Z" id="Rectangle" fill="#525252"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </li>
+        
+        <li class="mobile-only">
+            <div class="searchFormWrap">
+            	<form action="/ricerca/" class="searchForm">
+                    <div>
+                        <label for="ricercaMobile" class="sr-only">Ricerca</label>
+                        <input type="search" name="cerca" id="ricercaMobile" placeholder="Ricerca...">
+                        <button type="submit" class="btn btn-primary">Cerca</button>
+                    </div>
+                </form>
+            </div>
+        </li>
+
+    </ul>
+
+        </div>
+    </div>
+    <div class="contentWrapWide">
+        <a href="/">
+            <img src="/dist/images/logo-agronotizie.png"  alt="Logo Agronotizie">
+        </a>
+        <ul class="categoryNav">
+		    
+		        	<li><a href="/agronomia/">Agronomia</a></li>
+				
+		        	<li><a href="/agricoltura-digitale/">Agricoltura digitale</a></li>
+				
+		        	<li><a href="/soldi/">Soldi</a></li>
+				
+		        	<li><a href="/agricoltura-economia-politica/">Economia <span class="lowercase">e</span> politica</a></li>
+				
+		        	<li><a href="/meteo-agricoltura/">AgroMeteo</a></li>
+				
+		        	<li><a href="/agrimeccanica/">Agrimeccanica</a></li>
+				
+		        	<li><a href="/fertilizzazione/">Fertilizzazione</a></li>
+				
+		        	<li><a href="/difesa-e-diserbo/">Difesa <span class="lowercase">e</span> diserbo</a></li>
+				
+		</ul>
+	    <nav>
+	        <ul>
+	            <li><a href="/colture/">Colture</a></li>
+	            <li><a href="/prezzi-mercati/">Prezzi e mercati</a></li>
+	            
+	            <li><a href="/partner/">Partner</a></li>
+	            <li><a href="/video-agricoltura/">Video</a></li>
+				<li><a href="/podcast/">Podcast</a></li>
+	            <li><a href="/foto-agricoltura/">Fotogallery</a></li>
+				<li><a href="/progetti/">Progetti</a></li>
+	            <li><a href="/speciali/">Speciali</a></li>
+	            <li><a href="/rubriche/">Rubriche</a></li>
+	            <li><a href="/eventi-agricoltura/">Eventi</a></li>
+	            <li><a href="/newsletter/">Newsletter</a></li>
+	            <li><a href="/pubblicita/" class="blue-light">Pubblicit&agrave;</a></li>
+	        </ul>
+	    </nav>
+    </div>
+    <button class="menuTrigger js-toggleMenu" aria-label="Menu"></button>
+
+				</header>
+				<main>
+					
+		<section>
+			<div class="contentWrapWide">
+				
+				<h2>Attualit&agrave;</h2>
+			</div>
+		</section>
+	
+	
+	<section>
+		<div class="contentWrapWide">
+			<div class="newsHighlightsBoardContainer news hasBanner">
+				
+		<article class="big">
+			
+				<a href="/agricoltura-economia-politica/2026/09/18/terra-madre-2026-celebra-la-biodiversita/89715"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/ortofutta-verdure-terra-peperoni-rape-cipolle-zucchine-carote-pomodori-cetrioli-patate-biologico-by-laura-pashkevich-adobe-stock-1200x800.jpeg" alt="Verdure fresche biologiche sul terreno: peperoni, rape, zucchine, zucche, carote, patate" width="570" height="380" /></a>
+			
+			<div>
+				
+					<span class="date">18 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/18/terra-madre-2026-celebra-la-biodiversita/89715">Terra Madre 2026 celebra la biodiversit&agrave;</a></h3>
+				<p>Dal 24 al 27 settembre 2026 &egrave; in calendario a Torino il Salone del Gusto, la manifestazione internazionale dedicata al cibo buono, pulito e giusto e alle politiche alimentari</p>
+				
+			</div>
+		</article>
+	
+		<article class="medium">
+			
+				<a href="/agricoltura-economia-politica/2026/09/18/pac-post-2027-il-governo-italiano-prende-posizione/89714"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/soldi-banconote-euro-100-50-articolo-cap4ai-ffe-set-2026-fonte-dsha-adobe-stock-modificata-1200x800.jpg" alt="Sulla presa di posizione della presidente Giorgia Meloni sulla Pac sono poi giunti i commenti delle principali organizzazioni agricole" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">18 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/18/pac-post-2027-il-governo-italiano-prende-posizione/89714">Pac post 2027, il Governo italiano prende posizione</a></h3>
+				
+					<div class="author">
+						<a href="/autori/dario-del-bene/1663">
+							
+							<span>di Dario Del Bene</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="medium">
+			
+				<a href="/agricoltura-economia-politica/2026/09/17/dallo-spazio-al-campo-un-incontro-sui-dati-che-aiutano-l-agricoltura/89713"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/drone-droni-campo-agricoltura-digitale-tecnologie-innovative-dati-by-dexon-dee-adobe-stock-1200x800.jpeg" alt="Drone che sorvola un campo" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">17 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/17/dallo-spazio-al-campo-un-incontro-sui-dati-che-aiutano-l-agricoltura/89713">Dallo spazio al campo, un incontro sui dati che aiutano l'agricoltura</a></h3>
+				
+			</div>
+		</article>
+	
+				<article class="medium bannerContainer">
+					
+		<div id="sas_19697"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 19697,
+				target: ''
+			});
+		</script>
+	
+				</article>
+				
+	<div style="padding:12px;background-color:#dfedf3;border-radius:8px;max-width:300px;">
+		<div class="border-centered" style="padding-top:8px;">
+			<h3>L'agricoltura per me</h3>
+			
+			<p class="align-center">Leggi notizie, approfondimenti tecnici, consigli agronomici e previsioni meteo personalizzate</p>
+			
+				<p><a class="btn btn-primary" href="/agricolturapersonale/user-register.cfm"><i class="fa fa-hand-o-right"></i> Registrati</a></p>
+			
+		</div>
+	</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="contentWrapWide">
+			<div class="news newsBoardContainer hasBanner">
+				
+		<article class="medium">
+			
+				<a href="/fertilizzazione/2026/09/17/fertilizzanti-in-arrivo-1368-milioni-di-euro-di-aiuti-tra-riserva-di-crisi-e-fondi-nazionali/89708"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/npk-fertilizzanti-fertilizzante-concime-concimi-suolo-terreno-by-994yellow-adobe-stock-1200x800.jpeg" alt="Terreno fertile con fertilizzanti Npk" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">17 set 2026</span>
+				
+					<span class="category"><a href="/fertilizzazione/">Fertilizzazione</a></span>
+				
+				<h3><a href="/fertilizzazione/2026/09/17/fertilizzanti-in-arrivo-1368-milioni-di-euro-di-aiuti-tra-riserva-di-crisi-e-fondi-nazionali/89708">Fertilizzanti, in arrivo 136,8 milioni di euro di aiuti tra riserva di crisi e fondi nazionali</a></h3>
+				
+					<div class="author">
+						<a href="/autori/dario-del-bene/1663">
+							
+							<span>di Dario Del Bene</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="medium">
+			
+				<a href="/agricoltura-economia-politica/2026/09/16/basilicata-27mila-ettari-irrigui-grazie-alla-riparazione-di-un-adduttore/89702"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/Invaso-di-Acerenza-raccoglie-le-acque-di-fiume-Bradano-15-Set-2026-Dario-Del-Bene.jpg" alt="In foto le acque dell'invaso di Acerenza viste dalla diga sul Bradano, presto potranno raggiungere i comizi irrigui nel Nord della Basilicata" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">16 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/16/basilicata-27mila-ettari-irrigui-grazie-alla-riparazione-di-un-adduttore/89702">Basilicata: 27mila ettari irrigui grazie alla riparazione di un adduttore</a></h3>
+				
+					<div class="author">
+						<a href="/autori/dario-del-bene/1663">
+							
+							<span>di Dario Del Bene</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="medium">
+			
+				<a href="/agrimeccanica/2026/09/16/antica-fiera-di-portomaggiore-macchine-per-la-lavorazione-del-terreno-in-campo/89694"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/Antica-Fiera-Portomaggiore-2026-demo-macchine.jpeg" alt="Dimostrazioni di macchine agricole in campo durante una passata edizione dell'Antica Fiera di Portomaggiore" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">16 set 2026</span>
+				
+					<span class="category"><a href="/agrimeccanica/">Agrimeccanica</a></span>
+				
+				<h3><a href="/agrimeccanica/2026/09/16/antica-fiera-di-portomaggiore-macchine-per-la-lavorazione-del-terreno-in-campo/89694">Antica Fiera di Portomaggiore, macchine per la lavorazione del terreno in campo</a></h3>
+				
+			</div>
+		</article>
+	
+				<article class="medium bannerContainer">
+					
+		<div id="sas_19698"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 19698,
+				target: ''
+			});
+		</script>
+	
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="contentWrapWide">
+			<div class="news newsBoardContainer hasBanner">
+				
+		<article class="medium">
+			
+				<a href="/agrimeccanica/2026/09/16/macchine-agricole-innovative-per-la-risicoltura-italiana/89698"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/copertina-cs-federunacoma-riso-settembre-26.jpg" alt="Innovazione agromeccanica per la risicoltura con FederUnacoma a Risò 2026, Vercelli" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">16 set 2026</span>
+				
+					<span class="category"><a href="/agrimeccanica/">Agrimeccanica</a></span>
+				
+				<h3><a href="/agrimeccanica/2026/09/16/macchine-agricole-innovative-per-la-risicoltura-italiana/89698">Macchine agricole innovative per la risicoltura italiana</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="medium">
+			
+				<a href="/agricoltura-economia-politica/2026/09/15/pac-2028-2034-e-il-ruolo-dei-territori-incontro-a-bologna/89701"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/bandiere-europee-primo-piano-europa-europe-by-symbiot-adobe-stock-1200x800.jpeg" alt="Bandiere dell'unione Europea ch sventolano" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">15 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/15/pac-2028-2034-e-il-ruolo-dei-territori-incontro-a-bologna/89701">Pac 2028-2034 e il ruolo dei territori, incontro a Bologna</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="medium">
+			
+				<a href="/agricoltura-economia-politica/2026/09/15/cereali-cresce-l-import-e-cala-l-export-italiano/89699"><img src="https://aws.imagelinenetwork.com/agronotizie/materiali/ArticoliImg/grano-frumento-tenero-spighe-campo-faenza-giugno-2024-fonte-agronotizie-1200x800.jpeg" alt="Spighe di grano tenero in un campo" width="265" height="149" /></a>
+			
+			<div>
+				
+					<span class="date">15 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/15/cereali-cresce-l-import-e-cala-l-export-italiano/89699">Cereali, cresce l'import e cala l'export italiano</a></h3>
+				
+			</div>
+		</article>
+	
+				<article class="small bannerContainer">
+					
+		<div id="sas_19699"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 19699,
+				target: ''
+			});
+		</script>
+	
+				</article>
+				<article class="small bannerContainer">
+					
+		<div id="sas_19700"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 19700,
+				target: ''
+			});
+		</script>
+	
+				</article>
+			</div>
+		</div>
+	</section>
+
+	
+		<section>
+			<div class="contentWrapWide">
+				<div class="news newsFourCols">
+					
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">15 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/15/grano-duro-prezzi-italiani-alla-terza-settimana-consecutiva-di-rialzi/89696">Grano duro, prezzi italiani alla terza settimana consecutiva di rialzi</a></h3>
+				
+					<div class="author">
+						<a href="/autori/dario-del-bene/1663">
+							
+							<span>di Dario Del Bene</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">15 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/15/cav-nuova-presidenza-tra-ricerca-e-vivaismo/89695">Cav, nuova presidenza tra ricerca e vivaismo</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">14 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/14/pac-2023-2027-criticita-e-strumenti-di-governance/89639">Pac 2023-2027: criticit&agrave; e strumenti di governance</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">14 set 2026</span>
+				
+					<span class="category"><a href="/agrimeccanica/">Agrimeccanica</a></span>
+				
+				<h3><a href="/agrimeccanica/2026/09/14/incentivi-e-trattori-settembre-da-bollino-rosso-per-la-meccanizzazione/89691">Incentivi e trattori: settembre da bollino rosso per la meccanizzazione</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">11 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/11/maltempo-dopo-la-siccita-al-centro-nord/89687">Maltempo dopo la siccit&agrave; al Centro Nord</a></h3>
+				
+					<div class="author">
+						<a href="/autori/dario-del-bene/1663">
+							
+							<span>di Dario Del Bene</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">11 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/11/farming-days-2026-in-arrivo-la-seconda-tappa/89690">Farming Days 2026: in arrivo la seconda tappa</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">11 set 2026</span>
+				
+					<span class="category"><a href="/difesa-e-diserbo/">Difesa e diserbo</a></span>
+				
+				<h3><a href="/difesa-e-diserbo/2026/09/11/agrofarmaci-a-bruxelles-si-fa-il-punto-sul-pacchetto-omnibus/89673">Agrofarmaci, a Bruxelles si fa il punto sul Pacchetto Omnibus</a></h3>
+				
+					<div class="author">
+						<a href="/autori/tommaso-cinquemani/1539">
+							
+							<span>di Tommaso Cinquemani</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">11 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/11/tea-il-ricorso-della-slovacchia-rischia-di-frenare-gli-investimenti-in-ue/89679">Tea, il ricorso della Slovacchia rischia di frenare gli investimenti in Ue</a></h3>
+				
+					<div class="author">
+						<a href="/autori/tommaso-cinquemani/1539">
+							
+							<span>di Tommaso Cinquemani</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">10 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/10/storni-in-puglia-via-libera-al-prelievo-in-deroga/89681">Storni, in Puglia via libera al prelievo in deroga</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">10 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/10/patate-una-campagna-tra-stabilita-e-qualita/89686">Patate, una campagna tra stabilit&agrave; e qualit&agrave;</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">10 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/10/olio-evo-la-crisi-continua-mentre-si-studiano-provvedimenti-d-emergenza/89682">Olio Evo, la crisi continua mentre si studiano provvedimenti d'emergenza</a></h3>
+				
+					<div class="author">
+						<a href="/autori/dario-del-bene/1663">
+							
+							<span>di Dario Del Bene</span>
+						</a>
+					</div>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">10 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/10/erba-medica-confronto-aperto-sul-prezzo/89684">Erba medica, confronto aperto sul prezzo</a></h3>
+				
+			</div>
+		</article>
+	
+				</div>
+			</div>
+		</section>
+	
+		<section class="topBordered">
+			<div class="contentWrapWide">
+				<h2>I pi&ugrave; letti</h2>
+				<div class="news newsContainer containerWithCols">
+					<div>
+						
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">15 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/15/grano-duro-prezzi-italiani-alla-terza-settimana-consecutiva-di-rialzi/89696">Grano duro, prezzi italiani alla terza settimana consecutiva di rialzi</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">14 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/14/pac-2023-2027-criticita-e-strumenti-di-governance/89639">Pac 2023-2027: criticit&agrave; e strumenti di governance</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">15 set 2026</span>
+				
+					<span class="category"><a href="/difesa-e-diserbo/">Difesa e diserbo</a></span>
+				
+				<h3><a href="/difesa-e-diserbo/2026/09/15/agrofarmaci-inampout-cosa-entra-cosa-esce-cosa-cambia/89683">Agrofarmaci In&amp;Out: cosa entra, cosa esce, cosa cambia</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">10 set 2026</span>
+				
+					<span class="category"><a href="/agrimeccanica/">Agrimeccanica</a></span>
+				
+				<h3><a href="/agrimeccanica/2026/09/10/landini-rex3-in-equilibrio-tra-compattezza-potenza-e-tecnologia/89643">Landini REX3: in equilibrio tra compattezza, potenza e tecnologia</a></h3>
+				
+			</div>
+		</article>
+	
+		<article class="small">
+			
+			<div>
+				
+					<span class="date">14 set 2026</span>
+				
+					<span class="category"><a href="/agricoltura-economia-politica/">Economia e politica</a></span>
+				
+				<h3><a href="/agricoltura-economia-politica/2026/09/14/agricoltura-forse-e-arrivato-il-momento-di-cambiare-politica/89693">Agricoltura, forse &egrave; arrivato il momento di cambiare politica?</a></h3>
+				
+			</div>
+		</article>
+	
+					</div>
+				</div>
+			</div>
+		</section>
+	
+
+<section class="topBordered">
+	<div class="contentWrapWide">
+		
+			<h2>Leggi gratuitamente AgroNotizie grazie ai Partner</h2>
+		
+		<div class="gridLogos">
+			
+				<div>
+					
+		<div id="sas_27328"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 27328,
+				target: 'kAzienda=1259'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_27329"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 27329,
+				target: 'kAzienda=1216'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_27334"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 27334,
+				target: 'kAzienda=1194'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_27333"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 27333,
+				target: 'kAzienda=1228'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_28759"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 28759,
+				target: 'kAzienda=1241'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_35037"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 35037,
+				target: 'kAzienda=6084'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_40917"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 40917,
+				target: 'kAzienda=1199'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_49852"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 49852,
+				target: 'kAzienda=1203'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_68243"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 68243,
+				target: 'kAzienda=1863'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_37720"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 37720,
+				target: 'kAzienda=1226'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_96653"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 96653,
+				target: 'kAzienda=7544'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_113566"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 113566,
+				target: 'kAzienda=4310'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_125118"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 125118,
+				target: 'kAzienda=179408'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_117797"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 117797,
+				target: 'kAzienda=4756'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_135094"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 135094,
+				target: 'kAzienda=4635'
+			});
+		</script>
+	
+				</div>
+			
+				<div>
+					
+		<div id="sas_130048"></div>
+		<script type="text/javascript">
+			ILNsasObjects = ILNsasObjects || [];
+			ILNsasObjects.push({
+				siteId: 45064,
+				pageId: 313619,
+				formatId: 130048,
+				target: 'kAzienda=2176'
+			});
+		</script>
+	
+				</div>
+			
+		</div>
+	</div>
+</section>
+
+
+				</main>
+				<footer>
+					<div class="contentWrapWide">
+
+	
+		<div class="footer__menu">
+			<div>
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/colture/">Colture</a></li>
+					<li><a href="/partner/">Partner</a></li>
+					<li><a href="/news-partner/">News Partner</a></li>
+					<li><a href="/news-partner-network/">Partner Image Line</a></li>
+					<li><a href="/aziende/">Aziende</a></li>
+					<li><a href="/news-aziende/">News aziende</a></li>
+					<li><a href="/agricolturapersonale/">L'agricoltura per me</a></li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					
+							<li><a href="/agronomia/">Agronomia</a></li>
+						
+							<li><a href="/agricoltura-digitale/">Agricoltura digitale</a></li>
+						
+							<li><a href="/soldi/">Soldi</a></li>
+						
+							<li><a href="/agricoltura-economia-politica/">Economia <span class="lowercase">e</span> politica</a></li>
+						
+							<li><a href="/meteo-agricoltura/">AgroMeteo</a></li>
+						
+							<li><a href="/agrimeccanica/">Agrimeccanica</a></li>
+						
+							<li><a href="/fertilizzazione/">Fertilizzazione</a></li>
+						
+							<li><a href="/difesa-e-diserbo/">Difesa <span class="lowercase">e</span> diserbo</a></li>
+						
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li><a href="/prezzi-mercati/">Prezzi e mercati</a></li>
+					
+					<li><a href="/speciali/">Speciali</a></li>
+					<li><a href="/rubriche/">Rubriche</a></li>
+					<li><a href="/eventi-agricoltura/">Eventi</a></li>
+					<li><a href="/video-agricoltura/">Video</a></li>
+					<li><a href="/podcast/">Podcast</a></li>
+					<li><a href="/foto-agricoltura/">Fotogallery</a></li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li><a href="/notizie-agricoltura-attualita/">Attualit&agrave;</a></li>
+					<li><a href="/leggi-agricoltura-normativa/">Normativa</a></li>
+					<li><a href="/notizie-tecnica-agricoltura/">Tecnica</a></li>
+					<li><a href="/approfondimenti/">Approfondimenti</a></li>
+					<li><a href="/progetti/">Progetti</a></li>
+					<li><a href="/editoriali/">Editoriali</a></li>
+					<li><a href="/archivio/">Archivio articoli</a></li>
+					<li><a href="/ricerca-articoli/">Ricerca articoli</a></li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+                    <li><a href="/chi-siamo/">Chi siamo</a></li>
+                    <li><a href="/autori/">Redazione</a></li>
+                    <li><a href="/newsletter/">Newsletter</a></li>
+                    <li><a href="/pubblicita/">Pubblicit&agrave;</a></li>
+					<li><a href="/contributi/">Contributi</a></li>
+                    <li><a href="/contatti/">Contatti</a></li>
+                    
+                    <li><a href="/forum/">Forum</a></li>
+                    <li><a href="/rss/">RSS</a></li>
+                </ul>
+			</div>
+		</div>
+	
+
+		<div class="social">
+            <span>Segui AgroNotizie</span>
+            <ul>
+                <li>
+                    <a href="https://twitter.com/agronotizie" target="_blank">
+                    	<svg width="35px" height="29px" xmlns="http://www.w3.org/2000/svg" baseProfile="tiny" viewBox="0 0 283.5 283.5" overflow="visible" xmlns:v="https://vecta.io/nano"><title>Twitter icon</title><path style="fill: #fff;" d="M158.5 127.9l65.7-76.4h-15.6l-57 66.3L106 51.6H53.5l68.9 100.3L53.5 232h15.6l60.2-70 48.1 70H230l-71.5-104.1h0zm-21.3 24.8l-7-10-55.5-79.4h23.9l44.8 64.1 7 10 58.3 83.3h-23.9l-47.6-68h0z"/></svg>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/agronotizie" target="_blank">
+                        <svg width="13px" height="23px" viewBox="0 0 13 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>Facebook icon</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-729.000000, -8212.000000)" fill="#ffffff">
+                                    <path d="M740.707877,8224.93762 L741.329724,8220.7746 L737.439064,8220.7746 L737.439064,8218.07357 C737.439064,8216.93465 737.982389,8215.82499 739.72508,8215.82499 L741.493734,8215.82499 L741.493734,8212.28083 C741.493734,8212.28083 739.88909,8212 738.354104,8212 C735.149249,8212 733.055739,8213.9931 733.055739,8217.60227 L733.055739,8220.7746 L729.493734,8220.7746 L729.493734,8224.93762 L733.055739,8224.93762 L733.055739,8235 L737.439064,8235 L737.439064,8224.93762 L740.707877,8224.93762"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/agronotizie/" target="_blank">
+                        <svg width="26px" height="23px" viewBox="0 0 26 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>Instagram icon</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-891.000000, -8214.000000)" fill="#ffffff">
+                                    <g transform="translate(891.493734, 8214.000000)">
+                                        <path d="M19.0066273,4 C18.1779939,4 17.5062658,4.67172813 17.5062658,5.49963847 C17.5062658,6.32827187 18.1779939,7 19.0066273,7 C19.8345377,7 20.5062658,6.32827187 20.5062658,5.49963847 C20.5062658,4.67172813 19.8345377,4 19.0066273,4" id="Fill-70"></path>
+                                        <path d="M12.5066101,15.0230677 C10.3871403,15.0230677 8.66291925,13.4425317 8.66291925,11.5003156 C8.66291925,9.5574683 10.3871403,7.97693235 12.5066101,7.97693235 C14.6253913,7.97693235 16.3496123,9.5574683 16.3496123,11.5003156 C16.3496123,13.4425317 14.6253913,15.0230677 12.5066101,15.0230677 Z M12.5066101,6 C9.1979511,6 6.50626578,8.46737821 6.50626578,11.5003156 C6.50626578,14.5326218 9.1979511,17 12.5066101,17 C15.8145805,17 18.5062658,14.5326218 18.5062658,11.5003156 C18.5062658,8.46737821 15.8145805,6 12.5066101,6 L12.5066101,6 Z"></path>
+                                        <path d="M7.71488058,2.16400995 C4.98460161,2.16400995 2.76374861,4.29226725 2.76374861,6.90871064 L2.76374861,16.0912894 C2.76374861,18.7077327 4.98460161,20.8359901 7.71488058,20.8359901 L17.2969727,20.8359901 C20.0272516,20.8359901 22.248783,18.7077327 22.248783,16.0912894 L22.248783,6.90871064 C22.248783,4.29226725 20.0272516,2.16400995 17.2969727,2.16400995 L7.71488058,2.16400995 Z M17.2969727,23 L7.71488058,23 C3.73918741,23 0.506265782,19.9005709 0.506265782,16.0912894 L0.506265782,6.90871064 C0.506265782,3.09877904 3.73918741,0 7.71488058,0 L17.2969727,0 C21.2719875,0 24.5062658,3.09877904 24.5062658,6.90871064 L24.5062658,16.0912894 C24.5062658,19.9005709 21.2719875,23 17.2969727,23 L17.2969727,23 Z"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/user/agronotizietv" target="_blank">
+                        <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>Youtube icon</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-1054.000000, -8218.000000)" fill="#ffffff">
+                                    <path d="M1070.90286,8226.9004 L1065.01522,8229.95606 C1064.78419,8230.08645 1064,8229.911 1064,8229.63588 L1064,8223.36413 C1064,8223.0856 1064.7907,8222.91015 1065.02173,8223.04805 L1070.65752,8226.26414 C1070.89375,8226.40545 1071.1417,8226.76454 1070.90286,8226.9004 Z M1072.7335,8218 L1059.26583,8218 C1056.35721,8218 1054,8220.38592 1054,8223.32913 L1054,8229.67087 C1054,8232.61476 1056.35721,8235 1059.26583,8235 L1072.7335,8235 C1075.64212,8235 1078,8232.61476 1078,8229.67087 L1078,8223.32913 C1078,8220.38592 1075.64212,8218 1072.7335,8218 Z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+	
+        <div class="bottom">
+            <p>&copy; <a href="/copyright/">copyright</a> AgroNotizie srl Unipersonale e fonti indicate &bull; P.IVA IT 02075310397</p>
+            <p>
+                <a href="/disclaimer/">Disclaimer</a> -
+				<a href="/accessibility-statement/">Dichiarazione di accessibilit&agrave;</a> -
+                <a href="/termini-condizioni/">Termini e condizioni</a> -
+                <a href="/privacy-policy/">Privacy Policy</a> -
+                <a href="https://www.iubenda.com/privacy-policy/80741746/cookie-policy" class="iubenda-nostyle iubenda-noiframe iubenda-embed" title="Cookie Policy ">Cookie Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+
+            </p>
+            <p>Usare i prodotti fitosanitari con precauzione. Prima dell'uso leggere sempre l'etichetta e le informazioni sul prodotto.
+                Si raccomanda di porre la dovuta attenzione alle frasi ed ai simboli di pericolo che figurano nell'etichetta ministeriale.</p>
+            <p>Le immagini utilizzate in corrispondenza degli articoli sono di propriet&agrave; dei rispettivi autori, segnalati nel nome del file o nella dicitura
+                relativa alla fonte dell'immagine. La licenza relativa all'immagine &egrave; riportata al link indicato o nella pagina del profilo pubblico dell'autore.</p>
+            <p>Iscrizione nel Registro della Stampa del Tribunale di Ravenna al n&deg; 1242 del 25/11/2004<br>
+                &reg; marchi registrati Image Line srl Unipersonale (1990 - 2026)</p>
+        </div>
+	
+</div>
+
+				</footer>
+			</div>
+			<script type="text/javascript" src="/dist/js/bundle.js?ver=20231010154126"></script>
+			
+		</body>
+
+	</html>

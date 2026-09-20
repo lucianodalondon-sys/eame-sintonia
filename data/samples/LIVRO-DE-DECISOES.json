@@ -11844,6 +11844,2868 @@
       "versao": "5",
       "corrida": "XX-T3-2026-09-18-172035-48e8b1ad851f9d53",
       "quando": "2026-09-18T17:20:55Z"
+    },
+    {
+      "item": "derived:10",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 3022,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-001",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "a869a9a9813dfc6fc0f5eec7f2e51668ff3a978c38b0c51c4e20fdf2772a",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110605-81d153445852d333",
+      "quando": "2026-09-20T11:06:14Z"
+    },
+    {
+      "item": "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_2026/pdf/SA-16-09.pdf",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-110631-d126f5316c030ae5",
+      "quando": "2026-09-20T11:06:47Z"
+    },
+    {
+      "item": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-110647-25119148429e5ad7",
+      "quando": "2026-09-20T11:06:56Z"
+    },
+    {
+      "item": "derived:11",
+      "universo": "T3",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de fungo, larva, sintoma, parassita — que e do que «T3» trata",
+      "evidencia": {
+        "palavras": [
+          "fungo",
+          "larva",
+          "sintoma",
+          "parassita",
+          "malattia",
+          "insetto",
+          "infestazione",
+          "fitopatolog"
+        ],
+        "sinais": 13,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 62677,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-008",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "fungo",
+              "larva",
+              "sintoma",
+              "parassita",
+              "malattia",
+              "insetto",
+              "infestazione",
+              "fitopatolog"
+            ],
+            "sinais": 13,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-110656-6e4ffc27a86c5269",
+      "quando": "2026-09-20T11:07:21Z"
+    },
+    {
+      "item": "https://www.dati.salute.gov.it/sites/default/files/opendata/PROD_FTS_6_20260914.csv",
+      "universo": "T4",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T4-2026-09-20-110722-1bdcc85c1df9dc4b",
+      "quando": "2026-09-20T11:07:35Z"
+    },
+    {
+      "item": "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110736-bfbc918f6b7729aa",
+      "quando": "2026-09-20T11:07:42Z"
+    },
+    {
+      "item": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_01.pdf",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110742-fbfee2baa147b3d1",
+      "quando": "2026-09-20T11:07:59Z"
+    },
+    {
+      "item": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_09.pdf",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110742-fbfee2baa147b3d1",
+      "quando": "2026-09-20T11:07:59Z"
+    },
+    {
+      "item": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_16.pdf",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110742-fbfee2baa147b3d1",
+      "quando": "2026-09-20T11:07:59Z"
+    },
+    {
+      "item": "https://www.arpa.veneto.it/risorse/data-agrometeo/agrometeo/32zone/agro_24.pdf",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110742-fbfee2baa147b3d1",
+      "quando": "2026-09-20T11:07:59Z"
+    },
+    {
+      "item": "derived:12",
+      "universo": "T3",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T3», e fala claramente de outro universo (T7: soci; T9: prodotto; T4: registro, decreto, etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T7": [
+            "soci"
+          ],
+          "T9": [
+            "prodotto"
+          ],
+          "T4": [
+            "registro",
+            "decreto",
+            "etichetta"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4832,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-011",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "d330f2036149ff5acd83a939ded059ff87e8917c2a024bc7b8005a75f30b",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T7": [
+                "soci"
+              ],
+              "T9": [
+                "prodotto"
+              ],
+              "T4": [
+                "registro",
+                "decreto",
+                "etichetta"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-110759-36fdec4940f62f41",
+      "quando": "2026-09-20T11:08:23Z"
+    },
+    {
+      "item": "https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/bollettini-giornalieri-qualita-dellaria-isola-di-vulcano/",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110849-c6bceb4cee7da580",
+      "quando": "2026-09-20T11:09:10Z"
+    },
+    {
+      "item": "https://www.arpat.toscana.it/evento/toscana-stati-generali-dellambiente/",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110910-54e204b0f1153667",
+      "quando": "2026-09-20T11:09:22Z"
+    },
+    {
+      "item": "derived:13",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 7734,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-009",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "0af0de50ec6d2b8e1138f09b9994ff5f48b268be8938ec4f616d73a80364",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110922-546265f61ff78653",
+      "quando": "2026-09-20T11:09:32Z"
+    },
+    {
+      "item": "https://www.appa.provincia.tn.it/Documenti-e-dati",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110932-34a3d1b07ee72322",
+      "quando": "2026-09-20T11:09:40Z"
+    },
+    {
+      "item": "derived:14",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2877,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-011",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "839594124d6a903b65991da8dfeadd628bbc5cafef0bb1e955690af4f1cc",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110940-e825b7a0dbdc1c03",
+      "quando": "2026-09-20T11:09:58Z"
+    },
+    {
+      "item": "https://www.arpa.fvg.it/news/ufficio-stampa/",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-110958-8c3e3d5cf164c8a6",
+      "quando": "2026-09-20T11:10:08Z"
+    },
+    {
+      "item": "https://www.arpalazio.it/web/guest/rete-micro-meteorologica",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111009-bcb274a298db705e",
+      "quando": "2026-09-20T11:10:18Z"
+    },
+    {
+      "item": "https://www.arpamolise.it/Comunicazione/Pubblicazioni/pdf/cartaservizi.pdf",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111018-1741c596b4005f1d",
+      "quando": "2026-09-20T11:10:24Z"
+    },
+    {
+      "item": "derived:15",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 2647,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-015",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "59d587c8337b64fa625e03b63e98b3d34b3c67587fbeb73f3c2ccb3754de",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111025-aeed32fbd94a65aa",
+      "quando": "2026-09-20T11:10:42Z"
+    },
+    {
+      "item": "derived:16",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 71139,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-016",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "8ba5a41f95f47e9872e90d593a3d440227b86d4349f0ab54e59ee46cac52",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111042-de3d2110293bdedc",
+      "quando": "2026-09-20T11:10:55Z"
+    },
+    {
+      "item": "https://www.iret.cnr.it/sede/sesto-fiorentino-fi/",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111055-74fb958d09230875",
+      "quando": "2026-09-20T11:11:06Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111106-ffe93f6ce1f51dc4",
+      "quando": "2026-09-20T11:11:13Z"
+    },
+    {
+      "item": "https://www.arpa.piemonte.it/temi/radioattivita-radiazioni-ionizzanti",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111113-1545279e27387ee3",
+      "quando": "2026-09-20T11:11:26Z"
+    },
+    {
+      "item": "derived:17",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4338,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-020",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "70bb1867346b06859d4de705ea673570c29ef5a47c218e9f64ee15b9a139",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111126-f4503ee86fcc57b9",
+      "quando": "2026-09-20T11:11:38Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111139-8a2178e23421f9e0",
+      "quando": "2026-09-20T11:11:45Z"
+    },
+    {
+      "item": "https://www.arpa.vda.it/arpa-m/qualita-e-sicurezza",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111146-c21aef6f6879cbdc",
+      "quando": "2026-09-20T11:11:56Z"
+    },
+    {
+      "item": "https://www.arpab.it/articoli/news/arpa-informa/itemDataObject.url",
+      "universo": "T2",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111156-cf706d84069e4d88",
+      "quando": "2026-09-20T11:12:07Z"
+    },
+    {
+      "item": "derived:18",
+      "universo": "T2",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 179114,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T2-024",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "d2fc344feb9cb85ce726de62f44b0805a34330f3d90a64adc898ea1ed063",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T2-2026-09-20-111208-5608ae323c14b387",
+      "quando": "2026-09-20T11:12:24Z"
+    },
+    {
+      "item": "https://agricoltura.regione.emilia-romagna.it/piani-programmi-progetti",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111225-795707815755113f",
+      "quando": "2026-09-20T11:12:35Z"
+    },
+    {
+      "item": "https://www.protezionedellepiante.it/account-area-riservata",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111236-b46b4d0b8d645664",
+      "quando": "2026-09-20T11:12:58Z"
+    },
+    {
+      "item": "https://www.regione.toscana.it/-/posta-elettronica-certificata-pec",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111258-2b698ab35d5b6184",
+      "quando": "2026-09-20T11:13:10Z"
+    },
+    {
+      "item": "https://www.regione.veneto.it/web/programmi-comunitari/pr-fesr-2021-2027",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111310-1d3e741a1186dbe9",
+      "quando": "2026-09-20T11:13:24Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111324-da528851093e2504",
+      "quando": "2026-09-20T11:13:31Z"
+    },
+    {
+      "item": "https://www.ispa.cnr.it/sede-ispa-di-bari",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111332-2cbb1183b09592dd",
+      "quando": "2026-09-20T11:13:40Z"
+    },
+    {
+      "item": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca/progetti-corso",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111341-9b29b823b7d438ba",
+      "quando": "2026-09-20T11:13:48Z"
+    },
+    {
+      "item": "derived:19",
+      "universo": "T3",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T3», e fala claramente de outro universo (T7: soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T7": [
+            "soci"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 718,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T3-020",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "7d2842cab9c3108df692daee65e7cd2cf336914f448cae55c306cbab753a",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T7": [
+                "soci"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111348-28195392e1242412",
+      "quando": "2026-09-20T11:14:08Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T3",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T3-2026-09-20-111409-7076d2a92ad21f4d",
+      "quando": "2026-09-20T11:14:15Z"
+    },
+    {
+      "item": "https://www.cnr.it/it/cnr-in-numeri",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111415-2357acc3dcb921e6",
+      "quando": "2026-09-20T11:14:23Z"
+    },
+    {
+      "item": "https://www.iaraosta.it/wp-content/uploads/2026/07/Carta-della-qualita-FIRMATA.pdf",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111424-939d3bfe990ecfee",
+      "quando": "2026-09-20T11:14:32Z"
+    },
+    {
+      "item": "https://www.agrion.it/2021/wp-content/uploads/2023/04/09-WEB-Informativa-newsletter.pdf",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111433-bfc0787a7051c693",
+      "quando": "2026-09-20T11:14:47Z"
+    },
+    {
+      "item": "derived:20",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, istituto — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "istituto"
+        ],
+        "sinais": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 41994,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-009",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "5c9ed5d4e2d6ff5cc7f9030d741977159ad44621ecd43541af279a747457",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "istituto"
+            ],
+            "sinais": 2,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111447-ff5fc4cbd0be96eb",
+      "quando": "2026-09-20T11:15:00Z"
+    },
+    {
+      "item": "derived:21",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de doi, revista, studio, ricerca — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "doi",
+          "revista",
+          "studio",
+          "ricerca",
+          "rivista",
+          "articolo",
+          "universita",
+          "istituto"
+        ],
+        "sinais": 12,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 209994,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-010",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "6b5909fca23527d50d2cb95eeb5aec62a3ec5905c843c0d680280c5496db",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "doi",
+              "revista",
+              "studio",
+              "ricerca",
+              "rivista",
+              "articolo",
+              "universita",
+              "istituto"
+            ],
+            "sinais": 12,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111501-7e74df1e07242c23",
+      "quando": "2026-09-20T11:15:13Z"
+    },
+    {
+      "item": "derived:22",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, pubblicazione — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "pubblicazione"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 9943,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-011",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "ec646581de9a4112457ca28c15ca646a6c0a44db2cebd520e510a59395e7",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "pubblicazione"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111514-dab3a43d6cbff096",
+      "quando": "2026-09-20T11:15:26Z"
+    },
+    {
+      "item": "derived:23",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "universita"
+        ],
+        "sinais": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 4002,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-012",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "b05bd3cbd64d74e719abc4a97ca77d6fff38e91a5d8d88d18a4073ee24da",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "universita"
+            ],
+            "sinais": 2,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111527-7010244996e4f60d",
+      "quando": "2026-09-20T11:15:43Z"
+    },
+    {
+      "item": "https://www.crpa.it/media/crpa_www/images/contattaci/QRCode_01253030355_CRPA.pdf",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111544-0a570e3a051497c0",
+      "quando": "2026-09-20T11:15:51Z"
+    },
+    {
+      "item": "derived:24",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "universita"
+        ],
+        "sinais": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 24560,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-014",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "fda79eb0625a3f4f7fa115c396a33debdf6e25e73e410d62330a5c55b043",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "universita"
+            ],
+            "sinais": 2,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111552-c60226342543877f",
+      "quando": "2026-09-20T11:16:02Z"
+    },
+    {
+      "item": "https://www.ibbr.cnr.it/ibbr/news/iscrizioni-aperte-per-il-6-maria-ciaramella",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111603-6cd2365f09db3910",
+      "quando": "2026-09-20T11:16:12Z"
+    },
+    {
+      "item": "derived:25",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de ricerca, pubblicazione — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "ricerca",
+          "pubblicazione"
+        ],
+        "sinais": 2,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5686,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-016",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "d14a82ef9fec95da0bf0ee81068414465d590a767276b42e00e62108f484",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "ricerca",
+              "pubblicazione"
+            ],
+            "sinais": 2,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111612-d62f7e530872ae53",
+      "quando": "2026-09-20T11:16:28Z"
+    },
+    {
+      "item": "https://www.unifi.it/sites/default/files/migrated/documents/flore_faq.pdf",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111628-05d7e0621ea3904d",
+      "quando": "2026-09-20T11:16:36Z"
+    },
+    {
+      "item": "derived:26",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de revista, studio, ricerca, rivista — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "revista",
+          "studio",
+          "ricerca",
+          "rivista",
+          "universita",
+          "pubblicazione",
+          "sperimentazione",
+          "tesi"
+        ],
+        "sinais": 8,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 10236,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-018",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "b37ed18f2a3fda836f4cb2d2d5c8511627331c0bd3ac915bbf652c9d555f",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "revista",
+              "studio",
+              "ricerca",
+              "rivista",
+              "universita",
+              "pubblicazione",
+              "sperimentazione",
+              "tesi"
+            ],
+            "sinais": 8,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111637-925cca0288d7a725",
+      "quando": "2026-09-20T11:16:44Z"
+    },
+    {
+      "item": "derived:27",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de doi, orcid, ricerca, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "doi",
+          "orcid",
+          "ricerca",
+          "universita",
+          "pubblicazione"
+        ],
+        "sinais": 5,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 15630,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-019",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "7d7ad269a019a8caed8b48ef829f0fa370719d5ab501094bd705e0ab0515",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "doi",
+              "orcid",
+              "ricerca",
+              "universita",
+              "pubblicazione"
+            ],
+            "sinais": 5,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111645-f9961800a1c6a1b5",
+      "quando": "2026-09-20T11:16:54Z"
+    },
+    {
+      "item": "derived:28",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de ricerca, rivista, pubblicazione — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "ricerca",
+          "rivista",
+          "pubblicazione"
+        ],
+        "sinais": 3,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 12314,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-020",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "4b68f0a0e0ed3159b63e80b6ba69fb48e0f4ce4959c302104497451b7849",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "ricerca",
+              "rivista",
+              "pubblicazione"
+            ],
+            "sinais": 3,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111655-12e3ab07857fc48c",
+      "quando": "2026-09-20T11:17:09Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111710-2c7b5c68d28bc2ce",
+      "quando": "2026-09-20T11:17:16Z"
+    },
+    {
+      "item": "derived:29",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de studio, ricerca, articolo, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "studio",
+          "ricerca",
+          "articolo",
+          "universita",
+          "pubblicazione",
+          "tesi"
+        ],
+        "sinais": 6,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 11879,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-022",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "713a96bdd2e85374fce18d57b0c4ae195a885c59b93f7bc1dfb863b22ae7",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "studio",
+              "ricerca",
+              "articolo",
+              "universita",
+              "pubblicazione",
+              "tesi"
+            ],
+            "sinais": 6,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111716-60f046454a78601b",
+      "quando": "2026-09-20T11:17:26Z"
+    },
+    {
+      "item": "https://www.ssica.it/wp-content/uploads/2025/03/PROGETTO-ACTION.pdf",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111726-3c77320a6fb36530",
+      "quando": "2026-09-20T11:17:34Z"
+    },
+    {
+      "item": "https://disaa.unimi.it/it/eventi/summer-school-valutazione-ambientale-dei-sistemi-zootecnici-mediante-lca-life-cycle-assessment-2809-0210-2026",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111734-a59a5434aa410367",
+      "quando": "2026-09-20T11:17:49Z"
+    },
+    {
+      "item": "http://www.santannapisa.it/it/news/progetto-innoflorenerg",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111749-310facec42f05708",
+      "quando": "2026-09-20T11:17:57Z"
+    },
+    {
+      "item": "derived:30",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de revista, studio, ricerca, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "revista",
+          "studio",
+          "ricerca",
+          "universita",
+          "pubblicazione",
+          "tesi"
+        ],
+        "sinais": 6,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 24358,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-026",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "7714a20da92012ce91a960f488f60d8fe6c4b37616e78e18fb81e5a72759",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "revista",
+              "studio",
+              "ricerca",
+              "universita",
+              "pubblicazione",
+              "tesi"
+            ],
+            "sinais": 6,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111757-3f5e69cf99a858d4",
+      "quando": "2026-09-20T11:18:07Z"
+    },
+    {
+      "item": "https://www.dafnae.unipd.it/news/termine/node/18429",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111808-34651a98b729588a",
+      "quando": "2026-09-20T11:18:24Z"
+    },
+    {
+      "item": "https://di4a.uniud.it/it/organi/delegati-di-dipartimento",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111824-155b3601d4fb8d0f",
+      "quando": "2026-09-20T11:18:32Z"
+    },
+    {
+      "item": "derived:31",
+      "universo": "T5",
+      "resultado": "SIM",
+      "regra": "pertence ao universo",
+      "motivo": "fala de revista, studio, ricerca, universita — que e do que «T5» trata",
+      "evidencia": {
+        "palavras": [
+          "revista",
+          "studio",
+          "ricerca",
+          "universita",
+          "pubblicazione",
+          "tesi"
+        ],
+        "sinais": 6,
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 87407,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T5-029",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "fa5fb754cce475c4ee821efe6bdfdda356d3524966f2013c78f84727bfce",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "palavras": [
+              "revista",
+              "studio",
+              "ricerca",
+              "universita",
+              "pubblicazione",
+              "tesi"
+            ],
+            "sinais": 6,
+            "resultado": "SIM"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111833-300d63e8f5ad1547",
+      "quando": "2026-09-20T11:18:44Z"
+    },
+    {
+      "item": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/Cybermafie_ad_UniTe_Ivano_Gabrielli_direttore_della_Polizia_Postale_e_della_Sicurezza_cibernetica",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111844-310a0f57a2bab5db",
+      "quando": "2026-09-20T11:18:59Z"
+    },
+    {
+      "item": "https://distal.unibo.it/it/notizie/vii-giornata-internazionale-di-sensibilizzazione-sulle-perdite-e-sugli-sprechi-alimentari",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111908-3c150b0a2e546ac7",
+      "quando": "2026-09-20T11:19:20Z"
+    },
+    {
+      "item": "https://georgofili.it/elenco-atti-georgofili",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111921-7afcbb198a794d38",
+      "quando": "2026-09-20T11:19:28Z"
+    },
+    {
+      "item": "https://georgofili.it/elenco-atti-georgofili",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111928-053fe10137fe1367",
+      "quando": "2026-09-20T11:19:35Z"
+    },
+    {
+      "item": "https://georgofili.it/elenco-atti-georgofili",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-111935-ba8a216dd59e8c01",
+      "quando": "2026-09-20T11:19:42Z"
+    },
+    {
+      "item": "https://www.conaf.it/consiglio-dellordine-nazionale/",
+      "universo": "T7",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T7-2026-09-20-111942-40543ae199d81e2e",
+      "quando": "2026-09-20T11:19:54Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T7",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T7-2026-09-20-111955-d6301138c57ad144",
+      "quando": "2026-09-20T11:20:46Z"
+    },
+    {
+      "item": "https://www.cifo.it/newsroom/cifo-a-tomato-world-2026-innovazione-e-strategie-nutrizionali-per-il-pomodoro-da-industria/",
+      "universo": "T9",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-112046-6f70cbfc27b9f282",
+      "quando": "2026-09-20T11:20:56Z"
+    },
+    {
+      "item": "derived:32",
+      "universo": "T9",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T9», e fala claramente de outro universo (T5: revista, tesi; T7: soci; T4: autorizzazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T5": [
+            "revista",
+            "tesi"
+          ],
+          "T7": [
+            "soci"
+          ],
+          "T4": [
+            "autorizzazione"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 20304,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T9-010",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "8f5d0023e0247a6f16801d26860af350d510746c08ec21ec5af2c96d6299",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T5": [
+                "revista",
+                "tesi"
+              ],
+              "T7": [
+                "soci"
+              ],
+              "T4": [
+                "autorizzazione"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-112056-dec38a461a8ab37d",
+      "quando": "2026-09-20T11:21:06Z"
+    },
+    {
+      "item": "https://www.koppert.it/notizia/trasformare-la-protezione-delle-colture-con-gli-acari-predatori",
+      "universo": "T9",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-112106-8961f9e98920de88",
+      "quando": "2026-09-20T11:21:16Z"
+    },
+    {
+      "item": "derived:33",
+      "universo": "T9",
+      "resultado": "NAO_SEI",
+      "regra": "pertence ao universo",
+      "motivo": "nao encontrei nada de «T9» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso fica NAO_SEI.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 827,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T9-012",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "8ac88c1ddf04868b72a2a4743b195b1d0ec106d337493bbb123fff8e603d",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SEI"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-112116-6520154b1515b8a5",
+      "quando": "2026-09-20T11:21:33Z"
+    },
+    {
+      "item": "derived:34",
+      "universo": "T9",
+      "resultado": "NAO",
+      "regra": "pertence ao universo",
+      "motivo": "nao fala de «T9», e fala claramente de outro universo (T7: soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+      "evidencia": {
+        "achado_noutro": {
+          "T7": [
+            "soci"
+          ]
+        },
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 20971,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T9-013",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "a18ce1559fc7c852dcb99d9f0c0c1a10eac768aceab80aeaa546e8afa6e6",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "achado_noutro": {
+              "T7": [
+                "soci"
+              ]
+            },
+            "resultado": "NAO"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T9-2026-09-20-112134-807f0aaa1703c576",
+      "quando": "2026-09-20T11:21:45Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T5",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T5-2026-09-20-112149-e9946e81157ccd9c",
+      "quando": "2026-09-20T11:21:55Z"
+    },
+    {
+      "item": "https://www.provincia.tn.it/News/Comunicati-stampa",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112155-bc4c688b27cdc4aa",
+      "quando": "2026-09-20T11:22:08Z"
+    },
+    {
+      "item": "https://www.regione.toscana.it/-/posta-elettronica-certificata-pec",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112208-052659fe2535018d",
+      "quando": "2026-09-20T11:22:18Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112218-9fd93cf5de6b82d1",
+      "quando": "2026-09-20T11:22:25Z"
+    },
+    {
+      "item": "https://arsac.calabria.it/arsac-chi-siamo/",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112235-e919a0597b572bb8",
+      "quando": "2026-09-20T11:22:53Z"
+    },
+    {
+      "item": "https://www.arsial.it/pubblicazioni-e-ricerche",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112253-926bc17cbd79e6b6",
+      "quando": "2026-09-20T11:23:04Z"
+    },
+    {
+      "item": "derived:35",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 23312,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-008",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "0d0d39ca885e401e416dc6adef390e027976036fc9e8d6c30b659824bc89",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112305-b1abdc9ae877bf9e",
+      "quando": "2026-09-20T11:23:16Z"
+    },
+    {
+      "item": "https://www.regione.lazio.it/notizie/agricoltura/intervento-settoriale-vitivinicolo-della-promozione-mercati-dei-paesi-terzi-campagna-2026-2027",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112316-33065b2395e63e2e",
+      "quando": "2026-09-20T11:23:32Z"
+    },
+    {
+      "item": "http://www.regione.abruzzo.it/notizie/economia-l-abruzzo-da-record-export-pil-ed-occupazione-ai-vertici-italia",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112332-667c3263f70c4e39",
+      "quando": "2026-09-20T11:23:40Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112348-45383d3023542399",
+      "quando": "2026-09-20T11:23:54Z"
+    },
+    {
+      "item": "https://www.sementi.it/le-aziende-associate/",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112354-89ee61a936c2f9ab",
+      "quando": "2026-09-20T11:24:05Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112406-ed8dcc2e03222e3a",
+      "quando": "2026-09-20T11:24:15Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112415-6c4a5bd3e600b6fa",
+      "quando": "2026-09-20T11:24:22Z"
+    },
+    {
+      "item": "https://www.italiaolivicola.it/consiglio-di-amministrazione/",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112422-ebbaa4179d344435",
+      "quando": "2026-09-20T11:24:32Z"
+    },
+    {
+      "item": "https://olivoeolio.edagricole.it/notizie-dalle-aziende/evolio-expo-conquista-usa-buyer-pronti-per-bari-2027/%url%",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112432-605a66b2a54f4949",
+      "quando": "2026-09-20T11:24:40Z"
+    },
+    {
+      "item": "https://www.rivistadiagraria.org/sezioni/animali-da-compagnia/",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112440-0a0244931024390b",
+      "quando": "2026-09-20T11:24:56Z"
+    },
+    {
+      "item": "derived:36",
+      "universo": "T1",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T1». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 12814,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T1-019",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "84b9ab31036e6f24714ca6aacd56b152aa1db66fa863e97d7f7edeb0d989",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112457-85eb8774dae322ea",
+      "quando": "2026-09-20T11:25:08Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112508-d61eda1448b4652e",
+      "quando": "2026-09-20T11:25:14Z"
+    },
+    {
+      "item": "https://agronotizie.imagelinenetwork.com/notizie-agricoltura-attualita/",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112514-08c0fba9bfa97525",
+      "quando": "2026-09-20T11:25:22Z"
+    },
+    {
+      "item": "https://olivonews.it/contatti-lolivo-news/",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112523-25ca05ee1b67b6d0",
+      "quando": "2026-09-20T11:25:38Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T1",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T1-2026-09-20-112538-2c92efbb586d0cbc",
+      "quando": "2026-09-20T11:25:43Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112544-490cf0bd05f02d0c",
+      "quando": "2026-09-20T11:25:50Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112551-a883c8bb8488edc9",
+      "quando": "2026-09-20T11:25:56Z"
+    },
+    {
+      "item": "https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112556-4fdcfbae42d62d75",
+      "quando": "2026-09-20T11:26:05Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112605-bb83ec9792e2b95f",
+      "quando": "2026-09-20T11:26:18Z"
+    },
+    {
+      "item": "https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112618-c0152a732bf37d88",
+      "quando": "2026-09-20T11:26:27Z"
+    },
+    {
+      "item": "derived:37",
+      "universo": "T10",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T10». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 14474,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T10-010",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "a508855d3303fa86d9457d907a04ad4669cf35ab07961e24052f087354b6",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112628-30c424bd0fe56b29",
+      "quando": "2026-09-20T11:26:35Z"
+    },
+    {
+      "item": "https://www.ruminantia.it/borse-merci-e-non-solo/",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112635-db88b517f17bf8de",
+      "quando": "2026-09-20T11:26:43Z"
+    },
+    {
+      "item": "https://www.vinidabruzzo.it/wp-content/uploads/2024/04/QN-ITINERARI-1.pdf",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112644-b4e870a59aa54856",
+      "quando": "2026-09-20T11:26:58Z"
+    },
+    {
+      "item": "https://www.tutelaaranciarossa.it/la-storia-arancia/",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112658-4fb101681a7295ad",
+      "quando": "2026-09-20T11:27:08Z"
+    },
+    {
+      "item": "derived:38",
+      "universo": "T10",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T10». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 5722,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T10-014",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "90bdc3e52d7b585b2bbf019575c8973671b52b85c330d5d9d97823e12e70",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112709-410263c82ff524a1",
+      "quando": "2026-09-20T11:27:19Z"
+    },
+    {
+      "item": "https://www.prosecco.it/wp-content/uploads/2023/07/Pagina-per-sito-web.pdf",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112720-1fe4b8ac546c9ee5",
+      "quando": "2026-09-20T11:27:28Z"
+    },
+    {
+      "item": "NAO SEI",
+      "universo": "T10",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T10-2026-09-20-112728-ba719416cd7adf6a",
+      "quando": "2026-09-20T11:27:39Z"
+    },
+    {
+      "item": "https://www.simei.it/discovering-simei/enovitis-business-2026",
+      "universo": "T11",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T11-2026-09-20-112740-d36b1580778a60a9",
+      "quando": "2026-09-20T11:27:47Z"
+    },
+    {
+      "item": "derived:39",
+      "universo": "T12",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T12». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 11327,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T12-003",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "37cc9569160cf5363707d465f4a9188c58f2d52d7af8a4f141bfb8e72492",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T12-2026-09-20-112747-652387ecd9d1bffe",
+      "quando": "2026-09-20T11:27:58Z"
+    },
+    {
+      "item": "https://www.confagricoltura.it/ita/confagricoltura/la-nostra-storia",
+      "universo": "T12",
+      "resultado": "NAO_SEI",
+      "regra": "legivel",
+      "motivo": "o item veio sem texto nenhum. Sem conteudo nao da para dizer se serve — e «nao consegui ver» nao e «nao serve».",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "resultado": "NAO_SEI"
+          }
+        }
+      },
+      "versao": "5",
+      "corrida": "IT-T12-2026-09-20-112759-8a223b796c7b1a60",
+      "quando": "2026-09-20T11:28:08Z"
+    },
+    {
+      "item": "derived:40",
+      "universo": "T12",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T12». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 661,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T12-005",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "805db3bed1f5cc4de6a29c472fa0c5ec22d63a3ce52a0707811884bd66ce",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T12-2026-09-20-112808-d82ecba2c4e30288",
+      "quando": "2026-09-20T11:28:24Z"
+    },
+    {
+      "item": "derived:41",
+      "universo": "T12",
+      "resultado": "NAO_SE_APLICA",
+      "regra": "pertence ao universo",
+      "motivo": "nao ha regra escrita do que conta como «T12». Sem regra, esta porta nao inventa uma.",
+      "evidencia": {
+        "estagio": "DOCUMENTO",
+        "portoes": {
+          "legivel": {
+            "caracteres": 173996,
+            "resultado": "SIM"
+          },
+          "origem": {
+            "origem": "IT-T12-006",
+            "origem_especie": "SOURCE_ID",
+            "origem_campo": "source_id",
+            "resultado": "SIM"
+          },
+          "linhagem": {
+            "pai": "085ff8cf4fdbd1570b2df3c753e92dcf3aba9e375b32cffcb5b9d276d17f",
+            "resultado": "SIM"
+          },
+          "identidade": {
+            "resultado": "SIM"
+          },
+          "pertence ao universo": {
+            "resultado": "NAO_SE_APLICA"
+          }
+        },
+        "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+      },
+      "versao": "5",
+      "corrida": "IT-T12-2026-09-20-112824-3cd72e6e91a2b083",
+      "quando": "2026-09-20T11:28:37Z"
     }
   ]
 }
