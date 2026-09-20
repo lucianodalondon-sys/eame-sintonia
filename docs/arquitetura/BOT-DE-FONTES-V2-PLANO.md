@@ -9,12 +9,35 @@
 ```
 MISSAO      BOT-DE-FONTES-V2-DESENHO
 DATA        2026-09-20
-TRUNK       claude/it-trunk-v1 @ 606974c3c4559c32307b8f68ec7d7eb925379cc6
 BRANCH      claude/bot-de-fontes-v2-plano
 WORKTREE    C:/bot-fontes-v2
 ESTADO      PROPOSTA · POR DECIDIR PELO DONO
 MERGE       NÃO FEITO, E NÃO PEDIDO
+
+V1  medido em  claude/it-trunk-v1 @ 606974c3            (2026-09-20 08:13)
+V2  RECONCILIADO com claude/contract-provenance-cutover-v1 @ ffea8dbc
+                                                          (2026-09-20, leitura read-only por git show)
 ```
+
+---
+
+# ⚠️ COMO LER ESTE DOCUMENTO — TRÊS CAMADAS QUE NÃO SE MISTURAM
+
+```
+ARCHITECTURE                 desenho do departamento. Não envelhece com uma corrida.
+                             §3 · §4 · §5 · §6 · §8..§17 · §19 · §20
+
+CURRENT_OPERATIONAL_SNAPSHOT fotografia datada, com ref e commit. ENVELHECE.
+                             §1 · §1B · §2 · §7 · §18 · §24 (reconciliação)
+
+FUTURE_REQUIREMENTS          o que ainda não existe e tem de ser construído.
+                             §18 (coluna direita) · §19 · §20
+```
+
+> **Um número deste documento sem o carimbo `@ <ref>` não é estado atual.**
+> A V1 foi medida num trunk que a missão operacional já ultrapassou, e duas das
+> suas conclusões estavam erradas por isso. Estão corrigidas, com o erro à vista,
+> em **§24 · RECONCILIAÇÃO**.
 
 ---
 
@@ -129,41 +152,46 @@ e dois testes.
 SCHEMA EXISTS != WRITER USES IT
 ```
 
-## 1.4 · Os números, medidos hoje no trunk
+## 1.4 · Os números — `CURRENT_OPERATIONAL_SNAPSHOT @ claude/it-trunk-v1 606974c3`
+
+> ⚠️ **ESTES NÚMEROS ESTÃO REVOGADOS COMO ESTADO ATUAL.** Foram medidos no
+> trunk `606974c3`. A missão operacional avançou para `ffea8dbc` e mudou
+> materialmente três deles. **Ver §24 para o snapshot vivo.** Ficam aqui porque
+> apagar a medição antiga esconderia o que mudou e quando.
 
 ```
-SYSTEM_MAP_SOURCE_COUNT            213       (system-map/data/sources.generated.json)
+SYSTEM_MAP_SOURCE_COUNT            213       (inalterado em ffea8dbc — reconferido)
   por país          ITALIA 160 · ESPANHA 34 · EUROPA 13 · FRANCA 6
   por verdict       GREEN 91 · YELLOW 85 · PARCIAL 27 · «NAO SEI» 10
-  com contract      5 / 213
-  sabe_coletar      5 / 213   (campo subdeclara — ver skill de prontidão)
+  com contract      5 / 213                  ← REVOGADO · ver §24
+  sabe_coletar      5 / 213                  ← subdeclara; ver skill de prontidão
   update_frequency  «NÃO SEI» 93 + vazio 41 = 134 / 213 sem valor   (com valor: 79)
 
-CANDIDATE_COUNT                    241       (candidatas/FONTES-CANDIDATAS.json)
-  estado EM_ANALISE                241 / 241   ← a fila inteira está parada
+CANDIDATE_COUNT                    241       (inalterado em ffea8dbc)
+  estado EM_ANALISE                241 / 241 ← INTERPRETADO ERRADO · ver §24
   estado PROMOVIDA                   0
   estado RECUSADA                    0
 
-CONTRATOS_EXECUTAVEIS_NO_TRUNK      14       (regras/italy_contracts.mjs)
-  ROUTE_TYPE  PREDICTABLE 4 · DISCOVERED 3 · APPLICATION 3 · STATIC 2 · BROWSER 2
+CONTRATOS_EXECUTAVEIS_NO_TRUNK      14       ← REVOGADO · 113 em ffea8dbc
 
 LEDGER DA COLETA (data/collection-ledger/italy/)
-  RUNS                              34
-  OBSERVATIONS                     184
-  SOURCE_ID DISTINTOS OBSERVADOS     7       ← 7 de 213 fontes já foram tocadas
+  RUNS                              34       ← REVOGADO · 145 em ffea8dbc
+  OBSERVATIONS                     184       ← REVOGADO · 300 em ffea8dbc
+  SOURCE_ID DISTINTOS OBSERVADOS     7       ← REVOGADO · 110 em ffea8dbc
   HEALTH_STATE                     HEALTHY 153 · FAILED 31
   OBSERVATION_RESULT               SEEN_AGAIN 109 · NEW_DOCUMENT 34 · DISCOVERY_FAILED 19
                                    TRANSPORT_OR_EMPTY 12 · BASELINE_DOCUMENT 10
   CADENCE_STATE                    CADENCE_UNKNOWN 106 · UPDATED 44 · EXPECTED_NO_CHANGE 3 · vazio 31
 
 SALA DE ESPERA
-  MORADA_EXISTE                    False
+  MORADA_EXISTE                    False     ← lido de um derivado histórico; ver §24
   TOTAL_WAITING_ROOM_RECORDS           0
 ```
 
-> **A conta que define a missão do departamento:** 213 fontes registadas,
-> 241 candidatas paradas, e **7 fontes alguma vez observadas**. O gargalo não é
-> descobrir. É atravessar.
+> **A conta que definiu a missão do departamento, na V1:** 213 fontes
+> registadas, 241 candidatas, e 7 fontes alguma vez observadas.
+> **Em `ffea8dbc` são 110.** A frase «o gargalo não é descobrir, é atravessar»
+> mantém-se verdadeira — mas a travessia andou muito, e o plano tinha de o dizer.
 
 ## 1.5 · Vocabulário do enunciado que não existe em ficheiro nenhum
 
@@ -184,40 +212,52 @@ SCOUT               0 ficheiros   (os 6 hits são a string «SCOUT» dentro de C
 # 2 · CURRENT_GAPS
 
 ```
-G1  A FILA NÃO ANDA
-    241 candidatas, todas EM_ANALISE, zero PROMOVIDA, zero RECUSADA.
-    `candidatas/fonte_nova.py` sabe registar e sabe listar. Ninguém decide.
-    → SOURCE_GAP operacional, não técnico.
+G1  A FILA NÃO ANDA                                 ⚠️ REVOGADO — ver §24.1
+    ~~241 candidatas, todas EM_ANALISE, zero PROMOVIDA, zero RECUSADA.
+    `candidatas/fonte_nova.py` sabe registar e sabe listar. Ninguém decide.~~
+    ERRADO. A fila FOI decidida, em 2026-09-15, por
+    `candidatas/decidir_fila_italia.py`. 241/241 têm DECIDIDA_EM, PORQUE,
+    EVIDENCIA e O_QUE_FALTA escritos. `EM_ANALISE` é um VEREDITO, não um limbo.
+    O gap real é outro: falta o exemplo real do item (G1').
+
+G1' FALTA O EXEMPLO REAL, NÃO A DECISÃO                        (o gap verdadeiro)
+    241/241 param no mesmo degrau, e a razão é única: o Atlas exige um ITEM
+    aberto e identificado (EXAMPLE_URL · TIPO · HTTP · CONTENT_TYPE · BYTES ·
+    SHA256 · DATA_VISÍVEL), e a sonda de 14/09 só provou que o endereço responde.
+    → não é SOURCE_GAP nem OWNER_GAP. É EVIDENCE_GAP, e é automatizável.
 
 G2  O CICLO DE VIDA NÃO É ESCRITO EM LADO NENHUM
     `CICLO_DE_VIDA` tem 8 estados e 0 writers. Nenhuma ficha do Atlas nem do
     derivado tem campo de estado de ciclo. O estado de uma fonte hoje é uma
     leitura de prosa (`verdict`, `collection`, `automation`), não um valor.
+    CONFIRMADO em ffea8dbc.
 
 G3  O REGISTRY NÃO GUARDA SAÚDE NEM CADÊNCIA
     COL-LAW-208 lista LAST_ATTEMPT · LAST_SUCCESS · LAST_FAILURE · HEALTH ·
     CHANGE_RATE como campos que a ficha PODE ter. Nenhum existe no derivado
     (22 campos, nenhum deles de saúde). A saúde existe — está no LEDGER, por
     observação, e morre lá: ninguém a devolve à fonte.
-    → CAPABILITY_GAP de escrita, não de medição.
+    CONFIRMADO em ffea8dbc, e agora vale para 110 fontes em vez de 7.
 
 G4  O RUN NÃO DECLARA SOURCE_ID
-    0/34 runs têm SOURCE_ID. 184/184 observações têm.
-    O elo SOURCE→RUN só é reconstruível por junção via observação. Funciona
-    hoje, com 7 fontes. Não é linhagem durável.
+    0/145 runs têm SOURCE_ID. 300/300 observações têm.
+    O elo SOURCE→RUN só é reconstruível por junção via observação.
+    CONFIRMADO em ffea8dbc — e é o único gap de linhagem que sobrevive.
 
-G5  DEPOIS DA ADMISSÃO, A LINHAGEM PARA
-    Sala de Espera: morada não existe, 0 registos. CLAIM/FACT não tem módulo
-    de runtime. Logo `SOURCE → CLAIM → FINDING` é hoje INDEMONSTRÁVEL, e
-    INT-LAW-294 manda dizer exactamente isso: CONTRIBUTION = UNKNOWN.
+G5  DEPOIS DA ADMISSÃO, A LINHAGEM PARA         ⚠️ REVOGADO — ver §24.2
+    ~~Sala de Espera: morada não existe, 0 registos. CLAIM/FACT não tem módulo
+    de runtime. Logo SOURCE → CLAIM → FINDING é hoje INDEMONSTRÁVEL.~~
+    PARCIALMENTE ERRADO. A cadeia SOURCE→…→SALA **está observada**, com 35
+    asserções PASS e 0 FAIL, e o `source_id` sobrevive até STRUCTURED
+    (`IT-T3-002`). O que continua verdadeiro: CLAIM/FACT não existe, logo
+    SOURCE → CLAIM → FINDING permanece indemonstrável.
 
 G6  EXPECTED vs OBSERVED NÃO EXISTE PARA FONTE
     O padrão está escrito para DECISÃO (`CUSTO_ESPERADO` × `CUSTO_REAL` em
-    gestao_da_coleta) e nunca foi aplicado a FONTE.
+    gestao_da_coleta) e nunca foi aplicado a FONTE. CONFIRMADO.
 
 G7  NÃO HÁ DESCOBERTA DIRIGIDA
-    Zero ocorrências de SCOUT. A descoberta é feita por missão humana ad-hoc, e
-    o que se aprendeu numa não orienta a seguinte.
+    Zero ocorrências de SCOUT. CONFIRMADO em ffea8dbc.
 
 G8  CADÊNCIA DECLARADA É MAIORITARIAMENTE DESCONHECIDA
     134/213 fontes sem update_frequency com valor (93 «NÃO SEI» + 41 vazio);
@@ -1219,73 +1259,439 @@ VEREDITO                PROPOSTA ENTREGUE · HARD STOP
 
 ---
 
-# 23 · EM LINGUAGEM SIMPLES
+# 23 · CARIMBOS DA RECONCILIAÇÃO V2
 
-**1. O que o Bot de Fontes faz hoje.**
-Quase nada de forma organizada. Hoje existem pessoas e missões que, de vez em
-quando, vão à procura de sites úteis, olham, e escrevem uma ficha. Não há um
-departamento. Há esforços soltos.
-
-**2. O que passará a fazer.**
-Passa a ser o dono da fonte desde o momento em que alguém descobre que ela
-existe até ao momento em que ela está a produzir e alguém consegue dizer se
-valeu a pena. Entrega à Collection fontes **prontas** — para a Collection nunca
-ter de descobrir, na hora de colher, como é que se chega lá.
-
-**3. Como uma fonte nasce.**
-Alguém vê que existe → entra numa fila de candidatas → alguém abre e confirma
-que é mesmo quem diz ser (e não um homónimo, um site sequestrado ou uma loja
-disfarçada) → guarda-se um exemplo real do que ela entrega → só aí ganha ficha e
-número de identidade.
-
-**4. Quando ela fica «pronta».**
-Só quando **seis coisas** são verdade ao mesmo tempo: a identidade está provada;
-está na lista que o sistema lê; tem um contrato a descrever o caminho; alguém
-decidiu que ela é relevante; existe quem a percorra; e uma corrida real de teste
-funcionou. Cinco em seis não é pronta — é «falta uma coisa», e diz-se qual.
-
-**5. Como sabemos se ela rende.**
-Escreve-se o que se espera dela **antes** de coletar, e mede-se o que ela deu
-**depois**. As duas coisas ficam guardadas lado a lado, para sempre. Nunca se
-apaga a previsão antiga para fingir que já sabíamos o resultado.
-
-**6. Como a Intelligence o vai ensinar.**
-Quando a Intelligence começar a trabalhar, vai poder dizer duas coisas: «esta
-fonte rendeu/não rendeu» e «falta-me evidência sobre isto, procura quem a
-observe». **Não pode mandar coletar** — só informa. Quem decide é a Collection.
-Um detalhe que já custou caro noutra ocasião: antes de pedir fonte nova, é
-obrigatório verificar se o material já está cá e só lhe falta uma etiqueta.
-Aconteceu: 7.078 registos já recolhidos, seis análises impossíveis, e as seis
-falhavam pela **mesma etiqueta em falta** — nenhuma coleta nova resolveria.
-
-**7. Como o Scout vai melhorar.**
-Recebendo um «briefing» que descreve **características** («boletins regionais
-com cultura, doença, data e local») em vez de cópias («mais sites iguais a
-este»). E com duas filas em paralelo: uma orientada pelo que já se sabe, outra
-livre. Se só se procurasse o que já funcionou, nunca se descobriria nada novo —
-e o sistema acabaria a dar-se razão a si próprio.
-
-**8. O que se pode fazer logo a seguir à Big Collection.**
-Sete coisas, todas sem risco: pôr um «estado» em cada fonte; montar o perfil que
-lê os dados que já estão guardados; começar a escrever a expectativa e o
-resultado; montar o painel de cobertura; e — a mais barata de todas — **decidir
-as 241 candidatas paradas**. Isso não precisa de código nenhum, só de alguém
-ler e decidir.
-
-**E o número que resume tudo.**
-Temos **213 fontes registadas** e **241 à espera**. Destas 213, **7** alguma vez
-foram realmente visitadas pelo sistema. O problema deste departamento nunca foi
-encontrar fontes. É fazê-las atravessar.
-
-**E o que trava.**
-Há um ponto concreto, pequeno e muito escondido: o pedaço de programa que grava
-o ficheiro bruto **não anota de que fonte ele veio**. O sítio onde essa anotação
-deveria ficar existe e está vazio. Enquanto isso não for corrigido — e é da
-Collection, não deste departamento — conseguimos medir **quanto** cada fonte
-trouxe, mas nunca **se aquilo serviu para alguma coisa**.
+```
+MEDIDO_EM            claude/contract-provenance-cutover-v1 @ ffea8dbc   (local == origin)
+METODO               READ-ONLY por `git show <ref>:<path>` — a worktree do
+                     COORDINATOR (C:/.../cutover-v2) NÃO foi aberta, lida do disco,
+                     nem tocada. Nenhum checkout, nenhum fetch destrutivo.
+COMMITS NOVOS        5, desde 8983fdb7:
+                       084d6d95  arpae: rota do IT-T2-001 provada
+                       1fbb1242  bc2: receitas T1/T5/T7/T9/T10/T11/T12
+                       fa95b634  bc2: 113 fontes pela porta canonica, Sala 4 -> 17
+                       0792e84b  estradas: 9 fontes com rota provada, 22 so candidata
+                       ffea8dbc  mapa: regerado sobre a arvore da Big Collection 2
+```
 
 ---
 
-**HARD STOP.** Nada foi integrado ao runtime. Nenhum merge foi feito. Nenhum
-ficheiro da missão ativa foi tocado. Este documento é uma proposta e aguarda
+# 24 · RECONCILIAÇÃO — O QUE MUDOU, E ONDE EU ESTAVA ERRADO
+
+## 24.1 · FASE 1 — OS QUATRO UNIVERSOS, COM O GRÃO PROVADO
+
+> **Não se comparam números antes de provar o grão.** Os quatro universos
+> respondem a perguntas diferentes, e é por isso que 170 ≠ 213 ≠ 241.
+
+```
+A) ITALY_SOURCE_UNIVERSE        = 170
+   owner      data/derivados/CENSO-RAPIDO-IT-2026-09-20.json  (COORDINATOR)
+   grão       SOURCE (fonte canónica com SOURCE_ID)
+   critério   «as 170 fontes da medição SOURCE-COLLECTION-READINESS-V1 (18/09)»
+   composição IT 157 + EU 13     ← NÃO é «só Itália»: inclui as 13 EU-*
+   nota       o próprio METODO declara: «nada aqui foi re-sondado fonte a fonte»
+
+B) SYSTEM_MAP_SOURCE_UNIVERSE   = 213
+   owner      system-map/data/sources.generated.json  (derivado, COL-LAW-053)
+   grão       SOURCE — uma linha por SOURCE_ID, NÃO por endpoint
+   escopo     GLOBAL EAME: IT 160 · ES 34 · EU 13 · FR 6
+   endpoints  NÃO — o campo `url` é UM endereço; COL-LAW-205 mantém-nos no endpoint
+   externas   NÃO — só fichas do Atlas
+
+C) CANDIDATE_UNIVERSE           = 241
+   owner      candidatas/FONTES-CANDIDATAS.json  (a FILA, degrau 1)
+   grão       MISTO, e é isso que torna a comparação directa inválida:
+                CANAL_SOCIAL (YT/LI/IG/FB) .... 149
+                ORGANIZAÇÃO / SITE ............  92
+   país       IT 241 / 241 — nenhuma de outro país
+   SOURCE_ID  0 / 241 preenchido (correcto: o ID nasce na promoção)
+   pessoas    NÃO há grão PESSOA/ORCID nesta fila
+
+D) READY_UNIVERSE               = 113
+   owner      o mesmo censo (A), campo CLASS = READY_NOW
+   como       «contrato executável em regras/italy_contracts.mjs -> READY_NOW»
+   ⚠️ É UM PREDICADO DE CONTRATO, NÃO AS SEIS PRONTIDÕES DE §4.2.
+      CANARY_PASS e RELEVANCE_READY não entram nesta conta.
+```
+
+## 24.2 · FASE 2 — A RELAÇÃO ENTRE 170 / 213 / 241, POR IDENTIDADE
+
+Reconciliação por `SOURCE_ID` (não por URL, não por nome):
+
+```
+170 ∩ 213          = 170        → 170 É SUBCONJUNTO PRÓPRIO DE 213.  SIM.
+ONLY_IN_170        = 0
+ONLY_IN_213        = 43         = ES 34 + FR 6 + 3 fontes IT-T8
+
+os 3 IT-T8 que os 170 excluem:
+   IT-T8-001  YouTube  @agronotizietv        verdict GREEN
+   IT-T8-002  LinkedIn company/image-line    verdict YELLOW
+   IT-T8-003  Instagram @agronotizie         verdict YELLOW
+   → T8 = FARMERS & INFLUENCERS. São canais sociais, e o censo de execução
+     excluiu-os porque a política os bloqueia. Exclusão correcta e deliberada.
+
+aritmética que fecha:   160 IT − 3 (T8) = 157 · 157 + 13 EU = 170  ✔
+```
+
+**As 241 contra as 213** — chave = `plataforma + handle` (não handle sozinho):
+
+```
+EXATO_JA_NO_ATLAS                       2      ersaf.lombardia.it · regione.vda.it
+SOCIAL_MESMA_PLATAFORMA_HANDLE_NOVO   129
+SOCIAL_NOVO                            20
+SITE_NOVO                              90
+DUPLICATAS INTERNAS (URL repetida)      0      de 241, 95 domínios distintos
+```
+
+> **As 2 «exatas» não são duplicatas — são ENDPOINTS.**
+> `ersaf.lombardia.it` (raiz) contra `ersaf.lombardia.it/montagna/rifugi/…`
+> (IT-T1-008); `regione.vda.it` contra `regione.vda.it/agricoltura` (IT-T1-012).
+> Mesmo domínio, endereço diferente. Por `COL-LAW-205` isso é **um endpoint novo
+> na mesma fonte**, e a decisão correcta é `DERIVA_DE`, nunca `SOURCE_ID` novo.
+
+**Respostas diretas às perguntas da FASE 2:**
+
+| pergunta | resposta medida |
+|---|---|
+| 170 é subconjunto dos 213? | **SIM**, 170/170, zero fora |
+| 241 inclui os 170? | **NÃO** — universos disjuntos por construção: a fila é degrau 1, o Atlas é degrau 2. `SOURCE_ID` = 0/241 |
+| 241 inclui duplicatas? | **NÃO** internamente (0 URLs repetidas). 2 colidem com o Atlas, e são endpoints |
+| 241 inclui endpoints da mesma fonte? | **SIM, 2** — exatamente os dois acima |
+| 241 inclui fontes de outros países? | **NÃO** — 241/241 são `PAIS = IT` |
+| 241 inclui pessoas/ORCID? | **NÃO** — nenhum grão PESSOA na fila |
+| 241 inclui já-promovidas com estado antigo? | **NÃO** — 0 com `SOURCE_ID` preenchido |
+
+## 24.3 · ⚠️ FASE 3 — ONDE A V1 DESTE PLANO ESTAVA ERRADA
+
+A V1 escreveu, como gap G1: *«A FILA NÃO ANDA. Ninguém decide.»*
+E propôs, como acção mais barata: *«decidir as 241 candidatas paradas»*.
+
+**As duas afirmações estão erradas, e a medição prova-o:**
+
+```
+com DECIDIDA_EM ....... 241 / 241      todas na mesma data: 2026-09-15
+com PORQUE ............ 241 / 241
+com EVIDENCIA ......... 241 / 241
+com O_QUE_FALTA ....... 241 / 241
+```
+
+O diagnóstico, ponto a ponto:
+
+```
+IS_DEFAULT_STATE       = NÃO   fonte_nova.py escreve «CANDIDATA», não «EM_ANALISE»
+IS_STALE_QUEUE         = NÃO   decidida há 5 dias, com prova citada linha a linha
+IS_WRITER_MISSING      = NÃO   decidir_fila_italia.py::decidir() existe e correu
+IS_TRANSITION_MISSING  = NÃO   devolve PROMOVIDA · RECUSADA · EM_ANALISE
+IS_OWNER_MISSING       = NÃO   o owner é o mesmo script + o Atlas
+```
+
+**`EM_ANALISE` não é limbo — é um veredito, e o próprio código o diz:**
+
+> *«REGRA 3 · O RESTO FICA EM_ANALISE, COM O QUE FALTA ESCRITO. EM_ANALISE não é
+> limbo. Cada linha leva a prova que tem e a frase exacta do que falta.»*
+
+E a razão de nenhuma ter sido promovida é **uma só, para as 241**:
+
+```
+O_QUE_FALTA = EXEMPLO_REAL_DO_ITEM     241 / 241
+```
+
+O script recusa-se a promover de propósito, e escreve porquê:
+
+> *«promover 241 fichas com REAL_EXAMPLE em branco poria no atlas 241 linhas a
+> dizer "fonte registada" sem ninguém ter aberto um único item — e com isso a
+> palavra REGISTADA deixaria de significar o que significa nas 140 que lá estão.»*
+
+```
+A LIÇÃO: UM ESTADO UNIFORME PARECE UMA FILA PARADA
+E PODE SER UMA DECISÃO UNIFORME.
+A diferença lê-se no campo DECIDIDA_EM, não na contagem por ESTADO.
+```
+
+**Quem promove, quem rejeita, e qual a prova exigida:**
+
+```
+promove          decidir_fila_italia.py --escrever, quando houver REAL_EXAMPLE
+rejeita          o mesmo script, e SÓ com prova de que a fonte NÃO SERVE
+                 (REGRA 1: «não li» ≠ «não serve»; 25 recusas de 14/09 foram revogadas)
+prova exigida    EXAMPLE_URL · TIPO_ITEM · TITULO · HTTP_STATUS · CONTENT_TYPE ·
+                 BYTES_LIDOS · SHA256_DO_QUE_FOI_LIDO · DATA_VISIVEL
+a transição      EXISTE. Falta-lhe o insumo, não o código.
+```
+
+## 24.4 · ⚠️ FASE 6 — O ACHADO DE SOURCE_ID, REVALIDADO E EM PARTE REVOGADO
+
+A V1 afirmou: *«o writer de RAW não abre o recibo da coleta»*, citando
+`WRITER_WRITES = NO` e `0 de 43 artefactos com SOURCE_ID`.
+
+**Erro de método, e vale a pena nomeá-lo:** eu li
+`data/derivados/SOURCE-ID-WIRING-GAP-V1.json` — um **derivado histórico** — e
+publiquei-o como estado presente. O próprio derivado avisava
+(`FORWARD_GAP_EXECUTED_AND_PROVEN = UNKNOWN`), e eu não dei peso ao aviso.
+
+```
+RELATÓRIO ANTIGO NUM DERIVADO É HISTÓRIA, NÃO ESTADO.
+E o código tinha andado — inclusive JÁ no trunk que eu medi.
+```
+
+**O que o código realmente faz, medido agora:**
+
+```
+coleta/executor_texto_de_pdf.py::fonte_para_o_bruto(pai, raiz)
+    → coleta/italy_executor.py::fonte_do_conteudo(sha256)
+    → lê o CAMPO SOURCE_ID que o coletor escreveu na linha do LIVRO
+    → replace(pai, SOURCE_ID=achado["SOURCE_ID"])
+
+CHAVE = RAW_SHA256, e é deliberado. O próprio módulo mede porquê:
+    RAW_SHA256 presente .... 250/300     RAW_PATH presente .... 139/300
+    «juntar por caminho responderia "não sei" a metade do livro»
+
+⚠️ E NÃO É DERIVAR FONTE DO SHA: o sha é a CHAVE que acha a linha;
+   a fonte vem do CAMPO. Sem linha → «não sei», nunca o nome do ficheiro.
+   E duas fontes para o mesmo conteúdo = ERRO explícito, nunca desempate mudo.
+```
+
+**A matriz da FASE 6, medida em `ffea8dbc`:**
+
+| ELO | `SOURCE_ID_PRESENT` | `DERIVABLE` | `PROVENANCE_PRESENT` |
+|---|---|---|---|
+| `SOURCE → RUN` | **NO** (0/145) | YES — por junção via observação | parcial |
+| `RUN → RAW_OBSERVATION` | YES (`RUN_ID` 300/300) | — | YES |
+| `SOURCE → RAW_OBSERVATION` | **YES (300/300)** | — | YES |
+| `RAW → STORAGE` | YES via livro (sha 250/300) | YES | YES |
+| `RAW → DERIVED` | YES (`artefato.py::derivado_de` propaga) | — | YES |
+| `DERIVED → ADMISSION` | **YES — observado**, `source_id=IT-T3-002` em STRUCTURED | — | YES |
+| `ADMISSION → SALA` | **YES — observado**, 3 itens com `SOURCE_ID` na Sala | — | YES |
+
+Prova da travessia completa (`system-map/data/material-italiano-na-sala.observado.json`):
+
+```
+REQUEST · ORCHESTRATOR · EXECUTOR · RUN · RAW · STORAGE ·
+DERIVED · STRUCTURED · ADMISSION · READY · WAITING_ROOM
+      todos OBSERVED = true          PASSOU = 35   FALHOU = 0
+
+WAITING_ROOM_BEFORE 0 → AFTER 3     SOURCE_ID na Sala: IT-T3-002 · IT-T3-008 · IT-T3-010
+```
+
+**Veredito da FASE 6:**
+
+```
+SOURCE_LINEAGE_GAP_STILL_EXISTS = SIM, MAS MUITO MENOR DO QUE A V1 DISSE
+
+EXACT_LOCATION   data/collection-ledger/italy/runs.ndjson
+                 o registo de RUN não carrega SOURCE_ID (0/145).
+                 É o ÚNICO elo com ausência real de campo.
+                 (o buraco do writer de RAW está fechado pelo livro)
+
+MINIMAL_FIX_LATER  acrescentar SOURCE_ID (ou SOURCE_IDS[]) ao registo de RUN.
+                   `leis/telemetria.py::CAMPOS_DO_RUN` JÁ o lista — o contrato
+                   está escrito, só o escritor do ledger não o preenche.
+                   Owner: COLLECTION. NÃO implementado por esta missão.
+
+⚠️ O QUE CONTINUA VERDADEIRO DA V1: CLAIM/FACT não existe em runtime.
+   Logo SOURCE → CLAIM → FINDING permanece indemonstrável, e toda métrica
+   de VALOR continua UNKNOWN por INT-LAW-294. Isso não mudou.
+```
+
+## 24.5 · FASE 4 — SIMULAÇÃO DAS 241 (nada foi escrito)
+
+Classificação automática com a evidência que já existe. **Zero transições
+gravadas** — o ficheiro da fila não foi tocado.
+
+| `PROPOSED_STATE` | N | porquê |
+|---|---|---|
+| `BLOCK` | **69** | LinkedIn 44 + Instagram 25. `LINKEDIN_BIG_COLLECTION_ELIGIBLE = 0` e `INSTAGRAM_REMOTE_COLLECTION_ALLOWED = 0`, medido pelo COORDINATOR |
+| `NEEDS_REVIEW` | **82** | YouTube 60 + Facebook 20 + 2 endpoints de fonte existente |
+| `NEEDS_EVIDENCE` | **90** | site próprio, falta só o exemplo real do item |
+| `PROMOTE` | **0** | nenhuma tem `REAL_EXAMPLE`. Promover seria esvaziar a palavra REGISTADA |
+| `REJECT` | **0** | e é correcto: «não li» ≠ «não serve» (REGRA 1) |
+
+Por tipo:
+
+```
+ORGANIZACAO   46 NEEDS_EVIDENCE      YOUTUBE    60 NEEDS_REVIEW
+IMPRENSA      19 NEEDS_EVIDENCE      FACEBOOK   20 NEEDS_REVIEW
+BASE_OFICIAL  16 NEEDS_EVIDENCE + 2 NEEDS_REVIEW
+CIENCIA        9 NEEDS_EVIDENCE      LINKEDIN   44 BLOCK · INSTAGRAM 25 BLOCK
+```
+
+## 24.6 · FASE 5 — O QUE O BOT DECIDE SOZINHO, E O QUE SOBE A HUMANO
+
+O pedido é explícito: **não usar «alguém precisa ler»**. Aplicado às 241:
+
+```
+BOT DECIDE SOZINHO (172 = 90 + 82)
+    90  NEEDS_EVIDENCE  → capturar 1 item real por fonte. É HTTP + hash +
+                          content-type. Determinístico, sem julgamento.
+                          Com REAL_EXAMPLE, decidir_fila_italia.py promove sozinho.
+    60  YOUTUBE         → capacidade YouTube JÁ existe em T9 (medida, não suposta).
+                          Resolver channelId por `channelMetadataRenderer.externalId`
+                          e capturar 1 vídeo do feed. Automatizável.
+    20  FACEBOOK        → probe de existência com controlo negativo obrigatório.
+     2  ENDPOINTS       → DERIVA_DE na ficha existente. Regra mecânica (COL-LAW-205).
+
+SOBE A HUMANO (69, e SÓ por política)
+    69  LINKEDIN + INSTAGRAM → POLICY_BLOCK. Não é ambiguidade nem falta de
+                               evidência: é uma decisão de política já tomada.
+                               O Bot não relaxa policy — bloqueia e segue.
+```
+
+```
+NEEDS_HUMAN = 69 / 241 = 29%,  e os 69 são UM único assunto:
+«a política de plataformas sociais muda ou não?»
+É UMA decisão, não 69 leituras.
+```
+
+## 24.7 · FASE 8 — O PRIMEIRO BACKLOG REAL DO BOT
+
+```
+TOTAL_CANONICAL_SOURCES          213      (Atlas/derivado, global EAME)
+TOTAL_CANDIDATES                 241      (fila IT, degrau 1)
+
+ALREADY_READY                    113      contrato executável (≠ as 6 prontidões)
+ALREADY_REGISTERED_NOT_READY      57      dos 170: 37 POLICY · 10 CAPABILITY ·
+                                          5 UNKNOWN · 4 EXTERNAL · 1 CONTRACT_ONLY
+FORA DO CENSO DE EXECUÇÃO         43      ES 34 + FR 6 + 3 IT-T8
+
+CANDIDATE_DUPLICATES               0      (0 URLs repetidas internamente)
+CANDIDATE_ALREADY_COVERED          2      endpoints de IT-T1-008 e IT-T1-012
+
+AUTO_PROMOTABLE                    0      hoje — nenhuma tem REAL_EXAMPLE
+AUTO_PROMOTABLE_APOS_CAPTURA     172      o que a captura de 1 item desbloqueia
+AUTO_REJECTABLE                    0      «não li» ≠ «não serve»
+AUTO_BLOCKABLE                    69      LinkedIn 44 + Instagram 25 (política)
+NEEDS_HUMAN_REVIEW                69      os mesmos, e é UMA decisão de política
+UNKNOWN                            0      toda a fila tem veredito escrito
+```
+
+### TOP 10 · AÇÕES DO SOURCE CURATOR
+*(ordenadas por fontes desbloqueadas ÷ esforço·risco)*
+
+| # | ação | desbloqueia | esforço | risco | owner |
+|---|---|---|---|---|---|
+| 1 | **Capturador de `REAL_EXAMPLE`** — 1 item por candidata, gravando os 8 campos do Atlas | **até 172** | médio (1 script) | baixo — só leitura HTTP | BOT |
+| 2 | `SOURCE_ID` no registo de RUN — o contrato já o lista em `CAMPOS_DO_RUN` | fecha o **último** elo de linhagem | baixo | baixo | COLLECTION |
+| 3 | `LIFECYCLE_STATE` com writer e história | 213 fontes ganham estado real | baixo | nenhum | BOT |
+| 4 | Perfil vivo que **lê** o ledger (saúde + cadência) | **110** com dados reais | baixo | nenhum — leitura | BOT |
+| 5 | `DERIVA_DE` nos 2 endpoints | 2, e evita 2 IDs a dobrar | trivial | nenhum | BOT |
+| 6 | Decisão única de política social | **69** de uma vez | trivial (1 decisão) | político | **HUMANO** |
+| 7 | Ligar YouTube (T9) às 60 candidatas YT | 60 | médio | baixo | BOT + SCRAP |
+| 8 | `OBSERVED_YIELD` a partir do ledger | 110 medíveis | baixo | nenhum | BOT |
+| 9 | Fechar os 57 não-READY por classe de blocker | 10 CAPABILITY são a alavanca | médio | baixo | SCRAP |
+| 10 | Cobertura ES (34) e FR (6) com o mesmo método | 40 | alto | baixo | BOT |
+
+> **A acção #1 sozinha vale mais do que descobrir fontes novas.** Ela converte
+> uma fila inteira que já foi analisada, já tem dono e já sabe exactamente o que
+> lhe falta. E o que lhe falta **não é julgamento — é captura.**
+
+## 24.8 · RED TEAM DESTA RECONCILIAÇÃO
+
+| # | ataque | resposta |
+|---|---|---|
+| 1 | «aceitou 113 por relato» | não — lido em `CENSO-RAPIDO-IT-2026-09-20.json @ ffea8dbc` |
+| 2 | «comparou 170 com 241 sem provar o grão» | grão provado primeiro: SOURCE × SOURCE × MISTO |
+| 3 | «113 READY = pronto para coletar» | **não** — é predicado de contrato; as 6 prontidões de §4.2 continuam por medir |
+| 4 | «abriu a worktree do COORDINATOR» | não — só `git show <ref>:<path>` |
+| 5 | «dedupe por handle sem plataforma» | apanhado no meu próprio red team: o handle sozinho deu 1 falso positivo. Chave corrigida para `plataforma+handle` |
+| 6 | «as 2 colisões são duplicatas» | não — endpoints, `COL-LAW-205`, resolvem-se com `DERIVA_DE` |
+| 7 | «a fila estava parada» | **era eu que estava errado.** Decidida em 2026-09-15 |
+| 8 | «o writer de RAW não anota a fonte» | **era eu que estava errado.** O livro resolve por sha; li um derivado histórico |
+| 9 | «a Sala está vazia» | **era eu que estava errado.** 3 itens, com `SOURCE_ID`, 35 PASS / 0 FAIL |
+| 10 | «CLAIM/FACT também já existe?» | **não.** Continua ausente, e o gap de VALOR mantém-se inteiro |
+
+```
+ERROS DA V1 CORRIGIDOS = 3   (G1 · G5 · elo do writer de RAW)
+ACHADOS DA V1 QUE SOBREVIVEM = 6   (G2 G3 G4 G6 G7 G8 + os 4 owners canónicos)
+```
+
+## 24.9 · O QUE SOBREVIVE DA V1, INTACTO
+
+A descoberta central **não foi afectada** pela mudança de ref, e foi reconferida
+em `ffea8dbc`:
+
+```
+SOURCE_COLLECTION_ADVICE   existe    Bíblia INT §36.4 · INT-LAW-290..302
+COLLECTION_GAP             existe    Bíblia INT §15   · INT-LAW-150..153
+CICLO_DE_VIDA (8 estados)  existe    leis/aprender_com_a_fonte.py
+CUSTO_ESPERADO / _REAL     existe    leis/gestao_da_coleta.py
+
+SCOUT_BRIEF                AUSENTE   0 ficheiros — reconferido em ffea8dbc
+SOURCE_NEED_RESPONSE       AUSENTE   0 ficheiros — reconferido em ffea8dbc
+```
+
+Os dois artefactos novos de §10 e §11 **mantêm-se justificados**.
+
+---
+
+# 25 · EM LINGUAGEM SIMPLES
+
+**O que me pediram desta vez.** O plano que entreguei de manhã foi medido numa
+"fotografia" do projeto tirada às 8h. Entretanto a equipa operacional trabalhou
+muito. Pediram-me para comparar as duas fotografias e corrigir o plano — sem
+acreditar em nada por ouvir dizer.
+
+**E eu estava errado em três coisas. Vale a pena dizê-las primeiro.**
+
+*Erro 1 — «a fila das 241 está parada».* Não está. Foi analisada no dia 15 de
+setembro, uma por uma, com o motivo escrito em cada linha. Todas ficaram no
+mesmo estado porque **todas têm exatamente o mesmo problema**, e o programa
+recusou-se a aprová-las de propósito. Eu vi 241 linhas iguais e concluí
+"abandonado"; na verdade era **uma decisão uniforme**.
+
+*Erro 2 — «o programa não anota de que fonte veio cada ficheiro».* Anota. Existe
+um "livro" que guarda isso e que encontra a fonte pela **impressão digital do
+conteúdo**, não pelo nome da pasta. Eu li um relatório antigo guardado no
+projeto e tratei-o como se descrevesse o presente. O relatório até tinha um
+aviso a dizer "isto não foi reconfirmado" — e eu não lhe dei o devido peso.
+
+*Erro 3 — «a Sala de Espera está vazia».* Não está. O material já atravessou o
+caminho todo até ao fim, com 35 verificações certas e nenhuma errada.
+
+**1. Por que temos 170, 213 e 241.**
+São três listas que respondem a perguntas diferentes:
+
+- **213** = todas as fontes registadas, de todos os países (Itália, Espanha, França, Europa).
+- **170** = só as que entraram na corrida atual — as italianas mais as europeias. É um subconjunto exato das 213.
+- **241** = a *fila de entrada*, que ainda nem são fontes. São pistas à espera de serem confirmadas.
+
+Não se somam, e nenhuma está errada. São a caixa de correio (241), o arquivo (213) e a lista de trabalho de hoje (170).
+
+**2. Quantas das 241 já não precisam existir como candidatas.**
+Só **2** — e nem essas são repetições. São duas páginas diferentes de sites que
+já temos registados. Resolvem-se com uma anotação a dizer "é a mesma fonte,
+outra porta". As outras 239 são todas genuinamente novas.
+
+**3. Quantas o Bot pode decidir sozinho.**
+**172 de 241.** E a razão é boa: a todas falta a mesma coisa — abrir **um**
+documento e guardar a prova. Isso não exige opinião nem julgamento; exige um
+programa que vá buscar, meça e guarde. É trabalho de máquina.
+
+**4. Quantas precisam mesmo de uma pessoa.**
+**69** — e são todas o mesmo assunto: páginas de LinkedIn e Instagram, que estão
+bloqueadas por regra. Isso não são 69 leituras: é **uma única decisão** —
+"mudamos a regra sobre redes sociais, ou não?". Uma pergunta, uma resposta, 69
+casos resolvidos.
+
+**5. O próximo passo para o Source Curator virar processo contínuo.**
+Construir uma coisa só: **o capturador de exemplos**. Um programa que, para cada
+candidata, abre um documento, mede-o e guarda a prova. É isso que destranca até
+172 fontes de uma vez — sem descobrir nada de novo, apenas terminando o que já
+foi começado.
+
+**E o que ainda trava, de verdade.**
+Uma única coisa, e muito menor do que eu disse de manhã: o registo de cada
+"corrida" não anota a que fonte pertence. Só que essa informação existe ao lado,
+no registo de cada documento — portanto dá para reconstruir. O espaço para a
+anotação já está definido no contrato; falta preenchê-lo. É da Collection, não
+deste departamento.
+
+Já a parte grande — saber se uma fonte **serviu para alguma coisa** — continua
+impossível, porque a camada que liga documentos a conclusões ainda não existe.
+Isso não mudou, e não devo fingir que sim.
+
+---
+
+**HARD STOP.** Nada foi integrado ao runtime. Nenhum merge foi feito. Nenhuma
+transição foi escrita na fila. A worktree do COORDINATOR não foi aberta nem
+tocada — tudo lido por `git show`. Este documento é uma proposta e aguarda
 decisão do dono.
