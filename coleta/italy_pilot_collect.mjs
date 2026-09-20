@@ -38,7 +38,15 @@ import { pathToFileURL } from "node:url";
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
 // O motor declarativo de rota. Ele responde «que enderecos buscar?» a partir
 // do bloco `ACQUISITION` do contrato — e NAO le nenhum campo em prosa.
-import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.mjs";
+import { alvosDoContrato, identidadeDoContrato, CONTRATO_MOTOR_VERSAO } from "../regras/motor_de_rota.mjs";
+// A procedencia do contrato tem dono, e NAO e este ficheiro. Ate agora o
+// coletor DIGITAVA a sua propria versao de contrato — medido: 41 corridas
+// carimbadas "v1" sobre 12 GIT_HEAD, enquanto o contrato mudava em 6 commits.
+//
+//     QUEM ESCREVE A PROPRIA VERSAO NAO A DECLARA — AFIRMA-A.
+import {
+  SOURCE_CONTRACT_VERSION, hashDoContrato, hashDaConfiguracao,
+} from "../regras/procedencia_do_contrato.mjs";
 
 // ── O REGISTRY DE ADAPTERS ─────────────────────────────────────────────────
 // Vazio, e isso e uma medicao e nao um esquecimento: das sete fontes com
@@ -596,7 +604,38 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     nota_do_baseline: primeira ? "FIRST_RUN = BASELINE — esta execucao NAO pode dizer 'novo desde ontem'. Ela so estabelece o ponto de partida." : null,
     VPN_COUNTRY: egress?.country ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
     EGRESS_IP: egress?.ip ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
-    COLLECTOR_VERSION, SOURCE_CONTRACT_VERSION: "italy-contracts-v1", GIT_HEAD,
+    COLLECTOR_VERSION, SOURCE_CONTRACT_VERSION, GIT_HEAD,
+    // ── A PROCEDENCIA DO CONTRATO, EM QUATRO CAMPOS QUE NAO SE SUBSTITUEM ──
+    // `SOURCE_CONTRACT_VERSION` diz que FORMATO o runtime entende — e vem do
+    // dono do contrato, nao mais digitado aqui.
+    //
+    // `SOURCE_CONTRACT_HASH` diz que contrato EXECUTAVEL correu. Ele muda
+    // quando um campo lido pelo runtime muda, e NAO muda quando alguem
+    // corrige uma virgula num comentario:
+    //
+    //     UM HASH QUE MUDA COM UM COMENTARIO MEDE O FICHEIRO,
+    //     NAO O CONTRATO.
+    //
+    // `CONFIG_HASH` diz com que CONFIGURACAO a corrida correu, e deixa de
+    // fora RUN_ID e relogio de proposito: duas corridas iguais tem de dar o
+    // mesmo hash, ou o campo passa a medir «quando» em vez de «com que».
+    //
+    // `CONTRATO_MOTOR_VERSAO` diz que MOTOR interpretou o contrato.
+    //
+    // Sao por fonte, e por isso vao num mapa: uma corrida pode tocar varias
+    // fontes, e um hash unico da corrida esconderia qual contrato produziu
+    // qual observacao.
+    SOURCE_CONTRACT_HASH: Object.fromEntries(
+      FONTES.map((sid) => [sid, hashDoContrato(CONTRACTS[sid])])),
+    CONFIG_HASH: Object.fromEntries(
+      FONTES.map((sid) => [sid, hashDaConfiguracao({
+        sourceId: sid,
+        contractHash: hashDoContrato(CONTRACTS[sid]),
+        contractVersion: SOURCE_CONTRACT_VERSION,
+        motorVersao: CONTRATO_MOTOR_VERSAO,
+        mode: primeira ? "BASELINE" : "INCREMENTAL",
+      })])),
+    CONTRATO_MOTOR_VERSAO,
     nota, contadores: cont
   };
   mkdirSync(LEDGER_DIR, { recursive: true });

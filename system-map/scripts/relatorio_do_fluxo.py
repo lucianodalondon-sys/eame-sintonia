@@ -113,7 +113,25 @@ def relatorio():
             'DURATION_MS': _duracao_ms(c),
             'EGRESS_COUNTRY': c.get('VPN_COUNTRY'),
             'CODE_VERSION': c.get('COLLECTOR_VERSION'),
-            'POLICY_VERSION': c.get('SOURCE_CONTRACT_VERSION'),
+            # ⚠️ AQUI ESTAVA `'POLICY_VERSION': c.get('SOURCE_CONTRACT_VERSION')`,
+            # e isso dizia que a versão do SCHEMA DO CONTRATO era a versão da
+            # POLÍTICA DE ROTA. São duas perguntas diferentes, com dois donos
+            # diferentes: `coleta/rota_forward_documento.py::POLICY_VERSION`
+            # vale `m2:rota-forward-documento` e não tem nada que ver com o
+            # formato do contrato de fonte.
+            #
+            #     DOIS CONCEITOS NO MESMO CAMPO NÃO SÃO UM RESUMO.
+            #     SÃO UMA CONFUSÃO COM AR DE DADO.
+            #
+            # O campo passa a chamar-se pelo que carrega. E `POLICY_VERSION`
+            # fica `NOT_MEASURED`: a corrida de coleta não regista hoje que
+            # política de rota usou, e inventá-la a partir do vizinho seria
+            # repetir o defeito com outro nome.
+            'SOURCE_CONTRACT_VERSION': c.get('SOURCE_CONTRACT_VERSION'),
+            'SOURCE_CONTRACT_HASH': c.get('SOURCE_CONTRACT_HASH'),
+            'CONFIG_HASH': c.get('CONFIG_HASH'),
+            'CONTRATO_MOTOR_VERSAO': c.get('CONTRATO_MOTOR_VERSAO'),
+            'POLICY_VERSION': 'NOT_MEASURED',
             'INPUT_GRAIN': 'documento observado',
             'OUTPUT_GRAIN': 'documento observado',
             'INPUT_COUNT': len(meus),
