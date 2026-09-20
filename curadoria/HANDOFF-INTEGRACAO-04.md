@@ -13,17 +13,86 @@ COORD_HEAD    4055e543 no início da missão (23 commits à frente)
 
 ## 1 · O QUE ESTA BRANCH ENTREGA
 
-**68 fontes italianas prontas para coleta**, cada uma com SOURCE_ID do Atlas,
-contrato executável e canário corrido contra a rede real.
+> ### ⚠️ CORRIGIDO PELO GATE 04A — LEIA ISTO PRIMEIRO
+>
+> A primeira versão deste handoff declarava **68 fontes READY**, das quais 50 do
+> YouTube. **Está errado, e a correcção está aplicada abaixo.**
+>
+> As 50 do YouTube chegavam à rede por `youtube.com/feeds/videos.xml`, e essa
+> rota está em `Disallow` no `robots.txt` — lido ao vivo, linha 12. Os canários
+> passaram (50/50, XML real com videoId e data) porque a rota **responde**.
+> Responder não é ser permitida.
+>
+> ```
+> READY declarado na missão 04     68
+> READY depois do gate de rota     18     ← todas HTML
+> reclassificadas                  50     CONTRACT_READY_ROUTE_BLOCKED
+> ```
+>
+> **Nada foi apagado.** SOURCE_ID, fichas do Atlas, caracterização, contratos e
+> registos de canário continuam de pé. O que caiu foi só a afirmação «pronta
+> para coleta» — a única que não estava provada.
+
+**18 fontes italianas prontas para coleta**, cada uma com SOURCE_ID do Atlas,
+contrato executável, canário corrido contra a rede real **e rota conferida
+contra o `robots.txt` vivo**.
 
 ```
-READY_FOR_COLLECTION        68     ← 50 YouTube + 18 HTML
-CONTRACTED_CANARY_FAILED     9     ← EMPTY_LIST honesto, voltam à amostragem
-CONTRACTS_CREATED           77     CONTRACTS_VALID 77 · INVALID 0
-CANARY_ATTEMPTED            77     PASS 68 · FAIL 9
-SOURCES_CREATED (Atlas)     84     fichas novas
-ENDPOINTS_ADDED              0     nenhum endpoint anexado a fonte existente
+READY_FOR_COLLECTION        18     ← todas LOTE-HTML-ARTIGO
+CONTRACT_READY_ROUTE_BLOCKED 50     ← YouTube · ROBOTS_DISALLOWED_ROUTE
+CONTRACTED_CANARY_FAILED      9     ← EMPTY_LIST honesto, voltam à amostragem
+CONTRACTS_CREATED            77     CONTRACTS_VALID 77 · INVALID 0
+CANARY_ATTEMPTED             77     PASS 68 · FAIL 9
+ROBOTS_GATE_EXECUTED         77     ALLOWED 27 · DISALLOWED 50 · UNKNOWN 0
+SOURCES_CREATED (Atlas)      84     fichas novas
+ENDPOINTS_ADDED               0
 ```
+
+---
+
+## 1A · O ERRO DE ROTA, POR EXTENSO
+
+**O repositório já tinha dito isto, e eu não li.**
+
+```
+coleta/scrap_http.py:31
+  «E o portao ja REPROVOU rota que funcionava: o feeds/videos.xml do YouTube
+   devolveu 15 videos italianos com descricao inteira nesta maquina, e esta
+   em Disallow. Ele nao entrou. E para isso que o portao serve — se ele so
+   aprovasse, nao seria portao.»
+
+coleta/adaptador_youtube.py:756
+  nota='playlistItems.list; o feeds/videos.xml foi reprovado pelo portao'
+```
+
+Os meus 50 contratos citavam `youtube.channel.discovery` como capacidade
+reutilizada. Essa capacidade usa `playlistItems.list` — a **API oficial com
+chave**. Nunca usa o feed. Escrevi o nome certo por cima da rota errada.
+
+> **Citar uma capacidade não é usá-la.** O contrato dizia
+> `youtube.channel.discovery` e o código fazia `urlopen()` directo no caminho
+> proibido, **sem passar pelo portão `permitido()`**.
+
+### Sobre a rota alternativa sugerida na missão
+
+A missão 04A supunha que `/channel/<id>/videos` + `LOCAL_YTDLP` fosse a rota
+provada. **Medido: não é.**
+
+```
+/channel/<id>/videos       não aparece em nenhum ficheiro do repo
+LOCAL_YTDLP                existe, mas é de Instagram Reels
+                           (77 menções a instagram, 1 a youtube)
+yt-dlp no YouTube          passa por /youtubei/ e /get_video — ambos Disallow
+                           e BLOCKED de facto ("Sign in to confirm…")
+```
+
+A rota permitida e documentada é **`playlistItems.list`** (1 unidade de quota),
+hoje em `CREDENTIAL_MISSING`. `docs/operacao/PROXIMA-MISSAO-YOUTUBE.md` diz-o
+com todas as letras: *«A vigilância barata permitida é `playlistItems.list`
+sobre a playlist de uploads — 1 unidade por chamada, não zero.»*
+
+**Não contornei nada:** sem cookie, sem login, sem API key, sem excepção por
+SOURCE_ID. As 50 ficam bloqueadas até haver credencial ou decisão de política.
 
 ---
 
@@ -144,6 +213,7 @@ sem fundir as identidades.
 ## 5 · O QUE FICOU DE FORA, E DE QUEM É
 
 ```
+50  ROBOTS_DISALLOWED_ROUTE    rota do feed barrada (SCRAP ENGINEER / política)
  9  CONTRACTED_CANARY_FAILED   EMPTY_LIST — voltam à amostragem (Curator)
  7  ramo de índice             pequena adaptação de rota (Curator)
 13  sem território             evidência não decidiu T1–T12 (Curator)
@@ -191,5 +261,7 @@ test_capturador       22      test_correr_lote        6
 test_caracterizador   29      validar_contratos        8
 ──────────────────────────────────────────────────────────
 TOTAL                 65      NEW_FAILURES = 0
-RED TEAM              21 PASS · 0 FAIL
+RED TEAM missão 04    21 PASS · 0 FAIL
+RED TEAM gate 04A     17 PASS · 0 FAIL  (inclui controlo independente:
+                      feeds/videos.xml barrado · /channel/<id>/videos não)
 ```
