@@ -95,6 +95,9 @@ export const ESTRATEGIAS_DE_IDENTIDADE = Object.freeze([
 // um ficheiro nem chama um programa.
 export const FONTES_DE_TEXTO = Object.freeze([
   "FILENAME",     // o nome do alvo (o mesmo que FILENAME_CAPTURE usa)
+  "URL",          // o endereço do alvo — a identidade honesta de quem não expõe outra
+                  // (SAME_URL != SAME_DOCUMENT continua a valer: bytes novos no mesmo
+                  // endereço são DOCUMENT_CHANGED_IN_PLACE, nunca um documento a menos)
   "RAW_LATIN1",   // os bytes crus lidos como latin1 (metadados de PDF, HTML antigo)
   "RAW_UTF8",     // os bytes crus lidos como utf8 (HTML moderno)
   "PDF_TEXT",     // o texto extraído do PDF (pdftotext, injectado pelo coletor)
@@ -185,6 +188,23 @@ export function conferirAquisicao(sourceId, aq, { ehFallback = false } = {}) {
     // descobre-se AQUI, na conferência, e não a meio de uma corrida.
     try { new RegExp(aq.LINK_PATTERN, "i"); }
     catch (err) { throw new ContratoInvalido(`${sourceId}: LINK_PATTERN não compila: ${err.message}`); }
+    // ── MATCH: onde o padrão se aplica ─────────────────────────────────────
+    // "HTML" (omissão): o padrão corre sobre o texto do índice, e o grupo 1
+    //   é o endereço — o modo dos 4 `case` migrados.
+    // "URL": extraem-se TODOS os href, resolvem-se contra o índice, e o
+    //   padrão corre sobre cada endereço ABSOLUTO. É o modo que a tabela de
+    //   fontes onboarded (SOURCE-COLLECTION-READINESS-V1) já provara em
+    //   2026-09-18 sobre 107 fontes; aqui entra como variante do mesmo
+    //   HTML_LINK_DISCOVERY, e não como quarta estratégia.
+    if (aq.MATCH !== undefined && !["HTML", "URL"].includes(aq.MATCH)) {
+      throw new ContratoInvalido(`${sourceId}: MATCH ${JSON.stringify(aq.MATCH)} fora do vocabulário (HTML, URL)`);
+    }
+    if (aq.STRIP_SUFFIX !== undefined && !ehTexto(aq.STRIP_SUFFIX)) {
+      throw new ContratoInvalido(`${sourceId}: STRIP_SUFFIX tem de ser texto não vazio`);
+    }
+    if (aq.SAME_HOST !== undefined && typeof aq.SAME_HOST !== "boolean") {
+      throw new ContratoInvalido(`${sourceId}: SAME_HOST tem de ser true/false`);
+    }
   }
   if (e === "CUSTOM_ADAPTER") {
     if (!ehTexto(aq.ADAPTER_ID)) throw new ContratoInvalido(`${sourceId}: CUSTOM_ADAPTER sem ADAPTER_ID`);
@@ -237,6 +257,49 @@ function combinar(template, vars, restricao = null) {
   return saida;
 }
 
+// ── MATCH: "URL" — as ligações de um índice, endereço a endereço ──────────
+// Derivado, e não inventado, do `linksDaEntrada()` que a missão
+// SOURCE-COLLECTION-READINESS-V1 provou sobre 107 fontes em 2026-09-18.
+// O que fica de fora fica de fora por medição: ativos estáticos, paginação
+// e feeds não são documentos; a própria entrada não é um documento seu.
+const ATIVOS_ESTATICOS = /\.(css|js|png|jpe?g|gif|svg|ico|woff2?|xml|rss)(\?|#|$)/i;
+const PAGINACAO = /\/page\/\d+\/?(\?|#|$)|[?&](page|pagina|pag|p)=\d+/i;
+const FEED = /\/(feed|rss|atom)\/?(\?|#|$)/i;
+
+export function ligacoesDoIndice(html, aq) {
+  const padrao = new RegExp(aq.LINK_PATTERN, "i");
+  const entrada = aq.INDEX_URL;
+  const host = new URL(entrada).hostname.replace(/^www\./, "");
+  const entradaNorm = entrada.replace(/\/+$/, "");
+  const vistos = new Set(), fora = [];
+  for (const m of String(html).matchAll(/href\s*=\s*["']([^"'#]+)["']/gi)) {
+    let u;
+    try { u = new URL(m[1].trim(), entrada).href; } catch { continue; }
+    if (!/^https?:/i.test(u)) continue;
+    if (aq.STRIP_SUFFIX && u.endsWith(aq.STRIP_SUFFIX)) u = u.slice(0, -aq.STRIP_SUFFIX.length);
+    if (vistos.has(u)) continue;
+    vistos.add(u);
+    if (aq.SAME_HOST !== false && new URL(u).hostname.replace(/^www\./, "") !== host) continue;
+    if (ATIVOS_ESTATICOS.test(u) || PAGINACAO.test(u) || FEED.test(u)) continue;
+    if (u.replace(/\/+$/, "") === entradaNorm) continue;
+    if (!padrao.test(u)) continue;
+    fora.push(u);
+  }
+  return fora;
+}
+
+// O nome do ficheiro guardado nasce do último troço do caminho; um artigo
+// HTML raramente traz extensão, e o armazém precisa de uma.
+export function nomeDoAlvo(url, outputType) {
+  let nome = "";
+  try { nome = decodeURIComponent(new URL(url).pathname.split("/").filter(Boolean).pop() || ""); } catch { }
+  nome = nome.replace(/[^A-Za-z0-9._-]+/g, "_").slice(-120);
+  const ext = String(outputType || "").toUpperCase() === "PDF" ? ".pdf" : ".html";
+  if (!nome) return "documento" + ext;
+  if (!/\.[A-Za-z0-9]{1,5}$/.test(nome)) nome += ext;
+  return nome;
+}
+
 // ── A PRIMEIRA PERGUNTA QUE ESTE MOTOR RESPONDE ────────────────────────────
 // «Que endereços devo buscar para esta fonte?»
 //
@@ -287,6 +350,14 @@ async function executarAquisicao(sourceId, contrato, aq, { buscar, adapters = {}
       return { erro: `indice inacessivel: ${idx.erro || idx.status}` };
     }
     const texto = idx.buf.toString("latin1");
+    const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : Infinity;
+    if (aq.MATCH === "URL") {
+      const urls = ligacoesDoIndice(texto, aq);
+      if (urls.length === 0) {
+        return { erro: "EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN" };
+      }
+      return urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) }));
+    }
     const re = new RegExp(aq.LINK_PATTERN, "gi");
     const achados = [...texto.matchAll(re)].map((m) => (m[1] !== undefined ? m[1] : m[0]));
     if (achados.length === 0) {
@@ -296,7 +367,6 @@ async function executarAquisicao(sourceId, contrato, aq, { buscar, adapters = {}
     }
     const base = aq.BASE_URL || aq.INDEX_URL;
     const urls = [...new Set(achados.map((h) => new URL(h, base).href))];
-    const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : urls.length;
     return urls.slice(0, limite).map((url) => ({ url, nome: url.split("/").pop() }));
   }
 
@@ -404,6 +474,7 @@ export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} }
   const textos = {};
   const textoDe = (de) => {
     if (de === "FILENAME") return String(alvo.nome || "");
+    if (de === "URL") return String(alvo.url || "");
     if (!(de in textos)) {
       const ler = leitores[de];
       if (typeof ler !== "function") {

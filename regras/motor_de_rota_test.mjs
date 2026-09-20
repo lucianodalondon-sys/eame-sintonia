@@ -408,5 +408,79 @@ T("o motor continua sem processo filho e sem relógio próprio", () => {
   }
 });
 
+console.log("\n16 · MATCH: \"URL\" — o padrão corre sobre cada endereço absoluto, e o que não é documento fica de fora");
+
+const indiceUrl = {
+  ACQUISITION: {
+    STRATEGY: "HTML_LINK_DISCOVERY", MATCH: "URL", INDEX_URL: "https://www.exemplo.it/news/",
+    LINK_PATTERN: "^https?://(www\\.)?exemplo\\.it/news/[a-z]+-[a-z]+", MAX_TARGETS: 2,
+  },
+  OUTPUT_TYPE: "HTML",
+};
+const HTML_INDICE = `
+  <link href="/style.css"><a href="/news/">Indice</a>
+  <a href="/news/page/2/">seguinte</a><a href="/feed/">rss</a>
+  <a href='https://outro.it/news/artigo-externo'>fora</a>
+  <a href="/news/primo-articolo">1</a><a href="/news/primo-articolo#top">1 outra vez</a>
+  <a href="/news/secondo-articolo/">2</a><a href="/news/terzo-articolo">3</a>`;
+
+await TA("resolve, filtra por host, ignora ativos/paginação/feed e a própria entrada, dedupe, respeita MAX_TARGETS", async () => {
+  const r = await alvosDoContrato("X", indiceUrl, { buscar: indiceFalso(HTML_INDICE) });
+  assert.deepEqual(r.map((a) => a.url), ["https://www.exemplo.it/news/primo-articolo", "https://www.exemplo.it/news/secondo-articolo/"]);
+  assert.deepEqual(r.map((a) => a.nome), ["primo-articolo.html", "secondo-articolo.html"], "artigo sem extensão ganha .html no armazém");
+});
+
+await TA("SAME_HOST=false deixa passar outro host; STRIP_SUFFIX tira o /view do Plone", async () => {
+  const c = structuredClone(indiceUrl);
+  c.ACQUISITION.SAME_HOST = false; c.ACQUISITION.LINK_PATTERN = "artigo-externo|\\.pdf$"; c.ACQUISITION.STRIP_SUFFIX = "/view";
+  c.OUTPUT_TYPE = "PDF";
+  const r = await alvosDoContrato("X", c, { buscar: indiceFalso(HTML_INDICE + `<a href="/docs/boll.pdf/view">pdf</a>`) });
+  assert.deepEqual(r.map((a) => a.url), ["https://outro.it/news/artigo-externo", "https://www.exemplo.it/docs/boll.pdf"]);
+  assert.equal(r[1].nome, "boll.pdf");
+});
+
+await TA("nenhum endereço casa → EMPTY_LIST, e não a página de entrada como documento", async () => {
+  const r = await alvosDoContrato("X", indiceUrl, { buscar: indiceFalso('<a href="/news/">so a entrada</a>') });
+  assert.ok(r.erro && /EMPTY_LIST/.test(r.erro));
+});
+
+T("M11 · MATCH fora do vocabulário é contrato inválido", () => {
+  assert.throws(() => conferirAquisicao("X", { STRATEGY: "HTML_LINK_DISCOVERY", INDEX_URL: "https://e.it/", LINK_PATTERN: "(x)", MATCH: "TEXTO" }), /MATCH/);
+});
+
+T("FROM: \"URL\" — a identidade pelo endereço, dita com esse nome, e FACT_TIME continua UNKNOWN", () => {
+  const id = identidadeDoContrato("IT-FICT-002", {
+    IDENTITY: { STRATEGY: "CONTENT_CAPTURE", CAPTURES: { doc: { FROM: "URL", PATTERN: "^https?://[^/]+/?(.*?)/?$" } },
+                DOCUMENT_ID: "IT-FICT-002:URL:{doc.1}" },
+  }, { nome: "secondo-articolo.html", url: "https://www.exemplo.it/news/secondo-articolo/" }, { leitores: {} });
+  assert.equal(id.DOCUMENT_ID, "IT-FICT-002:URL:news/secondo-articolo");
+  assert.equal(id.SOURCE_DATE, null);
+  assert.equal(id.FACT_TIME, "UNKNOWN");
+});
+
+console.log("\n17 · A TABELA ONBOARDED EXPANDE-SE EM CONTRATOS VÁLIDOS, E NÃO CONTRADIZ NENHUM CONTRATO À MÃO");
+
+T("todos os contratos com ACQUISITION passam na conferência, e a tabela não reescreve o IT-T3-011", () => {
+  let n = 0;
+  for (const [sid, c] of Object.entries(CONTRACTS)) {
+    if (!c.ACQUISITION) continue;
+    conferirAquisicao(sid, c.ACQUISITION);
+    conferirIdentidade(sid, c.IDENTITY);
+    n++;
+  }
+  assert.ok(n >= 100, `só ${n} contratos executáveis`);
+  assert.equal(CONTRACTS["IT-T3-011"].BATCH_ID, undefined, "o contrato à mão do IT-T3-011 foi tocado pela tabela");
+  assert.equal(CONTRACTS["IT-T3-011"].IDENTITY.DOCUMENT_ID, "AGRIOS:DIRETTIVE:$1");
+});
+
+T("nenhum contrato genérico fabrica tempo ou lugar do facto", () => {
+  for (const [sid, c] of Object.entries(CONTRACTS)) {
+    if (!c.BATCH_ID) continue;
+    assert.ok(String(c.IDENTITY.FACT_TIME).startsWith("UNKNOWN"), `${sid}: FACT_TIME não é UNKNOWN`);
+    assert.ok(!("FACT_LOCATION" in c.IDENTITY), `${sid}: IDENTITY declara FACT_LOCATION`);
+    assert.equal(c.IDENTITY_KIND, "URL_PATH", `${sid}: a identidade não diz que é pelo endereço`);
+  }
+});
+
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);
 if (mau) process.exit(1);

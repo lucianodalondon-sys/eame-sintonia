@@ -97,6 +97,8 @@ const sha = b => createHash("sha256").update(b).digest("hex");
 const agora = () => new Date().toISOString();
 
 function assinatura(buf) {
+  // BOM UTF-8 antes do `<` e HTML na mesma: medido nas fontes onboarded.
+  if (buf.length >= 3 && buf[0] === 0xEF && buf[1] === 0xBB && buf[2] === 0xBF) buf = buf.subarray(3);
   const h = buf.subarray(0, 8).toString("latin1");
   if (h.startsWith("%PDF")) return "PDF";
   if (h.startsWith("PK")) return "ZIP";

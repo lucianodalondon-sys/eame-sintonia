@@ -1,0 +1,2694 @@
+{
+ "DATASET": "SINTONIA-ITALY-CONTRACTS-ONBOARDED-V2",
+ "MISSAO": "CUTOVER-RECUPERADO / ADDENDUM-01-FAST-TRACK",
+ "GERADO_EM": "2026-09-20",
+ "ORIGEM": "regras/italy_contracts_onboarded.json @ origin/it-source-collection-readiness-v1 (12e66456), sondado em 2026-09-18, traduzido para o vocabulario do motor de rota (regras/motor_de_rota.mjs) — STRATEGY/MATCH em vez de SHAPE",
+ "LEI": "uma linha por fonte; regras/italy_contracts.mjs expande cada linha num contrato completo (contratoGenerico). SOURCE_ID vem do Atlas — nunca daqui. Linha na tabela = a casa sabe chegar; NAO e aprovacao de relevancia.",
+ "IDENTIDADE": "generica, pelo ENDERECO do documento (IDENTITY.CAPTURES.doc FROM URL). Nao e identidade semantica: e o caminho. SAME_URL != SAME_DOCUMENT continua a valer — bytes novos no mesmo endereco viram DOCUMENT_CHANGED_IN_PLACE.",
+ "LOTES": {
+  "LOTE-PDF-INDICE": "HTML_LINK_DISCOVERY MATCH=URL, OUTPUT_TYPE PDF (%PDF exigido)",
+  "LOTE-HTML-ARTIGO": "HTML_LINK_DISCOVERY MATCH=URL, OUTPUT_TYPE HTML (< exigido), endereco diferente da entrada",
+  "LOTE-PDF-FIXO": "STATIC_ENDPOINT, OUTPUT_TYPE PDF"
+ },
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T1-002",
+   "OWNER": "Provincia autonoma di Trento",
+   "NAME": "Provincia autonoma di Trento — Agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.provincia.tn.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?provincia\\.tn\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-002/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 107896,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.provincia.tn.it/News/Comunicati-stampa",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 75941
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-003",
+   "OWNER": "Regione Toscana",
+   "NAME": "Regione Toscana — Agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.toscana.it/regione/approfondimenti",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.toscana\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-003/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 239554,
+    "ENTRADA": "https://www.regione.toscana.it/regione/approfondimenti",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-004",
+   "OWNER": "Regione Liguria",
+   "NAME": "Liguria — Regione Liguria agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-notifica/avvisi-atti-notifica.html",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.liguria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-004/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 79971,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-notifica/avvisi-atti-notifica.html",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 178562
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-005",
+   "OWNER": "Regione Umbria",
+   "NAME": "Umbria — Agricoltura e foreste",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.umbria.it/home",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.umbria\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-005/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 79007,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.regione.umbria.it/in-evidenza/-/asset_publisher/iIpCxObecPVe/content/invio-comunicazione-per-bonus-zes-entro-il-1-giugno?inheritRedirect=false&redirect=https%3A%2F%2Fwww.regione.umbria.it%2Fin-evidenza%3Fp_p_id%3D101_INSTANCE_iIpCxObecPVe%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26p_p_col_id%3Dcolumn-3%26p_p_col_pos%3D1%26p_p_col_count%3D2",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 58852
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-006",
+   "OWNER": "Regione Calabria",
+   "NAME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-al-4-agosto-2026/",
+    "LINK_PATTERN": "^https?://(www\\.)?arsac\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-006/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 271545,
+    "ENTRADA": "https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-vite-e-kiwi-valido-fino-al-4-agosto-2026/",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-007",
+   "OWNER": "Regione Lazio",
+   "NAME": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+    "LINK_PATTERN": "^https?://(www\\.)?arsial\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-007/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 417589,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 363478
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-008",
+   "OWNER": "Regione Lombardia",
+   "NAME": "Agricoltura Regione Lombardia",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ersaf.lombardia.it/montagna/rifugi/it-servizi-alla-montagna-attivita-per-i-territori-montani-2022/",
+    "LINK_PATTERN": "^https://www\\.ersaf\\.lombardia\\.it/wp\\-content/uploads/2024/08/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-008/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 483249,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.ersaf.lombardia.it/wp-content/uploads/2024/08/SEO31_31-07-20241.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 5947200
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-009",
+   "OWNER": "Regione Lazio",
+   "NAME": "Lazio — Agricoltura Regione Lazio",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.lazio.it/cittadini/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.lazio\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-009/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 214564,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.regione.lazio.it/notizie/agricoltura/intervento-settoriale-vitivinicolo-della-promozione-mercati-dei-paesi-terzi-campagna-2026-2027",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 105362
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-010",
+   "OWNER": "Regione Abruzzo",
+   "NAME": "Regione Abruzzo — Agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.abruzzo.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-010/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 149262,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "http://www.regione.abruzzo.it/notizie/economia-l-abruzzo-da-record-export-pil-ed-occupazione-ai-vertici-italia",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 108987
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-011",
+   "OWNER": "Regione Umbria",
+   "NAME": "Regione Umbria — Agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.umbria.it/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.umbria\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-011/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 96358,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.regione.umbria.it/agricoltura/notizia/-/asset_publisher/PVUq7ammJALj/content/legge-serpieri?read_more=true",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 46993
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-012",
+   "OWNER": "Regione Autonoma Valle d'Aosta",
+   "NAME": "Regione Valle d'Aosta — Agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.vda.it/amministrazionetrasparente/personale/pubblicazioneincarichidirigenziali/default_i.aspx",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.vda\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-012/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 63210,
+    "ENTRADA": "https://www.regione.vda.it/amministrazionetrasparente/personale/pubblicazioneincarichidirigenziali/default_i.aspx",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-013",
+   "OWNER": "Assosementi",
+   "NAME": "Assosementi",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.sementi.it/comunicati_stampa/riso-assosementi-dallitalia-il-70-delle-nuove-varieta-europee-ricerca-e-innovazione-per-affrontare-le-difficolta-del-comparto/",
+    "LINK_PATTERN": "^https?://(www\\.)?sementi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 64794,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.sementi.it/comunicati_stampa/riso-assosementi-dallitalia-il-70-delle-nuove-varieta-europee-ricerca-e-innovazione-per-affrontare-le-difficolta-del-comparto/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 68950
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-014",
+   "OWNER": "Ente Nazionale Risi",
+   "NAME": "Ente Nazionale Risi",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://www.enterisi.it/servizi/notizie/notizie_fase01.aspx?categoriaVisualizzata=19",
+    "LINK_PATTERN": "^https?://(www\\.)?enterisi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-014/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 242191,
+    "ENTRADA": "http://www.enterisi.it/servizi/notizie/notizie_fase01.aspx?categoriaVisualizzata=19",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-015",
+   "OWNER": "Edagricole — New Business Media",
+   "NAME": "Terra e Vita — Edagricole",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://terraevita.edagricole.it/agridaily-guida-pac/pac-per-gli-agricoltori/approfondimenti-pac/dublino-mette-alla-prova-la-nuova-agricoltura-europea-sicurezza-innovazione-e-risorse/",
+    "LINK_PATTERN": "^https://terraevita\\.edagricole\\.it/agridaily\\-guida\\-pac/pac\\-per\\-gli\\-agricoltori/approfondimenti\\-pac/dublino\\-mette\\-alla\\-prova\\-la\\-nuova\\-agricoltura\\-europea\\-sicurezza\\-innovazione\\-e\\-risorse/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-015/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 397340,
+    "ENTRADA": "https://terraevita.edagricole.it/agridaily-guida-pac/pac-per-gli-agricoltori/approfondimenti-pac/dublino-mette-alla-prova-la-nuova-agricoltura-europea-sicurezza-innovazione-e-risorse/",
+    "DOCUMENTO": "https://terraevita.edagricole.it/agridaily-guida-pac/pac-per-gli-agricoltori/approfondimenti-pac/dublino-mette-alla-prova-la-nuova-agricoltura-europea-sicurezza-innovazione-e-risorse/feed/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 1082,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-016",
+   "OWNER": "Italia Olivicola Consorzio Nazionale",
+   "NAME": "Italia Olivicola",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+    "LINK_PATTERN": "^https?://(www\\.)?italiaolivicola\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-016/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 137754,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 109708
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-017",
+   "OWNER": "Edagricole — New Business Media",
+   "NAME": "Olivo e Olio — Edagricole",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://olivoeolio.edagricole.it/notizie-dalle-aziende/evolio-expo-conquista-usa-buyer-pronti-per-bari-2027/",
+    "LINK_PATTERN": "^https://olivoeolio\\.edagricole\\.it/notizie\\-dalle\\-aziende/evolio\\-expo\\-conquista\\-usa\\-buyer\\-pronti\\-per\\-bari\\-2027/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-017/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 293967,
+    "ENTRADA": "https://olivoeolio.edagricole.it/notizie-dalle-aziende/evolio-expo-conquista-usa-buyer-pronti-per-bari-2027/",
+    "DOCUMENTO": "https://olivoeolio.edagricole.it/notizie-dalle-aziende/evolio-expo-conquista-usa-buyer-pronti-per-bari-2027/feed/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 904,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-018",
+   "OWNER": "Rivista di Agraria",
+   "NAME": "Rivista di Agraria",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
+    "LINK_PATTERN": "^https?://(www\\.)?rivistadiagraria\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-018/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 68164,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 75280
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-019",
+   "OWNER": "Societa Italiana di Agronomia",
+   "NAME": "SIA — Societa Italiana di Agronomia",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://siagr.it/",
+    "LINK_PATTERN": "^https://siagr\\.it/wp\\-content/uploads/2025/01/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-019/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 148924,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://siagr.it/wp-content/uploads/2025/01/Statuto-della-Societa-Italiana-di-Agronomia19.06.2023.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 134455
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-020",
+   "OWNER": "Regione Liguria",
+   "NAME": "Agriligurianet — Regione Liguria agricoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agriligurianet.it/it/impresa/2013-04-04-08-54-42/notizie-dalla-regione.html",
+    "LINK_PATTERN": "^https?://(www\\.)?agriligurianet\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-020/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 74991,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.agriligurianet.it/it/impresa/2013-04-04-08-54-42/notizie-dalla-regione.html",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 44163
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-021",
+   "OWNER": "Image Line",
+   "NAME": "AgroNotizie — Image Line",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://agronotizie.imagelinenetwork.com/eventi-agricoltura/agora-fertilizzanti-2026/89672",
+    "LINK_PATTERN": "^https?://(www\\.)?agronotizie\\.imagelinenetwork\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-021/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 169436,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://agronotizie.imagelinenetwork.com/eventi-agricoltura/agora-fertilizzanti-2026/89672",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 59645
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-022",
+   "OWNER": "OlivoNews",
+   "NAME": "OlivoNews — giornale di olivicoltura",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://olivonews.it/category/bollettino-olivicolo/",
+    "LINK_PATTERN": "^https?://(www\\.)?olivonews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-022/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 262295,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://olivonews.it/category/bollettino-olivicolo/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 154438
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T1-023",
+   "OWNER": "SOI",
+   "NAME": "SOI — Societa di Ortoflorofrutticoltura Italiana",
+   "TERRITORY": "T1",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.soihs.it/pubblicazioni/newsletter_01/newsletter_archivio_2022.aspx",
+    "LINK_PATTERN": "^https?://(www\\.)?soihs\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-023/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 65847,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.soihs.it/pubblicazioni/newsletter_01/newsletter_archivio_2022.aspx",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 48121
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-002",
+   "OWNER": "BMTI — Borsa Merci Telematica Italiana S.c.p.A. (IT-OWN-032)",
+   "NAME": "BMTI — analisi di mercato cereali",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bmti.it",
+    "LINK_PATTERN": "^https?://(www\\.)?bmti\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "REGRA": "keyword_slug (a sonda recebeu corpo comprimido; o canario decide)",
+    "GZIP_NA_RESPOSTA": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-006",
+   "OWNER": "Il Sole 24 Ore",
+   "NAME": "Agrisole — quotidiano agricolo del Sole 24 Ore",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://areautente.ilsole24ore.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?areautente\\.ilsole24ore\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-006/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 79019,
+    "ENTRADA": "https://areautente.ilsole24ore.com/",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-007",
+   "OWNER": "ISMEA",
+   "NAME": "ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ismea.it/Press-Area/Comunicati-Stampa",
+    "LINK_PATTERN": "^https?://(www\\.)?ismea\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-007/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 145392,
+    "ENTRADA": "https://www.ismea.it/Press-Area/Comunicati-Stampa",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-008",
+   "OWNER": "Italmopa",
+   "NAME": "Italmopa — Associazione Industriali Mugnai d'Italia",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://italmopa.com/pubblicazioni/",
+    "LINK_PATTERN": "^https://italmopa\\.com/pubblicazioni/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-008/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 638724,
+    "ENTRADA": "https://italmopa.com/pubblicazioni/",
+    "DOCUMENTO": "https://italmopa.com/pubblicazioni/feed/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 772,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-009",
+   "OWNER": "Camera di Commercio di Bologna",
+   "NAME": "Borsa Merci Bologna — Camera di Commercio",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bo.camcom.gov.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?bo\\.camcom\\.gov\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-009/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 75117,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 45533
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-010",
+   "OWNER": "CSO Italy",
+   "NAME": "CSO Italy — Centro Servizi Ortofrutticoli",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-PDF-FIXO",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "STATIC_ENDPOINT",
+    "URL": "https://www.csoservizi.com/wp-content/uploads/2025/03/AGRIPAT_SCH_SINTESI_INIZIALE_DEF.pdf"
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-010/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 50855,
+    "ENTRADA": "https://www.csoservizi.com/wp-content/uploads/2025/03/AGRIPAT_SCH_SINTESI_INIZIALE_DEF.pdf",
+    "DOCUMENTO": "https://www.csoservizi.com/wp-content/uploads/2025/03/AGRIPAT_SCH_SINTESI_INIZIALE_DEF.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 496652,
+    "REGRA": "documento fixo observado — descoberta de edicoes novas nao configurada"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-011",
+   "OWNER": "Ruminantia",
+   "NAME": "Ruminantia — web magazine dei ruminanti",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ruminantia.it/category/news-dal-mondo-della-ricerca/",
+    "LINK_PATTERN": "^https?://(www\\.)?ruminantia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-011/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 2687574,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.ruminantia.it/category/news-dal-mondo-della-ricerca/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 145673
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-012",
+   "OWNER": "Consorzio Tutela Vini d'Abruzzo",
+   "NAME": "Consorzio Tutela Vini d'Abruzzo",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.vinidabruzzo.it/",
+    "LINK_PATTERN": "^https://www\\.vinidabruzzo\\.it/wp\\-content/uploads/2024/04/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-012/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 107649,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.vinidabruzzo.it/wp-content/uploads/2024/05/Avviso-11-06-2024.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 746782
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-013",
+   "OWNER": "Consorzio Arancia Rossa di Sicilia",
+   "NAME": "Consorzio di Tutela Arancia Rossa di Sicilia IGP",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.tutelaaranciarossa.it/rassegna-stampa/",
+    "LINK_PATTERN": "^https?://(www\\.)?tutelaaranciarossa\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 143213,
+    "ENTRADA": "https://www.tutelaaranciarossa.it/rassegna-stampa/",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-014",
+   "OWNER": "Consorzio Tutela Grana Padano",
+   "NAME": "Consorzio di Tutela del Grana Padano",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.granapadano.it/it-it/il-mondo-di-grana-padano/partnership-e-sponsorizzazioni/sponsorizzazioni/progetti-finanziati/",
+    "LINK_PATTERN": "\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-014/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 190164,
+    "ENTRADA": "https://www.granapadano.it/it-it/il-mondo-di-grana-padano/partnership-e-sponsorizzazioni/sponsorizzazioni/progetti-finanziati/",
+    "DOCUMENTO": "https://granapadano.kleecks-cdn.com/wp-content/uploads/2023/02/Programma-sviluppo-rurale-lombardia-2014-2020-45416.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 121531,
+    "REGRA": "pdf (primeiro link .pdf da entrada)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-015",
+   "OWNER": "Consorzio Tutela Prosecco DOC",
+   "NAME": "Consorzio Tutela Prosecco DOC",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.prosecco.it/it/",
+    "LINK_PATTERN": "^https://www\\.prosecco\\.it/wp\\-content/uploads/2023/07/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-015/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 67637,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.prosecco.it/wp-content/uploads/2026/05/Informativa-per-pagina-sito_radici-duva.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 666612
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-016",
+   "OWNER": "Alleanza Cooperative",
+   "NAME": "Alleanza delle Cooperative Italiane Agroalimentare",
+   "TERRITORY": "T10",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.alleanzacooperative.it/news-eventi",
+    "LINK_PATTERN": "^https://www\\.alleanzacooperative\\.it/news\\-eventi/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-016/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 43779,
+    "ENTRADA": "https://www.alleanzacooperative.it/news-eventi",
+    "DOCUMENTO": "https://www.alleanzacooperative.it/news-eventi/page/2",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 38974,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T11-005",
+   "OWNER": "Unione Italiana Vini",
+   "NAME": "SIMEI — Salone Internazionale Macchine per Enologia e Imbottigliamento",
+   "TERRITORY": "T11",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.simei.it/news-media/news",
+    "LINK_PATTERN": "^https?://(www\\.)?simei\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T11-005/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 48689,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.simei.it/news-media/news",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 45449
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-003",
+   "OWNER": "CIA",
+   "NAME": "CIA — Agricoltori Italiani",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cia.it/",
+    "LINK_PATTERN": "^https://ciaprod\\.s3\\.amazonaws\\.com/media/filer_public/a6/9e/a69ed547\\-c7c8\\-405e\\-bfa4\\-5dfbcbabbef0/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-003/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 127583,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://ciaprod.s3.amazonaws.com/media/filer_public/a6/9e/a69ed547-c7c8-405e-bfa4-5dfbcbabbef0/presentazione_cia_2021-ita-web.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 3041878
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-004",
+   "OWNER": "Confagricoltura",
+   "NAME": "Confagricoltura",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.confagricoltura.it/ita/area-stampa/notizie-brevi/agrifoodtech-e-ia-presentato-il-2%C2%B0-rapporto-2026-dedicato-alla-trasformazione-tecnologica-dell-agroalimentare-made-in-italy",
+    "LINK_PATTERN": "^https?://(www\\.)?confagricoltura\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-004/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 0,
+    "ENTRADA_BYTES": 0,
+    "ENTRADA": "https://www.confagricoltura.it/ita/area-stampa/notizie-brevi/agrifoodtech-e-ia-presentato-il-2%C2%B0-rapporto-2026-dedicato-alla-trasformazione-tecnologica-dell-agroalimentare-made-in-italy",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-005",
+   "OWNER": "AIAB",
+   "NAME": "AIAB — Associazione Italiana Agricoltura Biologica",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://aiab.it/",
+    "LINK_PATTERN": "^https://aiab\\.it/wp\\-content/uploads/2023/01/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-005/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 240564,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://aiab.it/wp-content/uploads/2023/01/AIAB-Aiuti-di-Stato.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 103612
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-006",
+   "OWNER": "CIA Agricoltori Italiani",
+   "NAME": "CIA Toscana",
+   "TERRITORY": "T12",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ciatoscana.eu/home/",
+    "LINK_PATTERN": "^https://www\\.ciatoscana\\.eu/home/wp\\-content/uploads/2026/02/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-006/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 394466,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.ciatoscana.eu/home/wp-content/uploads/2026/02/inn-pratica_volume_il-futuro-dell-agricoltura_IT_web.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 6000001
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "OWNER": "ARPAE Emilia-Romagna (IT-OWN-002)",
+   "NAME": "ARPAE — Bollettino agrometeorologico regionale",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+    "LINK_PATTERN": "\\.pdf(/view)?(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false,
+    "STRIP_SUFFIX": "/view"
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "REGRA": "contrato IT-T2-001 (regras/italy_contracts.mjs): a pagina do ano lista os PDFs; o link exibido termina em /view e devolve HTML — remover /view e exigir %PDF",
+    "ENTRADA_STATUS": "nao sondado pela sonda generica (a URL do Atlas da 404; a do contrato e a que vale)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "OWNER": "ARPAC",
+   "NAME": "ARPA Campania",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpacampania.it/web/guest/news",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-006/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 128427,
+    "ENTRADA": "https://www.arpacampania.it/web/guest/news",
+    "DOCUMENTO": "https://www.arpacampania.it/news/-/asset_publisher/UJfyqynXQe0y/content/asi-caivano-esiti-campionamenti-di-aria-non-rilevano-presenza-significativa-di-inquinanti?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_UJfyqynXQe0y_assetEntryId=884035&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_UJfyqynXQe0y_redirect=https%3A%2F%2Fwww.arpacampania.it%2Fnews%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_UJfyqynXQe0y%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_UJfyqynXQe0y_assetEntryId%3D884035%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_UJfyqynXQe0y_cur%3D0%26p_r_p_resetCur%3Dfalse",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 123309,
+    "REGRA": "keyword_slug",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-007",
+   "OWNER": "ARPA Sicilia",
+   "NAME": "ARPA Sicilia",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.sicilia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-007/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 174632,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.arpa.sicilia.it/temi-ambientali/aria/bollettino-qualita-dellaria-isola-di-vulcano/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 141580
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-008",
+   "OWNER": "ARPAT",
+   "NAME": "ARPAT Toscana",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpat.toscana.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpat\\.toscana\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-008/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 287561,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.arpat.toscana.it/evento/toscana-stati-generali-dellambiente/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 268537
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-009",
+   "OWNER": "ISPRA",
+   "NAME": "ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.isprambiente.gov.it/it",
+    "LINK_PATTERN": "^https://www\\.isprambiente\\.gov\\.it/it/files/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-009/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 191007,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.isprambiente.gov.it/it/files/iso_9001-ita-c859101-2-20260709.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 129270
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-010",
+   "OWNER": "Provincia autonoma di Trento",
+   "NAME": "APPA Trento — Agenzia provinciale protezione ambiente",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.appa.provincia.tn.it/Documenti-e-dati/Documenti-tecnici-di-supporto/Spedizioni-transfrontaliere-di-rifiuti-il-nuovo-Regolamento-UE-2024-1157",
+    "LINK_PATTERN": "^https?://(www\\.)?appa\\.provincia\\.tn\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-010/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 110606,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.appa.provincia.tn.it/Documenti-e-dati/Documenti-tecnici-di-supporto/Spedizioni-transfrontaliere-di-rifiuti-il-nuovo-Regolamento-UE-2024-1157",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 75745
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-011",
+   "OWNER": "ARPA Lombardia",
+   "NAME": "ARPA Lombardia",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpalombardia.it/",
+    "LINK_PATTERN": "^https://www\\.arpalombardia\\.it/media/3filtsmf/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-011/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 436334,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.arpalombardia.it/media/3filtsmf/la-montagna-che-cambia-crnv-ottobre-2026.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 2355621
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-012",
+   "OWNER": "ARPA FVG",
+   "NAME": "ARPA Friuli Venezia Giulia — OSMER",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.fvg.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.fvg\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-012/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 199090,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.arpa.fvg.it/news/ufficio-stampa/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 95650
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-013",
+   "OWNER": "ARPA Lazio",
+   "NAME": "ARPA Lazio",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpalazio.it/web/guest/ambiente/rir/pubblicazioni",
+    "LINK_PATTERN": "^https?://(www\\.)?arpalazio\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 211900,
+    "ENTRADA": "https://www.arpalazio.it/web/guest/ambiente/rir/pubblicazioni",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-014",
+   "OWNER": "ARPA Molise",
+   "NAME": "ARPA Molise",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-FIXO",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "STATIC_ENDPOINT",
+    "URL": "https://www.arpamolise.it/Comunicazione/Pubblicazioni/pdf/cartaservizi.pdf"
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-014/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 71754,
+    "ENTRADA": "https://www.arpamolise.it/Comunicazione/Pubblicazioni/pdf/cartaservizi.pdf",
+    "DOCUMENTO": "https://www.arpamolise.it/Comunicazione/Pubblicazioni/pdf/cartaservizi.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 2018389,
+    "REGRA": "documento fixo observado — descoberta de edicoes novas nao configurada"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-015",
+   "OWNER": "AIAM",
+   "NAME": "AIAM — Associazione Italiana di Agrometeorologia",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agrometeorologia.it/",
+    "LINK_PATTERN": "\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-015/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 288896,
+    "REGRA": "pdf (primeiro link .pdf da entrada)",
+    "DOCUMENTO": "http://www.agrometeorologia.it/wp-content/uploads/2021/03/2021_brochure_it.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 534701
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-016",
+   "OWNER": "ARPAM",
+   "NAME": "ARPA Marche",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.marche.it/",
+    "LINK_PATTERN": "^https://www\\.arpa\\.marche\\.it/images/pdf/agenzia/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-016/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 91629,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.arpa.marche.it/images/pdf/agenzia/TARIFFARIO_2026.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 2081747
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-017",
+   "OWNER": "CNR",
+   "NAME": "CNR IRET — Istituto di Ricerca sugli Ecosistemi Terrestri",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.iret.cnr.it/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?iret\\.cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-017/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 171989,
+    "ENTRADA": "https://www.iret.cnr.it/news/",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-018",
+   "OWNER": "CNR",
+   "NAME": "CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://isafom.cnr.it/category/news/",
+    "LINK_PATTERN": "^https://isafom\\.cnr\\.it/category/news/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-018/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 188091,
+    "ENTRADA": "https://isafom.cnr.it/category/news/",
+    "DOCUMENTO": "https://isafom.cnr.it/category/news/page/2/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 94826,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-019",
+   "OWNER": "ARPA Piemonte",
+   "NAME": "ARPA Piemonte",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.piemonte.it/ricerca/comunicati-stampa",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.piemonte\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-019/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 109274,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.arpa.piemonte.it/ricerca/comunicati-stampa",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 143966
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-020",
+   "OWNER": "ARTA Abruzzo",
+   "NAME": "ARTA Abruzzo",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.artaabruzzo.it/",
+    "LINK_PATTERN": "^https://www\\.artaabruzzo\\.it/download/aree/qualita/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-020/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 19675,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.artaabruzzo.it/download/aree/qualita/MIP_07_01_01_modulo_reclami_rev_01.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 570068
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-021",
+   "OWNER": "ARPAL",
+   "NAME": "ARPA Liguria",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/non-solo-meteo-arpal-alla-notte-europea-della-ricerca.html",
+    "LINK_PATTERN": "^https?://(www\\.)?arpal\\.liguria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-021/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 55979,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/non-solo-meteo-arpal-alla-notte-europea-della-ricerca.html",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 36663
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-022",
+   "OWNER": "ARPA Valle d'Aosta",
+   "NAME": "ARPA Valle d'Aosta",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.vda.it/component/tags/tag/articoli-scientifici",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.vda\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-022/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 136617,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.arpa.vda.it/component/tags/tag/articoli-scientifici",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 124906
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-023",
+   "OWNER": "ARPAB",
+   "NAME": "ARPA Basilicata",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpab.it/articoli/news/arpa-informa/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpab\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-023/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "REGRA": "keyword_slug (a sonda recebeu corpo comprimido; o canario decide)",
+    "GZIP_NA_RESPOSTA": true
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T2-024",
+   "OWNER": "ANBI",
+   "NAME": "ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e acque irrigue",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.anbi.it/",
+    "LINK_PATTERN": "^https://www\\.anbi\\.it/public/sezioni/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-024/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 28351,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.anbi.it/public/sezioni/def-indagine-conoscitiva-ix-commissione-anbi-imp---copia-pdf-20220412151017.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 6000001
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-013",
+   "OWNER": "Regione Emilia-Romagna",
+   "NAME": "Emilia-Romagna — Servizio Fitosanitario",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026",
+    "LINK_PATTERN": "^https?://(www\\.)?agricoltura\\.regione\\.emilia\\-romagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 945989,
+    "ENTRADA": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026",
+    "DOCUMENTO": "https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-e-biologica-2026",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 834690,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-014",
+   "OWNER": "MASAF — Servizio Fitosanitario Centrale",
+   "NAME": "Servizio Fitosanitario Nazionale — Protezione delle Piante",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+    "LINK_PATTERN": "^https?://(www\\.)?protezionedellepiante\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-014/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 213695,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.protezionedellepiante.it/category/documenti-tecnici-ufficiali/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 380650
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-015",
+   "OWNER": "Regione Toscana",
+   "NAME": "Toscana — Servizio Fitosanitario Regionale",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.toscana.it/regione/approfondimenti",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.toscana\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-015/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 296084,
+    "ENTRADA": "https://www.regione.toscana.it/regione/approfondimenti",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-016",
+   "OWNER": "Regione Veneto",
+   "NAME": "Veneto — Servizio Fitosanitario Regionale",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.veneto.it/web/guest/newsletter",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-016/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 98642,
+    "ENTRADA": "https://www.regione.veneto.it/web/guest/newsletter",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-017",
+   "OWNER": "CNR",
+   "NAME": "CNR IPSP — Istituto per la Protezione Sostenibile delle Piante",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "http://www.ipsp.cnr.it/notizie/",
+    "LINK_PATTERN": "^http://www\\.ipsp\\.cnr\\.it/notizie/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-017/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 79573,
+    "ENTRADA": "http://www.ipsp.cnr.it/notizie/",
+    "DOCUMENTO": "http://www.ipsp.cnr.it/notizie/page/2/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 72095,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-018",
+   "OWNER": "CNR",
+   "NAME": "CNR ISPA — Istituto di Scienze delle Produzioni Alimentari",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ispa.cnr.it/news-e-eventi",
+    "LINK_PATTERN": "^https?://(www\\.)?ispa\\.cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-018/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 29801,
+    "ENTRADA": "https://www.ispa.cnr.it/news-e-eventi",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-019",
+   "OWNER": "Universita di Torino",
+   "NAME": "Agroinnova — Centro di Competenza per l'Innovazione in campo agro-ambientale",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca",
+    "LINK_PATTERN": "^https://www\\.agroinnova\\.unito\\.it/it/ricerca/progetti\\-di\\-ricerca/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-019/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 75802,
+    "ENTRADA": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca",
+    "DOCUMENTO": "https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca/progetti-corso",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 71908,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-020",
+   "OWNER": "SEI",
+   "NAME": "Societa Entomologica Italiana",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.societaentomologicaitaliana.it/",
+    "LINK_PATTERN": "\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-020/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 295944,
+    "REGRA": "pdf (primeiro link .pdf da entrada)",
+    "DOCUMENTO": "https://www.societaentomologicaitaliana.it/wp-content/uploads/2026/06/Locandina-SEI_-Romiti.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 374850
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-021",
+   "OWNER": "SIPaV",
+   "NAME": "SIPaV — Societa Italiana di Patologia Vegetale",
+   "TERRITORY": "T3",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.sipav.org/it/12/News/",
+    "LINK_PATTERN": "^https?://(www\\.)?sipav\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T3-021/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 19570,
+    "ENTRADA": "https://www.sipav.org/it/12/News/",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-002",
+   "OWNER": "Fondazione Edmund Mach (FEM) (IT-OWN-014)",
+   "NAME": "FEM OpenPub — repositório de publicações",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://openpub.fmach.it/retrieve/ecca2143-914c-409b-abf5-832dc86973f9/2025%20JEE%20Rossi%20Stacconi%20et%20al.pdf",
+    "LINK_PATTERN": "^https?://(www\\.)?openpub\\.fmach\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-002/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 60778,
+    "ENTRADA": "https://openpub.fmach.it/retrieve/ecca2143-914c-409b-abf5-832dc86973f9/2025%20JEE%20Rossi%20Stacconi%20et%20al.pdf",
+    "DOCUMENTO": "https://openpub.fmach.it/retrieve/ecca2143-914c-409b-abf5-832dc86973f9/2025%20JEE%20Rossi%20Stacconi%20et%20al.pdf",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 4682,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-006",
+   "OWNER": "CNR",
+   "NAME": "CNR — Consiglio Nazionale delle Ricerche",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cnr.it/it/documenti-programmazione",
+    "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-006/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 53647,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://www.cnr.it/it/documenti-programmazione",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 42346
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-007",
+   "OWNER": "Institut Agricole Regional",
+   "NAME": "Institut Agricole Regional — Aosta",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.iaraosta.it/",
+    "LINK_PATTERN": "^https://www\\.iaraosta\\.it/wp\\-content/uploads/2026/07/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-007/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 176189,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.iaraosta.it/wp-content/uploads/2026/07/Carta-della-qualita-FIRMATA.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 2069439
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-008",
+   "OWNER": "Fondazione Agrion",
+   "NAME": "Fondazione Agrion — Fondazione per la ricerca l'innovazione e lo sviluppo tecnologico dell'agricoltura piemontese",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agrion.it/",
+    "LINK_PATTERN": "^https://www\\.agrion\\.it/2021/wp\\-content/uploads/2023/04/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-008/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 290663,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.agrion.it/2021/wp-content/uploads/2026/03/IT-25.03.2026-IT-DEFINITIVA-WEB-Brochure-Agrion-Digi-Open-Lab-1.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 4013054
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-009",
+   "OWNER": "Fondazione Minoprio",
+   "NAME": "Fondazione Minoprio",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.fondazioneminoprio.it/",
+    "LINK_PATTERN": "^https://www\\.fondazioneminoprio\\.it/wp\\-content/uploads/2025/04/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-009/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 101678,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.fondazioneminoprio.it/wp-content/uploads/2025/04/REGOLAMENTO-FM-2025-26.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 445797
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-010",
+   "OWNER": "Fondazione Navarra",
+   "NAME": "Fondazione per l'Agricoltura F.lli Navarra",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.fondazionenavarra.it/",
+    "LINK_PATTERN": "^https://www\\.fondazionenavarra\\.it/images/pdf/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-010/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 103456,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.fondazionenavarra.it/images/pdf/la_pianura_n_3_2010_copertina.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 5383814
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-011",
+   "OWNER": "Universita di Bari Aldo Moro",
+   "NAME": "UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli Alimenti",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.uniba.it/it/ricerca/dipartimenti/disspa",
+    "LINK_PATTERN": "^https://www\\.uniba\\.it/it/ricerca/dipartimenti/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-011/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 88933,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.uniba.it/it/ricerca/dipartimenti/processi-e-subprocessi-dei-dipartimenti-di-ricerca.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 126187
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-012",
+   "OWNER": "Universita di Pisa",
+   "NAME": "UNIPI DiSAAA-a — Dipartimento di Scienze Agrarie Alimentari e Agro- ambientali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agr.unipi.it/",
+    "LINK_PATTERN": "^https://www\\.agr\\.unipi\\.it/wp\\-content/uploads/2026/07/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-012/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 156567,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.agr.unipi.it/wp-content/uploads/2026/07/ad-agraria.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 211583
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-013",
+   "OWNER": "CRPA",
+   "NAME": "CRPA — Centro Ricerche Produzioni Animali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crpa.it/nqcontent.cfm?a_id=1109",
+    "LINK_PATTERN": "^https://www\\.crpa\\.it/media/crpa_www/images/contattaci/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 49941,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "http://www.crpa.it/media/documents/ethicalpigfarm_www/20190321_EPF_Convegno_finale_INVITO_007_mail.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 420054
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-014",
+   "OWNER": "Universita della Tuscia",
+   "NAME": "UNITUS DAFNE — Dipartimento di Scienze Agrarie e Forestali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.unitus.it/dipartimenti/dafne/",
+    "LINK_PATTERN": "^https://www\\.unitus\\.it/wp\\-content/uploads/2024/02/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-014/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 918731,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.unitus.it/wp-content/uploads/2024/02/Linee-guida-con-allegati_2023.24-2.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 498310
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-015",
+   "OWNER": "CNR",
+   "NAME": "CNR IBBR — Istituto di Bioscienze e Biorisorse",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ibbr.cnr.it/ibbr/",
+    "LINK_PATTERN": "^https?://(www\\.)?ibbr\\.cnr\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-015/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 90461,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.ibbr.cnr.it/ibbr/news/iscrizioni-aperte-per-il-6-maria-ciaramella",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 52939
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-016",
+   "OWNER": "Universita degli Studi di Milano",
+   "NAME": "AIR UNIMI — Archivio Istituzionale della Ricerca",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://air.unimi.it/",
+    "LINK_PATTERN": "^https://air\\.unimi\\.it/sr/static/DS6/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-016/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 55339,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://air.unimi.it/sr/static/DS6/AIR-nuova_interfaccia.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 807190
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-017",
+   "OWNER": "Universita di Firenze",
+   "NAME": "FLORE UNIFI — Archivio istituzionale della ricerca",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://flore.unifi.it/",
+    "LINK_PATTERN": "^https://www\\.unifi\\.it/sites/default/files/migrated/documents/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-017/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 65282,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.unifi.it/sites/default/files/migrated/documents/flore_faq.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 604304
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-018",
+   "OWNER": "Universita di Bologna",
+   "NAME": "IRIS UNIBO — Archivio istituzionale della ricerca",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-FIXO",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "STATIC_ENDPOINT",
+    "URL": "https://www.unibo.it/it/allegati/policy-di-ateneo-per-l2019accesso-aperto-alle-pubblicazioni-e-ai-dati-della-ricerca/@@download/file/PolicyAteneoAccessoApertoPubblicazioniDatiRicerca.pdf"
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-018/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 67739,
+    "ENTRADA": "https://www.unibo.it/it/allegati/policy-di-ateneo-per-l2019accesso-aperto-alle-pubblicazioni-e-ai-dati-della-ricerca/@@download/file/PolicyAteneoAccessoApertoPubblicazioniDatiRicerca.pdf",
+    "DOCUMENTO": "https://www.unibo.it/it/allegati/policy-di-ateneo-per-l2019accesso-aperto-alle-pubblicazioni-e-ai-dati-della-ricerca/@@download/file/PolicyAteneoAccessoApertoPubblicazioniDatiRicerca.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 135160,
+    "REGRA": "documento fixo observado — descoberta de edicoes novas nao configurada"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-019",
+   "OWNER": "Universita di Padova",
+   "NAME": "IRIS UNIPD — Archivio della ricerca",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.research.unipd.it/",
+    "LINK_PATTERN": "^https://wwwassets\\.unipd\\.it/sites/default/files/2026\\-04/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-019/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 58762,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://wwwassets.unipd.it/sites/default/files/2026-04/IRIS%20GUIDA%20RAPIDA%20PER%20UTENTI_25092024_0.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 749379
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-020",
+   "OWNER": "Universita di Torino",
+   "NAME": "IRIS UNITO — Archivio istituzionale",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://iris.unito.it/",
+    "LINK_PATTERN": "^https://iris\\.unito\\.it/sr/htm/pdf/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-020/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 47620,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://iris.unito.it/sr/htm/pdf/Desktop_prodotti_v3.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 420604
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-021",
+   "OWNER": "Universita di Firenze",
+   "NAME": "UNIFI DAGRI — Dipartimento di Scienze e Tecnologie Agrarie Alimentari Ambientali e Forestali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.dagri.unifi.it/avvisi",
+    "LINK_PATTERN": "^https?://(www\\.)?dagri\\.unifi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-021/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 171744,
+    "ENTRADA": "https://www.dagri.unifi.it/avvisi",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-022",
+   "OWNER": "Firenze University Press",
+   "NAME": "Advances in Horticultural Science",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://oaj.fupress.net/",
+    "LINK_PATTERN": "^https://journals\\.fupress\\.net/wp\\-content/uploads/2025/10/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-022/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 92140,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://journals.fupress.net/wp-content/uploads/2025/10/Call-N31.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 327650
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-023",
+   "OWNER": "SSICA",
+   "NAME": "SSICA — Stazione Sperimentale per l'Industria delle Conserve Alimentari",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ssica.it/",
+    "LINK_PATTERN": "^https://www\\.ssica\\.it/wp\\-content/uploads/2025/03/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-023/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 157180,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.ssica.it/wp-content/uploads/2025/03/PROGETTO-ACTION.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 194972
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-024",
+   "OWNER": "Universita degli Studi di Milano",
+   "NAME": "UNIMI DiSAA — Dipartimento di Scienze Agrarie e Ambientali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://disaa.unimi.it/it",
+    "LINK_PATTERN": "^https?://(www\\.)?disaa\\.unimi\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-024/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 106274,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://disaa.unimi.it/index.php/it/eventi/festival-del-parco-di-monza-le-attivita-e-i-laboratori-del-disaa",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 67330
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-025",
+   "OWNER": "Scuola Superiore Sant'Anna Pisa",
+   "NAME": "Scuola Superiore Sant'Anna — Istituto di Scienze delle Produzioni Vegetali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.santannapisa.it/it/news/progetto-innoflorenerg",
+    "LINK_PATTERN": "^https?://(www\\.)?santannapisa\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-025/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 68029,
+    "ENTRADA": "https://www.santannapisa.it/it/news/progetto-innoflorenerg",
+    "DOCUMENTO": "http://www.santannapisa.it/it/news/progetto-innoflorenerg",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 55147,
+    "REGRA": "keyword_slug",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-026",
+   "OWNER": "Universita di Palermo",
+   "NAME": "UNIPA SAAF — Dipartimento Scienze Agrarie Alimentari e Forestali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.unipa.it/dipartimenti/saaf/",
+    "LINK_PATTERN": "\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-026/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 0,
+    "ENTRADA_BYTES": 0,
+    "REGRA": "pdf (sem acerto na sondagem — o canario decide)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-027",
+   "OWNER": "Universita di Padova",
+   "NAME": "UNIPD DAFNAE — Dipartimento di Agronomia Animali Alimenti Risorse Naturali e Ambiente",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.dafnae.unipd.it/news/termine/2",
+    "LINK_PATTERN": "^https?://(www\\.)?dafnae\\.unipd\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-027/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 64173,
+    "ENTRADA": "https://www.dafnae.unipd.it/news/termine/2",
+    "DOCUMENTO": "https://www.dafnae.unipd.it/news/termine/node/18429",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 39799,
+    "REGRA": "keyword_slug",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-028",
+   "OWNER": "Universita di Udine",
+   "NAME": "UNIUD DI4A — Dipartimento di Scienze Agroalimentari Ambientali e Animali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://di4a.uniud.it/it/ricerca/pubblicazioni-dipartimento",
+    "LINK_PATTERN": "^https?://(www\\.)?di4a\\.uniud\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-028/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 58263,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://di4a.uniud.it/it/ricerca/pubblicazioni-dipartimento",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 38408
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-029",
+   "OWNER": "Universita di Verona",
+   "NAME": "UNIVR Dipartimento di Biotecnologie",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.dbt.univr.it/",
+    "LINK_PATTERN": "^https://cdn\\.docs\\.univr\\.it/documenti/Documento/allegati/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-029/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 65501,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://cdn.docs.univr.it/documenti/Documento/allegati/allegati375197.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 773976
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-030",
+   "OWNER": "Universita di Teramo",
+   "NAME": "UNITE Facolta di Bioscienze e Tecnologie Agro-alimentari e Ambientali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+    "LINK_PATTERN": "^https://www\\.unite\\.it/UniTE/Bioscienze_e_Tecnologie_Agro\\-Alimentari_e_Ambientali/News_ed_Eventi_\\-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-030/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 110085,
+    "ENTRADA": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+    "DOCUMENTO": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/Posticipo_esame_Fisica_Applicata_-_prof_Pepe",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 98283,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-032",
+   "OWNER": "Universita di Perugia",
+   "NAME": "UNIPG DSA3 — Dipartimento di Scienze Agrarie Alimentari e Ambientali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://dsa3.unipg.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?dsa3\\.unipg\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-032/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 73089,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://dsa3.unipg.it/home/news/news-studenti?view=elenco",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 57822
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-033",
+   "OWNER": "Universita di Bologna",
+   "NAME": "UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://distal.unibo.it/it",
+    "LINK_PATTERN": "^https?://(www\\.)?distal\\.unibo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-033/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 93705,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://distal.unibo.it/it/notizie/vii-giornata-internazionale-di-sensibilizzazione-sulle-perdite-e-sugli-sprechi-alimentari",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 53267
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-034",
+   "OWNER": "Accademia dei Georgofili",
+   "NAME": "Accademia dei Georgofili",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://georgofili.it/contenuti/notiziario-accademia/1305",
+    "LINK_PATTERN": "^https?://(www\\.)?georgofili\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-034/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 57016,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://georgofili.it/contenuti/notiziario-accademia/1305",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 37835
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-035",
+   "OWNER": "Accademia dei Georgofili",
+   "NAME": "Georgofili INFO — notiziario",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://georgofili.it/contenuti/notiziario-accademia/1305",
+    "LINK_PATTERN": "^https?://(www\\.)?georgofili\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-035/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 57016,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://georgofili.it/contenuti/notiziario-accademia/1305",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 37835
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-036",
+   "OWNER": "Accademia dei Georgofili",
+   "NAME": "Georgofili — Accademia dei Georgofili (portale .net)",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://georgofili.it/contenuti/notiziario-accademia/1305",
+    "LINK_PATTERN": "^https?://(www\\.)?georgofili\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-036/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 57016,
+    "REGRA": "slug (entrada = listagem observada pela sonda)",
+    "DOCUMENTO": "https://georgofili.it/contenuti/notiziario-accademia/1305",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 37835
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-013",
+   "OWNER": "CONAF",
+   "NAME": "CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.conaf.it/formazione-professionale-continua/normativa-formazione-professionale-continua/circolari-2/",
+    "LINK_PATTERN": "^https?://(www\\.)?conaf\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 94183,
+    "ENTRADA": "https://www.conaf.it/formazione-professionale-continua/normativa-formazione-professionale-continua/circolari-2/",
+    "REGRA": "slug (sem acerto na sondagem — o canario decide)",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-014",
+   "OWNER": "Consorzi Agrari d'Italia",
+   "NAME": "Consorzi Agrari d'Italia — CAI",
+   "TERRITORY": "T7",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.consorziagrariditalia.it/chi-siamo/",
+    "LINK_PATTERN": "\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-014/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 0,
+    "ENTRADA_BYTES": 0,
+    "REGRA": "pdf (sem acerto na sondagem — o canario decide)"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T9-009",
+   "OWNER": "Cifo",
+   "NAME": "Cifo",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cifo.it/newsroom/",
+    "LINK_PATTERN": "^https://www\\.cifo\\.it/newsroom/.+",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T9-009/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 30639,
+    "ENTRADA": "https://www.cifo.it/newsroom/",
+    "DOCUMENTO": "https://www.cifo.it/newsroom/cifo-a-tomato-world-2026-innovazione-e-strategie-nutrizionali-per-il-pomodoro-da-industria/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 40253,
+    "REGRA": "under_example_path",
+    "GZIP_NA_RESPOSTA": false
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T9-010",
+   "OWNER": "Serbios",
+   "NAME": "Serbios",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.serbios.it/",
+    "LINK_PATTERN": "^https://www\\.serbios\\.it/docs/documents/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T9-010/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 68020,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.serbios.it/docs/documents/codice-etico.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 350337
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T9-011",
+   "OWNER": "Koppert Biological Systems",
+   "NAME": "Koppert Italia",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.koppert.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?koppert\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T9-011/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 187252,
+    "REGRA": "keyword_slug",
+    "DOCUMENTO": "https://www.koppert.it/notizia/trasformare-la-protezione-delle-colture-con-gli-acari-predatori",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 146391
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T9-012",
+   "OWNER": "CBC Europe — Biogard",
+   "NAME": "CBC Biogard",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.biogard.it/",
+    "LINK_PATTERN": "^https://www\\.biogard\\.it/wp\\-content/uploads/2026/08/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T9-012/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 261987,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "https://www.biogard.it/wp-content/uploads/2026/08/Report-Curve_30.07.26.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 5093650
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T9-013",
+   "OWNER": "Certis Belchim",
+   "NAME": "Certis Belchim Italia",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-PDF-INDICE",
+   "OUTPUT_TYPE": "PDF",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://certisbelchim.it/",
+    "LINK_PATTERN": "^https://certisbelchim\\.co\\.uk/pdf/[^?#]*\\.pdf(\\?|#|$)",
+    "MAX_TARGETS": 1,
+    "SAME_HOST": false
+   },
+   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T9-013/MANIFEST.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-18",
+    "ENTRADA_STATUS": 200,
+    "ENTRADA_BYTES": 221665,
+    "REGRA": "pdf_na_pasta_do_exemplo",
+    "DOCUMENTO": "http://certisbelchim.it/pdf/Privacy-Statement_IT.pdf",
+    "DOCUMENTO_ASSINATURA": "PDF",
+    "DOCUMENTO_BYTES": 124190
+   }
+  }
+ ]
+}
