@@ -992,29 +992,6 @@
    }
   },
   {
-   "SOURCE_ID": "IT-T2-001",
-   "OWNER": "ARPAE Emilia-Romagna (IT-OWN-002)",
-   "NAME": "ARPAE — Bollettino agrometeorologico regionale",
-   "TERRITORY": "T2",
-   "BATCH_ID": "LOTE-PDF-INDICE",
-   "OUTPUT_TYPE": "PDF",
-   "ACQUISITION": {
-    "STRATEGY": "HTML_LINK_DISCOVERY",
-    "MATCH": "URL",
-    "INDEX_URL": "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
-    "LINK_PATTERN": "\\.pdf(/view)?(\\?|#|$)",
-    "MAX_TARGETS": 1,
-    "SAME_HOST": false,
-    "STRIP_SUFFIX": "/view"
-   },
-   "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json",
-   "SONDAGEM": {
-    "SONDADO_EM": "2026-09-18",
-    "REGRA": "contrato IT-T2-001 (regras/italy_contracts.mjs): a pagina do ano lista os PDFs; o link exibido termina em /view e devolve HTML — remover /view e exigir %PDF",
-    "ENTRADA_STATUS": "nao sondado pela sonda generica (a URL do Atlas da 404; a do contrato e a que vale)"
-   }
-  },
-  {
    "SOURCE_ID": "IT-T2-006",
    "OWNER": "ARPAC",
    "NAME": "ARPA Campania",

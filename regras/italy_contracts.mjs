@@ -419,6 +419,29 @@ export const CONTRACTS = {
     SOURCE_LOCATION_RULE: "Bologna", FACT_LOCATION_RULE: "Emilia-Romagna regional",
     EVIDENCE_CLASS: "AGROCLIMATIC_SIGNAL", LEI: "AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE",
     AUTOMATION_FEASIBILITY: "HIGH",
+    // ── O BLOCO EXECUTÁVEL (contrato v2 · ADDENDUM-01 FASE 5, endpoint provado) ──
+    // Esta fonte nunca teve `case`: só prosa. Rota provada em 2026-09-20:
+    //   INDEX_URL  → HTTP 200, 72.040 bytes, 60 href `*_boll_agro_*.pdf/view`
+    //                (30 edições, cada uma listada duas vezes)
+    //   primeiro   → …/bollettini-2026/37_boll_agro_20260914.pdf (sem /view)
+    //                HTTP 200, application/pdf, 1.326.663 bytes, começa por %PDF
+    // O `/view` é a ARMADILHA escrita acima: STRIP_SUFFIX tira-o ANTES de
+    // pedir, e a validação de bytes (%PDF) continua a guardar a porta.
+    ACQUISITION: {
+      STRATEGY: "HTML_LINK_DISCOVERY", MATCH: "URL",
+      INDEX_URL: "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-2026",
+      LINK_PATTERN: "/bollettini-2026/\\d+_boll_agro_\\d{8}\\.pdf$",
+      STRIP_SUFFIX: "/view",
+      MAX_TARGETS: 1,
+    },
+    IDENTITY: {
+      STRATEGY: "FILENAME_CAPTURE",
+      PATTERN: "^(\\d+)_boll_agro_((\\d{4})(\\d{2})(\\d{2}))\\.pdf$",
+      DOCUMENT_ID: "ARPAE:$3:N$1",
+      SOURCE_DATE: "$2",
+      SOURCE_DATE_ISO: "$3-$4-$5",
+      FACT_TIME: "UNKNOWN — a data no nome e a da edicao semanal, nao a da observacao",
+    },
     NEGATIVE_CONTROL: { descricao: "baixar a URL COM /view", esperado: "FAILED — HTML detectado, apesar do HTTP 200" }
   },
 
