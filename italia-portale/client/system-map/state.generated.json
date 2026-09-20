@@ -205,7 +205,9 @@
       "coleta/adaptador_x.py",
       "coleta/adaptador_youtube.py",
       "coleta/adaptadores_de_aquisicao.mjs",
+      "coleta/adaptadores_de_aquisicao_test.mjs",
       "coleta/agrifood_ue.py",
+      "coleta/canario_youtube_canonico.mjs",
       "coleta/cellar.sh",
       "coleta/coleta_checkpoint.py",
       "coleta/coletor.py",
@@ -2716,8 +2718,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-canonical-free-route-v1",
-    "HEAD": "370ce450f4aac60d56540e654c159faa7c907917",
-    "GENERATED_AT": "2026-09-20T12:13:42-03:00",
+    "HEAD": "48999d132b0ade2bd4dc722ee6e47fb2139f1c9b",
+    "GENERATED_AT": "2026-09-20T14:09:20-03:00",
     "SOURCE_TREE_FINGERPRINT": "561dd8ceb407afb2f2e857b6cbfabc84d90d73fe278573594fd6180c0bb76e22"
   },
   "FAMILIES": [
@@ -27183,13 +27185,15 @@
       "family": "F-COLETA",
       "files": [
         "coleta/adaptadores_de_aquisicao.mjs",
+        "coleta/adaptadores_de_aquisicao_test.mjs",
+        "coleta/canario_youtube_canonico.mjs",
         "coleta/italy_executor.py",
         "coleta/italy_find_docs.mjs",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_probe.mjs",
         "coleta/italy_recurrent_collect.mjs"
       ],
-      "file_count": 6,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -27513,7 +27517,7 @@
         "PLANO": null,
         "PROVA": [
           "candidatas/italy_write_matrix.mjs:2",
-          "coleta/italy_pilot_collect.mjs:38",
+          "coleta/canario_youtube_canonico.mjs:13",
           "provas/a_autoridade_da_fonte.py:163",
           "provas/italy_pilot_negativos.mjs:8"
         ],
@@ -70560,8 +70564,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 4 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/canario_youtube_canonico.mjs",
+          "line": 13,
+          "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 38,
@@ -70643,8 +70663,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "UNKNOWN",
-      "reason": "O contrato de cada fonte italiana alimenta Colher as fontes italianas. Provado por 4 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Colher as fontes italianas. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/canario_youtube_canonico.mjs",
+          "line": 13,
+          "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 38,
@@ -100373,8 +100403,8 @@
     "edges_proven": 1035,
     "edges_unknown": 55,
     "business_edges": 4,
-    "files_tracked": 2124,
-    "files_covered": 1026,
+    "files_tracked": 2126,
+    "files_covered": 1028,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
     "roles_declared_only": 7,

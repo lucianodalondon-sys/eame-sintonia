@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-canonical-free-route-v1",
-    "HEAD": "370ce450f4aac60d56540e654c159faa7c907917",
-    "GENERATED_AT": "2026-09-20T12:13:42-03:00",
+    "HEAD": "48999d132b0ade2bd4dc722ee6e47fb2139f1c9b",
+    "GENERATED_AT": "2026-09-20T14:09:20-03:00",
     "SOURCE_TREE_FINGERPRINT": "561dd8ceb407afb2f2e857b6cbfabc84d90d73fe278573594fd6180c0bb76e22"
   },
   "FILES": [
@@ -1304,9 +1304,23 @@
       "code_dir": true
     },
     {
+      "path": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "sha": "e08d9366c39e4e880ff2ed6b2ffe0f85899eb58d",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/agrifood_ue.py",
       "sha": "fe26635e77232549b7c0b65996590ebccf3ea97a",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/canario_youtube_canonico.mjs",
+      "sha": "e30b254df142ea62760a195b05ec409eb8a8c97a",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -17043,6 +17057,72 @@
         "file": "coleta/adaptador_youtube.py",
         "line": 644,
         "snippet": "import youtube_transcrever as ytv"
+      }
+    },
+    {
+      "from_file": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptadores_de_aquisicao_test.mjs",
+        "line": 12,
+        "snippet": "import { canalPublicoYoutube, ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/adaptadores_de_aquisicao_test.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/adaptadores_de_aquisicao_test.mjs",
+        "line": 12,
+        "snippet": "import { canalPublicoYoutube, ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 14,
+        "snippet": "import { ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "coleta/adaptadores_de_aquisicao.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 14,
+        "snippet": "import { ADAPTERS } from \"./adaptadores_de_aquisicao.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 13,
+        "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/canario_youtube_canonico.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/canario_youtube_canonico.mjs",
+        "line": 13,
+        "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
       }
     },
     {
@@ -64585,10 +64665,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2124,
-    "files_readable": 833,
-    "files_code_dir": 893,
-    "file_edges": 4472,
+    "files_tracked": 2126,
+    "files_readable": 835,
+    "files_code_dir": 895,
+    "file_edges": 4478,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
