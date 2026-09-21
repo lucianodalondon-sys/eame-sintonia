@@ -504,5 +504,127 @@ class TestRedTeam(Isolado):
         self.assertTrue(True, "red team documentado: %s" % resultados_redteam)
 
 
+class TestHookFilaVazia(Isolado):
+    """Enxerto de candidate-bridge-v1 (63b71421): a volta IDLE chama o hook.
+
+    E o unico ponto onde fila vazia pode accionar descoberta. Sem hook a volta
+    e a de sempre; com hook que rebenta, a volta continua IDLE e o erro fica
+    no diario como DISCOVERY_HOOK_ERRO — e essa linha e do supervisor, nao
+    conta como batimento nem como morte do worker.
+    """
+
+    def _estado_base(self):
+        return {"SUPERVISOR_STATE": "STARTING", "RESTARTS_TOTAL": 0,
+                "CRASHES_SEM_PROGRESSO": []}
+
+    def _diario(self) -> list:
+        if not S.DIARIO.exists():
+            return []
+        return [json.loads(l) for l in
+                S.DIARIO.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+    def test_sem_hook_a_volta_idle_e_a_de_antes(self):
+        accao, estado, proc = S.uma_volta_sup(self._estado_base(), None)
+        self.assertEqual(accao, "IDLE")
+        self.assertIsNone(proc)
+        self.assertEqual([l for l in self._diario()
+                          if l["EVENTO"] == "DISCOVERY_HOOK_ERRO"], [])
+
+    def test_fila_vazia_chama_o_hook_uma_vez_por_volta(self):
+        chamadas = []
+        accao, estado, _ = S.uma_volta_sup(self._estado_base(), None,
+                                           hook_fila_vazia=lambda: chamadas.append(1))
+        self.assertEqual(accao, "IDLE")
+        self.assertEqual(chamadas, [1], "uma volta IDLE = uma chamada")
+        S.uma_volta_sup(estado, None, hook_fila_vazia=lambda: chamadas.append(2))
+        self.assertEqual(chamadas, [1, 2])
+
+    def test_com_trabalho_elegivel_o_hook_nao_e_chamado(self):
+        F.enfileirar("IT-TEST-HOOK-001", F.CANARY, priority=5,
+                     motivo="teste unitario hook")
+        chamadas = []
+        accao, _, proc = S.uma_volta_sup(self._estado_base(), None,
+                                         pausa_worker=0.1,
+                                         hook_fila_vazia=lambda: chamadas.append(1))
+        self.assertEqual(accao, "RELANCADO")
+        self.assertEqual(chamadas, [], "com fila cheia nao se pede descoberta")
+
+    def test_hook_que_rebenta_nao_mata_a_volta_e_fica_no_diario(self):
+        def rebenta():
+            raise RuntimeError("descoberta sem rede")
+        accao, estado, proc = S.uma_volta_sup(self._estado_base(), None,
+                                              hook_fila_vazia=rebenta)
+        self.assertEqual(accao, "IDLE")
+        self.assertIsNone(proc)
+        self.assertEqual(estado["SUPERVISOR_STATE"], "IDLE")
+        erros = [l for l in self._diario() if l["EVENTO"] == "DISCOVERY_HOOK_ERRO"]
+        self.assertEqual(len(erros), 1, self._diario())
+        self.assertIn("RuntimeError", erros[0]["ERRO"])
+        self.assertIn("descoberta sem rede", erros[0]["ERRO"])
+        self.assertEqual(erros[0]["ORIGEM"], "SUPERVISOR")
+        # A linha e do supervisor: nao e batimento do worker.
+        self.assertIsNone(S._ultimo_heartbeat())
+        # E o estado IDLE ficou no disco (descartavel).
+        self.assertEqual(json.loads(S.ESTADO.read_text(encoding="utf-8"))
+                         ["SUPERVISOR_STATE"], "IDLE")
+
+    def test_hook_que_rebenta_repetidamente_nao_conta_como_morte_do_worker(self):
+        def rebenta():
+            raise RuntimeError("x")
+        estado = self._estado_base()
+        for _ in range(4):
+            accao, estado, _ = S.uma_volta_sup(estado, None, hook_fila_vazia=rebenta)
+            self.assertEqual(accao, "IDLE")
+        self.assertEqual(estado.get("CRASHES_SEM_PROGRESSO", []), [])
+        self.assertNotEqual(estado["SUPERVISOR_STATE"], "BLOCKED")
+
+
+class TestRecuperacaoDoWorker(Isolado):
+    """G3 (BRIDGE-FEEDER): matar o worker -> o supervisor relanca, PID novo.
+
+    Worker inerte (um python que dorme) na pasta descartavel; o supervisor de
+    producao (outra arvore, outro PID) nunca e tocado. Os dois PIDs ficam no
+    diario: WORKER_MORTO com o antigo, WORKER_RELANCADO com o novo.
+    """
+
+    def test_worker_morto_e_relancado_com_pid_novo(self):
+        F.enfileirar("IT-TEST-REC-001", F.CANARY, priority=5, motivo="g3")
+        estado = {"SUPERVISOR_STATE": "STARTING", "RESTARTS_TOTAL": 0,
+                  "CRASHES_SEM_PROGRESSO": [], "WORKER_PID": None}
+
+        accao, estado, proc = S.uma_volta_sup(estado, None, pausa_worker=0.1)
+        self.assertEqual(accao, "RELANCADO")
+        pid_antes = proc.pid
+        self.assertEqual(estado["WORKER_PID"], pid_antes)
+        self.assertTrue(S._pid_no_so(pid_antes), "o PID lancado tem de existir no SO")
+
+        accao2, estado, proc = S.uma_volta_sup(estado, proc, pausa_worker=0.1)
+        self.assertEqual(accao2, "VIVO", "com o worker vivo a volta e VIVO")
+
+        # MATAR o worker (o inerte, na pasta descartavel).
+        proc.kill()
+        proc.wait(timeout=10)
+        self.assertIsNotNone(proc.poll())
+
+        accao3, estado, proc2 = S.uma_volta_sup(estado, proc, pausa_worker=0.1)
+        self.assertEqual(accao3, "RELANCADO", "worker morto -> relancar")
+        pid_depois = proc2.pid
+        self.assertNotEqual(pid_antes, pid_depois)
+        self.assertEqual(estado["WORKER_PID"], pid_depois)
+        self.assertEqual(estado["RESTARTS_TOTAL"], 2)
+        self.assertEqual(len(estado["CRASHES_SEM_PROGRESSO"]), 1,
+                         "uma morte muda conta uma vez; nao bloqueia")
+        self.assertNotEqual(estado["SUPERVISOR_STATE"], "BLOCKED")
+
+        linhas = [json.loads(l) for l in
+                  S.DIARIO.read_text(encoding="utf-8").splitlines() if l.strip()]
+        mortos = [l["PID"] for l in linhas if l["EVENTO"] == "WORKER_MORTO"]
+        relancados = [l["PID"] for l in linhas if l["EVENTO"] == "WORKER_RELANCADO"]
+        self.assertEqual(mortos, [pid_antes])
+        self.assertEqual(relancados, [pid_antes, pid_depois])
+        print("\nG3 WORKER_RECOVERY: PID_ANTES=%d morto -> PID_DEPOIS=%d relancado"
+              % (pid_antes, pid_depois))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

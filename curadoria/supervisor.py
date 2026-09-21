@@ -352,11 +352,19 @@ def uma_volta_sup(
     estado: dict,
     proc: Optional[subprocess.Popen],
     pausa_worker: float = 1.0,
+    hook_fila_vazia=None,
 ) -> tuple[str, dict, Optional[subprocess.Popen]]:
     """Uma iteracao do supervisor.
 
     Testavel: nao dorme, nao tem side-effects de timing. O caller decide
     quantas vezes chamar e o que fazer com o resultado.
+
+    hook_fila_vazia: callable() opcional, chamado UMA vez por volta em que
+    nao ha trabalho elegivel (IDLE). E o unico ponto onde fila vazia pode
+    accionar descoberta — sem ele o ciclo nunca se realimenta. Padrao None
+    (sem hook: comportamento identico ao de antes). Nao bloqueia a volta:
+    excecao no hook e anotada no diario como DISCOVERY_HOOK_ERRO e a volta
+    devolve IDLE na mesma. (Enxerto de candidate-bridge-v1, 63b71421.)
     """
     # --- PARAR.flag ---
     if PARAR.exists():
@@ -435,6 +443,17 @@ def uma_volta_sup(
     if n_elegiveis == 0:
         estado["SUPERVISOR_STATE"] = "IDLE"
         estado["WORKER_PID"] = None
+
+        # Hook de discovery: fila vazia e o momento de pedir candidatas.
+        # Quem passa o hook decide o que ele faz; o supervisor so garante
+        # que uma excecao la dentro nao o mata.
+        if hook_fila_vazia is not None:
+            try:
+                hook_fila_vazia()
+            except Exception as ex:  # noqa: BLE001 — o hook nao manda no loop
+                _anotar({"EVENTO": "DISCOVERY_HOOK_ERRO",
+                         "ERRO": "%s: %s" % (type(ex).__name__, str(ex)[:200])})
+
         _gravar_estado(estado)
         return "IDLE", estado, None
 
