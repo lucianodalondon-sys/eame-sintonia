@@ -4149,6 +4149,26 @@
       ]
     },
     {
+      "id": "C-CURATOR-CLASSIFICACAO-INDICE",
+      "name": "A familia de cada indice: boletim seriado, listagem de noticias ou NAO SEI",
+      "territory": "Z-CURADORIA",
+      "kind": "contract",
+      "icon": "⊞",
+      "what": "Classifica, pela evidencia JA guardada e sem rede, as 104 fontes HTML_LINK_DISCOVERY que a BCR-2026-09-20 deixou com uma so observacao: o universo e calculado do estado actual, o juizo por fonte e declarado com criterio de vocabulario fechado, e o script reprova se faltar ou sobrar um juizo. Mede tambem o que a BCR realmente colheu em cada uma (materia, a propria listagem, pagina institucional ou papelada PDF).",
+      "why_here": "MAX_TARGETS: 1 esta certo num boletim (o indice e o arquivo de edicoes; so a corrente interessa) e errado numa listagem de noticias (perde N-1). Corrigir em bloco e regressao. Foi este passo que o briefing da AQUISICAO-DETALHE-V1 saltou — e foi aqui que se mediu a terceira causa: o motor devolve o primeiro href do HTML, e um padrao sem palavra de noticia entrega o menu.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "acervo"
+      ],
+      "files": [
+        "curadoria/classificar_indice_104.py",
+        "curadoria/CLASSIFICACAO-INDICE-104-V1.json",
+        "curadoria/CLASSIFICACAO-INDICE-104-V1.md"
+      ]
+    },
+    {
       "id": "C-PORTA-FONTES-PRONTAS",
       "name": "A porta «que fontes estao READY agora?» — o lado da Collection",
       "territory": "Z-ORQUESTRADOR",
