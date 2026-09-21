@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "source-curator-integration-v1",
-    "HEAD": "333174d5c7833d7f48df4349b9eedbf9ac8fb019",
-    "GENERATED_AT": "2026-09-20T20:33:15-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1b8ad0563c1e5214d652cb833ab2676400cc062e26fd6580836230a4c7654df3"
+    "BRANCH": "aquisicao-detalhe-v1",
+    "HEAD": "d75c3263d768f78871eb78a98a4e8bee3eb0727e",
+    "GENERATED_AT": "2026-09-20T21:35:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e770b6bf892945abba3e1b8a07430da6580efec9a3c6fd82c75f3232628d2a44"
   },
   "FILES": [
     {
@@ -249,6 +249,13 @@
     {
       "path": "HANDOFF-V2-PAUSE.md",
       "sha": "0e19eef5629560905424741dc7d5da2ff1bf7db9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "MISSAO-AQUISICAO-DETALHE-V1.md",
+      "sha": "da5f26bc2719e50116db724939a50ffe0fbc296b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1829,6 +1836,20 @@
       "code_dir": true
     },
     {
+      "path": "curadoria/CLASSIFICACAO-INDICE-104-V1.json",
+      "sha": "d79130596f948cba7aa9fad4cc65e768ff808b9b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "curadoria/CLASSIFICACAO-INDICE-104-V1.md",
+      "sha": "1f43d15015dd47e115debe8a21534008626eb18a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "curadoria/CONTRACT-VALIDATION-V1.json",
       "sha": "5bce030035be7bc61c341204d33f19394c6627b2",
       "ext": ".json",
@@ -1972,6 +1993,13 @@
       "path": "curadoria/canario_do_motor.mjs",
       "sha": "7abb2ee771ba9906197b8dd2f8f749cf89dcfbd6",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "curadoria/classificar_indice_104.py",
+      "sha": "1b4ae7decf365d55c80b78c39ddccabdd6f43648",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -13457,7 +13485,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "398f9ef4ef7099b6d33e55c8301d57c06279e79f",
+      "sha": "f9c4bc7516dac9215dc1adf2cd3b2959d9e3063b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20239,6 +20267,105 @@
         "file": "curadoria/canario_do_motor.mjs",
         "line": 24,
         "snippet": "import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "curadoria/CLASSIFICACAO-INDICE-104-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 37,
+        "snippet": "SAIDA_JSON = RAIZ / \"curadoria\" / \"CLASSIFICACAO-INDICE-104-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "curadoria/CLASSIFICACAO-INDICE-104-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 508,
+        "snippet": "SAIDA_JSON.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "curadoria/CLASSIFICACAO-INDICE-104-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 38,
+        "snippet": "SAIDA_MD = RAIZ / \"curadoria\" / \"CLASSIFICACAO-INDICE-104-V1.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "curadoria/CLASSIFICACAO-INDICE-104-V1.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 547,
+        "snippet": "SAIDA_MD.write_text(\"\\n\".join(md) + \"\\n\", encoding=\"utf-8\", newline=\"\\n\")"
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 31,
+        "snippet": "ESTADO = RAIZ / \"curadoria\" / \"ESTADO-ACTUAL-DAS-FONTES-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 33,
+        "snippet": "CURATOR = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 34,
+        "snippet": "LEDGER_OBS = RAIZ / \"data\" / \"collection-ledger\" / \"italy\" / \"observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 35,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/classificar_indice_104.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/classificar_indice_104.py",
+        "line": 32,
+        "snippet": "ONBOARDED = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
       }
     },
     {
@@ -66153,10 +66280,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2194,
-    "files_readable": 851,
-    "files_code_dir": 937,
-    "file_edges": 4570,
+    "files_tracked": 2198,
+    "files_readable": 852,
+    "files_code_dir": 940,
+    "file_edges": 4579,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
