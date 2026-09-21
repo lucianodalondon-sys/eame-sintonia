@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-21T13:10:06+00:00",
-    "HEAD": "276ede215a12919591975608f47254af3eb8f3ba",
+    "GENERATED_AT": "2026-09-21T14:07:35+00:00",
+    "HEAD": "879d7db276bf09f3c0c669a5dde0b84e0fb11af5",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c1503c37769b49ba067368ae1bf9362a64093695bdfb552c6ca8945ab11df904",
-    "FICHEIROS_NA_IMPRESSAO": 2347,
+    "SOURCE_TREE_FINGERPRINT": "214a3acc678fec2b1f6eeb6887da6557c0c3e8ea07361a7dc717325249d4d846",
+    "FICHEIROS_NA_IMPRESSAO": 2357,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -17813,6 +17813,51 @@
       ]
     },
     {
+      "endpoint": "https://www.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 753
+        },
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 603
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 193
+        },
+        {
+          "file": "curadoria/test_ponte_cadeia.py",
+          "line": 137
+        },
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 97
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 266
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 383
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 339
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 42
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 305
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -17891,39 +17936,6 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 219
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/company",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_linkedin.py",
-          "line": 753
-        },
-        {
-          "file": "provas/censo_executavel_da_v1.py",
-          "line": 97
-        },
-        {
-          "file": "provas/linkedin_local_first.py",
-          "line": 266
-        },
-        {
-          "file": "regras/comunicacao_identidade.py",
-          "line": 383
-        },
-        {
-          "file": "tests/test_linkedin_build_01_local_first.py",
-          "line": 339
-        },
-        {
-          "file": "tests/test_linkedin_op_01_operacional.py",
-          "line": 42
-        },
-        {
-          "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 305
         }
       ]
     },
@@ -18382,6 +18394,58 @@
       ]
     },
     {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 139
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "endpoint": "https://agronotizie.imagelinenetwork.com/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 194
+        },
+        {
+          "file": "curadoria/test_emparelhar_ataques.py",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.crea.gov.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 252
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 353
+        }
+      ]
+    },
+    {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 801
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        }
+      ]
+    },
+    {
       "endpoint": "https://ex.it/news",
       "usado_por": [
         {
@@ -18434,6 +18498,19 @@
       ]
     },
     {
+      "endpoint": "https://www.exemplo.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 462
+        },
+        {
+          "file": "tests/test_fila_italia_decisoes.py",
+          "line": 92
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.adama.com/france",
       "usado_por": [
         {
@@ -18445,76 +18522,11 @@
           "line": 435
         }
       ]
-    },
-    {
-      "endpoint": "https://exemplo.invalid',",
-      "usado_por": [
-        {
-          "file": "ferramentas/navegador.py",
-          "line": 236
-        },
-        {
-          "file": "tests/test_navegador.py",
-          "line": 109
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.adama.com'",
-      "usado_por": [
-        {
-          "file": "fontes/adama_catalogo_ler.py",
-          "line": 130
-        },
-        {
-          "file": "fontes/adama_catalogo_montar.py",
-          "line": 53
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.frac.info/media",
-      "usado_por": [
-        {
-          "file": "fontes/adama_it_frac.py",
-          "line": 28
-        },
-        {
-          "file": "fontes/adama_it_intelligence.py",
-          "line": 48
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/legal",
-      "usado_por": [
-        {
-          "file": "guarda/social_sessao.py",
-          "line": 127
-        },
-        {
-          "file": "leis/social_matriz.py",
-          "line": 687
-        }
-      ]
-    },
-    {
-      "endpoint": "https://developers.facebook.com/docs",
-      "usado_por": [
-        {
-          "file": "guarda/social_sessao.py",
-          "line": 136
-        },
-        {
-          "file": "leis/social_matriz.py",
-          "line": 522
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 319,
+  "ENDPOINTS_FOUND": 439,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 279,
+  "ENDPOINTS_TRUNCATED": 399,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -18532,9 +18544,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 319,
+    "endpoints": 439,
     "endpoints_published": 40,
-    "endpoints_truncated": 279,
+    "endpoints_truncated": 399,
     "candidates": 241,
     "coletores": 52,
     "coletores_com_data": 20,

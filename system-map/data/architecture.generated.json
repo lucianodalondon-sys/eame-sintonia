@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "provas-p1",
-    "HEAD": "276ede215a12919591975608f47254af3eb8f3ba",
-    "GENERATED_AT": "2026-09-21T10:06:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c1503c37769b49ba067368ae1bf9362a64093695bdfb552c6ca8945ab11df904"
+    "BRANCH": "bridge-feeder-v1",
+    "HEAD": "879d7db276bf09f3c0c669a5dde0b84e0fb11af5",
+    "GENERATED_AT": "2026-09-21T10:59:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "214a3acc678fec2b1f6eeb6887da6557c0c3e8ea07361a7dc717325249d4d846"
   },
   "FILES": [
     {
@@ -283,7 +283,7 @@
     },
     {
       "path": "RELATORIO-PROVAS-P1.md",
-      "sha": "9cbe426719ae7569fb359744f702979d5b255185",
+      "sha": "434a3cd3f0eec6699605d8679a357f64a65ee70a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1717,6 +1717,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/BRIDGE-LEDGER-V1.json",
+      "sha": "f2591ae91c27f9fba4e42d79caa2e985f2794f67",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/BRIDGE-PROOF-V1.json",
+      "sha": "ac6b21689a4a967cd8cf0ab034f19586f511689b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "sha": "08eda42fbc03667afd012c60ba5af423a562c8d5",
       "ext": ".json",
@@ -1773,8 +1787,22 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/DISCOVERY-PROOF-V1.json",
+      "sha": "b63c0f6d0c21a222f1f0a0b41b92692b47ade668",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/DISCOVERY-SIGNAL-V1.json",
       "sha": "2693ec707402399da239e37ce732de5aa8498d0e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/DISCOVERY-VISITED.json",
+      "sha": "062e2dfbccd333372959dfc801ce7b723a86c9fe",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2039,6 +2067,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/descobrir.py",
+      "sha": "ae05f408f55e5f4ad0252477d7226dc5958d0c9f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/emparelhar_com_atlas.py",
       "sha": "46f936b4633a9d7310a2a2f2dc4ddf06d0ed9b7a",
       "ext": ".py",
@@ -2137,6 +2172,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/ponte_candidatas.py",
+      "sha": "968b46ca62ded628d0972653bf0a8b4c74700ef2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/provar_autonomia.py",
       "sha": "e530a5d2d008df99b2a2ff1dc37190eafa3b4ba3",
       "ext": ".py",
@@ -2201,14 +2243,14 @@
     },
     {
       "path": "curadoria/status_live.py",
-      "sha": "c51739d7ad9481ce06cb46620ad3e967dc80aa0c",
+      "sha": "db6cbb961c12a64214a291a9b06caf3e734cc63f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "ccf9b1f532f169f380ddadaf5b0789238a6b6496",
+      "sha": "a12ace52cadcce30464b71c2a1eddfe6952963cc",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2242,6 +2284,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_discovery.py",
+      "sha": "eba5f5cf1a0efe7ee3e6b54428ba44f28f8871af",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_emparelhar_ataques.py",
       "sha": "56d02eb9fd9026fbe8d1ad3eb34092320059099c",
       "ext": ".py",
@@ -2270,8 +2319,29 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_painel_discovery.py",
+      "sha": "e3808bea1b8766803630402b9c19f72d9e4fef49",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_painel_pergunta_ao_so.py",
       "sha": "491e2bcaec6a9f65ab7bdafc258fb1a74cccb053",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_ponte_cadeia.py",
+      "sha": "0372a611277650057282009df37dfc1fd8041dcc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_ponte_candidatas.py",
+      "sha": "9bf74fca7d8c092ee38e44bde57be2e3f0e59801",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2292,7 +2362,7 @@
     },
     {
       "path": "curadoria/test_supervisor.py",
-      "sha": "a55e4d9b2ba9a5611901f907ae27057450d4312a",
+      "sha": "a815e70cd841e53f60219331f1164ab077f71609",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2306,7 +2376,7 @@
     },
     {
       "path": "curadoria/test_zz_guarda_isolamento.py",
-      "sha": "4bad4c2301d644fe75d99e9d8c3411eb944af85c",
+      "sha": "956b31292a65b757e6683368b5e97337107b2c40",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20618,6 +20688,50 @@
       }
     },
     {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 99,
+        "snippet": "from fonte_nova import normalizar, registar, carregar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 118,
+        "snippet": "PROOF_JSON     = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/DISCOVERY-VISITED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 117,
+        "snippet": "VISITADOS_JSON = RAIZ / \"curadoria\" / \"DISCOVERY-VISITED.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 711,
+        "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
+      }
+    },
+    {
       "from_file": "curadoria/emparelhar_com_atlas.py",
       "to_file": "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
       "type": "READS",
@@ -21322,6 +21436,61 @@
       }
     },
     {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 49,
+        "snippet": "import fonte_nova as FN   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 53,
+        "snippet": "LEDGER = RAIZ / \"curadoria\" / \"BRIDGE-LEDGER-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 52,
+        "snippet": "CARACT = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 47,
+        "snippet": "import fila as F          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 48,
+        "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/provar_autonomia.py",
       "to_file": "curadoria/LIFECYCLE-AUTONOMY-V1.json",
       "type": "WRITES",
@@ -21840,6 +22009,17 @@
     },
     {
       "from_file": "curadoria/status_live.py",
+      "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/status_live.py",
+        "line": 30,
+        "snippet": "DISCOVERY_PROOF = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/status_live.py",
       "to_file": "curadoria/READY-BATCHES-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -21889,7 +22069,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/status_live.py",
-        "line": 44,
+        "line": 46,
         "snippet": "import nivel_da_fila as NIVEL  # noqa: E402"
       }
     },
@@ -21900,7 +22080,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/status_live.py",
-        "line": 34,
+        "line": 36,
         "snippet": "from supervisor import ler_estado_servico  # noqa: E402"
       }
     },
@@ -22048,6 +22228,72 @@
       }
     },
     {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 59,
+        "snippet": "\"FN.FILA\":          RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 50,
+        "snippet": "import fonte_nova as FN   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 61,
+        "snippet": "\"D.PROOF_JSON\":     RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "curadoria/DISCOVERY-VISITED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 60,
+        "snippet": "\"D.VISITADOS_JSON\": RAIZ / \"curadoria\" / \"DISCOVERY-VISITED.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 243,
+        "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 51,
+        "snippet": "import descobrir as D      # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_emparelhar_ataques.py",
       "to_file": "curadoria/emparelhar_com_atlas.py",
       "type": "IMPORTS",
@@ -22169,6 +22415,50 @@
       }
     },
     {
+      "from_file": "curadoria/test_painel_discovery.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_painel_discovery.py",
+        "line": 27,
+        "snippet": "import fila as F          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_painel_discovery.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_painel_discovery.py",
+        "line": 28,
+        "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_painel_discovery.py",
+      "to_file": "curadoria/status_live.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_painel_discovery.py",
+        "line": 29,
+        "snippet": "import status_live as SL  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_painel_discovery.py",
+      "to_file": "curadoria/status_live.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_painel_discovery.py",
+        "line": 88,
+        "snippet": "fonte = (AQUI / \"status_live.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "curadoria/test_painel_pergunta_ao_so.py",
       "to_file": "curadoria/supervisor.py",
       "type": "IMPORTS",
@@ -22177,6 +22467,215 @@
         "file": "curadoria/test_painel_pergunta_ao_so.py",
         "line": 21,
         "snippet": "import supervisor as SUP  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 54,
+        "snippet": "\"FN.FILA\":  RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 45,
+        "snippet": "import fonte_nova as FN       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 55,
+        "snippet": "\"P.LEDGER\": RAIZ / \"curadoria\" / \"BRIDGE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 56,
+        "snippet": "\"W.EVIDENCIA\": RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 53,
+        "snippet": "\"LC.LIVRO\": RAIZ / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 52,
+        "snippet": "\"F.FILA\":   RAIZ / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 44,
+        "snippet": "import fila as F              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 46,
+        "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 47,
+        "snippet": "import ponte_candidatas as P  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 48,
+        "snippet": "import supervisor as S        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_cadeia.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_cadeia.py",
+        "line": 49,
+        "snippet": "import worker as W            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 47,
+        "snippet": "\"FN.FILA\":  RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 40,
+        "snippet": "import fonte_nova as FN       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 48,
+        "snippet": "\"P.LEDGER\": RAIZ / \"curadoria\" / \"BRIDGE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 46,
+        "snippet": "\"LC.LIVRO\": RAIZ / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 45,
+        "snippet": "\"F.FILA\":   RAIZ / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 38,
+        "snippet": "import fila as F              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 39,
+        "snippet": "import lifecycle as LC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 41,
+        "snippet": "import ponte_candidatas as P  # noqa: E402"
       }
     },
     {
@@ -22456,6 +22955,39 @@
     },
     {
       "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 62,
+        "snippet": "\"../candidatas/FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 63,
+        "snippet": "\"BRIDGE-LEDGER-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 65,
+        "snippet": "\"DISCOVERY-PROOF-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
       "to_file": "curadoria/DISCOVERY-SIGNAL-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -22463,6 +22995,17 @@
         "file": "curadoria/test_zz_guarda_isolamento.py",
         "line": 57,
         "snippet": "\"DISCOVERY-SIGNAL-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "curadoria/DISCOVERY-VISITED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 64,
+        "snippet": "\"DISCOVERY-VISITED.json\","
       }
     },
     {
@@ -67365,10 +67908,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2199,
-    "files_readable": 876,
+    "files_tracked": 2209,
+    "files_readable": 882,
     "files_code_dir": 883,
-    "file_edges": 4677,
+    "file_edges": 4720,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

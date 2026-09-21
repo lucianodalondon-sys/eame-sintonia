@@ -268,6 +268,8 @@
     "curadoria": [
       "curadoria/.gitignore",
       "curadoria/ATLAS-WRITE-V1.json",
+      "curadoria/BRIDGE-LEDGER-V1.json",
+      "curadoria/BRIDGE-PROOF-V1.json",
       "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
       "curadoria/CANDIDATE-BUCKETS-V1.json",
@@ -276,7 +278,9 @@
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
       "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
+      "curadoria/DISCOVERY-PROOF-V1.json",
       "curadoria/DISCOVERY-SIGNAL-V1.json",
+      "curadoria/DISCOVERY-VISITED.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
       "curadoria/LIFECYCLE-AUTONOMY-V1.json",
@@ -314,6 +318,7 @@
       "curadoria/consolidar.py",
       "curadoria/consolidar_caracterizacao.py",
       "curadoria/correr_lote.py",
+      "curadoria/descobrir.py",
       "curadoria/emparelhar_com_atlas.py",
       "curadoria/escrever_contratos.py",
       "curadoria/escrever_no_atlas.py",
@@ -328,6 +333,7 @@
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
       "curadoria/nivel_da_fila.py",
+      "curadoria/ponte_candidatas.py",
       "curadoria/provar_autonomia.py",
       "curadoria/provar_lifecycle.py",
       "curadoria/provar_listagem.py",
@@ -343,11 +349,15 @@
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_correr_lote.py",
+      "curadoria/test_discovery.py",
       "curadoria/test_emparelhar_ataques.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
       "curadoria/test_nivel_da_fila.py",
+      "curadoria/test_painel_discovery.py",
       "curadoria/test_painel_pergunta_ao_so.py",
+      "curadoria/test_ponte_cadeia.py",
+      "curadoria/test_ponte_candidatas.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_supervisor.py",
@@ -2792,10 +2802,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "provas-p1",
-    "HEAD": "276ede215a12919591975608f47254af3eb8f3ba",
-    "GENERATED_AT": "2026-09-21T10:06:22-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c1503c37769b49ba067368ae1bf9362a64093695bdfb552c6ca8945ab11df904"
+    "BRANCH": "bridge-feeder-v1",
+    "HEAD": "879d7db276bf09f3c0c669a5dde0b84e0fb11af5",
+    "GENERATED_AT": "2026-09-21T10:59:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "214a3acc678fec2b1f6eeb6887da6557c0c3e8ea07361a7dc717325249d4d846"
   },
   "FAMILIES": [
     {
@@ -4277,8 +4287,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 319",
-        "desses, mostrados aqui: 40 (ficam de fora 279)"
+        "enderecos que o codigo realmente chama: 439",
+        "desses, mostrados aqui: 40 (ficam de fora 399)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -40518,7 +40528,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch provas-p1"
+        "branch bridge-feeder-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -97499,7 +97509,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1182,
+  "UNCLAIMED_FILES_COUNT": 1192,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97688,7 +97698,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2199,
+    "files_tracked": 2209,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
