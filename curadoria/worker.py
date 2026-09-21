@@ -296,9 +296,19 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
                          motivo="rota validada, falta o canario")
         else:
             # PROMOCAO. So daqui, e so com a prova do canario em mao.
-            LC.registar(sid, LC.READY_FOR_COLLECTION,
-                        "canario resolveu e trouxe um item com identidade",
-                        evidence_ref=ref)
+            #
+            # ⚠️ A RAZAO DIZ POR QUE REGUA A FONTE PASSOU. Desde a integracao
+            # do gate de detalhe (AQUISICAO-DETALHE-V1), o canario HTML abre
+            # um item e retrata-o; `DETAIL_GATE_PASSED` so existe nesse caso.
+            # As 18 promovidas antes disto nao tem a chave na evidencia — e
+            # essa ausencia e o que as distingue como READY_LEGACY. Nao se
+            # reescreve o passado: a regua fica escrita na linha do livro.
+            if detalhe.get("DETAIL_GATE_PASSED") is True:
+                razao = ("canario resolveu, abriu um item real e passou o gate "
+                         "de detalhe (%s)" % detalhe.get("DETAIL_GATE", "?"))
+            else:
+                razao = "canario resolveu e trouxe um item com identidade"
+            LC.registar(sid, LC.READY_FOR_COLLECTION, razao, evidence_ref=ref)
 
     elif resultado == "RETRY":
         espera = detalhe.get("RETRY_AFTER_S")

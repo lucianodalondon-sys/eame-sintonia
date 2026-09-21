@@ -6,7 +6,7 @@
   "LOTE-YOUTUBE-FEED": "molde de IT-T8-001 (APPLICATION_ROUTE sobre youtube.channel.discovery / video.metadata)",
   "LOTE-HTML-ARTIGO": "molde de contratoGenerico() (HTML_LINK_DISCOVERY)"
  },
- "GERADO_EM": "2026-09-20T15:23:56.940503+00:00",
+ "GERADO_EM": "2026-09-21T03:04:17.110388+00:00",
  "TOTAL": 77,
  "POR_LOTE": {
   "LOTE-YOUTUBE-FEED": 50,
@@ -697,9 +697,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.riuniteciv.com/",
-    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/news-e-eventi/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -764,9 +764,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "2f38525b6251be8a",
+   "SOURCE_CONTRACT_HASH": "ad38b4a69b2fa843",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0138/amostra"
+   "EVIDENCE": "curadoria/evidencia/CAND-0138/amostra",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.riuniteciv.com/news-e-eventi/",
+     "URL_EFECTIVA": "https://www.riuniteciv.com/news-e-eventi/",
+     "HTTP": 200,
+     "BYTES": 131132,
+     "N_SOB_A_LISTAGEM": 60,
+     "N_PADRAO_ACTUAL": 58,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.riuniteciv.com/news-e-eventi/cantine-riunite-civ-ottiene-lesg-recognition-da-dnv/",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.riuniteciv.com/news-e-eventi/",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=60, TETO=30) = 30  [TETO cortou]",
+    "NOTA": "a listagem anuncia 60 itens: o TETO corta para 30.",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.105873+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T9-014",
@@ -3627,8 +3649,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.myfruit.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/news/(?!category/)[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -3695,9 +3717,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "1fa48b7d8a93f07c",
+   "SOURCE_CONTRACT_HASH": "b0cad858b2e19203",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0059/frutta-il-mercato-non-da-piu-certezze"
+   "EVIDENCE": "curadoria/evidencia/CAND-0059/frutta-il-mercato-non-da-piu-certezze",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.myfruit.it/news",
+     "URL_EFECTIVA": "https://www.myfruit.it/",
+     "HTTP": 200,
+     "BYTES": 187790,
+     "N_SOB_A_LISTAGEM": 80,
+     "N_PADRAO_ACTUAL": 37,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.myfruit.it/news/pam-panorama-inaugura-a-moncalieri-torino",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.myfruit.it/news/category/trend-e-mercati",
+    "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=37, TETO=30) = 30  [TETO cortou]  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+    "NOTA": "/news redirecciona para a capa, e a capa lista as noticias: a rota fica a capa e o padrao passa a exigir /news/<slug> sem 'category'. 'padrao' contou categorias tambem — e teto.",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.106868+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T5-046",
@@ -3981,8 +4025,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
-    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/web/temi/agricoltura/[a-z0-9-]+/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -4052,9 +4096,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "4b7ff0fce14fbda4",
+   "SOURCE_CONTRACT_HASH": "2a79c07cfe902af8",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita"
+   "EVIDENCE": "curadoria/evidencia/CAND-0011/agricoltura-tavolo-verde-sulla-siccita",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.regione.piemonte.it/web/temi/agricoltura",
+     "URL_EFECTIVA": "https://www.regione.piemonte.it/web/temi/agricoltura",
+     "HTTP": 200,
+     "BYTES": 211483,
+     "N_SOB_A_LISTAGEM": 31,
+     "N_PADRAO_ACTUAL": 34,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.regione.piemonte.it/web/temi/agricoltura/avversita-calamita-naturali/eventi-calamitosi-mese-agosto-2026",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.regione.piemonte.it/governo/bollettino/abbonati/2026/corrente/",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=31, TETO=30) = 30  [TETO cortou]",
+    "NOTA": "BUG DE PADRAO corrigido: a palavra 'bollettin' do padrao generico casava com /governo/bollettino/ e o motor colhia o Bollettino Ufficiale. O padrao novo so aceita itens dentro de /web/temi/agricoltura/<seccao>/<slug>. 'sob' contou 31 com paginas de seccao de primeiro nivel que o padrao novo exclui: 31 e teto.",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.106868+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T11-007",
@@ -4345,9 +4411,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.di3a.unict.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.di3a.unict.it/it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 4
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -4410,9 +4476,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "c26b2c56287df546",
+   "SOURCE_CONTRACT_HASH": "7bbc35ea12bf52b7",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0024/women-stem-2026"
+   "EVIDENCE": "curadoria/evidencia/CAND-0024/women-stem-2026",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.di3a.unict.it/it/notizie",
+     "URL_EFECTIVA": "https://www.di3a.unict.it/it/notizie",
+     "HTTP": 200,
+     "BYTES": 41584,
+     "N_SOB_A_LISTAGEM": 4,
+     "N_PADRAO_ACTUAL": 3,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.di3a.unict.it/it/notizie",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=4, TETO=30) = 4",
+    "NOTA": "",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.107866+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T7-032",
@@ -4519,9 +4607,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.chianticlassico.com/",
-    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.chianticlassico.com/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 15
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -4582,9 +4670,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "f2c2b3cb791b6419",
+   "SOURCE_CONTRACT_HASH": "2f36fab7f3310509",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0174/amostra"
+   "EVIDENCE": "curadoria/evidencia/CAND-0174/amostra",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.chianticlassico.com/news/",
+     "URL_EFECTIVA": "https://www.chianticlassico.com/news/",
+     "HTTP": 200,
+     "BYTES": 118797,
+     "N_SOB_A_LISTAGEM": 15,
+     "N_PADRAO_ACTUAL": 15,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.chianticlassico.com/news/il-gallo-nero-a-vinitaly-2026/",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.chianticlassico.com/news/",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=15, TETO=30) = 15",
+    "NOTA": "",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.107866+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T7-034",
@@ -6479,9 +6589,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.zootecnicainternational.com/",
-    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://zootecnicainternational.com/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+    "MAX_TARGETS": 14
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -6542,9 +6652,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "4ab009162dcbe5df",
+   "SOURCE_CONTRACT_HASH": "bf6f145e03e44d55",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0066/amostra"
+   "EVIDENCE": "curadoria/evidencia/CAND-0066/amostra",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://zootecnicainternational.com/news/",
+     "URL_EFECTIVA": "https://zootecnicainternational.com/news/",
+     "HTTP": 200,
+     "BYTES": 305614,
+     "N_SOB_A_LISTAGEM": 14,
+     "N_PADRAO_ACTUAL": 10,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://zootecnicainternational.com/news/newcastle-disease-hungary-broiler-farms/",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://zootecnicainternational.com/news/shows-and-fairs/",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=14, TETO=30) = 14",
+    "NOTA": "categorias (/news/shows-and-fairs/, /news/company-news/) tem 1-2 hifens; itens tem 3+. Heuristica declarada; 'sob' contou categorias — e teto.",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.108471+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T7-040",
@@ -6639,9 +6771,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.bonificaromagna.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.bonificaromagna.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 7
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -6704,9 +6836,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "c564c2ead02ed884",
+   "SOURCE_CONTRACT_HASH": "5caf531853b37bac",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0142/documenti-elezioni-2025"
+   "EVIDENCE": "curadoria/evidencia/CAND-0142/documenti-elezioni-2025",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.bonificaromagna.it/news",
+     "URL_EFECTIVA": "https://www.bonificaromagna.it/news",
+     "HTTP": 200,
+     "BYTES": 55367,
+     "N_SOB_A_LISTAGEM": 7,
+     "N_PADRAO_ACTUAL": 7,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.bonificaromagna.it/news/registrazione-operatori-economici-su-anac",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.bonificaromagna.it/news",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=7, TETO=30) = 7",
+    "NOTA": "",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.109389+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T7-042",
@@ -6719,9 +6873,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.consorziobalsamico.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.consorziobalsamico.it/news-blog/",
+    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/news-blog/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 10
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -6787,9 +6941,31 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "6034cc60ef7d77fd",
+   "SOURCE_CONTRACT_HASH": "e78201deee2ebe98",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0143/amostra"
+   "EVIDENCE": "curadoria/evidencia/CAND-0143/amostra",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://www.consorziobalsamico.it/news-blog/",
+     "URL_EFECTIVA": "https://www.consorziobalsamico.it/news-blog/",
+     "HTTP": 200,
+     "BYTES": 105597,
+     "N_SOB_A_LISTAGEM": 10,
+     "N_PADRAO_ACTUAL": 10,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.consorziobalsamico.it/news-blog/domenica-27-settembre-torna-acetaie-aperte/",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.consorziobalsamico.it/news-blog/",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=10, TETO=30) = 10",
+    "NOTA": "",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.109389+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   },
   {
    "SOURCE_ID": "IT-T2-030",
@@ -6888,9 +7064,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://agrofarma.federchimica.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "LINK_PATTERN": "^https?://agrofarma\\.federchimica\\.it/news-ed-eventi/dettaglio-news/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+    "MAX_TARGETS": 2
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
    "ACCESS_INSTRUMENT": "HTTP",
@@ -6955,9 +7131,34 @@
     "CARACTERIZADA_EM": "2026-09-20"
    },
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
-   "SOURCE_CONTRACT_HASH": "9b4bcb530d6f906f",
+   "SOURCE_CONTRACT_HASH": "f8f9f6801de27c06",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 2 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0161/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo"
+   "EVIDENCE": "curadoria/evidencia/CAND-0161/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "AQUISICAO-DETALHE-V1",
+    "BANCADA": "aquisicao-detalhe-v1",
+    "COMMIT_DO_PASSO_2": "83385fe7",
+    "ARVORE_FINAL": "f98f234c",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json",
+    "PROVA": {
+     "LISTAGEM": "https://agrofarma.federchimica.it/news-ed-eventi",
+     "URL_EFECTIVA": "https://agrofarma.federchimica.it/news-ed-eventi",
+     "HTTP": 200,
+     "BYTES": 63705,
+     "N_SOB_A_LISTAGEM": 2,
+     "N_PADRAO_ACTUAL": 2,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "ITEM_REAL_QUE_O_PADRAO_CASA": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=2, TETO=30) = 2",
+    "NOTA": "",
+    "INTEGRADO_EM": "2026-09-21T03:04:17.109389+00:00",
+    "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   }
   }
+ ],
+ "NOTAS": [
+  "9 contratos com rota corrigida pela AQUISICAO-DETALHE-V1 (ver ROUTE_PROVENANCE em cada um e DETAIL-GATE-INTEGRATION-V1.json)"
  ]
 }

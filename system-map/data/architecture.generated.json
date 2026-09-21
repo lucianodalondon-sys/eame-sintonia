@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "1bca4901f95402a1100841615667b34c451799b0",
-    "GENERATED_AT": "2026-09-20T23:53:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6107ba9306b5282f6c4bdf764d0cd1b7bd82684f7c03c9dc63b137e7d056e95b"
+    "HEAD": "8867e517aa5fff86237b9818c7f1b632287a70ca",
+    "GENERATED_AT": "2026-09-20T23:56:02-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9826e27b8f2fcad16efee92f2eaeed953347e5114fd759dc47811eba94803e66"
   },
   "FILES": [
     {
@@ -1745,6 +1745,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CONTRATOS-PASSO-2-V1.json",
+      "sha": "602bc0e8467550dd59e1381024b5438f0dcc3044",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
+      "sha": "97234806543eb59700703adcffcd0461352e1f7a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/FUNIL-DO-CURATOR-V1.json",
       "sha": "73b33bd1ba68a772529968e312b7644236ddc05d",
       "ext": ".json",
@@ -1942,7 +1956,7 @@
     },
     {
       "path": "curadoria/canario.py",
-      "sha": "5f9e1570fe060a53d990ea90baea0481326dd836",
+      "sha": "435bc55a7f4027b3ef2c60ca4a5d0b1c2e27ed7e",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2025,6 +2039,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/integrar_gate_de_detalhe.py",
+      "sha": "44e8a4cd7571f015e303b512881a718fb4beb69b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/interface_collection.py",
       "sha": "7486bbd56bbbc012710f7f1eb91ca73bf9f9cab7",
       "ext": ".py",
@@ -2033,7 +2054,7 @@
     },
     {
       "path": "curadoria/italy_contracts_curator.json",
-      "sha": "1aecd6a767ea4561386228af02f4291d828582b3",
+      "sha": "fd63ad633f90e736286ad446c270f466d886d13d",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2102,6 +2123,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/retrato_html.py",
+      "sha": "5f7b732e9b774bd7060a2c6c49bec33b8c482b70",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/semear_lifecycle.py",
       "sha": "642095693aafe3c15ec6bc2fa06d4ba81933626b",
       "ext": ".py",
@@ -2118,6 +2146,13 @@
     {
       "path": "curadoria/supervisor.py",
       "sha": "ffd3fc6686971a718391066bd0d6f5747fd632ac",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_canario_detalhe.py",
+      "sha": "f78619eb8990d2d7d0cbbc4449d192328309eb64",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2158,6 +2193,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_retrato_html.py",
+      "sha": "cdbf950825d41b19d7e79b30d564195dc0fd9ca6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_supervisor.py",
       "sha": "e571603b89bb71074a9dcc3ab07a5432069137fd",
       "ext": ".py",
@@ -2180,7 +2222,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "837e112eb4534f55da8cece4bffa7ca1104c193b",
+      "sha": "965ee43d3e232efd681c7779b0c64a733d1605a5",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20235,8 +20277,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/canario.py",
-        "line": 165,
+        "line": 196,
         "snippet": "d = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/canario.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/canario.py",
+        "line": 46,
+        "snippet": "import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)"
       }
     },
     {
@@ -20688,6 +20741,94 @@
         "file": "curadoria/gate_de_rota.py",
         "line": 120,
         "snippet": "contr = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/CONTRATOS-PASSO-2-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 53,
+        "snippet": "REGISTO = RAIZ / \"curadoria\" / \"CONTRATOS-PASSO-2-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 55,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"DETAIL-GATE-INTEGRATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 161,
+        "snippet": "SAIDA.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/escrever_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 49,
+        "snippet": "import escrever_contratos as EC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 54,
+        "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 159,
+        "snippet": "CONTRATOS.write_text(json.dumps(tabela, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 50,
+        "snippet": "import lifecycle as LC           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/integrar_gate_de_detalhe.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/integrar_gate_de_detalhe.py",
+        "line": 51,
+        "snippet": "import validar_contratos as VC   # noqa: E402"
       }
     },
     {
@@ -21274,6 +21415,72 @@
       }
     },
     {
+      "from_file": "curadoria/test_canario_detalhe.py",
+      "to_file": "curadoria/canario.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_detalhe.py",
+        "line": 25,
+        "snippet": "import canario as CAN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_detalhe.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_detalhe.py",
+        "line": 26,
+        "snippet": "import fila as F                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_detalhe.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_detalhe.py",
+        "line": 27,
+        "snippet": "import lifecycle as LC           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_detalhe.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_detalhe.py",
+        "line": 28,
+        "snippet": "import retrato_html as RH        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_detalhe.py",
+      "to_file": "curadoria/test_retrato_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_detalhe.py",
+        "line": 30,
+        "snippet": "from test_retrato_html import artigo_sintetico, listagem_sintetica  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_canario_detalhe.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_canario_detalhe.py",
+        "line": 29,
+        "snippet": "import worker as W               # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_capturador.py",
       "to_file": "curadoria/capturador.py",
       "type": "IMPORTS",
@@ -21392,6 +21599,17 @@
         "file": "curadoria/test_lifecycle.py",
         "line": 27,
         "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_retrato_html.py",
+      "to_file": "curadoria/retrato_html.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_retrato_html.py",
+        "line": 19,
+        "snippet": "import retrato_html as RH  # noqa: E402"
       }
     },
     {
@@ -66261,10 +66479,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2178,
-    "files_readable": 862,
+    "files_tracked": 2184,
+    "files_readable": 866,
     "files_code_dir": 883,
-    "file_edges": 4590,
+    "file_edges": 4606,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

@@ -1,0 +1,291 @@
+{
+ "DATASET": "DETAIL-GATE-INTEGRATION-V1",
+ "LEI": "integracao semantica, nao merge. O juiz vive em retrato_html.py + canario.py; a regua no worker; as rotas provadas entram na tabela do curator com procedencia. O livro NAO e tocado: READY com contrato novo e READY_LEGACY ate o worker remedir.",
+ "ORIGEM": {
+  "MISSAO": "AQUISICAO-DETALHE-V1",
+  "BANCADA": "aquisicao-detalhe-v1",
+  "COMMIT_DO_PASSO_2": "83385fe7",
+  "ARVORE_FINAL": "f98f234c",
+  "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
+ },
+ "GERADO_EM": "2026-09-21T03:04:17.110388+00:00",
+ "MODO": "APLICADO",
+ "TOCADAS_NO_REGISTO": 21,
+ "APLICADOS": 9,
+ "JA_IGUAIS": 0,
+ "RECUSADOS": 0,
+ "FORA_DO_CURATOR": 12,
+ "READY_LEGACY_COM_CONTRATO_NOVO": [
+  "IT-T7-017",
+  "IT-T10-018",
+  "IT-T12-013",
+  "IT-T5-049",
+  "IT-T7-033",
+  "IT-T10-022",
+  "IT-T7-041",
+  "IT-T7-042",
+  "IT-T7-043"
+ ],
+ "HASH_DOS_77_NAO_SE_RECOMPOE": "medido: o SOURCE_CONTRACT_HASH guardado nos 77 nao bate com hash_do_contrato() em nenhuma de tres formulas (sem HASH; sem HASH+VERSAO; sem HASH+VERSAO+ONBOARDED_BY). E carimbo de escrita, nao prova de conteudo. Divida registada; nao se corrige aqui.",
+ "DETALHE_APLICADOS": [
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "NAME": "Cantina Sociale Cooperativa Riunite e CIV",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.riuniteciv.com/",
+    "DEPOIS": "https://www.riuniteciv.com/news-e-eventi/"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 30
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?riuniteciv\\.com/news-e-eventi/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "2f38525b6251be8a",
+    "DEPOIS": "ad38b4a69b2fa843"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "NAME": "Myfruit.it",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.myfruit.it/",
+    "DEPOIS": "https://www.myfruit.it/"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 30
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?myfruit\\.it/news/(?!category/)[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "1fa48b7d8a93f07c",
+    "DEPOIS": "b0cad858b2e19203"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T12-013",
+   "NAME": "Regione Piemonte — Agricoltura e cibo",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "DEPOIS": "https://www.regione.piemonte.it/web/temi/agricoltura"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 30
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?regione\\.piemonte\\.it/web/temi/agricoltura/[a-z0-9-]+/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "4b7ff0fce14fbda4",
+    "DEPOIS": "2a79c07cfe902af8"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "NAME": "UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.di3a.unict.it/",
+    "DEPOIS": "https://www.di3a.unict.it/it/notizie"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 4
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "c26b2c56287df546",
+    "DEPOIS": "7bbc35ea12bf52b7"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "NAME": "Consorzio Vino Chianti Classico",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.chianticlassico.com/",
+    "DEPOIS": "https://www.chianticlassico.com/news/"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 15
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?chianticlassico\\.com/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "f2c2b3cb791b6419",
+    "DEPOIS": "2f36fab7f3310509"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "NAME": "Zootecnica International",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.zootecnicainternational.com/",
+    "DEPOIS": "https://zootecnicainternational.com/news/"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 14
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "4ab009162dcbe5df",
+    "DEPOIS": "bf6f145e03e44d55"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "NAME": "Consorzio di Bonifica della Romagna",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.bonificaromagna.it/",
+    "DEPOIS": "https://www.bonificaromagna.it/news"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 7
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?bonificaromagna\\.it/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "c564c2ead02ed884",
+    "DEPOIS": "5caf531853b37bac"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "NAME": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://www.consorziobalsamico.it/",
+    "DEPOIS": "https://www.consorziobalsamico.it/news-blog/"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 10
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://(www\\.)?consorziobalsamico\\.it/news-blog/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "6034cc60ef7d77fd",
+    "DEPOIS": "e78201deee2ebe98"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "NAME": "Agrofarma — Federchimica",
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "INDEX_URL": {
+    "ANTES": "https://agrofarma.federchimica.it/",
+    "DEPOIS": "https://agrofarma.federchimica.it/news-ed-eventi"
+   },
+   "MAX_TARGETS": {
+    "ANTES": 1,
+    "DEPOIS": 2
+   },
+   "LINK_PATTERN_DEPOIS": "^https?://agrofarma\\.federchimica\\.it/news-ed-eventi/dettaglio-news/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+   "SOURCE_CONTRACT_HASH": {
+    "ANTES": "9b4bcb530d6f906f",
+    "DEPOIS": "f8f9f6801de27c06"
+   }
+  }
+ ],
+ "DETALHE_JA_IGUAIS": [],
+ "DETALHE_RECUSADOS": [],
+ "DETALHE_FORA_DO_CURATOR": [
+  {
+   "SOURCE_ID": "IT-T1-007",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T1-010",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T1-016",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T1-018",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T1-022",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T10-009",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T5-006",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T5-015",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T5-030",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T5-033",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  },
+  {
+   "SOURCE_ID": "IT-T9-009",
+   "PORQUE": "fonte da tabela do motor, nao do curator — dono: regras/italy_contracts.mjs"
+  }
+ ]
+}

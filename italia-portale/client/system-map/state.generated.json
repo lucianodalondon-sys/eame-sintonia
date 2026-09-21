@@ -272,6 +272,8 @@
       "curadoria/CANDIDATE-BUCKETS-V1.json",
       "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
+      "curadoria/CONTRATOS-PASSO-2-V1.json",
+      "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
       "curadoria/LIFECYCLE-AUTONOMY-V1.json",
@@ -312,6 +314,7 @@
       "curadoria/escrever_no_atlas.py",
       "curadoria/fila.py",
       "curadoria/gate_de_rota.py",
+      "curadoria/integrar_gate_de_detalhe.py",
       "curadoria/interface_collection.py",
       "curadoria/italy_contracts_curator.json",
       "curadoria/lifecycle.py",
@@ -323,14 +326,17 @@
       "curadoria/provar_supervisor.py",
       "curadoria/reconciliar.py",
       "curadoria/red_team_lifecycle.py",
+      "curadoria/retrato_html.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
+      "curadoria/test_canario_detalhe.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_correr_lote.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
+      "curadoria/test_retrato_html.py",
       "curadoria/test_supervisor.py",
       "curadoria/validar_contratos.py",
       "curadoria/veredito_ready.py",
@@ -2772,9 +2778,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "1bca4901f95402a1100841615667b34c451799b0",
-    "GENERATED_AT": "2026-09-20T23:53:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6107ba9306b5282f6c4bdf764d0cd1b7bd82684f7c03c9dc63b137e7d056e95b"
+    "HEAD": "8867e517aa5fff86237b9818c7f1b632287a70ca",
+    "GENERATED_AT": "2026-09-20T23:56:02-03:00",
+    "SOURCE_TREE_FINGERPRINT": "9826e27b8f2fcad16efee92f2eaeed953347e5114fd759dc47811eba94803e66"
   },
   "FAMILIES": [
     {
@@ -4256,8 +4262,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 306",
-        "desses, mostrados aqui: 40 (ficam de fora 266)"
+        "enderecos que o codigo realmente chama: 307",
+        "desses, mostrados aqui: 40 (ficam de fora 267)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -97478,7 +97484,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1161,
+  "UNCLAIMED_FILES_COUNT": 1167,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97667,7 +97673,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2178,
+    "files_tracked": 2184,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,
