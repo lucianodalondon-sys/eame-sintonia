@@ -2860,6 +2860,27 @@
    ]
   },
   {
+   "id": "C-CORRIDA-CANONICA",
+   "name": "A corrida canonica da micro-colheita",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◈",
+   "what": "Pergunta a TRES donos antes de ir a uma fonte — ao portao de admissao (`curadoria/collection_gate.py`, pela REGRA e nunca por lista), ao dono do contrato (`regras/italy_contracts.mjs` conferido por `regras/motor_de_rota.mjs`) e ao dono do portao de transporte (`coleta/scrap_http.py`, que le o robots.txt VIVO nesta visita) — e so entao lanca o corredor canonico `coleta/italy_executor.py`. Le o DELTA do livro de observacoes e escreve um manifesto por corrida. Traz o seu red team por mutacao: 16 ataques, cada mutante confirmado por `git diff` antes da prova correr.",
+   "why_here": "ELEGIVEL != PERCORRIVEL != PERMITIDO, e nenhuma das tres respostas serve de resposta as outras. Medido em 2026-09-20 nesta casa: a intersecao entre as 8 fontes que o portao admitia e as 7 que o coletor sabia percorrer era ZERO — o portao aprovava quem o coletor nao conhecia. E `coleta/italy_pilot_collect.mjs` NAO le robots.txt (zero ocorrencias da palavra no ficheiro): sem esta peca, sete fontes novas eram visitadas sem ninguem bater a porta. Nao se criou um quarto leitor de robots — pergunta-se ao dono, porque esta casa ja esta em divida com a lei de UM dono so.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "medidas/corrida_canonica.py",
+    "medidas/test_corrida_canonica.py",
+    "medidas/red_team_canonico.py"
+   ],
+   "views": [
+    "audit",
+    "coverage"
+   ]
+  },
+  {
    "id": "C-DERIVACAO-FORWARD",
    "name": "A fronteira forward da derivação",
    "territory": "Z-ACOES",

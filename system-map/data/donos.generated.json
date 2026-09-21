@@ -9,9 +9,9 @@
  ],
  "CONCEITOS": 15,
  "POR_ESTADO": {
-  "DONO_DUPLICADO": 9,
+  "DONO_DUPLICADO": 10,
   "DONO_E_INSTRUMENTO": 2,
-  "UM_DONO": 4
+  "UM_DONO": 3
  },
  "DETALHE": [
   {
@@ -120,7 +120,7 @@
     "coleta/scrap_colheita.py",
     "coleta/social_envelope.py"
    ],
-   "QUANTOS_LEEM": 43,
+   "QUANTOS_LEEM": 45,
    "INSTRUMENTOS_QUE_CITAM": 82,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -193,14 +193,14 @@
     "coleta/ingresso.py",
     "coleta/instagram_pessoal.py"
    ],
-   "QUANTOS_LEEM": 135,
-   "INSTRUMENTOS_QUE_CITAM": 188,
+   "QUANTOS_LEEM": 139,
+   "INSTRUMENTOS_QUE_CITAM": 189,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ORQUESTRADOR",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "7 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "8 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/sala_de_espera.py",
     "coleta/italy_executor.py",
@@ -208,6 +208,7 @@
     "ferramentas/reel_transcricao.py",
     "guarda/memoria_postgres.py",
     "leis/relevancia_da_fonte.py",
+    "medidas/corrida_canonica.py",
     "orquestrador/orquestrador.py"
    ],
    "LEEM": [
@@ -239,10 +240,11 @@
     "leis/relevancia_da_fonte.py",
     "leis/retorno_da_coleta.py",
     "leis/territorios.py",
+    "medidas/corrida_canonica.py",
     "orquestrador/orquestrador.py",
     "pacote/v21_handoff_json.py"
    ],
-   "QUANTOS_LEEM": 7,
+   "QUANTOS_LEEM": 8,
    "INSTRUMENTOS_QUE_CITAM": 39,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -320,7 +322,7 @@
     "coleta/preservar_pdf.py",
     "coleta/scrap_colheita.py"
    ],
-   "QUANTOS_LEEM": 56,
+   "QUANTOS_LEEM": 57,
    "INSTRUMENTOS_QUE_CITAM": 46,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -372,15 +374,16 @@
     "coleta/golden_path_pdf.py",
     "coleta/ingresso.py"
    ],
-   "QUANTOS_LEEM": 114,
-   "INSTRUMENTOS_QUE_CITAM": 96,
+   "QUANTOS_LEEM": 116,
+   "INSTRUMENTOS_QUE_CITAM": 97,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "HISTORY",
-   "ESTADO": "UM_DONO",
-   "NOTA": "um so ficheiro escreve",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "2 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
+    "medidas/corrida_canonica.py",
     "medidas/padrao_da_coleta.py"
    ],
    "LEEM": [

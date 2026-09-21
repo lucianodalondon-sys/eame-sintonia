@@ -4,8 +4,8 @@
  "O_QUE_E": "o que o sistema consegue contar HOJE sobre o proprio fluxo, lendo so o que ja existe no repositorio.",
  "DE_ONDE_VEM": "data/collection-ledger/italy/{runs,observations}.ndjson",
  "SEM_DADO_NAO_E_ZERO": "onde ninguem mediu, escreve-se NOT_INSTRUMENTED. Um relatorio que mostra 0 onde ninguem mediu convida a concluir que nada aconteceu — e pior do que nao existir.",
- "CORRIDAS": 34,
- "OBSERVACOES": 184,
+ "CORRIDAS": 58,
+ "OBSERVACOES": 445,
  "POR_CORRIDA": [
   {
    "RUN_ID": "PILOT_RUN_20260907153737_4c34b3",
@@ -687,27 +687,516 @@
    "STAGE": "NOT_INSTRUMENTED",
    "COST": "NOT_INSTRUMENTED",
    "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-190312-183419e87ae3961c",
+   "STARTED_AT": "2026-09-21T19:03:13.666Z",
+   "FINISHED_AT": "2026-09-21T19:03:20.418Z",
+   "DURATION_MS": 6752,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "DISCOVERY_FAILED": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-190322-c509c9d184b7de4f",
+   "STARTED_AT": "2026-09-21T19:03:23.115Z",
+   "FINISHED_AT": "2026-09-21T19:03:28.530Z",
+   "DURATION_MS": 5415,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "DISCOVERY_FAILED": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T5-2026-09-21-190329-6e111265e6c0af93",
+   "STARTED_AT": "2026-09-21T19:03:30.155Z",
+   "FINISHED_AT": "2026-09-21T19:03:34.299Z",
+   "DURATION_MS": 4144,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "DISCOVERY_FAILED": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-190336-ab36ae8322fed5ba",
+   "STARTED_AT": "2026-09-21T19:03:37.405Z",
+   "FINISHED_AT": "2026-09-21T19:03:42.446Z",
+   "DURATION_MS": 5041,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "DISCOVERY_FAILED": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-190404-ac2eb0aa915dc439",
+   "STARTED_AT": "2026-09-21T19:04:04.372Z",
+   "FINISHED_AT": "2026-09-21T19:04:08.723Z",
+   "DURATION_MS": 4351,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "DISCOVERY_FAILED": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-190409-6807f1add9fb83a2",
+   "STARTED_AT": "2026-09-21T19:04:10.252Z",
+   "FINISHED_AT": "2026-09-21T19:04:13.421Z",
+   "DURATION_MS": 3169,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 1,
+   "DESTINOS": {
+    "DISCOVERY_FAILED": 1
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-191337-2fb1c2af107fd04a",
+   "STARTED_AT": "2026-09-21T19:13:38.028Z",
+   "FINISHED_AT": "2026-09-21T19:15:34.844Z",
+   "DURATION_MS": 116816,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 30,
+   "DESTINOS": {
+    "IDENTITY_FAILED": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-191538-b423547074da4d05",
+   "STARTED_AT": "2026-09-21T19:15:38.632Z",
+   "FINISHED_AT": "2026-09-21T19:16:11.017Z",
+   "DURATION_MS": 32384,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 9,
+   "DESTINOS": {
+    "IDENTITY_FAILED": 9
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T5-2026-09-21-191612-c27cf299834024ba",
+   "STARTED_AT": "2026-09-21T19:16:12.612Z",
+   "FINISHED_AT": "2026-09-21T19:16:22.302Z",
+   "DURATION_MS": 9690,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 4,
+   "DESTINOS": {
+    "IDENTITY_FAILED": 4
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-191624-30225f0e9c75f01b",
+   "STARTED_AT": "2026-09-21T19:16:25.061Z",
+   "FINISHED_AT": "2026-09-21T19:18:00.223Z",
+   "DURATION_MS": 95162,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 30,
+   "DESTINOS": {
+    "IDENTITY_FAILED": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-191822-35da4950ee7e36fb",
+   "STARTED_AT": "2026-09-21T19:18:22.898Z",
+   "FINISHED_AT": "2026-09-21T19:18:53.575Z",
+   "DURATION_MS": 30677,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 10,
+   "DESTINOS": {
+    "IDENTITY_FAILED": 10
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-191854-1c317a6ca7a3e70c",
+   "STARTED_AT": "2026-09-21T19:18:55.168Z",
+   "FINISHED_AT": "2026-09-21T19:19:02.082Z",
+   "DURATION_MS": 6914,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 2,
+   "DESTINOS": {
+    "IDENTITY_FAILED": 2
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-192602-b9c48c5e22f8a0a0",
+   "STARTED_AT": "2026-09-21T19:26:03.223Z",
+   "FINISHED_AT": "2026-09-21T19:27:34.384Z",
+   "DURATION_MS": 91161,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 30,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-192736-2be29d10cb1d23e4",
+   "STARTED_AT": "2026-09-21T19:27:36.589Z",
+   "FINISHED_AT": "2026-09-21T19:28:06.719Z",
+   "DURATION_MS": 30130,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 9,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 9
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T5-2026-09-21-192807-551e1a130e552533",
+   "STARTED_AT": "2026-09-21T19:28:08.254Z",
+   "FINISHED_AT": "2026-09-21T19:28:17.463Z",
+   "DURATION_MS": 9209,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 4,
+   "DESTINOS": {
+    "SEMANTIC_ID_CHANGED_SAME_BYTES": 4
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-192819-b486bc9baf0577d0",
+   "STARTED_AT": "2026-09-21T19:28:20.528Z",
+   "FINISHED_AT": "2026-09-21T19:29:53.321Z",
+   "DURATION_MS": 92793,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 30,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-193015-aae482dfd4ef8cbe",
+   "STARTED_AT": "2026-09-21T19:30:15.797Z",
+   "FINISHED_AT": "2026-09-21T19:30:45.893Z",
+   "DURATION_MS": 30096,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 10,
+   "DESTINOS": {
+    "NEW_DOCUMENT": 10
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-193046-344a587db4870ed8",
+   "STARTED_AT": "2026-09-21T19:30:47.758Z",
+   "FINISHED_AT": "2026-09-21T19:30:54.099Z",
+   "DURATION_MS": 6341,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 2,
+   "DESTINOS": {
+    "SEMANTIC_ID_CHANGED_SAME_BYTES": 2
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-193447-44741587ed08ab67",
+   "STARTED_AT": "2026-09-21T19:34:47.935Z",
+   "FINISHED_AT": "2026-09-21T19:36:15.291Z",
+   "DURATION_MS": 87356,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 30,
+   "DESTINOS": {
+    "DOCUMENT_CHANGED_IN_PLACE": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T10-2026-09-21-193616-38f07aa5646cf75d",
+   "STARTED_AT": "2026-09-21T19:36:17.296Z",
+   "FINISHED_AT": "2026-09-21T19:36:47.583Z",
+   "DURATION_MS": 30287,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 9,
+   "DESTINOS": {
+    "DOCUMENT_CHANGED_IN_PLACE": 9
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T5-2026-09-21-193648-b156ef7ee3cb8b52",
+   "STARTED_AT": "2026-09-21T19:36:49.132Z",
+   "FINISHED_AT": "2026-09-21T19:37:00.279Z",
+   "DURATION_MS": 11147,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 4,
+   "DESTINOS": {
+    "DOCUMENT_CHANGED_IN_PLACE": 4
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-193702-cbf9e68263f733d3",
+   "STARTED_AT": "2026-09-21T19:37:02.775Z",
+   "FINISHED_AT": "2026-09-21T19:38:31.766Z",
+   "DURATION_MS": 88991,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 30,
+   "DESTINOS": {
+    "DOCUMENT_CHANGED_IN_PLACE": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-193853-ce75b1481797fad0",
+   "STARTED_AT": "2026-09-21T19:38:54.000Z",
+   "FINISHED_AT": "2026-09-21T19:39:25.262Z",
+   "DURATION_MS": 31262,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 10,
+   "DESTINOS": {
+    "DOCUMENT_CHANGED_IN_PLACE": 10
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "IT-T7-2026-09-21-193926-811f3c0e101d9081",
+   "STARTED_AT": "2026-09-21T19:39:26.897Z",
+   "FINISHED_AT": "2026-09-21T19:39:32.632Z",
+   "DURATION_MS": 5735,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 2,
+   "DESTINOS": {
+    "SEEN_AGAIN": 2
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 1,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
   }
  ],
  "POR_FONTE": {
+  "IT-T10-018": 91,
+  "IT-T10-022": 28,
   "IT-T2-002": 140,
   "IT-T2-004": 7,
   "IT-T3-002": 3,
   "IT-T3-005": 6,
   "IT-T3-008": 3,
   "IT-T3-010": 22,
-  "IT-T4-001": 3
+  "IT-T4-001": 3,
+  "IT-T5-049": 13,
+  "IT-T7-017": 91,
+  "IT-T7-042": 31,
+  "IT-T7-043": 7
  },
  "POR_DESTINO": {
   "BASELINE_DOCUMENT": 10,
-  "DISCOVERY_FAILED": 19,
-  "NEW_DOCUMENT": 34,
-  "SEEN_AGAIN": 109,
+  "DISCOVERY_FAILED": 25,
+  "DOCUMENT_CHANGED_IN_PLACE": 83,
+  "IDENTITY_FAILED": 85,
+  "NEW_DOCUMENT": 113,
+  "SEEN_AGAIN": 111,
+  "SEMANTIC_ID_CHANGED_SAME_BYTES": 6,
   "TRANSPORT_OR_EMPTY": 12
  },
  "POR_MIME": {
-  "HTML": 13,
-  "NAO SEI": 31,
+  "HTML": 183,
+  "NAO SEI": 122,
   "PDF": 137,
   "TEXTO": 3
  },
@@ -716,10 +1205,11 @@
   "2026-09-07T16": 93,
   "2026-09-14T15": 8,
   "2026-09-14T16": 23,
-  "2026-09-18T17": 9
+  "2026-09-18T17": 9,
+  "2026-09-21T19": 261
  },
  "POR_ROTA": {
-  "RC-9": 184,
+  "RC-9": 445,
   "NOTA": "todo este ledger e da RC-9 (GIT_LEDGER), que e DIVIDA e nao estrada a fechar. As outras rotas nao emitem nada — nao e que tenham emitido zero."
  },
  "POR_ETAPA": {

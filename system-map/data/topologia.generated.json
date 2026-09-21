@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-21T18:00:47+00:00",
-  "HEAD": "35b8911ed27366b672d78f2c7af075757b0aa812",
-  "BRANCH": "micro-collection-v1",
+  "GENERATED_AT": "2026-09-21T20:09:07+00:00",
+  "HEAD": "03cdd9938f138565ff1db11f782cd1a6ee37765e",
+  "BRANCH": "canonical-micro-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ba79adf4a288e2d39d02b58dc15735eed407319054b256fab709ac546d8b9eb9",
-  "FICHEIROS_NA_IMPRESSAO": 2371,
+  "SOURCE_TREE_FINGERPRINT": "1f91d6df859b31718057f05a74d40e4e0db6a33a831a5d58e040ceb2c2e16480",
+  "FICHEIROS_NA_IMPRESSAO": 2550,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -468,7 +468,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "b84c9351638d62eec5462ebc4dfae7bc0c37a7c7",
+    "VERSAO": "420c51198687483ba594f82ad1b0c37338d1c9cc",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1579,6 +1579,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/corrida_canonica.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bcb8b8ee2eae8742f1fd8740879e0f9177761558",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/corrida_instrumentada.py",
     "PAPEL": "FONTE",
     "VERSAO": "a9d4c0781fb1efef95aa8242950c74ae9187c5d7",
@@ -1621,6 +1628,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/red_team_canonico.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "000a0c582358a7b2f8ee510e5943ec58001d70e1",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/scanner_da_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bf30280c1fe6100810d5f2470a65f648ef8b4a",
@@ -1631,6 +1645,13 @@
     "PATH": "medidas/source_health.py",
     "PAPEL": "FONTE",
     "VERSAO": "eddcfe57243c04b7f55e747d9558276d49a55b30",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/test_corrida_canonica.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "e4f38418de7a5281366a04428a7db7ca61e22791",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2876,7 +2897,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "c2d77dd78c1d4dc552f0bc0dc1fcc909775d13c4",
+    "VERSAO": "cd4a3992b3b05ec5167dd02f5dde6994a47200d2",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2904,14 +2925,14 @@
    {
     "PATH": "regras/motor_de_rota.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "d91380fe451610eb74256044da7fa7bb293b1f68",
+    "VERSAO": "ac0087ef99084c227e27a1b51dfec0166cce1a6c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
    {
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "c853a4b00c69ea498111b5c75a2f3d18e275d81a",
+    "VERSAO": "8ac7beaad0ae2faac3250372a5aa0aa958739a0b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2995,14 +3016,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ba79adf4a288e2d39d02b58dc15735eed407319054b256fab709ac546d8b9eb9",
+    "VERSAO": "1f91d6df859b31718057f05a74d40e4e0db6a33a831a5d58e040ceb2c2e16480",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ba79adf4a288e2d39d02b58dc15735eed407319054b256fab709ac546d8b9eb9",
+    "VERSAO": "1f91d6df859b31718057f05a74d40e4e0db6a33a831a5d58e040ceb2c2e16480",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4029,6 +4050,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_integracao_04a_curator.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ac08fb8fa60aa7cfc686bf5d0e5bb8c4ea89c285",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_integracao_biblia.py",
     "PAPEL": "FONTE",
     "VERSAO": "bc0c573aabcd1feaf33d52506cddd858461a2887",
@@ -4652,8 +4680,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 659,
-  "INPUTS_DIGEST": "86a33167783e4a1353ec886e8b337747d625d4391f38fc29721df162f1fb7dae",
+  "INPUTS_COUNT": 663,
+  "INPUTS_DIGEST": "05b7d477d55ff60ce2c396590218af7a571d128e700ac2b1667041c5f472fd87",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4679,15 +4707,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 444,
+  "DOCUMENTOS_LIDOS": 445,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ec2a1d4f1bd11844d7aa01855ab96688b1a5dee0eadb6da970c272d64253ecc0",
-  "SEMANTIC_HASH": "10ba81a49129501a7e7e95e39872acc4275b2284cb0845c08e69d23773f3919a"
+  "MEASUREMENT_HASH": "4df0c35fa89bb0981776b774633047cba65da0e0586097d6f5424b9b1e3ccd57",
+  "SEMANTIC_HASH": "2885f8031ee38ee7115e8d09f1e9e7653ed84c7bfb3fc23dc84404976f529e77"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4718,6 +4746,7 @@
    "C-COLETA-YOUTUBE",
    "C-CONTRATO-CAMPOS",
    "C-CORPUS",
+   "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
@@ -4774,7 +4803,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 75
+  "COUNT": 76
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -4908,6 +4937,7 @@
    "C-CONTRATO-DE-RETORNO",
    "C-CONTRATO-TELEMETRIA",
    "C-CORPUS",
+   "C-CORRIDA-CANONICA",
    "C-DATA-CLOCK",
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
@@ -5024,16 +5054,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 153
+  "COUNT": 154
  },
  "ARITMETICA": {
-  "COLLECTION": 75,
+  "COLLECTION": 76,
   "BOUNDARY": 78,
-  "SOMA": 153,
-  "EXPANDED": 153,
+  "SOMA": 154,
+  "EXPANDED": 154,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 153,
+  "RESUMO_CARTOES_NO_UNIVERSO": 154,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -7527,6 +7557,14 @@
      },
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
+      "LINHA": 39,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_integracao_04a_curator.py",
       "LINHA": 39,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
@@ -19681,6 +19719,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-CORRIDA-CANONICA",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-CORRIDA-CANONICA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/corrida_canonica.py",
+      "LINHA": 82,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--IMPORTS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTAS",
     "FROM": "C-IT-COLETA",
     "TO": "C-IT-CONTAS",
@@ -19853,6 +19913,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-CORRIDA-CANONICA",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-CORRIDA-CANONICA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/red_team_canonico.py",
+      "LINHA": 208,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTAS",
     "FROM": "C-IT-COLETA",
     "TO": "C-IT-CONTAS",
@@ -19912,7 +19994,7 @@
      },
      {
       "FICHEIRO": "regras/motor_de_rota_test.mjs",
-      "LINHA": 231,
+      "LINHA": 232,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
@@ -20285,6 +20367,52 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CORRIDA-CANONICA",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-CORRIDA-CANONICA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/corrida_canonica.py",
+      "LINHA": 127,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/corrida_canonica.py",
+      "LINHA": 128,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/red_team_canonico.py",
+      "LINHA": 100,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/red_team_canonico.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CATALOGO",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-IT-CATALOGO",
@@ -20417,6 +20545,22 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_integracao_04a_curator.py",
+      "LINHA": 35,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_integracao_04a_curator.py",
+      "LINHA": 36,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_source_owner_identity.py",
       "LINHA": 36,
       "SUPPORTS": "YES",
@@ -20479,6 +20623,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-CENSO-IDENTIDADE-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-CORRIDA-CANONICA",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-CORRIDA-CANONICA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/corrida_canonica.py",
+      "LINHA": 85,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/corrida_canonica.py",
+      "LINHA": 86,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-CORRIDA-CANONICA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -31827,6 +32001,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CORRIDA-CANONICA",
+    "FROM": "C-SCRAP-SOCIAL",
+    "TO": "C-CORRIDA-CANONICA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/corrida_canonica.py",
+      "LINHA": 83,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/test_corrida_canonica.py",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-CORRIDA-CANONICA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-MAPA-TESTES",
     "FROM": "C-SCRAP-SOCIAL",
     "TO": "C-MAPA-TESTES",
@@ -36483,12 +36687,12 @@
     ]
    }
   ],
-  "COUNT": 1021
+  "COUNT": 1026
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 153,
-  "CARTOES_AUDITADOS": 153,
-  "ARESTAS_RELACIONADAS": 1021,
+  "CARTOES_NO_UNIVERSO": 154,
+  "CARTOES_AUDITADOS": 154,
+  "ARESTAS_RELACIONADAS": 1026,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -36633,6 +36837,7 @@
    "C-CICATRIZES-BR",
    "C-CONTRATO-CAMPOS",
    "C-CORPUS",
+   "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
    "C-DONO-DO-DOCUMENTO",
    "C-ESPECIE-DO-TEXTO",
@@ -36697,6 +36902,7 @@
   "NINGUEM_CORRE": [
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
+   "C-CORRIDA-CANONICA",
    "C-ESPECIE-DO-TEXTO",
    "C-INT-CONSUMO-ADAMA",
    "C-IT-CONTAS",
@@ -36735,6 +36941,9 @@
    ],
    "C-CORPUS": [
     "science"
+   ],
+   "C-CORRIDA-CANONICA": [
+    "coverage"
    ],
    "C-DATA-CLOCK": [
     "science"
@@ -36833,12 +37042,12 @@
    "C-MICRO-COLHEITA"
   ],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 167,
+   "CODE": 169,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 359,
-   "READ": 233,
-   "RULE": 151,
+   "READ": 235,
+   "RULE": 152,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -37221,6 +37430,7 @@
     "tests/test_competitor_layer.py",
     "tests/test_comunicacao_universo_falha_fechado.py",
     "tests/test_fila_italia_decisoes.py",
+    "tests/test_integracao_04a_curator.py",
     "tests/test_retorno_da_coleta.py",
     "tests/test_source_id.py",
     "tests/test_source_owner_identity.py"
@@ -38620,6 +38830,44 @@
    "GAP": null
   },
   {
+   "CARD_ID": "C-CORRIDA-CANONICA",
+   "NOME": "A corrida canonica da micro-colheita",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "medidas/corrida_canonica.py",
+    "medidas/red_team_canonico.py",
+    "medidas/test_corrida_canonica.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "datetime",
+    "pathlib"
+   ],
+   "ENTRAM": 5,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "coverage"
+   ],
+   "GAP": null
+  },
+  {
    "CARD_ID": "C-DATA-CLOCK",
    "NOME": "Regua do tempo",
    "FAMILIA": "F-GOVERNANCA",
@@ -39932,6 +40180,7 @@
     "tests/test_retorno_da_coleta.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-CANONICAL-MICRO.md",
     "docs/operacao/ITALIA-NA-PORTA-CANONICA.md",
     "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md"
    ],
@@ -39944,7 +40193,7 @@
     "coleta"
    ],
    "ENTRAM": 7,
-   "SAEM": 14,
+   "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -40018,6 +40267,7 @@
     "provas/italy_pilot_negativos.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py",
+    "tests/test_integracao_04a_curator.py",
     "tests/test_source_id.py",
     "tests/test_source_owner_identity.py"
    ],
@@ -40036,7 +40286,7 @@
     "pathlib"
    ],
    "ENTRAM": 8,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -40117,7 +40367,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 1,
-   "SAEM": 13,
+   "SAEM": 14,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -41616,6 +41866,7 @@
     "tests/test_fronteira_mede_producao.py",
     "tests/test_gate_de_aceitacao_tematica.py",
     "tests/test_implementacoes_candidatas.py",
+    "tests/test_integracao_04a_curator.py",
     "tests/test_legado_fora_do_fluxo.py",
     "tests/test_lingua_unica.py",
     "tests/test_m2_rota_forward.py",
@@ -43520,6 +43771,7 @@
     "tests/test_c2_youtube_oficial.py",
     "tests/test_c3_youtube_cutover.py",
     "tests/test_c5_transcript_gate.py",
+    "tests/test_integracao_04a_curator.py",
     "tests/test_linkedin_build_01_local_first.py",
     "tests/test_politica_da_coleta.py",
     "tests/test_scrap_convergencia.py",
@@ -43548,7 +43800,7 @@
     "the"
    ],
    "ENTRAM": 24,
-   "SAEM": 20,
+   "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -44113,6 +44365,7 @@
     "tests/test_hero_cases_v1.py",
     "tests/test_identidade_do_artefato.py",
     "tests/test_implementacoes_candidatas.py",
+    "tests/test_integracao_04a_curator.py",
     "tests/test_integracao_biblia.py",
     "tests/test_integracao_e7_contrato_na_linha_funcional.py",
     "tests/test_italia_na_porta_canonica.py",
@@ -44237,6 +44490,7 @@
     "tests/test_comunicacao.py",
     "tests/test_comunicacao_universo_falha_fechado.py",
     "tests/test_forward_instrumentado.py",
+    "tests/test_integracao_04a_curator.py",
     "tests/test_integracao_e7_contrato_na_linha_funcional.py",
     "tests/test_m2_aresta_observada.py",
     "tests/test_metricas.py",

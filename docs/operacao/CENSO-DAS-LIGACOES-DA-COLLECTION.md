@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  35b8911ed27366b672d78f2c7af075757b0aa812
-BRANCH           micro-collection-v1
-GERADO_EM        2026-09-21T14:55:38-03:00
-CARDS            74
+HEAD_DA_MEDICAO  03cdd9938f138565ff1db11f782cd1a6ee37765e
+BRANCH           canonical-micro-v1
+GERADO_EM        2026-09-21T16:47:48-03:00
+CARDS            75
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -338,13 +338,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 14 |
-| **arestas provadas** | entram 6 · saem 13 |
+| **arestas no mapa** | entram 7 · saem 16 |
+| **arestas provadas** | entram 6 · saem 15 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 · NÃO SEI 2 · OBSERVED 1 |
+| **prova das ligações** | CODE 20 · NÃO SEI 2 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -438,13 +438,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 24 · saem 20 |
-| **arestas provadas** | entram 21 · saem 20 |
+| **arestas no mapa** | entram 24 · saem 21 |
+| **arestas provadas** | entram 21 · saem 21 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 38 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 39 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1098,19 +1098,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/italy_executor.py:87; medidas/padrao_da_coleta.py:65; provas/a_collection_preserva_o_fato.py:85 |
-| **porquê** | estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/italy_executor.py:87; medidas/corrida_canonica.py:85; medidas/padrao_da_coleta.py:65 |
+| **porquê** | estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `superficie/rede.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 13 |
-| **arestas provadas** | entram 1 · saem 13 |
+| **arestas no mapa** | entram 1 · saem 14 |
+| **arestas provadas** | entram 1 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 14 |
+| **prova das ligações** | CODE 15 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1340,6 +1340,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
+
+### `C-CORRIDA-CANONICA` · A corrida canonica da micro-colheita
+
+| | |
+|---|---|
+| **peça real** | `medidas/corrida_canonica.py`, `medidas/red_team_canonico.py`, `medidas/test_corrida_canonica.py` |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `coleta/italy_executor.py`, `curadoria/collection_gate.py`, `curadoria/test_collection_gate.py` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 5 · saem 0 |
+| **arestas provadas** | entram 5 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 5 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-FRONTEIRA-TELEMETRIA` · A fronteira instrumentada
 
@@ -1683,19 +1708,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; provas/a_autoridade_da_fonte.py:163 |
-| **porquê** | estas pecas importam-na — C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; medidas/corrida_canonica.py:127 |
+| **porquê** | estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 8 · saem 8 |
-| **arestas provadas** | entram 8 · saem 5 |
+| **arestas no mapa** | entram 8 · saem 9 |
+| **arestas provadas** | entram 8 · saem 6 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 13 · NÃO SEI 3 |
+| **prova das ligações** | CODE 14 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1911,7 +1936,7 @@ UNKNOWN            18
 SYSTEM_GAP         9
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
+TERMINAL           2
 ORPHAN             1
-TERMINAL           1
-TOTAL              74
+TOTAL              75
 ```
