@@ -24,15 +24,22 @@ de processo ou aplicar regra — isso é tudo código, e está nos ficheiros aba
 ## 2. HEADS
 
 ```
-BASE          4b3a2ad6  (reconciliacao-v1, 256 testes OK, árvore limpa)
-HEAD FINAL    22ba60f4  (branch intake-gate-v1)
+BASE                4b3a2ad6  (reconciliacao-v1, 256 testes OK, árvore limpa)
+BRANCH              intake-gate-v1
 
 144e7183  F2 · a regra de admissão ganha um dono único
 5dd18f49  F7/F8 · fechar os dois caminhos de produção e separar o painel
 15fa706c  G-RT · o ataque de bypass passa a ser prova de runtime
 27411924  desfazer 3 coletas reais provocadas pelo próprio red team
 22ba60f4  mapa regerado pela cadeia canónica
+<este>    o commit deste relatório
+<a seguir> mapa regerado sobre a árvore do relatório (fecho)
 ```
+
+⚠️ Este relatório **não pode** nomear o seu próprio HEAD final: o carimbo do System Map
+é calculado sobre a árvore, e escrever aqui um hash mudaria a árvore que o hash descreve.
+O HEAD final é o commit de fecho do mapa, imediatamente a seguir a este. Confirma-se com
+`git log --oneline -2`.
 
 ---
 
