@@ -2297,6 +2297,25 @@
       ]
     },
     {
+      "id": "C-EXECUTOR-SECOES-POR-CULTURA",
+      "name": "Executor · secções por cultura de um boletim",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Segunda leitura do MESMO PDF já derivado: preserva a associação que o boletim declara entre o cabeçalho de cultura (a coluna «COLTURA» de Salerno, o título «Difesa integrata Olivo» do disciplinare da Puglia) e o bloco de texto que lhe pertence — com âncora, precisão e certeza por secção. Menção no corpo fica CONTEXT_ONLY; ícone sem camada de texto (ARIF) fica UNKNOWN, e UNKNOWN fica. Escreve pelo dono do derivado como TABLE_EXTRACTION/secoes-por-cultura, com o vocabulário de leis/regua_italia.py. Não normaliza para CROP_ID, não extrai claim, não faz OCR, não vai à rede, não conhece banco nem corrida.",
+      "why_here": "Medido em C-CROP-E2E-V1 (20/09/2026): 5 de 5 boletins IT-T3 da Sala tinham a cultura ESCRITA no texto e nenhum campo onde pousar — e não se perdiam no mesmo sítio (Salerno e APOL: o cabeçalho sobreviveu ao texto e ninguém o lia; ARIF: o cabeçalho é um ícone). O grão da cultura é a SECÇÃO, não o item — um boletim de Salerno tem doze — por isso a Sala não ganha coluna: a Intelligence segue sala.item_id=derived:N até esta derivação-irmã. Não está em ingresso._DONOS_DA_DERIVACAO de propósito: quem abre o PDF continua a ser o texto-de-pdf; esta é chamada por quem rederiva.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/executor_secoes_por_cultura.py"
+      ],
+      "views": [
+        "audit",
+        "infra"
+      ]
+    },
+    {
       "id": "C-ESTRADA-PDF",
       "name": "A primeira estrada · PDF até à porta",
       "territory": "Z-ACOES",
@@ -4018,13 +4037,31 @@
       "territory": "Z-PROVA",
       "kind": "engine",
       "icon": "🔬",
-      "what": "Lê a Sala de Espera canônica (e SÓ ela), classifica cada item admitido por utilidade analítica, tenta o crossing substância × rótulo ADAMA autorizado, e reprova o crossing quando a join key (CROP) não atravessou a fronteira. Não escreve, não vai à rede, não chama coletor, não promove nada a FACT.",
+      "what": "Lê a Sala de Espera canônica (e SÓ ela), classifica cada item admitido por utilidade analítica e tenta o crossing substância × rótulo ADAMA autorizado. Desde a v3 lê a cultura pela referência canónica que a Sala já carrega (item_id=derived:N → derivação-irmã de secções por cultura) e o gate distingue três coisas: CROP_GATE_PASSED (cultura no rótulo; REGION e FACT_TIME continuam em falta), BLOCKED_BY_CROP (cultura fora do rótulo) e NOT_POSSIBLE (cultura desconhecida ou só mencionada). Não escreve, não vai à rede, não chama coletor, não promove nada a FACT nem a oportunidade.",
       "why_here": "A pergunta «a Sala já dá inteligência?» só tem resposta defensável se existir uma peça que a meça sem poder inventar. Sem ela, um crossing por semelhança de substância passaria por oportunidade: medido, azoxystrobin aparece no Disciplinare do olivo e a ADAMA tem 0 usos autorizados em OLIVO.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         "provas/o_piloto_da_sala.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-PROVA-CULTURA-ATRAVESSA",
+      "name": "A cultura atravessa — onde se perde, e a rederivação que a recupera",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "🔬",
+      "what": "Para cada item IT-T3 da Sala mede as sete presenças da cultura (bytes, texto extraído, estrutura de tabela, derivado, admissão, Sala, Intelligence) e a etapa em que ela se perde — item a item, nunca por média. Com --gravar rederiva SÓ os bytes que já estão no armazém, pelo dono canónico do derivado: zero observações novas, zero corridas novas, zero bytes duplicados, rede fechada. Escreve o artefato data/derivados/A-CULTURA-ATRAVESSA.json.",
+      "why_here": "A R2 do piloto contou a perda (100%) e recusou-se a fabricar a chave a partir do corpo do texto. Esta prova responde à pergunta seguinte — a cultura recupera-se do que JÁ TEMOS, sem recoletar? — e deixa escrito o que não recupera: o ARIF N37 sem bytes locais e o cabeçalho-ícone do ARIF N38, que só OCR alcançaria.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_cultura_atravessa.py"
       ],
       "views": [
         "audit"
@@ -4154,6 +4191,7 @@
     "coleta/eppo_gd.py": "bdebec8e0ed7549a6174e06432d559cf60bc1ee9",
     "coleta/es/corpus_es.py": "71b0ef71396766fc1660b662f7c1c31637187638",
     "coleta/eu_substancia_adama_it.py": "93600f2cc5f920838d750aa57675b22329583dd0",
+    "coleta/executor_secoes_por_cultura.py": "2403ec4cab38b029806a50a9d69bb8d87d6b6859",
     "coleta/executor_texto_de_pdf.py": "97d5284245ab374a05b58186a7c32326f6d49a3c",
     "coleta/filas.py": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
     "coleta/gire_mapas.py": "4a54507d756ae72eaf0442c37717ed190eaaad95",
@@ -4400,7 +4438,7 @@
     "leis/data_clock.py": "608696a5eca4881d600a5631b9d55bb5a432c5b3",
     "leis/fato_local.py": "2d873f38b027e730743b4ef0b8739f91983e0335",
     "leis/lugar_do_fato.py": "0b01a177cf2d3c396a9966bbde80986c653b695d",
-    "leis/regua_italia.py": "6c6c579407782c92ecb3e3f6e0c6323a55ee07d9",
+    "leis/regua_italia.py": "1186228fc582171c2bb0b087f716989b4a684cb3",
     "leis/v21_carimbar_origem.py": "db0c0d9fdc8df157afa15b6616d5a00b744b3370",
     "leis/v21_datas.py": "36f83ad1f374bdb3eceedc07774cd0bfec039da4",
     "leis/v21_geografia_contrato.py": "76dd230ecc5cc08571a25cffe74cac93d149725d",
@@ -4475,6 +4513,7 @@
     "pedido/receitas.py": "38e9779c369d70ce0ae5c926ce96472360c78fa9",
     "portoes/build_portal.py": "1656c9eb410273792b34866ba744e5b553b0ffe7",
     "portoes/site_v21_ingest.py": "1e64382050462c6a5307f36c40aced83ac3527c2",
+    "provas/a_cultura_atravessa.py": "5c6fc3272071e3245d12909e41bf5401823eb8cf",
     "provas/auditoria.py": "5b0375fdf9f334142d56f869dae339c7cf010868",
     "provas/auditoria_live.sh": "fd45c1c15751ff4ef3d7fcbdef0a5462a698cfd8",
     "provas/chain.py": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
@@ -4485,6 +4524,7 @@
     "provas/inventario_esperado.py": "66f22a11bd9356fb70dbca6167f26dbddc288760",
     "provas/italy_accounting.mjs": "6d87dca1623f5be4b0dc81bf217d8cf7cab3270b",
     "provas/italy_pilot_negativos.mjs": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
+    "provas/o_piloto_da_sala.py": "f3cec3c9cadd74b277b115a3decf6ca77aee137d",
     "provas/preflight_022_live.sh": "1d8900d3eb82b3f8cc1110219fd062f5ed99c68c",
     "provas/preservar_coleta_no_postgres.py": "991be91d76d4daceae7c66e80e29d75ab4a106c9",
     "provas/readback_022_live.sh": "c1ac05ce1e6f69eec128842b245d2606bb231903",

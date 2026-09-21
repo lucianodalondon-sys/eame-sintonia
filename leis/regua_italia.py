@@ -157,6 +157,30 @@ CULTURAS = [
     ('AGRUMI',      r'\b(agrumi|arancio|limone)', False),
     ('PESCO',       r'\b(pesco|pescheto)', False),
     ('ORTICOLE',    r'\b(orticol|ortaggi)', False),
+    # ── AS CULTURAS QUE OS BOLETINS DECLARAM E A RÉGUA NÃO CONHECIA ──────────
+    # Medido na missão C-CROP-E2E-V1 (20/09/2026) nos cabeçalhos «COLTURA» do
+    # boletim fitossanitário de Salerno (IT-T3-002): ACTINIDIA, CILIEGIO,
+    # CASTAGNO, FRAGOLA, NOCCIOLO, NOCE e Melanzana estavam ESCRITOS no
+    # documento e não tinham chave. Sem chave, a cultura declarada saía
+    # `UNKNOWN` — e isso não era «não sei», era «não perguntei». Os nomes
+    # seguem os do rótulo ADAMA (`referencia/adama/AUTHORIZED-USES.json`,
+    # `CROP_ON_LABEL`) onde o rótulo os tem, para a Intelligence não precisar
+    # de traduzir: ACTINIDIA, CILIEGIO, FRAGOLA, ALBICOCCO, CAROTA, CIPOLLA,
+    # LATTUGA. Um vocabulário só, no dono — não um segundo, no executor.
+    ('ACTINIDIA',   r'\b(actinidia|kiwi)', False),
+    ('CILIEGIO',    r'\b(ciliegio|ciliegi|cerasicol)', False),
+    ('ALBICOCCO',   r'\b(albicocco|albicocchi)', False),
+    ('SUSINO',      r'\b(susino|susini)', False),
+    ('MANDORLO',    r'\b(mandorlo|mandorli)', False),
+    ('FRAGOLA',     r'\b(fragola|fragole)', False),
+    ('NOCCIOLO',    r'\b(nocciolo|noccioli|corilicol)', False),
+    ('NOCE',        r'\b(noce|noci)\b', True),          # noce moscata; quarentena
+    ('CASTAGNO',    r'\b(castagno|castagni|castagneto)', False),
+    ('MELANZANA',   r'\b(melanzana|melanzane)', False),
+    ('CAROTA',      r'\b(carota|carote)', False),
+    ('CIPOLLA',     r'\b(cipolla|cipolle)', False),
+    ('LATTUGA',     r'\b(lattuga|lattughe)', False),
+    ('CARCIOFO',    r'\b(carciofo|carciofi)', False),
 ]
 
 # ── ALVOS ───────────────────────────────────────────────────────────────────────

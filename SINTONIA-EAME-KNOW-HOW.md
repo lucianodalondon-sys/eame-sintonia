@@ -18823,3 +18823,56 @@ política fechada. Nenhum ficheiro foi inventado; nenhuma rede foi aberta.
 **Achado lateral, não tocado:** `ingresso.ficha()` rebenta com «multiple
 values for CONTENT_TYPE» quando o ficheiro do `STORAGE_LOCATION` falta e o
 item declara `CONTENT_TYPE` — o caminho de fallback para o JSON da observação.
+
+
+# §162 · A CULTURA É DA SECÇÃO, NÃO DO ITEM — E PERDE-SE EM SÍTIOS DIFERENTES
+
+**O QUE.** Missão `C-CROP-E2E-V1` (20/09/2026): fazer a cultura dos 5 itens
+`IT-T3` da Sala atravessar até à Intelligence sem recoletar nada. Relatório
+em `docs/operacao/CIRURGIA-CROP-E2E-V1.md`; peças
+`coleta/executor_secoes_por_cultura.py`, `provas/a_cultura_atravessa.py`,
+piloto v3. Resultado: 3 de 5 com cultura; 0 observações, 0 corridas, 0 bytes
+novos; a Sala e o contrato READY intactos.
+
+**1 · Não assumir que todos quebram no mesmo ponto.** Eram 5 linhas, 3
+documentos, 3 perdas diferentes. Salerno e APOL: a cultura ESTAVA no texto
+que a Sala guarda (md5 igual ao `pdftotext` dos bytes), como cabeçalho de
+coluna («COLTURA …») ou título de tabela («Difesa integrata Olivo …») — e
+nenhuma etapa ligava cabeçalho a bloco. ARIF: a cultura de cada bloco é um
+ÍCONE (14 imagens 124×129); zero cabeçalhos na camada de texto em quatro modos
+do `pdftotext` e no leitor da casa. O N37 nem bytes tem (§161). Uma média
+(«100% LOST_IN_DERIVATION») escondia três causas com três donos.
+
+    O DADO CHEGOU. A ESTRUTURA NÃO.   ≠   O DADO NUNCA FOI TEXTO.
+
+**2 · O grão decide a casa.** Um boletim de Salerno tem doze culturas. Uma
+coluna `crop` na Sala teria de escolher uma ou virar lista — e o gate precisa
+de saber EM QUE SECÇÃO a substância foi recomendada. A cultura é da SECÇÃO;
+mora numa derivação-irmã do mesmo original (`derived_artifact`, `kind =
+TABLE_EXTRACTION`, `producer = secoes-por-cultura`) e a Intelligence chega lá
+pela referência que a Sala já carregava: `item_id = derived:N → parent_sha256
+→ irmã`. Nenhum `kind` inventado, nenhuma lei mudada.
+
+**3 · Menção não é chave.** «olivo» dentro de «mosca dell'olivo» é
+`CONTEXT_ONLY`; só um cabeçalho dá `EXPLICIT`. No cabeçalho exige-se palavra
+inteira («Viterbo» não é VITE). O gate só decide com `EXPLICIT`; o resto sai
+`NOT_POSSIBLE`. **Cicatriz:** o leitor caseiro (`coleta/pdf_text.py`) «achou»
+OLIVO no ARIF — era a prosa em maiúsculas. Anunciei a pista antes de conferir
+a caixa. Conferir sempre com a caixa original antes de dizer que o cabeçalho
+existe.
+
+**4 · O gate passou a distinguir, e «passou» não é oportunidade.** Caso real:
+azoxystrobin no disciplinare do olivo × rótulo ADAMA sem OLIVO →
+`BLOCKED_BY_CROP`. Contraprova com o rótulo real e uma secção «VITE» sintética
+→ `CROP_GATE_PASSED`, com REGION e FACT_TIME ainda em falta. O D-01 da R2
+fecha; `OPPORTUNITY_CANDIDATES` continua 0.
+
+**5 · Rederivar sem corrida não escreve participação.** A 029 exige `run_id`
+em `participacao_na_derivacao`; uma rederivação sem `collection_run` (e não
+devia ter: recoletar era proibido) devolve `PARTICIPACAO_SEM_CORRIDA`. A
+linhagem fica na linha (`raw_asset_id` + `parent_sha256`); a aresta «a obs 26
+também participou» não. Dívida com dono: a 029.
+
+**6 · Duas variáveis para o mesmo psql.** O piloto lê `SINTONIA_PSQL`; o
+writer (`guarda/cliente_postgres.py`) lê `SINTONIA_PSQL_EXE`. Meia hora de
+«psql não encontrado» com o caminho certo na variável errada.

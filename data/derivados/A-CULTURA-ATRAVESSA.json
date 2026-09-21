@@ -1,0 +1,536 @@
+{
+ "SCHEMA": "sintonia.collection.a-cultura-atravessa/1",
+ "MISSAO": "C-CROP-E2E-V1",
+ "GRAVAR": true,
+ "NETWORK": "OFF — nenhum socket aberto por este processo; só psql local e disco",
+ "T3_TOTAL": 5,
+ "T3_REDERIVED": 4,
+ "T3_CROP_RECOVERED": 3,
+ "T3_CROP_UNKNOWN": 1,
+ "T3_FAILED": 1,
+ "READY_TEM_CAMPO_CROP": false,
+ "SALA_TEM_COLUNA_CROP": false,
+ "REFERENCIA_CANONICA": "sala.item_id=derived:N -> derived_artifact.id=N -> parent_sha256 -> derived_artifact(kind=TABLE_EXTRACTION, producer=secoes-por-cultura) -> storage_path",
+ "CONTAGENS_ANTES": {
+  "raw_asset": 1072,
+  "collection_run": 369,
+  "storage_object": 938,
+  "derived_artifact": 755,
+  "sala_de_espera": 46,
+  "participacao_na_derivacao": 785
+ },
+ "CONTAGENS_DEPOIS": {
+  "raw_asset": 1072,
+  "collection_run": 369,
+  "storage_object": 938,
+  "derived_artifact": 758,
+  "sala_de_espera": 46,
+  "participacao_na_derivacao": 785
+ },
+ "NEW_OBSERVATIONS_CREATED": 0,
+ "NEW_COLLECTION_RUNS": 0,
+ "NEW_STORAGE_OBJECTS": 0,
+ "NEW_DERIVED_ARTIFACTS": 3,
+ "SALA_ROWS_DELTA": 0,
+ "FASE_1_ANTES": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "RUN_ID": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:6",
+   "RAW_ASSET_ID": 7,
+   "RAW_SHA256": "c5ae3bfe76d9bef69e892f23c4ed76bcf4255efb9210c401ef5e08cb51df0bdc",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-002/DOCUMENT/c5ae3bfe76d9bef6-ud8e8ed183762acd8-SA-16-09.pdf",
+   "DERIVED_ID": 6,
+   "DERIVED_TEXT_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_ID": {
+    "RUN_ID": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_TEXTO_CHARS": 26106,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "SIM — cabeçalho de cultura na camada de texto",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SIM",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "SIM",
+   "CROP_PRESENT_IN_DERIVED": "NAO",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "NAO — ainda não há derivação de secções",
+   "CROP_LOSS_STAGE": "STRUCTURED — o cabeçalho sobreviveu ao TEXT_EXTRACTION e nenhuma derivação o lia; a tabela virou texto corrido e ninguém ligou cabeçalho a bloco",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 13,
+    "EXPLICIT": 12,
+    "CONTEXT_ONLY": 0,
+    "UNKNOWN": 1,
+    "CROPS_EXPLICIT": [
+     "ACTINIDIA",
+     "AGRUMI",
+     "CASTAGNO",
+     "CILIEGIO",
+     "FRAGOLA",
+     "MELANZANA",
+     "NOCCIOLO",
+     "NOCE",
+     "OLIVO",
+     "PESCO",
+     "POMODORO",
+     "VITE"
+    ],
+    "CROPS_CONTEXT_ONLY": []
+   },
+   "IRMAO_SECOES": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "RUN_ID": "IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:6",
+   "RAW_ASSET_ID": 26,
+   "RAW_SHA256": "c5ae3bfe76d9bef69e892f23c4ed76bcf4255efb9210c401ef5e08cb51df0bdc",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-002/DOCUMENT/c5ae3bfe76d9bef6-ud8e8ed183762acd8-SA-16-09.pdf",
+   "DERIVED_ID": 6,
+   "DERIVED_TEXT_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_ID": {
+    "RUN_ID": "IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_TEXTO_CHARS": 26106,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "SIM — cabeçalho de cultura na camada de texto",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SIM",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "SIM",
+   "CROP_PRESENT_IN_DERIVED": "NAO",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "NAO — ainda não há derivação de secções",
+   "CROP_LOSS_STAGE": "STRUCTURED — o cabeçalho sobreviveu ao TEXT_EXTRACTION e nenhuma derivação o lia; a tabela virou texto corrido e ninguém ligou cabeçalho a bloco",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 13,
+    "EXPLICIT": 12,
+    "CONTEXT_ONLY": 0,
+    "UNKNOWN": 1,
+    "CROPS_EXPLICIT": [
+     "ACTINIDIA",
+     "AGRUMI",
+     "CASTAGNO",
+     "CILIEGIO",
+     "FRAGOLA",
+     "MELANZANA",
+     "NOCCIOLO",
+     "NOCE",
+     "OLIVO",
+     "PESCO",
+     "POMODORO",
+     "VITE"
+    ],
+    "CROPS_CONTEXT_ONLY": []
+   },
+   "IRMAO_SECOES": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "RUN_ID": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:7",
+   "RAW_ASSET_ID": 9,
+   "RAW_SHA256": "a8d9c53af8f73027498ca6fbb6b1ccbd6986b1a2fec6f4335d14616d6e39138e",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-008/DOCUMENT/a8d9c53af8f73027-u62d20829b1d781be-Notiziario_Agrometeorologico_N37_09-09-2026.pdf",
+   "DERIVED_ID": 7,
+   "DERIVED_TEXT_SHA256": "198ee2fa96470cce49d4f0d4698c956f5d07e8eae0f75d316879f5532c0499fe",
+   "SALA_ID": {
+    "RUN_ID": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "198ee2fa96470cce49d4f0d4698c956f5d07e8eae0f75d316879f5532c0499fe",
+   "SALA_TEXTO_CHARS": 62895,
+   "BYTES_LOCAIS": false,
+   "BYTES_SHA_BATE": null,
+   "CROP_PRESENT_IN_BYTES": "NAO SEI — bytes ausentes do armazém local (dívida §161); a rede está fechada",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SO_CONTEXTO",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "NAO",
+   "CROP_PRESENT_IN_DERIVED": "NAO",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "NAO — ainda não há derivação de secções",
+   "CROP_LOSS_STAGE": "DERIVED (por inferência) — o texto da Sala mostra o padrão ARIF sem cabeçalho; os bytes não estão cá para confirmar",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 32,
+    "EXPLICIT": 0,
+    "CONTEXT_ONLY": 16,
+    "UNKNOWN": 16,
+    "CROPS_EXPLICIT": [],
+    "CROPS_CONTEXT_ONLY": [
+     "AGRUMI",
+     "NOCE",
+     "OLIVO",
+     "VITE"
+    ]
+   },
+   "IRMAO_SECOES": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "RUN_ID": "IT-T3-2026-09-20-110656-6e4ffc27a86c5269",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:11",
+   "RAW_ASSET_ID": 36,
+   "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-008/DOCUMENT/85cb86ebd6582997-ubddcacce8c34dc87-Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+   "DERIVED_ID": 11,
+   "DERIVED_TEXT_SHA256": "b4ce31bbedb883fb9d6f21d0cb3bdf656fd45a98aa93e6a66dbe710da8fb90fc",
+   "SALA_ID": {
+    "RUN_ID": "IT-T3-2026-09-20-110656-6e4ffc27a86c5269",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "b4ce31bbedb883fb9d6f21d0cb3bdf656fd45a98aa93e6a66dbe710da8fb90fc",
+   "SALA_TEXTO_CHARS": 62677,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "NAO SEI — a camada de texto só tem menções; o cabeçalho é gráfico (ARIF: ícone 124x129) e esta casa não faz OCR",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SO_CONTEXTO",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "NAO",
+   "CROP_PRESENT_IN_DERIVED": "NAO",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "NAO — ainda não há derivação de secções",
+   "CROP_LOSS_STAGE": "DERIVED — o cabeçalho não está na camada de texto (ícone); o TEXT_EXTRACTION nunca o teve, e sem OCR ninguém o terá",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 31,
+    "EXPLICIT": 0,
+    "CONTEXT_ONLY": 16,
+    "UNKNOWN": 15,
+    "CROPS_EXPLICIT": [],
+    "CROPS_CONTEXT_ONLY": [
+     "AGRUMI",
+     "NOCE",
+     "OLIVO",
+     "VITE"
+    ]
+   },
+   "IRMAO_SECOES": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "RUN_ID": "XX-T3-2026-09-18-134205-772b57c43c0130fe",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:1",
+   "RAW_ASSET_ID": 1,
+   "RAW_SHA256": "2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-010/DOCUMENT/2ba23d223429131e-ude47533837d548b1-Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+   "DERIVED_ID": 1,
+   "DERIVED_TEXT_SHA256": "c6ddf5b9ab23ae150dc10e5837ec8de5e66bd94bc5e4d530b88eb59e7926f9ac",
+   "SALA_ID": {
+    "RUN_ID": "XX-T3-2026-09-18-134205-772b57c43c0130fe",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "3aecd222f072a217b9c3ad395a79b8e7ca97d9fae68997923d805e8a7b941e90",
+   "SALA_TEXTO_CHARS": 24744,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "SIM — cabeçalho de cultura na camada de texto",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SIM",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "SIM",
+   "CROP_PRESENT_IN_DERIVED": "NAO",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "NAO — ainda não há derivação de secções",
+   "CROP_LOSS_STAGE": "STRUCTURED — o cabeçalho sobreviveu ao TEXT_EXTRACTION e nenhuma derivação o lia; a tabela virou texto corrido e ninguém ligou cabeçalho a bloco",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 7,
+    "EXPLICIT": 6,
+    "CONTEXT_ONLY": 1,
+    "UNKNOWN": 0,
+    "CROPS_EXPLICIT": [
+     "OLIVO"
+    ],
+    "CROPS_CONTEXT_ONLY": [
+     "MELO",
+     "OLIVO"
+    ]
+   },
+   "IRMAO_SECOES": null
+  }
+ ],
+ "FASE_5_REDERIVACAO": [
+  {
+   "RAW_ASSET_ID": 7,
+   "ESTADO": "INSERTED",
+   "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "DERIVED_ID": 756,
+   "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-6cd319bd7e33dd135f542e863bce797c7b7a766be05747a21d5e657c62535e82.json",
+   "NOVO_UPLOAD": true,
+   "PARTICIPACAO": "PARTICIPACAO_SEM_CORRIDA"
+  },
+  {
+   "RAW_ASSET_ID": 26,
+   "ESTADO": "REUSED",
+   "PORQUE": "reencontro: a mesma receita sobre os MESMOS bytes, chegando por outra captura. UMA derivacao, e a testemunha existente fica como esta — a outra captura continua inteira em raw_asset.",
+   "DERIVED_ID": 756,
+   "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-6cd319bd7e33dd135f542e863bce797c7b7a766be05747a21d5e657c62535e82.json",
+   "NOVO_UPLOAD": false,
+   "PARTICIPACAO": "PARTICIPACAO_SEM_CORRIDA"
+  },
+  {
+   "RAW_ASSET_ID": 9,
+   "ESTADO": "NAO_REDERIVADO",
+   "PORQUE": "bytes ausentes ou sem prova de identidade; sem rede não há como os obter"
+  },
+  {
+   "RAW_ASSET_ID": 36,
+   "ESTADO": "INSERTED",
+   "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "DERIVED_ID": 757,
+   "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-afaa06c9e080bc5d33d7d812352bd2372b14738779ad2fc95d1159b8676942b9.json",
+   "NOVO_UPLOAD": true,
+   "PARTICIPACAO": "PARTICIPACAO_SEM_CORRIDA"
+  },
+  {
+   "RAW_ASSET_ID": 1,
+   "ESTADO": "INSERTED",
+   "PORQUE": "escrita, lida de volta e conferida campo a campo.",
+   "DERIVED_ID": 758,
+   "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-10e8c85c381fa922d50b7d65a60417a3955e94f37af534e3d7999fb8ffba73bc.json",
+   "NOVO_UPLOAD": true,
+   "PARTICIPACAO": "PARTICIPACAO_SEM_CORRIDA"
+  }
+ ],
+ "FASE_6_DEPOIS": [
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "RUN_ID": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:6",
+   "RAW_ASSET_ID": 7,
+   "RAW_SHA256": "c5ae3bfe76d9bef69e892f23c4ed76bcf4255efb9210c401ef5e08cb51df0bdc",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-002/DOCUMENT/c5ae3bfe76d9bef6-ud8e8ed183762acd8-SA-16-09.pdf",
+   "DERIVED_ID": 6,
+   "DERIVED_TEXT_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_ID": {
+    "RUN_ID": "XX-T3-2026-09-18-171909-b66be5e4276b76f7",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_TEXTO_CHARS": 26106,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "SIM — cabeçalho de cultura na camada de texto",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SIM",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "SIM",
+   "CROP_PRESENT_IN_DERIVED": "SIM",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "SIM — pela referência canónica (irmão 756)",
+   "CROP_LOSS_STAGE": "RECUPERADA — a derivação de secções existe e a Intelligence a alcança",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 13,
+    "EXPLICIT": 12,
+    "CONTEXT_ONLY": 0,
+    "UNKNOWN": 1,
+    "CROPS_EXPLICIT": [
+     "ACTINIDIA",
+     "AGRUMI",
+     "CASTAGNO",
+     "CILIEGIO",
+     "FRAGOLA",
+     "MELANZANA",
+     "NOCCIOLO",
+     "NOCE",
+     "OLIVO",
+     "PESCO",
+     "POMODORO",
+     "VITE"
+    ],
+    "CROPS_CONTEXT_ONLY": []
+   },
+   "IRMAO_SECOES": {
+    "DERIVED_ID": 756,
+    "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-6cd319bd7e33dd135f542e863bce797c7b7a766be05747a21d5e657c62535e82.json"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-002",
+   "RUN_ID": "IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:6",
+   "RAW_ASSET_ID": 26,
+   "RAW_SHA256": "c5ae3bfe76d9bef69e892f23c4ed76bcf4255efb9210c401ef5e08cb51df0bdc",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-002/DOCUMENT/c5ae3bfe76d9bef6-ud8e8ed183762acd8-SA-16-09.pdf",
+   "DERIVED_ID": 6,
+   "DERIVED_TEXT_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_ID": {
+    "RUN_ID": "IT-T3-2026-09-19-234958-31fa5cf0b3c1cedc",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "e0c49a3eb578b774a485a6bea3471447b773f8018d48968c60d37e4697cebeb6",
+   "SALA_TEXTO_CHARS": 26106,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "SIM — cabeçalho de cultura na camada de texto",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SIM",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "SIM",
+   "CROP_PRESENT_IN_DERIVED": "SIM",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "SIM — pela referência canónica (irmão 756)",
+   "CROP_LOSS_STAGE": "RECUPERADA — a derivação de secções existe e a Intelligence a alcança",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 13,
+    "EXPLICIT": 12,
+    "CONTEXT_ONLY": 0,
+    "UNKNOWN": 1,
+    "CROPS_EXPLICIT": [
+     "ACTINIDIA",
+     "AGRUMI",
+     "CASTAGNO",
+     "CILIEGIO",
+     "FRAGOLA",
+     "MELANZANA",
+     "NOCCIOLO",
+     "NOCE",
+     "OLIVO",
+     "PESCO",
+     "POMODORO",
+     "VITE"
+    ],
+    "CROPS_CONTEXT_ONLY": []
+   },
+   "IRMAO_SECOES": {
+    "DERIVED_ID": 756,
+    "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-6cd319bd7e33dd135f542e863bce797c7b7a766be05747a21d5e657c62535e82.json"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "RUN_ID": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:7",
+   "RAW_ASSET_ID": 9,
+   "RAW_SHA256": "a8d9c53af8f73027498ca6fbb6b1ccbd6986b1a2fec6f4335d14616d6e39138e",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-008/DOCUMENT/a8d9c53af8f73027-u62d20829b1d781be-Notiziario_Agrometeorologico_N37_09-09-2026.pdf",
+   "DERIVED_ID": 7,
+   "DERIVED_TEXT_SHA256": "198ee2fa96470cce49d4f0d4698c956f5d07e8eae0f75d316879f5532c0499fe",
+   "SALA_ID": {
+    "RUN_ID": "XX-T3-2026-09-18-171937-6f76511ca75100a5",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "198ee2fa96470cce49d4f0d4698c956f5d07e8eae0f75d316879f5532c0499fe",
+   "SALA_TEXTO_CHARS": 62895,
+   "BYTES_LOCAIS": false,
+   "BYTES_SHA_BATE": null,
+   "CROP_PRESENT_IN_BYTES": "NAO SEI — bytes ausentes do armazém local (dívida §161); a rede está fechada",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SO_CONTEXTO",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "NAO",
+   "CROP_PRESENT_IN_DERIVED": "NAO",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "NAO — ainda não há derivação de secções",
+   "CROP_LOSS_STAGE": "DERIVED (por inferência) — o texto da Sala mostra o padrão ARIF sem cabeçalho; os bytes não estão cá para confirmar",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 32,
+    "EXPLICIT": 0,
+    "CONTEXT_ONLY": 16,
+    "UNKNOWN": 16,
+    "CROPS_EXPLICIT": [],
+    "CROPS_CONTEXT_ONLY": [
+     "AGRUMI",
+     "NOCE",
+     "OLIVO",
+     "VITE"
+    ]
+   },
+   "IRMAO_SECOES": null
+  },
+  {
+   "SOURCE_ID": "IT-T3-008",
+   "RUN_ID": "IT-T3-2026-09-20-110656-6e4ffc27a86c5269",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:11",
+   "RAW_ASSET_ID": 36,
+   "RAW_SHA256": "85cb86ebd6582997d66c363d568e82e6172d78cc9a3c72db3c9eadcc7ec4d8b1",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-008/DOCUMENT/85cb86ebd6582997-ubddcacce8c34dc87-Notiziario_Agrometeorologico_N38_16-09-2026.pdf",
+   "DERIVED_ID": 11,
+   "DERIVED_TEXT_SHA256": "b4ce31bbedb883fb9d6f21d0cb3bdf656fd45a98aa93e6a66dbe710da8fb90fc",
+   "SALA_ID": {
+    "RUN_ID": "IT-T3-2026-09-20-110656-6e4ffc27a86c5269",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "b4ce31bbedb883fb9d6f21d0cb3bdf656fd45a98aa93e6a66dbe710da8fb90fc",
+   "SALA_TEXTO_CHARS": 62677,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "NAO SEI — a camada de texto só tem menções; o cabeçalho é gráfico (ARIF: ícone 124x129) e esta casa não faz OCR",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SO_CONTEXTO",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "NAO",
+   "CROP_PRESENT_IN_DERIVED": "SIM",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "SIM — pela referência canónica (irmão 757)",
+   "CROP_LOSS_STAGE": "DERIVED — o cabeçalho não está na camada de texto (ícone); o TEXT_EXTRACTION nunca o teve, e sem OCR ninguém o terá",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 31,
+    "EXPLICIT": 0,
+    "CONTEXT_ONLY": 16,
+    "UNKNOWN": 15,
+    "CROPS_EXPLICIT": [],
+    "CROPS_CONTEXT_ONLY": [
+     "AGRUMI",
+     "NOCE",
+     "OLIVO",
+     "VITE"
+    ]
+   },
+   "IRMAO_SECOES": {
+    "DERIVED_ID": 757,
+    "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-afaa06c9e080bc5d33d7d812352bd2372b14738779ad2fc95d1159b8676942b9.json"
+   }
+  },
+  {
+   "SOURCE_ID": "IT-T3-010",
+   "RUN_ID": "XX-T3-2026-09-18-134205-772b57c43c0130fe",
+   "ORDEM": 0,
+   "ITEM_ID": "derived:1",
+   "RAW_ASSET_ID": 1,
+   "RAW_SHA256": "2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a",
+   "STORAGE_OBJECT_PATH": "XX/it-t3-010/DOCUMENT/2ba23d223429131e-ude47533837d548b1-Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+   "DERIVED_ID": 1,
+   "DERIVED_TEXT_SHA256": "c6ddf5b9ab23ae150dc10e5837ec8de5e66bd94bc5e4d530b88eb59e7926f9ac",
+   "SALA_ID": {
+    "RUN_ID": "XX-T3-2026-09-18-134205-772b57c43c0130fe",
+    "ORDEM": 0
+   },
+   "SALA_TEXTO_SHA256": "3aecd222f072a217b9c3ad395a79b8e7ca97d9fae68997923d805e8a7b941e90",
+   "SALA_TEXTO_CHARS": 24744,
+   "BYTES_LOCAIS": true,
+   "BYTES_SHA_BATE": true,
+   "CROP_PRESENT_IN_BYTES": "SIM — cabeçalho de cultura na camada de texto",
+   "CROP_PRESENT_IN_EXTRACTED_TEXT": "SIM",
+   "CROP_PRESENT_IN_TABLE_STRUCTURE": "SIM",
+   "CROP_PRESENT_IN_DERIVED": "SIM",
+   "CROP_PRESENT_IN_ADMISSION": "NAO_SE_APLICA — o READY não tem campo de cultura; o grão é a secção",
+   "CROP_PRESENT_IN_SALA": "NAO_SE_APLICA — sem coluna; a Sala aponta por item_id=derived:N",
+   "CROP_VISIBLE_TO_INTELLIGENCE": "SIM — pela referência canónica (irmão 758)",
+   "CROP_LOSS_STAGE": "RECUPERADA — a derivação de secções existe e a Intelligence a alcança",
+   "SECOES_NO_TEXTO_DA_SALA": {
+    "SECOES": 7,
+    "EXPLICIT": 6,
+    "CONTEXT_ONLY": 1,
+    "UNKNOWN": 0,
+    "CROPS_EXPLICIT": [
+     "OLIVO"
+    ],
+    "CROPS_CONTEXT_ONLY": [
+     "MELO",
+     "OLIVO"
+    ]
+   },
+   "IRMAO_SECOES": {
+    "DERIVED_ID": 758,
+    "STORAGE_PATH": "NAO_SEI/derivados/TABLE_EXTRACTION/secoes-por-cultura-1-10e8c85c381fa922d50b7d65a60417a3955e94f37af534e3d7999fb8ffba73bc.json"
+   }
+  }
+ ]
+}

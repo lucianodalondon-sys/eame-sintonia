@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 u"""O PILOTO DA SALA — a Intelligence lê a Sala de Espera, e só ela.
 
-    MISSAO   C-INT-PILOT-SALA-V1
+    MISSAO   C-INT-PILOT-SALA-V1 · V2 · e a cirurgia C-CROP-E2E-V1 (v3)
     NATUREZA PILOTO ISOLADO, READ-ONLY. Não é Intelligence operacional.
 
 O QUE ESTE FICHEIRO É
@@ -42,14 +42,32 @@ A ENTRADA
 ---------
     SALA DE ESPERA        public.sala_de_espera   (contrato READY, COL-LAW-043)
     REFERÊNCIA FACTUAL    referencia/adama/       (owner próprio; leitura e citação)
+    SECÇÕES POR CULTURA   a derivação-irmã do MESMO item admitido, alcançada
+                          pela referência canónica que a Sala já carrega (v3)
 
 A referência ADAMA é ENTRADA B da Bíblia: a Intelligence pode ler e citar,
 nunca fabricar. Nenhuma linha deste ficheiro escreve em `referencia/`.
 
+⚠️ V3 — A CULTURA CHEGA, E CHEGA PELO PONTEIRO QUE A SALA JÁ TINHA
+--------------------------------------------------------------------
+A R2 mediu `CROP_LOST_IN_DERIVATION = 5/5` e escreveu: «ler a cultura do
+corpo do texto para fechar o join seria fabricar a chave». Continua verdade.
+O que mudou é que a Collection passou a preservar, como derivação do mesmo
+original, a associação CABEÇALHO DE CULTURA → BLOCO que o documento declara
+(`coleta/executor_secoes_por_cultura.py`). A Sala não muda: o grão da cultura
+é a SECÇÃO, e o item continua a ser o documento. O que a Intelligence segue é
+
+    sala.item_id = "derived:N" → derived_artifact N → parent_sha256
+      → derived_artifact(kind=TABLE_EXTRACTION, producer=secoes-por-cultura)
+
+Isto não relê RAW: lê uma derivação do item ADMITIDO, alcançada a partir da
+linha da Sala. Só secções `EXPLICIT` (cabeçalho nomeia a cultura) entram no
+gate; `CONTEXT_ONLY` («olivo» no corpo) e `UNKNOWN` continuam `NOT_POSSIBLE`.
+
 COMO CORRER
 -----------
     export PGPASSFILE=<pgpass do dono da Sala>
-    python3 provas/o_piloto_da_sala.py --dsn "$SALA_DSN"
+    python3 provas/o_piloto_da_sala.py --dsn "$SALA_DSN" --armazem <raiz>
     python3 provas/o_piloto_da_sala.py --dsn "$SALA_DSN" --desde 2026-09-20
 
 `--desde` é a FASE 14: processa só o que pousou depois do carimbo, sem
@@ -113,7 +131,8 @@ LIMIAR_FRACO = 5
 # Reprocessar com a mesma versão é ruído. Mudar a régua, o limiar ou o gate
 # muda a resposta — e aí reprocessar deixa de ser ruído e passa a ser dever.
 # Quem mexer em LIMIAR_AGRO, TERMOS_AGRO ou `cruzar()` tem de subir isto.
-PIPELINE_VERSION = "2"
+# v3: `cruzar()` passou a ler CROP da derivação de secções. Sobe.
+PIPELINE_VERSION = "3"
 
 # As famílias que se ESPERA que tragam cultura. Um edital de universidade não
 # tem cultura e isso não é defeito — por isso ele não entra no denominador.
@@ -129,6 +148,28 @@ SONDA_CROP = (
     "MAIS", "PATATA", "CAROTA", "BARBABIETOLA", "FRAGOLA", "COLZA",
     "NOCCIOLO", "MANDORLO", "CILIEGIO", "SUSINO", "ALBICOCCO", "CARCIOFO",
 )
+
+# ── A DERIVAÇÃO DE SECÇÕES: a referência canónica, e só ela ─────────────────
+# O nome do `kind` e do `producer` são os do executor que a escreve. Não se
+# repete a lógica dele aqui: lê-se o artefato que ele deixou.
+SECOES_KIND = "TABLE_EXTRACTION"
+SECOES_PRODUCER = "secoes-por-cultura"
+SECAO_EXPLICIT = "EXPLICIT"
+
+# ── OS TRÊS ESTADOS DO GATE DE CULTURA ──────────────────────────────────────
+CROP_AUTHORIZED = "AUTHORIZED"
+CROP_NOT_AUTHORIZED = "NOT_AUTHORIZED"
+CROP_UNKNOWN = "UNKNOWN"
+
+# ── OS ESTADOS DO CROSSING, E O QUE CADA UM NÃO É ───────────────────────────
+#   NOT_POSSIBLE       falta chave (cultura desconhecida, ou nem derivação)
+#   BLOCKED_BY_CROP    a cultura é conhecida e o rótulo ADAMA NÃO a autoriza
+#   CROP_GATE_PASSED   a cultura é conhecida e o rótulo a autoriza — e os
+#                      gates seguintes (REGION, FACT_TIME) continuam abertos.
+#                      NÃO é «possível», NÃO é oportunidade.
+NOT_POSSIBLE = "NOT_POSSIBLE"
+BLOCKED_BY_CROP = "BLOCKED_BY_CROP"
+CROP_GATE_PASSED = "CROP_GATE_PASSED"
 
 
 def normalizar(texto):
@@ -188,27 +229,76 @@ select coalesce(json_agg(t order by t.source_id, t.ordem), '[]'::json) from (
     return json.loads(_psql(dsn, sql).strip() or "[]")
 
 
-def medir_crop(item):
-    u"""O GARGALO DA PRIMEIRA RODADA, agora contado em vez de narrado.
+def ler_secoes_por_cultura(dsn, itens, armazem):
+    u"""A derivação-irmã de cada item admitido, pela REFERÊNCIA CANÓNICA.
 
-    Três estados, e são mesmo três:
+    Não é uma segunda entrada: é o mesmo item, visto por outra receita. A
+    consulta parte da LINHA DA SALA (`item_id = derived:N`) e só chega a
+    `derived_artifact` por esse ponteiro — nunca por sha do texto, que a
+    Bíblia mediu ambíguo, e nunca por caminho, nome ou fonte.
 
-        NOT_EXPECTED  a família não devia trazer cultura (edital, FAQ)
-        PRESENT       o campo CROP chegou estruturado à Sala
-        LOST          a cultura está no TEXTO, e não está em campo nenhum
+    Devolve {(RUN_ID, ORDEM): artefato JSON}. Sem `--armazem`, ou sem a
+    derivação, o item simplesmente não tem secções — e o gate diz NOT_POSSIBLE
+    pelo motivo antigo.
+    """
+    if not armazem or not itens:
+        return {}
+    alvo = {(i["run_id"], i["ordem"]) for i in itens
+            if i["source_id"].startswith(FAMILIAS_AGRO)}
+    if not alvo:
+        return {}
+    sql = """
+select coalesce(json_agg(t), '[]'::json) from (
+  select s.run_id, s.ordem, d.id as derived_id, i.id as secoes_id,
+         i.storage_path
+  from public.sala_de_espera s
+  join public.derived_artifact d on s.item_id = 'derived:' || d.id
+  join lateral (
+    select x.id, x.storage_path from public.derived_artifact x
+    where x.parent_sha256 = d.parent_sha256
+      and x.kind = '%s' and x.producer = '%s'
+    order by x.id desc limit 1) i on true
+  where s.source_id like 'IT-T3%%') t;
+""" % (SECOES_KIND, SECOES_PRODUCER)
+    fora = {}
+    for linha in json.loads(_psql(dsn, sql).strip() or "[]"):
+        chave = (linha["run_id"], linha["ordem"])
+        if chave not in alvo:
+            continue
+        caminho = os.path.join(armazem, linha["storage_path"])
+        if not os.path.isfile(caminho):
+            # A linha existe e o byte não. NÃO se inventa: fica sem secções,
+            # e o artefato diz porquê.
+            fora[chave] = {"_AUSENTE": caminho, "_SECOES_ID": linha["secoes_id"]}
+            continue
+        with open(caminho, encoding="utf-8") as fh:
+            dados = json.load(fh)
+        dados["_SECOES_ID"] = linha["secoes_id"]
+        dados["_DERIVED_ID"] = linha["derived_id"]
+        fora[chave] = dados
+    return fora
 
-    ⚠️ `LOST` é o achado, e não é o mesmo que ausência. Ausência seria a
-    cultura não existir no documento. `LOST` é ela existir, ter sido colhida,
-    ter sobrevivido até ao texto — e não ter campo onde pousar.
 
-        O DADO CHEGOU. A ESTRUTURA NÃO.
+def medir_crop(item, secoes=None):
+    u"""O GARGALO DA PRIMEIRA RODADA, contado — e na v3 com a quarta resposta.
+
+        NOT_EXPECTED         a família não devia trazer cultura (edital, FAQ)
+        PRESENT              a derivação de secções nomeia a cultura (EXPLICIT)
+        UNKNOWN_IN_DERIVED   a derivação existe e NÃO nomeia — só contexto ou
+                             nada (ARIF: a cultura é um ícone)
+        LOST_IN_DERIVATION   a cultura está no TEXTO, e não há derivação
+
+    ⚠️ `PRESENT` só quando um CABEÇALHO declara. Menção no corpo não promove,
+    e `UNKNOWN_IN_DERIVED` é a honestidade de dizer «olhei e não havia chave».
     """
     if not item["source_id"].startswith(FAMILIAS_QUE_ESPERAM_CROP):
         return "NOT_EXPECTED", []
-    # O contrato READY de 19 campos não tem CROP. Isto não é uma busca
-    # esperançosa: é a confirmação de que o campo não existe para ninguém.
-    if "crop" in item:
-        return "PRESENT", [item["crop"]]
+    if secoes and "SECOES" in secoes:
+        explicit = sorted({s["CROP_EXPLICIT"] for s in secoes["SECOES"]
+                           if s["STATUS"] == SECAO_EXPLICIT})
+        if explicit:
+            return "PRESENT", explicit
+        return "UNKNOWN_IN_DERIVED", []
     texto = normalizar(item["texto"])
     achadas = sorted({c for c in SONDA_CROP if c in texto})
     if achadas:
@@ -246,7 +336,8 @@ def ler_referencia_adama():
         portfolio = json.load(fh)
     with open(USOS, encoding="utf-8") as fh:
         bruto = json.load(fh)
-    usos = bruto.get("AUTHORIZED_USES") or list(bruto.values())[-1]
+    usos = bruto.get("AUTHORIZED_USES") or bruto.get("RECORDS") \
+        or list(bruto.values())[-1]
 
     vivos = [p for p in portfolio["produtos"] if p.get("vivo")]
     substancia_para_registos = {}
@@ -260,7 +351,95 @@ def ler_referencia_adama():
     return substancia_para_registos, usos, vivos
 
 
-def cruzar(itens, substancias, usos, vivos):
+def gate_de_cultura(crop, culturas_no_rotulo):
+    u"""O GATE DURO, agora com a chave a participar — e três respostas.
+
+        AUTHORIZED      a cultura da secção está entre as culturas do rótulo
+        NOT_AUTHORIZED  a cultura é conhecida e o rótulo NÃO a lista
+        UNKNOWN         não há cultura (secção CONTEXT_ONLY/UNKNOWN, ou item
+                        sem derivação) — e sem chave não há decisão
+
+    A equivalência é a IGUALDADE DE CHAVE, e só ela. `leis/regua_italia.py`
+    nomeia as culturas como o rótulo ADAMA as nomeia onde as duas se cruzam
+    (OLIVO, VITE, AGRUMI, MELO, PERO, POMODORO, PESCO, FRAGOLA, ACTINIDIA...);
+    o que não é igual não é equivalente (INT-LAW-081, INT-LAW-084). Chaves
+    genéricas da régua (GRANO_GEN, ORTICOLE) nunca casam, e é assim que deve
+    ser: «cereal» não é um rótulo.
+    """
+    if not crop:
+        return CROP_UNKNOWN
+    if culturas_no_rotulo is None:
+        return CROP_UNKNOWN
+    return CROP_AUTHORIZED if crop in set(culturas_no_rotulo) else CROP_NOT_AUTHORIZED
+
+
+def _crossing(item, substancia, registos, reg_para_nome, culturas_no_rotulo,
+              secao=None):
+    crop = secao["CROP_EXPLICIT"] if secao and secao["STATUS"] == SECAO_EXPLICIT else None
+    gate = gate_de_cultura(crop, culturas_no_rotulo)
+    if gate == CROP_AUTHORIZED:
+        estado = CROP_GATE_PASSED
+        presentes = ["ACTIVE_INGREDIENT", "CROP"]
+        faltam = ["REGION", "FACT_TIME"]
+        porque = ("a cultura da secção (%s) tem rótulo ADAMA para esta substância. "
+                  "O gate de cultura PASSOU; REGION e FACT_TIME continuam sem "
+                  "chave — o crossing não fecha, e isto não é oportunidade." % crop)
+    elif gate == CROP_NOT_AUTHORIZED:
+        estado = BLOCKED_BY_CROP
+        presentes = ["ACTIVE_INGREDIENT", "CROP"]
+        faltam = ["REGION", "FACT_TIME"]
+        porque = ("a cultura da secção (%s) NÃO está no rótulo ADAMA desta "
+                  "substância (%s). Bloqueado pela chave — que é o que o gate "
+                  "existe para fazer." % (crop, ", ".join(culturas_no_rotulo) or "—"))
+    else:
+        estado = NOT_POSSIBLE
+        presentes = ["ACTIVE_INGREDIENT"]
+        faltam = ["CROP", "REGION", "FACT_TIME"]
+        if secao is None:
+            porque = ("este item não tem derivação de secções; a Sala não carrega "
+                      "CROP e ler a cultura do corpo seria fabricar a chave "
+                      "(INT-LAW-037).")
+        else:
+            porque = ("a secção é %s: o documento não NOMEIA a cultura num "
+                      "cabeçalho (candidatos no corpo: %s). Sem chave declarada "
+                      "não há decisão." % (
+                          secao["STATUS"],
+                          ", ".join(c["CROP"] for c in secao["CROP_CONTEXT"]["CANDIDATES"]) or "nenhum"))
+    sufixo = ("-s%d" % secao["ORDEM"]) if secao is not None else ""
+    return {
+        "CROSSING_ID": "XC-%s-%s%s-%s" % (item["source_id"], item["ordem"], sufixo,
+                                          substancia[:12]),
+        "QUESTION": ("a substância que o boletim recomenda tem rótulo "
+                     "ADAMA autorizado para a cultura deste boletim?"),
+        "SOURCE_ITEM": {
+            "SOURCE_ID": item["source_id"],
+            "RUN_ID": item["run_id"],
+            "ORDEM": item["ordem"],
+            "RAW_OBSERVATION_ID": item["raw_observation_id"],
+        },
+        "SECTION": (None if secao is None else {
+            "ORDEM": secao["ORDEM"], "KIND": secao["KIND"],
+            "STATUS": secao["STATUS"], "CROP_EXPLICIT": secao["CROP_EXPLICIT"],
+            "CROP_TERM_AS_WRITTEN": secao["CROP_TERM_AS_WRITTEN"],
+            "PRECISION": secao["PRECISION"], "CERTEZA": secao["CERTEZA"],
+            "EVIDENCE_ANCHOR": secao["EVIDENCE_ANCHOR"],
+        }),
+        "ACTIVE_INGREDIENT_OBSERVED": substancia,
+        "ADAMA_REGISTRATIONS_WITH_THIS_AI": registos,
+        "ADAMA_PRODUCTS": sorted({reg_para_nome.get(r, "?") for r in registos}),
+        "ADAMA_CROPS_ON_LABEL": culturas_no_rotulo,
+        "CROP_KEY": crop,
+        "CROP_GATE": gate,
+        "JOIN_KEYS_REQUIRED": ["ACTIVE_INGREDIENT", "CROP", "REGION", "FACT_TIME"],
+        "JOIN_KEYS_PRESENT": presentes,
+        "JOIN_KEYS_MISSING": faltam,
+        "CROSSING_STATE": estado,
+        "WHY": porque,
+        "STATUS": "EVIDENCE_LINKED_OBSERVATION",
+    }
+
+
+def cruzar(itens, substancias, usos, vivos, secoes_por_item=None):
     u"""O CRUZAMENTO, e o gate que o mata quando ele não se sustenta.
 
     Aparecer a mesma palavra em dois documentos NÃO é crossing (INT-LAW-037).
@@ -269,63 +448,43 @@ def cruzar(itens, substancias, usos, vivos):
         esta substância, que o boletim recomenda,
         tem rótulo ADAMA AUTORIZADO para ESTA cultura?
 
-    ⚠️ E ELE FALHA FECHADO SEMPRE — O QUE NÃO É O MESMO QUE SABER DECIDIR.
-    A 2ª rodada mediu isto e corrigiu uma afirmação da 1ª: `cruzar()` nunca lê
-    cultura de lado nenhum. Ele declara `JOIN_KEYS_MISSING = [CROP, ...]`
-    incondicionalmente, porque o contrato READY não tem o campo — e por isso
-    devolve `NOT_POSSIBLE` mesmo quando a palavra «MELO» está escrita no texto.
+    ⚠️ ATÉ À V2 ELE FALHAVA FECHADO SEMPRE — E ISSO NÃO ERA SABER DECIDIR.
+    A 2ª rodada mediu (defeito D-01): `cruzar()` nunca lia cultura de lado
+    nenhum e devolvia `NOT_POSSIBLE` mesmo com «MELO» escrito no texto.
+    Recusar sempre pelo motivo certo != saber distinguir.
 
-        RECUSAR SEMPRE PELO MOTIVO CERTO  !=  SABER DISTINGUIR.
+    V3: a cultura entra pela derivação de secções do MESMO item admitido, e
+    só quando um CABEÇALHO a declara (`EXPLICIT`). O crossing passa a ser por
+    (item, secção, substância), com três saídas:
 
-    Isto é o comportamento correto hoje (INT-LAW-037: sem join key não há
-    crossing), e é honesto chamá-lo pelo nome: a decisão está **por construir**,
-    e só faz sentido construí-la quando `CROP` chegar como campo. Ler a cultura
-    do corpo do texto para fechar o join seria fabricar a chave — exatamente o
-    ataque que este gate existe para barrar.
+        CROP_GATE_PASSED   cultura no rótulo   → segue para o gate seguinte
+        BLOCKED_BY_CROP    cultura fora do rótulo → bloqueia
+        NOT_POSSIBLE       cultura desconhecida → sem decisão
+
+    Nenhuma das três é oportunidade. REGION e FACT_TIME continuam por chegar,
+    e `OPPORTUNITY_CANDIDATES` continua 0 enquanto não chegarem.
     """
+    secoes_por_item = secoes_por_item or {}
     reg_para_nome = {p["num_registrazione"]: p["produto"] for p in vivos}
     achados = []
     for item in sorted(itens, key=lambda x: (x["source_id"], x["ordem"])):
         if not item["source_id"].startswith(FAMILIAS_AGRO):
             continue
-        texto = normalizar(item["texto"])
-        for substancia in sorted(substancias):
-            if substancia not in texto:
-                continue
-            registos = sorted(substancias[substancia])
-            # O GATE DURO: cultura na Sala × cultura no rótulo.
-            # A Sala de hoje não traz CROP como campo. Enquanto não trouxer,
-            # este crossing não pode passar de candidato.
-            culturas_no_rotulo = sorted({
-                u["CROP_ON_LABEL"] for u in usos
-                if u["REGISTRATION_NUMBER"] in registos})
-            achados.append({
-                "CROSSING_ID": "XC-%s-%s-%s" % (
-                    item["source_id"], item["ordem"], substancia[:12]),
-                "QUESTION": ("a substância que o boletim recomenda tem rótulo "
-                             "ADAMA autorizado para a cultura deste boletim?"),
-                "SOURCE_ITEM": {
-                    "SOURCE_ID": item["source_id"],
-                    "RUN_ID": item["run_id"],
-                    "ORDEM": item["ordem"],
-                    "RAW_OBSERVATION_ID": item["raw_observation_id"],
-                },
-                "ACTIVE_INGREDIENT_OBSERVED": substancia,
-                "ADAMA_REGISTRATIONS_WITH_THIS_AI": registos,
-                "ADAMA_PRODUCTS": sorted(
-                    {reg_para_nome.get(r, "?") for r in registos}),
-                "ADAMA_CROPS_ON_LABEL": culturas_no_rotulo,
-                "JOIN_KEYS_REQUIRED": ["ACTIVE_INGREDIENT", "CROP", "REGION",
-                                       "FACT_TIME"],
-                "JOIN_KEYS_PRESENT": ["ACTIVE_INGREDIENT"],
-                "JOIN_KEYS_MISSING": ["CROP", "REGION", "FACT_TIME"],
-                "CROSSING_STATE": "NOT_POSSIBLE",
-                "WHY": ("a Sala não carrega CROP, FACT_LOCATION nem FACT_TIME "
-                        "para este item; sem a cultura do lado do boletim a "
-                        "pergunta não fecha. Casar por substância apenas seria "
-                        "crossing por semelhança (INT-LAW-037)."),
-                "STATUS": "EVIDENCE_LINKED_OBSERVATION",
-            })
+        secoes = secoes_por_item.get((item["run_id"], item["ordem"]))
+        unidades = ([(s, normalizar(s["TEXTO"])) for s in secoes["SECOES"]]
+                    if secoes and "SECOES" in secoes
+                    else [(None, normalizar(item["texto"]))])
+        for secao, texto in unidades:
+            for substancia in sorted(substancias):
+                if substancia not in texto:
+                    continue
+                registos = sorted(substancias[substancia])
+                # O GATE DURO: cultura da SECÇÃO × cultura no RÓTULO.
+                culturas_no_rotulo = sorted({
+                    u["CROP_ON_LABEL"] for u in usos
+                    if u["REGISTRATION_NUMBER"] in registos})
+                achados.append(_crossing(item, substancia, registos, reg_para_nome,
+                                         culturas_no_rotulo, secao))
     return achados
 
 
@@ -336,6 +495,8 @@ def main():
     parser.add_argument("--desde-artefato", dest="desde_artefato",
                         help="artefato da corrida anterior — CHECKPOINT por "
                              "identidade (RUN_ID, ORDEM). Vence --desde.")
+    parser.add_argument("--armazem", help="raiz do armazém onde vivem as "
+                                          "derivações de secções (v3)")
     parser.add_argument("--json", help="onde gravar o artefato")
     args = parser.parse_args()
 
@@ -367,11 +528,13 @@ def main():
                 % (versao_anterior, PIPELINE_VERSION))
 
     substancias, usos, vivos = ler_referencia_adama()
+    secoes_por_item = ler_secoes_por_cultura(args.dsn, itens, args.armazem)
 
     censo = []
     for item in itens:
         classe, porque, agro, admin = classificar(item)
-        estado_crop, culturas = medir_crop(item)
+        secoes = secoes_por_item.get((item["run_id"], item["ordem"]))
+        estado_crop, culturas = medir_crop(item, secoes)
         censo.append({
             "SOURCE_ID": item["source_id"],
             "RUN_ID": item["run_id"],
@@ -392,10 +555,16 @@ def main():
             "DENSIDADE_AGRO": agro,
             "DENSIDADE_ADMIN": admin,
             "CROP_STATE": estado_crop,
-            "CROP_OBSERVED_IN_TEXT": culturas,
+            "CROP_OBSERVED_IN_TEXT": (
+                culturas if estado_crop != "PRESENT"
+                else sorted({c for c in SONDA_CROP if c in normalizar(item["texto"])})),
+            "CROP_EXPLICIT": culturas if estado_crop == "PRESENT" else [],
+            "CROP_SECOES_DERIVED_ID": (secoes or {}).get("_SECOES_ID"),
+            "CROP_SECOES_RESUMO": (secoes or {}).get("RESUMO"),
+            "CROP_SECOES_BYTES_AUSENTES": (secoes or {}).get("_AUSENTE"),
         })
 
-    crossings = cruzar(itens, substancias, usos, vivos)
+    crossings = cruzar(itens, substancias, usos, vivos, secoes_por_item)
 
     # A contagem de independência. Texto idêntico NÃO é evidência nova
     # (INT-LAW-070..077): três source_id diferentes com o mesmo md5 são
@@ -436,6 +605,10 @@ def main():
         "TRAVA_DA_INTELIGENCIA": "COLLECTION_FOUNDATION_CLOSED = NAO",
         "ENTRADA_A": "public.sala_de_espera",
         "ENTRADA_B": "referencia/adama/ (lida e citada, nunca escrita)",
+        "ENTRADA_A_SECOES": (
+            "derivação-irmã do item admitido, por sala.item_id=derived:N -> "
+            "parent_sha256 -> derived_artifact(kind=%s, producer=%s); armazém=%s"
+            % (SECOES_KIND, SECOES_PRODUCER, args.armazem or "NAO DADO")),
         "FILTRO_INCREMENTAL": args.desde or "TODOS",
         "CHECKPOINT": {
             "MODO": ("IDENTIDADE (RUN_ID, ORDEM)" if args.desde_artefato
@@ -459,9 +632,11 @@ def main():
             1 for c in censo if c["CROP_STATE"] == "PRESENT"),
         "ITEMS_MISSING_CROP": sum(
             1 for c in censo if c["CROP_STATE"] in
-            ("LOST_IN_DERIVATION", "ABSENT_IN_TEXT")),
+            ("LOST_IN_DERIVATION", "ABSENT_IN_TEXT", "UNKNOWN_IN_DERIVED")),
         "CROP_LOST_IN_DERIVATION": sum(
             1 for c in censo if c["CROP_STATE"] == "LOST_IN_DERIVATION"),
+        "CROP_UNKNOWN_IN_DERIVED": sum(
+            1 for c in censo if c["CROP_STATE"] == "UNKNOWN_IN_DERIVED"),
         "DELTA_REDUNDANTE_VS_SALA": len(redundantes),
         "DELTA_REDUNDANTE_ITENS": redundantes,
         "SALA_INTEIRA_ITENS": len(todos),
@@ -476,12 +651,22 @@ def main():
         "FACT_CANDIDATES": 0,
         "FINDINGS": 0,
         "CROSSINGS_TENTADOS": len(crossings),
+        # «Possível» continua a querer dizer «todas as chaves presentes».
+        # Nenhum crossing chega lá: REGION e FACT_TIME não atravessam.
         "CROSSINGS_POSSIVEIS": sum(
-            1 for c in crossings if c["CROSSING_STATE"] != "NOT_POSSIBLE"),
+            1 for c in crossings if not c["JOIN_KEYS_MISSING"]),
+        "CROSSINGS_CROP_GATE_PASSED": sum(
+            1 for c in crossings if c["CROSSING_STATE"] == CROP_GATE_PASSED),
+        "CROSSINGS_BLOCKED_BY_CROP": sum(
+            1 for c in crossings if c["CROSSING_STATE"] == BLOCKED_BY_CROP),
+        "CROSSINGS_NOT_POSSIBLE": sum(
+            1 for c in crossings if c["CROSSING_STATE"] == NOT_POSSIBLE),
+        "CROSSING_STATES_OBSERVED": sorted({c["CROSSING_STATE"] for c in crossings}),
         "OPPORTUNITY_CANDIDATES": 0,
         "PORQUE_ZERO_OPPORTUNITY": (
-            "NO_DEFENSIBLE_ACTION_YET — nenhum crossing fechou join key. "
-            "Produzir oportunidade aqui seria fabricar."),
+            "NO_DEFENSIBLE_ACTION_YET — nenhum crossing fechou todas as join "
+            "keys (REGION e FACT_TIME continuam ausentes). Produzir oportunidade "
+            "aqui seria fabricar."),
         "CENSO": censo,
         "CROSSINGS": crossings,
     }
@@ -499,9 +684,17 @@ def main():
     print("ITEMS_WITH_CROP              = %d" % artefato["ITEMS_WITH_CROP"])
     print("CROP_LOST_IN_DERIVATION      = %d"
           % artefato["CROP_LOST_IN_DERIVATION"])
+    print("CROP_UNKNOWN_IN_DERIVED      = %d"
+          % artefato["CROP_UNKNOWN_IN_DERIVED"])
     print("DELTA_REDUNDANTE_VS_SALA     = %d"
           % artefato["DELTA_REDUNDANTE_VS_SALA"])
     print("CROSSINGS_TENTADOS           = %d" % artefato["CROSSINGS_TENTADOS"])
+    print("CROSSINGS_CROP_GATE_PASSED   = %d"
+          % artefato["CROSSINGS_CROP_GATE_PASSED"])
+    print("CROSSINGS_BLOCKED_BY_CROP    = %d"
+          % artefato["CROSSINGS_BLOCKED_BY_CROP"])
+    print("CROSSINGS_NOT_POSSIBLE       = %d"
+          % artefato["CROSSINGS_NOT_POSSIBLE"])
     print("CROSSINGS_POSSIVEIS          = %d" % artefato["CROSSINGS_POSSIVEIS"])
     print("OPPORTUNITY_CANDIDATES       = %d"
           % artefato["OPPORTUNITY_CANDIDATES"])
