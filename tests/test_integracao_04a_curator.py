@@ -249,18 +249,53 @@ class AEvidenciaDas18TemManifestoNoCaminhoCanonico(unittest.TestCase):
 
 
 class ACuradoriaERegistoNaoFerramenta(unittest.TestCase):
-    """`curadoria/` traz o registo da missão (JSON, MD); as ferramentas ficaram na branch.
+    """`curadoria/` traz o registo da missão (JSON, MD) e, desde a
+    SOURCE-CURATOR-INTEGRATION (2026-09-20), o MOTOR do ciclo de vida — nunca a
+    ferramenta manual de curadoria.
 
-    Medido na primeira bateria: `curadoria/gate_de_rota.py` era um segundo
+    Medido na primeira bateria (04A): `curadoria/gate_de_rota.py` era um segundo
     leitor de `robots.txt`, e `OPortaoDeTransporteTemUmDonoSo` só admite
     `coleta/scrap_http.py`. As ferramentas vivem em
-    `claude/bot-de-fontes-v2-plano @ 376c0d9b`.
+    `claude/bot-de-fontes-v2-plano @ 376c0d9b` e
+    `claude/source-curator-lifecycle-v1 @ d21e8e43`. O motor (livro, fila,
+    worker, interface, evidência, resemeador, canário pela porta do motor de
+    rota, provas) entrou com o portão de robots da casa — e é a lista fechada
+    abaixo. Código novo em `curadoria/` fora dela é ferramenta a entrar pela
+    porta errada.
     """
 
-    def test_nenhum_ficheiro_de_codigo_em_curadoria(self):
+    MOTOR = (
+        "lifecycle.py", "fila.py", "evidencia.py", "worker.py",
+        "interface_collection.py", "semear_lifecycle.py",
+        "estado_actual_das_fontes.mjs", "canario_do_motor.mjs",
+        "test_lifecycle.py", "test_interface_collection.py",
+        "provar_divisao.py", "provar_autonomia.py", "red_team_lifecycle.py",
+    )
+    FERRAMENTA_QUE_FICOU_NA_LANE = (
+        "gate_de_rota.py", "canario.py", "capturador.py", "caracterizador.py",
+        "amostrar.py", "atribuir_source_id.py", "consolidar.py",
+        "consolidar_caracterizacao.py", "correr_lote.py", "emparelhar_com_atlas.py",
+        "escrever_contratos.py", "escrever_no_atlas.py", "manifesto_da_evidencia.py",
+        "manifesto_das_amostras.py", "validar_contratos.py", "veredito_ready.py",
+        "provar_lifecycle.py", "test_capturador.py", "test_caracterizador.py",
+        "test_correr_lote.py",
+    )
+
+    def test_so_o_motor_e_codigo_em_curadoria(self):
         pasta = os.path.join(RAIZ, "curadoria")
         codigo = sorted(n for n in os.listdir(pasta) if n.endswith((".py", ".mjs", ".js", ".sh")))
-        self.assertEqual([], codigo)
+        self.assertEqual(sorted(self.MOTOR), codigo,
+                         "codigo em curadoria/ fora da lista fechada do motor")
+
+    def test_nenhuma_ferramenta_manual_da_lane_entrou(self):
+        pasta = os.path.join(RAIZ, "curadoria")
+        entraram = sorted(n for n in self.FERRAMENTA_QUE_FICOU_NA_LANE
+                          if os.path.exists(os.path.join(pasta, n)))
+        self.assertEqual([], entraram)
+        for n in self.MOTOR:
+            if n.endswith(".py"):
+                self.assertNotIn("RobotFileParser", _texto(os.path.join(pasta, n)),
+                                 "%s e um segundo leitor de robots" % n)
 
     def test_o_registo_essencial_esta_la(self):
         for nome in ("italy_contracts_curator.json", "READY-FOR-COLLECTION-V1.json",
