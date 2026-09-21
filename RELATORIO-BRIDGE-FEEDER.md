@@ -8,9 +8,11 @@ Data: 2026-09-21. Ambiente: Windows 11, bash MSYS, `py` = Python 3.12.
 
 ```
 INITIAL_HEAD                   = c3204e2a8b326521897242641f13ae13f0e54983
-FINAL_HEAD                     = f20aee15  (mapa regerado; o commit que fecha este
-                                 relatório fica por cima, ver §9)
-REMOTE_HEAD                    = (ver §9 — preenchido depois do push)
+FINAL_HEAD                     = bb2803308254fc5daf54e23d3facf9bfa3648a45  (código +
+                                 relatório + mapa; PORTOES_POS_COMMIT IGUAL)
+REMOTE_HEAD                    = bb2803308254fc5daf54e23d3facf9bfa3648a45  (git ls-remote
+                                 origin bridge-feeder-v1 depois do push; o commit que
+                                 fecha este relatório fica por cima e é o último push)
 WORKTREE_CLEAN                 = YES  (git status --porcelain vazio depois de cada commit)
 BRIDGE_INTEGRATED              = YES  (6 ficheiros inteiros + 2 testes isolados + 2 enxertos)
 FEEDER_INTEGRATED              = YES  (base = esta árvore; nada do feeder foi removido)
@@ -319,11 +321,14 @@ b6f92e1c supervisor: enxertar hook_fila_vazia em uma_volta_sup (de 63b71421) + G
 efdbae73 provas: G1 e G2 — a cadeia ponta a ponta em pasta descartavel
 879d7db2 guarda do isolamento: cobrir a porta, a ponte e a descoberta
 f20aee15 mapa: regerado pela cadeia canonica sobre a arvore do bridge-feeder (879d7db2)
+c2f25630 bridge-feeder: relatorio — gates G1..G7, livros congelados medidos, NOT_DONE_BY_DESIGN
+bb280330 mapa: regerado pela cadeia canonica sobre a arvore com o relatorio (c2f25630)
 ```
 
-G7: `correr_a_cadeia.py REGERAR` 20/20 `CADEIA=OK`; `VALIDAR` 22 provas PASS,
-`SYSTEM_MAP_CHECK=PASS`; `PORTOES_POS_COMMIT` `IMPRESSAO_DO_CARIMBO=IGUAL`
-(carimbo `214a3acc…`). Peças novas reivindicadas pelo mapa: os 6 ficheiros do
+G7, corrido duas vezes (sobre 879d7db2 e, depois de o relatório mover a
+impressão da árvore, sobre c2f25630): `correr_a_cadeia.py REGERAR` 20/20
+`CADEIA=OK`; `VALIDAR` 22 provas PASS, `SYSTEM_MAP_CHECK=PASS`;
+`PORTOES_POS_COMMIT` `IMPRESSAO_DO_CARIMBO=IGUAL` em f20aee15 e em bb280330. Peças novas reivindicadas pelo mapa: os 6 ficheiros do
 bridge e os 3 testes novos. O censo de endereços subiu de 319 para 439 porque
 `descobrir.py` traz um catálogo de 74 URLs — não porque alguém tenha chamado
 mais endereços.
@@ -332,9 +337,10 @@ Testes por ficheiro (234): supervisor 30 (24 + 6) · discovery 28 · ponte 22 ·
 painel_discovery 6 · ponte_cadeia 4 · zz_guarda 5 (3 + 2) · os restantes 139
 como no baseline. Nenhum dos 12 testes P1 morreu (suíte verde, 0 falhas).
 
-O commit que fecha este relatório fica por cima de `f20aee15`; o carimbo do mapa
-aponta para `f20aee15` de propósito (só este ficheiro muda). `REMOTE_HEAD` é
-escrito depois do push, no fecho.
+O commit que fecha este relatório (escreve FINAL_HEAD e REMOTE_HEAD) fica por
+cima de `bb280330` e só muda este ficheiro; o carimbo do mapa aponta para
+`bb280330` de propósito — regerar o mapa por causa do fecho pediria outro
+fecho, sem fim. Mesma convenção das provas P1 (c3204e2a sobre 4821e293).
 
 ---
 
