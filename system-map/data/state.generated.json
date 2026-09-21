@@ -29,6 +29,7 @@
       "RELATORIO-BRIDGE-FEEDER.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-PROVAS-P1.md",
+      "RELATORIO-RECONCILIACAO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -299,6 +300,7 @@
       "curadoria/READY-SPLIT-V1.json",
       "curadoria/REAL-EXAMPLE-INDEX-V1.json",
       "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+      "curadoria/RECONCILIACAO-V1.json",
       "curadoria/RELATORIO-MISSAO-02.md",
       "curadoria/RELATORIO-MISSAO-03.md",
       "curadoria/SAMPLE-MANIFEST-V1.json",
@@ -341,6 +343,7 @@
       "curadoria/provar_supervisor.py",
       "curadoria/ready_split.py",
       "curadoria/reconciliar.py",
+      "curadoria/reconciliar_livros.py",
       "curadoria/red_team_lifecycle.py",
       "curadoria/retrato_html.py",
       "curadoria/semear_lifecycle.py",
@@ -360,6 +363,7 @@
       "curadoria/test_ponte_cadeia.py",
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_ready_split.py",
+      "curadoria/test_reconciliar_livros.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_worker_volta_sobrevive.py",
@@ -2803,10 +2807,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "bridge-feeder-v1",
-    "HEAD": "c2f25630c8dd0c1b9c53ef4be53bb7796ac3070e",
-    "GENERATED_AT": "2026-09-21T11:13:17-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91e02a86a4472a3051262f070c797454513937dc56f4fcb563607944d8bf5a2e"
+    "BRANCH": "reconciliacao-v1",
+    "HEAD": "3168b9d1740babca7c80c2ce41826118a6e84cb1",
+    "GENERATED_AT": "2026-09-21T12:38:55-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c4d6e539736d82964c9b80584b71a7ccbd09d8153a553dfa160a5e7c2edff0ab"
   },
   "FAMILIES": [
     {
@@ -4288,8 +4292,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 439",
-        "desses, mostrados aqui: 40 (ficam de fora 399)"
+        "enderecos que o codigo realmente chama: 441",
+        "desses, mostrados aqui: 40 (ficam de fora 401)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -40529,7 +40533,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch bridge-feeder-v1"
+        "branch reconciliacao-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -97510,7 +97514,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1193,
+  "UNCLAIMED_FILES_COUNT": 1197,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97699,7 +97703,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2210,
+    "files_tracked": 2214,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

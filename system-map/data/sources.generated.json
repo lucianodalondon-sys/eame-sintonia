@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-21T14:17:16+00:00",
-    "HEAD": "c2f25630c8dd0c1b9c53ef4be53bb7796ac3070e",
+    "GENERATED_AT": "2026-09-21T15:43:08+00:00",
+    "HEAD": "3168b9d1740babca7c80c2ce41826118a6e84cb1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "91e02a86a4472a3051262f070c797454513937dc56f4fcb563607944d8bf5a2e",
-    "FICHEIROS_NA_IMPRESSAO": 2358,
+    "SOURCE_TREE_FINGERPRINT": "c4d6e539736d82964c9b80584b71a7ccbd09d8153a553dfa160a5e7c2edff0ab",
+    "FICHEIROS_NA_IMPRESSAO": 2362,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -18188,6 +18188,23 @@
       ]
     },
     {
+      "endpoint": "https://ex.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_canario_detalhe.py",
+          "line": 32
+        },
+        {
+          "file": "curadoria/test_ready_split.py",
+          "line": 65
+        },
+        {
+          "file": "curadoria/test_reconciliar_livros.py",
+          "line": 44
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/",
       "usado_por": [
         {
@@ -18446,19 +18463,6 @@
       ]
     },
     {
-      "endpoint": "https://ex.it/news",
-      "usado_por": [
-        {
-          "file": "curadoria/test_canario_detalhe.py",
-          "line": 32
-        },
-        {
-          "file": "curadoria/test_ready_split.py",
-          "line": 65
-        }
-      ]
-    },
-    {
       "endpoint": "https://exemplo.it/notizie",
       "usado_por": [
         {
@@ -18524,9 +18528,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 439,
+  "ENDPOINTS_FOUND": 441,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 399,
+  "ENDPOINTS_TRUNCATED": 401,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -18544,9 +18548,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 439,
+    "endpoints": 441,
     "endpoints_published": 40,
-    "endpoints_truncated": 399,
+    "endpoints_truncated": 401,
     "candidates": 241,
     "coletores": 52,
     "coletores_com_data": 20,
