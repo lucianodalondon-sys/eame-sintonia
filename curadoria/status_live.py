@@ -26,6 +26,8 @@ import lifecycle as LC               # noqa: E402
 
 SAIDA = RAIZ / "curadoria" / "SOURCE-CURATOR-STATUS-LIVE.json"
 LOTES = RAIZ / "curadoria" / "READY-BATCHES-V1.json"
+# A prova da ultima corrida do motor de descoberta (curadoria/descobrir.py).
+DISCOVERY_PROOF = RAIZ / "curadoria" / "DISCOVERY-PROOF-V1.json"
 
 # Importacao tardia para evitar ciclo: supervisor importa fila, nao status_live.
 def _estado_servico() -> dict:
@@ -49,6 +51,43 @@ def _nivel_da_fila() -> dict:
     except Exception as e:
         return {"CANDIDATE_BACKLOG": "NAO SEI", "CANDIDATE_LOW_WATERMARK": "NAO SEI",
                 "DISCOVERY_SIGNAL": "NAO SEI: %s" % type(e).__name__}
+
+
+def _status_discovery() -> dict:
+    """Os quatro campos da descoberta, LIDOS da prova da ultima corrida.
+
+    Enxerto de candidate-bridge-v1 (63b71421) sem os literais: la, o ramo
+    `except` devolvia CANDIDATES_TOTAL = 0 e READY_LEGACY = 18 escritos a
+    mao — um zero que parece medicao e um 18 que nao acompanha o livro. Aqui
+    nao ha numero que nao venha do ficheiro; sem ficheiro e NUNCA, ficheiro
+    ilegivel e «NAO SEI: <Excecao>». A idade da corrida vai ao lado.
+
+    A descoberta nao e um servico com processo: e uma corrida que deixa uma
+    prova. DISCOVERY_SERVICE diz isso — NOT_RUN ou RAN — e nunca ACTIVE.
+    """
+    try:
+        if not DISCOVERY_PROOF.exists():
+            return {"DISCOVERY_SERVICE": "NOT_RUN",
+                    "LAST_DISCOVERY_RUN": "NUNCA",
+                    "LAST_DISCOVERY_RUN_AGE_H": "NUNCA",
+                    "CANDIDATES_NEW": "NUNCA",
+                    "DEDUP_REJECTED": "NUNCA"}
+        p = json.loads(DISCOVERY_PROOF.read_text(encoding="utf-8"))
+        corrida = p["CORRIDA_EM"]
+        idade_h = round((datetime.now(timezone.utc)
+                         - datetime.fromisoformat(corrida)).total_seconds() / 3600, 1)
+        return {"DISCOVERY_SERVICE": "RAN",
+                "LAST_DISCOVERY_RUN": corrida,
+                "LAST_DISCOVERY_RUN_AGE_H": idade_h,
+                "CANDIDATES_NEW": p["NOVEL_CANDIDATES"],
+                "DEDUP_REJECTED": p["DUPLICATES_REJECTED"]}
+    except Exception as e:  # noqa: BLE001 — o painel nao rebenta, diz NAO SEI
+        nao_sei = "NAO SEI: %s" % type(e).__name__
+        return {"DISCOVERY_SERVICE": nao_sei,
+                "LAST_DISCOVERY_RUN": nao_sei,
+                "LAST_DISCOVERY_RUN_AGE_H": nao_sei,
+                "CANDIDATES_NEW": nao_sei,
+                "DEDUP_REJECTED": nao_sei}
 
 
 def status() -> dict:
@@ -124,6 +163,9 @@ def status() -> dict:
         # O GATILHO DE FILA BAIXA (PASSO 8): quantas candidatas ainda podem
         # virar trabalho automatico, e se ja e preciso pedir descoberta.
         **_nivel_da_fila(),
+
+        # A ULTIMA CORRIDA DA DESCOBERTA: lida da prova, nunca escrita a mao.
+        **_status_discovery(),
 
         "POR_ESTADO": {k: v for k, v in LC.metricas().items() if v},
     }
