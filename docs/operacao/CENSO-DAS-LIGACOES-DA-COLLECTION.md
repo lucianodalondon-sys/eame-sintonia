@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  83385fe7d41b09060c6fbbafaa41cf2c90a7f7b7
+HEAD_DA_MEDICAO  b3099bd51b24b4a70d133376aaa0020c3d459958
 BRANCH           aquisicao-detalhe-v1
-GERADO_EM        2026-09-20T22:06:04-03:00
+GERADO_EM        2026-09-20T22:44:33-03:00
 CARDS            80
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -327,7 +327,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `coleta/adaptadores_de_aquisicao.mjs`, `coleta/adaptadores_de_aquisicao_test.mjs`, `coleta/canario_youtube_canonico.mjs`, `coleta/italy_executor.py`, `coleta/italy_find_docs.mjs` _(e mais 3)_ |
+| **peça real** | `coleta/adaptadores_de_aquisicao.mjs`, `coleta/adaptadores_de_aquisicao_test.mjs`, `coleta/canario_youtube_canonico.mjs`, `coleta/italy_executor.py`, `coleta/italy_find_docs.mjs` _(e mais 4)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
@@ -693,7 +693,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | curadoria/interface_collection.py:45; curadoria/provar_autonomia.py:34; curadoria/red_team_lifecycle.py:93 |
 | **porquê** | estas pecas importam-na — C-CURATOR-ESTADO-ACTUAL · C-CURATOR-INTERFACE · C-CURATOR-PROVAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `coleta/adaptadores_de_aquisicao.mjs`, `curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json`, `curadoria/LIFECYCLE-EVIDENCE-V1.json` |
+| **o que entra · ficheiros** | `coleta/adaptadores_de_aquisicao.mjs`, `coleta/retrato_html.mjs`, `curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 6 · saem 6 |
@@ -1150,7 +1150,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_html.py:230; coleta/executor_transcricao_midia.py:303; guarda/memoria_descartavel.py:43 |
+| **prova de quem ativa** | coleta/executor_texto_de_html.py:275; coleta/executor_transcricao_midia.py:303; guarda/memoria_descartavel.py:43 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
