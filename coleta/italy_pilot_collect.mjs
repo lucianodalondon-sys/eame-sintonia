@@ -75,6 +75,43 @@ const SOURCE_DOCUMENT = "SOURCE_DOCUMENT";
 
 export const PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004", "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"];
 
+// ── A CAPACIDADE, LIDA DO CONTRATO ─────────────────────────────────────────
+// Enxertado de `aquisicao-detalhe-v1` na CANONICAL-MICRO-V1 (2026-09-21), a
+// mao e so este bloco: aquele ramo NAO tem o portao de admissao, e trazer o
+// ficheiro inteiro apagava 234 linhas daqui.
+//
+// `PILOT_SOURCES` e HISTORIA: as sete que o piloto percorreu por `case`, e
+// fica escrita porque o ledger e as guardas contam com ela. A capacidade de
+// HOJE nao se digita — le-se do contrato: sabe-se percorrer quem declara
+// `ACQUISITION`. Foi a falta disto que fez a CLI recusar `IT-T3-011` como
+// FONTE_DESCONHECIDA com contrato executavel escrito e site a responder.
+//
+//     CAPACIDADE DIGITADA E CAPACIDADE DE ONTEM.
+//
+// ⚠️ E UMA LISTA DE CAPACIDADE, NUNCA UMA LISTA DE PERMISSAO. Medido nesta
+// missao: das 8 fontes que o portao admite, 7 estao aqui e IT-T5-041 nao —
+// e das 186 que estao aqui, 178 o portao RECUSA. Os dois conjuntos cruzam-se
+// e nenhum contem o outro.
+//
+//     CAPACIDADE NAO E APROVACAO. Quem decide se se vai e
+//     `curadoria/collection_gate.py`, perguntado por
+//     `coleta/italy_executor.py::admissao_do_curator` ANTES deste processo
+//     sequer arrancar. Esta constante so responde «sei o caminho».
+//
+// ⚠️ A UNIAO DOS DOIS CAMINHOS, E NAO SO UM. O despachante de alvos tem
+// exactamente duas portas — `if (c && c.ACQUISITION) -> motor declarativo`,
+// `else -> switch (sourceId)`. A capacidade e a UNIAO das duas. Ler so a
+// primeira, como o ramo de origem faz, mede uma casa onde os sete `case` ja
+// tinham `ACQUISITION` escrito a mao; nesta linha nao tem, e a copia literal
+// deste bloco fazia a CLI recusar as SETE fontes do piloto que funcionam —
+// medido: 0 de 7 percorriveis. Uma lista de capacidade que esquece metade do
+// despachante nao e mais honesta que uma lista digitada: e a mesma mentira,
+// derivada.
+export const FONTES_PERCORRIVEIS = Object.freeze([...new Set([
+  ...Object.keys(CONTRACTS).filter((sid) => CONTRACTS[sid] && CONTRACTS[sid].ACQUISITION),
+  ...PILOT_SOURCES,   // as sete do `switch`, que nao declaram ACQUISITION
+])]);
+
 const sha = b => createHash("sha256").update(b).digest("hex");
 const agora = () => new Date().toISOString();
 
@@ -640,10 +677,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
                   + "candidata IT-T3-005, que nao esta no Atlas.");
     process.exit(2);
   }
-  const desconhecidas = fontes.filter(f => !PILOT_SOURCES.includes(f));
+  const desconhecidas = fontes.filter(f => !FONTES_PERCORRIVEIS.includes(f));
   if (desconhecidas.length) {
     console.error(`FONTE_DESCONHECIDA: ${desconhecidas.join(", ")} — este coletor `
-                  + `percorre ${PILOT_SOURCES.join(", ")}. Nao se finge que correu.`);
+                  + `percorre ${FONTES_PERCORRIVEIS.length} fontes com ACQUISITION `
+                  + `declarado. Nao se finge que correu.`);
     process.exit(2);
   }
   const { resumo, detalhes } = await executarRodada({
