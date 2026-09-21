@@ -747,8 +747,8 @@ class TestExtrairSementesLegitimas(unittest.TestCase):
 
     def test_contagem_sementes_legitimas(self):
         sementes = D._extrair_sementes_legitimas()
-        self.assertEqual(len(sementes), 29,
-                         "FASE 0 mediu 29 sementes legitimas")
+        self.assertEqual(len(sementes), 33,
+                         "ADDENDUM-02 acrescentou 4 sementes TEMATICAS novas (assam.marche.it ja existia via Instagram); total 33")
 
 
 class TestFiltrarLinkRA(unittest.TestCase):
@@ -885,6 +885,74 @@ class TestRedTeamFiltroRB(unittest.TestCase):
         ok, motivo = D._filtrar_link(self.ARTIGO_URL, self.BASE)
         self.assertFalse(ok, "RB restaurado deve reprovar o artigo")
         self.assertEqual(motivo, "RB_ARTIGO_INDIVIDUAL")
+
+
+class TestClassificarSemente(unittest.TestCase):
+    """_classificar_semente — regra DECLARADA e TESTAVEL (ADDENDUM-02 tarefa 1)."""
+
+    def test_crea_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.crea.gov.it/centri-di-ricerca")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_arpae_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.arpae.it/")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_agri_subdominio_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://agri.regione.emilia-romagna.it/")
+        self.assertEqual(tipo, "TEMATICA",
+                         "subdominio agri. e sempre TEMATICA")
+
+    def test_arsacweb_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.arsacweb.it/")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_portal_regional_raiz_e_generica(self):
+        tipo, motivo = D._classificar_semente("https://www.regione.calabria.it/")
+        self.assertEqual(tipo, "GENERICA")
+        self.assertIn("portal_regional", motivo)
+
+    def test_portal_regional_path_agri_continua_generica(self):
+        """Mesmo com /settore-agricolo, o portal regional e GENERICA (colheita provou 0 agro)."""
+        tipo, _ = D._classificar_semente(
+            "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/"
+            "DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo"
+        )
+        self.assertEqual(tipo, "GENERICA",
+                         "portal regional e GENERICA mesmo com path agricolo")
+
+    def test_coldiretti_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.coldiretti.it/")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_cnr_e_unknown(self):
+        tipo, _ = D._classificar_semente("https://www.cnr.it/it/istituto?cds=0")
+        self.assertEqual(tipo, "UNKNOWN",
+                         "CNR tem escopo amplo — nao e decidivel pelo dominio")
+
+
+class TestRedTeamClassificarSemente(unittest.TestCase):
+    """RED TEAM: mutar _classificar_semente para TEMATICA e provar que semente
+    GENERICA entraria no loop — o que e o BUG que o ADDENDUM-02 identificou."""
+
+    URL_GENERICA = "https://www.regione.calabria.it/"
+
+    def test_red_team_mute_generica_passa_como_tematica(self):
+        """Com classificacao mutada (sempre TEMATICA), semente GENERICA nao e filtrada."""
+        orig = D._classificar_semente
+        D._classificar_semente = lambda url: ("TEMATICA", "muted")
+        try:
+            tipo, _ = D._classificar_semente(self.URL_GENERICA)
+            self.assertEqual(tipo, "TEMATICA",
+                             "mutacao deve declarar TEMATICA mesmo para semente GENERICA (BUG)")
+        finally:
+            D._classificar_semente = orig
+
+    def test_red_team_restaurado_reprova_generica(self):
+        """Com classificacao restaurada, homepage regional e corretamente GENERICA."""
+        tipo, _ = D._classificar_semente(self.URL_GENERICA)
+        self.assertEqual(tipo, "GENERICA",
+                         "classificacao real deve detectar portal regional como GENERICA")
 
 
 if __name__ == "__main__":

@@ -106,7 +106,7 @@ CTX.check_hostname = False
 CTX.verify_mode    = ssl.CERT_NONE
 
 # Limites da FASE 3
-MAX_PEDIDOS_TOTAIS       = 300
+MAX_PEDIDOS_TOTAIS       = 250
 MAX_PEDIDOS_POR_DOMINIO  = 10
 MAX_SEMENTES_ESTA_CORRIDA = 15
 PROFUNDIDADE_MAX          = 1
@@ -191,6 +191,43 @@ CATALOGO_ITALIA: list[dict] = [
      "url": "https://www.arsacweb.it/",
      "para_que": "bollettini difesa e supporto tecnico agri Calabria",
      "discovered_from": "https://www.regione.calabria.it/",
+     "method": "directorio_curado"},
+
+    # ---- sub-entradas para expor dominios TEMATICOS como sementes ----
+    # discovered_from != url -> dominio raiz entra em _extrair_sementes_legitimas()
+    {"familia": "BOLETINS_AGRONOMICOS", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ARSAC Calabria — bollettini di difesa integrata",
+     "url": "https://www.arsacweb.it/difesa-integrata/",
+     "para_que": "bollettini tecnici di difesa integrata colture ARSAC Calabria",
+     "discovered_from": "https://www.arsacweb.it/",
+     "method": "directorio_curado"},
+
+    {"familia": "BOLETINS_AGRONOMICOS", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ASSAM Marche — agrometeo e difesa colture",
+     "url": "https://www.assam.marche.it/index.php/agromet",
+     "para_que": "dati agro-meteorologici e bollettini difesa colture ASSAM Marche",
+     "discovered_from": "https://www.assam.marche.it/",
+     "method": "directorio_curado"},
+
+    {"familia": "BOLETINS_AGRONOMICOS", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "Agriliguria.net — difesa integrata colture Liguria",
+     "url": "https://www.agriliguria.net/difesa-integrata/",
+     "para_que": "bollettini difesa integrata e avvisi fitosanitari Liguria",
+     "discovered_from": "https://www.agriliguria.net/",
+     "method": "directorio_curado"},
+
+    {"familia": "AGROMETEOROLOGIA_CLIMA", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ARPA Lombardia — sezione agrometeorologia",
+     "url": "https://www.arpalombardia.it/settori/agrometeorologia/",
+     "para_que": "dati agro-meteorologici per uso agricolo Lombardia",
+     "discovered_from": "https://www.arpalombardia.it/",
+     "method": "directorio_curado"},
+
+    {"familia": "AGROMETEOROLOGIA_CLIMA", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ARPAT Toscana — notizie ambientali e agro",
+     "url": "https://www.arpat.toscana.it/notizie-e-comunicati/",
+     "para_que": "bollettini ambientali e agro-meteorologici ARPAT Toscana",
+     "discovered_from": "https://www.arpat.toscana.it/",
      "method": "directorio_curado"},
 
     {"familia": "BOLETINS_AGRONOMICOS", "tipo": "IMPRENSA", "pais": "IT",
@@ -971,6 +1008,83 @@ _RE_ISTITUZIONALE_HOST = re.compile(
     re.I
 )
 
+# ---- Classificacao de sementes: TEMATICA / GENERICA / UNKNOWN ----
+#
+# REGRA DECLARADA (testavel):
+# TEMATICA — dominio pertence exclusivamente a escopo agricola/ambiental:
+#   agencias agro-ambientais, imprensa agricola, associacoes do setor, ou
+#   o subdominio comeca por agri. / agricoltura. / fitosanitario.
+# GENERICA — portal de governo regional (regione.*.it): escopo generico;
+#   a colheita provou 3.7% de sinal agro independentemente do path.
+# UNKNOWN — nao se consegue decidir sem analisar o conteudo da pagina.
+
+_SEMENTE_TEMATICA_DOMINIOS: frozenset = frozenset([
+    # Agencias agro-ambientais
+    "arpae.it", "arsacweb.it", "agriliguria.net", "assam.marche.it",
+    "agea.gov.it", "ismea.it", "crea.gov.it",
+    "meteotrentino.it", "arpal.liguria.it", "arpalombardia.it",
+    "arpat.toscana.it", "arpa.marche.it", "arpalazio.it",
+    "fitosanitario.venezia.it", "fitosanitario.regione.lombardia.it",
+    # Imprensa agricola
+    "agronotizie.imagelinenetwork.com", "terraevita.it",
+    "informatoreagrario.it", "colturaecultura.it",
+    "vitaincampagna.it", "agribusiness.it", "sherwood.it",
+    # Associacoes e cooperativas agricolas
+    "coldiretti.it", "confagricoltura.it", "cia.it",
+    "copagri.it", "anbi.it", "assosementi.it", "confai.it",
+    "agrofarma.federchimica.it",
+    "fedagripesca.confcooperative.it",
+    "granlatte.it", "unaitalia.com", "unaproa.it",
+    # Industria/mercado agricola
+    "federunacoma.it", "assofertilizzanti.federchimica.it",
+    "uiv.it", "nomisma.it", "granariamilano.org",
+    # Nacional agricola
+    "politicheagricole.it",
+])
+
+_RE_SEMENTE_TEMATICA_SUBDOMINIO = re.compile(
+    r"^(?:agri|agricoltura|fitosanitario)\.", re.I
+)
+
+_RE_SEMENTE_GENERICA_DOMINIO = re.compile(
+    r"^(?:www\.)?regione\.[a-z-]+\.it$", re.I
+)
+
+# Sinal agro no dominio de uma candidata (nao da semente): preserva candidata
+# descoberta mesmo quando a semente era GENERICA.
+_RE_DOMINIO_AGRO_SINAL = re.compile(
+    r"(?:^|\.)(?:agri[a-z]*|agricoltura|fitosanitario|arsac|assam|acamir|"
+    r"agea|ismea|arpae|arpa[a-z]*|agronotizie|colturaecultura|vitaincampagna|"
+    r"informatoreagrario|terraevita|agribusiness|sherwood|coldiretti|"
+    r"confagricoltura|nomisma|granaria|unaproa|fedagripesca|"
+    r"arsacweb|agriliguria)",
+    re.I
+)
+
+
+def _classificar_semente(url: str) -> tuple[str, str]:
+    """Classifica uma semente como TEMATICA, GENERICA ou UNKNOWN.
+
+    REGRA DECLARADA — ver constantes acima. Testavel via TestClassificarSemente.
+    """
+    try:
+        host = urllib.parse.urlparse(url).netloc.lower()
+        host_sem_www = re.sub(r"^www\.", "", host)
+    except Exception:
+        return "UNKNOWN", "erro_a_parsear_url"
+
+    if _RE_SEMENTE_TEMATICA_SUBDOMINIO.match(host_sem_www):
+        return "TEMATICA", "subdominio_agricola_%s" % host_sem_www
+
+    for dom in _SEMENTE_TEMATICA_DOMINIOS:
+        if host_sem_www == dom or host_sem_www.endswith("." + dom):
+            return "TEMATICA", "dominio_tematico_%s" % dom
+
+    if _RE_SEMENTE_GENERICA_DOMINIO.match(host):
+        return "GENERICA", "portal_regional_%s" % host_sem_www
+
+    return "UNKNOWN", "escopo_nao_verificavel_%s" % host_sem_www
+
 
 def _host_de(url: str) -> str:
     try:
@@ -1185,6 +1299,8 @@ def crawl_sementes(
     stats: dict = {
         "SEMENTES_DISPONIVEIS": len(todas_sementes),
         "SEMENTES_A_USAR": len(sementes_a_usar),
+        "SEMENTES_TEMATICAS_USADAS": 0,
+        "SEMENTES_GENERICAS_RECUSADAS": 0,
         "SEMENTES_USADAS": 0,
         "PAGINAS_BUSCADAS": 0,
         "LINKS_EXTRAIDOS_TOTAL": 0,
@@ -1199,6 +1315,17 @@ def crawl_sementes(
 
     for semente in sementes_a_usar:
         semente_norm = normalizar(semente)
+
+        # Classificar semente ANTES de qualquer pedido de rede.
+        # TEMATICA: escopo agricola/ambiental confirmado -> rastejar.
+        # GENERICA/UNKNOWN: escopo nao-agricola ou desconhecido -> saltar.
+        tipo_semente, motivo_semente = _classificar_semente(semente)
+        if tipo_semente != "TEMATICA":
+            stats["SEMENTES_GENERICAS_RECUSADAS"] += 1
+            log.append({"semente": semente, "acao": "SEMENTE_%s" % tipo_semente,
+                        "motivo": motivo_semente})
+            continue
+        stats["SEMENTES_TEMATICAS_USADAS"] += 1
 
         if semente_norm in visitados.get("VISITADOS", {}):
             log.append({"semente": semente, "acao": "SEMENTE_JA_VISITADA"})
@@ -1439,6 +1566,157 @@ def recusar_candidatas_lixo() -> dict:
     }
 
 
+def _e_fora_de_dominio_agro(url: str) -> tuple[bool, str]:
+    """Verifica se uma URL pertence categoricamente a um dominio nao-agricola.
+
+    REGRA DECLARADA (6 categorias):
+    (1) orgaos legislativos/executivos nacionais
+    (2) saude publica italiana (sanita, fascicolo, prenota, cup)
+    (3) fiscalidade automovel (bollo-auto, tassa-automobil, pagopa.regione)
+    (4) seletores de idioma-servico (@@multilingual-selector, update_language)
+    (5) orgaos de cidadao obrigatorios (urp, ufficio-relazioni, anticorruzione,
+        deliberegiunta, giunta [path raiz], strutture-regionali)
+    (6) eleicoes, portais culturais e juventude sem componente agri
+    """
+    try:
+        parsed = urllib.parse.urlparse(url)
+        host = parsed.netloc.lower()
+        host_sem_www = re.sub(r"^www\.", "", host)
+        path = parsed.path.lower()
+        query = parsed.query.lower()
+    except Exception:
+        return False, ""
+
+    first_sub = host_sem_www.split(".")[0] if "." in host_sem_www else ""
+
+    # (1) Orgaos nacionais fora da regiao
+    for dom_nac in ("senato.it", "camera.it", "governo.it", "europarl.europa.eu"):
+        if host_sem_www == dom_nac or host_sem_www.endswith("." + dom_nac):
+            return True, "ORGAO_LEGISLATIVO_NACIONAL"
+
+    # (2) Saude publica
+    if any(p in host_sem_www for p in ("ecosanita.", "fascicolosanitario.", "sanibook.")):
+        return True, "SERVICO_SAUDE_PUBLICA"
+    if "prenota.regione" in host_sem_www:
+        return True, "SERVICO_SAUDE_PUBLICA"
+    if first_sub == "sanita":
+        return True, "PORTAL_SAUDE_PUBLICA"
+    if re.search(r"/sanita(?:/|$|\?)", path):
+        return True, "PORTAL_SAUDE_PUBLICA"
+
+    # (3) Fiscalidade automovel
+    if "bollo-auto" in path or "bollo_auto" in path:
+        return True, "FISCALIDADE_AUTOMOVEL"
+    if "tassa-automobil" in path or "tassa_automobil" in path:
+        return True, "FISCALIDADE_AUTOMOVEL"
+    if "pagopa.regione" in host_sem_www:
+        return True, "PAGAMENTO_SERVICOS_PUBLICOS"
+
+    # (4) Seletores de idioma (service URL, nao e pagina)
+    if "@@multilingual-selector" in path:
+        return True, "SELETOR_IDIOMA_SERVICO"
+    if "update_language" in path or "update_language" in query:
+        return True, "SELETOR_IDIOMA_SERVICO"
+
+    # (5) Orgaos de cidadao obrigatorios por lei
+    if re.search(r"/urp(?:/|$|\?)", path):
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+    if "/ufficio-relazioni-con-il-pubblico" in path:
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+    if "/anticorruzione" in path:
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+    if "deliberegiunta" in host_sem_www or "/deliberegiunta" in path:
+        return True, "ATOS_GOVERNAMENTAIS"
+    if re.search(r"/giunta(?:/|$|\?)", path):
+        return True, "ATOS_GOVERNAMENTAIS"
+    if "/strutture-regionali" in path:
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+
+    # (6) Eleicoes, cultura sem agri, juventude
+    if re.search(r"/elezioni(?:/|$|\?)", path):
+        return True, "ELEICOES"
+    if first_sub == "cultura" and "regione" in host_sem_www:
+        return True, "PORTAL_CULTURAL"
+    if first_sub == "giovani" and "regione" in host_sem_www:
+        return True, "POLITICA_JUVENTUDE"
+
+    return False, ""
+
+
+def recusar_candidatas_fora_de_dominio() -> dict:
+    """Recusa candidatas CRAWL_LINK cujos URLs pertencem a dominios fora-de-dominio-agro.
+
+    REGRA: _e_fora_de_dominio_agro() — 6 categorias declaradas e testaveis.
+    So atua sobre candidatas com ESTADO != RECUSADA.
+    NAO apaga linha — lei da casa.
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        if "DISCOVERY_METHOD=CRAWL_LINK" not in c.get("NOTA", ""):
+            continue
+        e_fora, categoria = _e_fora_de_dominio_agro(c["URL"])
+        if e_fora:
+            resultado = recusar(c["URL"], "FORA_DE_DOMINIO_AGRO_%s" % categoria)
+            if resultado is not None:
+                recusadas.append({"url": c["URL"], "id": c["CANDIDATA_ID"],
+                                  "categoria": categoria})
+    return {"RECUSADAS_FORA_DE_DOMINIO": len(recusadas), "DETALHE": recusadas}
+
+
+def recusar_candidatas_de_semente_generica() -> dict:
+    """Recusa candidatas CRAWL_LINK descobertas via semente de escopo generico.
+
+    REGRA: se a semente classificada como GENERICA e a candidata nao tem sinal
+    agro no seu proprio dominio, a candidata e recusada.
+
+    BASE EMPIRICA (ADDENDUM-02):
+    - Amostra de 20 candidatas da categoria NEUTRO: 15/20 (75%) nao servem.
+    - Margem: +/- 10% → 65-85% nao defensaveis.
+    - Maioria nao serve → recusa em bloco pela regra de proveniencia.
+
+    EXCECAO: dominio da candidata com sinal agro confirmado e preservado
+    (_RE_DOMINIO_AGRO_SINAL).
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        nota = c.get("NOTA", "")
+        if "DISCOVERY_METHOD=CRAWL_LINK" not in nota:
+            continue
+
+        # Extrair semente da nota
+        m_disc = re.search(r"DISCOVERED_FROM=([^|]+)", nota)
+        if not m_disc:
+            continue
+        semente_url = m_disc.group(1).strip()
+
+        tipo_semente, _ = _classificar_semente(semente_url)
+        if tipo_semente != "GENERICA":
+            continue
+
+        # Preservar candidata com sinal agro no proprio dominio
+        if _RE_DOMINIO_AGRO_SINAL.search(
+                urllib.parse.urlparse(c["URL"]).netloc.lower()):
+            continue
+
+        resultado = recusar(c["URL"],
+                            "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO")
+        if resultado is not None:
+            recusadas.append({"url": c["URL"], "id": c["CANDIDATA_ID"],
+                              "semente": semente_url})
+
+    return {
+        "RECUSADAS_SEMENTE_GENERICA": len(recusadas),
+        "AMOSTRA_DECLARADA": "15/20=75% nao agro, margem+-10%, maioria nao serve",
+        "DETALHE": recusadas,
+    }
+
+
 def descobrir(
     familia: str = "TODAS",
     orcamento: int = MAX_PEDIDOS_TOTAIS,
@@ -1548,6 +1826,10 @@ def main() -> int:
                     help="max sementes desta corrida (default: %d)" % MAX_SEMENTES_ESTA_CORRIDA)
     ap.add_argument("--limpar", action="store_true",
                     help="marcar candidatas CRAWL_LINK que violam RA/RB/RC como RECUSADA")
+    ap.add_argument("--limpar-dominio", action="store_true",
+                    help="marcar candidatas fora de dominio agro como RECUSADA")
+    ap.add_argument("--limpar-genericas", action="store_true",
+                    help="marcar candidatas de semente GENERICA sem sinal agro como RECUSADA")
     a = ap.parse_args()
 
     if a.listar_familias:
@@ -1560,6 +1842,23 @@ def main() -> int:
         print("RECUSADAS_POR_REGRA_NOVA  %d" % resultado["RECUSADAS_POR_REGRA_NOVA"])
         for d_ in resultado["DETALHE"]:
             print("  [%s] %s  %s" % (d_["motivo"], d_["id"], d_["url"][:80]))
+        return 0
+
+    if a.limpar_dominio:
+        resultado = recusar_candidatas_fora_de_dominio()
+        print("RECUSADAS_FORA_DE_DOMINIO  %d" % resultado["RECUSADAS_FORA_DE_DOMINIO"])
+        for d_ in resultado["DETALHE"]:
+            print("  [%s] %s  %s" % (d_["categoria"], d_["id"], d_["url"][:80]))
+        return 0
+
+    if a.limpar_genericas:
+        resultado = recusar_candidatas_de_semente_generica()
+        print("RECUSADAS_SEMENTE_GENERICA  %d" % resultado["RECUSADAS_SEMENTE_GENERICA"])
+        print("AMOSTRA  %s" % resultado["AMOSTRA_DECLARADA"])
+        for d_ in resultado["DETALHE"][:20]:
+            print("  %s  %s" % (d_["id"], d_["url"][:80]))
+        if len(resultado["DETALHE"]) > 20:
+            print("  ... e mais %d" % (len(resultado["DETALHE"]) - 20))
         return 0
 
     if a.orcamento > MAX_PEDIDOS_TOTAIS:
@@ -1617,7 +1916,15 @@ def main() -> int:
             ),
             "FILTRADOS_POR_REGRA": stats_crawl["FILTRADOS_POR_REGRA"],
             "REQUESTS_REAIS_A_REDE": orcam.pedidos_feitos,
-            "ORCAMENTO_300_RESPEITADO": "YES" if orcam.pedidos_feitos <= MAX_PEDIDOS_TOTAIS else "NO",
+            "SEMENTES_TEMATICAS_USADAS": stats_crawl["SEMENTES_TEMATICAS_USADAS"],
+            "SEMENTES_GENERICAS_RECUSADAS": stats_crawl["SEMENTES_GENERICAS_RECUSADAS"],
+            "REGRA_DE_SEMENTE": (
+                "TEMATICA=dominio dedicado agro/ambiental ou subdominio agri./agricoltura./fitosanitario.; "
+                "GENERICA=portal regional regione.*.it (3.7% agro medido no 1o crawl); "
+                "UNKNOWN=nao verificavel sem conteudo"
+            ),
+            "TAXA_AGRO_GENERICA": "3.7% (4/107, medido pelo coordenador no 1o crawl)",
+            "ORCAMENTO_250_RESPEITADO": "YES" if orcam.pedidos_feitos <= MAX_PEDIDOS_TOTAIS else "NO",
             "MAX_REQUESTS_ONE_DOMAIN": orcam.max_num_dominio(),
             "PROVENIENCIA_CIRCULAR": circular,
             "READY_PROMOTED_BY_CRAWL": 0,
