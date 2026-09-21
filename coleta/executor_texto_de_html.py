@@ -218,8 +218,12 @@ def extrair(dados: bytes, media_type: str = "text/html") -> tuple:
     de ausência tem nome próprio, porque o de lá promete OCR.
     """
     if dados[:5] == ASSINATURA_PDF:
+        # ⚠️ `%%PDF-` E NAO `%PDF-`: esta e uma string de formato, e o `%P`
+        # fazia-a rebentar com `unsupported format character 'P'`. O defeito
+        # transformava uma RECUSA LIMPA numa excecao — e uma guarda que
+        # rebenta em vez de recusar deixa de ser guarda.
         return ("", BYTES_NAO_SAO_HTML,
-                "os bytes comecam por %PDF- e a especie declarada era %r. O "
+                "os bytes comecam por %%PDF- e a especie declarada era %r. O "
                 "dono de PDF nesta casa e coleta/executor_texto_de_pdf.py"
                 % media_type, {"BYTES": len(dados)})
     try:
