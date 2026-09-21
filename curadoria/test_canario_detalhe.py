@@ -89,6 +89,12 @@ class OCanarioHtmlAbreOItemEJulgaO(unittest.TestCase):
         self.assertNotEqual(INDEX, r["ITEM_ABERTO"]["URL"], "o item nao e a entrada")
         self.assertTrue(r["DOCUMENT_ID"].startswith("IT-PROVA-DETALHE:URL:news/"), r["DOCUMENT_ID"])
 
+    def test_2b_um_BOM_a_frente_do_html_nao_e_bytes_errados(self):
+        with mock.patch.object(CAN, "buscar", lambda u: (200, (b"\xef\xbb\xbf" if u != INDEX else b"")
+                               + (indice_com_itens() if u == INDEX else artigo_sintetico()).encode("utf-8"), "")):
+            r = CAN.canario_html(CONTRATO)
+        self.assertTrue(r["PASS"], r.get("PORQUE"))
+
     def test_3_item_sem_texto_REPROVA_body_util_e_obrigatorio(self):
         r = self.canario({INDEX: indice_com_itens(),
                           ITEM: "<html><body><script>var x=1;</script></body></html>"})

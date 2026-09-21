@@ -147,7 +147,9 @@ def canario_html(c: dict) -> dict:
     if st2 != 200 or not b2:
         return {"PASS": False, "CLASSE": "UNKNOWN", "HTTP": st2,
                 "PORQUE": "documento inacessivel: %s" % (err2 or st2), "ALVO": alvo}
-    if not b2.lstrip()[:1] == b"<":
+    # ⚠️ UM BOM UTF-8 A FRENTE DO «<» NAO E «NAO E HTML». Medido no provador de
+    # listagens (CAND-0060): b'\xef\xbb\xbf<!DOC' reprovava como bytes errados.
+    if not b2.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
         return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st2,
                 "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED", "ALVO": alvo}
 

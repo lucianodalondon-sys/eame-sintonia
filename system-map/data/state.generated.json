@@ -285,6 +285,7 @@
       "curadoria/LIFECYCLE-QUEUE-V1.json",
       "curadoria/LIFECYCLE-RECONCILIATION-V1.json",
       "curadoria/LIFECYCLE-RED-TEAM-V1.json",
+      "curadoria/LISTAGENS-PROVADAS-V1.json",
       "curadoria/POLITICA-MODELO.json",
       "curadoria/READY-BATCHES-V1.json",
       "curadoria/READY-FOR-COLLECTION-V1.json",
@@ -328,6 +329,7 @@
       "curadoria/nivel_da_fila.py",
       "curadoria/provar_autonomia.py",
       "curadoria/provar_lifecycle.py",
+      "curadoria/provar_listagem.py",
       "curadoria/provar_supervisor.py",
       "curadoria/ready_split.py",
       "curadoria/reconciliar.py",
@@ -2788,9 +2790,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "0b57ee7e4ee09af67cf28ad862aa279443ea9412",
-    "GENERATED_AT": "2026-09-21T00:40:24-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e49431c5e3252fa7d2fb1d5993e2e53c5dc06b749eabdf48d5940dbf2dd46f1a"
+    "HEAD": "2cb5c477c58d2e1ed53b98328a73d752b9ccdb6d",
+    "GENERATED_AT": "2026-09-21T00:46:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ed1b2076d30cc02f0ccee8f3d37f7c980bd7e58db9b7eee2deb14889b8f01c52"
   },
   "FAMILIES": [
     {
@@ -4272,8 +4274,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 318",
-        "desses, mostrados aqui: 40 (ficam de fora 278)"
+        "enderecos que o codigo realmente chama: 319",
+        "desses, mostrados aqui: 40 (ficam de fora 279)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -97494,7 +97496,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1177,
+  "UNCLAIMED_FILES_COUNT": 1179,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97683,7 +97685,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2194,
+    "files_tracked": 2196,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

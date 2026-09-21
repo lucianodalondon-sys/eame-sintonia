@@ -882,6 +882,166 @@
     "PORQUE": "nenhum dos 113 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve",
     "HREFS": 113
    }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-041-VALIDATE_ROUTE-0058",
+   "SOURCE_ID": "IT-T5-041",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:58:49.628203+00:00",
+   "DADOS": {
+    "ROTA": "https://www.crpv.it/it/news/",
+    "ROBOTS": "\r\n<!doctype html>\r\n<html lang=\"it\">\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-041-CANARY-0059",
+   "SOURCE_ID": "IT-T5-041",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:58:55.720362+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.crpv.it/it/news/difesa-dalle-gelate-primaverili-2026/",
+    "ALVOS_DESCOBERTOS": 6,
+    "DETAIL_ENUMERATED": 6,
+    "ITEM_ABERTO": {
+     "URL": "https://www.crpv.it/it/news/difesa-dalle-gelate-primaverili-2026/",
+     "HTTP": 200,
+     "BYTES": 78261,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 116,
+     "NON_WHITESPACE_CHARACTERS": 8390,
+     "PARAGRAPH_CHARACTERS": 3542,
+     "TEXT_SHA256": "65125d336b1ac3aac68104b166c4362aa1e6436ec9d29a7c8c23ffeca7fc7ea8"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 78261,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T5-041:URL:it/news/difesa-dalle-gelate-primaverili-2026"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-051-VALIDATE_ROUTE-0060",
+   "SOURCE_ID": "IT-T5-051",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:58:59.699803+00:00",
+   "DADOS": {
+    "ROTA": "https://www.agraria.unirc.it/",
+    "ROBOTS": "<!DOCTYPE html>\n<html lang=\"it\" dir=\"ltr\" prefix=\"og: https://ogp.me/ns#\">\n  <head>\n    <meta charset=\"utf-8\" />\n<script",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-051-CANARY-0061",
+   "SOURCE_ID": "IT-T5-051",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:59:05.688254+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.agraria.unirc.it/ateneo/bandi-e-concorsi",
+    "ALVOS_DESCOBERTOS": 62,
+    "DETAIL_ENUMERATED": 62,
+    "ITEM_ABERTO": {
+     "URL": "https://www.agraria.unirc.it/ateneo/bandi-e-concorsi",
+     "HTTP": 200,
+     "BYTES": 209292,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 337,
+     "NON_WHITESPACE_CHARACTERS": 16386,
+     "PARAGRAPH_CHARACTERS": 5170,
+     "TEXT_SHA256": "ac33d45bfa43def2546f70dbabfc00bbd2e3fb5c56610085015e0faf2e1d981d"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 209292,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T5-051:URL:ateneo/bandi-e-concorsi"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T9-015-VALIDATE_ROUTE-0062",
+   "SOURCE_ID": "IT-T9-015",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:59:08.028638+00:00",
+   "DADOS": {
+    "ROTA": "https://www.conserveitalia.it/",
+    "ROBOTS": "# If the Joomla site is installed within a folder such as at\n# e.g. www.example.com/joomla/ the robots.txt file MUST be\n",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T9-015-CANARY-0063",
+   "SOURCE_ID": "IT-T9-015",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:59:13.907134+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.conserveitalia.it/it/lavora-con-noi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.conserveitalia.it/it/lavora-con-noi",
+     "HTTP": 200,
+     "BYTES": 21425,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 52,
+     "NON_WHITESPACE_CHARACTERS": 2175,
+     "PARAGRAPH_CHARACTERS": 1411,
+     "TEXT_SHA256": "d61d06489cf9d44e0ea8776365c6791b0b32c08d7183ec4000c2d92589e61dd4"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 21425,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T9-015:URL:it/lavora-con-noi"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T9-019-VALIDATE_ROUTE-0064",
+   "SOURCE_ID": "IT-T9-019",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:59:16.399873+00:00",
+   "DADOS": {
+    "ROTA": "https://www.scam.it/",
+    "ROBOTS": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\nDisallow: /wp-includes/\nDisallow: /readme.html\nDisall",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T9-019-CANARY-0065",
+   "SOURCE_ID": "IT-T9-019",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:59:21.890070+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.scam.it/articoli-e-pubblicazioni/",
+    "ALVOS_DESCOBERTOS": 19,
+    "DETAIL_ENUMERATED": 19,
+    "ITEM_ABERTO": {
+     "URL": "https://www.scam.it/articoli-e-pubblicazioni/",
+     "HTTP": 200,
+     "BYTES": 160780,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 204,
+     "NON_WHITESPACE_CHARACTERS": 5428,
+     "PARAGRAPH_CHARACTERS": 2773,
+     "TEXT_SHA256": "94aced862fe16656b7b171287a892c617dbe4be1c67298bd815f4969aa991cec"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 160780,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T9-019:URL:articoli-e-pubblicazioni"
+   }
   }
  ]
 }

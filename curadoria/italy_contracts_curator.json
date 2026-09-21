@@ -6,8 +6,8 @@
   "LOTE-YOUTUBE-FEED": "molde de IT-T8-001 (APPLICATION_ROUTE sobre youtube.channel.discovery / video.metadata)",
   "LOTE-HTML-ARTIGO": "molde de contratoGenerico() (HTML_LINK_DISCOVERY)"
  },
- "GERADO_EM": "2026-09-21T03:04:17.110388+00:00",
- "TOTAL": 77,
+ "GERADO_EM": "2026-09-21T03:57:42.561801+00:00",
+ "TOTAL": 81,
  "POR_LOTE": {
   "LOTE-YOUTUBE-FEED": 50,
   "LOTE-HTML-ARTIGO": 27
@@ -7156,6 +7156,286 @@
     "INTEGRADO_EM": "2026-09-21T03:04:17.109389+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
    }
+  },
+  {
+   "SOURCE_ID": "IT-T5-041",
+   "OWNER": "CRPV",
+   "NAME": "CRPV — Centro Ricerche Produzioni Vegetali",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "CANONICAL_ENTRY_URL": "https://www.crpv.it/",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.crpv.it/it/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?crpv\\.it/it/news/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 6
+   },
+   "ROUTE_TYPE": "DISCOVERED_ROUTE",
+   "ACCESS_INSTRUMENT": "HTTP",
+   "AUTH_REQUIRED": false,
+   "BROWSER_REQUIRED": false,
+   "JS_REQUIRED": false,
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "doc": {
+      "FROM": "URL",
+      "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-041:URL:{doc.1}",
+    "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+   },
+   "IDENTITY_KEYS": [
+    "url_path"
+   ],
+   "IDENTITY_KIND": "URL_PATH",
+   "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+   "EXPECTED_FAILURES": [
+    "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+    "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+    "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+   ],
+   "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+   "FALLBACK": "nenhum",
+   "NEGATIVE_CONTROL": {
+    "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+    "esperado": "EMPTY_LIST -> FAILED"
+   },
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "CANDIDATE-FEEDER-V1",
+    "PASSO": 3,
+    "FERRAMENTA": "curadoria/provar_listagem.py",
+    "LISTAGEM": "https://www.crpv.it/it/news/",
+    "ITENS_VISTOS": 6,
+    "ITEM_ABERTO": {
+     "URL": "https://www.crpv.it/it/news/difesa-dalle-gelate-primaverili-2026/",
+     "HTTP": 200,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 116,
+     "NON_WHITESPACE_CHARACTERS": 8390
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N=6, TETO=30)",
+    "PROVADO_EM": "2026-09-21T03:49:31.031702+00:00",
+    "EGRESSO": "205.147.30.6 Milano IT (Proton)",
+    "NOTA": "a caracterizacao dizia SMALL_ADAPTATION_REQUIRED = «SIM — ramo de indice»; a listagem foi provada contra a rede e o item aberto nao e capa"
+   },
+   "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+   "SOURCE_CONTRACT_HASH": "7fdd74e779f8457d",
+   "ONBOARDED_BY": "SOURCE-CURATOR · provar_listagem.py (CANDIDATE-FEEDER-V1, PASSO 3)"
+  },
+  {
+   "SOURCE_ID": "IT-T5-051",
+   "OWNER": "UNIRC Dipartimento di Agraria",
+   "NAME": "UNIRC Dipartimento di Agraria",
+   "TERRITORY": "T5",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "CANONICAL_ENTRY_URL": "https://www.agraria.unirc.it/",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.agraria.unirc.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?agraria\\.unirc\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 30
+   },
+   "ROUTE_TYPE": "DISCOVERED_ROUTE",
+   "ACCESS_INSTRUMENT": "HTTP",
+   "AUTH_REQUIRED": false,
+   "BROWSER_REQUIRED": false,
+   "JS_REQUIRED": false,
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "doc": {
+      "FROM": "URL",
+      "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+     }
+    },
+    "DOCUMENT_ID": "IT-T5-051:URL:{doc.1}",
+    "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+   },
+   "IDENTITY_KEYS": [
+    "url_path"
+   ],
+   "IDENTITY_KIND": "URL_PATH",
+   "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+   "EXPECTED_FAILURES": [
+    "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+    "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+    "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+   ],
+   "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+   "FALLBACK": "nenhum",
+   "NEGATIVE_CONTROL": {
+    "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+    "esperado": "EMPTY_LIST -> FAILED"
+   },
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "CANDIDATE-FEEDER-V1",
+    "PASSO": 3,
+    "FERRAMENTA": "curadoria/provar_listagem.py",
+    "LISTAGEM": "https://www.agraria.unirc.it/",
+    "ITENS_VISTOS": 62,
+    "ITEM_ABERTO": {
+     "URL": "https://www.agraria.unirc.it/ateneo/bandi-e-concorsi",
+     "HTTP": 200,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 337,
+     "NON_WHITESPACE_CHARACTERS": 16386
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N=62, TETO=30)",
+    "PROVADO_EM": "2026-09-21T03:49:41.192603+00:00",
+    "EGRESSO": "205.147.30.6 Milano IT (Proton)",
+    "NOTA": "a caracterizacao dizia SMALL_ADAPTATION_REQUIRED = «SIM — ramo de indice»; a listagem foi provada contra a rede e o item aberto nao e capa"
+   },
+   "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+   "SOURCE_CONTRACT_HASH": "a3c544980d214271",
+   "ONBOARDED_BY": "SOURCE-CURATOR · provar_listagem.py (CANDIDATE-FEEDER-V1, PASSO 3)"
+  },
+  {
+   "SOURCE_ID": "IT-T9-015",
+   "OWNER": "Conserve Italia",
+   "NAME": "Conserve Italia",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "CANONICAL_ENTRY_URL": "https://www.conserveitalia.it/",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.conserveitalia.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?conserveitalia\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 2
+   },
+   "ROUTE_TYPE": "DISCOVERED_ROUTE",
+   "ACCESS_INSTRUMENT": "HTTP",
+   "AUTH_REQUIRED": false,
+   "BROWSER_REQUIRED": false,
+   "JS_REQUIRED": false,
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "doc": {
+      "FROM": "URL",
+      "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+     }
+    },
+    "DOCUMENT_ID": "IT-T9-015:URL:{doc.1}",
+    "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+   },
+   "IDENTITY_KEYS": [
+    "url_path"
+   ],
+   "IDENTITY_KIND": "URL_PATH",
+   "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+   "EXPECTED_FAILURES": [
+    "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+    "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+    "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+   ],
+   "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+   "FALLBACK": "nenhum",
+   "NEGATIVE_CONTROL": {
+    "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+    "esperado": "EMPTY_LIST -> FAILED"
+   },
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "CANDIDATE-FEEDER-V1",
+    "PASSO": 3,
+    "FERRAMENTA": "curadoria/provar_listagem.py",
+    "LISTAGEM": "https://www.conserveitalia.it/",
+    "ITENS_VISTOS": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.conserveitalia.it/it/lavora-con-noi",
+     "HTTP": 200,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 52,
+     "NON_WHITESPACE_CHARACTERS": 2175
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N=2, TETO=30)",
+    "PROVADO_EM": "2026-09-21T03:49:49.091801+00:00",
+    "EGRESSO": "205.147.30.6 Milano IT (Proton)",
+    "NOTA": "a caracterizacao dizia SMALL_ADAPTATION_REQUIRED = «SIM — ramo de indice»; a listagem foi provada contra a rede e o item aberto nao e capa"
+   },
+   "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+   "SOURCE_CONTRACT_HASH": "63ace0094054334a",
+   "ONBOARDED_BY": "SOURCE-CURATOR · provar_listagem.py (CANDIDATE-FEEDER-V1, PASSO 3)"
+  },
+  {
+   "SOURCE_ID": "IT-T9-019",
+   "OWNER": "SCAM",
+   "NAME": "SCAM",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "CANONICAL_ENTRY_URL": "https://www.scam.it/",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.scam.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?scam\\.it/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+    "MAX_TARGETS": 19
+   },
+   "ROUTE_TYPE": "DISCOVERED_ROUTE",
+   "ACCESS_INSTRUMENT": "HTTP",
+   "AUTH_REQUIRED": false,
+   "BROWSER_REQUIRED": false,
+   "JS_REQUIRED": false,
+   "IDENTITY": {
+    "STRATEGY": "CONTENT_CAPTURE",
+    "CAPTURES": {
+     "doc": {
+      "FROM": "URL",
+      "PATTERN": "^https?://[^/]+/?(.*?)/?$"
+     }
+    },
+    "DOCUMENT_ID": "IT-T9-019:URL:{doc.1}",
+    "FACT_TIME": "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica"
+   },
+   "IDENTITY_KEYS": [
+    "url_path"
+   ],
+   "IDENTITY_KIND": "URL_PATH",
+   "FACT_LOCATION_RULE": "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+   "EXPECTED_FAILURES": [
+    "entrada inacessivel (403, 404, transporte) = FAILED, nunca zero documentos",
+    "entrada sem endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+    "documento cuja assinatura de bytes nao e HTML = BYTE_VALIDATION_FAILED"
+   ],
+   "FAIL_CLOSED_RULE": "sem endereco descoberto ou com bytes que nao sao HTML, e FAILED — nunca se regista a pagina de entrada como documento",
+   "FALLBACK": "nenhum",
+   "NEGATIVE_CONTROL": {
+    "descricao": "entrada que nao lista nenhum endereco que case com LINK_PATTERN",
+    "esperado": "EMPTY_LIST -> FAILED"
+   },
+   "ROUTE_PROVENANCE": {
+    "MISSAO": "CANDIDATE-FEEDER-V1",
+    "PASSO": 3,
+    "FERRAMENTA": "curadoria/provar_listagem.py",
+    "LISTAGEM": "https://www.scam.it/",
+    "ITENS_VISTOS": 19,
+    "ITEM_ABERTO": {
+     "URL": "https://www.scam.it/articoli-e-pubblicazioni/",
+     "HTTP": 200,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 204,
+     "NON_WHITESPACE_CHARACTERS": 5428
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N=19, TETO=30)",
+    "PROVADO_EM": "2026-09-21T03:50:08.206622+00:00",
+    "EGRESSO": "205.147.30.6 Milano IT (Proton)",
+    "NOTA": "a caracterizacao dizia SMALL_ADAPTATION_REQUIRED = «SIM — ramo de indice»; a listagem foi provada contra a rede e o item aberto nao e capa"
+   },
+   "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
+   "SOURCE_CONTRACT_HASH": "cb4d0e34df545cbc",
+   "ONBOARDED_BY": "SOURCE-CURATOR · provar_listagem.py (CANDIDATE-FEEDER-V1, PASSO 3)"
   }
  ],
  "NOTAS": [

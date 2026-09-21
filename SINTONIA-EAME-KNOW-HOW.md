@@ -18606,3 +18606,79 @@ orquestrador usa `preservar_documento`. O documento fica como registo histórico
 ```
 OLD_MEASUREMENT SUPERSEDED_BY_CURRENT_MEASUREMENT.
 ```
+
+# §159 · A PORTA EXISTIA — O QUE SECOU FOI A FILA A MONTANTE
+
+**O QUE.** O briefing mandava construir um `CANDIDATE_FEEDER` novo porque «as 241
+candidatas estão paradas». Medido em `8bbea01c`, sem rede: a cadeia
+candidata → captura → caracterização → Atlas → SOURCE_ID → fila → supervisor → worker
+**existia inteira e tinha dono em cada troço**. `alimentar_fila.py` não lê as
+candidatas por desenho — lê a alocação, e a alocação estava alimentada.
+
+```
+UMA PORTA QUE NÃO RECEBE TRABALHO PARECE FECHADA.
+NÃO ESTÁ FECHADA: A FILA ANTES DELA SECOU.
+```
+
+**E «241 PARADAS» ERA FALSO.** Cinco baldes, somados do disco por
+`curadoria/baldes_das_candidatas.py` (reprova se a soma não der o universo):
+
+```
+77   já com contrato            — trabalho feito, não trabalho parado
+ 7   com SOURCE_ID sem contrato — CAPABILITY_BLOCK («ramo de índice»), já tentadas e rectificadas
+13   sem território             — NÃO SEI deliberado, decisão humana
+27   caracterizadas, não READY  — 14 Facebook · 11 amostra curta · 1 identidade errada · 1 já no Atlas
+117  nunca caracterizadas       — 75 sociais (fora, dono próprio) · 42 HTML (40 novas, 2 endpoints)
+```
+
+O trabalho novo honesto pelo caminho provado era **40**, e 33 delas esbarravam na
+**mesma** capacidade que travava as 7: a página de entrada não lista os itens.
+
+**O CARACTERIZADOR NÃO PAROU A MEIO.** «124 de 241» leu-se como corte por
+orçamento. Não era: `amostrar.py` só caracteriza `PROPOSED_STATE == PROMOTE`, e
+PROMOTE eram 124. Leu 124 de 124. O filtro estava um degrau acima.
+
+```
+UM NÚMERO MENOR QUE O UNIVERSO NÃO É UMA PARAGEM.
+PERGUNTAR «QUANTOS LHE DERAM?» ANTES DE «ONDE PAROU?».
+```
+
+**O GATE INTEGRA-SE NO DONO QUE PROMOVE.** `aquisicao-detalhe-v1` provou o gate
+CAPA ≠ MATÉRIA em Node, no coletor. Esta árvore promove a READY em Python, no
+canário do worker. Fazer merge (61 commits divergentes, dois livros) destruía um
+dos livros; copiar o `.mjs` punha o juiz onde ninguém o chama. Entrou o
+**sentido**: `retrato_html.py` com os *mesmos limiares* (800 · 35% · 40),
+`canario.py` a abrir o item, `worker.py` a escrever no livro por que régua
+promoveu. Provado por mutação à mão: gate calado ⇒ dois testes vermelhos.
+
+```
+UM GATE COM LIMIARES DIFERENTES DO COLETOR JULGA OUTRA PÁGINA.
+UM GATE NO SÍTIO ERRADO NÃO JULGA NENHUMA.
+```
+
+**DOIS LIVROS DÃO TRÊS READY.** Este livro: 18 READY. O de `f98f234c`: 160 READY
+e 18 DEGRADED. Não são duas contagens do mesmo — são dois livros. Uma fonte READY
+só num deles não é LEGACY nem CURRENT: chama-se `SO_NUM_DOS_LIVROS`, e fica dita.
+E a régua lê-se na evidência da promoção (`DETAIL_GATE_PASSED`), nunca num campo
+que alguém reescreve: LEGACY 18 → 9, CURRENT 0 → 7, no dia em que as 9 com
+contrato novo foram remedidas.
+
+**O PROVADOR JULGA O ITEM QUE O CANÁRIO VAI ABRIR.** O controlo positivo do
+provador de listagens reprovou à primeira: abria o primeiro item pela ordem do
+HTML (um hub, `CAPA_PROVAVEL`); o canário abre o primeiro por ordem alfabética
+(uma notícia). Julgar outro item é provar outra coisa.
+
+**O GERADOR DO MAPA NÃO VARRE.** `generate_system_map.py` monta o mapa sobre o
+`architecture.generated.json` que já está no disco; quem varre é `scan_repo.py`.
+Um commit saiu sem mapa com `MAPA=OK` impresso. O executor da cadeia inteira é
+`correr_a_cadeia.py REGERAR` — e tudo no índice antes de correr, porque a
+impressão lê o índice e um ficheiro solto move o carimbo.
+
+**CONSEQUÊNCIA.** `FEEDER_NOVO_NECESSARIO = NO`. `SONNET_USED = 0`: nenhuma
+etapa exigiu semântica — retrato por contagem, gate por limiar, identidade por
+chave, rota por listagem contada. O único caso semântico da cadeia (ficha ≠
+conteúdo) já tinha estado próprio e sobe a humano.
+
+```
+DETERMINÍSTICO PRIMEIRO. ZERO HONESTO VALE MAIS QUE GASTO DECORATIVO.
+```

@@ -1,14 +1,14 @@
 {
  "DATASET": "CANDIDATE-LINEAGE-V1",
  "LEI": "juncao derivada de candidatas + alocacao + match + fila + livro; recalculada do disco. Um SOURCE_ID com duas candidatas REPROVA.",
- "GERADO_EM": "2026-09-21T03:37:57.934999+00:00",
+ "GERADO_EM": "2026-09-21T03:59:26.080017+00:00",
  "CANDIDATAS": 241,
  "COM_SOURCE_ID": 85,
  "COM_TAREFA": 25,
  "POR_ESTADO": {
   "SEM_LIVRO": 157,
-  "CAPABILITY_BLOCK": 14,
-  "READY_FOR_COLLECTION": 16,
+  "CAPABILITY_BLOCK": 10,
+  "READY_FOR_COLLECTION": 20,
   "CONTRACTED_CANARY_FAILED": 4,
   "RECONCILIATION_REQUIRED": 50
  },
@@ -298,16 +298,26 @@
    "TIPO": "CIENCIA",
    "SOURCE_ID": "IT-T5-041",
    "SOURCE_ID_VIA": "ALLOCATION",
-   "CONTRACT_HASH": null,
+   "CONTRACT_HASH": "7fdd74e779f8457d",
    "TASKS": [
     {
      "TASK_ID": "T00023",
      "TASK_TYPE": "BUILD_CONTRACT",
      "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00120",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00124",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
     }
    ],
-   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
-   "READY_RULE": null
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
   },
   {
    "CANDIDATE_ID": "CAND-0026",
@@ -408,16 +418,26 @@
    "TIPO": "CIENCIA",
    "SOURCE_ID": "IT-T5-051",
    "SOURCE_ID_VIA": "ALLOCATION",
-   "CONTRACT_HASH": null,
+   "CONTRACT_HASH": "a3c544980d214271",
    "TASKS": [
     {
      "TASK_ID": "T00026",
      "TASK_TYPE": "BUILD_CONTRACT",
      "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00121",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00125",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
     }
    ],
-   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
-   "READY_RULE": null
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
   },
   {
    "CANDIDATE_ID": "CAND-0044",
@@ -1896,16 +1916,26 @@
    "TIPO": "ORGANIZACAO",
    "SOURCE_ID": "IT-T9-015",
    "SOURCE_ID_VIA": "ALLOCATION",
-   "CONTRACT_HASH": null,
+   "CONTRACT_HASH": "63ace0094054334a",
    "TASKS": [
     {
      "TASK_ID": "T00024",
      "TASK_TYPE": "BUILD_CONTRACT",
      "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00122",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00126",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
     }
    ],
-   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
-   "READY_RULE": null
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
   },
   {
    "CANDIDATE_ID": "CAND-0154",
@@ -2216,16 +2246,26 @@
    "TIPO": "ORGANIZACAO",
    "SOURCE_ID": "IT-T9-019",
    "SOURCE_ID_VIA": "ALLOCATION",
-   "CONTRACT_HASH": null,
+   "CONTRACT_HASH": "cb4d0e34df545cbc",
    "TASKS": [
     {
      "TASK_ID": "T00027",
      "TASK_TYPE": "BUILD_CONTRACT",
      "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00123",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00127",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
     }
    ],
-   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
-   "READY_RULE": null
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
   },
   {
    "CANDIDATE_ID": "CAND-0158",
