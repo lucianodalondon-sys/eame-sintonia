@@ -219,6 +219,35 @@ create table derived_artifact (
           serie_posicao)
 );
 create index derived_parent_idx on derived_artifact (parent_sha256);
+
+-- TRADUCAO da migration 029.
+--
+-- ⚠️ ELA FALTAVA AQUI, E A FALTA SO APARECEU QUANDO ALGUEM CORREU O CAMINHO
+-- DE PRODUCAO. `preservar_derivado` escreve esta aresta sempre que a passagem
+-- declara `run_id` — e `derivacao_forward.correr()` declara SEMPRE. Os testes
+-- do writer nunca a exercitaram porque o pedido deles nao leva corrida, e por
+-- isso `_declarar_participacao` devolvia `PARTICIPACAO_SEM_CORRIDA` e voltava
+-- para tras sem tocar no banco.
+--
+--     UM BANCO DE TESTE SEM UMA TABELA DA PRODUCAO
+--     NAO E UM BANCO MAIS SIMPLES: E UM CAMINHO QUE NAO SE CONSEGUE CORRER.
+--
+-- Medido a 2026-09-21: o canario da rota do HTML rebentou com
+-- `no such table: participacao_na_derivacao` na PRIMEIRA vez que uma prova
+-- chamou `derivar_um` pelo runner canonico em vez de o chamar a mao.
+create table participacao_na_derivacao (
+  raw_asset_id        integer not null references raw_asset (id),
+  derived_artifact_id integer not null references derived_artifact (id),
+  first_seen_derivation_run_id text not null
+                      references collection_run (run_id),
+  first_seen_at       text not null default (datetime('now')),
+  -- 029: participar outra vez nao e participar duas vezes.
+  primary key (raw_asset_id, derived_artifact_id)
+);
+create index participacao_por_derivado_idx
+  on participacao_na_derivacao (derived_artifact_id);
+create index participacao_por_corrida_idx
+  on participacao_na_derivacao (first_seen_derivation_run_id);
 """
 
 

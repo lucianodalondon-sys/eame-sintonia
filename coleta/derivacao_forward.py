@@ -180,6 +180,28 @@ DESTINO_DO_MOTIVO = {
     "ASR_INDISPONIVEL":        "ERROR",      # a biblioteca nao esta ca
     "ASR_FALHOU":              "ERROR",      # tentou e nao completou
     "TRANSCRIPTION_TIMEOUT":   "ERROR",      # o teto desta casa fechou
+    # ── E OS MOTIVOS DO HTML, QUE A DUAS-PORTAS TROUXE ───────────────────
+    # A MESMA divisao, outra vez: o que e propriedade do ORIGINAL (ou da
+    # declaracao que veio com ele) e `REJECTED`; o que e avaria NOSSA e
+    # `ERROR`.
+    #
+    #     UMA PAGINA SEM LETRA NAO E UM EXTRACTOR PARTIDO.
+    #
+    #: o documento nao trazia texto. Nao e `TEXT_LAYER_ABSENT`, que promete
+    #: OCR — um HTML sem letra nao tem imagem para reconhecer.
+    "SEM_TEXTO_NO_DOCUMENTO":  "REJECTED",
+    #: os bytes eram outra coisa. A rota e de outro dono, e nao desta.
+    "BYTES_NAO_SAO_HTML":      "REJECTED",
+    # ⚠️ `UNIDADE_RECUSADA` JA EXISTIA NO EXECUTOR DE MIDIA E NAO ESTAVA
+    # AQUI — caia em `UNKNOWN`, que se le como «ninguem sabe por que porta
+    # ele saiu» quando se sabe muito bem: a FORMA da unidade de texto nao
+    # passou no dono do vocabulario, e isso e um facto sobre NOS.
+    #
+    #     UM MOTIVO SEM DESTINO NAO E UM DESTINO NOVO: E UM SILENCIO.
+    #
+    # Isto NAO muda o estado da etapa — `UNKNOWN` ja contava como avaria.
+    # Muda o nome do balde, que passa a dizer o que aconteceu.
+    "UNIDADE_RECUSADA":        "ERROR",
 }
 
 # O que este caminho AINDA não faz, dito com nome. Um buraco declarado é uma
@@ -400,6 +422,21 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                            # não se preenche com `TEXT`.
                            "TEXT_KIND": r.get("TEXT_KIND"),
                            "TEXT_RELATION": r.get("TEXT_RELATION"),
+                           # ⚠️ A UNIDADE MONTADA E CONFERIDA PELO DONO DO
+                           # VOCABULARIO VIAJA INTEIRA — e ate aqui NAO
+                           # viajava. `executor_transcricao_midia` devolve-a
+                           # desde a C4H com o comentario «sem ela, nenhuma
+                           # traducao futura tem para onde apontar», e este
+                           # runner deitava-a fora na linha seguinte.
+                           #
+                           #     UM CAMPO PROMETIDO PELO PRODUTOR E DEITADO
+                           #     FORA PELO TRANSPORTADOR E UM CAMPO QUE NAO
+                           #     EXISTE — com a agravante de parecer que sim.
+                           #
+                           # `None` continua a ser resposta: o executor de PDF
+                           # nao monta unidade nenhuma, e nao se lhe inventa
+                           # uma aqui.
+                           "TEXT_UNIT": r.get("TEXT_UNIT"),
                            "LANGUAGE": r.get("LANGUAGE"),
                            "LANGUAGE_SOURCE": r.get("LANGUAGE_SOURCE")})
         if porta in ("PASSED", "REUSED"):

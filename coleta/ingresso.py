@@ -543,7 +543,17 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
 #:
 #:     UMA ORDEM QUE DECIDE SEM QUE NINGUÉM A TENHA DECIDIDO
 #:     É UMA REGRA ESCONDIDA NUM `import`.
-_DONOS_DA_DERIVACAO = ("executor_texto_de_pdf", "executor_transcricao_midia")
+#:
+#: ⚠️ `executor_texto_de_html` ENTROU AQUI PORQUE DECLARAR NÃO É LIGAR.
+#: A ficha `CAPACIDADE` dele podia existir um ano sem que nada mudasse — foi
+#: exactamente o que aconteceu ao `SUPPORTS` do executor de PDF, e o próprio
+#: ficheiro escreveu o preço. É esta linha que faz a capacidade ser LIDA:
+#: `executor_para("text/html")` devolvia `None` antes dela, e devolve o módulo
+#: depois. Nada mais mudou nesta porta.
+#:
+#:     MISSING_ROUTE FECHA-SE NA LISTA DE DONOS, E NÃO NA FICHA DE QUEM SABE.
+_DONOS_DA_DERIVACAO = ("executor_texto_de_pdf", "executor_transcricao_midia",
+                       "executor_texto_de_html")
 
 
 def _executores_de_derivacao():
