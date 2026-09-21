@@ -339,11 +339,17 @@ def uma_volta_sup(
     estado: dict,
     proc: Optional[subprocess.Popen],
     pausa_worker: float = 1.0,
+    hook_fila_vazia=None,
 ) -> tuple[str, dict, Optional[subprocess.Popen]]:
     """Uma iteracao do supervisor.
 
     Testavel: nao dorme, nao tem side-effects de timing. O caller decide
     quantas vezes chamar e o que fazer com o resultado.
+
+    hook_fila_vazia: callable() opcional chamado quando a fila de candidatos
+    de discovery esta abaixo do limiar. Padrao None (sem hook — compativel
+    com todos os testes existentes). Nao bloqueia; excecao e capturada e
+    anotada sem parar o supervisor.
     """
     # --- PARAR.flag ---
     if PARAR.exists():
@@ -422,6 +428,15 @@ def uma_volta_sup(
     if n_elegiveis == 0:
         estado["SUPERVISOR_STATE"] = "IDLE"
         estado["WORKER_PID"] = None
+
+        # Hook de discovery: se a fila de candidatos estiver baixa, accionar.
+        if hook_fila_vazia is not None:
+            try:
+                hook_fila_vazia()
+            except Exception as ex:
+                _anotar({"EVENTO": "DISCOVERY_HOOK_ERRO",
+                         "ERRO": str(ex)[:200]})
+
         _gravar_estado(estado)
         return "IDLE", estado, None
 

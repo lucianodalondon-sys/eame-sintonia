@@ -37,6 +37,49 @@ def _estado_servico() -> dict:
         return {"SOURCE_CURATOR_SERVICE": "UNKNOWN", "WORKER_ALIVE": False}
 
 
+def _status_discovery() -> dict:
+    """Le o estado da discovery a partir do ficheiro de prova e da fila."""
+    try:
+        proof_path = RAIZ / "curadoria" / "DISCOVERY-PROOF-V1.json"
+        if proof_path.exists():
+            p = json.loads(proof_path.read_text(encoding="utf-8"))
+        else:
+            p = {}
+
+        fila_path = RAIZ / "candidatas" / "FONTES-CANDIDATAS.json"
+        if fila_path.exists():
+            fila = json.loads(fila_path.read_text(encoding="utf-8"))
+            candidatas = fila.get("CANDIDATAS", [])
+            total = len(candidatas)
+            pendentes = sum(1 for c in candidatas
+                            if c["ESTADO"] in ("CANDIDATA", "EM_ANALISE"))
+        else:
+            total = 0
+            pendentes = 0
+
+        return {
+            "DISCOVERY_SERVICE":         "ACTIVE" if proof_path.exists() else "NOT_RUN",
+            "LAST_DISCOVERY_RUN":        p.get("CORRIDA_EM", "NUNCA"),
+            "CANDIDATES_TOTAL":          total,
+            "CANDIDATES_NEW":            p.get("NOVEL_CANDIDATES", 0),
+            "CANDIDATES_PENDING":        pendentes,
+            "DEDUP_REJECTED":            p.get("DUPLICATES_REJECTED", 0),
+            "READY_LEGACY":              18,
+            "VALIDATED_READY_CURRENT":   "NAO_REVALIDADO",
+            "QUEUE_DEPTH":               pendentes,
+            "LAST_PROGRESS":             p.get("CORRIDA_EM", "NUNCA"),
+        }
+    except Exception:
+        return {
+            "DISCOVERY_SERVICE":       "UNKNOWN",
+            "LAST_DISCOVERY_RUN":      "ERRO_AO_LER",
+            "CANDIDATES_TOTAL":        0,
+            "CANDIDATES_PENDING":      0,
+            "READY_LEGACY":            18,
+            "VALIDATED_READY_CURRENT": "NAO_REVALIDADO",
+        }
+
+
 def status() -> dict:
     livro = LC._ler_bruto()["TRANSICOES"]
     hoje = datetime.now(timezone.utc).date().isoformat()
@@ -71,6 +114,7 @@ def status() -> dict:
 
     m = IC.metricas_operacionais()
     _estado_servico_snapshot = _estado_servico()
+    _disc = _status_discovery()
     return {
         "GERADO_EM": LC.agora(),
 
@@ -104,6 +148,9 @@ def status() -> dict:
         "READY_SOURCES_WAITING_FOR_COLLECTION": len(entregues),
 
         "POR_ESTADO": {k: v for k, v in LC.metricas().items() if v},
+
+        # Campos de discovery (FASE 12)
+        **_disc,
     }
 
 
