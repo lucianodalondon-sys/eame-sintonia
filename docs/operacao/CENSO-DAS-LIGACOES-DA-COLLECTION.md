@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  fd86a465e0793a953915d92fef20314b175d0a55
-BRANCH           source-curator-supervisor-v1
-GERADO_EM        2026-09-20T20:25:35-03:00
+HEAD_DA_MEDICAO  8bbea01ccaf24939ad0e2f23f1fc903ffe116942
+BRANCH           candidate-feeder-v1
+GERADO_EM        2026-09-20T22:31:49-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1653,7 +1653,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`, `regras/contratos_de_fonte.py`, `regras/italy_contract_test.mjs`, `regras/italy_contracts.mjs`, `regras/italy_pilot_guards.mjs` _(e mais 2)_ |
+| **peça real** | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`, `regras/contratos_de_fonte.py`, `regras/italy_contract_test.mjs`, `regras/italy_contracts.mjs`, `regras/italy_pilot_guards.mjs` _(e mais 4)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de |

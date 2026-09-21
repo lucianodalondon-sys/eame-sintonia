@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "source-curator-supervisor-v1",
-    "HEAD": "fd86a465e0793a953915d92fef20314b175d0a55",
-    "GENERATED_AT": "2026-09-20T20:25:35-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f66ee2b27d27fbb707674a17316a4efcdaed267578cd3bbc5fa5e0fb44f8b822"
+    "BRANCH": "candidate-feeder-v1",
+    "HEAD": "8bbea01ccaf24939ad0e2f23f1fc903ffe116942",
+    "GENERATED_AT": "2026-09-20T22:31:49-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8334abfccb3ac8cf820b7169d854cb7fbc477f32fe57c37c52a97fa36fd8d269"
   },
   "FILES": [
     {
@@ -247,6 +247,13 @@
       "code_dir": false
     },
     {
+      "path": "MISSAO-CANDIDATE-FEEDER-V1.md",
+      "sha": "2999942b2dda31d9448d619205628d1b4afbdeac",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PORTAL-CAPABILITY-INVENTORY.md",
       "sha": "03b0da54fb4998f1a4cb93bbf639e5a873864187",
       "ext": ".md",
@@ -263,6 +270,13 @@
     {
       "path": "README.md",
       "sha": "b9e17e4cd9d12dbabbc9855319ea56780f6fd911",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-CANDIDATE-FEEDER-V1.md",
+      "sha": "6dc5e7d33f00d1ea76354f4ec110bc75a70d15cf",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1710,6 +1724,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CANDIDATE-BUCKETS-V1.json",
+      "sha": "d3843f34b9d55397e91bee201c8c357e3f7202fb",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
       "sha": "f9f4dcf57efaf1e07d0a8c2f362e8137076055dc",
       "ext": ".json",
@@ -1767,7 +1788,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-QUEUE-V1.json",
-      "sha": "db68507c9db206762ebca52dbcf1027230e86823",
+      "sha": "d383c70c39ba592ab956cb1afd3d92abce7b9430",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1782,6 +1803,13 @@
     {
       "path": "curadoria/LIFECYCLE-RED-TEAM-V1.json",
       "sha": "f417a989e06e24d636d9fdc7970895f1eaaab392",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/POLITICA-MODELO.json",
+      "sha": "5f9694b01753af039125cc2b45bb8fe7e53f1e4c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1878,6 +1906,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/SUPERVISOR-PROOF-V1.json",
+      "sha": "bfb5ec3f130a4416cd1ed0f368457c1af583fd10",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/alimentar_fila.py",
       "sha": "6127ef0d8bce428f16b467a26ebad3befd1524ae",
       "ext": ".py",
@@ -1894,6 +1929,13 @@
     {
       "path": "curadoria/atribuir_source_id.py",
       "sha": "3b85e42c3860e40b8ecb25baf5b5d6b448b20f5f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/baldes_das_candidatas.py",
+      "sha": "6aeb9b125648f40b2ab2c32186aa8ce206e7af00",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2039,6 +2081,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/provar_supervisor.py",
+      "sha": "766d11063229c405b2a141ee11935b331eda4d48",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/reconciliar.py",
       "sha": "e9e0352adbf93d937fd8a8860d7822de697f1aaf",
       "ext": ".py",
@@ -2062,6 +2111,13 @@
     {
       "path": "curadoria/status_live.py",
       "sha": "0d01e9865c459abb73521dea77dbf558cbe75a2d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/supervisor.py",
+      "sha": "ffd3fc6686971a718391066bd0d6f5747fd632ac",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2097,6 +2153,13 @@
     {
       "path": "curadoria/test_lifecycle.py",
       "sha": "3b3acc5d7eb429575aaab3d5b1ab11ac1bc60ad8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_supervisor.py",
+      "sha": "e571603b89bb71074a9dcc3ab07a5432069137fd",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -13317,7 +13380,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "a55fe99c92ce2e7f204c02a556be56c38d091da3",
+      "sha": "d43dacd608cc384462efc51074a42a7d0cea5cf1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20045,6 +20108,116 @@
       }
     },
     {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 58,
+        "snippet": "CANDIDATAS = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/CANDIDATE-BUCKETS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 66,
+        "snippet": "SAIDA = CUR / \"CANDIDATE-BUCKETS-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/CANDIDATE-BUCKETS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 208,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 61,
+        "snippet": "MATCH = CUR / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 64,
+        "snippet": "LIVRO = CUR / \"LIFECYCLE-LEDGER-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 65,
+        "snippet": "FILA = CUR / \"LIFECYCLE-QUEUE-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 60,
+        "snippet": "CARACT = CUR / \"SOURCE-CHARACTERIZATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/SOURCE-CURATOR-DECISIONS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 59,
+        "snippet": "DECISOES = CUR / \"SOURCE-CURATOR-DECISIONS-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 62,
+        "snippet": "ALLOC = CUR / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/baldes_das_candidatas.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/baldes_das_candidatas.py",
+        "line": 63,
+        "snippet": "CONTRATOS = CUR / \"italy_contracts_curator.json\""
+      }
+    },
+    {
       "from_file": "curadoria/canario.py",
       "to_file": "curadoria/capturador.py",
       "type": "IMPORTS",
@@ -20815,6 +20988,61 @@
       }
     },
     {
+      "from_file": "curadoria/provar_supervisor.py",
+      "to_file": "curadoria/SUPERVISOR-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_supervisor.py",
+        "line": 30,
+        "snippet": "PROVA_SAIDA = RAIZ / \"curadoria\" / \"SUPERVISOR-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/provar_supervisor.py",
+      "to_file": "curadoria/SUPERVISOR-PROOF-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_supervisor.py",
+        "line": 524,
+        "snippet": "PROVA_SAIDA.write_text("
+      }
+    },
+    {
+      "from_file": "curadoria/provar_supervisor.py",
+      "to_file": "curadoria/ciclo_continuo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_supervisor.py",
+        "line": 103,
+        "snippet": "str(RAIZ / \"curadoria\" / \"ciclo_continuo.py\"),"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_supervisor.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_supervisor.py",
+        "line": 27,
+        "snippet": "import fila as F       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_supervisor.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_supervisor.py",
+        "line": 28,
+        "snippet": "import supervisor as S # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/reconciliar.py",
       "to_file": "curadoria/LIFECYCLE-RECONCILIATION-V1.json",
       "type": "READS",
@@ -21013,6 +21241,39 @@
       }
     },
     {
+      "from_file": "curadoria/status_live.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/status_live.py",
+        "line": 34,
+        "snippet": "from supervisor import ler_estado_servico  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/supervisor.py",
+      "to_file": "curadoria/ciclo_continuo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/supervisor.py",
+        "line": 235,
+        "snippet": "str(RAIZ / \"curadoria\" / \"ciclo_continuo.py\"),"
+      }
+    },
+    {
+      "from_file": "curadoria/supervisor.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/supervisor.py",
+        "line": 49,
+        "snippet": "import fila as F  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_capturador.py",
       "to_file": "curadoria/capturador.py",
       "type": "IMPORTS",
@@ -21131,6 +21392,28 @@
         "file": "curadoria/test_lifecycle.py",
         "line": 27,
         "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_supervisor.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_supervisor.py",
+        "line": 20,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/test_supervisor.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_supervisor.py",
+        "line": 21,
+        "snippet": "import supervisor as S"
       }
     },
     {
@@ -65978,10 +66261,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2169,
-    "files_readable": 858,
+    "files_tracked": 2178,
+    "files_readable": 862,
     "files_code_dir": 883,
-    "file_edges": 4570,
+    "file_edges": 4590,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

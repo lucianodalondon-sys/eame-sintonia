@@ -76,6 +76,8 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 | onde vive | `regras/italy_pilot_guards.mjs` |
 | onde vive | `regras/italy_scheduling_guards.mjs` |
 | onde vive | `regras/italy_source_health.mjs` |
+| onde vive | `regras/motor_de_rota.mjs` |
+| onde vive | `regras/motor_de_rota_test.mjs` |
 
 ### Quem esta autorizado a ser coletado
 
