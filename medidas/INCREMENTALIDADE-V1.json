@@ -1,0 +1,59 @@
+{
+ "MEDIDOR": "medidas/incrementalidade_prova.mjs",
+ "REDE": "ZERO — transporte falso, bytes do disco, sem import de https/fetch",
+ "POPULACAO": "os 85 enderecos reais colhidos a 2026-09-21 (vaga A)",
+ "F5_VALIDADORES": {
+  "OBSERVACOES_NO_LIVRO": 445,
+  "OBSERVACOES_COM_ETAG_GRAVADO": 0,
+  "OBSERVACOES_COM_LAST_MODIFIED_GRAVADO": 0,
+  "CONDITIONAL_REQUEST_IMPLEMENTED": false,
+  "COLECTOR_PEDE_VALIDADOR": false,
+  "COLECTOR_GRAVA_VALIDADOR": false,
+  "SOURCES_OFFER_ETAG": "NAO SEI",
+  "PORQUE": "o coletor nunca enviou If-None-Match nem If-Modified-Since e nunca gravou ETag nem Last-Modified; zero ocorrencias em 445 observacoes. Saber se as fontes oferecem exige um pedido a rede, que esta missao nao autoriza. NAO SEI e a resposta honesta — dizer «nao oferecem» seria uma afirmacao sobre a fonte assente num silencio nosso.",
+  "CAPACIDADE_INVENTADA": false
+ },
+ "RUN_A": {
+  "RUN": "RUN_A",
+  "POPULACAO": 85,
+  "FONTES": 6,
+  "INDEX_REQUESTS": 6,
+  "DETAIL_NEW": 85,
+  "DETAIL_SKIPPED_KNOWN": 0,
+  "DETAIL_REVALIDATED": 0,
+  "DETAIL_REFETCHED": 0,
+  "UNNECESSARY_REFETCHES": 0,
+  "RAZOES": {},
+  "DETAIL_REQUESTS": 85,
+  "DETAIL_REQUESTS_CONTADOS_NO_TRANSPORTE": 85,
+  "COERENTE": true
+ },
+ "RUN_B": {
+  "RUN": "RUN_B",
+  "POPULACAO": 85,
+  "FONTES": 6,
+  "INDEX_REQUESTS": 6,
+  "DETAIL_NEW": 0,
+  "DETAIL_SKIPPED_KNOWN": 85,
+  "DETAIL_REVALIDATED": 0,
+  "DETAIL_REFETCHED": 0,
+  "UNNECESSARY_REFETCHES": 0,
+  "RAZOES": {},
+  "DETAIL_REQUESTS": 0,
+  "DETAIL_REQUESTS_CONTADOS_NO_TRANSPORTE": 0,
+  "COERENTE": true
+ },
+ "BRIEFING": {
+  "INDEX_REQUESTS_RUN_B": 6,
+  "DETAIL_NEW_RUN_B": 0,
+  "DETAIL_SKIPPED_KNOWN_RUN_B": 85,
+  "DETAIL_REVALIDATED_RUN_B": 0,
+  "DETAIL_REFETCHED_RUN_B": 0,
+  "UNNECESSARY_REFETCHES_RUN_B": 0
+ },
+ "COMPORTAMENTO_MEDIDO_DO_COLETOR_ACTUAL": {
+  "DETAIL_REQUESTS_RUN_B": 85,
+  "DETAIL_SKIPPED_KNOWN_RUN_B": 0,
+  "PORQUE": "italy_pilot_collect.mjs:474 chama baixar() antes de a linha 502 perguntar se o documento ja era conhecido"
+ }
+}
