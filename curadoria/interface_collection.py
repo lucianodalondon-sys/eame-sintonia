@@ -21,6 +21,22 @@ READY e DERIVADO do livro a cada chamada — se a ultima transicao foi
 DEGRADED, a fonte desaparece da lista no mesmo instante.
 
     READY E UMA CONSEQUENCIA, NUNCA UM CARIMBO.
+
+---------------------------------------------------------------------------
+E PORQUE `ready_sources()` PERGUNTA AO PORTAO EM VEZ DE OLHAR O ESTADO
+
+Ate 2026-09-21 a linha de admissao era:
+
+    if estado != LC.READY_FOR_COLLECTION: continue
+
+Qualquer READY entrava. Medido no livro canonico: 87 READY, 77 deles
+`READY_LEGACY` — promovidos por «a rota resolve e traz HTML», antes de existir
+gate de detalhe. A funcao ate escrevia `READY_RULE` no output, e nao filtrava
+por ela: uma etiqueta que ninguem le nao e um portao.
+
+A regra nao passou a viver aqui. Vive em `collection_gate.py`, um dono so, e
+esta funcao pergunta-lhe. Quem quiser ver TAMBEM o que ficou de fora chama
+`inventario_ready()` — que nao e a lista de entrega, e diz porque nao e.
 """
 from __future__ import annotations
 
@@ -31,9 +47,9 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 
-import fila as F          # noqa: E402
-import lifecycle as LC    # noqa: E402
-import ready_split as RS  # noqa: E402
+import collection_gate as CG  # noqa: E402
+import fila as F              # noqa: E402
+import lifecycle as LC        # noqa: E402
 
 CONTRATO = "CURATOR_COLLECTION_INTERFACE/v1"
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
@@ -55,42 +71,67 @@ def _cadencias() -> dict:
     return {f.get("SOURCE_ID") or f.get("CANDIDATE_ID"): f for f in d["FONTES"]}
 
 
-def ready_sources() -> list[dict]:
-    """FASE 6 — «quais fontes estao READY agora?».
+def _linha(sid: str, estado: str, contratos: dict, car: dict,
+           veredito: dict) -> dict:
+    c = contratos.get(sid, {})
+    h = [t for t in LC.historia(sid) if t["NEW_STATE"] == LC.READY_FOR_COLLECTION]
+    ult = h[-1] if h else {}
+    ch = car.get(sid, {})
+    return {
+        "SOURCE_ID": sid,
+        "CAPABILITY": c.get("ACQUISITION", {}).get("STRATEGY", "NAO SEI"),
+        # ⚠️ A chave do contrato e SOURCE_CONTRACT_HASH. Medido: com
+        # `CONTRACT_HASH` as 18 saiam «NAO SEI» — a Collection nao sabia
+        # que versao de contrato estava a receber.
+        "CONTRACT_VERSION": c.get("SOURCE_CONTRACT_HASH", c.get("CONTRACT_HASH", "NAO SEI")),
+        # A REGUA PELA QUAL FOI PROMOVIDA. LEGACY = «a rota resolve»;
+        # DETAIL/v1 = item aberto, retratado, sem capa. Nao se misturam.
+        "READY_RULE": veredito["READY_RULE"],
+        "HUMAN_REVIEW_REQUIRED": veredito["HUMAN_REVIEW_REQUIRED"],
+        "COLLECTION_ELIGIBLE": veredito["COLLECTION_ELIGIBLE"],
+        "ELIGIBILITY_REASON": "%s: %s" % (veredito["MOTIVO"], veredito["PORQUE"]),
+        "ROUTE_VERSION": c.get("ACQUISITION", {}).get("ROUTE_TYPE", "NAO SEI"),
+        "STATUS": estado,
+        "LAST_VALIDATED_AT": ult.get("OBSERVED_AT", "NAO SEI"),
+        "LAST_SUCCESSFUL_CANARY_AT": ult.get("OBSERVED_AT", "NAO SEI"),
+        "EVIDENCE_REF": ult.get("EVIDENCE_REF", "NAO SEI"),
+        "CADENCE": ch.get("CADENCIA_INICIAL", "NAO SEI"),
+        "HEALTH": "HEALTHY",
+        "TERRITORY": c.get("TERRITORY", "NAO SEI"),
+    }
 
-    Derivado do livro no instante da chamada. Uma fonte degradada ha um
-    segundo ja nao vem aqui.
+
+def inventario_ready() -> list[dict]:
+    """TODAS as fontes READY no livro, elegiveis e recusadas, com o motivo.
+
+    ISTO NAO E A LISTA DE ENTREGA. Serve ao painel e ao red team: quem quiser
+    saber quantas READY existem no livro le aqui, e ve ao lado quantas dessas
+    a Collection pode mesmo tocar.
     """
+    ctx = CG._contexto()
+    contratos = _contratos()
+    car = _cadencias()
+    return [_linha(v["SOURCE_ID"], v["STATE"], contratos, car, v)
+            for v in CG.inventario(ctx=ctx)]
+
+
+def ready_sources() -> list[dict]:
+    """FASE 6 — «quais fontes a Collection pode tocar agora?».
+
+    Derivado do livro no instante da chamada, e filtrado pelo portao unico
+    (`collection_gate`). Uma fonte degradada ha um segundo ja nao vem aqui; uma
+    fonte READY pela regua antiga TAMBEM nao.
+    """
+    ctx = CG._contexto()
     est = LC.snapshot()
     contratos = _contratos()
     car = _cadencias()
     out = []
     for sid, estado in sorted(est.items()):
-        if estado != LC.READY_FOR_COLLECTION:
+        veredito = CG.avaliar(sid, **ctx)
+        if not veredito["COLLECTION_ELIGIBLE"]:
             continue
-        c = contratos.get(sid, {})
-        h = [t for t in LC.historia(sid) if t["NEW_STATE"] == LC.READY_FOR_COLLECTION]
-        ult = h[-1] if h else {}
-        ch = car.get(sid, {})
-        out.append({
-            "SOURCE_ID": sid,
-            "CAPABILITY": c.get("ACQUISITION", {}).get("STRATEGY", "NAO SEI"),
-            # ⚠️ A chave do contrato e SOURCE_CONTRACT_HASH. Medido: com
-            # `CONTRACT_HASH` as 18 saiam «NAO SEI» — a Collection nao sabia
-            # que versao de contrato estava a receber.
-            "CONTRACT_VERSION": c.get("SOURCE_CONTRACT_HASH", c.get("CONTRACT_HASH", "NAO SEI")),
-            # A REGUA PELA QUAL FOI PROMOVIDA. LEGACY = «a rota resolve»;
-            # DETAIL/v1 = item aberto, retratado, sem capa. Nao se misturam.
-            "READY_RULE": RS.regua_de(sid),
-            "ROUTE_VERSION": c.get("ACQUISITION", {}).get("ROUTE_TYPE", "NAO SEI"),
-            "STATUS": estado,
-            "LAST_VALIDATED_AT": ult.get("OBSERVED_AT", "NAO SEI"),
-            "LAST_SUCCESSFUL_CANARY_AT": ult.get("OBSERVED_AT", "NAO SEI"),
-            "EVIDENCE_REF": ult.get("EVIDENCE_REF", "NAO SEI"),
-            "CADENCE": ch.get("CADENCIA_INICIAL", "NAO SEI"),
-            "HEALTH": "HEALTHY",
-            "TERRITORY": c.get("TERRITORY", "NAO SEI"),
-        })
+        out.append(_linha(sid, estado, contratos, car, veredito))
     return out
 
 
@@ -128,13 +169,18 @@ def metricas_operacionais() -> dict:
     """FASE 13 — o que um painel «IT — SOURCES STATUS LIVE» leria."""
     m = LC.metricas()
     q = F.metricas()
-    reguas = [RS.regua_de(s) for s, e in LC.snapshot().items()
-              if e == LC.READY_FOR_COLLECTION]
+    p = CG.painel()
     return {
         "SOURCES_TOTAL": m["SOURCES_TOTAL"],
+        # ⚠️ `READY` E O ESTADO NO LIVRO, NAO «QUANTAS A COLLECTION PODE TOCAR».
+        # Quem quiser esse numero le `COLLECTION_ELIGIBLE`, que e menor e e o
+        # unico que autoriza coleta. Chamar READY_LEGACY de «prontas» e o
+        # defeito que esta missao veio fechar.
         "READY": m[LC.READY_FOR_COLLECTION],
-        "READY_LEGACY": sum(1 for r in reguas if r == RS.REGUA_LEGACY),
-        "READY_CURRENT": sum(1 for r in reguas if r == RS.REGUA_CURRENT),
+        "READY_LEGACY": p["READY_LEGACY_TOTAL"],
+        "READY_CURRENT": p["READY_CURRENT_TOTAL"],
+        "HUMAN_REVIEW_REQUIRED": p["HUMAN_REVIEW_REQUIRED"],
+        "COLLECTION_ELIGIBLE": p["COLLECTION_ELIGIBLE"],
         "QUALIFYING": m[LC.QUALIFYING],
         "CANARY_PENDING": m[LC.CANARY_PENDING],
         "RETRY_AFTER": m[LC.RETRY_AFTER],
@@ -157,15 +203,24 @@ def metricas_operacionais() -> dict:
 
 def main() -> int:
     r = ready_sources()
+    inv = inventario_ready()
     d = {"DATASET": "READY-SOURCES-V1", "CONTRATO": CONTRATO,
-         "LEI": ("o que o Curator entrega a Collection. Derivado do livro; "
-                 "uma fonte degradada sai daqui no mesmo instante."),
+         "GATE": CG.CONTRATO,
+         "LEI": ("o que o Curator entrega a Collection. Derivado do livro e "
+                 "filtrado pelo portao unico; uma fonte degradada sai daqui no "
+                 "mesmo instante, e READY_LEGACY nunca entrou."),
          "GERADO_EM": LC.agora(),
-         "READY_TOTAL": len(r),
+         # READY_TOTAL e o estado no livro; COLLECTION_ELIGIBLE e o que entrega.
+         # Os dois numeros ficam lado a lado de proposito: um sozinho mente.
+         "READY_TOTAL": len(inv),
+         "COLLECTION_ELIGIBLE": len(r),
+         "RECUSADAS": [{k: l[k] for k in ("SOURCE_ID", "STATUS", "READY_RULE",
+                                          "ELIGIBILITY_REASON")}
+                       for l in inv if not l["COLLECTION_ELIGIBLE"]],
          "METRICAS": metricas_operacionais(),
          "FONTES": r}
     SNAPSHOT.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
-    print("READY_SOURCES = %d" % len(r))
+    print("COLLECTION_ELIGIBLE = %d  (READY no livro = %d)" % (len(r), len(inv)))
     print(json.dumps(metricas_operacionais(), ensure_ascii=False, indent=1))
     return 0
 

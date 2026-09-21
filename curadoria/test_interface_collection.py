@@ -7,6 +7,7 @@ O contrato tem duas frases. Estes testes tentam fazer cada uma mentir.
 from __future__ import annotations
 
 import importlib
+import json
 import sys
 import tempfile
 import unittest
@@ -18,6 +19,28 @@ sys.path.insert(0, str(RAIZ / "curadoria"))
 import fila as F                      # noqa: E402
 import interface_collection as IC     # noqa: E402
 import lifecycle as LC                # noqa: E402
+import ready_split as RS              # noqa: E402
+
+# ⚠️ A FIXTURE PASSOU A TER DE PROVAR O QUE AFIRMA (2026-09-21).
+#
+# Ate aqui `_pronta()` escrevia `evidence_ref="EV-1"` e mais nada: uma promocao
+# sem evidencia nenhuma por tras. Pela regua de hoje isso e READY_LEGACY, e
+# READY_LEGACY nao entra na Collection — por isso a fonte de mentira deixou de
+# aparecer em `ready_sources()` e os testes comecaram a reprovar. Reprovaram
+# com razao: o que eles mediam era o carimbo, nao a consequencia.
+#
+# Agora a fixture escreve a evidencia com os QUATRO passos, como o worker real
+# escreve. A fonte entra porque PROVOU, nao porque alguem a nomeou.
+ITEM = "https://ex.it/news/mosca-olivo-calo-termico-2026/"
+INDEX = "https://ex.it/news/"
+
+
+def _evidencia_de_detalhe(ref: str) -> dict:
+    return {"EVIDENCE_REF": ref, "DADOS": {
+        "PASS": True, "DETAIL_ENUMERATED": 7, "DETAIL_GATE_PASSED": True,
+        "ITEM_ABERTO": {"URL": ITEM, "HTTP": 200, "HTML_KIND": "CONTENT",
+                        "CAPA_OU_MATERIA": RS.MATERIA,
+                        "PARAGRAPH_CHARACTERS": 2400}}}
 
 
 class Isolada(unittest.TestCase):
@@ -30,14 +53,30 @@ class Isolada(unittest.TestCase):
         LC.LIVRO = d / "LEDGER.json"
         F.FILA = d / "QUEUE.json"
         IC.LC, IC.F = LC, F
-        IC.CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
+        self._antes = (RS.EVIDENCIA, RS.CONTRATOS)
+        RS.EVIDENCIA = d / "EVIDENCE.json"
+        RS.CONTRATOS = IC.CONTRATOS = d / "contracts.json"
+        self._provas: list[dict] = []
+        self._gravar_provas()
+        RS.CONTRATOS.write_text(json.dumps({"FONTES": []}), encoding="utf-8")
+
+    def _gravar_provas(self):
+        RS.EVIDENCIA.write_text(json.dumps({"PROVAS": self._provas}),
+                                encoding="utf-8")
 
     def tearDown(self):
+        RS.EVIDENCIA, RS.CONTRATOS = self._antes
+        IC.CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
         self.tmp.cleanup()
 
-    def _pronta(self, sid="IT-T10-018"):
+    def _pronta(self, sid="IT-T10-018", ref="EV-1"):
         LC.registar(sid, LC.CANARY_PENDING, "pronta")
-        LC.registar(sid, LC.READY_FOR_COLLECTION, "canario", evidence_ref="EV-1")
+        self._provas.append(_evidencia_de_detalhe(ref))
+        self._gravar_provas()
+        RS.CONTRATOS.write_text(json.dumps({"FONTES": [
+            {"SOURCE_ID": sid, "ACQUISITION": {"INDEX_URL": INDEX}}]}),
+            encoding="utf-8")
+        LC.registar(sid, LC.READY_FOR_COLLECTION, "canario", evidence_ref=ref)
         return sid
 
 
@@ -88,6 +127,8 @@ class OCicloFechaEDepende_DeNovoCanario(Isolada):
         with self.assertRaises(ValueError):
             LC.registar(sid, LC.READY_FOR_COLLECTION, "sem canario novo")
 
+        self._provas.append(_evidencia_de_detalhe("EV-2"))
+        self._gravar_provas()
         LC.registar(sid, LC.READY_FOR_COLLECTION, "canario novo passou",
                     evidence_ref="EV-2")
         self.assertEqual(IC.metricas_operacionais()["READY"], 1)

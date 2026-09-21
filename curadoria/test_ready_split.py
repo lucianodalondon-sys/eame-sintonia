@@ -121,18 +121,36 @@ class OsDoisReady(unittest.TestCase):
         self.assertEqual(0, r2["READY_LEGACY"])
         self.assertEqual([VELHA], r2["DETALHE_LEGACY_SUBSTITUIDAS"])
 
-    def test_5_a_interface_entrega_a_regua_e_o_hash_verdadeiro(self):
+    def test_5_a_interface_entrega_SO_a_regua_de_hoje(self):
+        """⚠️ ESTE TESTE MUDOU DE LADO EM 2026-09-21, E ISSO E O PONTO.
+
+        Antes exigia que `ready_sources()` trouxesse VELHA **e** NOVA, com a
+        etiqueta `READY_RULE` a distingui-las. Uma etiqueta que ninguem le nao
+        e um portao: a Collection recebia as duas no mesmo saco. Agora a
+        entrega e so a regua de hoje, e a VELHA le-se no inventario — onde
+        aparece com o motivo da recusa escrito.
+        """
         linhas = {r["SOURCE_ID"]: r for r in IC.ready_sources()}
-        self.assertEqual(RS.REGUA_LEGACY, linhas[VELHA]["READY_RULE"])
+        self.assertEqual([NOVA], sorted(linhas), "READY_LEGACY entrou na entrega")
         self.assertEqual(RS.REGUA_CURRENT, linhas[NOVA]["READY_RULE"])
-        self.assertEqual("hash-velha", linhas[VELHA]["CONTRACT_VERSION"],
+        self.assertTrue(linhas[NOVA]["COLLECTION_ELIGIBLE"])
+
+        inv = {r["SOURCE_ID"]: r for r in IC.inventario_ready()}
+        self.assertEqual([NOVA, VELHA], sorted(inv), "o inventario esconde READY")
+        self.assertFalse(inv[VELHA]["COLLECTION_ELIGIBLE"])
+        self.assertIn("READY_LEGACY", inv[VELHA]["ELIGIBILITY_REASON"])
+        self.assertEqual("hash-velha", inv[VELHA]["CONTRACT_VERSION"],
                          "a chave do contrato e SOURCE_CONTRACT_HASH — nunca mais «NAO SEI»")
+
         m = IC.metricas_operacionais()
-        self.assertEqual((2, 1, 1), (m["READY"], m["READY_LEGACY"], m["READY_CURRENT"]))
+        self.assertEqual((2, 1, 1, 1),
+                         (m["READY"], m["READY_LEGACY"], m["READY_CURRENT"],
+                          m["COLLECTION_ELIGIBLE"]))
         lote = LOTES.fechar_lote()
         self.assertTrue(lote["CRIADO"])
         fontes = json.loads(LOTES.LOTES.read_text(encoding="utf-8"))["LOTES"][0]["FONTES"]
-        self.assertEqual({RS.REGUA_LEGACY, RS.REGUA_CURRENT}, {f["READY_RULE"] for f in fontes})
+        self.assertEqual({RS.REGUA_CURRENT}, {f["READY_RULE"] for f in fontes},
+                         "o lote levou uma fonte da regua antiga para a Collection")
 
     def test_6_revalidate_que_passa_vindo_de_CANARY_FAILED_nao_rebenta(self):
         """Antes: ValueError (READY exige CANARY_PENDING/REPAIRING) e o worker
