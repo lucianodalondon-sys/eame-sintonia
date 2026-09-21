@@ -17,8 +17,9 @@ FILA_INALTERADA        = SIM  md5 87be1ef3daf531f992b02c6a40963409 antes do base
 LEDGER_INALTERADO      = SIM  md5 9e475db922ce22ce739b60c8c0975a89 antes do baseline e no fim
 WORKTREE_CLEAN         = SIM  (git status --porcelain vazio depois de cada commit)
 HEAD_INICIAL           = 9d3d74616c042caaeaf56d6b29b07dfe7caa28cf
-HEAD_FINAL             = (ver secção "Commits" — preenchido depois do mapa)
-REMOTE_HEAD            = (ver secção "Commits")
+HEAD_FINAL             = 4821e2934a61dac92ad53d6a87e9b59a4317abe8  (código + relatório + mapa)
+REMOTE_HEAD            = 4821e2934a61dac92ad53d6a87e9b59a4317abe8  (git ls-remote origin provas-p1;
+                          o commit que fecha este relatório fica por cima e é o último push)
 NEW_FAILURES           = 0 nesta árvore
 NAO_SEI                = (lista na secção própria)
 ```
@@ -312,8 +313,22 @@ Cada commit foi verificado verde por si: o do Defeito 2 correu contra o
 `supervisor.py` original (159 testes OK); o do Defeito 1, 162 OK; o do
 Defeito 3, 166 OK. `git status --porcelain` vazio depois de cada um.
 
-O commit do relatório e o do mapa vêm a seguir; `HEAD_FINAL` e
-`REMOTE_HEAD` estão na última secção deste ficheiro, escrita depois do push.
+Depois destes três:
+
+```
+276ede21 provas p1: relatorio — baseline 154, final 166, tres gates com a saida real
+4821e293 mapa: regerado pela cadeia canonica sobre a arvore das provas P1 (276ede21)
+```
+
+Cadeia do System Map (lei do projeto), FATO MEDIDO: `REGERAR` → `CADEIA=OK`
+(20 passos); `VALIDAR` → `SYSTEM_MAP_CHECK=PASS`, P1..P10 PASS, com a
+observação já conhecida de `architecture.declared.json` ter dois autores;
+`PORTOES_POS_COMMIT` → `CADEIA=OK`. O mapa passou a conhecer os dois
+ficheiros de teste novos (40 menções no diff dos gerados).
+
+Push: `git push -u origin provas-p1` criou a branch remota;
+`git ls-remote --heads origin provas-p1` = `4821e293…`. O commit que fecha
+este relatório (preenche `HEAD_FINAL`/`REMOTE_HEAD`) é o último push.
 
 ---
 
