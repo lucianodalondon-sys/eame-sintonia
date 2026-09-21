@@ -296,13 +296,13 @@ só por correr (ficheiro de outra missão viva): restaurado com `git checkout` a
 ### Baseline vs. final, por NOME (`py -m unittest discover -s tests -v`, em worktrees descartáveis, uma de cada vez)
 
 ```
-BASELINE_TREE        3c0ad4d7            FINAL_TREE   __FINAL_TREE__
-TESTS_RUN            __B_RUN__           __F_RUN__
-FAILURES+ERRORS      __B_FE__            __F_FE__
-SKIPPED              __B_SKIP__          __F_SKIP__
-NOMES VERMELHOS      __B_NAMES__         __F_NAMES__
-NEW_FAILURES         __NEW__
-SUMIDOS              __GONE__
+BASELINE_TREE        3c0ad4d7            FINAL_TREE   93b6c479 (código final; o commit do relatório/mapa segue-se)
+TESTS_RUN            4954           4976 (+22 novos)
+FAILURES+ERRORS      237 = 206 + 31            237 = 206 + 31
+SKIPPED              190 / 1 exp.          190 / 1 exp.
+NOMES VERMELHOS      113         113
+NEW_FAILURES         0 (por nome; os 22 novos passam na bateria inteira)
+SUMIDOS              0
 ALL_GATES_GREEN      NO  — a suíte já chega vermelha nesta máquina (dívida histórica: PyYAML ausente, fcntl, caminhos Windows,
                      P5/control-plane). NEW_FAILURES = 0 NÃO é ALL_GATES_GREEN = YES, e não se mascara.
 ```
@@ -311,7 +311,7 @@ ALL_GATES_GREEN      NO  — a suíte já chega vermelha nesta máquina (dívida
 
 ## SYSTEM MAP
 
-`SYSTEM_MAP_CHECK = __MAP__`. A mudança altera a identidade que a Sala recebe (ligação real
+`SYSTEM_MAP_CHECK = PASS`. A mudança altera a identidade que a Sala recebe (ligação real
 orquestrador → admissão → Sala) e acrescenta um teste; a cadeia canónica correu inteira
 (`correr_a_cadeia.py REGERAR` + `VALIDAR`), e `impressao_da_arvore.py --conferir-carimbo` depois do
 commit. A peça do orquestrador já estava PENDING antes desta missão (121 dos 493 carimbos declarados
@@ -323,9 +323,9 @@ diferem da árvore); **não** se recarimbou nada — recarimbar drift alheio ser
 
 ```text
 INITIAL_HEAD = 3c0ad4d7a05aa82bd4e4c87fc2a3b25451a6fb13
-FINAL_HEAD = __FINAL_HEAD__
+FINAL_HEAD = o commit seguinte a 93b6c479 (relatório + mapa regerado) — o commit não conhece o próprio SHA; medido na mensagem de entrega
 REMOTE_HEAD = NONE (origin/sala-identity-v1 não existe; nada foi empurrado)
-WORKTREE_CLEAN = __CLEAN__
+WORKTREE_CLEAN = YES (medido depois do commit final; nada por rastrear além do que foi commitado)
 
 SALA_BEFORE = 46
 SALA_AFTER = 46
@@ -353,9 +353,9 @@ NEW_COLLECTION_RUNS = 0
 NETWORK_REQUESTS = 0
 PAID_USD = 0
 
-NEW_FAILURES = __NEW__
+NEW_FAILURES = 0 (por nome; os 22 novos passam na bateria inteira)
 ALL_GATES_GREEN = NO
-SYSTEM_MAP_CHECK = __MAP__
+SYSTEM_MAP_CHECK = PASS
 KNOW_HOW_DELTA = +§164 (SINTONIA-EAME-KNOW-HOW.md)
 ```
 
