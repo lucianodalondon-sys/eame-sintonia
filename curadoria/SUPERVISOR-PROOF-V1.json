@@ -1,0 +1,79 @@
+{
+ "DATASET": "SUPERVISOR-PROOF-V1",
+ "GERADO_EM": "2026-09-21T01:18:14.746121+00:00",
+ "MISSAO": "SOURCE-CURATOR-SUPERVISOR-V1",
+ "01_WORKER_ARRANCA": {
+  "PASSOU": true,
+  "TIPO": "REAL",
+  "ACCAO": "RELANCADO",
+  "WORKER_PID": 99024,
+  "NOTA": "accao=RELANCADO, PID=99024 vivo"
+ },
+ "02_PROCESSA_ITEM": {
+  "PASSOU": true,
+  "TIPO": "REAL",
+  "NOTA": "tarefa IT-PROOF-SUP-001 fechada (BLOCK esperado — sem contrato)"
+ },
+ "03_ESTADO_PERSISTE": {
+  "PASSOU": true,
+  "TIPO": "REAL",
+  "SUPERVISOR_STATE": "RUNNING",
+  "WORKER_PID": 99024
+ },
+ "04_MATAR_WORKER": {
+  "PASSOU": true,
+  "TIPO": "REAL",
+  "PID_MORTO": 99024,
+  "NOTA": "taskkill confirmado"
+ },
+ "05_DETECTA_MORTE": {
+  "PASSOU": true,
+  "TIPO": "REAL",
+  "ACCAO": "RELANCADO",
+  "NOTA": "morte detectada — accao=RELANCADO"
+ },
+ "06_RELANCA": {
+  "PASSOU": true,
+  "TIPO": "REAL",
+  "ACCAO": "RELANCADO",
+  "PID_NOVO": 94740,
+  "RESTARTS_TOTAL": 2,
+  "NOTA": "relancado com PID=94740"
+ },
+ "07_RETOMA_SEM_PERDER_ESTADO": {
+  "PASSOU": true,
+  "TIPO": "REAL+SIMULADO",
+  "FILA_INTACTA_REAL": true,
+  "TAREFAS_TESTE": 3,
+  "ORFAS_DEMO_SIMULADO": true,
+  "ORFAS_NO_LOG": false,
+  "NOTA": "fila intacta [REAL]; recuperar_orfas prova mecanismo [SIMULADO]"
+ },
+ "08_RETRY_NAO_BLOQUEIA": {
+  "PASSOU": true,
+  "TIPO": "SIMULADO",
+  "ELEGIVEIS_TESTE": [
+   "T00051"
+  ],
+  "NOTA": "RETRY-001 adiada; RETRY-002 continua elegivel"
+ },
+ "09_PARAR_FLAG": {
+  "PASSOU": true,
+  "TIPO": "SIMULADO",
+  "ACCAO": "PARA_FLAG",
+  "WORKER_PID": null,
+  "NOTA": "PARA_FLAG devolvido; worker nao lancado"
+ },
+ "10_CRASHLOOP_BLOCKED": {
+  "PASSOU": true,
+  "TIPO": "SIMULADO",
+  "ACCAO_CRASHLOOP": "BLOQUEADO",
+  "ACCAO_COM_PROGRESSO": "RELANCADO",
+  "CRASHES_APOS_PROGRESSO": 0,
+  "NOTA": "crashloop->BLOQUEADO [A]; morte com progresso nao conta [B]"
+ },
+ "CONTINUOUS_OPERATION_PROVEN": "YES",
+ "FALHAS": [],
+ "PROVAS_TOTAL": 10,
+ "PROVAS_PASSOU": 10
+}

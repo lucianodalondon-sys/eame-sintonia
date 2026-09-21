@@ -27,6 +27,15 @@ import lifecycle as LC               # noqa: E402
 SAIDA = RAIZ / "curadoria" / "SOURCE-CURATOR-STATUS-LIVE.json"
 LOTES = RAIZ / "curadoria" / "READY-BATCHES-V1.json"
 
+# Importacao tardia para evitar ciclo: supervisor importa fila, nao status_live.
+def _estado_servico() -> dict:
+    """Le o estado do servico derivado do PID real. Nunca levanta excecao."""
+    try:
+        from supervisor import ler_estado_servico  # noqa: E402
+        return ler_estado_servico()
+    except Exception:
+        return {"SOURCE_CURATOR_SERVICE": "UNKNOWN", "WORKER_ALIVE": False}
+
 
 def status() -> dict:
     livro = LC._ler_bruto()["TRANSICOES"]
@@ -61,9 +70,16 @@ def status() -> dict:
     entregues = {s for l in lotes["LOTES"] for s in l["SOURCE_IDS"]}
 
     m = IC.metricas_operacionais()
+    _estado_servico_snapshot = _estado_servico()
     return {
         "GERADO_EM": LC.agora(),
-        "SOURCE_CURATOR_RUNNING": True,
+
+        # Derivado do PID real — nao hardcoded.
+        # SOURCE_CURATOR_RUNNING mantido por compatibilidade; o campo canonico
+        # e SOURCE_CURATOR_SERVICE (RUNNING / STOPPED / BLOCKED).
+        **_estado_servico_snapshot,
+        "SOURCE_CURATOR_RUNNING": _estado_servico_snapshot.get("WORKER_ALIVE",
+                                                                False),
 
         "READY_TOTAL": m["READY"],
         "READY_TODAY": len(fontes_promovidas_hoje),

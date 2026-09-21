@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-curator-lifecycle-v1",
-    "HEAD": "d79e899863d84ab6e4017dc2dda9342c45dde4c9",
-    "GENERATED_AT": "2026-09-20T20:08:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a84bf3b59cd41ca3259b2890569f0af3dd37298b09c51975a7681b00f269badc"
+    "BRANCH": "source-curator-supervisor-v1",
+    "HEAD": "fd86a465e0793a953915d92fef20314b175d0a55",
+    "GENERATED_AT": "2026-09-20T20:25:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f66ee2b27d27fbb707674a17316a4efcdaed267578cd3bbc5fa5e0fb44f8b822"
   },
   "FILES": [
     {
@@ -1683,7 +1683,7 @@
     },
     {
       "path": "curadoria/.gitignore",
-      "sha": "333d5c2e65633203b6cc44fa01f079bef7ee256e",
+      "sha": "1c1318ee2ebc048c9e8d811d9cbc6cc49cd8d933",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -1767,7 +1767,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-QUEUE-V1.json",
-      "sha": "60f9d44c4bef74dc9c8548e2f40478ada3e04248",
+      "sha": "db68507c9db206762ebca52dbcf1027230e86823",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1781,7 +1781,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-RED-TEAM-V1.json",
-      "sha": "be00576ca95b1cb86430263a0050f6e3d9424f9d",
+      "sha": "f417a989e06e24d636d9fdc7970895f1eaaab392",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1864,20 +1864,6 @@
       "code_dir": false
     },
     {
-      "path": "curadoria/SOURCE-CURATOR-RUN-LOG.ndjson",
-      "sha": "91bad11d50e99cc81590f8a8e5d3f6d92c5bc1ee",
-      "ext": ".ndjson",
-      "readable": false,
-      "code_dir": false
-    },
-    {
-      "path": "curadoria/SOURCE-CURATOR-STATUS-LIVE.json",
-      "sha": "4ebdd9a8d9a62cb03e6c8205a429fcf5e8557aa7",
-      "ext": ".json",
-      "readable": false,
-      "code_dir": false
-    },
-    {
       "path": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
       "sha": "62655dd9fbca80b06be9f662208d6a7b97197a63",
       "ext": ".json",
@@ -1935,7 +1921,7 @@
     },
     {
       "path": "curadoria/ciclo_continuo.py",
-      "sha": "62a22c75df5817175acf09584017094f9b0861bd",
+      "sha": "cfaba535d8765095b3dd0883e8ae1d821d709396",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2075,7 +2061,7 @@
     },
     {
       "path": "curadoria/status_live.py",
-      "sha": "de54799bb56c0066b202f31bb8b3b3a4c783d988",
+      "sha": "0d01e9865c459abb73521dea77dbf558cbe75a2d",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20093,17 +20079,6 @@
     },
     {
       "from_file": "curadoria/ciclo_continuo.py",
-      "to_file": "curadoria/SOURCE-CURATOR-RUN-LOG.ndjson",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "curadoria/ciclo_continuo.py",
-        "line": 43,
-        "snippet": "DIARIO = RAIZ / \"curadoria\" / \"SOURCE-CURATOR-RUN-LOG.ndjson\""
-      }
-    },
-    {
-      "from_file": "curadoria/ciclo_continuo.py",
       "to_file": "curadoria/fila.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21002,28 +20977,6 @@
         "file": "curadoria/status_live.py",
         "line": 28,
         "snippet": "LOTES = RAIZ / \"curadoria\" / \"READY-BATCHES-V1.json\""
-      }
-    },
-    {
-      "from_file": "curadoria/status_live.py",
-      "to_file": "curadoria/SOURCE-CURATOR-STATUS-LIVE.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "curadoria/status_live.py",
-        "line": 27,
-        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"SOURCE-CURATOR-STATUS-LIVE.json\""
-      }
-    },
-    {
-      "from_file": "curadoria/status_live.py",
-      "to_file": "curadoria/SOURCE-CURATOR-STATUS-LIVE.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "curadoria/status_live.py",
-        "line": 96,
-        "snippet": "SAIDA.write_text(json.dumps(s, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
       }
     },
     {
@@ -66025,10 +65978,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2171,
+    "files_tracked": 2169,
     "files_readable": 858,
     "files_code_dir": 883,
-    "file_edges": 4573,
+    "file_edges": 4570,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
