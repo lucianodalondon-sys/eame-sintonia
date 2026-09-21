@@ -2,33 +2,167 @@
 # -*- coding: utf-8 -*-
 """Testes do supervisor. Nao reimplementam a regra — asseram o comportamento.
 
+ISOLAMENTO (PROVAS-P1, DEFEITO 2) — ESTA SUITE NAO TOCA A FILA REAL.
+
+Medido antes desta versao: este era o UNICO ficheiro de testes da pasta que
+nao redirecionava F.FILA. Consequencias reais: 10 tarefas da fila real
+passaram de PENDING a BLOCKED numa lane; PROXIMO_ID avancou noutra; e
+TestLock.setUp apagava SUPERVISOR.lock sem perguntar de quem era — com um
+supervisor VIVO na mesma arvore (em POSIX ficariam dois supervisores na mesma
+fila; a suite destruia o invariante que testa).
+
+E havia um segundo canal que nenhum redirecionamento no processo de teste
+alcanca: uma_volta_sup() lanca `ciclo_continuo.py` REAL como subprocesso, e
+esse processo abre os ficheiros reais da arvore por conta propria (a adenda de
+9d3d7461 mediu um READY-BATCH nascido dentro da suite). Aqui o lancador e
+substituido por um worker INERTE (um python que dorme): o supervisor ve um PID
+vivo, e ninguem sai a rede nem escreve na arvore.
+
+Molde copiado de test_ready_split.py:44-48 — pasta descartavel, caminhos
+guardados em `_antes`, restauro em tearDown. Nao se inventou um segundo.
+
+Guarda: cada teste tira a impressao (sha256) da fila, do livro, do lock e da
+bandeira REAIS antes de comecar e compara no fim. Se algum mudou, o teste
+reprova — ou a suite escreveu la, ou ha um servico vivo a escrever na mesma
+arvore; em ambos os casos a medicao nao vale.
+
+    GIT STATUS VAZIO NAO E PROVA. O SHA256 DA FILA MANDA.
+
 RED TEAM incluido: prova_09 usa heartbeat NOVO mas LAST_PROGRESS_AT igual
 para simular o caso em que a comparacao de strings da falso-positivo de
 "progresso". Declarado como KNOWN_LIMITATION se falhar.
 """
+import hashlib
 import json
+import os
 import subprocess
 import sys
+import tempfile
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 import unittest
+from unittest import mock
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 
-import fila as F
-import supervisor as S
+import fila as F        # noqa: E402
+import lifecycle as LC  # noqa: E402
+import supervisor as S  # noqa: E402
+
+# Os caminhos REAIS, escritos por extenso e nao lidos dos modulos: se outro
+# teste deixou F.FILA a apontar para uma pasta descartavel ja apagada, ler
+# F.FILA aqui daria uma "impressao" de um ficheiro que nao e o real.
+CAMINHOS_REAIS = {
+    "F.FILA":   RAIZ / "curadoria" / "LIFECYCLE-QUEUE-V1.json",
+    "LC.LIVRO": RAIZ / "curadoria" / "LIFECYCLE-LEDGER-V1.json",
+    "S.LOCK":   RAIZ / "curadoria" / "SUPERVISOR.lock",
+    "S.PARAR":  RAIZ / "curadoria" / "PARAR.flag",
+}
 
 
-class TestLock(unittest.TestCase):
+def _impressao(p: Path) -> str:
+    if not p.exists():
+        return "AUSENTE"
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+
+
+def _impressoes() -> dict:
+    return {k: _impressao(p) for k, p in CAMINHOS_REAIS.items()}
+
+
+class Isolado(unittest.TestCase):
+    """Molde de test_ready_split.py:44-48: tudo o que e estado vai para uma
+    pasta descartavel, e o lancador de worker e um processo inerte."""
+
     def setUp(self):
-        S.LOCK.unlink(missing_ok=True)
-        S.ESTADO.unlink(missing_ok=True)
+        self.tmp = tempfile.TemporaryDirectory()
+        d = Path(self.tmp.name)
+        self._antes = (F.FILA, LC.LIVRO, S.LOCK, S.ESTADO, S.PARAR, S.DIARIO)
+        self._reais_antes = _impressoes()
+        F.FILA   = d / "QUEUE.json"
+        LC.LIVRO = d / "LEDGER.json"
+        S.LOCK   = d / "SUPERVISOR.lock"
+        S.ESTADO = d / "SUPERVISOR-STATE.json"
+        S.PARAR  = d / "PARAR.flag"
+        S.DIARIO = d / "RUN-LOG.ndjson"
+        self._procs: list[subprocess.Popen] = []
+        self._lancador = mock.patch.object(S, "_lancar_worker", self._worker_inerte)
+        self._lancador.start()
 
     def tearDown(self):
-        S.LOCK.unlink(missing_ok=True)
-        S.ESTADO.unlink(missing_ok=True)
+        self._lancador.stop()
+        for p in self._procs:
+            if p.poll() is None:
+                p.terminate()
+                try:
+                    p.wait(timeout=5)
+                except Exception:
+                    p.kill()
+                    p.wait(timeout=5)
+            if p.stdout:
+                p.stdout.close()
+        (F.FILA, LC.LIVRO, S.LOCK, S.ESTADO, S.PARAR, S.DIARIO) = self._antes
+        self.tmp.cleanup()
+        depois = _impressoes()
+        self.assertEqual(
+            self._reais_antes, depois,
+            "um ficheiro REAL mudou durante o teste (antes=%s depois=%s): ou a "
+            "suite escreveu fora da pasta descartavel, ou ha um servico vivo a "
+            "escrever nesta arvore — em ambos os casos a medicao nao vale"
+            % (self._reais_antes, depois))
+
+    # -- lancadores substitutos ---------------------------------------------
+    def _popen(self, codigo: str) -> subprocess.Popen:
+        # Mesmos pipes que S._lancar_worker, para os testes que fazem
+        # communicate() continuarem a funcionar.
+        p = subprocess.Popen(
+            [sys.executable, "-c", codigo],
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, encoding="utf-8", errors="replace",
+        )
+        self._procs.append(p)
+        return p
+
+    def _worker_inerte(self, pausa: float = 1.0) -> subprocess.Popen:
+        """Um PID vivo que nao faz nada: e o que o supervisor precisa de ver."""
+        return self._popen("import time; time.sleep(60)")
+
+    def _worker_que_morre_ja(self, pausa: float = 1.0) -> subprocess.Popen:
+        """Morre sem escrever uma linha no diario: morte SEM progresso."""
+        p = self._popen("pass")
+        p.wait(timeout=10)
+        return p
+
+    def _worker_que_bate_e_morre(self, pausa: float = 1.0) -> subprocess.Popen:
+        """Escreve um batimento no diario e morre: morte COM progresso."""
+        linha = json.dumps({"EVENTO": "VOLTA", "AT": S._agora()})
+        p = self._popen(
+            "import io; io.open(%r, 'a', encoding='utf-8').write(%r)"
+            % (str(S.DIARIO), linha + "\n"))
+        p.wait(timeout=10)
+        return p
+
+
+class TestLock(Isolado):
+    """Tudo sobre o lock da pasta descartavel. O lock REAL nunca e tocado —
+    nao ha `unlink` nenhum aqui, porque nao ha nada para apagar."""
+
+    def test_lock_dos_testes_nao_e_o_real(self):
+        self.assertNotEqual(S.LOCK, CAMINHOS_REAIS["S.LOCK"])
+        self.assertEqual(S.LOCK.parent, Path(self.tmp.name))
+        self.assertNotEqual(F.FILA, CAMINHOS_REAIS["F.FILA"])
+        self.assertEqual(F.FILA.parent, Path(self.tmp.name))
+
+    def test_lock_real_sobrevive_ao_ciclo_adquirir_libertar(self):
+        real = CAMINHOS_REAIS["S.LOCK"]
+        antes = _impressao(real)
+        fd = S._adquirir_lock()
+        self.assertIsNotNone(fd)
+        S._libertar_lock(fd)
+        self.assertEqual(antes, _impressao(real),
+                         "adquirir/libertar o lock de teste tocou no lock real")
 
     def test_adquirir_lock_ok(self):
         fd = S._adquirir_lock()
@@ -76,24 +210,7 @@ class TestLock(unittest.TestCase):
             S._libertar_lock(fd)
 
 
-import os
-
-class TestUmaVoltaSup(unittest.TestCase):
-    def setUp(self):
-        S.PARAR.unlink(missing_ok=True)
-        S.LOCK.unlink(missing_ok=True)
-        # Limpar tarefas de teste.
-        d = F._ler()
-        d["TAREFAS"] = [t for t in d["TAREFAS"]
-                        if not t["SOURCE_ID"].startswith("IT-TEST-SUP-")]
-        F._gravar(d)
-
-    def tearDown(self):
-        S.PARAR.unlink(missing_ok=True)
-        d = F._ler()
-        d["TAREFAS"] = [t for t in d["TAREFAS"]
-                        if not t["SOURCE_ID"].startswith("IT-TEST-SUP-")]
-        F._gravar(d)
+class TestUmaVoltaSup(Isolado):
 
     def _estado_base(self):
         return {"SUPERVISOR_STATE": "STARTING", "RESTARTS_TOTAL": 0,
@@ -124,35 +241,29 @@ class TestUmaVoltaSup(unittest.TestCase):
         self.assertEqual(accao, "RELANCADO")
         self.assertIsNotNone(proc)
         self.assertEqual(estado["RESTARTS_TOTAL"], 1)
-        if proc and proc.poll() is None:
-            proc.terminate()
-            proc.wait(timeout=5)
+        # O que foi lancado e o inerte, nao o ciclo_continuo.py real.
+        self.assertIn(proc, self._procs)
 
     def test_vivo_quando_worker_ativo(self):
         self._injetar("IT-TEST-SUP-003")
         accao, estado, proc = S.uma_volta_sup(self._estado_base(), None,
                                                pausa_worker=0.1)
         self.assertEqual(accao, "RELANCADO")
-        try:
-            # Segunda volta: worker vivo -> VIVO.
-            time.sleep(1)
-            accao2, estado2, proc2 = S.uma_volta_sup(estado, proc,
-                                                      pausa_worker=0.1)
-            self.assertIn(accao2, ("VIVO", "IDLE", "RELANCADO"),
-                          "accao inesperada: %s" % accao2)
-        finally:
-            for p in (proc, proc2 if 'proc2' in dir() else None):
-                if p and p.poll() is None:
-                    p.terminate()
-                    try:
-                        p.wait(timeout=5)
-                    except Exception:
-                        p.kill()
+        # Segunda volta: worker vivo -> VIVO.
+        time.sleep(1)
+        accao2, estado2, proc2 = S.uma_volta_sup(estado, proc, pausa_worker=0.1)
+        self.assertIn(accao2, ("VIVO", "IDLE", "RELANCADO"),
+                      "accao inesperada: %s" % accao2)
 
-    def test_bloqueado_apos_crash_sem_progresso(self):
+    def test_bloqueado_com_tres_crashes_ja_no_estado(self):
+        """Estado que ja traz TRES mortes sem progresso -> BLOQUEADO.
+
+        Le o limiar pelo comportamento (tres, escrito por extenso), nunca pela
+        constante: um teste que importa S.CRASH_MAX mede a constante contra
+        ela propria e fica verde com a proteccao desligada.
+        """
         agora = datetime.now(timezone.utc).isoformat()
-        crashes = [{"AT": agora, "LAST_HB": None}
-                   for _ in range(S.CRASH_MAX)]
+        crashes = [{"AT": agora, "LAST_HB": None} for _ in range(3)]
         estado = {**self._estado_base(), "CRASHES_SEM_PROGRESSO": crashes,
                   "WORKER_PID": None}
         self._injetar("IT-TEST-SUP-004")
@@ -174,21 +285,9 @@ class TestUmaVoltaSup(unittest.TestCase):
         # Escrever heartbeat recente no log.
         with S.DIARIO.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps({"EVENTO": "TESTE", "AT": agora_ts}) + "\n")
-        proc_morto = subprocess.Popen(
-            [sys.executable, "-c", "pass"],
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
+        proc_morto = self._popen("pass")
         proc_morto.wait(timeout=5)
         accao, estado2, proc_new = S.uma_volta_sup(estado, proc_morto)
-        if proc_new and proc_new.poll() is None:
-            proc_new.terminate()
-            try:
-                proc_new.communicate(timeout=5)
-            except Exception:
-                proc_new.kill()
-                proc_new.communicate()
-        elif proc_new and proc_new.stdout:
-            proc_new.stdout.close()
         # Com progresso, contador zerado.
         self.assertEqual(len(estado2.get("CRASHES_SEM_PROGRESSO", [])), 0,
                          "crashes_sem_progresso devia ser [] apos morte com progresso")
@@ -238,7 +337,6 @@ class TestBootTimeParsing(unittest.TestCase):
         Injecto boot time no futuro (vs STARTED_AT no passado) para verificar
         que a comparacao e feita com datetimes aware, nao strings de fusos mistos.
         """
-        import unittest.mock as mock
         # STARTED_AT: 1 hora antes do boot
         started = datetime(2026, 9, 11, 0, 0, 0, tzinfo=timezone.utc)
         boot    = datetime(2026, 9, 11, 1, 0, 0, tzinfo=timezone.utc)
@@ -255,7 +353,6 @@ class TestBootTimeParsing(unittest.TestCase):
 
     def test_lock_valido_depois_do_boot(self):
         """STARTED_AT posterior ao boot: nao e orfao pelo check (c)."""
-        import unittest.mock as mock
         started = datetime(2026, 9, 11, 2, 0, 0, tzinfo=timezone.utc)
         boot    = datetime(2026, 9, 11, 1, 0, 0, tzinfo=timezone.utc)
         lock_data = {
@@ -271,7 +368,6 @@ class TestBootTimeParsing(unittest.TestCase):
 
     def test_boot_time_indisponivel_nao_rejeita(self):
         """Se wmic falhar (boot_time=None), check (c) inactivo — lock nao rejeitado."""
-        import unittest.mock as mock
         lock_data = {
             "PID": 99999,
             "STARTED_AT": "2026-01-01T00:00:00+00:00",
@@ -284,22 +380,8 @@ class TestBootTimeParsing(unittest.TestCase):
                              "boot_time None nao devia rejeitar lock com PID vivo")
 
 
-class TestRedTeam(unittest.TestCase):
+class TestRedTeam(Isolado):
     """Casos em que a propria sonda pode falhar — declarados honestamente."""
-
-    def setUp(self):
-        S.PARAR.unlink(missing_ok=True)
-        d = F._ler()
-        d["TAREFAS"] = [t for t in d["TAREFAS"]
-                        if not t["SOURCE_ID"].startswith("IT-REDTEAM-")]
-        F._gravar(d)
-
-    def tearDown(self):
-        S.PARAR.unlink(missing_ok=True)
-        d = F._ler()
-        d["TAREFAS"] = [t for t in d["TAREFAS"]
-                        if not t["SOURCE_ID"].startswith("IT-REDTEAM-")]
-        F._gravar(d)
 
     def test_redteam_pid_reciclado_pode_enganar_verificacao(self):
         """RED TEAM: se o SO reciclar rapidamente o PID do worker morto para
