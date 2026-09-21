@@ -1,0 +1,2974 @@
+{
+ "DATASET": "CANDIDATE-LINEAGE-V1",
+ "LEI": "juncao derivada de candidatas + alocacao + match + fila + livro; recalculada do disco. Um SOURCE_ID com duas candidatas REPROVA.",
+ "GERADO_EM": "2026-09-21T03:37:57.934999+00:00",
+ "CANDIDATAS": 241,
+ "COM_SOURCE_ID": 85,
+ "COM_TAREFA": 25,
+ "POR_ESTADO": {
+  "SEM_LIVRO": 157,
+  "CAPABILITY_BLOCK": 14,
+  "READY_FOR_COLLECTION": 16,
+  "CONTRACTED_CANARY_FAILED": 4,
+  "RECONCILIATION_REQUIRED": 50
+ },
+ "SOURCE_ID_COM_DUAS_CANDIDATAS": {},
+ "LINHAS": [
+  {
+   "CANDIDATE_ID": "CAND-0013",
+   "URL": "https://www.sardegnaagricoltura.it/index.php?xsl=443",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0012",
+   "URL": "https://www.arpa.puglia.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": "IT-T2-029",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "99e6959736f1c0ec",
+   "TASKS": [
+    {
+     "TASK_ID": "T00005",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00018",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00034",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0014",
+   "URL": "https://www.arpa.sardegna.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0001",
+   "URL": "https://www.arpacal.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0007",
+   "URL": "https://www.assam.marche.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": "IT-T12-009",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "1da23405d1e61c51",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0002",
+   "URL": "https://www.regione.calabria.it/website/portaltemplates/view/view.cfm?21",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0005",
+   "URL": "https://www.ersa.fvg.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": "IT-T12-017",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "48194f296406b679",
+   "TASKS": [
+    {
+     "TASK_ID": "T00004",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00017",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00033",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0006",
+   "URL": "https://www.ersaf.lombardia.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0003",
+   "URL": "https://fitogest.imagelinenetwork.com/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0004",
+   "URL": "https://plantgest.imagelinenetwork.com/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": "IT-T10-021",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "90882cb24279da72",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0016",
+   "URL": "https://www.provincia.bz.it/agricoltura-foreste/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0008",
+   "URL": "https://www.regione.molise.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0011",
+   "URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": "IT-T12-013",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "2a79c07cfe902af8",
+   "TASKS": [
+    {
+     "TASK_ID": "T00100",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00109",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00117",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CONTRACTED_CANARY_FAILED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0009",
+   "URL": "https://www.reterurale.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0010",
+   "URL": "https://www.sian.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0015",
+   "URL": "https://www.sardegnaagricoltura.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0017",
+   "URL": "https://www.regione.vda.it/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0018",
+   "URL": "https://www.venetoagricoltura.org/",
+   "TIPO": "BASE_OFICIAL",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0021",
+   "URL": "http://www.bulletinofinsectology.org/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": "IT-T5-052",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "0264eeec851c92d6",
+   "TASKS": [
+    {
+     "TASK_ID": "T00006",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00019",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00035",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00118",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CONTRACTED_CANARY_FAILED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0022",
+   "URL": "https://www.crpv.it/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": "IT-T5-041",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00023",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0026",
+   "URL": "https://www.laimburg.it/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0023",
+   "URL": "https://link.springer.com/journal/42161",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0027",
+   "URL": "https://www.unibz.it/it/faculties/agricultural-environmental-food-sciences/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0025",
+   "URL": "https://oajournals.fupress.net/index.php/pm",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": "IT-T5-053",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "6e697d311bfd8986",
+   "TASKS": [
+    {
+     "TASK_ID": "T00007",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00020",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00036",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0024",
+   "URL": "https://www.di3a.unict.it/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": "IT-T5-049",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "7bbc35ea12bf52b7",
+   "TASKS": [
+    {
+     "TASK_ID": "T00101",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00110",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0020",
+   "URL": "https://www.agraria.unina.it/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": "IT-T5-039",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "98af78f5036924c3",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0019",
+   "URL": "https://www.agraria.unirc.it/",
+   "TIPO": "CIENCIA",
+   "SOURCE_ID": "IT-T5-051",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00026",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0044",
+   "URL": "https://www.facebook.com/provincia.autonoma.trento",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0034",
+   "URL": "https://www.facebook.com/arpalazio",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0036",
+   "URL": "https://www.facebook.com/ArpaLiguria",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0030",
+   "URL": "https://www.facebook.com/ArsacRegioneCalabria",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0035",
+   "URL": "https://www.facebook.com/ARSIALregionelazio",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0028",
+   "URL": "https://www.facebook.com/arpaabruzzo",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0040",
+   "URL": "https://www.facebook.com/Agrilevante",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0037",
+   "URL": "https://www.facebook.com/agriligurianet",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0045",
+   "URL": "https://www.facebook.com/agriumbria",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0039",
+   "URL": "https://www.facebook.com/unito.it",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0042",
+   "URL": "https://www.facebook.com/ciatoscana",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0031",
+   "URL": "https://www.facebook.com/rinovaeducazionecomunicazione",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0032",
+   "URL": "https://www.facebook.com/GruppoCaviro",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0033",
+   "URL": "https://www.facebook.com/Cifo1965",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0038",
+   "URL": "https://www.facebook.com/lombardiaconfagricoltura",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0041",
+   "URL": "https://www.facebook.com/ConsorzioPecorinoRomanoDOP",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0046",
+   "URL": "https://www.facebook.com/ConeglianoValdobbiadeneProseccoDOCG",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0047",
+   "URL": "https://www.facebook.com/valpolicella.wines",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0029",
+   "URL": "https://www.facebook.com/vinidabruzzo",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0043",
+   "URL": "https://www.facebook.com/chianticlassico.it",
+   "TIPO": "FACEBOOK",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0050",
+   "URL": "https://agricolturamoderna.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0051",
+   "URL": "https://www.agrifoodtoday.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0064",
+   "URL": "https://www.agrisicilia.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0052",
+   "URL": "https://www.ilsole24ore.com/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0053",
+   "URL": "https://www.ansa.it/canale_terraegusto/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0054",
+   "URL": "https://www.agroalimentarenews.com/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T8-008",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "0d1f1d5b3e99bca1",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0055",
+   "URL": "https://www.freshplaza.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T9-018",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "f5fc666f0c2186b8",
+   "TASKS": [
+    {
+     "TASK_ID": "T00009",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00022",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00038",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0056",
+   "URL": "https://www.corrierevinicolo.com/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0057",
+   "URL": "https://www.ilfattoalimentare.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0048",
+   "URL": "https://www.italiafruit.net/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0058",
+   "URL": "https://www.mangimiealimenti.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0059",
+   "URL": "https://www.myfruit.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T10-018",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "b0cad858b2e19203",
+   "TASKS": [
+    {
+     "TASK_ID": "T00098",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00107",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0060",
+   "URL": "https://www.noisiamoagricoltura.com/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0061",
+   "URL": "https://www.olioofficina.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T5-046",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "317246cfb0984811",
+   "TASKS": [
+    {
+     "TASK_ID": "T00003",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00016",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00032",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0062",
+   "URL": "https://www.pianetapsr.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0049",
+   "URL": "https://www.rivistafrutticoltura.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T8-007",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "49f69b38b8f76220",
+   "TASKS": [
+    {
+     "TASK_ID": "T00008",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00021",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00037",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0063",
+   "URL": "https://www.teatronaturale.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0065",
+   "URL": "https://winenews.it/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T10-020",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "6d7e53ac53a52d84",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0066",
+   "URL": "https://www.zootecnicainternational.com/",
+   "TIPO": "IMPRENSA",
+   "SOURCE_ID": "IT-T10-022",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "bf6f145e03e44d55",
+   "TASKS": [
+    {
+     "TASK_ID": "T00099",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00108",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0087",
+   "URL": "https://www.instagram.com/provinciatrento",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0074",
+   "URL": "https://www.instagram.com/arpalagenzia",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0075",
+   "URL": "https://www.instagram.com/arpa.lombardia",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0081",
+   "URL": "https://www.instagram.com/arpapiemonte",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0088",
+   "URL": "https://www.instagram.com/arpavda",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0073",
+   "URL": "https://www.instagram.com/arsial.lazio",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0080",
+   "URL": "https://www.instagram.com/amapmarche",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0082",
+   "URL": "https://www.instagram.com/agrilevantebyeima",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0068",
+   "URL": "https://www.instagram.com/ri.nova.soc.coop",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0069",
+   "URL": "https://www.instagram.com/gruppocaviro",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0070",
+   "URL": "https://www.instagram.com/cifo_giardinaggio",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0076",
+   "URL": "https://www.instagram.com/confagricoltura_lombardia",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0083",
+   "URL": "https://www.instagram.com/consorziopecorinoromano",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0089",
+   "URL": "https://www.instagram.com/coneglianovaldobbiadenedocg",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0090",
+   "URL": "https://www.instagram.com/valpolicellawines",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0067",
+   "URL": "https://www.instagram.com/vinidabruzzo",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0085",
+   "URL": "https://www.instagram.com/chianticlassico",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0086",
+   "URL": "https://www.instagram.com/brunellodimontalcino",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0077",
+   "URL": "https://www.instagram.com/etvilloresi",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0091",
+   "URL": "https://www.instagram.com/consorziopiave",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0084",
+   "URL": "https://www.instagram.com/aranciarossaigp",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0078",
+   "URL": "https://www.instagram.com/granapadano",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0071",
+   "URL": "https://www.instagram.com/acetobalsamicomodena",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0072",
+   "URL": "https://www.instagram.com/ersa_fvg_informa",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0079",
+   "URL": "https://www.instagram.com/fondminoprio",
+   "TIPO": "INSTAGRAM",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0130",
+   "URL": "https://www.linkedin.com/company/provincia-autonoma-di-trento",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0101",
+   "URL": "https://www.linkedin.com/company/arpa-lazio",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0102",
+   "URL": "https://www.linkedin.com/company/arpa-lombardia",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0106",
+   "URL": "https://www.linkedin.com/company/arpa-marche",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0108",
+   "URL": "https://www.linkedin.com/company/arpa-molise",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0126",
+   "URL": "https://www.linkedin.com/company/arpa-piemonte",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0133",
+   "URL": "https://www.linkedin.com/company/arpa-valle-d-aosta",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0128",
+   "URL": "https://www.linkedin.com/company/arpatoscana",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0107",
+   "URL": "https://www.linkedin.com/company/amap-marche",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0109",
+   "URL": "https://www.linkedin.com/showcase/agrofarma",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0110",
+   "URL": "https://www.linkedin.com/showcase/assofertilizzanti",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0111",
+   "URL": "https://www.linkedin.com/company/assosementi",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0112",
+   "URL": "https://www.linkedin.com/company/cia-agricoltori-italiani",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0113",
+   "URL": "https://www.linkedin.com/company/283032",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0093",
+   "URL": "https://www.linkedin.com/company/rinovaricerca",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0094",
+   "URL": "https://www.linkedin.com/company/gruppocaviro",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0114",
+   "URL": "https://www.linkedin.com/company/certisbelchim-italia",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0095",
+   "URL": "https://www.linkedin.com/company/cifo-s.r.l.",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0115",
+   "URL": "https://www.linkedin.com/company/confederazione-nazionale-coldiretti",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0134",
+   "URL": "https://www.linkedin.com/company/consorzio-per-la-tutela-dei-vini-della-valpolicella",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0135",
+   "URL": "https://www.linkedin.com/company/15179878/admin/dashboard",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0103",
+   "URL": "https://www.linkedin.com/company/consorzio-tutela-grana-padano",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0116",
+   "URL": "https://www.linkedin.com/company/federunacoma",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0096",
+   "URL": "https://www.linkedin.com/company/fieravicola",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0104",
+   "URL": "https://www.linkedin.com/company/fondazione-minoprio",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0117",
+   "URL": "https://www.linkedin.com/company/1602695",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0118",
+   "URL": "https://www.linkedin.com/company/ispra_2",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0131",
+   "URL": "https://www.linkedin.com/company/interpoma",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0119",
+   "URL": "https://www.linkedin.com/company/italmopa",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0120",
+   "URL": "https://www.linkedin.com/company/24658052",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0132",
+   "URL": "https://www.linkedin.com/company/833389",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0097",
+   "URL": "https://www.linkedin.com/company/macfrut-fiera",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0121",
+   "URL": "https://www.linkedin.com/company/698415/admin/feed/posts",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0122",
+   "URL": "https://www.linkedin.com/company/olioofficina",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0127",
+   "URL": "https://www.linkedin.com/company/regione-piemonte",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0123",
+   "URL": "https://www.linkedin.com/showcase/retenazionalepac",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0098",
+   "URL": "https://www.linkedin.com/company/sanafiera",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0124",
+   "URL": "https://www.linkedin.com/company/societ",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0125",
+   "URL": "https://www.linkedin.com/company/simeiexhibition",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0099",
+   "URL": "https://www.linkedin.com/showcase/edagricole",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0100",
+   "URL": "https://www.linkedin.com/company/department-of-agricultural-and-food-sciences",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0105",
+   "URL": "https://www.linkedin.com/company/dipartimento-di-scienze-agrarie-ambientali",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0092",
+   "URL": "https://www.linkedin.com/company/syngenta",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0129",
+   "URL": "https://www.linkedin.com/company/winenewsit",
+   "TIPO": "LINKEDIN",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0160",
+   "URL": "http://www.anga.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0170",
+   "URL": "https://www.agrilevante.eu/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0177",
+   "URL": "https://www.agriumbria.eu/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0161",
+   "URL": "https://agrofarma.federchimica.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-043",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "f8f9f6801de27c06",
+   "TASKS": [
+    {
+     "TASK_ID": "T00106",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00115",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0162",
+   "URL": "https://assofertilizzanti.federchimica.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0137",
+   "URL": "https://biolchim.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0138",
+   "URL": "https://www.riuniteciv.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-017",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "ad38b4a69b2fa843",
+   "TASKS": [
+    {
+     "TASK_ID": "T00102",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00111",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0139",
+   "URL": "https://www.caviro.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0163",
+   "URL": "https://www.coldiretti.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0171",
+   "URL": "https://puglia.coldiretti.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0173",
+   "URL": "https://sicilia.coldiretti.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0178",
+   "URL": "https://veneto.coldiretti.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0153",
+   "URL": "https://www.confagricolturalombardia.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-019",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "b7bed4ac40f656cf",
+   "TASKS": [
+    {
+     "TASK_ID": "T00001",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00014",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00030",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00116",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CONTRACTED_CANARY_FAILED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0164",
+   "URL": "https://www.fedagripesca.confcooperative.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-029",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "cab46297ffb8e930",
+   "TASKS": [
+    {
+     "TASK_ID": "T00002",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00015",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00031",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0140",
+   "URL": "https://www.conserveitalia.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T9-015",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00024",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0154",
+   "URL": "https://www.casalasco.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0172",
+   "URL": "https://www.pecorinoromano.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0179",
+   "URL": "https://www.consorziovalpolicella.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-038",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00025",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0174",
+   "URL": "https://www.chianticlassico.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-033",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "2f36fab7f3310509",
+   "TASKS": [
+    {
+     "TASK_ID": "T00103",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00112",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0141",
+   "URL": "https://www.parmigianoreggiano.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-040",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "dec5341f40347274",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0175",
+   "URL": "https://www.consorziobrunellodimontalcino.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0155",
+   "URL": "https://www.etvilloresi.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-021",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "2cebb9be67f9ed32",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0180",
+   "URL": "https://www.consorziopiave.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0142",
+   "URL": "https://www.bonificaromagna.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-041",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "5caf531853b37bac",
+   "TASKS": [
+    {
+     "TASK_ID": "T00104",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00113",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00119",
+     "TASK_TYPE": "REVALIDATE",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CONTRACTED_CANARY_FAILED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0169",
+   "URL": "https://www.nocciolapiemonteigp.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0143",
+   "URL": "https://www.consorziobalsamico.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-042",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "e78201deee2ebe98",
+   "TASKS": [
+    {
+     "TASK_ID": "T00105",
+     "TASK_TYPE": "VALIDATE_ROUTE",
+     "STATUS": "DONE"
+    },
+    {
+     "TASK_ID": "T00114",
+     "TASK_TYPE": "CANARY",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "DETAIL/v1"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0156",
+   "URL": "https://www.diachem.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0165",
+   "URL": "https://feder.bio/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T7-031",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "9c8c20330b7e877d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0166",
+   "URL": "https://www.federunacoma.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0144",
+   "URL": "https://www.fieravicola.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0157",
+   "URL": "https://www.granariamilano.org/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0145",
+   "URL": "https://www.granarolo.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0176",
+   "URL": "https://www.interpoma.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0167",
+   "URL": "https://www.legacoopagroalimentare.coop/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T5-054",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00029",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0146",
+   "URL": "https://www.macfrut.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0147",
+   "URL": "https://www.nomisma.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T2-030",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "2848c30b3ece121c",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "READY_FOR_COLLECTION",
+   "READY_RULE": "LEGACY"
+  },
+  {
+   "CANDIDATE_ID": "CAND-0148",
+   "URL": "https://www.alegra.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0149",
+   "URL": "https://www.sana.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0150",
+   "URL": "https://www.scam.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T9-019",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00027",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0158",
+   "URL": "https://www.sipcamitalia.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": "IT-T9-020",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": null,
+   "TASKS": [
+    {
+     "TASK_ID": "T00028",
+     "TASK_TYPE": "BUILD_CONTRACT",
+     "STATUS": "DONE"
+    }
+   ],
+   "ESTADO_NO_LIVRO": "CAPABILITY_BLOCK",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0159",
+   "URL": "https://www.tuttofood.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0151",
+   "URL": "https://www.terremerse.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0168",
+   "URL": "https://www.uiv.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0152",
+   "URL": "https://www.unaprol.it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0136",
+   "URL": "https://www.valagro.com/it/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0181",
+   "URL": "https://www.vinitaly.com/",
+   "TIPO": "ORGANIZACAO",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0207",
+   "URL": "https://www.youtube.com/channel/UCFkdwOroXwCFMXHneVMeYqQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-023",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "4ba1aa1b9e1a1e82",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0233",
+   "URL": "https://www.youtube.com/channel/UCxIuSXfCNVnzTLD3EJFcQng",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-015",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "33d2cb43cab85606",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0197",
+   "URL": "https://www.youtube.com/@arpa_lazio",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T2-025",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "df28d73446362da2",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0198",
+   "URL": "https://www.youtube.com/channel/UCTK_ULXg3gzn8el_oFk-5eA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T2-026",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "94247fc7babc17b2",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0199",
+   "URL": "https://www.youtube.com/channel/UCamw8rL1JPLjfa3Bx6ax8Eg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T2-027",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "5e1fe50d5a29f3f0",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0204",
+   "URL": "https://www.youtube.com/channel/UCtBD35n-HE7x_MWnjc1kt7g",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T2-028",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "aa7714ed87c6ed1d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0184",
+   "URL": "https://www.youtube.com/channel/UCEg22ii3Awy6eyRybNqO-8Q",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-007",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "358ff797fc42f7b1",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0205",
+   "URL": "https://www.youtube.com/channel/UCpiryXByW32kGxQXTlbnSXA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-008",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "8dc3ef3b90a52741",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0225",
+   "URL": "https://www.youtube.com/user/Agrilevante/feed",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T11-007",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "a9b0bd653ae9d814",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0236",
+   "URL": "https://www.youtube.com/user/Agriumbria",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T8-005",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "f8e4150a95d53651",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0187",
+   "URL": "https://www.youtube.com/@AgroNotizie",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T8-001",
+   "SOURCE_ID_VIA": "ATLAS_MATCH",
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0223",
+   "URL": "https://www.youtube.com/@Agromoderni",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0208",
+   "URL": "https://www.youtube.com/channel/UCdJ3sb6r1X0pjU6XR9OMdGw",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-024",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "345f4e75f35ab68b",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0209",
+   "URL": "https://www.youtube.com/user/CiaAgricoltori",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-025",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "e6cef1ba8fd945d2",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0185",
+   "URL": "https://www.youtube.com/channel/UCOiX7jy7G-NMPtaA9QaNQrg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-037",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "93d7d2f7529564ad",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0210",
+   "URL": "https://www.youtube.com/channel/UC4LCuwIcRPhrE2mFJ8ZXtLg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-026",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "7e2b4bc687b1ccfd",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0188",
+   "URL": "https://www.youtube.com/@rinovaricerche",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-040",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "bce2e05f2099864b",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0189",
+   "URL": "https://www.youtube.com/channel/UCHm8wgnyeNFP2luUq_lMPMg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-016",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "acf99dbfd84777d0",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0190",
+   "URL": "https://www.youtube.com/user/cifospa",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0211",
+   "URL": "https://www.youtube.com/channel/UCEgJbey3UogPJPmdlBEAjKQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-027",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "35ec4a27b397a861",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0200",
+   "URL": "https://www.youtube.com/channel/UCfqqPifpfaZUI30hxiygmJw",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-018",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "206bc8634310115b",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0212",
+   "URL": "https://www.youtube.com/channel/UCJbuSrQ57Z-dAYGI7n2VwPg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-028",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "eface9a37891ff69",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0191",
+   "URL": "https://www.youtube.com/channel/UCB3cnpKOvT56elhTKE7cjSg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T9-014",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "e25421f3d8585082",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0213",
+   "URL": "https://www.youtube.com/channel/UC84-4aKRmQbIG5eprbIaR9Q",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T9-016",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "b2d352e8629c9141",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0238",
+   "URL": "https://www.youtube.com/user/ProseccoSuperiore",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-036",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "c976f7d0fc11ef17",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0239",
+   "URL": "https://www.youtube.com/channel/UCpdWeEtUCU1aHhJnj2TwheA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-037",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "b1bef3a2db0e5bdf",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0182",
+   "URL": "https://www.youtube.com/@VinidAbruzzo",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-015",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "177ade9ff1de48dc",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0228",
+   "URL": "https://www.youtube.com/user/vinochianticlassico",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-032",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "7db18e1b95b4a76a",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0229",
+   "URL": "https://www.youtube.com/user/brunello1888",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-034",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "d39247a56e4cbd4d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0201",
+   "URL": "https://www.youtube.com/@consorziodibonificaesttici5074",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-020",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "6d39e99552329dcd",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0240",
+   "URL": "https://www.youtube.com/channel/UCmRWXB6nOPLc5x42XXhGrWg",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-039",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "4521849c6ffcc1c2",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0202",
+   "URL": "https://www.youtube.com/@GranaPadanoDOP",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-022",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "dbe5e9accfbd7e8d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0214",
+   "URL": "https://www.youtube.com/user/FederBioItalia",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-030",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "9499641d0f63dddf",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0203",
+   "URL": "https://www.youtube.com/user/Fondazioneminoprio",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-044",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "38a56031a9da82d1",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0192",
+   "URL": "https://www.youtube.com/@fondazionenavarra_Ferrara",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-042",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "033ed8efd7896a97",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0230",
+   "URL": "https://www.youtube.com/channel/UCosKzVZGcw6VR3sW9QKGkVw",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T7-035",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "f79b8da6f557f56d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0193",
+   "URL": "https://www.youtube.com/channel/UCQX-qwzhBwwJaIFcLL3RI2w",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0215",
+   "URL": "https://www.youtube.com/user/ISPRAVIDEO",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-045",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "82d674e1ff67aea2",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0234",
+   "URL": "https://www.youtube.com/channel/UCCIKHiNQVo8mIJyu_6aYHWA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0216",
+   "URL": "https://www.youtube.com/channel/UCmPpv0_TilfaF9Df5SzeFiQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T9-017",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "0e0a025583b1297d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0241",
+   "URL": "https://www.youtube.com/@informatoreagrario",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T8-006",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "e336b4565c05760c",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0235",
+   "URL": "https://www.youtube.com/channel/UCWRr0vMGqdmyqzdm3bNGY4Q",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-050",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "352732550bc33ea1",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0194",
+   "URL": "https://www.youtube.com/channel/UCS-EXLzpmRwcnJNsm9SWJdA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T11-006",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "5599aa55304a80cd",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0217",
+   "URL": "https://www.youtube.com/user/myfruitvideo",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T10-017",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "ec5048cf2295eff9",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0218",
+   "URL": "https://www.youtube.com/@NoiSiamoAgricoltura",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0219",
+   "URL": "https://www.youtube.com/channel/UCXUG407gp3CnWnfS3ycijhA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0220",
+   "URL": "https://www.youtube.com/user/reterurale",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-011",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "1f8eb8ffcb2bbd4d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0206",
+   "URL": "https://www.youtube.com/channel/UCH_LCqE9qGb6TvpXwGudNbQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-010",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "ee40ece16cf3f5b4",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0224",
+   "URL": "https://www.youtube.com/user/LaRegionePiemonte",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-012",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "f20f45ec1abedb00",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0231",
+   "URL": "https://www.youtube.com/c/RegioneToscanaUfficiale",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-014",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "2f5a318308b9f54b",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0237",
+   "URL": "https://www.youtube.com/channel/UC4wxlAIQauBZe7CDnLXkWqA",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T12-016",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "bf88558f5a83267d",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0221",
+   "URL": "https://www.youtube.com/channel/UCnY1rs74L8pttWxtBiZwULQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0222",
+   "URL": "https://www.youtube.com/@statobrado",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0195",
+   "URL": "https://www.youtube.com/channel/UCrCabYjtyqdzu1zXo95o7Jw",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T8-004",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "c4529d012adb7520",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0226",
+   "URL": "https://www.youtube.com/user/unialdomoro",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-047",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "45509781e7acd424",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0196",
+   "URL": "https://www.youtube.com/channel/UCDNXhv9mPzYo5FQKkg_oSWw",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-043",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "681f8d852013f554",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0227",
+   "URL": "https://www.youtube.com/channel/UCKdQcnPtPZs3k08e5jrFSNQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-048",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "fb76d36f8deaac32",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0186",
+   "URL": "https://www.youtube.com/channel/UC3HdHdHUZomg1l3K_UWv9PQ",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T5-038",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "56837d78e28b35fc",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0183",
+   "URL": "https://www.youtube.com/@syngenta",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": null,
+   "SOURCE_ID_VIA": null,
+   "CONTRACT_HASH": null,
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": null,
+   "READY_RULE": null
+  },
+  {
+   "CANDIDATE_ID": "CAND-0232",
+   "URL": "https://www.youtube.com/user/winetv",
+   "TIPO": "YOUTUBE",
+   "SOURCE_ID": "IT-T10-019",
+   "SOURCE_ID_VIA": "ALLOCATION",
+   "CONTRACT_HASH": "5217fc831e62fac4",
+   "TASKS": [],
+   "ESTADO_NO_LIVRO": "RECONCILIATION_REQUIRED",
+   "READY_RULE": null
+  }
+ ]
+}

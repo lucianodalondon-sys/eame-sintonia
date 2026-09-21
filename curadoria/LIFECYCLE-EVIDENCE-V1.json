@@ -438,6 +438,450 @@
     "PORQUE": "nenhum dos 235 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve",
     "HREFS": 235
    }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T10-018-VALIDATE_ROUTE-0036",
+   "SOURCE_ID": "IT-T10-018",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:25:49.167550+00:00",
+   "DADOS": {
+    "ROTA": "https://www.myfruit.it/",
+    "ROBOTS": "User-agent: *\nAllow: /\n\nUser-agent: facebookexternalhit\nDisallow:\n\nUser-agent: Facebot\nDisallow:",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T10-018-CANARY-0037",
+   "SOURCE_ID": "IT-T10-018",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:25:56.098571+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.myfruit.it/news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito",
+    "ALVOS_DESCOBERTOS": 29,
+    "DETAIL_ENUMERATED": 29,
+    "ITEM_ABERTO": {
+     "URL": "https://www.myfruit.it/news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito",
+     "HTTP": 200,
+     "BYTES": 98312,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 141,
+     "NON_WHITESPACE_CHARACTERS": 10865,
+     "PARAGRAPH_CHARACTERS": 5912,
+     "TEXT_SHA256": "d7901b396718d8cdda889a0bc00e9b3cbe71d0e1ba33bf381b56a6eb91598e03"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 98312,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T10-018:URL:news/annamaria-medici-in-ortofrutta-vince-il-valore-percepito"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T10-022-VALIDATE_ROUTE-0038",
+   "SOURCE_ID": "IT-T10-022",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:25:58.975004+00:00",
+   "DADOS": {
+    "ROTA": "https://zootecnicainternational.com/news/",
+    "ROBOTS": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://zootecnicainternational.com/",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T10-022-CANARY-0039",
+   "SOURCE_ID": "IT-T10-022",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:05.791773+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://zootecnicainternational.com/news/bob-buresh-2026-psa-poultry-industry-award/",
+    "ALVOS_DESCOBERTOS": 8,
+    "DETAIL_ENUMERATED": 8,
+    "ITEM_ABERTO": {
+     "URL": "https://zootecnicainternational.com/news/bob-buresh-2026-psa-poultry-industry-award/",
+     "HTTP": 200,
+     "BYTES": 177009,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 154,
+     "NON_WHITESPACE_CHARACTERS": 5603,
+     "PARAGRAPH_CHARACTERS": 3676,
+     "TEXT_SHA256": "509c8f9ae9847fb69667feddd1c8c351960145be87e770324503c58efb711763"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 177009,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T10-022:URL:news/bob-buresh-2026-psa-poultry-industry-award"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-013-VALIDATE_ROUTE-0040",
+   "SOURCE_ID": "IT-T12-013",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:08.388867+00:00",
+   "DADOS": {
+    "ROTA": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "ROBOTS": "#\n# robots.txt\n#\n# This file is to prevent the crawling and indexing of certain parts\n# of your site by web crawlers and",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-013-CANARY-0041",
+   "SOURCE_ID": "IT-T12-013",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:15.304435+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.piemonte.it/web/temi/agricoltura/agroambiente-meteo-suoli/indicazioni-sullinstallazione-impianti-fotovoltaici-aree-agricole",
+    "ALVOS_DESCOBERTOS": 15,
+    "DETAIL_ENUMERATED": 15,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/agroambiente-meteo-suoli/indicazioni-sullinstallazione-impianti-fotovoltaici-aree-agricole",
+     "HTTP": 200,
+     "BYTES": 175511,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 482,
+     "NON_WHITESPACE_CHARACTERS": 15696,
+     "PARAGRAPH_CHARACTERS": 3131,
+     "TEXT_SHA256": "60249229071f102f8415158cb82ede5847e828259343dce152a12a9838e86281"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 175511,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (482 ligacoes para 15696 caracteres, 3131 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-049-VALIDATE_ROUTE-0042",
+   "SOURCE_ID": "IT-T5-049",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:17.384694+00:00",
+   "DADOS": {
+    "ROTA": "https://www.di3a.unict.it/it/notizie",
+    "ROBOTS": "#\n# robots.txt\n#\n# This file is to prevent the crawling and indexing of certain parts\n# of your site by web crawlers and",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-049-CANARY-0043",
+   "SOURCE_ID": "IT-T5-049",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:21.473238+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.di3a.unict.it/it/notizie/avvisi-esami-e-prove-itinere",
+    "ALVOS_DESCOBERTOS": 4,
+    "DETAIL_ENUMERATED": 4,
+    "ITEM_ABERTO": {
+     "URL": "https://www.di3a.unict.it/it/notizie/avvisi-esami-e-prove-itinere",
+     "HTTP": 200,
+     "BYTES": 42128,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 56,
+     "NON_WHITESPACE_CHARACTERS": 5877,
+     "PARAGRAPH_CHARACTERS": 2769,
+     "TEXT_SHA256": "2d5ff15f44172222210bea0920b7a39936aec60e2af190eb4e5b49bf7bfd39f6"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 42128,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T5-049:URL:it/notizie/avvisi-esami-e-prove-itinere"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-017-VALIDATE_ROUTE-0044",
+   "SOURCE_ID": "IT-T7-017",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:24.588758+00:00",
+   "DADOS": {
+    "ROTA": "https://www.riuniteciv.com/news-e-eventi/",
+    "ROBOTS": "User-agent: *\nDisallow: /gf-entries-in-excel/\nDisallow: /gravityexport-lite/\nDisallow: /gravityexport/\n\nDisallow: /wp-ad",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-017-CANARY-0045",
+   "SOURCE_ID": "IT-T7-017",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:31.053439+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.riuniteciv.com/news-e-eventi/beer-food-attraction-rimini-presentazione-prodotti/",
+    "ALVOS_DESCOBERTOS": 54,
+    "DETAIL_ENUMERATED": 54,
+    "ITEM_ABERTO": {
+     "URL": "https://www.riuniteciv.com/news-e-eventi/beer-food-attraction-rimini-presentazione-prodotti/",
+     "HTTP": 200,
+     "BYTES": 75025,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 70,
+     "NON_WHITESPACE_CHARACTERS": 2122,
+     "PARAGRAPH_CHARACTERS": 1080,
+     "TEXT_SHA256": "c46a1dd46547759125339671ca86c1500e8c055f0cfc67df7e7c98615e35463f"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 75025,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T7-017:URL:news-e-eventi/beer-food-attraction-rimini-presentazione-prodotti"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-033-VALIDATE_ROUTE-0046",
+   "SOURCE_ID": "IT-T7-033",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:33.088056+00:00",
+   "DADOS": {
+    "ROTA": "https://www.chianticlassico.com/news/",
+    "ROBOTS": "User-agent: *\nDisallow: /download/",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-033-CANARY-0047",
+   "SOURCE_ID": "IT-T7-033",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:37.568420+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.chianticlassico.com/news/27-ottobre-2025-milano-degustazione-chianticlassicodocg/",
+    "ALVOS_DESCOBERTOS": 15,
+    "DETAIL_ENUMERATED": 15,
+    "ITEM_ABERTO": {
+     "URL": "https://www.chianticlassico.com/news/27-ottobre-2025-milano-degustazione-chianticlassicodocg/",
+     "HTTP": 200,
+     "BYTES": 105860,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 89,
+     "NON_WHITESPACE_CHARACTERS": 3135,
+     "PARAGRAPH_CHARACTERS": 1911,
+     "TEXT_SHA256": "d5bf817b586f238fbd7f50b5bdd37985dc6b916b5c5583a955338a75040c107f"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 105860,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T7-033:URL:news/27-ottobre-2025-milano-degustazione-chianticlassicodocg"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-041-VALIDATE_ROUTE-0048",
+   "SOURCE_ID": "IT-T7-041",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:39.869585+00:00",
+   "DADOS": {
+    "ROTA": "https://www.bonificaromagna.it/news",
+    "ROBOTS": "# If the Joomla site is installed within a folder\n# eg www.example.com/joomla/ then the robots.txt file\n# MUST be moved ",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-041-CANARY-0049",
+   "SOURCE_ID": "IT-T7-041",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:44.128894+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.bonificaromagna.it/news/23-marzo-2025-presentazione-giornate-fai-visite-guidate-idrovoro-madonna-del-pino-ra",
+    "ALVOS_DESCOBERTOS": 7,
+    "DETAIL_ENUMERATED": 7,
+    "ITEM_ABERTO": {
+     "URL": "https://www.bonificaromagna.it/news/23-marzo-2025-presentazione-giornate-fai-visite-guidate-idrovoro-madonna-del-pino-ra",
+     "HTTP": 200,
+     "BYTES": 46947,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 54,
+     "NON_WHITESPACE_CHARACTERS": 1677,
+     "PARAGRAPH_CHARACTERS": 590,
+     "TEXT_SHA256": "f53051c958ca3be4fdccd77d59f22e09823cc657aa69fb3bbc497d6037603aa1"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 46947,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (54 ligacoes para 1677 caracteres, 590 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-042-VALIDATE_ROUTE-0050",
+   "SOURCE_ID": "IT-T7-042",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:47.160571+00:00",
+   "DADOS": {
+    "ROTA": "https://www.consorziobalsamico.it/news-blog/",
+    "ROBOTS": "User-agent: *\nDisallow: /wp-admin/\n",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-042-CANARY-0051",
+   "SOURCE_ID": "IT-T7-042",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:52.811401+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.consorziobalsamico.it/news-blog/a-sostegno-della-filiera-del-vino-italiano/",
+    "ALVOS_DESCOBERTOS": 10,
+    "DETAIL_ENUMERATED": 10,
+    "ITEM_ABERTO": {
+     "URL": "https://www.consorziobalsamico.it/news-blog/a-sostegno-della-filiera-del-vino-italiano/",
+     "HTTP": 200,
+     "BYTES": 98195,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 91,
+     "NON_WHITESPACE_CHARACTERS": 5549,
+     "PARAGRAPH_CHARACTERS": 3786,
+     "TEXT_SHA256": "73f03066a744e409d1e86a7d5387e93b35dd3e3a12529111910d87de810a37d0"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 98195,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T7-042:URL:news-blog/a-sostegno-della-filiera-del-vino-italiano"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-043-VALIDATE_ROUTE-0052",
+   "SOURCE_ID": "IT-T7-043",
+   "ETAPA": "VALIDATE_ROUTE",
+   "OBSERVED_AT": "2026-09-21T03:26:55.144767+00:00",
+   "DADOS": {
+    "ROTA": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+    "PERMITIDO": true
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-043-CANARY-0053",
+   "SOURCE_ID": "IT-T7-043",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-21T03:26:59.590942+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana",
+    "ALVOS_DESCOBERTOS": 3,
+    "DETAIL_ENUMERATED": 3,
+    "ITEM_ABERTO": {
+     "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana",
+     "HTTP": 200,
+     "BYTES": 62920,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 67,
+     "NON_WHITESPACE_CHARACTERS": 3008,
+     "PARAGRAPH_CHARACTERS": 1472,
+     "TEXT_SHA256": "aa07349dca252a63754cb3a5ab828c82793a10f8ce18bda54e79b4676a8c7956"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 62920,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T7-043:URL:news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-013-REVALIDATE-0054",
+   "SOURCE_ID": "IT-T12-013",
+   "ETAPA": "REVALIDATE",
+   "OBSERVED_AT": "2026-09-21T03:29:13.519180+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.piemonte.it/web/temi/agricoltura/agroambiente-meteo-suoli/indicazioni-sullinstallazione-impianti-fotovoltaici-aree-agricole",
+    "ALVOS_DESCOBERTOS": 15,
+    "DETAIL_ENUMERATED": 15,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/agroambiente-meteo-suoli/indicazioni-sullinstallazione-impianti-fotovoltaici-aree-agricole",
+     "HTTP": 200,
+     "BYTES": 175511,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 482,
+     "NON_WHITESPACE_CHARACTERS": 15696,
+     "PARAGRAPH_CHARACTERS": 3131,
+     "TEXT_SHA256": "60249229071f102f8415158cb82ede5847e828259343dce152a12a9838e86281"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 175511,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (482 ligacoes para 15696 caracteres, 3131 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-052-REVALIDATE-0055",
+   "SOURCE_ID": "IT-T5-052",
+   "ETAPA": "REVALIDATE",
+   "OBSERVED_AT": "2026-09-21T03:29:18.850379+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "HTTP": 200,
+    "PORQUE": "nenhum dos 61 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve",
+    "HREFS": 61
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-041-REVALIDATE-0056",
+   "SOURCE_ID": "IT-T7-041",
+   "ETAPA": "REVALIDATE",
+   "OBSERVED_AT": "2026-09-21T03:29:22.991590+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.bonificaromagna.it/news/23-marzo-2025-presentazione-giornate-fai-visite-guidate-idrovoro-madonna-del-pino-ra",
+    "ALVOS_DESCOBERTOS": 7,
+    "DETAIL_ENUMERATED": 7,
+    "ITEM_ABERTO": {
+     "URL": "https://www.bonificaromagna.it/news/23-marzo-2025-presentazione-giornate-fai-visite-guidate-idrovoro-madonna-del-pino-ra",
+     "HTTP": 200,
+     "BYTES": 46290,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 54,
+     "NON_WHITESPACE_CHARACTERS": 1677,
+     "PARAGRAPH_CHARACTERS": 590,
+     "TEXT_SHA256": "f53051c958ca3be4fdccd77d59f22e09823cc657aa69fb3bbc497d6037603aa1"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 46290,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (54 ligacoes para 1677 caracteres, 590 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-019-REVALIDATE-0057",
+   "SOURCE_ID": "IT-T7-019",
+   "ETAPA": "REVALIDATE",
+   "OBSERVED_AT": "2026-09-21T03:31:41.750364+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "HTTP": 200,
+    "PORQUE": "nenhum dos 113 enderecos da entrada casa com o padrao — EMPTY_LIST, como o contrato preve",
+    "HREFS": 113
+   }
   }
  ]
 }

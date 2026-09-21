@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "c6da8b60b116b45cbeee59747d0ace82f7751720",
-    "GENERATED_AT": "2026-09-21T00:12:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c62e1cc92ddb07222cb76f424f46d95ef1d3eca50fc1804b706d7b5390fc4ee1"
+    "HEAD": "18b52d1f9bbe19b7518f39380cdbd5728ab0bef1",
+    "GENERATED_AT": "2026-09-21T00:22:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6087ef38ca55f8c62a6f772da341151ba92caee336e0cc0f37369863ac15ecda"
   },
   "FILES": [
     {
@@ -1731,8 +1731,15 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CANDIDATE-LINEAGE-V1.json",
+      "sha": "cdd0f8bda7162d17d4bca6be1a7d312fa12b232a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
-      "sha": "f9f4dcf57efaf1e07d0a8c2f362e8137076055dc",
+      "sha": "b15f1cf4ec8f1a6b6d9be5a631fde4cc6df1d675",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1781,14 +1788,14 @@
     },
     {
       "path": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
-      "sha": "1a21c851e46e95605294d7857728a62218dbc00b",
+      "sha": "4a5f033bb20cd1f57925e55e66c04691dc1aa1ae",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "curadoria/LIFECYCLE-LEDGER-V1.json",
-      "sha": "d16bcfe07f5e1d83d801b3d001223a357c86a848",
+      "sha": "61e7528b45bc059452656be91e587481c3946d00",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1802,7 +1809,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-QUEUE-V1.json",
-      "sha": "d383c70c39ba592ab956cb1afd3d92abce7b9430",
+      "sha": "5a1b2688ce0d2d257206ea52593e3b51efa029ea",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1851,7 +1858,7 @@
     },
     {
       "path": "curadoria/READY-SPLIT-V1.json",
-      "sha": "ffa932016b6d57169099d87a44f0b6c871b67e15",
+      "sha": "02acf6d2f0fa0a29badf159574281c6c8e54c713",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1914,7 +1921,7 @@
     },
     {
       "path": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
-      "sha": "62655dd9fbca80b06be9f662208d6a7b97197a63",
+      "sha": "fd47a8671051d891de760b161f9f37bf2feb37bb",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1949,7 +1956,7 @@
     },
     {
       "path": "curadoria/atribuir_source_id.py",
-      "sha": "3b85e42c3860e40b8ecb25baf5b5d6b448b20f5f",
+      "sha": "b76da681318c08b33ad0ae37cd23730fae8b58cc",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2012,7 +2019,7 @@
     },
     {
       "path": "curadoria/emparelhar_com_atlas.py",
-      "sha": "fc771d670a4ee76707c0532add8cdb02d43e3455",
+      "sha": "46f936b4633a9d7310a2a2f2dc4ddf06d0ed9b7a",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2069,6 +2076,13 @@
     {
       "path": "curadoria/lifecycle.py",
       "sha": "26b6254a0c94105cdc55ff07cb949326ff392482",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/linhagem_das_candidatas.py",
+      "sha": "563211ca829d4ae072ca8f5a5cf916cb29f38c82",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2188,6 +2202,13 @@
     {
       "path": "curadoria/test_correr_lote.py",
       "sha": "a79e337d42425e7b268bd70ed9d3b1723da1d1a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_emparelhar_ataques.py",
+      "sha": "56d02eb9fd9026fbe8d1ad3eb34092320059099c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20122,7 +20143,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/atribuir_source_id.py",
-        "line": 142,
+        "line": 146,
         "snippet": "match = json.loads((RAIZ / \"curadoria\" / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\")"
       }
     },
@@ -20133,7 +20154,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/atribuir_source_id.py",
-        "line": 144,
+        "line": 148,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -20144,8 +20165,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/atribuir_source_id.py",
-        "line": 235,
-        "snippet": "p = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
+        "line": 142,
+        "snippet": "return RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
     {
@@ -20155,7 +20176,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/atribuir_source_id.py",
-        "line": 236,
+        "line": 260,
         "snippet": "p.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -20540,7 +20561,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/emparelhar_com_atlas.py",
-        "line": 212,
+        "line": 322,
         "snippet": "p = RAIZ / \"curadoria\" / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\""
       }
     },
@@ -20551,7 +20572,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/emparelhar_com_atlas.py",
-        "line": 213,
+        "line": 323,
         "snippet": "p.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -20562,8 +20583,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/emparelhar_com_atlas.py",
-        "line": 181,
+        "line": 266,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/emparelhar_com_atlas.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/emparelhar_com_atlas.py",
+        "line": 293,
+        "snippet": "p_alloc = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/emparelhar_com_atlas.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/emparelhar_com_atlas.py",
+        "line": 129,
+        "snippet": "CONTRATOS_DO_CURATOR = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
     {
@@ -20938,6 +20981,105 @@
         "file": "curadoria/lifecycle.py",
         "line": 38,
         "snippet": "LIVRO = RAIZ / \"curadoria\" / \"LIFECYCLE-LEDGER-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 33,
+        "snippet": "CANDIDATAS = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/CANDIDATE-LINEAGE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 38,
+        "snippet": "SAIDA = CUR / \"CANDIDATE-LINEAGE-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/CANDIDATE-LINEAGE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 91,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 35,
+        "snippet": "MATCH = CUR / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 36,
+        "snippet": "FILA = CUR / \"LIFECYCLE-QUEUE-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 34,
+        "snippet": "ALLOC = CUR / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 37,
+        "snippet": "CONTRATOS = CUR / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 29,
+        "snippet": "import lifecycle as LC     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/linhagem_das_candidatas.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/linhagem_das_candidatas.py",
+        "line": 30,
+        "snippet": "import ready_split as RS   # noqa: E402"
       }
     },
     {
@@ -21631,6 +21773,39 @@
         "file": "curadoria/test_correr_lote.py",
         "line": 23,
         "snippet": "import correr_lote as L  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_emparelhar_ataques.py",
+      "to_file": "curadoria/emparelhar_com_atlas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_emparelhar_ataques.py",
+        "line": 32,
+        "snippet": "import emparelhar_com_atlas as EM   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_emparelhar_ataques.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_emparelhar_ataques.py",
+        "line": 33,
+        "snippet": "import fila as F                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_emparelhar_ataques.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_emparelhar_ataques.py",
+        "line": 141,
+        "snippet": "import supervisor as SUP"
       }
     },
     {
@@ -66676,10 +66851,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2187,
-    "files_readable": 868,
+    "files_tracked": 2190,
+    "files_readable": 870,
     "files_code_dir": 883,
-    "file_edges": 4622,
+    "file_edges": 4636,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

@@ -270,6 +270,7 @@
       "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
       "curadoria/CANDIDATE-BUCKETS-V1.json",
+      "curadoria/CANDIDATE-LINEAGE-V1.json",
       "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
@@ -319,6 +320,7 @@
       "curadoria/interface_collection.py",
       "curadoria/italy_contracts_curator.json",
       "curadoria/lifecycle.py",
+      "curadoria/linhagem_das_candidatas.py",
       "curadoria/lotes.py",
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
@@ -336,6 +338,7 @@
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_correr_lote.py",
+      "curadoria/test_emparelhar_ataques.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
       "curadoria/test_ready_split.py",
@@ -2781,9 +2784,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "c6da8b60b116b45cbeee59747d0ace82f7751720",
-    "GENERATED_AT": "2026-09-21T00:12:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c62e1cc92ddb07222cb76f424f46d95ef1d3eca50fc1804b706d7b5390fc4ee1"
+    "HEAD": "18b52d1f9bbe19b7518f39380cdbd5728ab0bef1",
+    "GENERATED_AT": "2026-09-21T00:22:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6087ef38ca55f8c62a6f772da341151ba92caee336e0cc0f37369863ac15ecda"
   },
   "FAMILIES": [
     {
@@ -4265,8 +4268,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 307",
-        "desses, mostrados aqui: 40 (ficam de fora 267)"
+        "enderecos que o codigo realmente chama: 318",
+        "desses, mostrados aqui: 40 (ficam de fora 278)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -97487,7 +97490,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1170,
+  "UNCLAIMED_FILES_COUNT": 1173,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97676,7 +97679,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2187,
+    "files_tracked": 2190,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

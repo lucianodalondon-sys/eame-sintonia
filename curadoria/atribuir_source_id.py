@@ -138,6 +138,10 @@ def _org(nome: str) -> str:
     return re.sub(r"[^a-z0-9]", "", n)
 
 
+def p_saida_existente() -> Path:
+    return RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"
+
+
 def main() -> int:
     match = json.loads((RAIZ / "curadoria" / "CANDIDATE-TO-SOURCE-MATCH-V1.json")
                        .read_text(encoding="utf-8"))
@@ -158,12 +162,28 @@ def main() -> int:
         if m:
             maior[m.group(1)] = max(maior[m.group(1)], int(m.group(2)))
 
+    # ⚠️ O QUE JA FOI NUMERADO NESTA LINHA FICA COMO ESTA, E OS NUMEROS DELE
+    # CONTAM PARA «O MAIOR JA USADO». Sem isto, uma segunda corrida apagava as
+    # 84 NOVAS (o emparelhador passa a devolve-las como JA_ALOCADA e elas nao
+    # chegam a SEM_MATCH) e podia reciclar os numeros delas para outras.
+    preservadas = []
+    if p_saida_existente().exists():
+        antes = json.loads(p_saida_existente().read_text(encoding="utf-8"))
+        preservadas = list(antes.get("NOVAS", []))
+        for n in preservadas:
+            m = re.match(r"^IT-(T\d+)-(\d+)$", n["SOURCE_ID"])
+            if m:
+                maior[m.group(1)] = max(maior[m.group(1)], int(m.group(2)))
+    ja_ids = {n["CANDIDATE_ID"] for n in preservadas}
+
     novas, sem_territorio = [], []
     contador = dict(maior)
 
     # ⚠️ PRIMEIRA PASSAGEM: decidir o territorio de cada uma.
     decidido = []
     for c in match["SEM_MATCH"]:
+        if c["CANDIDATE_ID"] in ja_ids:
+            continue
         ficha = porid[c["CANDIDATE_ID"]]
         t, porque = territorio_de(ficha)
         decidido.append((c, ficha, t, porque))
@@ -215,8 +235,12 @@ def main() -> int:
             "MESMA_ORGANIZACAO": irmas or None,
         })
 
+    novas = preservadas + novas
+    # ordem estavel: a mesma entrada tem de dar o mesmo ficheiro, byte a byte
+    sem_territorio.sort(key=lambda s: s["CANDIDATE_ID"])
     saida = {
         "DATASET": "SOURCE-ID-ALLOCATION-V1",
+        "PRESERVADAS_DE_CORRIDA_ANTERIOR": len(preservadas),
         "LEI": ("SOURCE_ID = IT-T<territorio>-<sequencia>. Nada dele deriva da URL, "
                 "do handle ou de hash. A sequencia continua do maior existente e "
                 "NUNCA recicla um numero ja usado."),

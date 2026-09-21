@@ -114,6 +114,75 @@ def ler_atlas(do_disco: bool = False) -> list[dict]:
     return fichas
 
 
+def url_valida(u: str) -> bool:
+    """FALHAR FECHADO: uma URL sem esquema http(s) ou sem dominio com ponto
+    nao entra na comparacao nem recebe identidade. Medido no PASSO 5 do
+    candidate feeder: sem isto, «nao e um endereco» dava dominio vazio, nao
+    casava com nada e seguia para SOURCE_ID novo como se fosse fonte."""
+    try:
+        p = urlparse((u or "").strip())
+    except Exception:
+        return False
+    return p.scheme in ("http", "https") and "." in p.netloc and " " not in p.netloc
+
+
+CONTRATOS_DO_CURATOR = RAIZ / "curadoria" / "italy_contracts_curator.json"
+
+
+def fichas_dos_contratos(caminho: Path | None = None) -> list[dict]:
+    """As identidades que o Curator JA contratou, na mesma forma das fichas do
+    Atlas — para que uma candidata cujo endereco ja e contrato NAO ganhe um
+    segundo numero.
+
+    ⚠️ O ATLAS DO COORDINATOR NAO AS TEM. `ler_atlas()` le a versao dele (185
+    fichas) e as 84 do Curator so existem na tabela de contratos e no Atlas do
+    disco. Uma descoberta nova que trouxesse `consorziobalsamico.it` outra vez
+    casaria com nada no Atlas do coordinator e nasceria IT-T7-0xx pela segunda
+    vez. O emparelhamento compara com TUDO o que tem numero.
+    """
+    p = caminho or CONTRATOS_DO_CURATOR
+    if not p.exists():
+        return []
+    out = []
+    for c in json.loads(p.read_text(encoding="utf-8")).get("FONTES", []):
+        aq = c.get("ACQUISITION") or {}
+        out.append({
+            "SOURCE_ID": c["SOURCE_ID"],
+            "URL": c.get("CANONICAL_ENTRY_URL") or aq.get("INDEX_URL") or aq.get("FEED_URL") or "",
+            "NAME": c.get("NAME", ""), "OWNER": c.get("OWNER", ""),
+            "NATIVE_ID": aq.get("CHANNEL_ID") or c.get("SOURCE_NATIVE_ID") or "",
+            "TERRITORY": c.get("TERRITORY", ""), "VERDICT": "CONTRATADA_PELO_CURATOR",
+        })
+    return out
+
+
+def identidades_conhecidas(do_disco: bool = False,
+                           contratos: list[dict] | None = None) -> list[dict]:
+    """Atlas + contratos do Curator, sem repetir SOURCE_ID (o Atlas manda)."""
+    fichas = ler_atlas(do_disco=do_disco)
+    vistos = {f["SOURCE_ID"] for f in fichas}
+    for f in (contratos if contratos is not None else fichas_dos_contratos()):
+        if f["SOURCE_ID"] not in vistos:
+            fichas.append(f)
+            vistos.add(f["SOURCE_ID"])
+    return fichas
+
+
+def chave_de_identidade(c: dict) -> str:
+    """A chave pela qual duas candidatas sao A MESMA fonte dentro de uma
+    corrida: native id > handle normalizado > dominio (fora de plataforma)."""
+    nat = (c.get("_NATIVE_ID") or c.get("PLATFORM_NATIVE_ID") or "").strip()
+    if nat:
+        return "native:" + nat
+    h = normalizar(handle_cru(c.get("URL", "")))
+    if h:
+        return "handle:" + h
+    d = dominio(c.get("URL", ""))
+    if d and d not in PLATAFORMAS:
+        return "dominio:" + d
+    return "url:" + (c.get("URL") or "").strip().lower().rstrip("/")
+
+
 def native_id_da_prova(c: dict) -> str:
     """O channel_id do YouTube vive no feed guardado, nao na ficha.
 
@@ -153,10 +222,26 @@ def emparelhar(cands: list[dict], atlas: list[dict]) -> tuple[list, list]:
         if d and d not in PLATAFORMAS:
             por_dom.setdefault(d, a)
 
-    achados, novas = [], []
+    achados, novas, rejeitadas = [], [], []
+    vistas: dict[str, str] = {}
     for c in cands:
+        # ⚠️ FALHAR FECHADO ANTES DE COMPARAR. URL invalida nao casa com nada
+        # e nao ganha numero: sai pelo nome, como REJEITADA.
+        if not url_valida(c.get("URL", "")):
+            rejeitadas.append({"CANDIDATE_ID": c.get("CANDIDATE_ID"), "URL": c.get("URL"),
+                               "PORQUE": "URL_INVALIDA: sem esquema http(s) ou sem dominio"})
+            continue
         nat = (c.get("PLATFORM_NATIVE_ID") or "").strip() or native_id_da_prova(c)
         c["_NATIVE_ID"] = nat
+        # ⚠️ A MESMA FONTE DUAS VEZES NA MESMA CORRIDA E UMA SO. A segunda
+        # ocorrencia nao vira identidade nova: fica ligada a primeira.
+        chave = chave_de_identidade(c)
+        if chave in vistas:
+            rejeitadas.append({"CANDIDATE_ID": c.get("CANDIDATE_ID"), "URL": c.get("URL"),
+                               "PORQUE": "DUPLICADA_NA_CORRIDA: mesma identidade que %s (%s)"
+                                         % (vistas[chave], chave)})
+            continue
+        vistas[chave] = c.get("CANDIDATE_ID")
         a = por_native.get(nat) if nat else None
         via = "PLATFORM_NATIVE_ID"
         if not a:
@@ -174,21 +259,22 @@ def emparelhar(cands: list[dict], atlas: list[dict]) -> tuple[list, list]:
                             "ATLAS_URL": a["URL"], "ATLAS_NAME": a["NAME"]})
         else:
             novas.append(c)
-    return achados, novas
+    return achados, novas, rejeitadas
 
 
 def main() -> int:
     car = json.loads((RAIZ / "curadoria" / "SOURCE-CHARACTERIZATION-V1.json")
                      .read_text(encoding="utf-8"))
     ready = [c for c in car["FONTES"] if c["ONBOARDING_READY"] == "YES"]
-    atlas = ler_atlas()
+    # Atlas do coordinator + o que o Curator ja contratou: TUDO o que tem numero.
+    atlas = identidades_conhecidas()
 
     # ⚠️ CONTROLO POSITIVO OBRIGATORIO, ANTES DE CONFIAR NO RESULTADO.
     # Um par que TEM de casar. Se este falhar, o emparelhador esta avariado e
     # o numero de «fontes novas» e ficcao.
     alvo = next((c for c in ready if "agronotizie" in c["URL"].lower()), None)
     if alvo:
-        ok, _ = emparelhar([alvo], atlas)
+        ok, _, _ = emparelhar([alvo], atlas)
         if not ok:
             print("CONTROLO POSITIVO FALHOU: %s nao casou com IT-T8-001" % alvo["CANDIDATE_ID"])
             print("  -> o emparelhador esta avariado; NAO usar este resultado")
@@ -196,15 +282,39 @@ def main() -> int:
         print("controlo positivo OK: %s -> %s (via %s)"
               % (alvo["CANDIDATE_ID"], ok[0]["MATCHED_SOURCE_ID"], ok[0]["VIA"]))
 
-    achados, novas = emparelhar(ready, atlas)
+    # ⚠️ QUEM JA TEM NUMERO NESTA LINHA MANTEM-NO PELO CANDIDATE_ID, NAO PELA
+    # URL. Sem isto, uma segunda corrida da cadeia veria as 84 contratadas
+    # como «ja existem» (casam com o proprio contrato) e o alocador, que so
+    # numera SEM_MATCH, deixava-as cair da ALLOCATION — perdendo a ligacao
+    # candidata -> numero que a fila, o worker e os lotes leem.
+    #
+    #     UMA CORRIDA REPETIDA TEM DE DEVOLVER O MESMO RESULTADO, NAO ZERO.
+    alocadas = {}
+    p_alloc = RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"
+    if p_alloc.exists():
+        alocadas = {n["CANDIDATE_ID"]: n["SOURCE_ID"]
+                    for n in json.loads(p_alloc.read_text(encoding="utf-8"))["NOVAS"]}
+    ja = [{"CANDIDATE_ID": c["CANDIDATE_ID"], "URL": c["URL"],
+           "MATCHED_SOURCE_ID": alocadas[c["CANDIDATE_ID"]], "VIA": "JA_ALOCADA_NESTA_LINHA",
+           "ATLAS_URL": c["URL"], "ATLAS_NAME": c.get("NOME", "")}
+          for c in ready if c["CANDIDATE_ID"] in alocadas]
+    por_emparelhar = [c for c in ready if c["CANDIDATE_ID"] not in alocadas]
+
+    achados, novas, rejeitadas = emparelhar(por_emparelhar, atlas)
+    achados = ja + achados
     saida = {
         "DATASET": "CANDIDATE-TO-SOURCE-MATCH-V1",
-        "LEI": "SOURCE_ID vem do Atlas — nunca do onboarding.",
+        "LEI": ("SOURCE_ID vem do Atlas — nunca do onboarding. Compara-se com o Atlas "
+                "E com os contratos do Curator; URL invalida e duplicada na corrida "
+                "saem REJEITADAS, nunca viram identidade."),
         "CONTROLO_POSITIVO": "CAND-0187 (@AgroNotizie) deve casar IT-T8-001 (@agronotizietv)",
         "ATLAS_FICHAS": len(atlas),
         "CANDIDATAS_READY": len(ready),
         "JA_TEM_SOURCE_ID": len(achados),
+        "JA_ALOCADAS_NESTA_LINHA": len(ja),
         "SEM_SOURCE_ID": len(novas),
+        "REJEITADAS": len(rejeitadas),
+        "REJEITADAS_DETALHE": rejeitadas,
         "MATCHES": achados,
         "SEM_MATCH": [{"CANDIDATE_ID": c["CANDIDATE_ID"], "URL": c["URL"],
                        "NOME": c["NOME"], "FAMILY": c["FAMILY"]} for c in novas],
