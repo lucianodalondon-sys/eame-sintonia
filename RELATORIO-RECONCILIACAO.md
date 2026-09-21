@@ -6,7 +6,7 @@ Data: 2026-09-21. Zero rede para reconciliar: nenhum pedido HTTP foi feito.
 
 ```
 BASE_HEAD              4b5cbf7d   (234 testes OK, worktree limpa, md5 dos livros medido antes de tudo)
-COMMITS_DESTA_MISSAO   da5a72d7 · d942240e · dd602746 · f3393871 · 719af617 · (relatório) · (mapa)
+COMMITS_DESTA_MISSAO   da5a72d7 · d942240e · dd602746 · f3393871 · 719af617 · 3168b9d1 · dab1c352 · fecho (§11)
 FINAL_HEAD             ver §11 (preenchido depois do mapa e do push)
 REMOTE_HEAD            ver §11
 ```
@@ -349,12 +349,25 @@ RELATORIO-RECONCILIACAO.md                este ficheiro
 
 ---
 
-## 11. FECHO (preenchido depois do mapa e do push)
+## 11. FECHO
 
 ```
-PORTOES_POS_COMMIT      pendente
-FINAL_HEAD              pendente
-REMOTE_HEAD             pendente
+COMMITS   da5a72d7 apoio (registar extra, régua de 4 passos, guarda)
+          d942240e censo em ensaio (F2–F4)
+          dd602746 livro canónico evoluído 263→754 (F5–F6)
+          f3393871 red team: 8 mutantes mortos, ramo redundante removido
+          719af617 STALE_STATES_DISCARDED só conta contradição
+          3168b9d1 relatório
+          dab1c352 mapa regerado pela cadeia canónica sobre 3168b9d1
+PORTOES_POS_COMMIT em dab1c352:
+          CARIMBO_COMMITADO  c4d6e539736d82964c9b80584b71a7ccbd09d8153a553dfa160a5e7c2edff0ab
+          ARVORE_COMMITADA   c4d6e539736d82964c9b80584b71a7ccbd09d8153a553dfa160a5e7c2edff0ab sobre 2362 ficheiro(s)-fonte
+          IMPRESSAO_DO_CARIMBO=IGUAL · CADEIA=OK
+PRIMEIRO_PUSH  origin/reconciliacao-v1 = dab1c352 (novo ramo; local = remoto)
+FINAL_HEAD     o último commit desta branch: «mapa: regerado ... (fecho)», feito logo a seguir ao
+               commit deste §11 — um ficheiro não pode conter o SHA do commit que o contém; a
+               mensagem desse commit traz a saída do PORTOES_POS_COMMIT sobre ele próprio.
+REMOTE_HEAD    = FINAL_HEAD depois do push final (conferido com git rev-parse origin/reconciliacao-v1)
 ```
 
 ---
