@@ -37,6 +37,13 @@ import social_envelope as env                                     # noqa: E402
 import social_matriz as mz                                        # noqa: E402
 
 CAPACIDADE = 'linkedin.identity.discovery'
+#: As capacidades do LinkedIn que TEM funcao registada. Eram uma; sao duas
+#: desde a LINKEDIN-MEDIA-PUBLICA-V1, por ordem escrita do dono do projeto —
+#: a segunda e `linkedin.public_post.media_resolution`, objeto a objeto e so
+#: para posts PUBLICOS. O conjunto e fechado de proposito: capacidade nova com
+#: rota sem estar aqui reprova, e e isso que a sentinela defende.
+CAPACIDADES_COM_ROTA = ('linkedin.identity.discovery',
+                        'linkedin.public_post.media_resolution')
 FASE = 'identidade-linkedin'
 SITE = 'https://exemplo-organizacao.it'
 HTML_UM = '<a href="https://www.linkedin.com/company/image-line">LinkedIn</a>'
@@ -354,7 +361,23 @@ class NenhumaCompraAcidental(Base):
 class ADeclaracaoNaoMente(Base):
 
     def test_A15_nenhuma_capacidade_registada_promete_sem_funcao(self):
-        """Uma capacidade sem rota nem executa e uma DECLARACAO, e ela nao promete."""
+        """Uma capacidade sem rota nem executa e uma DECLARACAO, e ela nao promete.
+
+        ⚠️ REANCORADO NA LINKEDIN-MEDIA-PUBLICA-V1, e a razao esta escrita.
+        Este teste afirmava que a UNICA capacidade do LinkedIn com funcao era a
+        rota de identidade. O FACTO MUDOU: o dono do projeto autorizou, por
+        escrito, uma segunda porta — `linkedin.public_post.media_resolution`,
+        objeto a objeto, para posts PUBLICOS (`leis/social_matriz.py` →
+        `FETCH_PUBLIC_MEDIA`, com os tres eixos separados).
+
+            UM TESTE QUE ANCORA UM FACTO REPROVA QUANDO O FACTO MUDA — E ESTA
+            CERTO. Apaga-lo ou afrouxa-lo destruiria a sentinela; o que se faz
+            e reancora-lo no valor MEDIDO e travar a leitura errada do novo.
+
+        O que NAO mudou, e continua a ser o que este teste defende: uma
+        capacidade sem funcao nao pode prometer resultado. `FETCH_POST` continua
+        fechado, e as sete medicoes de superficie continuam sem rota.
+        """
         for (plat, capa), v in reg.registados().items():
             if plat != 'LINKEDIN':
                 continue
@@ -364,8 +387,8 @@ class ADeclaracaoNaoMente(Base):
                     cap.promete_resultado(capa),
                     '%s nao tem funcao e promete resultado' % capa)
             else:
-                self.assertEqual(capa, CAPACIDADE,
-                                 '%s ganhou funcao e nao e a rota permitida' % capa)
+                self.assertIn(capa, CAPACIDADES_COM_ROTA,
+                              '%s ganhou funcao e nao e uma rota declarada' % capa)
 
     def test_A16_a_capacidade_e_alcancavel_pelo_vocabulario_da_matriz(self):
         """O caller pede PLATAFORMA + CAPACIDADE GROSSA. Nao pede o adaptador."""

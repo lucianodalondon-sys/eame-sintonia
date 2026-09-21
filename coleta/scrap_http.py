@@ -119,6 +119,17 @@ def permitido(url):
         return False, 'robots.txt ilegível deste host — não afirmamos permissão que não lemos'
     ok = rp.can_fetch(AGENTE, url)
     if not ok:
+        # ── O ROBOTS BARROU. A CHAMADA TRAZ AUTORIZAÇÃO DO DONO? ────────────
+        # A recusa da plataforma continua a ser a recusa da plataforma, e é ela
+        # que fica escrita no motivo. O que a autorização muda é QUEM assume o
+        # risco — e ela não converte `RESTRICTED` em `ALLOWED` em sítio nenhum.
+        aut = autorizacao_para(url)
+        if aut is not None:
+            _host, porque = aut
+            return True, ('robots.txt do host barra este caminho para %s · a '
+                          'chamada traz AUTORIZACAO DO DONO para %s: %s · '
+                          'PLATFORM_POLICY_STATUS = RESTRICTED'
+                          % (AGENTE.split('/')[0], _host, porque))
         return False, 'robots.txt do host barra este caminho para %s' % AGENTE.split('/')[0]
     return True, 'robots.txt do host permite este caminho'
 
@@ -229,6 +240,68 @@ def hosts_proibidos(*hosts):
         _LOCAL_HOSTS.hosts = antes
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# A AUTORIZAÇÃO DO DONO — explícita, nomeada e com o outro eixo à vista
+# ══════════════════════════════════════════════════════════════════════════
+# `permitido()` lê o robots VIVO do host. Quando o host barra o caminho, a
+# resposta é `False` — e é a resposta certa, porque o robots é uma declaração
+# da PLATAFORMA, e a casa não fala por ela.
+#
+# Mas há uma terceira coisa, e ela não cabia em nenhuma das duas: o DONO DO
+# PROJETO pode assumir por escrito o risco de uma rota que funciona. Essa
+# decisão é dele, é sobre o projeto, e NÃO transforma o robots em permissão.
+#
+#     A ORDEM DO DONO REABRE A LINHA DELE. NÃO REABRE A CLÁUSULA DO OUTRO.
+#
+# O que este bloco faz é tornar essa decisão VISÍVEL no ponto de cobrança — e
+# não deixá-la acontecer por fora do portão, que é o que um `urlopen` próprio
+# dentro de um adaptador faria. Três propriedades, e todas são o ponto:
+#
+#   1. É POR CHAMADA, não do processo: vive num contexto, como o `hosts_proibidos`
+#      ao lado. Nenhuma rota herda uma autorização que não pediu.
+#   2. É NOMEADA: exige `porque`, e ele viaja no motivo do portão e no rasto.
+#   3. NÃO ESCONDE O ESTADO DA PLATAFORMA: o motivo diz, na mesma frase, que o
+#      robots barrou e que a chamada traz autorização — para que quem leia o
+#      artefacto saiba as DUAS coisas.
+#
+#         UMA EXCEÇÃO QUE NÃO SE DECLARA É UM BYPASS COM OUTRO NOME.
+_LOCAL_AUTORIZADOS = threading.local()
+
+
+def _autorizados_da_chamada():
+    return getattr(_LOCAL_AUTORIZADOS, 'hosts', ()) or ()
+
+
+def autorizacao_para(url):
+    """→ (host, porque) se a chamada autorizou este host; senão None."""
+    mau = host_na_lista(url, [h for h, _p in _autorizados_da_chamada()])
+    if mau is None:
+        return None
+    for h, p in _autorizados_da_chamada():
+        if mau == h or mau.endswith('.' + h):
+            return mau, p
+    return None
+
+
+@contextlib.contextmanager
+def autorizado_pelo_dono(*hosts, porque):
+    """Declara, para o bloco, hosts que a CHAMADA traz autorizados pelo dono.
+
+    `porque` é obrigatório e não tem valor por omissão: uma autorização sem
+    motivo escrito não é uma decisão, é um atalho.
+    """
+    if not (porque or '').strip():
+        raise ValueError('autorizado_pelo_dono exige `porque`: uma autorizacao '
+                         'sem motivo escrito nao e uma decisao, e um atalho')
+    antes = getattr(_LOCAL_AUTORIZADOS, 'hosts', ())
+    _LOCAL_AUTORIZADOS.hosts = tuple(antes) + tuple(
+        (str(h).lower(), porque) for h in hosts)
+    try:
+        yield
+    finally:
+        _LOCAL_AUTORIZADOS.hosts = antes
+
+
 class _PortaoEmCadaSalto(urllib.request.HTTPRedirectHandler):
     """Cada destino de redirecionamento passa pelo mesmo `permitido()`."""
 
@@ -315,6 +388,48 @@ def buscar(url, *, aceitar_json=True):
     finally:
         time.sleep(PAUSA_ENTRE_CHAMADAS)
     return corpo
+
+
+def buscar_bytes(url, *, limite_bytes=200 * 1024 * 1024):
+    """GET de BYTES com o mesmo portão. Para mídia, e não para páginas.
+
+    `buscar()` decodifica para texto — e um MP4 decodificado para texto não é o
+    ficheiro que a plataforma entregou. Este irmão existe por isso, e por nada
+    mais: ele NÃO é uma segunda porta. Passa pelo mesmo `hosts_proibidos`, pelo
+    mesmo `permitido()`, pelo mesmo teto de rede e pelo mesmo `User-Agent`.
+
+        DUAS PORTAS PARA A MESMA DECISÃO ACABAM EM DUAS DECISÕES DIFERENTES.
+        É A QUARTA PERGUNTA DESTE PEDIDO, NÃO UMA SEGUNDA REGRA.
+
+    E ele conta no orçamento como qualquer outro pedido: um byte é tão externo
+    como uma página.
+    """
+    mau = host_na_lista(url, _hosts_proibidos_da_chamada())
+    if mau is not None:
+        raise RotaNaoPermitida(
+            'a chamada declarou %s como host proibido para ela · %s' % (mau, url))
+    ok, motivo = permitido(url)
+    if not ok:
+        raise RotaNaoPermitida('%s · %s' % (motivo, url))
+    req = urllib.request.Request(url, headers={
+        'User-Agent': AGENTE, 'Accept': '*/*'})
+    req.tipo_de_pedido = PEDIDO_ROTA
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
+            dados = f.read(limite_bytes + 1)
+    except urllib.error.HTTPError as e:
+        raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
+    except (RotaNaoPermitida, SemOrcamentoDeRede):
+        raise
+    except Exception as e:
+        raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
+    finally:
+        time.sleep(PAUSA_ENTRE_CHAMADAS)
+    if len(dados) > limite_bytes:
+        raise RotaBloqueada(
+            'a resposta passou o teto de %d bytes deste transporte · %s'
+            % (limite_bytes, url))
+    return dados
 
 
 # ══════════════════════════════════════════════════════════════════════════

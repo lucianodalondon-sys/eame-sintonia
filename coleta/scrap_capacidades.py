@@ -127,6 +127,7 @@ _MZ = 'leis/social_matriz.py'
 _C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'
 _LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'
 _C11 = 'docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md'
+_LM = 'docs/sintonia-scrap/LINKEDIN-MEDIA-PUBLICA-V1.md'
 
 DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
@@ -205,6 +206,24 @@ DECLARADAS = {
     'linkedin.native_caption': ('LINKEDIN', BLOCKED, ONLINE, None, _C11, None),
     'linkedin.comments': ('LINKEDIN', UNKNOWN, AMBIENTE_DESCONHECIDO, None, _B, None),
     'linkedin.documents': ('LINKEDIN', NOT_EXECUTED, AMBIENTE_DESCONHECIDO, None, _B, None),
+
+    # ── A MIDIA PUBLICA DO LINKEDIN ────────────────────────────────────────
+    # Nasceu da LINKEDIN-MEDIA-V1. PROVEN porque um canario real fechou: post
+    # publico → pagina HTTP 200 → `<video data-sources>` → 3 rendicoes MP4 em
+    # dms.licdn.com → bytes (2.427.559) → ffprobe (1 video + 1 audio) → ASR
+    # local (614 caracteres). APIFY_RUNS = 0 · PAID_USD = 0 · sem login, cookie,
+    # navegador ou proxy.
+    #
+    # A CAPACIDADE GROSSA E PROPRIA, e isso e a decisao inteira: nao e
+    # `FETCH_POST`, que continua fechado nas duas rotas dele. E uma porta
+    # OBJETO A OBJETO para a pagina publica, com os tres eixos separados
+    # (`AUTORIZACAO_DO_PROJETO` = SIM; `POLITICA_DA_PLATAFORMA` = RESTRICTED).
+    #
+    #     ESTA CAPACIDADE NAO PROMOVE AS OUTRAS DUAS. `linkedin.direct_post` e
+    #     `linkedin.native_video` continuam BLOCKED: sao MEDICOES de superficie,
+    #     e uma medicao nao vira rota por decreto.
+    'linkedin.public_post.media_resolution': ('LINKEDIN', PROVEN, ONLINE, None,
+                                              _LM, 'FETCH_PUBLIC_MEDIA'),
 
     # ── YOUTUBE ───────────────────────────────────────────────────────────
     # Resolver o endereco de uma conta ate ao `channelId` e o degrau que faltava

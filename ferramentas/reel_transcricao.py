@@ -708,6 +708,65 @@ def _achar_saida(alvo, *, kind=None):
     return None
 
 
+#: O que os primeiros bytes de um ficheiro de midia NUNCA sao. Um HTML, um JSON
+#: ou uma legenda guardados com o nome `.mp4` nao sao video por causa do nome —
+#: e o nome é justamente o que este degrau nao consulta.
+#:
+#:     EXTENSAO NAO E FORMATO. O BILHETE NAO ABRE A PORTA DO ARMAZEM.
+_MARKUP = (b'<', b'{', b'[', b'%PDF')
+
+
+def _valida_ficheiro_entregue(caminho, *, kind=MIDIA_AUDIO):
+    """→ (caminho, estado, motivo). O ficheiro ENTREGUE passa pelo mesmo crivo.
+
+    MEDIDO no red team da LINKEDIN-MEDIA-CANARY: um ficheiro de ZERO bytes entrava
+    aqui como `MEDIA_OK` e só reprovava duas etapas depois, em `ASR_FALHOU`. O fim
+    era honesto; o degrau da mídia mentia sobre o que tinha recebido.
+
+        UM FICHEIRO VAZIO NAO É UMA AUSENCIA DE FALA. É AUSENCIA DE FICHEIRO.
+
+    Três recusas, todas com estado JÁ CANÓNICO desta casa — nenhum vocabulário
+    novo, porque um segundo nome para o mesmo facto é uma segunda verdade:
+
+      · zero bytes        → `MEDIA_FALHOU`      (nao veio ficheiro nenhum)
+      · bytes de markup   → `MEDIA_NAO_E_VIDEO` (HTML/JSON/PDF com nome de video)
+      · sem som MEDIDO    → `MEDIA_SEM_AUDIO_SO` (pediu-se fala e o ficheiro nao
+                                                 tem faixa de som nenhuma)
+
+    O que este degrau NAO faz, de propósito: recusar por NAO CONSEGUIR medir. O
+    `ffprobe` devolve `NAO SEI` quando o ficheiro nao abre, e «nao consegui ver
+    o que ha dentro» nao é «nao tem som» — colapsar os dois faria um ficheiro
+    ilegível passar por ausencia de fala. Quem decide isso é o degrau de baixo,
+    com o nome dele.
+    """
+    if not os.path.exists(caminho):
+        return None, MEDIA_FALHOU, ('o ficheiro indicado não existe: %s'
+                                    % caminho)
+    try:
+        tamanho = os.path.getsize(caminho)
+    except OSError as e:                                       # noqa: BLE001
+        return None, MEDIA_FALHOU, 'nao deu para medir o ficheiro: %s' % e
+    if tamanho == 0:
+        return None, MEDIA_FALHOU, 'ZERO BYTES nao sao midia: %s' % caminho
+    try:
+        with open(caminho, 'rb') as f:
+            cabeca = f.read(8).lstrip()
+    except OSError as e:                                       # noqa: BLE001
+        return None, MEDIA_FALHOU, 'nao deu para ler o ficheiro: %s' % e
+    if cabeca.startswith(_MARKUP):
+        return None, MEDIA_NAO_E_VIDEO, (
+            'os bytes sao markup, nao midia (comeca por %r): %s'
+            % (cabeca[:4], os.path.basename(caminho)))
+    if kind == MIDIA_AUDIO:
+        v, a, porque = fl.fluxos(caminho)
+        # Só uma MEDICAO conta. `NAO SEI` nao recusa nada aqui.
+        if not porque and a == 0:
+            return None, MEDIA_SEM_AUDIO_SO, (
+                'pediu-se fala e o ficheiro traz %s fluxo(s) de imagem e NENHUM '
+                'de som' % ('%d' % v if v != NOT_KNOWN else 'N/D'))
+    return caminho, MEDIA_OK, None
+
+
 def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
                 kind=MIDIA_AUDIO, midia_url_kind=None, oficina=None):
     """Põe os bytes no disco. → (caminho, provedor, estado, motivo, degraus).
@@ -744,14 +803,15 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
     degraus = []
 
     if midia_ficheiro:
-        if not os.path.exists(midia_ficheiro):
-            degraus.append({'PROVIDER': CAPTURA_FORNECIDA, 'RESULT': MEDIA_FALHOU,
-                            'WHY': 'o ficheiro indicado não existe'})
-            return None, CAPTURA_FORNECIDA, MEDIA_FALHOU, (
-                'o ficheiro indicado não existe: %s' % midia_ficheiro), degraus
+        caminho, estado, motivo = _valida_ficheiro_entregue(midia_ficheiro, kind=kind)
+        if estado != MEDIA_OK:
+            degraus.append({'PROVIDER': CAPTURA_FORNECIDA, 'RESULT': estado,
+                            'WHY': motivo})
+            return None, CAPTURA_FORNECIDA, estado, motivo, degraus
         degraus.append({'PROVIDER': CAPTURA_FORNECIDA, 'RESULT': MEDIA_OK,
-                        'WHY': 'ficheiro entregue por quem chamou'})
-        return midia_ficheiro, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
+                        'WHY': 'ficheiro entregue por quem chamou, e os bytes '
+                               'sao midia'})
+        return caminho, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
 
     ja = _achar_saida(alvo_gaveta, kind=kind) or (
         _achar_saida(alvo, kind=kind) if alvo != alvo_gaveta else None)

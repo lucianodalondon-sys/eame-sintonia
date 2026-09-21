@@ -97,16 +97,24 @@ Nao mexeu em `leis/social_matriz.py`. Nao ligou rota nenhuma ao
 `linkedin.com`. Nao baixou byte nenhum. `linkedin.history.discovery` continua
 `UNKNOWN` — ver a nota do registo, que diz de que profundidade ela fala.
 """
+import html as html_mod
+import json
 import os
 import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE))
+RAIZ = os.path.dirname(HERE)
+sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401
 import scrap_registo as reg  # noqa: E402
 import social_envelope as env  # noqa: E402
 import scrap_http as http  # noqa: E402
+
+#: A confissão honesta, uma vez, para todo o ficheiro. Importada de quem já a
+#: define seria melhor; ela vive aqui porque o adaptador já a usava neste
+#: sentido antes desta missão, e mudar-lhe o dono não é deste dia.
+NOT_KNOWN = 'NOT_KNOWN'
 
 NOME = 'adaptador_linkedin'
 PLATAFORMA = 'LINKEDIN'
@@ -859,6 +867,271 @@ def pronto_para_identidade(**_):
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# A MÍDIA PÚBLICA — o post público, objeto a objeto
+# ══════════════════════════════════════════════════════════════════════════
+#: A rota da mídia, com o nome que a política lhe deu. Não se inventa outro.
+ROTA_MIDIA = 'public-post-media:linkedin-mp4'
+
+#: A capacidade GROSSA que esta rota atravessa no dono da política. Não é
+#: `FETCH_POST` — essa continua fechada, e reabri-la por baixo seria a tradução
+#: desonesta que esta casa já corrigiu duas vezes.
+CAPACIDADE_MIDIA = 'FETCH_PUBLIC_MEDIA'
+
+#: Os hosts que ESTA rota visita. É a lista oposta à da identidade, e é de
+#: propósito: aquela lê o site da organização; esta lê a página pública que a
+#: plataforma serve a qualquer visitante.
+HOSTS_DA_MIDIA_PUBLICA = ('linkedin.com', 'www.linkedin.com', 'licdn.com',
+                          'dms.licdn.com', 'media.licdn.com')
+
+#: O endereço de um post do LinkedIn, nas duas formas que a plataforma serve.
+_RE_POST_PUBLICO = re.compile(
+    r'^https?://(?:[a-z]{2,3}\.)?linkedin\.com/'
+    r'(?:posts/[^\s"\'?#]+-activity-(\d+)-\w{4}|feed/update/urn:li:activity:(\d+))',
+    re.I)
+_RE_TAG_VIDEO = re.compile(r'<video\b[^>]*>', re.I)
+_RE_ATRIBUTO = re.compile(r'([a-zA-Z][a-zA-Z0-9_-]*)\s*=\s*"([^"]*)"')
+
+
+def id_do_post(post_url):
+    """→ o activity id da plataforma, lido do endereço. Ou None.
+
+    Este id NÃO é `SOURCE_ID` e não é `DOCUMENT_ID`: é a identidade do OBJETO na
+    plataforma, e vale enquanto tal. Chamar-lhe outra coisa seria fabricar
+    identidade a partir de um endereço.
+    """
+    m = _RE_POST_PUBLICO.match(str(post_url or '').strip())
+    return (m.group(1) or m.group(2)) if m else None
+
+
+def rendicoes_na_pagina(pagina):
+    """→ (rendições, caption_url). Puro: zero rede, zero escrita.
+
+    A página pública do post carrega um `<video>` cujo atributo `data-sources` é
+    o JSON das rendições — `src`, `type`, `data-bitrate`. Foi assim que o
+    extractor público do `yt-dlp` leu o LinkedIn por anos, e é o mesmo caminho
+    que o actor pago usa. O que NÃO se lê aqui: nenhum manifesto, porque não há.
+
+        O CAMINHO NÃO SE INVENTA: ELE LÊ-SE NA PÁGINA QUE A PLATAFORMA SERVE.
+
+    `data-captions-url` vem ao lado quando o post tem legenda nativa — e não
+    todos têm. Ausência de legenda é ausência, não falha.
+    """
+    m = _RE_TAG_VIDEO.search(pagina or '')
+    if not m:
+        return [], None
+    attrs = dict(_RE_ATRIBUTO.findall(m.group(0)))
+    bruto = html_mod.unescape(attrs.get('data-sources') or '')
+    try:
+        lista = json.loads(bruto)
+    except (ValueError, TypeError):
+        lista = []
+    rendicoes = []
+    for i, s in enumerate(lista if isinstance(lista, list) else []):
+        if not isinstance(s, dict) or not s.get('src'):
+            continue
+        tbr = s.get('data-bitrate')
+        try:
+            tbr = int(tbr) if tbr is not None else None
+        except (TypeError, ValueError):
+            tbr = None
+        rendicoes.append({'INDICE': i, 'URL': str(s['src']),
+                          'MIME': s.get('type') or None, 'BITRATE_BPS': tbr})
+    caption = html_mod.unescape(attrs.get('data-captions-url') or '') or None
+    return rendicoes, caption
+
+
+def escolher_rendicao(rendicoes, pedida=None):
+    """→ (a escolhida, porquê). A MENOR que sirva, e a ordem é a economia.
+
+    A pergunta é de fala, e o LinkedIn só oferece MP4 com a imagem dentro. As
+    três rendições trazem a MESMA faixa de som; pedir 720p para transcrever é
+    pagar banda por pixéis que ninguém vai ver.
+
+        PARA OUVIR, A MENOR. A IMAGEM NÃO ENTRA NO TRANSCRIPT.
+
+    A ordem é: a pedida, se houver e existir; senão a de menor `data-bitrate`
+    DECLARADO. Sem bitrate declarado, mantém-se a ordem da página e assume-se a
+    primeira — e o `WHY_SELECTED` diz que foi assim, para que a escolha possa ser
+    contestada em vez de adivinhada.
+    """
+    if not rendicoes:
+        return None, 'a pagina nao declara rendicao nenhuma'
+    if pedida is not None:
+        for r in rendicoes:
+            if r['INDICE'] == pedida or r['URL'] == pedida:
+                return r, 'rendicao pedida por quem chamou'
+            try:
+                if r['BITRATE_BPS'] == int(pedida):
+                    return r, 'rendicao escolhida pelo bitrate pedido'
+            except (TypeError, ValueError):
+                pass
+        return None, 'RENDICAO_PEDIDA_AUSENTE: a pagina nao serve %r' % (pedida,)
+    com_taxa = [r for r in rendicoes if r['BITRATE_BPS']]
+    if com_taxa:
+        return (min(com_taxa, key=lambda r: r['BITRATE_BPS']),
+                'a de MENOR data-bitrate declarado entre as %d rendicoes'
+                % len(rendicoes))
+    return rendicoes[0], ('a pagina nao declara bitrate em nenhuma das %d '
+                          'rendicoes; ficou a primeira, pela ordem servida'
+                          % len(rendicoes))
+
+
+def midia_do_post_publico(*, post_url, run_id, country_scope='IT', rendicao=None,
+                          medida=None, transporte=None, transporte_bytes=None,
+                          **_):
+    """A mídia de UM post público. → lista de envelopes (zero ou um).
+
+    A ESCADA, e cada degrau diz o seu nome
+    ---------------------------------------
+        1 · PERGUNTA À POLÍTICA — antes de qualquer socket.
+        2 · GET da página pública, pelo portão, com a autorização declarada.
+        3 · LÊ as rendições do `<video data-sources>`.
+        4 · ESCOLHE a menor.
+        5 · GET DOS BYTES — e os bytes são o RAW.
+        6 · MEDE o que chegou com `ffprobe` (o dono é `ferramenta/fala_local`).
+
+    O QUE ESTA ROTA NÃO FAZ
+    ------------------------
+    · Não usa o fornecedor pago: medido, ele devolve o MESMO endereço que a
+      página pública já entrega. Pagar por isto seria pagar duas vezes pelo
+      mesmo endereço.
+    · Não abre navegador, não usa login, não usa cookie, não usa proxy.
+    · Não inventa `SOURCE_ID` nem `DOCUMENT_ID` — eles chegam de quem pediu.
+    · Não deriva áudio nem transcreve: quem faz isso é a Ponte de Mídia da
+      Collection, que recebe bytes e não sabe de onde vieram.
+    """
+    alvo = str(post_url or '').strip()
+    nid = id_do_post(alvo)
+    if not nid:
+        # Um alvo que não é um endereço de post não é um alvo proibido nem
+        # permitido: é um pedido sem alvo, e isso tem nome próprio.
+        raise ValueError(
+            'ALVO_AUSENTE_OU_MALFORMADO: esta rota le a pagina PUBLICA de um '
+            'post do LinkedIn (posts/<slug>-activity-<id>-<4> ou '
+            'feed/update/urn:li:activity:<id>). Recebeu %r.' % (post_url,))
+
+    # ── DEGRAU 1 · A POLÍTICA, ANTES DE QUALQUER SOCKET ────────────────────
+    import social_matriz as mz
+    d = mz.decisao(PLATAFORMA, CAPACIDADE_MIDIA)
+    if d['DECISAO'] != mz.PERMITIDA_SIM:
+        raise http.RotaNaoPermitida(
+            '%s · %s/%s · decisao %s' % (d['PORQUE'], PLATAFORMA,
+                                         CAPACIDADE_MIDIA, d['DECISAO']))
+    autorizacao = d.get('AUTORIZACAO_DO_PROJETO') or 'NAO DECLARADA'
+    plataforma_politica = d.get('POLITICA_DA_PLATAFORMA') or 'NAO SEI'
+
+    buscar = transporte or (lambda u: http.buscar(u, aceitar_json=False))
+    buscar_bytes = transporte_bytes or http.buscar_bytes
+    pedidos = 0
+
+    # ── DEGRAU 2 · A PÁGINA, E A AUTORIZAÇÃO DITA AO PORTÃO ────────────────
+    # O portão continua a ler o robots vivo, e continua a dizer que ele barra.
+    # O que este bloco acrescenta é QUEM assume o risco — e a frase do portão
+    # fica com as duas coisas, para que o artefacto não possa ser lido como
+    # «a plataforma autorizou».
+    with http.autorizado_pelo_dono(*HOSTS_DA_MIDIA_PUBLICA, porque=autorizacao):
+        pagina = buscar(alvo)
+        pedidos += 1
+        rendicoes, caption_url = rendicoes_na_pagina(pagina)
+        ref_pagina = env.guardar_raw(PLATAFORMA, 'post-%s-pagina' % nid, pagina)
+
+        escolhida, porque = escolher_rendicao(rendicoes, rendicao)
+        if escolhida is None:
+            return []  # sem rendição não há mídia; o envelope abaixo não existe
+        dados = buscar_bytes(escolhida['URL'])
+        pedidos += 1
+        ref_midia = env.guardar_raw_bytes(
+            PLATAFORMA, 'post-%s-midia' % nid, dados, ext='mp4')
+
+    # ── DEGRAU 6 · O QUE CHEGOU, MEDIDO NOS BYTES ──────────────────────────
+    # `ffprobe` no ficheiro GRAVADO, não no que se pediu: `-f bestaudio` e um
+    # nome `.m4a` dizem o que se quis, e nenhum dos dois abre o ficheiro.
+    import fala_local as fl
+    caminho = os.path.join(RAIZ, ref_midia['PATH'])
+    v, a, porque_ff = fl.fluxos(caminho)
+    duracao = fl.duracao(caminho) if not porque_ff else NOT_KNOWN
+
+    if medida is not None:
+        medida['IMPLEMENTACAO'] = 'coleta/adaptador_linkedin.midia_do_post_publico'
+        medida['ROUTE_CLASS'] = 'DIRECT_HTTP'
+        medida['REQUESTS'] = pedidos
+        medida['COST_STATE'] = 'FREE_ROUTE_BY_POLICY'
+        medida['ACTUAL_COST_USD'] = 0.0
+        medida['RENDITIONS_FOUND'] = len(rendicoes)
+        medida['SELECTED_RENDITION'] = escolhida['URL'].split('?')[0]
+        medida['WHY_SELECTED'] = porque
+
+    e = env.envelope(
+        platform=PLATAFORMA, native_id=nid, url=alvo,
+        content_type='VIDEO', route=ROTA_MIDIA,
+        executor='adaptador_linkedin.midia_do_post_publico',
+        run_id=run_id, country_scope=country_scope,
+        source_account=None, cost_usd=0.0,
+        raw_reference=ref_midia['PATH'],
+        raw={
+            # ── A MÍDIA: o que se pediu, o que se escolheu, o que chegou ───
+            'VIDEO_URL': escolhida['URL'],
+            'VIDEO_URL_HOST': http.host_de(escolhida['URL']),
+            'VIDEO_URL_SIGNED': bool('e=' in escolhida['URL']),
+            'VIDEO_URL_EXPIRES_AT': _prazo(escolhida['URL']),
+            'RENDITIONS_FOUND': len(rendicoes),
+            'RENDITIONS': [{'BITRATE_BPS': r['BITRATE_BPS'], 'MIME': r['MIME'],
+                            'URL': r['URL'].split('?')[0]} for r in rendicoes],
+            'SELECTED_RENDITION': escolhida['URL'].split('?')[0],
+            'WHY_SELECTED': porque,
+            'MEDIA_BYTES': ref_midia['BYTES'],
+            'RAW_SHA256': ref_midia['SHA256'],
+            'RAW_REFERENCE': ref_midia['PATH'],
+            'VIDEO_STREAMS': v,
+            'AUDIO_STREAMS': a,
+            'FFPROBE_WHY': porque_ff,
+            'VIDEO_DURATION': duracao,
+            # ── O QUE OS BYTES SÃO, SEM SE CONFUNDIR COM ARQUIVO ───────────
+            'VIDEO_BYTES_ACQUIRED': True,
+            # O LinkedIn não serve faixa de som sozinha: o áudio DESTA mídia é
+            # derivado por quem a processar, nunca «adquirido em separado».
+            'AUDIO_ONLY_ACQUIRED': False,
+            'AUDIO_DERIVED_EXPECTED': 'YES — MP4 progressivo com som muxado',
+            # ── A LEGENDA NATIVA, QUANDO O POST A TEM ──────────────────────
+            'NATIVE_CAPTION_URL': caption_url,
+            'NATIVE_CAPTION_KIND': ('WEBVTT' if caption_url else None),
+            'CAPTION_IS_NOT_TRANSCRIPT': (
+                'CAPTION_TEXT e o que a plataforma legendou; TRANSCRIPT_TEXT e '
+                'o que esta casa ouviu. Sao especies diferentes.'),
+            # ── A PÁGINA DE ONDE TUDO SAIU ─────────────────────────────────
+            'PAGE_BYTES': ref_pagina['BYTES'],
+            'PAGE_SHA256': ref_pagina['SHA256'],
+            'PAGE_RAW_REFERENCE': ref_pagina['PATH'],
+            # ── OS TRÊS EIXOS, SEPARADOS COMO A LEI MANDA ──────────────────
+            'TECHNICALLY_WORKS': 'YES',
+            'PROJECT_OWNER_AUTHORIZED': autorizacao,
+            'PLATFORM_POLICY_STATUS': plataforma_politica,
+            'PROVIDER_USED': None,
+            'APIFY_RUNS': 0,
+            'REQUESTS': pedidos,
+            # ── CELL: o carimbo é do envelope, e nenhum destes se inventa ──
+            'SOURCE_ID': None,
+            'DOCUMENT_ID': None,
+        })
+    e['ACQUISITION_TIER'] = FREE
+    e['FIELD_ORIGIN_TIER'] = FREE
+    return [e]
+
+
+def pronto_para_midia(**_):
+    """→ (consigo?, estado). Zero rede, zero dólar, zero credencial.
+
+    Consigo se a política permitir esta capacidade. A pergunta é feita ao dono,
+    e não respondida aqui: uma sonda que decide sozinha é uma segunda política.
+    """
+    import social_matriz as mz
+    d = mz.decisao(PLATAFORMA, CAPACIDADE_MIDIA)
+    if d['DECISAO'] != mz.PERMITIDA_SIM:
+        return False, d['DECISAO']
+    return True, 'FREE_ROUTE_BY_POLICY'
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
 # Sete capacidades medidas e uma nova. A nova e a unica com rota ligada, e ela
@@ -888,12 +1161,53 @@ reg.registar(PLATAFORMA, 'linkedin.native_video', adaptador=NOME,
                   '~7 dias. URL LONG_LIVED_OBSERVED numa observacao e TEMPORARY noutra, '
                   'na mesma semana — nunca «permanente»')
 reg.registar(PLATAFORMA, 'linkedin.native_caption', adaptador=NOME,
-             nota='SRT AUTOMATICA: ASR de outra casa, mais barata e nao melhor. ZERO '
-                  'ocorrencias em 472 posts de rota paga — nenhum fornecedor a entrega')
+             nota='LEGENDA DE MAQUINA, E OS BYTES DIZEM WEBVTT. Medido em '\
+                  '2026-09-18 no post publico 7151241570371948544: HTTP 200, 4283 B, '\
+                  'cabecalho `WEBVTT`, `00:00.000 --> 00:03.240`. Existe POR POST: o '\
+                  'post do canario nao tinha `data-captions-url`. O docstring do topo '\
+                  'afirmava SRT — os bytes medidos dizem WEBVTT, e onde documento e '\
+                  'bytes discordam, os bytes vencem (achado entregue, nao corrigido '\
+                  'aqui). ZERO ocorrencias em 472 posts de rota paga: nenhum fornecedor '\
+                  'a entrega')
 reg.registar(PLATAFORMA, 'linkedin.comments', adaptador=NOME,
              nota='a CONTAGEM vem na listagem (335 em 95 de 472 posts); o TEXTO nao vem '
                   '(0 de 472) e e evento cobrado a parte. COUNT != TEXT')
 reg.registar(PLATAFORMA, 'linkedin.documents', adaptador=NOME,
              nota='carrossel em PDF. Os ENDERECOS foram observados em 20 de 472 no bruto '
-                  'preservado — PDF, manifesto e transcriptManifestUrl. Os BYTES nunca '
+                  'preservado — PDF, manifesto e transcriptUrl. Os BYTES nunca '
                   'foram pedidos, e as URLs preservadas expiraram')
+
+# ══════════════════════════════════════════════════════════════════════════
+# A CAPACIDADE DA MÍDIA PÚBLICA — a única com rota que SAI à rede
+# ══════════════════════════════════════════════════════════════════════════
+# O nome é novo de propósito. NÃO é `linkedin.native_video` nem
+# `linkedin.direct_post`: essas duas são MEDIÇÕES de superfície, e dar-lhes uma
+# rota seria promover uma observação a capacidade sem passar pelo dono.
+#
+#     UMA MEDIÇÃO NÃO VIRA ROTA POR DECRETO.
+#
+# `FETCH_PUBLIC_MEDIA` é a capacidade GROSSA que a matriz passa a declarar, com
+# os TRÊS EIXOS separados: a casa PERMITE (decisão do dono, escrita), o dono
+# AUTORIZA (escopo: posts públicos), e a plataforma continua RESTRICTED.
+reg.registar(PLATAFORMA, 'linkedin.public_post.media_resolution', adaptador=NOME,
+             pronto=pronto_para_midia, rota=midia_do_post_publico,
+             nota='A ROTA DA MIDIA PUBLICA: le a pagina que a plataforma serve a '
+                  'qualquer visitante, tira dali o endereco do MP4 e os BYTES, e mede '
+                  'o que chegou com ffprobe. Nao usa provedor pago — medido, ele '
+                  'devolve o MESMO endereco. Nao usa login, cookie, navegador nem '
+                  'proxy. Escopo: POSTS PUBLICOS, e so isso.')
+# ⚠️ O QUE NAO SE DECLARA AQUI, E PORQUE
+# ----------------------------------------
+# O ASR local nao vira capacidade do LinkedIn. Ele ja tem DONO unico nesta casa
+# — `ferramentas/fala_local.py` ouca, `coleta/executor_transcricao_midia.py`
+# encaminha — e a Ponte de Midia recebe um CAMINHO e nao sabe de onde ele veio.
+#
+#     UMA CAPACIDADE POR PLATAFORMA PARA O MESMO MOTOR SERIA UMA SEGUNDA DONA
+#     DO MESMO ACTO. E um dono que nao tem funcao registada aqui prometeria
+#     resultado sem funcao — que e exactamente o que a A15 mede.
+#
+# O que esta rota prova sobre a fala esta no envelope e no relatorio: os bytes
+# foram adquiridos aqui, e a Collection derivou deles o transcript com o motor
+# da casa. `NATIVE_CAPTION != LOCAL_ASR_TRANSCRIPT`, e nenhum dos dois precisa
+# de uma capacidade nova para ser dito.
+

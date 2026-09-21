@@ -207,9 +207,29 @@ class ADeltaNaoViraHistoria(unittest.TestCase):
 class OPagoEResidual(unittest.TestCase):
 
     def test_13_pago_nao_corre_antes_da_rota_livre(self):
-        """A unica capacidade ligada do LinkedIn e a GRATUITA e PERMITIDA."""
-        ligadas = [k for k in reg.executaveis() if k[0] == 'LINKEDIN']
-        self.assertEqual(ligadas, [('LINKEDIN', 'linkedin.identity.discovery')])
+        """As capacidades ligadas do LinkedIn sao GRATUITAS e declaradas.
+
+        ⚠️ REANCORADO NA LINKEDIN-MEDIA-PUBLICA-V1. Este teste afirmava que a
+        unica capacidade executavel do LinkedIn era a rota de identidade. O
+        dono do projeto autorizou por escrito uma segunda: a midia de um post
+        PUBLICO, pela pagina que a plataforma serve a qualquer visitante, com
+        os tres eixos separados em `leis/social_matriz.py`.
+
+            O FACT O MUDOU, E O TESTE REPROVOU — QUE E O QUE ELE EXISTE PARA
+            FAZER. Reancorado no valor medido, com o conjunto FECHADO: ligacao
+            nova sem estar aqui continua a reprovar.
+
+        O que NAO mudou: nenhuma das ligadas e paga, e nenhuma passa por Apify
+        ou por API oficial paga.
+        """
+        ligadas = sorted(k for k in reg.executaveis() if k[0] == 'LINKEDIN')
+        esperado = sorted([('LINKEDIN', 'linkedin.identity.discovery'),
+                           ('LINKEDIN', 'linkedin.public_post.media_resolution')])
+        self.assertEqual(ligadas, esperado)
+        for _plat, capa in ligadas:
+            rota = reg.registados()[(_plat, capa)]
+            self.assertNotIn('apify', str(rota).lower(),
+                             '%s ligou uma rota paga' % capa)
         rota = mz.decisao('LINKEDIN', 'DISCOVER_ACCOUNT')
         self.assertEqual(rota['DECISAO'], 'ALLOWED')
         self.assertEqual(rota['CLASSE'], 'DIRECT_HTTP')

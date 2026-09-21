@@ -224,8 +224,30 @@ FASES = {
     'video-youtube':    ('YOUTUBE', 'youtube.video.metadata', {},
                          rc.COLHEITA),
     'comentarios-youtube': ('YOUTUBE', 'youtube.comments', {},
-                            rc.COLHEITA),
-}
+                                rc.COLHEITA),
+
+        # ── A MÍDIA PÚBLICA DO LINKEDIN ────────────────────────────────────────
+        # Outra forma de integração, e a primeira que atravessa `FETCH_PUBLIC_MEDIA`:
+        # lê a página que a plataforma serve a qualquer visitante, tira dali o
+        # endereço do MP4 e os BYTES.
+        #
+        #     ISTO NÃO É COLETA DE POSTS. É UMA MÍDIA, OBJETO A OBJETO.
+        #
+        # `FETCH_POST` continua fechado na matriz, e este caminho não o contorna: ele
+        # atravessa OUTRA capacidade grossa, declarada com os três eixos separados
+        # (a casa permite, o dono autoriza, a plataforma continua RESTRICTED).
+        #
+        # ESPÉCIE: `COLHEITA`, e não `CATALOG`. O que sai daqui é material que
+        # alguém publicou — não uma lista de onde procurar. A distinção é a mesma que
+        # separa `busca-youtube` (CATALOG) de `canal-youtube` (COLHEITA).
+        #
+        # PARÂMETROS, lidos na assinatura real da rota:
+        #     midia_do_post_publico(*, post_url, run_id, country_scope, rendicao, ...)
+        # `post_url` é a única obrigatória além do `run_id`; `rendicao` é opcional e,
+        # sem ela, a rota escolhe a MENOR — para ouvir, a imagem não entra.
+        'midia-linkedin':   ('LINKEDIN', 'linkedin.public_post.media_resolution', {},
+                             rc.COLHEITA),
+    }
 
 #: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
 #: `filtros_nomeados` da receita em `--nome=valor`, e sem uma lista por fase um
@@ -276,6 +298,18 @@ NOMEADOS = {
     'canal-telegram':    {'canal': 'canal'},
     'tag-mastodon':      {'instancia': 'instancia', 'tag': 'tag'},
     'contas-bluesky':    {'termo': 'termo'},
+    # ── A MIDIA PUBLICA DO LINKEDIN ────────────────────────────────────────
+    # `post` e o ENDERECO da pagina publica — onde se vai bater. Nao e o
+    # SOURCE_ID, e nao e o DOCUMENT_ID: e o endereco de UMA publicacao, e o
+    # activity id que viaja dentro dele e identidade DE OBJETO na plataforma.
+    #
+    #     ENDERECO DA PUBLICACAO != IDENTIDADE DA FONTE.
+    #
+    # `rendicao` e opcional e existe para ECONOMIA: sem ela a rota escolhe a
+    # MENOR das rendicoes, porque a pergunta e de fala e a imagem nao entra no
+    # transcript. Quem a passar escolhe a dedo, e o `WHY_SELECTED` diz que foi a
+    # dedo em vez de dizer «a menor».
+    'midia-linkedin':    {'post': 'post_url', 'rendicao': 'rendicao'},
     # ── OS QUATRO ENDERECOS DO YOUTUBE, E NENHUM E O SOURCE_ID ─────────────
     # Lidos em `coleta/adaptador_youtube.py`. `busca-youtube` reusa o nome
     # publico `termo` porque a pergunta e a mesma — uma palavra de busca — mas

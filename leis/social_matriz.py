@@ -151,12 +151,38 @@ CAPACIDADES = (
 )
 
 
-def r(nome, classe, permitida, estado, custo, nota, evidencia=None):
-    """Uma rota candidata. `permitida` é SIM | NAO | CONDICIONAL."""
+def r(nome, classe, permitida, estado, custo, nota, evidencia=None,
+      autorizacao_do_projeto=None, politica_da_plataforma=None):
+    """Uma rota candidata. `permitida` é SIM | NAO | CONDICIONAL.
+
+    OS TRÊS EIXOS QUE NÃO SE COLAPSAM
+    ----------------------------------
+    Uma rota que TECNICAMENTE funciona pode estar fechada por uma cláusula que
+    NÃO é da casa. Somar as duas perguntas num campo só produzia o erro medido
+    que já apareceu duas vezes: `ROUTE_NOT_ALLOWED` a significar, ao mesmo
+    tempo, «a casa decidiu que não» e «a plataforma proíbe» — e a ordem do dono,
+    que reabre legitimamente a primeira, aparecia como se estivesse a reabrir a
+    segunda.
+
+        O DONO REABRE A LINHA DELE. NÃO REABRE A CLÁUSULA DE TERCEIRO.
+
+    Por isso `PERMITIDA` continua a ser a decisão DA CASA (é só ela que a
+    escreve), e os outros dois eixos viajam ao lado, nomeados:
+
+        AUTORIZACAO_DO_PROJETO    quem assumiu o risco, e com que escopo
+        POLITICA_DA_PLATAFORMA    o estado REAL lá fora: RESTRICTED, ALLOWED,
+                                  ou NÃO SEI. Nunca é derivado de `PERMITIDA`.
+
+    Escrever `POLITICA_DA_PLATAFORMA = ALLOWED` sem a ter medido seria a casa a
+    assinar em nome de terceiro. É o único valor que este campo não pode
+    inventar.
+    """
     return {
         'ROTA': nome, 'CLASSE': classe, 'PRIORIDADE': CLASSES[classe],
         'PERMITIDA': permitida, 'ESTADO': estado, 'CUSTO': custo,
         'NOTA': nota, 'EVIDENCIA': evidencia, 'MEDIDO_EM': MEDIDO_EM,
+        'AUTORIZACAO_DO_PROJETO': autorizacao_do_projeto,
+        'POLITICA_DA_PLATAFORMA': politica_da_plataforma,
     }
 
 
@@ -505,6 +531,59 @@ MATRIZ = {
               'dependência legada com risco jurídico aberto, para decisão humana.',
               'https://www.linkedin.com/legal/user-agreement'),
         ],
+
+        # ══════════════════════════════════════════════════════════════════
+        # A MÍDIA PÚBLICA — a porta que o DONO reabriu, com o outro eixo dito
+        # ══════════════════════════════════════════════════════════════════
+        # `FETCH_POST` continua fechado, e as DUAS rotas dele continuam
+        # `PERMITIDA = NAO`. O que nasce aqui é OUTRA capacidade: **resolver o
+        # endereço da mídia de um post PÚBLICO**, objeto a objeto, pela página
+        # que a própria plataforma serve a qualquer visitante.
+        #
+        #     ISTO NÃO REABRE A COLETA DE POSTS. É UMA PORTA OBJETO A OBJETO.
+        #
+        # O que mudou, e é a única coisa que mudou: o DONO DO PROJETO autorizou
+        # por escrito esta capacidade, para posts públicos, com o escopo fechado
+        # (sem post privado, sem login, sem cookie, sem sessão alheia, sem conta
+        # falsa, sem CAPTCHA). A linha que ele reabriu é a DELE — `PERMITIDA`.
+        #
+        #     A ORDEM DO DONO É DO PROJETO. ELA NÃO AUTORIZA A PLATAFORMA.
+        #
+        # E é exactamente isso que os dois campos novos dizem, cada um no seu
+        # eixo, para que ninguém volte a ler um pelo outro:
+        #
+        #     TECHNICALLY_WORKS         medido: 1 post público → MP4 + WebVTT
+        #     PROJECT_OWNER_AUTHORIZED  SIM — escopo: posts públicos
+        #     PLATFORM_POLICY_STATUS    RESTRICTED — robots do linkedin.com e §8.2
+        #
+        # `POLITICA_DA_PLATAFORMA` NÃO é `ALLOWED`, e não pode passar a ser por
+        # uma decisão nossa: nenhum dono de projeto assina em nome de terceiro.
+        # Quem lê isto fica a saber o que a casa decidiu E o que está em risco.
+        'FETCH_PUBLIC_MEDIA': [
+            r('public-post-media:linkedin-mp4', 'DIRECT_HTTP', 'SIM', 'PROVED',
+              'zero',
+              'A pagina PUBLICA do post (HTTP 200 a convidado, sem login, sem '
+              'cookie, sem navegador, sem proxy) traz o endereco da midia no '
+              'atributo `<video data-sources>`: MP4 progressivo em dms.licdn.com, '
+              '3 rendicoes (360p/640p/720p), sem HLS e sem DASH, com a legenda '
+              'nativa (WEBVTT) ao lado quando o post a tem. Medido em post '
+              'publico real: 2.427.559 bytes, ffprobe 1 video + 1 audio, ASR '
+              'local OK. NOTA DE ESCOPO: posts PUBLICOS apenas — post privado, '
+              'login, cookie, sessao de terceiro, conta falsa e CAPTCHA estao '
+              'fora, e nao ha rota para eles aqui.',
+              'docs/sintonia-scrap/LINKEDIN-MEDIA-PUBLICA-V1.md',
+              autorizacao_do_projeto=('SIM — ordem escrita do dono do projeto, '
+                                      '2026-09-18; escopo: posts publicos do '
+                                      'LinkedIn; nao cobre conteudo privado nem '
+                                      'credencial de terceiro'),
+              politica_da_plataforma=('RESTRICTED — robots.txt do linkedin.com '
+                                      '("The use of robots or other automated '
+                                      'means to access LinkedIn without the '
+                                      'express permission of LinkedIn is '
+                                      'strictly prohibited") e §8.2 do User '
+                                      'Agreement. NAO MEDIDO como permitido, e '
+                                      'nao e a casa que o declara')),
+        ],
     },
 
     'X': {
@@ -693,7 +772,12 @@ def decisao(platform, capability):
     plat, capac = (platform or '').upper(), (capability or '').upper()
     veredicto = {'PLATFORM': plat, 'CAPABILITY': capac, 'DECISAO': NAO_DECLARADA,
                  'ROTA': None, 'CLASSE': None, 'PERMITIDA': None, 'ESTADO': None,
-                 'AUTH_MODE': None, 'PORQUE': None}
+                 'AUTH_MODE': None, 'PORQUE': None,
+                 # Os dois eixos que NÃO se derivam de `PERMITIDA`. Ficam no
+                 # veredicto para que quem lê um trace consiga responder às três
+                 # perguntas em separado, e não a uma só com três sentidos.
+                 'AUTORIZACAO_DO_PROJETO': None,
+                 'POLITICA_DA_PLATAFORMA': None}
     rotas = (MATRIZ.get(plat) or {}).get(capac)
     if not rotas:
         veredicto['PORQUE'] = ('a matriz nao declara %s para %s. Ninguem mediu '
@@ -710,6 +794,10 @@ def decisao(platform, capability):
                       'PERMITIDA': escolhida['PERMITIDA'],
                       'ESTADO': escolhida['ESTADO'],
                       'AUTH_MODE': auth_mode(escolhida),
+                      'AUTORIZACAO_DO_PROJETO': escolhida.get(
+                          'AUTORIZACAO_DO_PROJETO'),
+                      'POLITICA_DA_PLATAFORMA': escolhida.get(
+                          'POLITICA_DA_PLATAFORMA'),
                       'PORQUE': escolhida['NOTA']})
     return veredicto
 

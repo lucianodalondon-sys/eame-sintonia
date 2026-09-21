@@ -212,6 +212,46 @@ def guardar_raw(platform, chave, corpo):
     }
 
 
+def guardar_raw_bytes(platform, chave, dados, *, ext='mp4'):
+    """Grava o bruto BINÁRIO — os bytes de uma mídia — e devolve a referência.
+
+    Irmão de `guardar_raw`, com o mesmo contrato de referência e uma diferença
+    que não é cosmética: aqui o SHA256 é o do BYTE, não o do texto. A mídia não
+    passa por `encode('utf-8')` em sítio nenhum, porque um MP4 re-codificado
+    para texto não é o ficheiro que a plataforma entregou.
+
+        UMA MÍDIA NÃO PASSA POR UM CAMINHO DE TEXTO.
+
+    E a referência diz o mesmo que a outra diz: enquanto o dono forward não
+    receber este byte, `PRESERVATION` é `NOT_PRESERVED`. Estar no disco do
+    runner não é estar no acervo.
+
+    `chave` é o que dá nome ao ficheiro; o `sha16` entra no nome para que duas
+    publicações com bytes diferentes nunca se sobreponham.
+    """
+    dados = bytes(dados)
+    h = hashlib.sha256(dados).hexdigest()[:16]
+    pasta = os.path.join(RAW_DIR, platform.upper())
+    os.makedirs(pasta, exist_ok=True)
+    nome = '%s__%s.%s' % (_slug(chave)[:60], h, (ext or 'bin').lstrip('.'))
+    caminho = os.path.join(pasta, nome)
+    if not os.path.exists(caminho):
+        with open(caminho, 'wb') as f:
+            f.write(dados)
+    if caminho not in _PRODUZIDOS:
+        _PRODUZIDOS.append(caminho)
+    return {
+        'PATH': os.path.relpath(caminho, ROOT).replace('\\', '/'),
+        'SHA256': hashlib.sha256(dados).hexdigest(),
+        'SHA256_16': h,
+        'BYTES': len(dados),
+        'PRESERVATION': NOT_PRESERVED,
+        'PRESERVATION_OWNER': 'G-42 forward: Supabase Storage + raw_asset',
+        'NOT_PRESERVED_REASON': (
+            'gravado no disco do runner; ainda não entregue ao dono forward'),
+    }
+
+
 def _slug(s):
     return ''.join(c if (c.isalnum() or c in '-_.') else '-' for c in str(s)).strip('-')
 
