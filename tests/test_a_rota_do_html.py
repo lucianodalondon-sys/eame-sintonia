@@ -72,6 +72,56 @@ class AEscolhaDoExecutorEPorEspecieDeclarada(unittest.TestCase):
         m = ing.executor_para("video/mp4")
         self.assertEqual(getattr(m, "EXECUTOR_ID", None), "transcricao-de-midia")
 
+    #: O que CADA executor declara saber abrir, escrito a mao. Nao se le das
+    #: fichas: um teste que lesse as fichas para depois confirmar as fichas
+    #: passaria depois de todas elas serem trocadas.
+    DONOS_DECLARADOS = {
+        "executor_texto_de_pdf": ("application/pdf",),
+        "executor_transcricao_midia": (),
+        "executor_texto_de_html": ("text/html", "application/xhtml+xml"),
+    }
+
+    def test_cada_executor_declara_exactamente_as_especies_que_sabe_abrir(self):
+        import importlib                                 # noqa: PLC0415
+        for modulo, esperado in self.DONOS_DECLARADOS.items():
+            with self.subTest(modulo=modulo):
+                cap = importlib.import_module(modulo).CAPACIDADE
+                self.assertEqual(
+                    tuple(cap.get("ACEITA_MEDIA_TYPES") or ()), esperado,
+                    "a ficha de %s mudou. Se foi de proposito, actualize esta "
+                    "tabela E escreva porque." % modulo)
+
+    def test_nenhuma_especie_exacta_tem_dois_donos(self):
+        """⚠️ ESTE TESTE NASCEU DE UM SOBREVIVENTE DO RED TEAM.
+
+        O ataque `M12` pos `application/pdf` na ficha do executor de HTML e
+        NADA reclamou: `executor_para` percorre `_DONOS_DA_DERIVACAO` por
+        ordem, o de PDF esta primeiro, e ele ganhava. O mutante sobrevivia
+        porque a ORDEM o tapava.
+
+            UM MUTANTE QUE SOBREVIVE PODE SER CODIGO REDUNDANTE —
+            OU UMA TRAVA QUE NUNCA EXISTIU, ESCONDIDA POR UM ACIDENTE.
+
+        E `coleta/ingresso.py` ja tinha escrito, por extenso, que este caso e
+        proibido: «a ordem NAO e prioridade: as especies nao se sobrepoem, e
+        no dia em que se sobrepuserem isso e uma decisao a ESCREVER, nao a
+        herdar de quem foi importado primeiro». A lei estava escrita e nao
+        tinha quem a fizesse morder. Passa a ter.
+        """
+        import importlib                                 # noqa: PLC0415
+        visto = {}
+        for modulo in ing._DONOS_DA_DERIVACAO:
+            cap = importlib.import_module(modulo).CAPACIDADE
+            for especie in (cap.get("ACEITA_MEDIA_TYPES") or ()):
+                chave = str(especie).strip().lower()
+                self.assertNotIn(
+                    chave, visto,
+                    "«%s» e reclamada por %s e por %s. Dois donos da mesma "
+                    "especie: quem ganha e quem foi importado primeiro, e "
+                    "isso nao e uma decisao — e um acidente."
+                    % (chave, visto.get(chave), modulo))
+                visto[chave] = modulo
+
     def test_o_csv_continua_sem_dono(self):
         """`IT-T4-001` e `text/csv` e esta medido como MISSING_ROUTE de OUTRO
         dono. Declarar a familia `text` aqui roubava-lhe a rota."""

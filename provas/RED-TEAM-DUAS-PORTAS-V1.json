@@ -1,0 +1,578 @@
+{
+ "PROVA": "provas/red_team_duas_portas.py",
+ "MUTANTES": 14,
+ "MUTANT_APPLIED_TODOS": true,
+ "MUTANT_KILLED": 12,
+ "SURVIVORS": 2,
+ "QUEM_SOBREVIVEU": [
+  "M05-UMA-PALAVRA-PROMOVE",
+  "M12-A-ROTA-DO-HTML-ROUBA-O-PDF"
+ ],
+ "NAO_RESTAURADOS": [
+  "M02-VAZIO-PASSA-POR-EXTRACAO"
+ ],
+ "ARVORE_LIMPA_NO_FIM": true,
+ "RESULTADOS": [
+  {
+   "ID": "M01-ROTA-HTML-DESLIGADA",
+   "ATAQUE": "tirar o executor de HTML da lista de donos da derivacao. A ficha CAPACIDADE fica intacta — e este e o ponto: DECLARAR NAO E LIGAR.",
+   "ALVO": "coleta/ingresso.py",
+   "DE": "\"executor_texto_de_html\")",
+   "PARA": ")",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.AEscolhaDoExecutorEPorEspecieDeclarada",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py provas/a_rota_do_html_atravessa.py",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-                       \"executor_texto_de_html\")",
+    "+                       )"
+   ],
+   "SHA_ANTES": "446a426c656d8ef84f1b26fef9ed00521e87574443438715ea49de992c2e4348",
+   "SHA_MUTADO": "2727a3f6784a765933ce01a678c44e44a151664faf1452d19997e317bb65c0d4",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.AEscolhaDoExecutorEPorEspecieDeclarada",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "\nTraceback (most recent call last):\r\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_rota_do_html.py\", line 63, in test_xhtml_tambem\r\n    self.assertEqual(getattr(m, \"EXECUTOR_ID\", None), \"texto-de-html\")\r\nAssertionError: None != 'texto-de-html'\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 0.016s\r\n\r\nFAILED (failures=3)"
+    },
+    {
+     "MATADOR": "py provas/a_rota_do_html_atravessa.py",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "HTML_RAW\": true,\r\n   \"ROUTE_CHOICE\": false,\r\n   \"TEXT_OUTPUT\": false,\r\n   \"NONEMPTY_TEXT\": false,\r\n   \"PROVENANCE_PRESERVED\": false,\r\n   \"ADMISSION_RECEIVES_OUTPUT\": false\r\n  },\r\n  \"PASS\": false,\r\n  \"FALHARAM\": [\r\n   \"ROUTE_CHOICE\",\r\n   \"TEXT_OUTPUT\",\r\n   \"NONEMPTY_TEXT\",\r\n   \"PROVENANCE_PRESERVED\",\r\n   \"ADMISSION_RECEIVES_OUTPUT\"\r\n  ]\r\n }\r\n}\r\nCould not find platform independent libraries <prefix>"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_rota_do_html.AEscolhaDoExecutorEPorEspecieDeclarada",
+    "py provas/a_rota_do_html_atravessa.py"
+   ],
+   "SHA_RESTAURADO": "446a426c656d8ef84f1b26fef9ed00521e87574443438715ea49de992c2e4348",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M02-VAZIO-PASSA-POR-EXTRACAO",
+   "ATAQUE": "fazer o executor chamar «extracao feita» a um documento de que nao saiu uma unica letra. PRODUZIR FICHEIRO VAZIO NAO E SUCESSO.",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "DE": "if sem_brancos == 0:",
+   "PARA": "if False:",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OVazioNaoPassaPorExtracaoFeita",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-    if sem_brancos == 0:",
+    "+    if False:"
+   ],
+   "SHA_ANTES": "d00d6238ca09b6bedf49460b1d2417334c5004f4c1178d3afbf3028502a7479f",
+   "SHA_MUTADO": "b71f259348a7d110fad98514dc45d0d33aa7b57f9d6f5a966da62ca403df8f51",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OVazioNaoPassaPorExtracaoFeita",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "ia\\duas-portas-v1\\tests\\test_a_rota_do_html.py\", line 99, in test_html_sem_letra_nenhuma_NAO_produz_derivado\r\n    self.assertEqual(estado, \"SEM_TEXTO_NO_DOCUMENTO\")\r\nAssertionError: 'TEXT_LAYER_PRESENT' != 'SEM_TEXTO_NO_DOCUMENTO'\r\n- TEXT_LAYER_PRESENT\r\n+ SEM_TEXTO_NO_DOCUMENTO\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 4 tests in 0.001s\r\n\r\nFAILED (failures=1)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_rota_do_html.OVazioNaoPassaPorExtracaoFeita"
+   ],
+   "SHA_RESTAURADO": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "RESTAURADO": false,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M03-UNIVERSO-SEM-REGUA-ENTRA",
+   "ATAQUE": "um universo para o qual ninguem escreveu regua passa a responder SIM. E a porta a inventar a lei que ela propria diz nao inventar.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "if not palavras:",
+   "PARA": "if not palavras and False:",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInvalidoNaoEntra",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-    if not palavras:",
+    "+    if not palavras and False:"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "bf0206af0ff48b7d1a8e0e1bd07c15e27becf265eadb4256d603a4a5917fbaee",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInvalidoNaoEntra",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "sers\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_regra_de_t10.py\", line 157, in test_universo_sem_regua_continua_a_dizer_que_nao_tem_regua\r\n    self.assertEqual(d.resultado, \"NAO_SE_APLICA\")\r\nAssertionError: 'NAO' != 'NAO_SE_APLICA'\r\n- NAO\r\n+ NAO_SE_APLICA\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 4 tests in 0.006s\r\n\r\nFAILED (failures=2)"
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "ile \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_regra_de_t2.py\", line 145, in test_a_porta_responde_a_verdade_sobre_t2\r\n    self.assertEqual(d.resultado, adm.NAO_SE_APLICA)\r\nAssertionError: 'NAO_SEI' != 'NAO_SE_APLICA'\r\n- NAO_SEI\r\n+ NAO_SE_APLICA\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 3 tests in 0.003s\r\n\r\nFAILED (failures=1)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInvalidoNaoEntra",
+    "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M04-SIM-AUTOMATICO",
+   "ATAQUE": "a regua de universo passa a dizer SIM a tudo o que lhe chega. UMA REGRA QUE SO SABE DIZER SIM NAO E REGRA.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "if len(achadas) >= SINAIS_MINIMOS:",
+   "PARA": "if True:",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialValidoPodeSerSim",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInsuficienteDaNaoSei",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-    if len(achadas) >= SINAIS_MINIMOS:",
+    "+    if True:"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "66ff48b014578de00b6f38bd63268cc84399e0fdbbeeb9353009d59541ea395f",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialValidoPodeSerSim",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "-------------\r\nTraceback (most recent call last):\r\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_regra_de_t10.py\", line 93, in test_o_SIM_nao_e_automatico_do_universo\r\n    self.assertNotEqual(d.resultado, \"SIM\")\r\nAssertionError: 'SIM' == 'SIM'\r\n\r\n----------------------------------------------------------------------\r\nRan 2 tests in 0.003s\r\n\r\nFAILED (failures=1)"
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInsuficienteDaNaoSei",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "\nTraceback (most recent call last):\r\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_regra_de_t10.py\", line 102, in test_um_termo_so_da_NAO_SEI\r\n    self.assertEqual(d.resultado, \"NAO_SEI\")\r\nAssertionError: 'SIM' != 'NAO_SEI'\r\n- SIM\r\n+ NAO_SEI\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 2 tests in 0.003s\r\n\r\nFAILED (failures=2)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_regra_de_t10.OMaterialValidoPodeSerSim",
+    "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInsuficienteDaNaoSei"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M05-UMA-PALAVRA-PROMOVE",
+   "ATAQUE": "baixar os sinais minimos de dois para um. Uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho — e passava a promover.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "SINAIS_MINIMOS = 2",
+   "PARA": "SINAIS_MINIMOS = 1",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInsuficienteDaNaoSei",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-SINAIS_MINIMOS = 2",
+    "+SINAIS_MINIMOS = 1"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "35ef1595172bb8d19f6485203d4b75610cc30955bcc2c454cd7cf1fd55f05258",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OMaterialInsuficienteDaNaoSei",
+     "VERDE_DEPOIS": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+     "VERDE_DEPOIS": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_KILLED": false,
+   "QUEM_MATOU": [],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "SURVIVOR"
+  },
+  {
+   "ID": "M06-PROVENIENCIA-DESAPARECE",
+   "ATAQUE": "o texto sai sem dizer com que ferramenta foi feito. Um texto de maquina sem maquina declarada nao se confere nem se repete.",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "DE": "tool=FERRAMENTA)",
+   "PARA": "tool=None)",
+   "BASE": [
+    {
+     "MATADOR": "py provas/a_rota_do_html_atravessa.py",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-        tool=FERRAMENTA)",
+    "+        tool=None)"
+   ],
+   "SHA_ANTES": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "SHA_MUTADO": "7ddca576181b9ea05d05b014295adcd477d5dc6cc4dc755adc8409f85a15de6e",
+   "DEPOIS": [
+    {
+     "MATADOR": "py provas/a_rota_do_html_atravessa.py",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "\r\n  \"CHECKS\": {\r\n   \"HTML_RAW\": true,\r\n   \"ROUTE_CHOICE\": true,\r\n   \"TEXT_OUTPUT\": false,\r\n   \"NONEMPTY_TEXT\": false,\r\n   \"PROVENANCE_PRESERVED\": false,\r\n   \"ADMISSION_RECEIVES_OUTPUT\": false\r\n  },\r\n  \"PASS\": false,\r\n  \"FALHARAM\": [\r\n   \"TEXT_OUTPUT\",\r\n   \"NONEMPTY_TEXT\",\r\n   \"PROVENANCE_PRESERVED\",\r\n   \"ADMISSION_RECEIVES_OUTPUT\"\r\n  ]\r\n }\r\n}\r\nCould not find platform independent libraries <prefix>"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py provas/a_rota_do_html_atravessa.py"
+   ],
+   "SHA_RESTAURADO": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M07-RAW-SALTA-A-ADMISSAO",
+   "ATAQUE": "o contrato de saida deixa de exigir SIM e passa a emitir unidade para quem a porta recusou. ADMISSION SIM != READY, e um NAO_SEI nao e um sim envergonhado.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "if decisao.resultado != SIM:",
+   "PARA": "if False:",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OContratoDeSaidaRecusaSemSim",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-    if decisao.resultado != SIM:",
+    "+    if False:"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "41be3b9853a430ebe3aedc0dac839620403148a4dc4466295d09ee3481469067",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OContratoDeSaidaRecusaSemSim",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "ost recent call last):\r\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_rota_do_html.py\", line 237, in test_um_NAO_tambem_nao\r\n    with self.assertRaises(ValueError):\r\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAssertionError: ValueError not raised\r\n\r\n----------------------------------------------------------------------\r\nRan 2 tests in 0.005s\r\n\r\nFAILED (failures=2)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_rota_do_html.OContratoDeSaidaRecusaSemSim"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M08-HTML-MAU-ENTRA-COMO-MATERIA",
+   "ATAQUE": "tirar a guarda dos bytes. Um PDF declarado `text/html` passava a ser aberto pelo extractor de HTML, e a linha do derivado saia carimbada `texto-de-html`.",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "DE": "if dados[:5] == ASSINATURA_PDF:",
+   "PARA": "if False:",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OsBytesQueNaoSaoHtmlNaoEntramAqui",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-    if dados[:5] == ASSINATURA_PDF:",
+    "+    if False:"
+   ],
+   "SHA_ANTES": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "SHA_MUTADO": "6cc88de19c35e472628869b1d50eb518b06fb2b804d2870c7be21e0367cd128f",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OsBytesQueNaoSaoHtmlNaoEntramAqui",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "\\eame-sintonia\\duas-portas-v1\\tests\\test_a_rota_do_html.py\", line 114, in test_um_pdf_declarado_html_e_recusado_com_nome\r\n    self.assertEqual(estado, \"BYTES_NAO_SAO_HTML\")\r\nAssertionError: 'TEXT_LAYER_PRESENT' != 'BYTES_NAO_SAO_HTML'\r\n- TEXT_LAYER_PRESENT\r\n+ BYTES_NAO_SAO_HTML\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 2 tests in 0.002s\r\n\r\nFAILED (failures=2)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_rota_do_html.OsBytesQueNaoSaoHtmlNaoEntramAqui"
+   ],
+   "SHA_RESTAURADO": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M09-FACT-TIME-VIRA-PUBLISHED-AT",
+   "ATAQUE": "encher o tempo do fato com a data em que a fonte publicou. Enche a estatistica e apaga a pergunta.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "\"FACT_TIME\": item.get(\"fact_time\") or AUSENCIA,",
+   "PARA": "\"FACT_TIME\": item.get(\"fact_time\") or _ou_nao_sei(\"published_at\"),",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OTempoEOLugarNaoSePreenchem",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-        \"FACT_TIME\": item.get(\"fact_time\") or AUSENCIA,",
+    "+        \"FACT_TIME\": item.get(\"fact_time\") or _ou_nao_sei(\"published_at\"),"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "a0cb8beb3584ff29acb212f4f674b4531ce2e76dca7154d9877e69c5e7064638",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OTempoEOLugarNaoSePreenchem",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "rs\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_rota_do_html.py\", line 193, in test_published_at_NAO_vira_fact_time\r\n    self.assertEqual(pronto[\"FACT_TIME\"], \"NAO SEI\")\r\nAssertionError: '2026-03-04T00:00:00Z' != 'NAO SEI'\r\n- 2026-03-04T00:00:00Z\r\n+ NAO SEI\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 5 tests in 0.005s\r\n\r\nFAILED (failures=1)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_rota_do_html.OTempoEOLugarNaoSePreenchem"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M10-FACT-LOCATION-VIRA-SOURCE-LOCATION",
+   "ATAQUE": "encher o lugar do fato com o lugar de quem publica. Onde esta a redaccao nao e onde o fato aconteceu.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "\"FACT_LOCATION\": item.get(\"fact_location\", AUSENCIA),",
+   "PARA": "\"FACT_LOCATION\": item.get(\"fact_location\") or item.get(\"source_location\", AUSENCIA),",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OTempoEOLugarNaoSePreenchem",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-        \"FACT_LOCATION\": item.get(\"fact_location\", AUSENCIA),",
+    "+        \"FACT_LOCATION\": item.get(\"fact_location\") or item.get(\"source_location\", AUSENCIA),"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "68f31e3535768be9614e1f8852cd72e7c2e6331dc3fbe6474f5dfcccd215a0e5",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.OTempoEOLugarNaoSePreenchem",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "ile \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_rota_do_html.py\", line 206, in test_source_location_NAO_vira_fact_location\r\n    self.assertEqual(pronto[\"FACT_LOCATION\"], \"NAO SEI\")\r\nAssertionError: 'IT-Veneto' != 'NAO SEI'\r\n- IT-Veneto\r\n+ NAO SEI\r\n\r\n\r\n----------------------------------------------------------------------\r\nRan 5 tests in 0.006s\r\n\r\nFAILED (failures=1)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_rota_do_html.OTempoEOLugarNaoSePreenchem"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M11-A-DERIVACAO-VAI-A-REDE",
+   "ATAQUE": "a extracao abre uma ligacao para fora a meio do reprocessamento. Ligacao a um IP literal, para o ataque bater no remendo do socket e nao no DNS.",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "DE": "    sem_brancos = len(\"\".join(texto.split()))",
+   "PARA": "    __import__(\"socket\").create_connection((\"93.184.216.34\", 80), 2); sem_brancos = len(\"\".join(texto.split()))",
+   "BASE": [
+    {
+     "MATADOR": "py provas/a_rota_do_html_nao_vai_a_rede.py",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-    sem_brancos = len(\"\".join(texto.split()))",
+    "+    __import__(\"socket\").create_connection((\"93.184.216.34\", 80), 2); sem_brancos = len(\"\".join(texto.split()))"
+   ],
+   "SHA_ANTES": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "SHA_MUTADO": "cc2b20d8b38b7278ad1782c0dfa03c083e06da6c7ff566526b16cc399fb1e1e4",
+   "DEPOIS": [
+    {
+     "MATADOR": "py provas/a_rota_do_html_nao_vai_a_rede.py",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "mport__(\\\"socket\\\").create_connection((\\\"93.184.216.34\\\", 80), 2); sem_brancos = len(\\\"\\\".join(texto.split()))\",\r\n    \"File \\\"C:\\\\Users\\\\London1\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python312\\\\Lib\\\\socket.py\\\", line 850, in create_connection sock.connect(sa)\"\r\n   ]\r\n  }\r\n ],\r\n \"DNS_LOOKUPS_FORA\": 1,\r\n \"SUBPROCESSOS\": 0,\r\n \"VEREDICTO\": \"FAIL\"\r\n}\r\nCould not find platform independent libraries <prefix>"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py provas/a_rota_do_html_nao_vai_a_rede.py"
+   ],
+   "SHA_RESTAURADO": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M12-A-ROTA-DO-HTML-ROUBA-O-PDF",
+   "ATAQUE": "o executor de HTML declara tambem `application/pdf`. Dois donos da mesma especie, e o segundo ganha por acidente de ordem de importacao.",
+   "ALVO": "coleta/executor_texto_de_html.py",
+   "DE": "ACEITA = (\"text/html\", \"application/xhtml+xml\")",
+   "PARA": "ACEITA = (\"text/html\", \"application/xhtml+xml\", \"application/pdf\")",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.AEscolhaDoExecutorEPorEspecieDeclarada",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py provas/a_rota_do_html_atravessa.py",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-ACEITA = (\"text/html\", \"application/xhtml+xml\")",
+    "+ACEITA = (\"text/html\", \"application/xhtml+xml\", \"application/pdf\")"
+   ],
+   "SHA_ANTES": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "SHA_MUTADO": "b7a7db6b4ec78393b798f9d3c1f3f75abca37bda8f3083c3362965af11edcde2",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_rota_do_html.AEscolhaDoExecutorEPorEspecieDeclarada",
+     "VERDE_DEPOIS": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py provas/a_rota_do_html_atravessa.py",
+     "VERDE_DEPOIS": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_KILLED": false,
+   "QUEM_MATOU": [],
+   "SHA_RESTAURADO": "0d73ae38fb8cab4fb6f3464ced9808e15523964d680a0fb26bee771a5a29bdf7",
+   "RESTAURADO": true,
+   "VEREDICTO": "SURVIVOR"
+  },
+  {
+   "ID": "M13-SOCI-VOLTA-A-T7",
+   "ATAQUE": "devolver a T7 o termo que casa dentro de «sociale», «social» e «association» — e que produzia 26 NAO falsos.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "\"divulgazione tecnica\"],",
+   "PARA": "\"divulgazione tecnica\", \"soci\"],",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-           \"divulgazione tecnica\"],                          # it",
+    "+           \"divulgazione tecnica\", \"soci\"],                          # it"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "13782b5a339b7de6cbd30758950432352f2320df86131dd5f142ea4c118faf67",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "onsorcio', 'agronomo', 'extensao', 'assistencia tecnica', 'consorzio', 'agronomi', 'assistenza tecnica', 'servizio agronomico', 'tecnico di campo', 'divulgazione tecnica', 'soci'] : «soci» voltou a T7. Ele saiu porque casou em «sociale», «social» e «association» — nunca em «soci»\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 0.025s\r\n\r\nFAILED (failures=1)"
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "t2.py\", line 222, in test_os_universos_que_ja_tinham_regra_nao_foram_tocados\r\n    self.assertEqual(\r\nAssertionError: 12 != 11 : a lista de T7 mudou desde a ultima medicao. Se foi de proposito, actualize este numero E escreva porque — uma contagem sem razao ao lado nao guarda nada\r\n\r\n----------------------------------------------------------------------\r\nRan 3 tests in 0.001s\r\n\r\nFAILED (failures=1)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+    "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  },
+  {
+   "ID": "M14-DUAS-FORMAS-DA-MESMA-PALAVRA",
+   "ATAQUE": "acrescentar a T10 uma forma que contem outra da lista. Uma unica ocorrencia de «importazione» passava a valer DOIS sinais, e a regua dos SINAIS_MINIMOS deixava de valer sem ninguem dar por isso.",
+   "ALVO": "admissao/admissao.py",
+   "DE": "\"exportacao\", \"exportacoes\"],",
+   "PARA": "\"exportacao\", \"exportacoes\", \"importazione\"],",
+   "BASE": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2",
+     "VERDE_ANTES": true,
+     "CAUDA": ""
+    }
+   ],
+   "MUTANT_APPLIED": true,
+   "GIT_DIFF": [
+    "-            \"exportacao\", \"exportacoes\"],                    # pt",
+    "+            \"exportacao\", \"exportacoes\", \"importazione\"],                    # pt"
+   ],
+   "SHA_ANTES": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "SHA_MUTADO": "4844a2bad1b1ab56dad13561a2bbdd37e546ca2c1eb4987535800d8c350ddc34",
+   "DEPOIS": [
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "cent call last):\r\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\duas-portas-v1\\tests\\test_a_regra_de_t10.py\", line 198, in test_nenhum_termo_de_T10_cabe_dentro_de_outro_de_T10\r\n    self.assertNotIn(a, b)\r\nAssertionError: 'importazion' unexpectedly found in 'importazione'\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 0.028s\r\n\r\nFAILED (failures=1)"
+    },
+    {
+     "MATADOR": "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2",
+     "VERDE_DEPOIS": false,
+     "CAUDA": "2.py\", line 222, in test_os_universos_que_ja_tinham_regra_nao_foram_tocados\r\n    self.assertEqual(\r\nAssertionError: 18 != 17 : a lista de T10 mudou desde a ultima medicao. Se foi de proposito, actualize este numero E escreva porque — uma contagem sem razao ao lado nao guarda nada\r\n\r\n----------------------------------------------------------------------\r\nRan 3 tests in 0.001s\r\n\r\nFAILED (failures=1)"
+    }
+   ],
+   "MUTANT_KILLED": true,
+   "QUEM_MATOU": [
+    "py -m unittest -q tests.test_a_regra_de_t10.OLexicoNaoApodrece",
+    "py -m unittest -q tests.test_a_regra_de_t2.APortaNaoGanhouRegraDeT2"
+   ],
+   "SHA_RESTAURADO": "89e065d6878d34331786e86bb9710ce01a00ae6dad04df4fec694182b6660959",
+   "RESTAURADO": true,
+   "VEREDICTO": "MUTANT_KILLED"
+  }
+ ]
+}

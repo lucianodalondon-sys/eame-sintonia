@@ -243,7 +243,19 @@ def _correr(cmd):
     porta importa `admissao` por tres caminhos diferentes. Um interpretador
     novo le o ficheiro do disco, que e onde a mutacao esta.
     """
-    env = dict(os.environ, PYTHONUTF8="1")
+    # ⚠️ `PYTHONDONTWRITEBYTECODE` NAO CHEGOU, E O PORQUE FICA ESCRITO.
+    # O `M05` trocava `SINAIS_MINIMOS = 2` por `= 1`: MESMO TAMANHO, e escrito
+    # no mesmo segundo do import anterior. O `.pyc` guarda (mtime em segundos,
+    # tamanho) e valida-se por esses dois — nenhum dos dois mudou, e o
+    # interpretador novo carregou o ficheiro ANTIGO do cache. O ataque foi
+    # aplicado (o `git diff` prova-o) e o matador nunca o chegou a ver.
+    #
+    #     UM MUTANTE QUE NAO MUDA O TAMANHO E QUE CABE NO MESMO SEGUNDO
+    #     E INVISIVEL PARA O IMPORT. ELE «SOBREVIVE» SEM NUNCA TER CORRIDO.
+    #
+    # Esta variavel impede de ESCREVER cache novo; nao impede de LER o velho.
+    # Por isso o cache do alvo e apagado em `aplicar()`.
+    env = dict(os.environ, PYTHONUTF8="1", PYTHONDONTWRITEBYTECODE="1")
     # Nenhum matador escreve na Sala; e a variavel da Sala sai do ambiente
     # para que nenhum deles a possa alcancar por acidente.
     for v in ("SINTONIA_SALA_BACKEND", "SINTONIA_SALA_DSN",
@@ -260,9 +272,27 @@ def _git_diff(caminho):
     return r.stdout.decode("utf-8", "replace")
 
 
+def _apagar_cache(caminho):
+    """O `.pyc` do alvo, fora do caminho. Ver a nota em `_correr`."""
+    pasta = os.path.join(RAIZ, os.path.dirname(caminho), "__pycache__")
+    base = os.path.basename(caminho)[:-3] + "."
+    if not os.path.isdir(pasta):
+        return []
+    fora = []
+    for nome in os.listdir(pasta):
+        if nome.startswith(base) and nome.endswith(".pyc"):
+            try:
+                os.remove(os.path.join(pasta, nome))
+                fora.append(nome)
+            except OSError:
+                pass
+    return fora
+
+
 def _restaurar(caminho):
     subprocess.run(["git", "checkout", "--", caminho], cwd=RAIZ,
                    capture_output=True, timeout=120)
+    _apagar_cache(caminho)
 
 
 def aplicar(m):
@@ -278,6 +308,9 @@ def aplicar(m):
                            "1): %r" % (m["ID"], quantas, m["ALVO"], m["DE"]))
     with open(alvo, "wb") as fh:
         fh.write(bruto.replace(de, m["PARA"].encode("utf-8"), 1))
+    # O cache do alvo sai daqui. Sem isto, um mutante do MESMO TAMANHO escrito
+    # no mesmo segundo do import anterior e carregado do `.pyc` velho.
+    _apagar_cache(m["ALVO"])
     return antes
 
 
