@@ -69,10 +69,23 @@ class Cadeia(unittest.TestCase):
         rt.SAIDA = os.path.join(self.tmp, 'saida')
         os.makedirs(rt.MIDIA)
         os.makedirs(rt.SAIDA)
-        # Um «vídeo» com bytes suficientes para valer como ficheiro real.
-        self.video = os.path.join(self.tmp, 'video.mp4')
-        with open(self.video, 'wb') as f:
-            f.write(b'\x00\x00\x00\x18ftypmp42' + b'BYTES-DE-TESTE' * 2000)
+        # ── A MÍDIA DO FIXTURE É MÍDIA A SÉRIO ──────────────────────────────
+        # Até 2026-09-18 isto era um falso `.mp4` com bytes sintéticos, e passava
+        # porque a cadeia não perguntava de que espécie eram os bytes. Passou a
+        # perguntar (e faz bem), e o boneco deixou de servir: 13 testes caíram.
+        #
+        #     UM FIXTURE QUE FINGE DE MÍDIA SÓ FUNCIONA ENQUANTO A CASA NÃO OLHA.
+        #
+        # A correção é aqui, no harness — NUNCA na validação de produção. O que
+        # atravessa a camada de mídia passa a ser um WAV verdadeiro, escrito com a
+        # stdlib (`wave`): 1 canal, 16-bit PCM, 16 kHz, curto. Sem rede, sem
+        # download, sem binário grande no Git, e determinístico.
+        #
+        # O vídeo não é preciso: medido, `fl.extrair_audio` está mockado logo
+        # abaixo — o pipeline nunca lê imagem neste harness.
+        import wave
+        self.video = os.path.join(self.tmp, 'media.wav')
+        self._escrever_wav(self.video)
         fl.extrair_audio = lambda entrada, wav: (self._wav(wav), None)
 
     def tearDown(self):
@@ -80,10 +93,22 @@ class Cadeia(unittest.TestCase):
         fl.transcrever, fl.extrair_audio = self._transcrever, self._extrair
         shutil.rmtree(self.tmp, ignore_errors=True)
 
+    def _escrever_wav(self, destino, segundos=0.2):
+        """Escreve um WAV VERDADEIRO, com a stdlib. → o caminho.
+
+        Um ficheiro que começa por `RIFF` não é mídia: é um prefixo. A diferença
+        só aparece quando alguém o abre — e é isso que a casa passou a fazer.
+        """
+        import wave
+        with wave.open(destino, 'wb') as w:
+            w.setnchannels(1)
+            w.setsampwidth(2)
+            w.setframerate(16000)
+            w.writeframes(b'\x00\x00' * int(16000 * segundos))
+        return destino
+
     def _wav(self, wav):
-        with open(wav, 'wb') as f:
-            f.write(b'RIFF' + b'\x00' * 5000)
-        return wav
+        return self._escrever_wav(wav)
 
     def _ident(self, **kw):
         d = rt.identidade_do_url('https://www.instagram.com/syngentaitalia/reel/ABC12345678/')

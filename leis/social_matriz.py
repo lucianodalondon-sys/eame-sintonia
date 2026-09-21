@@ -151,12 +151,41 @@ CAPACIDADES = (
 )
 
 
-def r(nome, classe, permitida, estado, custo, nota, evidencia=None):
-    """Uma rota candidata. `permitida` é SIM | NAO | CONDICIONAL."""
+def r(nome, classe, permitida, estado, custo, nota, evidencia=None,
+      plataforma=None, limite=None):
+    """Uma rota candidata. `permitida` é SIM | NAO | CONDICIONAL.
+
+    ⚠️ TRÊS PERGUNTAS, E ELAS NÃO SE COLAPSAM
+    -------------------------------------------
+        PERMITIDA   O PROJETO autorizou esta rota?      (decisão de gente)
+        plataforma  A PLATAFORMA permite esta rota?     (robots/termos — medido)
+        limite      Que ESPÉCIE DE MÍDIA esta rota cobre? (`AUDIO_ONLY`, ou None)
+
+    Elas vivem juntas e separadas: uma rota pode estar autorizada pelo dono do
+    projeto E barrada nos termos da plataforma, e as duas coisas são verdade ao
+    mesmo tempo. Escrever só `PERMITIDA` faz a segunda desaparecer — e é assim
+    que uma decisão humana vira, com o tempo, uma afirmação sobre a plataforma
+    que ninguém mediu.
+
+        OWNER_AUTHORIZED = YES  ⇏  PLATFORM_PERMISSION = YES.
+
+    `plataforma` usa o vocabulário já medido nesta casa — `ROBOTS_DISALLOW_ALL`,
+    `PARTIAL_OPEN`, `NOT_MEASURED`, `CREDENTIAL_MISSING` — e nunca um juízo
+    jurídico: `robots.txt` não é parecer.
+
+    `limite='AUDIO_ONLY'` é uma trava MECÂNICA, e existe por uma razão medida:
+    a escada da cadeia de Reel pede a ESPÉCIE que quer (`MIDIA_AUDIO` ou
+    `MIDIA_VIDEO`), e sem este campo a autorização de uma rota de áudio abriria
+    a porta do vídeo inteiro pela mesma linha.
+
+        UMA AUTORIZAÇÃO DE ÁUDIO NÃO É UMA AUTORIZAÇÃO DE VÍDEO.
+    """
     return {
         'ROTA': nome, 'CLASSE': classe, 'PRIORIDADE': CLASSES[classe],
         'PERMITIDA': permitida, 'ESTADO': estado, 'CUSTO': custo,
         'NOTA': nota, 'EVIDENCIA': evidencia, 'MEDIDO_EM': MEDIDO_EM,
+        'PLATFORM_POLICY_STATUS': plataforma or 'NOT_MEASURED',
+        'LIMITE': limite,
     }
 
 
@@ -450,7 +479,51 @@ MATRIZ = {
               '`Disallow: /` ao agente desta casa — medido na C10.5. O motor local '
               'continua provado e os bytes já preservados continuam reprocessáveis; '
               'o que está recusado é SAIR para buscar mídia nova.',
-              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),
+              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md',
+              plataforma='ROBOTS_DISALLOW_ALL'),
+
+            # ── DECISÃO DO DONO DO PROJETO · 2026-09-18 · ROTA SÓ DE ÁUDIO ────
+            # Esta linha nasceu de um canário REAL, medido e não argumentado:
+            #
+            #   https://www.instagram.com/reel/DW6X5lZkU41/
+            #   → yt-dlp, formato `dash-…a` (vcodec=NONE)
+            #   → 968.704 bytes · AAC 48 kHz estéreo · 145,408 s
+            #   → ffprobe: 1 stream, codec_type=audio  →  VIDEO_STREAMS = 0
+            #   → ASR local: TRANSCRIPT_STATE = OK · 2.347 caracteres · `en`
+            #   → login NENHUM · cookies NENHUM · proxy NENHUM · APIFY_RUNS = 0
+            #
+            # O que a prova mostra é uma coisa só, e ela NÃO é «download de vídeo»:
+            #
+            #     REEL PÚBLICO → BYTES SÓ DE ÁUDIO.
+            #
+            # Por isso são DUAS rotas nesta capacidade, e não uma:
+            # a que baixa o MP4 inteiro continua `NAO` (linha de cima), e a que
+            # pede só a faixa de som é que está autorizada. Juntá-las numa linha
+            # só faria uma autorização de áudio abrir a porta do vídeo inteiro.
+            #
+            # ⚠️ E AS TRÊS PERGUNTAS FICAM SEPARADAS:
+            #
+            #   PERMITIDA                = CONDICIONAL  → o PROJETO autorizou
+            #   PLATFORM_POLICY_STATUS   = ROBOTS_DISALLOW_ALL → a PLATAFORMA não
+            #   LIMITE                   = AUDIO_ONLY   → trava mecânica da escada
+            #
+            #     OWNER_AUTHORIZED = YES  ⇏  PLATFORM_PERMISSION = YES.
+            #
+            # A autorização é condicional e as condições são as do dono, escritas:
+            # publicação PÚBLICA, sem login, sem cookies de conta, sem sessão de
+            # terceiro, sem proxy para contornar bloqueio, sem CAPTCHA, sem
+            # identidade falsa, e fallback para vídeo inteiro PROIBIDO.
+            r('yt-dlp:bestaudio', 'LOCAL_EXECUTOR', 'CONDICIONAL', 'PROVED', 'zero',
+              'ROTA SÓ DE ÁUDIO, medida em canário real (2026-09-18): `dash-…a`, '
+              'vcodec=NONE, 968.704 bytes, 145,408 s, 0 streams de vídeo, transcript '
+              'OK. Autorizada PELO PROJETO sob as condições escritas acima. '
+              'A plataforma continua a não permitir (robots `Disallow: /`), e esse '
+              'eixo viaja em PLATFORM_POLICY_STATUS — ele não desaparece por o dono '
+              'ter dito sim. Sem `bestaudio` o estado é AUDIO_ONLY_UNAVAILABLE: '
+              'esta rota NUNCA cai para o vídeo inteiro.',
+              'docs/sintonia-scrap/C10-5D-DECISAO-DO-INSTAGRAM.md · canário '
+              'REEL-CANARIO-2026-09-18 (bytes em data/raw, fora do Git)',
+              plataforma='ROBOTS_DISALLOW_ALL', limite='AUDIO_ONLY'),
         ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
@@ -666,7 +739,7 @@ NAO_PERMITIDA = 'ROUTE_NOT_ALLOWED'
 PERMITIDA_SIM = 'ALLOWED'
 
 
-def decisao(platform, capability):
+def decisao(platform, capability, kind=None):
     """A decisão desta matriz para (plataforma, capacidade). LÊ — não decide.
 
     Existe porque quem adquire precisa perguntar ANTES de sair para a rede, e
@@ -693,7 +766,14 @@ def decisao(platform, capability):
     plat, capac = (platform or '').upper(), (capability or '').upper()
     veredicto = {'PLATFORM': plat, 'CAPABILITY': capac, 'DECISAO': NAO_DECLARADA,
                  'ROTA': None, 'CLASSE': None, 'PERMITIDA': None, 'ESTADO': None,
-                 'AUTH_MODE': None, 'PORQUE': None}
+                 'AUTH_MODE': None, 'PORQUE': None,
+                 # ── OS DOIS EIXOS QUE NÃO SE COLAPSAM EM `PERMITIDA` ──────────
+                 # `PERMITIDA` é do DONO DO PROJETO; `PLATFORM_POLICY_STATUS` é
+                 # da PLATAFORMA, medido (robots/termos) e nunca um parecer. Uma
+                 # rota pode estar autorizada por nós e barrada por ela, e as
+                 # duas coisas continuam verdadeiras ao mesmo tempo.
+                 'PLATFORM_POLICY_STATUS': None, 'LIMITE': None,
+                 'KIND_PEDIDO': kind}
     rotas = (MATRIZ.get(plat) or {}).get(capac)
     if not rotas:
         veredicto['PORQUE'] = ('a matriz nao declara %s para %s. Ninguem mediu '
@@ -710,7 +790,29 @@ def decisao(platform, capability):
                       'PERMITIDA': escolhida['PERMITIDA'],
                       'ESTADO': escolhida['ESTADO'],
                       'AUTH_MODE': auth_mode(escolhida),
-                      'PORQUE': escolhida['NOTA']})
+                      'PORQUE': escolhida['NOTA'],
+                      'PLATFORM_POLICY_STATUS': escolhida.get(
+                          'PLATFORM_POLICY_STATUS'),
+                      'LIMITE': escolhida.get('LIMITE')})
+
+    # ── A TRAVA DA ESPÉCIE DE MÍDIA ──────────────────────────────────────────
+    # Uma rota que declara `limite='AUDIO_ONLY'` responde NÃO a um pedido de
+    # vídeo. Sem isto, a autorização de uma rota de áudio abriria a porta do
+    # vídeo inteiro pela mesma linha — e quem pediu vídeo nunca saberia que a
+    # autorização dele não existe.
+    #
+    #     UMA AUTORIZAÇÃO DE ÁUDIO NÃO É UMA AUTORIZAÇÃO DE VÍDEO.
+    limite = escolhida.get('LIMITE')
+    if kind and limite:
+        quer = {'MIDIA_AUDIO': 'AUDIO_ONLY', 'AUDIO': 'AUDIO_ONLY',
+                'AUDIO_ONLY': 'AUDIO_ONLY', 'MIDIA_VIDEO': 'VIDEO',
+                'VIDEO': 'VIDEO'}.get(str(kind).upper(), str(kind).upper())
+        if quer != limite:
+            veredicto['DECISAO'] = NAO_PERMITIDA
+            veredicto['PORQUE'] = (
+                'a rota permitida para %s/%s cobre %s e o pedido e %s. '
+                'Autorizacao de uma especie NAO autoriza a outra.'
+                % (plat, capac, limite, quer))
     return veredicto
 
 

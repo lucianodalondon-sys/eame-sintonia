@@ -607,7 +607,7 @@ def retry_after_do_ytdlp(stderr):
 CAPACIDADE_NA_MATRIZ = 'FETCH_TRANSCRIPT'
 
 
-def politica_da_aquisicao(plataforma):
+def politica_da_aquisicao(plataforma, kind=None):
     """A lei responde ANTES de o socket abrir. → o veredicto de `social_matriz`.
 
     POR QUE AQUI, E NAO SO NO ADAPTADOR
@@ -629,8 +629,16 @@ def politica_da_aquisicao(plataforma):
     `plataforma` vem de `ident['PLATFORM']` — dado medido, nunca adivinhado do
     endereco. Plataforma por declarar devolve NOT_DECLARED, e nao declarado nao
     e permitido.
+
+    `kind` e a ESPECIE que a escada vai pedir (`MIDIA_AUDIO` / `MIDIA_VIDEO`).
+    Ele desce ate a matriz de proposito: uma rota declarada com
+    `limite='AUDIO_ONLY'` responde NAO a um pedido de video. Sem este eixo, a
+    autorizacao de uma rota de som abriria a porta do video inteiro pela mesma
+    linha da matriz.
+
+        UMA AUTORIZACAO DE AUDIO NAO E UMA AUTORIZACAO DE VIDEO.
     """
-    return mz.decisao(plataforma, CAPACIDADE_NA_MATRIZ)
+    return mz.decisao(plataforma, CAPACIDADE_NA_MATRIZ, kind=kind)
 
 
 def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO,
@@ -802,7 +810,7 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
     #
     #     UMA RECUSA DE AQUISICAO QUE APAGASSE O REPROCESSAMENTO ESTARIA A
     #     CASTIGAR O QUE JA ESTA PRESERVADO.
-    decisao_aq = politica_da_aquisicao(ident.get('PLATFORM', NOT_KNOWN))
+    decisao_aq = politica_da_aquisicao(ident.get('PLATFORM', NOT_KNOWN), kind=kind)
     pode_adquirir = decisao_aq['DECISAO'] == mz.PERMITIDA_SIM
 
     # DEGRAU 2 · o endereço DIRETO da publicação, grátis
@@ -1178,18 +1186,71 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
     #
     #     RAW != VIDEO. RAW e a observacao bruta ADQUIRIDA NESTA ROTA.
     e_so_audio, porque_kind = fl.so_audio(caminho)
-    kind_usado = MIDIA_AUDIO if e_so_audio else MIDIA_VIDEO
+    # ── TRES ESTADOS, E NAO DOIS (a primeira correcao desta linha estava errada) ──
+    # ⚠️ MEDIDO EM 2026-09-18, e era um defeito: a linha escrevia
+    #
+    #     kind_usado = MIDIA_AUDIO if e_so_audio else MIDIA_VIDEO
+    #
+    # e por isso TUDO o que nao fosse som virava VIDEO — incluindo o que nao era
+    # midia nenhuma. Medidos os tres casos, ponta a ponta:
+    #
+    #     ZERO_BYTES -> MEDIA_OK · VIDEO      HTML -> MEDIA_OK · VIDEO      CORRUPT -> MEDIA_OK · VIDEO
+    #
+    #     MIDIA ILEGIVEL NAO VIRA VIDEO. VIRA ILEGIVEL.
+    #
+    # A primeira tentativa de conserto procurou a palavra «FALHOU» dentro do
+    # motivo, e NAO pegou: o motivo do `so_audio` é «moov atom not found», que
+    # nao diz a palavra. Uma correcao que nao muda o resultado nao é correcao.
+    #
+    #     PROCURAR UMA PALAVRA NO MOTIVO MEDE O VOCABULARIO, NAO A MIDIA.
+    #
+    # O criterio certo e a palavra do dono: `fluxos()` devolve (imagem, som,
+    # porque) — numeros, nao adjetivos. So prova POSITIVA de imagem produz
+    # VIDEO; ficheiro que ninguem conseguiu abrir fica `NOT_KNOWN`, porque
+    # especie e uma afirmacao sobre conteudo.
+    v_streams, a_streams, porque_fluxos = fl.fluxos(caminho)
+    if porque_fluxos or (not v_streams and not a_streams):
+        kind_usado = NOT_KNOWN
+        base['MEDIA_STATE'] = MEDIA_FALHOU
+        base['MEDIA_ILEGIVEL'] = True
+        base['MEDIA_STATE_WHY'] = (
+            'os bytes existem e nenhum leitor conseguiu abrir media dentro deles '
+            '(imagem=%s som=%s · %s). Isto NAO e ausencia de midia, e NAO e prova '
+            'de video.' % (v_streams, a_streams, porque_fluxos or 'sem fluxos'))
+    else:
+        kind_usado = MIDIA_AUDIO if e_so_audio else MIDIA_VIDEO
     reusado = capture == CAPTURA_JA_PRESERVADA
+    # ── TRES FORMAS DE «NAO ADQUIRI», E ELAS NAO SAO A MESMA ────────────────
+    #    ADQUIRIDO  os bytes entraram nesta corrida, por esta rota      ACQUIRED
+    #    REUSADO    os bytes ja estavam na gaveta desta casa            REUSED
+    #    FORNECIDO  quem chamou entregou o ficheiro/endereco            PROVIDED
+    #
+    #     BYTES QUE ALGUEM TROUXE NAO SAO BYTES QUE NOS ADQUIRIMOS.
+    #
+    # A etiqueta antiga tratava as duas ultimas de formas diferentes: a gaveta
+    # saia `REUSED_NOT_ACQUIRED` e a midia entregue saia `PROVEN` — ou seja,
+    # uma corrida que nao foi a rede nenhuma afirmava ter adquirido. Medido na
+    # C10.5D §7 e corrigido aqui, com o mesmo vocabulario, sem inventar outro.
+    fornecido = capture == CAPTURA_FORNECIDA
     base['MEDIA_KIND_USED'] = kind_usado
     base['MEDIA_KIND_WHY'] = porque_kind or 'bytes conferidos: som sem imagem'
     base['AUDIO_ONLY_ACQUISITION'] = (
-        'PROVEN' if (e_so_audio and not reusado) else
-        'REUSED_NOT_ACQUIRED' if reusado else 'NO')
+        'PROVEN' if (e_so_audio and not reusado and not fornecido) else
+        'REUSED_NOT_ACQUIRED' if reusado else
+        'PROVIDED_NOT_ACQUIRED' if fornecido else 'NO')
+    base['ACQUISITION_ORIGIN'] = (
+        'ACQUIRED' if (not reusado and not fornecido) else
+        'REUSED' if reusado else 'PROVIDED')
     if reusado:
         # REUSAR MP4 ANTIGO E COMPATIBILIDADE HISTORICA, NAO ROTA NOVA.
         base['AUDIO_ONLY_WHY'] = (
             'os bytes vieram do disco desta casa; reuso nao prova aquisicao. '
             'REUSED_VIDEO + AUDIO_DERIVATION != AUDIO_ONLY_ACQUISITION.')
+    elif fornecido:
+        base['AUDIO_ONLY_WHY'] = (
+            'os bytes foram ENTREGUES por quem chamou; esta corrida nao foi a '
+            'rede. PROVIDED != ACQUIRED — e o SHA que sobe descreve os bytes '
+            'de quem os trouxe, nao uma aquisicao desta rota.')
 
     # ── DEGRAU 3 · O RAW GANHA FICHA ────────────────────────────────────────
     _e_raw = rel.abrir('RAW', edge_from='FETCH', input_grain='MEDIA', input_count=1)
@@ -1221,13 +1282,65 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
         rel.fechar(_e_der, 'FAIL', error=1, canonical_state='EXECUTOR_UNAVAILABLE',
                    error_message=porque)
         base.update({
-            'CAPTURE_PROVIDER': capture, 'MEDIA_STATE': MEDIA_OK,
+            'CAPTURE_PROVIDER': capture,
+            # ⚠️ ESTE É O ÚLTIMO ESCRITOR DE `MEDIA_STATE`, e foi ele que manteve
+            # o defeito de pé depois de duas correcoes a montante. Medido:
+            # `MEDIA_ILEGIVEL=True` CHEGAVA ao objeto final e mesmo assim o estado
+            # saia `MEDIA_OK` — porque esta linha o reescrevia por existir um
+            # artefato.
+            #
+            #     BYTES PRESENTES != MIDIA VALIDA.
+            #     E UMA CORRECAO A MONTANTE DO ULTIMO ESCRITOR NAO E CORRECAO.
+            'MEDIA_STATE': MEDIA_FALHOU if base.get('MEDIA_ILEGIVEL') else MEDIA_OK,
             'TRANSCRIPT_PROVIDER': ASR_LOCAL,
             'TRANSCRIPT_TEXT': None,
             'TRANSCRIPT_STATE': fl.ASR_FALHOU,
             'ERROR': porque,
             'NAO_SIGNIFICA': 'que o video nao tem fala. O audio e que nao saiu.',
             'RAW': raw.para_json(), 'DERIVED': None,
+        })
+        return base
+
+    # ── O PORTAO DO ASR — ANTES DE PEDIR, E NAO DEPOIS DE RECUSAR ───────────
+    # ⚠️ MEDIDO: a cadeia TENTAVA transcrever midia ilegivel. Zero bytes, HTML
+    # disfarcado e binario corrompido chegavam ao reconhecedor, gastavam tempo de
+    # maquina e so entao falhavam — e a ficha saia `ASR_FALHOU`, que se le como
+    # «tentei ouvir e nao havia fala».
+    #
+    #     «O ASR RECUSOU LIXO» NAO E «O LIXO NUNCA DEVIA TER SIDO ENVIADO».
+    #
+    # O `ASR_FALHOU` como substituto de «nao devia ter tentado» apaga a unica
+    # diferenca que interessa: a de quem tentou ouvir algo que nao era midia.
+    #
+    # A pergunta faz-se aqui, no ponto que POSSUI a decisao de chamar — nao
+    # dentro do reconhecedor. Uma trava la dentro deixaria a chamada acontecer e
+    # so a recusaria depois, e o custo ja teria sido pago.
+    #
+    #     UMA TRAVA DEPOIS DA CHAMADA NAO E UM PORTAO. E UM RELATORIO.
+    _ilegivel = bool(base.get('MEDIA_ILEGIVEL'))
+    _kind = base.get('MEDIA_KIND_USED')
+    # ⚠️ A PRIMEIRA VERSAO DESTE PORTAO ERA LARGA DE MAIS, e mediu-se: exigir
+    # `kind == AUDIO` bloqueava tambem o VIDEO valido — que o contrato atual
+    # atende extraindo o som primeiro. Resultado: 13 testes de Reel vermelhos.
+    #
+    #     UM PORTAO QUE FECHA A PORTA CERTA E A PORTA ERRADA NAO E SEGURO. E AVARIADO.
+    #
+    # O que este portao tem de travar e UMA coisa: a midia que NINGUEM conseguiu
+    # ler. E essa chega aqui como `MEDIA_ILEGIVEL` ou como especie `NOT_KNOWN`.
+    # O resto — video, misto, formato estranho mas legivel — segue o contrato que
+    # ja existia, e nao se inventa comportamento novo nesta missao.
+    if _ilegivel or _kind == NOT_KNOWN:
+        base.update({
+            'MEDIA_STATE': MEDIA_FALHOU if _ilegivel else base.get('MEDIA_STATE'),
+            'TRANSCRIPT_PROVIDER': 'NOT_REQUESTED',
+            'TRANSCRIPT_TEXT': None,
+            'TRANSCRIPT_STATE': 'NOT_REQUESTED',
+            'TRANSCRIPT_CHARS': 0,
+            'ERROR': 'ASR_NAO_PEDIDO: a midia nao passou o portao (estado=%s, especie=%s).'
+                     % (base.get('MEDIA_STATE'), _kind),
+            'NAO_SIGNIFICA': ('que a midia nao tenha fala. Significa que ela nao chegou a ser '
+                              'ouvida — e nao devia ter sido.'),
+            'RAW': raw.para_json() if raw is not None else None, 'DERIVED': None,
         })
         return base
 
@@ -1350,7 +1463,22 @@ def _fechar(base, ident, *, run_id, capture, midia, raw, fala, provider,
             'a fala veio pronta da fonte e nenhum byte de video foi preservado. '
             'Nao ha artefato pai, logo nenhuma citacao deste texto se confere '
             'contra o audio.') if sem_pai else '',
-        'MEDIA_STATE': MEDIA_OK if raw is not None else NAO_SE_APLICA,
+        # ⚠️ AQUI VIVIA O DEFEITO, e aqui é onde ele tem de morrer.
+        #
+        # A linha era `MEDIA_OK if raw is not None else NAO_SE_APLICA` — ou seja,
+        # o ESTADO FINAL da mídia era decidido por EXISTIR UM ARTEFATO, e nao por
+        # a midia ter sido lida. Medido: zero bytes, HTML disfarcado e binario
+        # corrompido terminavam os tres em `MEDIA_OK`, porque nos tres havia
+        # bytes e o artefato nascia.
+        #
+        #     BYTES PRESENTES != MIDIA VALIDA.
+        #
+        # Este e o ULTIMO escritor do estado — marcar antes dele nao serve de
+        # nada, e foi exactamente o que a primeira correcao fez, sem pegar.
+        #
+        #     UMA CORRECAO ANTES DO ULTIMO ESCRITOR NAO E CORRECAO. E INTENCAO.
+        'MEDIA_STATE': (MEDIA_FALHOU if base.get('MEDIA_ILEGIVEL') else MEDIA_OK)
+                       if raw is not None else NAO_SE_APLICA,
         'TRANSCRIPT_PROVIDER': provider,
         'TRANSCRIPT_TEXT': fala.get('TRANSCRIPT'),
         'TRANSCRIPT_STATE': fala.get('TRANSCRIPT_STATE', NAO_SEI),

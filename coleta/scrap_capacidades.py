@@ -134,9 +134,22 @@ DECLARADAS = {
     'instagram.reel.audio': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
     # A UNICA DAS TRES QUE A MATRIZ CONHECE. O acto que ela executa — ir
     # buscar a media e reconhecer a fala aqui — e o que `social_matriz`
-    # chama FETCH_TRANSCRIPT, e ali ele esta PERMITIDA=SIM, PROVED. Sem
-    # esta traducao o roteador nunca encontrava a cadeia, e a cadeia
-    # entrava pelo `executa` — que e a porta de quem NAO tem portao.
+    # chama FETCH_TRANSCRIPT.
+    #
+    # ⚠️ E O ESTADO DESSA ROTA NAO SE ESCREVE AQUI. Este comentario dizia
+    # «ali ele esta PERMITIDA=SIM, PROVED» — e passou a ser FALSO no dia em que
+    # a C10.5D virou aquela linha para NAO. Uma declaracao sobre o DONO da
+    # politica, escrita num ficheiro que nao e o dono, envelhece calada.
+    #
+    #     UM ESTADO COPIADO DO DONO E UM ESTADO QUE VAI DIVERGIR DO DONO.
+    #
+    # O estado vive em `leis/social_matriz.py`, e le-se perguntando:
+    # `social_matriz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')`. Em 2026-09-18
+    # ele passou a ter DUAS rotas — o MP4 inteiro (`NAO`) e o som (`CONDICIONAL`,
+    # `limite='AUDIO_ONLY'`), por decisao escrita do dono do projeto.
+    #
+    # E ESTA traducao e o que faz o roteador encontrar a cadeia. Sem ela, a
+    # cadeia entrava pelo `executa` — que e a porta de quem NAO tem portao.
     'instagram.reel.transcribe': ('INSTAGRAM', PROVEN, EITHER, None, _RE, 'FETCH_TRANSCRIPT'),
     'instagram.profile.discovery': ('INSTAGRAM', PARTIAL, LOCAL, DATACENTER_BLOCKED, _AP, 'INCREMENTAL'),
     'instagram.post.comments': ('INSTAGRAM', BLOCKED, AMBIENTE_DESCONHECIDO, None, _AP, 'FETCH_COMMENTS'),
