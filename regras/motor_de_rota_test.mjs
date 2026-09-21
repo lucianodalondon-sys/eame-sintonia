@@ -16,6 +16,7 @@ import { readFileSync } from "node:fs";
 import {
   alvosDoContrato, identidadeDoContrato, conferirAquisicao,
   ContratoInvalido, ESTRATEGIAS, PROVIDERS, ligacoesDoIndice, nomeDoAlvo,
+  conferirIdentidade, ESTRATEGIAS_DE_IDENTIDADE, FONTES_DE_TEXTO,
 } from "./motor_de_rota.mjs";
 import { CONTRACTS } from "./italy_contracts.mjs";
 
@@ -337,6 +338,115 @@ T("nomeDoAlvo - a cauda fica, e a extensao nasce do OUTPUT_TYPE", () => {
   assert.equal(nomeDoAlvo("https://x.it/docs/b.pdf", "PDF"), "b.pdf");
   assert.ok(nomeDoAlvo("https://x.it/" + "a".repeat(200), "HTML").length <= 65,
     "o nome passou do limite que o MAX_PATH do Windows aguenta");
+});
+
+console.log("\n13 - CONTENT_CAPTURE - identidade de quem nao expoe identificador proprio");
+
+// ⚠️ ESTAS PROVAS NASCERAM DA RUN1B DESTA MISSAO. Com a descoberta ja
+// corrigida, 85 observacoes trouxeram enderecos de artigos REAIS e as 85
+// sairam `IDENTITY_FAILED`, com ZERO bytes descarregados. O motor so sabia
+// `FILENAME_CAPTURE` e devolvia `null` calado para tudo o resto — e os
+// contratos onboarded declaram `CONTENT_CAPTURE`.
+//
+//     `null` NAO DIZ PORQUE. Um vocabulario desconhecido reprova
+//     agora com o nome dele, na conferencia.
+
+const ALVO = { url: "https://www.exemplo.it/news/uma-noticia-de-campo",
+               nome: "uma-noticia-de-campo.html" };
+
+const ID_URL = {
+  STRATEGY: "CONTENT_CAPTURE",
+  CAPTURES: { doc: { FROM: "URL", PATTERN: "^https?://[^/]+/?(.*?)/?$" } },
+  DOCUMENT_ID: "IT-FICT-001:URL:{doc.1}",
+  FACT_TIME: "UNKNOWN - identidade pelo endereco",
+};
+
+T("CONTENT_CAPTURE - a identidade nasce do ENDERECO quando e so isso que ha", () => {
+  const r = identidadeDoContrato("IT-FICT-001", { IDENTITY: ID_URL }, ALVO);
+  assert.equal(r.DOCUMENT_ID, "IT-FICT-001:URL:news/uma-noticia-de-campo");
+});
+
+T("CONTENT_CAPTURE - FACT_TIME continua UNKNOWN e NAO herda nada", () => {
+  const r = identidadeDoContrato("IT-FICT-001", { IDENTITY: ID_URL }, ALVO);
+  assert.ok(/UNKNOWN/.test(r.FACT_TIME), "FACT_TIME deixou de confessar que nao sabe");
+  assert.equal(r.SOURCE_DATE, null, "SOURCE_DATE nasceu do nada");
+  // O endereco tem um ano la dentro e continua a NAO virar tempo do facto.
+  const comAno = { url: "https://x.it/news/2026/03/colheita", nome: "colheita.html" };
+  const r2 = identidadeDoContrato("IT-FICT-001", { IDENTITY: ID_URL }, comAno);
+  assert.ok(/UNKNOWN/.test(r2.FACT_TIME), "uma data no endereco virou tempo do facto");
+});
+
+T("CONTENT_CAPTURE - captura que nao casa devolve identidade VAZIA, nao meia", () => {
+  const spec = { ...ID_URL,
+    CAPTURES: { doc: { FROM: "FILENAME", PATTERN: "^BOLETIM-(\\d{4})\\.pdf$" } },
+    DOCUMENT_ID: "X:{doc.1}" };
+  const r = identidadeDoContrato("IT-FICT-001", { IDENTITY: spec }, ALVO);
+  assert.equal(r.DOCUMENT_ID, null, "saiu um DOCUMENT_ID com buraco");
+  assert.ok(/UNKNOWN/.test(r.FACT_TIME));
+});
+
+T("CONTENT_CAPTURE - um leitor que o coletor nao injectou DIZ-SE, nao se adivinha", () => {
+  const spec = { ...ID_URL, CAPTURES: { d: { FROM: "PDF_TEXT", PATTERN: "(\\d{4})" } },
+                 DOCUMENT_ID: "X:{d.1}" };
+  assert.throws(() => identidadeDoContrato("IT-FICT-001", { IDENTITY: spec }, ALVO),
+    ContratoInvalido, "um leitor em falta passou calado");
+});
+
+T("CONTENT_CAPTURE - o leitor injectado e lido UMA vez e serve a captura", () => {
+  let vezes = 0;
+  const spec = { ...ID_URL,
+    CAPTURES: { a: { FROM: "RAW_UTF8", PATTERN: "edicao (\\d+)" },
+                b: { FROM: "RAW_UTF8", PATTERN: "ano (\\d{4})" } },
+    DOCUMENT_ID: "X:{a.1}:{b.1}" };
+  const r = identidadeDoContrato("IT-FICT-001", { IDENTITY: spec }, ALVO,
+    { leitores: { RAW_UTF8: () => { vezes++; return "edicao 42 ano 2026"; } } });
+  assert.equal(r.DOCUMENT_ID, "X:42:2026");
+  assert.equal(vezes, 1, "o mesmo texto foi lido mais que uma vez");
+});
+
+T("FILENAME_CAPTURE - o caminho antigo nao mudou", () => {
+  const spec = { STRATEGY: "FILENAME_CAPTURE", PATTERN: "^([A-Z]{2})-(\\d{2})-(\\d{2})\\.pdf$",
+                 DOCUMENT_ID: "CAMPANIA:$1:$2-$3-2026", SOURCE_DATE: "$2/$3/2026",
+                 FACT_TIME: "UNKNOWN - o boletim nao data a observacao de campo" };
+  const r = identidadeDoContrato("IT-T3-002", { IDENTITY: spec }, { nome: "SA-02-09.pdf" });
+  assert.equal(r.DOCUMENT_ID, "CAMPANIA:SA:02-09-2026");
+  assert.equal(r.SOURCE_DATE, "02/09/2026");
+  assert.ok(/UNKNOWN/.test(r.FACT_TIME));
+});
+
+T("conferirIdentidade - vocabulario fechado nas duas dimensoes", () => {
+  assert.throws(() => conferirIdentidade("X", { ...ID_URL, STRATEGY: "ADIVINHA" }), ContratoInvalido);
+  assert.throws(() => conferirIdentidade("X",
+    { ...ID_URL, CAPTURES: { d: { FROM: "TELEPATIA", PATTERN: "x" } } }), ContratoInvalido);
+  assert.throws(() => conferirIdentidade("X", { ...ID_URL, DOCUMENT_ID: "" }), ContratoInvalido);
+  assert.equal(ESTRATEGIAS_DE_IDENTIDADE.length, 2);
+  assert.ok(FONTES_DE_TEXTO.includes("URL") && FONTES_DE_TEXTO.includes("PDF_TEXT"));
+});
+
+T("conferirIdentidade - molde que aponta para captura inexistente reprova", () => {
+  assert.throws(() => conferirIdentidade("X",
+    { ...ID_URL, DOCUMENT_ID: "X:{naoexiste.1}" }), ContratoInvalido);
+});
+
+T("conferirIdentidade - captura opcional exige DEFAULTS, senao o molde fica com buraco", () => {
+  assert.throws(() => conferirIdentidade("X",
+    { ...ID_URL, CAPTURES: { doc: { FROM: "URL", PATTERN: "(x)", REQUIRED: false } } }),
+    ContratoInvalido);
+});
+
+T("as 174 fontes com bloco IDENTITY passam a conferencia", () => {
+  const comId = Object.keys(CONTRACTS).filter((id) => CONTRACTS[id].IDENTITY);
+  assert.ok(comId.length > 150, `so ${comId.length} contratos tem bloco IDENTITY`);
+  for (const id of comId) conferirIdentidade(id, CONTRACTS[id].IDENTITY);
+});
+
+T("nenhum DOCUMENT_ID dos contratos onboarded usa o SHA como identidade", () => {
+  for (const id of Object.keys(CONTRACTS)) {
+    const s = CONTRACTS[id].IDENTITY;
+    if (!s) continue;
+    assert.ok(!/SHA|HASH|RAW_SHA/i.test(String(s.DOCUMENT_ID)),
+      `${id}: o DOCUMENT_ID cita o hash — hash e BYTE_ID, nao identidade`);
+  }
 });
 
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);

@@ -58,9 +58,86 @@ export const PROVIDERS = Object.freeze([
   "RANGE",     // intervalo numérico inteiro, com zeros à esquerda opcionais
 ]);
 
+// ── AS ESTRATÉGIAS DE IDENTIDADE ───────────────────────────────────────────
+// Enxertadas de `aquisicao-detalhe-v1` na CANONICAL-MICRO-V1 (2026-09-21).
+// Duas, e as duas são a mesma operação — regex com grupos → molde — sobre
+// fontes de texto diferentes.
+export const ESTRATEGIAS_DE_IDENTIDADE = Object.freeze([
+  "FILENAME_CAPTURE",   // um padrão sobre o nome do ficheiro — o caso v1
+  "CONTENT_CAPTURE",    // vários padrões, cada um sobre uma fonte de texto declarada
+]);
+
+// De onde um `CONTENT_CAPTURE` lê o texto. Vocabulário fechado, e cada
+// entrada corresponde a um leitor INJECTADO pelo coletor: o motor nunca abre
+// um ficheiro nem chama um programa.
+export const FONTES_DE_TEXTO = Object.freeze([
+  "FILENAME",     // o nome do alvo (o mesmo que FILENAME_CAPTURE usa)
+  "URL",          // o endereço do alvo — a identidade honesta de quem não expõe outra
+                  // (SAME_URL != SAME_DOCUMENT continua a valer: bytes novos no mesmo
+                  // endereço são DOCUMENT_CHANGED_IN_PLACE, nunca um documento a menos)
+  "RAW_LATIN1",   // os bytes crus lidos como latin1 (metadados de PDF, HTML antigo)
+  "RAW_UTF8",     // os bytes crus lidos como utf8 (HTML moderno)
+  "PDF_TEXT",     // o texto extraído do PDF (pdftotext, injectado pelo coletor)
+]);
+
 export class ContratoInvalido extends Error {}
 
 const ehTexto = (v) => typeof v === "string" && v.trim() !== "";
+
+// ── A CONFERÊNCIA DA IDENTIDADE ────────────────────────────────────────────
+// ⚠️ PORQUE ISTO FALTAVA, MEDIDO NA RUN1B DESTA MISSÃO. Com a descoberta já
+// corrigida, as 85 observações trouxeram endereços de artigos REAIS — e todas
+// as 85 saíram `IDENTITY_FAILED`, com ZERO bytes descarregados. A causa: os
+// contratos onboarded declaram `IDENTITY.STRATEGY = "CONTENT_CAPTURE"` (é o
+// que `contratoGenerico()` escreve para quem não expõe identificador próprio)
+// e este motor só sabia `FILENAME_CAPTURE` — devolvia `null` calado para tudo
+// o resto, e o coletor parava antes de ir buscar o documento.
+//
+//     O MOTOR DEVOLVIA `null`, E `null` NÃO DIZ PORQUÊ.
+//     Agora um vocabulário desconhecido reprova com o nome dele.
+export function conferirIdentidade(sourceId, spec) {
+  if (!spec || typeof spec !== "object") throw new ContratoInvalido(`${sourceId}: sem bloco IDENTITY`);
+  if (!ESTRATEGIAS_DE_IDENTIDADE.includes(spec.STRATEGY)) {
+    throw new ContratoInvalido(
+      `${sourceId}: IDENTITY.STRATEGY ${JSON.stringify(spec.STRATEGY)} fora do vocabulário ` +
+      `(${ESTRATEGIAS_DE_IDENTIDADE.join(", ")})`);
+  }
+  if (!ehTexto(spec.DOCUMENT_ID)) throw new ContratoInvalido(`${sourceId}: IDENTITY sem DOCUMENT_ID`);
+  if (spec.STRATEGY === "FILENAME_CAPTURE") {
+    if (!ehTexto(spec.PATTERN)) throw new ContratoInvalido(`${sourceId}: FILENAME_CAPTURE precisa de PATTERN`);
+    try { new RegExp(spec.PATTERN); }
+    catch (err) { throw new ContratoInvalido(`${sourceId}: PATTERN não compila: ${err.message}`); }
+  }
+  if (spec.STRATEGY === "CONTENT_CAPTURE") {
+    const caps = spec.CAPTURES;
+    if (!caps || typeof caps !== "object" || Object.keys(caps).length === 0) {
+      throw new ContratoInvalido(`${sourceId}: CONTENT_CAPTURE sem CAPTURES`);
+    }
+    for (const [nome, c] of Object.entries(caps)) {
+      if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(nome)) throw new ContratoInvalido(`${sourceId}: CAPTURES.${nome}: nome inválido`);
+      if (!FONTES_DE_TEXTO.includes(c?.FROM)) {
+        throw new ContratoInvalido(
+          `${sourceId}: CAPTURES.${nome}.FROM ${JSON.stringify(c?.FROM)} fora do vocabulário ` +
+          `(${FONTES_DE_TEXTO.join(", ")})`);
+      }
+      if (!ehTexto(c.PATTERN)) throw new ContratoInvalido(`${sourceId}: CAPTURES.${nome} sem PATTERN`);
+      try { new RegExp(c.PATTERN, c.FLAGS || ""); }
+      catch (err) { throw new ContratoInvalido(`${sourceId}: CAPTURES.${nome}.PATTERN não compila: ${err.message}`); }
+      if (c.REQUIRED === false && !Array.isArray(c.DEFAULTS)) {
+        // Uma captura opcional sem valores por omissão deixaria buracos no
+        // molde — e um DOCUMENT_ID com buraco é uma identidade a meio.
+        throw new ContratoInvalido(`${sourceId}: CAPTURES.${nome} é opcional (REQUIRED=false) e por isso exige DEFAULTS`);
+      }
+    }
+    // Todo `{nome.N}` dos moldes tem de apontar para uma captura declarada.
+    for (const campo of ["DOCUMENT_ID", "SOURCE_DATE", "SOURCE_DATE_ISO"]) {
+      for (const m of String(spec[campo] || "").matchAll(/\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)\}/g)) {
+        if (!caps[m[1]]) throw new ContratoInvalido(`${sourceId}: ${campo} usa {${m[1]}.${m[2]}}, e não há CAPTURES.${m[1]}`);
+      }
+    }
+  }
+  return true;
+}
 
 // ── O QUE FAZ UM BLOCO SER EXECUTÁVEL ──────────────────────────────────────
 // ⚠️ ESTA FUNÇÃO É A DIFERENÇA ENTRE CONTRATO E DESCRIÇÃO.
@@ -310,28 +387,70 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
 // gente, e NÃO é lido aqui.
 //
 //     DOCUMENT_ID_RULE_TEXT != IDENTITY_EXECUTABLE_SPEC.
-export function identidadeDoContrato(sourceId, contrato, alvo) {
+export function identidadeDoContrato(sourceId, contrato, alvo, { leitores = {} } = {}) {
   const spec = contrato && contrato.IDENTITY;
-  if (!spec || spec.STRATEGY !== "FILENAME_CAPTURE") return null;
-  if (!ehTexto(spec.PATTERN) || !ehTexto(spec.DOCUMENT_ID)) {
-    throw new ContratoInvalido(`${sourceId}: FILENAME_CAPTURE precisa de PATTERN e DOCUMENT_ID`);
+  if (!spec) return null;
+  conferirIdentidade(sourceId, spec);
+  // ⚠️ `FACT_TIME` NÃO TEM FALLBACK, E ISSO É DELIBERADO.
+  // Ele não herda `SOURCE_DATE`, não herda `PUBLISHED_AT`, e não se calcula
+  // a partir do nome do ficheiro. A data do documento é quando a fonte o
+  // publicou; o tempo do facto é quando a coisa aconteceu no campo — e um
+  // boletim que não o diz não passa a dizê-lo por conveniência nossa.
+  //
+  //     FACT_TIME != PUBLISHED_AT. UNKNOWN CONTINUA UNKNOWN.
+  const FACT_TIME = spec.FACT_TIME || "UNKNOWN";
+  const vazio = { DOCUMENT_ID: null, SOURCE_DATE: null, SOURCE_DATE_ISO: null, FACT_TIME };
+
+  if (spec.STRATEGY === "FILENAME_CAPTURE") {
+    const m = String(alvo.nome || "").match(new RegExp(spec.PATTERN));
+    if (!m) return vazio;
+    const põe = (molde) => String(molde).replace(/\$(\d+)/g, (_, i) => m[Number(i)] ?? "");
+    return {
+      DOCUMENT_ID: põe(spec.DOCUMENT_ID),
+      SOURCE_DATE: spec.SOURCE_DATE ? põe(spec.SOURCE_DATE) : null,
+      SOURCE_DATE_ISO: spec.SOURCE_DATE_ISO ? põe(spec.SOURCE_DATE_ISO) : null,
+      FACT_TIME,
+    };
   }
-  const m = String(alvo.nome || "").match(new RegExp(spec.PATTERN));
-  if (!m) return { DOCUMENT_ID: null, SOURCE_DATE: null, SOURCE_DATE_ISO: null,
-                   FACT_TIME: spec.FACT_TIME || "UNKNOWN" };
-  const põe = (molde) => String(molde).replace(/\$(\d+)/g, (_, i) => m[Number(i)] ?? "");
+
+  // CONTENT_CAPTURE — cada captura lê a sua fonte de texto uma vez.
+  // O motor NUNCA abre um ficheiro nem chama um programa: `FILENAME` e `URL`
+  // já estão no alvo, e tudo o resto (bytes, texto de PDF) chega por um
+  // leitor INJECTADO. Um leitor que o coletor não injectou é contrato por
+  // cumprir, e diz-se assim — não se devolve identidade a meio.
+  const textos = {};
+  const textoDe = (de) => {
+    if (de === "FILENAME") return String(alvo.nome || "");
+    if (de === "URL") return String(alvo.url || "");
+    if (!(de in textos)) {
+      const ler = leitores[de];
+      if (typeof ler !== "function") {
+        throw new ContratoInvalido(`${sourceId}: CAPTURES pede ${de}, e o coletor não injectou esse leitor`);
+      }
+      textos[de] = String(ler() ?? "");
+    }
+    return textos[de];
+  };
+  const grupos = {};
+  for (const [nome, c] of Object.entries(spec.CAPTURES)) {
+    const m = textoDe(c.FROM).match(new RegExp(c.PATTERN, c.FLAGS || ""));
+    if (m) {
+      // `.trim()` em cada grupo: um padrão como `([A-Z ]+)` apanha o espaço
+      // antes do fim da linha, e o `case` medido tirava-o à mão.
+      grupos[nome] = m.map((g) => (g == null ? "" : String(g).trim()));
+    } else if (c.REQUIRED === false) {
+      grupos[nome] = ["", ...c.DEFAULTS.map(String)];
+    } else {
+      return vazio;
+    }
+  }
+  const põe = (molde) => String(molde).replace(/\{([A-Za-z_][A-Za-z0-9_]*)\.(\d+)\}/g,
+    (_, n, i) => grupos[n]?.[Number(i)] ?? "");
   return {
     DOCUMENT_ID: põe(spec.DOCUMENT_ID),
     SOURCE_DATE: spec.SOURCE_DATE ? põe(spec.SOURCE_DATE) : null,
     SOURCE_DATE_ISO: spec.SOURCE_DATE_ISO ? põe(spec.SOURCE_DATE_ISO) : null,
-    // ⚠️ `FACT_TIME` NÃO TEM FALLBACK, E ISSO É DELIBERADO.
-    // Ele não herda `SOURCE_DATE`, não herda `PUBLISHED_AT`, e não se calcula
-    // a partir do nome do ficheiro. A data do documento é quando a fonte o
-    // publicou; o tempo do facto é quando a coisa aconteceu no campo — e um
-    // boletim que não o diz não passa a dizê-lo por conveniência nossa.
-    //
-    //     FACT_TIME != PUBLISHED_AT. UNKNOWN CONTINUA UNKNOWN.
-    FACT_TIME: spec.FACT_TIME || "UNKNOWN",
+    FACT_TIME,
   };
 }
 
