@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "canonical-micro-v1",
-    "HEAD": "03cdd9938f138565ff1db11f782cd1a6ee37765e",
-    "GENERATED_AT": "2026-09-21T16:47:48-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1f91d6df859b31718057f05a74d40e4e0db6a33a831a5d58e040ceb2c2e16480"
+    "BRANCH": "last-mile-v1",
+    "HEAD": "83fc2c8ee59808ffff11d64c88485544695a3414",
+    "GENERATED_AT": "2026-09-21T18:35:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6f9881570ae9e9e303eff64e69a69e48ab6d2e0203b07ebb987b429602109fd7"
   },
   "FILES": [
     {
@@ -298,6 +298,13 @@
     {
       "path": "RELATORIO-INTAKE-GATE.md",
       "sha": "efc318f429d9406d7011b0101406b77e3a971fcf",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-LAST-MILE.md",
+      "sha": "3687ae87ead90d69b00f185878432b87f74b600d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6947,7 +6954,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "406072741e8c192414c9b0b7269143af58ed9287",
+      "sha": "28fb8d5b551b4b741a55467e742ec7a067fa68c6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -7290,7 +7297,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "072dea7bf1678045205d46cf149c83c60dcd289e",
+      "sha": "91426118306a3aa14330dbbc84a59fc45031e14f",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -11734,6 +11741,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/COORTE-MICRO-COLLECTION-V1.json",
+      "sha": "8b31dd04e026365652e1332a69771b7952de2e8b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/CORRIDA-CANONICA-RUN1.json",
       "sha": "f43d73789ccf754b9d07adcd1d16713926cacac9",
       "ext": ".json",
@@ -11757,6 +11771,13 @@
     {
       "path": "medidas/CORRIDA-CANONICA-RUN2.json",
       "sha": "e1dd59544063fd6462d867c4921fbb48d9df2a84",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/INCREMENTALIDADE-V1.json",
+      "sha": "fab12b143ddd9fc9b572279670091e5f079222e9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11790,6 +11811,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
+      "sha": "fe521230b9107852af0256e2ba6246b6978957f8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/PORTOES-DE-COLETA-10B.md",
       "sha": "9642888d903cbea0fb2aa5eb5ea351977d9bb42f",
       "ext": ".md",
@@ -11811,6 +11839,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/ULTIMA-MILHA-V1.json",
+      "sha": "abec3cfb27b109f2dcd6232743f95b23f25a802f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/banco_no_seco.py",
       "sha": "1f4f2b079476b1cda666fbbaf2d8c389a951a7fa",
       "ext": ".py",
@@ -11820,6 +11855,13 @@
     {
       "path": "medidas/cicatrizes_brasil.py",
       "sha": "34c9f52b6bee0946cc79261037a1a1272c2950ea",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/coorte_da_micro_collection.py",
+      "sha": "7049986fbe1e4e3a9f470e0e190c9332afe94282",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11839,6 +11881,69 @@
       "code_dir": true
     },
     {
+      "path": "medidas/corrida_sem_rede.py",
+      "sha": "a2560ae19fa9c66ac934aece37acee1ae9bcbb97",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/incrementalidade_prova.mjs",
+      "sha": "73da94929b68f85bca7d63169816d81d3bb641fd",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-IT-T10-018.json",
+      "sha": "648a8231c334b482e291bc8badeba376fce8871a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-IT-T10-022.json",
+      "sha": "f9eab993e43ff297597888278f5aa7070ce4aa49",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-IT-T5-049.json",
+      "sha": "1721e8261e95a5ffa03f3d95afa26b9e93023684",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-IT-T7-017.json",
+      "sha": "7dc1c73ab69217f94230e4c9febbaad470ad0ce9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-IT-T7-042.json",
+      "sha": "10ece46609dea34cab583c98639a5d53961a9bd0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-T7-043.json",
+      "sha": "884129c4bca25a96c6d8552b081cf2a401503cd0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/lastmile/REDE-T7-043b.json",
+      "sha": "00cb6c0e635ce998d005567b22522a0df7776f85",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/micro_colheita.py",
       "sha": "f56dc7f768a8ca91067a3a33b5a15750219d55de",
       "ext": ".py",
@@ -11848,6 +11953,13 @@
     {
       "path": "medidas/padrao_da_coleta.py",
       "sha": "e6a12f1f6065e35e0043a01243f456f0388684bb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/porque_a_sala_nao_recebeu.py",
+      "sha": "287525ff5b1a85354cb3439f6f3a6e30de7c613c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11897,6 +12009,13 @@
     {
       "path": "medidas/test_corrida_canonica.py",
       "sha": "e4f38418de7a5281366a04428a7db7ca61e22791",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/ultima_milha.py",
+      "sha": "f4bd298192bdc56ad97d8b434d2a7924b68ba93b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12330,7 +12449,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "0668118a9baf67a48c06ccd10c34a4621fd17a40",
+      "sha": "e5b85b8e0f0fd6811dad0ddf8ecae42a9505c5be",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13533,6 +13652,20 @@
       "code_dir": true
     },
     {
+      "path": "regras/incrementalidade.mjs",
+      "sha": "b38f79611b9607217039422db8c5c65168f2f14c",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/incrementalidade_test.mjs",
+      "sha": "791bf265bdb79f28aa6dec0563d1eb2dc5ea43dc",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "regras/italy_contract_test.mjs",
       "sha": "4448c6f6a2e5da146d41f21c9942b5aa4f9023e8",
       "ext": ".mjs",
@@ -13583,7 +13716,7 @@
     },
     {
       "path": "regras/motor_de_rota_test.mjs",
-      "sha": "8ac7beaad0ae2faac3250372a5aa0aa958739a0b",
+      "sha": "ee354201e3aa6a10717da705a1907e33d88f9cf2",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -14941,7 +15074,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4ce887925006d16be306bd0f3f808945efcec2da",
+      "sha": "b4f9e8d1349daa37cef7ae7887379be7c391ce0f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -33215,6 +33348,39 @@
       }
     },
     {
+      "from_file": "medidas/coorte_da_micro_collection.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/coorte_da_micro_collection.py",
+        "line": 66,
+        "snippet": "with open(LIVRO, encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "medidas/coorte_da_micro_collection.py",
+      "to_file": "medidas/COORTE-MICRO-COLLECTION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/coorte_da_micro_collection.py",
+        "line": 45,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"medidas\", \"COORTE-MICRO-COLLECTION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "medidas/coorte_da_micro_collection.py",
+      "to_file": "medidas/COORTE-MICRO-COLLECTION-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/coorte_da_micro_collection.py",
+        "line": 292,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
       "from_file": "medidas/corrida_canonica.py",
       "to_file": "coleta/italy_executor.py",
       "type": "IMPORTS",
@@ -33358,6 +33524,72 @@
       }
     },
     {
+      "from_file": "medidas/corrida_sem_rede.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/corrida_sem_rede.py",
+        "line": 156,
+        "snippet": "from orquestrador import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "medidas/corrida_sem_rede.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/corrida_sem_rede.py",
+        "line": 153,
+        "snippet": "sys.argv = [\"orquestrador/orquestrador.py\"] + resto"
+      }
+    },
+    {
+      "from_file": "medidas/incrementalidade_prova.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/incrementalidade_prova.mjs",
+        "line": 25,
+        "snippet": "const LIVRO = join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "medidas/incrementalidade_prova.mjs",
+      "to_file": "medidas/INCREMENTALIDADE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/incrementalidade_prova.mjs",
+        "line": 26,
+        "snippet": "const SAIDA = join(RAIZ, \"medidas\", \"INCREMENTALIDADE-V1.json\");"
+      }
+    },
+    {
+      "from_file": "medidas/incrementalidade_prova.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/incrementalidade_prova.mjs",
+        "line": 22,
+        "snippet": "} from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/incrementalidade_prova.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/incrementalidade_prova.mjs",
+        "line": 22,
+        "snippet": "} from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
       "from_file": "medidas/micro_colheita.py",
       "to_file": "curadoria/italy_contracts_curator.json",
       "type": "READS",
@@ -33443,6 +33675,72 @@
         "file": "medidas/padrao_da_coleta.py",
         "line": 64,
         "snippet": "CHAO = os.path.join(ROOT, 'data', 'samples', 'PADRAO-DA-COLETA-CHAO.json')"
+      }
+    },
+    {
+      "from_file": "medidas/porque_a_sala_nao_recebeu.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/porque_a_sala_nao_recebeu.py",
+        "line": 42,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "medidas/porque_a_sala_nao_recebeu.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/porque_a_sala_nao_recebeu.py",
+        "line": 43,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/porque_a_sala_nao_recebeu.py",
+      "to_file": "coleta/texto_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/porque_a_sala_nao_recebeu.py",
+        "line": 44,
+        "snippet": "from coleta.texto_fonte import limpar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/porque_a_sala_nao_recebeu.py",
+      "to_file": "medidas/COORTE-MICRO-COLLECTION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/porque_a_sala_nao_recebeu.py",
+        "line": 69,
+        "snippet": "with open(COORTE, encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "medidas/porque_a_sala_nao_recebeu.py",
+      "to_file": "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/porque_a_sala_nao_recebeu.py",
+        "line": 46,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"medidas\", \"PORQUE-A-SALA-NAO-RECEBEU-V1.json\")"
+      }
+    },
+    {
+      "from_file": "medidas/porque_a_sala_nao_recebeu.py",
+      "to_file": "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/porque_a_sala_nao_recebeu.py",
+        "line": 182,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
     {
@@ -33905,6 +34203,39 @@
         "file": "medidas/test_corrida_canonica.py",
         "line": 167,
         "snippet": "with io.open(RAIZ / \"medidas\" / \"corrida_canonica.py\", encoding=\"utf-8\") as fh:"
+      }
+    },
+    {
+      "from_file": "medidas/ultima_milha.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/ultima_milha.py",
+        "line": 38,
+        "snippet": "LIVRO = os.path.join(RAIZ, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "medidas/ultima_milha.py",
+      "to_file": "medidas/ULTIMA-MILHA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/ultima_milha.py",
+        "line": 39,
+        "snippet": "SAIDA = os.path.join(RAIZ, \"medidas\", \"ULTIMA-MILHA-V1.json\")"
+      }
+    },
+    {
+      "from_file": "medidas/ultima_milha.py",
+      "to_file": "medidas/ULTIMA-MILHA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/ultima_milha.py",
+        "line": 261,
+        "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
     {
@@ -38710,7 +39041,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 292,
+        "line": 387,
         "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
       }
     },
@@ -38776,7 +39107,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 332,
+        "line": 427,
         "snippet": "\"roda\": [\"coleta/scrap_colheita.py\"],"
       }
     },
@@ -38798,7 +39129,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 285,
+        "line": 380,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json\": \"CATALOG\","
       }
     },
@@ -38809,7 +39140,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 290,
+        "line": 385,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json\": \"RUN_RECEIPT\"}},"
       }
     },
@@ -38820,7 +39151,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 286,
+        "line": 381,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
       }
     },
@@ -38831,7 +39162,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 289,
+        "line": 384,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json\": \"RUN_RECEIPT\","
       }
     },
@@ -38842,7 +39173,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 288,
+        "line": 383,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
       }
     },
@@ -38853,7 +39184,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 287,
+        "line": 382,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
       }
     },
@@ -38875,7 +39206,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 497,
+        "line": 592,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -38886,7 +39217,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 493,
+        "line": 588,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -38897,7 +39228,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 495,
+        "line": 590,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -38919,7 +39250,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 491,
+        "line": 586,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -49811,6 +50142,28 @@
         "file": "regras/contratos_de_fonte.py",
         "line": 58,
         "snippet": "CONTRATOS_MJS = os.path.join(RAIZ, \"regras\", \"italy_contracts.mjs\")"
+      }
+    },
+    {
+      "from_file": "regras/incrementalidade_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/incrementalidade_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/incrementalidade_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/incrementalidade_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
     {
@@ -69794,6 +70147,13 @@
         "constante": "SAIDA"
       }
     ],
+    "medidas/coorte_da_micro_collection.py": [
+      {
+        "pasta": "medidas",
+        "line": 292,
+        "constante": "SAIDA"
+      }
+    ],
     "medidas/padrao_da_coleta.py": [
       {
         "pasta": "data/samples",
@@ -69801,10 +70161,24 @@
         "constante": "CHAO"
       }
     ],
+    "medidas/porque_a_sala_nao_recebeu.py": [
+      {
+        "pasta": "medidas",
+        "line": 182,
+        "constante": "SAIDA"
+      }
+    ],
     "medidas/portoes_eame.py": [
       {
         "pasta": "data/samples",
         "line": 357,
+        "constante": "SAIDA"
+      }
+    ],
+    "medidas/ultima_milha.py": [
+      {
+        "pasta": "medidas",
+        "line": 261,
         "constante": "SAIDA"
       }
     ],
@@ -70183,11 +70557,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2402,
-    "files_readable": 1059,
-    "files_code_dir": 897,
-    "file_edges": 4804,
-    "escritas_em_pasta": 75,
+    "files_tracked": 2421,
+    "files_readable": 1066,
+    "files_code_dir": 915,
+    "file_edges": 4824,
+    "escritas_em_pasta": 78,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

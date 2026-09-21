@@ -4047,6 +4047,56 @@
     "provas/consumo_da_referencia_adama.py",
     "docs/intelligence/INTELLIGENCE-INPUT-CONTRACT-V1.md"
    ]
+  },
+  {
+   "id": "C-IT-INCREMENTALIDADE",
+   "name": "A regra de revisita — decidir antes de gastar a rede",
+   "territory": "Z-REGRAS",
+   "kind": "engine",
+   "icon": "⟳",
+   "views": [
+    "collection-strategy",
+    "audit",
+    "performance"
+   ],
+   "what": "Decide FETCH · SKIP_KNOWN · REVALIDATE para cada endereco de detalhe, ANTES de qualquer pedido. Indice revisita-se sempre; detalhe ja conhecido com sucesso salta-se por omissao; revisitar exige razao nomeada de um vocabulario fechado de cinco.",
+   "why_here": "Medido: o coletor chamava baixar() na linha 474 e so perguntava se ja conhecia o documento na linha 502 — pagava a viagem para descobrir que nao precisava dela. E comparar bytes nao salvava nada: das 374 linhas que diferiam entre duas visitas aos mesmos 83 artigos, 14 eram o CONTADOR DE VISITAS da pagina, que subira porque fomos nos visita-la. Por isso esta funcao nao recebe bytes, nem sha, nem corpo — a assinatura e a lei. RUN B: 85 pedidos passaram a 0, com o indice ainda revisitado.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "regras/incrementalidade.mjs",
+    "regras/incrementalidade_test.mjs"
+   ]
+  },
+  {
+   "id": "C-LASTMILE-MEDIDORES",
+   "name": "Os medidores da ultima milha",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "⊹",
+   "views": [
+    "audit",
+    "diagnostic",
+    "trace"
+   ],
+   "what": "Medidores que so LEEM: o censo da coorte a partir dos manifestos das corridas, a conferencia dos bytes em disco contra o sha do livro, a prova da incrementalidade com transporte falso, o lancador que instrumenta e conta a rede da porta canonica, e a classificacao da causa de cada item que nao chegou a Sala.",
+   "why_here": "O universo nao e a coorte: o primeiro censo mediu 445 observacoes de 58 corridas, e isso nao e a micro-Collection. E «nao entrou» nao e uma causa. Nenhum destes escreve, promove ou abre rede — e o de rede prova-se a si proprio antes de valer como prova, apanhando uma ligacao real e travando-a.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "medidas/COORTE-MICRO-COLLECTION-V1.json",
+    "medidas/INCREMENTALIDADE-V1.json",
+    "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
+    "medidas/ULTIMA-MILHA-V1.json",
+    "medidas/coorte_da_micro_collection.py",
+    "medidas/corrida_sem_rede.py",
+    "medidas/incrementalidade_prova.mjs",
+    "medidas/porque_a_sala_nao_recebeu.py",
+    "medidas/ultima_milha.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

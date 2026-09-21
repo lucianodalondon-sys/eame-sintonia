@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-21T20:08:51+00:00",
-    "HEAD": "03cdd9938f138565ff1db11f782cd1a6ee37765e",
+    "GENERATED_AT": "2026-09-21T21:48:18+00:00",
+    "HEAD": "83fc2c8ee59808ffff11d64c88485544695a3414",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "1f91d6df859b31718057f05a74d40e4e0db6a33a831a5d58e040ceb2c2e16480",
-    "FICHEIROS_NA_IMPRESSAO": 2550,
+    "SOURCE_TREE_FINGERPRINT": "6f9881570ae9e9e303eff64e69a69e48ab6d2e0203b07ebb987b429602109fd7",
+    "FICHEIROS_NA_IMPRESSAO": 2569,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "1f91d6df859b31718057f05a74d40e4e0db6a33a831a5d58e040ceb2c2e16480",
+        "VERSAO": "6f9881570ae9e9e303eff64e69a69e48ab6d2e0203b07ebb987b429602109fd7",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "e63b315c5648997106dd04aaf42dbb9be61a1a010f0e397575f7b3f961b85708",
+    "INPUTS_DIGEST": "3900d09988b4ee39322c71b2490012309129e3879ccc14add8543dce6e62bd0e",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -182,6 +182,18 @@
       "id": "C-PORTA-FONTE",
       "nome": "A porta de entrada de fonte nova",
       "zona": "· de onde vem uma fonte",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-IT-INCREMENTALIDADE",
+      "nome": "A regra de revisita — decidir antes de gastar a rede",
+      "zona": "· as reguas que carimbam",
       "de_onde_vem": false,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -792,10 +804,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 54,
+    "pecas_da_coleta": 55,
     "respondem_as_quatro": 26,
     "respondem_a_tres": 20,
-    "respondem_a_duas": 5,
+    "respondem_a_duas": 6,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }
