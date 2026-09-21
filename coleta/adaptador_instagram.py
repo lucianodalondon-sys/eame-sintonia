@@ -321,6 +321,25 @@ reg.registar(PLATAFORMA, 'instagram.reel.transcribe', adaptador=NOME,
              nota='o unico caminho onde o ASR proprio e indispensavel; '
                   'atravessa INSTAGRAM/FETCH_TRANSCRIPT no dono da politica')
 
+# ── C14 · 2026-09-19 · A MESMA CADEIA, PELA PORTA ESTREITA ────────────────
+# NAO E UM SEGUNDO CAMINHO. E A MESMA funcao (`reel_transcrever`) registada sob
+# a capacidade que nomeia o que o dono autorizou — som de Reel publico. A cadeia
+# ja pedia `kind=AUDIO` em todas as corridas; o que mudou foi a PORTA a que ela
+# bate: `FETCH_AUDIO_BYTES` em vez de `FETCH_TRANSCRIPT`.
+#
+# Escrever uma funcao nova aqui criaria o SECOND_PATH que a C10.4B proibiu.
+# Reusar a existente mantem CANONICAL_PATH_COUNT = 1.
+#
+#     UMA CAPACIDADE NOVA NAO PRECISA DE UM CAMINHO NOVO.
+#     PRECISA DE UMA PORTA COM O NOME CERTO.
+reg.registar(PLATAFORMA, 'instagram.reel.public_audio', adaptador=NOME,
+             unidade=unidade_do_pedido,
+             rota=reel_transcrever,
+             nota='som de Reel PUBLICO, autorizado pelo dono em 2026-09-19 com '
+                  'limite PUBLIC_AUDIO_ONLY; atravessa INSTAGRAM/FETCH_AUDIO_BYTES '
+                  'no dono da politica, onde PLATFORM_POLICY_STATUS=DISALLOWED '
+                  'continua preservado ao lado da autorizacao')
+
 reg.registar(PLATAFORMA, 'instagram.profile.discovery', adaptador=NOME,
              nota='302/429 deste IP; a janela esgota em ~8-10 respostas')
 reg.registar(PLATAFORMA, 'instagram.post.comments', adaptador=NOME,

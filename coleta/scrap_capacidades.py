@@ -134,6 +134,7 @@ _C5 = 'docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md'
 _C13 = 'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md'
 _LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'
 _C11 = 'docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md'
+_C14 = 'docs/sintonia-scrap/C14-INSTAGRAM-PUBLIC-AUDIO.md'
 
 DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
@@ -145,6 +146,25 @@ DECLARADAS = {
     # esta traducao o roteador nunca encontrava a cadeia, e a cadeia
     # entrava pelo `executa` — que e a porta de quem NAO tem portao.
     'instagram.reel.transcribe': ('INSTAGRAM', PROVEN, EITHER, None, _RE, 'FETCH_TRANSCRIPT'),
+    # ── C14 · 2026-09-19 · A PORTA ESTREITA QUE O DONO ABRIU ──────────────
+    # O SOM DE UM REEL NAO E O REEL. Esta capacidade existe separada das tres
+    # de cima porque o que o dono autorizou foi mais estreito do que elas: bytes
+    # de som de Reel PUBLICO, sem login, sem cookie de terceiro, sem sessao.
+    # O qualificador `public` no nome NAO e decoracao — ele carrega a fronteira
+    # que a prova cobriu, para que a sessao seguinte nao o leia como licenca
+    # geral sobre o Instagram.
+    #
+    # ESTADO: `NOT_EXECUTED`, e nao `PROVEN`. A porta esta aberta na matriz e a
+    # cadeia ja a atravessa, mas NENHUM Reel foi adquirido — INSTAGRAM_REQUESTS
+    # = 0. Declarar `PROVEN` aqui seria escrever que correu.
+    #
+    #     CAPACIDADE ENCAMINHADA != CAPACIDADE EXECUTADA.
+    #
+    # WHY_LOCAL = HEAVY_MEDIA_PROCESSING: o ASR corre na maquina desta casa, e o
+    # dono do acto continua a ser `ferramentas/fala_local.py` — esta capacidade
+    # NAO traz motor proprio e NAO se declara dona do reconhecimento.
+    'instagram.reel.public_audio': ('INSTAGRAM', NOT_EXECUTED, LOCAL,
+                                    HEAVY_MEDIA_PROCESSING, _C14, 'FETCH_AUDIO_BYTES'),
     'instagram.profile.discovery': ('INSTAGRAM', PARTIAL, LOCAL, DATACENTER_BLOCKED, _AP, 'INCREMENTAL'),
     'instagram.post.comments': ('INSTAGRAM', BLOCKED, AMBIENTE_DESCONHECIDO, None, _AP, 'FETCH_COMMENTS'),
     'instagram.story.capture': ('INSTAGRAM', UNKNOWN, LOCAL, AUTHORIZED_LOCAL_SESSION, _ER, None),

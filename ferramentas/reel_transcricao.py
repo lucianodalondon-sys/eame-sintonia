@@ -458,7 +458,8 @@ def _laco_do_ytdlp(argv, *, tentativas, timeout, achou, relato):
     return None, estado, ultimo
 
 
-def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN, relato=None):
+def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN, relato=None,
+                    kind=MIDIA_AUDIO):
     """Os METADADOS da publicação, de graça, sem baixar o vídeo. → (dict, motivo).
 
     Isto é a segunda perna do pedido — «coletar metadados» — e ela é separada do
@@ -475,8 +476,13 @@ def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN, relato=None):
     a casa a bater à porta de quem disse que não, e a jurar que não entrou.
 
         QUEM PERGUNTA AS HORAS JÁ ENTROU NO PÁTIO.
+
+    E ele pergunta pela porta da ESPECIE que a corrida vai buscar (C14). Os
+    metadados sao o degrau 0 de uma aquisicao de som, e quem os pede dentro de
+    `transcrever_reel` vai pedir som a seguir — perguntar pela porta do video
+    recusaria aqui o que o dono autorizou tres linhas abaixo.
     """
-    decisao = politica_da_aquisicao(plataforma)
+    decisao = politica_da_aquisicao(plataforma, kind)
     if decisao['DECISAO'] != mz.PERMITIDA_SIM:
         return None, '%s: %s' % (decisao['DECISAO'], decisao['PORQUE'])
     def _leu(r):
@@ -606,8 +612,31 @@ def retry_after_do_ytdlp(stderr):
 # responde por plataforma.
 CAPACIDADE_NA_MATRIZ = 'FETCH_TRANSCRIPT'
 
+#: O ACTO, QUANDO O QUE SE PEDE E SOM — C14 · 2026-09-19.
+#
+# PEDIR SOM E PEDIR SOM. NAO E PEDIR TEXTO.
+#
+# A cadeia sempre perguntou `FETCH_TRANSCRIPT`, e enquanto a unica maneira de
+# chegar a fala era baixar o video inteiro isso descrevia o acto com honestidade.
+# Deixou de descrever quando o dono abriu uma porta mais ESTREITA: bytes de som
+# de Reel publico, sem o video. Continuar a perguntar pela porta larga faria uma
+# de duas mentiras, conforme o dia — recusar o que o dono autorizou, ou (pior)
+# deixar a autorizacao de audio responder por um pedido de video.
+#
+#     A PERGUNTA TEM DE NOMEAR O QUE SE VAI BUSCAR.
+CAPACIDADE_DE_AUDIO_NA_MATRIZ = 'FETCH_AUDIO_BYTES'
 
-def politica_da_aquisicao(plataforma):
+
+def capacidade_pedida(kind):
+    """→ o nome, na lingua da matriz, do acto que `kind` representa.
+
+    Um sitio so decide isto. Espalhar o `if` pelos tres portoes deixaria um
+    deles a perguntar pela porta errada no dia em que alguem mexesse em dois.
+    """
+    return CAPACIDADE_DE_AUDIO_NA_MATRIZ if kind == MIDIA_AUDIO else CAPACIDADE_NA_MATRIZ
+
+
+def politica_da_aquisicao(plataforma, kind=None):
     """A lei responde ANTES de o socket abrir. → o veredicto de `social_matriz`.
 
     POR QUE AQUI, E NAO SO NO ADAPTADOR
@@ -629,8 +658,14 @@ def politica_da_aquisicao(plataforma):
     `plataforma` vem de `ident['PLATFORM']` — dado medido, nunca adivinhado do
     endereco. Plataforma por declarar devolve NOT_DECLARED, e nao declarado nao
     e permitido.
+
+    `kind` diz que ESPECIE de midia se vai buscar, e por isso decide QUAL porta
+    se pergunta (C14). Ausente, a pergunta e a historica (`FETCH_TRANSCRIPT`):
+    quem nao declara o que quer nao herda a porta estreita.
+
+        AUSENTE = NAO DECLARADO. E NAO DECLARADO NAO AUTORIZA.
     """
-    return mz.decisao(plataforma, CAPACIDADE_NA_MATRIZ)
+    return mz.decisao(plataforma, capacidade_pedida(kind))
 
 
 def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO,
@@ -655,7 +690,7 @@ def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO,
     """
     # ── O PORTAO, ANTES DE QUALQUER COISA ───────────────────────────────────
     # Antes de criar pasta, antes de montar comando, antes do socket.
-    decisao = politica_da_aquisicao(plataforma)
+    decisao = politica_da_aquisicao(plataforma, kind)
     if decisao['DECISAO'] != mz.PERMITIDA_SIM:
         return None, '%s: %s' % (decisao['DECISAO'], decisao['PORQUE'])
     modelo_saida = os.path.splitext(alvo)[0] + '.%(ext)s'
@@ -802,7 +837,7 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
     #
     #     UMA RECUSA DE AQUISICAO QUE APAGASSE O REPROCESSAMENTO ESTARIA A
     #     CASTIGAR O QUE JA ESTA PRESERVADO.
-    decisao_aq = politica_da_aquisicao(ident.get('PLATFORM', NOT_KNOWN))
+    decisao_aq = politica_da_aquisicao(ident.get('PLATFORM', NOT_KNOWN), kind)
     pode_adquirir = decisao_aq['DECISAO'] == mz.PERMITIDA_SIM
 
     # DEGRAU 2 · o endereço DIRETO da publicação, grátis
