@@ -363,3 +363,22 @@ noutra bancada (já tem 271 candidatas) e não foi ligado aqui, por ordem.
 LinkedIn, Instagram e Facebook exigem conta, têm regras próprias e não se leem como um site normal.
 Tratá-las como HTML seria contornar essas regras. Ficam registadas como dívida, com dono próprio. Para
 entrarem falta uma rota que respeite a autenticação de cada uma, e isso é outra missão.
+
+---
+
+## ADENDA — UM TESTE LANÇA UM WORKER REAL SOBRE OS FICHEIROS REAIS
+
+Medido depois do fecho: `READY-BATCH-002` (as 4 READY_CURRENT do PASSO 3) nasceu às 04:01:18Z, dentro
+da janela em que a suíte de `curadoria/` correu, e nenhum comando meu fecha lotes. A causa é
+pré-existente: `test_supervisor.py` (linha 182) injeta uma tarefa e chama `uma_volta_sup`, que lança
+um `ciclo_continuo.py` **real** nesta árvore. Antes de ser terminado pelo teste, esse ciclo faz uma
+volta sobre os ficheiros reais: recupera órfãs, corre o worker sobre a fila real (rede, se houver
+elegíveis), fecha lote e escreve o estado. Às 04:01Z a fila real tinha 0 elegíveis, por isso só o lote
+foi fechado, e foi esse ciclo que deixou o `SUPERVISOR-STATE.json` com RUNNING e um PID morto (§ PASSO 9).
+O lote 002 é verdadeiro (as 4 estavam READY e por entregar); a proveniência é que é um teste.
+Corrida de confirmação: a suíte, isolada, com 0 elegíveis, não altera o ficheiro de lotes.
+
+```text
+DIVIDA: test_supervisor deve redirecionar fila, livro, lotes e estado, ou lançar o worker com um
+        cwd descartável. Enquanto não, NÃO correr a suíte com tarefas elegíveis na fila real.
+```
