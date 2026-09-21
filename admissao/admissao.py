@@ -638,11 +638,42 @@ PERGUNTAS_DO_UNIVERSO = {
     # ⚠️ ESTE UNIVERSO NUNCA TEVE REGUA, e o que ocupava a chave dele era o
     # lexico de outro. As doze fontes italianas de T7 sao cooperativas e
     # consorcios com servico agronomico; e esse o vocabulario que as nomeia.
+    #
+    # ⚠️ `soci` SAIU, E FOI A REGUA DE T10 QUE O DESMASCAROU.
+    # Enquanto T10 nao tinha regua, `_do_universo` saia mais cedo com
+    # `NAO_SE_APLICA` e o ciclo dos OUTROS universos nunca corria para estes
+    # itens. Com a regua de T10 escrita, ele passou a correr — e 26 dos 39
+    # documentos de T10 sairam `NAO` com a prova «fala claramente de T7:
+    # soci».
+    #
+    # Medido, palavra inteira por palavra inteira, nos mesmos 26 documentos:
+    #
+    #     sociale 22 · association 10 · social 9 · sociali 8 ·
+    #     societario 2 · associations 2 · societa 1 · society 1
+    #
+    #     `soci` NAO CASOU UMA UNICA VEZ COM A PALAVRA `soci`.
+    #
+    # E o estrago era o pior que esta porta consegue fazer: um `NAO`, que e a
+    # unica resposta que FECHA o assunto — «prova a favor da exclusao» — e a
+    # prova era `associazione`.
+    #
+    #     UMA PALAVRA CURTA QUE VIVE DENTRO DE PALAVRAS CORRENTES
+    #     NAO E VOCABULARIO: E RUIDO COM AR DE PROVA.
+    #
+    # E a mesma familia de `prova` dentro de `approvazione` (T5) e de
+    # `fitosanitario` no rodape institucional (T3), com a mesma medicao.
+    #
+    # NAO SE INVENTOU SUBSTITUTO. O conceito de T7 — a rede tecnica — ja esta
+    # coberto por `cooperativa`, `consorzio`, `agronomi`, `assistenza
+    # tecnica`, `servizio agronomico`, `tecnico di campo` e `divulgazione
+    # tecnica`. Acrescentar `soci conferenti` ou `assemblea dei soci` sem um
+    # corpus onde os medir seria trocar um termo por medir por outro por
+    # medir.
     "T7": ["cooperativa", "consorcio", "agronomo", "extensao",
            "assistencia tecnica",                            # pt
            "consorzio", "agronomi", "assistenza tecnica",
            "servizio agronomico", "tecnico di campo",
-           "divulgazione tecnica", "soci"],                  # it
+           "divulgazione tecnica"],                          # it
     # T9 · o que o concorrente publica
     "T9": ["concorrente", "evento",                          # serve nas duas
            "lancamento", "campanha", "produto", "anuncio",   # pt
@@ -709,6 +740,72 @@ PERGUNTAS_DO_UNIVERSO = {
            "ovideposizione", "peronospora", "oidio", "botrite",
            "ticchiolatura",                                  # it · praga/doenca
            "infestante", "diserbo", "erbicida", "malerba"],  # it · daninha
+    # T10 · MARKET / TRADE / INDUSTRY
+    #
+    # ⚠️ ESTE UNIVERSO NUNCA TEVE REGUA, E O SILENCIO DELE TINHA PRECO MEDIDO:
+    # 39 documentos italianos reais recebiam `NAO_SE_APLICA` com toda a
+    # educacao — «nao ha regra escrita do que conta como T10» — e essa educacao
+    # escondia que ninguem tinha escrito a pergunta.
+    #
+    # DE ONDE VEM CADA PALAVRA. Nao foram escolhidas a partir do corpus: saem
+    # dos DOIS donos que ja declaram o que T10 e.
+    #
+    #     docs/fontes/ATLAS-DE-FONTES-EAME.md   «commodities, producao, precos
+    #                                            confiaveis, importacoes,
+    #                                            exportacoes, industria,
+    #                                            ingredientes ativos,
+    #                                            movimentos de mercado»
+    #     leis/territorios.py::APELIDOS         preco · mercado · comercio ·
+    #                                            importacao · exportacao ·
+    #                                            commodity · industria
+    #
+    # ── O QUE FICOU DE FORA, E PORQUE — TUDO MEDIDO NOS 85 REAIS ──────────
+    # A lei desta casa ja estava escrita quatro universos acima, e aqui ela
+    # mordeu seis vezes:
+    #
+    #     UMA PALAVRA QUE QUALQUER DOCUMENTO TEM NAO SEPARA DOCUMENTO NENHUM.
+    #     O NOME DE QUEM PUBLICA NAO E O ASSUNTO DO QUE SE PUBLICA.
+    #
+    # `dazi`       SAIU. Vive dentro de `reDAZIone` — a redacao, que assina
+    #              todas as paginas de qualquer jornal italiano. Casava em
+    #              32 dos 85, e em nenhum deles falava de tarifas.
+    # `preco`      SAIU. Vive dentro de `sPRECO` (desperdicio) e de `PRECOce`
+    #              (precoce), duas palavras correntes numa pagina agricola.
+    #              Fica a forma plural `precos`, que nao cabe em nenhuma das
+    #              duas. Perde-se o singular portugues: e uma perda declarada,
+    #              e um `NAO_SEI` a mais vale mais do que um `SIM` errado.
+    # `mercato` ·  SAIRAM. Casavam em 40, 34, 30 e 31 dos 85 — e o contexto,
+    # `mercati` ·  lido documento a documento, era o MENU do site
+    # `ingrosso` · («Trend e mercati», «Ingrosso»), a NUVEM DE ETIQUETAS
+    # `grossist`   («ingrosso 872») e a lista de artigos relacionados. Um
+    #              artigo sobre mobilidade sustentavel marcava SEIS sinais de
+    #              mercado sem ter uma palavra de mercado no corpo.
+    # `export`     SAIU. Os tres exemplos medidos estavam todos no bloco
+    #              «potrebbe interessarti anche» — o texto de OUTRO artigo,
+    #              colado ao lado deste. Fica `esportazion`, que e a palavra
+    #              italiana de verdade, e `exportacao`/`exportacoes` em
+    #              portugues.
+    # `commercio`· SAIRAM. Dois dos tres usos medidos eram nome de orgao —
+    # `comercio`   «camera di commercio», «ministero del commercio». E a mesma
+    #              familia de `fitosanitario`, que ja saiu de T3 por isto.
+    # `industria`  SAIU. Casava em 7 dos 85, e nos dois contextos lidos era
+    #              «prodotto industriale» e «industria alimentare»: o nome de
+    #              um SECTOR, nao um movimento de mercado.
+    # `atacado`    SAIU. Em portugues tambem e o particio de «atacar», e numa
+    #              pagina agricola «cultivo atacado por pragas» e T3, nao T10.
+    #
+    # ⚠️ E NENHUMA FORMA CABE DENTRO DE OUTRA DESTA LISTA. `importazione`
+    # dentro de `importazioni` daria DOIS sinais a UMA palavra, e a regra dos
+    # `SINAIS_MINIMOS` deixava de valer sem ninguem dar por isso. Por isso as
+    # raizes: `quotazion`, `importazion`, `esportazion`, `rincar` — a mesma
+    # solucao que `fitopatolog` ja usa em T3.
+    "T10": ["commodity",                                     # sem lingua
+            "prezzo", "prezzi", "quotazion", "listino",
+            "importazion", "esportazion", "rincar",
+            "borsa merci", "domanda e offerta",              # it
+            "precos", "cotacao", "cotacoes",
+            "importacao", "importacoes",
+            "exportacao", "exportacoes"],                    # pt
 }
 
 

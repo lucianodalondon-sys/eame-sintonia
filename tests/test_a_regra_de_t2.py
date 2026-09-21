@@ -158,7 +158,16 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         # nenhum universo que tinha regra a perdeu. O que ha e um universo a
         # MAIS — `T7` com vocabulario proprio de rede tecnica, que antes nao
         # tinha nenhum porque a chave dele estava ocupada por outro assunto.
-        self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO), ["T3", "T4", "T5", "T7", "T9"])
+        # ⚠️ E MUDOU OUTRA VEZ, E OUTRA VEZ NAO E RELAXAMENTO.
+        # A missao `DUAS-PORTAS-V1` recebeu ordem explicita de fechar
+        # `NO_ADMISSION_RULE_FOR_UNIVERSE`: 39 documentos italianos reais
+        # recebiam `NAO_SE_APLICA` porque T10 — MARKET / TRADE / INDUSTRY, um
+        # dos DOZE codigos canonicos do Atlas — nao tinha regua nenhuma.
+        #
+        # O que esta guarda protege continua inteiro, e e so isto: `T2` NAO
+        # ganhou regra. Essa asserção esta acima e nao mudou.
+        self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
+                         ["T10", "T3", "T4", "T5", "T7", "T9"])
         # ⚠️ AS CONTAGENS MUDARAM, E A MENSAGEM ANTIGA JA NAO SE APLICA.
         # Ela dizia «a missao so autorizava mexer em T2» — e isso era verdade
         # da missao que escreveu esta guarda. A missao
@@ -189,8 +198,26 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         #     T7  21 -> 12   deixa de ser ciencia e passa a ser rede tecnica
         #     T4  11 -> 11   intacto
         #     T9  12 -> 12   intacto
-        for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 12),
-                     ("T9", 12)):
+        #
+        # ⚠️ E A DUAS-PORTAS-V1 MEXEU EM DOIS, COM A RAZAO DE CADA UM:
+        #     T10  0 -> 17   o universo que nunca teve regua. Os termos saem
+        #                    do escopo do Atlas e dos APELIDOS de
+        #                    `leis/territorios.py`, e NAO do corpus. Onze
+        #                    candidatos cairam por medicao — `dazi` casava
+        #                    dentro de «redazione», `mercato`/`ingrosso`
+        #                    casavam no MENU do site em 40 e 30 dos 85.
+        #     T7  12 -> 11   `soci` SAIU. Medido nos 85: casou 22 vezes em
+        #                    «sociale», 10 em «association», 9 em «social»,
+        #                    8 em «sociali» — e ZERO vezes em «soci». Com T10
+        #                    escrito, esse acidente passou a produzir um NAO —
+        #                    a unica resposta que FECHA o assunto — em 26
+        #                    documentos, e sustentava sozinho os 8 unicos
+        #                    `SIM` de T7 desta coorte.
+        #
+        #     UM TERMO QUE SO ACERTA DENTRO DE OUTRAS PALAVRAS
+        #     NAO ESTAVA A MEDIR NADA. SO NAO SE VIA.
+        for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 11),
+                     ("T9", 12), ("T10", 17)):
             with self.subTest(universo=u):
                 self.assertEqual(
                     len(adm.PERGUNTAS_DO_UNIVERSO[u]), n,
