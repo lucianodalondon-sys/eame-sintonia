@@ -177,14 +177,35 @@ class T3ASentinelaDisparou(unittest.TestCase):
     """
 
     def test_a_porta_conhece_pdf_E_midia_e_nada_mais(self):
-        """O registo cresceu de um para dois, e não para «qualquer coisa»."""
+        """O registo cresceu de um para dois, e não para «qualquer coisa».
+
+        ⚠️ E CRESCEU PARA TRÊS NA `DUAS-PORTAS-V1`, E A SENTINELA DISPAROU
+        OUTRA VEZ — que é o trabalho dela. O nome do teste diz «pdf E mídia»
+        e passa a dizer menos do que a lista; o MÉTODO que ele guarda é o que
+        não muda: a porta conhece um conjunto FECHADO e DECLARADO de espécies,
+        e não «qualquer coisa».
+
+        O que entrou, e porquê: `text/html` e `application/xhtml+xml`, pelo
+        `coleta/executor_texto_de_html.py`. 46 observações reais paravam em
+        `DERIVED` com `MISSING_ROUTE` — a peça de extração já existia em
+        `coleta/texto_fonte.py::limpar` e tinha ZERO chamadores.
+
+        ⚠️ E `ACEITA_FAMILIAS` NÃO CRESCEU, de propósito. A família `text`
+        apanharia `text/csv` e `text/plain`, que esta casa não sabe abrir —
+        e `IT-T4-001` é `text/csv` e está medido como `MISSING_ROUTE` de
+        OUTRO dono. Declarar a família aqui roubava-lhe a rota.
+        """
         exactos, familias = set(), set()
         for cap in ing._capacidades_de_derivacao():
             exactos.update(str(a).lower()
                            for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
             familias.update(str(f).lower()
                             for f in (cap.get("ACEITA_FAMILIAS") or ()))
-        self.assertEqual(exactos, {"application/pdf"})
+        self.assertEqual(exactos, {"application/pdf", "text/html",
+                                   "application/xhtml+xml"},
+                         "a porta passou a conhecer uma especie nova — "
+                         "declare-a e reveja esta prova, que e a trava de "
+                         "metodo")
         self.assertEqual(familias, {"audio", "video"},
                          "a porta passou a conhecer uma familia nova — declare-a "
                          "e reveja esta prova, que e a trava de metodo")

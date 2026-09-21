@@ -290,8 +290,17 @@ class NadaFoiRotuladoNemAlterado(unittest.TestCase):
         # nenhum universo que tinha regra a perdeu. O que ha e um universo a
         # MAIS — `T7` com vocabulario proprio de rede tecnica, que antes nao
         # tinha nenhum porque a chave dele estava ocupada por outro assunto.
+        #
+        # ⚠️ E MUDOU OUTRA VEZ, PELA `DUAS-PORTAS-V1`. `T10` — MARKET / TRADE
+        # / INDUSTRY, canonico no Atlas — ganhou regua, porque 39 documentos
+        # italianos reais recebiam `NAO_SE_APLICA` por ela nao existir. E `T7`
+        # perdeu `soci`, que casava dentro de «sociale», «social» e
+        # «association» e NUNCA em «soci». As duas medicoes vivem em
+        # `tests/test_a_regra_de_t2.py` e em `tests/test_a_regra_de_t10.py`.
+        #
+        # O que esta guarda protege continua inteiro: `T2` NAO ganhou regra.
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T3", "T4", "T5", "T7", "T9"])
+                         ["T10", "T3", "T4", "T5", "T7", "T9"])
 
 
 if __name__ == "__main__":
