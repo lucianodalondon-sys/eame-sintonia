@@ -429,12 +429,25 @@ def admissao_do_curator(fonte: str, raiz: str = RAIZ) -> dict:
             "GATE": d.get("CONTRATO", "NAO SEI")}
 
 
-def correr_coletor(run_id: str, fonte: str = "", raiz: str = RAIZ) -> dict:
+def correr_coletor(run_id: str, fonte: str = "", raiz: str = RAIZ,
+                   lancar=None) -> dict:
     """Traducao 1: o Node corre, e recebe a corrida — nao a cunha.
 
     Antes de correr, pergunta ao portao de admissao se a fonte nomeada pode ser
     colhida. NAO CORREU NAO E CORREU E FALHOU: um `BLOQUEADA_PELO_CURATOR` diz
     que ninguem foi a fonte nenhuma.
+
+    `lancar` e a peca que vai a rede, e e injectavel DE PROPOSITO. Medido em
+    2026-09-21, por acidente desta missao: um teste que chamava esta funcao a
+    serio colheu tres vezes o boletim da APOL, com o RUN_ID «RUN-TESTE-SEM-REDE»
+    e egresso no Brasil, porque as mutacoes do red team desligavam o portao —
+    e, sem portao, a funcao faz o que sempre fez: vai a fonte.
+
+        UM TESTE QUE SO E SEGURO ENQUANTO O CODIGO ESTIVER CERTO
+        NAO E UM TESTE SEGURO.
+
+    Com `lancar` injectado, a prova de que o portao morde corre sem que a rede
+    seja sequer alcancavel.
     """
     if fonte:
         a = admissao_do_curator(fonte, raiz)
@@ -445,6 +458,8 @@ def correr_coletor(run_id: str, fonte: str = "", raiz: str = RAIZ) -> dict:
     comando = ["node", COLETOR, "--run-id=%s" % run_id]
     if fonte:
         comando.append("--fonte=%s" % fonte)
+    if lancar is not None:
+        return lancar(comando)
     try:
         r = subprocess.run(comando, cwd=raiz, capture_output=True, text=True,
                            encoding="utf-8", errors="replace", timeout=1800)

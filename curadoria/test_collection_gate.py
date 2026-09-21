@@ -380,16 +380,19 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
                          "o portao dizer nao nao e o corredor estar doente")
 
     def test_o_adapter_do_pedido_recusa_a_fonte_por_omissao_da_receita(self):
-        """PROVA DE RUNTIME do segundo caminho de producao.
+        """PROVA DE RUNTIME do segundo caminho de producao, SEM REDE ALCANCAVEL.
 
         `pedido/receitas.py` nomeia a fonte, e a receita de T3 tem
         `filtros_por_omissao`. A fonte que la esta e medida contra o livro
         AGORA: se nao for admitida, `correr_coletor()` devolve
-        BLOQUEADA_PELO_CURATOR e o Node nem chega a ser chamado.
+        BLOQUEADA_PELO_CURATOR e o lancador nem chega a ser chamado.
 
-        Se um dia essa fonte passar a ser admitida, o teste continua honesto:
-        exige entao que o portao a tenha DEIXADO passar por regra, e nao que
-        ninguem lhe tenha perguntado.
+        ⚠️ PORQUE O LANCADOR E INJECTADO. A primeira versao deste teste chamava
+        `correr_coletor()` a serio. Com o portao inteiro isso nunca ia a rede —
+        mas as mutacoes do red team desligam o portao de proposito, e nessas
+        corridas o teste colheu TRES VEZES o boletim da APOL, com o RUN_ID
+        «RUN-TESTE-SEM-REDE» e egresso no Brasil. O espiao abaixo torna isso
+        impossivel: se o portao falhar, o teste reprova — nao colhe.
         """
         sys.path.insert(0, str(RAIZ / "coleta"))
         import italy_executor as adapter   # noqa: PLC0415
@@ -401,9 +404,18 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
                                 "este ataque precisa de saber qual e")
         sid = m.group(1)
         veredito = CG.avaliar(sid)
-        r = adapter.correr_coletor("RUN-TESTE-SEM-REDE", sid, raiz=str(RAIZ))
+        chamadas = []
+
+        def espiao(comando):
+            chamadas.append(comando)
+            return {"CODIGO": 0, "ERRO": "", "ESPIAO": True}
+
+        r = adapter.correr_coletor("RUN-DE-TESTE-NUNCA-CORRE", sid,
+                                   raiz=str(RAIZ), lancar=espiao)
         if veredito["COLLECTION_ELIGIBLE"]:
             self.assertNotIn("BLOQUEADA_PELO_CURATOR", r)
+            self.assertEqual(1, len(chamadas),
+                             "admitida e o lancador nao foi chamado")
         else:
             self.assertIn("BLOQUEADA_PELO_CURATOR", r,
                           "o adapter correu o coletor com uma fonte que o "
@@ -411,6 +423,8 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
             self.assertFalse(r["CORREU"])
             self.assertEqual(veredito["MOTIVO"],
                              r["BLOQUEADA_PELO_CURATOR"]["MOTIVO"])
+            self.assertEqual([], chamadas,
+                             "o coletor foi lancado apesar da recusa")
 
 
 class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):
