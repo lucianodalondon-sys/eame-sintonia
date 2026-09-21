@@ -751,5 +751,141 @@ class TestExtrairSementesLegitimas(unittest.TestCase):
                          "FASE 0 mediu 29 sementes legitimas")
 
 
+class TestFiltrarLinkRA(unittest.TestCase):
+    """RA — facets de pesquisa e hashtags nao sao fontes."""
+
+    BASE = "https://www.regione.lombardia.it/"
+
+    def _ok(self, url: str, anchor: str = "") -> bool:
+        return D._filtrar_link(url, self.BASE, anchor)[0]
+
+    def _motivo(self, url: str, anchor: str = "") -> str:
+        return D._filtrar_link(url, self.BASE, anchor)[1]
+
+    def test_anchor_hashtag_descartado(self):
+        url = "https://www.regione.lombardia.it/ricerca?q=Bandi"
+        self.assertFalse(self._ok(url, "#Bandi"))
+        self.assertEqual(self._motivo(url, "#Bandi"), "RA_FACET_PESQUISA")
+
+    def test_ancora_bollo_auto_descartada(self):
+        url = "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bollo+Auto"
+        self.assertFalse(self._ok(url, "#BolloAuto"))
+        self.assertEqual(self._motivo(url, "#BolloAuto"), "RA_FACET_PESQUISA")
+
+    def test_path_ricerca_descartado(self):
+        url = "https://www.regione.lombardia.it/ricerca"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RA_FACET_PESQUISA")
+
+    def test_query_param_query_descartado(self):
+        url = "https://example.it/risultati?query=cereali&page=1"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RA_FACET_PESQUISA")
+
+    def test_pagina_legittima_sem_anchor_hash_mantida(self):
+        url = "https://www.regione.lombardia.it/agricoltura/bandi"
+        self.assertTrue(self._ok(url, "Bandi e concorsi"))
+
+
+class TestFiltrarLinkRB(unittest.TestCase):
+    """RB — artigos individuais nao sao fontes. ITEM != FONTE."""
+
+    BASE = "https://www.arpae.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_artigo_notizie_slug_longo(self):
+        url = "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RB_ARTIGO_INDIVIDUAL")
+
+    def test_artigo_incendio_com_data(self):
+        url = "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RB_ARTIGO_INDIVIDUAL")
+
+    def test_artigo_news_id_numerico(self):
+        url = "http://www.calabriapsr.it/news/2456-scadenza-presentazione-domande-di-sostegno"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RB_ARTIGO_INDIVIDUAL")
+
+    def test_listagem_notizie_argomenti_mantida(self):
+        url = "https://www.arpae.it/it/notizie/argomenti/agro-meteo"
+        self.assertTrue(self._ok(url),
+                        "listagem com subseccao nao e artigo — deve ser mantida")
+
+    def test_listagem_notizie_raiz_mantida(self):
+        url = "https://www.arpae.it/it/notizie"
+        self.assertTrue(self._ok(url))
+
+
+class TestFiltrarLinkRC(unittest.TestCase):
+    """RC — paginas institucionais obrigatorias nao publicam conteudo agronomico."""
+
+    BASE = "https://www.regione.sicilia.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_amministrazione_trasparente_path(self):
+        url = "https://www.crea.gov.it/amministrazione-trasparente"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_subdomain_trasparenza(self):
+        url = "https://trasparenza.regione.calabria.it/REGIONECALABRIA"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_subdomain_intranet(self):
+        url = "https://intranet.regione.abruzzo.it"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_il_presidente_path(self):
+        url = "https://www.regione.sicilia.it/istituzioni/regione/il-presidente"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_agid_formulario_acessibilidade(self):
+        url = "https://form.agid.gov.it/view/78bd7980-9859-11f0-b114-bda70f0f6c0f"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_pagina_agricoltura_legittima_mantida(self):
+        url = "https://www.regione.sicilia.it/agricoltura-foreste/fitosanitario"
+        self.assertTrue(self._ok(url))
+
+
+class TestRedTeamFiltroRB(unittest.TestCase):
+    """RED TEAM DO FILTRO: mutar RB e provar que a contraprova REPROVA."""
+
+    BASE = "https://www.arpae.it/"
+    ARTIGO_URL = "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+
+    def test_red_team_mute_rb_artigo_passa_incorretamente(self):
+        """Com RB mutado (regex vazia), o artigo passa o filtro — BUG simulado."""
+        orig = D._RE_ARTIGO_INDIVIDUAL
+        try:
+            D._RE_ARTIGO_INDIVIDUAL = __import__("re").compile(r"(?!)")  # nunca casa
+            ok, motivo = D._filtrar_link(self.ARTIGO_URL, self.BASE)
+            self.assertTrue(ok, "mutacao deve deixar o artigo passar (BUG)")
+        finally:
+            D._RE_ARTIGO_INDIVIDUAL = orig
+
+    def test_red_team_restaurada_rb_reprova(self):
+        """Com RB restaurado, o mesmo artigo e corretamente recusado."""
+        ok, motivo = D._filtrar_link(self.ARTIGO_URL, self.BASE)
+        self.assertFalse(ok, "RB restaurado deve reprovar o artigo")
+        self.assertEqual(motivo, "RB_ARTIGO_INDIVIDUAL")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

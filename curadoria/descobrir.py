@@ -97,7 +97,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "candidatas"))
 sys.path.insert(0, str(RAIZ / "curadoria"))
 
-from fonte_nova import normalizar, registar, carregar  # noqa: E402
+from fonte_nova import normalizar, registar, carregar, recusar  # noqa: E402
 
 # ------------------------------------------------------------------ constantes
 UA = "SintoniaEAME-Discovery/1.0 (research; contact: londoncreativecreative@gmail.com)"
@@ -944,6 +944,34 @@ _DOMINIOS_SKIP = frozenset([
 ])
 
 
+# RA — facets de pesquisa: segmento de path que é motor de busca
+_RE_FACET_PATH = re.compile(r"^ricerca$", re.I)
+
+# RB — artigos individuais: slug com >= 4 partes separadas por hífen
+#      OU prefixo numérico de ID (ex: 2456-scadenza-...)
+_RE_ARTIGO_INDIVIDUAL = re.compile(
+    r"/(notizie|news|articol[oi]|comunicat[oi]|press-release)"
+    r"/(\d{1,6}-[a-z0-9_%\-]{5,}"
+    r"|[a-z0-9][a-z0-9_%\-]*(?:-[a-z0-9_%\-]+){4,})"
+    r"(?:/|$|\?|#)",
+    re.I
+)
+
+# RC — páginas institucionais obrigatórias italianas
+_RE_ISTITUZIONALE_PATH = re.compile(
+    r"/(?:amministrazione-trasparente|amministrazionetrasparente|"
+    r"il-presidente|la-giunta-regionale|giunta-regionale|"
+    r"istituti-di-garanzia|responsabile-protezione-dati|"
+    r"anticorruzione|lo-statuto|statuto-regionale|"
+    r"assemblea-regionale)(?:/|$|\?)",
+    re.I
+)
+_RE_ISTITUZIONALE_HOST = re.compile(
+    r"^(?:trasparenza|amministrazionetrasparente|intranet)\.",
+    re.I
+)
+
+
 def _host_de(url: str) -> str:
     try:
         return urllib.parse.urlparse(url).netloc.lower().lstrip("www.")
@@ -956,7 +984,7 @@ def _e_social_url(url: str) -> bool:
     return any(soc in h for soc in _SOCIAL_MAP)
 
 
-def _filtrar_link(url: str, semente_url: str) -> tuple[bool, str]:
+def _filtrar_link(url: str, semente_url: str, anchor: str = "") -> tuple[bool, str]:
     """Decide se um link vale a pena verificar.
 
     REGRA ESCRITA (declarada e testavel):
@@ -970,6 +998,13 @@ def _filtrar_link(url: str, semente_url: str) -> tuple[bool, str]:
         que sao aceites como candidatas (mas nao enfileiradas)
     R7  Dominio mesmo: manter se path tem profundidade >= 1 (e sub-recurso,
         nao apenas ancora na mesma pagina)
+    RA  Descartar facets de pesquisa: anchor comeca por '#', path contem
+        segmento 'ricerca', ou query string tem parametro de busca
+    RB  Descartar artigos individuais: ITEM != FONTE. Slug com >= 4 partes
+        hifenadas ou prefixo numerico apos /notizie/, /news/, etc.
+    RC  Descartar paginas institucionais obrigatorias italianas:
+        Amministrazione Trasparente, presidente, giunta, intranet,
+        formularios de acessibilidade AGID, etc.
 
     Decisao sobre dominio interno vs. externo:
     - Externo nao e garantia de fonte nova; interno nao e lixo.
@@ -1008,6 +1043,28 @@ def _filtrar_link(url: str, semente_url: str) -> tuple[bool, str]:
     # R4: caminhos de servico
     if _RE_SERVICO.search(path):
         return False, "R4_CAMINHO_SERVICO"
+
+    # RA: facet de pesquisa ou hashtag (nao e fonte, e filtro de resultado)
+    if anchor.strip().startswith("#"):
+        return False, "RA_FACET_PESQUISA"
+    _segs = [s.lower() for s in path.strip("/").split("/") if s]
+    if _segs and _RE_FACET_PATH.match(_segs[0]):
+        return False, "RA_FACET_PESQUISA"
+    for _k, _v in urllib.parse.parse_qsl(parsed.query):
+        if any(t in _k.lower() for t in ("query", "search", "keyword")):
+            return False, "RA_FACET_PESQUISA"
+
+    # RB: artigo individual (ITEM != FONTE)
+    if _RE_ARTIGO_INDIVIDUAL.search(path):
+        return False, "RB_ARTIGO_INDIVIDUAL"
+
+    # RC: pagina institucional obrigatoria
+    if _RE_ISTITUZIONALE_HOST.match(host):
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+    if _RE_ISTITUZIONALE_PATH.search(path):
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+    if "agid.gov.it" in host and "/view/" in path:
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
 
     # R6: dominios irrelevantes -- mas sociais permitidos passam
     for skip in _DOMINIOS_SKIP:
@@ -1134,7 +1191,9 @@ def crawl_sementes(
         "LINKS_APOS_FILTRO": 0,
         "CANDIDATOS_VERIFICADOS": 0,
         "ROBOTS_BLOCKS": 0,
-        "FAILED_HTTP": 0,
+        "ORCAMENTO_BLOQUEADAS": 0,
+        "HTTP_ERROS_REAIS": 0,
+        "SEMENTE_FETCH_FAILED": 0,
         "FILTRADOS_POR_REGRA": {},
     }
 
@@ -1155,7 +1214,7 @@ def crawl_sementes(
         stats["SEMENTES_USADAS"] += 1
 
         if html is None:
-            stats["FAILED_HTTP"] += 1
+            stats["SEMENTE_FETCH_FAILED"] += 1
             _marcar_rejeitado(semente_norm, "FETCH_FAILED_%d" % status, visitados)
             log.append({"semente": semente, "acao": "SEMENTE_FETCH_FAILED",
                         "status": status, "ct": ct})
@@ -1168,7 +1227,7 @@ def crawl_sementes(
 
         links_ok: list[tuple[str, str]] = []
         for url_lnk, anchor in links:
-            manter, motivo = _filtrar_link(url_lnk, semente)
+            manter, motivo = _filtrar_link(url_lnk, semente, anchor)
             if manter:
                 links_ok.append((url_lnk, anchor))
             else:
@@ -1200,10 +1259,13 @@ def crawl_sementes(
                 continue
 
             stats["CANDIDATOS_VERIFICADOS"] += 1
-            existe, http_code, _ = _verificar_url(url_lnk, orcamento)
+            existe, http_code, ct_verify = _verificar_url(url_lnk, orcamento)
 
             if not existe:
-                stats["FAILED_HTTP"] += 1
+                if ct_verify.startswith("ORCAMENTO:"):
+                    stats["ORCAMENTO_BLOQUEADAS"] += 1
+                else:
+                    stats["HTTP_ERROS_REAIS"] += 1
                 _marcar_rejeitado(url_norm, "HTTP_%d" % http_code, visitados)
                 log.append({"url": url_lnk, "semente": semente,
                             "acao": "FALHOU_HTTP", "http": http_code})
@@ -1341,6 +1403,42 @@ def _descobrir_familia(
     return registados
 
 
+def recusar_candidatas_lixo() -> dict:
+    """Aplica retroativamente as regras RA/RB/RC às candidatas CRAWL_LINK já registadas.
+
+    Marca como RECUSADA qualquer candidata cujo URL (+ anchor gravado na nota)
+    viole as regras RA, RB ou RC. O DONO (fonte_nova.recusar) faz a gravação —
+    nunca se edita o JSON a mão.
+
+    Devolve um dict com os contadores.
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        nota = c.get("NOTA", "")
+        if "DISCOVERY_METHOD=CRAWL_LINK" not in nota:
+            continue
+
+        url = c["URL"]
+        m = re.search(r"ANCHOR_TEXT=([^|]*)", nota)
+        anchor = m.group(1).strip() if m else ""
+
+        manter, motivo = _filtrar_link(url, url + "_dummy_semente_diferente", anchor)
+        if not manter and motivo in ("RA_FACET_PESQUISA", "RB_ARTIGO_INDIVIDUAL",
+                                     "RC_ISTITUZIONALE_OBBLIGATORIO"):
+            resultado = recusar(url, "REGRA_NOVA_%s" % motivo)
+            if resultado is not None:
+                recusadas.append({"url": url, "id": c["CANDIDATA_ID"],
+                                  "motivo": motivo})
+
+    return {
+        "RECUSADAS_POR_REGRA_NOVA": len(recusadas),
+        "DETALHE": recusadas,
+    }
+
+
 def descobrir(
     familia: str = "TODAS",
     orcamento: int = MAX_PEDIDOS_TOTAIS,
@@ -1448,11 +1546,20 @@ def main() -> int:
                     help="correr crawl de sementes (profundidade 1)")
     ap.add_argument("--max-sementes", type=int, default=MAX_SEMENTES_ESTA_CORRIDA,
                     help="max sementes desta corrida (default: %d)" % MAX_SEMENTES_ESTA_CORRIDA)
+    ap.add_argument("--limpar", action="store_true",
+                    help="marcar candidatas CRAWL_LINK que violam RA/RB/RC como RECUSADA")
     a = ap.parse_args()
 
     if a.listar_familias:
         for f in sorted(FAMILIAS_VALIDAS):
             print("  %s" % f)
+        return 0
+
+    if a.limpar:
+        resultado = recusar_candidatas_lixo()
+        print("RECUSADAS_POR_REGRA_NOVA  %d" % resultado["RECUSADAS_POR_REGRA_NOVA"])
+        for d_ in resultado["DETALHE"]:
+            print("  [%s] %s  %s" % (d_["motivo"], d_["id"], d_["url"][:80]))
         return 0
 
     if a.orcamento > MAX_PEDIDOS_TOTAIS:
@@ -1483,6 +1590,9 @@ def main() -> int:
 
         sociais_enfileiradas = 0
 
+        _ob = stats_crawl["ORCAMENTO_BLOQUEADAS"]
+        _he = stats_crawl["HTTP_ERROS_REAIS"]
+        _sf = stats_crawl["SEMENTE_FETCH_FAILED"]
         prova_crawl = {
             "DATASET": "CRAWL-PROOF-V1",
             "CORRIDA_EM": inicio_crawl.isoformat(),
@@ -1494,9 +1604,20 @@ def main() -> int:
             "NOVEL_CANDIDATES": len(registados_crawl),
             "DUPLICATES_REJECTED": sum(1 for e in log if e.get("acao") == "DEDUP"),
             "ROBOTS_BLOCKS": stats_crawl["ROBOTS_BLOCKS"],
-            "FAILED_HTTP": stats_crawl["FAILED_HTTP"],
+            "VERIFICACOES_SEM_SUCESSO": _ob + _he + _sf,
+            "ORCAMENTO_BLOQUEADAS": _ob,
+            "HTTP_ERROS_REAIS": _he,
+            "SEMENTE_FETCH_FAILED": _sf,
+            "FAILED_HTTP_EXPLICADO": (
+                "ORCAMENTO_BLOQUEADAS=%d candidatas bloqueadas por orcamento antes do "
+                "pedido de rede (ct=ORCAMENTO:...). HTTP_ERROS_REAIS=%d erros HTTP reais "
+                "de candidatos. SEMENTE_FETCH_FAILED=%d sementes sem HTML. "
+                "REQUESTS_REAIS_A_REDE conta so pedidos que saíram para a rede."
+                % (_ob, _he, _sf)
+            ),
             "FILTRADOS_POR_REGRA": stats_crawl["FILTRADOS_POR_REGRA"],
-            "REQUESTS_MADE": orcam.pedidos_feitos,
+            "REQUESTS_REAIS_A_REDE": orcam.pedidos_feitos,
+            "ORCAMENTO_300_RESPEITADO": "YES" if orcam.pedidos_feitos <= MAX_PEDIDOS_TOTAIS else "NO",
             "MAX_REQUESTS_ONE_DOMAIN": orcam.max_num_dominio(),
             "PROVENIENCIA_CIRCULAR": circular,
             "READY_PROMOTED_BY_CRAWL": 0,

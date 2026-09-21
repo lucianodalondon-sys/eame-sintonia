@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  63b714213ab55953cce907077f15de3d5f96f526
+HEAD_DA_MEDICAO  eadb3423ebeb6524ca693db5f760dc22e108b743
 BRANCH           discovery-crawl-v1
-GERADO_EM        2026-09-21T07:48:45-03:00
+GERADO_EM        2026-09-21T08:39:07-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "discovery-crawl-v1",
-    "HEAD": "63b714213ab55953cce907077f15de3d5f96f526",
-    "GENERATED_AT": "2026-09-21T07:48:45-03:00",
-    "SOURCE_TREE_FINGERPRINT": "5f222d3ce19ef9458f603eff2b3cbc49c676ae250159f9ee92e34e55550c0903"
+    "HEAD": "eadb3423ebeb6524ca693db5f760dc22e108b743",
+    "GENERATED_AT": "2026-09-21T08:39:07-03:00",
+    "SOURCE_TREE_FINGERPRINT": "49b1a4312568e1c29ddeaa593a03670b8cced18fcf240880057a4855f7166383"
   },
   "FILES": [
     {
@@ -1067,7 +1067,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "cdab7e8f8603ff2aa49f9138176ee3684214c7b0",
+      "sha": "0aa1fbf2fe40be9223ba2e2a7032e3ba30e8491d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -1144,7 +1144,7 @@
     },
     {
       "path": "candidatas/fonte_nova.py",
-      "sha": "2ca652d9dac8e4431976ad70ba69ed24a6adc12c",
+      "sha": "31b00a51187ee60c72668b0a9a85f836add3b66d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1738,6 +1738,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CRAWL-PROOF-V1.json",
+      "sha": "89daa1729a91e00a3c4f7003790b91d83d5361c5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/DISCOVERY-PROOF-V1.json",
       "sha": "b63c0f6d0c21a222f1f0a0b41b92692b47ade668",
       "ext": ".json",
@@ -1991,7 +1998,7 @@
     },
     {
       "path": "curadoria/descobrir.py",
-      "sha": "b06e3233f26cb3c80d62e2003b298ca2d8b46077",
+      "sha": "4e0afd8a3f78ccc72fde811c69d5eeb22a8d7bb3",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2159,7 +2166,7 @@
     },
     {
       "path": "curadoria/test_discovery.py",
-      "sha": "a706873dd850cb40ed6879848c47d42212d38700",
+      "sha": "2f2fa7d3c7acdd048f54941877f7e80b4100c994",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16941,7 +16948,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "candidatas/fonte_nova.py",
-        "line": 167,
+        "line": 187,
         "snippet": "FILA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -20385,7 +20392,18 @@
       "evidence": {
         "file": "curadoria/descobrir.py",
         "line": 100,
-        "snippet": "from fonte_nova import normalizar, registar, carregar  # noqa: E402"
+        "snippet": "from fonte_nova import normalizar, registar, carregar, recusar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/CRAWL-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 122,
+        "snippet": "CRAWL_PROOF_JSON = RAIZ / \"curadoria\" / \"CRAWL-PROOF-V1.json\""
       }
     },
     {
@@ -66388,10 +66406,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2182,
+    "files_tracked": 2183,
     "files_readable": 865,
     "files_code_dir": 883,
-    "file_edges": 4599,
+    "file_edges": 4600,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

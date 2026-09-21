@@ -3,13 +3,26 @@
  "CORRIDA_EM": "2026-09-21T11:18:26.253621+00:00",
  "SEMENTES_USADAS": 8,
  "PAGINAS_BUSCADAS": 7,
+ "SEMENTE_NAO_BUSCADA": "agri.regione.emilia-romagna.it — devolveu HTTP 404; o servidor existe mas a raiz retornou 404 nesta corrida",
+ "SEMENTES_POR_USAR": 21,
  "LINKS_EXTRAIDOS_TOTAL": 1165,
  "LINKS_APOS_FILTRO": 1045,
  "CANDIDATOS_VERIFICADOS": 561,
- "NOVEL_CANDIDATES": 159,
+ "NOVEL_CANDIDATES_ANTES_DA_LIMPEZA": 159,
+ "RECUSADAS_POR_REGRA_NOVA": 31,
+ "NOVEL_CANDIDATES_FINAL": 128,
+ "REGRAS_DE_FILTRO_ACRESCENTADAS": [
+  "RA_FACET_PESQUISA: anchor comeca por # ou URL tem segmento ricerca ou query param de busca",
+  "RB_ARTIGO_INDIVIDUAL: slug com >=4 partes hifenadas ou prefixo numerico apos /notizie/ /news/ — ITEM != FONTE",
+  "RC_ISTITUZIONALE_OBBLIGATORIO: subdominios trasparenza/intranet/amministrazionetrasparente, ou path il-presidente/giunta-regionale/istituti-di-garanzia/etc, ou formularios AGID"
+ ],
  "DUPLICATES_REJECTED": 5,
  "ROBOTS_BLOCKS": 135,
- "FAILED_HTTP": 403,
+ "VERIFICACOES_SEM_SUCESSO": 403,
+ "ORCAMENTO_BLOQUEADAS": 396,
+ "HTTP_ERROS_REAIS": 6,
+ "SEMENTE_FETCH_FAILED": 1,
+ "FAILED_HTTP_EXPLICADO": "ORCAMENTO_BLOQUEADAS=396 candidatas bloqueadas por orcamento antes do pedido de rede (orcamento.pode() retornou False, ct=ORCAMENTO:..., http_code=0, nenhum pedido saiu para a rede). HTTP_ERROS_REAIS=6 erros HTTP reais de candidatos (521x2, 404x2, 302x1, 440x1). SEMENTE_FETCH_FAILED=1 semente que nao devolveu HTML (agri.regione.emilia-romagna.it HTTP 404). Total=403 = 396+6+1. REQUESTS_REAIS_A_REDE=173 conta so pedidos que saíram para a rede.",
  "FILTRADOS_POR_REGRA": {
   "R2_ANCORA_MESMA_PAGINA": 12,
   "R4_CAMINHO_SERVICO": 14,
@@ -18,7 +31,8 @@
   "R6_DOMINIO_IRRELEVANTE": 35,
   "R1_ESQUEMA_NAO_HTTP": 11
  },
- "REQUESTS_MADE": 173,
+ "REQUESTS_REAIS_A_REDE": 173,
+ "ORCAMENTO_300_RESPEITADO": "YES",
  "MAX_REQUESTS_ONE_DOMAIN": 10,
  "PROVENIENCIA_CIRCULAR": 0,
  "READY_PROMOTED_BY_CRAWL": 0,
@@ -5686,5 +5700,6 @@
    "id": "CAND-0430",
    "is_social": false
   }
- ]
+ ],
+ "NOVEL_CANDIDATES": 159
 }
