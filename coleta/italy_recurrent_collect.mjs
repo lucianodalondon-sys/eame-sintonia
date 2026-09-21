@@ -10,7 +10,10 @@
 //   uma fonte falhar NAO impede as outras de serem preservadas
 //
 // ORDEM OBRIGATORIA (nunca reordenar):
-//   1 lock · 2 runtime · 3 timezone · 4 VPN Italia · 5 storage · 6 contratos · 7 RUN_ID
+//   1 lock · 2 runtime · 3 timezone · 4 VPN Italia · 5 storage · 6 contratos
+//     6b PORTAO DE ADMISSAO DO CURATOR — o perfil nao promove fonte nenhuma;
+//        quem diz se uma fonte pode ser colhida e curadoria/collection_gate.py
+//   7 RUN_ID
 //     (o 7 e DESTE ficheiro: quem coordena cunha a corrida, e o coletor recebe-a)
 //   8 RAW primeiro · 9 bytes · 10 sha · 11 RAW imutavel · 12 ledger · 13 normalizar
 //   14 saude da fonte · 15 guardas · 16 commit · 17 push · 18 provar remoto · 19 soltar lock
@@ -25,6 +28,7 @@
 import { execFile, execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
 import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
 import { PROFILES, PERFIL_PADRAO } from "../candidatas/italy_profiles.mjs";
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
@@ -36,6 +40,10 @@ const tem = n => process.argv.includes(n);
 const PROFILE_NAME = arg("--profile") || PERFIL_PADRAO;
 const PROFILE = PROFILES[PROFILE_NAME];
 const OPS_ROOT = process.env.ITALY_OPS_ROOT || process.cwd();
+// A raiz do REPOSITORIO, derivada deste ficheiro — nao do cwd. O portao de
+// admissao vive no repositorio; `ITALY_OPS_ROOT` pode apontar para uma pasta
+// descartavel, e perguntar la daria «nao sei» com cara de «nenhuma pronta».
+const RAIZ = fileURLToPath(new URL("..", import.meta.url));
 const LOCK = `${OPS_ROOT}/.italy-forward-only.lock`;
 const LEDGER_DIR = `${OPS_ROOT}/data/collection-ledger/italy`;
 const LOG_DIR = `${OPS_ROOT}/data/collection-ledger/italy/logs`;
@@ -125,6 +133,50 @@ async function main() {
     // 6 · contratos existem para todas as fontes do perfil
     const semContrato = PROFILE.SOURCES.filter(s => !CONTRACTS[s]);
     if (semContrato.length) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = `sem contrato: ${semContrato}`; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length; return fim(resumo, t0); }
+
+    // 6b · PORTAO DE ADMISSAO DO CURATOR — quem pode ser colhido hoje.
+    //
+    // ⚠️ DEFEITO MEDIDO EM 2026-09-21, E ESTE PASSO E A CORRECCAO.
+    // O perfil `forward-only-live` traz as fontes NUMA LISTA ESCRITA A MAO em
+    // `candidatas/italy_profiles.mjs`. Essa lista nunca falou com o livro do
+    // Curator. Medido no livro canonico nesse dia, as tres fontes do perfil
+    // estavam: uma em SEMANTIC_REVIEW (nunca promovida) e duas READY_LEGACY —
+    // promovidas pela regua antiga, antes de existir gate de detalhe.
+    //
+    //     TER CONTRATO NAO E ESTAR PRONTA. E ESTAR NUM PERFIL E MENOS AINDA.
+    //
+    // A regra NAO e traduzida para JavaScript: isso seria uma segunda copia da
+    // lei, a envelhecer sozinha. Pergunta-se ao dono unico
+    // (`curadoria/collection_gate.py`) e le-se o JSON. Se o portao nao puder
+    // ser consultado, a corrida NAO segue: nao saber quem pode ser colhido e
+    // motivo para parar, nunca para prosseguir.
+    const PY = process.env.SINTONIA_PY || (process.platform === "win32" ? "py" : "python3");
+    let admissao;
+    try {
+      const saida = execFileSync(PY, ["curadoria/collection_gate.py", `--ids=${PROFILE.SOURCES.join(",")}`, "--json"],
+        { cwd: RAIZ, encoding: "utf8", maxBuffer: 32 * 1024 * 1024, env: { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" } });
+      admissao = JSON.parse(saida.slice(saida.indexOf("{")));
+    } catch (e) {
+      resumo.RUN_STATE = "FAILED_PRECONDITION";
+      resumo.reason = `portao de admissao do Curator nao respondeu: ${String(e.message).slice(0, 160)}`;
+      resumo.RUNNER_HEALTH = "FAILED";
+      resumo.COLLECTION_INTAKE_GATE = "NAO SEI";
+      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+      return fim(resumo, t0);
+    }
+    const naoElegiveis = admissao.RECUSADAS.map(l => `${l.SOURCE_ID}:${l.MOTIVO}`);
+    resumo.COLLECTION_INTAKE_GATE = admissao.CONTRATO;
+    resumo.COLLECTION_ELIGIBLE = admissao.COLLECTION_ELIGIBLE_IDS.length;
+    if (naoElegiveis.length) {
+      resumo.RUN_STATE = "BLOCKED_BY_CURATOR_INTAKE_GATE";
+      resumo.reason = `fontes do perfil que o Curator nao admite: ${naoElegiveis.join(" · ")}`;
+      // O CORREDOR ESTA SAO. Quem disse nao foi o portao, e dizer nao e a
+      // funcao dele — marcar RUNNER_HEALTH=FAILED aqui seria culpar a pista.
+      resumo.RUNNER_HEALTH = "HEALTHY";
+      resumo.lei = "READY_LEGACY != READY_CURRENT. Perfil nao promove fonte.";
+      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+      return fim(resumo, t0);
+    }
 
     // 7 · RUN_ID — E AQUI, QUE E ONDE A ORDEM OBRIGATORIA SEMPRE O POS.
     // O passo 7 estava escrito no cabecalho e nao acontecia aqui: quem cunhava

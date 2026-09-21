@@ -21,6 +21,7 @@ sys.path.insert(0, str(CUR))
 import fila as F                      # noqa: E402
 import interface_collection as IC     # noqa: E402
 import lifecycle as LC                # noqa: E402
+import ready_split as RS              # noqa: E402
 
 flags: list[dict] = []
 
@@ -46,10 +47,40 @@ def main() -> int:
            "sem prova: %s" % sem_prova if sem_prova else "%d/%d com prova"
            % (len(ready), len(ready)))
 
-    # 2. A interface concorda com o livro. Se divergir, um dos dois mente.
-    ataque("READY da interface == READY do livro",
-           sorted(r["SOURCE_ID"] for r in ready_if) == sorted(ready),
-           "interface=%d livro=%d" % (len(ready_if), len(ready)))
+    # 2. A interface concorda com o livro — MAS NAO ENTREGA TUDO O QUE ELE TEM.
+    #
+    # ⚠️ ESTE ATAQUE MUDOU EM 2026-09-21. Ate aqui exigia
+    # `interface == livro`, e essa igualdade ERA o defeito: entregava as 87
+    # READY, 77 delas da regua antiga. O que tem de bater e o INVENTARIO
+    # (todas as READY, com motivo); a ENTREGA e um subconjunto, e nenhuma
+    # fonte pode estar na entrega sem estar no inventario.
+    inv = IC.inventario_ready()
+    entregues = {r["SOURCE_ID"] for r in ready_if}
+    ataque("inventario READY == READY do livro",
+           sorted(r["SOURCE_ID"] for r in inv) == sorted(ready),
+           "inventario=%d livro=%d" % (len(inv), len(ready)))
+    ataque("entrega e subconjunto do inventario",
+           entregues <= {r["SOURCE_ID"] for r in inv},
+           "entrega=%d inventario=%d" % (len(entregues), len(inv)))
+
+    # 2b. NENHUMA fonte da regua antiga atravessou o portao.
+    vazou = [r["SOURCE_ID"] for r in ready_if if r["READY_RULE"] != RS.REGUA_CURRENT]
+    ataque("READY_LEGACY nao entra na Collection", not vazou,
+           "vazaram: %s" % vazou if vazou else "0 de %d legacy no livro"
+           % sum(1 for r in inv if r["READY_RULE"] == RS.REGUA_LEGACY))
+
+    # 2c. Nenhuma fonte que pede olho humano atravessou.
+    humanas = [r["SOURCE_ID"] for r in ready_if if r["HUMAN_REVIEW_REQUIRED"]]
+    ataque("fonte com revisao humana nao entra", not humanas,
+           "vazaram: %s" % humanas if humanas else "0 de %d pedidos de revisao"
+           % sum(1 for r in inv if r["HUMAN_REVIEW_REQUIRED"]))
+
+    # 2d. O portao consegue dizer «nao»? Um portao que aceita tudo nao e portao.
+    #     CONTROLO POSITIVO, pela regra e nunca por uma lista de IDs.
+    recusadas = [r for r in inv if not r["COLLECTION_ELIGIBLE"]]
+    ataque("o portao recusa alguma coisa e diz porque",
+           bool(recusadas) and all(r["ELIGIBILITY_REASON"].strip() for r in recusadas),
+           "%d recusadas, todas com motivo escrito" % len(recusadas))
 
     # 3. CONTROLO POSITIVO: o guarda de promocao consegue dizer «nao»?
     #    Um guarda que nunca recusa nao e um guarda.

@@ -51,6 +51,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 
+import collection_gate as CG  # noqa: E402
 import lifecycle as LC        # noqa: E402
 import ready_split as RS      # noqa: E402
 
@@ -481,17 +482,14 @@ def _item_parece_seccao(sid: str, ctx: dict) -> str | None:
     """Heuristica DECLARADA, que nao muda o estado: o endereco do item aberto
     tem menos de 4 palavras e nenhum digito (ex.: /lavora-con-noi,
     /articoli-e-pubblicazioni/). Serve para excluir da micro-colheita sugerida
-    e pedir olho humano — nao para condenar."""
-    promo = RS.ultima_promocao(sid, ctx["A"])
-    ev = ctx["EVIDENCIA_A"].get((promo or {}).get("EVIDENCE_REF") or "") or {}
-    url = ((ev.get("DADOS") or {}).get("ITEM_ABERTO") or {}).get("URL") or ""
-    slug = [s for s in re.sub(r"^https?://[^/]+", "", url).split("/") if s]
-    if not slug:
-        return None
-    ultimo = slug[-1]
-    if len(ultimo.split("-")) < 4 and not any(ch.isdigit() for ch in ultimo):
-        return "ITEM_PARECE_SECCAO: %s — confirmar a olho que e um item e nao uma seccao" % url
-    return None
+    e pedir olho humano — nao para condenar.
+
+    ⚠️ A REGRA NAO MORA AQUI. Mora em `collection_gate`, que e o portao de
+    admissao da Collection. Este ficheiro chama-a: se houvesse duas copias, uma
+    delas envelhecia sozinha e o censo passaria a discordar do portao sobre
+    quem pode ser colhido."""
+    return CG.revisao_humana_do_url(
+        CG.url_do_item_aberto(sid, livro=ctx["A"], evidencias=ctx["EVIDENCIA_A"]))
 
 
 def _combinar(chave, tA, tB, vA, pA, vB, pB, ctx) -> tuple[str, str, dict | None]:

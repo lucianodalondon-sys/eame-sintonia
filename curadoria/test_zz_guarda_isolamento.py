@@ -68,6 +68,13 @@ FICHEIROS_REAIS = [
     "LISTAGENS-PROVADAS-V1.json",
     "SOURCE-ID-ALLOCATION-V1.json",
     "CANDIDATE-TO-SOURCE-MATCH-V1.json",
+    # INTAKE-GATE: a saida que a Collection le e a saida do portao. Um teste
+    # que chame `IC.main()` ou `CG.main(["--escrever"])` sem redirecionar
+    # SNAPSHOT/SAIDA reescreve a entrega real — e a entrega real e a unica
+    # coisa que autoriza coleta.
+    "READY-SOURCES-V1.json",
+    "READY-SPLIT-V1.json",
+    "COLLECTION-INTAKE-V1.json",
 ]
 
 
@@ -124,7 +131,19 @@ REDIRECIONA_PORTA = re.compile(r"FN\.FILA\s*=[^=]")
 REDIRECIONA_VISITADOS = re.compile(r"D\.VISITADOS_JSON\s*=[^=]")
 REDIRECIONA_LEDGER_DA_PONTE = re.compile(r"P\.LEDGER\s*=[^=]")
 
+# INTAKE-GATE: quem escreve a entrega da Collection tem de a mandar para a
+# pasta descartavel. `IC.main()` reescreve READY-SOURCES-V1.json;
+# `CG.main(["--escrever"])` reescreve COLLECTION-INTAKE-V1.json.
+ESCREVE_A_ENTREGA = re.compile(r"IC\.main\(")
+ESCREVE_O_PORTAO = re.compile(r"CG\.main\(")
+REDIRECIONA_A_ENTREGA = re.compile(r"IC\.SNAPSHOT\s*=[^=]")
+REDIRECIONA_A_SAIDA_DO_PORTAO = re.compile(r"CG\.SAIDA\s*=[^=]")
+
 REGRAS = [
+    ("escreve a entrega da Collection -> IC.SNAPSHOT redirecionado",
+     ESCREVE_A_ENTREGA, [("IC.SNAPSHOT =", REDIRECIONA_A_ENTREGA)]),
+    ("escreve a saida do portao -> CG.SAIDA redirecionado",
+     ESCREVE_O_PORTAO, [("CG.SAIDA =", REDIRECIONA_A_SAIDA_DO_PORTAO)]),
     ("aplica a reconciliacao -> LC.LIVRO e R.SAIDA redirecionados",
      APLICA_A_RECONCILIACAO, [("LC.LIVRO =", REDIRECIONA_LIVRO),
                               ("R.SAIDA =", REDIRECIONA_SAIDA_DA_RECONCILIACAO)]),

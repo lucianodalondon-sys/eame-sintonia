@@ -396,8 +396,52 @@ def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ) -> dict:
     }
 
 
+def admissao_do_curator(fonte: str, raiz: str = RAIZ) -> dict:
+    """O PORTAO DE ADMISSAO, perguntado ao dono unico da regra.
+
+    ⚠️ DEFEITO MEDIDO EM 2026-09-21. O pedido nomeia a fonte
+    (`pedido/receitas.py`, `argumentos_de_filtros: ["fonte"]`), e a receita de
+    T3 chega a ter `filtros_por_omissao: {"fonte": "IT-T3-010"}`. Nenhum desses
+    caminhos falava com o livro do Curator: um pedido de T3 sem filtros abria
+    uma fonte que, medida no livro canonico desse dia, era READY_LEGACY —
+    promovida por «a rota resolve e traz HTML», antes de existir gate de
+    detalhe.
+
+        O PEDIDO NOMEIA UMA FONTE. NOMEAR NAO E ADMITIR.
+
+    A regra nao e reescrita aqui. Pergunta-se a `curadoria/collection_gate.py`.
+    Portao que nao responde = NAO SEI = nao se colhe: nao saber quem pode ser
+    colhido e motivo para parar, nunca para prosseguir.
+    """
+    r = subprocess.run([sys.executable, os.path.join("curadoria", "collection_gate.py"),
+                        "--ids=%s" % fonte, "--json"],
+                       cwd=raiz, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", timeout=300,
+                       env={**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"})
+    if r.returncode != 0 or "{" not in r.stdout:
+        return {"ADMITIDA": False, "MOTIVO": "GATE_NAO_RESPONDEU",
+                "PORQUE": (r.stderr or r.stdout)[-300:].strip() or "sem saida"}
+    d = json.loads(r.stdout[r.stdout.index("{"):])
+    linha = (d["LINHAS"] or [{}])[0]
+    return {"ADMITIDA": bool(linha.get("COLLECTION_ELIGIBLE")),
+            "MOTIVO": linha.get("MOTIVO", "NAO SEI"),
+            "PORQUE": linha.get("PORQUE", "NAO SEI"),
+            "GATE": d.get("CONTRATO", "NAO SEI")}
+
+
 def correr_coletor(run_id: str, fonte: str = "", raiz: str = RAIZ) -> dict:
-    """Traducao 1: o Node corre, e recebe a corrida — nao a cunha."""
+    """Traducao 1: o Node corre, e recebe a corrida — nao a cunha.
+
+    Antes de correr, pergunta ao portao de admissao se a fonte nomeada pode ser
+    colhida. NAO CORREU NAO E CORREU E FALHOU: um `BLOQUEADA_PELO_CURATOR` diz
+    que ninguem foi a fonte nenhuma.
+    """
+    if fonte:
+        a = admissao_do_curator(fonte, raiz)
+        if not a["ADMITIDA"]:
+            return {"CODIGO": 1, "ERRO": "", "CORREU": False,
+                    "BLOQUEADA_PELO_CURATOR": {"SOURCE_ID": fonte, **a},
+                    "LEI": "READY_LEGACY != READY_CURRENT; nomear nao e admitir"}
     comando = ["node", COLETOR, "--run-id=%s" % run_id]
     if fonte:
         comando.append("--fonte=%s" % fonte)

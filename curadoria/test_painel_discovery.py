@@ -98,7 +98,11 @@ class OPainelDaDescoberta(unittest.TestCase):
         o teste nao ler nem escrever a arvore real."""
         self._prova(CORRIDA_EM=datetime.now(timezone.utc).isoformat(),
                     NOVEL_CANDIDATES=30, DUPLICATES_REJECTED=8)
-        m = {"READY": 0, "READY_LEGACY": 0, "READY_CURRENT": 0, "QUEUE_PENDING": 0,
+        m = {"READY": 0, "READY_LEGACY": 0, "READY_CURRENT": 0,
+             # INTAKE-GATE: o painel passou a separar o que a Collection pode
+             # mesmo tocar do que so esta READY no livro.
+             "HUMAN_REVIEW_REQUIRED": 0, "COLLECTION_ELIGIBLE": 0,
+             "QUEUE_PENDING": 0,
              "QUEUE_ELIGIBLE_NOW": 0, "QUEUE_WAITING_RETRY": 0}
         with mock.patch.object(SL.IC, "metricas_operacionais", return_value=m), \
              mock.patch.object(SL, "_estado_servico",

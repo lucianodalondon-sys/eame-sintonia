@@ -1,16 +1,36 @@
 {
  "DATASET": "LIFECYCLE-RED-TEAM-V1",
- "GERADO_EM": "2026-09-20T23:25:25.107862+00:00",
+ "GERADO_EM": "2026-09-21T16:30:28.032376+00:00",
  "ATAQUES": [
   {
    "ATAQUE": "toda promocao READY tem EVIDENCE_REF real",
    "PASS": true,
-   "DETALHE": "18/18 com prova"
+   "DETALHE": "87/87 com prova"
   },
   {
-   "ATAQUE": "READY da interface == READY do livro",
+   "ATAQUE": "inventario READY == READY do livro",
    "PASS": true,
-   "DETALHE": "interface=18 livro=18"
+   "DETALHE": "inventario=87 livro=87"
+  },
+  {
+   "ATAQUE": "entrega e subconjunto do inventario",
+   "PASS": true,
+   "DETALHE": "entrega=8 inventario=87"
+  },
+  {
+   "ATAQUE": "READY_LEGACY nao entra na Collection",
+   "PASS": true,
+   "DETALHE": "0 de 77 legacy no livro"
+  },
+  {
+   "ATAQUE": "fonte com revisao humana nao entra",
+   "PASS": true,
+   "DETALHE": "0 de 3 pedidos de revisao"
+  },
+  {
+   "ATAQUE": "o portao recusa alguma coisa e diz porque",
+   "PASS": true,
+   "DETALHE": "79 recusadas, todas com motivo escrito"
   },
   {
    "ATAQUE": "controlo positivo: o guarda diz NAO",
@@ -20,17 +40,17 @@
   {
    "ATAQUE": "nenhuma bloqueada aparece em READY",
    "PASS": true,
-   "DETALHE": "14 bloqueadas, 0 em READY"
+   "DETALHE": "87 bloqueadas, 0 em READY"
   },
   {
    "ATAQUE": "as 50 do feed nao viraram READY sem canario novo",
-   "PASS": true,
-   "DETALHE": "block+reconciliacao 50 >= 50 da missao 04 · canary_failed 2 <= 9"
+   "PASS": false,
+   "DETALHE": "block+reconciliacao 0 >= 50 da missao 04 · canary_failed 4 <= 9"
   },
   {
    "ATAQUE": "nenhuma por reconciliar aparece em READY",
    "PASS": true,
-   "DETALHE": "50 por reconciliar, 0 em READY"
+   "DETALHE": "0 por reconciliar, 0 em READY"
   },
   {
    "ATAQUE": "nenhum DOCUMENT_ID fabricado pelo lifecycle",
@@ -55,8 +75,8 @@
   {
    "ATAQUE": "metricas mostram os zeros",
    "PASS": true,
-   "DETALHE": "19 contadores"
+   "DETALHE": "23 contadores"
   }
  ],
- "RED_TEAM_BLOCKERS": 0
+ "RED_TEAM_BLOCKERS": 1
 }

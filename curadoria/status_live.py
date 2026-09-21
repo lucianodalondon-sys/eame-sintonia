@@ -134,11 +134,21 @@ def status() -> dict:
         "SOURCE_CURATOR_RUNNING": _estado_servico_snapshot.get("WORKER_ALIVE",
                                                                 False),
 
+        # ⚠️ QUATRO NUMEROS, E NENHUM SUBSTITUI OUTRO.
+        #
+        #   READY_TOTAL          o estado no livro. NAO e «prontas».
+        #   READY_LEGACY         promovidas pela regua antiga. NAO sao prontas.
+        #   READY_CURRENT        promovidas pelo gate de detalhe.
+        #   COLLECTION_ELIGIBLE  o que a Collection pode mesmo tocar hoje
+        #                        (READY_CURRENT menos as que pedem olho humano).
+        #
+        # Um painel que diz «87 prontas» com 77 delas por remedir e um painel
+        # que mente devagar. Quem autoriza coleta le COLLECTION_ELIGIBLE.
         "READY_TOTAL": m["READY"],
-        # READY_LEGACY (regua antiga) != READY_CURRENT (gate de detalhe).
-        # Um painel que some os dois num numero esconde que regua promoveu.
         "READY_LEGACY": m["READY_LEGACY"],
         "READY_CURRENT": m["READY_CURRENT"],
+        "HUMAN_REVIEW_REQUIRED": m["HUMAN_REVIEW_REQUIRED"],
+        "COLLECTION_ELIGIBLE": m["COLLECTION_ELIGIBLE"],
         "READY_TODAY": len(fontes_promovidas_hoje),
         "PROMOTIONS_TODAY": len(promocoes),
         "DISCOVERED_TODAY": len(descobertas),
