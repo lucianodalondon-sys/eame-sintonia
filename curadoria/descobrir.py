@@ -978,6 +978,7 @@ _DOMINIOS_SKIP = frozenset([
     "twitter.com", "x.com", "t.co", "tiktok.com",
     "pinterest.com", "whatsapp.com", "telegram.org", "t.me",
     "addtoany.com", "sharethis.com", "disqus.com",
+    "spotify.com",  # plataforma audio sem capability agro provada
 ])
 
 
@@ -995,18 +996,41 @@ _RE_ARTIGO_INDIVIDUAL = re.compile(
 )
 
 # RC — páginas institucionais obrigatórias italianas
+# PORQUE FALHOU EM ADDENDUM-03: a regex original cobria nomes de paginas de
+# governo regional (giunta, presidente, anticorruzione) mas omitiu termos
+# genericos que aparecem em QUALQUER agencia publica: urp (balcao cidadao) e
+# tutela-dati-personali (pagina de privacidade obrigatoria por GDPR). Foram
+# adicionados abaixo para cobrir agencias especializadas como o ASSAM Marche.
 _RE_ISTITUZIONALE_PATH = re.compile(
     r"/(?:amministrazione-trasparente|amministrazionetrasparente|"
     r"il-presidente|la-giunta-regionale|giunta-regionale|"
     r"istituti-di-garanzia|responsabile-protezione-dati|"
     r"anticorruzione|lo-statuto|statuto-regionale|"
-    r"assemblea-regionale)(?:/|$|\?)",
+    r"assemblea-regionale|"
+    r"urp|ufficio-relazioni-con-il-pubblico)(?:/|$|\?)",
+    re.I
+)
+# RC — prefixos: nomes compostos que variam no sufixo (ex: tutela-dati-personali-privacy)
+# Separados do pattern principal para nao exigir final-de-segmento estrito.
+_RE_ISTITUZIONALE_PATH_PREFIX = re.compile(
+    r"/(?:tutela-dati|privacy[- ]|cookie-policy|dati-personali|protezione-dati)",
     re.I
 )
 _RE_ISTITUZIONALE_HOST = re.compile(
     r"^(?:trasparenza|amministrazionetrasparente|intranet)\.",
     re.I
 )
+
+# RD — paginas de autenticacao/login: nao publicam conteudo, sao portais de
+# acesso. login.microsoftonline.com foi o caso que revelou a lacuna.
+_RE_LOGIN_AUTH_HOST = re.compile(
+    r"^(?:login|accounts?|auth|sso|signin|idp)\.",
+    re.I
+)
+_LOGIN_AUTH_DOMINIOS = frozenset([
+    "microsoftonline.com", "live.com", "okta.com",
+    "auth0.com", "onelogin.com", "pingidentity.com",
+])
 
 # ---- Classificacao de sementes: TEMATICA / GENERICA / UNKNOWN ----
 #
@@ -1172,10 +1196,20 @@ def _filtrar_link(url: str, semente_url: str, anchor: str = "") -> tuple[bool, s
     if _RE_ARTIGO_INDIVIDUAL.search(path):
         return False, "RB_ARTIGO_INDIVIDUAL"
 
+    # RD: pagina de autenticacao/login — nao publica conteudo
+    host_sem_www_rd = re.sub(r"^www\.", "", host)
+    if _RE_LOGIN_AUTH_HOST.match(host_sem_www_rd):
+        return False, "RD_LOGIN_AUTH"
+    for dom in _LOGIN_AUTH_DOMINIOS:
+        if host_sem_www_rd == dom or host_sem_www_rd.endswith("." + dom):
+            return False, "RD_LOGIN_AUTH"
+
     # RC: pagina institucional obrigatoria
     if _RE_ISTITUZIONALE_HOST.match(host):
         return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
     if _RE_ISTITUZIONALE_PATH.search(path):
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+    if _RE_ISTITUZIONALE_PATH_PREFIX.search(path):
         return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
     if "agid.gov.it" in host and "/view/" in path:
         return False, "RC_ISTITUZIONALE_OBBLIGATORIO"

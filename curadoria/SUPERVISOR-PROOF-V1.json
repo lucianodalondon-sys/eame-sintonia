@@ -1,13 +1,13 @@
 {
  "DATASET": "SUPERVISOR-PROOF-V1",
- "GERADO_EM": "2026-09-21T10:44:15.506515+00:00",
+ "GERADO_EM": "2026-09-21T14:08:54.758742+00:00",
  "MISSAO": "SOURCE-CURATOR-SUPERVISOR-V1",
  "01_WORKER_ARRANCA": {
   "PASSOU": true,
   "TIPO": "REAL",
   "ACCAO": "RELANCADO",
-  "WORKER_PID": 84360,
-  "NOTA": "accao=RELANCADO, PID=84360 vivo"
+  "WORKER_PID": 104868,
+  "NOTA": "accao=RELANCADO, PID=104868 vivo"
  },
  "02_PROCESSA_ITEM": {
   "PASSOU": true,
@@ -18,12 +18,12 @@
   "PASSOU": true,
   "TIPO": "REAL",
   "SUPERVISOR_STATE": "RUNNING",
-  "WORKER_PID": 84360
+  "WORKER_PID": 104868
  },
  "04_MATAR_WORKER": {
   "PASSOU": true,
   "TIPO": "REAL",
-  "PID_MORTO": 84360,
+  "PID_MORTO": 104868,
   "NOTA": "taskkill confirmado"
  },
  "05_DETECTA_MORTE": {
@@ -36,9 +36,9 @@
   "PASSOU": true,
   "TIPO": "REAL",
   "ACCAO": "RELANCADO",
-  "PID_NOVO": 89908,
+  "PID_NOVO": 88240,
   "RESTARTS_TOTAL": 2,
-  "NOTA": "relancado com PID=89908"
+  "NOTA": "relancado com PID=88240"
  },
  "07_RETOMA_SEM_PERDER_ESTADO": {
   "PASSOU": true,
@@ -53,7 +53,7 @@
   "PASSOU": true,
   "TIPO": "SIMULADO",
   "ELEGIVEIS_TESTE": [
-   "T00122"
+   "T00223"
   ],
   "NOTA": "RETRY-001 adiada; RETRY-002 continua elegivel"
  },

@@ -955,5 +955,70 @@ class TestRedTeamClassificarSemente(unittest.TestCase):
                          "classificacao real deve detectar portal regional como GENERICA")
 
 
+class TestFiltrarLinkRCFix(unittest.TestCase):
+    """RC corrigida (ADDENDUM-03): urp e tutela-dati-personali que passavam antes."""
+
+    BASE = "https://www.assam.marche.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_urp_raiz_descartado(self):
+        url = "https://www.regione.sicilia.it/urp"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_urp_aninhado_descartado(self):
+        """Caso que falhou no ADDENDUM-03: /agenzia/urp nao era apanhado."""
+        url = "https://www.assam.marche.it/agenzia/urp"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_tutela_dati_aninhado_descartado(self):
+        """Caso que falhou no ADDENDUM-03: /agenzia/tutela-dati-personali-privacy."""
+        url = "https://www.assam.marche.it/agenzia/tutela-dati-personali-privacy"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_pagina_servizi_assam_mantida(self):
+        url = "https://www.assam.marche.it/servizi"
+        self.assertTrue(self._ok(url))
+
+
+class TestFiltrarLinkRD(unittest.TestCase):
+    """RD_LOGIN_AUTH — portais de autenticacao nao publicam conteudo (ADDENDUM-03)."""
+
+    BASE = "https://www.assam.marche.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_microsoftonline_descartado(self):
+        """Caso que revelou a lacuna: login.microsoftonline.com."""
+        url = "https://login.microsoftonline.com/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RD_LOGIN_AUTH")
+
+    def test_login_subdominio_generico_descartado(self):
+        url = "https://login.exemplo.gov.it/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RD_LOGIN_AUTH")
+
+    def test_accounts_descartado(self):
+        url = "https://accounts.google.com/signin"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RD_LOGIN_AUTH")
+
+    def test_pagina_normal_nao_descartada(self):
+        url = "https://www.arpalombardia.it/temi-ambientali/aria/"
+        self.assertTrue(self._ok(url))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
