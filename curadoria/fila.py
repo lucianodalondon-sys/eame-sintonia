@@ -253,6 +253,42 @@ def recuperar_orfas(agora: datetime | None = None, limite_s: int = 1800) -> list
     return mexidas
 
 
+def recuperar_bloqueadas_por_defeito(assinaturas: list[str],
+                                     task_types: set[str] | None = None,
+                                     agora: datetime | None = None) -> list[dict]:
+    """Reenfileira tarefas BLOCKED por um DEFEITO do worker — nunca por politica.
+
+        BLOQUEIO POR DEFEITO SOME QUANDO O DEFEITO E CORRIGIDO.
+        BLOQUEIO POR POLICY/AUTH/CAPABILITY, NAO — e nao se toca nele aqui.
+
+    So mexe em BLOCKED cujo LAST_ERROR casa uma das `assinaturas` (ex.: «sem
+    contrato», «etapa nao implementada») E, se `task_types` for dado, cujo tipo
+    esteja nesse conjunto. Uma QUALIFY barrada pelo guard «sem contrato» foi
+    vitima do defeito (uma candidata nunca tem contrato); mas um CANARY barrado
+    por «sem contrato» e um canario legitimo sem contrato — outra coisa. Por
+    isso o tipo importa, e por isso as assinaturas sao explicitas, nao
+    «desbloquear tudo».
+    """
+    n = agora or agora_utc()
+    d = _ler()
+    mexidas = []
+    for t in d["TAREFAS"]:
+        if t["STATUS"] != BLOCKED:
+            continue
+        if task_types is not None and t["TASK_TYPE"] not in task_types:
+            continue
+        err = t.get("LAST_ERROR") or ""
+        if any(a in err for a in assinaturas):
+            t["STATUS"] = PENDING
+            t["LAST_ERROR"] = ("reenfileirada: bloqueio por defeito corrigido "
+                               "(era: %s)" % err[:90])
+            t["UPDATED_AT"] = _iso(n)
+            mexidas.append(dict(t))
+    if mexidas:
+        _gravar(d)
+    return mexidas
+
+
 def metricas(agora: datetime | None = None) -> dict:
     n = agora or agora_utc()
     d = _ler()

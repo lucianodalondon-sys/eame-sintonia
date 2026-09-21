@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "discovery-crawl-v1",
-    "HEAD": "a28f9f8a85964de2166d5850c5b9976e57d4edd2",
-    "GENERATED_AT": "2026-09-21T08:58:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d1651cf3465a057f33b76ada1757acd4d7c8288aa6df0e309a62db6aa64440d3"
+    "BRANCH": "source-curator-service-v1",
+    "HEAD": "1e17b38d26b4b6014225aa35b1b894f2df99a2ba",
+    "GENERATED_AT": "2026-09-21T11:35:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "899b762f8a093325711cde121cdcd21e82b700b98b70d227be88245d247c71d3"
   },
   "FILES": [
     {
@@ -1067,7 +1067,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "8702d1900b5dd30ef06ca324695f2329a57e5f64",
+      "sha": "d35f520deec6d85e72cb8c912bf6a0a148506e71",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -1731,6 +1731,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CICLO-FONTE-PROOF-V1.json",
+      "sha": "704285fb1def4035477ac6f7b477fe522b3e5b21",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CONTRACT-VALIDATION-V1.json",
       "sha": "5bce030035be7bc61c341204d33f19394c6627b2",
       "ext": ".json",
@@ -1739,7 +1746,7 @@
     },
     {
       "path": "curadoria/CRAWL-PROOF-V1.json",
-      "sha": "ab1a58423f1126b9be32c20d3599b00009917b6b",
+      "sha": "eae8361a57a664244c551bd2b55713c2ddd2aeaf",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1802,7 +1809,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-QUEUE-V1.json",
-      "sha": "2c2ad9779526c0d296fca91d50df738a2d186f52",
+      "sha": "7c30f5c9285c555ccc600a1b2efa79562e781721",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1864,6 +1871,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/RED-TEAM-SERVICE-V1.json",
+      "sha": "65d9ad148d51f73f3216e0e81dbd5ebfb8ea3fbc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/RELATORIO-MISSAO-02.md",
       "sha": "807b62a431fa449cf142ae98e66d1606ee027c55",
       "ext": ".md",
@@ -1881,6 +1895,13 @@
       "path": "curadoria/SAMPLE-MANIFEST-V1.json",
       "sha": "23ea2182e766e9b79a4c0bed656764b6a9108571",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/SERVICO-SOURCE-CURATOR.md",
+      "sha": "14e03691673277b010bd737ed8be87e39aaf7bec",
+      "ext": ".md",
       "readable": false,
       "code_dir": false
     },
@@ -1921,7 +1942,7 @@
     },
     {
       "path": "curadoria/SUPERVISOR-PROOF-V1.json",
-      "sha": "9bcfb6a19e4da1ea19856ea5b6c610603706812b",
+      "sha": "48bd6ddee2d8618a002c21772418c37cd8eb6a6b",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1998,7 +2019,7 @@
     },
     {
       "path": "curadoria/descobrir.py",
-      "sha": "ef90427507f41bc9130a8db67a2279bf6fa759d8",
+      "sha": "81028cb8f7eaa1c079c961807faf1dfacd43a5c3",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2026,7 +2047,7 @@
     },
     {
       "path": "curadoria/fila.py",
-      "sha": "008f53d7e5617244c500eec7b4e5015ab706a9cd",
+      "sha": "84b4f4f51d73501dbaa4d57ce75447602fdab940",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2034,6 +2055,13 @@
     {
       "path": "curadoria/gate_de_rota.py",
       "sha": "8507cee22865935edbad267ef686ea2e7360211d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/gatilho_discovery.py",
+      "sha": "606a82245bf6d0802aa93e812c3f3412523144d7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2095,6 +2123,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/provar_ciclo_fonte.py",
+      "sha": "32a780c96edd7d01ede3880d36eaecc3204c3424",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/provar_lifecycle.py",
       "sha": "f0357e824e7f49a4b48bd5e1f13e8443d4ba3140",
       "ext": ".py",
@@ -2123,6 +2158,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/red_team_service.py",
+      "sha": "98ff4e73b32397f18250a881ccd867ee7cf34e3e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/semear_lifecycle.py",
       "sha": "642095693aafe3c15ec6bc2fa06d4ba81933626b",
       "ext": ".py",
@@ -2131,14 +2173,14 @@
     },
     {
       "path": "curadoria/status_live.py",
-      "sha": "3c98075da904630bcf0d75e454cda53efc770d57",
+      "sha": "29da8ef345c6898a0e6cc5c244cecb9659a0b3ad",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "85b8ba6c4d1d051183dcf76d3dceedd53e212100",
+      "sha": "4edf7346890f016e85b3f86899a0ed780941b43c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2166,7 +2208,14 @@
     },
     {
       "path": "curadoria/test_discovery.py",
-      "sha": "4c41f42082c54056826a44a9c9e708bc2b4e0ce5",
+      "sha": "43a59c620b375ac393e8a71546483b49562fe34e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_gatilho_discovery.py",
+      "sha": "f88f4cb30caf2f787da633556af16ae942b2d1c5",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2193,8 +2242,22 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_status_liveness.py",
+      "sha": "9562b8b76ecbe2ed61b185e0d0d84b0582beda8e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_supervisor.py",
-      "sha": "e571603b89bb71074a9dcc3ab07a5432069137fd",
+      "sha": "09c7218e02bae0c79578bd1cc44fb8af023d4cf4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_worker_qualify.py",
+      "sha": "37c120a091f16bfc53cda047e560f391ca242851",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2215,7 +2278,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "837e112eb4534f55da8cece4bffa7ca1104c193b",
+      "sha": "39172f9d3ac88af7c9619e6657e79598acb6ec29",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20671,6 +20734,50 @@
       }
     },
     {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 58,
+        "snippet": "CANDIDATAS = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 89,
+        "snippet": "import descobrir as D"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 55,
+        "snippet": "import fila as F                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/gatilho_discovery.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/gatilho_discovery.py",
+        "line": 56,
+        "snippet": "import ponte_candidatas as PONTE    # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/interface_collection.py",
       "to_file": "curadoria/READY-SOURCES-V1.json",
       "type": "READS",
@@ -20968,6 +21075,83 @@
       }
     },
     {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 44,
+        "snippet": "import fonte_nova as FN             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 91,
+        "snippet": "(RAIZ / \"curadoria\" / \"BRIDGE-LEDGER-V1.json\").write_text("
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "curadoria/CICLO-FONTE-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 155,
+        "snippet": "saida = RAIZ / \"curadoria\" / \"CICLO-FONTE-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "curadoria/CICLO-FONTE-PROOF-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 156,
+        "snippet": "saida.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 43,
+        "snippet": "import fila as F                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 45,
+        "snippet": "import gatilho_discovery as GD      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ciclo_fonte.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ciclo_fonte.py",
+        "line": 46,
+        "snippet": "import supervisor as S              # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/provar_lifecycle.py",
       "to_file": "curadoria/LIFECYCLE-PROOF-V1.json",
       "type": "READS",
@@ -21199,6 +21383,61 @@
       }
     },
     {
+      "from_file": "curadoria/red_team_service.py",
+      "to_file": "curadoria/RED-TEAM-SERVICE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_service.py",
+        "line": 126,
+        "snippet": "(CUR / \"RED-TEAM-SERVICE-V1.json\").write_text("
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_service.py",
+      "to_file": "curadoria/fila.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_service.py",
+        "line": 60,
+        "snippet": "\"fila.py\", \"if any(a in err for a in assinaturas):\", \"if True:\","
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_service.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_service.py",
+        "line": 51,
+        "snippet": "\"gatilho_discovery.py\", 'if m[\"QUEUE_ELIGIBLE\"] > QUEUE_LOW_WATERMARK:',"
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_service.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_service.py",
+        "line": 41,
+        "snippet": "\"supervisor.py\", \"sup_vivo = bool(sup_pid and _pid_no_so(sup_pid))\","
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_service.py",
+      "to_file": "curadoria/worker.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_service.py",
+        "line": 28,
+        "snippet": "\"worker.py\", \"elif tipo == F.QUALIFY:\", \"elif tipo == F.QUALIFY and False:\","
+      }
+    },
+    {
       "from_file": "curadoria/semear_lifecycle.py",
       "to_file": "curadoria/READY-FOR-COLLECTION-V1.json",
       "type": "READS",
@@ -21331,6 +21570,17 @@
       }
     },
     {
+      "from_file": "curadoria/supervisor.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/supervisor.py",
+        "line": 502,
+        "snippet": "import gatilho_discovery as GD  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_capturador.py",
       "to_file": "curadoria/capturador.py",
       "type": "IMPORTS",
@@ -21416,6 +21666,28 @@
         "file": "curadoria/test_discovery.py",
         "line": 36,
         "snippet": "import descobrir as D      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_discovery.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_discovery.py",
+        "line": 18,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/test_gatilho_discovery.py",
+      "to_file": "curadoria/gatilho_discovery.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_gatilho_discovery.py",
+        "line": 19,
+        "snippet": "import gatilho_discovery as GD"
       }
     },
     {
@@ -21540,13 +21812,35 @@
       }
     },
     {
+      "from_file": "curadoria/test_status_liveness.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_status_liveness.py",
+        "line": 22,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/test_status_liveness.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_status_liveness.py",
+        "line": 23,
+        "snippet": "import supervisor as S"
+      }
+    },
+    {
       "from_file": "curadoria/test_supervisor.py",
       "to_file": "curadoria/fila.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_supervisor.py",
-        "line": 20,
+        "line": 21,
         "snippet": "import fila as F"
       }
     },
@@ -21557,8 +21851,52 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_supervisor.py",
-        "line": 21,
+        "line": 22,
         "snippet": "import supervisor as S"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_qualify.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_qualify.py",
+        "line": 33,
+        "snippet": "import fonte_nova as FN"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_qualify.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_qualify.py",
+        "line": 32,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_qualify.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_qualify.py",
+        "line": 34,
+        "snippet": "import lifecycle as LC"
+      }
+    },
+    {
+      "from_file": "curadoria/test_worker_qualify.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_worker_qualify.py",
+        "line": 35,
+        "snippet": "import worker as W"
       }
     },
     {
@@ -21651,12 +21989,23 @@
     },
     {
       "from_file": "curadoria/worker.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 57,
+        "snippet": "import fonte_nova as FN            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
       "to_file": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 57,
+        "line": 63,
         "snippet": "EVIDENCIA = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -21667,7 +22016,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 85,
+        "line": 104,
         "snippet": "EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -21678,7 +22027,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 204,
+        "line": 223,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -21689,8 +22038,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 181,
-        "snippet": "alloc = json.loads((RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\")"
+        "line": 64,
+        "snippet": "ALLOCATION = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
+      "to_file": "curadoria/atribuir_source_id.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 54,
+        "snippet": "import atribuir_source_id as ASI   # noqa: E402"
       }
     },
     {
@@ -21700,7 +22060,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 50,
+        "line": 55,
         "snippet": "import canario as CANARIO          # noqa: E402"
       }
     },
@@ -21711,7 +22071,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 178,
+        "line": 197,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -21722,7 +22082,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 51,
+        "line": 56,
         "snippet": "import fila as F                   # noqa: E402"
       }
     },
@@ -21733,7 +22093,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 52,
+        "line": 58,
         "snippet": "import gate_de_rota as GATE        # noqa: E402"
       }
     },
@@ -21744,7 +22104,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 56,
+        "line": 62,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -21755,7 +22115,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 240,
+        "line": 259,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -21766,7 +22126,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 53,
+        "line": 59,
         "snippet": "import lifecycle as LC             # noqa: E402"
       }
     },
@@ -21777,7 +22137,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 179,
+        "line": 198,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -66406,10 +66766,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2183,
-    "files_readable": 865,
+    "files_tracked": 2192,
+    "files_readable": 871,
     "files_code_dir": 883,
-    "file_edges": 4600,
+    "file_edges": 4627,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

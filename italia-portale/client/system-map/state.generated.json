@@ -270,6 +270,7 @@
       "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
       "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+      "curadoria/CICLO-FONTE-PROOF-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CRAWL-PROOF-V1.json",
       "curadoria/DISCOVERY-PROOF-V1.json",
@@ -289,9 +290,11 @@
       "curadoria/READY-SOURCES-V1.json",
       "curadoria/REAL-EXAMPLE-INDEX-V1.json",
       "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
+      "curadoria/RED-TEAM-SERVICE-V1.json",
       "curadoria/RELATORIO-MISSAO-02.md",
       "curadoria/RELATORIO-MISSAO-03.md",
       "curadoria/SAMPLE-MANIFEST-V1.json",
+      "curadoria/SERVICO-SOURCE-CURATOR.md",
       "curadoria/SOURCE-CAPABILITY-GAPS-V1.json",
       "curadoria/SOURCE-CHARACTERIZATION-V1.json",
       "curadoria/SOURCE-CURATOR-DECISIONS-V1.json",
@@ -314,6 +317,7 @@
       "curadoria/escrever_no_atlas.py",
       "curadoria/fila.py",
       "curadoria/gate_de_rota.py",
+      "curadoria/gatilho_discovery.py",
       "curadoria/interface_collection.py",
       "curadoria/italy_contracts_curator.json",
       "curadoria/lifecycle.py",
@@ -322,10 +326,12 @@
       "curadoria/manifesto_das_amostras.py",
       "curadoria/ponte_candidatas.py",
       "curadoria/provar_autonomia.py",
+      "curadoria/provar_ciclo_fonte.py",
       "curadoria/provar_lifecycle.py",
       "curadoria/provar_supervisor.py",
       "curadoria/reconciliar.py",
       "curadoria/red_team_lifecycle.py",
+      "curadoria/red_team_service.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
@@ -333,10 +339,13 @@
       "curadoria/test_caracterizador.py",
       "curadoria/test_correr_lote.py",
       "curadoria/test_discovery.py",
+      "curadoria/test_gatilho_discovery.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
       "curadoria/test_ponte_candidatas.py",
+      "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
+      "curadoria/test_worker_qualify.py",
       "curadoria/validar_contratos.py",
       "curadoria/veredito_ready.py",
       "curadoria/worker.py"
@@ -2776,10 +2785,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "discovery-crawl-v1",
-    "HEAD": "a28f9f8a85964de2166d5850c5b9976e57d4edd2",
-    "GENERATED_AT": "2026-09-21T08:58:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d1651cf3465a057f33b76ada1757acd4d7c8288aa6df0e309a62db6aa64440d3"
+    "BRANCH": "source-curator-service-v1",
+    "HEAD": "1e17b38d26b4b6014225aa35b1b894f2df99a2ba",
+    "GENERATED_AT": "2026-09-21T11:35:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "899b762f8a093325711cde121cdcd21e82b700b98b70d227be88245d247c71d3"
   },
   "FAMILIES": [
     {
@@ -4261,8 +4270,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 452",
-        "desses, mostrados aqui: 40 (ficam de fora 412)"
+        "enderecos que o codigo realmente chama: 469",
+        "desses, mostrados aqui: 40 (ficam de fora 429)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -11334,7 +11343,7 @@
             "degrau": 1,
             "nome": "CANDIDATA",
             "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-            "quantas": 68,
+            "quantas": 61,
             "onde": "candidatas/FONTES-CANDIDATAS.json",
             "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
           },
@@ -12328,9 +12337,9 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:01.760609+00:00 | ANCHOR_TEXT=Consulta la PRIVACY POLICY | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
           {
             "CANDIDATA_ID": "CAND-0336",
@@ -13898,9 +13907,9 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:14:05.427876+00:00 | ANCHOR_TEXT=Ufficio relazioni con il pubblico - URP | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
           {
             "CANDIDATA_ID": "CAND-0458",
@@ -17954,9 +17963,9 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:41.131540+00:00 | ANCHOR_TEXT=Intranet | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "RD_LOGIN_AUTH:portal_de_autenticacao_microsoft_nao_publica_conteudo"
           },
           {
             "CANDIDATA_ID": "CAND-0314",
@@ -18437,9 +18446,9 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:39.747516+00:00 | ANCHOR_TEXT=Spotify | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "R6_DOMINIO_IRRELEVANTE:spotify_plataforma_audio_sem_capability_agro_provada"
           },
           {
             "CANDIDATA_ID": "CAND-0435",
@@ -18511,9 +18520,9 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:57.205017+00:00 | ANCHOR_TEXT=Tutela Dati Personali - Privacy | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "RC_ISTITUZIONALE_OBBLIGATORIO:pagina_GDPR_obrigatoria_nao_publica_conteudo_agro"
           },
           {
             "CANDIDATA_ID": "CAND-0269",
@@ -18543,9 +18552,9 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:45.490788+00:00 | ANCHOR_TEXT=URP | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "RC_ISTITUZIONALE_OBBLIGATORIO:balcao_atendimento_publico_nao_e_fonte_agro"
           },
           {
             "CANDIDATA_ID": "CAND-0168",
@@ -18707,9 +18716,9 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:31.949930+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "RECUSADA",
             "SOURCE_ID": null,
-            "MOTIVO_DA_RECUSA": null
+            "MOTIVO_DA_RECUSA": "R6_DOMINIO_IRRELEVANTE:whatsapp_canal_nao_e_fonte_estruturada_de_dados"
           },
           {
             "CANDIDATA_ID": "CAND-0290",
@@ -44259,7 +44268,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch discovery-crawl-v1"
+        "branch source-curator-service-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101201,7 +101210,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1168,
+  "UNCLAIMED_FILES_COUNT": 1177,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101390,7 +101399,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2183,
+    "files_tracked": 2192,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,

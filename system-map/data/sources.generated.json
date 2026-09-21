@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-21T13:17:21+00:00",
-    "HEAD": "a28f9f8a85964de2166d5850c5b9976e57d4edd2",
+    "GENERATED_AT": "2026-09-21T21:32:17+00:00",
+    "HEAD": "1e17b38d26b4b6014225aa35b1b894f2df99a2ba",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "d1651cf3465a057f33b76ada1757acd4d7c8288aa6df0e309a62db6aa64440d3",
-    "FICHEIROS_NA_IMPRESSAO": 2331,
+    "SOURCE_TREE_FINGERPRINT": "899b762f8a093325711cde121cdcd21e82b700b98b70d227be88245d247c71d3",
+    "FICHEIROS_NA_IMPRESSAO": 2340,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "8702d1900b5dd30ef06ca324695f2329a57e5f64",
+        "VERSAO": "d35f520deec6d85e72cb8c912bf6a0a148506e71",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "2fb424739875aaf5d6e73afd429ecad420d2ca2d323faeb333fd4a953842f5d4",
+    "INPUTS_DIGEST": "b7a250dac65249275ebc18c6a395e3ec2399162c16a18709ff5247a6aa834c68",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 68,
+        "quantas": 61,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -11550,9 +11550,9 @@
         "ONDE_VIU": "https://www.arpalombardia.it/",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:01.760609+00:00 | ANCHOR_TEXT=Consulta la PRIVACY POLICY | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
       },
       {
         "CANDIDATA_ID": "CAND-0336",
@@ -13120,9 +13120,9 @@
         "ONDE_VIU": "https://www.arpat.toscana.it/",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:14:05.427876+00:00 | ANCHOR_TEXT=Ufficio relazioni con il pubblico - URP | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
       },
       {
         "CANDIDATA_ID": "CAND-0458",
@@ -17176,9 +17176,9 @@
         "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:41.131540+00:00 | ANCHOR_TEXT=Intranet | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "RD_LOGIN_AUTH:portal_de_autenticacao_microsoft_nao_publica_conteudo"
       },
       {
         "CANDIDATA_ID": "CAND-0314",
@@ -17659,9 +17659,9 @@
         "ONDE_VIU": "https://www.arpae.it/",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:39.747516+00:00 | ANCHOR_TEXT=Spotify | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "R6_DOMINIO_IRRELEVANTE:spotify_plataforma_audio_sem_capability_agro_provada"
       },
       {
         "CANDIDATA_ID": "CAND-0435",
@@ -17733,9 +17733,9 @@
         "ONDE_VIU": "https://www.assam.marche.it/",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:57.205017+00:00 | ANCHOR_TEXT=Tutela Dati Personali - Privacy | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "RC_ISTITUZIONALE_OBBLIGATORIO:pagina_GDPR_obrigatoria_nao_publica_conteudo_agro"
       },
       {
         "CANDIDATA_ID": "CAND-0269",
@@ -17765,9 +17765,9 @@
         "ONDE_VIU": "https://www.assam.marche.it/",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:45.490788+00:00 | ANCHOR_TEXT=URP | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "RC_ISTITUZIONALE_OBBLIGATORIO:balcao_atendimento_publico_nao_e_fonte_agro"
       },
       {
         "CANDIDATA_ID": "CAND-0168",
@@ -17929,9 +17929,9 @@
         "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:31.949930+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-        "ESTADO": "CANDIDATA",
+        "ESTADO": "RECUSADA",
         "SOURCE_ID": null,
-        "MOTIVO_DA_RECUSA": null
+        "MOTIVO_DA_RECUSA": "R6_DOMINIO_IRRELEVANTE:whatsapp_canal_nao_e_fonte_estruturada_de_dados"
       },
       {
         "CANDIDATA_ID": "CAND-0290",
@@ -22276,9 +22276,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 452,
+  "ENDPOINTS_FOUND": 469,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 412,
+  "ENDPOINTS_TRUNCATED": 429,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -22296,9 +22296,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 452,
+    "endpoints": 469,
     "endpoints_published": 40,
-    "endpoints_truncated": 412,
+    "endpoints_truncated": 429,
     "candidates": 476,
     "coletores": 52,
     "coletores_com_data": 20,

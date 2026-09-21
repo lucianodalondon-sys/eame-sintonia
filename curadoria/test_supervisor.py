@@ -9,6 +9,7 @@ para simular o caso em que a comparacao de strings da falso-positivo de
 import json
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -82,18 +83,20 @@ class TestUmaVoltaSup(unittest.TestCase):
     def setUp(self):
         S.PARAR.unlink(missing_ok=True)
         S.LOCK.unlink(missing_ok=True)
-        # Limpar tarefas de teste.
-        d = F._ler()
-        d["TAREFAS"] = [t for t in d["TAREFAS"]
-                        if not t["SOURCE_ID"].startswith("IT-TEST-SUP-")]
-        F._gravar(d)
+        # ⚠️ FILA ISOLADA. Estes testes asseram accoes do supervisor sobre uma
+        # fila conhecida (ex.: «sem trabalho -> IDLE»). Ler a fila REAL fazia o
+        # teste depender de quantas tarefas o servico tem hoje — e, pior, fazia
+        # o supervisor lancar um worker REAL contra a lane, que agora processa
+        # QUALIFY e bate a rede. A fila do teste vive num ficheiro temporario.
+        self._fila_orig = F.FILA
+        self._tmp = Path(tempfile.mkdtemp(prefix="sup-test-"))
+        F.FILA = self._tmp / "fila.json"
+        F.FILA.write_text(json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}),
+                          encoding="utf-8")
 
     def tearDown(self):
         S.PARAR.unlink(missing_ok=True)
-        d = F._ler()
-        d["TAREFAS"] = [t for t in d["TAREFAS"]
-                        if not t["SOURCE_ID"].startswith("IT-TEST-SUP-")]
-        F._gravar(d)
+        F.FILA = self._fila_orig
 
     def _estado_base(self):
         return {"SUPERVISOR_STATE": "STARTING", "RESTARTS_TOTAL": 0,

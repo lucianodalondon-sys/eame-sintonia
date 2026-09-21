@@ -39,26 +39,45 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
+sys.path.insert(0, str(RAIZ / "candidatas"))
 
+import atribuir_source_id as ASI   # noqa: E402
 import canario as CANARIO          # noqa: E402
 import fila as F                   # noqa: E402
+import fonte_nova as FN            # noqa: E402
 import gate_de_rota as GATE        # noqa: E402
 import lifecycle as LC             # noqa: E402
 
 CONTRATO = "SOURCE_CURATOR_WORKER/v1"
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
 EVIDENCIA = RAIZ / "curadoria" / "LIFECYCLE-EVIDENCE-V1.json"
+ALLOCATION = RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json"
 
 # Classes de falha que NUNCA se tentam outra vez automaticamente.
 # Tentar de novo o que esta barrado por politica nao e persistencia: e contorno.
 NAO_INSISTIR = {"POLICY", "AUTH", "ROBOTS"}
+
+# ⚠️ AS ETAPAS QUE, POR DESENHO, CORREM SEM CONTRATO.
+# Uma candidata nova nao tem contrato — nao ter e a condicao de partida, nao um
+# defeito. QUALIFY existe para caracterizar essa candidata e BUILD_CONTRACT
+# existe para produzir o contrato. Exigir contrato a qualquer uma das duas seria
+# pedir o resultado como pre-condicao de si proprio. Todas as outras etapas
+# operam SOBRE um contrato e por isso continuam a exigi-lo.
+SEM_CONTRATO_POR_DESENHO = frozenset({F.BUILD_CONTRACT, F.QUALIFY})
+
+# Tipos sociais barrados por politica/capacidade conhecida (mesma lei da ponte).
+_SOCIAL_POLICY = frozenset({"LINKEDIN", "INSTAGRAM"})
+_SOCIAL_CAPABILITY = frozenset({"FACEBOOK"})
 
 
 def agora() -> str:
@@ -244,7 +263,178 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
                   "INDEX_URL": novo["ACQUISITION"]["INDEX_URL"][:110]}
 
 
+# ---------------------------------------------------------------------------
+# QUALIFY — o primeiro degrau de uma candidata sem SOURCE_ID nem contrato.
+#
+#     ENFILEIRADA != PROCESSAVEL.
+#
+# A ponte enche a fila com QUALIFY cuja chave e o CANDIDATA_ID (CAND-xxxx), nao
+# um SOURCE_ID — porque o SOURCE_ID e precisamente o que ainda nao existe. Sem
+# esta etapa, a fila enchia de trabalho que o worker nao sabia fazer, e cada
+# QUALIFY morria em BLOCK «etapa sem executor».
+#
+# Tudo aqui e deterministico e SEM LLM: le a ficha, mede o territorio pela regra
+# do Atlas (nome/URL), pede o SOURCE_ID canonico (ou UNKNOWN, sem fabricar) e
+# reenfileira o degrau seguinte. OPUS entraria so na ambiguidade semantica
+# (territorio NAO SEI), e mesmo ai o resultado volta ao lifecycle deterministico.
+# ---------------------------------------------------------------------------
+def _ficha_candidata(cand_id: str) -> dict | None:
+    """A ficha da candidata, lida pela PORTA (candidatas/fonte_nova), nao por um
+    ficheiro qualquer. A porta e a fonte de verdade da candidata."""
+    doc = FN.carregar()
+    for c in doc.get("CANDIDATAS", []):
+        if c.get("CANDIDATA_ID") == cand_id:
+            return c
+    return None
+
+
+def _ler_alloc() -> dict:
+    if ALLOCATION.exists():
+        return json.loads(ALLOCATION.read_text(encoding="utf-8"))
+    return {"DATASET": "SOURCE-ID-ALLOCATION-V1",
+            "MAIOR_POR_TERRITORIO_ANTES": {}, "ATRIBUIDOS": 0, "NOVAS": []}
+
+
+def _gravar_alloc(d: dict) -> None:
+    fd, tmp = tempfile.mkstemp(dir=str(ALLOCATION.parent), suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(d, fh, ensure_ascii=False, indent=1)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(tmp, ALLOCATION)
+    except BaseException:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+
+
+def _max_por_territorio(alloc: dict) -> dict:
+    """O maior numero usado por territorio, para continuar dali. NUNCA recicla.
+
+    ⚠️ CAVEAT DE FRAGMENTACAO (medido e documentado noutras missoes): o registo
+    de SOURCE_ID vive espalhado por varias branches. Este calculo garante que
+    nao ha colisao DENTRO deste registo — a sequencia parte de
+    MAIOR_POR_TERRITORIO_ANTES (que ja absorveu o Atlas + onboarded no momento
+    da alocacao em lote) e do maior ja atribuido aqui. Reconciliar colisoes
+    entre branches e outra lane, e esta missao NAO lhe toca.
+    """
+    maior: dict[str, int] = {k: int(v) for k, v in
+                             alloc.get("MAIOR_POR_TERRITORIO_ANTES", {}).items()}
+    for n in alloc.get("NOVAS", []):
+        m = re.match(r"^IT-(T\d+)-(\d+)$", str(n.get("SOURCE_ID", "")))
+        if m:
+            maior[m.group(1)] = max(maior.get(m.group(1), 0), int(m.group(2)))
+    return maior
+
+
+def _alocar_source_id(cand_id: str, territorio: str, familia: str,
+                      ficha: dict, porque: str) -> tuple[str, bool]:
+    """Pede o SOURCE_ID canonico ao registo de alocacao. Idempotente: se esta
+    candidata ja tem numero, devolve o mesmo (nunca cunha um segundo).
+
+    Devolve (SOURCE_ID, novo?).
+    """
+    alloc = _ler_alloc()
+    for n in alloc.get("NOVAS", []):
+        if n.get("CANDIDATE_ID") == cand_id:
+            return n["SOURCE_ID"], False
+    maior = _max_por_territorio(alloc)
+    seq = maior.get(territorio, 0) + 1
+    sid = "IT-%s-%03d" % (territorio, seq)
+    nova = {
+        "CANDIDATE_ID": cand_id,
+        "SOURCE_ID": sid,
+        "TERRITORY": territorio,
+        "TERRITORY_REASON": porque,
+        "NOME": ficha.get("NOME", ""),
+        "URL": ficha.get("URL", ""),
+        "FAMILY": familia,
+        "MESMA_ORGANIZACAO": None,
+        "ALLOCATED_BY": ("SOURCE-CURATOR-WORKER/QUALIFY — regra do Atlas "
+                         "(IT-T<territorio>-<seq>, max+1, nunca recicla)"),
+        "ALLOCATED_AT": agora(),
+    }
+    alloc.setdefault("NOVAS", []).append(nova)
+    alloc["ATRIBUIDOS"] = len(alloc["NOVAS"])
+    _gravar_alloc(alloc)
+    return sid, True
+
+
+def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
+    """O primeiro degrau. `source_id` e o CANDIDATA_ID (a fila nao tem outro).
+
+    NUNCA promove READY. Devolve, como as outras etapas, (RESULTADO, detalhe):
+      OK    -> identidade canonica alocada; BUILD_CONTRACT enfileirado
+      BLOCK -> social/policy, sem capacidade (YouTube), ou identidade ambigua
+      FAIL  -> a candidata nem existe na porta
+    """
+    cand_id = source_id
+    ficha = _ficha_candidata(cand_id)
+    if not ficha:
+        return "FAIL", {"PORQUE": "candidata %s desconhecida na porta de entrada"
+                        % cand_id}
+
+    tipo = (ficha.get("TIPO") or "").upper()
+    pais = ficha.get("PAIS") or "NAO SEI"
+
+    # ⚠️ A PORTA DAS TRASEIRAS NAO EXISTE. Social barrado por politica/capacidade
+    # nao entra por QUALIFY — insistir no que a policy barra e contorno.
+    if tipo in _SOCIAL_POLICY:
+        return "BLOCK", {"CLASSE": "POLICY",
+                         "PORQUE": "%s: coleta automatizada proibida pelos TOS" % tipo}
+    if tipo in _SOCIAL_CAPABILITY:
+        return "BLOCK", {"CLASSE": "CAPABILITY",
+                         "PORQUE": "%s: sem capacidade de coleta nesta instalacao" % tipo}
+
+    familia = "YOUTUBE" if tipo == "YOUTUBE" else "HTML_SITE"
+
+    # ⚠️ CAPACIDADE ANTES DE IDENTIDADE. O worker so tem molde HTML. Um canal de
+    # YouTube nao se coleta com watch-page: exige channel_id e captura de video,
+    # capacidade com outro dono. Como nao ha caminho a seguir, o territorio e
+    # irrelevante — bloquear por capacidade e a verdade, independentemente dele.
+    if familia == "YOUTUBE":
+        return "BLOCK", {"CLASSE": "CAPABILITY",
+                         "PORQUE": ("YouTube exige channel_id e molde de video "
+                                    "(conteudo real, nao watch-page) — capacidade com "
+                                    "outro dono")}
+
+    territorio, porque = ASI.territorio_de({
+        "NOME": ficha.get("NOME", ""), "URL": ficha.get("URL", ""),
+        "CONTENT_VALUE_TYPE": [],
+    })
+
+    # ⚠️ SEM SINAL, SEM NUMERO — E SEM FABRICAR. Territorio indeterminado pelo
+    # nome/URL e identidade que so raciocinio semantico (Opus/humano) resolve.
+    # Um numero inventado poe a fonte na gaveta errada e da ar de trabalho feito.
+    if territorio == "NAO SEI":
+        return "BLOCK", {"CLASSE": "SEMANTIC",
+                         "PORQUE": ("territorio indeterminado pelo nome (%s) — SOURCE_ID "
+                                    "fica UNKNOWN, sem fabricar; precisa de decisao "
+                                    "semantica (Opus/humano) ou caracterizacao"
+                                    % (ficha.get("NOME", "")[:50]))}
+
+    # HTML: pedir/alocar o SOURCE_ID canonico e passar ao degrau do contrato.
+    sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque)
+
+    if LC.estado_de(sid_real) != LC.CONTRACT_PENDING:
+        LC.registar(sid_real, LC.CONTRACT_PENDING,
+                    "QUALIFY: %s -> %s (%s); identidade canonica alocada, falta contrato"
+                    % (cand_id, sid_real, territorio),
+                    evidence_ref=None)
+    F.enfileirar(sid_real, F.BUILD_CONTRACT, priority=45,
+                 motivo="QUALIFY alocou %s a partir de %s; construir contrato"
+                        % (sid_real, cand_id))
+
+    return "OK", {"SOURCE_ID_REAL": sid_real, "TERRITORY": territorio,
+                  "FAMILY": familia, "PAIS": pais, "TIPO": tipo,
+                  "SOURCE_ID_NOVO": novo,
+                  "PORQUE": "qualificada: %s -> %s (%s)"
+                            % (cand_id, sid_real, territorio)}
+
+
 ETAPAS = {
+    F.QUALIFY: etapa_qualify,
     F.VALIDATE_ROUTE: etapa_validate_route,
     F.CANARY: etapa_canary,
     F.REVALIDATE: etapa_canary,
@@ -258,10 +448,12 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
     sid, tipo, tid = tarefa["SOURCE_ID"], tarefa["TASK_TYPE"], tarefa["TASK_ID"]
     contrato = contratos.get(sid)
 
-    # BUILD_CONTRACT e a unica etapa que corre SEM contrato — e o que ela
-    # existe para produzir. Exigir contrato aqui seria pedir o resultado
-    # como pre-condicao de si proprio.
-    if not contrato and tipo != F.BUILD_CONTRACT:
+    # ⚠️ O GUARD DE «SEM CONTRATO» SO SE APLICA A QUEM OPERA SOBRE UM CONTRATO.
+    # QUALIFY e BUILD_CONTRACT correm SEM contrato por desenho — QUALIFY porque
+    # a candidata ainda nem tem SOURCE_ID, BUILD_CONTRACT porque e o que ela
+    # existe para produzir. Barra-las aqui era o defeito que punha as 72 QUALIFY
+    # em BLOCK. Nao se fabrica contrato vazio: corrige-se a condicao.
+    if not contrato and tipo not in SEM_CONTRATO_POR_DESENHO:
         F.bloquear(tid, "sem contrato nesta arvore")
         return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
                 "RESULTADO": "BLOCK", "EVIDENCE_REF": "",
@@ -294,6 +486,13 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
                             evidence_ref=ref)
             F.enfileirar(sid, F.CANARY, priority=60,
                          motivo="rota validada, falta o canario")
+        elif tipo == F.QUALIFY:
+            # ⚠️ QUALIFY NAO PROMOVE. A alocacao de identidade, o lifecycle
+            # (CONTRACT_PENDING) e o enfileiramento do BUILD_CONTRACT ja
+            # aconteceram DENTRO da etapa, sob o SOURCE_ID real — nunca sob o
+            # CANDIDATA_ID. Aqui so se fecha a tarefa de qualificacao. Deixar
+            # QUALIFY cair no ramo de baixo promoveria READY sem canario.
+            pass
         else:
             # PROMOCAO. So daqui, e so com a prova do canario em mao.
             LC.registar(sid, LC.READY_FOR_COLLECTION,
@@ -313,7 +512,8 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
         F.bloquear(tid, detalhe.get("PORQUE", classe)[:160])
         novo = {"ROBOTS": LC.CONTRACT_READY_ROUTE_BLOCKED,
                 "AUTH": LC.AUTH_BLOCK,
-                "POLICY": LC.POLICY_BLOCK}.get(classe, LC.CAPABILITY_BLOCK)
+                "POLICY": LC.POLICY_BLOCK,
+                "SEMANTIC": LC.SEMANTIC_REVIEW}.get(classe, LC.CAPABILITY_BLOCK)
         if LC.estado_de(sid) != novo:
             LC.registar(sid, novo, detalhe.get("PORQUE", "")[:200], evidence_ref=ref)
 

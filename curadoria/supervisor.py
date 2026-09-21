@@ -495,9 +495,21 @@ def _loop(pausa_worker: float, poll: float) -> int:
 
     proc: Optional[subprocess.Popen] = None
 
+    # ⚠️ O GATILHO DO MODO CONTINUO. Sem isto, o supervisor ficava IDLE para
+    # sempre quando a fila esvaziasse — «a fila acabou» viraria paragem de
+    # facto. O hook so age abaixo do limiar (ver gatilho_discovery), por isso
+    # nao ha busy-loop nem despejo de candidatas.
+    import gatilho_discovery as GD  # noqa: E402
+
+    def _hook_fila_vazia():
+        m = GD.talvez_alimentar(estado)
+        if m.get("ACCOES"):
+            _anotar({"EVENTO": "REALIMENTACAO", **m})
+
     try:
         while True:
-            accao, estado, proc = uma_volta_sup(estado, proc, pausa_worker)
+            accao, estado, proc = uma_volta_sup(estado, proc, pausa_worker,
+                                                hook_fila_vazia=_hook_fila_vazia)
 
             if accao == "PARA_FLAG":
                 motivo = PARAR.read_text(encoding="utf-8").strip()[:120]
@@ -539,35 +551,99 @@ def _loop(pausa_worker: float, poll: float) -> int:
 # ---------------------------------------------------------------------------
 
 def ler_estado_servico() -> dict:
-    """Devolve o estado actual do servico. Nunca levanta excecao."""
+    """Estado do servico DERIVADO DO SO no instante da leitura. Nunca levanta.
+
+        UM JSON QUE DIZ RUNNING NAO E UM PROCESSO QUE EXISTE.
+
+    O ficheiro SUPERVISOR-STATE.json guarda o ultimo rotulo que o supervisor
+    escreveu — e esse rotulo envelhece: o processo morre e o ficheiro continua
+    a dizer RUNNING, WORKER_ALIVE=true. Aqui NADA se herda do ficheiro para a
+    vida:
+
+      - o supervisor esta vivo? PID gravado existe no SO, agora?
+      - o worker esta vivo? PID gravado existe no SO, agora?
+      - o heartbeat e recente? senao, STALE, com o delta em segundos a vista.
+
+    O ficheiro so contribui os PIDs e os contadores historicos (restarts, etc.);
+    a vida vem sempre do SO.
+    """
     try:
         s = _ler_estado()
     except Exception:
         s = {}
 
-    pid   = s.get("WORKER_PID")
-    alive = bool(pid and _pid_no_so(pid))
+    agora = datetime.now(timezone.utc)
 
+    # --- LIVENESS: PID no SO, no instante da leitura ---
+    worker_pid = s.get("WORKER_PID")
+    worker_pid_no_so = bool(worker_pid and _pid_no_so(worker_pid))
+    sup_pid = s.get("SUPERVISOR_PID")
+    sup_vivo = bool(sup_pid and _pid_no_so(sup_pid))
+
+    # --- HEARTBEAT: idade real, sempre calculada ---
     hb = _ultimo_heartbeat()
-    if hb:
-        s["LAST_PROGRESS_AT"] = hb.isoformat()
-        delta = (datetime.now(timezone.utc) - hb).total_seconds()
-        if alive and delta >= HEARTBEAT_TIMEOUT_S:
-            alive = False
+    hb_iso = hb.isoformat() if hb else None
+    hb_idade = (agora - hb).total_seconds() if hb else None
+    hb_stale = bool(hb_idade is not None and hb_idade >= HEARTBEAT_TIMEOUT_S)
 
-    state = s.get("SUPERVISOR_STATE", "UNKNOWN")
-    if state == "RUNNING" and not alive:
-        state = "STOPPED"
+    # Worker vivo = PID no SO E heartbeat recente. Um PID vivo com heartbeat
+    # velho e um worker PENDURADO, nao um worker a trabalhar.
+    worker_alive = worker_pid_no_so and not hb_stale
+
+    parar = PARAR.exists()
+    try:
+        n_eleg = len(F.elegiveis())
+    except Exception:
+        n_eleg = None
+
+    estado_gravado = s.get("SUPERVISOR_STATE", "UNKNOWN")
+
+    # --- ESTADO DO SUPERVISOR (do SO, nao do ficheiro) ---
+    if estado_gravado == "BLOCKED":
+        # crashloop: o supervisor pos-se BLOCKED e saiu. O rotulo persiste com
+        # a razao; o processo ja nao esta vivo — e isso e coerente.
+        supervisor_state = "BLOCKED"
+    elif sup_vivo:
+        supervisor_state = "STOPPING" if parar else "RUNNING"
+    else:
+        supervisor_state = "STOPPED"
+
+    # --- ESTADO DO WORKER ---
+    if worker_pid_no_so and hb_stale:
+        worker_state = "STALE"           # PID existe, mas nao progride
+    elif worker_alive:
+        worker_state = "WORKING"
+    elif supervisor_state == "RUNNING" and n_eleg == 0:
+        worker_state = "IDLE"            # sem trabalho NAO se chama STOPPED
+    elif supervisor_state == "RUNNING" and n_eleg:
+        worker_state = "PENDING_RELAUNCH"
+    else:
+        worker_state = "DOWN"
+
+    # --- rollup de compatibilidade ---
+    service = {"RUNNING": "RUNNING", "STOPPING": "RUNNING",
+               "BLOCKED": "BLOCKED"}.get(supervisor_state, "STOPPED")
 
     return {
-        "SOURCE_CURATOR_SERVICE":   state,
-        "WORKER_PID":               pid,
-        "WORKER_ALIVE":             alive,
-        "LAST_PROGRESS_AT":         s.get("LAST_PROGRESS_AT"),
-        "RESTARTS_TOTAL":           s.get("RESTARTS_TOTAL", 0),
-        "LAST_RESTART_AT":          s.get("LAST_RESTART_AT"),
-        "LAST_RESTART_REASON":      s.get("LAST_RESTART_REASON"),
+        "SOURCE_CURATOR_SERVICE":    service,
+        "SUPERVISOR_STATE":          supervisor_state,
+        "SUPERVISOR_PID":            sup_pid,
+        "SUPERVISOR_ALIVE":          sup_vivo,
+        "WORKER_STATE":              worker_state,
+        "WORKER_PID":                worker_pid,
+        "WORKER_ALIVE":              worker_alive,
+        "HEARTBEAT_AT":              hb_iso,
+        "HEARTBEAT_AGE_S":           round(hb_idade, 1) if hb_idade is not None else None,
+        "HEARTBEAT_STALE":           hb_stale,
+        "HEARTBEAT_TIMEOUT_S":       HEARTBEAT_TIMEOUT_S,
+        "QUEUE_ELIGIBLE_NOW":        n_eleg,
+        "STOP_REQUESTED":            parar,
+        "LAST_PROGRESS_AT":          hb_iso or s.get("LAST_PROGRESS_AT"),
+        "RESTARTS_TOTAL":            s.get("RESTARTS_TOTAL", 0),
+        "LAST_RESTART_AT":           s.get("LAST_RESTART_AT"),
+        "LAST_RESTART_REASON":       s.get("LAST_RESTART_REASON"),
         "SUPERVISOR_BLOCKED_REASON": s.get("SUPERVISOR_BLOCKED_REASON"),
+        "LIVENESS_SOURCE":           "DERIVED_FROM_OS_AT_READ_TIME",
     }
 
 

@@ -1,0 +1,44 @@
+{
+ "GERADO_EM": "2026-09-21T21:17:51.952412+00:00",
+ "PASSOS": {
+  "2_FILA_RECEBE": {
+   "eligible": 2,
+   "PROVA": "REAL"
+  },
+  "3_WORKER_ACORDA": {
+   "accao": "RELANCADO",
+   "pid": 86684,
+   "pid_no_so": true,
+   "PROVA": "REAL"
+  },
+  "4_5_PROCESSA_E_TERMINA": {
+   "queue_eligible_after": 0,
+   "blocked": 2,
+   "worker_saiu": true,
+   "PROVA": "REAL"
+  },
+  "6_7_SUPERVISOR_VIVO_FILA_BAIXA": {
+   "accao": "IDLE",
+   "eligible": 0,
+   "PROVA": "REAL"
+  },
+  "8_10_GATILHO_DISCOVERY_FEEDER": {
+   "decisao": "DISCOVERY_ACCIONADA",
+   "accoes": [
+    "FEEDER",
+    "DISCOVERY",
+    "FEEDER_2"
+   ],
+   "eligible_antes": 0,
+   "eligible_depois": 4,
+   "candidata_nova_apareceu": true,
+   "PROVA": "REAL (feeder) + SIMULADO (crawl injectado)"
+  },
+  "11_WORKER_VOLTA_A_ACORDAR": {
+   "accao": "RELANCADO",
+   "pid": 91224,
+   "PROVA": "REAL"
+  }
+ },
+ "CONTINUOUS_SOURCE_LOOP_PROVEN": "YES"
+}

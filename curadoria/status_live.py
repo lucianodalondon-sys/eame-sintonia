@@ -120,10 +120,12 @@ def status() -> dict:
 
         # Derivado do PID real — nao hardcoded.
         # SOURCE_CURATOR_RUNNING mantido por compatibilidade; o campo canonico
-        # e SOURCE_CURATOR_SERVICE (RUNNING / STOPPED / BLOCKED).
+        # e SOURCE_CURATOR_SERVICE (RUNNING / STOPPED / BLOCKED). «Running»
+        # aqui e o SERVICO (supervisor vivo), nao o worker — um servico com o
+        # worker IDLE continua a correr.
         **_estado_servico_snapshot,
-        "SOURCE_CURATOR_RUNNING": _estado_servico_snapshot.get("WORKER_ALIVE",
-                                                                False),
+        "SOURCE_CURATOR_RUNNING": (
+            _estado_servico_snapshot.get("SOURCE_CURATOR_SERVICE") == "RUNNING"),
 
         "READY_TOTAL": m["READY"],
         "READY_TODAY": len(fontes_promovidas_hoje),
