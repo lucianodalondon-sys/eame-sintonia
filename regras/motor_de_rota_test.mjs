@@ -475,6 +475,74 @@ T("conferirIdentidade - captura opcional exige DEFAULTS, senao o molde fica com 
     ContratoInvalido);
 });
 
+// ── O SOBREVIVENTE DA CANONICAL-MICRO-V1, E A LEI QUE O PRENDE ────────────
+// ⚠️ MEDIDO DE FORA PELO DONO, E REPRODUZIDO AQUI ANTES DE ESCREVER ISTO:
+// apagar a linha 114 de `motor_de_rota.mjs` — o `throw` de
+// «CONTENT_CAPTURE sem CAPTURES» — deixava a suite inteira em
+// `45 PASSOU · 0 FALHOU`. O mutante SOBREVIVIA.
+//
+// Porque sobrevivia: havia `assert.throws` para `MAGIA`, para
+// `STATIC_ENDPOINT` sem URL, para `CUSTOM_ADAPTER` sem ADAPTER_ID, para
+// `FROM: "TELEPATIA"` e para a captura opcional sem `DEFAULTS` — mas nenhum
+// para a ausencia do proprio bloco `CAPTURES`. Todas as provas de
+// `CONTENT_CAPTURE` partiam de `ID_URL`, que TRAZ `CAPTURES` ja preenchido.
+//
+//     COBRIR OUTRA ESTRATEGIA NAO E COBRIR ESTA LEI.
+//     UMA LEI SO ESTA PROVADA PELA PROVA QUE FALHA QUANDO ELA CAI.
+//
+// As tres formas de nao ter `CAPTURES` nao caem no mesmo sitio, e por isso
+// sao medidas as tres:
+//   ausente / `null` → sem o `throw`, `Object.entries` rebenta com um
+//     `TypeError`, que NAO e `ContratoInvalido`: contrato invalido passaria
+//     a parecer avaria do motor;
+//   `{}` com molde literal → sem o `throw` nao ha mais nada a reprovar, e a
+//     conferencia devolve `true` a um contrato que nao sabe identificar nada.
+//     Esta e a forma que mata mesmo: e o unico guarda no caminho.
+const DOC_FIXO = "IT-FICT-001:documento-unico";
+
+T("CONTENT_CAPTURE sem CAPTURES reprova — e reprova por ESTA lei", () => {
+  const semCaptures = (caps) => {
+    const s = { STRATEGY: "CONTENT_CAPTURE", DOCUMENT_ID: DOC_FIXO };
+    if (caps !== undefined) s.CAPTURES = caps;
+    return s;
+  };
+  // `{}` — molde SEM `{nome.N}`, para que este `throw` seja o unico guarda no
+  // caminho. Se ele cair, a conferencia devolve `true` e a prova acusa.
+  assert.throws(() => conferirIdentidade("IT-FICT-001", semCaptures({})),
+    (err) => {
+      assert.ok(err instanceof ContratoInvalido,
+        `CAPTURES vazio saiu como ${err.constructor.name}, nao como ContratoInvalido`);
+      assert.match(err.message, /CONTENT_CAPTURE sem CAPTURES/,
+        "reprovou, mas por outra lei que nao esta");
+      return true;
+    }, "CONTENT_CAPTURE com CAPTURES VAZIO passou a conferencia");
+  // ausente e `null` — tem de sair `ContratoInvalido`, nao um TypeError cru.
+  for (const caps of [undefined, null]) {
+    assert.throws(() => conferirIdentidade("IT-FICT-001", semCaptures(caps)),
+      (err) => {
+        assert.ok(err instanceof ContratoInvalido,
+          `CAPTURES ${JSON.stringify(caps) ?? "ausente"} saiu como ` +
+          `${err.constructor.name} — contrato invalido a parecer avaria do motor`);
+        assert.match(err.message, /CONTENT_CAPTURE sem CAPTURES/);
+        return true;
+      });
+  }
+});
+
+// CONTROLO POSITIVO. Sem ele, a prova acima seria satisfeita por um motor que
+// recusasse TODO o `CONTENT_CAPTURE` — e recusar tudo tambem mata o mutante,
+// sem servir para nada. Esta prova diz o que a lei NAO pode barrar.
+T("CONTROLO POSITIVO - CONTENT_CAPTURE com CAPTURES valido passa e identifica", () => {
+  const spec = { STRATEGY: "CONTENT_CAPTURE", DOCUMENT_ID: DOC_FIXO,
+                 CAPTURES: { doc: { FROM: "URL", PATTERN: "/news/(.+)$" } } };
+  assert.equal(conferirIdentidade("IT-FICT-001", spec), true,
+    "um CONTENT_CAPTURE bem declarado foi reprovado");
+  // E um so par `CAPTURES` chega: a lei exige pelo menos um, nao um numero.
+  const r = identidadeDoContrato("IT-FICT-001",
+    { IDENTITY: { ...spec, DOCUMENT_ID: "IT-FICT-001:{doc.1}" } }, ALVO);
+  assert.equal(r.DOCUMENT_ID, "IT-FICT-001:uma-noticia-de-campo");
+});
+
 T("as 174 fontes com bloco IDENTITY passam a conferencia", () => {
   const comId = Object.keys(CONTRACTS).filter((id) => CONTRACTS[id].IDENTITY);
   assert.ok(comId.length > 150, `so ${comId.length} contratos tem bloco IDENTITY`);
