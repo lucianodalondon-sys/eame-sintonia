@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-21T21:49:09+00:00",
-    "HEAD": "83fc2c8ee59808ffff11d64c88485544695a3414",
+    "GENERATED_AT": "2026-09-21T23:41:06+00:00",
+    "HEAD": "e87353c119fd7e771891cae0d127e729569c75e4",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6f9881570ae9e9e303eff64e69a69e48ab6d2e0203b07ebb987b429602109fd7",
-    "FICHEIROS_NA_IMPRESSAO": 2569,
+    "SOURCE_TREE_FINGERPRINT": "c447e46411fc9f85925dbec63cd67a0c4f40830e45b7ed96f0bd3666b0c98d01",
+    "FICHEIROS_NA_IMPRESSAO": 2580,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -48,7 +48,7 @@
       {
         "PATH": "data/samples/RUN-MANIFEST.json",
         "PAPEL": "FONTE",
-        "VERSAO": "91426118306a3aa14330dbbc84a59fc45031e14f",
+        "VERSAO": "cb178a9c7c4b3761d60ae99ee3bb9efbb295bad0",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_manifesto() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "c4cd7a53f778c82cd5cae814cb450ef315f851b4c5bd420abce1c2248bd75fb8",
+    "INPUTS_DIGEST": "9a01d4a48fac4e53a6dd8aaa9aa9845f0a1e8f74d7e0816ee56a4960a62bf79d",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -16146,6 +16146,19 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/executor_texto_de_html.py",
+      "como_se_chama": "coleta/executor_texto_de_html.py --ficha",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "como_se_chama": "coleta/executor_texto_de_pdf.py",
       "carimba_data": [],
@@ -17501,16 +17514,268 @@
         "erro": null,
         "prova": null,
         "bruto": null
+      },
+      {
+        "run_id": "XX-T10-2026-09-21-223729-2d1c8ddbc8d6d836",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T10-018",
+          "universo": "T10"
+        },
+        "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-018 · universo=T10",
+        "pais": "NAO SEI",
+        "missao": "MARKET / TRADE / INDUSTRY",
+        "trouxe": 28,
+        "sobrou": 7,
+        "rendimento": 25,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T10-2026-09-21-223909-a520345d1f1360cd",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T10-022",
+          "universo": "T10"
+        },
+        "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-022 · universo=T10",
+        "pais": "NAO SEI",
+        "missao": "MARKET / TRADE / INDUSTRY",
+        "trouxe": 7,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T5-2026-09-21-223940-996e7e7560ec3a3c",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T5-049",
+          "universo": "T5"
+        },
+        "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-049 · universo=T5",
+        "pais": "NAO SEI",
+        "missao": "SCIENCE",
+        "trouxe": 3,
+        "sobrou": 3,
+        "rendimento": 100,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T7-2026-09-21-223955-cd26f4437597483d",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T7-017",
+          "universo": "T7"
+        },
+        "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-017 · universo=T7",
+        "pais": "NAO SEI",
+        "missao": "TECHNICAL NETWORK",
+        "trouxe": 25,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T7-2026-09-21-224123-309c505e78b01229",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T7-042",
+          "universo": "T7"
+        },
+        "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-042 · universo=T7",
+        "pais": "NAO SEI",
+        "missao": "TECHNICAL NETWORK",
+        "trouxe": 9,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T7-2026-09-21-224155-085deec40d2df6f8",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T7-043",
+          "universo": "T7"
+        },
+        "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-043 · universo=T7",
+        "pais": "NAO SEI",
+        "missao": "TECHNICAL NETWORK",
+        "trouxe": 2,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T10-2026-09-21-224321-0eec1f579e86f4f7",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T10-018",
+          "universo": "T10"
+        },
+        "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-018 · universo=T10",
+        "pais": "NAO SEI",
+        "missao": "MARKET / TRADE / INDUSTRY",
+        "trouxe": 28,
+        "sobrou": 7,
+        "rendimento": 25,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T10-2026-09-21-224432-c051ebb6af123a14",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T10-022",
+          "universo": "T10"
+        },
+        "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · fonte=IT-T10-022 · universo=T10",
+        "pais": "NAO SEI",
+        "missao": "MARKET / TRADE / INDUSTRY",
+        "trouxe": 7,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T5-2026-09-21-224448-b94fd46562514e7c",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T5-049",
+          "universo": "T5"
+        },
+        "que_pergunta": "SCIENCE (T5) · PONTUAL · pedido manual · fonte=IT-T5-049 · universo=T5",
+        "pais": "NAO SEI",
+        "missao": "SCIENCE",
+        "trouxe": 3,
+        "sobrou": 3,
+        "rendimento": 100,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T7-2026-09-21-224505-54ca605777c06239",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T7-017",
+          "universo": "T7"
+        },
+        "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-017 · universo=T7",
+        "pais": "NAO SEI",
+        "missao": "TECHNICAL NETWORK",
+        "trouxe": 25,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T7-2026-09-21-224607-3c7021ed60efccea",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T7-042",
+          "universo": "T7"
+        },
+        "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-042 · universo=T7",
+        "pais": "NAO SEI",
+        "missao": "TECHNICAL NETWORK",
+        "trouxe": 9,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T7-2026-09-21-224634-e014a8206ff6706d",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "fonte": "IT-T7-043",
+          "universo": "T7"
+        },
+        "que_pergunta": "TECHNICAL NETWORK (T7) · PONTUAL · pedido manual · fonte=IT-T7-043 · universo=T7",
+        "pais": "NAO SEI",
+        "missao": "TECHNICAL NETWORK",
+        "trouxe": 2,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
       }
     ],
-    "total": 35,
+    "total": 47,
     "por_pais": {
       "ES": 10,
       "IT": 10,
-      "NAO SEI": 15
+      "NAO SEI": 27
     },
     "por_plataforma": {
-      "HTTP direto": 12,
+      "HTTP direto": 24,
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
       "LOCAL": 10,
@@ -17825,11 +18090,11 @@
       "IT-T9-019",
       "IT-T9-020"
     ],
-    "com_rendimento_medido": 34,
-    "com_custo_medido": 29,
+    "com_rendimento_medido": 46,
+    "com_custo_medido": 41,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3984,
-    "sobrou_total": 3008
+    "trouxe_total": 4132,
+    "sobrou_total": 3028
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
@@ -18672,9 +18937,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 444,
+  "ENDPOINTS_FOUND": 448,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 404,
+  "ENDPOINTS_TRUNCATED": 408,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -18692,16 +18957,16 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 444,
+    "endpoints": 448,
     "endpoints_published": 40,
-    "endpoints_truncated": 404,
+    "endpoints_truncated": 408,
     "candidates": 241,
-    "coletores": 52,
+    "coletores": 53,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
     "coletores_que_separam_fonte_do_fato": 21,
-    "coletores_que_registam_descarte": 18,
-    "corridas_registadas": 93,
+    "coletores_que_registam_descarte": 19,
+    "corridas_registadas": 105,
     "observacoes_registadas": 445,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 297,

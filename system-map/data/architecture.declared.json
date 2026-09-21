@@ -4097,6 +4097,70 @@
     "medidas/porque_a_sala_nao_recebeu.py",
     "medidas/ultima_milha.py"
    ]
+  },
+  {
+   "id": "C-EXECUTOR-TEXTO-HTML",
+   "name": "Executor · texto a partir de HTML",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⚙",
+   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao.",
+   "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/executor_texto_de_html.py"
+   ],
+   "views": [
+    "audit",
+    "infra"
+   ]
+  },
+  {
+   "id": "C-DUAS-PORTAS-MEDIDORES",
+   "name": "Os medidores das duas portas",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "⊹",
+   "what": "Dois medidores e um corredor. Um descobre o CONTRATO de um universo da admissao nos universos que ja existem — criterios universais, criterio especifico, campos exigidos, disponiveis e em falta. O outro reprocessa as 85 observacoes da RUN1C pela porta canonica, reconstruindo o balcao pelo dono do livro, com a rede instrumentada e a Sala conferida ANTES de a corrida comecar.",
+   "why_here": "Escrever uma regua de universo sem medir as que ja existem e inventa-la. E uma corrida que atravessa a estrada inteira com a Sala no backend de ficheiro diz SUCCESS e nao escreve linha nenhuma — foi medido nesta missao, e por isso o corredor pergunta antes de gastar a corrida.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "medidas/o_contrato_do_universo.py",
+    "medidas/duas_portas_reprocessa.py",
+    "medidas/O-CONTRATO-DO-UNIVERSO-V1.json",
+    "medidas/DUAS-PORTAS-REPROCESSAMENTO-V1.json"
+   ],
+   "views": [
+    "audit",
+    "diagnostic",
+    "trace"
+   ]
+  },
+  {
+   "id": "C-PROVA-ROTA-DO-HTML",
+   "name": "As provas da rota do HTML",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "what": "O canario que leva bytes reais do armazem por RAW -> escolha do executor -> derivado -> admissao, com banco descartavel e sem tocar na Sala; a prova de que a extraccao nao abre ligacao nenhuma, corrida dentro do remendo do socket; e o red team das duas portas, com 14 ataques, base medida antes, `git diff` a provar cada mutacao e restauro conferido por sha256.",
+   "why_here": "Um canario que importasse o executor pelo nome provaria a FERRAMENTA, que nunca esteve em causa. Este chama o runner e deixa a ESCOLHA acontecer. E o red team apanhou dois sobreviventes com causas diferentes: um mutante do mesmo tamanho escrito no mesmo segundo e invisivel para o cache do import, e uma trava que so parecia existir porque a ordem de importacao a tapava.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_rota_do_html_atravessa.py",
+    "provas/a_rota_do_html_nao_vai_a_rede.py",
+    "provas/red_team_duas_portas.py",
+    "provas/RED-TEAM-DUAS-PORTAS-V1.json"
+   ],
+   "views": [
+    "audit",
+    "diagnostic"
+   ]
   }
  ],
  "BUSINESS_EDGES": [

@@ -4,12 +4,12 @@
  "VERSAO_DA_REGRA": "5",
  "ITENS_COM_TEXTO": 231,
  "DECISOES": {
-  "NAO_SEI": 219,
-  "NAO": 12
+  "NAO_SEI": 224,
+  "NAO": 7
  },
  "EM_PERCENTAGEM": {
-  "NAO_SEI": 94.8,
-  "NAO": 5.2
+  "NAO_SEI": 97.0,
+  "NAO": 3.0
  },
  "POR_FICHEIRO": {
   "data/samples/IT-MERCADO/EUROSTAT-apri_pi_inq-input-price-index-IT.json": {
@@ -55,7 +55,8 @@
    "NAO_SEI": 2
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json": {
-   "NAO": 2
+   "NAO_SEI": 1,
+   "NAO": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T1-015/MANIFEST.json": {
    "NAO_SEI": 1
@@ -86,8 +87,7 @@
    "NAO_SEI": 2
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T10-008/MANIFEST.json": {
-   "NAO": 1,
-   "NAO_SEI": 1
+   "NAO_SEI": 2
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T10-009/MANIFEST.json": {
    "NAO_SEI": 1,
@@ -124,7 +124,7 @@
    "NAO_SEI": 2
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T12-005/MANIFEST.json": {
-   "NAO": 1
+   "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T12-006/MANIFEST.json": {
    "NAO_SEI": 1
@@ -151,7 +151,7 @@
    "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T2-015/MANIFEST.json": {
-   "NAO": 1
+   "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T2-016/MANIFEST.json": {
    "NAO_SEI": 1
@@ -196,7 +196,7 @@
    "NAO_SEI": 2
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T3-020/MANIFEST.json": {
-   "NAO": 1
+   "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T5-006/MANIFEST.json": {
    "NAO_SEI": 2
@@ -338,7 +338,7 @@
    "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T6-022/MANIFEST.json": {
-   "NAO": 1
+   "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T6-023/MANIFEST.json": {
    "NAO_SEI": 1
@@ -386,7 +386,8 @@
    "NAO_SEI": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json": {
-   "NAO_SEI": 5
+   "NAO_SEI": 4,
+   "NAO": 1
   },
   "data/samples/IT-SOURCE-SAMPLES/IT-T8-003/MANIFEST.json": {
    "NAO_SEI": 1
@@ -417,14 +418,55 @@
   "SIM": [],
   "NAO": [
    {
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T8-001/MANIFEST.json",
+    "TEXTO": "Mercati agricoli e volatilita dei prezzi: cosa fa l'Ue",
+    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T10: prezzi). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "PROVA": {
+     "achado_noutro": {
+      "T10": [
+       "prezzi"
+      ]
+     },
+     "estagio": "ESTAGIO_DESCONHECIDO",
+     "portoes": {
+      "legivel": {
+       "caracteres": 54,
+       "resultado": "SIM"
+      },
+      "origem": {
+       "origem": "IT-RECALL",
+       "origem_especie": "SOURCE_ID",
+       "origem_campo": "source_id",
+       "resultado": "SIM"
+      },
+      "tempo do fato": {
+       "quando": "2026-09-07",
+       "que_tempo": "FACT_TIME",
+       "fact_time_basis": "declarado pelo produtor do item",
+       "resultado": "SIM"
+      },
+      "identidade": {
+       "resultado": "SIM"
+      },
+      "pertence ao universo": {
+       "achado_noutro": {
+        "T10": [
+         "prezzi"
+        ]
+       },
+       "resultado": "NAO"
+      }
+     }
+    }
+   },
+   {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T5-035/MANIFEST.json",
     "TEXTO": "Agricoltura Ambiente Alimenti - Notiziario di informazione su agronomia, socio-economia e diritto agrario - Accademia dei Georgofili",
-    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T7: agronomi, soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T7: agronomi). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "PROVA": {
      "achado_noutro": {
       "T7": [
-       "agronomi",
-       "soci"
+       "agronomi"
       ]
      },
      "estagio": "ESTAGIO_DESCONHECIDO",
@@ -451,50 +493,7 @@
       "pertence ao universo": {
        "achado_noutro": {
         "T7": [
-         "agronomi",
-         "soci"
-        ]
-       },
-       "resultado": "NAO"
-      }
-     }
-    }
-   },
-   {
-    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json",
-    "TEXTO": "Associazione Italiana Sementieri e Vivaisti - Assosementi",
-    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T7: soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
-    "PROVA": {
-     "achado_noutro": {
-      "T7": [
-       "soci"
-      ]
-     },
-     "estagio": "ESTAGIO_DESCONHECIDO",
-     "portoes": {
-      "legivel": {
-       "caracteres": 57,
-       "resultado": "SIM"
-      },
-      "origem": {
-       "origem": "IT-RECALL",
-       "origem_especie": "SOURCE_ID",
-       "origem_campo": "source_id",
-       "resultado": "SIM"
-      },
-      "tempo do fato": {
-       "quando": "2026-09-07",
-       "que_tempo": "FACT_TIME",
-       "fact_time_basis": "declarado pelo produtor do item",
-       "resultado": "SIM"
-      },
-      "identidade": {
-       "resultado": "SIM"
-      },
-      "pertence ao universo": {
-       "achado_noutro": {
-        "T7": [
-         "soci"
+         "agronomi"
         ]
        },
        "resultado": "NAO"
@@ -505,11 +504,14 @@
    {
     "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json",
     "TEXTO": "Seme in natura certificato e pulito (tara 0%) di erba medica: confermato a 2,80 €/kg il prezzo orientativo per la campagna 2026 - Assosementi",
-    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T9: campagna). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T9: campagna; T10: prezzo). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "PROVA": {
      "achado_noutro": {
       "T9": [
        "campagna"
+      ],
+      "T10": [
+       "prezzo"
       ]
      },
      "estagio": "ESTAGIO_DESCONHECIDO",
@@ -537,6 +539,9 @@
        "achado_noutro": {
         "T9": [
          "campagna"
+        ],
+        "T10": [
+         "prezzo"
         ]
        },
        "resultado": "NAO"
@@ -545,19 +550,19 @@
     }
    },
    {
-    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T6-022/MANIFEST.json",
-    "TEXTO": "Antimicrobial treatment of egg-infested olives is associated with perturbation and carry-over changes on bacterial communities in the olive fly Bactrocera oleae",
-    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T7: soci). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "FICHEIRO": "data/samples/IT-SOURCE-SAMPLES/IT-T6-014/MANIFEST.json",
+    "TEXTO": "Heat-inactivated Lysobacter capsici AZ78 cells effectively control Peronospora belbahrii and Plasmopara viticola through direct and indirect mechanisms",
+    "PORQUE": "nao fala de «T5», e fala claramente de outro universo (T3: peronospora). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "PROVA": {
      "achado_noutro": {
-      "T7": [
-       "soci"
+      "T3": [
+       "peronospora"
       ]
      },
      "estagio": "ESTAGIO_DESCONHECIDO",
      "portoes": {
       "legivel": {
-       "caracteres": 191,
+       "caracteres": 151,
        "resultado": "SIM"
       },
       "origem": {
@@ -577,8 +582,8 @@
       },
       "pertence ao universo": {
        "achado_noutro": {
-        "T7": [
-         "soci"
+        "T3": [
+         "peronospora"
         ]
        },
        "resultado": "NAO"

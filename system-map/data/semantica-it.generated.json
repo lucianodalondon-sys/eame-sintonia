@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "83fc2c8ee59808ffff11d64c88485544695a3414"
+    "HEAD": "e87353c119fd7e771891cae0d127e729569c75e4"
   },
   "VOCABULARIOS": [
     {
@@ -1248,16 +1248,16 @@
       "OWNER": "admissao",
       "ROLE": "ADMISSAO",
       "O_QUE_E": "as palavras que decidem se o item pertence ao universo pedido",
-      "TOTAL_TERMS": 87,
+      "TOTAL_TERMS": 103,
       "POR_ESCOPO": {
+        "UNKNOWN": 43,
         "IT_ONLY": 32,
-        "UNKNOWN": 27,
         "PT_ONLY": 20,
         "SHARED_MULTILINGUAL": 6,
         "INTERNATIONAL": 2
       },
       "CLASSIFIED": 60,
-      "UNKNOWN": 27,
+      "UNKNOWN": 43,
       "FECHA": true,
       "FOREIGN_ONLY": 0,
       "CONSUMERS": [
@@ -1272,6 +1272,7 @@
         "leis/artefato.py",
         "leis/relevancia_da_fonte.py",
         "medidas/micro_colheita.py",
+        "medidas/o_contrato_do_universo.py",
         "medidas/porque_a_sala_nao_recebeu.py",
         "orquestrador/orquestrador.py",
         "provas/a_collection_preserva_o_fato.py",
@@ -1285,6 +1286,7 @@
         "provas/a_maquina_sob_carga.py",
         "provas/a_porta_le_italiano.py",
         "provas/a_regra_de_t2.py",
+        "provas/a_rota_do_html_atravessa.py",
         "provas/a_rota_m2_atravessa.py",
         "provas/a_sala_de_espera_nao_tem_morada.py",
         "provas/a_sala_sobrevive_ao_processo.py",
@@ -1313,6 +1315,7 @@
         "provas/o_scrap_chega_ao_acervo.py",
         "provas/os_portoes_da_collection.py",
         "provas/red_team_collection_ate_a_sala.py",
+        "provas/red_team_duas_portas.py",
         "provas/so_a_colheita_atravessa.py",
         "provas/testa_coleta_canonica.py",
         "provas/testa_golden_path_pdf.py",
@@ -1327,7 +1330,9 @@
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_linhagem_do_ready.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
+        "tests/test_a_regra_de_t10.py",
         "tests/test_a_regra_de_t2.py",
+        "tests/test_a_rota_do_html.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "tests/test_a_sala_de_espera_tem_um_dono.py",
         "tests/test_alcance_tematico.py",
@@ -1487,10 +1492,6 @@
         },
         {
           "termo": "divulgazione tecnica",
-          "escopo": "UNKNOWN"
-        },
-        {
-          "termo": "soci",
           "escopo": "UNKNOWN"
         },
         {
@@ -1704,15 +1705,83 @@
         {
           "termo": "malerba",
           "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "commodity",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "prezzo",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "prezzi",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "quotazion",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "listino",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "importazion",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "esportazion",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "rincar",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "borsa merci",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "domanda e offerta",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "precos",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "cotacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "cotacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "importacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "importacoes",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "exportacao",
+          "escopo": "UNKNOWN"
+        },
+        {
+          "termo": "exportacoes",
+          "escopo": "UNKNOWN"
         }
       ]
     }
   ],
   "COUNTS": {
     "vocabularios": 10,
-    "termos_ao_todo": 329,
+    "termos_ao_todo": 345,
     "por_papel": {
-      "ADMISSAO": 87,
+      "ADMISSAO": 103,
       "BUSCA": 68,
       "CLASSIFICACAO": 139,
       "EXTRACAO": 35

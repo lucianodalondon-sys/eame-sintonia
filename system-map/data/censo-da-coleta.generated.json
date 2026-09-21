@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-21T21:46:32+00:00",
-    "HEAD": "83fc2c8ee59808ffff11d64c88485544695a3414",
+    "GENERATED_AT": "2026-09-21T23:38:42+00:00",
+    "HEAD": "e87353c119fd7e771891cae0d127e729569c75e4",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "6f9881570ae9e9e303eff64e69a69e48ab6d2e0203b07ebb987b429602109fd7",
-    "FICHEIROS_NA_IMPRESSAO": 2569,
+    "SOURCE_TREE_FINGERPRINT": "c447e46411fc9f85925dbec63cd67a0c4f40830e45b7ed96f0bd3666b0c98d01",
+    "FICHEIROS_NA_IMPRESSAO": 2580,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "admissao/admissao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "4c229f3951e250562eb9413f86a3b6450435f157",
+        "VERSAO": "992d01c7e815b113c673dc2030ce2e2f59091531",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -209,7 +209,7 @@
       {
         "PATH": "coleta/derivacao_forward.py",
         "PAPEL": "FONTE",
-        "VERSAO": "f563c50f7816208cde67d874a40d1aea776fc939",
+        "VERSAO": "9b0f83cf6aea92f0fe58ff54b361120e7e23601b",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -245,6 +245,13 @@
         "PATH": "coleta/eu_substancia_adama_it.py",
         "PAPEL": "FONTE",
         "VERSAO": "93600f2cc5f920838d750aa57675b22329583dd0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/executor_texto_de_html.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "136192ce25ffb9e93fdef38b41da258b5e847fd5",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -286,7 +293,7 @@
       {
         "PATH": "coleta/ingresso.py",
         "PAPEL": "FONTE",
-        "VERSAO": "91a14103ad917e3820f196fa3947845b4a5e0e1d",
+        "VERSAO": "889a4eb7a35d8b33092044c954dcaca6bd8d0410",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -755,7 +762,7 @@
       {
         "PATH": "guarda/memoria_descartavel.py",
         "PAPEL": "FONTE",
-        "VERSAO": "6fbde7363d48ba2150acbacee5f5c2d0a39291ef",
+        "VERSAO": "f261b593aec31f5797de7a5a9432883865185089",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -949,8 +956,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 134,
-    "INPUTS_DIGEST": "f759320fe2d27e7757e826ab2e7a87ff02b459785bde4065b524fcb4de067d0c",
+    "INPUTS_COUNT": 135,
+    "INPUTS_DIGEST": "564304ff7c3cf2c52d06856577776b280695af7ffe02185d54d1289b79e17a51",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -2015,7 +2022,7 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 571,
+      "linhas": 608,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2126,6 +2133,24 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/executor_texto_de_html.py",
+      "gaveta": "coleta",
+      "linhas": 409,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
       "linhas": 716,
@@ -2144,6 +2169,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/derivacao_forward.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/golden_path_pdf.py",
         "coleta/ingresso.py"
       ],
@@ -2233,7 +2259,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 1388,
+      "linhas": 1398,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2249,6 +2275,7 @@
         "admissao/admissao.py",
         "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py",
         "coleta/golden_path_pdf.py",
         "coleta/italy_executor.py",
@@ -2948,7 +2975,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/executor_texto_de_html.py"
+      ],
       "no_ci": false
     },
     {
@@ -3314,6 +3343,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/coletor.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_transcricao_midia.py",
         "coleta/golden_path_pdf.py",
         "coleta/ingresso.py",
@@ -3400,7 +3430,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 1189,
+      "linhas": 1286,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3591,7 +3621,7 @@
     {
       "ficheiro": "guarda/memoria_descartavel.py",
       "gaveta": "guarda",
-      "linhas": 359,
+      "linhas": 388,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -3687,6 +3717,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/derivacao_forward.py",
+        "coleta/executor_texto_de_html.py",
         "coleta/executor_texto_de_pdf.py",
         "coleta/executor_transcricao_midia.py",
         "guarda/memoria_descartavel.py",
@@ -3782,8 +3813,8 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 134,
-    "pontos_de_entrada": 94,
+    "ficheiros_de_codigo": 135,
+    "pontos_de_entrada": 95,
     "executores_que_saem_para_fora": 23,
     "sem_chamador_e_fora_do_ci": 49,
     "gravam_no_banco": 2,
@@ -3836,6 +3867,7 @@
       "coleta/es/corpus_es.py",
       "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
+      "coleta/executor_texto_de_html.py",
       "coleta/executor_texto_de_pdf.py",
       "coleta/executor_transcricao_midia.py",
       "coleta/filas.py",
@@ -3941,6 +3973,7 @@
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",
       "coleta/eu_substancia_adama_it.py",
+      "coleta/executor_texto_de_html.py",
       "coleta/gire_mapas.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_probe.mjs",
@@ -3952,7 +3985,6 @@
       "coleta/sensor_canal_identidade.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
-      "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
       "regras/contratos_de_fonte.py",
       "regras/incrementalidade.mjs",
