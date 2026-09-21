@@ -1,16 +1,16 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
+  "FROZEN_AT_HEAD": "7f7c96543400a352b5580488b069fb0f9edac022",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 256,
+  "ARTEFATOS": 260,
   "POR_ESPECIE": {
-    "CONTRACT": 3,
+    "CONTRACT": 6,
     "DATA_SAMPLE": 90,
     "GENERATED_OUTPUT": 26,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 6,
-    "MENCAO_FRACA_APENAS": 40,
+    "MENCAO_FRACA_APENAS": 41,
     "PORTAL_UI": 65,
     "TEST": 16
   },
@@ -44,6 +44,24 @@
       "MARCAS_FORTES": [
         "FIELD_VOICE"
       ]
+    },
+    {
+      "PATH": "data/derivados/O-PILOTO-DA-SALA-R2-DELTA.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "7b94c1594f9f8798b955d6ff6cd056291e0a5366",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "data/derivados/O-PILOTO-DA-SALA-R3-CROP.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "a324817317c7da45d39b0e5f71bfc6bb697e2782",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "data/derivados/O-PILOTO-DA-SALA.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "7a9bd79c2df30baff69a61ebd3c7f2721e4611fa",
+      "MARCAS_FORTES": []
     },
     {
       "PATH": "docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json",
@@ -524,7 +542,7 @@
     {
       "PATH": "regras/italy_contracts.mjs",
       "SPECIES": "IMPLEMENTATION",
-      "GIT_BLOB_SHA": "c2d77dd78c1d4dc552f0bc0dc1fcc909775d13c4",
+      "GIT_BLOB_SHA": "8c0ad8909ffe0b6099296e5faf2c8354de927d8d",
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
@@ -562,7 +580,7 @@
     {
       "PATH": "system-map/data/architecture.declared.json",
       "SPECIES": "CONTRACT",
-      "GIT_BLOB_SHA": "a55fe99c92ce2e7f204c02a556be56c38d091da3",
+      "GIT_BLOB_SHA": "9ed7d7e1e0df59fccc88bc6227ef9362cd66740b",
       "MARCAS_FORTES": []
     }
   ],
@@ -1113,6 +1131,10 @@
     },
     {
       "PATH": "provas/modelo_de_objetos_da_intelligence.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
+    },
+    {
+      "PATH": "provas/o_piloto_da_sala.py",
       "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
