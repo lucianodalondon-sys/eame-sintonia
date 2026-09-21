@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "source-discovery-v1",
-    "HEAD": "8bbea01ccaf24939ad0e2f23f1fc903ffe116942",
-    "GENERATED_AT": "2026-09-20T22:31:49-03:00",
-    "SOURCE_TREE_FINGERPRINT": "33c18302738d83a6c35e1f8b57ae4613069a69fefec91109e83f6e8b043c8adf"
+    "BRANCH": "candidate-bridge-v1",
+    "HEAD": "56d037b351e4d0ad2f9033695478a268071f1287",
+    "GENERATED_AT": "2026-09-20T23:20:37-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f324500f4294753e3d4c7eff410ac61286887e813fd2cc8476c8070d7c318848"
   },
   "FILES": [
     {
@@ -1067,7 +1067,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "96f97a4f9290cd8350fac99c179f6f0c9ba51c89",
+      "sha": "0a645ba6aa9eae72be3f5b9ecac319807e8099ea",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -1724,6 +1724,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/DISCOVERY-PROOF-V1.json",
+      "sha": "b63c0f6d0c21a222f1f0a0b41b92692b47ade668",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/DISCOVERY-VISITED.json",
+      "sha": "062e2dfbccd333372959dfc801ce7b723a86c9fe",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/FUNIL-DO-CURATOR-V1.json",
       "sha": "73b33bd1ba68a772529968e312b7644236ddc05d",
       "ext": ".json",
@@ -1753,7 +1767,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-LEDGER-V1.json",
-      "sha": "d16bcfe07f5e1d83d801b3d001223a357c86a848",
+      "sha": "7737721488d55661b5156cca72727a92778f8e36",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1767,7 +1781,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-QUEUE-V1.json",
-      "sha": "acd5dec933d9791128043bfd0381e4e9530c145a",
+      "sha": "b9819d4fb29a35c6b1c87fe4c3a1196ecfa8f749",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1886,7 +1900,7 @@
     },
     {
       "path": "curadoria/SUPERVISOR-PROOF-V1.json",
-      "sha": "610a20a0d2c2b64c081be5cd766fe9b0f3f97af1",
+      "sha": "9bcfb6a19e4da1ea19856ea5b6c610603706812b",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1957,6 +1971,13 @@
     {
       "path": "curadoria/correr_lote.py",
       "sha": "58e35c56e4b7ff5682ec9fef401df77c0697097a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/descobrir.py",
+      "sha": "ae05f408f55e5f4ad0252477d7226dc5958d0c9f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2111,6 +2132,13 @@
     {
       "path": "curadoria/test_correr_lote.py",
       "sha": "a79e337d42425e7b268bd70ed9d3b1723da1d1a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_discovery.py",
+      "sha": "6733a5635e802c24ddd21b2a6dd49805a83e6206",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20322,6 +20350,50 @@
       }
     },
     {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 99,
+        "snippet": "from fonte_nova import normalizar, registar, carregar  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 118,
+        "snippet": "PROOF_JSON     = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/DISCOVERY-VISITED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 117,
+        "snippet": "VISITADOS_JSON = RAIZ / \"curadoria\" / \"DISCOVERY-VISITED.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 711,
+        "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
+      }
+    },
+    {
       "from_file": "curadoria/emparelhar_com_atlas.py",
       "to_file": "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
       "type": "READS",
@@ -21071,6 +21143,17 @@
     },
     {
       "from_file": "curadoria/status_live.py",
+      "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/status_live.py",
+        "line": 43,
+        "snippet": "proof_path = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/status_live.py",
       "to_file": "curadoria/READY-BATCHES-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -21199,6 +21282,39 @@
         "file": "curadoria/test_correr_lote.py",
         "line": 23,
         "snippet": "import correr_lote as L  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 35,
+        "snippet": "import fonte_nova as FN   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 196,
+        "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_discovery.py",
+        "line": 36,
+        "snippet": "import descobrir as D      # noqa: E402"
       }
     },
     {
@@ -66134,10 +66250,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2174,
-    "files_readable": 861,
+    "files_tracked": 2178,
+    "files_readable": 863,
     "files_code_dir": 883,
-    "file_edges": 4581,
+    "file_edges": 4589,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
