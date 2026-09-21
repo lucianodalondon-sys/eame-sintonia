@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "aquisicao-detalhe-v1",
-    "HEAD": "d75c3263d768f78871eb78a98a4e8bee3eb0727e",
-    "GENERATED_AT": "2026-09-20T21:35:39-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e770b6bf892945abba3e1b8a07430da6580efec9a3c6fd82c75f3232628d2a44"
+    "HEAD": "83385fe7d41b09060c6fbbafaa41cf2c90a7f7b7",
+    "GENERATED_AT": "2026-09-20T22:06:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "7e05602760de9cf81e148a3f540126e5c4feb8b24b8657748225c7bcd367290d"
   },
   "FILES": [
     {
@@ -1857,6 +1857,13 @@
       "code_dir": true
     },
     {
+      "path": "curadoria/CONTRATOS-PASSO-2-V1.json",
+      "sha": "602bc0e8467550dd59e1381024b5438f0dcc3044",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json",
       "sha": "a2f7a7f762f73d006c16eee88a89d68570bdc9ab",
       "ext": ".json",
@@ -1915,6 +1922,13 @@
     {
       "path": "curadoria/LIFECYCLE-RED-TEAM-V1.json",
       "sha": "8942161c89e4a7ae956ffb19eeb0ff0ab32eeb27",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "curadoria/PROVA-DE-LISTAGENS-V1.json",
+      "sha": "5b2aff58273fe6f4b1126c7d9a15cedf46baacd8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -1990,6 +2004,13 @@
       "code_dir": true
     },
     {
+      "path": "curadoria/aplicar_passo2.py",
+      "sha": "b48ad365d7820327b1c3fb387f8dd303f5fe7ec3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "curadoria/canario_do_motor.mjs",
       "sha": "7abb2ee771ba9906197b8dd2f8f749cf89dcfbd6",
       "ext": ".mjs",
@@ -2056,6 +2077,13 @@
       "path": "curadoria/provar_divisao.py",
       "sha": "d2ac47900e29e1f2618d3582283a8ab4baaebb7e",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "curadoria/provar_listagens.mjs",
+      "sha": "54fae856946bac59a68dc6db87b205d2555d786f",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -12078,7 +12106,7 @@
     },
     {
       "path": "regras/italy_contracts_onboarded.json",
-      "sha": "56fd493d0e43e21315fa5b9d7c65a679dac2e8d9",
+      "sha": "0ce020f20a62fcfc0867e78b1711e985f8726683",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13485,7 +13513,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f9c4bc7516dac9215dc1adf2cd3b2959d9e3063b",
+      "sha": "d2699ce20a9489b63364597f1bf2483f6107d0c6",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -14752,7 +14780,7 @@
     },
     {
       "path": "tests/test_integracao_04a_curator.py",
-      "sha": "d81ea2147ad3767379e5ccca976d6516ffccf8fa",
+      "sha": "2b96970323cf2648f371b14ff941b76523d70632",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -20204,6 +20232,50 @@
       }
     },
     {
+      "from_file": "curadoria/aplicar_passo2.py",
+      "to_file": "curadoria/CLASSIFICACAO-INDICE-104-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/aplicar_passo2.py",
+        "line": 32,
+        "snippet": "CLASSIF = RAIZ / \"curadoria\" / \"CLASSIFICACAO-INDICE-104-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/aplicar_passo2.py",
+      "to_file": "curadoria/CONTRATOS-PASSO-2-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/aplicar_passo2.py",
+        "line": 35,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"CONTRATOS-PASSO-2-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/aplicar_passo2.py",
+      "to_file": "curadoria/PROVA-DE-LISTAGENS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/aplicar_passo2.py",
+        "line": 33,
+        "snippet": "PROVA = RAIZ / \"curadoria\" / \"PROVA-DE-LISTAGENS-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/aplicar_passo2.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/aplicar_passo2.py",
+        "line": 34,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
       "from_file": "curadoria/canario_do_motor.mjs",
       "to_file": "coleta/adaptadores_de_aquisicao.mjs",
       "type": "IMPORTS",
@@ -20674,6 +20746,72 @@
         "file": "curadoria/provar_divisao.py",
         "line": 47,
         "snippet": "import worker as W                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_listagens.mjs",
+      "to_file": "curadoria/CLASSIFICACAO-INDICE-104-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_listagens.mjs",
+        "line": 35,
+        "snippet": "const ENTRADA = join(RAIZ, \"curadoria\", \"CLASSIFICACAO-INDICE-104-V1.json\");"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_listagens.mjs",
+      "to_file": "curadoria/PROVA-DE-LISTAGENS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_listagens.mjs",
+        "line": 36,
+        "snippet": "const SAIDA = join(RAIZ, \"curadoria\", \"PROVA-DE-LISTAGENS-V1.json\");"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_listagens.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_listagens.mjs",
+        "line": 27,
+        "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_listagens.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_listagens.mjs",
+        "line": 27,
+        "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_listagens.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_listagens.mjs",
+        "line": 28,
+        "snippet": "import { ligacoesDoIndice } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_listagens.mjs",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_listagens.mjs",
+        "line": 28,
+        "snippet": "import { ligacoesDoIndice } from \"../regras/motor_de_rota.mjs\";"
       }
     },
     {
@@ -58490,7 +58628,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 267,
+        "line": 286,
         "snippet": "\"REAL-EXAMPLE-MANIFEST-V1.json\", \"CANARY-LOTE-HTML-ARTIGO.json\","
       }
     },
@@ -58501,8 +58639,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 268,
+        "line": 287,
         "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_integracao_04a_curator.py",
+      "to_file": "curadoria/CONTRATOS-PASSO-2-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_integracao_04a_curator.py",
+        "line": 117,
+        "snippet": "passo2 = os.path.join(RAIZ, \"curadoria\", \"CONTRATOS-PASSO-2-V1.json\")"
       }
     },
     {
@@ -58512,7 +58661,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 269,
+        "line": 288,
         "snippet": "\"HANDOFF-INTEGRACAO-04.md\"):"
       }
     },
@@ -58534,7 +58683,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 228,
+        "line": 247,
         "snippet": "for e in _json(os.path.join(RAIZ, \"curadoria\", \"REAL-EXAMPLE-MANIFEST-V1.json\"))[\"FILES\"]}"
       }
     },
@@ -58545,7 +58694,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_integracao_04a_curator.py",
-        "line": 268,
+        "line": 287,
         "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\","
       }
     },
@@ -66280,10 +66429,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2198,
-    "files_readable": 852,
-    "files_code_dir": 940,
-    "file_edges": 4579,
+    "files_tracked": 2202,
+    "files_readable": 854,
+    "files_code_dir": 944,
+    "file_edges": 4590,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

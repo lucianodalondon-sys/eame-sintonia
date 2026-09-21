@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d75c3263d768f78871eb78a98a4e8bee3eb0727e
+HEAD_DA_MEDICAO  83385fe7d41b09060c6fbbafaa41cf2c90a7f7b7
 BRANCH           aquisicao-detalhe-v1
-GERADO_EM        2026-09-20T21:35:39-03:00
+GERADO_EM        2026-09-20T22:06:04-03:00
 CARDS            80
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -610,26 +610,26 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `curadoria/CLASSIFICACAO-INDICE-104-V1.json`, `curadoria/CLASSIFICACAO-INDICE-104-V1.md`, `curadoria/classificar_indice_104.py` |
+| **peça real** | `curadoria/CLASSIFICACAO-INDICE-104-V1.json`, `curadoria/CLASSIFICACAO-INDICE-104-V1.md`, `curadoria/CONTRATOS-PASSO-2-V1.json`, `curadoria/PROVA-DE-LISTAGENS-V1.json`, `curadoria/aplicar_passo2.py` _(e mais 2)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — e uma lei sem prova executavel apontando para ela. |
-| **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | — NÃO SEI |
-| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
+| **prova de quem ativa** | tests/test_integracao_04a_curator.py:117 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/CLASSIFICACAO-INDICE-104-V1.json`, `curadoria/CLASSIFICACAO-INDICE-104-V1.md`, `curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json` |
+| **o que entra · ficheiros** | `curadoria/CLASSIFICACAO-INDICE-104-V1.json`, `curadoria/CLASSIFICACAO-INDICE-104-V1.md`, `curadoria/CONTRATOS-PASSO-2-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 0 |
-| **arestas provadas** | entram 4 · saem 0 |
+| **arestas no mapa** | entram 6 · saem 1 |
+| **arestas provadas** | entram 5 · saem 1 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 4 |
+| **prova das ligações** | CODE 6 · NÃO SEI 1 |
 | **lei da Bíblia** | NÃO SEI |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-CURATOR-ESTADO-ACTUAL` · O estado actual das fontes — e o resemeador
 
@@ -1833,21 +1833,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md`, `regras/contratos_de_fonte.py`, `regras/cutover_equivalencia_test.mjs`, `regras/italy_contract_test.mjs`, `regras/italy_contracts.mjs` _(e mais 7)_ |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-CURATOR-ESTADO-ACTUAL, C-CURATOR-LIFECYCLE, C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois  |
+| **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-CURATOR-CLASSIFICACAO-INDICE, C-CURATOR-ESTADO-ACTUAL, C-CURATOR-LIFECYCLE, C-IT-CATALOGO.  Mas 4 ficheiro |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/canario_youtube_canonico.mjs:13; curadoria/canario_do_motor.mjs:23 |
-| **porquê** | estas pecas importam-na — C-CURATOR-ESTADO-ACTUAL · C-CURATOR-LIFECYCLE · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **porquê** | estas pecas importam-na — C-CURATOR-CLASSIFICACAO-INDICE · C-CURATOR-ESTADO-ACTUAL · C-CURATOR-LIFECYCLE · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/adaptadores_de_aquisicao.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 10 · saem 12 |
-| **arestas provadas** | entram 10 · saem 7 |
+| **arestas no mapa** | entram 10 · saem 14 |
+| **arestas provadas** | entram 10 · saem 8 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 17 · NÃO SEI 5 |
+| **prova das ligações** | CODE 18 · NÃO SEI 6 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2060,9 +2060,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 38
 UNKNOWN            23
-SYSTEM_GAP         9
+SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
-TERMINAL           2
 ALVO_SEM_ESCRITOR_MEDIDO 2
+TERMINAL           1
 TOTAL              80
 ```
