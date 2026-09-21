@@ -565,10 +565,34 @@ Nenhuma outra diferença entre os dois grupos: todas `FORWARD_IDENTIFIED`, sem
 que a medição a seco diz **11 SIM** e a corrida real deu **10**.
 
 ```
-Dono: guarda/preservar_coleta.py::observacoes_confirmadas
+Dono: guarda/preservar_coleta.py::_difere  (linha 616: `if str(a) != str(b)`)
 Custo medido: 11 de 85 (12,9 %) · 1 SIM perdido
-Conserto provável: comparar INSTANTES, não textos
 ```
+
+### ⚠️ E o conserto **já existe**. Noutra linha, com teste, e nunca chegou aqui.
+
+Isto não é um defeito por descobrir. Foi medido, corrigido e testado a
+**2026-09-20**, um dia antes desta missão:
+
+```
+commit  4055e543   origin/claude/contract-provenance-cutover-v1
+        «residuos: os 4 HTML que "falharam a gravar" gravaram —
+         a conferencia comparava instantes como texto»
+
+guarda/preservar_coleta.py            `_instante()` (ISO-8601 → datetime) em `_difere`
+tests/test_conferencia_compara_instantes.py    a guarda
+```
+
+Nesta linha, `_difere` continua a ser a versão antiga — `str(a) != str(b)`, sem
+`_instante` — e `tests/test_conferencia_compara_instantes.py` **não existe**.
+
+> **O CONSERTO NÃO FALTAVA. FALTAVA CHEGAR À LINHA QUE CORRE.**
+
+É a mesma família de tudo o que esta missão encontrou: uma peça que existe, com
+dono e com prova, e sem quem a chame. Ontem custou 4 de 46; hoje custou 11 de
+85. Quem fechar este terceiro bloqueio tem um `cherry-pick` a fazer, e não uma
+investigação — e depois disso vale a pena remedir a coorte, porque pelo menos
+uma das 11 é um `SIM`.
 
 ### ⚠️ E um segundo achado da fase C–F: a Sala corre em `FICHEIRO` por omissão
 
@@ -693,6 +717,11 @@ E é importante dizer porque não foram as 85, porque a diferença é toda:
   documento acaba em zero (`19:27:45.**790**`), a base de dados devolve-a sem
   esse zero (`19:27:45.79`), o sistema compara os dois como se fossem palavras,
   vê que são diferentes e descarta a observação. Uma dessas onze era um `SIM`.
+
+  **E o mais curioso é que esse conserto já está escrito.** Alguém o fez no dia
+  anterior, noutra cópia do projecto, com teste e tudo. Só que essa correcção
+  nunca veio parar à cópia que está a funcionar. É a terceira vez, no mesmo
+  relatório, que o problema é o mesmo: **a peça existe, e ninguém a ligou.**
 
 **Dez não é pouco e não é muito — é o número verdadeiro.** A porta não é um
 carimbo: ela lê, e recusa o que não é do assunto. Vinte e oito documentos foram
