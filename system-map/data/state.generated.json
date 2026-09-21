@@ -37,6 +37,7 @@
       "RELATORIO-GARGALOS-BC2.md",
       "RELATORIO-INTEGRACAO-04A.md",
       "RELATORIO-RESIDUOS-BC2.md",
+      "RELATORIO-SOURCE-CURATOR-INTEGRATION.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -2788,9 +2789,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "source-curator-integration-v1",
-    "HEAD": "333174d5c7833d7f48df4349b9eedbf9ac8fb019",
-    "GENERATED_AT": "2026-09-20T20:33:15-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1b8ad0563c1e5214d652cb833ab2676400cc062e26fd6580836230a4c7654df3"
+    "HEAD": "358bdb06413a1862c76ea9f875d72604f31d5a94",
+    "GENERATED_AT": "2026-09-20T21:14:17-03:00",
+    "SOURCE_TREE_FINGERPRINT": "611a070df9542dbe887e7417d5b1ce8f14150b429f94da8220b9513b0ff45a1b"
   },
   "FAMILIES": [
     {
@@ -28406,7 +28407,7 @@
           "curadoria/interface_collection.py:49",
           "curadoria/red_team_lifecycle.py:78",
           "curadoria/worker.py:78",
-          "tests/test_source_curator_integration.py:51"
+          "tests/test_integracao_04a_curator.py:269"
         ],
         "PORQUE": "estas pecas importam-na — C-CURATOR-INTERFACE · C-CURATOR-LIFECYCLE · C-CURATOR-PROVAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -28501,6 +28502,7 @@
         "PROVA": [
           "curadoria/provar_divisao.py:45",
           "orquestrador/fontes_prontas.py:37",
+          "tests/test_integracao_04a_curator.py:269",
           "tests/test_source_curator_integration.py:44"
         ],
         "PORQUE": "estas pecas importam-na — C-CURATOR-PROVAS · C-PORTA-FONTES-PRONTAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -28649,7 +28651,9 @@
         "C-CURATOR-INTERFACE",
         "C-CURATOR-LIFECYCLE"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -28720,11 +28724,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_integracao_04a_curator.py:271"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 3885,
       "y": 1326
@@ -46297,6 +46305,7 @@
         "C-CURATOR-ESTADO-ACTUAL",
         "C-CURATOR-INTERFACE",
         "C-CURATOR-LIFECYCLE",
+        "C-CURATOR-PROVAS",
         "C-CURATOR-REGISTOS",
         "C-DATA-CLOCK",
         "C-DECISAO-DA-FILA",
@@ -46462,6 +46471,7 @@
           "EV",
           "EXECUTAVEIS",
           "FALSOS",
+          "FERRAMENTA_QUE_FICOU_NA_LANE",
           "FICHEIROS",
           "FORA_DA_COLLECTION",
           "FORTE",
@@ -46474,6 +46484,7 @@
           "ITEM",
           "LINHA_BOA",
           "MINIMOS",
+          "MOTOR",
           "ONDE",
           "OUTRAS_GAVETAS",
           "PASTAS_DA_COLLECTION",
@@ -46504,13 +46515,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1092,
+        "palavras": 1125,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1080,
+        "sem_marca_de_lingua": 1113,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -46663,9 +46674,19 @@
         "curadoria/READY-FOR-COLLECTION-V1.json",
         "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+        "curadoria/canario_do_motor.mjs",
+        "curadoria/estado_actual_das_fontes.mjs",
+        "curadoria/evidencia.py",
+        "curadoria/fila.py",
+        "curadoria/interface_collection.py",
         "curadoria/italy_contracts_curator.json",
         "curadoria/lifecycle.py",
+        "curadoria/provar_autonomia.py",
+        "curadoria/provar_divisao.py",
+        "curadoria/red_team_lifecycle.py",
         "curadoria/semear_lifecycle.py",
+        "curadoria/test_interface_collection.py",
+        "curadoria/test_lifecycle.py",
         "curadoria/worker.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-ledger/italy/runs.ndjson",
@@ -65629,8 +65650,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O estado actual das fontes — e o resemeador alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O estado actual das fontes — e o resemeador alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 269,
+          "snippet": "\"interface_collection.py\", \"semear_lifecycle.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-TESTES",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 270,
+          "snippet": "\"estado_actual_das_fontes.mjs\", \"canario_do_motor.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-ESTADO-ACTUAL--READS-->C-TESTES",
+            "FROM": "C-CURATOR-ESTADO-ACTUAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_source_curator_integration.py",
           "line": 51,
@@ -65797,6 +65850,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-INTERFACE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato Curator <-> Collection: READY_SOURCES e SOURCE_REPAIR_NEEDED alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 269,
+          "snippet": "\"interface_collection.py\", \"semear_lifecycle.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-INTERFACE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-INTERFACE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -66280,8 +66368,88 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O ciclo de vida da fonte — livro, fila e worker alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O ciclo de vida da fonte — livro, fila e worker alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 268,
+          "snippet": "\"lifecycle.py\", \"fila.py\", \"evidencia.py\", \"worker.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 268,
+          "snippet": "\"lifecycle.py\", \"fila.py\", \"evidencia.py\", \"worker.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 268,
+          "snippet": "\"lifecycle.py\", \"fila.py\", \"evidencia.py\", \"worker.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 268,
+          "snippet": "\"lifecycle.py\", \"fila.py\", \"evidencia.py\", \"worker.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 270,
+          "snippet": "\"estado_actual_das_fontes.mjs\", \"canario_do_motor.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
+            "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_source_curator_integration.py",
           "line": 50,
@@ -66321,6 +66489,105 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CURATOR-LIFECYCLE--READS-->C-TESTES",
             "FROM": "C-CURATOR-LIFECYCLE",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CURATOR-PROVAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As provas da divisao SOURCE CURATOR prepara / COLLECTION coleta alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 271,
+          "snippet": "\"test_lifecycle.py\", \"test_interface_collection.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-PROVAS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-PROVAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 271,
+          "snippet": "\"test_lifecycle.py\", \"test_interface_collection.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-PROVAS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-PROVAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 272,
+          "snippet": "\"provar_divisao.py\", \"provar_autonomia.py\", \"red_team_lifecycle.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-PROVAS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-PROVAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 272,
+          "snippet": "\"provar_divisao.py\", \"provar_autonomia.py\", \"red_team_lifecycle.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-PROVAS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-PROVAS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_integracao_04a_curator.py",
+          "line": 272,
+          "snippet": "\"provar_divisao.py\", \"provar_autonomia.py\", \"red_team_lifecycle.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CURATOR-PROVAS--READS-->C-TESTES",
+            "FROM": "C-CURATOR-PROVAS",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -66469,7 +66736,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 267,
+          "line": 302,
           "snippet": "\"REAL-EXAMPLE-MANIFEST-V1.json\", \"CANARY-LOTE-HTML-ARTIGO.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
@@ -66485,7 +66752,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 268,
+          "line": 303,
           "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
@@ -66501,7 +66768,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 268,
+          "line": 303,
           "snippet": "\"CANARY-LOTE-YOUTUBE-FEED.json\", \"SOURCE-ID-ALLOCATION-V1.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
@@ -66517,7 +66784,7 @@
         },
         {
           "file": "tests/test_integracao_04a_curator.py",
-          "line": 269,
+          "line": 304,
           "snippet": "\"HANDOFF-INTEGRACAO-04.md\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CURATOR-REGISTOS--READS-->C-TESTES",
@@ -107891,7 +108158,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1125,
+  "UNCLAIMED_FILES_COUNT": 1126,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -108076,11 +108343,11 @@
     "components_pending": 178,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 1120,
-    "edges_proven": 1061,
+    "edges": 1122,
+    "edges_proven": 1063,
     "edges_unknown": 59,
     "business_edges": 4,
-    "files_tracked": 2194,
+    "files_tracked": 2195,
     "files_covered": 1069,
     "files_code_unclaimed": 0,
     "roles_proven": 150,

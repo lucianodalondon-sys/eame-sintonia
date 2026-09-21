@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  333174d5c7833d7f48df4349b9eedbf9ac8fb019
+HEAD_DA_MEDICAO  358bdb06413a1862c76ea9f875d72604f31d5a94
 BRANCH           source-curator-integration-v1
-GERADO_EM        2026-09-20T20:33:15-03:00
+GERADO_EM        2026-09-20T21:14:17-03:00
 CARDS            79
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -640,19 +640,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-CURATOR-PROVAS, C-PORTA-FONTES-PRONTAS.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | curadoria/provar_divisao.py:45; orquestrador/fontes_prontas.py:37; tests/test_source_curator_integration.py:44 |
+| **prova de quem ativa** | curadoria/provar_divisao.py:45; orquestrador/fontes_prontas.py:37; tests/test_integracao_04a_curator.py:269 |
 | **porquê** | estas pecas importam-na — C-CURATOR-PROVAS · C-PORTA-FONTES-PRONTAS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | C-PORTA-FONTES-PRONTAS |
 | **o que entra · ficheiros** | `curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json`, `curadoria/READY-SOURCES-V1.json`, `curadoria/SOURCE-CHARACTERIZATION-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 3 |
-| **arestas provadas** | entram 3 · saem 3 |
+| **arestas no mapa** | entram 4 · saem 4 |
+| **arestas provadas** | entram 3 · saem 4 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 6 · NÃO SEI 1 |
+| **prova das ligações** | CODE 7 · NÃO SEI 1 |
 | **lei da Bíblia** | NÃO SEI |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -689,22 +689,22 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | PROOF · medido no plano DECLARED |
 | **dono** | INTELIGENCIA |
 | **status operacional** | yellow — tipo de peca sem regra de prova definida. |
-| **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | — NÃO SEI |
-| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-TESTES |
+| **prova de quem ativa** | tests/test_integracao_04a_curator.py:271 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/ESTADO-ACTUAL-DAS-FONTES-V1.json`, `curadoria/LIFECYCLE-PROOF-V1.json`, `curadoria/fila.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 0 |
-| **arestas provadas** | entram 4 · saem 0 |
+| **arestas no mapa** | entram 4 · saem 1 |
+| **arestas provadas** | entram 4 · saem 1 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 4 |
+| **prova das ligações** | CODE 5 |
 | **lei da Bíblia** | NÃO SEI |
-| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-CURATOR-REGISTOS` · Os registos do SOURCE CURATOR — a historia das missoes 02 a 04
 
@@ -2035,9 +2035,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
 OK                 38
 UNKNOWN            23
-SYSTEM_GAP         9
+SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
-TERMINAL           1
 TOTAL              79
 ```
