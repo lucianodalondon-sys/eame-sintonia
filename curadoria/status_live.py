@@ -82,6 +82,10 @@ def status() -> dict:
                                                                 False),
 
         "READY_TOTAL": m["READY"],
+        # READY_LEGACY (regua antiga) != READY_CURRENT (gate de detalhe).
+        # Um painel que some os dois num numero esconde que regua promoveu.
+        "READY_LEGACY": m["READY_LEGACY"],
+        "READY_CURRENT": m["READY_CURRENT"],
         "READY_TODAY": len(fontes_promovidas_hoje),
         "PROMOTIONS_TODAY": len(promocoes),
         "DISCOVERED_TODAY": len(descobertas),

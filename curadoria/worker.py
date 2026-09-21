@@ -308,6 +308,20 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
                          "de detalhe (%s)" % detalhe.get("DETAIL_GATE", "?"))
             else:
                 razao = "canario resolveu e trouxe um item com identidade"
+            # ⚠️ READY SO SE PROMOVE A PARTIR DE CANARY_PENDING OU REPAIRING —
+            # e o livro recusa o resto com ValueError. Um REVALIDATE que
+            # passa vem de CONTRACTED_CANARY_FAILED; um remedir vem de READY.
+            # Medido: 0 das 18 REVALIDATE tinham passado, e por isso este
+            # caminho nunca rebentou. Rebentaria no primeiro sucesso — e o
+            # supervisor leria «worker morto sem progresso». A fonte passa
+            # por CANARY_PENDING primeiro, com a razao escrita, e o livro fica
+            # legal e legivel.
+            de = LC.estado_de(sid)
+            if de not in LC.PODEM_PROMOVER:
+                LC.registar(sid, LC.CANARY_PENDING,
+                            "canario resolveu vindo de %s; passa por CANARY_PENDING "
+                            "para a promocao ser legal no livro" % de,
+                            evidence_ref=ref)
             LC.registar(sid, LC.READY_FOR_COLLECTION, razao, evidence_ref=ref)
 
     elif resultado == "RETRY":

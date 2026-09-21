@@ -77,6 +77,8 @@ def fechar_lote() -> dict:
             "HEALTH": r["HEALTH"],
             "PROVENANCE_REF": r["EVIDENCE_REF"],
             "CADENCE": r["CADENCE"],
+            # a regua viaja com a fonte: um lote com LEGACY dentro diz-o
+            "READY_RULE": r.get("READY_RULE", "NAO SEI"),
         })
 
     lote = {"READY_BATCH_ID": bid,

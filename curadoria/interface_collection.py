@@ -33,6 +33,7 @@ sys.path.insert(0, str(RAIZ / "curadoria"))
 
 import fila as F          # noqa: E402
 import lifecycle as LC    # noqa: E402
+import ready_split as RS  # noqa: E402
 
 CONTRATO = "CURATOR_COLLECTION_INTERFACE/v1"
 CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
@@ -74,7 +75,13 @@ def ready_sources() -> list[dict]:
         out.append({
             "SOURCE_ID": sid,
             "CAPABILITY": c.get("ACQUISITION", {}).get("STRATEGY", "NAO SEI"),
-            "CONTRACT_VERSION": c.get("CONTRACT_HASH", "NAO SEI"),
+            # ⚠️ A chave do contrato e SOURCE_CONTRACT_HASH. Medido: com
+            # `CONTRACT_HASH` as 18 saiam «NAO SEI» — a Collection nao sabia
+            # que versao de contrato estava a receber.
+            "CONTRACT_VERSION": c.get("SOURCE_CONTRACT_HASH", c.get("CONTRACT_HASH", "NAO SEI")),
+            # A REGUA PELA QUAL FOI PROMOVIDA. LEGACY = «a rota resolve»;
+            # DETAIL/v1 = item aberto, retratado, sem capa. Nao se misturam.
+            "READY_RULE": RS.regua_de(sid),
             "ROUTE_VERSION": c.get("ACQUISITION", {}).get("ROUTE_TYPE", "NAO SEI"),
             "STATUS": estado,
             "LAST_VALIDATED_AT": ult.get("OBSERVED_AT", "NAO SEI"),
@@ -121,9 +128,13 @@ def metricas_operacionais() -> dict:
     """FASE 13 — o que um painel «IT — SOURCES STATUS LIVE» leria."""
     m = LC.metricas()
     q = F.metricas()
+    reguas = [RS.regua_de(s) for s, e in LC.snapshot().items()
+              if e == LC.READY_FOR_COLLECTION]
     return {
         "SOURCES_TOTAL": m["SOURCES_TOTAL"],
         "READY": m[LC.READY_FOR_COLLECTION],
+        "READY_LEGACY": sum(1 for r in reguas if r == RS.REGUA_LEGACY),
+        "READY_CURRENT": sum(1 for r in reguas if r == RS.REGUA_CURRENT),
         "QUALIFYING": m[LC.QUALIFYING],
         "CANARY_PENDING": m[LC.CANARY_PENDING],
         "RETRY_AFTER": m[LC.RETRY_AFTER],
