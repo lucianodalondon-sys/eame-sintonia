@@ -27,6 +27,7 @@
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
+      "RELATORIO-PROVAS-P1.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -350,6 +351,8 @@
       "curadoria/test_ready_split.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_supervisor.py",
+      "curadoria/test_worker_volta_sobrevive.py",
+      "curadoria/test_zz_guarda_isolamento.py",
       "curadoria/validar_contratos.py",
       "curadoria/veredito_ready.py",
       "curadoria/worker.py"
@@ -2789,10 +2792,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "candidate-feeder-v1",
-    "HEAD": "680582dd9391a71e3829791d6c9121e4fab1c51f",
-    "GENERATED_AT": "2026-09-21T01:13:15-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91251cbadfcb6942b4769e62f2712fdf53c8594a8de75a516a7a78ae83920796"
+    "BRANCH": "provas-p1",
+    "HEAD": "276ede215a12919591975608f47254af3eb8f3ba",
+    "GENERATED_AT": "2026-09-21T10:06:22-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c1503c37769b49ba067368ae1bf9362a64093695bdfb552c6ca8945ab11df904"
   },
   "FAMILIES": [
     {
@@ -40515,7 +40518,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch candidate-feeder-v1"
+        "branch provas-p1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -97496,7 +97499,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1179,
+  "UNCLAIMED_FILES_COUNT": 1182,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97685,7 +97688,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2196,
+    "files_tracked": 2199,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

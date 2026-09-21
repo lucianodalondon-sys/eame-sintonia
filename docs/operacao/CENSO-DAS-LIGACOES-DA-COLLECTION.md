@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  680582dd9391a71e3829791d6c9121e4fab1c51f
-BRANCH           candidate-feeder-v1
-GERADO_EM        2026-09-21T01:13:15-03:00
+HEAD_DA_MEDICAO  276ede215a12919591975608f47254af3eb8f3ba
+BRANCH           provas-p1
+GERADO_EM        2026-09-21T10:06:22-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
