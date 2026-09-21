@@ -571,8 +571,31 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     if estruturado.get("CAPTURED_AT") not in (None, "", "NAO SEI", "NAO_SE_APLICA"):
         bruto["COLLECTED_AT"] = estruturado["CAPTURED_AT"]
     item = ing.para_a_porta(bruto)
-    item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
-                 "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
+    # ── O ENDERECO DO ITEM E O DA OBSERVACAO, E NAO O DO DERIVADO ─────────
+    # ⚠️ ISTO ESCREVIA `id = "derived:<DERIVED_ARTIFACT_ID>"`, E ERA UMA
+    # IDENTIDADE EMPRESTADA. O derivado tem grao CONTEUDO POR RECEITA (022):
+    # duas observacoes dos mesmos bytes reencontram a MESMA linha, e a Sala
+    # recebia duas entregas com o mesmo `ITEM_ID`. Medido na Sala operacional
+    # em 2026-09-20 (C-SALA-IDENTITY-V1): 6 pares de entregas em corridas
+    # diferentes, com observacoes diferentes (164/289, 165/298, 168/302,
+    # 170/305, 175/313, 7/26), todos a chamar-se `derived:<n>`.
+    #
+    #     COL-LAW-034: ITEM_ID != ARTIFACT_ID.
+    #     O DERIVADO E O TEXTO; A ENTREGA E ESTA OBSERVACAO, NESTA CORRIDA.
+    #
+    # O que se entrega a porta e a OBSERVACAO admitida (`RAW_ASSET_ID`), que ja
+    # viaja como `RAW_OBSERVATION_ID` e e a menor identidade que fecha a
+    # estrada (COL-LAW-043). O derivado nao se perde: a aresta observacao ->
+    # derivado tem dono, `participacao_na_derivacao` (029), e e la que se le.
+    #
+    # ⚠️ SEM OBSERVACAO NAO HA ENDERECO, E NAO SE FABRICA UM — nem do
+    # derivado, nem do sha, nem do caminho. O item segue sem `id`, a porta
+    # responde `NAO_SEI` por `identidade` (COL-LAW-034) e o Livro guarda o
+    # porque. Uma entrega que nao sabe de que observacao veio nao entra.
+    item.update({"raw_asset_id": estruturado.get("RAW_ASSET_ID")})
+    observacao = item["raw_asset_id"]
+    if observacao is not None:
+        item["id"] = "obs:%s" % observacao
     return item
 
 

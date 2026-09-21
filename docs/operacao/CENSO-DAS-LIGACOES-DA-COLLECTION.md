@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e3b1c77e910f9565ab2995adbf28b531e7eb107a
-BRANCH           big-collection-release-v1
-GERADO_EM        2026-09-20T19:09:43-03:00
+HEAD_DA_MEDICAO  3c0ad4d7a05aa82bd4e4c87fc2a3b25451a6fb13
+BRANCH           sala-identity-v1
+GERADO_EM        2026-09-20T19:12:04-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -132,7 +132,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | DESENVOLVIMENTO_MERCADO · TECNICO_CIENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:105; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:105; orquestrador/orquestrador.py:915 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | `data/samples/EXPERT-DIRECTORY-EAME-V1.json`, `data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json`, `data/samples/RESEARCHER-CORPUS-EAME-V1.json` |
@@ -207,7 +207,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:122; orquestrador/orquestrador.py:892 _(plano OBSERVED)_ |
+| **prova de quem ativa** | pedido/receitas.py:122; orquestrador/orquestrador.py:915 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -282,7 +282,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
 | **status operacional** | green — outra peca do sistema importa isto para funcionar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:236; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:236; orquestrador/orquestrador.py:915 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json`, `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json`, `supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql` |
@@ -332,7 +332,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:170; orquestrador/orquestrador.py:892 _(plano OBSERVED)_ |
+| **prova de quem ativa** | pedido/receitas.py:170; orquestrador/orquestrador.py:915 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | V-YOUTUBE |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/adaptadores_de_aquisicao.mjs` |
@@ -357,7 +357,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | orquestrador/orquestrador.py:605; provas/a_linhagem_do_ready.py:60; provas/a_ponte_de_midia_no_postgres.py:67 |
+| **prova de quem ativa** | orquestrador/orquestrador.py:628; provas/a_linhagem_do_ready.py:60; provas/a_ponte_de_midia_no_postgres.py:67 |
 | **porquê** | estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -382,7 +382,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
 | **status operacional** | green — outra peca do sistema importa isto para funcionar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:157; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:157; orquestrador/orquestrador.py:915 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json` |
@@ -407,7 +407,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:315; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:315; orquestrador/orquestrador.py:915 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |

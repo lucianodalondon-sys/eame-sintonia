@@ -18989,3 +18989,106 @@ observações (834,9 MB, 872/872 sha conferidos no armazém), 668 derivados, Adm
 · NAO 15 · NAO_SEI 518 · NAO_SE_APLICA 322; Sala 29 → 46; `PAID_USD = 0`; red team 0 em
 23 medidas. Ver `RELATORIO-BIG-COLLECTION-RELEASE.md`.
 
+
+---
+
+# §164 · A ENTREGA NA SALA É A OBSERVAÇÃO, NÃO O TEXTO — E UM NOME EMPRESTADO É UMA CHAVE DUPLICADA COM AR DE CHAVE
+
+**O QUE.** C-SALA-IDENTITY-V1 (2026-09-20/21, bancada `sala-identity-v1`, base
+`big-collection-release-v1 @ 3c0ad4d7`): cirurgia de identidade da entrega na
+Sala de Espera, sem correr Collection, sem rede, sem custo, sem apagar nem
+reescrever linha. Pergunta única: **a Sala sabe distinguir uma entrega nova de
+um derivado que já existia?** Resposta medida na Sala operacional
+(`127.0.0.1:54330/sala_italia`, 46 linhas): **pela chave e pela observação,
+sim; pelo nome, não.** Relatório em `RELATORIO-SALA-IDENTITY-V1.md`.
+
+**1 · O que os 5 «suspeitos» eram, um a um — e nenhum era proveniência
+partida.** Os 5 itens da BCR que apontavam para derivados de corridas
+anteriores (`derived:56/57/60/62/66`, observações 289/298/302/305/313) têm,
+cada um: corrida própria `concluida`; observação NOVA em `raw_asset`
+(`FORWARD_IDENTIFIED`, mesmo sha256 dos irmãos 164/165/168/170/175 das 13:11);
+etapa `DERIVED:PASS (reused=1)`; a aresta observação→derivado escrita em
+`participacao_na_derivacao` com `first_seen_derivation_run_id` = a corrida da
+BCR; e `sala_de_espera.raw_observation_id` = a observação nova. O derivado foi
+**reencontrado de propósito** — é o grão da 022 (conteúdo por receita) e a
+lei da 029 (a observação declara que participou). Veredito: 5 ×
+`VALID_REUSE`, 0 × `BROKEN_PROVENANCE`. E há um 6.º par **anterior à BCR**
+(`derived:6`, observações 7 e 26, 18/09 e 19/09): o padrão nasceu com a rota,
+não com a corrida grande.
+
+**2 · O defeito era o NOME, e o nome é por onde se endereça.** A rota
+documental do orquestrador dava ao item `id = "derived:<DERIVED_ARTIFACT_ID>"`
+(`item_documental_para_a_porta`, desde `d7d0008d` de 12/09). O derivado tem grão
+conteúdo-por-receita: duas observações dos mesmos bytes reencontram a **mesma**
+linha — e a Sala ficou com 6 pares de entregas, em corridas diferentes, com o
+mesmo `ITEM_ID`. A chave `(run_id, ordem)` (031) e a coluna
+`raw_observation_id` guardaram a identidade; mas `retirar(run_id, item_id)`
+endereça pelo nome (`ItemAmbiguo` se se repetir dentro da corrida), e o
+consumidor incremental cunha `SIGNAL_ID`/`REQUIREMENT_ID` por
+`(corrida|ITEM_ID)` (`motor/corrida_da_inteligencia.py`). Dois PDFs com os
+mesmos bytes em endereços diferentes numa mesma corrida dariam duas linhas
+com o mesmo nome — e a retirada de uma seria à sorte.
+
+    COL-LAW-034: SOURCE_ID · ITEM_ID · ARTIFACT_ID · RUN_ID · REQUEST_ID, separadas.
+    `derived:<n>` É UM ARTIFACT_ID NO LUGAR DO ITEM_ID.
+    O DERIVADO É O TEXTO; A ENTREGA É ESTA OBSERVAÇÃO, NESTA CORRIDA.
+
+**3 · A correção mínima, no dono, sem inventar identidade.** Uma função, um
+sítio: o item passa a chamar-se `obs:<RAW_ASSET_ID>` — a observação que já
+viajava como `RAW_OBSERVATION_ID` e é «a menor identidade que fecha a estrada»
+(COL-LAW-043). Sem observação **não há nome**: nem sha, nem derivado, nem
+caminho servem de fallback; o item segue sem `id`, a porta responde `NAO_SEI`
+por `identidade` e o Livro guarda o porquê. O derivado não se perde: lê-se por
+`participacao_na_derivacao`, que é o dono da aresta. Nada mudou em
+`admissao/sala_de_espera.py`, na 031 nem no contrato READY de 19 campos.
+Zona de fronteira declarada: `orquestrador/orquestrador.py` é tocado pela
+missão `source-curator-integration-v1` noutro bloco (`exigir_ready`); esta
+mudança fica em 27 linhas de `item_documental_para_a_porta` e não reformata o
+ficheiro.
+
+**4 · As identidades canónicas, para não se voltar a emprestar.**
+`storage_object.id` (endereço: `storage_path`; conteúdo: `sha256`) ·
+conteúdo = `sha256` dos bytes; derivado = conteúdo por receita
+(`parent_sha256`+`kind`+`producer`+`producer_version`+`parameters_hash`+
+`serie_posicao`) · observação = `raw_asset.id` (identidade forward
+`(run_id, source_id, document_key, sha256)`) · admissão = a `Decisao` no
+Livro por `(corrida, item, universo, regra)`; a rota IT **não escreve** etapa
+`ADMISSION` (BCR §7, B7) · entrega = `sala_de_espera (run_id, ordem)`, com
+`raw_observation_id` a dizer QUAL observação e `corrida_sha256` a dizer se é
+retry (`REUSED`) ou outra história (`RUN_ID_CONFLICT`). **Dois casos que têm de
+coexistir e coexistem:** retry da mesma admissão → mesma impressão → nenhuma
+linha nova; nova corrida sobre bytes já conhecidos → observação nova, derivado
+reencontrado, entrega nova com nome próprio.
+
+**5 · O que NÃO se fez, e porquê.** Não se reescreveu `item_id` nas 46 linhas:
+o nome histórico é evidência do defeito, a proveniência (`raw_observation_id`)
+já estava certa nas 46, e `corrida_sha256` assina o conjunto tal como pousou —
+reescrever seria fabricar um passado que não aconteceu. Não se tocou na rota
+`coleta/rota_forward_documento.py`, que tem o mesmo defeito com outra roupa
+(`CONTENT_ID = sha256 do derivado` vira `id` do item, linha 571→300): 0 das 46
+linhas vieram por ela; fica declarado para o dono dela. Não se tocou nos 41
+derivados, nos 289 `NAO_SEI` nem no P5 — e mediu-se que os 17 derivados e as
+22 observações por trás das 17 entregas existem no armazém operacional com
+sha256 igual, pelo que a identidade da Sala não depende de fingir artefato
+nenhum. E não se criou o evento `SALA_ITEM_ADMITTED`: só se provou que, quando
+existir, a entidade dele é `(run_id, ordem)` com `raw_observation_id` ao lado,
+e a chave de idempotência é `(run_id, ordem, corrida_sha256)` — nunca
+`derived_id`, nunca sha do texto.
+
+**6 · Duas armadilhas de bancada, medidas.** (a) O `psql` desta máquina
+pendura para sempre com a DSN à frente das opções — a memória já o dizia e
+voltou a morder na primeira ligação; opções primeiro, DSN por último, e
+`timeout` sempre. (b) A saída do `psql` no Windows traz `\r`: um `test -f`
+sobre `storage_path` lido do banco diz MISSING para 39 ficheiros que existem;
+`tr -d '\r'` antes de olhar para o disco. (c) `tests.test_o_censo_da_sala_de_espera`
+reescreve `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` — ficheiro de outra
+missão viva — só por correr; restaurar com `git checkout` antes de commitar.
+
+**Números que ficam.** `SALA_BEFORE = SALA_AFTER = 46` (29 anteriores + 17 BCR);
+46 chaves, 46 observações distintas, 40 `item_id` distintos, 6 pares repetidos
+(5 BCR + 1 anterior), 0 `raw_observation_id` nulo, 0 `CONSUMED`; nos 5 pares
+BCR, 2 reutilizaram `storage_object` (82, 95) e 3 criaram objeto novo para os
+mesmos bytes (298, 305, 313 — `storage_path` é único, `sha256` não; fica
+registado, não corrigido). Bateria nova: 22 testes, 7 dos quais reprovam no
+código antigo (mutação confirmada); `NEW_FAILURES` e `ALL_GATES_GREEN` no
+relatório, por nome.

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "big-collection-release-v1",
-    "HEAD": "e3b1c77e910f9565ab2995adbf28b531e7eb107a",
-    "GENERATED_AT": "2026-09-20T19:09:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "0413109901aa2559c75c0468c3b7323712dcd39791cf749e2de407be1391fdf8"
+    "BRANCH": "sala-identity-v1",
+    "HEAD": "3c0ad4d7a05aa82bd4e4c87fc2a3b25451a6fb13",
+    "GENERATED_AT": "2026-09-20T19:12:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a01a5d16a3de3ef14d9ffccfcd11c8b53880c5177c8ade2d4ff4cb32d64d8f23"
   },
   "FILES": [
     {
@@ -289,6 +289,13 @@
       "code_dir": false
     },
     {
+      "path": "MISSAO-SALA-IDENTITY-V1.md",
+      "sha": "1c49080342ed0ffc737be6952b01cc99f2eb466b",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "PORTAL-CAPABILITY-INVENTORY.md",
       "sha": "03b0da54fb4998f1a4cb93bbf639e5a873864187",
       "ext": ".md",
@@ -345,6 +352,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-SALA-IDENTITY-V1.md",
+      "sha": "8f21fefd6c7877a4b9aa18cc3790609361f7e5f1",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
       "sha": "1f6d1e7688eaf93c71adcd17af1cf0d761faf5b1",
       "ext": ".md",
@@ -353,7 +367,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "b51bb9eeab83c3985b7885956b5ede46c1df13b9",
+      "sha": "bb8517d4f70a43cfffb355afd9da1ea1bd71a381",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10510,7 +10524,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "cc4322a4579c3b40a17be6d517fdb7d0ed2320f8",
+      "sha": "7622cc722e2dcf2fcf7477cb00c7ddd3d4543d69",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13815,6 +13829,13 @@
     {
       "path": "tests/test_a_fase_10_entra_no_acervo.py",
       "sha": "dccd6d41d6ae92674d3a0d23c586d0848e5aacd3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "sha": "3f57dd1c34cbdb5f8653423235d134b01d52eaff",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31168,7 +31189,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 605,
+        "line": 628,
         "snippet": "import rota_forward_documento as _rf                    # noqa: PLC0415"
       }
     },
@@ -48619,6 +48640,94 @@
       }
     },
     {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 56,
+        "snippet": "import _gavetas                                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 57,
+        "snippet": "import admissao                                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 58,
+        "snippet": "import sala_de_espera as espera                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 134,
+        "snippet": "fonte = _fonte(os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "guarda/cliente_postgres.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 341,
+        "snippet": "from guarda.cliente_postgres import resolver_psql, ClientePostgresAusente  # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "motor/corrida_da_inteligencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 255,
+        "snippet": "import corrida_da_inteligencia as intel                 # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 86,
+        "snippet": "import orquestrador as orq                               # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_a_identidade_da_entrega_na_sala.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_identidade_da_entrega_na_sala.py",
+        "line": 60,
+        "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_a_linhagem_do_ready.py",
       "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
       "type": "READS",
@@ -65094,10 +65203,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2170,
-    "files_readable": 836,
-    "files_code_dir": 896,
-    "file_edges": 4489,
+    "files_tracked": 2173,
+    "files_readable": 837,
+    "files_code_dir": 897,
+    "file_edges": 4497,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
