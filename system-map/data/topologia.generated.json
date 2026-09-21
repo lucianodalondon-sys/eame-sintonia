@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-20T00:35:36+00:00",
-  "HEAD": "7b8d96ccb9031fed4322318121dfcb6eb273c44e",
-  "BRANCH": "claude/source-contract-executable-v2",
+  "GENERATED_AT": "2026-09-21T03:22:22+00:00",
+  "HEAD": "c6da8b60b116b45cbeee59747d0ace82f7751720",
+  "BRANCH": "candidate-feeder-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
-  "FICHEIROS_NA_IMPRESSAO": 2252,
+  "SOURCE_TREE_FINGERPRINT": "c62e1cc92ddb07222cb76f424f46d95ef1d3eca50fc1804b706d7b5390fc4ee1",
+  "FICHEIROS_NA_IMPRESSAO": 2335,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2895,6 +2895,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "regras/motor_de_rota.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "d91380fe451610eb74256044da7fa7bb293b1f68",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "regras/motor_de_rota_test.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "c853a4b00c69ea498111b5c75a2f3d18e275d81a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "regras/proveniencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "c94e9147603bd912b240d841d26e71572137c063",
@@ -2974,14 +2988,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
+    "VERSAO": "c62e1cc92ddb07222cb76f424f46d95ef1d3eca50fc1804b706d7b5390fc4ee1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d02d8588f375f0061552e94102d254f7d24c6bea6d37a6a7ae8c12ca32287b13",
+    "VERSAO": "c62e1cc92ddb07222cb76f424f46d95ef1d3eca50fc1804b706d7b5390fc4ee1",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4631,8 +4645,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 656,
-  "INPUTS_DIGEST": "0810dc2787f618709ec37b2ad52f96d85f5583b2e537b41ac762d49f4b384daa",
+  "INPUTS_COUNT": 658,
+  "INPUTS_DIGEST": "7a7544c2d8d3597080c40d7680725ab45646be8519f9ab40e90bf96fcbf33790",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4658,15 +4672,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 432,
+  "DOCUMENTOS_LIDOS": 439,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "0b9d7c6dbbf34141db3be594b515fb768cd3695da4019ae709aed0e5cbdc947e",
-  "SEMANTIC_HASH": "d372c7e0a43fc1185555a8bd738c7b4fb2bf9134fe849c754033d640db50e6c6"
+  "MEASUREMENT_HASH": "4460f26cbd250b62f481c3bad409a939a1f862364fb3c8b9f12eea89318319c3",
+  "SEMANTIC_HASH": "1079f23a216466254211ff787b603d9498e036414ab792d7aee26344a26f459b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -19886,6 +19900,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "regras/motor_de_rota_test.mjs",
+      "LINHA": 231,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -20214,6 +20236,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "coleta/italy_recurrent_collect.mjs",
       "LINHA": 30,
       "SUPPORTS": "YES",
@@ -20290,6 +20320,14 @@
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
       "LINHA": 38,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 41,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -39955,7 +39993,9 @@
     "regras/italy_contracts.mjs",
     "regras/italy_pilot_guards.mjs",
     "regras/italy_scheduling_guards.mjs",
-    "regras/italy_source_health.mjs"
+    "regras/italy_source_health.mjs",
+    "regras/motor_de_rota.mjs",
+    "regras/motor_de_rota_test.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [

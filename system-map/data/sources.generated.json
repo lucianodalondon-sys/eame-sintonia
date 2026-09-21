@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-21T03:06:07+00:00",
-    "HEAD": "8867e517aa5fff86237b9818c7f1b632287a70ca",
+    "GENERATED_AT": "2026-09-21T03:20:14+00:00",
+    "HEAD": "c6da8b60b116b45cbeee59747d0ace82f7751720",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "9826e27b8f2fcad16efee92f2eaeed953347e5114fd759dc47811eba94803e66",
-    "FICHEIROS_NA_IMPRESSAO": 2332,
+    "SOURCE_TREE_FINGERPRINT": "c62e1cc92ddb07222cb76f424f46d95ef1d3eca50fc1804b706d7b5390fc4ee1",
+    "FICHEIROS_NA_IMPRESSAO": 2335,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -18365,6 +18365,19 @@
       ]
     },
     {
+      "endpoint": "https://ex.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_canario_detalhe.py",
+          "line": 32
+        },
+        {
+          "file": "curadoria/test_ready_split.py",
+          "line": 65
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/notizie",
       "usado_por": [
         {
@@ -18491,19 +18504,6 @@
         {
           "file": "leis/social_matriz.py",
           "line": 522
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/t",
-      "usado_por": [
-        {
-          "file": "guarda/social_sessao.py",
-          "line": 176
-        },
-        {
-          "file": "leis/social_matriz.py",
-          "line": 333
         }
       ]
     }
