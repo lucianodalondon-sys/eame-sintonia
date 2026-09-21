@@ -514,10 +514,6 @@ def _combinar(chave, tA, tB, vA, pA, vB, pB, ctx) -> tuple[str, str, dict | None
     if vA == NOT_READY and tA["NEW_STATE"] == LC.RECONCILIATION_REQUIRED:
         # A diz, por escrito, «remedir onde o adaptador existe». B e essa linha.
         return vB, ("A: RECONCILIATION_REQUIRED (medida contra rota morta) — remedida em B: " + pB), evB
-    if vA == NOT_READY and tA.get("EVIDENCE_REF") and _quando(tA) > _quando(tB):
-        # a ultima medicao com prova e a de A, sobre o contrato atual (leis 5 e 6).
-        return NOT_READY, ("A mediu depois, com prova, sobre o contrato atual: " + pA +
-                           " | B (%s) media a rota antiga" % (tB.get("EVIDENCE_REF") or "")[:40]), evA
     if vA == READY_LEGACY:
         # A promoveu pela regua antiga; B guarda o que a corrida real colheu com o MESMO contrato.
         if vB == NOT_READY and not prova_b(chave, ctx)["ROTA_MUDOU_DEPOIS_DA_BCR"]:
@@ -530,9 +526,13 @@ def _combinar(chave, tA, tB, vA, pA, vB, pB, ctx) -> tuple[str, str, dict | None
             return vB, pB + " | A: %s antes" % vA, evB
         return vA, pA + " | B: " + pB, evA
     if vA == NOT_READY:
+        # Quem mediu por ultimo COM PROVA decide — e so uma prova posterior de B
+        # pode desfazer um passo pendente/reprovado de A (leis 5 e 6: contrato e
+        # rota atuais). Sem essa prova, o READY antigo de B nao vence.
         if vB in (READY_LEGACY, READY_CURRENT) and _quando(tB) > _quando(tA) and tB.get("EVIDENCE_REF"):
             return vB, pB + " | A: " + pA + " (anterior)", evB
-        return NOT_READY, pA + " | B: " + pB, evA
+        return NOT_READY, ("A mediu depois (%s) sobre o contrato atual: %s | B (%s) media a rota antiga: %s"
+                           % (_quando(tA)[:19], pA, (tB.get("EVIDENCE_REF") or "")[:40], pB)), evA
     return UNKNOWN, "combinacao nao prevista: A=%s B=%s" % (vA, vB), None
 
 
@@ -619,8 +619,14 @@ def censo(ctx: dict) -> dict:
                       "IDENTIDADES_FINAIS": len(linhas)},
         "POR_ESTADO_FINAL": {e: conta.get(e, 0) for e in ESTADOS_FINAIS},
         "BLOQUEIOS": {
+            # relativo ao livro A DESTE censo: depois de aplicar, A ja os tem e o numero e 0.
             "POLICY_BLOCK_IMPORTED": len(importados_p),
             "CAPABILITY_BLOCK_IMPORTED": len(importados_c),
+            # lido do proprio livro A: as linhas de bloqueio que entraram com IMPORTADO_DE.
+            "POLICY_BLOCK_IMPORTED_NO_LIVRO": sum(1 for t in ctx["A"]["TRANSICOES"]
+                                                  if "IMPORTADO_DE" in t and t["NEW_STATE"] == LC.POLICY_BLOCK),
+            "CAPABILITY_BLOCK_IMPORTED_NO_LIVRO": sum(1 for t in ctx["A"]["TRANSICOES"]
+                                                      if "IMPORTADO_DE" in t and t["NEW_STATE"] == LC.CAPABILITY_BLOCK),
             "BLOCKS_REJECTED_AS_STALE": ctx["_BLOQUEIOS"]["REJEITADOS"],
             "BLOCKS_SUPERSEDED_BY_LATER_EVIDENCE": ctx["_BLOQUEIOS"]["SUPERADOS"],
         },

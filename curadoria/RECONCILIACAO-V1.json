@@ -1,10 +1,10 @@
 {
  "DATASET": "RECONCILIACAO-V1",
  "LEI": "uma SOURCE_ID, um estado final, sustentado pela prova em disco. Nao se escolhe livro, nao se somam estados, o mais recente nao vence. Bloqueio comprovado preserva-se; READY exige os quatro passos; NAO SEI e resultado.",
- "GERADO_EM": "2026-09-21T15:20:32.958481+00:00",
+ "GERADO_EM": "2026-09-21T15:24:48.809485+00:00",
  "LIVROS": {
   "A": {
-   "COMMIT": "d942240e",
+   "COMMIT": "dd602746",
    "FILE": "curadoria/LIFECYCLE-LEDGER-V1.json",
    "SOURCES": 278,
    "TRANSICOES": 754,
@@ -73,6 +73,8 @@
  "BLOQUEIOS": {
   "POLICY_BLOCK_IMPORTED": 0,
   "CAPABILITY_BLOCK_IMPORTED": 0,
+  "POLICY_BLOCK_IMPORTED_NO_LIVRO": 69,
+  "CAPABILITY_BLOCK_IMPORTED_NO_LIVRO": 7,
   "BLOCKS_REJECTED_AS_STALE": [],
   "BLOCKS_SUPERSEDED_BY_LATER_EVIDENCE": [
    {
@@ -127,14 +129,14 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T1-003",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T1-005",
@@ -148,7 +150,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:18) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T1-007",
@@ -190,7 +192,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:18) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T1-016",
@@ -218,7 +220,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T1-022",
@@ -232,7 +234,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T10-009",
@@ -253,7 +255,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T10-012",
@@ -267,7 +269,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T10-015",
@@ -302,7 +304,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T10-021",
@@ -351,7 +353,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T12-005",
@@ -386,7 +388,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T12-010",
@@ -414,7 +416,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR"
+   "PORQUE": "A mediu depois (2026-09-21T03:26:15) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec"
   },
   {
    "SOURCE_ID": "IT-T12-014",
@@ -477,7 +479,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-008",
@@ -498,7 +500,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-011",
@@ -512,14 +514,14 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-013",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-014",
@@ -547,14 +549,14 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-019",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-020",
@@ -568,7 +570,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T2-024",
@@ -617,7 +619,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-002",
@@ -652,42 +654,42 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-014",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-015",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-016",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-018",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-019",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T3-020",
@@ -855,7 +857,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-029",
@@ -883,21 +885,21 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-035",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-036",
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-037",
@@ -918,7 +920,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-040",
@@ -1002,7 +1004,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:28) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T7-015",
@@ -1114,7 +1116,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:29) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T7-032",
@@ -1177,7 +1179,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR"
+   "PORQUE": "A mediu depois (2026-09-21T03:26:44) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec"
   },
   {
    "SOURCE_ID": "IT-T7-042",
@@ -1226,7 +1228,7 @@
    "LIVRO": "B",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T9-009",
@@ -1303,7 +1305,7 @@
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T10-021",
@@ -1324,28 +1326,28 @@
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T12-013",
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR"
+   "PORQUE": "A mediu depois (2026-09-21T03:26:15) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec"
   },
   {
    "SOURCE_ID": "IT-T2-030",
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-039",
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T5-041",
@@ -1387,7 +1389,7 @@
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:29) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T7-033",
@@ -1408,7 +1410,7 @@
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR"
+   "PORQUE": "A mediu depois (2026-09-21T03:26:44) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec"
   },
   {
    "SOURCE_ID": "IT-T7-042",
@@ -1429,7 +1431,7 @@
    "LIVRO": "B2",
    "ESTADO_DESCARTADO": "READY_FOR_COLLECTION",
    "FINAL": "NOT_READY",
-   "PORQUE": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-2"
+   "PORQUE": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR"
   },
   {
    "SOURCE_ID": "IT-T9-015",
@@ -2156,17 +2158,17 @@
    {
     "SOURCE_ID": "IT-T1-002",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191235-e) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191235-e) m"
    },
    {
     "SOURCE_ID": "IT-T1-003",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191247-1) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191247-1) m"
    },
    {
     "SOURCE_ID": "IT-T1-006",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191324-8) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:18) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191324-8) m"
    },
    {
     "SOURCE_ID": "IT-T1-008",
@@ -2176,7 +2178,7 @@
    {
     "SOURCE_ID": "IT-T1-013",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191455-0) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:18) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191455-0) m"
    },
    {
     "SOURCE_ID": "IT-T1-019",
@@ -2186,17 +2188,17 @@
    {
     "SOURCE_ID": "IT-T1-021",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191628-5) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191628-5) m"
    },
    {
     "SOURCE_ID": "IT-T10-007",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193156-) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193156-) m"
    },
    {
     "SOURCE_ID": "IT-T10-011",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193241-) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193241-) m"
    },
    {
     "SOURCE_ID": "IT-T10-012",
@@ -2206,7 +2208,7 @@
    {
     "SOURCE_ID": "IT-T10-013",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193310-) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193310-) m"
    },
    {
     "SOURCE_ID": "IT-T10-015",
@@ -2216,7 +2218,7 @@
    {
     "SOURCE_ID": "IT-T10-020",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T10-2026-09-20-193931-) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T10-2026-09-20-193931-) m"
    },
    {
     "SOURCE_ID": "IT-T12-003",
@@ -2226,7 +2228,7 @@
    {
     "SOURCE_ID": "IT-T12-004",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-193451-) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-193451-) m"
    },
    {
     "SOURCE_ID": "IT-T12-005",
@@ -2241,17 +2243,17 @@
    {
     "SOURCE_ID": "IT-T12-009",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-194020-) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-194020-) m"
    },
    {
     "SOURCE_ID": "IT-T12-013",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T12-2026-09-20-194040-) m"
+    "WHY": "A mediu depois (2026-09-21T03:26:15) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T12-2026-09-20-"
    },
    {
     "SOURCE_ID": "IT-T2-007",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191720-f) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191720-f) m"
    },
    {
     "SOURCE_ID": "IT-T2-009",
@@ -2261,7 +2263,7 @@
    {
     "SOURCE_ID": "IT-T2-010",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191813-6) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191813-6) m"
    },
    {
     "SOURCE_ID": "IT-T2-011",
@@ -2271,12 +2273,12 @@
    {
     "SOURCE_ID": "IT-T2-012",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191836-9) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191836-9) m"
    },
    {
     "SOURCE_ID": "IT-T2-013",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191849-7) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191849-7) m"
    },
    {
     "SOURCE_ID": "IT-T2-015",
@@ -2291,12 +2293,12 @@
    {
     "SOURCE_ID": "IT-T2-017",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191943-d) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191943-d) m"
    },
    {
     "SOURCE_ID": "IT-T2-019",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192006-a) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192006-a) m"
    },
    {
     "SOURCE_ID": "IT-T2-020",
@@ -2306,7 +2308,7 @@
    {
     "SOURCE_ID": "IT-T2-022",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192042-4) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192042-4) m"
    },
    {
     "SOURCE_ID": "IT-T2-024",
@@ -2316,37 +2318,37 @@
    {
     "SOURCE_ID": "IT-T2-030",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-193550-f) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-193550-f) m"
    },
    {
     "SOURCE_ID": "IT-T3-013",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192119-8) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192119-8) m"
    },
    {
     "SOURCE_ID": "IT-T3-014",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192133-d) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192133-d) m"
    },
    {
     "SOURCE_ID": "IT-T3-015",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192151-f) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192151-f) m"
    },
    {
     "SOURCE_ID": "IT-T3-016",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192205-9) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192205-9) m"
    },
    {
     "SOURCE_ID": "IT-T3-018",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192225-9) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192225-9) m"
    },
    {
     "SOURCE_ID": "IT-T3-019",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192234-a) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192234-a) m"
    },
    {
     "SOURCE_ID": "IT-T3-020",
@@ -2431,7 +2433,7 @@
    {
     "SOURCE_ID": "IT-T5-028",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192753-5) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192753-5) m"
    },
    {
     "SOURCE_ID": "IT-T5-029",
@@ -2441,22 +2443,22 @@
    {
     "SOURCE_ID": "IT-T5-034",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192855-6) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192855-6) m"
    },
    {
     "SOURCE_ID": "IT-T5-035",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192906-7) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192906-7) m"
    },
    {
     "SOURCE_ID": "IT-T5-036",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192919-8) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192919-8) m"
    },
    {
     "SOURCE_ID": "IT-T5-039",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-193605-e) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-193605-e) m"
    },
    {
     "SOURCE_ID": "IT-T5-042",
@@ -2496,7 +2498,7 @@
    {
     "SOURCE_ID": "IT-T7-013",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-192932-3) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:28) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-192932-3) m"
    },
    {
     "SOURCE_ID": "IT-T7-016",
@@ -2511,17 +2513,17 @@
    {
     "SOURCE_ID": "IT-T7-031",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-193729-f) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:29) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-193729-f) m"
    },
    {
     "SOURCE_ID": "IT-T7-041",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T7-2026-09-20-193826-d) m"
+    "WHY": "A mediu depois (2026-09-21T03:26:44) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T7-2026-09-20-1"
    },
    {
     "SOURCE_ID": "IT-T8-008",
     "FINAL": "NOT_READY",
-    "WHY": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T8-2026-09-20-193904-6) media a rot"
+    "WHY": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T8-2026-09-20-193904-6) m"
    },
    {
     "SOURCE_ID": "IT-T9-010",
@@ -5447,11 +5449,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga: B: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.638969+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -5492,11 +5494,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191235-e) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191235-e) media a rota antiga: B: a BCR colheu a propria listagem como documento (BCR_ALVO_LISTAGEM) — prova da listagem nao e prova do item (lei 7)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.717082+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191235-eb94a10a12884b64"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -5537,11 +5539,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191247-1) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:17) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191247-1) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.804212+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191247-1dba6f8f941c5b8c"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -5582,7 +5584,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.881374+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191300-0374ba8f59677735"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -5633,7 +5635,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.930555+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191308-2f2ccea3aa242d38"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -5674,11 +5676,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191324-8) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:18) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191324-8) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.004783+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191324-803240b56549a13a"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -5729,7 +5731,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.058840+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191340-fce6e104e4f4af65"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -5774,7 +5776,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.140461+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191354-b5f6f135c505ff87"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -5825,7 +5827,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.196201+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191407-b2ebe9f3986b66c5"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -5876,7 +5878,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.250264+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191421-e54aa65268e07164"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -5927,7 +5929,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.302847+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191433-1536b525db16df88"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -5968,7 +5970,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.378144+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191447-5c7a1ddd7de5c44a"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6009,11 +6011,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191455-0) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:18) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T1-2026-09-20-191455-0) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.467302+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191455-05c83e78a2b754cd"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -6054,7 +6056,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.558662+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191506-e479cbc3504800e6"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6095,7 +6097,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.643962+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191514-df2e417b03513734"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6146,7 +6148,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.707029+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191525-bda65292ddf268cd"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -6187,7 +6189,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.797151+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191539-34e0ef5fed39407a"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6238,7 +6240,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.854727+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191549-1a2fb52953efaa4b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -6283,7 +6285,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.934822+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191603-1321e1bd1b3b98e7"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -6324,7 +6326,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.016970+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191619-b3415351ccad4317"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6365,11 +6367,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191628-5) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T1-2026-09-20-191628-5) media a rota antiga: B: a BCR colheu a propria listagem como documento (BCR_ALVO_LISTAGEM) — prova da listagem nao e prova do item (lei 7)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.088640+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191628-52120846fd64a5a5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -6420,7 +6422,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.140271+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191639-403ffcb4c3d3619a"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -6461,7 +6463,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.212479+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191659-0b158479b96676a0"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6502,7 +6504,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.286608+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193142-c5fd40d5faf505ab"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6543,7 +6545,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.365149+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193149-c29ef9fa74a76e74"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6584,11 +6586,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193156-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193156-) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.437596+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193156-a06aa070dc4ef38e"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -6629,7 +6631,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.508889+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193214-ce1dfbaba93be0af"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6680,7 +6682,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.567833+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193222-aee17e0ede6713e6"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -6727,7 +6729,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.619903+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193233-ea35142fd47b1e28"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -6768,11 +6770,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193241-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193241-) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.709151+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193241-ca803f52619b2920"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -6817,7 +6819,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.809299+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193259-92e5795fd53fb95f"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -6858,11 +6860,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193310-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:19) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T10-2026-09-20-193310-) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.916925+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193310-3ab39d3ab55079e0"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -6903,7 +6905,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.999038+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193323-0dc0793e28132e6d"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -6948,7 +6950,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.079617+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193348-c3850ea3fb2bbf57"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -6989,7 +6991,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.160245+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193406-ce4313902ce7f8a0"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -7040,7 +7042,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.211348+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-211431-6e543000f0c579f1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7092,7 +7094,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:25:56.142653+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T10-018-CANARY-0037"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -7144,7 +7146,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.267740+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-211812-3babdf62c9941b36"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7186,11 +7188,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T10-2026-09-20-193931-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T10-2026-09-20-193931-) media a rota antiga: B: a BCR colheu a propria listagem como documento (BCR_ALVO_LISTAGEM) — prova da listagem nao e prova do item (lei 7)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.297765+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193931-9cf1af71c8c52959"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -7242,7 +7244,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:50:19.063266+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T10-021-REPAIR-0010"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7294,7 +7296,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:05.817316+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T10-022-CANARY-0039"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -7346,7 +7348,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.353933+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T11-2026-09-20-193416-a32a1573df372f02"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7397,7 +7399,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.416978+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T11-2026-09-20-212112-2def310caa927ec4"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7448,7 +7450,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.474547+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T11-2026-09-20-212421-98a2f8153561bb2e"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7493,7 +7495,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.592413+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193427-9c7955ad27e6b075"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -7534,11 +7536,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-193451-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-193451-) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.766302+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193451-7781e9732475a4b9"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -7583,7 +7585,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.853907+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193504-873c2af8b2c30ea2"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -7628,7 +7630,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.942593+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193518-be8dd1c3eee2e02e"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -7679,7 +7681,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.008210+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-212718-027b1c98484eb5db"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7730,7 +7732,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.075256+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213016-74cb11a35bcac6db"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7772,11 +7774,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-194020-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-194020-) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.101303+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-194020-6b4e0b0170a770dd"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -7827,7 +7829,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.158698+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213329-ce1143d8fdd408c1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7878,7 +7880,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.210400+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213618-204fec36f8df6d74"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7929,7 +7931,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.300127+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213929-4de53b036643cc92"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -7971,11 +7973,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T12-2026-09-20-194040-) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T03:26:15) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T12-2026-09-20-194040-) media a rota antiga: B: rota mudou depois da BCR (passo 2) e a listagem nova esta provada ate as ligacoes — PASS_PARCIAL na rota atual",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:15.324955+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T12-013-CANARY-0041"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -8026,7 +8028,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.397256+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-214220-11668b73fe94a34c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8077,7 +8079,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.503908+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-214512-631b00b59950219f"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8128,7 +8130,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.623913+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-214800-14bd711d6e11e558"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8222,7 +8224,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.678293+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-190938-7bdaa6931f24d3e1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8269,7 +8271,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.735364+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-190951-7f6c58f2c4154617"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8316,7 +8318,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.803178+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191023-ae818916b58ae92b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8367,7 +8369,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.865759+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191709-ee11ba28a6ee3d86"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8408,11 +8410,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191720-f) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191720-f) media a rota antiga: B: a BCR colheu a propria listagem como documento (BCR_ALVO_LISTAGEM) — prova da listagem nao e prova do item (lei 7)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.971069+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191720-fffc269df9127812"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8463,7 +8465,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.036183+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191748-54127f65bd58e563"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8508,7 +8510,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.129473+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191804-171c387334a865a9"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -8549,11 +8551,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191813-6) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191813-6) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.217883+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191813-6c145599e540087c"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8598,7 +8600,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.309758+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191823-c0f415ea0aea1a27"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -8639,11 +8641,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191836-9) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T2-2026-09-20-191836-9) media a rota antiga: B: a BCR colheu a propria listagem como documento (BCR_ALVO_LISTAGEM) — prova da listagem nao e prova do item (lei 7)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.393130+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191836-919e3f90602af806"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8684,11 +8686,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191849-7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191849-7) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.517077+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191849-70d5e9e988309dc4"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8735,7 +8737,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.583238+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191901-216f97bfbb992658"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8780,7 +8782,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.668073+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191913-083fce2f9b36d00a"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -8825,7 +8827,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.755182+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191925-47134303ababe17a"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -8866,11 +8868,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191943-d) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:22) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-191943-d) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.846222+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191943-dd3a73f7b3f32397"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8911,7 +8913,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.931311+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191958-104d791e1ff0a7d7"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8952,11 +8954,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192006-a) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192006-a) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.014416+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192006-a06fe19a8aa05635"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9001,7 +9003,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.097303+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192025-b5580bb31a33bb29"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -9042,7 +9044,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.176413+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-192035-f2ff213175213475"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9083,11 +9085,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192042-4) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-192042-4) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.259051+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192042-43db4421b595a5c1"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9128,7 +9130,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.338629+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-192054-428a0fc2bd872d80"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9173,7 +9175,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.419400+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192107-cf6ce157affc8110"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -9224,7 +9226,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.475950+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194050-455538597dca4500"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9275,7 +9277,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.531031+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194239-4b3bdf2151b93f3c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9326,7 +9328,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.585279+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194451-2ad93dcd5a479ecc"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9377,7 +9379,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.654867+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194647-78b19842a3d2aab3"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9462,11 +9464,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-193550-f) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-193550-f) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.683945+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-193550-f769be593ed8a5fb"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9517,7 +9519,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.739006+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191037-b5e82a9d73b2782e"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9550,11 +9552,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: SEMANTIC_REVIEW (contrato executavel sem ficha no Atlas — decisao humana, nao do worker) | B (docs/fontes/ATLAS-DE-FONTES-EAME.md@3c0a) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: SEMANTIC_REVIEW (contrato executavel sem ficha no Atlas — decisao humana, nao do worker) | B (docs/fontes/ATLAS-DE-FONTES-EAME.md@3c0a) media a rota antiga: B: SEMANTIC_REVIEW (contrato executavel sem ficha no Atlas — decisao humana, nao do worker)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.771035+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "docs/fontes/ATLAS-DE-FONTES-EAME.md@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -9605,7 +9607,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.828196+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191052-d2ef01b581d7d551"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9656,7 +9658,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.894787+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191125-b882ffecc1f95bbb"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9703,7 +9705,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.956307+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191144-2773077f13fae128"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9744,11 +9746,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192119-8) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192119-8) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.047210+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192119-8aa08a635041f2b8"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9789,11 +9791,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192133-d) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192133-d) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.133505+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192133-dce004acfbdd6a1f"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9834,11 +9836,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192151-f) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192151-f) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.224657+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192151-fd4d599532c61de6"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9879,11 +9881,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192205-9) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192205-9) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.314793+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192205-9ef28cde9e906463"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9924,7 +9926,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.410855+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-192219-bb11acec8f55fb18"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9965,11 +9967,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192225-9) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192225-9) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.502264+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192225-9c8e82d0d6c5a33c"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -10010,11 +10012,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192234-a) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T3-2026-09-20-192234-a) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.595934+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192234-acb12f3848dacbd3"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -10059,7 +10061,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.689996+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192244-c98480cb05ad4fb3"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10100,7 +10102,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.786991+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-192256-daac964c52058353"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -10151,7 +10153,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.852798+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T4-2026-09-20-191216-de6067c40f5d4097"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10188,11 +10190,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (contrato executavel (motor de rota), ficha no Atlas, territorio com ex) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:24) sobre o contrato atual: A: CANARY_PENDING (contrato executavel (motor de rota), ficha no Atlas, territorio com ex) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga: B: CANARY_PENDING (contrato executavel (motor de rota), ficha no Atlas, territorio com ex)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.886492+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -10243,7 +10245,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.951604+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192316-0320404b196cf313"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10288,7 +10290,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.040703+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192326-404ba276fec1312e"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10333,7 +10335,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.137130+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192337-e58047a9fb30c8ae"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10378,7 +10380,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.229024+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192350-8c9ead7e399b416a"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10423,7 +10425,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.317425+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192401-aa7b83aa0341733c"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10468,7 +10470,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.406532+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192416-4ac43a25dc96719b"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10513,7 +10515,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.505568+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192426-7b68be5ac851ce57"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10558,7 +10560,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.598919+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192441-7d2927d2fb50c66d"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10603,7 +10605,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.690818+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192455-af7a674717b940a9"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10654,7 +10656,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.760352+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192508-6a134eecf66c22a3"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10699,7 +10701,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.854501+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192521-499d7f627375a5c1"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10744,7 +10746,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.996144+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192532-9aac8c847b3a9086"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10791,7 +10793,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.063666+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192545-fb7dc64d6d3e53c1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10836,7 +10838,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.166372+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192556-28f6660efb053984"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10881,7 +10883,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.265554+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192609-0b9eb8a12e27b822"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10922,7 +10924,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.369952+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192620-6b5325f61adff675"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -10967,7 +10969,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.476060+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192628-bdc09f811878fd5c"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -11012,7 +11014,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.578046+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192639-811c2a9f1ddf5820"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -11063,7 +11065,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.654710+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192653-3059d44865de3771"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11114,7 +11116,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.721805+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192708-c824dabebd7f3b61"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11159,7 +11161,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.849382+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192721-3c4f821504d60c1b"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -11210,7 +11212,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.917483+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192734-8b9ef001a8833894"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11251,11 +11253,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192753-5) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192753-5) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.017955+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192753-50b3827b5360b47a"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11300,7 +11302,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.132384+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192807-5c07ae2b2063e408"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -11351,7 +11353,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.250951+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192820-3218c890fbdc53ea"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11397,7 +11399,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.385542+00:00",
-    "COMMIT": "d942240e"
+    "COMMIT": "dd602746"
    },
    "FINAL_REASON": "bloqueio preservado pela evidencia (EVIDENCE_REF=EV-IT-T5-032-TRIAGEM-0002); ausencia noutro livro nao e revogacao",
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -11448,7 +11450,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.451551+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192843-147a52f842d703b2"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11489,11 +11491,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192855-6) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192855-6) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.576979+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192855-65f932fb8ca2d940"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11534,11 +11536,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192906-7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192906-7) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.674764+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192906-7ab07ae1f5ec1c43"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11579,11 +11581,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192919-8) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-192919-8) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.788849+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192919-8e956ede5a0f00ca"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11634,7 +11636,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.855120+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-194902-0fa02d374fbc43c5"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11685,7 +11687,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.923370+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-195101-91178695d8875e2c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11727,11 +11729,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-193605-e) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-193605-e) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.959376+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-193605-e847862f7bea0834"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11782,7 +11784,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.032156+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-195319-8652f3bb627e2469"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11824,7 +11826,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:58:55.745920+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T5-041-CANARY-0059"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -11870,7 +11872,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.102759+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -11915,7 +11917,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.177926+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -11960,7 +11962,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.255297+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12005,7 +12007,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.328235+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12093,7 +12095,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.397457+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12138,7 +12140,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.466279+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12190,7 +12192,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:21.493902+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T5-049-CANARY-0043"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -12236,7 +12238,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.545173+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12278,7 +12280,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:59:05.716779+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T5-051-CANARY-0061"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -12312,11 +12314,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A: CONTRACTED_CANARY_FAILED (canario nao trouxe item com identidade) | B: B: CONTRACTED_CANARY_FAILED (canario da missao 04 nao trouxe item com identidade; sem contrato no r)",
+   "FINAL_REASON": "A mediu depois (2026-09-20T21:48:28) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (canario nao trouxe item com identidade) | B (HISTORIA:curadoria/READY-FOR-COLLECTION-) media a rota antiga: B: CONTRACTED_CANARY_FAILED (canario da missao 04 nao trouxe item com identidade; sem contrato no r)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:48:28.237666+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12430,11 +12432,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:28) sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga: B: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.581217+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -12475,11 +12477,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-192932-3) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:28) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-192932-3) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.686464+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-192932-34df68b28dff931e"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12516,11 +12518,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (contrato executavel (motor de rota), ficha no Atlas, territorio com ex) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:28) sobre o contrato atual: A: CANARY_PENDING (contrato executavel (motor de rota), ficha no Atlas, territorio com ex) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga: B: CANARY_PENDING (contrato executavel (motor de rota), ficha no Atlas, territorio com ex)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.723687+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12571,7 +12573,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.799239+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-190507-1de3b5b72cb820f7"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -12616,7 +12618,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.867337+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12668,7 +12670,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:31.075813+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T7-017-CANARY-0045"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -12714,7 +12716,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.934594+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12748,11 +12750,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A: CONTRACTED_CANARY_FAILED (canario nao trouxe item com identidade) | B: B: CONTRACTED_CANARY_FAILED (canario da missao 04 nao trouxe item com identidade; sem contrato no r)",
+   "FINAL_REASON": "A mediu depois (2026-09-20T21:48:26) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (canario nao trouxe item com identidade) | B (HISTORIA:curadoria/READY-FOR-COLLECTION-) media a rota antiga: B: CONTRACTED_CANARY_FAILED (canario da missao 04 nao trouxe item com identidade; sem contrato no r)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:48:26.483299+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12803,7 +12805,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.005158+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-201606-ad0f226a13a6ec9b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -12855,7 +12857,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:48:26.544813+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -12906,7 +12908,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.072888+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-201845-ae18ccdc43c848ff"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -12957,7 +12959,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.146596+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202132-f3bc4f423daf6680"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13008,7 +13010,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.215038+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202419-42827795e818506f"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13059,7 +13061,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.289011+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202705-897c05bd82c11e5b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13110,7 +13112,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.358123+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202948-362bb576cb62f7dc"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13161,7 +13163,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.427286+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-203233-e7bd976820f7fcb1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13212,7 +13214,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.496748+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-203512-ad25fe78f26d1882"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13306,7 +13308,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.564642+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-203807-132a21d388680511"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13348,11 +13350,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-193729-f) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:29) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-193729-f) media a rota antiga: B: a BCR colheu a capa institucional como documento (BCR_ALVO_INSTITUCIONAL) — homepage 200 nao e READY (lei 1)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.600642+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-193729-ff9505dfaa9a4440"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13403,7 +13405,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.672409+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204058-6b8e21d082e8a8cd"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13455,7 +13457,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:37.593952+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T7-033-CANARY-0047"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -13507,7 +13509,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.740520+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204351-a57d6bfb92beea10"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13558,7 +13560,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.827338+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204645-5a50f69c53304327"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13609,7 +13611,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.905387+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204937-e9161b0eee2a5513"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13660,7 +13662,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.984551+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-205230-4883daad4d79429c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13749,7 +13751,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.061079+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-205511-1922b5256d09507d"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13801,7 +13803,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:48:28.542461+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -13843,11 +13845,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T7-2026-09-20-193826-d) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T03:26:44) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T7-2026-09-20-193826-d) media a rota antiga: B: rota mudou depois da BCR (passo 2) e a listagem nova esta provada ate as ligacoes — PASS_PARCIAL na rota atual",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:44.152898+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T7-041-CANARY-0049"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13899,7 +13901,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:52.831978+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T7-042-CANARY-0051"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -13952,7 +13954,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:59.611475+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T7-043-CANARY-0053"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -13986,11 +13988,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga: B: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.101161+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -14041,7 +14043,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.175645+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-205750-cab276717c694c6d"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14092,7 +14094,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.252546+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-210029-0ba57a1f33613529"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14143,7 +14145,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.332206+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-210310-d5c601178eef434c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14228,11 +14230,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T8-2026-09-20-193904-6) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T8-2026-09-20-193904-6) media a rota antiga: B: a BCR colheu a propria listagem como documento (BCR_ALVO_LISTAGEM) — prova da listagem nao e prova do item (lei 7)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.369596+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-193904-6d7a31f62f27260f"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -14265,11 +14267,11 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": null,
    "FINAL_STATE": "NOT_READY",
-   "FINAL_REASON": "A mediu depois, com prova, sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga",
+   "FINAL_REASON": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel) | B (regras/italy_contracts.mjs@3c0ad4d7) media a rota antiga: B: CONTRACT_PENDING (contrato a mao sem bloco ACQUISITION executavel)",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.414602+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -14320,7 +14322,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.492717+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T9-2026-09-20-193035-161d1a1a177ee9c5"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14365,7 +14367,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.609184+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-193048-12807feada3eb0ff"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -14416,7 +14418,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.689343+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "BCR-2026-09-20:IT-T9-2026-09-20-193058-ff56ab6f5e532dc1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14461,7 +14463,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.799601+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-193111-907ccf99fecc664f"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -14506,7 +14508,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.905649+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-193129-ceb8737f50fc7b23"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -14557,7 +14559,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.979987+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-210602-f4c184c1659f2066"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14599,7 +14601,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:59:13.980133+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T9-015-CANARY-0063"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -14651,7 +14653,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:31.058082+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-210845-b9b4bc920d4423bf"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14702,7 +14704,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:31.130854+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-211129-0fdf5d1554aa9631"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -14787,7 +14789,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:59:21.936603+00:00",
-    "COMMIT": "d942240e",
+    "COMMIT": "dd602746",
     "REF": "EV-IT-T9-019-CANARY-0065"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
