@@ -189,7 +189,18 @@ def _pid_no_so(pid: int) -> bool:
 
 
 def _ultimo_heartbeat() -> Optional[datetime]:
-    """Le o timestamp AT da ultima linha do run log."""
+    """Le o timestamp AT da ultima linha do run log escrita pelo WORKER.
+
+    ⚠️ O supervisor escreve no MESMO diario que le (`_anotar`: WORKER_MORTO,
+    WORKER_RELANCADO, SUPERVISOR_BLOCKED...). Medido (PROVAS-P1, DEFEITO 1):
+    contando essas linhas, cada morte via o WORKER_RELANCADO anterior como
+    "batimento novo", `progrediu` dava True, o contador zerava, e o
+    anti-crashloop nunca disparou — 8 mortes seguidas sem progresso, 8
+    relancamentos. As linhas com ORIGEM=SUPERVISOR sao o supervisor a falar
+    de si; batimento e so o que o worker escreveu.
+
+        O SUPERVISOR NAO PODE OUVIR O PROPRIO ECO COMO PROVA DE VIDA.
+    """
     if not DIARIO.exists():
         return None
     try:
@@ -197,10 +208,12 @@ def _ultimo_heartbeat() -> Optional[datetime]:
         with DIARIO.open("r", encoding="utf-8", errors="replace") as fh:
             for linha in fh:
                 linha = linha.strip()
-                if linha:
+                if linha and '"ORIGEM": "SUPERVISOR"' not in linha:
                     last = linha
         if last:
             d = json.loads(last)
+            if d.get("ORIGEM") == "SUPERVISOR":
+                return None
             return datetime.fromisoformat(d["AT"])
     except Exception:
         pass

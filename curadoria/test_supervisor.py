@@ -294,6 +294,87 @@ class TestUmaVoltaSup(Isolado):
         self.assertNotEqual(accao, "BLOQUEADO",
                             "nao devia BLOQUEAR com um so crash com progresso")
 
+    # -- DEFEITO 1 (PROVAS-P1): o caminho que ACUMULA as mortes ---------------
+    #
+    # Os testes acima injectam a lista de crashes ja cozinhada. Estes dois
+    # deixam o supervisor lancar workers que morrem de verdade e leem o que
+    # ficou — sem conhecer CRASH_MAX. O numero e escrito por extenso.
+
+    def _voltas_ate(self, lancador, estado, proc=None, maximo=8):
+        """Da `maximo` voltas ao supervisor com este lancador, ou ate BLOQUEADO.
+        O `proc` entra e sai: a morte do worker lancado numa volta so e vista
+        na volta SEGUINTE, e um proc perdido entre fases esconderia a morte."""
+        accoes = []
+        with mock.patch.object(S, "_lancar_worker", lancador):
+            for _ in range(maximo):
+                accao, estado, proc = S.uma_volta_sup(estado, proc, pausa_worker=0.1)
+                accoes.append(accao)
+                if accao == "BLOQUEADO":
+                    break
+        return accoes, estado, proc
+
+    def test_crashloop_tres_mortes_reais_sem_progresso_bloqueia(self):
+        """Tres workers reais que morrem sem escrever no diario -> BLOQUEADO
+        na volta seguinte a terceira morte; nem uma antes, nem uma depois."""
+        self._injetar("IT-TEST-SUP-006")
+        estado = {**self._estado_base(), "WORKER_PID": None}
+        accoes, estado, _ = self._voltas_ate(self._worker_que_morre_ja, estado)
+        self.assertEqual(
+            accoes, ["RELANCADO", "RELANCADO", "RELANCADO", "BLOQUEADO"],
+            "esperava tres relancamentos e o bloqueio a quarta volta; veio %s"
+            % accoes)
+        self.assertEqual(len(estado["CRASHES_SEM_PROGRESSO"]), 3)
+        self.assertEqual(estado["SUPERVISOR_STATE"], "BLOCKED")
+        self.assertIsNone(estado["WORKER_PID"])
+        # E ficou escrito no disco (descartavel), nao so na memoria.
+        no_disco = json.loads(S.ESTADO.read_text(encoding="utf-8"))
+        self.assertEqual(no_disco["SUPERVISOR_STATE"], "BLOCKED")
+        self.assertEqual(len(no_disco["CRASHES_SEM_PROGRESSO"]), 3)
+
+    def test_crashloop_morte_com_progresso_no_meio_nao_bloqueia(self):
+        """MORRER != MORRER SEM PROGREDIR, pelo caminho real.
+
+        Workers A, B morrem mudos (contador 2); C bate e morre (contador 0);
+        D, E morrem mudos (contador 2). Quatro mortes mudas, nenhum bloqueio,
+        porque nunca foram tres SEGUIDAS.
+        """
+        self._injetar("IT-TEST-SUP-007")
+        estado = {**self._estado_base(), "WORKER_PID": None}
+        # v1 lanca A; v2 le a morte de A (1) e lanca B.
+        ac, estado, proc = self._voltas_ate(self._worker_que_morre_ja, estado, maximo=2)
+        self.assertEqual(ac, ["RELANCADO", "RELANCADO"])
+        self.assertEqual(len(estado["CRASHES_SEM_PROGRESSO"]), 1)
+        # v3 le a morte de B (2) e lanca C, que escreve um batimento e morre.
+        ac, estado, proc = self._voltas_ate(self._worker_que_bate_e_morre, estado, proc, maximo=1)
+        self.assertEqual(ac, ["RELANCADO"])
+        self.assertEqual(len(estado["CRASHES_SEM_PROGRESSO"]), 2)
+        # v4 le a morte de C: batimento novo -> contador a zero; lanca D.
+        ac, estado, proc = self._voltas_ate(self._worker_que_morre_ja, estado, proc, maximo=1)
+        self.assertEqual(ac, ["RELANCADO"])
+        self.assertEqual(estado["CRASHES_SEM_PROGRESSO"], [],
+                         "a morte com batimento devia ter reposto o contador")
+        # v5 le a morte de D (1), lanca E; v6 le a morte de E (2), lanca F.
+        ac, estado, proc = self._voltas_ate(self._worker_que_morre_ja, estado, proc, maximo=2)
+        self.assertEqual(ac, ["RELANCADO", "RELANCADO"])
+        self.assertEqual(len(estado["CRASHES_SEM_PROGRESSO"]), 2)
+        self.assertNotEqual(estado["SUPERVISOR_STATE"], "BLOCKED")
+
+    def test_diario_do_supervisor_nao_e_batimento_do_worker(self):
+        """O supervisor escreve no MESMO diario que le como batimento. As suas
+        proprias linhas (ORIGEM=SUPERVISOR) nao podem contar como progresso do
+        worker — senao cada WORKER_RELANCADO 'prova' que o worker progrediu e
+        o anti-crashloop nunca dispara."""
+        self.assertIsNone(S._ultimo_heartbeat())
+        S._anotar({"EVENTO": "WORKER_RELANCADO", "PID": 1})
+        self.assertIsNone(S._ultimo_heartbeat(),
+                          "uma linha do proprio supervisor contou como batimento")
+        with S.DIARIO.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"EVENTO": "VOLTA", "AT": S._agora()}) + "\n")
+        self.assertIsNotNone(S._ultimo_heartbeat())
+        S._anotar({"EVENTO": "WORKER_MORTO", "PID": 1})
+        hb = S._ultimo_heartbeat()
+        self.assertIsNotNone(hb, "a linha do worker ficou escondida atras da do supervisor")
+
 
 class TestBootTimeParsing(unittest.TestCase):
     """Testes do parser de boot time do wmic (ADDENDUM-02).
