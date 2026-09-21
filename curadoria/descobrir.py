@@ -87,6 +87,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import urllib.robotparser
+import html.parser as _htmlparser
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -105,8 +106,10 @@ CTX.check_hostname = False
 CTX.verify_mode    = ssl.CERT_NONE
 
 # Limites da FASE 3
-MAX_PEDIDOS_TOTAIS       = 400
-MAX_PEDIDOS_POR_DOMINIO  = 8
+MAX_PEDIDOS_TOTAIS       = 300
+MAX_PEDIDOS_POR_DOMINIO  = 10
+MAX_SEMENTES_ESTA_CORRIDA = 15
+PROFUNDIDADE_MAX          = 1
 PAUSA_ENTRE_PEDIDOS_S    = 2.0
 TIMEOUT_S                = 20
 
@@ -114,8 +117,9 @@ TIMEOUT_S                = 20
 QUEUE_LOW_THRESHOLD = 20
 
 # Ficheiros persistidos
-VISITADOS_JSON = RAIZ / "curadoria" / "DISCOVERY-VISITED.json"
-PROOF_JSON     = RAIZ / "curadoria" / "DISCOVERY-PROOF-V1.json"
+VISITADOS_JSON   = RAIZ / "curadoria" / "DISCOVERY-VISITED.json"
+PROOF_JSON       = RAIZ / "curadoria" / "DISCOVERY-PROOF-V1.json"
+CRAWL_PROOF_JSON = RAIZ / "curadoria" / "CRAWL-PROOF-V1.json"
 
 
 # ------------------------------------------------------------------ familias
@@ -858,6 +862,411 @@ def _verificar_url(url: str, orcamento: Orcamento) -> tuple[bool, int, str]:
         return False, 0, "ERRO: %s" % type(ex).__name__
 
 
+# ------------------------------------------------------------------ HTML / crawl
+
+class _LinkParser(_htmlparser.HTMLParser):
+    """Extrai pares (url, anchor_text) de tags <a href>."""
+
+    def __init__(self, base_url: str):
+        super().__init__(convert_charrefs=True)
+        self.base_url = base_url
+        self.links: list[tuple[str, str]] = []
+        self._cur_href: Optional[str] = None
+        self._cur_text: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        if tag == "a":
+            d = dict(attrs)
+            href = (d.get("href") or "").strip()
+            if href:
+                self._cur_href = urllib.parse.urljoin(self.base_url, href)
+                self._cur_text = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._cur_href is not None:
+            self.links.append((self._cur_href, " ".join(self._cur_text).strip()))
+            self._cur_href = None
+            self._cur_text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._cur_href is not None:
+            t = data.strip()
+            if t:
+                self._cur_text.append(t)
+
+
+def extrair_links(html: str, base_url: str) -> list[tuple[str, str]]:
+    """Devolve lista de (url_absoluto, anchor_text) de um HTML."""
+    p = _LinkParser(base_url)
+    try:
+        p.feed(html)
+    except Exception:
+        pass
+    return p.links
+
+
+# Extensoes de ficheiro nao-navegaveis a descartar
+_EXT_BINARIAS = frozenset([
+    ".pdf", ".zip", ".docx", ".doc", ".xls", ".xlsx", ".csv",
+    ".ppt", ".pptx", ".odt", ".ods", ".jpg", ".jpeg", ".png",
+    ".gif", ".svg", ".ico", ".mp4", ".mp3", ".avi", ".webm",
+])
+
+# Caminhos de servico a descartar (regex de segmento de path)
+_RE_SERVICO = re.compile(
+    r"(?:^|/)(?:privacy|cookie|login|logout|mappa.del.sito|sitemap|"
+    r"search|cerca|tag[s]?|categor[a-z]*|author[s]?|feed|rss|"
+    r"chi.siamo|contatti|contattaci|about|newsletter|iscriviti|"
+    r"subscribe|print|stampa|share|condividi|404|error|terms|"
+    r"accessibilita|dichiarazione-accessibilita)(?:/|$|\?)",
+    re.I
+)
+
+# Mapeamento dominio social -> tipo
+_SOCIAL_MAP: dict[str, str] = {
+    "instagram.com": "INSTAGRAM",
+    "youtube.com": "YOUTUBE",
+    "linkedin.com": "LINKEDIN",
+    "facebook.com": "FACEBOOK",
+    "youtu.be": "YOUTUBE",
+    "fb.com": "FACEBOOK",
+    "fb.me": "FACEBOOK",
+}
+
+# Dominios irrelevantes (analytics, CDN, social login, etc.)
+_DOMINIOS_SKIP = frozenset([
+    "google.com", "google.it", "goo.gl", "googleapis.com",
+    "cloudflare.com", "amazonaws.com", "akamai.net",
+    "jquery.com", "bootstrap.com", "cdnjs.cloudflare.com",
+    "twitter.com", "x.com", "t.co", "tiktok.com",
+    "pinterest.com", "whatsapp.com", "telegram.org", "t.me",
+    "addtoany.com", "sharethis.com", "disqus.com",
+])
+
+
+def _host_de(url: str) -> str:
+    try:
+        return urllib.parse.urlparse(url).netloc.lower().lstrip("www.")
+    except Exception:
+        return ""
+
+
+def _e_social_url(url: str) -> bool:
+    h = _host_de(url)
+    return any(soc in h for soc in _SOCIAL_MAP)
+
+
+def _filtrar_link(url: str, semente_url: str) -> tuple[bool, str]:
+    """Decide se um link vale a pena verificar.
+
+    REGRA ESCRITA (declarada e testavel):
+    R1  Descartar esquemas nao-HTTP/HTTPS (mailto:, tel:, javascript:, etc.)
+    R2  Descartar fragmentos puros (#ancora sem mudanca de path)
+    R3  Descartar extensoes de ficheiro nao-navegaveis
+    R4  Descartar caminhos de servico (privacy, login, cookie, etc.)
+    R5  Descartar a propria semente (mesma URL normalizada)
+    R6  Descartar dominios irrelevantes (analytics, CDN, redes sociais
+        nao-agri, etc.) -- EXCECAO: LinkedIn/Instagram/Facebook/YouTube
+        que sao aceites como candidatas (mas nao enfileiradas)
+    R7  Dominio mesmo: manter se path tem profundidade >= 1 (e sub-recurso,
+        nao apenas ancora na mesma pagina)
+
+    Decisao sobre dominio interno vs. externo:
+    - Externo nao e garantia de fonte nova; interno nao e lixo.
+    - Sub-portais do mesmo dominio (ex: agri.regione.* -> /fitosanitario)
+      sao canais validos -- mantemos path-depth >= 1 do mesmo dominio.
+    - Nao filtramos por dominio externo vs. interno; filtramos por CONTEUDO
+      do path (regra R4) e por dominio reconhecidamente irrelevante (R6).
+    """
+    if not isinstance(url, str) or not url:
+        return False, "R1_URL_VAZIA"
+
+    # R1: esquema
+    if not url.startswith(("http://", "https://")):
+        return False, "R1_ESQUEMA_NAO_HTTP"
+
+    parsed = urllib.parse.urlparse(url)
+    host = parsed.netloc.lower().lstrip("www.")
+    path = parsed.path or "/"
+
+    # R5: propria semente (antes de R2, para ter motivo correcto quando sem fragmento)
+    if normalizar(url) == normalizar(semente_url):
+        return False, "R5_PROPRIA_SEMENTE"
+
+    # R2: fragmento puro (ancora na mesma pagina — so quando ha # no URL)
+    if "#" in url:
+        url_sem_frag = url.split("#")[0].rstrip("/")
+        if url_sem_frag == semente_url.rstrip("/"):
+            return False, "R2_ANCORA_MESMA_PAGINA"
+
+    # R3: extensao binaria
+    path_low = path.lower()
+    for ext in _EXT_BINARIAS:
+        if path_low.endswith(ext):
+            return False, "R3_FICHEIRO_BINARIO"
+
+    # R4: caminhos de servico
+    if _RE_SERVICO.search(path):
+        return False, "R4_CAMINHO_SERVICO"
+
+    # R6: dominios irrelevantes -- mas sociais permitidos passam
+    for skip in _DOMINIOS_SKIP:
+        if skip in host and not any(soc in host for soc in _SOCIAL_MAP):
+            return False, "R6_DOMINIO_IRRELEVANTE"
+
+    # R7: mesmo dominio -- manter se path tem pelo menos um segmento real
+    semente_host = _host_de(semente_url)
+    if host == semente_host:
+        segments = [s for s in path.strip("/").split("/") if s]
+        if not segments:
+            return False, "R7_MESMO_DOMINIO_SEM_PATH"
+
+    return True, ""
+
+
+def _inferir_tipo_crawl(url: str, anchor: str) -> tuple[str, str]:
+    """Infere (tipo, nome) para um link descoberto por crawl."""
+    host = _host_de(url)
+
+    for dominio, tipo in _SOCIAL_MAP.items():
+        if dominio in host:
+            nome = anchor.strip() or ("Canal %s em %s" % (tipo, host))
+            return tipo, nome
+
+    if any(p in host for p in (".gov.it", "regione.", "arpa", ".europa.eu",
+                                "agea.", "ismea.", "istat.", "crea.")):
+        tipo = "BASE_OFICIAL"
+    elif any(p in host for p in (".cnr.it", "univ", ".edu", "ricerca",
+                                  "accademia", "politecnico")):
+        tipo = "CIENCIA"
+    else:
+        tipo = "ORGANIZACAO"
+
+    nome = anchor.strip() or host
+    return tipo, nome
+
+
+def _checar_sem_circularidade(discovered_from: str, url_candidato: str) -> None:
+    """Garante invariante PROVENIENCIA_CIRCULAR = 0.
+
+    PONTO DE FALHA DOS TESTES RED TEAM.
+    Mutar esta funcao para no-op permite que proveniencia circular passe.
+    """
+    if normalizar(discovered_from) == normalizar(url_candidato):
+        raise ValueError(
+            "PROVENIENCIA_CIRCULAR: discovered_from=%r == url=%r. "
+            "discovered_from deve ser a PAGINA ONDE o link foi encontrado, "
+            "nao o proprio candidato." % (discovered_from, url_candidato)
+        )
+
+
+def _buscar_pagina_html(url: str, orcamento: "Orcamento") -> tuple[Optional[str], int, str]:
+    """GET na URL. Devolve (html | None, http_code, content_type).
+
+    Conta no orcamento. Le no maximo 512 KB de HTML.
+    Nao faz verificacao de robots -- quem chama e responsavel.
+    """
+    ok, motivo = orcamento.pode(url)
+    if not ok:
+        return None, 0, "ORCAMENTO: " + motivo
+
+    orcamento.pausar(url)
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        orcamento.registar(url)
+        with urllib.request.urlopen(req, timeout=TIMEOUT_S, context=CTX) as r:
+            ct = r.headers.get("Content-Type", "")
+            if "text/html" not in ct:
+                return None, r.status, ct
+            html = r.read(524_288).decode("utf-8", "replace")
+            return html, r.status, ct
+    except urllib.error.HTTPError as e:
+        if e.code in (429, 503):
+            orcamento.bloquear_dominio(url)
+        return None, e.code, "HTTP_%d" % e.code
+    except Exception as ex:
+        return None, 0, "ERRO: " + type(ex).__name__
+
+
+def _extrair_sementes_legitimas() -> list[str]:
+    """Paginas-pai com proveniencia legitima (discovered_from != url)."""
+    vistas: set[str] = set()
+    sementes: list[str] = []
+    for cand in CATALOGO_ITALIA:
+        d = cand["discovered_from"]
+        if normalizar(d) != normalizar(cand["url"]) and normalizar(d) not in vistas:
+            vistas.add(normalizar(d))
+            sementes.append(d)
+    return sementes
+
+
+def crawl_sementes(
+    orcamento: "Orcamento",
+    conhecidos: set[str],
+    visitados: dict,
+    log: list[dict],
+    max_sementes: int = MAX_SEMENTES_ESTA_CORRIDA,
+) -> tuple[list[dict], dict]:
+    """Segue links a partir das sementes legitimas do catalogo.
+
+    Profundidade 1: semente -> links directos.
+    Nunca revisita sementes desta ou de corridas anteriores.
+    Proveniencia: DISCOVERED_FROM = URL da pagina onde o link foi encontrado.
+    PROVENIENCIA_CIRCULAR = 0 e invariante -- _checar_sem_circularidade lanca
+    ValueError se for violado.
+
+    Devolve (registados, estatisticas).
+    """
+    todas_sementes = _extrair_sementes_legitimas()
+    sementes_a_usar = [
+        s for s in todas_sementes
+        if normalizar(s) not in visitados.get("VISITADOS", {})
+        and normalizar(s) not in visitados.get("REJEITADOS", {})
+    ][:max_sementes]
+
+    registados: list[dict] = []
+    stats: dict = {
+        "SEMENTES_DISPONIVEIS": len(todas_sementes),
+        "SEMENTES_A_USAR": len(sementes_a_usar),
+        "SEMENTES_USADAS": 0,
+        "PAGINAS_BUSCADAS": 0,
+        "LINKS_EXTRAIDOS_TOTAL": 0,
+        "LINKS_APOS_FILTRO": 0,
+        "CANDIDATOS_VERIFICADOS": 0,
+        "ROBOTS_BLOCKS": 0,
+        "FAILED_HTTP": 0,
+        "FILTRADOS_POR_REGRA": {},
+    }
+
+    for semente in sementes_a_usar:
+        semente_norm = normalizar(semente)
+
+        if semente_norm in visitados.get("VISITADOS", {}):
+            log.append({"semente": semente, "acao": "SEMENTE_JA_VISITADA"})
+            continue
+
+        if not _permitido(semente):
+            _marcar_rejeitado(semente_norm, "ROBOTS_BLOCKED_SEMENTE", visitados)
+            stats["ROBOTS_BLOCKS"] += 1
+            log.append({"semente": semente, "acao": "SEMENTE_ROBOTS_BLOCKED"})
+            continue
+
+        html, status, ct = _buscar_pagina_html(semente, orcamento)
+        stats["SEMENTES_USADAS"] += 1
+
+        if html is None:
+            stats["FAILED_HTTP"] += 1
+            _marcar_rejeitado(semente_norm, "FETCH_FAILED_%d" % status, visitados)
+            log.append({"semente": semente, "acao": "SEMENTE_FETCH_FAILED",
+                        "status": status, "ct": ct})
+            continue
+
+        stats["PAGINAS_BUSCADAS"] += 1
+
+        links = extrair_links(html, semente)
+        stats["LINKS_EXTRAIDOS_TOTAL"] += len(links)
+
+        links_ok: list[tuple[str, str]] = []
+        for url_lnk, anchor in links:
+            manter, motivo = _filtrar_link(url_lnk, semente)
+            if manter:
+                links_ok.append((url_lnk, anchor))
+            else:
+                stats["FILTRADOS_POR_REGRA"][motivo] = (
+                    stats["FILTRADOS_POR_REGRA"].get(motivo, 0) + 1)
+
+        stats["LINKS_APOS_FILTRO"] += len(links_ok)
+
+        vistos_aqui: set[str] = set()
+
+        for url_lnk, anchor in links_ok:
+            url_norm = normalizar(url_lnk)
+
+            if url_norm in vistos_aqui:
+                continue
+            vistos_aqui.add(url_norm)
+
+            dup, tipo_dup = _e_duplicado(url_lnk, conhecidos, visitados)
+            if dup:
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "DEDUP", "motivo": tipo_dup})
+                continue
+
+            if not _permitido(url_lnk):
+                _marcar_rejeitado(url_norm, "ROBOTS_BLOCKED", visitados)
+                stats["ROBOTS_BLOCKS"] += 1
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "ROBOTS_BLOCKED"})
+                continue
+
+            stats["CANDIDATOS_VERIFICADOS"] += 1
+            existe, http_code, _ = _verificar_url(url_lnk, orcamento)
+
+            if not existe:
+                stats["FAILED_HTTP"] += 1
+                _marcar_rejeitado(url_norm, "HTTP_%d" % http_code, visitados)
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "FALHOU_HTTP", "http": http_code})
+                continue
+
+            discovered_from = semente
+            try:
+                _checar_sem_circularidade(discovered_from, url_lnk)
+            except ValueError as ve:
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "CIRCULAR_PROVENIENCIA_BUG",
+                            "motivo": str(ve)})
+                continue
+
+            tipo, nome = _inferir_tipo_crawl(url_lnk, anchor)
+            para_que = (anchor.strip() or
+                        ("link encontrado em %s" % urllib.parse.urlparse(semente).netloc))
+            nota = (
+                "DISCOVERED_FROM=%s | DISCOVERY_METHOD=CRAWL_LINK | "
+                "DISCOVERED_AT=%s | ANCHOR_TEXT=%s | DISCOVERED_HTTP=%d"
+                % (discovered_from,
+                   datetime.now(timezone.utc).isoformat(),
+                   (anchor or "")[:100], http_code)
+            )
+
+            try:
+                linha = registar(
+                    tipo=tipo, pais="IT",
+                    nome=(nome or urllib.parse.urlparse(url_lnk).netloc)[:200],
+                    url=url_lnk,
+                    para_que=para_que[:500],
+                    quem_viu="curadoria/crawl_sementes",
+                    onde_viu=discovered_from,
+                    nota=nota,
+                )
+                _marcar_visitado(url_norm,
+                                 "REGISTADO_%s" % linha["CANDIDATA_ID"],
+                                 visitados)
+                conhecidos.add(url_norm)
+                registados.append({
+                    "url": url_lnk,
+                    "id": linha["CANDIDATA_ID"],
+                    "tipo": tipo,
+                    "nome": nome,
+                    "semente": semente,
+                    "anchor": anchor,
+                    "is_social": tipo in {"INSTAGRAM", "YOUTUBE", "LINKEDIN", "FACEBOOK"},
+                })
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "REGISTADO",
+                            "id": linha["CANDIDATA_ID"],
+                            "is_social": tipo in {"INSTAGRAM", "YOUTUBE",
+                                                  "LINKEDIN", "FACEBOOK"}})
+            except ValueError as e:
+                _marcar_rejeitado(url_norm, "VALIDACAO: %s" % e, visitados)
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "RECUSADO_VALIDACAO", "motivo": str(e)})
+
+        _marcar_visitado(semente_norm, "SEMENTE_PROCESSADA", visitados)
+
+    return registados, stats
+
+
 # ------------------------------------------------------------------ descoberta
 def _descobrir_familia(
     familia: str,
@@ -1035,6 +1444,10 @@ def main() -> int:
                     help="max pedidos de rede (default: %d)" % MAX_PEDIDOS_TOTAIS)
     ap.add_argument("--listar-familias", action="store_true",
                     help="lista as familias disponiveis")
+    ap.add_argument("--crawl", action="store_true",
+                    help="correr crawl de sementes (profundidade 1)")
+    ap.add_argument("--max-sementes", type=int, default=MAX_SEMENTES_ESTA_CORRIDA,
+                    help="max sementes desta corrida (default: %d)" % MAX_SEMENTES_ESTA_CORRIDA)
     a = ap.parse_args()
 
     if a.listar_familias:
@@ -1046,6 +1459,72 @@ def main() -> int:
         print("ERRO: orcamento %d > limite autorizado %d"
               % (a.orcamento, MAX_PEDIDOS_TOTAIS), file=sys.stderr)
         return 1
+
+    if a.crawl:
+        orcam      = Orcamento(total=a.orcamento)
+        conhecidos = _construir_set_conhecido()
+        visitados  = _ler_visitados()
+        log: list[dict] = []
+        inicio_crawl = datetime.now(timezone.utc)
+
+        registados_crawl, stats_crawl = crawl_sementes(
+            orcamento=orcam,
+            conhecidos=conhecidos,
+            visitados=visitados,
+            log=log,
+            max_sementes=a.max_sementes,
+        )
+
+        circular = sum(
+            1 for e in log
+            if e.get("acao") == "REGISTADO"
+            and normalizar(e.get("semente", "")) == normalizar(e.get("url", "X"))
+        )
+
+        sociais_enfileiradas = 0
+
+        prova_crawl = {
+            "DATASET": "CRAWL-PROOF-V1",
+            "CORRIDA_EM": inicio_crawl.isoformat(),
+            "SEMENTES_USADAS": stats_crawl["SEMENTES_USADAS"],
+            "PAGINAS_BUSCADAS": stats_crawl["PAGINAS_BUSCADAS"],
+            "LINKS_EXTRAIDOS_TOTAL": stats_crawl["LINKS_EXTRAIDOS_TOTAL"],
+            "LINKS_APOS_FILTRO": stats_crawl["LINKS_APOS_FILTRO"],
+            "CANDIDATOS_VERIFICADOS": stats_crawl["CANDIDATOS_VERIFICADOS"],
+            "NOVEL_CANDIDATES": len(registados_crawl),
+            "DUPLICATES_REJECTED": sum(1 for e in log if e.get("acao") == "DEDUP"),
+            "ROBOTS_BLOCKS": stats_crawl["ROBOTS_BLOCKS"],
+            "FAILED_HTTP": stats_crawl["FAILED_HTTP"],
+            "FILTRADOS_POR_REGRA": stats_crawl["FILTRADOS_POR_REGRA"],
+            "REQUESTS_MADE": orcam.pedidos_feitos,
+            "MAX_REQUESTS_ONE_DOMAIN": orcam.max_num_dominio(),
+            "PROVENIENCIA_CIRCULAR": circular,
+            "READY_PROMOTED_BY_CRAWL": 0,
+            "SOCIAIS_ENFILEIRADAS": sociais_enfileiradas,
+            "CANDIDATOS_REGISTADOS": registados_crawl,
+            "LOG": log,
+        }
+
+        fd2, tmp2 = tempfile.mkstemp(dir=str(CRAWL_PROOF_JSON.parent), suffix=".tmp")
+        try:
+            with os.fdopen(fd2, "w", encoding="utf-8") as fh:
+                json.dump(prova_crawl, fh, ensure_ascii=False, indent=1)
+            os.replace(tmp2, CRAWL_PROOF_JSON)
+        except BaseException:
+            if os.path.exists(tmp2):
+                os.unlink(tmp2)
+
+        print("\n=== CRAWL ===")
+        print("SEMENTES_USADAS          %d" % stats_crawl["SEMENTES_USADAS"])
+        print("PAGINAS_BUSCADAS         %d" % stats_crawl["PAGINAS_BUSCADAS"])
+        print("LINKS_EXTRAIDOS_TOTAL    %d" % stats_crawl["LINKS_EXTRAIDOS_TOTAL"])
+        print("LINKS_APOS_FILTRO        %d" % stats_crawl["LINKS_APOS_FILTRO"])
+        print("CANDIDATOS_VERIFICADOS   %d" % stats_crawl["CANDIDATOS_VERIFICADOS"])
+        print("NOVEL_CANDIDATES         %d" % len(registados_crawl))
+        print("PROVENIENCIA_CIRCULAR    %d" % circular)
+        print("REQUESTS_MADE            %d" % orcam.pedidos_feitos)
+        print("PROOF -> %s" % CRAWL_PROOF_JSON)
+        return 0
 
     prova = descobrir(familia=a.familia, orcamento=a.orcamento)
 

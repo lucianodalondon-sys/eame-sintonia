@@ -1,0 +1,5690 @@
+{
+ "DATASET": "CRAWL-PROOF-V1",
+ "CORRIDA_EM": "2026-09-21T11:18:26.253621+00:00",
+ "SEMENTES_USADAS": 8,
+ "PAGINAS_BUSCADAS": 7,
+ "LINKS_EXTRAIDOS_TOTAL": 1165,
+ "LINKS_APOS_FILTRO": 1045,
+ "CANDIDATOS_VERIFICADOS": 561,
+ "NOVEL_CANDIDATES": 159,
+ "DUPLICATES_REJECTED": 5,
+ "ROBOTS_BLOCKS": 135,
+ "FAILED_HTTP": 403,
+ "FILTRADOS_POR_REGRA": {
+  "R2_ANCORA_MESMA_PAGINA": 12,
+  "R4_CAMINHO_SERVICO": 14,
+  "R5_PROPRIA_SEMENTE": 43,
+  "R7_MESMO_DOMINIO_SEM_PATH": 5,
+  "R6_DOMINIO_IRRELEVANTE": 35,
+  "R1_ESQUEMA_NAO_HTTP": 11
+ },
+ "REQUESTS_MADE": 173,
+ "MAX_REQUESTS_ONE_DOMAIN": 10,
+ "PROVENIENCIA_CIRCULAR": 0,
+ "READY_PROMOTED_BY_CRAWL": 0,
+ "SOCIAIS_ENFILEIRADAS": 0,
+ "CANDIDATOS_REGISTADOS": [
+  {
+   "url": "https://experience.regione.lombardia.it/it/",
+   "id": "CAND-0272",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Lombardia Experience",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Lombardia Experience",
+   "is_social": false
+  },
+  {
+   "url": "https://tv.lombardianotizie.online/",
+   "id": "CAND-0273",
+   "tipo": "ORGANIZACAO",
+   "nome": "Lombardia Notizie TV",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Lombardia Notizie TV",
+   "is_social": false
+  },
+  {
+   "url": "https://www.in-lombardia.it/",
+   "id": "CAND-0274",
+   "tipo": "ORGANIZACAO",
+   "nome": "InLombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "InLombardia",
+   "is_social": false
+  },
+  {
+   "url": "https://speciale-lombardiainfatti.regione.lombardia.it/",
+   "id": "CAND-0275",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Speciale Lombardia, infatti",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Speciale Lombardia, infatti",
+   "is_social": false
+  },
+  {
+   "url": "https://monitoraggiopnrr.regione.lombardia.it/homepage",
+   "id": "CAND-0276",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Monitoraggio PNRR",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Monitoraggio PNRR",
+   "is_social": false
+  },
+  {
+   "url": "https://www.oltreigiochi2026.regione.lombardia.it/",
+   "id": "CAND-0277",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Oltreigiochi2026",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Oltreigiochi2026",
+   "is_social": false
+  },
+  {
+   "url": "https://ue.regione.lombardia.it",
+   "id": "CAND-0278",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Programmazione Europea",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Programmazione Europea",
+   "is_social": false
+  },
+  {
+   "url": "https://www.openinnovation.regione.lombardia.it/",
+   "id": "CAND-0279",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Open Innovation",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Open Innovation",
+   "is_social": false
+  },
+  {
+   "url": "https://www.nonseidasola.regione.lombardia.it/",
+   "id": "CAND-0280",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Non sei da sola",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Non sei da sola",
+   "is_social": false
+  },
+  {
+   "url": "https://www.giovani.regione.lombardia.it/",
+   "id": "CAND-0281",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Generazione Lombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Generazione Lombardia",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bollo+Auto",
+   "id": "CAND-0282",
+   "tipo": "BASE_OFICIAL",
+   "nome": "#BolloAuto",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "#BolloAuto",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Dote+Scuola",
+   "id": "CAND-0283",
+   "tipo": "BASE_OFICIAL",
+   "nome": "#DoteScuola",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "#DoteScuola",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bandi",
+   "id": "CAND-0284",
+   "tipo": "BASE_OFICIAL",
+   "nome": "#Bandi",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "#Bandi",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Fascicolo+Sanitario",
+   "id": "CAND-0285",
+   "tipo": "BASE_OFICIAL",
+   "nome": "#FascicoloSanitario",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "#FascicoloSanitario",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Notizie",
+   "id": "CAND-0286",
+   "tipo": "BASE_OFICIAL",
+   "nome": "#Notizie",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "#Notizie",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+   "id": "CAND-0287",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Scopri",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Scopri",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/sanita/ticket-ed-esenzioni/ticket-esenzioni-prestazioni-ssr",
+   "id": "CAND-0288",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Scopri",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Scopri",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/user/regionelombardia",
+   "id": "CAND-0289",
+   "tipo": "YOUTUBE",
+   "nome": "Canal YOUTUBE em youtube.com",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "",
+   "is_social": true
+  },
+  {
+   "url": "https://open.spotify.com/show/1R01RxchEEaemUOYpdEyw9",
+   "id": "CAND-0290",
+   "tipo": "ORGANIZACAO",
+   "nome": "open.spotify.com",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/sanita",
+   "id": "CAND-0291",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Sanità",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Sanità",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+   "id": "CAND-0292",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Bollo auto e tributi regionali",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Bollo auto e tributi regionali",
+   "is_social": false
+  },
+  {
+   "url": "https://www.bandi.regione.lombardia.it/servizi/home",
+   "id": "CAND-0293",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Bandi e Servizi",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Bandi e Servizi",
+   "is_social": false
+  },
+  {
+   "url": "https://www.allertalom.regione.lombardia.it/",
+   "id": "CAND-0294",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Allerte Protezione Civile",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Allerte Protezione Civile",
+   "is_social": false
+  },
+  {
+   "url": "https://spazioregioneprenota.kioskbuk.it/intro.aspx",
+   "id": "CAND-0295",
+   "tipo": "ORGANIZACAO",
+   "nome": "SpazioRegione - prenota online",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "SpazioRegione - prenota online",
+   "is_social": false
+  },
+  {
+   "url": "https://www.lombardianotizie.online/",
+   "id": "CAND-0296",
+   "tipo": "ORGANIZACAO",
+   "nome": "Visita il sito",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Visita il sito",
+   "is_social": false
+  },
+  {
+   "url": "http://www.bollettino.regione.lombardia.it/",
+   "id": "CAND-0297",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Bollettino ufficiale",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Bollettino ufficiale",
+   "is_social": false
+  },
+  {
+   "url": "https://gestioneilleciti.servizirl.it/",
+   "id": "CAND-0298",
+   "tipo": "ORGANIZACAO",
+   "nome": "Segnalazione di condotte illecite",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "Segnalazione di condotte illecite",
+   "is_social": false
+  },
+  {
+   "url": "https://open.spotify.com/user/31gqtegbafemb4n6rpj6ekecpri4",
+   "id": "CAND-0299",
+   "tipo": "ORGANIZACAO",
+   "nome": "open.spotify.com",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCNXmEqmby16fYsXOLP012tw",
+   "id": "CAND-0300",
+   "tipo": "YOUTUBE",
+   "nome": "Canal YOUTUBE em youtube.com",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "",
+   "is_social": true
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione",
+   "id": "CAND-0301",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Regione",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Regione",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/il-presidente",
+   "id": "CAND-0302",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Il Presidente",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Il Presidente",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/giunta-regionale",
+   "id": "CAND-0303",
+   "tipo": "BASE_OFICIAL",
+   "nome": "La Giunta Regionale",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "La Giunta Regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/assemblea-regionale-siciliana",
+   "id": "CAND-0304",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Assemblea Regionale Siciliana",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Assemblea Regionale Siciliana",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali",
+   "id": "CAND-0305",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Strutture regionali",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Strutture regionali",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/lo-statuto-regionale",
+   "id": "CAND-0306",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Statuto regionale",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Statuto regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/urp",
+   "id": "CAND-0307",
+   "tipo": "BASE_OFICIAL",
+   "nome": "URP",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "URP",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi",
+   "id": "CAND-0308",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Servizi informativi",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Servizi informativi",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/bandi?f%5B0%5D=expired%3A0",
+   "id": "CAND-0309",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Bandi e avvisi pubblici",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Bandi e avvisi pubblici",
+   "is_social": false
+  },
+  {
+   "url": "http://www2.regione.sicilia.it/deliberegiunta",
+   "id": "CAND-0310",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Delibere della Giunta",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Delibere della Giunta",
+   "is_social": false
+  },
+  {
+   "url": "http://www.visitsicily.info",
+   "id": "CAND-0311",
+   "tipo": "ORGANIZACAO",
+   "nome": "Vai al sito",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Vai al sito",
+   "is_social": false
+  },
+  {
+   "url": "https://www.protezionecivilesicilia.it/",
+   "id": "CAND-0312",
+   "tipo": "ORGANIZACAO",
+   "nome": "Protezione Civile",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Protezione Civile",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpa.sicilia.it/",
+   "id": "CAND-0313",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Arpa Sicilia",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Arpa Sicilia",
+   "is_social": false
+  },
+  {
+   "url": "https://www.irfis.it/",
+   "id": "CAND-0314",
+   "tipo": "ORGANIZACAO",
+   "nome": "Irfis",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Irfis",
+   "is_social": false
+  },
+  {
+   "url": "http://www.senato.it/",
+   "id": "CAND-0315",
+   "tipo": "ORGANIZACAO",
+   "nome": "Senato della Repubblica",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Senato della Repubblica",
+   "is_social": false
+  },
+  {
+   "url": "https://www.camera.it/leg18/1",
+   "id": "CAND-0316",
+   "tipo": "ORGANIZACAO",
+   "nome": "Camera dei Deputati",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Camera dei Deputati",
+   "is_social": false
+  },
+  {
+   "url": "http://www.governo.it/",
+   "id": "CAND-0317",
+   "tipo": "ORGANIZACAO",
+   "nome": "Presidenza del Consiglio dei Ministri",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Presidenza del Consiglio dei Ministri",
+   "is_social": false
+  },
+  {
+   "url": "https://www.europarl.europa.eu/",
+   "id": "CAND-0318",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Parlamento Europeo",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Parlamento Europeo",
+   "is_social": false
+  },
+  {
+   "url": "https://amministrazionetrasparente.regione.sicilia.it/",
+   "id": "CAND-0319",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Amministrazione trasparente",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Amministrazione trasparente",
+   "is_social": false
+  },
+  {
+   "url": "https://form.agid.gov.it/view/78bd7980-9859-11f0-b114-bda70f0f6c0f",
+   "id": "CAND-0320",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Dichiarazione di accessibilità",
+   "semente": "https://www.regione.sicilia.it/",
+   "anchor": "Dichiarazione di accessibilità",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
+   "id": "CAND-0321",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Italiano",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Italiano",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/en?set_language=en",
+   "id": "CAND-0322",
+   "tipo": "BASE_OFICIAL",
+   "nome": "English",
+   "semente": "https://www.arpae.it/",
+   "anchor": "English",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it",
+   "id": "CAND-0323",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.emilia-romagna.it/",
+   "id": "CAND-0324",
+   "tipo": "BASE_OFICIAL",
+   "nome": "regione.emilia-romagna.it",
+   "semente": "https://www.arpae.it/",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026",
+   "id": "CAND-0325",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Mare, riviera interamente balneabile",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Mare, riviera interamente balneabile",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+   "id": "CAND-0326",
+   "tipo": "BASE_OFICIAL",
+   "nome": "30 anni per l’ambiente",
+   "semente": "https://www.arpae.it/",
+   "anchor": "30 anni per l’ambiente",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/sospensione-del-blocco-strutturale-dal-1degottobre-ai-diesel-euro-5",
+   "id": "CAND-0327",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Aria, sospeso il blocco strutturale ai diesel euro 5 dal 1°ottobre",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Aria, sospeso il blocco strutturale ai diesel euro 5 dal 1°ottobre",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1-1",
+   "id": "CAND-0328",
+   "tipo": "BASE_OFICIAL",
+   "nome": "18 settembre 2026 Aggiornamento al portale prelievi Il 18 settembre effettuato un nuovo intervento sui dati, a seguito degli eventi meteorologici registrati",
+   "semente": "https://www.arpae.it/",
+   "anchor": "18 settembre 2026 Aggiornamento al portale prelievi Il 18 settembre effettuato un nuovo intervento sui dati, a seguito degli eventi meteorologici registrati",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026",
+   "id": "CAND-0329",
+   "tipo": "BASE_OFICIAL",
+   "nome": "17 settembre 2026 Incendio alla Sorgenia di Finale Emilia Intervenuta Arpae per i controlli ambientali",
+   "semente": "https://www.arpae.it/",
+   "anchor": "17 settembre 2026 Incendio alla Sorgenia di Finale Emilia Intervenuta Arpae per i controlli ambientali",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
+   "id": "CAND-0330",
+   "tipo": "BASE_OFICIAL",
+   "nome": "16 settembre 2026 Pollini e spore: amaranto, ambrosia, parietaria e alternaria I dati del monitoraggio in Emilia-Romagna rilevati dal 7 al 13 settembre 2026",
+   "semente": "https://www.arpae.it/",
+   "anchor": "16 settembre 2026 Pollini e spore: amaranto, ambrosia, parietaria e alternaria I dati del monitoraggio in Emilia-Romagna rilevati dal 7 al 13 settembre 2026",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/playlist?list=PLrgSqU5xBcBMgcv3dofeB4RlMRFoh5-j7",
+   "id": "CAND-0331",
+   "tipo": "YOUTUBE",
+   "nome": "Canal YOUTUBE em youtube.com",
+   "semente": "https://www.arpae.it/",
+   "anchor": "",
+   "is_social": true
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCCMlh614oidOkq-HNSa9RVA",
+   "id": "CAND-0332",
+   "tipo": "YOUTUBE",
+   "nome": "Youtube",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Youtube",
+   "is_social": true
+  },
+  {
+   "url": "https://open.spotify.com/show/4O539O6MYvAIQNkJiOPrlr",
+   "id": "CAND-0333",
+   "tipo": "ORGANIZACAO",
+   "nome": "Spotify",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Spotify",
+   "is_social": false
+  },
+  {
+   "url": "https://service.arpae.it/interview/Reclami_Informazioni/index.asp?pg=2",
+   "id": "CAND-0334",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Reclami e appelli",
+   "semente": "https://www.arpae.it/",
+   "anchor": "Reclami e appelli",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCCMlh614oidOkq-HNSa9RVA/featured",
+   "id": "CAND-0335",
+   "tipo": "YOUTUBE",
+   "nome": "You Tube",
+   "semente": "https://www.arpae.it/",
+   "anchor": "You Tube",
+   "is_social": true
+  },
+  {
+   "url": "https://www.regione.calabria.it/ufficio-relazioni-con-il-pubblico/",
+   "id": "CAND-0336",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Contatti",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Contatti",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-regione/la-giunta-regionale/il-presidente/",
+   "id": "CAND-0337",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Il Presidente",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Il Presidente",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-regione/la-giunta-regionale/",
+   "id": "CAND-0338",
+   "tipo": "BASE_OFICIAL",
+   "nome": "La Giunta Regionale",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "La Giunta Regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/il-consiglio-regionale/",
+   "id": "CAND-0339",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Il Consiglio Regionale",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Il Consiglio Regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-regione/anagrafe-pubblica/",
+   "id": "CAND-0340",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Anagrafe Pubblica",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Anagrafe Pubblica",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/anticorruzione-e-trasparenza/",
+   "id": "CAND-0341",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Prevenzione della Corruzione e Trasparenza",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Prevenzione della Corruzione e Trasparenza",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/responsabile-protezione-dati/",
+   "id": "CAND-0342",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Responsabile Protezione Dati",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Responsabile Protezione Dati",
+   "is_social": false
+  },
+  {
+   "url": "https://energia.calabriaimpresa.eu/",
+   "id": "CAND-0343",
+   "tipo": "ORGANIZACAO",
+   "nome": "Calabria Energia - Il Portale Energia della Regione Calabria",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Calabria Energia - Il Portale Energia della Regione Calabria",
+   "is_social": false
+  },
+  {
+   "url": "https://www.sportelloconsumatoricalabria.it/",
+   "id": "CAND-0344",
+   "tipo": "ORGANIZACAO",
+   "nome": "Sportello del Consumatore",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Sportello del Consumatore",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/",
+   "id": "CAND-0345",
+   "tipo": "ORGANIZACAO",
+   "nome": "Calabria Straordinaria",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Calabria Straordinaria",
+   "is_social": false
+  },
+  {
+   "url": "https://istruzione.regione.calabria.it/",
+   "id": "CAND-0346",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Calabria Istruzione",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Calabria Istruzione",
+   "is_social": false
+  },
+  {
+   "url": "https://osservatorio.regione.calabria.it/",
+   "id": "CAND-0347",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Osservatorio Istruzione",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Osservatorio Istruzione",
+   "is_social": false
+  },
+  {
+   "url": "https://www.calabriafilmcommission.it/",
+   "id": "CAND-0348",
+   "tipo": "ORGANIZACAO",
+   "nome": "Fondazione Calabria Film Commission",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Fondazione Calabria Film Commission",
+   "is_social": false
+  },
+  {
+   "url": "https://www.fondazioneterina.it/",
+   "id": "CAND-0349",
+   "tipo": "ORGANIZACAO",
+   "nome": "Fondazione Mediterranea terina Onlus",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Fondazione Mediterranea terina Onlus",
+   "is_social": false
+  },
+  {
+   "url": "https://www.fondazionegrecanica.it/",
+   "id": "CAND-0350",
+   "tipo": "ORGANIZACAO",
+   "nome": "Fondazione Istituto Regionale per la Comunità Grecanica di Calabria",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Fondazione Istituto Regionale per la Comunità Grecanica di Calabria",
+   "is_social": false
+  },
+  {
+   "url": "https://www.calabriaimpresa.eu/",
+   "id": "CAND-0351",
+   "tipo": "ORGANIZACAO",
+   "nome": "Calabria Impresa – Il Portale della Regione Calabria per le Imprese",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Calabria Impresa – Il Portale della Regione Calabria per le Imprese",
+   "is_social": false
+  },
+  {
+   "url": "https://www.calabriasue.it/",
+   "id": "CAND-0352",
+   "tipo": "ORGANIZACAO",
+   "nome": "CalabriaSUE - Sportello Unico per l’Edilizia",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "CalabriaSUE - Sportello Unico per l’Edilizia",
+   "is_social": false
+  },
+  {
+   "url": "https://segnalazioni.sanibook.it/",
+   "id": "CAND-0353",
+   "tipo": "ORGANIZACAO",
+   "nome": "SaniBook",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "SaniBook",
+   "is_social": false
+  },
+  {
+   "url": "https://ecosanita.regione.calabria.it/",
+   "id": "CAND-0354",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Ecosistema Calabria Sanità",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Ecosistema Calabria Sanità",
+   "is_social": false
+  },
+  {
+   "url": "https://prenota.regione.calabria.it/home",
+   "id": "CAND-0355",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Cup",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Cup",
+   "is_social": false
+  },
+  {
+   "url": "https://www.fascicolosanitario.regione.calabria.it/",
+   "id": "CAND-0356",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Fascicolo Sanitario Elettronico",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Fascicolo Sanitario Elettronico",
+   "is_social": false
+  },
+  {
+   "url": "https://pagopa.regione.calabria.it/",
+   "id": "CAND-0357",
+   "tipo": "BASE_OFICIAL",
+   "nome": "PagoPA - MyPay",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "PagoPA - MyPay",
+   "is_social": false
+  },
+  {
+   "url": "https://www.protezionecivilecalabria.it/?cat=4",
+   "id": "CAND-0358",
+   "tipo": "ORGANIZACAO",
+   "nome": "NEWS PROTEZIONE CIVILE",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "NEWS PROTEZIONE CIVILE",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/la-calabria-alla-european-week-of-regions-and-cities-2026-focus-su-resilienza-climatica-e-strategie-macroregionali/",
+   "id": "CAND-0359",
+   "tipo": "BASE_OFICIAL",
+   "nome": "La Calabria alla European Week of Regions and Cities 2026: focus su resilienza climatica e strategie macroregionali",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "La Calabria alla European Week of Regions and Cities 2026: focus su resilienza climatica e strategie macroregionali",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/progetto-calalma-prorogato-al-30-settembre-2026-il-termine-per-lavvio-delle-attivita-dei-giovani-neet/",
+   "id": "CAND-0360",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Progetto CalALMA: prorogato al 30 settembre 2026 il termine per l’avvio delle attività dei giovani NEET",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Progetto CalALMA: prorogato al 30 settembre 2026 il termine per l’avvio delle attività dei giovani NEET",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+   "id": "CAND-0361",
+   "tipo": "BASE_OFICIAL",
+   "nome": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/transformer-calabria-pubblicata-la-graduatoria-definitiva-sostegno-a-occupazione-e-formazione/",
+   "id": "CAND-0362",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Transformer Calabria, pubblicata la graduatoria definitiva: sostegno a occupazione e formazione",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Transformer Calabria, pubblicata la graduatoria definitiva: sostegno a occupazione e formazione",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2456-scadenza-presentazione-domande-di-sostegno-bando-meccanizzazione",
+   "id": "CAND-0363",
+   "tipo": "ORGANIZACAO",
+   "nome": "Scadenza Presentazione Domande Di Sostegno Bando Meccanizzazione",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Scadenza Presentazione Domande Di Sostegno Bando Meccanizzazione",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2451-adozione-versione-2-0-di-giugno-2026-del-prezzario-dei-costi-massimi-di-riferimento-per-macchine-ed-attrezzature-agricole",
+   "id": "CAND-0364",
+   "tipo": "ORGANIZACAO",
+   "nome": "Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed attrezzature agricole,",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed attrezzature agricole,",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2449-nomina-commissione-di-valutazione-domande-intervento-srd01-investimenti-produttivi-agricoli-per-la-competitivita-delle-aziende-agricole-del-comparto-olivicolo",
+   "id": "CAND-0365",
+   "tipo": "ORGANIZACAO",
+   "nome": "Nomina Commissione di Valutazione domande Intervento SRD01 - investimenti produttivi agricoli per la competitività delle aziende agricole del comparto olivicolo",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Nomina Commissione di Valutazione domande Intervento SRD01 - investimenti produttivi agricoli per la competitività delle aziende agricole del comparto olivicolo",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2448-domande-di-aiuto-per-gli-allevamenti-suinicoli-atti-alla-prevenzione-della-diffusione-della-peste-suina-africana-2",
+   "id": "CAND-0366",
+   "tipo": "ORGANIZACAO",
+   "nome": "Domande di aiuto per gli allevamenti suinicoli, atti alla prevenzione della diffusione della peste suina africana (2)",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Domande di aiuto per gli allevamenti suinicoli, atti alla prevenzione della diffusione della peste suina africana (2)",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/a-trip-to-lake-ampollino",
+   "id": "CAND-0367",
+   "tipo": "ORGANIZACAO",
+   "nome": "A trip to Lake Ampollino",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "A trip to Lake Ampollino",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/relax-at-the-bagni-di-guida",
+   "id": "CAND-0368",
+   "tipo": "ORGANIZACAO",
+   "nome": "Relax at the Bagni di Guida",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Relax at the Bagni di Guida",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/a-journey-through-the-crotone-sila-amidst-nature-and-footpaths",
+   "id": "CAND-0369",
+   "tipo": "ORGANIZACAO",
+   "nome": "A journey through the Crotone Sila, amidst nature and footpaths",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "A journey through the Crotone Sila, amidst nature and footpaths",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/calabrian-pasta-traditional-shapes",
+   "id": "CAND-0370",
+   "tipo": "ORGANIZACAO",
+   "nome": "Calabrian pasta: traditional shapes",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Calabrian pasta: traditional shapes",
+   "is_social": false
+  },
+  {
+   "url": "https://trasparenza.regione.calabria.it/REGIONECALABRIA",
+   "id": "CAND-0371",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Amministrazione Trasparente",
+   "semente": "https://www.regione.calabria.it/",
+   "anchor": "Amministrazione Trasparente",
+   "is_social": false
+  },
+  {
+   "url": "https://amministrazionetrasparente.regione.campania.it/",
+   "id": "CAND-0372",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Amministrazione trasparente",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Amministrazione trasparente",
+   "is_social": false
+  },
+  {
+   "url": "https://servizi-digitali.regione.campania.it/",
+   "id": "CAND-0373",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Servizi digitali",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Servizi digitali",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/link-utili",
+   "id": "CAND-0374",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Link utili",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Link utili",
+   "is_social": false
+  },
+  {
+   "url": "https://regione.campania.it/area-riservata",
+   "id": "CAND-0375",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Area Dipendenti",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Area Dipendenti",
+   "is_social": false
+  },
+  {
+   "url": "http://archivioportale.regione.campania.it/",
+   "id": "CAND-0376",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Sito di archivio",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Sito di archivio",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/user/regcampania",
+   "id": "CAND-0377",
+   "tipo": "YOUTUBE",
+   "nome": "YouTube",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "YouTube",
+   "is_social": true
+  },
+  {
+   "url": "https://www.regione.campania.it/regione",
+   "id": "CAND-0378",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Regione",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Regione",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione/presidente",
+   "id": "CAND-0379",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Presidente",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Presidente",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione/la-giunta-regionale",
+   "id": "CAND-0380",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Giunta Regionale",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Giunta Regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.cr.campania.it/",
+   "id": "CAND-0381",
+   "tipo": "ORGANIZACAO",
+   "nome": "Consiglio Regionale",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Consiglio Regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+   "id": "CAND-0382",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Uffici e organizzazione",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Uffici e organizzazione",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa",
+   "id": "CAND-0383",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Regione informa",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Regione informa",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie",
+   "id": "CAND-0384",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Notizie",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Notizie",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/eventi",
+   "id": "CAND-0385",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Eventi",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Eventi",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/area-stampa/comunicati",
+   "id": "CAND-0386",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Comunicati",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Comunicati",
+   "is_social": false
+  },
+  {
+   "url": "https://entrate.regione.campania.it/tassa-automobilistica-info",
+   "id": "CAND-0387",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Tassa automobilistica",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Tassa automobilistica",
+   "is_social": false
+  },
+  {
+   "url": "https://europa.regione.campania.it/",
+   "id": "CAND-0388",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Europa Campania",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Europa Campania",
+   "is_social": false
+  },
+  {
+   "url": "https://pnrr.regione.campania.it/",
+   "id": "CAND-0389",
+   "tipo": "BASE_OFICIAL",
+   "nome": "PNRR in Campania",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "PNRR in Campania",
+   "is_social": false
+  },
+  {
+   "url": "https://cultura.regione.campania.it/home",
+   "id": "CAND-0390",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Cultura Campania",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Cultura Campania",
+   "is_social": false
+  },
+  {
+   "url": "https://sinfonia.regione.campania.it",
+   "id": "CAND-0391",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Vai alla sezione",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Vai alla sezione",
+   "is_social": false
+  },
+  {
+   "url": "https://acamir.regione.campania.it/",
+   "id": "CAND-0392",
+   "tipo": "BASE_OFICIAL",
+   "nome": "ACaMIR",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "ACaMIR",
+   "is_social": false
+  },
+  {
+   "url": "https://agricoltura.regione.campania.it/",
+   "id": "CAND-0393",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Agricoltura Campania",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Agricoltura Campania",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpacampania.it/",
+   "id": "CAND-0394",
+   "tipo": "BASE_OFICIAL",
+   "nome": "ArpaC",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "ArpaC",
+   "is_social": false
+  },
+  {
+   "url": "https://www.agenziasportcampania.it/sito/",
+   "id": "CAND-0395",
+   "tipo": "ORGANIZACAO",
+   "nome": "ARUS",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "ARUS",
+   "is_social": false
+  },
+  {
+   "url": "https://www.campaniartecard.it/",
+   "id": "CAND-0396",
+   "tipo": "ORGANIZACAO",
+   "nome": "Campania Artecard",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Campania Artecard",
+   "is_social": false
+  },
+  {
+   "url": "https://regione.campania.it/informazioni-utili/opengov/burc",
+   "id": "CAND-0397",
+   "tipo": "BASE_OFICIAL",
+   "nome": "BURC",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "BURC",
+   "is_social": false
+  },
+  {
+   "url": "https://form.agid.gov.it/r_campan/obiettivi",
+   "id": "CAND-0398",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Obiettivi di accessibilità",
+   "semente": "https://www.regione.campania.it/",
+   "anchor": "Obiettivi di accessibilità",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/giunta/marco-marsilio",
+   "id": "CAND-0399",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Il Presidente",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Il Presidente",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/giunta",
+   "id": "CAND-0400",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Giunta regionale",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Giunta regionale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/elezioni-regionali",
+   "id": "CAND-0401",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Elezioni regionali",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Elezioni regionali",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/contatti-della-regione-abruzzo",
+   "id": "CAND-0402",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Contatti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Contatti",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/amministrazione/organizzazione/urp",
+   "id": "CAND-0403",
+   "tipo": "BASE_OFICIAL",
+   "nome": "URP - Ufficio relazioni con il pubblico",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "URP - Ufficio relazioni con il pubblico",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/sede-di-roma",
+   "id": "CAND-0404",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Sede di Roma",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Sede di Roma",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/sede-bruxelles",
+   "id": "CAND-0405",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Sede di Bruxelles",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Sede di Bruxelles",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/istituti-di-garanzia/comitato-unico-di-garanzia-cug",
+   "id": "CAND-0406",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Comitato Unico di Garanzia (CUG)",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Comitato Unico di Garanzia (CUG)",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/istituti-di-garanzia/consigliera-regionale-di-parita",
+   "id": "CAND-0407",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Consigliera regionale di parità",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Consigliera regionale di parità",
+   "is_social": false
+  },
+  {
+   "url": "https://www.corecomabruzzo.it/",
+   "id": "CAND-0408",
+   "tipo": "ORGANIZACAO",
+   "nome": "Corecom Abruzzo",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Corecom Abruzzo",
+   "is_social": false
+  },
+  {
+   "url": "https://bura.regione.abruzzo.it/",
+   "id": "CAND-0409",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Bollettino Ufficiale Regione Abruzzo",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Bollettino Ufficiale Regione Abruzzo",
+   "is_social": false
+  },
+  {
+   "url": "https://selfi.regione.abruzzo.it/",
+   "id": "CAND-0410",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Lavoro, formazione e istruzione",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Lavoro, formazione e istruzione",
+   "is_social": false
+  },
+  {
+   "url": "https://sanita.regione.abruzzo.it",
+   "id": "CAND-0411",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Sanità",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Sanità",
+   "is_social": false
+  },
+  {
+   "url": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+   "id": "CAND-0412",
+   "tipo": "ORGANIZACAO",
+   "nome": "Scopri l'evento",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Scopri l'evento",
+   "is_social": false
+  },
+  {
+   "url": "https://www.giustizia.it/giustizia/it/mg_1_6_1.page?contentId=SCE1497399",
+   "id": "CAND-0413",
+   "tipo": "ORGANIZACAO",
+   "nome": "Avviso per iscrizione in elenco strutture per reinserimento sociale detenuti adulti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Avviso per iscrizione in elenco strutture per reinserimento sociale detenuti adulti",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/playlist?list=PLio2jmFoouCaMP0URkqMF83PBUSG1m1NA",
+   "id": "CAND-0414",
+   "tipo": "YOUTUBE",
+   "nome": "Esplora i video",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Esplora i video",
+   "is_social": true
+  },
+  {
+   "url": "https://trasparenza.regione.abruzzo.it/",
+   "id": "CAND-0415",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Amministrazione trasparente",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Amministrazione trasparente",
+   "is_social": false
+  },
+  {
+   "url": "https://intranet.regione.abruzzo.it",
+   "id": "CAND-0416",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Area intranet",
+   "semente": "https://www.regione.abruzzo.it/",
+   "anchor": "Area intranet",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/amministrazione-trasparente",
+   "id": "CAND-0417",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Amministrazione Trasparente",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "Amministrazione Trasparente",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/c/portal/update_language?p_l_id=40632&redirect=%2Fcentri-di-ricerca&languageId=en_US",
+   "id": "CAND-0418",
+   "tipo": "BASE_OFICIAL",
+   "nome": "EN",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "EN",
+   "is_social": false
+  },
+  {
+   "url": "https://creafuturo.crea.gov.it/",
+   "id": "CAND-0419",
+   "tipo": "BASE_OFICIAL",
+   "nome": "creafuturo.crea.gov.it",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/carta-europea-dei-ricercatori",
+   "id": "CAND-0420",
+   "tipo": "BASE_OFICIAL",
+   "nome": "crea.gov.it",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/news-eventi-feed?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_SUWflQ81JiSe&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getRSS&p_p_cacheability=cacheLevelPage&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_SUWflQ81JiSe_currentURL=%2Fweb%2Fguest%2Fnews-eventi-feed&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_SUWflQ81JiSe_portletAjaxable=1",
+   "id": "CAND-0421",
+   "tipo": "BASE_OFICIAL",
+   "nome": "rss_feed",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "rss_feed",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/home",
+   "id": "CAND-0422",
+   "tipo": "BASE_OFICIAL",
+   "nome": "crea.gov.it",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCJ8RdeFgPyGA8eyVHulEiOg",
+   "id": "CAND-0423",
+   "tipo": "YOUTUBE",
+   "nome": "Canal YOUTUBE em youtube.com",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "",
+   "is_social": true
+  },
+  {
+   "url": "https://whatsapp.com/channel/0029Var9c0yJJhzeZ64hrw3i",
+   "id": "CAND-0424",
+   "tipo": "ORGANIZACAO",
+   "nome": "hatsapp.com",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/conosci-il-crea",
+   "id": "CAND-0425",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Conosci il CREA",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "Conosci il CREA",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/organi",
+   "id": "CAND-0426",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Organi",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "Organi",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/direzione-generale",
+   "id": "CAND-0427",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Direzione Generale",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "Direzione Generale",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/direzione-tecnico-scientifica",
+   "id": "CAND-0428",
+   "tipo": "BASE_OFICIAL",
+   "nome": "Direzione Tecnico Scientifica",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "Direzione Tecnico Scientifica",
+   "is_social": false
+  },
+  {
+   "url": "https://form.agid.gov.it/view/b192d4e0-c0bc-11f0-bf33-33e72cf53987",
+   "id": "CAND-0429",
+   "tipo": "BASE_OFICIAL",
+   "nome": "DICHIARAZIONE DI ACCESSIBILITA'",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "DICHIARAZIONE DI ACCESSIBILITA'",
+   "is_social": false
+  },
+  {
+   "url": "https://login.microsoftonline.com/",
+   "id": "CAND-0430",
+   "tipo": "ORGANIZACAO",
+   "nome": "Intranet",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "anchor": "Intranet",
+   "is_social": false
+  }
+ ],
+ "LOG": [
+  {
+   "url": "https://areapersonale.regione.lombardia.it/homepage",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://areapersonale.regione.lombardia.it/homepage/gestisci-il-tuo-account",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://areapersonale.regione.lombardia.it/homepage/centro-notifiche",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://experience.regione.lombardia.it/it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0272",
+   "is_social": false
+  },
+  {
+   "url": "https://tv.lombardianotizie.online/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0273",
+   "is_social": false
+  },
+  {
+   "url": "https://www.in-lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0274",
+   "is_social": false
+  },
+  {
+   "url": "https://www.buonalombardia.regione.lombardia.it/wps/portal/site/buonalombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.lombardiafacile.regione.lombardia.it/wps/portal/site/Lombardia-Facile",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://speciale-lombardiainfatti.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0275",
+   "is_social": false
+  },
+  {
+   "url": "https://monitoraggiopnrr.regione.lombardia.it/homepage",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0276",
+   "is_social": false
+  },
+  {
+   "url": "https://www.oltreigiochi2026.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0277",
+   "is_social": false
+  },
+  {
+   "url": "https://ue.regione.lombardia.it",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0278",
+   "is_social": false
+  },
+  {
+   "url": "https://www.lombardiaspeciale.regione.lombardia.it/wps/portal/LS/Home/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.openinnovation.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0279",
+   "is_social": false
+  },
+  {
+   "url": "https://www.nonseidasola.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0280",
+   "is_social": false
+  },
+  {
+   "url": "https://www.giovani.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0281",
+   "is_social": false
+  },
+  {
+   "url": "https://fitosanitario.regione.lombardia.it/wps/portal/site/sfr",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.its.regione.lombardia.it/wps/portal/site/its",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.consiglieradiparita.regione.lombardia.it/wps/portal/site/consigliera-di-parita-regionale",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bollo+Auto",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0282",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Dote+Scuola",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0283",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bandi",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0284",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Fascicolo+Sanitario",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0285",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Notizie",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0286",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0287",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/sanita/ticket-ed-esenzioni/ticket-esenzioni-prestazioni-ssr",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0288",
+   "is_social": false
+  },
+  {
+   "url": "https://www.facebook.com/Regione.Lombardia.official/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.instagram.com/regionelombardia.official",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://it.linkedin.com/company/regione-lombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.youtube.com/user/regionelombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0289",
+   "is_social": true
+  },
+  {
+   "url": "https://open.spotify.com/show/1R01RxchEEaemUOYpdEyw9",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0290",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/sanita",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0291",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0292",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/istruzione-formazione-e-lavoro",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca-e-innovazione",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/sicurezza-e-protezione-civile",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ambiente-e-territorio",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/cultura-turismo-e-sport",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/politiche-sociali-e-abitative",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/infrastrutture-trasporti-e-mobilita",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/agricoltura",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-produttive-imprese",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/presidente",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/giunta",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/identita-istituzionale",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/direzioni-generali",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/sedi-e-delegazioni",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/uffici-territoriali-e-spazio-regione",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/burl-bollettino-ufficiale-regione-lombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/diritti-e-tutele",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/programmi-e-finanze",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/amministrazione-trasparente",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=BolloAuto",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=FascicoloSanitario",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=DoteScuola",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://areapersonale.regione.lombardia.it/homepage/suggeriti-per-te",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.bandi.regione.lombardia.it/servizi/home",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0293",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/infrastrutture-trasporti-e-mobilita/trasporto-pubblico/biglietti-e-agevolazioni",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.fascicolosanitario.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 302
+  },
+  {
+   "url": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/tassa-automobilistica-bollo-auto",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.allertalom.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0294",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/tutti-gli-avvisi",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://spazioregioneprenota.kioskbuk.it/intro.aspx",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0295",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/istruzione-formazione-e-lavoro/dote-scuola/dote-scuola-2026",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.lombardianotizie.online/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0296",
+   "is_social": false
+  },
+  {
+   "url": "https://www.consiglio.regione.lombardia.it/wps/portal/crl",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.lombardia.it/giunta/sedute-e-delibere",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "http://www.bollettino.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0297",
+   "is_social": false
+  },
+  {
+   "url": "https://www.consiglio.regione.lombardia.it/wps/portal/crl/home/leggi-e-banche-dati/leggi-regionali",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/atti-di-notifica-per-pubblici-proclami",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://gestioneilleciti.servizirl.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0298",
+   "is_social": false
+  },
+  {
+   "url": "https://www.facebook.com/Regione.Lombardia.official/?fref=ts",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/company/regione-lombardia/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://open.spotify.com/user/31gqtegbafemb4n6rpj6ekecpri4",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "REGISTADO",
+   "id": "CAND-0299",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.lombardia.it/contatti.html",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/comunicazione-istituzionale/policy/informativa-privacy-per-il-servizio-area-personale",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/scopri-la-nuova-area-personale",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://areapersonale.regione.lombardia.it/homepage/i-tuoi-preferiti",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/comunicazione-istituzionale/policy/redazione-web",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/comunicazione-istituzionale/policy/note-legali",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/comunicazione-istituzionale/policy/informativa-privacy-servizi-del-portale",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/comunicazione-istituzionale/policy/red-cookie-policy",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/attivita-istituzionali/comunicazione-istituzionale/policy/social-media-policy",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/tutti-i-siti-di-regione-lombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.lombardia.it/tutte-le-app-di-regione-lombardia",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://intranet.regione.lombardia.it/",
+   "semente": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "semente": "https://agri.regione.emilia-romagna.it/",
+   "acao": "SEMENTE_FETCH_FAILED",
+   "status": 404,
+   "ct": "HTTP_404"
+  },
+  {
+   "url": "https://www.facebook.com/Regione-Siciliana-2050353221878553/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCNXmEqmby16fYsXOLP012tw",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0300",
+   "is_social": true
+  },
+  {
+   "url": "https://instagram.com/regionesiciliana",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/company/regione-siciliana/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0301",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/il-presidente",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0302",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/giunta-regionale",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0303",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/assemblea-regionale-siciliana",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0304",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0305",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/lo-statuto-regionale",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0306",
+   "is_social": false
+  },
+  {
+   "url": "http://www.gurs.regione.sicilia.it",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/urp",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0307",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0308",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/bandi?f%5B0%5D=expired%3A0",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0309",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/decreti-e-direttive",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "http://www2.regione.sicilia.it/deliberegiunta",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0310",
+   "is_social": false
+  },
+  {
+   "url": "https://dati.regione.sicilia.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://pagamenti.regione.sicilia.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/fatturazione-elettronica",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "http://procedimenti.regione.sicilia.it/bdprocedimenti/consulta/cercaproc.asp",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/atti",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/regione/chiusure-temporanee-uffici",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/istituzioni/i-simboli-della-regione",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/gallery",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/gallery/infografiche",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/gallery/foto",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/gallery/video",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/gallery/dirette",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/gallery/clip",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/area-stampa",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/accrediti-stampa",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/area-stampa/contatti-ufficio-stampa",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/comunicazione/area-stampa/portavoce",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://newsletter.regione.sicilia.it",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.sicilia.it/i-cantieri",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/fsc-2021-2027-sicilia-regione-italia-impegni-pagamenti-effettuati",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa?f%5B0%5D=category%3Anews",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/incendi-schifani-regione-linea-contrasto-si-fondo-rotazione-comuni",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/euro-2032-presidente-schifani-60-milioni-regione-dare-uno-stadio-moderno-palermo",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/economia-firmato-decreto-straccia-bollo-agevolazioni-tasse-canoni-regionali",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/livatino-schifani-suo-esempio-continui-guidare-istituzioni",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/inaugurazione-anno-scolastico-turano-usr-sicilia-incontrano-presidi",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/giovani-schifani-12-mila-under-40-rientrati-sicilia-negli-ultimi-5-anni",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/terzo-settore-quasi-3-milioni-progetti-rilevanza-sociale-volontariato",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/ocm-vino-ammessi-11-progetti-promozione-nei-mercati-paesi-terzi",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/archeologia-ad-agrigento-22-settembre-open-day-negli-scavi-ceramico",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/enti-locali-assegnati-158-comuni-fondi-sostenere-finanza-locale",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/niscemi-al-progettazione-sistemazione-sp-12",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/donne-vittime-violenza-riaperti-termini-reddito-liberta",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/archeologia-subacquea-conclusa-campagna-ricerche-nel-ragusano",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/ricerca-16-milioni-regione-l-osservatorio-sottomarino-km3net",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/caro-carburanti-arico-decreto-aiuti-entro-fine-settimana",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/palermo-castello-utveggio-apre-ai-visitatori",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://dati.regione.sicilia.it/il-dati-sui-progetti-del-pnrr-della-regione-siciliana/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/avviso-pubblico-contributi-straordinari-danni-causati-ciclone-harry",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/consultazione-pubblica-miglioramento-sezione-amministrazione-trasparente",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/manifestazione-interesse-personale-comparto-non-dirigenziale-inquadrare-posizione-comando-presso-dipartimento-regionale-bilancio-tesoro-ragioneria-generale-regione-1",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/manifestazione-interesse-personale-comparto-non-dirigenziale-inquadrare-posizione-comando-presso-dipartimento-regionale-bilancio-tesoro-ragioneria-generale-regione-0",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/comitato-unico-garanzia-pubblicato-l-avviso-l-acquisizione-manifestazioni-d-interesse-nomina-presidente-componenti",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/semplificazione-amministrativa",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/la-regione-informa/termovalorizzatori",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "http://www.visitsicily.info",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0311",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/siti-tematici-link-utili",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/programmazione-europea",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.costruiresalute.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.protezionecivilesicilia.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0312",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpa.sicilia.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0313",
+   "is_social": false
+  },
+  {
+   "url": "https://www.irfis.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0314",
+   "is_social": false
+  },
+  {
+   "url": "https://www.quirinale.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.senato.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0315",
+   "is_social": false
+  },
+  {
+   "url": "https://www.camera.it/leg18/1",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0316",
+   "is_social": false
+  },
+  {
+   "url": "http://www.governo.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0317",
+   "is_social": false
+  },
+  {
+   "url": "https://www.europarl.europa.eu/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0318",
+   "is_social": false
+  },
+  {
+   "url": "https://www.consilium.europa.eu/it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://amministrazionetrasparente.regione.sicilia.it/",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0319",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/note-legali",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/pubblicita-legale",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/privacy-accessibilita",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://form.agid.gov.it/view/78bd7980-9859-11f0-b114-bda70f0f6c0f",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0320",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.sicilia.it/cookie-policy",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.sicilia.it/social-media-policy",
+   "semente": "https://www.regione.sicilia.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0321",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/en?set_language=en",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0322",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0323",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.emilia-romagna.it/",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0324",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0325",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0326",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/sospensione-del-blocco-strutturale-dal-1degottobre-ai-diesel-euro-5",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0327",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1-1",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0328",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0329",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0330",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/aggiornamento-portale-prelievi-di-arpae",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/sostenibilita-a-scuola-offerta-ceas-anno-scolastico-2026-27",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/notizie-arpae",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/aria/dati-qualita-aria/stazioni-fisse/dati-dalle-stazioni-fisse",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/aria/previsioni/previsioni-di-qualita-dellaria/previsioni-di-qualita-dellaria",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/autorizzazioni-e-concessioni/stato-idrologico-dei-fiumi-e-divieti-di-prelievo/stato-idrologico-dei-fiumi-in-emilia-romagna-regolazione-dei-prelievi",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/dati-in-tempo-reale",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/meteo/dati-e-osservazioni/stima-radar-della-pioggia/radar-meteo-stima-della-pioggia",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/mare/dati-e-indicatori/mappa-dati-mare/mappa-dati-del-mare",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/pollini/report-e-bollettini/bollettino-dei-pollini/bollettino-pollini-e-spore-in-emilia-romagna",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/balneazione/dati-balneazione/dati-balneazione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali/campi-elettromagnetici/dati-campi-elettromagnetici/dati-campi-elettromagnetici",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/servizi-di-previsione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.youtube.com/playlist?list=PLrgSqU5xBcBMgcv3dofeB4RlMRFoh5-j7",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0331",
+   "is_social": true
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie/comunicati-stampa",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/notizie",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.linkedin.com/newsletters/arpae-news-7204779628526231553/",
+   "semente": "https://www.arpae.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCCMlh614oidOkq-HNSa9RVA",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0332",
+   "is_social": true
+  },
+  {
+   "url": "https://it.linkedin.com/company/arpae-emilia-romagna",
+   "semente": "https://www.arpae.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://open.spotify.com/show/4O539O6MYvAIQNkJiOPrlr",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0333",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/aria",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/balneazione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/campi-elettromagnetici",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/clima",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/educazione-alla-sostenibilita",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/energia",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/copy_of_acqua",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/meteo",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/pollini",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/rischio-calore",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/sostenibilita",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali-in-evidenza/siccita-e-desertificazione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/homepage",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/temi-ambientali",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/piacenza",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/parma",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/reggio-emilia",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/modena",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/bologna",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/ferrara",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/ravenna",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/forli-cesena",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/localita/rimini",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/laboratori-e-attivita-analitica/unita-analitiche-specialistiche/proficiency-testing/proficiency-testing",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://service.arpae.it/interview/Reclami_Informazioni/index.asp?pg=2",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0334",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpae.it/it/contatta-arpae",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/sedi-e-contatti/arpae-in-regione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/arpae/persone-strutture",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/sedi-e-contatti/servizi-autorizzazioni-e-concessioni-in-regione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/sedi-e-contatti/struttura-oceanografica-daphne",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/sedi-e-contatti/servizio-idrometeoclima",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/monitoraggio-ambientale",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/vigilanza-e-controllo",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/autorizzazioni-e-concessioni",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/attivita-analitica",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/osservatorio-clima-e-energia",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/informazione-e-comunicazione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/previsioni",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi/attivita-e-servizi-per-hp/supporto-alla-protezione-civile",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/attivita-e-servizi",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/siti-di-riferimento/pagopa",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/siti-di-riferimento/ecoscienza-la-rivista-di-arpae",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/siti-di-riferimento/ispra",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/siti-di-riferimento/snpa",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/siti-di-riferimento/ambienteinforma",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/contatta-arpae/posta-elettronica-certificata-pec",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/contatta-arpae/pronto-intervento-ambientale",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/arpae/amministrazione-trasparente",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/arpae/amministrazione-trasparente/altri-contenuti/prevenzione-della-corruzione",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/arpae/amministrazione-trasparente/altri-contenuti/accesso-civico",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCCMlh614oidOkq-HNSa9RVA/featured",
+   "semente": "https://www.arpae.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0335",
+   "is_social": true
+  },
+  {
+   "url": "https://www.instagram.com/arpaeemiliaromagna/",
+   "semente": "https://www.arpae.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.arpae.it/it/informazioni-sul-sito-web-e-crediti",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/note-legali-e-copyright",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.arpae.it/it/privacy-e-cookies",
+   "semente": "https://www.arpae.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "semente": "https://www.regione.liguria.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://old.regione.calabria.it",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.calabria.it/dipartimento-organizzazione-risorse-umane/aree-tematiche/comitato-unico-di-garanzia/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 521
+  },
+  {
+   "url": "https://www.regione.calabria.it/ufficio-relazioni-con-il-pubblico/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0336",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-regione/la-giunta-regionale/il-presidente/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0337",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-regione/la-giunta-regionale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0338",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/il-consiglio-regionale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0339",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-regione/anagrafe-pubblica/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0340",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/anticorruzione-e-trasparenza/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0341",
+   "is_social": false
+  },
+  {
+   "url": "http://www.regione.calabria.it/organismo-indipendente-di-valutazione/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 521
+  },
+  {
+   "url": "https://www.regione.calabria.it/responsabile-protezione-dati/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0342",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/monitoraggio-dei-tempi-procedimentali/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://burc.regione.calabria.it/home.jsp",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.calabria.it/staff-del-presidente/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/ufficio-stampa/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/autorita-di-audit/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/stazione-unica-appaltante/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/avvocatura-regionale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/nucleo-regionale-di-valutazione-e-verifica-degli-investimenti-pubblici",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/tutti-i-dipartimenti/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-segretariato-generale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-per-la-valorizzazione-del-capitale-umano-e-linnovazione-nel-lavoro-pubblico",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-bilancio-finanze-e-patrimonio/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-per-la-programmazione-unitaria/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-infrastrutture/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-lavoro-imprese-e-aree-produttive/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-agricoltura-aree-interne-e-politiche-di-connessione-territoriale",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-salute-e-servizi-sanitari",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-governo-del-territorio-difesa-del-suolo-e-politiche-per-la-casa/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-per-la-sostenibilita-ambientale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-asset-strategici-attrazione-degli-investimenti-e-saperi",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-per-la-protezione-civile/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-politiche-della-montagna-foreste-forestazione-e-difesa-del-suolo/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-turismo-cultura-e-identita-territoriale",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/dipartimento-per-linclusione-sociale-la-sussidiarieta-e-il-welfare-di-comunita",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/news/?pr=&sort_order=0&filter_active=true&filter_department=ufficio-stampa",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/news/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/eventi-della-regione/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/attivita-istituzionale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/ambiente-agricoltura-ed-energia/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/cultura-turismo-ed-eventi/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/diritti-inclusione-e-tutela-della-persona/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/infrastrutture-difesa-del-suolo-e-mobilita/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/istruzione-universita-e-alta-formazione/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/lavoro-e-supporto-alle-imprese-e-liberi-professionisti/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/protezione-civile/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/salute-e-sport/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/sicurezza-e-legalita/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/sviluppo-ricerca-e-innovazione-digitale/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/tributi-e-agevolazioni/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/pianificazione-strategica/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://energia.calabriaimpresa.eu/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0343",
+   "is_social": false
+  },
+  {
+   "url": "https://www.sportelloconsumatoricalabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0344",
+   "is_social": false
+  },
+  {
+   "url": "https://old.regione.calabria.it/website/sitiregione/osservatorio/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://osservatoriosviluppolocale.regione.calabria.it/web/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://dati.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://calabriastraordinaria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0345",
+   "is_social": false
+  },
+  {
+   "url": "https://old.regione.calabria.it/website/aziendazero/provvedimenti/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://terzosettore.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://istruzione.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0346",
+   "is_social": false
+  },
+  {
+   "url": "https://lavoro.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://osservatorio.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0347",
+   "is_social": false
+  },
+  {
+   "url": "https://www.calabriafilmcommission.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0348",
+   "is_social": false
+  },
+  {
+   "url": "https://www.fondazioneterina.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0349",
+   "is_social": false
+  },
+  {
+   "url": "https://www.fondazionegrecanica.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0350",
+   "is_social": false
+  },
+  {
+   "url": "http://www.regione.calabria.it/homepage/enti-e-partecipate",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.calabriaimpresa.eu/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0351",
+   "is_social": false
+  },
+  {
+   "url": "https://www.calabriasuap.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.calabriasue.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0352",
+   "is_social": false
+  },
+  {
+   "url": "http://portal.calabria.iter-web.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://fatturazione.regione.calabria.it",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://esperti.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://segnalazioni.sanibook.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0353",
+   "is_social": false
+  },
+  {
+   "url": "https://ecosanita.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0354",
+   "is_social": false
+  },
+  {
+   "url": "https://prenota.regione.calabria.it/home",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0355",
+   "is_social": false
+  },
+  {
+   "url": "https://www.fascicolosanitario.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0356",
+   "is_social": false
+  },
+  {
+   "url": "https://sistemats1.sanita.finanze.it/portale/cittadini-hp",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://sisr-ap.sisr.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://pagopa.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0357",
+   "is_social": false
+  },
+  {
+   "url": "https://tributi.regione.calabria.it/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.calabria.it/bandi-e-avvisi-di-gara/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/bandi-altre-amministrazioni/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/concorsi-e-selezioni/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/conferenza-dei-servizi/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "http://www.regione.calabria.it/bandi-e-avvisi-di-gara/?pr=&sort_order=0&filter_department=Procedure%2BEspropriative&filter_tematic=&filter_type=rc_procedure_type_notify&filter_fund=&filter_beneficiary=0&filter_cig=&filter_date_from=&filter_date_to=&searchButton=Cerca",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/provvedimenti-della-regione/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/normative-della-regione/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/normative-della-regione/?sort_order=0&filter_department=&filter_type=Legge+Regionale&filter_scope=&filter_item=&filter_number=&filter_date_from=&filter_date_to=&searchButton=Cerca",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/normative-della-regione/?sort_order=0&filter_department=&filter_type=Regolamento&filter_scope=&filter_item=&filter_number=&filter_date_from=&filter_date_to=&searchButton=Cerca",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/notifiche-e-pubblici-proclami/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/tennis-occhiuto-orgogliosi-di-ospitare-manifestazione-mondiale-occasione-per-promuovere-calabria/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/studio-teha-sul-turismo-in-calabria-47-milioni-di-investimenti-hanno-generato-un-impatto-di-58-miliardi-in-tre-anni/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/regione-lancia-ripopola-calabria-progetto-innovativo-per-rilanciare-i-piccoli-borghi/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/maltempo-protezione-civile-calabria-online-piattaforma-per-richieste-ristori-ciclone-ulrike-nils-2/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/giornata-mondiale-alzheimer-lassessore-straface-se-la-memoria-svanisce-resta-lumanita-prendersi-cura-significa-esserci-senza-lasciare-solo-nessuno/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/la-giunta-approva-aggiornamento-master-plan-portualita-turistica-mancuso-al-via-manifestazione-dinteresse-per-una-rete-sempre-piu-organica-moderna-e-capillare/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/calabriambiente-premiata-a-ferrara-montuoro-e-un-orgoglio-essere-protagonisti-nazionali/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/bandi/appalto-specifico-n-22-indetto-dalla-regione-calabria-per-la-fornitura-di-vaccini-destinati-alle-aziende-del-sistema-sanitario-della-regione-calabria-nellambito-del-sistema-dinamico-di-acq/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/bandi/avviso-pubblico-per-lassegnazione-in-comodato-duso-gratuito-di-moduli-carrelli-attrezzati-per-il-rischio-idrogeologico-alle-organizzazioni-di-volontariato-ed-ai-gruppi-comunali-iscritti-nellalbo/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/bandi/verifica-di-assoggettabilita-a-via-ai-sensi-dellart-19-del-d-lgs-152-2006-e-smi-progetto-realizzazione-di-un-nuovo-impianto-di-gestione-e-trattamento-rifiuti-ditta-sid/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/tutti-i-pnrr/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.protezionecivilecalabria.it/?cat=4",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0358",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/la-calabria-alla-european-week-of-regions-and-cities-2026-focus-su-resilienza-climatica-e-strategie-macroregionali/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0359",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/progetto-calalma-prorogato-al-30-settembre-2026-il-termine-per-lavvio-delle-attivita-dei-giovani-neet/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0360",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0361",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriaeuropa.regione.calabria.it/transformer-calabria-pubblicata-la-graduatoria-definitiva-sostegno-a-occupazione-e-formazione/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0362",
+   "is_social": false
+  },
+  {
+   "url": "https://lavoro.regione.calabria.it/tis-1500-i-lavoratori-stabilizzati-calabrese-puntiamo-ad-arrivare-a-1-800/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://lavoro.regione.calabria.it/il-lavoro-chiama-conclusa-la-prima-edizione-vince-la-calabria-dei-talenti-e-della-crescita-economica/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://lavoro.regione.calabria.it/il-lavoro-chiama-tre-giorni-di-recruiting-a-catanzaro-per-400-posizioni-aperte/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://lavoro.regione.calabria.it/il-lavoro-chiama-dal-26-al-28-maggio-la-calabria-diventa-capitale-della-opportunita-al-polo-fieristico-di-catanzaro-tre-giorni-di-incontri-recruiting-e-strategie/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2456-scadenza-presentazione-domande-di-sostegno-bando-meccanizzazione",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0363",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2451-adozione-versione-2-0-di-giugno-2026-del-prezzario-dei-costi-massimi-di-riferimento-per-macchine-ed-attrezzature-agricole",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0364",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2449-nomina-commissione-di-valutazione-domande-intervento-srd01-investimenti-produttivi-agricoli-per-la-competitivita-delle-aziende-agricole-del-comparto-olivicolo",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0365",
+   "is_social": false
+  },
+  {
+   "url": "http://www.calabriapsr.it/news/2448-domande-di-aiuto-per-gli-allevamenti-suinicoli-atti-alla-prevenzione-della-diffusione-della-peste-suina-africana-2",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0366",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/a-trip-to-lake-ampollino",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0367",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/relax-at-the-bagni-di-guida",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0368",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/a-journey-through-the-crotone-sila-amidst-nature-and-footpaths",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0369",
+   "is_social": false
+  },
+  {
+   "url": "https://calabriastraordinaria.it/en/travel-tips/calabrian-pasta-traditional-shapes",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0370",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/avvocatura-regionale/notifiche-e-pubblici-proclami/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/notifica-per-pubblici-proclami-francesca-alessia-pensavalle-ordinanza-t-a-r-catanzaro-sez-seconda-n-1588-2026-reg-prov-coll-sul-ricorso-n-1494-2025-reg-ric/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/notifica-per-pubblici-proclami-marco-iovine-ordinanza-t-a-r-calabria-catanzaro-sez-seconda-n-1519-2026-reg-prov-coll-sul-ricorso-n-571-2026-reg-ric/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/notifica-per-pubblici-proclami-azienza-morelli-dr-pietro-paolo-ordinanza-t-a-r-catanzaro-sez-seconda-n-1351-2026-reg-prov-coll-sul-ricorso-n-174-2024-reg/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://trasparenza.regione.calabria.it/REGIONECALABRIA",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0371",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.calabria.it/note-legali/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.calabria.it/privacy-cookies/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://cookiedatabase.org/tcf/purposes/",
+   "semente": "https://www.regione.calabria.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "semente": "https://www.regione.veneto.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "semente": "https://www.regione.toscana.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "semente": "https://www.regione.lazio.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "semente": "https://www.regione.puglia.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://amministrazionetrasparente.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0372",
+   "is_social": false
+  },
+  {
+   "url": "https://servizi-digitali.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0373",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/link-utili",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0374",
+   "is_social": false
+  },
+  {
+   "url": "https://regione.campania.it/area-riservata",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0375",
+   "is_social": false
+  },
+  {
+   "url": "http://archivioportale.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0376",
+   "is_social": false
+  },
+  {
+   "url": "https://www.facebook.com/RegCampania",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.youtube.com/user/regcampania",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0377",
+   "is_social": true
+  },
+  {
+   "url": "https://www.instagram.com/regione.campania/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/company/regione-campania/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.campania.it/regione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0378",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione/presidente",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0379",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione/la-giunta-regionale",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0380",
+   "is_social": false
+  },
+  {
+   "url": "https://www.cr.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0381",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0382",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0383",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0384",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/eventi",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0385",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/area-stampa/comunicati",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0386",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/area-stampa/foto",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/area-stampa/video",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/area-stampa/discorsi-presidente",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/loghi-istituzionali/manuale-d-uso",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/loghi-istituzionali/scarica",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/comunicazione/social-media/social-wall",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/burc",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/sedute-giunta",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/opengov/open-data",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/opengov/regione-casa-vetro",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/opengov/atti-notifica",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/normativa/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/come-fare-per/richiedere-patrocinio-morale-l-utilizzo-logo-regione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/bilancio-risorse-finanziarie-patrimonio/conti-pubblici-territoriali-",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/altri-link/organismi-strumentali",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/servizi/surap-sportello-unico-regionale-attivita-produttive",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/altri-link/spid",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/servizi/portale-entrate",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/servizi/portale-pagamenti",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://entrate.regione.campania.it/tassa-automobilistica-info",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0387",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/agricoltura",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/ambiente",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/attivita-produttive",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/bilancio-risorse-finanziarie-patrimonio",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/cultura-turismo",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/investimenti-pubblici-fondi-europei",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/istruzione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/lavori-pubblici-governo-territorio",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/lavoro-formazione-professionale",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/politiche-sociali",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/ricerca-innovazione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/sanita",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/sicurezza-diritti-legalita",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/sport-politiche-giovanili",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/trasporti",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/protezione-civile",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/campi-flegrei/introduzione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/urp",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/come-fare-per",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informazioni-utili/come-fare-per/inoltrare-reclamo",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/urp/accesso/accesso-agli-atti-amministrativi",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/urp/accesso/accesso-civico",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/giro-campania-domenica-torna-dopo-25-anni-corsa-meraviglie",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/rigenerazione-urbana-regione-campania-quasi-17-milioni-euro-avellino-sottoscritto-l-accordo-programma",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/lavori-pubblici-governo-territorio/governo-territorio",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/lavori-pubblici-governo-territorio/governo-territorio/urbanistica",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/presentato-masterplan-aeroporto-napoli-250-milioni-euro-investimenti-entro-2035",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/campi-flegrei-750mila-euro-favorire-nuovi-contratti-locazione-canone-concordato",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/lavori-pubblici-governo-territorio/governo-territorio/casa",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/treni-storici-campania-35-viaggi-scoprire-territorio-bordo-convogli-d-epoca",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/eurovolley-2026-napoli-match-inaugurale-italia-svezia-piazza-plebiscito",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/presentata-iii-edizione-campaniawine-territori-consorzi-istituzioni-uniti-unico-grande-racconto-vino",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/presentato-palazzo-santa-lucia-progetto-terra-sonans-arte-cultura-vox-populi-ideato-diretto-enzo-avitabile-video",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/consiglio-regionale-campania-seduta-monotematica-azioni-urgenti-terremoto-campi-flegrei-video",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/ciclismo-dopo-25-anni-torna-giro-campania-partenza-caserta-arrivo-napoli",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/campi-flegrei-tavolo-regione-turismo-milione-euro-rilancio-destinazione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/campi-flegrei-attivata-raccolta-donazioni-sostegno-popolazione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/presentato-nuovo-piano-trasporto-pubblico-locale-benevento-1deg-agosto-gestito-air-campania-video",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/sisma-campi-flegrei-regione-campania-1-milione-euro-prime-misure-urgenti-assistenza-alla-popolazione-pozzuoli",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/evento-sismico-ai-campi-flegrei-attivato-centralino-dedicato-segnalazione-danni-alle-abitazioni",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/opere-strategiche-al-gara-riqualificazione-fiume-sarno-piano-407-milioni-euro",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/aree-tematiche/sicurezza-diritti-legalita/beni-confiscati",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/avviso-pubblico-concessione-contributi-gestione-beni-confiscati-annualita-2024",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/offerta-formativa-ifts-istruzione-formazione-tecnica-superiore-2026-nuovi-bandi-ammissione",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/tirocini-programma-gol-garanzia-occupabilita-lavoratori-secondo-prolungamento",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/regione-informa/notizie/ciclismo-dopo-25-anni-torna-giro-campania-partenza-reggia-caserta-arrivo-piazza-plebiscito",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://europa.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0388",
+   "is_social": false
+  },
+  {
+   "url": "https://pnrr.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0389",
+   "is_social": false
+  },
+  {
+   "url": "https://cultura.regione.campania.it/home",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0390",
+   "is_social": false
+  },
+  {
+   "url": "https://sinfonia.regione.campania.it",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0391",
+   "is_social": false
+  },
+  {
+   "url": "https://entrate.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 404
+  },
+  {
+   "url": "https://acamir.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0392",
+   "is_social": false
+  },
+  {
+   "url": "https://www.agenziacampaniaturismo.it/sito/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://agricoltura.regione.campania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0393",
+   "is_social": false
+  },
+  {
+   "url": "https://www.arpacampania.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0394",
+   "is_social": false
+  },
+  {
+   "url": "https://www.agenziasportcampania.it/sito/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0395",
+   "is_social": false
+  },
+  {
+   "url": "https://www.campaniartecard.it/",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0396",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/ecosistema-digitale",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/urp/informazioni-utili",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://regione.campania.it/informazioni-utili/opengov/burc",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0397",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.campania.it/opengov/casa-di-vetro",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/qualita-datacenter-iso-900127001",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/note-legali",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.campania.it/informativa-privacy",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://form.agid.gov.it/r_campan/obiettivi",
+   "semente": "https://www.regione.campania.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0398",
+   "is_social": false
+  },
+  {
+   "semente": "https://www.regione.umbria.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "semente": "https://www.regione.fvg.it/",
+   "acao": "SEMENTE_ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.governo.it",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "DEDUP",
+   "motivo": "SAME_URL"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/user",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www2.regione.abruzzo.it/facebook",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www2.regione.abruzzo.it/instagram",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www2.regione.abruzzo.it/twitter",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www2.regione.abruzzo.it/youtube",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/giunta/marco-marsilio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0399",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/giunta",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0400",
+   "is_social": false
+  },
+  {
+   "url": "http://consiglio.regione.abruzzo.it/",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/elezioni-regionali",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0401",
+   "is_social": false
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/dipartimenti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/contatti-della-regione-abruzzo",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0402",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/amministrazione/organizzazione/urp",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0403",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/sede-di-roma",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0404",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/amministrazione/sede-bruxelles",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0405",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/istituti-di-garanzia/comitato-unico-di-garanzia-cug",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0406",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/istituti-di-garanzia/consigliera-regionale-di-parita",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0407",
+   "is_social": false
+  },
+  {
+   "url": "https://www.corecomabruzzo.it/",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0408",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/amministrazione/patrocinio/logo-istituzionale",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/na/concessione-dell-alto-patrocinio-della-regione-abruzzo",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/amministrazione/registri/la-personalita-giuridica",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/servizi-online",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://bura.regione.abruzzo.it/",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0409",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/leggi-atti-bandi/leggi-e-progetti-di-legge",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/regolamenti-regionali",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/deliberazioni-della-giunta-regionale",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/atti-presidenziali",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/concorsi-e-selezioni",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/bandi-di-gara-contratti-1",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/bandi-contributi-e-finanziamenti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/agricoltura",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/ambiente",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/bilanci-tributi-e-tasse",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/cultura",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/digitale",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/energia",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/enti-locali",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/europa",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/lavori-pubblici",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://selfi.regione.abruzzo.it/",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0410",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/protezione-civile",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/ricostruzione-post-sisma",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/rifiuti-bonifiche",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://sanita.regione.abruzzo.it",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0411",
+   "is_social": false
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/sociale",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/statistica-dati-cartografici",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/sviluppo-economico",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/trasporti-e-mobilita",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/turismo",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/notizie/economia-l-abruzzo-da-record-export-pil-ed-occupazione-ai-vertici-italia",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/notizie/acquedotto-del-chiarino-marsilio-e-imprudente-al-i-lavori-finanziati-con-10-milioni-di-fondi-fsc",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/41",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/notizie/acquedotto-del-chiarino-marsilio-e-imprudente-al-i-lavori-finanziati-con-10-milioni-di-fondi-fsc",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/notizie/acquedotto-del-chiarino-marsilio-e-imprudente-al-i-lavori-finanziati-con-10-milioni-di-fondi-fsc",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/notizie/marsicaland-conclusa-la-terza-edizione-imprudente-una-manifestazione-che-cresce-e-coinvolge-tutta-la",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/25",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/notizie/marsicaland-conclusa-la-terza-edizione-imprudente-una-manifestazione-che-cresce-e-coinvolge-tutta-la",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/notizie/marsicaland-conclusa-la-terza-edizione-imprudente-una-manifestazione-che-cresce-e-coinvolge-tutta-la",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/notizie/giro-d-abruzzo-d-annuntiis-una-promozione-turistica-straordinaria-tutto-il-nostro-territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/46",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/10",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/notizie/giro-d-abruzzo-d-annuntiis-una-promozione-turistica-straordinaria-tutto-il-nostro-territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/notizie/giro-d-abruzzo-d-annuntiis-una-promozione-turistica-straordinaria-tutto-il-nostro-territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/notizie",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0412",
+   "is_social": false
+  },
+  {
+   "url": "https://sanitaonline.regione.abruzzo.it/portaleservizi/#/pages/listaservizi",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/evento/il-cpi-di-nereto-cerca-operatori-di-fast-food-iscritti-alla-categorie-protette",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/evento/il-cpi-di-nereto-cerca-operatori-di-fast-food-iscritti-alla-categorie-protette",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/evento/il-cpi-di-nereto-cerca-operatori-di-fast-food-iscritti-alla-categorie-protette",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/evento/al-cpi-di-lanciano-previsti-colloqui-di-lavoro-lavoratori-iscritti-alle-categorie-protette",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/evento/al-cpi-di-lanciano-previsti-colloqui-di-lavoro-lavoratori-iscritti-alle-categorie-protette",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/evento/al-cpi-di-lanciano-previsti-colloqui-di-lavoro-lavoratori-iscritti-alle-categorie-protette",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/evento/inclusione-lavorativa-al-cpi-dell-aquila-giornata-informativa-le-aziende",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/evento/inclusione-lavorativa-al-cpi-dell-aquila-giornata-informativa-le-aziende",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/evento/inclusione-lavorativa-al-cpi-dell-aquila-giornata-informativa-le-aziende",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/evento/cpi-di-nereto-alla-ricerca-di-giovani-tirocini-extracurriculari",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/evento/cpi-di-nereto-alla-ricerca-di-giovani-tirocini-extracurriculari",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/evento/cpi-di-nereto-alla-ricerca-di-giovani-tirocini-extracurriculari",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/novita/pubblicate-le-faq-aggiornate-sul-bando-iran-gli-eventi-imprevisti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/43",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/novita/pubblicate-le-faq-aggiornate-sul-bando-iran-gli-eventi-imprevisti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/novita/pubblicate-le-faq-aggiornate-sul-bando-iran-gli-eventi-imprevisti",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/novita/conferimento-incarico-di-dirigente-del-servizio-valutazioni-ambientali-dipartimento-territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/11",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/novita/conferimento-incarico-di-dirigente-del-servizio-valutazioni-ambientali-dipartimento-territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/novita/conferimento-incarico-di-dirigente-del-servizio-valutazioni-ambientali-dipartimento-territorio",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/novita/fondazione-tanturri-di-scanno-avvio-del-procedimento-di-estinzione",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/204",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/novita/fondazione-tanturri-di-scanno-avvio-del-procedimento-di-estinzione",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/novita/fondazione-tanturri-di-scanno-avvio-del-procedimento-di-estinzione",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/novita/bando-srd12-le-foreste-approvata-la-graduatoria",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/novita/bando-srd12-le-foreste-approvata-la-graduatoria",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/novita/bando-srd12-le-foreste-approvata-la-graduatoria",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/novita/tassa-automobilistica-2025-regolarizzazione-entro-il-5-ottobre",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/111",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/novita/tassa-automobilistica-2025-regolarizzazione-entro-il-5-ottobre",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/novita/tassa-automobilistica-2025-regolarizzazione-entro-il-5-ottobre",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "http://www.regione.abruzzo.it/novita/scuola-di-polizia-locale-avviso-aggiornamento-albo-regionale-dei-docenti-e-degli-assistenti-tecnici",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/102",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/47",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=http://www.regione.abruzzo.it/novita/scuola-di-polizia-locale-avviso-aggiornamento-albo-regionale-dei-docenti-e-degli-assistenti-tecnici",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=http://www.regione.abruzzo.it/novita/scuola-di-polizia-locale-avviso-aggiornamento-albo-regionale-dei-docenti-e-degli-assistenti-tecnici",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/novita",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/contributi-centri-antiviolenza-cav-e-case-rifugio-cr",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/6",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/new/node/2298",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/new/node/2298",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/incentivo-allutilizzo-del-trasporto-pubblico-locale-i-lavoratori-0",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/36",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/new/node/974",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/new/node/974",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://pesca.regione.abruzzo.it/avvisi-pubblici/feampa-21-27/indennizzo-eventi-impresti-di-tipo-ambientale-climatico-o-di-salute",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 404
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/taxonomy/term/269",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/new/node/2230",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/new/node/2230",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.giustizia.it/giustizia/it/mg_1_6_1.page?contentId=SCE1497399",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0413",
+   "is_social": false
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/new/node/2224",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/new/node/2224",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/concessione-assegno-di-natalita-i-residenti-piccoli-comuni-di-montagna-0",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/new/node/2209",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/new/node/2209",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www2.regione.abruzzo.it/content/avviso-pubblico-il-finanziamento-di-progetti-del-terzo-settore",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.facebook.com/sharer/sharer.php?u=/new/node/2185",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.linkedin.com/sharing/share-offsite/?url=/new/node/2185",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.youtube.com/playlist?list=PLio2jmFoouCaMP0URkqMF83PBUSG1m1NA",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0414",
+   "is_social": true
+  },
+  {
+   "url": "https://trasparenza.regione.abruzzo.it/",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0415",
+   "is_social": false
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/na/informativa-sulla-privacy",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/na/note-legali",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.regione.abruzzo.it/argomenti/na/pubblicita-legale",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://intranet.regione.abruzzo.it",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "REGISTADO",
+   "id": "CAND-0416",
+   "is_social": false
+  },
+  {
+   "url": "https://webmail.regione.abruzzo.it/owa",
+   "semente": "https://www.regione.abruzzo.it/",
+   "acao": "FALHOU_HTTP",
+   "http": 440
+  },
+  {
+   "url": "https://www.politicheagricole.it/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "DEDUP",
+   "motivo": "SAME_URL"
+  },
+  {
+   "url": "https://www.crea.gov.it/amministrazione-trasparente",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0417",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/c/portal/update_language?p_l_id=40632&redirect=%2Fcentri-di-ricerca&languageId=en_US",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0418",
+   "is_social": false
+  },
+  {
+   "url": "https://creafuturo.crea.gov.it/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0419",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/carta-europea-dei-ricercatori",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0420",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/news-eventi-feed?p_p_id=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_SUWflQ81JiSe&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getRSS&p_p_cacheability=cacheLevelPage&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_SUWflQ81JiSe_currentURL=%2Fweb%2Fguest%2Fnews-eventi-feed&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_SUWflQ81JiSe_portletAjaxable=1",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0421",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/home",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0422",
+   "is_social": false
+  },
+  {
+   "url": "https://www.facebook.com/CREARicerca/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.youtube.com/channel/UCJ8RdeFgPyGA8eyVHulEiOg",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0423",
+   "is_social": true
+  },
+  {
+   "url": "https://www.linkedin.com/company/crea-ricerca/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.instagram.com/crearicerca/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://whatsapp.com/channel/0029Var9c0yJJhzeZ64hrw3i",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0424",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/conosci-il-crea",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0425",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/organi",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0426",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/direzione-generale",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0427",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/direzione-tecnico-scientifica",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0428",
+   "is_social": false
+  },
+  {
+   "url": "https://www.crea.gov.it/direzione-coordinamento-amministrativo-dei-centri-di-ricerca",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/direzione-coordinamento-risorse-umane-e-finanziarie",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/organigramma-amministrazione",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/documento-di-visione-strategica",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/piano-triennale-attivit%C3%A0",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/la-nostra-storia",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/la-storia-della-sede-centrale",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/cug-comitato-unico-di-garanzia**",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/urp-ufficio-relazioni-con-il-pubblico",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/agricoltura-e-ambiente",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/alimenti-e-nutrizione",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/difesa-e-certificazione",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/foreste-e-legno",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/genomica-e-bioinformatica",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/ingegneria-e-trasformazioni-agroalimentari",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/olivicoltura-frutticoltura-e-agrumicoltura",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/orticoltura-e-florovivaismo",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/politiche-e-bioeconomia",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/viticoltura-e-enologia",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/web/zootecnia-e-acquacoltura",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/le-grandi-sfide-del-crea",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/attivit%C3%A0-istituzionali-e-di-servizio",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/relazioni-istituzionali-e-internazionali",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/contratti-di-filiera-e-di-distretto",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/schede-tecniche",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/open-access",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/banche-dati",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/biblioteche",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/osservatorio-innovazione-ricerca-sviluppo",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/riviste-del-crea",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/atti-delle-amministrazioni-aggiudicatrici-e-degli-enti-aggiudicatori-distintamente-per-ogni-procedura-di-affidamento",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/bandi-di-concorso",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/notizie",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/comunicati-stampa",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/rassegna-stampa",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/ufficio-stampa-e-comunicazione",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/eventi-crea",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/creafuturo",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/media-kit",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/richiesta-logo-e-patrocinio",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/profilo-ricercatore",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/zootecnia-e-acquacoltura",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/foreste-e-legno",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/cerealicoltura-e-colture-industriali",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "DEDUP",
+   "motivo": "SAME_URL"
+  },
+  {
+   "url": "https://www.crea.gov.it/viticoltura-e-enologia",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/orticoltura-e-florovivaismo",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "DEDUP",
+   "motivo": "SAME_URL"
+  },
+  {
+   "url": "https://www.crea.gov.it/olivicoltura-frutticoltura-e-agrumicoltura",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/genomica-e-bioinformatica",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/agricoltura-e-ambiente",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/difesa-e-certificazione",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "DEDUP",
+   "motivo": "SAME_URL"
+  },
+  {
+   "url": "https://www.crea.gov.it/ingegneria-e-trasformazioni-agroalimentari",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/alimenti-e-nutrizione",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/politiche-e-bioeconomia",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/ufficio-stampa",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://form.agid.gov.it/view/b192d4e0-c0bc-11f0-bf33-33e72cf53987",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0429",
+   "is_social": false
+  },
+  {
+   "url": "https://forms.office.com/e/RGcqMcEvVY",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "ROBOTS_BLOCKED"
+  },
+  {
+   "url": "https://www.crea.gov.it/note-legali",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/privacy-policy",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/cookie-policies",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/documents/20126/5320178/All_Del+CdA+45-2024+Codice+Comportamento.pdf/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://www.crea.gov.it/credits",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "FALHOU_HTTP",
+   "http": 0
+  },
+  {
+   "url": "https://login.microsoftonline.com/",
+   "semente": "https://www.crea.gov.it/centri-di-ricerca",
+   "acao": "REGISTADO",
+   "id": "CAND-0430",
+   "is_social": false
+  }
+ ]
+}

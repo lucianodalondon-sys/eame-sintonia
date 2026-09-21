@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "candidate-bridge-v1",
-    "HEAD": "56d037b351e4d0ad2f9033695478a268071f1287",
-    "GENERATED_AT": "2026-09-20T23:20:37-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f324500f4294753e3d4c7eff410ac61286887e813fd2cc8476c8070d7c318848"
+    "BRANCH": "discovery-crawl-v1",
+    "HEAD": "63b714213ab55953cce907077f15de3d5f96f526",
+    "GENERATED_AT": "2026-09-21T07:48:45-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5f222d3ce19ef9458f603eff2b3cbc49c676ae250159f9ee92e34e55550c0903"
   },
   "FILES": [
     {
@@ -1067,7 +1067,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "0a645ba6aa9eae72be3f5b9ecac319807e8099ea",
+      "sha": "cdab7e8f8603ff2aa49f9138176ee3684214c7b0",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -1696,6 +1696,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/BRIDGE-LEDGER-V1.json",
+      "sha": "f2591ae91c27f9fba4e42d79caa2e985f2794f67",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/BRIDGE-PROOF-V1.json",
+      "sha": "ac6b21689a4a967cd8cf0ab034f19586f511689b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CANARY-LOTE-HTML-ARTIGO.json",
       "sha": "08eda42fbc03667afd012c60ba5af423a562c8d5",
       "ext": ".json",
@@ -1732,7 +1746,7 @@
     },
     {
       "path": "curadoria/DISCOVERY-VISITED.json",
-      "sha": "062e2dfbccd333372959dfc801ce7b723a86c9fe",
+      "sha": "37fe960487dbc478b8cb28561830e2caf1c0ed2d",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1781,7 +1795,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-QUEUE-V1.json",
-      "sha": "b9819d4fb29a35c6b1c87fe4c3a1196ecfa8f749",
+      "sha": "299be15e907b633cfdc48d4a289e2dd8970f84f2",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1977,7 +1991,7 @@
     },
     {
       "path": "curadoria/descobrir.py",
-      "sha": "ae05f408f55e5f4ad0252477d7226dc5958d0c9f",
+      "sha": "b06e3233f26cb3c80d62e2003b298ca2d8b46077",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2055,6 +2069,13 @@
     {
       "path": "curadoria/manifesto_das_amostras.py",
       "sha": "d0b7630d14060a743d3bf45a3c285bf2cc797a1e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/ponte_candidatas.py",
+      "sha": "968b46ca62ded628d0972653bf0a8b4c74700ef2",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2138,7 +2159,7 @@
     },
     {
       "path": "curadoria/test_discovery.py",
-      "sha": "6733a5635e802c24ddd21b2a6dd49805a83e6206",
+      "sha": "a706873dd850cb40ed6879848c47d42212d38700",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2153,6 +2174,13 @@
     {
       "path": "curadoria/test_lifecycle.py",
       "sha": "3b3acc5d7eb429575aaab3d5b1ab11ac1bc60ad8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_ponte_candidatas.py",
+      "sha": "a9d452086f899717f68bf3adf056a81577321933",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20356,7 +20384,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 99,
+        "line": 100,
         "snippet": "from fonte_nova import normalizar, registar, carregar  # noqa: E402"
       }
     },
@@ -20367,8 +20395,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 118,
-        "snippet": "PROOF_JSON     = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
+        "line": 121,
+        "snippet": "PROOF_JSON       = RAIZ / \"curadoria\" / \"DISCOVERY-PROOF-V1.json\""
       }
     },
     {
@@ -20378,8 +20406,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 117,
-        "snippet": "VISITADOS_JSON = RAIZ / \"curadoria\" / \"DISCOVERY-VISITED.json\""
+        "line": 120,
+        "snippet": "VISITADOS_JSON   = RAIZ / \"curadoria\" / \"DISCOVERY-VISITED.json\""
       }
     },
     {
@@ -20389,7 +20417,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 711,
+        "line": 715,
         "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -20842,6 +20870,61 @@
         "file": "curadoria/manifesto_das_amostras.py",
         "line": 23,
         "snippet": "CAR = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 49,
+        "snippet": "import fonte_nova as FN   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/BRIDGE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 53,
+        "snippet": "LEDGER = RAIZ / \"curadoria\" / \"BRIDGE-LEDGER-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/SOURCE-CHARACTERIZATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 52,
+        "snippet": "CARACT = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 47,
+        "snippet": "import fila as F          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ponte_candidatas.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ponte_candidatas.py",
+        "line": 48,
+        "snippet": "import lifecycle as LC    # noqa: E402"
       }
     },
     {
@@ -21381,6 +21464,61 @@
         "file": "curadoria/test_lifecycle.py",
         "line": 27,
         "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 52,
+        "snippet": "FN.FILA = d / \"FONTES-CANDIDATAS.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 29,
+        "snippet": "import fonte_nova as FN      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 27,
+        "snippet": "import fila as F             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 28,
+        "snippet": "import lifecycle as LC       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_ponte_candidatas.py",
+      "to_file": "curadoria/ponte_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_ponte_candidatas.py",
+        "line": 30,
+        "snippet": "import ponte_candidatas as P # noqa: E402"
       }
     },
     {
@@ -66250,10 +66388,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2178,
-    "files_readable": 863,
+    "files_tracked": 2182,
+    "files_readable": 865,
     "files_code_dir": 883,
-    "file_edges": 4589,
+    "file_edges": 4599,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

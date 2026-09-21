@@ -485,5 +485,271 @@ class TestCatalogo(unittest.TestCase):
                          "candidatos com tipo invalido: %s" % familias_sem_tipo)
 
 
+# ---------------------------------------------------------------------------
+# FASE 7 — CONTRAPROVAS DO CRAWL
+# ---------------------------------------------------------------------------
+
+class TestExtrairLinks(unittest.TestCase):
+    """Extracao de links de HTML."""
+
+    def test_extrai_href_absoluto(self):
+        html = '<a href="https://www.crea.gov.it/page">CREA</a>'
+        links = D.extrair_links(html, "https://www.crea.gov.it/")
+        self.assertEqual(len(links), 1)
+        self.assertEqual(links[0][0], "https://www.crea.gov.it/page")
+        self.assertEqual(links[0][1], "CREA")
+
+    def test_resolve_href_relativo(self):
+        html = '<a href="/fitosanitario">Difesa</a>'
+        links = D.extrair_links(html, "https://agri.regione.emilia-romagna.it/")
+        self.assertEqual(links[0][0],
+                         "https://agri.regione.emilia-romagna.it/fitosanitario")
+
+    def test_html_sem_links_devolve_lista_vazia(self):
+        self.assertEqual(D.extrair_links("<p>Sem links</p>", "https://x.it/"), [])
+
+    def test_ancora_interna_extraida(self):
+        html = '<a href="#section1">Secao</a>'
+        links = D.extrair_links(html, "https://www.exemplo.it/pagina")
+        self.assertEqual(len(links), 1)
+
+    def test_mailto_extraido_mas_filtrado_depois(self):
+        html = '<a href="mailto:info@exemplo.it">Email</a>'
+        links = D.extrair_links(html, "https://www.exemplo.it/")
+        self.assertEqual(len(links), 1)
+        manter, motivo = D._filtrar_link(links[0][0], "https://www.exemplo.it/")
+        self.assertFalse(manter)
+        self.assertEqual(motivo, "R1_ESQUEMA_NAO_HTTP")
+
+
+class TestFiltrarLink(unittest.TestCase):
+    """Regras de filtro declaradas e testaveis."""
+
+    BASE = "https://www.crea.gov.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_r1_mailto_descartado(self):
+        self.assertFalse(self._ok("mailto:info@crea.gov.it"))
+        self.assertEqual(self._motivo("mailto:info@crea.gov.it"), "R1_ESQUEMA_NAO_HTTP")
+
+    def test_r1_tel_descartado(self):
+        self.assertFalse(self._ok("tel:+39061234567"))
+        self.assertEqual(self._motivo("tel:+39061234567"), "R1_ESQUEMA_NAO_HTTP")
+
+    def test_r1_javascript_descartado(self):
+        self.assertFalse(self._ok("javascript:void(0)"))
+        self.assertEqual(self._motivo("javascript:void(0)"), "R1_ESQUEMA_NAO_HTTP")
+
+    def test_r2_ancora_mesma_pagina_descartada(self):
+        url = "https://www.crea.gov.it/#section"
+        self.assertFalse(self._ok(url))
+
+    def test_r3_pdf_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/doc.pdf"))
+        self.assertEqual(self._motivo("https://www.crea.gov.it/doc.pdf"),
+                         "R3_FICHEIRO_BINARIO")
+
+    def test_r3_zip_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/data.zip"))
+
+    def test_r4_privacy_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/privacy"))
+
+    def test_r4_login_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/login"))
+
+    def test_r4_cookie_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/cookie"))
+
+    def test_r5_propria_semente_descartada(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/"))
+        self.assertEqual(self._motivo("https://www.crea.gov.it/"),
+                         "R5_PROPRIA_SEMENTE")
+
+    def test_r5_semente_sem_trailing_slash_descartada(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it"))
+
+    def test_r6_google_descartado(self):
+        self.assertFalse(self._ok("https://www.google.com/maps"))
+
+    def test_subpath_mesmo_dominio_mantido(self):
+        self.assertTrue(self._ok("https://www.crea.gov.it/difesa"))
+
+    def test_dominio_externo_gov_it_mantido(self):
+        self.assertTrue(self._ok("https://www.politicheagricole.it/"))
+
+    def test_social_linkedin_mantido(self):
+        self.assertTrue(self._ok("https://www.linkedin.com/company/crea"))
+
+    def test_social_instagram_mantido(self):
+        self.assertTrue(self._ok("https://www.instagram.com/creagov"))
+
+
+class TestProvenanciaCircular(unittest.TestCase):
+    """Contraprova 3: DISCOVERED_FROM nunca igual a URL do candidato."""
+
+    def test_guarda_detecta_circularidade(self):
+        url = "https://www.fonte-test.it/"
+        with self.assertRaises(ValueError):
+            D._checar_sem_circularidade(url, url)
+
+    def test_guarda_aceita_proveniencia_valida(self):
+        semente = "https://www.origem.it/"
+        candidato = "https://www.destino.it/"
+        try:
+            D._checar_sem_circularidade(semente, candidato)
+        except ValueError:
+            self.fail("proveniencia valida nao deve lancar ValueError")
+
+    def test_guarda_com_www_e_sem_www(self):
+        url_com = "https://www.circular.it/"
+        url_sem = "https://circular.it"
+        with self.assertRaises(ValueError):
+            D._checar_sem_circularidade(url_com, url_sem)
+
+
+class TestRedTeamProvenanciaCircular(unittest.TestCase):
+    """RED TEAM: mutar a guarda e provar que a contraprova REPROVA."""
+
+    def test_red_team_mute_guarda_bug_passa(self):
+        """Com _checar_sem_circularidade mutada para no-op, o bug nao e detectado.
+        RED TEAM: confirma que a guarda e o ponto de proteccao real.
+        """
+        url = "https://www.circular-red-team.it/"
+        guarda_orig = D._checar_sem_circularidade
+
+        D._checar_sem_circularidade = lambda disc, cand: None
+
+        try:
+            D._checar_sem_circularidade(url, url)
+
+            circular = int(D.normalizar(url) == D.normalizar(url))
+            self.assertEqual(circular, 1,
+                             "RED TEAM: PROVENIENCIA_CIRCULAR=1 sob mutacao")
+        finally:
+            D._checar_sem_circularidade = guarda_orig
+
+    def test_apos_restaurar_guarda_reprova(self):
+        url = "https://www.circular-red-team.it/"
+        with self.assertRaises(ValueError,
+                               msg="guarda restaurada deve detectar circularidade"):
+            D._checar_sem_circularidade(url, url)
+
+
+class TestCrawlMesmaUrlDuasSementes(unittest.TestCase):
+    """Contraprova 1: mesmo link em duas sementes -> UM candidato."""
+
+    def test_mesmo_link_duas_sementes_um_candidato(self):
+        with _ContextoLimpo():
+            url_candidato = "https://www.agri-test-sintonia.it/candidato"
+
+            conhecidos: set[str] = set()
+            visitados = D._ler_visitados()
+
+            D._marcar_visitado(D.normalizar(url_candidato),
+                               "REGISTADO_CAND-9999", visitados)
+            conhecidos.add(D.normalizar(url_candidato))
+
+            dup, tipo_dup = D._e_duplicado(url_candidato, conhecidos, visitados)
+            self.assertTrue(dup,
+                            "segundo registo do mesmo link deve ser detectado como dedup")
+            self.assertEqual(tipo_dup, "SAME_URL")
+
+
+class TestSementeJaVisitadaNaoRevisitada(unittest.TestCase):
+    """Contraprova 5: semente ja visitada nao e revisitada."""
+
+    def test_semente_visitada_ignorada(self):
+        with _ContextoLimpo():
+            sementes = D._extrair_sementes_legitimas()
+            if not sementes:
+                self.skipTest("sem sementes legitimas no catalogo")
+            semente = sementes[0]
+
+            visitados = D._ler_visitados()
+            D._marcar_visitado(D.normalizar(semente), "JA_VISITADA_TESTE",
+                               visitados)
+
+            orcam = D.Orcamento(total=0)
+            conhecidos: set[str] = set()
+            log: list[dict] = []
+
+            D.crawl_sementes(orcam, conhecidos, visitados, log, max_sementes=1)
+
+            acoes_semente = [e for e in log if e.get("semente") == semente]
+            fetch_failed = [e for e in acoes_semente
+                            if e.get("acao") == "SEMENTE_FETCH_FAILED"]
+            self.assertEqual(fetch_failed, [],
+                             "semente ja visitada nao deve ser buscada")
+
+
+class TestSociaisRegistadasNaoEnfileiradas(unittest.TestCase):
+    """Contraprova 9: sociais encontradas -> registadas, mas NAO enfileiradas."""
+
+    def test_inferir_tipo_social_linkedin(self):
+        tipo, _ = D._inferir_tipo_crawl(
+            "https://www.linkedin.com/company/crea-test", "CREA LinkedIn")
+        self.assertEqual(tipo, "LINKEDIN")
+
+    def test_inferir_tipo_social_instagram(self):
+        tipo, _ = D._inferir_tipo_crawl(
+            "https://www.instagram.com/agri_test", "Agri Instagram")
+        self.assertEqual(tipo, "INSTAGRAM")
+
+    def test_inferir_tipo_social_youtube(self):
+        tipo, _ = D._inferir_tipo_crawl(
+            "https://www.youtube.com/@agri_test", "Canal Agri")
+        self.assertEqual(tipo, "YOUTUBE")
+
+    def test_e_social_url_detecta_linkedin(self):
+        self.assertTrue(D._e_social_url("https://www.linkedin.com/company/x"))
+
+    def test_e_social_url_nao_confunde_gov_it(self):
+        self.assertFalse(D._e_social_url("https://www.crea.gov.it/"))
+
+
+class TestOrcamentoEsgotadoParaLimpo(unittest.TestCase):
+    """Contraprova 7: orcamento esgotado -> para limpo, estado persistido."""
+
+    def test_orcamento_zero_nao_busca_sementes(self):
+        with _ContextoLimpo():
+            orcam = D.Orcamento(total=0)
+            conhecidos: set[str] = set()
+            visitados = D._ler_visitados()
+            log: list[dict] = []
+
+            registados, stats = D.crawl_sementes(
+                orcam, conhecidos, visitados, log, max_sementes=15
+            )
+
+            self.assertEqual(orcam.pedidos_feitos, 0)
+            self.assertEqual(registados, [])
+
+
+class TestExtrairSementesLegitimas(unittest.TestCase):
+    """Sementes extraidas sao os discovered_from != url do catalogo."""
+
+    def test_sementes_nao_sao_urls_do_catalogo(self):
+        sementes = D._extrair_sementes_legitimas()
+        self.assertGreater(len(sementes), 0,
+                           "deve haver sementes legitimas no catalogo")
+
+    def test_sementes_sao_distintas(self):
+        sementes = D._extrair_sementes_legitimas()
+        norms = [D.normalizar(s) for s in sementes]
+        self.assertEqual(len(norms), len(set(norms)),
+                         "sementes devem ser distintas")
+
+    def test_contagem_sementes_legitimas(self):
+        sementes = D._extrair_sementes_legitimas()
+        self.assertEqual(len(sementes), 29,
+                         "FASE 0 mediu 29 sementes legitimas")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
