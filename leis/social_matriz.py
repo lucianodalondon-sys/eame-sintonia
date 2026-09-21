@@ -608,6 +608,59 @@ MATRIZ = {
               'O SEGUNDO buraco: qualquer coisa ALÉM dos 12 itens mais recentes. Motivo '
               'canônico: FREE_ROUTE_INSUFFICIENT_CAPABILITY.', 'scripts/instagram_janela.py'),
         ],
+
+        # ── DECISÃO HUMANA, C14 · 2026-09-19 ────────────────────────────────
+        # O SOM DE UM REEL NÃO É O REEL, E NÃO É A LEGENDA.
+        #
+        # Esta porta NASCE aqui; ela não é o `FETCH_TRANSCRIPT` com outro valor.
+        # A linha de cima continua `NAO`, e tem de continuar: a rota que ela
+        # recusa baixa o MP4 INTEIRO da CDN da Meta. O que o dono autorizou por
+        # escrito em 2026-09-19 foi mais estreito do que isso — bytes de SOM de
+        # Reel PÚBLICO, e nada além.
+        #
+        #     UMA LINHA SÓ, COM O VALOR VIRADO, ABRE TUDO O QUE A CAPABILITY
+        #     COBRE — QUE É SEMPRE MAIS DO QUE O AUTORIZADO.
+        #
+        # Por isso a capacidade grossa é `FETCH_AUDIO_BYTES` (a mesma que o C13
+        # abriu no YouTube, pelo mesmo motivo) e não `FETCH_VIDEO_BYTES`, que
+        # implicaria vídeo, nem `FETCH_TRANSCRIPT`, que é texto.
+        #
+        # É a SEGUNDA rota desta matriz a declarar os três eixos, porque é a
+        # segunda onde os dois últimos divergem: o dono autorizou o risco do
+        # projeto, e a plataforma continua a proibir.
+        #
+        #     OWNER_AUTHORIZED = SIM  +  PLATFORM_POLICY_STATUS = DISALLOWED
+        #
+        # As duas frases convivem, e é isso que torna a decisão auditável em vez
+        # de um bypass. Em lado nenhum desta árvore se escreve
+        # `PLATFORM_PERMISSION = YES`: o dono autoriza em nome do PROJETO, nunca
+        # em nome da Meta.
+        'FETCH_AUDIO_BYTES': [
+            r('reel_transcricao.py:public_audio', 'LOCAL_EXECUTOR', 'SIM',
+              'POSSIBLE_NOT_PROVED', 'zero dólar; custo em tempo de máquina (ASR local)',
+              'AUTORIZAÇÃO DO DONO, 2026-09-19, citável: «adquirir e transcrever '
+              'áudio de Reels públicos do Instagram, sem login, sem cookies de '
+              'terceiros, sem sessão pessoal, sem bypass de acesso, preservando '
+              'PLATFORM_POLICY_STATUS = DISALLOWED separadamente e com limite '
+              'PUBLIC_AUDIO_ONLY». FRONTEIRA: só alvo PÚBLICO que qualquer '
+              'navegador abre sem autenticação — sem conta, sem cookie de '
+              'terceiro, sem sessão, sem CAPTCHA, sem contornar paywall ou '
+              'acesso privado. Executor: `ferramentas/reel_transcricao.py` '
+              '(`midia_por_ytdlp` com `SELETOR_SO_AUDIO`); nenhum descarregador '
+              'novo. NÃO é rota de vídeo (`FETCH_VIDEO_BYTES` continua por '
+              'declarar) e NÃO é rota de legenda (`FETCH_TRANSCRIPT` continua '
+              '`NAO` nesta mesma matriz). A plataforma proíbe: o `robots.txt` '
+              'vivo de instagram.com responde `Disallow: /` ao agente desta casa '
+              '— medido na C10.5, 6.256 bytes, e preservado aqui porque apagá-lo '
+              'seria reescrever a evidência. ESTADO `POSSIBLE_NOT_PROVED` e não '
+              '`PROVED`: a porta está aberta e encaminhada, e NENHUM Reel foi '
+              'adquirido ainda — INSTAGRAM_REQUESTS = 0. '
+              'CAPACIDADE ENCAMINHADA != CAPACIDADE EXECUTADA.',
+              'docs/sintonia-scrap/C14-INSTAGRAM-PUBLIC-AUDIO.md',
+              owner_authorized='SIM',
+              platform_policy='DISALLOWED',
+              limite='PUBLIC_AUDIO_ONLY'),
+        ],
     },
 
     'LINKEDIN': {

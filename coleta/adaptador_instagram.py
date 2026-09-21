@@ -161,7 +161,7 @@ def unidade_do_pedido(*, url=None, ident=None, **_):
 
 def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
                   midia_url=None, midia_ficheiro=None, guardar=True,
-                  oficina=None, etapa=None, **_):
+                  oficina=None, etapa=None, capacidade_grossa=None, **_):
     """Um Reel, ponta a ponta. → (objetos, trace).
 
     Delega a cadeia ja provada. NAO a reimplementa: a cadeia tem 47 testes e
@@ -211,10 +211,19 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
     # que conhece a execução real sem inventar semântica de plataforma. O que
     # ficou deste lado é a única coisa que só este ficheiro sabe dizer:
     # `unidade_do_pedido`, e o `etapa=` que a cadeia usa para relatar.
+    # ⚠️ C14-B · A PORTA VIAJA COM O PEDIDO, E `None` E A RESPOSTA CERTA.
+    #
+    # `capturar_reel` e chamada por capacidades DIFERENTES, e elas NAO tem a
+    # mesma autorizacao. Quem chega sem declarar porta grossa — `reel.capture`,
+    # `reel.audio` — nao herda nenhuma: a cadeia cai na pergunta historica e a
+    # aquisicao remota e recusada, que e o que a matriz diz sobre elas.
+    #
+    #     CAPABILITY SHARES IMPLEMENTATION != CAPABILITY SHARES AUTHORIZATION.
     registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
                                   midia_ficheiro=midia_ficheiro,
                                   modelo=model_hint, guardar=guardar,
-                                  oficina=oficina, etapa=etapa)
+                                  oficina=oficina, etapa=etapa,
+                                  capacidade_grossa=capacidade_grossa)
     trace = forn.de_degraus('instagram.reel.transcribe',
                             registo.get('CAPTURE_ATTEMPTS'),
                             resultado=registo.get('MEDIA_STATE'))
@@ -252,7 +261,8 @@ def _veredito_da_unidade(registo):
     return 'ITEM_ERROR'
 
 
-def reel_transcrever(*, run_id, country_scope=None, medida=None, etapa=None, **kw):
+def reel_transcrever(*, run_id, country_scope=None, medida=None, etapa=None,
+                     capacidade_grossa=None, **kw):
     """A rota CRUA, que `social_rotas` despacha depois de medir o portao.
 
     Devolve a lista de objetos — o trace nasce do registo que o roteador sela.
@@ -270,7 +280,8 @@ def reel_transcrever(*, run_id, country_scope=None, medida=None, etapa=None, **k
 
         O TRACE QUE NOMEIA O FICHEIRO ERRADO MENTE COM PRECISAO DE RELOJOEIRO.
     """
-    objetos, trace = capturar_reel(run_id=run_id, etapa=etapa, **kw)
+    objetos, trace = capturar_reel(run_id=run_id, etapa=etapa,
+                                   capacidade_grossa=capacidade_grossa, **kw)
     if medida is not None:
         medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'
         medida['ASR_OWNER'] = 'ferramentas/fala_local.py'
@@ -320,6 +331,36 @@ reg.registar(PLATAFORMA, 'instagram.reel.transcribe', adaptador=NOME,
              rota=reel_transcrever,
              nota='o unico caminho onde o ASR proprio e indispensavel; '
                   'atravessa INSTAGRAM/FETCH_TRANSCRIPT no dono da politica')
+
+# ── C14 · 2026-09-19 · A MESMA CADEIA, PELA PORTA ESTREITA ────────────────
+# NAO E UM SEGUNDO CAMINHO. E A MESMA funcao (`reel_transcrever`) registada sob
+# a capacidade que nomeia o que o dono autorizou — som de Reel publico. A cadeia
+# ja pedia `kind=AUDIO` em todas as corridas; o que mudou foi a PORTA a que ela
+# bate: `FETCH_AUDIO_BYTES` em vez de `FETCH_TRANSCRIPT`.
+#
+# Escrever uma funcao nova aqui criaria o SECOND_PATH que a C10.4B proibiu.
+# Reusar a existente mantem CANONICAL_PATH_COUNT = 1.
+#
+#     UMA CAPACIDADE NOVA NAO PRECISA DE UM CAMINHO NOVO.
+#     PRECISA DE UMA PORTA COM O NOME CERTO.
+def reel_audio_publico(**kw):
+    """A rota de `instagram.reel.public_audio` — e a UNICA que declara a porta.
+
+    Ela existe para que a autorizacao de audio publico NAO viaje em `**kwargs`
+    de quem nao a tem. `reel_transcrever` continua a ser a implementacao; o que
+    muda e a PORTA declarada, e a porta e que carrega a autorizacao.
+    """
+    kw.pop('capacidade_grossa', None)
+    return reel_transcrever(capacidade_grossa='FETCH_AUDIO_BYTES', **kw)
+
+
+reg.registar(PLATAFORMA, 'instagram.reel.public_audio', adaptador=NOME,
+             unidade=unidade_do_pedido,
+             rota=reel_audio_publico,
+             nota='som de Reel PUBLICO, autorizado pelo dono em 2026-09-19 com '
+                  'limite PUBLIC_AUDIO_ONLY; atravessa INSTAGRAM/FETCH_AUDIO_BYTES '
+                  'no dono da politica, onde PLATFORM_POLICY_STATUS=DISALLOWED '
+                  'continua preservado ao lado da autorizacao')
 
 reg.registar(PLATAFORMA, 'instagram.profile.discovery', adaptador=NOME,
              nota='302/429 deste IP; a janela esgota em ~8-10 respostas')
