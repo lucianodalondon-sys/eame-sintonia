@@ -274,6 +274,101 @@ EXECUTORES = {
                       "versao do documento e o sitio onde o byte ficou",
         "custo": "gratuito",
     }],
+
+    # ── T10 · T7 · T5 — TRES DECLARACOES QUE FALTAVAM ──────────────────────
+    # ⚠️ ISTO NAO E CODIGO NOVO, E NAO ABRE ROTA NENHUMA QUE NAO ESTEJA JA
+    # PROVADA. E o mesmo caso que o registo de T3 acima descreve — o executor
+    # ja percorre estas rotas, e a receita e que nao o dizia.
+    #
+    # MEDIDO na CANONICAL-MICRO-V1 (2026-09-21), coorte RUN1C:
+    #
+    #     85 observacoes com documento, bytes integros, sha conferido
+    #     IT-T10-018 30 · IT-T7-017 30 · IT-T7-042 10 · IT-T10-022 9
+    #     IT-T5-049   4 · IT-T7-043  2
+    #
+    # E todas pararam ANTES da porta: `raw_asset` ZERO. Nao por recusa da
+    # admissao — a pergunta nunca chegou a ser feita. O plano respondia
+    # «NAO SEI COMO: nenhum executor desta casa declara saber percorrer a
+    # rota delas», e era falso: o executor declarado em T2/T3/T4 tinha
+    # acabado de percorrer as seis.
+    #
+    #     UM EXECUTOR QUE COLHE TRES UNIVERSOS E SO SE DECLARA EM DOIS
+    #     FAZ O PEDIDO BATER NUMA PORTA QUE NAO ABRE.
+    #
+    # ⚠️ E O QUE ESTAS TRES LINHAS **NAO** DIZEM:
+    # nao dizem que o executor sabe percorrer TODAS as fontes destes
+    # universos. `filtros_por_omissao` nomeia UMA fonte por universo, e e uma
+    # fonte com colheita provada e bytes no armazem. As restantes continuam a
+    # exigir `--filtro fonte=`, e um pedido sem fonte continua a abrir so o
+    # que esta provado. Registar os 90 contratos de uma vez seria prometer o
+    # que ninguem mediu — e foi exactamente contra isso que o registo de T2
+    # se limitou a `IT-T2-002`.
+    "T10": [{
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T10-018` (myfruit.it): 30 observacoes com documento na RUN1C,
+        # HTML_LINK_DISCOVERY com MATCH:URL, identidade CONTENT_CAPTURE.
+        "filtros_por_omissao": {"fonte": "IT-T10-018"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "a noticia de mercado ortofruticola publicada pela fonte, "
+                      "como HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }],
+    "T7": [{
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T7-017` (riuniteciv.com): 30 observacoes na RUN1C — a mais
+        # produtiva das tres fontes T7 medidas. (A primeira versao desta
+        # linha dizia `IT-T7-042`, e estava errada: essa trouxe 10. O erro
+        # era meu, no rotulo; o banco ficou certo na mesma porque a porta
+        # NAO acredita no filtro — prova a fonte pelo conteudo, com
+        # `italy_executor.fonte_do_conteudo(sha256)`, que le o SOURCE_ID
+        # que o coletor escreveu para AQUELES bytes.)
+        "filtros_por_omissao": {"fonte": "IT-T7-017"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "a nota tecnica ou de evento publicada pelo consorcio ou "
+                      "pela associacao, como HTML, com a versao do documento e "
+                      "o sitio onde o byte ficou",
+        "custo": "gratuito",
+    }],
+    "T5": [{
+        # ⚠️ LEIA-SE JUNTO COM O AVISO NO TOPO DESTE FICHEIRO, que diz:
+        # «ISTO DEIXA T5 SEM EXECUTOR, O QUE E A VERDADE E NAO UM BURACO NOVO
+        #  — as seis fontes de SCIENCE em ficha (IT-T5-001..005, EU-T5-001)
+        #  nunca tiveram executor nesta casa».
+        #
+        # ESSE AVISO CONTINUA INTEIRO E CONTINUA CERTO. `IT-T5-001..005` NAO
+        # ganham executor com esta linha: o plano continua a dize-las em «NAO
+        # SEI COMO», porque e o que sao.
+        #
+        # O que mudou nao foi a opiniao — foi o facto. `IT-T5-049` e outra
+        # fonte, entrou no acervo depois, tem contrato com ACQUISITION
+        # executavel, e a RUN1C trouxe dela 4 documentos com bytes integros.
+        #
+        #     UMA FONTE PROVADA NAO APAGA CINCO POR PROVAR.
+        #     DECLARA-SE A QUE HA, E AS OUTRAS CONTINUAM A DIZER QUE NAO HA.
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        "filtros_por_omissao": {"fonte": "IT-T5-049"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "a noticia ou nota do departamento universitario agrario, "
+                      "como HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }],
     "T9": [{
         "id": "comunicacao-publica",
         # F3 · seis ficheiros, quatro especies, zero colheita. O
