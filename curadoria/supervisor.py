@@ -39,7 +39,7 @@ import subprocess
 import sys
 import time
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -65,7 +65,8 @@ HEARTBEAT_TIMEOUT_S = 300
 SUPERVISOR_POLL_S = 15
 
 # Metodo de verificacao de lock declarado — para rastreabilidade.
-METODO_VERIFICACAO_LOCK = "BOOT_TIME_WMIC + PROCESS_NAME"
+# BOOT_TIME: offset wmic parseado, comparacao aware datetime UTC vs UTC.
+METODO_VERIFICACAO_LOCK = "BOOT_TIME_WMIC_UTC_AWARE + PROCESS_NAME"
 
 
 # ---------------------------------------------------------------------------
@@ -102,10 +103,47 @@ def _gravar_estado(d: dict) -> None:
 # Boot time do sistema (Windows) — para verificar se um lock e anterior ao
 # reboot e portanto orfao independentemente do PID.
 # Medido: wmic os get LastBootUpTime devolve "LastBootUpTime=YYYYMMDDHHmmss..."
+#
+# FORMATO wmic: YYYYMMDDHHmmss.ffffff±OFFSET_MINUTOS
+#   ex.: 20260910212951.500000-180
+#        hora local = 2026-09-10 21:29:51
+#        offset     = -180 min = UTC-3
+#        UTC        = 2026-09-11 00:29:51Z
+#
+# _agora() usa datetime.now(timezone.utc) — STARTED_AT e SEMPRE UTC.
+# A comparacao em _lock_e_orfao deve ser entre datetimes aware, nunca
+# entre strings de fusos diferentes.
 # ---------------------------------------------------------------------------
 
-def _boot_time_iso() -> Optional[str]:
-    """Devolve o boot time do sistema como string ISO, ou None se indisponivel."""
+def _parse_wmic_boot_time(raw: str) -> Optional[datetime]:
+    """Parseia a string bruta do wmic e devolve datetime aware em UTC.
+
+    raw: "YYYYMMDDHHmmss.ffffff±OFFSET_MINUTOS"
+    Devolve None se o formato nao for reconhecido — degradar para NAO SEI
+    e melhor do que comparar valores de fusos diferentes.
+    """
+    try:
+        dt_naive = datetime.strptime(raw[:14], "%Y%m%d%H%M%S")
+        rest = raw[14:]  # ".ffffff±offset"
+        sign_pos = None
+        for i, c in enumerate(rest):
+            if c in ("+", "-"):
+                sign_pos = i
+                sign = c
+                break
+        if sign_pos is None:
+            return None
+        off_min = int(rest[sign_pos + 1:])
+        if sign == "-":
+            off_min = -off_min
+        tz_local = timezone(timedelta(minutes=off_min))
+        return dt_naive.replace(tzinfo=tz_local).astimezone(timezone.utc)
+    except Exception:
+        return None
+
+
+def _boot_time_utc() -> Optional[datetime]:
+    """Devolve o boot time do sistema como datetime UTC aware, ou None."""
     try:
         r = subprocess.run(
             ["wmic", "os", "get", "LastBootUpTime", "/FORMAT:LIST"],
@@ -116,13 +154,7 @@ def _boot_time_iso() -> Optional[str]:
             line = line.strip().replace(" ", "")
             if "LastBootUpTime=" in line:
                 raw = line.split("=", 1)[1].strip()
-                # Formato: YYYYMMDDHHmmss.ffffff±offset_minutos
-                dt_part = raw[:14]  # YYYYMMDDHHmmss
-                dt = datetime.strptime(dt_part, "%Y%m%d%H%M%S")
-                # Tratar como UTC para comparacao (a offset e do SO, nao do
-                # processo; usar a string ISO como chave de comparacao basta
-                # porque a comparacao e com STARTED_AT que pode ser qualquer fuso).
-                return dt.isoformat()
+                return _parse_wmic_boot_time(raw)
     except Exception:
         pass
     return None
@@ -236,13 +268,20 @@ def _lock_e_orfao(lock_data: dict) -> bool:
         return True  # PID reciclado por processo nao-Python
 
     # c) STARTED_AT anterior ao boot? (boot_time pode ser None se wmic falhar)
+    # STARTED_AT e gerado por _agora() = datetime.now(timezone.utc).isoformat()
+    # — sempre UTC. boot_time_utc() tambem devolve UTC aware. Comparacao segura.
+    # Se boot_time for None (wmic indisponivel): check inactivo, nao comparar.
     started_at = lock_data.get("STARTED_AT", "")
-    boot_time = _boot_time_iso()
-    if boot_time and started_at:
-        # Comparacao por string ISO e valida: formato YYYY-MM-DDT... e lexicamente
-        # ordenado por data. Se o processo arrancou antes do boot, e orfao.
-        if started_at < boot_time:
-            return True
+    boot_time = _boot_time_utc()
+    if boot_time is not None and started_at:
+        try:
+            started_dt = datetime.fromisoformat(started_at)
+            if started_dt.tzinfo is None:
+                started_dt = started_dt.replace(tzinfo=timezone.utc)
+            if started_dt < boot_time:
+                return True
+        except ValueError:
+            pass
 
     return False
 
@@ -368,7 +407,7 @@ def uma_volta_sup(
 
     # --- anti-crashloop ---
     n_sem_progresso = len(estado.get("CRASHES_SEM_PROGRESSO", []))
-    if n_sem_progresso >= 99999:  # MUTANTE
+    if n_sem_progresso >= CRASH_MAX:
         motivo = ("worker morreu %d vezes em %ds sem progresso "
                   "— crashloop detectado" % (CRASH_MAX, CRASH_JANELA_S))
         estado["SUPERVISOR_STATE"] = "BLOCKED"

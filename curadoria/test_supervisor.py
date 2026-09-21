@@ -183,14 +183,105 @@ class TestUmaVoltaSup(unittest.TestCase):
         if proc_new and proc_new.poll() is None:
             proc_new.terminate()
             try:
-                proc_new.wait(timeout=5)
+                proc_new.communicate(timeout=5)
             except Exception:
                 proc_new.kill()
+                proc_new.communicate()
+        elif proc_new and proc_new.stdout:
+            proc_new.stdout.close()
         # Com progresso, contador zerado.
         self.assertEqual(len(estado2.get("CRASHES_SEM_PROGRESSO", [])), 0,
                          "crashes_sem_progresso devia ser [] apos morte com progresso")
         self.assertNotEqual(accao, "BLOQUEADO",
                             "nao devia BLOQUEAR com um so crash com progresso")
+
+
+class TestBootTimeParsing(unittest.TestCase):
+    """Testes do parser de boot time do wmic (ADDENDUM-02).
+
+    Fixam a string bruta e asseram o instante UTC correcto.
+    Sem este teste a regressao do offset volta sozinha.
+    """
+
+    def test_offset_negativo_utc_menos_3(self):
+        """Host UTC-3: hora local 21:29:51 -> UTC 00:29:51 do dia seguinte."""
+        raw = "20260910212951.500000-180"
+        result = S._parse_wmic_boot_time(raw)
+        self.assertIsNotNone(result)
+        expected = datetime(2026, 9, 11, 0, 29, 51, tzinfo=timezone.utc)
+        self.assertEqual(result.replace(microsecond=0), expected)
+
+    def test_offset_zero_utc(self):
+        """Host UTC+0: hora local == UTC."""
+        raw = "20260911003000.000000+000"
+        result = S._parse_wmic_boot_time(raw)
+        self.assertIsNotNone(result)
+        expected = datetime(2026, 9, 11, 0, 30, 0, tzinfo=timezone.utc)
+        self.assertEqual(result.replace(microsecond=0), expected)
+
+    def test_offset_positivo_utc_mais_5_30(self):
+        """Host UTC+5:30 (India): offset = +330 minutos."""
+        raw = "20260911060000.000000+330"
+        result = S._parse_wmic_boot_time(raw)
+        self.assertIsNotNone(result)
+        # 06:00 local - 5h30 = 00:30 UTC
+        expected = datetime(2026, 9, 11, 0, 30, 0, tzinfo=timezone.utc)
+        self.assertEqual(result.replace(microsecond=0), expected)
+
+    def test_formato_invalido_devolve_none(self):
+        """String sem sinal de offset deve devolver None — degradar para NAO SEI."""
+        self.assertIsNone(S._parse_wmic_boot_time("20260910212951"))
+
+    def test_lock_orfao_comparacao_aware(self):
+        """_lock_e_orfao check (c): STARTED_AT anterior ao boot -> orfao.
+
+        Injecto boot time no futuro (vs STARTED_AT no passado) para verificar
+        que a comparacao e feita com datetimes aware, nao strings de fusos mistos.
+        """
+        import unittest.mock as mock
+        # STARTED_AT: 1 hora antes do boot
+        started = datetime(2026, 9, 11, 0, 0, 0, tzinfo=timezone.utc)
+        boot    = datetime(2026, 9, 11, 1, 0, 0, tzinfo=timezone.utc)
+        lock_data = {
+            "PID": 99999,
+            "STARTED_AT": started.isoformat(),
+            "TOKEN": "x",
+        }
+        with mock.patch.object(S, "_pid_no_so", return_value=True), \
+             mock.patch.object(S, "_proc_e_python", return_value=True), \
+             mock.patch.object(S, "_boot_time_utc", return_value=boot):
+            self.assertTrue(S._lock_e_orfao(lock_data),
+                            "STARTED_AT anterior ao boot deve ser orfao")
+
+    def test_lock_valido_depois_do_boot(self):
+        """STARTED_AT posterior ao boot: nao e orfao pelo check (c)."""
+        import unittest.mock as mock
+        started = datetime(2026, 9, 11, 2, 0, 0, tzinfo=timezone.utc)
+        boot    = datetime(2026, 9, 11, 1, 0, 0, tzinfo=timezone.utc)
+        lock_data = {
+            "PID": 99999,
+            "STARTED_AT": started.isoformat(),
+            "TOKEN": "x",
+        }
+        with mock.patch.object(S, "_pid_no_so", return_value=True), \
+             mock.patch.object(S, "_proc_e_python", return_value=True), \
+             mock.patch.object(S, "_boot_time_utc", return_value=boot):
+            self.assertFalse(S._lock_e_orfao(lock_data),
+                             "STARTED_AT posterior ao boot nao devia ser orfao")
+
+    def test_boot_time_indisponivel_nao_rejeita(self):
+        """Se wmic falhar (boot_time=None), check (c) inactivo — lock nao rejeitado."""
+        import unittest.mock as mock
+        lock_data = {
+            "PID": 99999,
+            "STARTED_AT": "2026-01-01T00:00:00+00:00",
+            "TOKEN": "x",
+        }
+        with mock.patch.object(S, "_pid_no_so", return_value=True), \
+             mock.patch.object(S, "_proc_e_python", return_value=True), \
+             mock.patch.object(S, "_boot_time_utc", return_value=None):
+            self.assertFalse(S._lock_e_orfao(lock_data),
+                             "boot_time None nao devia rejeitar lock com PID vivo")
 
 
 class TestRedTeam(unittest.TestCase):
