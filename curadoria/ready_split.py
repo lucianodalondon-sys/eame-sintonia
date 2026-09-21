@@ -30,6 +30,7 @@ que por sua vez enfileira o canario. Nada e promovido aqui.
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -74,17 +75,98 @@ def ultima_promocao(source_id: str, livro: dict | None = None) -> dict | None:
     return ult
 
 
+# ---------------------------------------------------------------------------
+# A REGUA DE READY_CURRENT — QUATRO PASSOS, NAO DOIS.
+#
+#     INDEX_URL correto -> DETAIL_LINKS -> ITEM DE DETALHE ABERTO -> BODY UTIL
+#
+# Medido na RECONCILIACAO-V1 (2026-09-21): `DETAIL_GATE_PASSED=True` so diz
+# que o item aberto NAO PARECE CAPA (o gate reprova apenas CAPA_PROVAVEL,
+# ver retrato_html.gate_capa_nao_e_materia). Um item MIXED com
+# CAPA_OU_MATERIA=NAO_SEI passa o gate e nao prova BODY UTIL. `NAO SEI` nao
+# vira READY_CURRENT por conveniencia: fica READY_LEGACY, e diz-se porque.
+#
+# Os limiares sao os do retrato (800 caracteres em paragrafos), lidos do
+# proprio retrato guardado — esta funcao nao volta a medir bytes.
+# ---------------------------------------------------------------------------
+MINIMO_DE_LIGACOES = 2          # a lei das listagens: 2+ itens debaixo da seccao
+MATERIA = "MATERIA_PROVAVEL"
+
+
+def _sem_barra(u: str) -> str:
+    return (u or "").strip().rstrip("/").lower()
+
+
+def _homepage(u: str) -> str:
+    m = re.match(r"^(https?://[^/]+)", (u or "").strip(), re.I)
+    return (m.group(1).lower() if m else "")
+
+
+def passos_da_promocao(promocao: dict | None, evidencia: dict | None,
+                       contrato: dict | None) -> dict:
+    """Le os quatro passos NA EVIDENCIA da promocao. Nao mede nada.
+
+    Devolve {"REGUA": DETAIL/v1 | LEGACY | NAO SEI, "PASSOS": {...}, "PORQUE": str}.
+    """
+    passos = {"INDEX_URL": False, "DETAIL_LINKS": False, "ITEM_ABERTO": False,
+              "BODY_UTIL": False, "CONTRATO_ATUAL": False}
+    if not promocao:
+        return {"REGUA": "NAO SEI", "PASSOS": passos, "PORQUE": "nunca promovida"}
+    dados = (evidencia or {}).get("DADOS") or {}
+    acq = ((contrato or {}).get("ACQUISITION") or {})
+    index = acq.get("INDEX_URL") or (contrato or {}).get("CANONICAL_ENTRY_URL") or ""
+    passos["INDEX_URL"] = bool(index)
+
+    alvos = dados.get("DETAIL_ENUMERATED")
+    if alvos is None:
+        alvos = dados.get("ALVOS_DESCOBERTOS")
+    passos["DETAIL_LINKS"] = isinstance(alvos, int) and alvos >= MINIMO_DE_LIGACOES
+
+    item = dados.get("ITEM_ABERTO") or {}
+    url_item = item.get("URL") or ""
+    aberto = (item.get("HTTP") == 200 and bool(url_item)
+              and _sem_barra(url_item) != _sem_barra(index)
+              and _sem_barra(url_item) != _sem_barra(_homepage(index))
+              and _sem_barra(url_item) != _sem_barra(_homepage(url_item)))
+    passos["ITEM_ABERTO"] = bool(aberto)
+
+    passos["BODY_UTIL"] = (dados.get("DETAIL_GATE_PASSED") is True
+                           and item.get("HTML_KIND") == "CONTENT"
+                           and item.get("CAPA_OU_MATERIA") == MATERIA
+                           and (item.get("PARAGRAPH_CHARACTERS") or 0) >= 800)
+
+    quando = ((contrato or {}).get("ROUTE_PROVENANCE") or {}).get("INTEGRADO_EM")
+    if not quando:
+        passos["CONTRATO_ATUAL"] = True
+    else:
+        try:
+            passos["CONTRATO_ATUAL"] = (datetime.fromisoformat(quando)
+                                        <= datetime.fromisoformat(promocao["OBSERVED_AT"]))
+        except (ValueError, KeyError, TypeError):
+            passos["CONTRATO_ATUAL"] = False
+
+    if all(passos.values()):
+        return {"REGUA": REGUA_CURRENT, "PASSOS": passos,
+                "PORQUE": "os quatro passos estao na evidencia e o contrato e o atual"}
+    faltam = [k for k, v in passos.items() if not v]
+    if dados.get("DETAIL_GATE_PASSED") is True and not passos["BODY_UTIL"]:
+        porque = ("o gate passou por «nao parece capa», mas o corpo e %s/%s — BODY UTIL "
+                  "nao provado; PASS_PARCIAL" % (item.get("HTML_KIND"), item.get("CAPA_OU_MATERIA")))
+    else:
+        porque = "PASS_PARCIAL: falta %s" % ",".join(faltam)
+    return {"REGUA": REGUA_LEGACY, "PASSOS": passos, "PORQUE": porque}
+
+
 def regua_de(source_id: str, *, livro: dict | None = None,
-             evidencias: dict | None = None) -> str:
-    """DETAIL/v1 se a promocao trouxe DETAIL_GATE_PASSED=True; LEGACY caso
+             evidencias: dict | None = None, contratos: dict | None = None) -> str:
+    """DETAIL/v1 se a evidencia da promocao tem os quatro passos; LEGACY caso
     contrario. `NAO SEI` se a fonte nunca foi promovida."""
     p = ultima_promocao(source_id, livro)
     if not p:
         return "NAO SEI"
     ev = (evidencias if evidencias is not None else _evidencias()).get(p.get("EVIDENCE_REF") or "")
-    if ev and ev.get("DADOS", {}).get("DETAIL_GATE_PASSED") is True:
-        return REGUA_CURRENT
-    return REGUA_LEGACY
+    c = (contratos if contratos is not None else _contratos()).get(source_id)
+    return passos_da_promocao(p, ev, c)["REGUA"]
 
 
 def contrato_alterado_depois(source_id: str, promocao: dict | None,
@@ -131,7 +213,7 @@ def separar(*, outro_livro: str | None = OUTRO_LIVRO,
     legacy, current, alterados = [], [], []
     for sid in ready:
         p = ultima_promocao(sid, livro)
-        r = regua_de(sid, livro=livro, evidencias=ev)
+        r = regua_de(sid, livro=livro, evidencias=ev, contratos=contratos)
         alt = contrato_alterado_depois(sid, p, contratos)
         linha = {"SOURCE_ID": sid, "READY_RULE": r,
                  "PROMOVIDA_EM": p.get("OBSERVED_AT") if p else None,
@@ -147,7 +229,7 @@ def separar(*, outro_livro: str | None = OUTRO_LIVRO,
     substituidas = sorted(s for s in est
                           if est[s] != LC.READY_FOR_COLLECTION
                           and ultima_promocao(s, livro) is not None
-                          and regua_de(s, livro=livro, evidencias=ev) == REGUA_LEGACY)
+                          and regua_de(s, livro=livro, evidencias=ev, contratos=contratos) == REGUA_LEGACY)
 
     if ready_do_outro is None and outro_livro:
         ready_do_outro = _ready_do_outro_livro(outro_livro)

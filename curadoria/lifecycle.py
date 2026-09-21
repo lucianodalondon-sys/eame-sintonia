@@ -184,13 +184,27 @@ def estado_de(source_id: str, livro: dict | None = None) -> str | None:
     return ultimo["NEW_STATE"] if ultimo else None
 
 
+# As oito chaves que TODA a linha tem. `extra` nunca as sobrescreve: a
+# proveniencia da reconciliacao (RECONCILIACAO-V1) vive ao lado delas, nao
+# em cima delas.
+CHAVES_CANONICAS = frozenset({
+    "SOURCE_ID", "PREVIOUS_STATE", "NEW_STATE", "REASON", "EVIDENCE_REF",
+    "OBSERVED_AT", "OWNER", "VERSION", "NEXT_ATTEMPT_AT",
+})
+
+
 def registar(source_id: str, novo: str, reason: str, *,
              owner: str = OWNER_CURATOR, evidence_ref: str | None = None,
-             next_attempt_at: str | None = None) -> dict:
+             next_attempt_at: str | None = None,
+             extra: dict | None = None) -> dict:
     """Move uma fonte de estado. Devolve a linha gravada.
 
     Levanta ValueError quando a transicao e proibida — falhar fechado, nunca
     gravar uma transicao ilegal com um aviso ao lado.
+
+    `extra`: campos de proveniencia (ex.: IMPORTADO_DE, RECONCILIACAO) que
+    ficam NA MESMA LINHA, ao lado das chaves canonicas. Uma chave canonica em
+    `extra` e recusada — o trilho nao reescreve o que a linha ja diz.
     """
     d = _ler_bruto()
     anterior = estado_de(source_id, d)
@@ -216,6 +230,12 @@ def registar(source_id: str, novo: str, reason: str, *,
     }
     if next_attempt_at:
         linha["NEXT_ATTEMPT_AT"] = next_attempt_at
+    if extra:
+        colisao = sorted(set(extra) & CHAVES_CANONICAS)
+        if colisao:
+            raise ValueError("TRANSICAO RECUSADA [%s]: `extra` tenta sobrescrever "
+                             "chave canonica %s" % (source_id, colisao))
+        linha.update(extra)
 
     d["TRANSICOES"].append(linha)
     _gravar(d)

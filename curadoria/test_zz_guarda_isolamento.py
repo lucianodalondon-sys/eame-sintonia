@@ -63,6 +63,11 @@ FICHEIROS_REAIS = [
     "BRIDGE-LEDGER-V1.json",
     "DISCOVERY-VISITED.json",
     "DISCOVERY-PROOF-V1.json",
+    # RECONCILIACAO-V1: o censo dos tres livros e os livros que ele le.
+    "RECONCILIACAO-V1.json",
+    "LISTAGENS-PROVADAS-V1.json",
+    "SOURCE-ID-ALLOCATION-V1.json",
+    "CANDIDATE-TO-SOURCE-MATCH-V1.json",
 ]
 
 
@@ -110,11 +115,19 @@ ESCREVE_NOS_VISITADOS = re.compile(
     r"_descobrir_familia)\(")
 CORRE_A_PONTE = re.compile(r"P\.processar\(")
 
+# RECONCILIACAO-V1: quem aplica a reconciliacao escreve no livro (por LC.registar)
+# e no censo (R.SAIDA). Os dois tem de apontar para a pasta descartavel.
+APLICA_A_RECONCILIACAO = re.compile(r"R\.(aplicar|main)\(")
+REDIRECIONA_SAIDA_DA_RECONCILIACAO = re.compile(r"R\.SAIDA\s*=[^=]")
+
 REDIRECIONA_PORTA = re.compile(r"FN\.FILA\s*=[^=]")
 REDIRECIONA_VISITADOS = re.compile(r"D\.VISITADOS_JSON\s*=[^=]")
 REDIRECIONA_LEDGER_DA_PONTE = re.compile(r"P\.LEDGER\s*=[^=]")
 
 REGRAS = [
+    ("aplica a reconciliacao -> LC.LIVRO e R.SAIDA redirecionados",
+     APLICA_A_RECONCILIACAO, [("LC.LIVRO =", REDIRECIONA_LIVRO),
+                              ("R.SAIDA =", REDIRECIONA_SAIDA_DA_RECONCILIACAO)]),
     ("escreve na porta -> FN.FILA redirecionada",
      ESCREVE_NA_PORTA, [("FN.FILA =", REDIRECIONA_PORTA)]),
     ("escreve nos visitados -> D.VISITADOS_JSON redirecionado",
@@ -231,6 +244,23 @@ class AGuardaDoIsolamento(unittest.TestCase):
             falso.unlink(missing_ok=True)
         self.assertEqual(len(faltas), 1, faltas)
         self.assertIn("P.LEDGER", faltas[0])
+
+    def test_2d_estatico_a_regra_apanha_uma_reconciliacao_sem_saida_redirecionada(self):
+        antigo = (
+            "import lifecycle as LC" + chr(10) + "import reconciliar_livros as R" + chr(10) +
+            "class T(unittest.TestCase):" + chr(10) +
+            "    def setUp(self):" + chr(10) +
+            "        self.tmp = tempfile.TemporaryDirectory()" + chr(10) +
+            "        LC.LIVRO = Path(self.tmp.name) / 'l.json'" + chr(10) +
+            "    def test_a(self):" + chr(10) + "        R.aplicar({}, {})" + chr(10))
+        falso = AQUI / "_guarda_amostra_nao_e_teste.py"
+        try:
+            falso.write_text(antigo, encoding="utf-8")
+            faltas = faltas_de(falso)
+        finally:
+            falso.unlink(missing_ok=True)
+        self.assertEqual(len(faltas), 1, faltas)
+        self.assertIn("R.SAIDA", faltas[0])
 
     def test_3_dinamico_os_ficheiros_reais_nao_mudaram_durante_a_suite(self):
         """Compara a arvore real de agora com a impressao tirada no import.
