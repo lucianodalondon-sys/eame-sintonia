@@ -108,6 +108,25 @@ class Registo:
                 time.sleep(falta)
         self._ultimo_por_dominio[dom] = time.monotonic()
 
+    # ⚠️ «BARRADO» E «NAO CONSEGUI LER» NAO SAO A MESMA COISA — MEDIDO EM
+    # 2026-09-21, e custou duas fontes acusadas por engano.
+    #
+    # `gate_de_rota.robots_de()` devolve, de proposito, um `Disallow: /` quando
+    # o robots.txt nao pode ser lido: «UNKNOWN, tratado como barrado por
+    # prudencia». Fechar assim esta CERTO. O que estava errado era este
+    # registo guardar so o `False` — e a corrida sair com
+    # `ROBOTS_BLOCKED: o robots.txt vivo nao permite a entrada`, uma frase que
+    # afirma uma proibicao que ninguem leu.
+    #
+    #     NAO LI O ROBOTS != O ROBOTS PROIBIU.
+    #
+    # Medido nas tres corridas: dos 3 bloqueios, ZERO eram um `Disallow`
+    # publicado. `www.chianticlassico.com` nao respondeu no /robots.txt
+    # (URLError, e `curl` confirmou http=000 em 20 s) e `www.crpv.it` nem
+    # publica robots.txt — faz 301 para o site. Por isso a razao vai a par do
+    # veredito, e o relatorio pode dizer qual dos dois aconteceu.
+    ROBOTS_SEM_LEITURA = ("robots inacessivel", "UNKNOWN", "tratado como Disallow total")
+
     def robots(self, host: str) -> tuple:
         """Um robots.txt por host, lido VIVO e uma vez por corrida."""
         if host not in self._robots:
@@ -118,13 +137,20 @@ class Registo:
                 "QUANDO": agora(), "URL": "https://%s/robots.txt" % host,
                 "DOMINIO": host, "TIPO": "ROBOTS", "HTTP": "NAO SEI",
                 "BYTES": len(txt or ""), "MS": int((time.monotonic() - t0) * 1000),
-                "SOURCE_ID": "-"})
+                "SOURCE_ID": "-", "ROBOTS_RAZAO": (txt or "")[:160]})
             self._robots[host] = (rp, txt)
         return self._robots[host]
 
-    def permitido(self, url: str) -> tuple[bool, str]:
+    def permitido(self, url: str) -> tuple[bool, str, str]:
+        """(pode?, motivo legivel, classe) — a classe distingue os dois «nao»."""
         rp, txt = self.robots(dominio(url))
-        return bool(rp.can_fetch(CAP.UA, url)), (txt or "")[:200]
+        pode = bool(rp.can_fetch(CAP.UA, url))
+        razao = (txt or "")[:200]
+        if pode:
+            return True, razao, "ROBOTS_PERMITE"
+        classe = ("ROBOTS_NAO_LIDO" if any(m in (txt or "") for m in self.ROBOTS_SEM_LEITURA)
+                  else "ROBOTS_DISALLOW")
+        return False, razao, classe
 
     def buscar(self, url: str, source_id: str, tipo: str) -> tuple[int, bytes, str]:
         dom = dominio(url)
@@ -174,6 +200,7 @@ def colher_fonte(sid: str, contrato: dict, reg: Registo, max_itens: int) -> dict
         "HTTP": None, "BYTES": 0, "ITENS_ENUMERADOS": 0, "ITENS_COLHIDOS": 0,
         "MAX_TARGETS_DO_CONTRATO": aq.get("MAX_TARGETS"),
         "ROBOTS_PERMITE_ENTRADA": None, "ROBOTS_BLOCKS": 0,
+        "ROBOTS_DISALLOW": 0, "ROBOTS_NAO_LIDO": 0, "ROBOTS_RAZAO": "",
         "ITENS": [], "PORQUE": "",
     }
     if aq.get("STRATEGY") != "HTML_LINK_DISCOVERY":
@@ -181,11 +208,17 @@ def colher_fonte(sid: str, contrato: dict, reg: Registo, max_itens: int) -> dict
                            "HTML_LINK_DISCOVERY" % aq.get("STRATEGY"))
         return linha
 
-    ok, _ = reg.permitido(aq["INDEX_URL"])
+    ok, razao, classe = reg.permitido(aq["INDEX_URL"])
     linha["ROBOTS_PERMITE_ENTRADA"] = ok
+    linha["ROBOTS_RAZAO"] = razao
     if not ok:
         linha["ROBOTS_BLOCKS"] += 1
-        linha["PORQUE"] = "ROBOTS_BLOCKED: o robots.txt vivo nao permite a entrada"
+        linha[classe] = linha.get(classe, 0) + 1
+        linha["PORQUE"] = (
+            "%s: %s" % (classe,
+                        "o robots.txt publicado proibe esta entrada" if classe == "ROBOTS_DISALLOW"
+                        else "o robots.txt NAO foi lido e fecha-se por prudencia — "
+                             "isto NAO e uma proibicao da fonte"))
         return linha
 
     st, b, err = reg.buscar(aq["INDEX_URL"], sid, "INDEX")
@@ -205,10 +238,11 @@ def colher_fonte(sid: str, contrato: dict, reg: Registo, max_itens: int) -> dict
     for url in alvos[:tecto]:
         item = {"URL": url, "HTTP": None, "BYTES": 0, "MATERIA_REAL": False,
                 "PORQUE": ""}
-        ok_i, _ = reg.permitido(url)
+        ok_i, _, classe_i = reg.permitido(url)
         if not ok_i:
             linha["ROBOTS_BLOCKS"] += 1
-            item["PORQUE"] = "ROBOTS_BLOCKED"
+            linha[classe_i] = linha.get(classe_i, 0) + 1
+            item["PORQUE"] = classe_i
             linha["ITENS"].append(item)
             continue
         st2, b2, err2 = reg.buscar(url, sid, "ITEM")
@@ -292,6 +326,9 @@ def correr(run_id: str, max_itens: int = MAX_ITENS_POR_FONTE) -> dict:
                          if str(i.get("PORQUE", "")).startswith("CAPA_NAO_E_MATERIA")),
             "PEDIDOS_TOTAL": len(reg.pedidos),
             "ROBOTS_BLOCKS": sum(l.get("ROBOTS_BLOCKS", 0) for l in linhas),
+            # os dois «nao» separados: proibicao lida vs robots por ler
+            "ROBOTS_DISALLOW": sum(l.get("ROBOTS_DISALLOW", 0) for l in linhas),
+            "ROBOTS_NAO_LIDO": sum(l.get("ROBOTS_NAO_LIDO", 0) for l in linhas),
             "HTTP_429": sum(1 for p in reg.pedidos if p.get("HTTP") == 429),
             "HTTP_403": sum(1 for p in reg.pedidos if p.get("HTTP") == 403),
             "PAID_USD": 0.0,
@@ -314,7 +351,8 @@ def main(argv=None) -> int:
     t = d["TOTAIS"]
     print("RUN_ID                 %s" % d["RUN_ID"])
     for k in ("FONTES", "ITENS_ENUMERADOS", "ITENS_COLHIDOS", "MATERIA_REAL",
-              "CAPAS", "PEDIDOS_TOTAL", "ROBOTS_BLOCKS", "HTTP_429", "HTTP_403"):
+              "CAPAS", "PEDIDOS_TOTAL", "ROBOTS_BLOCKS", "ROBOTS_DISALLOW",
+              "ROBOTS_NAO_LIDO", "HTTP_429", "HTTP_403"):
         print("%-22s %s" % (k, t[k]))
     for l in d["FONTES"]:
         print("  %-12s HTTP=%-5s enum=%-3s colhidos=%-3s materia=%-3s %s"
