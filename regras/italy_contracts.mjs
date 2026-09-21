@@ -498,4 +498,134 @@ export const CONTRACTS = {
     }
     };
 
+// ── OS CONTRATOS ONBOARDED, EM LOTE (ADDENDUM-01 · FAST TRACK) ─────────────
+// 105 fontes que a missao SOURCE-COLLECTION-READINESS-V1 sondou em 2026-09-18,
+// mais 18 que o SOURCE CURATOR (missao 04/04A) caracterizou, canarizou e passou
+// pelo gate de robots em 2026-09-20 — integradas na INTEGRACAO-04A, SOMENTE as
+// READY_FOR_COLLECTION (HTML). As 50 do YouTube ficaram de fora na 04A (a rota
+// feeds/videos.xml esta em Disallow) e entraram no BIG-COLLECTION-RELEASE
+// (2026-09-20) pela rota que o MESMO portao aprova: a pagina publica do canal,
+// /channel/<CHANNEL_ID>/videos, lida pelo adapter CANAL_PUBLICO_YOUTUBE_V1 do
+// registry canonico — STRATEGY CUSTOM_ADAPTER, OUTPUT_TYPE HTML (a pagina
+// /watch e o que se traz), identidade generica pelo endereco. Fontes
+// (HTTP 200, documento observado, assinatura conferida) e deixou numa tabela
+// declarativa com vocabulario proprio (SHAPE). Aqui entram TRADUZIDAS para o
+// vocabulario do motor de rota — STRATEGY / MATCH / INDEX_URL / LINK_PATTERN —
+// para que exista UM motor e nao dois. Uma linha por fonte, em
+// `italy_contracts_onboarded.json`; o contrato completo nasce de
+// `contratoGenerico()`.
+//
+// O DONO DO CONTRATO CONTINUA A SER ESTE FICHEIRO (o export `CONTRACTS`).
+// A tabela e configuracao, nao uma segunda autoridade.
+//
+//     UMA FONTE CONFIGURADA NAO E UMA FONTE APROVADA.
+//     A tabela diz COMO se chega; o Livro de Relevancia diz SE se vai.
+//
+// O QUE ESTE CONTRATO NAO INVENTA. A identidade SEMANTICA do documento (numero
+// de edicao, data no cabecalho) exige regra medida por fonte, e nenhuma destas
+// linhas a tem. O que existe de honesto e o ENDERECO do documento — e e isso
+// que o DOCUMENT_ID carrega, dito com esse nome (`IDENTITY_KIND = URL_PATH`).
+// Bytes novos no mesmo endereco sao DOCUMENT_CHANGED_IN_PLACE, e o ledger
+// guarda as duas versoes: SAME_URL != SAME_DOCUMENT continua a valer.
+//
+//     FACT_TIME = UNKNOWN. Nenhuma destas fontes data o facto por regra
+//     generica, e o endereco nao e uma data.
+import { readFileSync } from "node:fs";
+const TABELA_ONBOARDED = JSON.parse(
+  readFileSync(new URL("./italy_contracts_onboarded.json", import.meta.url), "utf8"));
+
+const ASSINATURA_POR_TIPO = { PDF: "%PDF", HTML: "<" };
+const MIME_POR_TIPO = { PDF: /^application\/pdf/, HTML: /^text\/html/ };
+
+export function contratoGenerico(linha) {
+  const tipo = String(linha.OUTPUT_TYPE || "").toUpperCase();
+  if (!ASSINATURA_POR_TIPO[tipo]) throw new Error(`OUTPUT_TYPE desconhecido na tabela onboarded: ${linha.SOURCE_ID} -> ${tipo}`);
+  const aq = linha.ACQUISITION;
+  if (!aq || !aq.STRATEGY) throw new Error(`linha sem ACQUISITION na tabela onboarded: ${linha.SOURCE_ID}`);
+  const fixo = aq.STRATEGY === "STATIC_ENDPOINT";
+  // CUSTOM_ADAPTER nao tem INDEX_URL: a rota nasce dentro do adapter, a partir
+  // do bloco. A entrada canonica e a que a linha declara (a pagina publica da
+  // fonte), e a descoberta diz o nome do adapter — nunca um SOURCE_ID.
+  const adapter = aq.STRATEGY === "CUSTOM_ADAPTER";
+  const entrada = fixo ? aq.URL : adapter ? (linha.CANONICAL_ENTRY_URL || aq.INDEX_URL || "NAO SEI") : aq.INDEX_URL;
+  return {
+    OWNER_ID: "NAO SEI", OWNER: linha.OWNER || linha.NAME || "NAO SEI",
+    TERRITORY: linha.TERRITORY, VALUE: "NAO SEI",
+    CANONICAL_ENTRY_URL: entrada,
+    DISCOVERY_METHOD: fixo
+      ? "GET direto no documento observado (documento fixo; descoberta de edicoes novas NAO configurada)"
+      : adapter
+        ? `ADAPTER ${aq.ADAPTER_ID} do registry canonico (coleta/adaptadores_de_aquisicao.mjs): os parametros vivem no bloco ACQUISITION da linha; o despachador nao conhece SOURCE_ID`
+        : "GENERICO: abrir INDEX_URL, resolver todos os href e ficar com os que casam com LINK_PATTERN (MATCH=URL)",
+    RETRIEVAL_METHOD: "GET direto no documento",
+    ROUTE_TYPE: fixo ? "STATIC_ROUTE" : adapter ? "APPLICATION_ROUTE" : "DISCOVERED_ROUTE",
+    ACCESS_INSTRUMENT: "HTTP", AUTH_REQUIRED: false, BROWSER_REQUIRED: false, JS_REQUIRED: false,
+    OUTPUT_TYPE: tipo, EXPECTED_MIME: MIME_POR_TIPO[tipo], EXPECTED_SIGNATURE: ASSINATURA_POR_TIPO[tipo], MIN_BYTES: 1000,
+    ACQUISITION: aq,
+    // A linha PODE declarar a identidade executavel (mesmo vocabulario do motor,
+    // conferida por conferirIdentidade no arranque). Sem isso vale a generica
+    // pelo endereco. Medido no BIG-COLLECTION-RELEASE: o alvo YouTube e
+    // /watch?v=<videoId>; o endereco inteiro como DOCUMENT_ID carrega `?`, e o
+    // colector faz do DOCUMENT_ID o nome da pasta — no Windows, mkdir ENOENT.
+    // O videoId nativo e a identidade que o curator declarou; e o `?` fica fora.
+    IDENTITY_KEYS: linha.IDENTITY ? (linha.IDENTITY_KEYS || Object.keys(linha.IDENTITY.CAPTURES || {})) : ["url_path"],
+    IDENTITY_KIND: linha.IDENTITY ? (linha.IDENTITY_KIND || "NAO SEI") : "URL_PATH",
+    DOCUMENT_ID_RULE: linha.IDENTITY
+      ? (linha.DOCUMENT_ID_RULE || `${linha.IDENTITY.DOCUMENT_ID} — identidade declarada na linha (${linha.IDENTITY_KIND || "NAO SEI"})`)
+      : `${linha.SOURCE_ID}:URL:{caminho do endereco} — identidade pelo ENDERECO, nao semantica; a fonte nao expoe identificador proprio por regra generica`,
+    IDENTITY: linha.IDENTITY || {
+      STRATEGY: "CONTENT_CAPTURE",
+      CAPTURES: { doc: { FROM: "URL", PATTERN: "^https?://[^/]+/?(.*?)/?$" } },
+      DOCUMENT_ID: `${linha.SOURCE_ID}:URL:{doc.1}`,
+      FACT_TIME: "UNKNOWN — identidade pelo endereco; a fonte nao expoe data do facto por regra generica",
+    },
+    DOCUMENT_DATE_FIELD: "NAO SEI", VERSION_FIELD: "NAO SEI",
+    EXPECTED_CONTENT_MARKERS: null,
+    DECLARED_FREQUENCY: "NAO SEI", OBSERVED_FREQUENCY: "NAO SEI — uma captura so",
+    UPDATE_BEHAVIOR: "NAO SEI", HISTORICAL_OR_FORWARD: "NAO SEI", ARCHIVE_REQUIREMENT: "NAO SEI",
+    EXPECTED_FAILURES: [
+      "entrada inacessivel (transporte, 403, 404) = FAILED, nunca zero documentos",
+      "entrada sem nenhum endereco que case com LINK_PATTERN = EMPTY_LIST = FAILED",
+      `documento cuja assinatura de bytes nao e ${tipo} = BYTE_VALIDATION_FAILED (HTTP 200 nao salva)`,
+    ],
+    FAIL_CLOSED_RULE: `sem endereco descoberto ou com bytes que nao sao ${tipo}, e FAILED — nunca se regista a pagina de entrada como documento`,
+    FALLBACK: "nenhum",
+    SOURCE_LOCATION_RULE: "NAO SEI",
+    FACT_LOCATION_RULE: "UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir",
+    EVIDENCE_CLASS: "NAO SEI",
+    AUTOMATION_FEASIBILITY: "MEDIUM — rota generica; identidade semantica por medir",
+    NEGATIVE_CONTROL: { descricao: "entrada que nao lista nenhum endereco que case com LINK_PATTERN", esperado: "EMPTY_LIST -> FAILED, nunca a pagina de entrada como documento" },
+    BATCH_ID: linha.BATCH_ID,
+    // A linha pode dizer de onde veio (INTEGRACAO-04A: as 18 do SOURCE CURATOR
+    // chegaram por outra sondagem, noutra data). Sem isso, o contrato expandido
+    // mentiria a proveniencia. A omissao continua a ser o fast track de 2026-09-18.
+    ONBOARDED_BY: linha.ONBOARDED_BY || "SOURCE-COLLECTION-READINESS-V1 (sondagem 2026-09-18) · traduzido no CUTOVER-RECUPERADO 2026-09-20",
+    EVIDENCE: linha.EVIDENCE || null,
+    SONDAGEM: linha.SONDAGEM || null,
+    // Caracterizacao medida pelo SOURCE CURATOR (cadencia, ritmo, NAO SEI incluidos).
+    // Passa inteira: o contrato nao a resume nem a corrige.
+    CARACTERIZACAO: linha.CARACTERIZACAO || null,
+    CURADORIA: linha.CURADORIA || null,
+  };
+}
+
+for (const linha of TABELA_ONBOARDED.FONTES) {
+  if (!/^IT-T\d+-\d{3}$/.test(String(linha.SOURCE_ID || "")))
+    throw new Error(`SOURCE_ID invalido na tabela onboarded: ${linha.SOURCE_ID}`);
+  if (CONTRACTS[linha.SOURCE_ID]) {
+    // Uma fonte que JA tem contrato escrito a mao nao e reescrita: a tabela
+    // so lhe empresta a forma de aquisicao se ele ainda nao a tiver.
+    if (CONTRACTS[linha.SOURCE_ID].ACQUISITION)
+      throw new Error(`${linha.SOURCE_ID} tem contrato executavel a mao E linha na tabela onboarded — a tabela nao pode contradizer o contrato`);
+    CONTRACTS[linha.SOURCE_ID].ACQUISITION = linha.ACQUISITION;
+    CONTRACTS[linha.SOURCE_ID].IDENTITY = contratoGenerico(linha).IDENTITY;
+    CONTRACTS[linha.SOURCE_ID].IDENTITY_KIND = contratoGenerico(linha).IDENTITY_KIND;
+    CONTRACTS[linha.SOURCE_ID].BATCH_ID = linha.BATCH_ID;
+    CONTRACTS[linha.SOURCE_ID].ONBOARDED_BY = "SOURCE-COLLECTION-READINESS-V1 (so a forma de aquisicao e a identidade generica; o contrato a mao manda no resto)";
+    continue;
+  }
+  CONTRACTS[linha.SOURCE_ID] = contratoGenerico(linha);
+}
+export const ONBOARDED_IDS = Object.freeze(TABELA_ONBOARDED.FONTES.map((l) => l.SOURCE_ID));
+
 export const CONTRACT_IDS = Object.keys(CONTRACTS);
