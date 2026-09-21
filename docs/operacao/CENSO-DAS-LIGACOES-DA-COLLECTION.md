@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  274119248f6259bb56a16264dd8dd65bb64f8041
+HEAD_DA_MEDICAO  4aabd7047ae66ce70149c1c764fa74ef3dc8f79f
 BRANCH           intake-gate-v1
-GERADO_EM        2026-09-21T13:47:39-03:00
+GERADO_EM        2026-09-21T13:56:21-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
