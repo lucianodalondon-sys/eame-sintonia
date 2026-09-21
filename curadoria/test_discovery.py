@@ -987,6 +987,33 @@ class TestFiltrarLinkRCFix(unittest.TestCase):
         url = "https://www.assam.marche.it/servizi"
         self.assertTrue(self._ok(url))
 
+    def test_termini_duso_descartado(self):
+        """ADDENDUM-04: arpalombardia.it/termini-duso/ passava antes da correcao."""
+        url = "https://www.arpalombardia.it/termini-duso/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_note_legali_descartado(self):
+        url = "https://www.arpalombardia.it/note-legali"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_disclaimer_descartado(self):
+        url = "https://www.arpalombardia.it/disclaimer/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_termini_di_uso_descartado(self):
+        url = "https://www.assam.marche.it/termini-di-uso"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_ufficio_relazioni_urp_sufixo_descartado(self):
+        """ADDENDUM-04 residuo: ufficio-relazioni-con-il-pubblico-urp passava por ter -urp no fim."""
+        url = "https://www.arpat.toscana.it/ufficio-relazioni-con-il-pubblico-urp/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
 
 class TestFiltrarLinkRD(unittest.TestCase):
     """RD_LOGIN_AUTH — portais de autenticacao nao publicam conteudo (ADDENDUM-03)."""
@@ -1018,6 +1045,92 @@ class TestFiltrarLinkRD(unittest.TestCase):
     def test_pagina_normal_nao_descartada(self):
         url = "https://www.arpalombardia.it/temi-ambientali/aria/"
         self.assertTrue(self._ok(url))
+
+
+class TestRedTeamRC(unittest.TestCase):
+    """RED TEAM: mutar RC e provar que os testes de urp/termini-duso REPROVAM.
+
+    Se a RC for desligada (regex que nunca casa), as URLs que ela devia barrar
+    passam pelo filtro — isso e o BUG simulado. O teste afirma o BUG. Restaurar
+    a regra faz o comportamento correcto voltar.
+    """
+
+    BASE = "https://www.assam.marche.it/"
+
+    def test_red_team_mute_rc_urp_passa_incorretamente(self):
+        """Com RC mutada (nunca casa), urp passa — BUG simulado."""
+        import re as _re
+        orig_path = D._RE_ISTITUZIONALE_PATH
+        orig_prefix = D._RE_ISTITUZIONALE_PATH_PREFIX
+        orig_host = D._RE_ISTITUZIONALE_HOST
+        try:
+            D._RE_ISTITUZIONALE_PATH = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_PATH_PREFIX = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_HOST = _re.compile(r"(?!)")
+            ok, _ = D._filtrar_link("https://www.assam.marche.it/agenzia/urp", self.BASE)
+            self.assertTrue(ok, "RC mutada deve deixar urp passar (BUG simulado)")
+        finally:
+            D._RE_ISTITUZIONALE_PATH = orig_path
+            D._RE_ISTITUZIONALE_PATH_PREFIX = orig_prefix
+            D._RE_ISTITUZIONALE_HOST = orig_host
+
+    def test_red_team_mute_rc_termini_duso_passa_incorretamente(self):
+        """Com RC mutada, termini-duso passa — BUG simulado (lacuna ADDENDUM-04)."""
+        import re as _re
+        orig_path = D._RE_ISTITUZIONALE_PATH
+        orig_prefix = D._RE_ISTITUZIONALE_PATH_PREFIX
+        orig_host = D._RE_ISTITUZIONALE_HOST
+        try:
+            D._RE_ISTITUZIONALE_PATH = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_PATH_PREFIX = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_HOST = _re.compile(r"(?!)")
+            ok, _ = D._filtrar_link("https://www.arpalombardia.it/termini-duso/", self.BASE)
+            self.assertTrue(ok, "RC mutada deve deixar termini-duso passar (BUG simulado)")
+        finally:
+            D._RE_ISTITUZIONALE_PATH = orig_path
+            D._RE_ISTITUZIONALE_PATH_PREFIX = orig_prefix
+            D._RE_ISTITUZIONALE_HOST = orig_host
+
+    def test_red_team_restaurada_rc_reprova_urp(self):
+        """Com RC restaurada, urp e corretamente bloqueado."""
+        ok, motivo = D._filtrar_link("https://www.assam.marche.it/agenzia/urp", self.BASE)
+        self.assertFalse(ok, "RC restaurada deve reprovar urp")
+        self.assertEqual(motivo, "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_red_team_restaurada_rc_reprova_termini_duso(self):
+        """Com RC restaurada, termini-duso e corretamente bloqueado."""
+        ok, motivo = D._filtrar_link("https://www.arpalombardia.it/termini-duso/", self.BASE)
+        self.assertFalse(ok, "RC restaurada deve reprovar termini-duso")
+        self.assertEqual(motivo, "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+
+class TestRedTeamRD(unittest.TestCase):
+    """RED TEAM: mutar RD e provar que login.microsoftonline REPROVA.
+
+    Se a RD for desligada, a pagina de login passa pelo filtro — BUG simulado.
+    """
+
+    BASE = "https://www.assam.marche.it/"
+
+    def test_red_team_mute_rd_login_passa_incorretamente(self):
+        """Com RD mutada (nunca casa), login.microsoftonline passa — BUG simulado."""
+        import re as _re
+        orig_host = D._RE_LOGIN_AUTH_HOST
+        orig_dom = D._LOGIN_AUTH_DOMINIOS
+        try:
+            D._RE_LOGIN_AUTH_HOST = _re.compile(r"(?!)")
+            D._LOGIN_AUTH_DOMINIOS = frozenset()
+            ok, _ = D._filtrar_link("https://login.microsoftonline.com/", self.BASE)
+            self.assertTrue(ok, "RD mutada deve deixar login passar (BUG simulado)")
+        finally:
+            D._RE_LOGIN_AUTH_HOST = orig_host
+            D._LOGIN_AUTH_DOMINIOS = orig_dom
+
+    def test_red_team_restaurada_rd_reprova_login(self):
+        """Com RD restaurada, login.microsoftonline e corretamente bloqueado."""
+        ok, motivo = D._filtrar_link("https://login.microsoftonline.com/", self.BASE)
+        self.assertFalse(ok, "RD restaurada deve reprovar login")
+        self.assertEqual(motivo, "RD_LOGIN_AUTH")
 
 
 if __name__ == "__main__":

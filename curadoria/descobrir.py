@@ -999,21 +999,30 @@ _RE_ARTIGO_INDIVIDUAL = re.compile(
 # PORQUE FALHOU EM ADDENDUM-03: a regex original cobria nomes de paginas de
 # governo regional (giunta, presidente, anticorruzione) mas omitiu termos
 # genericos que aparecem em QUALQUER agencia publica: urp (balcao cidadao) e
-# tutela-dati-personali (pagina de privacidade obrigatoria por GDPR). Foram
-# adicionados abaixo para cobrir agencias especializadas como o ASSAM Marche.
+# tutela-dati-personali (pagina de privacidade obrigatoria por GDPR).
+# ADDENDUM-04: acrescentada a familia de paginas legais obrigatorias que nao
+# publicam conteudo agronomico — termini-duso, termini-di-uso, note-legali,
+# condizioni-d-uso, condizioni-duso, condizioni-di-uso, disclaimer, credits,
+# crediti. Sao paginas legais de site (termos, notas legais, disclaimer),
+# nao fontes de informacao agronomica.
 _RE_ISTITUZIONALE_PATH = re.compile(
     r"/(?:amministrazione-trasparente|amministrazionetrasparente|"
     r"il-presidente|la-giunta-regionale|giunta-regionale|"
     r"istituti-di-garanzia|responsabile-protezione-dati|"
     r"anticorruzione|lo-statuto|statuto-regionale|"
     r"assemblea-regionale|"
-    r"urp|ufficio-relazioni-con-il-pubblico)(?:/|$|\?)",
+    r"urp|ufficio-relazioni-con-il-pubblico|"
+    r"termini-duso|termini-d[iu]-uso|note-legali|"
+    r"condizioni-duso|condizioni-d[iu]-uso|condizioni-d-uso|"
+    r"disclaimer|credits|crediti)(?:/|$|\?)",
     re.I
 )
-# RC — prefixos: nomes compostos que variam no sufixo (ex: tutela-dati-personali-privacy)
-# Separados do pattern principal para nao exigir final-de-segmento estrito.
+# RC — prefixos: nomes compostos que variam no sufixo (ex: tutela-dati-personali-privacy,
+# ufficio-relazioni-con-il-pubblico-urp). Separados do pattern principal para nao exigir
+# final-de-segmento estrito — qualquer sufixo depois do prefixo e igualmente bloqueado.
 _RE_ISTITUZIONALE_PATH_PREFIX = re.compile(
-    r"/(?:tutela-dati|privacy[- ]|cookie-policy|dati-personali|protezione-dati)",
+    r"/(?:tutela-dati|privacy[- ]|cookie-policy|dati-personali|protezione-dati|"
+    r"ufficio-relazioni-con-il-pubblico)",
     re.I
 )
 _RE_ISTITUZIONALE_HOST = re.compile(
@@ -1600,6 +1609,34 @@ def recusar_candidatas_lixo() -> dict:
     }
 
 
+def recusar_candidatas_por_varredura_retroactiva() -> dict:
+    """Varredura retroactiva: passa TODAS as candidatas activas pelo filtro actual.
+
+    Recusa as que seriam barradas hoje por RC ou RD, independentemente do
+    DISCOVERY_METHOD. Cobre residuos de corridas anteriores a existencia da
+    regra (REGRA CORRIGIDA != BANCO LIMPO). NAO usa rede.
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        url = c["URL"]
+        nota = c.get("NOTA", "")
+        m = re.search(r"ANCHOR_TEXT=([^|]*)", nota)
+        anchor = m.group(1).strip() if m else ""
+        manter, motivo = _filtrar_link(url, url + "_dummy_semente_diferente", anchor)
+        if not manter and motivo in ("RC_ISTITUZIONALE_OBBLIGATORIO", "RD_LOGIN_AUTH"):
+            resultado = recusar(url, "VARREDURA_RETROACTIVA_%s" % motivo)
+            if resultado is not None:
+                recusadas.append({"url": url, "id": c["CANDIDATA_ID"],
+                                  "motivo": motivo})
+    return {
+        "VARREDURA_RETROACTIVA_RECUSADAS": len(recusadas),
+        "DETALHE": recusadas,
+    }
+
+
 def _e_fora_de_dominio_agro(url: str) -> tuple[bool, str]:
     """Verifica se uma URL pertence categoricamente a um dominio nao-agricola.
 
@@ -1864,6 +1901,8 @@ def main() -> int:
                     help="marcar candidatas fora de dominio agro como RECUSADA")
     ap.add_argument("--limpar-genericas", action="store_true",
                     help="marcar candidatas de semente GENERICA sem sinal agro como RECUSADA")
+    ap.add_argument("--varredura-retroactiva", action="store_true",
+                    help="recusar activas que RC/RD de hoje barraria (residuos de corridas antigas)")
     a = ap.parse_args()
 
     if a.listar_familias:
@@ -1893,6 +1932,13 @@ def main() -> int:
             print("  %s  %s" % (d_["id"], d_["url"][:80]))
         if len(resultado["DETALHE"]) > 20:
             print("  ... e mais %d" % (len(resultado["DETALHE"]) - 20))
+        return 0
+
+    if a.varredura_retroactiva:
+        resultado = recusar_candidatas_por_varredura_retroactiva()
+        print("VARREDURA_RETROACTIVA_RECUSADAS  %d" % resultado["VARREDURA_RETROACTIVA_RECUSADAS"])
+        for d_ in resultado["DETALHE"]:
+            print("  [%s] %s  %s" % (d_["motivo"], d_["id"], d_["url"][:80]))
         return 0
 
     if a.orcamento > MAX_PEDIDOS_TOTAIS:
