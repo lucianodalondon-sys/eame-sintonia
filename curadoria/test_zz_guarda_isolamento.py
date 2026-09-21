@@ -57,6 +57,12 @@ FICHEIROS_REAIS = [
     "DISCOVERY-SIGNAL-V1.json",
     "SUPERVISOR.lock",
     "PARAR.flag",
+    # BRIDGE-FEEDER: a porta, o ledger da ponte e a memoria da descoberta.
+    # A porta vive noutra gaveta (candidatas/), por isso o caminho relativo.
+    "../candidatas/FONTES-CANDIDATAS.json",
+    "BRIDGE-LEDGER-V1.json",
+    "DISCOVERY-VISITED.json",
+    "DISCOVERY-PROOF-V1.json",
 ]
 
 
@@ -94,7 +100,29 @@ REDIRECIONA_DIARIO = re.compile(r"(S|SUP)\.DIARIO\s*=[^=]|(S|SUP)\.ESTADO\s*,\s*
                                 r"|(S|SUP)\.ESTADO\s*,\s*(S|SUP)\.PARAR\s*,\s*(S|SUP)\.DIARIO\s*=[^=]")
 USA_PASTA_DESCARTAVEL = re.compile(r"TemporaryDirectory\(")
 
+# BRIDGE-FEEDER (G4): a porta, a ponte e a descoberta. O test_discovery.py do
+# bridge chamava FN.registar() contra a porta REAL e D._marcar_visitado()
+# contra o DISCOVERY-VISITED real, e 'limpava' reescrevendo os ficheiros.
+ESCREVE_NA_PORTA = re.compile(
+    r"FN\.(registar|gravar)\(|P\.processar\(|D\.(descobrir|_descobrir_familia)\(")
+ESCREVE_NOS_VISITADOS = re.compile(
+    r"D\.(_marcar_visitado|_marcar_rejeitado|_gravar_visitados|descobrir|"
+    r"_descobrir_familia)\(")
+CORRE_A_PONTE = re.compile(r"P\.processar\(")
+
+REDIRECIONA_PORTA = re.compile(r"FN\.FILA\s*=[^=]")
+REDIRECIONA_VISITADOS = re.compile(r"D\.VISITADOS_JSON\s*=[^=]")
+REDIRECIONA_LEDGER_DA_PONTE = re.compile(r"P\.LEDGER\s*=[^=]")
+
 REGRAS = [
+    ("escreve na porta -> FN.FILA redirecionada",
+     ESCREVE_NA_PORTA, [("FN.FILA =", REDIRECIONA_PORTA)]),
+    ("escreve nos visitados -> D.VISITADOS_JSON redirecionado",
+     ESCREVE_NOS_VISITADOS, [("D.VISITADOS_JSON =", REDIRECIONA_VISITADOS)]),
+    ("corre a ponte -> P.LEDGER, F.FILA e LC.LIVRO redirecionados",
+     CORRE_A_PONTE, [("P.LEDGER =", REDIRECIONA_LEDGER_DA_PONTE),
+                     ("F.FILA =", REDIRECIONA_FILA),
+                     ("LC.LIVRO =", REDIRECIONA_LIVRO)]),
     # (nome, gatilho, exigencias)
     ("escreve na fila -> F.FILA redirecionada",
      ESCREVE_NA_FILA, [("F.FILA =", REDIRECIONA_FILA)]),
@@ -162,6 +190,47 @@ class AGuardaDoIsolamento(unittest.TestCase):
         self.assertTrue(any("F.FILA" in f for f in faltas), faltas)
         self.assertTrue(any("S.LOCK" in f for f in faltas), faltas)
         self.assertTrue(any("TemporaryDirectory" in f for f in faltas), faltas)
+
+    def test_2b_estatico_a_regra_apanha_o_test_discovery_do_bridge(self):
+        """O test_discovery.py de 63b71421 registava na porta real e marcava
+        visitados reais sem redirecionar nada — a regra tem de o apanhar."""
+        antigo = (
+            "import fonte_nova as FN\nimport descobrir as D\n"
+            "class TestDedup(unittest.TestCase):\n"
+            "    def test_a(self):\n"
+            "        FN.registar(tipo='ORGANIZACAO', pais='IT', nome='x', url='u',\n"
+            "                    para_que='t', quem_viu='TEST_')\n"
+            "        D._marcar_rejeitado('u', 'TESTE', D._ler_visitados())\n")
+        falso = AQUI / "_guarda_amostra_nao_e_teste.py"
+        try:
+            falso.write_text(antigo, encoding="utf-8")
+            faltas = faltas_de(falso)
+        finally:
+            falso.unlink(missing_ok=True)
+        self.assertTrue(faltas, "a regra deixou passar o test_discovery do bridge")
+        self.assertTrue(any("FN.FILA" in f for f in faltas), faltas)
+        self.assertTrue(any("D.VISITADOS_JSON" in f for f in faltas), faltas)
+        self.assertTrue(any("TemporaryDirectory" in f for f in faltas), faltas)
+
+    def test_2c_estatico_a_regra_apanha_uma_ponte_sem_ledger_redirecionado(self):
+        antigo = (
+            "import fila as F\nimport lifecycle as LC\nimport fonte_nova as FN\n"
+            "import ponte_candidatas as P\n"
+            "class T(unittest.TestCase):\n"
+            "    def setUp(self):\n"
+            "        self.tmp = tempfile.TemporaryDirectory()\n"
+            "        F.FILA = Path(self.tmp.name) / 'q.json'\n"
+            "        LC.LIVRO = Path(self.tmp.name) / 'l.json'\n"
+            "        FN.FILA = Path(self.tmp.name) / 'p.json'\n"
+            "    def test_a(self):\n        P.processar()\n")
+        falso = AQUI / "_guarda_amostra_nao_e_teste.py"
+        try:
+            falso.write_text(antigo, encoding="utf-8")
+            faltas = faltas_de(falso)
+        finally:
+            falso.unlink(missing_ok=True)
+        self.assertEqual(len(faltas), 1, faltas)
+        self.assertIn("P.LEDGER", faltas[0])
 
     def test_3_dinamico_os_ficheiros_reais_nao_mudaram_durante_a_suite(self):
         """Compara a arvore real de agora com a impressao tirada no import.
