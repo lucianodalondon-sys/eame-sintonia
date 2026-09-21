@@ -122,6 +122,19 @@ export function conferirAquisicao(sourceId, aq) {
     // descobre-se AQUI, na conferência, e não a meio de uma corrida.
     try { new RegExp(aq.LINK_PATTERN, "i"); }
     catch (err) { throw new ContratoInvalido(`${sourceId}: LINK_PATTERN não compila: ${err.message}`); }
+    // ⚠️ ACEITAR UM CAMPO SEM O IMPLEMENTAR É PIOR QUE RECUSÁ-LO. Antes desta
+    // linha, `MATCH` não era conferido nem lido em lado nenhum: as 182 fontes
+    // passavam a conferência e a corrida acusava a FONTE de não anunciar nada.
+    // Um campo fora do vocabulário reprova AQUI, e não a meio de uma visita.
+    if (aq.MATCH !== undefined && !["HTML", "URL"].includes(aq.MATCH)) {
+      throw new ContratoInvalido(`${sourceId}: MATCH ${JSON.stringify(aq.MATCH)} fora do vocabulário (HTML, URL)`);
+    }
+    if (aq.STRIP_SUFFIX !== undefined && !ehTexto(aq.STRIP_SUFFIX)) {
+      throw new ContratoInvalido(`${sourceId}: STRIP_SUFFIX tem de ser texto não vazio`);
+    }
+    if (aq.SAME_HOST !== undefined && typeof aq.SAME_HOST !== "boolean") {
+      throw new ContratoInvalido(`${sourceId}: SAME_HOST tem de ser true/false`);
+    }
   }
   if (e === "CUSTOM_ADAPTER") {
     if (!ehTexto(aq.ADAPTER_ID)) throw new ContratoInvalido(`${sourceId}: CUSTOM_ADAPTER sem ADAPTER_ID`);
@@ -161,6 +174,52 @@ function combinar(template, vars) {
 // dentro do plano de dados.
 //
 //     CONTROL PLANE != DATA PLANE.
+// ── MATCH: "URL" — as ligações de um índice, endereço a endereço ──────────
+// Enxertado de `aquisicao-detalhe-v1` (CANONICAL-MICRO-V1, 2026-09-21), onde
+// foi derivado do `linksDaEntrada()` que a SOURCE-COLLECTION-READINESS-V1
+// provou sobre 107 fontes em 2026-09-18. O que fica de fora fica de fora por
+// medição: activos estáticos, paginação e feeds não são documentos; e a
+// própria entrada não é um documento seu.
+const ATIVOS_ESTATICOS = /\.(css|js|png|jpe?g|gif|svg|ico|woff2?|xml|rss)(\?|#|$)/i;
+const PAGINACAO = /\/page\/\d+\/?(\?|#|$)|[?&](page|pagina|pag|p)=\d+/i;
+const FEED = /\/(feed|rss|atom)\/?(\?|#|$)/i;
+
+export function ligacoesDoIndice(html, aq) {
+  const padrao = new RegExp(aq.LINK_PATTERN, "i");
+  const entrada = aq.INDEX_URL;
+  const host = new URL(entrada).hostname.replace(/^www\./, "");
+  const entradaNorm = entrada.replace(/\/+$/, "");
+  const vistos = new Set(), fora = [];
+  for (const m of String(html).matchAll(/href\s*=\s*["']([^"'#]+)["']/gi)) {
+    let u;
+    try { u = new URL(m[1].trim(), entrada).href; } catch { continue; }
+    if (!/^https?:/i.test(u)) continue;
+    if (aq.STRIP_SUFFIX && u.endsWith(aq.STRIP_SUFFIX)) u = u.slice(0, -aq.STRIP_SUFFIX.length);
+    if (vistos.has(u)) continue;
+    vistos.add(u);
+    if (aq.SAME_HOST !== false && new URL(u).hostname.replace(/^www\./, "") !== host) continue;
+    if (ATIVOS_ESTATICOS.test(u) || PAGINACAO.test(u) || FEED.test(u)) continue;
+    if (u.replace(/\/+$/, "") === entradaNorm) continue;
+    if (!padrao.test(u)) continue;
+    fora.push(u);
+  }
+  return fora;
+}
+
+// O nome do ficheiro guardado nasce do último troço do caminho; um artigo
+// HTML raramente traz extensão, e o armazém precisa de uma.
+export function nomeDoAlvo(url, outputType) {
+  let nome = "";
+  try { nome = decodeURIComponent(new URL(url).pathname.split("/").filter(Boolean).pop() || ""); } catch { }
+  // ⚠️ 60 e nao 120: medido na Big Collection 2, com a pasta do documento ja
+  // limitada, 9 ficheiros continuavam acima dos 260 caracteres do MAX_PATH do
+  // Windows por causa do NOME. Fica a cauda, que e onde vive a extensao.
+  nome = nome.replace(/[^A-Za-z0-9._-]+/g, "_").slice(-60);
+  const ext = String(outputType || "").toUpperCase() === "PDF" ? ".pdf" : ".html";
+  return nome.toLowerCase().endsWith(ext) ? nome : (nome || "documento") + ext;
+}
+
+
 export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {} } = {}) {
   const aq = contrato && contrato.ACQUISITION;
   conferirAquisicao(sourceId, aq);
@@ -183,6 +242,41 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
       return { erro: `indice inacessivel: ${idx.erro || idx.status}` };
     }
     const texto = idx.buf.toString("latin1");
+    // ── MATCH: ONDE O PADRÃO SE APLICA ────────────────────────────────────
+    // Enxertado de `aquisicao-detalhe-v1` na CANONICAL-MICRO-V1 (2026-09-21),
+    // a mão e só este ramo: trazer o ficheiro inteiro apagava 42 linhas deste.
+    //
+    // "HTML" (omissão) — o padrão corre sobre o TEXTO do índice e o grupo 1 é
+    //   o endereço. É o modo dos `case` migrados, e é o que fica em baixo,
+    //   intacto: nenhuma fonte que já funcionava muda de caminho.
+    // "URL" — extraem-se TODOS os `href`, resolvem-se contra o índice, e o
+    //   padrão corre sobre cada endereço ABSOLUTO.
+    //
+    // ⚠️ PORQUE ISTO FALTAVA, MEDIDO NA RUN1 DESTA MISSÃO. A tabela onboarded
+    // declara `MATCH: "URL"` e traz padrões que são URLs inteiras ancoradas —
+    // `^https?://(www\.)?myfruit\.it/news/...$`. Este motor ignorava `MATCH`
+    // (zero ocorrências da palavra no ficheiro) e corria o padrão contra o
+    // documento todo. Um `^...$` sem flag `m` só casa se o documento INTEIRO
+    // for exactamente aquele endereço — nunca dentro de uma página.
+    //
+    // O resultado foi SEIS de SEIS fontes com `EMPTY_LIST`, e `EMPTY_LIST` é
+    // uma afirmação sobre a FONTE: «o índice não anuncia nada». Era falso. O
+    // índice anunciava; o motor é que estava a ler o sítio errado.
+    //
+    //     UM VOCABULÁRIO QUE O MOTOR NÃO LÊ NÃO É CONFIGURAÇÃO:
+    //     É UMA PROMESSA QUE O CONTRATO FAZ E NINGUÉM CUMPRE.
+    //
+    // `conferirAquisicao` passava as 182 linhas porque nunca olhou para
+    // `MATCH`. Aceitar um campo sem o implementar é pior que recusá-lo: a
+    // conferência dá verde e a corrida acusa a fonte.
+    const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : Infinity;
+    if (aq.MATCH === "URL") {
+      const urls = ligacoesDoIndice(texto, aq);
+      if (urls.length === 0) {
+        return { erro: "EMPTY_LIST — o indice nao anuncia nenhum endereco que case com LINK_PATTERN" };
+      }
+      return urls.slice(0, limite).map((url) => ({ url, nome: nomeDoAlvo(url, contrato && contrato.OUTPUT_TYPE) }));
+    }
     const re = new RegExp(aq.LINK_PATTERN, "gi");
     const achados = [...texto.matchAll(re)].map((m) => (m[1] !== undefined ? m[1] : m[0]));
     if (achados.length === 0) {
@@ -192,8 +286,8 @@ export async function alvosDoContrato(sourceId, contrato, { buscar, adapters = {
     }
     const base = aq.BASE_URL || aq.INDEX_URL;
     const urls = [...new Set(achados.map((h) => new URL(h, base).href))];
-    const limite = Number.isInteger(aq.MAX_TARGETS) ? aq.MAX_TARGETS : urls.length;
-    return urls.slice(0, limite).map((url) => ({ url, nome: url.split("/").pop() }));
+    return urls.slice(0, Number.isFinite(limite) ? limite : urls.length)
+               .map((url) => ({ url, nome: url.split("/").pop() }));
   }
 
   // CUSTOM_ADAPTER — o contrato NOMEIA; o registry resolve. O despachador

@@ -15,7 +15,7 @@ import { strict as assert } from "node:assert";
 import { readFileSync } from "node:fs";
 import {
   alvosDoContrato, identidadeDoContrato, conferirAquisicao,
-  ContratoInvalido, ESTRATEGIAS, PROVIDERS,
+  ContratoInvalido, ESTRATEGIAS, PROVIDERS, ligacoesDoIndice, nomeDoAlvo,
 } from "./motor_de_rota.mjs";
 import { CONTRACTS } from "./italy_contracts.mjs";
 
@@ -242,6 +242,101 @@ T("M2b · identidade consulta IDENTITY antes do switch", () => {
   const corpo = src.slice(ini, ini + 1400);
   assert.ok(corpo.includes("identidadeDoContrato"),
     "a identidade declarativa deixou de vir primeiro");
+});
+
+console.log("\n12 - MATCH:URL - o padrao corre sobre o ENDERECO, nao sobre a pagina");
+
+// ⚠️ ESTAS PROVAS NASCERAM DE UMA CORRIDA REAL QUE MENTIU SOBRE AS FONTES.
+// CANONICAL-MICRO-V1, RUN1 de 2026-09-21: seis fontes em seis devolveram
+// `EMPTY_LIST — o indice nao anuncia nenhum alvo`. Era falso. Os indices
+// anunciavam; o motor ignorava `MATCH: "URL"` e corria um padrao ancorado
+// (`^https?://...$`) contra o TEXTO da pagina inteira, onde ele nunca casa.
+//
+//     EMPTY_LIST E UMA ACUSACAO A FONTE. So se faz depois de olhar
+//     onde a fonte escreveu, e nao onde e comodo procurar.
+
+const INDICE_REAL = `<html><body>
+  <a href="/news/o-primeiro-artigo/">um</a>
+  <a href="https://www.exemplo.it/news/segundo-artigo">dois</a>
+  <a href="/news/category/vinho/">categoria</a>
+  <a href="/news/page/2/">pagina 2</a>
+  <a href="/tema.css">folha de estilo</a>
+  <a href="/feed/">o feed</a>
+  <a href="https://outro-sitio.com/news/de-fora/">outro host</a>
+  <a href="/">a propria entrada</a>
+</body></html>`;
+
+const AQ_URL = {
+  STRATEGY: "HTML_LINK_DISCOVERY", MATCH: "URL",
+  INDEX_URL: "https://www.exemplo.it/",
+  LINK_PATTERN: "^https?://(www\\.)?exemplo\\.it/news/(?!category/)[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+  MAX_TARGETS: 30,
+};
+
+T("URL - o padrao ancorado encontra os artigos que a pagina anuncia", () => {
+  const u = ligacoesDoIndice(INDICE_REAL, AQ_URL);
+  assert.deepEqual(u, ["https://www.exemplo.it/news/o-primeiro-artigo/",
+                       "https://www.exemplo.it/news/segundo-artigo"]);
+});
+
+T("URL - categoria, paginacao, activo estatico, feed e outro host ficam fora", () => {
+  const u = ligacoesDoIndice(INDICE_REAL, AQ_URL).join(" ");
+  for (const fora of ["category", "/page/", ".css", "/feed", "outro-sitio"]) {
+    assert.ok(!u.includes(fora), `${fora} entrou, e nao e um documento`);
+  }
+});
+
+T("URL - alvosDoContrato devolve alvos, e nao EMPTY_LIST", async () => {
+  const r = await alvosDoContrato("IT-FICT-URL", { ACQUISITION: AQ_URL, OUTPUT_TYPE: "HTML" },
+    { buscar: async () => ({ status: 200, buf: Buffer.from(INDICE_REAL, "latin1") }) });
+  assert.ok(Array.isArray(r), `devolveu erro: ${JSON.stringify(r)}`);
+  assert.equal(r.length, 2);
+  assert.equal(r[0].nome, "o-primeiro-artigo.html", "o nome do alvo perdeu a extensao");
+});
+
+T("URL - indice que MESMO nao anuncia nada continua a dizer EMPTY_LIST", async () => {
+  const r = await alvosDoContrato("IT-FICT-URL", { ACQUISITION: AQ_URL, OUTPUT_TYPE: "HTML" },
+    { buscar: async () => ({ status: 200, buf: Buffer.from("<html><a href='/sobre/'>x</a></html>", "latin1") }) });
+  assert.ok(r && r.erro && r.erro.startsWith("EMPTY_LIST"),
+    "um indice sem documentos deixou de se queixar - EMPTY_LIST tem de continuar a existir");
+});
+
+T("URL - MAX_TARGETS continua a limitar", async () => {
+  const r = await alvosDoContrato("IT-FICT-URL",
+    { ACQUISITION: { ...AQ_URL, MAX_TARGETS: 1 }, OUTPUT_TYPE: "HTML" },
+    { buscar: async () => ({ status: 200, buf: Buffer.from(INDICE_REAL, "latin1") }) });
+  assert.equal(r.length, 1);
+});
+
+T("HTML - o modo antigo nao mudou: grupo 1 sobre o texto da pagina", async () => {
+  const r = await alvosDoContrato("IT-FICT-HTML",
+    { ACQUISITION: { STRATEGY: "HTML_LINK_DISCOVERY", INDEX_URL: "http://www.apol.it/",
+                     LINK_PATTERN: 'href="([^"]*Bollettino_Mosca[^"]*\\.pdf)"', MAX_TARGETS: 1 } },
+    { buscar: async () => ({ status: 200,
+        buf: Buffer.from('<a href="/x/Bollettino_Mosca_01.pdf">p</a>', "latin1") }) });
+  assert.equal(r.length, 1);
+  assert.equal(r[0].url, "http://www.apol.it/x/Bollettino_Mosca_01.pdf");
+  assert.equal(r[0].nome, "Bollettino_Mosca_01.pdf", "o modo HTML passou a usar nomeDoAlvo");
+});
+
+T("MATCH fora do vocabulario reprova na CONFERENCIA, nao a meio da visita", () => {
+  assert.throws(() => conferirAquisicao("X", { ...AQ_URL, MATCH: "JSON" }), ContratoInvalido);
+  assert.doesNotThrow(() => conferirAquisicao("X", { ...AQ_URL, MATCH: "URL" }));
+  assert.doesNotThrow(() => conferirAquisicao("X", { ...AQ_URL, MATCH: "HTML" }));
+});
+
+T("as fontes onboarded que declaram MATCH:URL sao servidas pelo ramo certo", () => {
+  const comURL = Object.keys(CONTRACTS).filter(
+    (id) => CONTRACTS[id].ACQUISITION && CONTRACTS[id].ACQUISITION.MATCH === "URL");
+  assert.ok(comURL.length > 100, `so ${comURL.length} fontes declaram MATCH:URL`);
+  for (const id of comURL) conferirAquisicao(id, CONTRACTS[id].ACQUISITION);
+});
+
+T("nomeDoAlvo - a cauda fica, e a extensao nasce do OUTPUT_TYPE", () => {
+  assert.equal(nomeDoAlvo("https://x.it/news/uma-noticia/", "HTML"), "uma-noticia.html");
+  assert.equal(nomeDoAlvo("https://x.it/docs/b.pdf", "PDF"), "b.pdf");
+  assert.ok(nomeDoAlvo("https://x.it/" + "a".repeat(200), "HTML").length <= 65,
+    "o nome passou do limite que o MAX_PATH do Windows aguenta");
 });
 
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);
