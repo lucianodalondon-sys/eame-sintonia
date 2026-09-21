@@ -277,6 +277,7 @@
       "curadoria/CANDIDATE-BUCKETS-V1.json",
       "curadoria/CANDIDATE-LINEAGE-V1.json",
       "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+      "curadoria/COLLECTION-INTAKE-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
       "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
@@ -318,6 +319,7 @@
       "curadoria/capturador.py",
       "curadoria/caracterizador.py",
       "curadoria/ciclo_continuo.py",
+      "curadoria/collection_gate.py",
       "curadoria/consolidar.py",
       "curadoria/consolidar_caracterizacao.py",
       "curadoria/correr_lote.py",
@@ -352,6 +354,7 @@
       "curadoria/test_canario_detalhe.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
+      "curadoria/test_collection_gate.py",
       "curadoria/test_correr_lote.py",
       "curadoria/test_discovery.py",
       "curadoria/test_emparelhar_ataques.py",
@@ -2807,10 +2810,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reconciliacao-v1",
-    "HEAD": "4492e01beb7d05d36af55a39af9754c05ec5db8a",
-    "GENERATED_AT": "2026-09-21T12:44:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8"
+    "BRANCH": "intake-gate-v1",
+    "HEAD": "274119248f6259bb56a16264dd8dd65bb64f8041",
+    "GENERATED_AT": "2026-09-21T13:47:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb"
   },
   "FAMILIES": [
     {
@@ -24846,7 +24849,7 @@
         "PROVA": [
           "candidatas/decidir_fila_italia.py:383",
           "coleta/italy_probe.mjs:23",
-          "coleta/italy_recurrent_collect.mjs:29",
+          "coleta/italy_recurrent_collect.mjs:35",
           "leis/fonte_do_atlas.py:75"
         ],
         "PORQUE": "estas pecas importam-na — C-DECISAO-DA-FILA · C-FONTE-DO-ATLAS · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -24929,7 +24932,7 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 9 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "INTELIGENCIA · TECNICO_CIENCIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -24938,6 +24941,7 @@
         "candidatas/ITALY-SOURCE-MASTER-V1.json",
         "candidatas/italy_profiles.mjs",
         "coleta/italy_pilot_collect.mjs",
+        "curadoria/collection_gate.py",
         "data/collection-ledger/italy/observations.ndjson",
         "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
         "data/samples/IT-PROBE/probe-fase-c.json",
@@ -40533,7 +40537,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch reconciliacao-v1"
+        "branch intake-gate-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -66540,7 +66544,7 @@
       "evidence": [
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 29,
+          "line": 35,
           "snippet": "import { PROFILES, PERFIL_PADRAO } from \"../candidatas/italy_profiles.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-COLETA",
@@ -66591,7 +66595,7 @@
         },
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 29,
+          "line": 35,
           "snippet": "import { PROFILES, PERFIL_PADRAO } from \"../candidatas/italy_profiles.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -68047,7 +68051,7 @@
         },
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 30,
+          "line": 36,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
@@ -68102,7 +68106,7 @@
         },
         {
           "file": "coleta/italy_recurrent_collect.mjs",
-          "line": 30,
+          "line": 36,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -97514,7 +97518,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1197,
+  "UNCLAIMED_FILES_COUNT": 1200,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97703,7 +97707,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2214,
+    "files_tracked": 2217,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

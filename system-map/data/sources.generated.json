@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-21T15:48:48+00:00",
-    "HEAD": "4492e01beb7d05d36af55a39af9754c05ec5db8a",
+    "GENERATED_AT": "2026-09-21T16:53:05+00:00",
+    "HEAD": "274119248f6259bb56a16264dd8dd65bb64f8041",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8",
-    "FICHEIROS_NA_IMPRESSAO": 2362,
+    "SOURCE_TREE_FINGERPRINT": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb",
+    "FICHEIROS_NA_IMPRESSAO": 2365,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -17973,6 +17973,31 @@
       ]
     },
     {
+      "endpoint": "https://ex.it/news",
+      "usado_por": [
+        {
+          "file": "curadoria/test_canario_detalhe.py",
+          "line": 32
+        },
+        {
+          "file": "curadoria/test_collection_gate.py",
+          "line": 49
+        },
+        {
+          "file": "curadoria/test_interface_collection.py",
+          "line": 34
+        },
+        {
+          "file": "curadoria/test_ready_split.py",
+          "line": 65
+        },
+        {
+          "file": "curadoria/test_reconciliar_livros.py",
+          "line": 44
+        }
+      ]
+    },
+    {
       "endpoint": "https://bsky.app/profile",
       "usado_por": [
         {
@@ -18184,23 +18209,6 @@
         {
           "file": "tests/test_youtube_oficial.py",
           "line": 528
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ex.it/news",
-      "usado_por": [
-        {
-          "file": "curadoria/test_canario_detalhe.py",
-          "line": 32
-        },
-        {
-          "file": "curadoria/test_ready_split.py",
-          "line": 65
-        },
-        {
-          "file": "curadoria/test_reconciliar_livros.py",
-          "line": 44
         }
       ]
     },

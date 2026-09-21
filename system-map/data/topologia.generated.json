@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-21T15:48:19+00:00",
-  "HEAD": "4492e01beb7d05d36af55a39af9754c05ec5db8a",
-  "BRANCH": "reconciliacao-v1",
+  "GENERATED_AT": "2026-09-21T16:52:34+00:00",
+  "HEAD": "274119248f6259bb56a16264dd8dd65bb64f8041",
+  "BRANCH": "intake-gate-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8",
-  "FICHEIROS_NA_IMPRESSAO": 2362,
+  "SOURCE_TREE_FINGERPRINT": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb",
+  "FICHEIROS_NA_IMPRESSAO": 2365,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -454,7 +454,7 @@
    {
     "PATH": "coleta/italy_executor.py",
     "PAPEL": "FONTE",
-    "VERSAO": "778fbb0118e6b8fcc6de386627fa4ab85d2489b4",
+    "VERSAO": "dcd676553b59d71269877067a8245b05e697d9a6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -482,7 +482,7 @@
    {
     "PATH": "coleta/italy_recurrent_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "e90cd8185df8328b9cfb6495012a77ee29acc912",
+    "VERSAO": "eb59a335fb6fdef47545a6da29cc88b8b4ac9de5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2988,14 +2988,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8",
+    "VERSAO": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8",
+    "VERSAO": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4646,7 +4646,7 @@
    }
   ],
   "INPUTS_COUNT": 658,
-  "INPUTS_DIGEST": "bab2fdd845365a30dbd6e6a5be387647d2ed9eb6ffca6c76934e8d4038303b39",
+  "INPUTS_DIGEST": "508fb21c743bcd5ebdeb35adc79732aa34f2ccdf8b723771c3066eeddc30cc03",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4679,8 +4679,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4460f26cbd250b62f481c3bad409a939a1f862364fb3c8b9f12eea89318319c3",
-  "SEMANTIC_HASH": "b3db457720755f6ff0f45f6319f60a43df2a92ff35de764c58cd4c24aba6e242"
+  "MEASUREMENT_HASH": "627d351f6c58128f4451355ace9be09c2ffcc211f2fd93d0f16b6d51a1696edc",
+  "SEMANTIC_HASH": "526ced69054d836cb00fe8ed8025827b68fd8e19380d0b8e053c1efdec018dda"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -19299,7 +19299,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "coleta/italy_recurrent_collect.mjs",
-      "LINHA": 29,
+      "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-COLETA",
@@ -19425,7 +19425,7 @@
      },
      {
       "FICHEIRO": "coleta/italy_recurrent_collect.mjs",
-      "LINHA": 29,
+      "LINHA": 35,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -20245,7 +20245,7 @@
      },
      {
       "FICHEIRO": "coleta/italy_recurrent_collect.mjs",
-      "LINHA": 30,
+      "LINHA": 36,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
@@ -20335,7 +20335,7 @@
      },
      {
       "FICHEIRO": "coleta/italy_recurrent_collect.mjs",
-      "LINHA": 30,
+      "LINHA": 36,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,

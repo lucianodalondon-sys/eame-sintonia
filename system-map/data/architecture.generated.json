@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "reconciliacao-v1",
-    "HEAD": "4492e01beb7d05d36af55a39af9754c05ec5db8a",
-    "GENERATED_AT": "2026-09-21T12:44:50-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8"
+    "BRANCH": "intake-gate-v1",
+    "HEAD": "274119248f6259bb56a16264dd8dd65bb64f8041",
+    "GENERATED_AT": "2026-09-21T13:47:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb"
   },
   "FILES": [
     {
@@ -1466,7 +1466,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "778fbb0118e6b8fcc6de386627fa4ab85d2489b4",
+      "sha": "dcd676553b59d71269877067a8245b05e697d9a6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1494,7 +1494,7 @@
     },
     {
       "path": "coleta/italy_recurrent_collect.mjs",
-      "sha": "e90cd8185df8328b9cfb6495012a77ee29acc912",
+      "sha": "eb59a335fb6fdef47545a6da29cc88b8b4ac9de5",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -1780,6 +1780,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/COLLECTION-INTAKE-V1.json",
+      "sha": "0e8af7a4021049d525c23244e7b49d8acdcb77e7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/CONTRACT-VALIDATION-V1.json",
       "sha": "5bce030035be7bc61c341204d33f19394c6627b2",
       "ext": ".json",
@@ -1879,7 +1886,7 @@
     },
     {
       "path": "curadoria/LIFECYCLE-RED-TEAM-V1.json",
-      "sha": "f417a989e06e24d636d9fdc7970895f1eaaab392",
+      "sha": "7aa8fb49357bd2d5d0656d37a8bd8811f6b4eded",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1914,7 +1921,7 @@
     },
     {
       "path": "curadoria/READY-SOURCES-V1.json",
-      "sha": "722e0a7c405e136e1b75e72d98368be8b2da4d20",
+      "sha": "e42c188a48cec93840a118725fb79dad4aacdb6d",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2067,6 +2074,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/collection_gate.py",
+      "sha": "eb75102a7cbf977897101463ad64bf08834e2623",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/consolidar.py",
       "sha": "f8c224be99009e19afc647485206f48fabcd6a8b",
       "ext": ".py",
@@ -2138,7 +2152,7 @@
     },
     {
       "path": "curadoria/interface_collection.py",
-      "sha": "1b5116a3fcdf2a8c6742215807755d255ac93a04",
+      "sha": "8bef915cb5b9bcdb7c831fbaca44b20dc8b4c7e0",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2243,14 +2257,14 @@
     },
     {
       "path": "curadoria/reconciliar_livros.py",
-      "sha": "cc775e5162f006039f769b1e59908c78b975215e",
+      "sha": "968d1cc461b0965dbbb746b61fd99d3e556b1b4a",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/red_team_lifecycle.py",
-      "sha": "451ea3350d0fe7b4ebf25cec2d5e2a2f071a7bce",
+      "sha": "0078ce8c27def397b5944be6ac2af9a9059d03d5",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2271,7 +2285,7 @@
     },
     {
       "path": "curadoria/status_live.py",
-      "sha": "db6cbb961c12a64214a291a9b06caf3e734cc63f",
+      "sha": "9df85536c9abe65e8690389ea7e965ed117b83d1",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2305,6 +2319,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_collection_gate.py",
+      "sha": "00d52675e55b15cbebd1278aeb15c97e96a79f5e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_correr_lote.py",
       "sha": "a79e337d42425e7b268bd70ed9d3b1723da1d1a9",
       "ext": ".py",
@@ -2327,7 +2348,7 @@
     },
     {
       "path": "curadoria/test_interface_collection.py",
-      "sha": "22004a6b8b24d4265189401523f38e4aebcc2837",
+      "sha": "84bd8ac3787ab718c6011120e42feeb984cfcc8c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2348,7 +2369,7 @@
     },
     {
       "path": "curadoria/test_painel_discovery.py",
-      "sha": "e3808bea1b8766803630402b9c19f72d9e4fef49",
+      "sha": "4e6dd3187ded86ac41dac60a0b88adcf8737361b",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2376,7 +2397,7 @@
     },
     {
       "path": "curadoria/test_ready_split.py",
-      "sha": "ca6fb0d36cd540e83d11ba902632d4dd29539890",
+      "sha": "1b15fd9c05b39100371192e3a8c9bc2d0a38ab16",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2411,7 +2432,7 @@
     },
     {
       "path": "curadoria/test_zz_guarda_isolamento.py",
-      "sha": "f6c78173184e23b3a98d7de2468c58ab66d8a090",
+      "sha": "3261bdc84b45fae6904dbbee2247fd4fdb87b806",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -18678,6 +18699,17 @@
     },
     {
       "from_file": "coleta/italy_executor.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_executor.py",
+        "line": 416,
+        "snippet": "r = subprocess.run([sys.executable, os.path.join(\"curadoria\", \"collection_gate.py\"),"
+      }
+    },
+    {
+      "from_file": "coleta/italy_executor.py",
       "to_file": "data/collection-ledger/italy/observations.ndjson",
       "type": "READS",
       "payload": "artefacto",
@@ -18782,7 +18814,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_recurrent_collect.mjs",
-        "line": 29,
+        "line": 35,
         "snippet": "import { PROFILES, PERFIL_PADRAO } from \"../candidatas/italy_profiles.mjs\";"
       }
     },
@@ -18793,7 +18825,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_recurrent_collect.mjs",
-        "line": 29,
+        "line": 35,
         "snippet": "import { PROFILES, PERFIL_PADRAO } from \"../candidatas/italy_profiles.mjs\";"
       }
     },
@@ -18804,8 +18836,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_recurrent_collect.mjs",
-        "line": 138,
+        "line": 207,
         "snippet": "const { executarRodada } = await import(\"./italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "coleta/italy_recurrent_collect.mjs",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_recurrent_collect.mjs",
+        "line": 158,
+        "snippet": "const saida = execFileSync(PY, [\"curadoria/collection_gate.py\", `--ids=${PROFILE.SOURCES.join(\",\")}`, \"--json\"],"
       }
     },
     {
@@ -18815,7 +18858,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/italy_recurrent_collect.mjs",
-        "line": 30,
+        "line": 36,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
       }
     },
@@ -18826,7 +18869,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_recurrent_collect.mjs",
-        "line": 30,
+        "line": 36,
         "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";"
       }
     },
@@ -20558,6 +20601,50 @@
       }
     },
     {
+      "from_file": "curadoria/collection_gate.py",
+      "to_file": "curadoria/COLLECTION-INTAKE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/collection_gate.py",
+        "line": 58,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"COLLECTION-INTAKE-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/collection_gate.py",
+      "to_file": "curadoria/COLLECTION-INTAKE-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/collection_gate.py",
+        "line": 242,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "curadoria/collection_gate.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/collection_gate.py",
+        "line": 54,
+        "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/collection_gate.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/collection_gate.py",
+        "line": 55,
+        "snippet": "import ready_split as RS  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/consolidar.py",
       "to_file": "curadoria/FUNIL-DO-CURATOR-V1.json",
       "type": "WRITES",
@@ -21114,7 +21201,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/interface_collection.py",
-        "line": 41,
+        "line": 57,
         "snippet": "SNAPSHOT = RAIZ / \"curadoria\" / \"READY-SOURCES-V1.json\""
       }
     },
@@ -21125,7 +21212,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/interface_collection.py",
-        "line": 167,
+        "line": 222,
         "snippet": "SNAPSHOT.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding=\"utf-8\")"
       }
     },
@@ -21136,8 +21223,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/interface_collection.py",
-        "line": 40,
+        "line": 56,
         "snippet": "CARACT = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/interface_collection.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/interface_collection.py",
+        "line": 50,
+        "snippet": "import collection_gate as CG  # noqa: E402"
       }
     },
     {
@@ -21147,8 +21245,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/interface_collection.py",
-        "line": 34,
-        "snippet": "import fila as F          # noqa: E402"
+        "line": 51,
+        "snippet": "import fila as F              # noqa: E402"
       }
     },
     {
@@ -21158,7 +21256,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/interface_collection.py",
-        "line": 39,
+        "line": 55,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -21169,19 +21267,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/interface_collection.py",
-        "line": 35,
-        "snippet": "import lifecycle as LC    # noqa: E402"
-      }
-    },
-    {
-      "from_file": "curadoria/interface_collection.py",
-      "to_file": "curadoria/ready_split.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "curadoria/interface_collection.py",
-        "line": 36,
-        "snippet": "import ready_split as RS  # noqa: E402"
+        "line": 52,
+        "snippet": "import lifecycle as LC        # noqa: E402"
       }
     },
     {
@@ -21928,7 +22015,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 67,
+        "line": 68,
         "snippet": "PORTA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
       }
     },
@@ -21939,7 +22026,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 66,
+        "line": 67,
         "snippet": "MATCH = RAIZ / \"curadoria\" / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\""
       }
     },
@@ -21950,7 +22037,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 161,
+        "line": 162,
         "snippet": "passo2_b = do_git(ref_b, \"curadoria/CONTRATOS-PASSO-2-V1.json\") or {}"
       }
     },
@@ -21961,7 +22048,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 62,
+        "line": 63,
         "snippet": "EVIDENCIA_A = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -21972,7 +22059,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 167,
+        "line": 168,
         "snippet": "\"B\": do_git(ref_b, \"curadoria/LIFECYCLE-LEDGER-V1.json\"),"
       }
     },
@@ -21983,7 +22070,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 64,
+        "line": 65,
         "snippet": "LISTAGENS_A = RAIZ / \"curadoria\" / \"LISTAGENS-PROVADAS-V1.json\""
       }
     },
@@ -21994,7 +22081,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 68,
+        "line": 69,
         "snippet": "SAIDA = RAIZ / \"curadoria\" / \"RECONCILIACAO-V1.json\""
       }
     },
@@ -22005,7 +22092,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 784,
+        "line": 782,
         "snippet": "SAIDA.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -22016,8 +22103,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 65,
+        "line": 66,
         "snippet": "ALLOC = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/reconciliar_livros.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/reconciliar_livros.py",
+        "line": 54,
+        "snippet": "import collection_gate as CG  # noqa: E402"
       }
     },
     {
@@ -22027,7 +22125,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 63,
+        "line": 64,
         "snippet": "CONTRATOS_A = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -22038,7 +22136,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 54,
+        "line": 55,
         "snippet": "import lifecycle as LC        # noqa: E402"
       }
     },
@@ -22049,7 +22147,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 55,
+        "line": 56,
         "snippet": "import ready_split as RS      # noqa: E402"
       }
     },
@@ -22060,7 +22158,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/red_team_lifecycle.py",
-        "line": 132,
+        "line": 163,
         "snippet": "(CUR / \"LIFECYCLE-RED-TEAM-V1.json\").write_text(json.dumps("
       }
     },
@@ -22071,7 +22169,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/red_team_lifecycle.py",
-        "line": 83,
+        "line": 114,
         "snippet": "m04 = json.loads((CUR / \"READY-FOR-COLLECTION-V1.json\")"
       }
     },
@@ -22093,7 +22191,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/red_team_lifecycle.py",
-        "line": 103,
+        "line": 134,
         "snippet": "(CUR / \"fila.py\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -22126,8 +22224,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/red_team_lifecycle.py",
-        "line": 102,
+        "line": 133,
         "snippet": "txt = (CUR / \"lifecycle.py\").read_text(encoding=\"utf-8\") + \\"
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_lifecycle.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/red_team_lifecycle.py",
+        "line": 24,
+        "snippet": "import ready_split as RS              # noqa: E402"
       }
     },
     {
@@ -22137,7 +22246,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/red_team_lifecycle.py",
-        "line": 113,
+        "line": 144,
         "snippet": "wtxt = (CUR / \"worker.py\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -22373,6 +22482,160 @@
       }
     },
     {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 282,
+        "snippet": "\".github/workflows/sintonia-scrap.yml\": (\"TEST_ONLY\", False),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 398,
+        "snippet": "import italy_executor as adapter   # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 278,
+        "snippet": "\"coleta/italy_executor.py\": (\"PRODUCTION_PATH\", True),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 269,
+        "snippet": "COLETORES = (\"italy_pilot_collect.mjs\", \"italy_recurrent_collect.mjs\")"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "coleta/italy_recurrent_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 269,
+        "snippet": "COLETORES = (\"italy_pilot_collect.mjs\", \"italy_recurrent_collect.mjs\")"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 39,
+        "snippet": "import collection_gate as CG      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 203,
+        "snippet": "DECIDEM_A_ADMISSAO = [\"curadoria/collection_gate.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 40,
+        "snippet": "import fila as F                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/interface_collection.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 41,
+        "snippet": "import interface_collection as IC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/interface_collection.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 204,
+        "snippet": "\"curadoria/interface_collection.py\"]"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 42,
+        "snippet": "import lifecycle as LC            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 43,
+        "snippet": "import ready_split as RS          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "ferramentas/italy-forward-only-live.cmd",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 281,
+        "snippet": "\"ferramentas/italy-forward-only-live.cmd\": (\"PRODUCTION_LAUNCHER\", False),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "pedido/receitas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 279,
+        "snippet": "\"pedido/receitas.py\": (\"PRODUCTION_PATH_DECLARA\", False),"
+      }
+    },
+    {
       "from_file": "curadoria/test_correr_lote.py",
       "to_file": "curadoria/capturador.py",
       "type": "IMPORTS",
@@ -22500,7 +22763,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_interface_collection.py",
-        "line": 18,
+        "line": 19,
         "snippet": "import fila as F                      # noqa: E402"
       }
     },
@@ -22511,7 +22774,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_interface_collection.py",
-        "line": 19,
+        "line": 20,
         "snippet": "import interface_collection as IC     # noqa: E402"
       }
     },
@@ -22522,7 +22785,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/test_interface_collection.py",
-        "line": 33,
+        "line": 69,
         "snippet": "IC.CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -22533,8 +22796,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_interface_collection.py",
-        "line": 20,
+        "line": 21,
         "snippet": "import lifecycle as LC                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_interface_collection.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_interface_collection.py",
+        "line": 22,
+        "snippet": "import ready_split as RS              # noqa: E402"
       }
     },
     {
@@ -23210,6 +23484,17 @@
     },
     {
       "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "curadoria/COLLECTION-INTAKE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 77,
+        "snippet": "\"COLLECTION-INTAKE-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
       "to_file": "curadoria/DISCOVERY-PROOF-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -23294,6 +23579,28 @@
         "file": "curadoria/test_zz_guarda_isolamento.py",
         "line": 56,
         "snippet": "\"READY-BATCHES-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "curadoria/READY-SOURCES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 75,
+        "snippet": "\"READY-SOURCES-V1.json\","
+      }
+    },
+    {
+      "from_file": "curadoria/test_zz_guarda_isolamento.py",
+      "to_file": "curadoria/READY-SPLIT-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_zz_guarda_isolamento.py",
+        "line": 76,
+        "snippet": "\"READY-SPLIT-V1.json\","
       }
     },
     {
@@ -68174,10 +68481,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2214,
-    "files_readable": 884,
+    "files_tracked": 2217,
+    "files_readable": 886,
     "files_code_dir": 883,
-    "file_edges": 4741,
+    "file_edges": 4767,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

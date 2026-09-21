@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4492e01beb7d05d36af55a39af9754c05ec5db8a
-BRANCH           reconciliacao-v1
-GERADO_EM        2026-09-21T12:44:50-03:00
+HEAD_DA_MEDICAO  274119248f6259bb56a16264dd8dd65bb64f8041
+BRANCH           intake-gate-v1
+GERADO_EM        2026-09-21T13:47:39-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -563,7 +563,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/decidir_fila_italia.py:383; coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:29 |
+| **prova de quem ativa** | candidatas/decidir_fila_italia.py:383; coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:35 |
 | **porquê** | estas pecas importam-na — C-DECISAO-DA-FILA · C-FONTE-DO-ATLAS · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `regras/italy_contracts.mjs`, `regras/italy_source_health.mjs` |

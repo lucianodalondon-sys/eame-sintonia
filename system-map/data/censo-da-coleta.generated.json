@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-21T15:45:42+00:00",
-    "HEAD": "4492e01beb7d05d36af55a39af9754c05ec5db8a",
+    "GENERATED_AT": "2026-09-21T16:50:47+00:00",
+    "HEAD": "274119248f6259bb56a16264dd8dd65bb64f8041",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fbdf291e2f2fc69116048ed5653779be0d5646bf31dae54c6274a71fc5f1eec8",
-    "FICHEIROS_NA_IMPRESSAO": 2362,
+    "SOURCE_TREE_FINGERPRINT": "24ea561f08e42320447a25eb671ebff7ff502663fe3e822a37a187901d6db2cb",
+    "FICHEIROS_NA_IMPRESSAO": 2365,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -321,7 +321,7 @@
       {
         "PATH": "coleta/italy_executor.py",
         "PAPEL": "FONTE",
-        "VERSAO": "778fbb0118e6b8fcc6de386627fa4ab85d2489b4",
+        "VERSAO": "dcd676553b59d71269877067a8245b05e697d9a6",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -349,7 +349,7 @@
       {
         "PATH": "coleta/italy_recurrent_collect.mjs",
         "PAPEL": "FONTE",
-        "VERSAO": "e90cd8185df8328b9cfb6495012a77ee29acc912",
+        "VERSAO": "eb59a335fb6fdef47545a6da29cc88b8b4ac9de5",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -936,7 +936,7 @@
       }
     ],
     "INPUTS_COUNT": 132,
-    "INPUTS_DIGEST": "63ebb57bfca8c58fbcf536e96be7ac806e1bfb01cdb51d4c2fd92c6b31b501d5",
+    "INPUTS_DIGEST": "e34a3363dcb4203e77d09f8ec74bcbf021e9e063edcef1217ca814ebad809a1a",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -990,7 +990,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/italy_executor.py"
+      ],
       "no_ci": false
     },
     {
@@ -2341,7 +2343,7 @@
     {
       "ficheiro": "coleta/italy_executor.py",
       "gaveta": "coleta",
-      "linhas": 439,
+      "linhas": 498,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2413,13 +2415,13 @@
     {
       "ficheiro": "coleta/italy_recurrent_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 190,
+      "linhas": 259,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
       "ferramentas": [],
-      "descarta": false,
-      "escreve_o_motivo_do_descarte": false,
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
@@ -3735,10 +3737,10 @@
     "ficheiros_de_codigo": 132,
     "pontos_de_entrada": 94,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 48,
+    "sem_chamador_e_fora_do_ci": 47,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 73,
-    "deitam_fora_alguma_coisa": 39,
+    "deitam_fora_alguma_coisa": 40,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 3,
     "decisoes_escondidas_ao_todo": 3
@@ -3866,7 +3868,6 @@
       "guarda/portas_live.py"
     ],
     "orfaos": [
-      "pedido/receitas.py",
       "candidatas/decidir_fila_italia.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",

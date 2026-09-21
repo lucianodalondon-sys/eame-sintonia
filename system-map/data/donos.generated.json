@@ -151,13 +151,14 @@
   {
    "CONCEITO": "ADMISSION",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "24 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "25 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/admissao.py",
     "admissao/sala_de_espera.py",
     "coleta/rota_forward_documento.py",
     "curadoria/baldes_das_candidatas.py",
     "curadoria/ciclo_continuo.py",
+    "curadoria/collection_gate.py",
     "curadoria/emparelhar_com_atlas.py",
     "curadoria/gate_de_rota.py",
     "curadoria/provar_lifecycle.py",
@@ -192,17 +193,18 @@
     "coleta/ingresso.py",
     "coleta/instagram_pessoal.py"
    ],
-   "QUANTOS_LEEM": 131,
+   "QUANTOS_LEEM": 134,
    "INSTRUMENTOS_QUE_CITAM": 188,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ORQUESTRADOR",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "6 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "7 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/sala_de_espera.py",
     "coleta/italy_executor.py",
+    "curadoria/test_collection_gate.py",
     "ferramentas/reel_transcricao.py",
     "guarda/memoria_postgres.py",
     "leis/relevancia_da_fonte.py",
@@ -232,13 +234,15 @@
    "NOTA": "nenhum dono fora das gavetas de medida, e 39 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
+    "coleta/italy_executor.py",
+    "curadoria/test_collection_gate.py",
     "leis/relevancia_da_fonte.py",
     "leis/retorno_da_coleta.py",
     "leis/territorios.py",
     "orquestrador/orquestrador.py",
     "pacote/v21_handoff_json.py"
    ],
-   "QUANTOS_LEEM": 5,
+   "QUANTOS_LEEM": 7,
    "INSTRUMENTOS_QUE_CITAM": 39,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
