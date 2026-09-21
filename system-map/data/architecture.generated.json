@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "18b52d1f9bbe19b7518f39380cdbd5728ab0bef1",
-    "GENERATED_AT": "2026-09-21T00:22:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6087ef38ca55f8c62a6f772da341151ba92caee336e0cc0f37369863ac15ecda"
+    "HEAD": "0b57ee7e4ee09af67cf28ad862aa279443ea9412",
+    "GENERATED_AT": "2026-09-21T00:40:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e49431c5e3252fa7d2fb1d5993e2e53c5dc06b749eabdf48d5940dbf2dd46f1a"
   },
   "FILES": [
     {
@@ -1766,6 +1766,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/DISCOVERY-SIGNAL-V1.json",
+      "sha": "2693ec707402399da239e37ce732de5aa8498d0e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/FUNIL-DO-CURATOR-V1.json",
       "sha": "73b33bd1ba68a772529968e312b7644236ddc05d",
       "ext": ".json",
@@ -2109,6 +2116,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/nivel_da_fila.py",
+      "sha": "f729e6de5d7f83384c5f8a15c62b651074ddeb1b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/provar_autonomia.py",
       "sha": "e530a5d2d008df99b2a2ff1dc37190eafa3b4ba3",
       "ext": ".py",
@@ -2166,14 +2180,14 @@
     },
     {
       "path": "curadoria/status_live.py",
-      "sha": "dece6c61397498fbff067008720c8a65a462fe04",
+      "sha": "c51739d7ad9481ce06cb46620ad3e967dc80aa0c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "ffd3fc6686971a718391066bd0d6f5747fd632ac",
+      "sha": "bcd043a5ab60d4796237bc614252bd2a3848cbaa",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2223,6 +2237,20 @@
     {
       "path": "curadoria/test_lifecycle.py",
       "sha": "3b3acc5d7eb429575aaab3d5b1ab11ac1bc60ad8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_nivel_da_fila.py",
+      "sha": "f5c59e85b698e0b68cf16f667b2646d805860a8f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_painel_pergunta_ao_so.py",
+      "sha": "491e2bcaec6a9f65ab7bdafc258fb1a74cccb053",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -21226,6 +21254,39 @@
       }
     },
     {
+      "from_file": "curadoria/nivel_da_fila.py",
+      "to_file": "curadoria/DISCOVERY-SIGNAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/nivel_da_fila.py",
+        "line": 42,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"DISCOVERY-SIGNAL-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/nivel_da_fila.py",
+      "to_file": "curadoria/DISCOVERY-SIGNAL-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/nivel_da_fila.py",
+        "line": 80,
+        "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/nivel_da_fila.py",
+      "to_file": "curadoria/baldes_das_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/nivel_da_fila.py",
+        "line": 40,
+        "snippet": "import baldes_das_candidatas as B  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/provar_autonomia.py",
       "to_file": "curadoria/LIFECYCLE-AUTONOMY-V1.json",
       "type": "WRITES",
@@ -21623,6 +21684,17 @@
     },
     {
       "from_file": "curadoria/status_live.py",
+      "to_file": "curadoria/nivel_da_fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/status_live.py",
+        "line": 44,
+        "snippet": "import nivel_da_fila as NIVEL  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/status_live.py",
       "to_file": "curadoria/supervisor.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21872,6 +21944,39 @@
         "file": "curadoria/test_lifecycle.py",
         "line": 27,
         "snippet": "import lifecycle as LC    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_nivel_da_fila.py",
+      "to_file": "curadoria/baldes_das_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_nivel_da_fila.py",
+        "line": 53,
+        "snippet": "import baldes_das_candidatas as B"
+      }
+    },
+    {
+      "from_file": "curadoria/test_nivel_da_fila.py",
+      "to_file": "curadoria/nivel_da_fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_nivel_da_fila.py",
+        "line": 11,
+        "snippet": "import nivel_da_fila as N  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_painel_pergunta_ao_so.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_painel_pergunta_ao_so.py",
+        "line": 21,
+        "snippet": "import supervisor as SUP  # noqa: E402"
       }
     },
     {
@@ -66851,10 +66956,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2190,
-    "files_readable": 870,
+    "files_tracked": 2194,
+    "files_readable": 873,
     "files_code_dir": 883,
-    "file_edges": 4636,
+    "file_edges": 4643,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

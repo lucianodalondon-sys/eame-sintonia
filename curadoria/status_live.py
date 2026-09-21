@@ -37,6 +37,20 @@ def _estado_servico() -> dict:
         return {"SOURCE_CURATOR_SERVICE": "UNKNOWN", "WORKER_ALIVE": False}
 
 
+def _nivel_da_fila() -> dict:
+    """Mede e ESCREVE o sinal (DISCOVERY-SIGNAL-V1.json) a cada volta. Se a
+    medicao falhar, o painel diz NAO SEI em vez de herdar o numero anterior."""
+    try:
+        import nivel_da_fila as NIVEL  # noqa: E402
+        r = NIVEL.escrever()
+        return {"CANDIDATE_BACKLOG": r["CANDIDATE_BACKLOG"],
+                "CANDIDATE_LOW_WATERMARK": r["CANDIDATE_LOW_WATERMARK"],
+                "DISCOVERY_SIGNAL": r["DISCOVERY_SIGNAL"]}
+    except Exception as e:
+        return {"CANDIDATE_BACKLOG": "NAO SEI", "CANDIDATE_LOW_WATERMARK": "NAO SEI",
+                "DISCOVERY_SIGNAL": "NAO SEI: %s" % type(e).__name__}
+
+
 def status() -> dict:
     livro = LC._ler_bruto()["TRANSICOES"]
     hoje = datetime.now(timezone.utc).date().isoformat()
@@ -106,6 +120,10 @@ def status() -> dict:
 
         "READY_BATCHES_CREATED": len(lotes["LOTES"]),
         "READY_SOURCES_WAITING_FOR_COLLECTION": len(entregues),
+
+        # O GATILHO DE FILA BAIXA (PASSO 8): quantas candidatas ainda podem
+        # virar trabalho automatico, e se ja e preciso pedir descoberta.
+        **_nivel_da_fila(),
 
         "POR_ESTADO": {k: v for k, v in LC.metricas().items() if v},
     }

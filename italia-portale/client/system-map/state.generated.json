@@ -275,6 +275,7 @@
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
       "curadoria/DETAIL-GATE-INTEGRATION-V1.json",
+      "curadoria/DISCOVERY-SIGNAL-V1.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
       "curadoria/LIFECYCLE-AUTONOMY-V1.json",
@@ -324,6 +325,7 @@
       "curadoria/lotes.py",
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
+      "curadoria/nivel_da_fila.py",
       "curadoria/provar_autonomia.py",
       "curadoria/provar_lifecycle.py",
       "curadoria/provar_supervisor.py",
@@ -341,6 +343,8 @@
       "curadoria/test_emparelhar_ataques.py",
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
+      "curadoria/test_nivel_da_fila.py",
+      "curadoria/test_painel_pergunta_ao_so.py",
       "curadoria/test_ready_split.py",
       "curadoria/test_retrato_html.py",
       "curadoria/test_supervisor.py",
@@ -2784,9 +2788,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "candidate-feeder-v1",
-    "HEAD": "18b52d1f9bbe19b7518f39380cdbd5728ab0bef1",
-    "GENERATED_AT": "2026-09-21T00:22:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6087ef38ca55f8c62a6f772da341151ba92caee336e0cc0f37369863ac15ecda"
+    "HEAD": "0b57ee7e4ee09af67cf28ad862aa279443ea9412",
+    "GENERATED_AT": "2026-09-21T00:40:24-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e49431c5e3252fa7d2fb1d5993e2e53c5dc06b749eabdf48d5940dbf2dd46f1a"
   },
   "FAMILIES": [
     {
@@ -97490,7 +97494,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1173,
+  "UNCLAIMED_FILES_COUNT": 1177,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -97679,7 +97683,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2190,
+    "files_tracked": 2194,
     "files_covered": 1017,
     "files_code_unclaimed": 0,
     "roles_proven": 147,

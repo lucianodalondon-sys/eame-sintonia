@@ -524,30 +524,68 @@ def _loop(pausa_worker: float, poll: float) -> int:
 # ---------------------------------------------------------------------------
 
 def ler_estado_servico() -> dict:
-    """Devolve o estado actual do servico. Nunca levanta excecao."""
+    """Devolve o estado actual do servico. Nunca levanta excecao.
+
+        FICHEIRO DIZ RUNNING != PROCESSO EXISTE.
+
+    Medido (CANDIDATE-FEEDER-V1, PASSO 9): um STATUS-LIVE dizia RUNNING com
+    WORKER_ALIVE true e WORKER_PID 97820 — PID inexistente. O painel herdava
+    verde de um ficheiro velho. Aqui cada PID e perguntado ao SO (tasklist),
+    e o nome do estado distingue TRES paragens que o ficheiro confundia:
+
+        RUNNING           ficheiro RUNNING, worker vivo no SO, batimento fresco
+        IDLE              supervisor vivo, sem worker de proposito (0 elegiveis)
+        STOPPED_FINISHED  o supervisor saiu limpo (PARAR.flag ou fim pedido)
+        STOPPED_BROKEN    o ficheiro diz RUNNING/IDLE e o SO diz que nao ha
+                          ninguem — morreu sem escrever
+        BLOCKED           crashloop declarado pelo proprio supervisor
+        UNKNOWN           sem ficheiro, ou ficheiro ilegivel
+
+    O supervisor tambem e medido: um IDLE com o SUPERVISOR_PID morto e um
+    STOPPED_BROKEN, nao um IDLE.
+    """
     try:
         s = _ler_estado()
     except Exception:
         s = {}
 
     pid   = s.get("WORKER_PID")
-    alive = bool(pid and _pid_no_so(pid))
+    alive = bool(pid and _pid_no_so(pid) and _proc_e_python(pid))
+    sup_pid = s.get("SUPERVISOR_PID")
+    sup_alive = bool(sup_pid and _pid_no_so(sup_pid) and _proc_e_python(sup_pid))
 
     hb = _ultimo_heartbeat()
+    hb_fresco = None
     if hb:
         s["LAST_PROGRESS_AT"] = hb.isoformat()
         delta = (datetime.now(timezone.utc) - hb).total_seconds()
-        if alive and delta >= HEARTBEAT_TIMEOUT_S:
+        hb_fresco = delta < HEARTBEAT_TIMEOUT_S
+        if alive and not hb_fresco:
             alive = False
 
-    state = s.get("SUPERVISOR_STATE", "UNKNOWN")
-    if state == "RUNNING" and not alive:
-        state = "STOPPED"
+    ficheiro = s.get("SUPERVISOR_STATE", "UNKNOWN") if s else "UNKNOWN"
+    if ficheiro == "RUNNING":
+        state = "RUNNING" if (alive and sup_alive) else "STOPPED_BROKEN"
+    elif ficheiro == "IDLE":
+        state = "IDLE" if sup_alive else "STOPPED_BROKEN"
+    elif ficheiro == "STOPPED":
+        state = "STOPPED_FINISHED"
+    elif ficheiro == "BLOCKED":
+        state = "BLOCKED"
+    elif ficheiro == "STARTING":
+        state = "RUNNING" if sup_alive else "STOPPED_BROKEN"
+    else:
+        state = "UNKNOWN"
 
     return {
         "SOURCE_CURATOR_SERVICE":   state,
+        "SERVICE_STATE_IN_FILE":    ficheiro,
+        "SERVICE_STATE_MEASURED_VIA": "tasklist PID + nome de imagem python + batimento no run log",
+        "SUPERVISOR_PID":           sup_pid,
+        "SUPERVISOR_ALIVE":         sup_alive,
         "WORKER_PID":               pid,
         "WORKER_ALIVE":             alive,
+        "HEARTBEAT_FRESH":          hb_fresco,
         "LAST_PROGRESS_AT":         s.get("LAST_PROGRESS_AT"),
         "RESTARTS_TOTAL":           s.get("RESTARTS_TOTAL", 0),
         "LAST_RESTART_AT":          s.get("LAST_RESTART_AT"),
