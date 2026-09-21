@@ -23,6 +23,7 @@ import { dirname } from "node:path";
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
 import { alvosDoContrato, CONTRATO_MOTOR_VERSAO } from "../regras/motor_de_rota.mjs";
 import { ADAPTERS } from "../coleta/adaptadores_de_aquisicao.mjs";
+import { retratoDoHtml, gateCapaNaoEMateria } from "../coleta/retrato_html.mjs";
 
 const RAIZ = dirname(dirname(fileURLToPath(import.meta.url)));
 const UA = "SintoniaScrap/1.0 (+EAME; source curator canary; contato via repositorio)";
@@ -96,10 +97,36 @@ async function main() {
       return 1;
     }
     const lista = Array.isArray(alvos) ? alvos : [];
-    dizer({ ...base, PASS: lista.length > 0, HTTP: ultimoStatus ?? 200, ALVOS: lista.length,
-            AMOSTRA: lista.slice(0, 2).map((a) => a.url), PEDIDOS_DE_REDE: pedidosDeRede,
-            PORQUE: lista.length > 0 ? "" : "o motor resolveu e nao saiu nenhum alvo", CLASSE: lista.length > 0 ? "OK" : "SOURCE" });
-    return lista.length > 0 ? 0 : 1;
+    // ── READY EXIGE ITEM REAL (AQUISICAO-DETALHE-V1, PASSO 8) ────────────
+    // Para um contrato que declara ITENS DE DETALHE (HTML_LINK_DISCOVERY),
+    // «a rota resolve» nao chega: 32 das 104 fontes de indice tinham rota
+    // resolvida e o unico item era o menu. Abre-se UM item (o primeiro), e
+    // exige-se: bytes com a assinatura declarada, e — se for HTML — que o
+    // item nao seja uma capa. Nada e guardado: VALIDAR != COLETAR continua.
+    let item = null, reprovaItem = "";
+    if (lista.length > 0 && c.ACQUISITION.STRATEGY === "HTML_LINK_DISCOVERY") {
+      const r = await buscar(lista[0].url);
+      item = { URL: lista[0].url, HTTP: r.status ?? 0, BYTES: r.buf ? r.buf.length : 0, ASSINATURA: null, CAPA_OU_MATERIA: null };
+      if (r.erro || r.status !== 200 || !r.buf?.length) {
+        reprovaItem = `ITEM_INACESSIVEL: ${r.erro || `HTTP ${r.status}`}`;
+      } else {
+        const h = r.buf.subarray(0, 400).toString("latin1").trimStart();
+        item.ASSINATURA = h.startsWith("%PDF") ? "PDF" : h.startsWith("PK") ? "ZIP" : h.startsWith("<") || h.startsWith("﻿<") ? "HTML" : "TEXTO";
+        const esperada = String(c.OUTPUT_TYPE || "").toUpperCase() === "PDF" ? "PDF" : String(c.OUTPUT_TYPE || "").toUpperCase() === "HTML" ? "HTML" : null;
+        if (esperada && item.ASSINATURA !== esperada) reprovaItem = `ITEM_BYTES_ERRADOS: esperava ${esperada}, chegou ${item.ASSINATURA}`;
+        else if (item.ASSINATURA === "HTML") {
+          const ret = retratoDoHtml(r.buf);
+          item.CAPA_OU_MATERIA = ret.CAPA_OU_MATERIA; item.HTML_KIND = ret.HTML_KIND;
+          const gate = gateCapaNaoEMateria(c, ret);
+          if (gate) reprovaItem = gate;
+        }
+      }
+    }
+    const pass = lista.length > 0 && !reprovaItem;
+    dizer({ ...base, PASS: pass, HTTP: ultimoStatus ?? 200, ALVOS: lista.length, DETAIL_ENUMERATED: lista.length,
+            AMOSTRA: lista.slice(0, 2).map((a) => a.url), ITEM_ABERTO: item, PEDIDOS_DE_REDE: pedidosDeRede,
+            PORQUE: pass ? "" : (reprovaItem || "o motor resolveu e nao saiu nenhum alvo"), CLASSE: pass ? "OK" : "SOURCE" });
+    return pass ? 0 : 1;
   } catch (e) {
     dizer({ ...base, HTTP: ultimoStatus, CLASSE: "UNKNOWN", PORQUE: `${e.name}: ${String(e.message).slice(0, 180)}`,
             PEDIDOS_DE_REDE: pedidosDeRede });

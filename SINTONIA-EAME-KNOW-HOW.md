@@ -19116,3 +19116,99 @@ divisão A–G 7/7, autonomia 7/7, red team 0 blockers em 11, doze famílias em
 `tests/test_source_curator_integration.py` 29/29. Mapa `PASS`. Métrica
 `TEST_COUNT_CURRENT = 5.035` (drift de 19 marcadores herdado da base,
 sincronizado). Ver `RELATORIO-SOURCE-CURATOR-INTEGRATION.md`.
+
+
+# §164 · O ÍNDICE TEM FAMÍLIA, O MOTOR ESCOLHE O MENU, E A CAPA NÃO É A MATÉRIA
+
+**O QUE.** AQUISICAO-DETALHE-V1 (20–21/09/2026), sobre `907ccd70`. As 104 fontes
+`HTML_LINK_DISCOVERY` que a BCR deixou com uma só observação foram classificadas
+pela evidência guardada (8 BOLETIM_SERIADO · 52 LISTAGEM_DE_NOTICIAS · 44
+NAO_SEI), 21 contratos de listagem foram corrigidos só onde a rota se provou, e
+um canário de 10 fontes pela porta canónica trouxe 105 itens (99 novos) com os
+dois boletins de controlo a manterem 1. `PAID_USD = 0`. Números em
+`RELATORIO-AQUISICAO-DETALHE-V1.md`.
+
+**1 · `MAX_TARGETS: 1` não é um defeito universal: é um defeito de família.** Num
+boletim seriado o índice é o arquivo de edições e a corrente é a única que
+interessa — subir o limite recoleta anos. Numa listagem de notícias o índice
+lista itens distintos e novos — o limite 1 perde N−1. Corrigir em bloco é
+regressão. Por isso o primeiro passo foi classificar, com o `NAO_SEI` como
+resultado obrigatório onde a evidência não decide: 44 das 104, e 33 delas eram
+todo um lote (`LOTE-PDF-INDICE`) em que o índice é a capa, o padrão é a pasta
+de uploads de um mês antigo e o único item visto é um estatuto ou um tarifário.
+Ali não há boletim nem notícia — há uma fonte cujo fluxo nunca foi medido.
+
+    CLASSIFICAR ANTES DE CORRIGIR. NÃO SEI É UM DOS TRÊS BALDES.
+
+**2 · O motor devolve o primeiro `href` do HTML — e o primeiro é o menu.** A
+secção 0 da missão media duas causas (MAX_TARGETS e INDEX_URL = capa). A
+terceira só aparece olhando ao que a BCR colheu de facto: em 30 fontes o
+`LINK_PATTERN` é «qualquer caminho com três palavras», sem palavra de notícia, e
+`ligacoesDoIndice` fica com o primeiro que casa — «chi siamo», «contatti»,
+«consiglio di amministrazione». 32 páginas institucionais, 9 listagens guardadas
+como conteúdo, 33 PDFs administrativos, 30 matérias. Subir `MAX_TARGETS` sem
+tocar no padrão daria N páginas de menu em vez de uma.
+
+    ORDEM DO HTML NÃO É ORDEM DE IMPORTÂNCIA. UM PADRÃO SEM PALAVRA ENTREGA O MENU.
+
+**3 · A rota prova-se pela porta que a coleta vai usar.** A sonda de listagens
+começou com o UA `SintoniaScrap` e Agronotizie devolveu 403; a Collection entra
+com UA de navegador e recebe 200. Provar com outra identidade prova outra coisa.
+O mesmo defeito vive no canário canónico do curator, que ainda bate à porta como
+`SintoniaScrap`: dá `AUTH 403` onde a coleta passa. É decisão de política
+(identidade honesta vs. identidade da coleta), e enquanto não for tomada o
+canário e a Collection medem portas diferentes.
+
+    CANÁRIO COM OUTRA IDENTIDADE MEDE OUTRA PORTA.
+
+**4 · Um portão que reprova é a prova de que existe.** `aplicar_passo2.py` só
+toca num contrato depois de cinco portões: é LISTAGEM; a listagem respondeu 200
+com mais de um item; o padrão novo casa com um item REAL guardado na prova; não
+casa com a própria listagem nem com o não-item declarado; MAX_TARGETS é calculado.
+O portão P3 apanhou logo um exemplo truncado a 140 caracteres — «exemplo
+inventado?» — e a correção foi retirar o exemplo, não afrouxar o portão. O
+classificador reprova se faltar ou sobrar um juízo; a coordenação mutou um
+SOURCE_ID e ele saiu com exit 2 nomeando o que faltava.
+
+**5 · Um bug de padrão não é uma escolha de família.** Em `IT-T12-013` a palavra
+`bollettin` do padrão genérico casava com `/governo/bollettino/` e a Collection
+colhia o Bollettino Ufficiale da Regione Piemonte por acidente. Classificar isso
+como «boletim» teria escondido um defeito atrás de um rótulo certo. Diz-se pelo
+nome, e o não-item declarado no contrato novo é exactamente o Bollettino.
+
+**6 · Bytes diferentes com o mesmo texto não são mudança.** 2 dos 3
+`DOCUMENT_CHANGED_IN_PLACE` do canário tinham o mesmo texto visível e bytes
+diferentes (nonces, widgets). Uma versão nova no armazém por ruído. O retrato do
+HTML (`coleta/retrato_html.mjs`) dá ao coletor `TEXT_SHA256` ao lado de
+`RAW_SHA256` e `CONTENT_CHANGE ∈ MARKUP_ONLY · TEXT_CHANGED · UNKNOWN` — o RAW
+continua a ser guardado, só deixa de contar como conteúdo útil novo. E o dedup
+antes do fetch não foi construído porque se mediu: 3 de 3 fontes amostradas não
+enviam `ETag` nem `Last-Modified`. Um mecanismo que a fonte não suporta é código
+sem efeito, dito por esse nome.
+
+    SHA DOS BYTES != SHA DO TEXTO. MEDIR ANTES DE CONSTRUIR — E DIZER O QUE NÃO SE CONSTRUIU.
+
+**7 · A capa não é a matéria, e agora há quem o diga.** Um contrato que declara
+itens de detalhe não pode guardar a listagem como conteúdo final. O gate
+`gateCapaNaoEMateria` põe a observação em `DEGRADED` com `CAPA_NAO_E_MATERIA` e
+o canário do curator abre um item real antes de deixar promover a READY
+(`DETAIL_ENUMERATED`, `ITEM_ABERTO`). Os dois têm o caso que os faz falhar
+(`tests/test_capa_nao_e_materia.py`), e a contraprova real ficou registada: a
+listagem de Agronotizie do canário é `CAPA_PROVAVEL`. Limiar partilhado com
+`_kind` do executor Python — com uma divergência conhecida na contagem de
+parágrafos, registada como dívida em vez de fingida.
+
+**8 · `PUBLISHED_AT` sobrevive; `FACT_TIME` continua sem fallback.** 66 das 87
+páginas de artigo do canário declaravam a data de publicação e nenhum executor a
+preservava. Entrou nas medidas do executor de HTML, com a base ao lado, só a
+partir do que a página declara — `og:updated_time` fica de fora porque diz
+quando mudou, não quando saiu — e prosa nunca vira data. O executor não conhece
+`FACT_TIME`, e um teste garante que continua a não conhecer.
+
+**9 · Um baseline de outra fotografia não é o denominador desta.** O dono
+localizou a auditoria (17 fontes, 326/2/324): primeira página só, versão anterior
+da Collection, fontes parcialmente não medidas, sem SOURCE_ID cruzável.
+`RECALL_VS_BASELINE_EXTERNO = NOT_COMPARABLE`, sem percentagem inventada; o
+canário tem a sua medição (6/126 → 101/126 nas seis listagens corrigidas). O
+`PRIMARY_LOSS_STAGE` foi ENUMERATION naquela fotografia e é SELECTION nesta: o
+defeito evoluiu, e a causa histórica não sobrescreve a actual.

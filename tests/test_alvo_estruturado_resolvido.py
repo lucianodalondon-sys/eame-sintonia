@@ -211,10 +211,18 @@ class ACOLETARECORRENTEHERDA(CasoB2):
 class OB2ACRESCENTOUEnaoMEXEU(CasoB2):
     """13..14 · a semantica do RAW ficou onde estava."""
 
-    def test_13_a_observacao_ganhou_exactamente_um_campo(self):
+    # O que entrou DEPOIS do B2, cada um com o seu dono. A lista e curta de
+    # proposito: um campo que apareca sem estar aqui reprova, que e o ponto.
+    #   CONTENT_TYPE          a testemunha do servidor ao lado da nossa (MIME_ASSINATURA)
+    #   TEXT_SHA256 · HTML_KIND · CAPA_OU_MATERIA · CONTENT_CHANGE
+    #                         o retrato do HTML (AQUISICAO-DETALHE-V1): texto != bytes,
+    #                         capa != materia; null fora de HTML
+    DEPOIS_DO_B2 = {"CONTENT_TYPE", "TEXT_SHA256", "HTML_KIND", "CAPA_OU_MATERIA", "CONTENT_CHANGE"}
+
+    def test_13_a_observacao_ganhou_exactamente_os_campos_declarados(self):
         self.coletar("B2-PROVA-0013")
         agora = set(self.livro()[0])
-        self.assertEqual(agora - ANTES_DO_B2, {ALVO})
+        self.assertEqual(agora - ANTES_DO_B2, {ALVO} | self.DEPOIS_DO_B2)
         self.assertEqual(ANTES_DO_B2 - agora, set())
 
     def test_14_os_campos_do_RAW_continuam_a_dizer_o_mesmo(self):

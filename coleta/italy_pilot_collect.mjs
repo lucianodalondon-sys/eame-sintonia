@@ -60,6 +60,9 @@ import {
 //     UM REGISTRY COM UM NOME EM USO DIZ «UMA FONTE PRECISOU, E ESTA ESCRITO».
 //     UM REGISTRY CHEIO DE NOMES POR USAR DIZ «ALGUEM ADIVINHOU».
 import { ADAPTERS } from "./adaptadores_de_aquisicao.mjs";
+// O retrato do HTML (AQUISICAO-DETALHE-V1): identidade de TEXTO ao lado da de
+// bytes, e o gate CAPA != MATERIA para contratos que declaram itens de detalhe.
+import { retratoDoHtml, gateCapaNaoEMateria } from "./retrato_html.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -361,7 +364,11 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   }
   const GIT_HEAD = (() => { try { return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { return "NAO SEI"; } })();
 
-  const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0 };
+  // MARKUP_ONLY_REOBSERVATIONS: bytes mudaram, texto visivel nao — versao nova
+  // por ruido de markup. LISTING_AS_CONTENT: o contrato declarava itens de
+  // detalhe e o alvo era uma capa. Os dois sao o WASTEFUL_REOBSERVATION e o
+  // gate CAPA != MATERIA da AQUISICAO-DETALHE-V1, contados por corrida.
+  const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0, MARKUP_ONLY_REOBSERVATIONS: 0, LISTING_AS_CONTENT: 0 };
   const detalhes = [];
 
   for (const sourceId of FONTES) {
@@ -443,6 +450,26 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
 
       // ---- 4) so agora o parse. Se ele explodir, o RAW ja esta salvo. ----
       let parse = null, parseErro = null;
+
+      // ---- 3b) o retrato do HTML: texto != bytes, capa != materia ----
+      // Corre DEPOIS do RAW estar guardado e ANTES do parse: se explodir,
+      // os bytes ja la estao. So para HTML; PDF/CSV/ZIP ficam como estavam.
+      let retrato = null, contentChange = null;
+      if (sig === "HTML") {
+        try { retrato = retratoDoHtml(r.buf); } catch (e) { retrato = null; }
+        if (retrato && OBSERVATION_RESULT === "DOCUMENT_CHANGED_IN_PLACE") {
+          // A versao anterior pode nao ter TEXT_SHA256 (escrita antes desta
+          // medida): entao NAO SEI, nunca «mudou» nem «igual» por omissao.
+          const antesTxt = mesmoDoc.at(-1)?.TEXT_SHA256 ?? null;
+          contentChange = !antesTxt ? "UNKNOWN" : antesTxt === retrato.TEXT_SHA256 ? "MARKUP_ONLY" : "TEXT_CHANGED";
+          if (contentChange === "MARKUP_ONLY") cont.MARKUP_ONLY_REOBSERVATIONS++;
+        }
+        // O GATE: contrato que declara itens de detalhe nao guarda capa como
+        // conteudo final. O RAW fica (e prova do que a rota devolveu); a
+        // observacao sai DEGRADED com a razao pelo nome, nunca HEALTHY.
+        const gate = gateCapaNaoEMateria(c, retrato);
+        if (gate) { parseErro = gate; cont.LISTING_AS_CONTENT++; }
+      }
       if (!pularParse) {
         try {
           if (sourceId === "IT-T2-004") {
@@ -520,6 +547,15 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         RAW_PRESERVED_BEFORE_PARSE: true,
         DISCOVERY_DEGRADED: alvo.descoberta_degradada ?? null,
         PARSE_ERROR: parseErro,
+        // ── O RETRATO (AQUISICAO-DETALHE-V1) — so para HTML; ausente = null ──
+        // TEXT_SHA256 e identidade de CONTEUDO (texto visivel), ao lado de
+        // RAW_SHA256 (bytes). CONTENT_CHANGE so existe quando o documento mudou
+        // no sitio: MARKUP_ONLY (texto igual) · TEXT_CHANGED · UNKNOWN (a versao
+        // anterior nao tinha retrato). CAPA_OU_MATERIA e leitura, nao veredito.
+        TEXT_SHA256: retrato ? retrato.TEXT_SHA256 : null,
+        HTML_KIND: retrato ? retrato.HTML_KIND : null,
+        CAPA_OU_MATERIA: retrato ? retrato.CAPA_OU_MATERIA : null,
+        CONTENT_CHANGE: contentChange,
         parse: parse ? Object.fromEntries(Object.entries(parse).filter(([k]) => !k.startsWith("_"))) : null,
         OBSERVATION_KEYS: parse?._keys || undefined,
         PONTOS: parse?._pontos ? parse._pontos.length : undefined

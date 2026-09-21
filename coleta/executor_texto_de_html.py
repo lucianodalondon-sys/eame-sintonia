@@ -162,9 +162,49 @@ def _decodificar(dados: bytes) -> str:
     return dados.decode("latin-1", "replace")
 
 
+# ── PUBLISHED_AT: a data que a PRÓPRIA página declara como publicação ─────
+# AQUISICAO-DETALHE-V1 (PASSO 6), medido no canário de 21/09/2026: 66 de 87
+# páginas de artigo traziam a data de publicação explícita no HTML, e nenhum
+# executor a preservava. A régua da Bíblia (COL-LAW-031) é uma só:
+#
+#     PUBLISHED_AT != FACT_TIME.  FACT_TIME NÃO TEM FALLBACK.
+#
+# Por isso isto entra nas MEDIDAS, com o nome PUBLISHED_AT e a base ao lado, e
+# NUNCA toca em FACT_TIME. `og:updated_time` fica de fora de propósito: é
+# «actualizado», não «publicado». Prosa nunca vira data: só campos declarados.
+_SINAIS_DE_PUBLICACAO = (
+    ("META_ARTICLE_PUBLISHED_TIME",
+     re.compile(r"<meta[^>]+property=[\"']article:published_time[\"'][^>]+content=[\"']([^\"']+)", re.I)),
+    ("META_ARTICLE_PUBLISHED_TIME",
+     re.compile(r"<meta[^>]+content=[\"']([^\"']+)[\"'][^>]+property=[\"']article:published_time[\"']", re.I)),
+    ("JSONLD_DATE_PUBLISHED",
+     re.compile(r"\"datePublished\"\s*:\s*\"([^\"]+)\"", re.I)),
+    ("TIME_DATETIME_PUBDATE",
+     re.compile(r"<time[^>]+(?:pubdate|itemprop=[\"']datePublished[\"'])[^>]*datetime=[\"']([^\"']+)", re.I)),
+    ("TIME_DATETIME_PUBDATE",
+     re.compile(r"<time[^>]+datetime=[\"']([^\"']+)[\"'][^>]*(?:pubdate|itemprop=[\"']datePublished[\"'])", re.I)),
+    ("META_DATE",
+     re.compile(r"<meta[^>]+name=[\"'](?:date|dc\.date(?:\.issued)?|pubdate|publish-date|DC\.date\.issued)[\"'][^>]+content=[\"']([^\"']+)", re.I)),
+)
+_FORMA_DE_DATA = re.compile(r"^\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?$")
+
+
+def data_de_publicacao(fonte: str) -> tuple[str | None, str | None]:
+    """→ (PUBLISHED_AT, PUBLISHED_AT_BASIS) ou (None, None). Só o que a página DECLARA."""
+    for base, rx in _SINAIS_DE_PUBLICACAO:
+        m = rx.search(fonte)
+        if not m:
+            continue
+        valor = m.group(1).strip()
+        if _FORMA_DE_DATA.match(valor):
+            return valor, base
+    return None, None
+
+
 def texto_de_html(dados: bytes) -> tuple[str, dict]:
     """→ (texto visível, medidas). Puro: sem ficheiro, sem rede, sem banco."""
     fonte = _decodificar(dados)
+    published_at, published_at_basis = data_de_publicacao(fonte)
     leitor = _Leitor()
     leitor.feed(fonte)
     leitor.close()
@@ -184,6 +224,11 @@ def texto_de_html(dados: bytes) -> tuple[str, dict]:
         # Uma LEITURA das medidas, dita como leitura e não como veredito. A
         # régua não a usa; quem audita, sim.
         "HTML_KIND": _kind(sem_brancos, leitor.chars_paragrafo, leitor.ligacoes),
+        # A data que a página declara como publicação, e de onde veio. É
+        # PUBLICATION_TIME. Não é, e nunca promove, FACT_TIME. None = a página
+        # não declara — UNKNOWN continua UNKNOWN.
+        "PUBLISHED_AT": published_at,
+        "PUBLISHED_AT_BASIS": published_at_basis,
     }
     return texto, medidas
 
