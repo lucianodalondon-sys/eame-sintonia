@@ -1,0 +1,174 @@
+{
+ "INSTRUMENTO": "medidas/red_team_canonico.py",
+ "QUANDO": "2026-09-21T19:45:25Z",
+ "ATAQUES": [
+  {
+   "NOME": "READY_LEGACY entra na Collection",
+   "LEI": "READY_LEGACY != READY_CURRENT — 77 fontes promovidas pela regua antiga",
+   "FICHEIRO": "curadoria/collection_gate.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_collection_gate.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "HUMAN_REVIEW_REQUIRED entra na Collection",
+   "LEI": "uma fonte marcada para olho humano nao entra por omissao",
+   "FICHEIRO": "curadoria/collection_gate.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_collection_gate.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "FACT_TIME cai para SOURCE_DATE quando nao ha tempo do facto",
+   "LEI": "FACT_TIME != PUBLISHED_AT — UNKNOWN continua UNKNOWN",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "node regras/motor_de_rota_test.mjs",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "a propria pagina de entrada e aceite como materia",
+   "LEI": "a homepage nao e um documento seu — FAIL_CLOSED, nunca a entrada",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "node regras/motor_de_rota_test.mjs",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "paginacao e feeds entram como documentos",
+   "LEI": "uma lista de artigos nao e um artigo",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "node regras/motor_de_rota_test.mjs",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "MATCH desconhecido passa calado na conferencia",
+   "LEI": "aceitar um campo sem o implementar da verde na conferencia e acusa a fonte na corrida",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "node regras/motor_de_rota_test.mjs",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "IDENTITY.STRATEGY desconhecida passa calada",
+   "LEI": "`null` nao diz porque — um vocabulario fora da lista reprova com o nome dele",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "node regras/motor_de_rota_test.mjs",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "identidade a meio em vez de identidade vazia",
+   "LEI": "um DOCUMENT_ID com buraco e pior que nenhum",
+   "FICHEIRO": "regras/motor_de_rota.mjs",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "node regras/motor_de_rota_test.mjs",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "«nao consegui ler o robots» vira «o site proibiu»",
+   "LEI": "ROBOTS_GATE_FAIL != ROBOTS_DISALLOW — e uma acusacao ao site",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "«robots ilegivel» vira «o site proibiu»",
+   "LEI": "ROBOTS_UNREADABLE != ROBOTS_DISALLOW",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "robots ilegivel deixa ir na mesma",
+   "LEI": "nao saber se se pode e motivo para parar, nunca para prosseguir",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "fonte sem contrato vai a rede na mesma",
+   "LEI": "o portao aprovar nao quer dizer que se sabe o caminho",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "o relatorio inventa um HTTP 200 que ninguem mediu",
+   "LEI": "campo que o livro nao tem sai AUSENTE, nunca preenchido para agradar",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "o instrumento passa a ter a sua lista de IDs autorizados",
+   "LEI": "PROIBIDO ALLOWED_IDS — as elegiveis RESULTAM da regra",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "o veredito do robots vem em cache de outra corrida",
+   "LEI": "entre a RUN1 e a RUN3 o bloqueio ja mudou de fonte nesta casa",
+   "FICHEIRO": "medidas/corrida_canonica.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_corrida_canonica.py",
+   "SAIDA": ""
+  },
+  {
+   "NOME": "o coletor corre sem passar pelo portao de admissao",
+   "LEI": "NOMEAR NAO E ADMITIR — bypass directo da admissao",
+   "FICHEIRO": "coleta/italy_executor.py",
+   "MUTANTE_ENTROU": true,
+   "RESULTADO": "MORTO",
+   "PROVA": "-p test_collection_gate.py",
+   "SAIDA": ""
+  }
+ ],
+ "SEM_GUARDA": [
+  {
+   "nome": "a segunda RUN regrava o armazem inteiro sem o documento ter mudado",
+   "lei": "nova observacao PODE nascer sem duplicar armazenamento",
+   "medido": "RUN2 sobre os mesmos 85 documentos: 83 objectos NOVOS no armazem, 7,86 MB. As linhas diferentes sao 374 em 86.441 (0,43%) e TODAS sao rasto de maquina — o carimbo `article:modified_time` traz A HORA DA NOSSA VISITA, mais tokens CSRF e ids de DOM por render. Zero texto editorial.",
+   "falta": "ninguem compara o documento SEM o rasto volatil antes de gravar. `DOCUMENT_CHANGED_IN_PLACE` esta a ser disparado pela nossa propria pegada."
+  },
+  {
+   "nome": "o hash serve de identidade da VERSAO do documento",
+   "lei": "HASH E BYTE_ID, NAO IDENTIDADE",
+   "medido": "DOCUMENT_VERSION_ID == 'v1_' + RAW_SHA256[:12] em 85 de 85 observacoes da RUN1C, conferido aritmeticamente. E RAW_OBSERVATION_ID nao existe: 0 de 360 linhas do livro.",
+   "falta": "defeito PRE-EXISTENTE e comum as duas linhas. A missao mandou medir e nomear, e NAO refactorizar. Nao se escreve aqui uma guarda para um defeito que se decidiu nao corrigir: isso deixava o trunk vermelho de proposito."
+  },
+  {
+   "nome": "SOURCE_LOCATION preenche FACT_LOCATION por fallback",
+   "lei": "a sede da fonte nao e o sitio onde a coisa aconteceu",
+   "medido": "os 174 contratos onboarded declaram FACT_LOCATION_RULE = 'UNKNOWN por padrao — so preencher se o proprio documento declarar; NUNCA inferir'. Nenhuma etapa desta missao chegou a preencher FACT_LOCATION: a cadeia parou antes do DERIVED.",
+   "falta": "a regra existe em prosa no contrato e NAO ha codigo que a execute nesta linha — nao ha o que mutar."
+  }
+ ],
+ "MORTOS": 16,
+ "SOBREVIVENTES": 0,
+ "NAO_APLICADOS": 0,
+ "RED_TEAM_PROVEN": true
+}

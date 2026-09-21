@@ -280,6 +280,47 @@ T("URL - o padrao ancorado encontra os artigos que a pagina anuncia", () => {
                        "https://www.exemplo.it/news/segundo-artigo"]);
 });
 
+// ⚠️ ESTE FIXTURE MUDOU DEPOIS DO RED TEAM, E O MOTIVO IMPORTA.
+// A 1.a versao usava `/news/page/2/` e `/feed/` como armadilhas. Nenhuma
+// delas casava com o LINK_PATTERN (que exige um hifen no ultimo troco), por
+// isso apagar os filtros do motor NAO mudava o resultado: dois mutantes
+// SOBREVIVERAM a uma prova que parecia guardar isto.
+//
+//     UMA ARMADILHA QUE O PADRAO JA RECUSA NAO PROVA O FILTRO.
+//     Ela tem de CASAR, para que o filtro seja a UNICA coisa que a barra.
+const INDICE_COM_ARMADILHAS = `<html><body>
+  <a href="/news/o-primeiro-artigo/">um</a>
+  <a href="/news/pagina-dois/page/2/">paginacao que CASA com o padrao</a>
+  <a href="/news/noticias-todas/feed/">feed que CASA com o padrao</a>
+  <a href="/news/artigo-bonito.css">activo estatico que CASA</a>
+  <a href="/news/tudo/?page=3">paginacao por parametro</a>
+  <a href="https://outro-sitio.com/news/de-fora/">outro host</a>
+</body></html>`;
+
+const AQ_LARGO = { ...AQ_URL,
+  LINK_PATTERN: "^https?://(www\\.)?exemplo\\.it/news/.+$" };
+
+T("URL - paginacao, feed, activo estatico e outro host ficam fora MESMO casando", () => {
+  const u = ligacoesDoIndice(INDICE_COM_ARMADILHAS, AQ_LARGO);
+  assert.deepEqual(u, ["https://www.exemplo.it/news/o-primeiro-artigo/"],
+    `entrou coisa que nao e documento: ${JSON.stringify(u)}`);
+});
+
+T("URL - a propria pagina de entrada nunca entra como documento seu", () => {
+  // A entrada com barra, sem barra, e a entrada anunciada em absoluto.
+  const html = `<html>
+    <a href="/">a entrada</a>
+    <a href="https://www.exemplo.it">a entrada em absoluto</a>
+    <a href="https://www.exemplo.it/">a entrada com barra</a>
+    <a href="/news/um-artigo-verdadeiro/">o unico documento</a></html>`;
+  const aq = { ...AQ_URL, INDEX_URL: "https://www.exemplo.it/",
+               LINK_PATTERN: "^https?://(www\\.)?exemplo\\.it/?.*$" };
+  const u = ligacoesDoIndice(html, aq);
+  assert.ok(!u.includes("https://www.exemplo.it/"), "a homepage entrou como materia");
+  assert.ok(!u.includes("https://www.exemplo.it"), "a homepage entrou como materia");
+  assert.deepEqual(u, ["https://www.exemplo.it/news/um-artigo-verdadeiro/"]);
+});
+
 T("URL - categoria, paginacao, activo estatico, feed e outro host ficam fora", () => {
   const u = ligacoesDoIndice(INDICE_REAL, AQ_URL).join(" ");
   for (const fora of ["category", "/page/", ".css", "/feed", "outro-sitio"]) {
