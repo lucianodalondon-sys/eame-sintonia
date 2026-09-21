@@ -584,18 +584,16 @@ def censo(ctx: dict) -> dict:
 
     importados_p = [l for l in linhas if l["FINAL_STATE"] == POLICY_BLOCK and l["STATE_A"] != LC.POLICY_BLOCK]
     importados_c = [l for l in linhas if l["FINAL_STATE"] == CAPABILITY_BLOCK and l["STATE_A"] != LC.CAPABILITY_BLOCK]
-    stale = [{"SOURCE_ID": l["SOURCE_ID"], "LIVRO": "B", "ESTADO_DESCARTADO": l["STATE_B"],
-              "FINAL": l["FINAL_STATE"], "PORQUE": l["FINAL_REASON"][:160]}
-             for l in linhas if l["STATE_B"] and _mapa(l["STATE_B"]) != l["FINAL_STATE"]
-             and l["STATE_B"] in (LC.READY_FOR_COLLECTION, LC.CONTRACTED_CANARY_FAILED)]
-    stale += [{"SOURCE_ID": l["SOURCE_ID"], "LIVRO": "B2", "ESTADO_DESCARTADO": l["STATE_B2"],
-               "FINAL": l["FINAL_STATE"], "PORQUE": l["FINAL_REASON"][:160]}
-              for l in linhas if l["STATE_B2"] and _mapa(l["STATE_B2"]) != l["FINAL_STATE"]
-              and l["STATE_B2"] in (LC.READY_FOR_COLLECTION, LC.CAPABILITY_BLOCK)]
-    stale += [{"SOURCE_ID": l["SOURCE_ID"], "LIVRO": "A", "ESTADO_DESCARTADO": l["STATE_A"],
-               "FINAL": l["FINAL_STATE"], "PORQUE": l["FINAL_REASON"][:160]}
-              for l in linhas if l["STATE_A"] and _mapa(l["STATE_A"]) != l["FINAL_STATE"]
-              and l["STATE_A"] in (LC.READY_FOR_COLLECTION, LC.RECONCILIATION_REQUIRED, LC.RETRY_AFTER)]
+    # Um estado e DESCARTADO quando o livro o afirmava e a decisao final o
+    # contradiz. READY de um livro que fica READY_LEGACY/READY_CURRENT nao foi
+    # descartado: e a mesma prontidao, com a regua lida.
+    stale = []
+    for nome, campo in (("A", "STATE_A"), ("B", "STATE_B"), ("B2", "STATE_B2")):
+        for l in linhas:
+            e = l[campo]
+            if e and not _bate(e, l["FINAL_STATE"]):
+                stale.append({"SOURCE_ID": l["SOURCE_ID"], "LIVRO": nome, "ESTADO_DESCARTADO": e,
+                              "FINAL": l["FINAL_STATE"], "PORQUE": l["FINAL_REASON"][:160]})
 
     return {
         "DATASET": "RECONCILIACAO-V1",
@@ -643,6 +641,12 @@ def censo(ctx: dict) -> dict:
         },
         "LINHAS": linhas,
     }
+
+
+def _bate(estado_lifecycle: str, final: str) -> bool:
+    if estado_lifecycle == LC.READY_FOR_COLLECTION:
+        return final in (READY_CURRENT, READY_LEGACY)
+    return _mapa(estado_lifecycle) == final
 
 
 def _mapa(estado_lifecycle: str) -> str:
