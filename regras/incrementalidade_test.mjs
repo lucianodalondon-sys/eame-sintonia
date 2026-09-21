@@ -45,21 +45,56 @@ T("detalhe conhecido COM documento -> SKIP_KNOWN por omissao", () => {
   assert.equal(d.RAZAO, null);
 });
 
+// ⚠️ OS NOMES ESTAO ESCRITOS A MAO, E ISSO E A CORRECCAO DE UM SOBREVIVENTE.
+// A primeira versao destas duas provas fazia `for (const r of
+// RESULTADOS_COM_DOCUMENTO)` — lia a LISTA QUE ESTAVA A TESTAR. O red team
+// apanhou-o: tirar `SEEN_AGAIN` da lista deixou a suite em 22 PASSOU · 0
+// FALHOU, porque o ciclo simplesmente deixou de o visitar.
+//
+//     UMA PROVA QUE LE A LISTA SOB ATAQUE NAO PROVA A LISTA:
+//     PROVA QUE O CICLO SABE ANDAR.
+//
+// Escrito a mao, apagar uma entrada da lista faz a prova ficar vermelha — que
+// e o que ela existe para fazer. O `length` fecha a porta ao contrario:
+// acrescentar em silencio tambem reprova.
+const COM_DOCUMENTO = ["BASELINE_DOCUMENT", "NEW_DOCUMENT", "DOCUMENT_CHANGED_IN_PLACE",
+                       "SEMANTIC_ID_CHANGED_SAME_BYTES", "SEEN_AGAIN"];
+const SEM_DOCUMENTO = ["DISCOVERY_FAILED", "TRANSPORT_OR_EMPTY",
+                       "BYTE_VALIDATION_FAILED", "IDENTITY_FAILED"];
+
 T("os CINCO resultados com documento contam todos como conhecido", () => {
-  for (const r of RESULTADOS_COM_DOCUMENTO) {
+  for (const r of COM_DOCUMENTO) {
     const d = decidirSobreDetalhe(URL1, {
       memoria: memoriaDosDetalhes([obsOk({ OBSERVATION_RESULT: r })]) });
     assert.equal(d.DECISAO, "SKIP_KNOWN", `${r} devia contar como ja tenho`);
   }
+  assert.deepEqual([...RESULTADOS_COM_DOCUMENTO].sort(), [...COM_DOCUMENTO].sort(),
+    "a lista do modulo afastou-se da lista provada a mao");
 });
 
 T("os QUATRO resultados sem documento NAO contam — volta-se, e diz-se porque", () => {
-  for (const r of RESULTADOS_SEM_DOCUMENTO) {
+  for (const r of SEM_DOCUMENTO) {
     const d = decidirSobreDetalhe(URL1, {
       memoria: memoriaDosDetalhes([obsOk({ OBSERVATION_RESULT: r })]) });
     assert.equal(d.DECISAO, "FETCH", `${r} foi tratado como documento guardado`);
     assert.equal(d.RAZAO, "PREVIOUS_ATTEMPT_FAILED");
   }
+  assert.deepEqual([...RESULTADOS_SEM_DOCUMENTO].sort(), [...SEM_DOCUMENTO].sort(),
+    "a lista do modulo afastou-se da lista provada a mao");
+});
+
+// ⚠️ `SEEN_AGAIN` TEM PROVA PROPRIA, e nao so um lugar num ciclo. E o caso
+// que mais facilmente se perde: parece «nao trouxe nada» e significa o
+// contrario — o documento esta guardado, os bytes sao os mesmos, a visita
+// confirmou. Se ele cair da lista, cada `SEEN_AGAIN` volta a ser
+// descarregado para sempre, e nada mais na suite da por isso.
+T("SEEN_AGAIN significa QUE SE TEM o documento — nao que nao se trouxe nada", () => {
+  assert.ok(RESULTADOS_COM_DOCUMENTO.includes("SEEN_AGAIN"),
+    "SEEN_AGAIN saiu da lista dos que tem documento — cada revisita volta a descarregar");
+  assert.ok(!RESULTADOS_SEM_DOCUMENTO.includes("SEEN_AGAIN"));
+  const d = decidirSobreDetalhe(URL1, {
+    memoria: memoriaDosDetalhes([obsOk({ OBSERVATION_RESULT: "SEEN_AGAIN" })]) });
+  assert.equal(d.DECISAO, "SKIP_KNOWN");
 });
 
 // ⚠️ ESTA E A PROVA CENTRAL DA MISSAO, E NASCEU DE UM NUMERO.
