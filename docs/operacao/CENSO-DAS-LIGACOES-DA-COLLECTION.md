@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  54e0f8d66742266ff5bbbb28f3747a265d800af8
-BRANCH           intake-gate-v1
-GERADO_EM        2026-09-21T14:01:09-03:00
-CARDS            73
+HEAD_DA_MEDICAO  b38dec9970a349f8b249922df4a598ad27bf8fda
+BRANCH           micro-collection-v1
+GERADO_EM        2026-09-21T14:46:47-03:00
+CARDS            74
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -1366,6 +1366,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
+### `C-MICRO-COLHEITA` · A micro-colheita medida
+
+| | |
+|---|---|
+| **peça real** | `medidas/MICRO-COLLECTION-RUN1-BR-V1.json`, `medidas/MICRO-COLLECTION-RUN2-BR-V1.json`, `medidas/MICRO-COLLECTION-RUN3-IT-V1.json`, `medidas/micro_colheita.py` |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | gray — ⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `curadoria/italy_contracts_curator.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 0 |
+| **arestas provadas** | entram 0 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+
 ### `C-PADRAO-COLETA` · O padrao do departamento de coleta
 
 | | |
@@ -1886,6 +1911,7 @@ UNKNOWN            18
 SYSTEM_GAP         9
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
+ORPHAN             1
 TERMINAL           1
-TOTAL              73
+TOTAL              74
 ```

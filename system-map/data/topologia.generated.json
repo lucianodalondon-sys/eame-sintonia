@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-21T17:03:37+00:00",
-  "HEAD": "54e0f8d66742266ff5bbbb28f3747a265d800af8",
-  "BRANCH": "intake-gate-v1",
+  "GENERATED_AT": "2026-09-21T17:54:26+00:00",
+  "HEAD": "b38dec9970a349f8b249922df4a598ad27bf8fda",
+  "BRANCH": "micro-collection-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "2c10417d1b3cfd1925e264f554c6ec945f0effa51b4ff70479d6b923a0561053",
-  "FICHEIROS_NA_IMPRESSAO": 2366,
+  "SOURCE_TREE_FINGERPRINT": "eb07f09eb9c1e5cf2859e8ba41eb1b3d6478892126c9e03cd9bb335747a78c15",
+  "FICHEIROS_NA_IMPRESSAO": 2370,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1586,6 +1586,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/micro_colheita.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "f56dc7f768a8ca91067a3a33b5a15750219d55de",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/padrao_da_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "e6a12f1f6065e35e0043a01243f456f0388684bb",
@@ -2988,14 +2995,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2c10417d1b3cfd1925e264f554c6ec945f0effa51b4ff70479d6b923a0561053",
+    "VERSAO": "eb07f09eb9c1e5cf2859e8ba41eb1b3d6478892126c9e03cd9bb335747a78c15",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "2c10417d1b3cfd1925e264f554c6ec945f0effa51b4ff70479d6b923a0561053",
+    "VERSAO": "eb07f09eb9c1e5cf2859e8ba41eb1b3d6478892126c9e03cd9bb335747a78c15",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4645,8 +4652,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 658,
-  "INPUTS_DIGEST": "5914e9b3e48f92cf4b3c3fec90208f5232f8e63ef09e919bb75cb40df52ac3ae",
+  "INPUTS_COUNT": 659,
+  "INPUTS_DIGEST": "e70a03fc57ce61dff1bb792a113627005ecd84401837f62086edd762c9c6589c",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4679,8 +4686,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "627d351f6c58128f4451355ace9be09c2ffcc211f2fd93d0f16b6d51a1696edc",
-  "SEMANTIC_HASH": "3235e88e356ca5f657e41a287b0455f54fe20d2156a6b14fc9f5c43aa7048010"
+  "MEASUREMENT_HASH": "ec2a1d4f1bd11844d7aa01855ab96688b1a5dee0eadb6da970c272d64253ecc0",
+  "SEMANTIC_HASH": "ffe1cb70471d6b0e7a7962346d4090fdfc273d9ee08c904ba1f9bcc51f127a99"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4734,6 +4741,7 @@
    "C-IT-TEXTO-DERIVADO",
    "C-IT-TEXTO-PESQUISAVEL",
    "C-LEITORES",
+   "C-MICRO-COLHEITA",
    "C-NAVEGADOR",
    "C-ORQUESTRADOR",
    "C-PADRAO-COLETA",
@@ -4766,7 +4774,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 74
+  "COUNT": 75
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -4942,6 +4950,7 @@
    "C-MAPA-SCAN",
    "C-MAPA-TESTES",
    "C-MEDICAO",
+   "C-MICRO-COLHEITA",
    "C-NAVEGADOR",
    "C-ORQUESTRADOR",
    "C-PACOTE-CAMADAS",
@@ -5015,16 +5024,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 152
+  "COUNT": 153
  },
  "ARITMETICA": {
-  "COLLECTION": 74,
+  "COLLECTION": 75,
   "BOUNDARY": 78,
-  "SOMA": 152,
-  "EXPANDED": 152,
+  "SOMA": 153,
+  "EXPANDED": 153,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 152,
+  "RESUMO_CARTOES_NO_UNIVERSO": 153,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -36477,8 +36486,8 @@
   "COUNT": 1021
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 152,
-  "CARTOES_AUDITADOS": 152,
+  "CARTOES_NO_UNIVERSO": 153,
+  "CARTOES_AUDITADOS": 153,
   "ARESTAS_RELACIONADAS": 1021,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
@@ -36647,6 +36656,7 @@
    "C-LUGAR-COLETA",
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
+   "C-MICRO-COLHEITA",
    "C-PORTA-FONTE",
    "C-PROVA-ADAMA-REFERENCE",
    "C-PROVA-AGRO-FRONTEIRA",
@@ -36691,13 +36701,15 @@
    "C-INT-CONSUMO-ADAMA",
    "C-IT-CONTAS",
    "C-IT-TEXTO-PESQUISAVEL",
+   "C-MICRO-COLHEITA",
    "C-PROVA-AUDIO-ONLY",
    "C-PROVA-GATE-1D",
    "C-RELATORIO-FLUXO"
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
-   "C-DERIVED-ARTIFACT": "ARMAZEM"
+   "C-DERIVED-ARTIFACT": "ARMAZEM",
+   "C-MICRO-COLHEITA": "UNKNOWN"
   },
   "ORFAOS_FALSOS_POR_VISTA": {
    "C-APRENDER-COM-A-FONTE": [
@@ -36817,7 +36829,9 @@
     "official"
    ]
   },
-  "SEM_LIGACAO_INEXPLICADOS": [],
+  "SEM_LIGACAO_INEXPLICADOS": [
+   "C-MICRO-COLHEITA"
+  ],
   "CATEGORIAS_DAS_ARESTAS": {
    "CODE": 167,
    "CONTROL": 72,
@@ -40574,6 +40588,40 @@
     "READ"
    ],
    "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-MICRO-COLHEITA",
+   "NOME": "A micro-colheita medida",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "UNKNOWN",
+   "FICHEIROS": [
+    "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
+    "medidas/MICRO-COLLECTION-RUN2-BR-V1.json",
+    "medidas/MICRO-COLLECTION-RUN3-IT-V1.json",
+    "medidas/micro_colheita.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "datetime",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 0,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": "UNKNOWN",
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },

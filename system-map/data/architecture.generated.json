@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "intake-gate-v1",
-    "HEAD": "54e0f8d66742266ff5bbbb28f3747a265d800af8",
-    "GENERATED_AT": "2026-09-21T14:01:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2c10417d1b3cfd1925e264f554c6ec945f0effa51b4ff70479d6b923a0561053"
+    "BRANCH": "micro-collection-v1",
+    "HEAD": "b38dec9970a349f8b249922df4a598ad27bf8fda",
+    "GENERATED_AT": "2026-09-21T14:46:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eb07f09eb9c1e5cf2859e8ba41eb1b3d6478892126c9e03cd9bb335747a78c15"
   },
   "FILES": [
     {
@@ -10544,6 +10544,27 @@
       "code_dir": true
     },
     {
+      "path": "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
+      "sha": "665b35d27e1e3958e91581b5435fb8b17e433558",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/MICRO-COLLECTION-RUN2-BR-V1.json",
+      "sha": "11623def3ece786e6f3140ea9392d9d183057064",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/MICRO-COLLECTION-RUN3-IT-V1.json",
+      "sha": "29f17487742973d971d8e1450591f54482db95e8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/PADRAO-DA-COLETA-CHAO.json",
       "sha": "9988b598dcfeb896b416068b5368d9d99ddfe267",
       "ext": ".json",
@@ -10581,6 +10602,13 @@
     {
       "path": "medidas/corrida_instrumentada.py",
       "sha": "a9d4c0781fb1efef95aa8242950c74ae9187c5d7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/micro_colheita.py",
+      "sha": "f56dc7f768a8ca91067a3a33b5a15750219d55de",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13660,7 +13688,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7c28acc0795d1bc7b58d2d6a9c882944a4f15fca",
+      "sha": "239ff273cbaf9fac33cc0b7080b1c08347ccee2a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -31990,6 +32018,17 @@
         "file": "medidas/corrida_instrumentada.py",
         "line": 60,
         "snippet": "import rastro_da_coleta as rastro  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/micro_colheita.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/micro_colheita.py",
+        "line": 72,
+        "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
     {
@@ -68488,10 +68527,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2218,
-    "files_readable": 886,
-    "files_code_dir": 883,
-    "file_edges": 4767,
+    "files_tracked": 2222,
+    "files_readable": 887,
+    "files_code_dir": 887,
+    "file_edges": 4768,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

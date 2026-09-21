@@ -1549,12 +1549,16 @@
       "leis/v21_procedencia_religar.py"
     ],
     "medidas": [
+      "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
+      "medidas/MICRO-COLLECTION-RUN2-BR-V1.json",
+      "medidas/MICRO-COLLECTION-RUN3-IT-V1.json",
       "medidas/PADRAO-DA-COLETA-CHAO.json",
       "medidas/PORTOES-DE-COLETA-10B.md",
       "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
       "medidas/banco_no_seco.py",
       "medidas/cicatrizes_brasil.py",
       "medidas/corrida_instrumentada.py",
+      "medidas/micro_colheita.py",
       "medidas/padrao_da_coleta.py",
       "medidas/portao.py",
       "medidas/portoes_eame.py",
@@ -2298,8 +2302,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 701 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 701 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 702 ficheiros (89%) · ESPANHA 76 ficheiros (10%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 702 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -2811,10 +2815,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "intake-gate-v1",
-    "HEAD": "54e0f8d66742266ff5bbbb28f3747a265d800af8",
-    "GENERATED_AT": "2026-09-21T14:01:09-03:00",
-    "SOURCE_TREE_FINGERPRINT": "2c10417d1b3cfd1925e264f554c6ec945f0effa51b4ff70479d6b923a0561053"
+    "BRANCH": "micro-collection-v1",
+    "HEAD": "b38dec9970a349f8b249922df4a598ad27bf8fda",
+    "GENERATED_AT": "2026-09-21T14:46:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eb07f09eb9c1e5cf2859e8ba41eb1b3d6478892126c9e03cd9bb335747a78c15"
   },
   "FAMILIES": [
     {
@@ -2842,7 +2846,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 73
+      "count": 74
     },
     {
       "id": "F-ESPERA",
@@ -3100,7 +3104,7 @@
       "y": 190,
       "w": 820,
       "h": 8090,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-ADMISSAO",
@@ -27118,6 +27122,86 @@
       "y": 3902
     },
     {
+      "id": "C-MICRO-COLHEITA",
+      "name": "A micro-colheita medida",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Vai as fontes que o portao da Collection declara COLLECTION_ELIGIBLE no instante do pedido, conta pedido a pedido (dominio, HTTP, bytes, tempo) e retrata cada item aberto pelo gate CAPA != MATERIA. Escreve um recibo e mais nada: nao toca no livro de observacoes, nao cunha RUN, nao cria raw_asset e nao pousa na Sala.",
+      "why_here": "MEDIR NAO E COLHER, e a primeira ida a rede desta linha precisava de provar o perimetro pela lista de pedidos e nao pela intencao. Nenhuma regra e reescrita aqui: o perimetro vem de collection_gate, o robots de gate_de_rota, o leitor de canario, os links de provar_listagem e o gate de retrato_html. Nasceu porque o portao aprovou 8 fontes que o coletor de Node desta arvore nao conhece — das 8 elegiveis, 0 tem contrato executavel.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "◎",
+      "views": [
+        "audit"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
+        "medidas/MICRO-COLLECTION-RUN2-BR-V1.json",
+        "medidas/MICRO-COLLECTION-RUN3-IT-V1.json",
+        "medidas/micro_colheita.py"
+      ],
+      "file_count": 4,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {
+        "ITALIA": 1
+      },
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/italy_contracts_curator.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 10480,
+      "y": 1326
+    },
+    {
       "id": "C-NAVEGADOR",
       "name": "O navegador — a rota gratis",
       "territory": "Z-FERRAMENTAS",
@@ -27753,7 +27837,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 10480,
+      "x": 10895,
       "y": 1326
     },
     {
@@ -32625,8 +32709,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 10895,
-      "y": 1326
+      "x": 10480,
+      "y": 1648
     },
     {
       "id": "C-READY",
@@ -33298,7 +33382,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10480,
+      "x": 10895,
       "y": 1648
     },
     {
@@ -33462,8 +33546,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
-      "y": 1648
+      "x": 10480,
+      "y": 1970
     },
     {
       "id": "C-RELEVANCIA",
@@ -34277,7 +34361,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10480,
+      "x": 10895,
       "y": 1970
     },
     {
@@ -40538,7 +40622,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch intake-gate-v1"
+        "branch micro-collection-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -97683,7 +97767,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 186,
+      "PECAS_EM_DESACORDO": 187,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -97695,23 +97779,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 212
+      "TOTAL_DE_PECAS": 213
     }
   ],
   "COUNTS": {
-    "components": 212,
+    "components": 213,
     "components_proven": 32,
     "components_pending": 172,
     "components_broken": 0,
-    "components_unknown": 8,
+    "components_unknown": 9,
     "edges": 1087,
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2218,
-    "files_covered": 1017,
+    "files_tracked": 2222,
+    "files_covered": 1021,
     "files_code_unclaimed": 0,
-    "roles_proven": 147,
+    "roles_proven": 148,
     "roles_declared_only": 7,
     "roles_unknown": 58,
     "roles_conflict": 28,
