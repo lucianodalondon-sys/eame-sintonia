@@ -105,10 +105,29 @@ class ATabelaDoDonoTemAs18ESoAs18(unittest.TestCase):
                 self.assertTrue(r["SONDAGEM"]["DOCUMENT_ID"].startswith(sid + ":URL:"))
 
     def test_a_aquisicao_e_a_do_curator_sem_alteracao(self):
+        """A aquisicao e a da fotografia do curator — ou a divergencia esta DECLARADA.
+
+        AQUISICAO-DETALHE-V1 (2026-09-20) corrigiu INDEX_URL / LINK_PATTERN /
+        MAX_TARGETS em fontes LISTAGEM_DE_NOTICIAS com listagem provada. A
+        fotografia do curator nao se reescreve (e registo); a divergencia vive em
+        curadoria/CONTRATOS-PASSO-2-V1.json, com o ANTES igual a fotografia.
+        Divergencia sem registo continua a reprovar.
+        """
         cur = {c["SOURCE_ID"]: c for c in self.cur["FONTES"]}
+        passo2 = os.path.join(RAIZ, "curadoria", "CONTRATOS-PASSO-2-V1.json")
+        declaradas = {}
+        if os.path.exists(passo2):
+            declaradas = {t["SOURCE_ID"]: t for t in _json(passo2)["TOCADAS"]}
         for sid in AS_18:
             with self.subTest(source_id=sid):
-                self.assertEqual(cur[sid]["ACQUISITION"], self.por_id[sid]["ACQUISITION"])
+                if sid in declaradas:
+                    self.assertEqual(cur[sid]["ACQUISITION"], declaradas[sid]["ANTES"],
+                                     "o ANTES declarado nao e a fotografia do curator")
+                    self.assertEqual(declaradas[sid]["DEPOIS"], self.por_id[sid]["ACQUISITION"],
+                                     "a tabela nao tem o DEPOIS declarado")
+                    self.assertEqual(200, declaradas[sid]["PROVA"]["HTTP"], "divergencia sem listagem provada")
+                else:
+                    self.assertEqual(cur[sid]["ACQUISITION"], self.por_id[sid]["ACQUISITION"])
                 self.assertEqual(cur[sid]["CARACTERIZACAO"], self.por_id[sid]["CARACTERIZACAO"],
                                  "a caracterizacao (com os NAO SEI) tem de chegar inteira")
 

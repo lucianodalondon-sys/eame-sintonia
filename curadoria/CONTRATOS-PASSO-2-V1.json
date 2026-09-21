@@ -1,0 +1,1138 @@
+{
+ "DATASET": "CONTRATOS-PASSO-2-V1",
+ "MISSAO": "AQUISICAO-DETALHE-V1 · PASSO 2",
+ "LEI": [
+  "So LISTAGEM_DE_NOTICIAS com listagem PROVADA (HTTP 200 e mais de um item) e tocada.",
+  "BOLETIM_SERIADO e NAO_SEI: zero diff, conferido linha a linha pelo script.",
+  "MAX_TARGETS = min(N medido na prova, TETO=30): calculado; o TETO e escolha com razao escrita.",
+  "Mudanca de contrato, nao de codigo. Nenhum switch por SOURCE_ID.",
+  "Divergencia da fotografia do curator (italy_contracts_curator.json) e DECLARADA aqui, com o ANTES igual a fotografia — nunca silenciosa."
+ ],
+ "TETO": 30,
+ "TETO_PORQUE": "ver o cabecalho de curadoria/aplicar_passo2.py",
+ "CONTRACTS_FIXED": 21,
+ "CONTRACTS_DELIBERATELY_UNTOUCHED": {
+  "BOLETIM_SERIADO": 8,
+  "NAO_SEI": 44,
+  "LISTAGEM_NAO_PROVADA": 31
+ },
+ "LISTAGEM_NAO_PROVADA_POR_MOTIVO": {
+  "NAO_ALCANCADA_TRANSPORTE": 7,
+  "ROTA_INFERIDA_NAO_EXISTE_404": 4,
+  "HTTP_403_NA_LISTAGEM": 1,
+  "HTTP_500_NA_LISTAGEM": 1,
+  "LISTAGEM_200_SEM_ITENS_NO_HTML": 7,
+  "HUB_DE_SUBSECCOES": 5,
+  "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS": 6
+ },
+ "CAI_PARA_NAO_SEI_APOS_PROVA": [
+  "IT-T1-005",
+  "IT-T1-009",
+  "IT-T1-011",
+  "IT-T7-021"
+ ],
+ "MAX_TARGETS_DEPOIS": {
+  "6": 1,
+  "20": 2,
+  "11": 3,
+  "13": 2,
+  "10": 2,
+  "30": 5,
+  "15": 2,
+  "4": 1,
+  "14": 1,
+  "7": 1,
+  "2": 1
+ },
+ "TOCADAS": [
+  {
+   "SOURCE_ID": "IT-T1-007",
+   "NAME": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+    "LINK_PATTERN": "^https?://(www\\.)?arsial\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+    "LINK_PATTERN": "^https?://(www\\.)?arsial\\.it/bandi-e-avvisi/avvisi-per-enti-pubblici/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 6
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+    "URL_EFECTIVA": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici/",
+    "HTTP": 200,
+    "BYTES": 363478,
+    "N_SOB_A_LISTAGEM": 6,
+    "N_PADRAO_ACTUAL": 13,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=6, TETO=30) = 6",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici/manutenzione-ordianaria-strade-rurali-contributi-2026/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-privati",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T1-010",
+   "NAME": "Regione Abruzzo — Agricoltura",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.abruzzo.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.abruzzo.it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 20
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.regione.abruzzo.it/notizie",
+    "URL_EFECTIVA": "https://www.regione.abruzzo.it/notizie",
+    "HTTP": 200,
+    "BYTES": 103204,
+    "N_SOB_A_LISTAGEM": 20,
+    "N_PADRAO_ACTUAL": 20,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=20, TETO=30) = 20",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.regione.abruzzo.it/notizie/libera-al-rimborso-240-famiglie-con-malati-oncologici",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.regione.abruzzo.it/notizie",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T1-016",
+   "NAME": "Italia Olivicola",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+    "LINK_PATTERN": "^https?://(www\\.)?italiaolivicola\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+    "LINK_PATTERN": "^https?://(www\\.)?italiaolivicola\\.it/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+    "MAX_TARGETS": 11
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+    "URL_EFECTIVA": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+    "HTTP": 200,
+    "BYTES": 109708,
+    "N_SOB_A_LISTAGEM": 0,
+    "N_PADRAO_ACTUAL": 11,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=11, TETO=30) = 11  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.italiaolivicola.it/2026/05/14/lolio-extravergine-di-oliva-italiano-fa-risparmiare-sufficienti-poche-gocce-di-gusto-e-salute/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.italiaolivicola.it/consiglio-di-amministrazione/",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "WordPress com permalink datado: o item carrega a data no caminho; o menu nao. O 'padrao' contou menu tambem — e teto."
+  },
+  {
+   "SOURCE_ID": "IT-T1-018",
+   "NAME": "Rivista di Agraria",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
+    "LINK_PATTERN": "^https?://(www\\.)?rivistadiagraria\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.rivistadiagraria.org/articoli/anno-2026/",
+    "LINK_PATTERN": "^https?://(www\\.)?rivistadiagraria\\.org/articoli/anno-\\d{4}/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 11
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.rivistadiagraria.org/articoli/anno-2026/",
+    "URL_EFECTIVA": "https://www.rivistadiagraria.org/articoli/anno-2026/",
+    "HTTP": 200,
+    "BYTES": 63682,
+    "N_SOB_A_LISTAGEM": 11,
+    "N_PADRAO_ACTUAL": 16,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=11, TETO=30) = 11",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.rivistadiagraria.org/sezioni/animali-da-compagnia/",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "DIVIDA: a listagem e a do ANO 2026; em 2027 a rota tem de rolar (o padrao ja aceita qualquer ano)."
+  },
+  {
+   "SOURCE_ID": "IT-T1-022",
+   "NAME": "OlivoNews — giornale di olivicoltura",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://olivonews.it/category/bollettino-olivicolo/",
+    "LINK_PATTERN": "^https?://(www\\.)?olivonews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://olivonews.it/category/bollettino-olivicolo/",
+    "LINK_PATTERN": "^https?://(www\\.)?olivonews\\.it/[a-z0-9]+(?:-[a-z0-9]+){4,}/?$",
+    "MAX_TARGETS": 13
+   },
+   "PROVA": {
+    "LISTAGEM": "https://olivonews.it/category/bollettino-olivicolo/",
+    "URL_EFECTIVA": "https://olivonews.it/category/bollettino-olivicolo/",
+    "HTTP": 200,
+    "BYTES": 154542,
+    "N_SOB_A_LISTAGEM": 0,
+    "N_PADRAO_ACTUAL": 13,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=13, TETO=30) = 13  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://olivonews.it/con-il-calo-termico-olive-sempre-piu-recettive-alla-mosca/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://olivonews.it/contatti-lolivo-news/",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "WordPress com post na raiz: item e menu tem a mesma forma; distingue-se por 5+ palavras no slug (heuristica declarada). Os itens da categoria 'bollettino-olivicolo' sao artigos distintos e datados sobre a mosca — se o canario mostrar edicoes numeradas de UM documento, reclassificar."
+  },
+  {
+   "SOURCE_ID": "IT-T10-009",
+   "NAME": "Borsa Merci Bologna — Camera di Commercio",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bo.camcom.gov.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?bo\\.camcom\\.gov\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bo.camcom.gov.it/it/blog",
+    "LINK_PATTERN": "^https?://(www\\.)?bo\\.camcom\\.gov\\.it/it/blog/[^?#/]+/?$",
+    "MAX_TARGETS": 10
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.bo.camcom.gov.it/it/blog",
+    "URL_EFECTIVA": "https://www.bo.camcom.gov.it/it/blog",
+    "HTTP": 200,
+    "BYTES": 50801,
+    "N_SOB_A_LISTAGEM": 10,
+    "N_PADRAO_ACTUAL": 10,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=10, TETO=30) = 10",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.bo.camcom.gov.it/it/blog/toasia-export-training-emilia-romagna-2026-iscrizioni-entro-il-1010",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.bo.camcom.gov.it/it/blog",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "NAME": "ARPA Campania",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpacampania.it/web/guest/news",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpacampania.it/web/guest/news",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 20
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.arpacampania.it/web/guest/news",
+    "URL_EFECTIVA": "https://www.arpacampania.it/web/guest/news",
+    "HTTP": 200,
+    "BYTES": 466604,
+    "N_SOB_A_LISTAGEM": 0,
+    "N_PADRAO_ACTUAL": 20,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=20, TETO=30) = 20  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": null,
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.arpacampania.it/web/guest/news",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": false,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "rota e padrao ja estavam certos: so o MAX_TARGETS: 1 perdia os outros 19."
+  },
+  {
+   "SOURCE_ID": "IT-T5-006",
+   "NAME": "CNR — Consiglio Nazionale delle Ricerche",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cnr.it/it/documenti-programmazione",
+    "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cnr.it/it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/it/news/\\d+/[^?#/]+/?$",
+    "MAX_TARGETS": 30
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.cnr.it/it/news",
+    "URL_EFECTIVA": "https://www.cnr.it/it/news",
+    "HTTP": 200,
+    "BYTES": 83682,
+    "N_SOB_A_LISTAGEM": 30,
+    "N_PADRAO_ACTUAL": 76,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=30, TETO=30) = 30",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.cnr.it/it/news/14635/inf-act-inizia-l-avventura-post-pnrr",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.cnr.it/it/cnr-in-numeri",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-015",
+   "NAME": "CNR IBBR — Istituto di Bioscienze e Biorisorse",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ibbr.cnr.it/ibbr/",
+    "LINK_PATTERN": "^https?://(www\\.)?ibbr\\.cnr\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.ibbr.cnr.it/ibbr/news",
+    "LINK_PATTERN": "^https?://(www\\.)?ibbr\\.cnr\\.it/ibbr/news/[a-z]+/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.ibbr.cnr.it/ibbr/news",
+    "URL_EFECTIVA": "https://www.ibbr.cnr.it/ibbr/news",
+    "HTTP": 200,
+    "BYTES": 347058,
+    "N_SOB_A_LISTAGEM": 466,
+    "N_PADRAO_ACTUAL": 436,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=436, TETO=30) = 30  [TETO cortou]  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.ibbr.cnr.it/ibbr/news/announcements/european-biotech-week-2026",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.ibbr.cnr.it/ibbr/news/announcements",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "a listagem anuncia 436 itens de uma vez (arquivo inteiro numa pagina): o TETO corta para 30."
+  },
+  {
+   "SOURCE_ID": "IT-T5-030",
+   "NAME": "UNITE Facolta di Bioscienze e Tecnologie Agro-alimentari e Ambientali",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+    "LINK_PATTERN": "^https://www\\.unite\\.it/UniTE/Bioscienze_e_Tecnologie_Agro\\-Alimentari_e_Ambientali/News_ed_Eventi_\\-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/.+",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+    "LINK_PATTERN": "^https://www\\.unite\\.it/UniTE/Bioscienze_e_Tecnologie_Agro\\-Alimentari_e_Ambientali/News_ed_Eventi_\\-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/.+",
+    "MAX_TARGETS": 11
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+    "URL_EFECTIVA": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+    "HTTP": 200,
+    "BYTES": 104962,
+    "N_SOB_A_LISTAGEM": 11,
+    "N_PADRAO_ACTUAL": 11,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=11, TETO=30) = 11",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": null,
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": null,
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": false,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "rota e padrao (under_example_path) ja estavam certos; a listagem anuncia 11 itens e o contrato trazia 1."
+  },
+  {
+   "SOURCE_ID": "IT-T5-033",
+   "NAME": "UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://distal.unibo.it/it",
+    "LINK_PATTERN": "^https?://(www\\.)?distal\\.unibo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://distal.unibo.it/it/notizie",
+    "LINK_PATTERN": "^https?://distal\\.unibo\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 13
+   },
+   "PROVA": {
+    "LISTAGEM": "https://distal.unibo.it/it/notizie",
+    "URL_EFECTIVA": "https://distal.unibo.it/it/notizie",
+    "HTTP": 200,
+    "BYTES": 76463,
+    "N_SOB_A_LISTAGEM": 13,
+    "N_PADRAO_ACTUAL": 12,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=13, TETO=30) = 13",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://distal.unibo.it/it/notizie/il-distal-al-32-international-horticultural-congress-di-kyoto",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://distal.unibo.it/it/notizie/@@multilingual-selector/9e806d4d7a8e474a99a74fc2d660a1f9/it",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "'sob' contou 13 com dois selectores de lingua (@@) que o padrao exclui: 13 e teto."
+  },
+  {
+   "SOURCE_ID": "IT-T9-009",
+   "NAME": "Cifo",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cifo.it/newsroom/",
+    "LINK_PATTERN": "^https://www\\.cifo\\.it/newsroom/.+",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.cifo.it/newsroom/",
+    "LINK_PATTERN": "^https://www\\.cifo\\.it/newsroom/.+",
+    "MAX_TARGETS": 15
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.cifo.it/newsroom/",
+    "URL_EFECTIVA": "https://www.cifo.it/newsroom/",
+    "HTTP": 200,
+    "BYTES": 39244,
+    "N_SOB_A_LISTAGEM": 15,
+    "N_PADRAO_ACTUAL": 15,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=15, TETO=30) = 15",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.cifo.it/newsroom/catalogo-cifo-2026-soluzioni-affidabili-ogni-volta/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.cifo.it/newsroom/",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": false,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "rota e padrao ja estavam certos: so o MAX_TARGETS: 1 perdia os outros 14."
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "NAME": "Cantina Sociale Cooperativa Riunite e CIV",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.riuniteciv.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/news-e-eventi/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.riuniteciv.com/news-e-eventi/",
+    "URL_EFECTIVA": "https://www.riuniteciv.com/news-e-eventi/",
+    "HTTP": 200,
+    "BYTES": 131132,
+    "N_SOB_A_LISTAGEM": 60,
+    "N_PADRAO_ACTUAL": 58,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=60, TETO=30) = 30  [TETO cortou]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.riuniteciv.com/news-e-eventi/cantine-riunite-civ-ottiene-lesg-recognition-da-dnv/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.riuniteciv.com/news-e-eventi/",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "a listagem anuncia 60 itens: o TETO corta para 30."
+  },
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "NAME": "Myfruit.it",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.myfruit.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.myfruit.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/news/(?!category/)[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.myfruit.it/news",
+    "URL_EFECTIVA": "https://www.myfruit.it/",
+    "HTTP": 200,
+    "BYTES": 187790,
+    "N_SOB_A_LISTAGEM": 80,
+    "N_PADRAO_ACTUAL": 37,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=37, TETO=30) = 30  [TETO cortou]  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.myfruit.it/news/pam-panorama-inaugura-a-moncalieri-torino",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.myfruit.it/news/category/trend-e-mercati",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "/news redirecciona para a capa, e a capa lista as noticias: a rota fica a capa e o padrao passa a exigir /news/<slug> sem 'category'. 'padrao' contou categorias tambem — e teto."
+  },
+  {
+   "SOURCE_ID": "IT-T12-013",
+   "NAME": "Regione Piemonte — Agricoltura e cibo",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/web/temi/agricoltura/[a-z0-9-]+/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "URL_EFECTIVA": "https://www.regione.piemonte.it/web/temi/agricoltura",
+    "HTTP": 200,
+    "BYTES": 211483,
+    "N_SOB_A_LISTAGEM": 31,
+    "N_PADRAO_ACTUAL": 34,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=31, TETO=30) = 30  [TETO cortou]",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.regione.piemonte.it/web/temi/agricoltura/avversita-calamita-naturali/eventi-calamitosi-mese-agosto-2026",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.regione.piemonte.it/governo/bollettino/abbonati/2026/corrente/",
+   "MUDOU": {
+    "INDEX_URL": false,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "BUG DE PADRAO corrigido: a palavra 'bollettin' do padrao generico casava com /governo/bollettino/ e o motor colhia o Bollettino Ufficiale. O padrao novo so aceita itens dentro de /web/temi/agricoltura/<seccao>/<slug>. 'sob' contou 31 com paginas de seccao de primeiro nivel que o padrao novo exclui: 31 e teto."
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "NAME": "UNICT Di3A — Dipartimento di Agricoltura Alimentazione e Ambiente",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.di3a.unict.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.di3a.unict.it/it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 4
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.di3a.unict.it/it/notizie",
+    "URL_EFECTIVA": "https://www.di3a.unict.it/it/notizie",
+    "HTTP": 200,
+    "BYTES": 41584,
+    "N_SOB_A_LISTAGEM": 4,
+    "N_PADRAO_ACTUAL": 3,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=4, TETO=30) = 4",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.di3a.unict.it/it/notizie",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "NAME": "Consorzio Vino Chianti Classico",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.chianticlassico.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.chianticlassico.com/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 15
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.chianticlassico.com/news/",
+    "URL_EFECTIVA": "https://www.chianticlassico.com/news/",
+    "HTTP": 200,
+    "BYTES": 118797,
+    "N_SOB_A_LISTAGEM": 15,
+    "N_PADRAO_ACTUAL": 15,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=15, TETO=30) = 15",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.chianticlassico.com/news/il-gallo-nero-a-vinitaly-2026/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.chianticlassico.com/news/",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "NAME": "Zootecnica International",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.zootecnicainternational.com/",
+    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://zootecnicainternational.com/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+    "MAX_TARGETS": 14
+   },
+   "PROVA": {
+    "LISTAGEM": "https://zootecnicainternational.com/news/",
+    "URL_EFECTIVA": "https://zootecnicainternational.com/news/",
+    "HTTP": 200,
+    "BYTES": 305614,
+    "N_SOB_A_LISTAGEM": 14,
+    "N_PADRAO_ACTUAL": 10,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=14, TETO=30) = 14",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://zootecnicainternational.com/news/newcastle-disease-hungary-broiler-farms/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://zootecnicainternational.com/news/shows-and-fairs/",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": "categorias (/news/shows-and-fairs/, /news/company-news/) tem 1-2 hifens; itens tem 3+. Heuristica declarada; 'sob' contou categorias — e teto."
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "NAME": "Consorzio di Bonifica della Romagna",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bonificaromagna.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.bonificaromagna.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 7
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.bonificaromagna.it/news",
+    "URL_EFECTIVA": "https://www.bonificaromagna.it/news",
+    "HTTP": 200,
+    "BYTES": 55367,
+    "N_SOB_A_LISTAGEM": 7,
+    "N_PADRAO_ACTUAL": 7,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=7, TETO=30) = 7",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.bonificaromagna.it/news/registrazione-operatori-economici-su-anac",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.bonificaromagna.it/news",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "NAME": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.consorziobalsamico.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.consorziobalsamico.it/news-blog/",
+    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/news-blog/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 10
+   },
+   "PROVA": {
+    "LISTAGEM": "https://www.consorziobalsamico.it/news-blog/",
+    "URL_EFECTIVA": "https://www.consorziobalsamico.it/news-blog/",
+    "HTTP": 200,
+    "BYTES": 105597,
+    "N_SOB_A_LISTAGEM": 10,
+    "N_PADRAO_ACTUAL": 10,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=10, TETO=30) = 10",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://www.consorziobalsamico.it/news-blog/domenica-27-settembre-torna-acetaie-aperte/",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://www.consorziobalsamico.it/news-blog/",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "NAME": "Agrofarma — Federchimica",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "ANTES": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://agrofarma.federchimica.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "DEPOIS": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "LINK_PATTERN": "^https?://agrofarma\\.federchimica\\.it/news-ed-eventi/dettaglio-news/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+    "MAX_TARGETS": 2
+   },
+   "PROVA": {
+    "LISTAGEM": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "URL_EFECTIVA": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "HTTP": 200,
+    "BYTES": 63705,
+    "N_SOB_A_LISTAGEM": 2,
+    "N_PADRAO_ACTUAL": 2,
+    "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+   },
+   "MAX_TARGETS_DERIVACAO": "min(N_SOB=2, TETO=30) = 2",
+   "ITEM_REAL_QUE_O_PADRAO_CASA": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+   "NAO_ITEM_QUE_O_PADRAO_EXCLUI": "https://agrofarma.federchimica.it/news-ed-eventi",
+   "MUDOU": {
+    "INDEX_URL": true,
+    "LINK_PATTERN": true,
+    "MAX_TARGETS": true
+   },
+   "NOTA": ""
+  }
+ ],
+ "INTOCADAS": [
+  {
+   "SOURCE_ID": "IT-T1-002",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 1,
+   "PORQUE_DA_PROVA": "200 mas nenhum ou um so item visivel — listagem nao provada",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T1-005",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "200 mas nenhum ou um so item visivel — listagem nao provada",
+   "CLASSIFICACAO_APOS_PROVA": "NAO_SEI",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T1-009",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 2,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "NAO_SEI",
+   "NOTA": "/notizie/agricoltura redirecciona para UM artigo (avviso-pubblico-promozione-biodistretti): a seccao nao e uma listagem servida em HTML."
+  },
+  {
+   "SOURCE_ID": "IT-T1-011",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 8,
+   "N_PADRAO_ACTUAL": 1,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "NAO_SEI",
+   "NOTA": "/agricoltura lista sub-seccoes (PAC, PNRR, bandi) e uma unica notizia: nao e a listagem de noticias."
+  },
+  {
+   "SOURCE_ID": "IT-T1-013",
+   "MOTIVO": "ROTA_INFERIDA_NAO_EXISTE_404",
+   "HTTP": 404,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "HTTP 404",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T1-021",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 5,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": "CONTRAPROVA DA MISSAO: o HTML servido de /notizie-agricoltura-attualita/ (61 KB, HTTP 200) anuncia 5 categorias e ZERO artigos. Ou a listagem e montada por JavaScript, ou os artigos vivem noutro caminho. O canario do PASSO 3 nao pode terminar nesta pagina; sem itens no HTML, nao se corrige o contrato as cegas."
+  },
+  {
+   "SOURCE_ID": "IT-T10-007",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_UNREADABLE: PortaoIndisponivel: não deu para LER o robots.txt de https://www.ismea.it: o transporte caiu antes da resposta. Isto não é uma recusa do hos",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T10-011",
+   "MOTIVO": "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 44,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T10-013",
+   "MOTIVO": "HUB_DE_SUBSECCOES",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 4,
+   "N_PADRAO_ACTUAL": 12,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": "os filhos sao /rassegna-stampa/2/, /3/ … (paginacao numerica sem 'page'): os itens sao provavelmente posts na raiz."
+  },
+  {
+   "SOURCE_ID": "IT-T10-020",
+   "MOTIVO": "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 156,
+   "N_PADRAO_ACTUAL": 1,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "MOTIVO": "ROTA_INFERIDA_NAO_EXISTE_404",
+   "HTTP": 404,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "HTTP 404",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T11-005",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_GATE_FAIL: robots.txt ilegível deste host — não afirmamos permissão que não lemos",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T12-004",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_UNREADABLE: PortaoIndisponivel: não deu para LER o robots.txt de https://www.confagricoltura.it: o transporte caiu antes da resposta. Isto não é uma rec",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-008",
+   "MOTIVO": "ROTA_INFERIDA_NAO_EXISTE_404",
+   "HTTP": 404,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "HTTP 404",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-010",
+   "MOTIVO": "HUB_DE_SUBSECCOES",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 5,
+   "N_PADRAO_ACTUAL": 9,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": "candidata para a proxima prova: /News/Comunicati-stampa ou /News/Approfondimenti (filhos vistos)."
+  },
+  {
+   "SOURCE_ID": "IT-T2-012",
+   "MOTIVO": "HUB_DE_SUBSECCOES",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 7,
+   "N_PADRAO_ACTUAL": 7,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": "candidata para a proxima prova: /news/ufficio-stampa/comunicati-stampa-2026/ (filho visto com 200)."
+  },
+  {
+   "SOURCE_ID": "IT-T2-017",
+   "MOTIVO": "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 11,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-019",
+   "MOTIVO": "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 36,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-022",
+   "MOTIVO": "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 40,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T2-030",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_UNREADABLE: PortaoIndisponivel: não deu para LER o robots.txt de https://www.nomisma.it: o transporte caiu antes da resposta. Isto não é uma recusa do h",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T3-014",
+   "MOTIVO": "HUB_DE_SUBSECCOES",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 6,
+   "N_PADRAO_ACTUAL": 10,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T3-018",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_GATE_FAIL: robots.txt ilegível deste host — não afirmamos permissão que não lemos",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-024",
+   "MOTIVO": "ROTA_INFERIDA_NAO_EXISTE_404",
+   "HTTP": 404,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "HTTP 404",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-025",
+   "MOTIVO": "HTTP_403_NA_LISTAGEM",
+   "HTTP": 403,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "HTTP 403",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-027",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 1,
+   "PORQUE_DA_PROVA": "200 mas nenhum ou um so item visivel — listagem nao provada",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T5-034",
+   "MOTIVO": "HTTP_500_NA_LISTAGEM",
+   "HTTP": 500,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "HTTP 500",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-013",
+   "MOTIVO": "ITENS_NAO_DISTINGUIVEIS_NAS_AMOSTRAS",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 40,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "MOTIVO": "LISTAGEM_200_SEM_ITENS_NO_HTML",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "200 mas nenhum ou um so item visivel — listagem nao provada",
+   "CLASSIFICACAO_APOS_PROVA": "NAO_SEI",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T7-040",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_GATE_FAIL: robots.txt ilegível deste host — não afirmamos permissão que não lemos",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T8-008",
+   "MOTIVO": "HUB_DE_SUBSECCOES",
+   "HTTP": 200,
+   "N_SOB_A_LISTAGEM": 6,
+   "N_PADRAO_ACTUAL": 2,
+   "PORQUE_DA_PROVA": "",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  },
+  {
+   "SOURCE_ID": "IT-T9-011",
+   "MOTIVO": "NAO_ALCANCADA_TRANSPORTE",
+   "HTTP": 0,
+   "N_SOB_A_LISTAGEM": 0,
+   "N_PADRAO_ACTUAL": 0,
+   "PORQUE_DA_PROVA": "ROBOTS_GATE_FAIL: robots.txt ilegível deste host — não afirmamos permissão que não lemos",
+   "CLASSIFICACAO_APOS_PROVA": "LISTAGEM_DE_NOTICIAS (nao provada — contrato intocado)",
+   "NOTA": ""
+  }
+ ]
+}

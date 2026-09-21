@@ -148,8 +148,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
-    "LINK_PATTERN": "^https?://(www\\.)?arsial\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?arsial\\.it/bandi-e-avvisi/avvisi-per-enti-pubblici/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 6
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-007/MANIFEST.json",
    "SONDAGEM": {
@@ -160,6 +160,27 @@
     "DOCUMENTO": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 363478
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+     "LINK_PATTERN": "^https?://(www\\.)?arsial\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici",
+     "URL_EFECTIVA": "https://www.arsial.it/bandi-e-avvisi/avvisi-per-enti-pubblici/",
+     "HTTP": 200,
+     "BYTES": 363478,
+     "N_SOB_A_LISTAGEM": 6,
+     "N_PADRAO_ACTUAL": 13,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=6, TETO=30) = 6",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -223,9 +244,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.regione.abruzzo.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.regione.abruzzo.it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 20
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-010/MANIFEST.json",
    "SONDAGEM": {
@@ -236,6 +257,27 @@
     "DOCUMENTO": "http://www.regione.abruzzo.it/notizie/economia-l-abruzzo-da-record-export-pil-ed-occupazione-ai-vertici-italia",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 108987
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.abruzzo.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.abruzzo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.regione.abruzzo.it/notizie",
+     "URL_EFECTIVA": "https://www.regione.abruzzo.it/notizie",
+     "HTTP": 200,
+     "BYTES": 103204,
+     "N_SOB_A_LISTAGEM": 20,
+     "N_PADRAO_ACTUAL": 20,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=20, TETO=30) = 20",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -374,8 +416,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.italiaolivicola.it/category/comunicati-stampa/",
-    "LINK_PATTERN": "^https?://(www\\.)?italiaolivicola\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?italiaolivicola\\.it/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+    "MAX_TARGETS": 11
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-016/MANIFEST.json",
    "SONDAGEM": {
@@ -386,6 +428,27 @@
     "DOCUMENTO": "https://www.italiaolivicola.it/category/comunicati-stampa/",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 109708
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+     "LINK_PATTERN": "^https?://(www\\.)?italiaolivicola\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+     "URL_EFECTIVA": "https://www.italiaolivicola.it/category/comunicati-stampa/",
+     "HTTP": 200,
+     "BYTES": 109708,
+     "N_SOB_A_LISTAGEM": 0,
+     "N_PADRAO_ACTUAL": 11,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=11, TETO=30) = 11  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -425,9 +488,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
-    "LINK_PATTERN": "^https?://(www\\.)?rivistadiagraria\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.rivistadiagraria.org/articoli/anno-2026/",
+    "LINK_PATTERN": "^https?://(www\\.)?rivistadiagraria\\.org/articoli/anno-\\d{4}/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 11
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-018/MANIFEST.json",
    "SONDAGEM": {
@@ -438,6 +501,27 @@
     "DOCUMENTO": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 75280
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/",
+     "LINK_PATTERN": "^https?://(www\\.)?rivistadiagraria\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.rivistadiagraria.org/articoli/anno-2026/",
+     "URL_EFECTIVA": "https://www.rivistadiagraria.org/articoli/anno-2026/",
+     "HTTP": 200,
+     "BYTES": 63682,
+     "N_SOB_A_LISTAGEM": 11,
+     "N_PADRAO_ACTUAL": 16,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=11, TETO=30) = 11",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -527,8 +611,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://olivonews.it/category/bollettino-olivicolo/",
-    "LINK_PATTERN": "^https?://(www\\.)?olivonews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?olivonews\\.it/[a-z0-9]+(?:-[a-z0-9]+){4,}/?$",
+    "MAX_TARGETS": 13
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T1-022/MANIFEST.json",
    "SONDAGEM": {
@@ -539,6 +623,27 @@
     "DOCUMENTO": "https://olivonews.it/category/bollettino-olivicolo/",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 154438
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://olivonews.it/category/bollettino-olivicolo/",
+     "LINK_PATTERN": "^https?://(www\\.)?olivonews\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://olivonews.it/category/bollettino-olivicolo/",
+     "URL_EFECTIVA": "https://olivonews.it/category/bollettino-olivicolo/",
+     "HTTP": 200,
+     "BYTES": 154542,
+     "N_SOB_A_LISTAGEM": 0,
+     "N_PADRAO_ACTUAL": 13,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=13, TETO=30) = 13  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -673,9 +778,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.bo.camcom.gov.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?bo\\.camcom\\.gov\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.bo.camcom.gov.it/it/blog",
+    "LINK_PATTERN": "^https?://(www\\.)?bo\\.camcom\\.gov\\.it/it/blog/[^?#/]+/?$",
+    "MAX_TARGETS": 10
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-009/MANIFEST.json",
    "SONDAGEM": {
@@ -686,6 +791,27 @@
     "DOCUMENTO": "https://www.bo.camcom.gov.it/it/blog/un-milione-di-euro-trattenere-i-giovani-bologna-domande-entro-il-1610",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 45533
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.bo.camcom.gov.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?bo\\.camcom\\.gov\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.bo.camcom.gov.it/it/blog",
+     "URL_EFECTIVA": "https://www.bo.camcom.gov.it/it/blog",
+     "HTTP": 200,
+     "BYTES": 50801,
+     "N_SOB_A_LISTAGEM": 10,
+     "N_PADRAO_ACTUAL": 10,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=10, TETO=30) = 10",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -1006,7 +1132,7 @@
     "MATCH": "URL",
     "INDEX_URL": "https://www.arpacampania.it/web/guest/news",
     "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "MAX_TARGETS": 20
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T2-006/MANIFEST.json",
    "SONDAGEM": {
@@ -1019,6 +1145,27 @@
     "DOCUMENTO_BYTES": 123309,
     "REGRA": "keyword_slug",
     "GZIP_NA_RESPOSTA": false
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.arpacampania.it/web/guest/news",
+     "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.arpacampania.it/web/guest/news",
+     "URL_EFECTIVA": "https://www.arpacampania.it/web/guest/news",
+     "HTTP": 200,
+     "BYTES": 466604,
+     "N_SOB_A_LISTAGEM": 0,
+     "N_PADRAO_ACTUAL": 20,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=20, TETO=30) = 20  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -1737,9 +1884,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.cnr.it/it/documenti-programmazione",
-    "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.cnr.it/it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/it/news/\\d+/[^?#/]+/?$",
+    "MAX_TARGETS": 30
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-006/MANIFEST.json",
    "SONDAGEM": {
@@ -1750,6 +1897,27 @@
     "DOCUMENTO": "https://www.cnr.it/it/documenti-programmazione",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 42346
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.cnr.it/it/documenti-programmazione",
+     "LINK_PATTERN": "^https?://(www\\.)?cnr\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|my-bookmarks)/)(?:[^?#]*/)?[a-z0-9]+(?:-[a-z0-9]+){2,}/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.cnr.it/it/news",
+     "URL_EFECTIVA": "https://www.cnr.it/it/news",
+     "HTTP": 200,
+     "BYTES": 83682,
+     "N_SOB_A_LISTAGEM": 30,
+     "N_PADRAO_ACTUAL": 76,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=30, TETO=30) = 30",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -1970,9 +2138,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.ibbr.cnr.it/ibbr/",
-    "LINK_PATTERN": "^https?://(www\\.)?ibbr\\.cnr\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.ibbr.cnr.it/ibbr/news",
+    "LINK_PATTERN": "^https?://(www\\.)?ibbr\\.cnr\\.it/ibbr/news/[a-z]+/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-015/MANIFEST.json",
    "SONDAGEM": {
@@ -1983,6 +2151,27 @@
     "DOCUMENTO": "https://www.ibbr.cnr.it/ibbr/news/iscrizioni-aperte-per-il-6-maria-ciaramella",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 52939
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.ibbr.cnr.it/ibbr/",
+     "LINK_PATTERN": "^https?://(www\\.)?ibbr\\.cnr\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.ibbr.cnr.it/ibbr/news",
+     "URL_EFECTIVA": "https://www.ibbr.cnr.it/ibbr/news",
+     "HTTP": 200,
+     "BYTES": 347058,
+     "N_SOB_A_LISTAGEM": 466,
+     "N_PADRAO_ACTUAL": 436,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=436, TETO=30) = 30  [TETO cortou]  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -2353,7 +2542,7 @@
     "MATCH": "URL",
     "INDEX_URL": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
     "LINK_PATTERN": "^https://www\\.unite\\.it/UniTE/Bioscienze_e_Tecnologie_Agro\\-Alimentari_e_Ambientali/News_ed_Eventi_\\-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/.+",
-    "MAX_TARGETS": 1
+    "MAX_TARGETS": 11
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-030/MANIFEST.json",
    "SONDAGEM": {
@@ -2366,6 +2555,27 @@
     "DOCUMENTO_BYTES": 98283,
     "REGRA": "under_example_path",
     "GZIP_NA_RESPOSTA": false
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+     "LINK_PATTERN": "^https://www\\.unite\\.it/UniTE/Bioscienze_e_Tecnologie_Agro\\-Alimentari_e_Ambientali/News_ed_Eventi_\\-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali/.+",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+     "URL_EFECTIVA": "https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-Alimentari_e_Ambientali/News_ed_Eventi_-_Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali",
+     "HTTP": 200,
+     "BYTES": 104962,
+     "N_SOB_A_LISTAGEM": 11,
+     "N_PADRAO_ACTUAL": 11,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=11, TETO=30) = 11",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -2403,9 +2613,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://distal.unibo.it/it",
-    "LINK_PATTERN": "^https?://(www\\.)?distal\\.unibo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://distal.unibo.it/it/notizie",
+    "LINK_PATTERN": "^https?://distal\\.unibo\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 13
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-033/MANIFEST.json",
    "SONDAGEM": {
@@ -2416,6 +2626,27 @@
     "DOCUMENTO": "https://distal.unibo.it/it/notizie/vii-giornata-internazionale-di-sensibilizzazione-sulle-perdite-e-sugli-sprechi-alimentari",
     "DOCUMENTO_ASSINATURA": "HTML",
     "DOCUMENTO_BYTES": 53267
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://distal.unibo.it/it",
+     "LINK_PATTERN": "^https?://(www\\.)?distal\\.unibo\\.it/(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza)/[^?#]*(?:[a-z]{3,}-[a-z]{3,}|\\d{4})[^?#]*(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://distal.unibo.it/it/notizie",
+     "URL_EFECTIVA": "https://distal.unibo.it/it/notizie",
+     "HTTP": 200,
+     "BYTES": 76463,
+     "N_SOB_A_LISTAGEM": 13,
+     "N_PADRAO_ACTUAL": 12,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=13, TETO=30) = 13",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -2552,7 +2783,7 @@
     "MATCH": "URL",
     "INDEX_URL": "https://www.cifo.it/newsroom/",
     "LINK_PATTERN": "^https://www\\.cifo\\.it/newsroom/.+",
-    "MAX_TARGETS": 1
+    "MAX_TARGETS": 15
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T9-009/MANIFEST.json",
    "SONDAGEM": {
@@ -2565,6 +2796,27 @@
     "DOCUMENTO_BYTES": 40253,
     "REGRA": "under_example_path",
     "GZIP_NA_RESPOSTA": false
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.cifo.it/newsroom/",
+     "LINK_PATTERN": "^https://www\\.cifo\\.it/newsroom/.+",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.cifo.it/newsroom/",
+     "URL_EFECTIVA": "https://www.cifo.it/newsroom/",
+     "HTTP": 200,
+     "BYTES": 39244,
+     "N_SOB_A_LISTAGEM": 15,
+     "N_PADRAO_ACTUAL": 15,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=15, TETO=30) = 15",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -2744,9 +2996,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.riuniteciv.com/",
-    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+    "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/news-e-eventi/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-017/MANIFEST.json",
    "SONDAGEM": {
@@ -2800,6 +3052,27 @@
     "ROBOTS_HOST": "www.riuniteciv.com",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY",
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.riuniteciv.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.riuniteciv.com/news-e-eventi/",
+     "URL_EFECTIVA": "https://www.riuniteciv.com/news-e-eventi/",
+     "HTTP": 200,
+     "BYTES": 131132,
+     "N_SOB_A_LISTAGEM": 60,
+     "N_PADRAO_ACTUAL": 58,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=60, TETO=30) = 30  [TETO cortou]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3024,8 +3297,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.myfruit.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/news/(?!category/)[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-018/MANIFEST.json",
    "SONDAGEM": {
@@ -3081,6 +3354,27 @@
     "ROBOTS_HOST": "www.myfruit.it",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
     "ACTIVITY_STATE": "UNKNOWN"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.myfruit.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.myfruit.it/news",
+     "URL_EFECTIVA": "https://www.myfruit.it/",
+     "HTTP": 200,
+     "BYTES": 187790,
+     "N_SOB_A_LISTAGEM": 80,
+     "N_PADRAO_ACTUAL": 37,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_PADRAO=37, TETO=30) = 30  [TETO cortou]  [a contagem 'padrao' pode incluir menu: e teto, nao contagem de itens]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3094,8 +3388,8 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
-    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/web/temi/agricoltura/[a-z0-9-]+/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 30
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T12-013/MANIFEST.json",
    "SONDAGEM": {
@@ -3154,6 +3448,27 @@
     "ROBOTS_HOST": "www.regione.piemonte.it",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY",
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.regione.piemonte.it/web/temi/agricoltura",
+     "LINK_PATTERN": "^https?://(www\\.)?regione\\.piemonte\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.regione.piemonte.it/web/temi/agricoltura",
+     "URL_EFECTIVA": "https://www.regione.piemonte.it/web/temi/agricoltura",
+     "HTTP": 200,
+     "BYTES": 211483,
+     "N_SOB_A_LISTAGEM": 31,
+     "N_PADRAO_ACTUAL": 34,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=31, TETO=30) = 30  [TETO cortou]",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3166,9 +3481,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.di3a.unict.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.di3a.unict.it/it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 4
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T5-049/MANIFEST.json",
    "SONDAGEM": {
@@ -3220,6 +3535,27 @@
     "ROBOTS_HOST": "www.di3a.unict.it",
     "INITIAL_COLLECTION_CADENCE": "DAILY",
     "ACTIVITY_STATE": "ACTIVE_HIGH_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.di3a.unict.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.di3a.unict.it/it/notizie",
+     "URL_EFECTIVA": "https://www.di3a.unict.it/it/notizie",
+     "HTTP": 200,
+     "BYTES": 41584,
+     "N_SOB_A_LISTAGEM": 4,
+     "N_PADRAO_ACTUAL": 3,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=4, TETO=30) = 4",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3232,9 +3568,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.chianticlassico.com/",
-    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.chianticlassico.com/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 15
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-033/MANIFEST.json",
    "SONDAGEM": {
@@ -3284,6 +3620,27 @@
     "ROBOTS_HOST": "www.chianticlassico.com",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY",
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.chianticlassico.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.chianticlassico.com/news/",
+     "URL_EFECTIVA": "https://www.chianticlassico.com/news/",
+     "HTTP": 200,
+     "BYTES": 118797,
+     "N_SOB_A_LISTAGEM": 15,
+     "N_PADRAO_ACTUAL": 15,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=15, TETO=30) = 15",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3515,9 +3872,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.zootecnicainternational.com/",
-    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://zootecnicainternational.com/news/",
+    "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+    "MAX_TARGETS": 14
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T10-022/MANIFEST.json",
    "SONDAGEM": {
@@ -3567,6 +3924,27 @@
     "ROBOTS_HOST": "www.zootecnicainternational.com",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY",
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.zootecnicainternational.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://zootecnicainternational.com/news/",
+     "URL_EFECTIVA": "https://zootecnicainternational.com/news/",
+     "HTTP": 200,
+     "BYTES": 305614,
+     "N_SOB_A_LISTAGEM": 14,
+     "N_PADRAO_ACTUAL": 10,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=14, TETO=30) = 14",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3647,9 +4025,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.bonificaromagna.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.bonificaromagna.it/news",
+    "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 7
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-041/MANIFEST.json",
    "SONDAGEM": {
@@ -3701,6 +4079,27 @@
     "ROBOTS_HOST": "www.bonificaromagna.it",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY",
     "ACTIVITY_STATE": "ACTIVE_LOW_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.bonificaromagna.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?bonificaromagna\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.bonificaromagna.it/news",
+     "URL_EFECTIVA": "https://www.bonificaromagna.it/news",
+     "HTTP": 200,
+     "BYTES": 55367,
+     "N_SOB_A_LISTAGEM": 7,
+     "N_PADRAO_ACTUAL": 7,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=7, TETO=30) = 7",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3713,9 +4112,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.consorziobalsamico.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://www.consorziobalsamico.it/news-blog/",
+    "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/news-blog/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+    "MAX_TARGETS": 10
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-042/MANIFEST.json",
    "SONDAGEM": {
@@ -3770,6 +4169,27 @@
     "ROBOTS_HOST": "www.consorziobalsamico.it",
     "INITIAL_COLLECTION_CADENCE": "WEEKLY",
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.consorziobalsamico.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://www.consorziobalsamico.it/news-blog/",
+     "URL_EFECTIVA": "https://www.consorziobalsamico.it/news-blog/",
+     "HTTP": 200,
+     "BYTES": 105597,
+     "N_SOB_A_LISTAGEM": 10,
+     "N_PADRAO_ACTUAL": 10,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=10, TETO=30) = 10",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
@@ -3854,9 +4274,9 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://agrofarma.federchimica.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
-    "MAX_TARGETS": 1
+    "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "LINK_PATTERN": "^https?://agrofarma\\.federchimica\\.it/news-ed-eventi/dettaglio-news/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+    "MAX_TARGETS": 2
    },
    "EVIDENCE": "data/samples/IT-SOURCE-SAMPLES/IT-T7-043/MANIFEST.json",
    "SONDAGEM": {
@@ -3910,6 +4330,27 @@
     "ROBOTS_HOST": "agrofarma.federchimica.it",
     "INITIAL_COLLECTION_CADENCE": "MONTHLY_PROBE",
     "ACTIVITY_STATE": "UNKNOWN"
+   },
+   "AQUISICAO_DETALHE_V1": {
+    "PASSO": 2,
+    "ANTES": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://agrofarma.federchimica.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PROVA": {
+     "LISTAGEM": "https://agrofarma.federchimica.it/news-ed-eventi",
+     "URL_EFECTIVA": "https://agrofarma.federchimica.it/news-ed-eventi",
+     "HTTP": 200,
+     "BYTES": 63705,
+     "N_SOB_A_LISTAGEM": 2,
+     "N_PADRAO_ACTUAL": 2,
+     "CORRIDO_EM": "2026-09-21T00:49:25.936Z"
+    },
+    "MAX_TARGETS_DERIVACAO": "min(N_SOB=2, TETO=30) = 2",
+    "REGISTO": "curadoria/CONTRATOS-PASSO-2-V1.json"
    }
   },
   {
