@@ -128,10 +128,35 @@ class OsTresEixosNaoSeColapsam(unittest.TestCase):
         deixou de ser verdade. A vigia nao se apaga: reancora-se.
 
             ONE CONCEPT -> ONE OWNER. E o dono grosso e UM.
+
+        ⚠️ C14-C · E O CONCEITO E `PLATAFORMA + GROSSA`, NAO A GROSSA SOZINHA.
+
+        Segunda reancoragem, pelo mesmo motivo de fundo: a lista percorria
+        `cap.DECLARADAS` inteira e exigia que so o YouTube reivindicasse
+        `FETCH_AUDIO_BYTES`. Isso valia enquanto ele era o unico veiculo com
+        audio publico autorizado; com o Instagram a ganhar a SUA porta (C14), a
+        asercao passou a proibir o que a casa ja faz em 8 outras portas grossas
+        partilhadas.
+
+            `mz.decisao(platform, capability)` PEDE AS DUAS CHAVES.
+            INSTAGRAM/FETCH_AUDIO_BYTES != YOUTUBE/FETCH_AUDIO_BYTES:
+            rotas diferentes, executores diferentes, gates diferentes.
+
+        O dono UNICO continua exigido — dentro da plataforma. Um segundo
+        `youtube.*` sobre a mesma porta reprova, que e a avaria real que este
+        teste sempre quis apanhar.
         """
         self.assertEqual(cap.da_matriz(AUDIO), 'FETCH_AUDIO_BYTES')
-        donos = [n for n in cap.DECLARADAS if cap.da_matriz(n) == 'FETCH_AUDIO_BYTES']
-        self.assertEqual(donos, [AUDIO], 'a porta grossa ganhou um segundo dono')
+        plataforma = cap.DECLARADAS[AUDIO][0]
+        donos = [n for n, linha in cap.DECLARADAS.items()
+                 if cap.da_matriz(n) == 'FETCH_AUDIO_BYTES' and linha[0] == plataforma]
+        self.assertEqual(donos, [AUDIO],
+                         'a porta grossa de %s ganhou um segundo dono' % plataforma)
+        # E a porta de OUTRA plataforma nao e esta: chaves distintas, rotas
+        # distintas. Se um dia colapsarem numa so, isto reprova.
+        self.assertNotEqual(mz.decisao('INSTAGRAM', 'FETCH_AUDIO_BYTES')['ROTA'],
+                            mz.decisao(plataforma, 'FETCH_AUDIO_BYTES')['ROTA'],
+                            'duas plataformas colapsaram na mesma rota de audio')
 
     def test_12_o_estado_do_audio_nao_vem_da_matriz(self):
         """A matriz responde «esta rota pode ser usada?»; o registry, «correu?».

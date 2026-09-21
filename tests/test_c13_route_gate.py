@@ -112,9 +112,32 @@ class AUmaPortaSoParaOAudio(unittest.TestCase):
                          'docs/sintonia-scrap/C13-YOUTUBE-PUBLIC-AUDIO.md')
 
     def test_2_o_registry_aponta_para_exatamente_uma_capability_grossa(self):
+        """⚠️ C14-C · A CHAVE E `PLATAFORMA + GROSSA`, NUNCA A GROSSA SOZINHA.
+
+        Este teste contava os donos de `FETCH_AUDIO_BYTES` em TODA a declaracao,
+        sem olhar a plataforma. Enquanto o YouTube era o unico veiculo com audio
+        publico, o numero batia por coincidencia — havia uma so plataforma.
+
+        Deixou de bater quando o Instagram ganhou a SUA porta de audio publico
+        (C14), e o vermelho nao era um dono a mais: era a ancora a medir o
+        vocabulario em vez do contrato.
+
+            `mz.decisao(platform, capability)` — a decisao PEDE AS DUAS.
+            E 8 portas grossas desta matriz ja sao partilhadas por mais de uma
+            plataforma (`FETCH_TRANSCRIPT`, `FETCH_COMMENTS`, `INCREMENTAL`...).
+            Partilhar a grossa entre veiculos E o desenho, nao a avaria.
+
+        O que continua vigiado — e e o que interessa — e que dentro de UMA
+        plataforma so exista UM dono fino daquela porta. Um segundo
+        `youtube.*` a reivindicar `FETCH_AUDIO_BYTES` reprova, como sempre.
+        """
         self.assertEqual(cap.da_matriz(FINAS), GROSSA)
-        self.assertEqual(len([n for n in cap.DECLARADAS if cap.da_matriz(n) == GROSSA]),
-                         1, 'duas capacidades finas reivindicam a mesma porta grossa')
+        plataforma = cap.DECLARADAS[FINAS][0]
+        donos = [n for n, linha in cap.DECLARADAS.items()
+                 if cap.da_matriz(n) == GROSSA and linha[0] == plataforma]
+        self.assertEqual(donos, [FINAS],
+                         'duas capacidades finas de %s reivindicam a mesma porta '
+                         'grossa' % plataforma)
 
     def test_3_a_matriz_declara_a_capability_de_audio(self):
         self.assertIn(GROSSA, mz.CAPACIDADES)
