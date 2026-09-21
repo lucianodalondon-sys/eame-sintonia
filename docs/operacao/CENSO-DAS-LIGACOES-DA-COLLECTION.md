@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  fa4277f6a4b7ebd9b2ea3251b0c29b49553e9fa8
+HEAD_DA_MEDICAO  b2c7c41ff64fb88784af3fb9eaf16ae8ab15eb62
 BRANCH           duas-portas-v1
-GERADO_EM        2026-09-21T20:45:38-03:00
+GERADO_EM        2026-09-21T20:51:42-03:00
 CARDS            79
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
