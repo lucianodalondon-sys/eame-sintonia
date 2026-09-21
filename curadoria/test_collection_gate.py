@@ -24,7 +24,10 @@ from __future__ import annotations
 
 import ast
 import json
+import os
 import re
+import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -339,6 +342,75 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         # o portao vem ANTES de cunhar o RUN_ID e de chamar o coletor
         self.assertLess(t.index("collection_gate.py"), t.index("executarRodada"),
                         "o portao foi consultado DEPOIS de a coleta comecar")
+
+    def test_o_coletor_agendado_para_mesmo_no_portao(self):
+        """⚠️ PROVA DE RUNTIME, E NAO DE TEXTO. FOI PRECISA.
+
+        A versao anterior deste ataque so lia o ficheiro. Uma mutacao que
+        trocava `admissao.RECUSADAS.map(...)` por `[]` deixava as duas frases
+        procuradas intactas — o mutante SOBREVIVEU e a suite ficou verde com o
+        portao desligado. Ler o texto nao prova que o portao morde.
+
+        Corre-se o coletor agendado a serio, com `--so-o-portao` (que para no
+        passo 6b, com ou sem veredito favoravel) e `--simulate-vpn IT` (que
+        nao vai a rede). ITALY_OPS_ROOT vai para uma pasta descartavel: o lock
+        e o log nascem e morrem la.
+        """
+        if not shutil.which("node"):
+            self.skipTest("node nao esta nesta maquina — a prova de runtime "
+                          "do coletor agendado nao corre aqui")
+        with tempfile.TemporaryDirectory() as d:
+            r = subprocess.run(
+                ["node", "coleta/italy_recurrent_collect.mjs",
+                 "--profile", "forward-only-live", "--so-o-portao",
+                 "--simulate-vpn", "IT", "--no-git"],
+                cwd=str(RAIZ), capture_output=True, text=True,
+                encoding="utf-8", errors="replace", timeout=600,
+                env={**os.environ, "ITALY_OPS_ROOT": d})
+        self.assertIn("{", r.stdout, "o coletor nao devolveu resumo: %s" % r.stderr[-400:])
+        resumo = json.loads(r.stdout[r.stdout.index("{"):])
+        self.assertEqual("BLOCKED_BY_CURATOR_INTAKE_GATE", resumo["RUN_STATE"],
+                         "o perfil agendado passou o portao: %s" % resumo.get("reason"))
+        self.assertEqual(0, resumo["SOURCE_ATTEMPTED"],
+                         "alguma fonte foi tocada antes do portao dizer sim")
+        self.assertEqual(0, resumo["COLLECTION_ELIGIBLE"])
+        self.assertTrue(resumo["COLLECTION_REFUSED"],
+                        "o portao nao nomeou nenhuma recusada — nao mordeu")
+        self.assertEqual("HEALTHY", resumo["RUNNER_HEALTH"],
+                         "o portao dizer nao nao e o corredor estar doente")
+
+    def test_o_adapter_do_pedido_recusa_a_fonte_por_omissao_da_receita(self):
+        """PROVA DE RUNTIME do segundo caminho de producao.
+
+        `pedido/receitas.py` nomeia a fonte, e a receita de T3 tem
+        `filtros_por_omissao`. A fonte que la esta e medida contra o livro
+        AGORA: se nao for admitida, `correr_coletor()` devolve
+        BLOQUEADA_PELO_CURATOR e o Node nem chega a ser chamado.
+
+        Se um dia essa fonte passar a ser admitida, o teste continua honesto:
+        exige entao que o portao a tenha DEIXADO passar por regra, e nao que
+        ninguem lhe tenha perguntado.
+        """
+        sys.path.insert(0, str(RAIZ / "coleta"))
+        import italy_executor as adapter   # noqa: PLC0415
+
+        receitas = (RAIZ / "pedido" / "receitas.py").read_text(encoding="utf-8")
+        m = re.search(r'filtros_por_omissao["\']?\s*:\s*\{\s*["\']fonte["\']\s*:\s*["\'](IT-T\d+-\d+)["\']',
+                      receitas)
+        self.assertIsNotNone(m, "a receita deixou de ter fonte por omissao — "
+                                "este ataque precisa de saber qual e")
+        sid = m.group(1)
+        veredito = CG.avaliar(sid)
+        r = adapter.correr_coletor("RUN-TESTE-SEM-REDE", sid, raiz=str(RAIZ))
+        if veredito["COLLECTION_ELIGIBLE"]:
+            self.assertNotIn("BLOQUEADA_PELO_CURATOR", r)
+        else:
+            self.assertIn("BLOQUEADA_PELO_CURATOR", r,
+                          "o adapter correu o coletor com uma fonte que o "
+                          "Curator nao admite: %s" % veredito["PORQUE"])
+            self.assertFalse(r["CORREU"])
+            self.assertEqual(veredito["MOTIVO"],
+                             r["BLOQUEADA_PELO_CURATOR"]["MOTIVO"])
 
 
 class OLivroRealPassaPelaMesmaRegra(unittest.TestCase):

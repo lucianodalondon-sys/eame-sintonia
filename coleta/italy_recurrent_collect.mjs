@@ -21,6 +21,8 @@
 // Uso:
 //   node coleta/italy_recurrent_collect.mjs --profile forward-only-live
 //   ... --gate-hour           so executa dentro da janela de 20h em Europe/Rome
+//   ... --so-o-portao         consulta o portao de admissao e PARA ai; nenhuma
+//                             fonte e tocada, com ou sem veredito favoravel
 //   ... --simulate-vpn XX     controle negativo: finge outro pais
 //   ... --simulate-push-fail  controle negativo: finge push quebrado
 //   ... --no-git              nao commita nem faz push (para teste local)
@@ -167,6 +169,21 @@ async function main() {
     const naoElegiveis = admissao.RECUSADAS.map(l => `${l.SOURCE_ID}:${l.MOTIVO}`);
     resumo.COLLECTION_INTAKE_GATE = admissao.CONTRATO;
     resumo.COLLECTION_ELIGIBLE = admissao.COLLECTION_ELIGIBLE_IDS.length;
+    resumo.COLLECTION_REFUSED = naoElegiveis;
+    // `--so-o-portao`: para AQUI, sempre, sem tocar em fonte nenhuma. Existe
+    // para o teste poder provar o veredito do portao sem que uma falha do
+    // portao vire uma ida a rede — um teste que so se porta bem quando o
+    // codigo se porta bem nao prova nada.
+    if (tem("--so-o-portao")) {
+      resumo.RUN_STATE = naoElegiveis.length ? "BLOCKED_BY_CURATOR_INTAKE_GATE"
+                                             : "GATE_ONLY_NO_COLLECTION";
+      resumo.RUNNER_HEALTH = "HEALTHY";
+      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+      resumo.reason = naoElegiveis.length
+        ? `fontes do perfil que o Curator nao admite: ${naoElegiveis.join(" · ")}`
+        : "so o portao foi consultado; nenhuma fonte foi tocada";
+      return fim(resumo, t0);
+    }
     if (naoElegiveis.length) {
       resumo.RUN_STATE = "BLOCKED_BY_CURATOR_INTAKE_GATE";
       resumo.reason = `fontes do perfil que o Curator nao admite: ${naoElegiveis.join(" · ")}`;
