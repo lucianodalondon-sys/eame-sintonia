@@ -84,6 +84,9 @@ def uma_volta(pausa: float) -> dict:
          "TAREFAS_EXECUTADAS": len(feitos),
          "RESULTADOS": {r: sum(1 for x in feitos if x["RESULTADO"] == r)
                         for r in ("OK", "RETRY", "BLOCK", "FAIL")},
+         # FONTE FALHOU != SERVICO MORREU: etapas que levantaram excecao e
+         # foram adiadas pelo worker. A volta sobreviveu — esta linha e a prova.
+         "FONTES_REBENTARAM": sum(1 for x in feitos if x.get("FONTE_FALHOU")),
          "LOTE": lote.get("READY_BATCH_ID") if lote.get("CRIADO") else None,
          "READY_TOTAL": s["READY_TOTAL"],
          "QUEUE_ELIGIBLE_NOW": s["QUEUE_ELIGIBLE_NOW"],

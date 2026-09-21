@@ -273,7 +273,36 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
         return {"TASK_ID": tid, "SOURCE_ID": sid, "RESULTADO": "BLOCK",
                 "PORQUE": "etapa %s sem executor" % tipo}
 
-    resultado, detalhe = fn(sid, contrato)
+    # ⚠️ UMA FONTE QUE REBENTA NAO MATA A VOLTA.
+    #
+    # Medido (PROVAS-P1, DEFEITO 3): sem este try, uma excecao numa etapa
+    # subia ate ao ciclo e matava a volta inteira — a tarefa venenosa ficava
+    # IN_PROGRESS, as seguintes ficavam PENDING sem ninguem lhes tocar, o
+    # RUN-LOG (escrito so no fim da volta) nao recebia batimento, e o
+    # supervisor lia a morte como «sem progresso»: tres fontes venenosas em
+    # 120 s mandavam o SERVICO a BLOCKED por culpa das FONTES. E a recuperacao
+    # de orfas repunha a venenosa em PENDING de 30 em 30 min sem tocar em
+    # ATTEMPTS — um loop lento que nunca chegava a FAILED.
+    #
+    # Aqui a excecao vira o RETRY da casa: F.adiar incrementa ATTEMPTS, marca
+    # o relogio, e ao teto (MAX_ATTEMPTS) fecha em FAILED. A volta segue para
+    # a tarefa seguinte, escreve o batimento no fim, e o supervisor ve
+    # progresso — porque houve.
+    #
+    #     FONTE FALHOU != SERVICO MORREU.
+    #
+    # BLOCK (POLICY/AUTH/ROBOTS) nao passa por aqui: e um RESULTADO devolvido
+    # pela etapa, nao uma excecao, e continua a nao ganhar tentativas novas.
+    fonte_rebentou = False
+    try:
+        resultado, detalhe = fn(sid, contrato)
+    except Exception as e:  # noqa: BLE001 — qualquer excecao de UMA fonte
+        fonte_rebentou = True
+        resultado = "RETRY"
+        detalhe = {"PORQUE": "excecao na etapa %s: %s: %s"
+                             % (tipo, type(e).__name__, str(e)[:120]),
+                   "EXCECAO": type(e).__name__,
+                   "FONTE_FALHOU": True}
     ref = _guardar_evidencia(sid, tipo, detalhe)
 
     if resultado == "OK":
@@ -349,6 +378,7 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
 
     return {"TASK_ID": tid, "SOURCE_ID": sid, "TASK_TYPE": tipo,
             "RESULTADO": resultado, "EVIDENCE_REF": ref,
+            "FONTE_FALHOU": fonte_rebentou,
             "PORQUE": detalhe.get("PORQUE", "")[:160]}
 
 
