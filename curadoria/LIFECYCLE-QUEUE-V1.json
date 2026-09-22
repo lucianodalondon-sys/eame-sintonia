@@ -2,7 +2,7 @@
  "DATASET": "LIFECYCLE-QUEUE-V1",
  "CONTRATO": "SOURCE_CURATOR_QUEUE/v1",
  "LEI": "fila duravel. Um 429 adia UMA tarefa, nunca a fila. O worker nunca dorme a espera de uma fonte.",
- "PROXIMO_ID": 1095,
+ "PROXIMO_ID": 1104,
  "TAREFAS": [
   {
    "TASK_ID": "T00001",
@@ -12775,13 +12775,13 @@
    "SOURCE_ID": "IT-T7-050",
    "TASK_TYPE": "CANARY",
    "PRIORITY": 70,
-   "STATUS": "IN_PROGRESS",
-   "ATTEMPTS": 3,
-   "NEXT_ATTEMPT_AT": "2026-09-22T18:10:57.927364+00:00",
+   "STATUS": "WAITING_RETRY",
+   "ATTEMPTS": 4,
+   "NEXT_ATTEMPT_AT": "2026-09-22T19:11:19.011933+00:00",
    "LAST_ERROR": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
    "MOTIVO": "regua dos 4 passos integrada (retrato_html + canario novo): recanariar com ITEM_ABERTO e BODY_UTIL",
    "CREATED_AT": "2026-09-22T17:46:58.707922+00:00",
-   "UPDATED_AT": "2026-09-22T18:10:58.963113+00:00"
+   "UPDATED_AT": "2026-09-22T18:11:19.011933+00:00"
   },
   {
    "TASK_ID": "T01081",
@@ -12789,12 +12789,12 @@
    "TASK_TYPE": "CANARY",
    "PRIORITY": 70,
    "STATUS": "WAITING_RETRY",
-   "ATTEMPTS": 3,
-   "NEXT_ATTEMPT_AT": "2026-09-22T18:11:18.908266+00:00",
+   "ATTEMPTS": 4,
+   "NEXT_ATTEMPT_AT": "2026-09-22T19:11:40.008999+00:00",
    "LAST_ERROR": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
    "MOTIVO": "regua dos 4 passos integrada (retrato_html + canario novo): recanariar com ITEM_ABERTO e BODY_UTIL",
    "CREATED_AT": "2026-09-22T17:46:58.748496+00:00",
-   "UPDATED_AT": "2026-09-22T17:56:18.908266+00:00"
+   "UPDATED_AT": "2026-09-22T18:11:40.008999+00:00"
   },
   {
    "TASK_ID": "T01082",
@@ -12802,12 +12802,12 @@
    "TASK_TYPE": "CANARY",
    "PRIORITY": 70,
    "STATUS": "WAITING_RETRY",
-   "ATTEMPTS": 3,
-   "NEXT_ATTEMPT_AT": "2026-09-22T18:11:39.904399+00:00",
+   "ATTEMPTS": 4,
+   "NEXT_ATTEMPT_AT": "2026-09-22T19:12:01.006430+00:00",
    "LAST_ERROR": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
    "MOTIVO": "regua dos 4 passos integrada (retrato_html + canario novo): recanariar com ITEM_ABERTO e BODY_UTIL",
    "CREATED_AT": "2026-09-22T17:46:58.797063+00:00",
-   "UPDATED_AT": "2026-09-22T17:56:39.904399+00:00"
+   "UPDATED_AT": "2026-09-22T18:12:01.006430+00:00"
   },
   {
    "TASK_ID": "T01083",
@@ -12815,12 +12815,12 @@
    "TASK_TYPE": "CANARY",
    "PRIORITY": 70,
    "STATUS": "WAITING_RETRY",
-   "ATTEMPTS": 3,
-   "NEXT_ATTEMPT_AT": "2026-09-22T18:13:34.073879+00:00",
+   "ATTEMPTS": 4,
+   "NEXT_ATTEMPT_AT": "2026-09-22T19:14:59.452360+00:00",
    "LAST_ERROR": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
    "MOTIVO": "regua dos 4 passos integrada (retrato_html + canario novo): recanariar com ITEM_ABERTO e BODY_UTIL",
    "CREATED_AT": "2026-09-22T17:46:58.838155+00:00",
-   "UPDATED_AT": "2026-09-22T17:58:34.073879+00:00"
+   "UPDATED_AT": "2026-09-22T18:14:59.452360+00:00"
   },
   {
    "TASK_ID": "T01084",
@@ -12828,12 +12828,12 @@
    "TASK_TYPE": "CANARY",
    "PRIORITY": 70,
    "STATUS": "WAITING_RETRY",
-   "ATTEMPTS": 3,
-   "NEXT_ATTEMPT_AT": "2026-09-22T18:13:55.077461+00:00",
+   "ATTEMPTS": 4,
+   "NEXT_ATTEMPT_AT": "2026-09-22T19:15:20.674288+00:00",
    "LAST_ERROR": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
    "MOTIVO": "regua dos 4 passos integrada (retrato_html + canario novo): recanariar com ITEM_ABERTO e BODY_UTIL",
    "CREATED_AT": "2026-09-22T17:46:58.875665+00:00",
-   "UPDATED_AT": "2026-09-22T17:58:55.077461+00:00"
+   "UPDATED_AT": "2026-09-22T18:15:20.674288+00:00"
   },
   {
    "TASK_ID": "T01085",
@@ -12964,6 +12964,123 @@
    "MOTIVO": "CANARY OK",
    "CREATED_AT": "2026-09-22T18:05:43.018116+00:00",
    "UPDATED_AT": "2026-09-22T18:08:16.551608+00:00"
+  },
+  {
+   "TASK_ID": "T01095",
+   "SOURCE_ID": "IT-T11-010",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.230604+00:00",
+   "UPDATED_AT": "2026-09-22T18:13:40.330450+00:00"
+  },
+  {
+   "TASK_ID": "T01096",
+   "SOURCE_ID": "IT-T12-019",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.306091+00:00",
+   "UPDATED_AT": "2026-09-22T18:13:50.982484+00:00"
+  },
+  {
+   "TASK_ID": "T01097",
+   "SOURCE_ID": "IT-T12-057",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.380442+00:00",
+   "UPDATED_AT": "2026-09-22T18:13:59.568678+00:00"
+  },
+  {
+   "TASK_ID": "T01098",
+   "SOURCE_ID": "IT-T12-074",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.464709+00:00",
+   "UPDATED_AT": "2026-09-22T18:14:08.309863+00:00"
+  },
+  {
+   "TASK_ID": "T01099",
+   "SOURCE_ID": "IT-T12-086",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.547681+00:00",
+   "UPDATED_AT": "2026-09-22T18:14:14.630881+00:00"
+  },
+  {
+   "TASK_ID": "T01100",
+   "SOURCE_ID": "IT-T12-089",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.627472+00:00",
+   "UPDATED_AT": "2026-09-22T18:14:20.019191+00:00"
+  },
+  {
+   "TASK_ID": "T01101",
+   "SOURCE_ID": "IT-T12-095",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.710652+00:00",
+   "UPDATED_AT": "2026-09-22T18:14:26.119836+00:00"
+  },
+  {
+   "TASK_ID": "T01102",
+   "SOURCE_ID": "IT-T5-082",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.799906+00:00",
+   "UPDATED_AT": "2026-09-22T18:14:32.420739+00:00"
+  },
+  {
+   "TASK_ID": "T01103",
+   "SOURCE_ID": "IT-T9-021",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 90,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:12:33.900971+00:00",
+   "UPDATED_AT": "2026-09-22T18:14:38.431327+00:00"
   }
  ]
 }
