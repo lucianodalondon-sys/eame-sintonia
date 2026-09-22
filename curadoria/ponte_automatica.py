@@ -156,6 +156,48 @@ def snapshot_do_bot(lane: Path = LANE_DO_BOT) -> dict:
 # ---------------------------------------------------------------------------
 # ESTADO E DIARIO
 # ---------------------------------------------------------------------------
+def saude(*, agora_utc: datetime | None = None, tolerancia: int = 3) -> dict:
+    """ESTA VIVO, OU SO EXISTE?
+
+        UM PROCESSO QUE EXISTE E NAO TRABALHA LE-SE COMO SAUDAVEL
+        EM TODO O LADO ONDE SE OLHE PARA O PID.
+
+    Foi assim que o supervisor do bot enganou toda a gente: o lock afirmava um
+    dono, o PID tinha morrido, e ninguem comparava nada com o relogio. Aqui o
+    perigo e o irmao disso — o processo VIVO que deixou de dar voltas. O PID
+    continua la, o estado continua a dizer SAUDAVEL, e o ficheiro fica parado
+    no tempo.
+
+    A pergunta so se responde com duas coisas ao lado uma da outra: quando foi
+    a ultima volta, e que horas sao AGORA. Enquanto isso for conta de cabeca,
+    ninguem a faz — e o silencio de um servico parado e igual ao silencio de
+    um servico sem novidades.
+
+    `tolerancia` e em multiplos do intervalo: uma volta pode atrasar-se sem
+    que isso seja avaria.
+    """
+    e = estado_lido()
+    agora_utc = agora_utc or datetime.now(timezone.utc)
+    ultima = e.get("ULTIMA_VOLTA_EM")
+    if not ultima:
+        return dict(e, VIVACIDADE="NUNCA_DEU_UMA_VOLTA", IDADE_S=None,
+                    A_TRABALHAR=False)
+    idade = (agora_utc - datetime.fromisoformat(ultima)).total_seconds()
+    limite = INTERVALO_S * tolerancia
+    trabalha = idade <= limite
+    return dict(
+        e,
+        AGORA=agora_utc.isoformat(),
+        IDADE_DA_ULTIMA_VOLTA_S=round(idade, 1),
+        LIMITE_S=limite,
+        A_TRABALHAR=trabalha,
+        VIVACIDADE=("A_TRABALHAR" if trabalha else "PARADO_NO_TEMPO"),
+        PORQUE=("deu uma volta ha %.0f s (limite %d s)" % (idade, limite) if trabalha
+                else "a ultima volta foi ha %.0f s, e o limite e %d s — o processo "
+                     "pode estar vivo e nao estar a trabalhar" % (idade, limite)),
+    )
+
+
 def estado_lido() -> dict:
     if not ESTADO.exists():
         return {"ULTIMO_SHA": None, "VOLTAS": 0, "NOOPS": 0, "TRAVESSIAS": 0,
@@ -295,8 +337,14 @@ def main(argv=None) -> int:
     p.add_argument("--intervalo", type=int, default=INTERVALO_S)
     p.add_argument("--forcar", action="store_true", help="atravessa mesmo sem livro novo")
     p.add_argument("--estado", action="store_true", help="so mostra o estado")
+    p.add_argument("--saude", action="store_true",
+                   help="esta a trabalhar, ou so existe? (sai 1 se parado)")
     a = p.parse_args(argv)
 
+    if a.saude:
+        s = saude()
+        print(json.dumps(s, ensure_ascii=False, indent=1))
+        return 0 if s["A_TRABALHAR"] else 1
     if a.estado:
         print(json.dumps(estado_lido(), ensure_ascii=False, indent=1))
         return 0

@@ -204,6 +204,35 @@ class AFalhaNaoDerrubaENaoSeEngole(ABancada):
         self.assertIn("RECUPEROU", eventos)
 
 
+class VivoNaoEOMesmoQueATrabalhar(ABancada):
+    """RT-P9 — o irmao do lock orfao, do nosso lado.
+
+    O supervisor do bot enganou toda a gente porque o lock afirmava um dono e
+    ninguem perguntava ao relogio. O perigo simetrico e o processo que EXISTE
+    e deixou de dar voltas: o PID responde, o estado diz SAUDAVEL, e o
+    ficheiro esta parado no tempo.
+    """
+
+    def test_rt_p9_parado_no_tempo_e_detectado(self):
+        from datetime import datetime, timedelta, timezone
+        PA.uma_volta(lane=self.lane)
+        s = PA.saude()
+        self.assertTrue(s["A_TRABALHAR"], s)
+        self.assertEqual(s["VIVACIDADE"], "A_TRABALHAR")
+
+        # o mesmo estado, olhado MUITO mais tarde: o processo pode estar vivo
+        futuro = datetime.now(timezone.utc) + timedelta(seconds=PA.INTERVALO_S * 10)
+        s2 = PA.saude(agora_utc=futuro)
+        self.assertFalse(s2["A_TRABALHAR"], s2)
+        self.assertEqual(s2["VIVACIDADE"], "PARADO_NO_TEMPO")
+        self.assertIn("pode estar vivo e nao estar a trabalhar", s2["PORQUE"])
+
+    def test_rt_p9b_sem_nenhuma_volta_nao_se_finge_saudavel(self):
+        s = PA.saude()
+        self.assertEqual(s["VIVACIDADE"], "NUNCA_DEU_UMA_VOLTA")
+        self.assertFalse(s["A_TRABALHAR"])
+
+
 class NaoSeEscreveNaLaneDoBot(ABancada):
 
     def test_rt_p6_a_lane_do_bot_fica_byte_a_byte_igual(self):
