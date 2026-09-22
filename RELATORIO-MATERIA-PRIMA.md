@@ -330,6 +330,67 @@ página de entrada. É defeito de contrato, e fica escrito como tal.
 
 ---
 
+## LOTE 6 — os dois poços secos, e o que ainda tem água
+
+### 6a · Fase 3 (creators e investigadores) — os dois motores estão secos
+
+Corridos os dois motores de descoberta que existem, sem escrever nada de novo:
+
+```
+descobrir.py --familia SOCIAL_PUBLICO        14 achados · 14 duplicados · 0 novas · 0 pedidos
+             --familia UNIVERSIDADES_CENTROS  5 achados ·  5 duplicados · 0 novas · 0 pedidos
+             --familia CIENCIA_APLICADA       5 achados ·  5 duplicados · 0 novas · 0 pedidos
+             --familia ASSOCIACOES            6 achados ·  6 duplicados · 0 novas · 0 pedidos
+             --familia COOPERATIVAS           4 achados ·  4 duplicados · 0 novas · 0 pedidos
+
+crawl_sementes  33 sementes · 27 gastas · 6 restantes, todas UNKNOWN e recusadas
+```
+
+```
+CREATORS_ANTES/DEPOIS    = 6 / 6
+RESEARCHERS_ANTES/DEPOIS = 0 / 0
+PAID_USD = 0   REQUESTS_MADE = 0 (a deduplicacao corre ANTES da rede)
+```
+
+**Os dois motores consumiram tudo o que tinham.** O catálogo de famílias está
+todo já em carteira e a lista de sementes está gasta. Trazer fontes novas exige
+**sementes novas** — entrada humana, não uma corrida a mais. Não as invento.
+
+### 6b · Correcção: as 66 `QUALIFY` bloqueadas não são um nó cego
+
+Li mal à primeira. O campo `MOTIVO` guarda a etiqueta que a ponte escreveu na
+criação (*«aguarda qualificacao pelo curator»*), e por isso parecia uma tarefa
+de qualificação à espera de qualificação. A razão verdadeira está noutro campo,
+o `LAST_ERROR`. Classificadas as 80 bloqueadas por aí:
+
+```
+55  SEMANTIC   «territorio indeterminado pelo nome — SOURCE_ID fica UNKNOWN,
+                sem fabricar; precisa de decisao semantica (Opus/humano)»
+13  ROBOTS     «o endereco do contrato casa com Disallow no robots vivo»
+11  CAPABILITY YouTube (os mesmos do Lote 3a)
+ 1  sem contrato nesta arvore
+```
+
+Os 13 do robots estão **correctamente** bloqueados, com prova viva. A casa
+funciona.
+
+### 6c · Onde ainda há água: 55 fontes à espera de uma decisão humana
+
+As 55 `SEMANTIC_REVIEW` são o maior bolso por abrir, e o próprio worker diz
+para quem manda o recado: *«precisa de decisao semantica (Opus/humano)»*. Entre
+elas, por exemplo, `CAND-0253` = **AGEA, Agenzia per le Erogazioni in
+Agricoltura** — a agência nacional italiana de pagamentos agrícolas. O worker
+recusa-se a adivinhar o território dela, e faz bem.
+
+⚠️ **Não avanço sozinho, e digo o risco.** Decidir o território aloca um
+`SOURCE_ID` no Atlas, e o registo de `SOURCE_ID` está partido por várias
+branches — alocar pelo atlas local já colidiu em 11 de 12 territórios noutra
+missão. Fazer 55 alocações no fim de uma sessão longa, sem reconciliação
+prévia, é a forma de transformar um bolso cheio num livro partido.
+**Decisão do dono.**
+
+---
+
 ## ESTADO DA MISSÃO
 
 ```
@@ -337,8 +398,8 @@ CARIMBOS_OBSOLETOS_REPOSTOS   = 0   (6 Facebook + 11 YouTube medidos e VALIDOS h
 POLICY_BLOCK_SEM_PROVA        = 69  medidos, NAO repostos — decisao do dono
 FILA_ANTES/DEPOIS             = 0 / 59 / 0   (entrou e foi toda consumida)
 READY_CURRENT_ANTES/DEPOIS    = 40 / 55
-CREATORS_ANTES/DEPOIS         = 6 / 6    (T8 nao mexido)
-RESEARCHERS_ANTES/DEPOIS      = 0 / 0    (T6 nao mexido)
+CREATORS_ANTES/DEPOIS         = 6 / 6    (dois motores corridos, ambos secos)
+RESEARCHERS_ANTES/DEPOIS      = 0 / 0    (idem — catalogo todo ja em carteira)
 COLLECTION_ELIGIBLE_ANTES/DEPOIS = por medir — ver abaixo
 ITENS_COLHIDOS                = 0
 PAID_USD                      = 0
