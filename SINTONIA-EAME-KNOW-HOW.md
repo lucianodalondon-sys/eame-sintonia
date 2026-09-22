@@ -18682,3 +18682,225 @@ conteúdo) já tinha estado próprio e sobe a humano.
 ```
 DETERMINÍSTICO PRIMEIRO. ZERO HONESTO VALE MAIS QUE GASTO DECORATIVO.
 ```
+
+# §165 · O MUTANTE QUE NUNCA CORREU, O TESTE QUE SE MEDE A SI PRÓPRIO, E O NOME ÚNICO PARA CINCO COISAS DIFERENTES
+
+## O QUE MUDOU
+
+A série `duas-portas-v1` fechou com `SURVIVORS = 0` em 14 mutantes
+(`provas/RED-TEAM-DUAS-PORTAS-V1.json`, prova em
+`provas/red_team_duas_portas.py`). O caminho até lá produziu oito lições de
+método que **não estavam escritas em lado nenhum deste ficheiro** — viviam só
+nos relatórios das missões. Medido antes de escrever esta secção, sobre
+`SINTONIA-EAME-KNOW-HOW.md` @ `1593633f`:
+
+```
+PYTHONDONTWRITEBYTECODE   0 ocorrências
+MISSING_ROUTE             0 ocorrências
+```
+
+Um relatório de missão é a acta de um dia. O know-how é a lei da casa. O que só
+está na acta não vincula a missão seguinte.
+
+---
+
+## 1 · O `git diff` NÃO PROVA EXECUÇÃO EM PYTHON
+
+O `M05` trocava `SINAIS_MINIMOS = 2` por `= 1` em `admissao/admissao.py`.
+**Mesmo número de bytes**, escrito **no mesmo segundo** do import anterior. O
+`.pyc` valida-se por `(mtime em segundos, tamanho do fonte)` — nenhum dos dois
+mudou. O interpretador novo carregou o ficheiro **antigo** do `__pycache__`.
+
+O `git diff` provava que a mutação tinha entrado no disco. O matador nunca a
+chegou a ver. O resultado imprimiu-se como `SURVIVOR`.
+
+```
+UM MUTANTE QUE NÃO MUDA O TAMANHO E QUE CABE NO MESMO SEGUNDO
+É INVISÍVEL PARA O IMPORT. ELE «SOBREVIVE» SEM NUNCA TER CORRIDO.
+```
+
+`git diff` prova **aplicação**. Só o comportamento observado prova **execução**.
+São duas afirmações diferentes e confundi-las inverte o veredicto do red team:
+um defeito real sai declarado como guarda ausente, e uma guarda sã sai declarada
+como buraco.
+
+## 2 · PROTOCOLO OBRIGATÓRIO DE MUTAÇÃO — CACHE-SAFE, OS TRÊS PASSOS
+
+`PYTHONDONTWRITEBYTECODE=1` **não chega**: impede de *escrever* cache novo, não
+impede de *ler* o velho. Os três, sempre juntos:
+
+```
+1. PYTHONDONTWRITEBYTECODE=1 no ambiente do matador
+2. apagar o __pycache__ do alvo — AO APLICAR *E* AO RESTAURAR
+3. processo Python NOVO (subprocesso), nunca importlib.reload
+```
+
+O passo 3 tem razão própria: `importlib.reload` não resolve quando o módulo é
+importado por mais do que um caminho — a porta importa `admissao` por três. O
+módulo mutado fica em `sys.modules` e contamina o matador seguinte. Um
+interpretador novo lê o ficheiro do disco, que é onde a mutação está.
+
+O passo 2 repete-se **ao restaurar** porque o `git checkout --` devolve o fonte
+antigo com `mtime` novo, e deixar lá o `.pyc` do mutante faz o teste seguinte
+medir o ataque já retirado. Implementação de referência: `_correr`,
+`_apagar_cache` e `_restaurar` em `provas/red_team_duas_portas.py`.
+
+## 3 · UM TESTE NÃO PODE ITERAR A ESTRUTURA QUE FISCALIZA
+
+Três vezes na noite de 2026-09-21 o «sobrevivente» foi um **teste tautológico**:
+o matador varria a própria constante que devia julgar. Mudar a constante mudava
+o esperado junto com o medido, e o teste ficava verde por construção.
+
+```
+MEDIR A LEI CONTRA A PRÓPRIA LEI É MEDIR UMA TAUTOLOGIA.
+```
+
+A regra: os valores esperados escrevem-se **à mão** no teste. Ver
+`tests/test_a_regra_de_t10.py` (o dicionário `EXPULSOS`, com a palavra em que
+cada termo casava) e `tests/test_a_rota_do_html.py`. Custa mais a escrever e é
+por isso que guarda alguma coisa: quem quiser mudar a lei tem de apagar também a
+razão escrita ao lado.
+
+## 4 · ATACAR PRIMEIRO O CÓDIGO RECÉM-ESCRITO
+
+O instinto manda atacar o legado. **Três sobreviventes desta série estavam na
+peça acabada de escrever** — não no código antigo. É coerente: o código velho já
+passou por ataques anteriores; o novo nunca passou por nenhum, e foi escrito pela
+mesma cabeça que escreveu o teste que o devia julgar.
+
+```
+O CÓDIGO NOVO É O MENOS TESTADO DA ÁRVORE, NÃO O MAIS.
+A ORDEM DO RED TEAM É: O QUE ACABEI DE ESCREVER PRIMEIRO.
+```
+
+## 5 · CINCO NOMES, NUNCA DOIS
+
+Colapsar estes cinco num só destrói a informação que decide o passo seguinte:
+
+```
+NOT_APPLICABLE       a pergunta não se aplica a esta espécie.
+                     Não é falha. Não é passagem. `NOT_APPLICABLE != FAIL`
+NOT_IMPLEMENTED      a capacidade não existe nesta casa
+MISSING_ROUTE        a capacidade EXISTE e não está ligada a este caminho
+BLOCKED_BY_<motivo>  existe e está ligada; alguém do lado de fora proíbe
+FAILED               correu e partiu-se
+```
+
+O quarto é uma **família**, não um nome só, e o motivo faz parte do nome — está
+medido nesta árvore como `BLOCKED_BY_ROBOTS`, `BLOCKED_BY_CREDENTIAL`,
+`BLOCKED_BY_BOT_PROTECTION`, `BLOCKED_BY_CURATOR_INTAKE_GATE`,
+`BLOCKED_BY_RELEVANCE`, `BLOCKED_BY_HUMAN`, entre outros. Um `BLOCKED_BY` sem
+motivo colado não diz a quem se há-de pedir o desbloqueio, e é por isso tão
+inútil como o `FAILED` genérico.
+
+`IT-T4-001` é `text/csv` e está medido nesta casa como `MISSING_ROUTE` — a
+derivação sabe fazer, ninguém a ligou a este tipo. Chamar-lhe `FAILED` manda
+alguém depurar um erro que não houve; chamar-lhe `NOT_APPLICABLE` fecha o caso e
+o documento nunca mais entra. Âncoras: `coleta/executor_texto_de_html.py:19-20`,
+`coleta/ingresso.py:627,645`.
+
+```
+MISSING_ROUTE FECHA-SE NA LISTA DE DONOS, E NÃO NA FICHA DE QUEM SABE.
+```
+
+## 6 · A ORDEM DOS EXECUTORES NÃO É PRIORIDADE
+
+`_DONOS_DA_DERIVACAO` em `coleta/ingresso.py:539-555` é uma tupla, e a tupla tem
+uma ordem. Essa ordem é **ordem de consulta**, não hierarquia de decisão. Quando
+duas espécies se sobrepõem — o mesmo ficheiro poder ser lido por dois donos — a
+arbitragem é **decisão escrita**, com autor e motivo, nunca herdada de quem
+calhou ser importado primeiro.
+
+O mutante `M12-A-ROTA-DO-HTML-ROUBA-O-PDF` existe exactamente para isso: prova
+que a sobreposição está arbitrada de propósito e não por acidente de ordenação.
+
+```
+UM DEFAULT QUE VEM DA ORDEM DE IMPORTAÇÃO
+É UMA DECISÃO DE NEGÓCIO SEM AUTOR.
+```
+
+## 7 · DEDUZIR NÃO É PROVAR — IDENTIDADE POR `sha256`, NUNCA POR NOME DE PASTA
+
+«Está na pasta X, logo é o ficheiro X» é dedução. Identidade de bytes prova-se
+com `sha256` e mais nada. O restauro do red team confere o `sha` de antes contra
+o de depois (`_sha` em `provas/red_team_duas_portas.py`), e é essa conferência
+que sustenta `NAO_RESTAURADOS = []` e `ARVORE_LIMPA_NO_FIM = true`. Sem ela,
+«restaurei» é uma afirmação minha sobre mim próprio — e um ataque morto a meio
+deixa o defeito no repositório, parando a cadeia inteira com «ciclo nomeado».
+
+## 8 · SUBSTRING NUMA RÉGUA DE VOCABULÁRIO CONTA PALAVRAS QUE NÃO ESTÃO LÁ
+
+O termo `soci` casava dentro de **`sociale`**, **`social`** e **`association`** —
+e **nunca** em `soci`. A régua dizia contar um sinal de mercado; contava
+ocorrências de «social». Medido em `admissao/admissao.py:651`:
+`sociale 22 · association 10 · social 9 · sociali 8`.
+
+Duas leis, ambas com teste próprio em `tests/test_a_regra_de_t10.py`:
+
+```
+NENHUMA FORMA DA LISTA PODE CABER DENTRO DE OUTRA DA MESMA LISTA
+  — senão UMA palavra dá DOIS sinais, e a regra dos SINAIS_MINIMOS
+    deixa de valer sem ninguém dar por isso.
+
+PALAVRA REMOVIDA NÃO SE SUBSTITUI POR INVENTO
+  — sai com a razão escrita ao lado; quem a quiser de volta
+    tem de apagar também a razão.
+```
+
+Os mutantes `M13-SOCI-VOLTA-A-T7` e `M14-DUAS-FORMAS-DA-MESMA-PALAVRA` guardam
+as duas leis. Os doze termos expulsos, cada um com a palavra em que casava, estão
+em `EXPULSOS`, escritos à mão — ver § 3 desta secção para o porquê de serem à mão.
+
+---
+
+## O QUE ESTA SECÇÃO NÃO AUTORIZA
+
+Nada. É método, não capacidade. Não abre rota, não autoriza coleta, não promove
+fonte nenhuma. Um red team com `SURVIVORS = 0` diz que **os testes existentes
+guardam o que dizem guardar** — não diz que os testes cobrem tudo o que
+importa.
+
+## CARIMBOS DESTA SECÇÃO
+
+```
+ARVORE              1593633f  (duas-portas-v1)
+PROVA               provas/red_team_duas_portas.py
+RESULTADO           provas/RED-TEAM-DUAS-PORTAS-V1.json
+MUTANTES            14
+MUTANT_APPLIED_TODOS  true
+MUTANT_KILLED       14
+SURVIVORS           0
+NAO_RESTAURADOS     []
+ARVORE_LIMPA_NO_FIM true
+REDE                0 (o M11 prova que a derivação NÃO sai; a ligação é travada)
+```
+
+## PORQUE §165 E NÃO §160
+
+O último § **deste ficheiro nesta linha** é o §159. Mas este ficheiro existe em
+**135 branches** (locais e remotas) e as linhas divergiram. Censo por título
+distinto, feito no momento de escrever:
+
+```
+§160  DOIS títulos   «O STORAGE OPERACIONAL NÃO É RESÍDUO…»   18 branches
+                     «UMA ROTA QUE RESPONDE 200 NÃO É…»        2 branches
+§161  um título      «O BALCÃO NÃO É ARQUIVO…»                18 branches
+§162  DOIS títulos   «O ATLAS REGISTA O QUE SE CONHECE…»      10 branches
+                     «A CULTURA É DA SECÇÃO, NÃO DO ITEM…»     2 branches
+§163  um título      «UMA ROTA QUE RESPONDE NÃO É PERMITIDA…»  8 branches
+§164  TRÊS títulos   «O MOTOR ENTRA, A FOTOGRAFIA FICA…»       4 branches
+                     «A ENTREGA NA SALA É A OBSERVAÇÃO…»       2 branches
+                     «O ÍNDICE TEM FAMÍLIA…»                   2 branches
+§165  LIVRE          0 branches
+```
+
+Escrever §160 aqui punha um **terceiro** texto no número que já tem dois. A
+colisão não é cosmética: no dia da reconciliação, quem cita «§164» está a citar
+três coisas incompatíveis, e a citação deixa de ser uma prova. Fica o salto
+§159 → §165 — visível, com a razão escrita, em vez de um número reutilizado em
+silêncio.
+
+```
+UM NÚMERO DE SECÇÃO É UMA CHAVE. DUAS LINHAS COM A MESMA CHAVE
+NÃO SÃO DUAS VERSÕES: SÃO DUAS LEIS QUE NINGUÉM CONSEGUE CITAR.
+```

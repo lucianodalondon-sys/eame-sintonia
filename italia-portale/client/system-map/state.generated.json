@@ -3026,10 +3026,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "duas-portas-v1",
-    "HEAD": "b2c7c41ff64fb88784af3fb9eaf16ae8ab15eb62",
-    "GENERATED_AT": "2026-09-21T20:51:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "aa9061ca40e279e64ac927f8fe8071a9c55e21041b1aaacadf2f839c620add00"
+    "BRANCH": "cutover-prod-v1",
+    "HEAD": "1593633f0e34dd0371fc766421b909f77cca8736",
+    "GENERATED_AT": "2026-09-21T20:55:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a1c686ff8c5849fcb4eaf43f3976c3167ff6891d6557639a2aa6f490709d37cb"
   },
   "FAMILIES": [
     {
@@ -23067,7 +23067,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "provas/a_rota_do_html_nao_vai_a_rede.py:47",
-          "provas/red_team_duas_portas.py:42",
+          "provas/red_team_duas_portas.py:44",
           "tests/test_a_rota_do_html.py:35"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -32894,7 +32894,7 @@
           "pasta": "provas",
           "prova": {
             "file": "provas/red_team_duas_portas.py",
-            "line": 413,
+            "line": 415,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -32919,12 +32919,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "OPERATIONAL_STEP",
-        "MEASURED_WHY": "escreve na pasta provas (provas/red_team_duas_portas.py:413): produz dado",
+        "MEASURED_WHY": "escreve na pasta provas (provas/red_team_duas_portas.py:415): produz dado",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta provas (provas/red_team_duas_portas.py:413): produz dado) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve na pasta provas (provas/red_team_duas_portas.py:415): produz dado) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -41944,7 +41944,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch duas-portas-v1"
+        "branch cutover-prod-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -44314,7 +44314,7 @@
       "evidence": [
         {
           "file": "provas/red_team_duas_portas.py",
-          "line": 43,
+          "line": 45,
           "snippet": "ADM = \"admissao/admissao.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-ROTA-DO-HTML",
@@ -62914,7 +62914,7 @@
       "evidence": [
         {
           "file": "provas/red_team_duas_portas.py",
-          "line": 42,
+          "line": 44,
           "snippet": "HTML = \"coleta/executor_texto_de_html.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
@@ -66475,7 +66475,7 @@
       "evidence": [
         {
           "file": "provas/red_team_duas_portas.py",
-          "line": 44,
+          "line": 46,
           "snippet": "ING = \"coleta/ingresso.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-PROVA-ROTA-DO-HTML",

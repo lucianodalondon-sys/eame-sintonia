@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b2c7c41ff64fb88784af3fb9eaf16ae8ab15eb62
-BRANCH           duas-portas-v1
-GERADO_EM        2026-09-21T20:51:42-03:00
+HEAD_DA_MEDICAO  1593633f0e34dd0371fc766421b909f77cca8736
+BRANCH           cutover-prod-v1
+GERADO_EM        2026-09-21T20:55:06-03:00
 CARDS            79
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -232,7 +232,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-ROTA-DO-HTML, C-TESTES |
-| **prova de quem ativa** | provas/a_rota_do_html_nao_vai_a_rede.py:47; provas/red_team_duas_portas.py:42; tests/test_a_rota_do_html.py:35 _(plano CODE)_ |
+| **prova de quem ativa** | provas/a_rota_do_html_nao_vai_a_rede.py:47; provas/red_team_duas_portas.py:44; tests/test_a_rota_do_html.py:35 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |

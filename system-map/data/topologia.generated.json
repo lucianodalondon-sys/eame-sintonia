@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-21T23:54:06+00:00",
-  "HEAD": "b2c7c41ff64fb88784af3fb9eaf16ae8ab15eb62",
-  "BRANCH": "duas-portas-v1",
+  "GENERATED_AT": "2026-09-22T00:39:07+00:00",
+  "HEAD": "1593633f0e34dd0371fc766421b909f77cca8736",
+  "BRANCH": "cutover-prod-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "aa9061ca40e279e64ac927f8fe8071a9c55e21041b1aaacadf2f839c620add00",
+  "SOURCE_TREE_FINGERPRINT": "a1c686ff8c5849fcb4eaf43f3976c3167ff6891d6557639a2aa6f490709d37cb",
   "FICHEIROS_NA_IMPRESSAO": 2581,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2827,7 +2827,7 @@
    {
     "PATH": "provas/red_team_duas_portas.py",
     "PAPEL": "FONTE",
-    "VERSAO": "0a09a76d8c2988c0440d3ffa3538e84e12689901",
+    "VERSAO": "bbffca75c0132d24ce2d70adf685e146f47b8690",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3107,14 +3107,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "aa9061ca40e279e64ac927f8fe8071a9c55e21041b1aaacadf2f839c620add00",
+    "VERSAO": "a1c686ff8c5849fcb4eaf43f3976c3167ff6891d6557639a2aa6f490709d37cb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "aa9061ca40e279e64ac927f8fe8071a9c55e21041b1aaacadf2f839c620add00",
+    "VERSAO": "a1c686ff8c5849fcb4eaf43f3976c3167ff6891d6557639a2aa6f490709d37cb",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4786,7 +4786,7 @@
    }
   ],
   "INPUTS_COUNT": 678,
-  "INPUTS_DIGEST": "2a9e1b9cd1a03b4ebb9edc16639794c6298797e09d406d1608288b586b39a114",
+  "INPUTS_DIGEST": "1ba00f470ac985b775059b4318bc0529ace002651e03624fa06ec9067b04a2ca",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4819,8 +4819,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "767892c7127c227e023f9cf388c71163f08589e76024fd2f7ec59da553111289",
-  "SEMANTIC_HASH": "3a18408aff3f8f9d5db3cc39e7b95f1ae8c3758e10032c92e5a389256c96ab2e"
+  "MEASUREMENT_HASH": "ffb6fd4966a780fe46446a408a774a9e7e28c6597c154496ac06796d80a1818e",
+  "SEMANTIC_HASH": "82885d1139588ffd6f0809029ab1e4923d9b05ea4d1b08da807b9b74b49f978a"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6724,7 +6724,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/red_team_duas_portas.py",
-      "LINHA": 43,
+      "LINHA": 45,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-PROVA-ROTA-DO-HTML",
@@ -16674,7 +16674,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/red_team_duas_portas.py",
-      "LINHA": 42,
+      "LINHA": 44,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-EXECUTOR-TEXTO-HTML--READS-->C-PROVA-ROTA-DO-HTML",
@@ -18892,7 +18892,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/red_team_duas_portas.py",
-      "LINHA": 44,
+      "LINHA": 46,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INGRESSO--READS-->C-PROVA-ROTA-DO-HTML",

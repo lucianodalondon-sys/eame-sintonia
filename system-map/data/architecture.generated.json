@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "duas-portas-v1",
-    "HEAD": "b2c7c41ff64fb88784af3fb9eaf16ae8ab15eb62",
-    "GENERATED_AT": "2026-09-21T20:51:42-03:00",
-    "SOURCE_TREE_FINGERPRINT": "aa9061ca40e279e64ac927f8fe8071a9c55e21041b1aaacadf2f839c620add00"
+    "BRANCH": "cutover-prod-v1",
+    "HEAD": "1593633f0e34dd0371fc766421b909f77cca8736",
+    "GENERATED_AT": "2026-09-21T20:55:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a1c686ff8c5849fcb4eaf43f3976c3167ff6891d6557639a2aa6f490709d37cb"
   },
   "FILES": [
     {
@@ -346,7 +346,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "c5004a44b758695ce5768936a007c552be726916",
+      "sha": "7e30eeb8735a1c0dfcaf53aa5b18c1d464033101",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -13450,7 +13450,7 @@
     },
     {
       "path": "provas/red_team_duas_portas.py",
-      "sha": "0a09a76d8c2988c0440d3ffa3538e84e12689901",
+      "sha": "bbffca75c0132d24ce2d70adf685e146f47b8690",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -49476,7 +49476,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 43,
+        "line": 45,
         "snippet": "ADM = \"admissao/admissao.py\""
       }
     },
@@ -49487,7 +49487,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 42,
+        "line": 44,
         "snippet": "HTML = \"coleta/executor_texto_de_html.py\""
       }
     },
@@ -49498,7 +49498,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 44,
+        "line": 46,
         "snippet": "ING = \"coleta/ingresso.py\""
       }
     },
@@ -49509,7 +49509,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 40,
+        "line": 42,
         "snippet": "SAIDA = os.path.join(RAIZ, \"provas\", \"RED-TEAM-DUAS-PORTAS-V1.json\")"
       }
     },
@@ -49520,7 +49520,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 413,
+        "line": 415,
         "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
@@ -49531,7 +49531,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 66,
+        "line": 68,
         "snippet": "script_(\"provas/a_rota_do_html_atravessa.py\"),"
       }
     },
@@ -49542,7 +49542,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/red_team_duas_portas.py",
-        "line": 188,
+        "line": 190,
         "snippet": "script_(\"provas/a_rota_do_html_nao_vai_a_rede.py\"),"
       }
     },
@@ -70982,7 +70982,7 @@
     "provas/red_team_duas_portas.py": [
       {
         "pasta": "provas",
-        "line": 413,
+        "line": 415,
         "constante": "SAIDA"
       }
     ],

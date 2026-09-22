@@ -18,8 +18,10 @@ Cada ataque aqui:
                         morto a meio deixa o defeito no repositorio, e a
                         cadeia inteira para com «ciclo nomeado».
 
-⚠️ ZERO REDE. O unico ataque que TENTA sair e o `M10`, e ele existe para
-provar que o instrumento o apanha — a ligacao e travada, nunca completada.
+⚠️ ZERO REDE. O unico ataque que TENTA sair e o `M11-A-DERIVACAO-VAI-A-REDE`,
+e ele existe para provar que o instrumento o apanha — a ligacao e travada,
+nunca completada. (Dizia `M10` ate 2026-09-21: os mutantes foram renumerados e
+o cabecalho ficou para tras. `M10` e o FACT_LOCATION, e nao toca na rede.)
 
 ⚠️ NENHUM MATADOR ITERA A ESTRUTURA QUE JULGA. Tres vezes na noite de
 2026-09-21 o sobrevivente foi um teste tautologico. Os valores esperados dos
