@@ -876,6 +876,105 @@ def _telemetria(linhas: list, ctx: dict) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# A CLASSE SEMANTICA — LEI PERMANENTE.
+#
+#     STATE_NAME_DIFF NAO IMPLICA STATE_MEANING_DIFF.
+#
+# Dois livros do mesmo conceito usam rotulos diferentes para o MESMO facto.
+# `CANARY_PENDING` aqui e `CONTRACTED_CANARY_FAILED` no bot dizem ambos «nao
+# esta pronta, falta provar a rota» — e a reconciliacao traduz um no outro de
+# proposito.
+#
+# Medido em 2026-09-22: comparar ROTULOS dava 124 divergencias; comparar
+# CLASSES dava 63. As 61 de diferenca eram acordo lido como conflito. O perigo
+# nao e o numero: quem le 124 vai «consertar» 61 fontes certas, e para isso tem
+# de desfazer a traducao que guarda o passo pendente de cada uma.
+#
+#     COMPARA-SE PRIMEIRO A CLASSE. O ROTULO SO DEPOIS, E SO PARA CONTAR.
+# ---------------------------------------------------------------------------
+CLASSE_READY = "READY"
+CLASSE_NOT_READY = "NOT_READY_NEEDS_ROUTE_PROOF"
+CLASSE_POLICY = "POLICY_BLOCK"
+CLASSE_CAPABILITY = "CAPABILITY_BLOCK"
+CLASSE_RETRY = "RETRY"
+CLASSE_HUMAN = "HUMAN_REVIEW"
+CLASSE_RECONCILIACAO = "RECONCILIATION_REQUIRED"
+CLASSE_FAILED = "FAILED"
+CLASSE_UNKNOWN = "UNKNOWN"
+
+CLASSES_SEMANTICAS = (CLASSE_READY, CLASSE_NOT_READY, CLASSE_POLICY, CLASSE_CAPABILITY,
+                      CLASSE_RETRY, CLASSE_HUMAN, CLASSE_RECONCILIACAO, CLASSE_FAILED,
+                      CLASSE_UNKNOWN)
+
+# O rotulo do lifecycle -> a classe. Tudo o que nao esteja aqui e UNKNOWN: um
+# estado que ninguem classificou nao se adivinha pelo nome.
+_CLASSE_DE = {
+    LC.READY_FOR_COLLECTION: CLASSE_READY,
+    LC.POLICY_BLOCK: CLASSE_POLICY,
+    LC.CAPABILITY_BLOCK: CLASSE_CAPABILITY,
+    LC.RETRY_AFTER: CLASSE_RETRY,
+    LC.SEMANTIC_REVIEW: CLASSE_HUMAN,
+    LC.RECONCILIATION_REQUIRED: CLASSE_RECONCILIACAO,
+    LC.DEGRADED: CLASSE_FAILED,
+    LC.UNKNOWN: CLASSE_UNKNOWN,
+    # ⚠️ DECISAO DECLARADA, nao omissao. `AUTH_BLOCK` (muro de login) nao esta
+    # nas nove classes fixadas. Le-se como CAPABILITY_BLOCK porque o
+    # significado e o mesmo — «fonte boa, aquisicao impossivel com o que a casa
+    # tem»: uma credencial que nao temos e capacidade em falta, nao uma
+    # proibicao do publicador. NAO se inventa aqui uma decima classe: o
+    # vocabulario e fechado, e alargá-lo e decisao de quem manda.
+    LC.AUTH_BLOCK: CLASSE_CAPABILITY,
+    # todos estes dizem a mesma coisa: falta provar a rota.
+    LC.DISCOVERED: CLASSE_NOT_READY,
+    LC.QUALIFYING: CLASSE_NOT_READY,
+    LC.CONTRACT_PENDING: CLASSE_NOT_READY,
+    LC.CANARY_PENDING: CLASSE_NOT_READY,
+    LC.REPAIRING: CLASSE_NOT_READY,
+    LC.CONTRACT_READY_ROUTE_BLOCKED: CLASSE_NOT_READY,
+    LC.CONTRACTED_CANARY_FAILED: CLASSE_NOT_READY,
+}
+
+
+def classe_semantica(estado: str | None) -> str:
+    """O FACTO que o rotulo exprime. `None` (fonte ausente) tambem e UNKNOWN."""
+    return _CLASSE_DE.get(estado or "", CLASSE_UNKNOWN)
+
+
+def mesmo_facto(estado_a: str | None, estado_b: str | None) -> bool:
+    """Os dois livros dizem a mesma coisa, ainda que com nomes diferentes?"""
+    return classe_semantica(estado_a) == classe_semantica(estado_b)
+
+
+def divergencias(ult_x: dict, ult_y: dict) -> dict:
+    """A comparacao honesta entre dois livros: nominais, reais, e a diferenca.
+
+    Quem publicar «N divergencias» sem passar por aqui publica o numero
+    errado — e o numero errado, neste caso, assusta para o lado de consertar
+    o que esta certo.
+    """
+    comuns = set(ult_x) & set(ult_y)
+    nominais, reais = [], []
+    for k in sorted(comuns):
+        a = (ult_x[k] or {}).get("NEW_STATE")
+        b = (ult_y[k] or {}).get("NEW_STATE")
+        if a == b:
+            continue
+        nominais.append(k)
+        if not mesmo_facto(a, b):
+            reais.append(k)
+    return {
+        "FONTES_EM_AMBOS": len(comuns),
+        "DIVERGENCIA_NOMINAL": len(nominais),
+        "DIVERGENCIA_REAL": len(reais),
+        "SO_O_ROTULO_DIFERE": len(nominais) - len(reais),
+        "IDS_REAIS": reais,
+        "POR_CLASSE": dict(Counter(
+            (classe_semantica((ult_x[k] or {}).get("NEW_STATE")),
+             classe_semantica((ult_y[k] or {}).get("NEW_STATE"))) for k in reais)),
+    }
+
+
 def _bate(estado_lifecycle: str, final: str) -> bool:
     if estado_lifecycle == LC.READY_FOR_COLLECTION:
         return final in (READY_CURRENT, READY_LEGACY)

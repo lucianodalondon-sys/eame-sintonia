@@ -554,6 +554,58 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(sorted(por_id(d)), [a, b])
         self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
 
+    def test_rt_c17_a_classe_semantica_e_lei_e_compara_se_primeiro(self):
+        """STATE_NAME_DIFF NÃO IMPLICA STATE_MEANING_DIFF — lei permanente.
+
+        A reconciliação compara primeiro a CLASSE e só depois o rótulo. Foi
+        isto que fez 124 divergências nominais serem 63 reais: 61 eram dois
+        nomes para o mesmo facto.
+
+        Esta guarda prende as três coisas que, se mudarem em silêncio,
+        devolvem o número errado: o vocabulário fechado de classes, a
+        tradução de cada rótulo do lifecycle, e o facto de TODO o estado do
+        lifecycle ter classe (um estado novo sem classe cairia em UNKNOWN e
+        inventava uma divergência com tudo).
+        """
+        # 1. vocabulario fechado, tal como o dono o fixou
+        self.assertEqual(set(R.CLASSES_SEMANTICAS), {
+            "READY", "NOT_READY_NEEDS_ROUTE_PROOF", "POLICY_BLOCK",
+            "CAPABILITY_BLOCK", "RETRY", "HUMAN_REVIEW",
+            "RECONCILIATION_REQUIRED", "FAILED", "UNKNOWN"})
+        # 2. TODO estado do lifecycle tem classe declarada — nenhum cai em
+        # UNKNOWN por omissao. Um estado novo sem classe inventaria uma
+        # divergencia contra tudo o que nao fosse UNKNOWN.
+        sem_classe = sorted(e for e in LC.ESTADOS if e not in R._CLASSE_DE)
+        self.assertEqual(sem_classe, [],
+                         "estados do lifecycle sem classe semantica: %s" % sem_classe)
+        for e in (LC.DISCOVERED, LC.QUALIFYING, LC.CONTRACT_PENDING, LC.CANARY_PENDING,
+                  LC.REPAIRING, LC.CONTRACT_READY_ROUTE_BLOCKED,
+                  LC.CONTRACTED_CANARY_FAILED):
+            self.assertEqual(R.classe_semantica(e), R.CLASSE_NOT_READY, e)
+        self.assertEqual(R.classe_semantica(LC.READY_FOR_COLLECTION), R.CLASSE_READY)
+        self.assertEqual(R.classe_semantica(LC.RECONCILIATION_REQUIRED),
+                         R.CLASSE_RECONCILIACAO)
+        self.assertEqual(R.classe_semantica(LC.SEMANTIC_REVIEW), R.CLASSE_HUMAN)
+        self.assertEqual(R.classe_semantica(None), R.CLASSE_UNKNOWN)
+        # 3. o par que fez os 61: nomes diferentes, mesmo facto
+        self.assertTrue(R.mesmo_facto(LC.CANARY_PENDING, LC.CONTRACTED_CANARY_FAILED))
+        # 4. e o que muda de classe continua a ser divergencia a serio
+        self.assertFalse(R.mesmo_facto(LC.READY_FOR_COLLECTION, LC.CAPABILITY_BLOCK))
+        self.assertFalse(R.mesmo_facto(LC.READY_FOR_COLLECTION, LC.RECONCILIATION_REQUIRED))
+        self.assertFalse(R.mesmo_facto(LC.CANARY_PENDING, LC.READY_FOR_COLLECTION))
+
+    def test_rt_c17b_divergencias_separa_nominal_de_real(self):
+        """`divergencias()` é o único sítio por onde o número deve sair."""
+        x = livro(linha("IT-T4-091", None, LC.CANARY_PENDING, T2),
+                  linha("IT-T4-092", None, LC.READY_FOR_COLLECTION, T2))
+        y = livro(linha("IT-T4-091", None, LC.CONTRACTED_CANARY_FAILED, T3),
+                  linha("IT-T4-092", None, LC.CAPABILITY_BLOCK, T3))
+        d = R.divergencias(R.ultimos(x), R.ultimos(y))
+        self.assertEqual(d["DIVERGENCIA_NOMINAL"], 2)
+        self.assertEqual(d["DIVERGENCIA_REAL"], 1)      # so a IT-T4-092
+        self.assertEqual(d["SO_O_ROTULO_DIFERE"], 1)    # a IT-T4-091 concorda
+        self.assertEqual(d["IDS_REAIS"], ["IT-T4-092"])
+
     def test_rt_c16_divergencia_nominal_nao_e_divergencia_de_facto(self):
         """CONTAR NOMES DE ESTADO CONTA DUAS VEZES O MESMO ACORDO.
 
