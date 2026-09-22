@@ -1,7 +1,7 @@
 {
  "DATASET": "PONTE-CURADOR-PROOF-V1",
  "LEI": "o trabalho novo do bot atravessa ate ao portao; o bloqueado e o promovido sem prova NAO atravessam; a elegibilidade e sempre decidida por collection_gate.",
- "GERADO_EM": "2026-09-22T18:57:07.410780+00:00",
+ "GERADO_EM": "2026-09-22T19:33:32.394962+00:00",
  "BANCADA": "copia descartavel — o livro canonico real nao foi tocado",
  "BOT": {
   "BRANCH": "source-curator-service-v1",
@@ -9,7 +9,7 @@
   "HEAD_DESCOBERTO_NAO_ESCRITO_A_MAO": true,
   "SNAPSHOT": {
    "BOT_SNAPSHOT_HEAD": "41655f3a",
-   "BOT_SNAPSHOT_TIME": "2026-09-22T18:57:07.261784+00:00",
+   "BOT_SNAPSHOT_TIME": "2026-09-22T19:33:29.107788+00:00",
    "BOT_SNAPSHOT_TRANSITION_MAX_ID": 1275,
    "BOT_SNAPSHOT_SOURCES": 440,
    "LEITURA": "git show — copia congelada. O ficheiro vivo do bot NAO e lido: o supervisor esta a correr e pode gravar a meio da leitura.",
@@ -47,13 +47,36 @@
    "NAO_ATRAVESSOU": true
   }
  ],
+ "SENTIDO_DESPROMOCAO": {
+  "SOURCE_ID": "IT-T99-001",
+  "ERA_COLLECTION_ELIGIBLE": true,
+  "O_QUE_O_BOT_ESCREVEU": "CONTRACTED_CANARY_FAILED — canario reprovou (CAPA_NAO_E_MATERIA)",
+  "ESTADO_CANONICO_DEPOIS": "CANARY_PENDING",
+  "FINAL_DA_RECONCILIACAO": "NOT_READY",
+  "COLLECTION_ELIGIBLE_AGORA": false,
+  "MOTIVO_DA_RECUSA": "ESTADO_NAO_READY",
+  "PORQUE": "o estado no livro e CANARY_PENDING; so entra quem esta em READY_FOR_COLLECTION",
+  "ELIGIBLE_ANTES": 9,
+  "ELIGIBLE_DEPOIS": 8,
+  "SAIRAM_DA_LISTA": [
+   "IT-T99-001"
+  ],
+  "DESCEU": true,
+  "SAIU_PELO_NOME": true,
+  "LINHAS_ACRESCENTADAS": 1,
+  "ATRAVESSOU": true
+ },
  "PORTAO": {
   "COLLECTION_ELIGIBLE_ANTES": 8,
-  "COLLECTION_ELIGIBLE_DEPOIS": 9,
+  "COLLECTION_ELIGIBLE_APOS_PROMOCAO": 9,
+  "COLLECTION_ELIGIBLE_APOS_DESPROMOCAO": 8,
   "ENTRARAM": [
    "IT-T99-001"
   ],
-  "SAIRAM": []
+  "SAIRAM": [
+   "IT-T99-001"
+  ],
+  "VOLTOU_AO_PONTO_DE_PARTIDA": true
  },
  "EVIDENCIA": {
   "PROVAS_CITADAS_DE_C": 1,
@@ -136,5 +159,10 @@
   "NO_OP": true
  },
  "LEGACY_LEAK": 0,
+ "INTEGRACAO_OPERACIONAL": {
+  "ENTRA": true,
+  "NUNCA_ENTROU": true,
+  "SAI": true
+ },
  "PONTE_VIVA": true
 }

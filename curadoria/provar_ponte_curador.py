@@ -117,6 +117,48 @@ def livro_do_bot_com_trabalho_novo(base: dict | None) -> tuple[dict, dict, dict]
     return base, evid, contratos
 
 
+def _prova_de_canario_reprovado(ref, sid, item):
+    """O canario que REPROVA: abriu o alvo e o que la estava era a capa da
+    seccao, nao uma materia. `DETAIL_GATE_PASSED` a False e o que o gate le."""
+    return {"EVIDENCE_REF": ref, "SOURCE_ID": sid, "ETAPA": "CANARY",
+            "OBSERVED_AT": agora_mais(4),
+            "DADOS": {"PASS": False, "CLASSE": "CAPA_NAO_E_MATERIA",
+                      "DETAIL_GATE_PASSED": False,
+                      "ALVOS_DESCOBERTOS": 9, "DETAIL_ENUMERATED": 9,
+                      "ITEM_ABERTO": {"URL": item, "HTTP": 200, "BYTES": 21000,
+                                      "HTML_KIND": "MIXED",
+                                      "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+                                      "LINKS": 180, "PARAGRAPH_CHARACTERS": 120,
+                                      "NON_WHITESPACE_CHARACTERS": 4000}}}
+
+
+def livro_do_bot_com_despromocao(livro_c: dict, evid_c: dict) -> tuple[dict, dict]:
+    """O TERCEIRO SENTIDO: a fonte que JA ERA ELEGIVEL degrada-se.
+
+    Sem isto, a ponte prova «entra» e «nunca entrou», e falta o unico caso que
+    protege a Collection do que se estraga com o tempo:
+
+        UMA FONTE QUE SE DEGRADA E QUE NAO SAI DA LISTA
+        E COLHIDA PARA SEMPRE, E NINGUEM DA POR ISSO.
+
+    A despromocao das 21 fontes da volta 3 NAO provou isto: eram todas
+    `READY_LEGACY`, que ja nao eram elegiveis — o portao nunca se mexeu
+    (`READY_TOTAL` 123 -> 102 com `COLLECTION_ELIGIBLE` 8 -> 8). Aqui a fonte
+    vem de `COLLECTION_ELIGIBLE = True`, e tem de SAIR da lista pelo nome.
+    """
+    livro_c = json.loads(json.dumps(livro_c))
+    ref_mau = "EV-%s-CANARY-REPROVOU" % POSITIVA
+    livro_c["TRANSICOES"].append(
+        _linha(POSITIVA, LC.READY_FOR_COLLECTION, LC.CONTRACTED_CANARY_FAILED,
+               agora_mais(5), ref_mau,
+               "canario reprovou: o alvo e a capa da seccao, nao uma materia "
+               "(CAPA_NAO_E_MATERIA) — a rota degradou-se"))
+    evid = dict(evid_c)
+    evid[ref_mau] = _prova_de_canario_reprovado(
+        ref_mau, POSITIVA, "https://www.exemplo-agro.it/notizie/")
+    return livro_c, evid
+
+
 def correr() -> dict:
     tmp = tempfile.TemporaryDirectory()
     banco = Path(tmp.name)
@@ -159,9 +201,15 @@ def correr() -> dict:
         aplicado = R.aplicar(doc, ctx)
 
         # 5. o portao DEPOIS — e ele que decide, nao nos.
+        #    ⚠️ Capturado AQUI, nao no fim: a fase 7 despromove a POSITIVA de
+        #    proposito, e ler o estado dela no fim faria este relatorio dizer
+        #    que a promocao acabou em CANARY_PENDING. Cada fase le-se no seu
+        #    momento, senao a ultima reescreve a historia das anteriores.
         elegiveis_depois = set(CG.elegiveis())
         linhas = {l["SOURCE_ID"]: l for l in doc["LINHAS"]}
         veredito = {s: CG.avaliar(s) for s in (POSITIVA, BLOQUEADA, SEM_PROVA)}
+        estado_apos_promocao = {s: LC.estado_de(s)
+                                for s in (POSITIVA, BLOQUEADA, SEM_PROVA)}
 
         # 6. idempotencia: a MESMA leva outra vez nao mexe em nada.
         ctx2 = R.carregar_contexto()
@@ -169,6 +217,21 @@ def correr() -> dict:
         ctx2["CONTRATOS_C"] = ctx["CONTRATOS_C"]
         doc2 = R.censo(ctx2)
         segunda = R.aplicar(doc2, ctx2)
+
+        # 7. O TERCEIRO SENTIDO — a fonte ELEGIVEL degrada-se e tem de SAIR.
+        #    So conta se vier de COLLECTION_ELIGIBLE=True: despromover quem ja
+        #    nao era elegivel nao mexe no portao e nao prova nada.
+        era_elegivel = POSITIVA in elegiveis_depois
+        livro_c3, evid_c3 = livro_do_bot_com_despromocao(livro_c, ctx["EVIDENCIA_C"])
+        ctx3 = R.carregar_contexto()
+        ctx3["C"], ctx3["EVIDENCIA_C"] = livro_c3, evid_c3
+        ctx3["CONTRATOS_C"] = ctx["CONTRATOS_C"]
+        doc3 = R.censo(ctx3)
+        aplicado3 = R.aplicar(doc3, ctx3)
+        elegiveis_final = set(CG.elegiveis())
+        veredito_final = CG.avaliar(POSITIVA)
+        sairam = sorted(elegiveis_depois - elegiveis_final)
+        linhas3 = {l["SOURCE_ID"]: l for l in doc3["LINHAS"]}
 
         p = {
             "DATASET": "PONTE-CURADOR-PROOF-V1",
@@ -183,7 +246,7 @@ def correr() -> dict:
             "SENTIDO_POSITIVO": {
                 "SOURCE_ID": POSITIVA,
                 "ESTADO_ANTES": estado_antes[POSITIVA],
-                "ESTADO_DEPOIS": LC.estado_de(POSITIVA),
+                "ESTADO_DEPOIS": estado_apos_promocao[POSITIVA],
                 "FINAL_DA_RECONCILIACAO": linhas[POSITIVA]["FINAL_STATE"],
                 "PROVA_VEIO_JUNTO": ((RS._evidencias().get(
                     "EV-%s-CANARY-NOVA" % POSITIVA) or {}).get("IMPORTADO_DE") or {}).get("LIVRO"),
@@ -195,7 +258,7 @@ def correr() -> dict:
                                and POSITIVA not in elegiveis_antes),
             },
             "SENTIDO_NEGATIVO": [
-                {"SOURCE_ID": s, "ESTADO_DEPOIS": LC.estado_de(s),
+                {"SOURCE_ID": s, "ESTADO_DEPOIS": estado_apos_promocao[s],
                  "FINAL_DA_RECONCILIACAO": linhas[s]["FINAL_STATE"],
                  "COLLECTION_ELIGIBLE": veredito[s]["COLLECTION_ELIGIBLE"],
                  "MOTIVO": veredito[s]["MOTIVO"], "PORQUE": veredito[s]["PORQUE"],
@@ -203,11 +266,33 @@ def correr() -> dict:
                                    and s not in elegiveis_depois}
                 for s in (BLOQUEADA, SEM_PROVA)
             ],
+            "SENTIDO_DESPROMOCAO": {
+                "SOURCE_ID": POSITIVA,
+                "ERA_COLLECTION_ELIGIBLE": era_elegivel,
+                "O_QUE_O_BOT_ESCREVEU": "CONTRACTED_CANARY_FAILED — canario reprovou (CAPA_NAO_E_MATERIA)",
+                "ESTADO_CANONICO_DEPOIS": LC.estado_de(POSITIVA),
+                "FINAL_DA_RECONCILIACAO": linhas3[POSITIVA]["FINAL_STATE"],
+                "COLLECTION_ELIGIBLE_AGORA": veredito_final["COLLECTION_ELIGIBLE"],
+                "MOTIVO_DA_RECUSA": veredito_final["MOTIVO"],
+                "PORQUE": veredito_final["PORQUE"],
+                "ELIGIBLE_ANTES": len(elegiveis_depois),
+                "ELIGIBLE_DEPOIS": len(elegiveis_final),
+                "SAIRAM_DA_LISTA": sairam,
+                "DESCEU": len(elegiveis_final) < len(elegiveis_depois),
+                "SAIU_PELO_NOME": POSITIVA in sairam,
+                "LINHAS_ACRESCENTADAS": aplicado3["APENDIDAS"],
+                "ATRAVESSOU": (era_elegivel
+                               and veredito_final["COLLECTION_ELIGIBLE"] is False
+                               and POSITIVA in sairam
+                               and len(elegiveis_final) < len(elegiveis_depois)),
+            },
             "PORTAO": {
                 "COLLECTION_ELIGIBLE_ANTES": len(elegiveis_antes),
-                "COLLECTION_ELIGIBLE_DEPOIS": len(elegiveis_depois),
+                "COLLECTION_ELIGIBLE_APOS_PROMOCAO": len(elegiveis_depois),
+                "COLLECTION_ELIGIBLE_APOS_DESPROMOCAO": len(elegiveis_final),
                 "ENTRARAM": sorted(elegiveis_depois - elegiveis_antes),
-                "SAIRAM": sorted(elegiveis_antes - elegiveis_depois),
+                "SAIRAM": sairam,
+                "VOLTOU_AO_PONTO_DE_PARTIDA": elegiveis_final == elegiveis_antes,
             },
             "EVIDENCIA": aplicado["EVIDENCIA"],
             "TELEMETRIA_DA_PONTE": doc["TELEMETRIA_DA_PONTE"],
@@ -219,8 +304,16 @@ def correr() -> dict:
             },
         }
         p["LEGACY_LEAK"] = doc["TELEMETRIA_DA_PONTE"]["LEGACY_LEAK"]
-        p["PONTE_VIVA"] = (p["SENTIDO_POSITIVO"]["ATRAVESSOU"]
-                           and all(n["NAO_ATRAVESSOU"] for n in p["SENTIDO_NEGATIVO"])
+        # ⚠️ OS TRES SENTIDOS, TODOS OBRIGATORIOS. Sincronizar livros nao e
+        # integrar: so conta como integracao se o gate reagir NOS TRES
+        # sentidos — entra, nunca entrou, e SAI. Faltando o terceiro, uma
+        # fonte que se degrada e colhida para sempre.
+        p["INTEGRACAO_OPERACIONAL"] = {
+            "ENTRA": p["SENTIDO_POSITIVO"]["ATRAVESSOU"],
+            "NUNCA_ENTROU": all(n["NAO_ATRAVESSOU"] for n in p["SENTIDO_NEGATIVO"]),
+            "SAI": p["SENTIDO_DESPROMOCAO"]["ATRAVESSOU"],
+        }
+        p["PONTE_VIVA"] = (all(p["INTEGRACAO_OPERACIONAL"].values())
                            and p["IDEMPOTENCIA"]["NO_OP"]
                            and p["LEGACY_LEAK"] == 0)
         return p
@@ -245,9 +338,18 @@ def main(argv=None) -> int:
     for n in p["SENTIDO_NEGATIVO"]:
         print("NEGATIVA %s  %-22s | %-22s | NAO_ATRAVESSOU %s"
               % (n["SOURCE_ID"], n["ESTADO_DEPOIS"], n["MOTIVO"], n["NAO_ATRAVESSOU"]))
-    print("PORTAO  ANTES %d  DEPOIS %d  ENTRARAM %s"
-          % (portao["COLLECTION_ELIGIBLE_ANTES"], portao["COLLECTION_ELIGIBLE_DEPOIS"],
-             portao["ENTRARAM"]))
+    d = p["SENTIDO_DESPROMOCAO"]
+    print("DESPROMOCAO %s  era ELIGIVEL %s -> %s | %s"
+          % (d["SOURCE_ID"], d["ERA_COLLECTION_ELIGIBLE"],
+             d["COLLECTION_ELIGIBLE_AGORA"], d["MOTIVO_DA_RECUSA"]))
+    print("   ELIGIBLE %d -> %d | SAIRAM %s | ATRAVESSOU %s"
+          % (d["ELIGIBLE_ANTES"], d["ELIGIBLE_DEPOIS"], d["SAIRAM_DA_LISTA"],
+             d["ATRAVESSOU"]))
+    print("PORTAO  ANTES %d  APOS PROMOCAO %d  APOS DESPROMOCAO %d  ENTRARAM %s"
+          % (portao["COLLECTION_ELIGIBLE_ANTES"],
+             portao["COLLECTION_ELIGIBLE_APOS_PROMOCAO"],
+             portao["COLLECTION_ELIGIBLE_APOS_DESPROMOCAO"], portao["ENTRARAM"]))
+    print("INTEGRACAO  %s" % json.dumps(p["INTEGRACAO_OPERACIONAL"]))
     print("PROVAS_IMPORTADAS          %d" % p["EVIDENCIA"]["PROVAS_IMPORTADAS"])
     print("IDEMPOTENCIA_NO_OP         %s" % p["IDEMPOTENCIA"]["NO_OP"])
     print("LEGACY_LEAK                %d" % p["LEGACY_LEAK"])
