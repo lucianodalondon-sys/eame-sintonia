@@ -23,3 +23,10 @@ SOURCE-CURATOR-STATUS-LIVE.json
 SOURCE-CURATOR-RUN-LOG.ndjson
 SUPERVISOR-STATE.json
 SUPERVISOR.lock
+
+# O estado e o diario da ponte automatica sao RUNTIME, nao fonte: mudam a cada
+# volta do observador. Versiona-los poria um commit por tick no historico — o
+# mesmo ruido que este desenho existe para nao produzir. O que fica no Git e o
+# codigo e as provas; o que a ponte viu le-se no ficheiro vivo.
+PONTE-AUTOMATICA-STATE.json
+PONTE-AUTOMATICA-LOG.ndjson
