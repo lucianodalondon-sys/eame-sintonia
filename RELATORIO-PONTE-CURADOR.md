@@ -384,10 +384,36 @@ mão — a volta seguinte **apanhou esse trabalho sem ninguém lhe tocar**:
 ```
 volta 1   livro 754 -> 1450   (+696)   snapshot 216dd6db · 1008 transições
 volta 2   livro 1450 -> 1523  (+73)    snapshot e26de5e2 · 1127 transições
+volta 3   livro 1523 -> 1544  (+21)    snapshot 41655f3a · 1270 transições
 ```
 
 Isto não é a prova sintética: é trabalho real do bot a atravessar. O que a
 missão pedia no ponto 7 do reforço está cumprido com dados verdadeiros.
+
+### A volta 3 — e o número que desce por bem
+
+A volta 3 é a mais interessante das três, porque **o que atravessou não foram
+promoções**. O bot correu canários e **reprovou 21 fontes** com
+`CAPA_NAO_E_MATERIA` — o alvo da rota era a capa da secção, não uma matéria.
+Todas atravessaram como `READY_FOR_COLLECTION → CANARY_PENDING`, com
+proveniência `RECONCILIACAO` na linha.
+
+```
+READY_TOTAL          123 -> 102      (−21, por prova nova do bot)
+READY_CURRENT_TOTAL   10 ->  10
+COLLECTION_ELIGIBLE    8 ->   8      as mesmas 8
+BOT_READY             54 ->  33 · ACEITES 25 · RECUSADAS 8
+LEGACY_LEAK                     0
+```
+
+> **Uma ponte que só soubesse promover era metade de uma ponte.** Deixaria 21
+> fontes marcadas «prontas» depois de estar provado que não estão — e alguém,
+> mais tarde, mandava colher capas de secção a pensar que eram notícias. Um
+> número que desce porque apareceu prova nova é a ponte a funcionar, não a
+> partir.
+
+As 8 recusas continuam as mesmas 8 promoções sem prova de canário: a ponte
+aceita o trabalho novo do bot e continua a recusar exatamente o que já recusava.
 
 Depois da volta 2:
 
@@ -488,6 +514,15 @@ A meio da missão, o robô voltou a trabalhar por conta dele e escreveu mais
 **119 linhas** no caderno. Não fizemos nada. Na passagem seguinte, a ponte foi
 ver o caderno **atual** dele — não a fotografia antiga — e trouxe esse trabalho
 novo. É a prova de que o cano fica aberto, não uma demonstração montada.
+
+E voltou a acontecer uma terceira vez, com uma lição melhor ainda. Dessa vez o
+robô não trouxe sítios bons: trouxe **21 sítios que ele próprio reprovou**. Foi
+lá verificar e descobriu que a página que ia buscar era a **capa de uma secção**,
+não uma notícia — como quem vai buscar a capa da revista a pensar que é o artigo.
+
+A lista de «prontos» **desceu** de 123 para 102. Isso é bom. Se a ponte só
+soubesse trazer boas notícias, esses 21 sítios continuariam marcados como bons,
+e mais tarde alguém mandava recolher 21 capas a pensar que eram notícias.
 
 Fizemos também a experiência controlada: pusemos o robô a escrever um sítio
 novo, com a verificação completa, e fomos ver se chegava ao fim da linha.
