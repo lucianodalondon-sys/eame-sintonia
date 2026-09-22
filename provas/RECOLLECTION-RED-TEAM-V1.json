@@ -24,6 +24,14 @@
       "  FAIL  o salto por ignorancia traz AVISO e o salto declarado nao ",
       "  FAIL  o censo separa o salto informado do salto cego "
      ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",
+     "TODAS": [
+      "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",
+      "  FAIL  DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele"
+     ]
     }
    ]
   },
@@ -43,6 +51,14 @@
       "  FAIL  o censo separa o salto informado do salto cego ",
       "  FAIL  admissivelNaBigCollection bloqueia quem nao declarou "
      ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  UNKNOWN escrito a mao NAO conta como declarado — e o controlo positivo",
+     "TODAS": [
+      "  FAIL  UNKNOWN escrito a mao NAO conta como declarado — e o controlo positivo",
+      "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION"
+     ]
     }
    ]
   },
@@ -59,6 +75,13 @@
      "PRIMEIRA_FALHA": "  FAIL  admissivelNaBigCollection bloqueia quem nao declarou ",
      "TODAS": [
       "  FAIL  admissivelNaBigCollection bloqueia quem nao declarou "
+     ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",
+     "TODAS": [
+      "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION"
      ]
     }
    ]
@@ -163,8 +186,10 @@
       "  FAIL  com ETag guardado, dispara — e diz que o condicional e mesmo possivel",
       "  FAIL  REVALIDATE sem validador confessa que o pedido NAO pode ser condicional",
       "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
+      "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",
       "  FAIL  a ULTIMA observacao sobre o endereco e a que manda",
-      "  FAIL  observacao sem SOURCE_URL nao entra na memoria — nem rebenta"
+      "  FAIL  observacao sem SOURCE_URL nao entra na memoria — nem rebenta",
+      "  FAIL  DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele"
      ]
     },
     {
@@ -219,7 +244,9 @@
       "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
       "  FAIL  com ETag guardado, dispara — e diz que o condicional e mesmo possivel",
       "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
-      "  FAIL  a ULTIMA observacao sobre o endereco e a que manda"
+      "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",
+      "  FAIL  a ULTIMA observacao sobre o endereco e a que manda",
+      "  FAIL  DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele"
      ]
     },
     {
@@ -264,8 +291,10 @@
       "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
       "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
       "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
+      "  FAIL  a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION",
       "  FAIL  a ULTIMA observacao sobre o endereco e a que manda",
-      "  FAIL  com esta regra, UNNECESSARY_REFETCHES e estruturalmente ZERO"
+      "  FAIL  com esta regra, UNNECESSARY_REFETCHES e estruturalmente ZERO",
+      "  FAIL  DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele"
      ]
     },
     {
@@ -294,6 +323,13 @@
      "TODAS": [
       "  FAIL  o censo separa o salto informado do salto cego ",
       "  FAIL  uma decisao antiga sem o campo nao e contada como cega "
+     ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele",
+     "TODAS": [
+      "  FAIL  DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele"
      ]
     }
    ]
@@ -370,6 +406,13 @@
      "TODAS": [
       "  FAIL  os cinco caracteres com significado em HTML NAO se traduzem ",
       "  FAIL  duplo escape nao se descodifica duas vezes "
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA os cinco caracteres com significado em HTML NAO se traduzem",
+     "TODAS": [
+      "  FALHA os cinco caracteres com significado em HTML NAO se traduzem"
      ]
     }
    ]

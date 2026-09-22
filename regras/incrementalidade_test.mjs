@@ -16,6 +16,7 @@ import {
   RESULTADOS_COM_DOCUMENTO, RESULTADOS_SEM_DOCUMENTO,
   RegraInvalida, recolheitaDoContrato, memoriaDosDetalhes,
   decidirSobreDetalhe, decidirSobreIndice, censoDasDecisoes,
+  admissivelNaBigCollection,
 } from "./incrementalidade.mjs";
 
 let ok = 0, mau = 0;
@@ -227,6 +228,74 @@ T("RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede", () => {
   assert.equal(d.DECISAO, "SKIP_KNOWN", "o motor leu prosa e decidiu com ela");
 });
 
+// ⚠️ ESTA LEI VIVIA SO NUM COMENTARIO, E ISSO NAO E UMA GUARDA.
+// `recolheitaDoContrato()` escreve, em letra grande, que `UNKNOWN` posto a mao
+// NAO conta como declarado — «dar ao carimbo o valor da medicao». A linha que
+// o faz cumprir e uma so:
+//
+//     DECLARADO: r.DETAIL_CONTENT !== "UNKNOWN",
+//
+// Trocar essa linha por `DECLARADO: true` deixava ESTA suite inteira verde
+// (23 de 23) — encontrado por verificacao externa em clone isolado sobre
+// 95d69dba. O mutante era morto, sim, mas so por `regras/recollection_test.mjs`,
+// noutro ficheiro. Quem corra a suite do proprio modulo — que e o que uma
+// pessoa faz ao mexer nele — nao via nada.
+//
+//     UMA LEI GUARDADA SO NOUTRO FICHEIRO ESTA GUARDADA CONTRA O ACASO,
+//     NAO CONTRA QUEM MEXE NA LINHA.
+//
+// O efeito do mutante nao e cosmetico: um contrato com `UNKNOWN` escrito a mao
+// deixava de ficar `BLOCKED_FOR_BIG_COLLECTION` e entrava na colheita grande
+// sem ninguem ter estudado a fonte — exactamente o defeito que a missao
+// RECOLLECTION-V1 existiu para fechar.
+T("UNKNOWN escrito a mao NAO conta como declarado — e o controlo positivo", () => {
+  // ── o ataque ────────────────────────────────────────────────────────────
+  const aMao = recolheitaDoContrato("IT-X-1",
+    { RECOLLECTION: { DETAIL_CONTENT: "UNKNOWN", TTL_SECONDS: null } });
+  assert.equal(aMao.DETAIL_CONTENT, "UNKNOWN");
+  assert.equal(aMao.DECLARADO, false,
+    "UNKNOWN carimbado a mao comprou a admissao — «ainda nao sei» virou classificacao");
+
+  // ── e o mesmo estado, sem bloco nenhum: tem de ser indistinguivel ───────
+  // Nao ha diferenca entre «escrevi que nao sei» e «nao escrevi nada».
+  assert.equal(recolheitaDoContrato("IT-X-1", {}).DECLARADO, aMao.DECLARADO);
+  assert.equal(recolheitaDoContrato("IT-X-1", null).DECLARADO, aMao.DECLARADO);
+
+  // ── CONTROLO POSITIVO ───────────────────────────────────────────────────
+  // Sem isto, `DECLARADO: false` passaria o teste de cima e a guarda mediria
+  // o nada: os dois valores que SAO classificacao tem de dar `true`.
+  for (const v of ["IMMUTABLE", "MUTABLE"]) {
+    const r = recolheitaDoContrato("IT-X-1",
+      { RECOLLECTION: { DETAIL_CONTENT: v, TTL_SECONDS: null } });
+    assert.equal(r.DETAIL_CONTENT, v);
+    assert.equal(r.DECLARADO, true, `${v} e uma classificacao e tem de contar como declarada`);
+  }
+});
+
+T("a consequencia da lei: UNKNOWN a mao fica BLOCKED_FOR_BIG_COLLECTION", () => {
+  // O teste acima prende o CAMPO. Este prende o que ele decide — para que
+  // ninguem possa manter `DECLARADO` correcto e mudar quem o le.
+  const bloqueada = admissivelNaBigCollection("IT-X-1",
+    { RECOLLECTION: { DETAIL_CONTENT: "UNKNOWN", TTL_SECONDS: null } });
+  assert.equal(bloqueada.ADMISSIVEL, false);
+  assert.equal(bloqueada.COBERTURA, "BLOCKED_FOR_BIG_COLLECTION");
+
+  // e o salto sobre um detalhe ja conhecido diz que foi por ignorancia
+  const d = decidirSobreDetalhe(URL1, {
+    memoria: memoriaDosDetalhes([obsOk()]), sourceId: "IT-X-1",
+    contrato: { RECOLLECTION: { DETAIL_CONTENT: "UNKNOWN", TTL_SECONDS: null } } });
+  assert.equal(d.DECISAO, "SKIP_KNOWN", "a ida a rede nao pode mudar com isto");
+  assert.equal(d.COBERTURA, "BLOCKED_FOR_BIG_COLLECTION");
+
+  // CONTROLO POSITIVO: quem classificou entra, e continua a saltar na mesma.
+  for (const v of ["IMMUTABLE", "MUTABLE"]) {
+    const a = admissivelNaBigCollection("IT-X-1",
+      { RECOLLECTION: { DETAIL_CONTENT: v, TTL_SECONDS: null } });
+    assert.equal(a.ADMISSIVEL, true, `${v} declarado tem de poder entrar`);
+    assert.equal(a.COBERTURA, "DECLARADA");
+  }
+});
+
 T("valor fora do vocabulario REPROVA — nao se aceita campo sem o implementar", () => {
   assert.throws(() => recolheitaDoContrato("X", { RECOLLECTION: { DETAIL_CONTENT: "TALVEZ" } }),
     RegraInvalida);
@@ -305,6 +374,39 @@ T("com esta regra, UNNECESSARY_REFETCHES e estruturalmente ZERO", () => {
     decidirSobreDetalhe(URL1, { memoria: memoriaDosDetalhes([obsOk({ OBSERVATION_RESULT: "IDENTITY_FAILED" })]) }),
   ];
   assert.equal(censoDasDecisoes(ds).UNNECESSARY_REFETCHES, 0);
+});
+
+// ⚠️ O MESMO BURACO DO M11, NOUTRA LINHA — achado ao aplicar a regua estrita
+// aos doze ataques (`provas/recollection_red_team_estrito.mjs`). O contador da
+// cegueira vive nesta funcao:
+//
+//     if (d.RECOLLECTION_DECLARADA === false) c.DETAIL_SKIPPED_UNDECLARED++;
+//
+// Trocar `false` por `undefined` fazia o numero cair para zero e esta suite
+// ficava verde. Um contador de cegueira que se pode desligar sem ninguem
+// gritar mede tao pouco como nao existir — pior, porque parece medir.
+T("DETAIL_SKIPPED_UNDECLARED conta o salto cego — e so ele", () => {
+  const mem = memoriaDosDetalhes([obsOk()]);
+  const cego = decidirSobreDetalhe(URL1, { memoria: mem, sourceId: "X", contrato: null });
+  const informado = decidirSobreDetalhe(URL1, { memoria: mem, sourceId: "X",
+    contrato: { RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE" } } });
+
+  // os dois saltam — e e isso que torna o contador necessario
+  assert.equal(cego.DECISAO, "SKIP_KNOWN");
+  assert.equal(informado.DECISAO, "SKIP_KNOWN");
+
+  const c = censoDasDecisoes([cego, informado]);
+  assert.equal(c.DETAIL_SKIPPED_KNOWN, 2);
+  assert.equal(c.DETAIL_SKIPPED_UNDECLARED, 1,
+    "o contador da cegueira parou de contar, ou passou a contar quem declarou");
+
+  // CONTROLO POSITIVO pelos dois lados: so o cego conta, e o informado nao.
+  assert.equal(censoDasDecisoes([cego]).DETAIL_SKIPPED_UNDECLARED, 1);
+  assert.equal(censoDasDecisoes([informado]).DETAIL_SKIPPED_UNDECLARED, 0);
+
+  // E uma decisao antiga, sem o campo, nao inventa cegueira nenhuma.
+  assert.equal(censoDasDecisoes([{ DECISAO: "SKIP_KNOWN", CONHECIDO: true }])
+    .DETAIL_SKIPPED_UNDECLARED, 0);
 });
 
 console.log(`\n  PASSOU ${ok} · FALHOU ${mau}\n`);

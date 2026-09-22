@@ -23,6 +23,7 @@ import { readFileSync, existsSync } from "node:fs";
 
 import {
   normalizarConteudo, compararConteudo, textoVisivel, pareceHtml, TRECHOS_VOLATEIS,
+  canonicalizarEntidades,
 } from "./normalizacao_de_conteudo.mjs";
 import {
   memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice, censoDasDecisoes,
@@ -140,6 +141,33 @@ t("normalizar NAO encolhe o texto visivel", () => {
     assert.ok(antes.includes(w), `a pagina de prova devia conter ${w}`);
   }
   assert.ok(n.VOLATEIS_TOTAL >= 6, `esperava os seis volateis, achei ${n.VOLATEIS_TOTAL}`);
+});
+
+// ⚠️ A CANONICALIZACAO DE ENTIDADES NAO ESTAVA PRESA NESTA SUITE, e esta e a
+// suite DONA de `normalizacao_de_conteudo.mjs`. Achado ao aplicar a regua
+// estrita aos doze ataques (`provas/recollection_red_team_estrito.mjs`):
+// esvaziar `NAO_SE_TRADUZ` deixava aqui tudo verde.
+//
+// Traduzir `&#60;` para `<` muda a ESTRUTURA do documento: um texto que fala
+// de HTML passa a ser HTML, e um `&` escapado seguido de outra entidade
+// descodifica-se duas vezes. E a diferenca entre citar uma etiqueta e
+// executa-la.
+t("os cinco caracteres com significado em HTML NAO se traduzem", () => {
+  const r = canonicalizarEntidades(`&#38;&#60;&#62;&#34;&#39;`).TEXTO;
+  assert.equal(r, `&#38;&#60;&#62;&#34;&#39;`, "a canonicalizacao mexeu na estrutura do documento");
+
+  // duplo escape: `&#38;#105;` e um `&#105;` literal, escrito por quem escapou
+  // o `&`. Traduzi-lo dava `i`, e apagava a diferenca entre o texto e a citacao.
+  assert.equal(canonicalizarEntidades("&#38;#105;").TEXTO, "&#38;#105;");
+
+  // CONTROLO POSITIVO: as letras traduzem-se, e a conta sai no recibo.
+  const c = canonicalizarEntidades("i&#110;f&#111;&#64;x&#46;it");
+  assert.equal(c.TEXTO, "info@x.it");
+  assert.equal(c.TRADUZIDAS, 4);
+
+  // e traduzir nao cola coisas diferentes
+  assert.notEqual(canonicalizarEntidades("&#105;nfo@a.it").TEXTO,
+    canonicalizarEntidades("&#105;nfo@b.it").TEXTO);
 });
 
 t("o texto visivel e testemunha independente do veredicto", () => {
