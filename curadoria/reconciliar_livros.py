@@ -154,7 +154,19 @@ def agora() -> str:
 # ---------------------------------------------------------------------------
 # LEITURA — disco para A, git show (commit fixo) para B e B2. Zero rede.
 # ---------------------------------------------------------------------------
+# Um `git show` por ficheiro custa ~0.4 s, e `carregar_contexto` faz sete —
+# 2.6 s por travessia. Num observador que corre de 20 em 20 segundos isso
+# passa a ser a maior parte do trabalho, e e trabalho repetido: B e B2 sao
+# commits FIXOS, e o conteudo de um commit nunca muda. A chave inclui o ref,
+# por isso quando o ref muda (o HEAD do bot muda) a entrada e outra — o cache
+# nao pode servir livro velho.
+_CACHE_GIT: dict = {}
+
+
 def do_git(ref: str, caminho: str) -> dict | list | None:
+    chave = (ref, caminho)
+    if chave in _CACHE_GIT:
+        return _CACHE_GIT[chave]
     try:
         r = subprocess.run(["git", "show", "%s:%s" % (ref, caminho)], cwd=str(RAIZ),
                            capture_output=True, text=True, encoding="utf-8", timeout=120)
@@ -162,7 +174,9 @@ def do_git(ref: str, caminho: str) -> dict | list | None:
         return None
     if r.returncode != 0 or not r.stdout:
         return None
-    return json.loads(r.stdout)
+    d = json.loads(r.stdout)
+    _CACHE_GIT[chave] = d
+    return d
 
 
 def _json(p: Path, vazio):
