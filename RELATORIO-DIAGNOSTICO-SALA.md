@@ -293,6 +293,9 @@ OS_8_UM_SINAL      = 6 acidente (4 menu, 2 «qualità-prezzo») · 2 tema real
 T7_T10_MUDA_FONTE  = 0/7 fontes ganham SIM; 28 itens NAO→NAO_SEI, 2 NAO_SEI→NAO
 SIM_CONFERIDOS     = 5/5 correctos pela leitura do texto
 ADMISSION_CHANGED  = NO
+SYSTEM_MAP_CHECK   = FAIL herdado — só P9 por provas/recollection_red_team_estrito.mjs
+                     (o mesmo do RELATORIO-LOTE-76; não é desta missão).
+                     As peças desta missão (C-DIAGNOSTICO-SALA) passam. CADEIA=OK 20/20.
 DB_WRITES          = 0     (só SELECT)
 NETWORK_REQUESTS   = 0
 ```
