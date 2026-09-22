@@ -474,6 +474,74 @@ Fica dito porque é um risco real desta bancada, não uma curiosidade.
 
 ---
 
+## 7-D · A PONTE ESTÁ LIGADA A UMA TORNEIRA FECHADA
+
+Na reverificação seguinte, o bot não tinha avançado (`41655f3a`, 1270
+transições, parado desde as 18:50). A ponte estava verde e não trazia nada — e
+**um bot parado e um bot sem trabalho lêem-se exatamente da mesma maneira** no
+livro: em ambos os casos, o livro não cresce.
+
+Só a **fila** os distingue. Medida de fora, por cópia congelada, sem tocar na
+worktree dele (`curadoria/medir_fila_do_bot.py`):
+
+```
+TAREFAS    1057   { DONE 903 · BLOCKED 80 · FAILED 69 · WAITING_RETRY 5 }
+PENDENTES     0   — fila esgotada; NÃO está preso
+```
+
+Não há avaria. Ele acabou o trabalho que tinha. Mas **149 tarefas não deram
+fruto**, e é aí que está o que interessa.
+
+### ⚠️ 42 fontes estão presas por um motivo que já não se verifica
+
+**62 das 69 falhas** morreram com o mesmo motivo:
+
+```
+teto de 5 tentativas: robots nao pode ser lido — UNKNOWN, nao proibicao
+```
+
+A doutrina do bot está **certa** (robots ilegível é `UNKNOWN`, não proibição).
+O problema é o efeito: ao bater no teto, a fonte fica `FAILED` **para sempre**,
+e ninguém volta a olhar para ela.
+
+Sondei as 62, uma a uma — só o `robots.txt`, que é público, minúsculo e feito
+para ser lido por máquinas. **Isto não é coleta:** não se leu uma única página
+de conteúdo.
+
+```
+LEGIVEL AGORA          42   ← o motivo da paragem já não se verifica
+MURO_ANTI_ROBOT_403     8   (subdomínios da Regione Lombardia)
+LIGACAO_CANCELADA       6   (coldiretti ×4, unaprol, meteotrentino)
+ROBOTS_INEXISTENTE_404  5   (robots não existe → UNKNOWN, e a doutrina acerta)
+SSL                     1
+                     ----
+                       62
+```
+
+São órgãos oficiais italianos: ARPA Lombardia, ERSAF, Meteotrentino,
+Fitosanitario da Lombardia, Regione Valle d'Aosta, Consorzio Piave.
+
+> **Falha de ligação não é fonte morta. Um teto de tentativas transforma uma
+> intermitência numa sentença.**
+
+`www.meteotrentino.it` prova-o sozinho: respondeu **HTTP 200** numa sonda e
+cancelou a ligação na seguinte, com minutos entre as duas. Com um teto de 5, a
+diferença entre «viva» e «morta para sempre» é a hora a que se bateu à porta.
+
+**Nenhuma das cinco classes medidas é prova de fonte morta.**
+
+⚠️ E o que isto **não** diz: «legível agora» não quer dizer «pronta». Quer dizer
+que o motivo pelo qual parou já não se verifica e que merece ser olhada outra
+vez. Quantas dessas 42 dariam `READY` é uma pergunta que só o canário responde.
+
+### O que não fiz
+
+Não re-enfileirei, não corrigi a fila, não escrevi na worktree do bot — o
+supervisor está vivo. Medir é desta missão; **re-enfileirar é uma decisão do
+dono e é outra missão.**
+
+---
+
 ## 8 · O QUE FICOU ESCRITO
 
 | ficheiro | o quê |

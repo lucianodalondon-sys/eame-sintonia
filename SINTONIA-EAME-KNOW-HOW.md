@@ -19528,3 +19528,63 @@ cada fonte. **Uma medição errada que assusta produz uma correção que estraga
 Travado em `test_reconciliar_livros.RT-C16`: os pares que se leem como o mesmo
 facto têm de continuar a mapear para o mesmo, e os que mudam de classe têm de
 continuar a divergir.
+
+## 168-12 · UM BOT PARADO E UM BOT SEM TRABALHO LÊEM-SE DA MESMA MANEIRA
+
+Depois de a ponte estar ligada e provada, ela ficou verde e **deixou de trazer
+alguma coisa**. Isso não distingue nada: quando o bot avaria e quando o bot
+acaba o trabalho, o sintoma é idêntico — o livro não cresce.
+
+A ponte responde *«o que é que ele descobriu?»*. Nunca responde *«porque é que
+ele deixou de descobrir?»*. Quem só olha para a ponte fica com um painel verde
+sobre uma torneira fechada.
+
+**Só a fila distingue.** Medida de fora, por cópia congelada, sem tocar na
+worktree do serviço vivo: 1057 tarefas, **zero pendentes**. Não estava preso —
+tinha acabado. Mas 149 tarefas não tinham dado fruto, e era aí que estava tudo.
+
+### O teto de tentativas transforma intermitência em sentença
+
+**62 das 69 falhas** tinham o mesmo motivo: *«teto de 5 tentativas: robots não
+pode ser lido — UNKNOWN, não proibição»*.
+
+A doutrina está **certa**: robots ilegível é `UNKNOWN`, não uma proibição — e
+o bot escreve-o assim, corretamente. O defeito não está na doutrina, está no
+que acontece a seguir: ao bater no teto, a fonte fica `FAILED` **para sempre**.
+Ninguém volta a olhar. Uma resposta que se declarou *«não sei»* acabou a valer
+*«não»*, pela porta das traseiras da contagem de tentativas.
+
+Sondadas as 62, uma a uma — só o `robots.txt`, público e minúsculo, sem ler uma
+única página de conteúdo:
+
+    LEGÍVEL AGORA          42
+    MURO ANTI-ROBOT 403     8
+    LIGAÇÃO CANCELADA       6
+    ROBOTS INEXISTENTE      5
+    SSL                     1
+
+**Nenhuma das cinco classes é prova de fonte morta.** E 42 órgãos oficiais
+italianos — ARPA Lombardia, ERSAF, Meteotrentino, Regione Valle d'Aosta —
+estavam arrumados como falha definitiva.
+
+`www.meteotrentino.it` prova-o sozinho: **HTTP 200** numa sonda e ligação
+cancelada na seguinte, com minutos entre as duas.
+
+    FALHA DE LIGAÇÃO NÃO É FONTE MORTA.
+    COM UM TETO DE 5, A DIFERENÇA ENTRE «VIVA» E «MORTA PARA SEMPRE»
+    É A HORA A QUE SE BATEU À PORTA.
+
+### A regra que fica
+
+Um estado terminal alimentado por **contagem de tentativas** precisa de guardar
+a *classe* do erro, não só o número. `DNS não resolve`, `403`, `SSL`,
+`timeout` e `404` são cinco factos diferentes sobre o mundo, e nenhum deles
+significa «esta fonte deixou de existir» — mas somados dão um contador que
+chega a 5 e fecha a porta.
+
+⚠️ E o limite do que isto diz: **«legível agora» não é «pronta»**. É só que o
+motivo da paragem já não se verifica. Quantas das 42 dariam `READY` é pergunta
+para o canário, e não se responde por otimismo.
+
+Medir isto é uma missão; **re-enfileirar é outra**, e é decisão de quem manda —
+não se escreve na fila de um serviço que está a correr.
