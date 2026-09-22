@@ -763,3 +763,55 @@ READY falsas expostas     16
 PAID_USD                  0
 supervisor 107504         vivo do principio ao fim
 ```
+
+---
+
+## LOTE 11 — a veia mecânica esgotou-se. Rendimento desta volta: **ZERO**
+
+Corrida a mesma sequência de três passos nas `READY_LEGACY` que restavam. Só 7
+estavam em condições de correr, e correram:
+
+```
+PONTE  7 transicoes · 7 provas importadas · 0 colisoes · manifesto 604 -> 611
+GATE   COLLECTION_ELIGIBLE 17 -> 17      READY_CURRENT 21 -> 21
+```
+
+**Não subiu nada.** As 7 voltaram com prova fresca e continuam `LEGACY` pelas
+mesmas duas razões de sempre:
+
+```
+IT-T11-010  CONTENT/MATERIA · 3201 car. · DETAIL_ENUMERATED = 1   falta DETAIL_LINKS (exige 2)
+IT-T12-019  MIXED/NAO_SEI · 3471 car. · n=30
+IT-T12-086  MIXED/NAO_SEI · 1564 car. · n=2
+IT-T12-089  MIXED/NAO_SEI · 1564 car. · n=1
+IT-T2-049   MIXED/NAO_SEI · 2340 car. · n=1
+IT-T5-082   MIXED/NAO_SEI ·  799 car. · n=6
+IT-T7-040   MIXED/NAO_SEI ·  932 car. · n=9
+```
+
+Repetir a sequência nestas não produz mais nada: a prova já é a mais recente.
+**O que falta não é mecânica — são decisões.**
+
+### As 81 `READY_LEGACY` que sobram, repartidas por causa
+
+```
+50  RECONCILIATION_REQUIRED no bot, todas com o MESMO motivo:
+    «bloqueio medido contra feeds/videos.xml; a integracao deu rota nova None»
+    → sao fontes de YouTube. Caem no mesmo sitio que os 11 CAPABILITY_BLOCK:
+      o adaptador existe, a ligacao a rota do curator nao.
+32  sem contrato em livro nenhum (ja importei os 202 do bot — nao existem)
+ 7  as de cima: MIXED/NAO_SEI ou DETAIL_LINKS < 2
+```
+
+### As três decisões que destrancam cada bolso
+
+```
+1  YOUTUBE       ligar coleta/adaptador_youtube.py a rota do curator.
+                 Destranca ate 50 LEGACY + 11 CAPABILITY_BLOCK. E integracao.
+2  CLASSIFICADOR CAPA_NAO_E_MATERIA/v1 devolve NAO_SEI em paginas com 3.471
+                 caracteres de texto corrido. Mexer-lhe e mexer na LEI.
+3  CONTRATOS     32 fontes READY sem contrato nenhum. Escrever contrato e
+                 trabalho de curadoria, nao de maquina.
+```
+
+**Nenhuma delas é minha para tomar.** Paro aqui e reporto, como a missão manda.
