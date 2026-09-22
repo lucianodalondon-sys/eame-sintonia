@@ -221,8 +221,57 @@ São **44 hosts distintos**, e entre eles estão fontes agrícolas a sério —
 EGRESSO MEDIDO AGORA   146.70.182.38 · Italy · Figino (Milao) · M247  → IT = SIM
 ```
 
-A releitura dos 44 `robots.txt` com o leitor da casa
-(`gate_de_rota.robots_de`) está a correr.
+### 3d · ⚠️ A PRIMEIRA MEDIÇÃO DOS ROBOTS ESTAVA ERRADA
+
+A primeira releitura, com `gate_de_rota.robots_de` em série nos 44 hosts, deu
+**39 inalcançáveis**. Os tempos saíam em blocos idênticos — 26,7 s e 44,3 s —
+que é assinatura de paragem de rede, não de 39 sites a recusar cada um por sua
+conta.
+
+A contraprova desmontou-a: `www.fitosanitario.regione.lombardia.it` dava
+`URLError` no leitor da casa e, minutos depois, **`HTTP 200` em 1,2 s pelos dois
+caminhos** (`curl` e `urllib`). A rede oscilou durante a corrida longa.
+
+Remedição, `curl`, duas voltas por host, 8 em paralelo:
+
+```
+HOSTS 44   ALCANCAVEIS 41   INALCANCAVEIS 3
+inalcancaveis: www.copagri.it · www.meteotrentino.it · www.regione.vda.it
+```
+
+E os que respondem já dão resposta com significado, em vez de silêncio:
+
+```
+200/301  33 hosts      robots legivel — a rota pode ser validada
+403       4 hosts      coldiretti (www, puglia, sicilia) e unaprol
+                       → a norma manda tratar como Disallow total: e PROVA,
+                         nao UNKNOWN. Vira POLICY_BLOCK com fundamento.
+404       4 hosts      nao publicam robots.txt — nao proibiram nada
+```
+
+**O defeito não era do leitor da casa nem das fontes: era da minha medição.**
+Fica registado porque quase custou declarar 39 fontes agrícolas mortas.
+
+### 3e · O botão carregado: a fila passou de 0 a 59
+
+Reenfileiradas pela máquina que já existe — `fila.enfileirar`, idempotente,
+`TASK_TYPE = VALIDATE_ROUTE`, o mesmo degrau que tinha falhado:
+
+```
+FONTES_ALVO            59  (as 62 menos as 3 de host inalcancavel)
+FILA_ELEGIVEL_ANTES     0
+FILA_ELEGIVEL_DEPOIS   59
+TAREFAS_CRIADAS        59   REUTILIZADAS 0
+```
+
+E o supervisor apanhou-as **sozinho**, sem eu lhe tocar:
+
+```
+LAST_RESTART_REASON  "sem worker vivo e 59 tarefas elegiveis"
+SUPERVISOR_STATE     IDLE -> RUNNING
+WORKER_PID           122452   (supervisor 107504 nunca foi morto)
+QUEUE_DONE           706 -> 752
+```
 
 ---
 
