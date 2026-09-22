@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-22T19:13:40+00:00",
-    "HEAD": "21be79afebf19a70aef5285c7885537e8e8ef8d6",
+    "GENERATED_AT": "2026-09-22T19:46:01+00:00",
+    "HEAD": "cc5517044645114ec1e3ad1bffb0e1a2428adc6a",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "5a6d57a233fabc6727177c52ed88ef829aebe3d67ce55b684f4fb3fa53539f9b",
-    "FICHEIROS_NA_IMPRESSAO": 2611,
+    "SOURCE_TREE_FINGERPRINT": "22c788ec1a80d9d00ce6a150114386d545999a53d017cfbadf1bcac86c6e563c",
+    "FICHEIROS_NA_IMPRESSAO": 2613,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -18500,6 +18500,27 @@
       ]
     },
     {
+      "endpoint": "https://%s/robots.txt",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 801
+        },
+        {
+          "file": "curadoria/gate_de_rota.py",
+          "line": 80
+        },
+        {
+          "file": "curadoria/medir_fila_do_bot.py",
+          "line": 82
+        },
+        {
+          "file": "medidas/micro_colheita.py",
+          "line": 137
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -18606,23 +18627,6 @@
         {
           "file": "tests/test_youtube_oficial.py",
           "line": 528
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/robots.txt",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 801
-        },
-        {
-          "file": "curadoria/gate_de_rota.py",
-          "line": 80
-        },
-        {
-          "file": "medidas/micro_colheita.py",
-          "line": 137
         }
       ]
     },
