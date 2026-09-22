@@ -693,3 +693,73 @@ Os 6 e os 3 são o mesmo padrão estrutural já visto: a promoção no livro
 canónico aponta para a evidência que existia **antes** do canário novo. A ponte
 move estados e agora também traz provas, mas **não refresca a citação de uma
 promoção cujo estado não mudou**. É a próxima tampa, e está nomeada.
+
+---
+
+## LOTE 10 — a terceira tampa: `COLLECTION_ELIGIBLE 11 → 17`
+
+A ponte move estados e (depois de `be09703c`) traz provas, mas **não refresca a
+citação de uma promoção cujo estado não mudou**. Não se corrige na ponte:
+`lifecycle` recusa `READY → READY`, por lei. Corrige-se pela **ordem** das
+máquinas que já existem:
+
+```
+1  despromover na arvore canonica    (carimbo T)
+2  despromover e recanariar no bot   (promove em T+n, logo mais recente)
+3  reconciliar                       (C mediu depois -> promove e traz a prova)
+```
+
+A ordem não é detalhe: à primeira tentativa fi-lo ao contrário, a despromoção
+local ficou **posterior** à promoção do bot, e a ponte respondeu «C mediu ANTES
+desta árvore — não derruba». Zero planeado.
+
+```
+ALVO  14  (READY em A e em C, contrato aqui, mas LEGACY por citar prova velha)
+      14 de 14 repromovidas no bot
+PONTE 14 transicoes · 14 provas importadas · 0 colisoes · manifesto 590 -> 604
+```
+
+### O NÚMERO
+
+```
+                        ANTES   DEPOIS
+READY_TOTAL              102     102
+READY_CURRENT_TOTAL       14      21
+READY_LEGACY_TOTAL        88      81
+HUMAN_REVIEW_REQUIRED      4       6
+COLLECTION_ELIGIBLE       11      17    ← +6
+```
+
+### As 6 novas, com o item que abriram
+
+```
+IT-T10-021  plantgest.imagelinenetwork.com/…        CONTENT · MATERIA · 1489
+IT-T12-041  bura.regione.abruzzo.it/bollettino/…    CONTENT · MATERIA · 5650
+IT-T2-034   arpa.marche.it/notizie-2026/…           CONTENT · MATERIA · 3109
+IT-T2-051   arpae.it/it/notizie/30-anni-…           CONTENT · MATERIA · 1253
+IT-T2-056   arpae.it/it/notizie/30-anni-…           CONTENT · MATERIA · 1253
+IT-T7-021   etvilloresi.it/attivita/progetti…       CONTENT · MATERIA · 4545
+```
+
+### As 8 que continuam de fora, nomeadas
+
+```
+6  BODY_UTIL: o item e MIXED/NAO_SEI. Ha texto (799 a 3.471 caracteres), o
+   classificador nao jura que e materia. NAO SEI nao e materia.
+1  IT-T5-064: DETAIL/v1, mas HUMAN_REVIEW_REQUIRED (o endereco parece seccao)
+1  IT-T11-010: CONTENT/MATERIA/3201 e mesmo assim LEGACY — o LINK_PATTERN do
+   contrato so encontra 1 ligacao de detalhe e a regua exige 2. Nao e defeito:
+   e a regua, e o contrato e que e estreito de mais.
+```
+
+## O SALDO DA MISSÃO ATÉ AQUI
+
+```
+DISCOVERY_HOOK_ERRO       2298 -> 0
+FILA                      0 -> 59 -> 0 -> 15 -> 0 -> 35 -> 0 -> 14 -> 0
+COLLECTION_ELIGIBLE       8 -> 17          (+9, todas com os 4 passos)
+READY_CURRENT             10 -> 21
+READY falsas expostas     16
+PAID_USD                  0
+supervisor 107504         vivo do principio ao fim
+```
