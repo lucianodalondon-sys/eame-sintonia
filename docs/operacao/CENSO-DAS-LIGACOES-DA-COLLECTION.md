@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  04f2c7481490482d02462aebe49492606d4f0595
-BRANCH           paridade-v1
-GERADO_EM        2026-09-22T08:43:03-03:00
+HEAD_DA_MEDICAO  a9d02b4187826037a63b89523d59c3f5c97d5200
+BRANCH           ops/cutover-prod-v1
+GERADO_EM        2026-09-22T08:48:30-03:00
 CARDS            80
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
