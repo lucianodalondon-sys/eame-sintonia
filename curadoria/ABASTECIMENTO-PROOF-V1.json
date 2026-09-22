@@ -1,0 +1,784 @@
+{
+ "DATASET": "ABASTECIMENTO-PROOF-V1",
+ "GERADO_EM": "2026-09-22T23:31:53.719615+00:00",
+ "LEI": "repetir o que nada mudou nao e persistencia; um teto de tentativas nao e uma sentenca; semente nova != regra nova",
+ "FONTE_DA_COPIA": "worktree viva source-curator-service-v1, copiada com cp para TEMP; nada escrito nela",
+ "A_FEEDER": {
+  "ANTES_REAL": {
+   "INTERVALO_MEDIANO_ENTRE_ECOS_S": 15.101674,
+   "ECOS_CONSECUTIVOS_A_MENOS_DE_2_MIN": 37,
+   "FONTE": "SOURCE-CURATOR-RUN-LOG.ndjson da worktree viva (copia)",
+   "REALIMENTACAO_TOTAL": 41,
+   "REALIMENTACAO_ECO_FEEDER_0_CRIADAS": 39,
+   "HORAS_COM_200_OU_MAIS": {},
+   "MAX_POR_HORA": 28,
+   "CADENCIA": "1 evento a cada volta de 15 s com fila elegivel 0 = 240/h"
+  },
+  "DEPOIS_SIMULADO_SO_FEEDER": {
+   "VOLTAS": 240,
+   "EVENTOS_ANOTADOS": 1,
+   "FEEDER_CHAMADAS": 1,
+   "FEEDER_NOOP_TOTAL": 239
+  },
+  "DEPOIS_SIMULADO": {
+   "VOLTAS": 240,
+   "EVENTOS_ANOTADOS_1A_HORA": 1,
+   "ACCOES_1A_HORA": {
+    "REVIVER": 1,
+    "FEEDER": 1
+   },
+   "EVENTOS_ANOTADOS_2A_HORA_SEM_DISCOVERY": 0,
+   "FEEDER_CHAMADAS": 1,
+   "FEEDER_NOOP_TOTAL": 0,
+   "NOTA": "com o reviver ligado, a 1a volta revive as FAILED por transporte e corre o feeder (1 evento); a fila fica com trabalho elegivel e o gatilho sai por QUEUE_OK nas voltas seguintes — aqui o worker nao corre, por isso o NO-OP so se ve em DEPOIS_SIMULADO_SO_FEEDER. A discovery horaria continua a anotar (1/h): relogio proprio, nao eco."
+  }
+ },
+ "B_FAILED": {
+  "REAL": {
+   "FAILED_TOTAL": 74,
+   "FAILED_POR_ROBOTS_ILEGIVEL": 62,
+   "HOSTS_SONDADOS": 44,
+   "POR_CLASSE_ROBOTS_AGORA_FONTES": {
+    "LEGIVEL": 51,
+    "AINDA_ILEGIVEL": 2,
+    "SEM_ROBOTS_404_PERMITE": 9
+   },
+   "POR_VEREDICTO_FONTES": {
+    "INTERMITENTE_PROVADO_LE_AGORA": 60,
+    "SEM_PROVA_DE_VIDA_HOJE": 2
+   },
+   "OUTRAS_FAILED": {
+    "teto de 5 tentativas: URLError: <urlopen error [WinError 100": 6,
+    "teto de 5 tentativas: TimeoutError: The read operation timed": 5,
+    "teto de 5 tentativas: HTTP 422": 1
+   },
+   "FONTES": [
+    {
+     "TASK_ID": "T00218",
+     "SOURCE_ID": "IT-T2-033",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00241",
+     "SOURCE_ID": "IT-T12-019",
+     "HOST": "www.ersaf.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "#Simple Robots.txt 0.1\nUser-agent: MSNBot\nCrawl-delay: 5\nUser-agent: bingbot\nCrawl-delay: 5\n",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00245",
+     "SOURCE_ID": "IT-T2-038",
+     "HOST": "www.meteotrentino.it",
+     "ROBOTS_AGORA": "AINDA_ILEGIVEL",
+     "ORIGEM": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+     "JA_LEU_ANTES_NO_MESMO_HOST": false,
+     "VEREDICTO": "SEM_PROVA_DE_VIDA_HOJE"
+    },
+    {
+     "TASK_ID": "T00259",
+     "SOURCE_ID": "IT-T3-022",
+     "HOST": "www.fitosanitario.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nDisallow: /wps/\r\nAllow: /wps/portal/site/sfr\r\nAllow: /wps/wcm/connect\r\nSitemap: http:",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00261",
+     "SOURCE_ID": "IT-T12-025",
+     "HOST": "www.regione.vda.it",
+     "ROBOTS_AGORA": "AINDA_ILEGIVEL",
+     "ORIGEM": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+     "JA_LEU_ANTES_NO_MESMO_HOST": false,
+     "VEREDICTO": "SEM_PROVA_DE_VIDA_HOJE"
+    },
+    {
+     "TASK_ID": "T00311",
+     "SOURCE_ID": "IT-T7-048",
+     "HOST": "www.confai.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00313",
+     "SOURCE_ID": "IT-T7-049",
+     "HOST": "www.copagri.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://copagri.",
+     "JA_LEU_ANTES_NO_MESMO_HOST": false,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00315",
+     "SOURCE_ID": "IT-T7-050",
+     "HOST": "www.coldiretti.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00317",
+     "SOURCE_ID": "IT-T7-051",
+     "HOST": "puglia.coldiretti.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00319",
+     "SOURCE_ID": "IT-T7-052",
+     "HOST": "sicilia.coldiretti.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00321",
+     "SOURCE_ID": "IT-T7-053",
+     "HOST": "veneto.coldiretti.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00326",
+     "SOURCE_ID": "IT-T7-055",
+     "HOST": "www.consorziopiave.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://consorziopiave.",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00335",
+     "SOURCE_ID": "IT-T7-058",
+     "HOST": "www.unaprol.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow:\n \nSitemap: https://www.unaprol.it/sitemap.xml\nSitemap: https://www.unaprol.i",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00545",
+     "SOURCE_ID": "IT-T5-065",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00547",
+     "SOURCE_ID": "IT-T5-066",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00549",
+     "SOURCE_ID": "IT-T5-067",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00551",
+     "SOURCE_ID": "IT-T5-068",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00553",
+     "SOURCE_ID": "IT-T5-069",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00561",
+     "SOURCE_ID": "IT-T12-027",
+     "HOST": "acamir.regione.campania.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://acamir.r",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00563",
+     "SOURCE_ID": "IT-T2-043",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00565",
+     "SOURCE_ID": "IT-T2-044",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00567",
+     "SOURCE_ID": "IT-T2-045",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00569",
+     "SOURCE_ID": "IT-T2-046",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00571",
+     "SOURCE_ID": "IT-T12-028",
+     "HOST": "agricoltura.regione.campania.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00573",
+     "SOURCE_ID": "IT-T12-029",
+     "HOST": "www.allertalom.regione.lombardia.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00584",
+     "SOURCE_ID": "IT-T12-032",
+     "HOST": "amministrazionetrasparente.regione.campania.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "#\n# robots.txt\n#\n# This file is to prevent the crawling and indexing of certain parts\n# of your site",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00598",
+     "SOURCE_ID": "IT-T2-047",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00616",
+     "SOURCE_ID": "IT-T12-039",
+     "HOST": "www.bandi.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: \n \nSitemap: https://www.bandi.regione.lombardia.it/servizi/sitemap.xml\n\nUser",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00624",
+     "SOURCE_ID": "IT-T12-042",
+     "HOST": "www.bollettino.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "\n<!DOCTYPE HTML>\n<html lang=\"it\">\n    <head>\n    \n    \n    <meta charset=\"UTF-8\"/>\n    <title>Bollet",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00626",
+     "SOURCE_ID": "IT-T12-043",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00647",
+     "SOURCE_ID": "IT-T2-053",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00654",
+     "SOURCE_ID": "IT-T12-049",
+     "HOST": "cultura.regione.campania.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-Agent: *\nDisallow:",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00679",
+     "SOURCE_ID": "IT-T12-054",
+     "HOST": "europa.regione.campania.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://europa.r",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00690",
+     "SOURCE_ID": "IT-T12-057",
+     "HOST": "www.giovani.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nAllow: /\n",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00729",
+     "SOURCE_ID": "IT-T12-069",
+     "HOST": "experience.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /\r\n\r\nUser-agent: Twitterbot\r\nAllow: /\r\n\r\nUser-agent: Algolia Crawler\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00731",
+     "SOURCE_ID": "IT-T2-058",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00734",
+     "SOURCE_ID": "IT-T12-070",
+     "HOST": "monitoraggiopnrr.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: ./",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00739",
+     "SOURCE_ID": "IT-T12-071",
+     "HOST": "www.nonseidasola.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nDisallow: /wps/\r\nAllow: /wps/portal/site/nonseidasola\r\nAllow: /wps/wcm/connect\r\nSitem",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00744",
+     "SOURCE_ID": "IT-T12-073",
+     "HOST": "www.oltreigiochi2026.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /\r\n\r\nUser-agent: Algolia Crawler\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00746",
+     "SOURCE_ID": "IT-T12-074",
+     "HOST": "www.openinnovation.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: ./",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00757",
+     "SOURCE_ID": "IT-T12-076",
+     "HOST": "pnrr.regione.campania.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://pnrr.regione.ca",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00762",
+     "SOURCE_ID": "IT-T11-010",
+     "HOST": "www.svilupposostenibile.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: ./",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00773",
+     "SOURCE_ID": "IT-T12-081",
+     "HOST": "ue.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: /it/pnrr/piano-nazionale-di-ripresa-e-resilienza-4/monitoraggio-lombardia-1\n",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00790",
+     "SOURCE_ID": "IT-T12-086",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00794",
+     "SOURCE_ID": "IT-T12-088",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00796",
+     "SOURCE_ID": "IT-T12-089",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00817",
+     "SOURCE_ID": "IT-T12-095",
+     "HOST": "speciale-lombardiainfatti.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://speciale",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00819",
+     "SOURCE_ID": "IT-T2-065",
+     "HOST": "sportelloimprese.arpalombardia.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00827",
+     "SOURCE_ID": "IT-T12-098",
+     "HOST": "entrate.regione.campania.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "Sitemap: http://entrate.regione.campania.it:80/sitemap.xml",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00829",
+     "SOURCE_ID": "IT-T2-066",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00845",
+     "SOURCE_ID": "IT-T2-068",
+     "HOST": "www.arpalombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\nDisallow: /umbraco/\nDisallow: /media/\nSitemap: https://www.arpalombardia.it/sitemap.x",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00850",
+     "SOURCE_ID": "IT-T12-103",
+     "HOST": "sinfonia.regione.campania.it",
+     "ROBOTS_AGORA": "SEM_ROBOTS_404_PERMITE",
+     "ORIGEM": "HTTP 404 — o host nao publica robots.txt",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00861",
+     "SOURCE_ID": "IT-T12-104",
+     "HOST": "www.geoportale.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-Agent: *\nDisallow:/geoportale-stats-portlet/*\nDisallow:/backdoor/*\nSitemap: http://www.geoporta",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00866",
+     "SOURCE_ID": "IT-T12-106",
+     "HOST": "www.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nAllow: /",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00871",
+     "SOURCE_ID": "IT-T12-107",
+     "HOST": "www.sbbl.regione.lombardia.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\r\nDisallow: /area/\r\nDisallow: /styles/\r\nDisallow: /assets/\r\nDisallow: /api/\r\nDisallow: ",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00901",
+     "SOURCE_ID": "IT-T12-117",
+     "HOST": "energia.calabriaimpresa.eu",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://energia.",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00903",
+     "SOURCE_ID": "IT-T12-118",
+     "HOST": "www.calabriaimpresa.eu",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "<!DOCTYPE html>\n<!--[if IE 8]><html class=\"no-js ie89 ie8\" lang=\"it-it\"><![endif]-->\n<!--[if IE 9]><",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00906",
+     "SOURCE_ID": "IT-T5-082",
+     "HOST": "www.calabriafilmcommission.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://www.cala",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00908",
+     "SOURCE_ID": "IT-T5-083",
+     "HOST": "www.fondazionegrecanica.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://www.fondazioneg",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00910",
+     "SOURCE_ID": "IT-T5-084",
+     "HOST": "www.fondazioneterina.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\n\tDisallow: /wp-content/uploads/AllegatiAttiAlboPretorio/",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00912",
+     "SOURCE_ID": "IT-T8-015",
+     "HOST": "tv.lombardianotizie.online",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-Agent: *\nAllow: /\nDisallow: /api/\nDisallow: /_next/\nDisallow: /static/\n\nSitemap: https://tv.lom",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    },
+    {
+     "TASK_ID": "T00934",
+     "SOURCE_ID": "IT-T9-021",
+     "HOST": "fieradidacta.indire.it",
+     "ROBOTS_AGORA": "LEGIVEL",
+     "ORIGEM": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n",
+     "JA_LEU_ANTES_NO_MESMO_HOST": true,
+     "VEREDICTO": "INTERMITENTE_PROVADO_LE_AGORA"
+    }
+   ]
+  },
+  "SIMULADO": {
+   "RELOGIO": "agora real; as FAILED tem UPDATED_AT de 22/09 -> degrau 1 (6 h) ja venceu",
+   "REVIVIDAS": 68,
+   "REVIVIDAS_POR_TIPO": {
+    "VALIDATE_ROUTE": 62,
+    "CANARY": 6
+   },
+   "ELEGIVEIS_DEPOIS": 68,
+   "FICAM_FAILED": [
+    [
+     "T00724",
+     "teto de 5 tentativas: HTTP 422"
+    ],
+    [
+     "T01080",
+     "teto de 5 tentativas: URLError: <urlopen error [WinError 100"
+    ],
+    [
+     "T01081",
+     "teto de 5 tentativas: URLError: <urlopen error [WinError 100"
+    ],
+    [
+     "T01082",
+     "teto de 5 tentativas: URLError: <urlopen error [WinError 100"
+    ],
+    [
+     "T01083",
+     "teto de 5 tentativas: URLError: <urlopen error [WinError 100"
+    ],
+    [
+     "T01084",
+     "teto de 5 tentativas: URLError: <urlopen error [WinError 100"
+    ]
+   ],
+   "SEGUNDA_VOLTA_NO_MESMO_INSTANTE": 0
+  }
+ },
+ "C_SEMENTES": {
+  "CATALOGO_REAL": {
+   "SEMENTES": 33,
+   "VISITADA": 15,
+   "REJEITADA": 12,
+   "LIVRE": 6,
+   "LIVRES": [
+    {
+     "URL": "https://www.cnr.it/it/istituto?cds=0",
+     "CLASSIFICACAO": [
+      "UNKNOWN",
+      "escopo_nao_verificavel_cnr.it"
+     ]
+    },
+    {
+     "URL": "https://www.unimi.it/it/ugov/ou-organizational-unit/department-agricultural-and-environmental-sciences",
+     "CLASSIFICACAO": [
+      "UNKNOWN",
+      "escopo_nao_verificavel_unimi.it"
+     ]
+    },
+    {
+     "URL": "https://www.unipd.it/",
+     "CLASSIFICACAO": [
+      "UNKNOWN",
+      "escopo_nao_verificavel_unipd.it"
+     ]
+    },
+    {
+     "URL": "https://www.unibo.it/it/ricerca/dipartimenti-centri",
+     "CLASSIFICACAO": [
+      "UNKNOWN",
+      "escopo_nao_verificavel_unibo.it"
+     ]
+    },
+    {
+     "URL": "https://www.unito.it/",
+     "CLASSIFICACAO": [
+      "UNKNOWN",
+      "escopo_nao_verificavel_unito.it"
+     ]
+    },
+    {
+     "URL": "https://www.istat.it/",
+     "CLASSIFICACAO": [
+      "UNKNOWN",
+      "escopo_nao_verificavel_istat.it"
+     ]
+    }
+   ]
+  },
+  "REGRA": "TEMATICA = dominio na lista agro/ambiental ou subdominio agri./agricoltura./fitosanitario.; GENERICA = regione.*.it; UNKNOWN = o resto. So TEMATICA e rastejada.",
+  "SEEDS_UNKNOWN_CAUSE": "as 6 livres sao universidades (cnr, unimi, unipd, unibo, unito) e ISTAT: nenhum dominio esta na lista TEMATICA nem tem subdominio agri.; a regra decide pelo host, nao pelo caminho — a pagina de departamento agrario da unimi.it cai em UNKNOWN pelo host unimi.it",
+  "EM_ANALISE_POR_CLASSE": {
+   "GENERICA": 53,
+   "TEMATICA": 93,
+   "UNKNOWN": 255
+  },
+  "SEGUNDA_GERACAO_REAL": [
+   {
+    "URL": "https://www.nomisma.it/",
+    "CANDIDATA_ID": "CAND-0147",
+    "ONDE_VIU": "descoberta por familia de fonte 'ricerca_economica' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_nomisma.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://www.granariamilano.org/",
+    "CANDIDATA_ID": "CAND-0157",
+    "ONDE_VIU": "descoberta por familia de fonte 'mercado' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_granariamilano.org",
+    "ROBOTS_PERMITE_A_SEMENTE": false
+   },
+   {
+    "URL": "https://agrofarma.federchimica.it/",
+    "CANDIDATA_ID": "CAND-0161",
+    "ONDE_VIU": "descoberta por familia de fonte 'industria' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_agrofarma.federchimica.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://assofertilizzanti.federchimica.it/",
+    "CANDIDATA_ID": "CAND-0162",
+    "ONDE_VIU": "descoberta por familia de fonte 'industria' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_assofertilizzanti.federchimica.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://www.fedagripesca.confcooperative.it/",
+    "CANDIDATA_ID": "CAND-0164",
+    "ONDE_VIU": "descoberta por familia de fonte 'cooperativa' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_fedagripesca.confcooperative.it",
+    "ROBOTS_PERMITE_A_SEMENTE": false
+   },
+   {
+    "URL": "https://www.federunacoma.it/",
+    "CANDIDATA_ID": "CAND-0166",
+    "ONDE_VIU": "descoberta por familia de fonte 'industria' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_federunacoma.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://www.uiv.it/",
+    "CANDIDATA_ID": "CAND-0168",
+    "ONDE_VIU": "descoberta por familia de fonte 'filiera' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_uiv.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://puglia.coldiretti.it/",
+    "CANDIDATA_ID": "CAND-0171",
+    "ONDE_VIU": "descoberta por familia de fonte 'organizzazione_agricola' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_coldiretti.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://sicilia.coldiretti.it/",
+    "CANDIDATA_ID": "CAND-0173",
+    "ONDE_VIU": "descoberta por familia de fonte 'organizzazione_agricola' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_coldiretti.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   },
+   {
+    "URL": "https://veneto.coldiretti.it/",
+    "CANDIDATA_ID": "CAND-0178",
+    "ONDE_VIU": "descoberta por familia de fonte 'organizzazione_agricola' e verificada por sonda HTTP",
+    "CLASSIFICACAO": "dominio_tematico_coldiretti.it",
+    "ROBOTS_PERMITE_A_SEMENTE": true
+   }
+  ]
+ }
+}

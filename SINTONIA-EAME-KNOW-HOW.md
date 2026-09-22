@@ -18672,3 +18672,52 @@ Intelligence. `P1_SEM_DRIFT = PASS`; o único FAIL é o P9 pré-existente de
 
 **RED TEAM.** 8 mutantes, SURVIVORS = 0, com baseline-passa→muta→reprova a provar
 que o código mutado executou (`red_team_telemetria.py`).
+
+---
+
+# §170 · REPETIR O QUE NADA MUDOU NÃO É PERSISTÊNCIA — O ABASTECIMENTO DO BOT
+
+*Missão 2 (abastecimento-bot-v1), 22/09/2026. Prova: `curadoria/ABASTECIMENTO-PROOF-V1.json`,
+gerada por `curadoria/provar_abastecimento.py` sobre uma CÓPIA da worktree viva.*
+
+**O QUE MUDOU.** Três defeitos do bot de fontes, três remédios determinísticos:
+
+1. **Eco do FEEDER.** Com a fila elegível a 0, o supervisor chamava o FEEDER a cada
+   volta de 15 s: lia 476 candidatas, enfileirava 0, anotava um `REALIMENTACAO`
+   idêntico. Medido no run-log vivo: intervalo mediano entre ecos **15,1 s** (= 240/h
+   enquanto parado). Agora o gatilho guarda uma impressão digital de (candidatas +
+   fila: id·estado·tentativas); igual à da última chamada → NO-OP, contado em
+   `FEEDER_NOOP_TOTAL` e exposto em `ler_estado_servico`. Simulado sobre a cópia
+   real: **1 chamada e 239 NO-OP em 240 voltas**, 1 evento no diário em vez de 240.
+2. **Intermitência virava sentença.** 62 FAILED por «robots não pode ser lido»
+   ficavam FAILED para sempre. Relidas às 23h UTC pela MESMA função do worker
+   (`gate_de_rota.robots_de`): **60 de 62 leem agora** (51 legível + 9 sem robots,
+   que é permissão); 2 ainda não (meteotrentino.it, regione.vda.it). À tarde, a
+   sonda do coordenador dera 42 — o número muda de hora a hora, que é a lição.
+   `fila.reviver_intermitentes`: só erros de TRANSPORTE; uma tentativa de cada vez,
+   a 6 h / 24 h / 72 h da última falha; esgotado o teto, `MORTA` com motivo. Um 403
+   no robots nunca chega aqui (vira BLOCK de policy).
+3. **Sem combustível.** As 33 sementes do catálogo: 15 visitadas, 12 rejeitadas, 6
+   livres — e as 6 são UNKNOWN (cnr, unimi, unipd, unibo, unito, istat) porque a
+   regra decide pelo HOST, não pelo caminho. A regra NÃO foi afrouxada. Fonte nova:
+   `_sementes_de_segunda_geracao` — candidatas EM_ANALISE que a PRÓPRIA regra chama
+   TEMÁTICA. Hoje: 10 (Nomisma, UIV, Federunacoma, 3 Coldiretti regionais, ...),
+   9 com robots a permitir, 1 a barrar (fedagripesca).
+
+**O QUE SE APRENDEU.**
+
+- **O NO-OP só se prova com o outro remédio desligado.** Na simulação com os dois,
+  as 68 revividas enchem a fila, o gatilho sai por `QUEUE_OK` e o caminho do NO-OP
+  nunca é exercido — o verde viria de outro sítio. Mede-se cada remédio isolado.
+- **O orçamento de rede não contava o robots.txt.** `crawl_sementes` com
+  `Orcamento(total=0)` ainda lia o robots de cada semente; o teste
+  `test_orcamento_zero_nao_busca_sementes` batia a ~10 hosts reais sem ninguém ver
+  (só se notou porque a suíte passou de 5 s a 19 s). Orçamento esgotado agora para
+  antes do robots. Fica por decidir se o robots deve contar nos 250 pedidos.
+- **O número do briefing não é o número do disco.** «~5.700 eventos/dia» é a
+  cadência projetada; a hora mais cheia observada teve 28, porque o bot só ficou
+  parado janelas de minutos. Os dois números entram, cada um com o que mede.
+- **O tecto por domínio no código é 10, não 5** (`MAX_PEDIDOS_POR_DOMINIO`).
+
+**O QUE NÃO SE FEZ.** Não se tocou no serviço vivo, na fila, no ledger nem nas
+candidatas dele. Aplicar é decisão do coordenador (plano na entrega da missão).
