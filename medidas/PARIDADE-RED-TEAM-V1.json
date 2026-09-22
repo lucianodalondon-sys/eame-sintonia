@@ -1,0 +1,209 @@
+{
+ "MEDIDOR": "medidas/paridade_red_team.mjs",
+ "PROTOCOLO": "cache-safe §165 adaptado a Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, sonda a provar execucao",
+ "NODE": "v24.18.0",
+ "ATAQUES": 8,
+ "RED_TEAM_SURVIVORS": 0,
+ "ARVORE_LIMPA_DEPOIS": true,
+ "RESULTADO": [
+  {
+   "ID": "M1",
+   "O_QUE": "desligar o pre-fetch skip",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "RUN2 NAO BATE A PORTA",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA RUN2 NAO BATE A PORTA ao detalhe ja conhecido",
+     "TODAS": [
+      "  FALHA RUN2 NAO BATE A PORTA ao detalhe ja conhecido",
+      "  FALHA o salto NAO foi para o livro",
+      "  FALHA RUN3 continua a saltar — o salto nao envenenou a memoria"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M2",
+   "O_QUE": "forcar FETCH em todo o endereco conhecido",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": null,
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+     "TODAS": [
+      "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+      "  FALHA TTL expirado -> REVALIDATE; TTL fresco -> SKIP",
+      "  FALHA SKIP nao gasta pedido; e o censo da UNNECESSARY_REFETCHES = 0"
+     ]
+    },
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA RUN2 NAO BATE A PORTA ao detalhe ja conhecido",
+     "TODAS": [
+      "  FALHA RUN2 NAO BATE A PORTA ao detalhe ja conhecido",
+      "  FALHA o salto NAO foi para o livro",
+      "  FALHA RUN3 continua a saltar — o salto nao envenenou a memoria"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M3",
+   "O_QUE": "deixar o contador de visitas alterar o hash semantico",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": null,
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA contador de visitas muda -> NAO e change",
+     "TODAS": [
+      "  FALHA contador de visitas muda -> NAO e change",
+      "  FALHA os SEIS volateis ao mesmo tempo -> continua a NAO ser change",
+      "  FALHA as 32 mudancas da RUN2 eram TODAS ruido volatil"
+     ]
+    },
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA so mexeram volateis -> SEEN_AGAIN, e NAO CHANGED_IN_PLACE",
+     "TODAS": [
+      "  FALHA so mexeram volateis -> SEEN_AGAIN, e NAO CHANGED_IN_PLACE",
+      "  FALHA a linha do livro traz OLD/NEW_NORMALIZED_HASH e MATERIAL_DIFF = false"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M4",
+   "O_QUE": "fazer o normalizador apagar a mudanca real",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": null,
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA uma palavra do corpo muda -> E CHANGE",
+     "TODAS": [
+      "  FALHA uma palavra do corpo muda -> E CHANGE",
+      "  FALHA UM SO CARACTERE do corpo muda -> E CHANGE",
+      "  FALHA materia muda E os volateis mudam -> E CHANGE (o ruido nao esconde o sinal)"
+     ]
+    },
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA uma palavra da materia muda -> DOCUMENT_CHANGED_IN_PLACE",
+     "TODAS": [
+      "  FALHA uma palavra da materia muda -> DOCUMENT_CHANGED_IN_PLACE",
+      "  FALHA a linha do CHANGED traz MATERIAL_DIFF = true e hashes que diferem"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M5",
+   "O_QUE": "transformar TODO o CHANGED_IN_PLACE em SEEN_AGAIN",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "uma palavra da materia muda",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA uma palavra da materia muda -> DOCUMENT_CHANGED_IN_PLACE",
+     "TODAS": [
+      "  FALHA uma palavra da materia muda -> DOCUMENT_CHANGED_IN_PLACE",
+      "  FALHA a linha do CHANGED traz MATERIAL_DIFF = true e hashes que diferem"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M6",
+   "O_QUE": "desligar a normalizacao inteira",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": null,
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA contador de visitas muda -> NAO e change",
+     "TODAS": [
+      "  FALHA contador de visitas muda -> NAO e change",
+      "  FALHA token do formulario muda -> NAO e change",
+      "  FALHA chave de sessao muda -> NAO e change"
+     ]
+    },
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA so mexeram volateis -> SEEN_AGAIN, e NAO CHANGED_IN_PLACE",
+     "TODAS": [
+      "  FALHA so mexeram volateis -> SEEN_AGAIN, e NAO CHANGED_IN_PLACE",
+      "  FALHA a linha do livro traz OLD/NEW_NORMALIZED_HASH e MATERIAL_DIFF = false"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M7",
+   "O_QUE": "decidir so por RAW_SHA, ignorando o normalizado",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": null,
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA contador de visitas muda -> NAO e change",
+     "TODAS": [
+      "  FALHA contador de visitas muda -> NAO e change",
+      "  FALHA token do formulario muda -> NAO e change",
+      "  FALHA chave de sessao muda -> NAO e change"
+     ]
+    },
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA so mexeram volateis -> SEEN_AGAIN, e NAO CHANGED_IN_PLACE",
+     "TODAS": [
+      "  FALHA so mexeram volateis -> SEEN_AGAIN, e NAO CHANGED_IN_PLACE",
+      "  FALHA a linha do livro traz OLD/NEW_NORMALIZED_HASH e MATERIAL_DIFF = false"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M8",
+   "O_QUE": "dedup pos-download em vez de skip antes do pedido",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "RUN2 NAO BATE A PORTA",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA a DECISAO vem ANTES do download, e nao depois",
+     "TODAS": [
+      "  FALHA a DECISAO vem ANTES do download, e nao depois"
+     ]
+    },
+    {
+     "nome": "a prova de duas rodadas",
+     "PRIMEIRA_FALHA": "  FALHA RUN2 NAO BATE A PORTA ao detalhe ja conhecido",
+     "TODAS": [
+      "  FALHA RUN2 NAO BATE A PORTA ao detalhe ja conhecido",
+      "  FALHA RUN3 continua a saltar — o salto nao envenenou a memoria",
+      "  FALHA DETAIL_REQUESTS == idas reais ao transporte, rodada a rodada"
+     ]
+    }
+   ]
+  }
+ ]
+}

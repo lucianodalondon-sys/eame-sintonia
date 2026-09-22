@@ -35,6 +35,8 @@ export const HEALTH_STATES = ["HEALTHY", "DEGRADED", "FAILED", "UNKNOWN"];
 export const CONTRACTS = {
 
   "IT-T3-002": {
+    // UPDATE_BEHAVIOR: «ADITIVO — cada edicao ganha arquivo proprio». O endereco traz a data (SA-DD-MM.pdf): edicao nova = endereco novo.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-007", OWNER: "Regione Campania — Servizio Fitosanitario Regionale",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://agricoltura.regione.campania.it/difesa/bollettini/bollettini_<ANO>.html",
@@ -67,6 +69,8 @@ export const CONTRACTS = {
   },
 
   "IT-T3-010": {
+    // UPDATE_BEHAVIOR: «ADITIVO». Cada boletim tem ficheiro proprio; o indice e que anuncia o seguinte, e o indice revisita-se sempre.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-012", OWNER: "A.P.OL. — Associazione tra Produttori Olivicoli, Lecce",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "http://www.apol.it",
@@ -100,6 +104,8 @@ export const CONTRACTS = {
   },
 
   "IT-T3-008": {
+    // UPDATE_BEHAVIOR: «ADITIVO». O nome carrega numero e data (Notiziario_N36_02-09-2026.pdf).
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-ARIF", OWNER: "ARIF Puglia — Agenzia regionale per le attivita irrigue e forestali",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.agrometeopuglia.it/bollettini",
@@ -134,6 +140,26 @@ export const CONTRACTS = {
   },
 
   "IT-T3-005": {
+    // ── RECOLLECTION · O BLOCO EXECUTAVEL DA REVISITA ──────────────────────
+    // ⚠️ ISTO NAO DUPLICA `UPDATE_BEHAVIOR`, E A DIFERENCA E TODA.
+    // `UPDATE_BEHAVIOR` e PROSA, escrita para gente ler: tem 172 «NAO SEI» nos
+    // 186 contratos e frases como «SOBRESCRITA — janela movel de 11 dias na
+    // mesma URL». Uma frase DESCREVE; nao EXECUTA. `regras/incrementalidade.mjs`
+    // recusa-se a le-la, e tem razao — ler prosa para decidir e o defeito que o
+    // motor de rota ja nomeou («"DD": "dia com 2 digitos" DESCREVE, NAO EXECUTA»).
+    //
+    // `RECOLLECTION` e o bloco de vocabulario fechado que a regra LE.
+    // Medido em 2026-09-22: 0 dos 186 contratos o tinham. Consequencia, depois
+    // de a regra ser ligada ao coletor nesta missao: TODOS caem em `UNKNOWN`,
+    // que por lei significa SKIP — e uma fonte como a ARPAV, que reescreve o
+    // MESMO endereco a cada edicao, deixaria de ser revisitada para sempre.
+    //
+    //     SALTAR E POUPAR REDE. SALTAR O QUE MUDA E CEGAR A CASA.
+    //
+    // Quem declara aqui esta a afirmar que CONHECE a fonte. A prova de cada
+    // declaracao esta no proprio contrato, no campo citado a seguir a ela.
+    // UPDATE_BEHAVIOR: «SOBRESCRITA — uma edicao por vez, a anterior desaparece». O boletim vive em CANONICAL_ENTRY_URL fixa.
+    RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-008", OWNER: "Terre dell'Etruria — Societa Cooperativa Agricola",
     TERRITORY: "T3", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.terretruria.it/monitoraggio",
@@ -165,6 +191,8 @@ export const CONTRACTS = {
   },
 
   "IT-T4-001": {
+    // UPDATE_BEHAVIOR: «ADITIVO por data de arquivo». O CSV traz a versao no nome (PROD_FTS_6_AAAAMMDD.csv).
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-MINSALUTE", OWNER: "Ministero della Salute — Open Data",
     TERRITORY: "T4", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
@@ -219,6 +247,8 @@ export const CONTRACTS = {
   },
 
   "IT-T2-004": {
+    // UPDATE_BEHAVIOR: «SOBRESCRITA — janela movel de 11 dias na mesma URL». A janela anda e o endereco nao.
+    RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-SIAS", OWNER: "SIAS — Servizio Informativo Agrometeorologico Siciliano",
     TERRITORY: "T2", VALUE: "P1",
     CANONICAL_ENTRY_URL: "http://www.sias.regione.sicilia.it/NHEOWL0530_00.html",
@@ -278,6 +308,8 @@ export const CONTRACTS = {
   },
 
   "IT-T2-002": {
+    // LEI_CRITICA do proprio contrato: «o nome do arquivo e FIXO e o conteudo e sobrescrito. Nunca deduplicar por URL».
+    RECOLLECTION: { DETAIL_CONTENT: "MUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-ARPAV", OWNER: "ARPAV Veneto", TERRITORY: "T2", VALUE: "P1",
     CANONICAL_ENTRY_URL: "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo/agrometeoinforma",
     DISCOVERY_METHOD: "a pagina lista 32 links de zona; a leitura simples do HTML nao os mostrou — foram revelados pelo navegador",
