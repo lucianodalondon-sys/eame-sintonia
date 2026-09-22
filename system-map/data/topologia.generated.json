@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T02:29:50+00:00",
-  "HEAD": "b41fa0802148988ef371e1bee501884a85c59398",
-  "BRANCH": "cutover-prod-v1",
+  "GENERATED_AT": "2026-09-22T11:33:10+00:00",
+  "HEAD": "9f7523e345d1c165d8b112307903431c90f2df9a",
+  "BRANCH": "paridade-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "da815e5aeb69d1427ac4b64d201f2a8560bce2e28bd34f7045503862c88a5523",
-  "FICHEIROS_NA_IMPRESSAO": 2586,
+  "SOURCE_TREE_FINGERPRINT": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941",
+  "FICHEIROS_NA_IMPRESSAO": 2593,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -475,7 +475,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "420c51198687483ba594f82ad1b0c37338d1c9cc",
+    "VERSAO": "72412e63d5422025f0fafdab7bf76b7ecaa2aaf5",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1649,6 +1649,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/paridade_replay.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "baad824422b41a10c1bd97eb36e5db8400d10942",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/porque_a_sala_nao_recebeu.py",
     "PAPEL": "FONTE",
     "VERSAO": "287525ff5b1a85354cb3439f6f3a6e30de7c613c",
@@ -2741,6 +2748,20 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/paridade_duas_rodadas.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "721aba3ab045935238ec0c9b22e16384aa96d783",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/paridade_red_team.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "6542da0cac55942454e39cd7564ec343bd4aff22",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/portas_canonicas_no_postgres.py",
     "PAPEL": "FONTE",
     "VERSAO": "6fd0ff6c4beaae3d9584bb43a90e52e9ac3c1818",
@@ -3002,7 +3023,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "cd4a3992b3b05ec5167dd02f5dde6994a47200d2",
+    "VERSAO": "1718d3f081d8c48d48ef326f02e49515a094628c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3038,6 +3059,20 @@
     "PATH": "regras/motor_de_rota_test.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "ee354201e3aa6a10717da705a1907e33d88f9cf2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "regras/normalizacao_de_conteudo.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "00c2626469cbb0223527d7507f09ca1f587255f8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "regras/paridade_test.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "5a842c0c29950817a4bdaf604935f90b03810e40",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3121,14 +3156,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "da815e5aeb69d1427ac4b64d201f2a8560bce2e28bd34f7045503862c88a5523",
+    "VERSAO": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "da815e5aeb69d1427ac4b64d201f2a8560bce2e28bd34f7045503862c88a5523",
+    "VERSAO": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4799,8 +4834,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 680,
-  "INPUTS_DIGEST": "0f2295b825e79c4eb03b37c1b36ced76db920367d7a721d7e430859796eed789",
+  "INPUTS_COUNT": 685,
+  "INPUTS_DIGEST": "545851014e21e7c9347e21848642fa389e96cfbdeb5d0b8c9a49d453c08286a4",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4833,8 +4868,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "d6cc53a58d8d88cdd04e2654aa5de0fd4c33c74f30edab3146f1a767bd0a4463",
-  "SEMANTIC_HASH": "5c6552f0661b882d63efb62d31d38546795f726a15d8b172d1c77274d481fddd"
+  "MEASUREMENT_HASH": "5d294e291fce073af49a06559e9814aa9e46112ccf2065efdc25e2d48905625d",
+  "SEMANTIC_HASH": "e765864e2934a83b01f98e6d5ec23d20028c66aaa3525b76e43a986287400419"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4887,6 +4922,7 @@
    "C-IT-COLETA",
    "C-IT-CONTRATOS",
    "C-IT-INCREMENTALIDADE",
+   "C-IT-NORMALIZACAO",
    "C-IT-PDF-BRUTO",
    "C-IT-PRESERVAR",
    "C-IT-TEXTO-DERIVADO",
@@ -4926,7 +4962,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 80
+  "COUNT": 81
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -4993,6 +5029,7 @@
    "C-PROVA-LINHAGEM-READY-SOCIAL",
    "C-PROVA-O-PEDIDO-ATRAVESSA",
    "C-PROVA-O-RAW-FALA",
+   "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-RETRY-DO-SCRAP",
@@ -5017,7 +5054,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 80
+  "COUNT": 81
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -5097,6 +5134,7 @@
    "C-IT-CONTAS",
    "C-IT-CONTRATOS",
    "C-IT-INCREMENTALIDADE",
+   "C-IT-NORMALIZACAO",
    "C-IT-PDF-BRUTO",
    "C-IT-PRESERVAR",
    "C-IT-TEXTO-DERIVADO",
@@ -5138,6 +5176,7 @@
    "C-PROVA-LINHAGEM-READY-SOCIAL",
    "C-PROVA-O-PEDIDO-ATRAVESSA",
    "C-PROVA-O-RAW-FALA",
+   "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-RETRY-DO-SCRAP",
@@ -5185,16 +5224,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 160
+  "COUNT": 162
  },
  "ARITMETICA": {
-  "COLLECTION": 80,
-  "BOUNDARY": 80,
-  "SOMA": 160,
-  "EXPANDED": 160,
+  "COLLECTION": 81,
+  "BOUNDARY": 81,
+  "SOMA": 162,
+  "EXPANDED": 162,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 160,
+  "RESUMO_CARTOES_NO_UNIVERSO": 162,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -20488,6 +20527,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-IT-NORMALIZACAO",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-IT-NORMALIZACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/paridade_test.mjs",
+      "LINHA": 232,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-NORMALIZACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-COLETA",
     "FROM": "C-IT-COLETA",
     "TO": "C-PROVA-COLETA",
@@ -20595,6 +20656,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-O-RAW-FALA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+    "FROM": "C-IT-COLETA",
+    "TO": "C-PROVA-PARIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/paridade_red_team.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -21032,6 +21123,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-PROVA-PARIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
+      "LINHA": 114,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-TESTES",
@@ -21078,6 +21191,50 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-IT-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-IT-NORMALIZACAO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/paridade_test.mjs",
+      "LINHA": 29,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-LASTMILE-MEDIDORES",
     "FROM": "C-IT-INCREMENTALIDADE",
     "TO": "C-LASTMILE-MEDIDORES",
@@ -21096,6 +21253,58 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-LASTMILE-MEDIDORES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/paridade_replay.mjs",
+      "LINHA": 23,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-LASTMILE-MEDIDORES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-COLETA",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-IT-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 57,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-NORMALIZACAO",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-IT-NORMALIZACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/paridade_test.mjs",
+      "LINHA": 29,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
      }
     ]
    },
@@ -21118,6 +21327,154 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "medidas/paridade_replay.mjs",
+      "LINHA": 23,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-PARIDADE",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-PROVA-PARIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/paridade_red_team.mjs",
+      "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-IT-COLETA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-LASTMILE-MEDIDORES",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-LASTMILE-MEDIDORES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/paridade_replay.mjs",
+      "LINHA": 24,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-LASTMILE-MEDIDORES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-IT-COLETA",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-IT-COLETA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/italy_pilot_collect.mjs",
+      "LINHA": 58,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-LASTMILE-MEDIDORES",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-LASTMILE-MEDIDORES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/paridade_replay.mjs",
+      "LINHA": 24,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-PARIDADE",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-PROVA-PARIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/paridade_red_team.mjs",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/paridade_red_team.mjs",
+      "LINHA": 136,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -21325,6 +21682,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "medidas/paridade_replay.mjs",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-LASTMILE-MEDIDORES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "medidas/ultima_milha.py",
       "LINHA": 38,
       "SUPPORTS": "YES",
@@ -21460,6 +21825,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-PROVA-PARIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
+      "LINHA": 92,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -21911,6 +22298,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-DUAS-PORTAS-MEDIDORES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
+    "FROM": "C-LASTMILE-MEDIDORES",
+    "TO": "C-IT-NORMALIZACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/paridade_test.mjs",
+      "LINHA": 274,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -37574,12 +37983,12 @@
     ]
    }
   ],
-  "COUNT": 1056
+  "COUNT": 1071
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 160,
-  "CARTOES_AUDITADOS": 160,
-  "ARESTAS_RELACIONADAS": 1056,
+  "CARTOES_NO_UNIVERSO": 162,
+  "CARTOES_AUDITADOS": 162,
+  "ARESTAS_RELACIONADAS": 1071,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -37744,6 +38153,7 @@
    "C-IT-CONTAS",
    "C-IT-CONTRATOS",
    "C-IT-INCREMENTALIDADE",
+   "C-IT-NORMALIZACAO",
    "C-IT-PRESERVAR",
    "C-IT-TEXTO-PESQUISAVEL",
    "C-LASTMILE",
@@ -37763,6 +38173,7 @@
    "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
    "C-PROVA-O-PEDIDO-ATRAVESSA",
    "C-PROVA-O-RAW-FALA",
+   "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
    "C-PROVA-ROTA-DO-HTML",
@@ -37801,7 +38212,6 @@
    "C-ESPECIE-DO-TEXTO",
    "C-INT-CONSUMO-ADAMA",
    "C-IT-CONTAS",
-   "C-IT-INCREMENTALIDADE",
    "C-IT-TEXTO-PESQUISAVEL",
    "C-MICRO-COLHEITA",
    "C-PROVA-AUDIO-ONLY",
@@ -37871,8 +38281,6 @@
     "opportunity"
    ],
    "C-IT-INCREMENTALIDADE": [
-    "acervo",
-    "collection-strategy",
     "performance"
    ],
    "C-LUGAR-COLETA": [
@@ -37951,8 +38359,8 @@
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 361,
-   "READ": 242,
-   "RULE": 160,
+   "READ": 245,
+   "RULE": 172,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -41162,6 +41570,8 @@
     "provas/o_raw_fala.py",
     "provas/o_raw_local_nao_e_duravel.py",
     "provas/os_portoes_da_collection.py",
+    "provas/paridade_duas_rodadas.mjs",
+    "provas/paridade_red_team.mjs",
     "provas/so_a_colheita_atravessa.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
@@ -41185,8 +41595,8 @@
     "__future__",
     "coleta"
    ],
-   "ENTRAM": 7,
-   "SAEM": 17,
+   "ENTRAM": 11,
+   "SAEM": 19,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -41258,6 +41668,7 @@
     "provas/a_autoridade_da_fonte.py",
     "provas/a_collection_preserva_o_fato.py",
     "provas/italy_pilot_negativos.mjs",
+    "provas/paridade_duas_rodadas.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_integracao_04a_curator.py",
@@ -41279,7 +41690,7 @@
     "pathlib"
    ],
    "ENTRAM": 8,
-   "SAEM": 9,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -41306,7 +41717,10 @@
     "regras/incrementalidade_test.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
-   "SO_MEDEM_ESTE": [],
+   "SO_MEDEM_ESTE": [
+    "provas/paridade_duas_rodadas.mjs",
+    "provas/paridade_red_team.mjs"
+   ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -41314,17 +41728,49 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 0,
-   "SAEM": 2,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "RULE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [
-    "acervo",
-    "collection-strategy",
     "performance"
    ],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-IT-NORMALIZACAO",
+   "NOME": "A normalizacao de conteudo — o que e ruido nao e mudanca",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-REGRAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "regras/normalizacao_de_conteudo.mjs",
+    "regras/paridade_test.mjs"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/paridade_red_team.mjs"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 4,
+   "SAEM": 5,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "RULE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -41376,6 +41822,7 @@
     "provas/o_censo_do_acervo.py",
     "provas/o_legado_fora_do_fluxo.py",
     "provas/o_raw_local_nao_e_duravel.py",
+    "provas/paridade_duas_rodadas.mjs",
     "provas/primeira_coleta_controlada_italia.py",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_de_identidade_it.py",
@@ -41393,7 +41840,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 1,
-   "SAEM": 15,
+   "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -41548,11 +41995,13 @@
    "FICHEIROS": [
     "medidas/COORTE-MICRO-COLLECTION-V1.json",
     "medidas/INCREMENTALIDADE-V1.json",
+    "medidas/PARIDADE-REPLAY-V1.json",
     "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
     "medidas/ULTIMA-MILHA-V1.json",
     "medidas/coorte_da_micro_collection.py",
     "medidas/corrida_sem_rede.py",
     "medidas/incrementalidade_prova.mjs",
+    "medidas/paridade_replay.mjs",
     "medidas/porque_a_sala_nao_recebeu.py",
     "medidas/ultima_milha.py"
    ],
@@ -41575,8 +42024,8 @@
     "orquestrador",
     "raw_asset"
    ],
-   "ENTRAM": 7,
-   "SAEM": 3,
+   "ENTRAM": 9,
+   "SAEM": 4,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
@@ -43507,6 +43956,39 @@
    "CATEGORIAS_QUE_SAEM": [
     "PROOF"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-PROVA-PARIDADE",
+   "NOME": "As provas da paridade de incrementalidade",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/PARIDADE-RED-TEAM-V1.json",
+    "provas/paridade_duas_rodadas.mjs",
+    "provas/paridade_red_team.mjs"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/paridade_red_team.mjs"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 5,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null

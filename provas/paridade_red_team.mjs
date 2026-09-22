@@ -1,6 +1,6 @@
 // RED TEAM DA PARIDADE — oito ataques ao codigo QUE ESTA MISSAO ESCREVEU.
 //
-//     node medidas/paridade_red_team.mjs
+//     node provas/paridade_red_team.mjs
 //
 // A pergunta nao e «o codigo funciona?». E: «se alguem o desligar, alguma
 // prova grita?». Um mutante que sobrevive e uma prova que nao prova nada.
@@ -251,8 +251,8 @@ console.log(`\n══ VEREDICTO ════════════════
 console.log(`  ATAQUES: ${resultado.length}   KILLED: ${resultado.length - survivors.length}   SURVIVORS: ${survivors.length}`);
 for (const s of survivors) console.log(`  SURVIVOR ${s.ID} — ${s.O_QUE}${s.PORQUE ? ` (${s.PORQUE})` : ""}`);
 
-writeFileSync("medidas/PARIDADE-RED-TEAM-V1.json", JSON.stringify({
-  MEDIDOR: "medidas/paridade_red_team.mjs",
+writeFileSync("provas/PARIDADE-RED-TEAM-V1.json", JSON.stringify({
+  PROVA: "provas/paridade_red_team.mjs",
   PROTOCOLO: "cache-safe §165 adaptado a Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, sonda a provar execucao",
   NODE: process.version,
   ATAQUES: resultado.length,
@@ -260,5 +260,5 @@ writeFileSync("medidas/PARIDADE-RED-TEAM-V1.json", JSON.stringify({
   ARVORE_LIMPA_DEPOIS: sujo === "",
   RESULTADO: resultado,
 }, null, 1));
-console.log("\n  escrito: medidas/PARIDADE-RED-TEAM-V1.json");
+console.log("\n  escrito: provas/PARIDADE-RED-TEAM-V1.json");
 if (survivors.length || sujo) process.exit(1);

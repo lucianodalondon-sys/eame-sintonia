@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "cutover-prod-v1",
-    "HEAD": "b41fa0802148988ef371e1bee501884a85c59398",
-    "GENERATED_AT": "2026-09-21T23:23:28-03:00",
-    "SOURCE_TREE_FINGERPRINT": "da815e5aeb69d1427ac4b64d201f2a8560bce2e28bd34f7045503862c88a5523"
+    "BRANCH": "paridade-v1",
+    "HEAD": "9f7523e345d1c165d8b112307903431c90f2df9a",
+    "GENERATED_AT": "2026-09-22T08:21:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941"
   },
   "FILES": [
     {
@@ -353,7 +353,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "7e30eeb8735a1c0dfcaf53aa5b18c1d464033101",
+      "sha": "b873cc20c51666b241b428da742021a616a54a6f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1529,7 +1529,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "420c51198687483ba594f82ad1b0c37338d1c9cc",
+      "sha": "72412e63d5422025f0fafdab7bf76b7ecaa2aaf5",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -11846,6 +11846,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/PARIDADE-REPLAY-V1.json",
+      "sha": "c430aaa9b21d3dee1a7b1ab2cc4d56709874f34d",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
       "sha": "fe521230b9107852af0256e2ba6246b6978957f8",
       "ext": ".json",
@@ -12003,6 +12010,13 @@
       "path": "medidas/padrao_da_coleta.py",
       "sha": "e6a12f1f6065e35e0043a01243f456f0388684bb",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/paridade_replay.mjs",
+      "sha": "baad824422b41a10c1bd97eb36e5db8400d10942",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -12548,6 +12562,13 @@
     {
       "path": "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "sha": "c22416545775f8cbf2048a7aa2ad8d05242f02d4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/PARIDADE-RED-TEAM-V1.json",
+      "sha": "2bea23e61e223f6d933921c497726cd1383f59f4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13386,6 +13407,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/paridade_duas_rodadas.mjs",
+      "sha": "721aba3ab045935238ec0c9b22e16384aa96d783",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/paridade_red_team.mjs",
+      "sha": "6542da0cac55942454e39cd7564ec343bd4aff22",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/portas_canonicas_no_postgres.py",
       "sha": "6fd0ff6c4beaae3d9584bb43a90e52e9ac3c1818",
       "ext": ".py",
@@ -13779,7 +13814,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "cd4a3992b3b05ec5167dd02f5dde6994a47200d2",
+      "sha": "1718d3f081d8c48d48ef326f02e49515a094628c",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13822,6 +13857,20 @@
     {
       "path": "regras/motor_de_rota_test.mjs",
       "sha": "ee354201e3aa6a10717da705a1907e33d88f9cf2",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/normalizacao_de_conteudo.mjs",
+      "sha": "00c2626469cbb0223527d7507f09ca1f587255f8",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/paridade_test.mjs",
+      "sha": "5a842c0c29950817a4bdaf604935f90b03810e40",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -15179,7 +15228,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "30d63ba982983e820b3084a9226db2676df9c661",
+      "sha": "be093651c77a7031074b5f8025ba8561e220d8f5",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -20339,12 +20388,34 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 235,
+        "line": 265,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
     {
       "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 57,
+        "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 57,
+        "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
       "to_file": "regras/italy_contracts.mjs",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -20385,6 +20456,28 @@
         "file": "coleta/italy_pilot_collect.mjs",
         "line": 41,
         "snippet": "import { alvosDoContrato, identidadeDoContrato } from \"../regras/motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 58,
+        "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/italy_pilot_collect.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/italy_pilot_collect.mjs",
+        "line": 58,
+        "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
       }
     },
     {
@@ -34014,6 +34107,72 @@
         "file": "medidas/padrao_da_coleta.py",
         "line": 64,
         "snippet": "CHAO = os.path.join(ROOT, 'data', 'samples', 'PADRAO-DA-COLETA-CHAO.json')"
+      }
+    },
+    {
+      "from_file": "medidas/paridade_replay.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/paridade_replay.mjs",
+        "line": 27,
+        "snippet": "const p = join(raiz, \"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "medidas/paridade_replay.mjs",
+      "to_file": "medidas/PARIDADE-REPLAY-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/paridade_replay.mjs",
+        "line": 152,
+        "snippet": "const saida = arg(\"saida\") || join(dirname(process.argv[1]), \"PARIDADE-REPLAY-V1.json\");"
+      }
+    },
+    {
+      "from_file": "medidas/paridade_replay.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/paridade_replay.mjs",
+        "line": 23,
+        "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, censoDasDecisoes } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/paridade_replay.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/paridade_replay.mjs",
+        "line": 23,
+        "snippet": "import { memoriaDosDetalhes, decidirSobreDetalhe, censoDasDecisoes } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/paridade_replay.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/paridade_replay.mjs",
+        "line": 24,
+        "snippet": "import { compararConteudo, CONTRATO_NORMALIZACAO_VERSAO } from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/paridade_replay.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/paridade_replay.mjs",
+        "line": 24,
+        "snippet": "import { compararConteudo, CONTRATO_NORMALIZACAO_VERSAO } from \"../regras/normalizacao_de_conteudo.mjs\";"
       }
     },
     {
@@ -48493,6 +48652,105 @@
       }
     },
     {
+      "from_file": "provas/paridade_duas_rodadas.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_duas_rodadas.mjs",
+        "line": 31,
+        "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/paridade_duas_rodadas.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_duas_rodadas.mjs",
+        "line": 92,
+        "snippet": "const livro = readFileSync(join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\"), \"utf8\")"
+      }
+    },
+    {
+      "from_file": "provas/paridade_duas_rodadas.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_duas_rodadas.mjs",
+        "line": 114,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/paridade_red_team.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_red_team.mjs",
+        "line": 31,
+        "snippet": "const COLETOR = \"coleta/italy_pilot_collect.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/paridade_red_team.mjs",
+      "to_file": "provas/PARIDADE-RED-TEAM-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_red_team.mjs",
+        "line": 254,
+        "snippet": "writeFileSync(\"provas/PARIDADE-RED-TEAM-V1.json\", JSON.stringify({"
+      }
+    },
+    {
+      "from_file": "provas/paridade_red_team.mjs",
+      "to_file": "provas/paridade_duas_rodadas.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_red_team.mjs",
+        "line": 137,
+        "snippet": "[\"provas/paridade_duas_rodadas.mjs\", \"a prova de duas rodadas\"],"
+      }
+    },
+    {
+      "from_file": "provas/paridade_red_team.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_red_team.mjs",
+        "line": 33,
+        "snippet": "const REGRA = \"regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/paridade_red_team.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_red_team.mjs",
+        "line": 32,
+        "snippet": "const NORMAL = \"regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/paridade_red_team.mjs",
+      "to_file": "regras/paridade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/paridade_red_team.mjs",
+        "line": 136,
+        "snippet": "[\"regras/paridade_test.mjs\", \"as provas da paridade\"],"
+      }
+    },
+    {
       "from_file": "provas/portas_canonicas_no_postgres.py",
       "to_file": ".github/workflows/sintonia-scrap.yml",
       "type": "READS",
@@ -50820,7 +51078,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/italy_contracts.mjs",
-        "line": 535,
+        "line": 567,
         "snippet": "readFileSync(new URL(\"./italy_contracts_onboarded.json\", import.meta.url), \"utf8\"));"
       }
     },
@@ -51042,6 +51300,72 @@
         "file": "regras/motor_de_rota_test.mjs",
         "line": 20,
         "snippet": "} from \"./motor_de_rota.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/paridade_test.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/paridade_test.mjs",
+        "line": 232,
+        "snippet": "const fonte = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
+      }
+    },
+    {
+      "from_file": "regras/paridade_test.mjs",
+      "to_file": "medidas/paridade_replay.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/paridade_test.mjs",
+        "line": 274,
+        "snippet": "const { replay } = await import(\"../medidas/paridade_replay.mjs\");"
+      }
+    },
+    {
+      "from_file": "regras/paridade_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/paridade_test.mjs",
+        "line": 29,
+        "snippet": "} from \"./incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/paridade_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/paridade_test.mjs",
+        "line": 29,
+        "snippet": "} from \"./incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/paridade_test.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/paridade_test.mjs",
+        "line": 26,
+        "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/paridade_test.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/paridade_test.mjs",
+        "line": 26,
+        "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
       }
     },
     {
@@ -71254,10 +71578,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2438,
-    "files_readable": 1076,
-    "files_code_dir": 930,
-    "file_edges": 4874,
+    "files_tracked": 2445,
+    "files_readable": 1081,
+    "files_code_dir": 937,
+    "file_edges": 4899,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
