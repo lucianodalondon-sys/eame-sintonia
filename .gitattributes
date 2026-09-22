@@ -4,3 +4,36 @@
 # o SHA-256 em disco deixaria de bater e o diff BASELINE x client viraria ruido.
 italia-portale/BASELINE/** -text -diff
 italia-portale/client/**   -text
+
+# ---------------------------------------------------------------------------
+# OS LIVROS DA COLETA SAO DE ACRESCENTAR, E POR ISSO A RESOLUCAO E UNIAO.
+#
+# `data/collection-ledger/**` guarda NDJSON: uma linha por corrida, por
+# observacao, por tick do agendador. Duas linhas da producao e da linha
+# canonica nao sao duas versoes da mesma linha — sao duas linhas. Sem estas
+# regras, todo merge entre a producao e a linha canonica levanta conflito no
+# mesmo ficheiro, e a resolucao a mao acaba por ESCOLHER um lado.
+#
+#     ESCOLHER UM LADO NUM LIVRO DE ACRESCENTAR APAGA O OUTRO LADO.
+#
+# Medido em 2026-09-22 (cutover): o primeiro merge trazia 350 linhas so da
+# producao e 1 so da canonica; o segundo, 351 e 2; o terceiro, 353 e 3.
+# Escolher «o nosso» teria apagado 6 ticks reais no total.
+#
+# ⚠️ `merge=union` NAO DEDUPLICA e NAO ORDENA. Junta os dois lados um atras
+# do outro. Para NDJSON de acrescentar isso e suficiente e correcto — a
+# ordem de leitura destes livros e por campo de tempo, nunca por posicao na
+# linha — mas duas corridas com o MESMO conteudo ficam duplicadas. Quem
+# precisar de livro sem repeticao une por identidade de linha inteira, nunca
+# por um campo: `DOCUMENT_VERSION_ID` repete-se de proposito em cada
+# revisita, e usa-lo como chave colapsa 476 observacoes em 213.
+# ⚠️ `**.ndjson` NAO CASA NADA. A primeira versao destas duas linhas dizia
+# `data/collection-ledger/**.ndjson` e `git check-attr` devolveu
+# «merge: unspecified» para os dois livros .ndjson — a regra estava escrita,
+# commitada, e nao valia para ficheiro nenhum. O padrao precisa da barra e do
+# asterisco do nome: `**/*.ndjson`.
+#
+#     UMA REGRA QUE NAO CASA NADA LE-SE COMO UMA REGRA QUE PASSA SEMPRE.
+#     CONFERIR COM `git check-attr`, NUNCA CONFIAR NO PADRAO ESCRITO.
+data/collection-ledger/**/*.ndjson  merge=union
+data/collection-ledger/**/*.log     merge=union
