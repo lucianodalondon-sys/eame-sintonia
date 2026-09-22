@@ -1,0 +1,140 @@
+{
+ "DATASET": "PONTE-CURADOR-PROOF-V1",
+ "LEI": "o trabalho novo do bot atravessa ate ao portao; o bloqueado e o promovido sem prova NAO atravessam; a elegibilidade e sempre decidida por collection_gate.",
+ "GERADO_EM": "2026-09-22T16:28:41.097567+00:00",
+ "BANCADA": "copia descartavel — o livro canonico real nao foi tocado",
+ "BOT": {
+  "BRANCH": "source-curator-service-v1",
+  "HEAD_LIDO_AGORA": "216dd6db",
+  "HEAD_DESCOBERTO_NAO_ESCRITO_A_MAO": true,
+  "SNAPSHOT": {
+   "BOT_SNAPSHOT_HEAD": "216dd6db",
+   "BOT_SNAPSHOT_TIME": "2026-09-22T16:28:40.982848+00:00",
+   "BOT_SNAPSHOT_TRANSITION_MAX_ID": 1013,
+   "BOT_SNAPSHOT_SOURCES": 440,
+   "LEITURA": "git show — copia congelada. O ficheiro vivo do bot NAO e lido: o supervisor esta a correr e pode gravar a meio da leitura.",
+   "POSTERIOR_AO_CORTE": "atravessa a ponte futura; nao entra retroativo nesta reconciliacao"
+  }
+ },
+ "SENTIDO_POSITIVO": {
+  "SOURCE_ID": "IT-T99-001",
+  "ESTADO_ANTES": null,
+  "ESTADO_DEPOIS": "READY_FOR_COLLECTION",
+  "FINAL_DA_RECONCILIACAO": "READY_CURRENT",
+  "PROVA_VEIO_JUNTO": "C",
+  "READY_RULE_NO_PORTAO": "DETAIL/v1",
+  "COLLECTION_ELIGIBLE": true,
+  "PORQUE": "READY_CURRENT pela regua DETAIL/v1, sem pedido de olho humano",
+  "ATRAVESSOU": true
+ },
+ "SENTIDO_NEGATIVO": [
+  {
+   "SOURCE_ID": "IT-T99-002",
+   "ESTADO_DEPOIS": "CAPABILITY_BLOCK",
+   "FINAL_DA_RECONCILIACAO": "CAPABILITY_BLOCK",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "ESTADO_NAO_READY",
+   "PORQUE": "o estado no livro e CAPABILITY_BLOCK; so entra quem esta em READY_FOR_COLLECTION",
+   "NAO_ATRAVESSOU": true
+  },
+  {
+   "SOURCE_ID": "IT-T99-003",
+   "ESTADO_DEPOIS": "UNKNOWN",
+   "FINAL_DA_RECONCILIACAO": "UNKNOWN",
+   "COLLECTION_ELIGIBLE": false,
+   "MOTIVO": "ESTADO_NAO_READY",
+   "PORQUE": "o estado no livro e UNKNOWN; so entra quem esta em READY_FOR_COLLECTION",
+   "NAO_ATRAVESSOU": true
+  }
+ ],
+ "PORTAO": {
+  "COLLECTION_ELIGIBLE_ANTES": 8,
+  "COLLECTION_ELIGIBLE_DEPOIS": 9,
+  "ENTRARAM": [
+   "IT-T99-001"
+  ],
+  "SAIRAM": []
+ },
+ "EVIDENCIA": {
+  "PROVAS_CITADAS_DE_C": 1,
+  "PROVAS_IMPORTADAS": 1,
+  "PROVAS_JA_PRESENTES_IDENTICAS": 0,
+  "COLISOES_NAO_IMPORTADAS": [],
+  "PROVAS_NO_MANIFESTO_DEPOIS": 551
+ },
+ "TELEMETRIA_DA_PONTE": {
+  "BOT_READY": 42,
+  "CANONICAL_RECONCILED": 440,
+  "BOT_READY_ACEITES": 33,
+  "BOT_READY_RECUSADAS": 9,
+  "RECUSAS_POR_MOTIVO": {
+   "PROMOCAO_SEM_PROVA_DE_CANARIO": 9
+  },
+  "RECUSAS": [
+   {
+    "SOURCE_ID": "IT-T10-020",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T15:20:20) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T10-2026-09-20-193931-) m"
+   },
+   {
+    "SOURCE_ID": "IT-T12-009",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T15:20:21) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T12-2026-09-20-194020-) m"
+   },
+   {
+    "SOURCE_ID": "IT-T12-013",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T03:26:15) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T12-2026-09-20-"
+   },
+   {
+    "SOURCE_ID": "IT-T2-030",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T15:20:23) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T2-2026-09-20-193550-f) m"
+   },
+   {
+    "SOURCE_ID": "IT-T5-039",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T15:20:27) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T5-2026-09-20-193605-e) m"
+   },
+   {
+    "SOURCE_ID": "IT-T7-031",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T15:20:29) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a capa institucional como documento (BC) | B (BCR-2026-09-20:IT-T7-2026-09-20-193729-f) m"
+   },
+   {
+    "SOURCE_ID": "IT-T7-041",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T03:26:44) sobre o contrato atual: A: CONTRACTED_CANARY_FAILED (CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parec) | B (BCR-2026-09-20:IT-T7-2026-09-20-1"
+   },
+   {
+    "SOURCE_ID": "IT-T8-008",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "NOT_READY",
+    "PORQUE": "A mediu depois (2026-09-21T15:20:30) sobre o contrato atual: A: CANARY_PENDING (reconciliacao: B: a BCR colheu a propria listagem como documento (BCR_) | B (BCR-2026-09-20:IT-T8-2026-09-20-193904-6) m"
+   },
+   {
+    "SOURCE_ID": "IT-T99-003",
+    "MOTIVO": "PROMOCAO_SEM_PROVA_DE_CANARIO",
+    "FINAL": "UNKNOWN",
+    "PORQUE": "C: READY citando prova que o manifesto do bot nao tem (MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46a) — promocao sem canario nao promove"
+   }
+  ],
+  "LEGACY_LEAK": 0,
+  "LEGACY_LEAK_IDS": [],
+  "NOTA": "COLLECTION_ELIGIBLE nao se calcula aqui — pergunta-se a collection_gate.avaliar, que e o unico dono da regra."
+ },
+ "IDEMPOTENCIA": {
+  "SEGUNDA_LEVA_APENDE": 0,
+  "SEGUNDA_LEVA_IMPORTA_PROVAS": 0,
+  "NO_OP": true
+ },
+ "LEGACY_LEAK": 0,
+ "PONTE_VIVA": true
+}

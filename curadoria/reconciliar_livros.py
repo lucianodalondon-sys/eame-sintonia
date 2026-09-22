@@ -59,6 +59,52 @@ MISSAO = "RECONCILIACAO-V1"
 REF_B = "f98f234c"      # aquisicao-detalhe-v1, arvore final
 REF_B2 = "63b71421"     # candidate-bridge-v1, ledger com os 75 bloqueios
 
+# ---------------------------------------------------------------------------
+# LIVRO C — O BOT DE FONTES QUE ESTA VIVO (source-curator-service-v1).
+#
+# Os outros tres livros sao fotografias de missoes fechadas. C nao: o
+# supervisor do Source Curator corre no SO e continua a escrever. Medido em
+# 2026-09-22: C tem 437 fontes e 1008 transicoes contra as 278/754 desta
+# arvore — 277 fontes que esta linha nunca viu.
+#
+#     UM BOT QUE ESCREVE NUM LIVRO QUE NINGUEM LE E TRABALHO PERDIDO.
+#
+# Le-se por `git show REF_C` — copia CONGELADA, nunca o ficheiro vivo: o
+# supervisor pode gravar a meio da leitura e dar-nos meio livro.
+#
+# C entra pelas MESMAS leis dos outros: bloqueio dele preserva-se pela
+# evidencia (e cede a prova posterior na historia), fonte que so ele conhece
+# importa-se com a cadeia inteira, e uma promocao dele so vence esta arvore
+# se tiver medido DEPOIS e a prova do canario existir mesmo. C NAO E DONO DO
+# LIVRO — e o quarto testemunho, nao o juiz.
+# ---------------------------------------------------------------------------
+BRANCH_C = "source-curator-service-v1"
+REF_C_MEDIDO = "216dd6db"   # o HEAD do bot quando esta ponte foi medida (2026-09-22)
+LIVROS = ("A", "B", "B2", "C")
+
+
+def ref_do_bot(branch: str = BRANCH_C) -> str:
+    """O HEAD do bot AGORA — nao um commit escrito a mao.
+
+    ⚠️ UMA PONTE PRESA A UM COMMIT FIXO ESTA MORTA NO DIA SEGUINTE. Se este
+    valor fosse a constante `REF_C_MEDIDO`, o censo de hoje ficaria verde para
+    sempre e o trabalho que o bot fizer amanha nunca atravessaria — que e
+    exactamente o defeito que esta missao veio corrigir.
+
+    Le-se a branch, nao a worktree do bot: o supervisor esta vivo e o ficheiro
+    dele pode estar a meio de uma gravacao. `REF_C_MEDIDO` fica so como
+    registo do corte desta medicao.
+    """
+    try:
+        r = subprocess.run(["git", "rev-parse", "--short", branch], cwd=str(RAIZ),
+                           capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return REF_C_MEDIDO
+    return r.stdout.strip() if r.returncode == 0 and r.stdout.strip() else REF_C_MEDIDO
+
+
+REF_C = ref_do_bot()
+
 # Ficheiros REAIS desta arvore. Redirecionaveis em testes (molde: test_ready_split.py).
 EVIDENCIA_A = RAIZ / "curadoria" / "LIFECYCLE-EVIDENCE-V1.json"
 CONTRATOS_A = RAIZ / "curadoria" / "italy_contracts_curator.json"
@@ -140,7 +186,8 @@ def historias(livro: dict | None) -> dict:
     return h
 
 
-def carregar_contexto(*, ref_b: str = REF_B, ref_b2: str = REF_B2) -> dict:
+def carregar_contexto(*, ref_b: str = REF_B, ref_b2: str = REF_B2,
+                      ref_c: str = REF_C) -> dict:
     """Tudo o que a decisao precisa, lido UMA vez. Em testes, constroi-se a mao."""
     porta = _json(PORTA, {"CANDIDATAS": []})
     cands = porta.get("CANDIDATAS") or []
@@ -162,11 +209,17 @@ def carregar_contexto(*, ref_b: str = REF_B, ref_b2: str = REF_B2) -> dict:
     passo2_b = do_git(ref_b, "curadoria/CONTRATOS-PASSO-2-V1.json") or {}
     contratos_b = do_git(ref_b, "curadoria/italy_contracts_curator.json") or {}
 
+    evid_c = do_git(ref_c, "curadoria/LIFECYCLE-EVIDENCE-V1.json") or {"PROVAS": []}
+    contratos_c = do_git(ref_c, "curadoria/italy_contracts_curator.json") or {}
+
     return {
-        "COMMITS": {"A": _head_curto(), "B": ref_b, "B2": ref_b2},
+        "COMMITS": {"A": _head_curto(), "B": ref_b, "B2": ref_b2, "C": ref_c},
         "A": LC._ler_bruto(),
         "B": do_git(ref_b, "curadoria/LIFECYCLE-LEDGER-V1.json"),
         "B2": do_git(ref_b2, "curadoria/LIFECYCLE-LEDGER-V1.json"),
+        "C": do_git(ref_c, "curadoria/LIFECYCLE-LEDGER-V1.json"),
+        "EVIDENCIA_C": {p["EVIDENCE_REF"]: p for p in evid_c.get("PROVAS", [])},
+        "CONTRATOS_C": {c["SOURCE_ID"]: c for c in contratos_c.get("FONTES", [])},
         "EVIDENCIA_A": {p["EVIDENCE_REF"]: p for p in _json(EVIDENCIA_A, {"PROVAS": []})["PROVAS"]},
         "CONTRATOS_A": {c["SOURCE_ID"]: c for c in _json(CONTRATOS_A, {"FONTES": []})["FONTES"]},
         "CONTRATOS_B": {c["SOURCE_ID"]: c for c in contratos_b.get("FONTES", [])},
@@ -238,7 +291,7 @@ def _evidencia_do_bloqueio(chave: str, linha: dict, ctx: dict) -> tuple[bool, st
 def _superado_na_historia(chave: str, linha: dict, ctx: dict) -> dict | None:
     """Outro livro tem a MESMA linha de bloqueio e continua com transicoes com
     prova? Entao o bloqueio foi superado por capacidade nova, nao por omissao."""
-    for nome in ("A", "B", "B2"):
+    for nome in LIVROS:
         hist = ctx["_HIST"][nome].get(chave) or []
         for i, t in enumerate(hist):
             if (t["NEW_STATE"] == linha["NEW_STATE"] and t.get("OBSERVED_AT") == linha.get("OBSERVED_AT")):
@@ -254,7 +307,7 @@ def _superado_na_historia(chave: str, linha: dict, ctx: dict) -> dict | None:
 def bloqueio_de(chave: str, chaves_originais: list, ctx: dict) -> dict:
     """Devolve {FINAL, LIVRO, EVIDENCIA, PORQUE} se ha bloqueio a preservar;
     e regista os rejeitados/superados em ctx['_BLOQUEIOS']."""
-    for nome in ("B2", "A", "B"):
+    for nome in ("B2", "A", "B", "C"):
         for k in chaves_originais:
             t = ctx["_ULT"][nome].get(k)
             if not t or t["NEW_STATE"] not in (LC.POLICY_BLOCK, LC.CAPABILITY_BLOCK):
@@ -394,6 +447,46 @@ def veredito_a(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
     return UNKNOWN, "A: estado fora do vocabulario: %s" % e, {}
 
 
+def veredito_c(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
+    """O que o livro do BOT prova, por si — pela MESMA regua de A.
+
+    O bot escreve o estado e a referencia da prova. A referencia tem de
+    RESOLVER no manifesto de evidencias dele: uma promocao que cita uma prova
+    que o proprio livro nao tem nao e uma promocao, e um carimbo. Medido nas
+    8 promocoes do bot de 2026-09-20: todas citam
+    `MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46a`, que nao e
+    uma linha do manifesto de canarios — zero campos, nenhum item aberto.
+
+        PROMOCAO SEM PROVA DE CANARIO NAO PROMOVE.
+    """
+    t = ctx["_ULT"]["C"].get(sid)
+    if not t:
+        return None, "C nao conhece a fonte", {}
+    e = t["NEW_STATE"]
+    if e == LC.READY_FOR_COLLECTION:
+        promo = RS.ultima_promocao(sid, ctx.get("C"))
+        ref = (promo or {}).get("EVIDENCE_REF") or ""
+        ev = ctx.get("EVIDENCIA_C", {}).get(ref)
+        if ev is None:
+            return (UNKNOWN, "C: READY citando prova que o manifesto do bot nao tem (%s) — "
+                    "promocao sem canario nao promove" % (ref[:60] or "sem EVIDENCE_REF"), {})
+        r = RS.passos_da_promocao(promo, ev, ctx.get("CONTRATOS_C", {}).get(sid))
+        if r["REGUA"] == RS.REGUA_CURRENT:
+            return READY_CURRENT, "C: " + r["PORQUE"], r
+        return READY_LEGACY, "C: " + r["PORQUE"], r
+    if e == LC.DEGRADED:
+        return DEGRADED, "C: DEGRADED", {}
+    if e == LC.RETRY_AFTER:
+        return RETRY, "C: RETRY_AFTER", {}
+    if e == LC.UNKNOWN:
+        return UNKNOWN, "C: UNKNOWN", {}
+    if e in (LC.POLICY_BLOCK, LC.CAPABILITY_BLOCK):
+        return e, "C: %s" % e, {}
+    if e in FAMILIA_NOT_READY:
+        return NOT_READY, "C: %s (%s)" % (e, (t.get("REASON") or "")[:70]), {}
+    return UNKNOWN, "C: estado fora do vocabulario: %s" % e, {}
+
+
 def _quando(ref_ou_linha) -> str:
     return (ref_ou_linha or {}).get("OBSERVED_AT") or ""
 
@@ -407,6 +500,9 @@ def decidir(chave: str, chaves_originais: list, tipo: str, ctx: dict) -> dict:
     tB2 = None
     for k in chaves_originais:
         tB2 = ctx["_ULT"]["B2"].get(k) or tB2
+    tC = None
+    for k in chaves_originais:
+        tC = ctx["_ULT"]["C"].get(k) or tC
 
     linha = {
         "SOURCE_ID": chave, "IDENTITY_KIND": tipo,
@@ -414,6 +510,7 @@ def decidir(chave: str, chaves_originais: list, tipo: str, ctx: dict) -> dict:
         "STATE_A": tA["NEW_STATE"] if tA else None,
         "STATE_B": tB["NEW_STATE"] if tB else None,
         "STATE_B2": tB2["NEW_STATE"] if tB2 else None,
+        "STATE_C": tC["NEW_STATE"] if tC else None,
     }
     cA = ctx["CONTRATOS_A"].get(chave) or {}
     cB = ctx["CONTRATOS_B"].get(chave) or {}
@@ -470,9 +567,17 @@ def decidir(chave: str, chaves_originais: list, tipo: str, ctx: dict) -> dict:
         linha["CAPABILITY_EVIDENCE"] = {"ADAPTER_ID": pb["ADAPTER_ID"],
                                         "ONDE": "%s (coleta/adaptadores_de_aquisicao.mjs); NAO nesta arvore" % ctx["COMMITS"]["B"]}
 
+    vC, pC, passosC = veredito_c(chave, ctx)
+    linha["DETAIL_PROOF_C"] = passosC.get("PASSOS") if passosC else None
+    linha["CANARY_C"] = ({"EVIDENCE_REF": tC.get("EVIDENCE_REF"),
+                          "RESOLVE_NO_MANIFESTO_DO_BOT":
+                              (tC.get("EVIDENCE_REF") or "") in ctx.get("EVIDENCIA_C", {}),
+                          "OBSERVED_AT": tC.get("OBSERVED_AT")} if tC else None)
+
     final, porque, ev_final = _combinar(chave, tA, tB, vA, pA, vB, pB, ctx)
+    final, porque, ev_final = _degrau_c(chave, tA, tC, vC, pC, final, porque, ev_final, ctx)
     linha.update(FINAL_STATE=final, FINAL_REASON=porque, LATEST_VALID_EVIDENCE=ev_final,
-                 LIFECYCLE_TARGET=_alvo_lifecycle(final, tA, tB, tB2))
+                 LIFECYCLE_TARGET=_alvo_lifecycle(final, tA, tB, tB2, tC))
     if final == READY_CURRENT:
         linha["REVISAO_HUMANA"] = _item_parece_seccao(chave, ctx)
     return linha
@@ -534,8 +639,52 @@ def _combinar(chave, tA, tB, vA, pA, vB, pB, ctx) -> tuple[str, str, dict | None
     return UNKNOWN, "combinacao nao prevista: A=%s B=%s" % (vA, vB), None
 
 
+def _degrau_c(chave, tA, tC, vC, pC, final, porque, ev, ctx) -> tuple[str, str, dict | None]:
+    """O testemunho do BOT, por cima do que A e B ja decidiram.
+
+    Quatro leis, por esta ordem:
+
+    1. FONTE QUE SO O BOT CONHECE — e ele que a traz, com a cadeia dele. Sao
+       as 277 que esta arvore nunca viu.
+    2. LEGACY NAO SE LAVA — se a fonte ja e READY nesta casa, o bot dizer
+       READY nao lhe sobe a regua. Uma fonte promovida pela regua antiga fica
+       READY_LEGACY ainda que o bot a chame READY. A reconciliacao nao e
+       maquina de lavar: `LEGACY_LEAK` tem de ser 0.
+    3. O BOT SO VENCE QUEM MEDIU ANTES DELE, E SO COM PROVA QUE RESOLVE. Se
+       esta arvore mediu depois, o bot nao desfaz a medicao; e se a prova dele
+       nao esta no manifesto dele, nao vence coisa nenhuma.
+    4. UM PEDIDO NAO E UM VEREDITO. `RECONCILIATION_REQUIRED` do bot quer
+       dizer «remede isto», nao «isto esta errado». Quando esta arvore ja
+       remediu DEPOIS, o pedido esta cumprido — nao derruba o resultado.
+
+    O bot NUNCA escreve elegibilidade. Devolve estado e prova; quem decide se
+    a fonte entra na Collection e `collection_gate`, sempre, a ler a regua.
+    """
+    if vC is None:
+        return final, porque, ev
+    evC = {"FONTE": "livro C (bot)", "QUANDO": _quando(tC),
+           "COMMIT": ctx["COMMITS"].get("C", "?"), "REF": (tC or {}).get("EVIDENCE_REF")}
+    prova_resolve = ((tC or {}).get("EVIDENCE_REF") or "") in ctx.get("EVIDENCIA_C", {})
+
+    # 1. so o bot a conhece.
+    if tA is None and porque.startswith("nenhum livro tem prova"):
+        return vC, pC, evC
+
+    # 2. LEGACY NAO SE LAVA.
+    if final in (READY_LEGACY, READY_CURRENT) and vC in (READY_LEGACY, READY_CURRENT):
+        return final, porque + " | C concorda (%s), e a regua nao sobe pelo bot" % vC, ev
+
+    # 3 e 4. o bot mediu depois? com prova a resolver?
+    if tA is not None and _quando(tC) <= _quando(tA):
+        return final, porque + " | C (%s, %s) mediu ANTES desta arvore — nao derruba" % (
+            vC, _quando(tC)[:19]), ev
+    if vC in (READY_CURRENT, READY_LEGACY) and not prova_resolve:
+        return final, porque + " | C diz READY sem prova no manifesto dele — nao promove", ev
+    return vC, pC + " | C mediu depois (%s)" % _quando(tC)[:19], evC
+
+
 def _alvo_lifecycle(final: str, tA: dict | None, tB: dict | None = None,
-                    tB2: dict | None = None) -> str:
+                    tB2: dict | None = None, tC: dict | None = None) -> str:
     if final in (READY_CURRENT, READY_LEGACY):
         return LC.READY_FOR_COLLECTION
     if final == RETRY:
@@ -545,7 +694,7 @@ def _alvo_lifecycle(final: str, tA: dict | None, tB: dict | None = None,
     # NOT_READY: manter o passo pendente que o livro que conhece a fonte ja
     # diz (A primeiro; se A nao a conhece, o livro de origem). Se o que se
     # dizia era READY, o passo pendente e remedir: CANARY_PENDING.
-    for t in (tA, tB, tB2):
+    for t in (tA, tB, tB2, tC):
         if t is None:
             continue
         if t["NEW_STATE"] in FAMILIA_NOT_READY:
@@ -558,15 +707,15 @@ def _alvo_lifecycle(final: str, tA: dict | None, tB: dict | None = None,
 # O CENSO — uma linha por SOURCE_ID, uniao dos tres livros.
 # ---------------------------------------------------------------------------
 def censo(ctx: dict) -> dict:
-    ctx["_ULT"] = {n: ultimos(ctx.get(n)) for n in ("A", "B", "B2")}
-    ctx["_HIST"] = {n: historias(ctx.get(n)) for n in ("A", "B", "B2")}
+    ctx["_ULT"] = {n: ultimos(ctx.get(n)) for n in LIVROS}
+    ctx["_HIST"] = {n: historias(ctx.get(n)) for n in LIVROS}
     ctx["_BLOQUEIOS"] = {"REJEITADOS": [], "SUPERADOS": []}
 
-    A, B, B2 = (set(ctx["_ULT"][n]) for n in ("A", "B", "B2"))
+    A, B, B2, C = (set(ctx["_ULT"][n]) for n in LIVROS)
     grupos: dict = defaultdict(list)
     tipos: dict = {}
     duplicados = []
-    for k in sorted(A | B | B2):
+    for k in sorted(A | B | B2 | C):
         can, tipo = identidade(k, ctx)
         grupos[can].append(k)
         if tipo == "ALIAS_DE_CANDIDATA":
@@ -586,7 +735,7 @@ def censo(ctx: dict) -> dict:
     # contradiz. READY de um livro que fica READY_LEGACY/READY_CURRENT nao foi
     # descartado: e a mesma prontidao, com a regua lida.
     stale = []
-    for nome, campo in (("A", "STATE_A"), ("B", "STATE_B"), ("B2", "STATE_B2")):
+    for nome, campo in (("A", "STATE_A"), ("B", "STATE_B"), ("B2", "STATE_B2"), ("C", "STATE_C")):
         for l in linhas:
             e = l[campo]
             if e and not _bate(e, l["FINAL_STATE"]):
@@ -609,9 +758,16 @@ def censo(ctx: dict) -> dict:
             "B2": {"COMMIT": ctx["COMMITS"]["B2"], "FILE": "curadoria/LIFECYCLE-LEDGER-V1.json",
                    "SOURCES": len(B2), "TRANSICOES": len((ctx.get("B2") or {}).get("TRANSICOES", [])),
                    "POR_ESTADO": dict(Counter(t["NEW_STATE"] for t in ctx["_ULT"]["B2"].values()))},
+            "C": {"COMMIT": ctx["COMMITS"].get("C"), "FILE": "curadoria/LIFECYCLE-LEDGER-V1.json",
+                  "SOURCES": len(C), "TRANSICOES": len((ctx.get("C") or {}).get("TRANSICOES", [])),
+                  "POR_ESTADO": dict(Counter(t["NEW_STATE"] for t in ctx["_ULT"]["C"].values()))},
         },
+        "BOT_SNAPSHOT": _corte_do_bot(ctx),
+        "TELEMETRIA_DA_PONTE": _telemetria(linhas, ctx),
         "CONJUNTOS": {"UNIAO_A_B": len(A | B), "COMUNS_A_B": len(A & B), "SO_A": len(A - B), "SO_B": len(B - A),
                       "SO_B2": len(B2 - (A | B)), "UNIAO_A_B_B2": len(A | B | B2),
+                      "SO_C": len(C - (A | B | B2)), "SO_C_VS_A": len(C - A), "COMUNS_A_C": len(A & C),
+                      "SO_A_VS_C": len(A - C), "UNIAO_TODOS": len(A | B | B2 | C),
                       "IDENTIDADES_FINAIS": len(linhas)},
         "POR_ESTADO_FINAL": {e: conta.get(e, 0) for e in ESTADOS_FINAIS},
         "BLOQUEIOS": {
@@ -638,6 +794,84 @@ def censo(ctx: dict) -> dict:
                 and LC.READY_FOR_COLLECTION in (l["STATE_A"], l["STATE_B"], l["STATE_B2"])],
         },
         "LINHAS": linhas,
+    }
+
+
+def _corte_do_bot(ctx: dict) -> dict:
+    """O CORTE LOGICO. O bot nao se para para o ler — fecha-se um corte e
+    reconcilia-se SO o que esta deste lado dele.
+
+    O que o supervisor escrever DEPOIS do corte nao entra retroativamente:
+    atravessa a ponte futura, na proxima volta. Sem isto, «reconciliado» seria
+    uma palavra sobre um alvo em movimento.
+
+    TRANSITION_MAX_ID e a posicao da ultima transicao do livro congelado (o
+    livro e append-only, logo a posicao e um marco estavel).
+    """
+    livro_c = ctx.get("C") or {}
+    ts = livro_c.get("TRANSICOES", [])
+    return {
+        "BOT_SNAPSHOT_HEAD": ctx["COMMITS"].get("C"),
+        "BOT_SNAPSHOT_TIME": max((t.get("OBSERVED_AT") or "") for t in ts) if ts else None,
+        "BOT_SNAPSHOT_TRANSITION_MAX_ID": len(ts),
+        "BOT_SNAPSHOT_SOURCES": len(ctx["_ULT"]["C"]),
+        "LEITURA": ("git show — copia congelada. O ficheiro vivo do bot NAO e lido: "
+                    "o supervisor esta a correr e pode gravar a meio da leitura."),
+        "POSTERIOR_AO_CORTE": "atravessa a ponte futura; nao entra retroativo nesta reconciliacao",
+    }
+
+
+def _telemetria(linhas: list, ctx: dict) -> dict:
+    """O funil, com as recusas DISCRIMINADAS POR MOTIVO.
+
+        BOT_READY -> CANONICAL_RECONCILED -> (o gate decide)
+
+    Quem esconde as recusas transforma um funil num numero bonito. Cada fonte
+    que o bot diz READY e que nao chega ao fim aparece aqui com o motivo.
+
+    ⚠️ Esta funcao NAO diz COLLECTION_ELIGIBLE. Nao e ela que decide, e nao ha
+    aqui uma segunda copia da regua: quem responde a essa pergunta e
+    `collection_gate.avaliar`, e so ele. O bot alimenta conhecimento; a
+    elegibilidade continua a ser uma consequencia lida pelo portao.
+    """
+    bot_ready = [l for l in linhas if l["STATE_C"] == LC.READY_FOR_COLLECTION]
+    recusas: Counter = Counter()
+    detalhe = []
+    for l in bot_ready:
+        if l["FINAL_STATE"] in (READY_CURRENT, READY_LEGACY):
+            continue
+        porque = l["FINAL_REASON"]
+        # A razao MAIS FORTE primeiro: uma promocao cuja prova nao existe no
+        # manifesto do bot nao e uma promocao, independentemente de quando foi
+        # feita. Dizer so «mediu antes» esconderia o defeito verdadeiro.
+        if (l.get("CANARY_C") or {}).get("RESOLVE_NO_MANIFESTO_DO_BOT") is False:
+            motivo = "PROMOCAO_SEM_PROVA_DE_CANARIO"
+        elif "mediu ANTES" in porque:
+            motivo = "BOT_MEDIU_ANTES_DESTA_ARVORE"
+        elif l["FINAL_STATE"] in (POLICY_BLOCK, CAPABILITY_BLOCK):
+            motivo = "BLOQUEIO_PRESERVADO_" + l["FINAL_STATE"]
+        else:
+            motivo = "REGUA_NAO_SATISFEITA_" + l["FINAL_STATE"]
+        recusas[motivo] += 1
+        detalhe.append({"SOURCE_ID": l["SOURCE_ID"], "MOTIVO": motivo,
+                        "FINAL": l["FINAL_STATE"], "PORQUE": porque[:200]})
+    reconciliadas = [l for l in linhas if l["STATE_C"] and l["FINAL_STATE"]]
+    legacy_lavadas = [l["SOURCE_ID"] for l in linhas
+                      if l["STATE_C"] == LC.READY_FOR_COLLECTION
+                      and l["STATE_A"] == LC.READY_FOR_COLLECTION
+                      and l["FINAL_STATE"] == READY_CURRENT
+                      and (l.get("DETAIL_PROOF_A") or {}).get("BODY_UTIL") is not True]
+    return {
+        "BOT_READY": len(bot_ready),
+        "CANONICAL_RECONCILED": len(reconciliadas),
+        "BOT_READY_ACEITES": len(bot_ready) - sum(recusas.values()),
+        "BOT_READY_RECUSADAS": sum(recusas.values()),
+        "RECUSAS_POR_MOTIVO": dict(recusas),
+        "RECUSAS": detalhe,
+        "LEGACY_LEAK": len(legacy_lavadas),
+        "LEGACY_LEAK_IDS": legacy_lavadas,
+        "NOTA": ("COLLECTION_ELIGIBLE nao se calcula aqui — pergunta-se a "
+                 "collection_gate.avaliar, que e o unico dono da regra."),
     }
 
 
@@ -703,12 +937,10 @@ def plano(doc: dict, ctx: dict) -> list[dict]:
 
 
 def _livro_de_origem(l: dict, ctx: dict) -> tuple[str | None, str | None]:
-    for k in l["CHAVES_NOS_LIVROS"]:
-        if k in ctx["_HIST"]["B"]:
-            return "B", k
-    for k in l["CHAVES_NOS_LIVROS"]:
-        if k in ctx["_HIST"]["B2"]:
-            return "B2", k
+    for nome in ("B", "B2", "C"):
+        for k in l["CHAVES_NOS_LIVROS"]:
+            if k in ctx["_HIST"][nome]:
+                return nome, k
     return None, None
 
 
@@ -744,6 +976,54 @@ def verificar_plano(plano_: list, ctx: dict) -> list[str]:
     return faltas
 
 
+def importar_provas_do_bot(plano_: list, ctx: dict) -> dict:
+    """Traz para o manifesto local as PROVAS do bot que sustentam o que foi
+    importado. Sem isto, a ponte fica entupida no ultimo metro.
+
+    ⚠️ O ESTADO SEM A PROVA NAO ATRAVESSA. `collection_gate` nao le o livro do
+    bot: le o manifesto DESTA arvore. Uma fonte importada como READY cuja
+    prova ficou no bot e lida como «READY sem nenhuma linha de promocao» —
+    `NUNCA_PROMOVIDA` — e nunca sera elegivel, por muito correcto que o estado
+    esteja. Copiar a prova e o que liga o cano ate ao fim.
+
+    NAO SOBREPOE. Um `EVIDENCE_REF` que ja exista aqui com conteudo DIFERENTE
+    e uma colisao de identidade entre duas arvores: nao se resolve escolhendo
+    uma: fica de fora e fica dita. Medido em 2026-09-22: 35 referencias
+    comuns, todas iguais byte a byte, 0 colisoes.
+    """
+    refs = {p["EVIDENCE_REF"] for p in plano_ if p.get("EVIDENCE_REF")}
+    # as provas citadas pelas cadeias importadas de C, e so essas
+    quero = {r for r in refs if r in ctx.get("EVIDENCIA_C", {})}
+    caminho = EVIDENCIA_A
+    doc = _json(caminho, {"DATASET": "LIFECYCLE-EVIDENCE-V1", "PROVAS": []})
+    locais = {p["EVIDENCE_REF"]: p for p in doc["PROVAS"]}
+    novas, colisoes, ja_ca = [], [], 0
+    for r in sorted(quero):
+        prova = dict(ctx["EVIDENCIA_C"][r])
+        if r in locais:
+            igual = (json.dumps(locais[r], sort_keys=True, ensure_ascii=False)
+                     == json.dumps(prova, sort_keys=True, ensure_ascii=False))
+            if igual:
+                ja_ca += 1
+            else:
+                colisoes.append({"EVIDENCE_REF": r,
+                                 "SOURCE_ID_AQUI": locais[r].get("SOURCE_ID"),
+                                 "SOURCE_ID_NO_BOT": prova.get("SOURCE_ID"),
+                                 "RESOLUCAO": "NAO IMPORTADA — mesma referencia, conteudo diferente"})
+            continue
+        prova["IMPORTADO_DE"] = {"LIVRO": "C", "COMMIT": ctx["COMMITS"].get("C"),
+                                 "BRANCH": BRANCH_C, "MISSAO": MISSAO}
+        novas.append(prova)
+    if novas:
+        doc["PROVAS"] = doc["PROVAS"] + novas
+        caminho.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n",
+                           encoding="utf-8")
+    return {"PROVAS_CITADAS_DE_C": len(quero), "PROVAS_IMPORTADAS": len(novas),
+            "PROVAS_JA_PRESENTES_IDENTICAS": ja_ca,
+            "COLISOES_NAO_IMPORTADAS": colisoes,
+            "PROVAS_NO_MANIFESTO_DEPOIS": len(doc["PROVAS"])}
+
+
 def aplicar(doc: dict, ctx: dict) -> dict:
     """Grava o plano no livro A por `lifecycle.registar`. Devolve o resumo.
     Fontes cuja cadeia e ilegal ficam de fora, nomeadas."""
@@ -759,9 +1039,11 @@ def aplicar(doc: dict, ctx: dict) -> dict:
                     evidence_ref=t["EVIDENCE_REF"], next_attempt_at=t.get("NEXT"), extra=t["EXTRA"])
         gravadas += 1
     depois = len(LC._ler_bruto()["TRANSICOES"])
+    provas = importar_provas_do_bot([t for t in p if t["SOURCE_ID"] not in ilegais], ctx)
     return {"APLICADO_EM": agora(), "LINHAS_ANTES": antes, "LINHAS_DEPOIS": depois,
             "APENDIDAS": gravadas, "PLANEADAS": len(p),
-            "CADEIAS_ILEGAIS_NAO_IMPORTADAS": sorted(ilegais), "FALTAS": faltas}
+            "CADEIAS_ILEGAIS_NAO_IMPORTADAS": sorted(ilegais), "FALTAS": faltas,
+            "EVIDENCIA": provas}
 
 
 def main(argv: list | None = None) -> int:

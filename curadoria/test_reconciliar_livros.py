@@ -73,9 +73,10 @@ def candidata(cid, tipo, host):
 
 
 def ctx(**kw):
-    base = {"COMMITS": {"A": "aaaaaaaa", "B": "bbbbbbbb", "B2": "cccccccc"},
-            "A": livro(), "B": livro(), "B2": livro(),
+    base = {"COMMITS": {"A": "aaaaaaaa", "B": "bbbbbbbb", "B2": "cccccccc", "C": "dddddddd"},
+            "A": livro(), "B": livro(), "B2": livro(), "C": livro(),
             "EVIDENCIA_A": {}, "CONTRATOS_A": {}, "CONTRATOS_B": {}, "LISTAGENS_A": {},
+            "EVIDENCIA_C": {}, "CONTRATOS_C": {},
             "ESTADO_B": {}, "CLASSIF_B": {}, "PROVA_B": {}, "PASSO2_TOCADAS": {}, "PASSO2_INTOCADAS": {},
             "PORTA": {}, "ALIAS": {}}
     base.update(kw)
@@ -363,9 +364,206 @@ class OLivroEvoluiPorAcrescimo(unittest.TestCase):
         self.assertEqual(LC.snapshot(), {})
 
 
+class OLivroDoBotAtravessa(unittest.TestCase):
+    """O LIVRO C — o bot vivo. Cada lei da ponte com o ataque que a tenta partir.
+
+    RT-C1  fonte que so o bot conhece desaparece na reconciliacao  -> entra, com cadeia
+    RT-C2  o bot lava uma READY_LEGACY para READY_CURRENT          -> LEGACY_LEAK = 0
+    RT-C3  o bot promove citando prova que nao existe              -> nao promove
+    RT-C4  o bot, medindo antes, derruba medicao desta arvore      -> nao derruba
+    RT-C5  o bot mede DEPOIS, com prova a resolver                 -> vence (a ponte e viva)
+    RT-C6  fonte so da Collection desaparece por o bot nao a ter   -> fica
+    RT-C7  bloqueio do bot some por omissao                        -> preserva-se
+    RT-C8  bloqueio do bot sobrevive a prova posterior             -> cede
+    RT-C9  o bot escreve elegibilidade                             -> so o gate decide
+    """
+
+    def _c(self, **kw):
+        return ctx(**kw)
+
+    def test_rt_c1_fonte_so_do_bot_entra_com_a_cadeia(self):
+        sid = "IT-T4-077"
+        c = self._c(C=livro(linha(sid, None, LC.CANARY_PENDING, T1),
+                            linha(sid, LC.CANARY_PENDING, LC.CONTRACTED_CANARY_FAILED, T2, "EV-C1")))
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["STATE_C"], LC.CONTRACTED_CANARY_FAILED)
+        self.assertEqual(l["FINAL_STATE"], R.NOT_READY)
+        # e o plano importa a cadeia INTEIRA do bot, nao so o estado final
+        origem, chave = R._livro_de_origem(l, dict(c, _HIST={n: R.historias(c.get(n)) for n in R.LIVROS}))
+        self.assertEqual((origem, chave), ("C", sid))
+
+    def test_rt_c2_o_bot_nao_lava_legacy_para_current(self):
+        sid = "IT-T4-078"
+        # A promoveu pela regua ANTIGA: item aberto e a propria capa.
+        ref = "EV-A-LEGACY"
+        c = self._c(A=livro(linha(sid, None, LC.CANARY_PENDING, T1),
+                            linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T2, ref)),
+                    EVIDENCIA_A={ref: prova_canario(ref, sid, item="https://ex.it/news/",
+                                                    kind="MIXED", capa="NAO_SEI", par=10)},
+                    CONTRATOS_A={sid: contrato(sid)},
+                    # o bot diz READY com prova perfeita, e DEPOIS
+                    C=livro(linha(sid, None, LC.CANARY_PENDING, T2),
+                            linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3, "EV-C2")),
+                    EVIDENCIA_C={"EV-C2": prova_canario("EV-C2", sid)},
+                    CONTRATOS_C={sid: contrato(sid)})
+        d = R.censo(c)
+        l = por_id(d)[sid]
+        self.assertEqual(l["FINAL_STATE"], R.READY_LEGACY)   # NAO subiu a CURRENT
+        self.assertEqual(d["TELEMETRIA_DA_PONTE"]["LEGACY_LEAK"], 0)
+
+    def test_rt_c3_promocao_do_bot_sem_prova_no_manifesto_nao_promove(self):
+        sid = "IT-T4-079"
+        c = self._c(A=livro(linha(sid, None, LC.CANARY_PENDING, T2)),
+                    # prova citada que o manifesto do bot NAO tem, e medida depois
+                    C=livro(linha(sid, None, LC.CANARY_PENDING, T2),
+                            linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3,
+                                  "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46a")),
+                    EVIDENCIA_C={})
+        d = R.censo(c)
+        l = por_id(d)[sid]
+        self.assertNotIn(l["FINAL_STATE"], (R.READY_CURRENT, R.READY_LEGACY))
+        self.assertIs(l["CANARY_C"]["RESOLVE_NO_MANIFESTO_DO_BOT"], False)
+        t = d["TELEMETRIA_DA_PONTE"]
+        self.assertEqual(t["RECUSAS_POR_MOTIVO"]["PROMOCAO_SEM_PROVA_DE_CANARIO"], 1)
+        self.assertEqual(t["BOT_READY_ACEITES"], 0)
+
+    def test_rt_c4_bot_que_mediu_antes_nao_derruba_esta_arvore(self):
+        sid = "IT-T4-080"
+        ref = "EV-A4"
+        c = self._c(A=livro(linha(sid, None, LC.CANARY_PENDING, T2),
+                            linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3, ref)),
+                    EVIDENCIA_A={ref: prova_canario(ref, sid)}, CONTRATOS_A={sid: contrato(sid)},
+                    C=livro(linha(sid, None, LC.RECONCILIATION_REQUIRED, T1, "INTEGRACAO:x")))
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["FINAL_STATE"], R.READY_CURRENT)
+        self.assertIn("mediu ANTES", l["FINAL_REASON"])
+
+    def test_rt_c5_bot_que_mede_depois_com_prova_vence_a_ponte_e_viva(self):
+        """Se NADA do bot pudesse vencer, a ponte estaria morta — seria um
+        filtro, nao um cano. Aqui A esta pendente e o bot prova DEPOIS."""
+        sid = "IT-T4-081"
+        c = self._c(A=livro(linha(sid, None, LC.CANARY_PENDING, T1)),
+                    C=livro(linha(sid, None, LC.CANARY_PENDING, T2),
+                            linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3, "EV-C5")),
+                    EVIDENCIA_C={"EV-C5": prova_canario("EV-C5", sid)},
+                    CONTRATOS_C={sid: contrato(sid)})
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["FINAL_STATE"], R.READY_CURRENT)
+        self.assertEqual(l["LIFECYCLE_TARGET"], LC.READY_FOR_COLLECTION)
+        self.assertEqual(l["LATEST_VALID_EVIDENCE"]["FONTE"], "livro C (bot)")
+
+    def test_rt_c6_fonte_so_da_collection_nao_desaparece(self):
+        so_a, so_c = "IT-T4-082", "IT-T4-083"
+        c = self._c(A=livro(linha(so_a, None, LC.CANARY_PENDING, T2)),
+                    C=livro(linha(so_c, None, LC.CANARY_PENDING, T2)))
+        d = R.censo(c)
+        self.assertEqual(sorted(por_id(d)), [so_a, so_c])
+        self.assertEqual(d["CONJUNTOS"]["IDENTIDADES_FINAIS"], 2)
+
+    def test_rt_c7_bloqueio_do_bot_nao_some_por_omissao(self):
+        sid = "IT-T4-084"
+        c = self._c(A=livro(linha(sid, None, LC.CANARY_PENDING, T1)),
+                    C=livro(linha(sid, None, LC.CAPABILITY_BLOCK, T2, "CARACT:x")))
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["FINAL_STATE"], R.CAPABILITY_BLOCK)
+        self.assertEqual(l["CAPABILITY_EVIDENCE"]["LIVRO"], "C")
+
+    def test_rt_c8_bloqueio_do_bot_cede_a_prova_posterior_desta_arvore(self):
+        """O caso real dos 4: o bot marcou CAPABILITY_BLOCK as 22:54 de 20/09;
+        esta arvore escreveu o contrato e passou o canario a 21/09. Capacidade
+        nova PROVADA supera o bloqueio — isso nao e revogacao por omissao."""
+        sid = "IT-T4-085"
+        ref = "EV-A8"
+        c = self._c(A=livro(linha(sid, None, LC.CAPABILITY_BLOCK, T1, "CARACT:x"),
+                            linha(sid, LC.CAPABILITY_BLOCK, LC.CANARY_PENDING, T2, "contrato escrito"),
+                            linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3, ref)),
+                    EVIDENCIA_A={ref: prova_canario(ref, sid)}, CONTRATOS_A={sid: contrato(sid)},
+                    C=livro(linha(sid, None, LC.CAPABILITY_BLOCK, T1, "CARACT:x")))
+        d = R.censo(c)
+        l = por_id(d)[sid]
+        self.assertEqual(l["FINAL_STATE"], R.READY_CURRENT)
+        self.assertTrue(d["BLOQUEIOS"]["BLOCKS_SUPERSEDED_BY_LATER_EVIDENCE"])
+
+    def test_rt_c9_o_bot_nao_escreve_elegibilidade(self):
+        """SOURCE_CURATOR_READY != COLLECTION_ELIGIBLE. A palavra nao existe no
+        vocabulario da reconciliacao, e nao ha aqui uma segunda copia da regua:
+        quem decide e collection_gate."""
+        import ast
+        arvore = ast.parse((AQUI / "reconciliar_livros.py").read_text(encoding="utf-8"))
+        escritas = []
+        for no in ast.walk(arvore):
+            alvos = []
+            if isinstance(no, ast.Assign):
+                alvos = no.targets
+            elif isinstance(no, (ast.AnnAssign, ast.AugAssign)):
+                alvos = [no.target]
+            for a in alvos:
+                if isinstance(a, ast.Name) and a.id == "COLLECTION_ELIGIBLE":
+                    escritas.append(a.id)
+                if (isinstance(a, ast.Subscript) and isinstance(a.slice, ast.Constant)
+                        and a.slice.value == "COLLECTION_ELIGIBLE"):
+                    escritas.append("dict[COLLECTION_ELIGIBLE]")
+            # tambem em dicionarios literais: {"COLLECTION_ELIGIBLE": ...}
+            if isinstance(no, ast.Dict):
+                for ch in no.keys:
+                    if isinstance(ch, ast.Constant) and ch.value == "COLLECTION_ELIGIBLE":
+                        escritas.append("literal COLLECTION_ELIGIBLE")
+        self.assertEqual(escritas, [],
+                         "a reconciliacao escreve elegibilidade; so collection_gate pode: %s" % escritas)
+        # e o veredito do bot nunca devolve um estado fora do vocabulario fechado
+        for v in ("READY_CURRENT", "READY_LEGACY", "NOT_READY", "UNKNOWN"):
+            self.assertIn(getattr(R, v), R.ESTADOS_FINAIS)
+
+    def test_rt_c10_url_igual_com_source_id_diferente_nao_funde(self):
+        """Duas SOURCE_ID diferentes NAO se fundem por terem a mesma morada. A
+        identidade vem do registo (Atlas/alocacao), nunca de uma heuristica de
+        URL — fundir por parecenca inventa uma fonte que ninguem registou."""
+        a, b = "IT-T4-086", "IT-T4-087"
+        c = self._c(C=livro(linha(a, None, LC.CANARY_PENDING, T2),
+                            linha(b, None, LC.CANARY_PENDING, T2)),
+                    PORTA={}, ALIAS={})
+        d = R.censo(c)
+        self.assertEqual(sorted(por_id(d)), [a, b])
+        self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
+
+    def test_rt_c12_a_ponte_nao_escreve_em_regras_nem_em_contratos(self):
+        """RECOLLECTION_UNKNOWN_LEAK = 0, por construcao e medido.
+
+        A recollection e um SEGUNDO portao, depois deste: quem nao declara
+        `DETAIL_CONTENT` fica `BLOCKED_FOR_BIG_COLLECTION` mesmo estando
+        elegivel pela curadoria. Uma fonte NAO pode ganhar essa passagem por o
+        bot a ter aprovado — e a unica forma de a ganhar seria esta ponte
+        escrever num contrato. Entao ela nao escreve em contrato nenhum: os
+        unicos caminhos que grava sao o livro e o manifesto de prova.
+        """
+        import ast
+        texto = (AQUI / "reconciliar_livros.py").read_text(encoding="utf-8")
+        arvore = ast.parse(texto)
+        escritas = []
+        for no in ast.walk(arvore):
+            if (isinstance(no, ast.Call) and isinstance(no.func, ast.Attribute)
+                    and no.func.attr == "write_text"):
+                alvo = no.func.value
+                escritas.append(alvo.id if isinstance(alvo, ast.Name) else ast.dump(alvo)[:40])
+        self.assertTrue(escritas, "nenhuma escrita encontrada — o teste deixou de medir")
+        self.assertEqual(sorted(set(escritas)), ["SAIDA", "caminho"],
+                         "a reconciliacao passou a escrever noutro sitio: %s" % set(escritas))
+        # e nenhuma mencao a RECOLLECTION / contratos de coleta neste modulo
+        self.assertNotIn("RECOLLECTION", texto)
+        self.assertNotIn("italy_contracts.mjs", texto)
+
+    def test_rt_c11_o_corte_logico_fica_escrito(self):
+        c = self._c(C=livro(linha("IT-T4-088", None, LC.CANARY_PENDING, T1),
+                            linha("IT-T4-088", LC.CANARY_PENDING, LC.RETRY_AFTER, T2)))
+        s = R.censo(c)["BOT_SNAPSHOT"]
+        self.assertEqual(s["BOT_SNAPSHOT_HEAD"], "dddddddd")
+        self.assertEqual(s["BOT_SNAPSHOT_TRANSITION_MAX_ID"], 2)
+        self.assertEqual(s["BOT_SNAPSHOT_TIME"], T2)
+
+
 class OsLivrosReais(unittest.TestCase):
-    """Le os tres livros reais (A do disco, B e B2 por git show) e NAO escreve.
-    Invariantes que valem antes e depois de aplicar a reconciliacao."""
+    """Le os QUATRO livros reais (A do disco; B, B2 e C por git show) e NAO
+    escreve. Invariantes que valem antes e depois de aplicar a reconciliacao."""
 
     def test_zy_censo_dos_livros_reais(self):
         # O livro A e o REAL, dito por extenso: outro modulo da suite pode ter
@@ -377,16 +575,29 @@ class OsLivrosReais(unittest.TestCase):
             c = R.carregar_contexto()
         finally:
             LC.LIVRO = antes
-        if not c["B"] or not c["B2"]:
-            self.skipTest("git show nao alcanca %s/%s nesta arvore" % (R.REF_B, R.REF_B2))
+        if not c["B"] or not c["B2"] or not c["C"]:
+            self.skipTest("git show nao alcanca %s/%s/%s nesta arvore"
+                          % (R.REF_B, R.REF_B2, R.REF_C))
         d = R.censo(c)
-        self.assertEqual(d["CONJUNTOS"]["IDENTIDADES_FINAIS"], 278)
+        # 278 desta arvore + as 277 que so o bot conhece = 555 identidades.
+        # 278 desta arvore + as 277 que so o bot conhecia. ⚠️ `SO_C_VS_A` NAO se
+        # afirma aqui: era 277 antes de aplicar e e 0 depois — e essa e a
+        # prova de que a ponte funcionou, nao um invariante. O que nao pode
+        # mudar e a UNIAO: ninguem desaparece nos dois sentidos.
+        self.assertEqual(d["CONJUNTOS"]["IDENTIDADES_FINAIS"], 555)
+        self.assertEqual(d["CONJUNTOS"]["UNIAO_TODOS"], 555)
+        self.assertEqual(d["CONJUNTOS"]["COMUNS_A_C"] + d["CONJUNTOS"]["SO_C_VS_A"], 437)
         self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
-        self.assertEqual(d["BLOQUEIOS"]["BLOCKS_REJECTED_AS_STALE"], [])
         self.assertEqual(d["POR_ESTADO_FINAL"][R.POLICY_BLOCK], 69)
-        self.assertEqual(d["POR_ESTADO_FINAL"][R.CAPABILITY_BLOCK], 17)
         self.assertEqual(d["POR_ESTADO_FINAL"][R.READY_CURRENT], 10)
-        self.assertEqual(sum(d["POR_ESTADO_FINAL"].values()), 278)
+        self.assertEqual(sum(d["POR_ESTADO_FINAL"].values()), 555)
+        # ⚠️ O BOT NAO ACRESCENTOU UM SO READY_CURRENT. Se este numero subir sem
+        # uma prova de canario nova, alguem lavou a regua.
+        t = d["TELEMETRIA_DA_PONTE"]
+        self.assertEqual(t["LEGACY_LEAK"], 0)
+        self.assertEqual(t["RECUSAS_POR_MOTIVO"].get("PROMOCAO_SEM_PROVA_DE_CANARIO"), 8)
+        self.assertEqual(d["BOT_SNAPSHOT"]["BOT_SNAPSHOT_HEAD"], R.REF_C)
+        self.assertEqual(d["BOT_SNAPSHOT"]["BOT_SNAPSHOT_TRANSITION_MAX_ID"], 1008)
 
 
 if __name__ == "__main__":
