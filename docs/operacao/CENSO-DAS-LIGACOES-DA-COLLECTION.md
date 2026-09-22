@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  1593633f0e34dd0371fc766421b909f77cca8736
+HEAD_DA_MEDICAO  3f6888cd2db81d9dae50a4d0ef4a6e93bbf6aac7
 BRANCH           cutover-prod-v1
-GERADO_EM        2026-09-21T20:55:06-03:00
+GERADO_EM        2026-09-21T23:12:15-03:00
 CARDS            79
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -363,13 +363,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 16 |
-| **arestas provadas** | entram 6 · saem 15 |
+| **arestas no mapa** | entram 7 · saem 17 |
+| **arestas provadas** | entram 6 · saem 16 |
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 20 · NÃO SEI 2 · OBSERVED 1 |
+| **prova das ligações** | CODE 21 · NÃO SEI 2 · OBSERVED 1 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -586,9 +586,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/ITALY-SOURCE-MASTER-V1.md`, `candidatas/italy_fill_manifests.mjs`, `candidatas/italy_fill_manifests_browser.mjs`, `candidatas/italy_fix_semantics.mjs` _(e mais 3)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
-| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
+| **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/decidir_fila_italia.py:383; coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:35 |
+| **prova de quem ativa** | candidatas/decidir_fila_italia.py:383; coleta/italy_probe.mjs:23; coleta/italy_recurrent_collect.mjs:39 |
 | **porquê** | estas pecas importam-na — C-DECISAO-DA-FILA · C-FONTE-DO-ATLAS · C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `regras/italy_contracts.mjs`, `regras/italy_source_health.mjs` |
@@ -767,7 +767,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `ferramentas/html_text.mjs`, `ferramentas/italy-forward-only-live.cmd`, `ferramentas/italy_extract_fields.mjs`, `ferramentas/ods_peek.mjs`, `ferramentas/pdf_peek.mjs` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | green — outras pecas importam ou carregam isto. |
+| **status operacional** | yellow — outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
 | **prova de quem ativa** | regras/italy_source_health.mjs:38; system-map/scripts/censo_das_derivacoes.py:121 |
 | **porquê** | estas pecas importam-na — C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |

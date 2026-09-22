@@ -4161,6 +4161,28 @@
     "audit",
     "diagnostic"
    ]
+  },
+  {
+   "id": "C-PROVA-CUTOVER",
+   "name": "As provas do cutover da Collection",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "what": "Duas provas de ZERO REDE que guardam o cutover de 2026-09-22. A primeira cruza, por SOURCE_ID e nunca por contagem, os recusados do portao de admissao com os que a coleta agendada ia buscar, e devolve os quatro vazamentos com nome proprio (READY_LEGACY, HUMAN_REVIEW, POLICY_BLOCK, CAPABILITY_BLOCK). A segunda le o armazem e responde se um CHANGED_IN_PLACE foi noticia nova ou o rasto da nossa propria visita, comparando o TEXTO VISIVEL de duas versoes depois de tirar toda a marcacao.",
+   "why_here": "O cutover tirou a lista fixa de fontes do perfil agendado e pos a populacao a sair do portao. Isso abre duas maneiras novas de mentir em silencio, e cada uma tem aqui a sua prova. Uma: uma fonte que o portao recusou entrar na coleta por outro caminho — e uma contagem igual nao prova que sao os mesmos IDs, so o cruzamento por ID prova. Outra: o canario correu duas vezes e escreveu 71 versoes novas com zero palavras mudadas, porque os sitios carimbam a hora de quem os visita e rodam banners; quem compara bytes conta a propria pegada como noticia. As duas provas foram elas mesmas corrigidas por medicao — a dos vazamentos deixou de ler o valor esperado do mesmo JSON que fiscalizava, e a da pegada deixou de dar `0 de 0` quando nao havia nada para comparar, porque zero comparado nao e zero mudado.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_cutover_nao_vaza.py",
+    "provas/O-CUTOVER-NAO-VAZA-V1.json",
+    "provas/a_mudanca_e_nossa_pegada.py",
+    "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json"
+   ],
+   "views": [
+    "audit",
+    "diagnostic"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
