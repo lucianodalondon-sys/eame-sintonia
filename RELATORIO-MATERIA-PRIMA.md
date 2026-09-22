@@ -815,3 +815,72 @@ Repetir a sequência nestas não produz mais nada: a prova já é a mais recente
 ```
 
 **Nenhuma delas é minha para tomar.** Paro aqui e reporto, como a missão manda.
+
+---
+
+## LOTE 12 — FASE 4: A COLHEITA. **76 documentos reais no armazém.**
+
+Corrido o entrypoint canónico, sem atalho nenhum:
+
+```
+node coleta/italy_recurrent_collect.mjs --profile forward-only-live --no-git
+```
+
+Ordem obrigatória cumprida inteira: `lock · runtime · timezone · VPN Itália ·
+storage · contratos · PORTÃO DE ADMISSÃO · RUN_ID · RAW primeiro · bytes · sha ·
+RAW imutável · ledger · normalizar`. **Zero bypass.**
+
+```
+RUN_ID      OPS_forward-only-live_20260922185447_a9d037
+VPN         IT · EGRESS_IP 205.147.30.2
+DURACAO     18:54:49Z -> 18:58:26Z
+```
+
+### O portão decidiu, não eu
+
+```
+COLLECTION_ELIGIBLE        17
+  ELIGIBLE_WITH_CONTRACT    9   ← colhidas
+  ELIGIBLE_WITHOUT_CONTRACT 8   ← rota que falta DO NOSSO LADO, e fica dita
+COLLECTION_REFUSED_TOTAL   85
+```
+
+⚠️ As 8 sem contrato exigiriam escrever **contrato novo** em
+`regras/italy_contracts.mjs` — e isso a missão proíbe por escrito. **Não as
+escrevi.** `ELIGIBLE_WITHOUT_CONTRACT` não é falha da fonte nem não do portão: é
+trabalho que falta, com nome próprio.
+
+### O QUE ENTROU
+
+```
+ITENS_COLHIDOS   76        (observacoes 445 -> 521)
+BYTES            7.563.718  mediana 95.880 por documento
+MIME             text/html, 76 de 76
+COM RAW_SHA256   76 de 76   (RAW preservado antes de interpretar)
+
+IT-T7-017  30    IT-T7-033  15    IT-T10-022 10    IT-T7-042 10
+IT-T10-018  9    IT-T10-021  1    IT-T7-021   1
+```
+
+**`IT-T10-021` e `IT-T7-021` só ficaram elegíveis por causa desta missão** — as
+outras cinco já passavam antes.
+
+## SALDO FINAL
+
+```
+DISCOVERY_HOOK_ERRO        2298 -> 0
+FILA                       0 -> 59 -> 15 -> 35 -> 14 -> 7 -> 0
+COLLECTION_ELIGIBLE        8 -> 17        (+9, todas com os 4 passos)
+READY_CURRENT              10 -> 21
+READY falsas expostas      16
+ITENS_COLHIDOS             76
+MATERIA_REAL               76 HTML com sha256, mediana 95 KB
+CAPAS                      0 admitidas — o gate de detalhe corre ANTES
+CREATORS / RESEARCHERS     6/6 · 0/0 (os dois motores estao secos)
+PAID_USD                   0
+NEW_FAILURES               0
+supervisor 107504          vivo do principio ao fim
+```
+
+**HARD STOP** — a missão manda parar depois da primeira colheita com o conjunto
+novo. Paro aqui.
