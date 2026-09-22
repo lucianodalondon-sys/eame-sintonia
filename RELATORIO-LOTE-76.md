@@ -406,6 +406,12 @@ bypass, 0 INSERT à mão) · escrita canónica na Sala (+5) · proveniência com
 · `NEW_FAILURES` 0 · a única falha de medição está declarada acima e **não
 altera o número de admitidos**.
 
+```
+LOCAL == REMOTE = YES
+  local  6b5ae2822deb52a190f285a038e634a20610d9eb
+  remoto 6b5ae2822deb52a190f285a038e634a20610d9eb   origin/lote-76-v1
+```
+
 ⚠️ **Com duas ressalvas declaradas, e nenhuma delas é minha:**
 
 ```
@@ -413,7 +419,6 @@ SYSTEM_MAP_CHECK = FAIL   P9 num .mjs do commit 42708647, anterior à base.
                           Provado herdado; não toquei em nenhum .mjs.
 SUITE            = 1 vermelho  separador de caminho do Windows; provado
                           pré-existente contra o ficheiro da base.
-LOCAL == REMOTE  = NÃO MEDIDO  não fiz push; não me foi pedido.
 ```
 
 Cópias de segurança: `PRE-LOTE76.dump` (pré-escrita) e
