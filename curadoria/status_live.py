@@ -37,6 +37,58 @@ def _estado_servico() -> dict:
         return {"SOURCE_CURATOR_SERVICE": "UNKNOWN", "WORKER_ALIVE": False}
 
 
+def _rendimento() -> dict:
+    """Area «SOURCE CURATOR — RENDIMENTO» do painel. SAUDE != PRODUCAO.
+
+    Deriva da telemetria (ZERO LLM). Defensiva: se algo falhar, o painel de
+    SAUDE continua a funcionar — um erro aqui NUNCA pode partir a escrita de
+    status do servico vivo.
+    """
+    try:
+        from telemetria import metricas  # noqa: E402
+        m = metricas()
+        j24 = m["JANELA_24H"]
+        return {
+            # ⚠️ SAUDE — o servico esta vivo?
+            "HEALTH_SERVICE_STATE": m["AGORA"]["SERVICE_STATE"],
+            "HEALTH_SUPERVISOR_ALIVE": m["AGORA"]["SUPERVISOR_ALIVE"],
+            "HEALTH_WORKER_STATE": m["AGORA"]["WORKER_STATE"],
+            # ⚠️ PRODUCAO — o servico esta a PRODUZIR? (separado da saude)
+            "PRODUCTIVITY_STATE": m["PRODUCTIVITY_STATE"],
+            "READY_CURRENT_24H": j24["READY_CURRENT"],          # indicador PRINCIPAL
+            "QUALIFY_COMPLETED_24H": j24["QUALIFY_COMPLETED"],  # trabalho util (mesmo se bloqueou)
+            "QUALIFY_TO_READY_YIELD_24H": m["RENDIMENTO"]["QUALIFY_TO_READY_YIELD_24H"],
+            "READY_CURRENT_1H": m["JANELA_1H"]["READY_CURRENT"],
+            "QUALIFY_COMPLETED_1H": m["JANELA_1H"]["QUALIFY_COMPLETED"],
+            "NEW_CANDIDATES_24H": j24["NEW_CANDIDATES"],
+            "RETRY_24H": j24["RETRY"], "REJECTED_24H": j24["REJECTED"],
+            "CAPABILITY_BLOCK_24H": j24["CAPABILITY_BLOCK"],
+            "UNKNOWN_24H": j24["UNKNOWN"],
+            "QUALIFY_PENDING": m["AGORA"]["QUALIFY_PENDING"],
+            "QUEUE_DRAIN_ESTIMATE": m["QUEUE_DRAIN_ESTIMATE"],
+            "DISCOVERY_HEALTH": m["DISCOVERY_HEALTH"],
+            # ⚠️ NAVEGABILIDADE — o numero chega a fonte real
+            "READY_CURRENT_24H_SOURCES": _ready_sources_24h(),
+            "LLM_USED_FOR_METRICS": "NO",
+        }
+    except Exception as ex:
+        return {"RENDIMENTO_ERRO": str(ex)[:200], "LLM_USED_FOR_METRICS": "NO"}
+
+
+def _ready_sources_24h() -> list:
+    """As fontes reais promovidas nas ultimas 24h, com nome/tipo/resumo curto."""
+    try:
+        from datetime import timedelta
+        import telemetria as TT
+        import cartao_de_fonte as CC
+        agora = datetime.now(timezone.utc)
+        janela = TT.ready_sources_janela(TT._ledger_transicoes(),
+                                         agora - timedelta(hours=24), agora)
+        return CC.cartoes_navegaveis([r["SOURCE_ID"] for r in janela])[:50]
+    except Exception:
+        return []
+
+
 def _status_discovery() -> dict:
     """Le o estado da discovery a partir do ficheiro de prova e da fila."""
     try:
@@ -115,6 +167,7 @@ def status() -> dict:
     m = IC.metricas_operacionais()
     _estado_servico_snapshot = _estado_servico()
     _disc = _status_discovery()
+    _rend = _rendimento()
     return {
         "GERADO_EM": LC.agora(),
 
@@ -153,6 +206,9 @@ def status() -> dict:
 
         # Campos de discovery (FASE 12)
         **_disc,
+
+        # SOURCE CURATOR — RENDIMENTO (observabilidade; SAUDE != PRODUCAO)
+        "SOURCE_CURATOR_RENDIMENTO": _rend,
     }
 
 

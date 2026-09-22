@@ -18606,3 +18606,69 @@ orquestrador usa `preservar_documento`. O documento fica como registo histórico
 ```
 OLD_MEASUREMENT SUPERSEDED_BY_CURRENT_MEASUREMENT.
 ```
+
+
+# §159 · SAÚDE NÃO É PRODUTIVIDADE — A OBSERVABILIDADE DO SOURCE CURATOR
+
+**O QUE.** O Source Curator virou serviço contínuo (§ anterior) e o painel sabia
+dizer se estava VIVO — mas não se estava a PRODUZIR. Medido numa janela real:
+`QUALIFY_COMPLETED_24H = 277` e `READY_CURRENT_24H = 22` — yield de **7,9%**. Um
+painel que só mostrasse «RUNNING» diria que estava tudo bem. Não estava: 277
+fontes qualificadas para 22 READY é a verdade que não se pode mascarar.
+
+```
+RUNNING = YES  NÃO SIGNIFICA  PRODUZINDO = YES.
+```
+
+**A REGRA.** A telemetria (`curadoria/telemetria.py`) é **100% Python
+determinístico, ZERO LLM**. Somar contadores, calcular janelas, percentuais e
+checkpoint é aritmética — nunca se chama Opus/Fable para isso. O resumo editorial
+do cartão (`cartao_de_fonte.py`) pode, em teoria, usar OPUS, mas nesta entrega
+compôs-se de evidência estruturada já observada: `LLM_USED_FOR_SUMMARY = NO`.
+
+**AS MÉTRICAS QUE IMPORTAM.**
+- `READY_CURRENT/24h` é o indicador **principal** — fonte útil de verdade.
+- `QUALIFY_COMPLETED` é throughput: trabalho útil que pode ter acabado em bloqueio
+  (RETRY/CAPABILITY_BLOCK/SEMANTIC). Mostra-se ao lado do READY, para não esconder
+  esforço que não virou resultado.
+- **Discovery ≠ fonte útil.** `DISCOVERED = 500` com `READY = 0` são 500
+  descobertas e ZERO úteis — nunca «500 fontes produzidas».
+
+**A FONTE DE VERDADE.** Tudo deriva de `LIFECYCLE-LEDGER-V1.json` (transições
+append-only, `OBSERVED_AT`) + fila + run-log + o SO. **Nenhum contador paralelo.**
+O estado ATUAL de uma fonte é a ÚLTIMA transição dela — não se somam transições
+para totais atuais. Atribui-se uma transição ao QUALIFY pelo `EVIDENCE_REF`
+(`-QUALIFY-`) ou pelo `REASON` («QUALIFY:»), o que separa o trabalho do worker do
+trabalho da ponte (`BRIDGE:`).
+
+**CHECKPOINT EVENT-DRIVEN.** Grava quando muda (10 QUALIFY, fim de lote, worker
+volta a IDLE depois de produzir, paragem, ou 30 min com mudança). Se nada mudou,
+NÃO grava — sem spam. O histórico persiste no disco e **sobrevive a restart** do
+supervisor e do painel (é gitignored, como o run-log: muda sozinho).
+
+**STATUS RUNTIME VEM DO SO, NÃO DO JSON.** `SUPERVISOR_ALIVE`/`WORKER_ALIVE`
+derivam do PID existir no instante da leitura; heartbeat velho → STALE com o delta
+à vista; supervisor vivo + fila 0 → RUNNING/IDLE, **nunca STOPPED**.
+
+**PRODUCTIVITY_STATE** (separado da saúde): `ACTIVE_PRODUCTIVE` · `ACTIVE_NO_OUTPUT`
+(vivo + fila > 0 + sem progresso além do `HEARTBEAT_TIMEOUT_S=300`) · `IDLE_NO_WORK`
+· `BLOCKED` · `STOPPED`. Não se inventou timeout — deriva do heartbeat que já existe.
+
+**O QUE A TELEMETRIA APANHOU (e não mascarou).** `DISCOVERY_HOOK_ERRORS_24H = 1366`:
+o hook de discovery do modo contínuo chama `crawl_sementes()` com a assinatura
+errada e rebenta a cada volta IDLE (o supervisor apanha e sobrevive, mas a
+discovery **nunca corre**). É defeito real, reportado — não corrigido nesta missão
+de observabilidade (é discovery, e o serviço está vivo).
+
+**NAVEGABILIDADE.** `READY_CURRENT_24H = 22` chega às 22 fontes reais, cada uma com
+NOME/TIPO/RESUMO/READY_AT, via `cartao_de_fonte.cartoes_navegaveis`. O número é
+navegável até ao resultado.
+
+**MAPA.** A telemetria vive em `curadoria/` (o Source Curator), que o System Map
+ainda **não zona formalmente** — por isso o P9 não a exige declarada, e não se fez
+cirurgia de zona num serviço vivo. Não está classificada como Big Collection nem
+Intelligence. `P1_SEM_DRIFT = PASS`; o único FAIL é o P9 pré-existente de
+`regras/motor_de_rota.mjs` (commit 606974c3), alheio a esta missão.
+
+**RED TEAM.** 8 mutantes, SURVIVORS = 0, com baseline-passa→muta→reprova a provar
+que o código mutado executou (`red_team_telemetria.py`).

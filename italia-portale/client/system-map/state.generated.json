@@ -291,12 +291,14 @@
       "curadoria/REAL-EXAMPLE-INDEX-V1.json",
       "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
       "curadoria/RED-TEAM-SERVICE-V1.json",
+      "curadoria/RED-TEAM-TELEMETRIA-V1.json",
       "curadoria/RELATORIO-MISSAO-02.md",
       "curadoria/RELATORIO-MISSAO-03.md",
       "curadoria/RELATORIO-SERVICE-V1.md",
       "curadoria/SAMPLE-MANIFEST-V1.json",
       "curadoria/SERVICO-SOURCE-CURATOR.md",
       "curadoria/SOURCE-CAPABILITY-GAPS-V1.json",
+      "curadoria/SOURCE-CARDS-V1.json",
       "curadoria/SOURCE-CHARACTERIZATION-V1.json",
       "curadoria/SOURCE-CURATOR-DECISIONS-V1.json",
       "curadoria/SOURCE-ID-ALLOCATION-V1.json",
@@ -308,6 +310,7 @@
       "curadoria/canario.py",
       "curadoria/capturador.py",
       "curadoria/caracterizador.py",
+      "curadoria/cartao_de_fonte.py",
       "curadoria/ciclo_continuo.py",
       "curadoria/consolidar.py",
       "curadoria/consolidar_caracterizacao.py",
@@ -333,11 +336,14 @@
       "curadoria/reconciliar.py",
       "curadoria/red_team_lifecycle.py",
       "curadoria/red_team_service.py",
+      "curadoria/red_team_telemetria.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
+      "curadoria/telemetria.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
+      "curadoria/test_cartao_de_fonte.py",
       "curadoria/test_correr_lote.py",
       "curadoria/test_discovery.py",
       "curadoria/test_gatilho_discovery.py",
@@ -346,6 +352,7 @@
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
+      "curadoria/test_telemetria.py",
       "curadoria/test_worker_qualify.py",
       "curadoria/validar_contratos.py",
       "curadoria/veredito_ready.py",
@@ -2787,9 +2794,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "source-curator-service-v1",
-    "HEAD": "ad66039a34f42ec8e5019bb138f950199155eebd",
-    "GENERATED_AT": "2026-09-21T18:34:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a836e45665e9a9fd1fc823ab6d787e61b077a59de2f5a47df0f6809987fc7d8e"
+    "HEAD": "5f06c24e42c00aca5071a1d049131599c22d4844",
+    "GENERATED_AT": "2026-09-21T18:47:52-03:00",
+    "SOURCE_TREE_FINGERPRINT": "d56b0428b621ca08420dd4b241d027adccaddaa6961837a4bb4057b3bf7d15c0"
   },
   "FAMILIES": [
     {
@@ -11344,7 +11351,7 @@
             "degrau": 1,
             "nome": "CANDIDATA",
             "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-            "quantas": 61,
+            "quantas": 0,
             "onde": "candidatas/FONTES-CANDIDATAS.json",
             "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
           },
@@ -11396,7 +11403,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:15.964268+00:00 | ANCHOR_TEXT=#Bandi | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RA_FACET_PESQUISA"
           },
@@ -11412,7 +11419,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:11.872090+00:00 | ANCHOR_TEXT=#BolloAuto | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RA_FACET_PESQUISA"
           },
@@ -11428,7 +11435,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:13.886442+00:00 | ANCHOR_TEXT=#DoteScuola | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RA_FACET_PESQUISA"
           },
@@ -11444,7 +11451,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:17.817704+00:00 | ANCHOR_TEXT=#FascicoloSanitario | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RA_FACET_PESQUISA"
           },
@@ -11460,7 +11467,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:20.064168+00:00 | ANCHOR_TEXT=#Notizie | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RA_FACET_PESQUISA"
           },
@@ -11476,7 +11483,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:36.615476+00:00 | ANCHOR_TEXT=16 settembre 2026 Pollini e spore: amaranto, ambrosia, parietaria e alternaria I dati del monitoragg | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -11492,7 +11499,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:35.448005+00:00 | ANCHOR_TEXT=17 settembre 2026 Incendio alla Sorgenia di Finale Emilia Intervenuta Arpae per i controlli ambienta | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -11508,7 +11515,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:32.117083+00:00 | ANCHOR_TEXT=18 settembre 2026 Aggiornamento al portale prelievi Il 18 settembre effettuato un nuovo intervento s | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -11524,7 +11531,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:28.060774+00:00 | ANCHOR_TEXT=30 anni per l’ambiente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -11540,7 +11547,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:00.668096+00:00 | ANCHOR_TEXT=ACaMIR | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -11773,7 +11780,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:11.751001+00:00 | ANCHOR_TEXT=Acqua | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -11789,7 +11796,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:17.863589+00:00 | ANCHOR_TEXT=Acque reflue | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -11805,7 +11812,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:15.781172+00:00 | ANCHOR_TEXT=Acque sotterranee | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -11821,7 +11828,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:13.740572+00:00 | ANCHOR_TEXT=Acque superficiali | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -11837,7 +11844,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:05.109301+00:00 | ANCHOR_TEXT=Agricoltura Campania | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -11853,7 +11860,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:47.073682+00:00 | ANCHOR_TEXT=Allerte Protezione Civile | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -11869,7 +11876,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:35.495075+00:00 | ANCHOR_TEXT=Amministrazione Trasparente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -11885,7 +11892,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:20.408729+00:00 | ANCHOR_TEXT=Amministrazione Trasparente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -11901,7 +11908,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:13.144567+00:00 | ANCHOR_TEXT=Amministrazione trasparente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -11917,7 +11924,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:21.375814+00:00 | ANCHOR_TEXT=Amministrazione trasparente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -11933,7 +11940,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:04.746408+00:00 | ANCHOR_TEXT=Amministrazione trasparente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -11949,7 +11956,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:17.510537+00:00 | ANCHOR_TEXT=Anagrafe Pubblica | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -11965,7 +11972,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:27.268976+00:00 | ANCHOR_TEXT=Area Dipendenti | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -11981,7 +11988,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:11.712339+00:00 | ANCHOR_TEXT=Area intranet | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -11997,7 +12004,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:21.742933+00:00 | ANCHOR_TEXT=Aria | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12013,7 +12020,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:30.408829+00:00 | ANCHOR_TEXT=Aria, sospeso il blocco strutturale ai diesel euro 5 dal 1°ottobre | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -12029,7 +12036,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:05.150586+00:00 | ANCHOR_TEXT=Arpa Sicilia | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12045,7 +12052,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:07.207304+00:00 | ANCHOR_TEXT=ArpaC | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12061,7 +12068,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:23.477693+00:00 | ANCHOR_TEXT=Arpae Emilia-Romagna agenzia prevenzione ambiente energia | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12077,7 +12084,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:18.196186+00:00 | ANCHOR_TEXT=Assemblea Regionale Siciliana | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12093,7 +12100,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:18.384175+00:00 | ANCHOR_TEXT=BURC | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12109,7 +12116,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:29.721244+00:00 | ANCHOR_TEXT=Bandi e Servizi | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12125,7 +12132,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:54.726495+00:00 | ANCHOR_TEXT=Bandi e avvisi pubblici | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12141,7 +12148,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:46.762643+00:00 | ANCHOR_TEXT=Bollettino Ufficiale Regione Abruzzo | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12157,7 +12164,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:56.794641+00:00 | ANCHOR_TEXT=Bollettino ufficiale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12173,7 +12180,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:27.494673+00:00 | ANCHOR_TEXT=Bollo auto e tributi regionali | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_FISCALIDADE_AUTOMOVEL"
           },
@@ -12205,7 +12212,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:15.570656+00:00 | ANCHOR_TEXT=CalabriAmbiente, la nuova app regionale che coinvolge i cittadini | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12221,7 +12228,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:25:56.263538+00:00 | ANCHOR_TEXT=Calabria Istruzione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12258,7 +12265,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:38.880095+00:00 | ANCHOR_TEXT=Comitato Unico di Garanzia (CUG) | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12274,7 +12281,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:14:03.343789+00:00 | ANCHOR_TEXT=Comitato unico di garanzia - CUG | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12290,7 +12297,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:46.059165+00:00 | ANCHOR_TEXT=Comunicati | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12306,7 +12313,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:32.966886+00:00 | ANCHOR_TEXT=Conosci il CREA | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12322,7 +12329,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:40.983003+00:00 | ANCHOR_TEXT=Consigliera regionale di parità | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12338,7 +12345,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:01.760609+00:00 | ANCHOR_TEXT=Consulta la PRIVACY POLICY | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12354,7 +12361,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:09.004261+00:00 | ANCHOR_TEXT=Contatti | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PAGINA_INSTITUCIONAL_OBRIGATORIA"
           },
@@ -12370,7 +12377,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:30.851198+00:00 | ANCHOR_TEXT=Contatti | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12386,7 +12393,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:56.410588+00:00 | ANCHOR_TEXT=Cultura Campania | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PORTAL_CULTURAL"
           },
@@ -12402,7 +12409,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:28:18.765612+00:00 | ANCHOR_TEXT=Cup | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SERVICO_SAUDE_PUBLICA"
           },
@@ -12418,7 +12425,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:40.334090+00:00 | ANCHOR_TEXT=DICHIARAZIONE DI ACCESSIBILITA' | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12434,7 +12441,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:58.802067+00:00 | ANCHOR_TEXT=Delibere della Giunta | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ATOS_GOVERNAMENTAIS"
           },
@@ -12450,7 +12457,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:15.285235+00:00 | ANCHOR_TEXT=Dichiarazione di accessibilità | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12466,7 +12473,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:36.895538+00:00 | ANCHOR_TEXT=Direzione Generale | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12482,7 +12489,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:39.016833+00:00 | ANCHOR_TEXT=Direzione Tecnico Scientifica | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12498,7 +12505,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:23.459707+00:00 | ANCHOR_TEXT=EN | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SELETOR_IDIOMA_SERVICO"
           },
@@ -12556,7 +12563,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:28:16.779223+00:00 | ANCHOR_TEXT=Ecosistema Calabria Sanità | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SERVICO_SAUDE_PUBLICA"
           },
@@ -12572,7 +12579,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:28.897956+00:00 | ANCHOR_TEXT=Elezioni regionali | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12588,7 +12595,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:22.713297+00:00 | ANCHOR_TEXT=English | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SELETOR_IDIOMA_SERVICO"
           },
@@ -12604,7 +12611,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:52.322742+00:00 | ANCHOR_TEXT=Europa Campania | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12620,7 +12627,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:44.265915+00:00 | ANCHOR_TEXT=Eventi | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12636,7 +12643,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:52.007790+00:00 | ANCHOR_TEXT=FAQ | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12652,7 +12659,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:28:21.074830+00:00 | ANCHOR_TEXT=Fascicolo Sanitario Elettronico | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SERVICO_SAUDE_PUBLICA"
           },
@@ -12689,7 +12696,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:06.184520+00:00 | ANCHOR_TEXT=Generazione Lombardia | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_POLITICA_JUVENTUDE"
           },
@@ -12705,7 +12712,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:34.976189+00:00 | ANCHOR_TEXT=Giunta Regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12721,7 +12728,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:07.506003+00:00 | ANCHOR_TEXT=Giunta regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ATOS_GOVERNAMENTAIS"
           },
@@ -12753,7 +12760,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:14.952627+00:00 | ANCHOR_TEXT=Il Consiglio Regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12769,7 +12776,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:13.069228+00:00 | ANCHOR_TEXT=Il Presidente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12785,7 +12792,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:10.969038+00:00 | ANCHOR_TEXT=Il Presidente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12801,7 +12808,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:05.558400+00:00 | ANCHOR_TEXT=Il Presidente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ATOS_GOVERNAMENTAIS"
           },
@@ -12817,7 +12824,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:20.749562+00:00 | ANCHOR_TEXT=Italiano | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SELETOR_IDIOMA_SERVICO"
           },
@@ -12833,7 +12840,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:12.156745+00:00 | ANCHOR_TEXT=La Calabria alla European Week of Regions and Cities 2026: focus su resilienza climatica e strategie | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12849,7 +12856,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:15.248185+00:00 | ANCHOR_TEXT=La Giunta Regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12865,7 +12872,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:13.487899+00:00 | ANCHOR_TEXT=La Giunta Regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -12881,7 +12888,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:49.990331+00:00 | ANCHOR_TEXT=Lavora con noi | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12897,7 +12904,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:49.466865+00:00 | ANCHOR_TEXT=Lavoro, formazione e istruzione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12913,7 +12920,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:23.823335+00:00 | ANCHOR_TEXT=Link utili | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12929,7 +12936,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:34.088343+00:00 | ANCHOR_TEXT=Lombardia Experience | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -12961,7 +12968,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:23.766809+00:00 | ANCHOR_TEXT=Mappe | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -12977,7 +12984,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:26.091352+00:00 | ANCHOR_TEXT=Mare, riviera interamente balneabile | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -13009,7 +13016,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:45.835669+00:00 | ANCHOR_TEXT=Monitoraggio PNRR | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13025,7 +13032,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:47.995809+00:00 | ANCHOR_TEXT=News ed Eventi | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13041,7 +13048,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:02.833169+00:00 | ANCHOR_TEXT=Non sei da sola | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13057,7 +13064,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:42.042418+00:00 | ANCHOR_TEXT=Notizie | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13073,7 +13080,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:19.334769+00:00 | ANCHOR_TEXT=Obiettivi di accessibilità | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13089,7 +13096,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:52.663912+00:00 | ANCHOR_TEXT=Oltreigiochi2026 | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13105,7 +13112,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:00.705527+00:00 | ANCHOR_TEXT=Open Innovation | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13121,7 +13128,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:34.921101+00:00 | ANCHOR_TEXT=Organi | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13137,7 +13144,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:57.354020+00:00 | ANCHOR_TEXT=Organizzazione | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13153,7 +13160,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:26:19.298481+00:00 | ANCHOR_TEXT=Osservatorio Istruzione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13169,7 +13176,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:54.447743+00:00 | ANCHOR_TEXT=PNRR in Campania | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13185,7 +13192,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:28:43.899177+00:00 | ANCHOR_TEXT=PagoPA - MyPay | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PAGAMENTO_SERVICOS_PUBLICOS"
           },
@@ -13201,7 +13208,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:10.501216+00:00 | ANCHOR_TEXT=Parlamento Europeo | DISCOVERED_HTTP=202",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ORGAO_LEGISLATIVO_NACIONAL"
           },
@@ -13217,7 +13224,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:27.584686+00:00 | ANCHOR_TEXT=Per saperne di più Per saperne di più | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13254,7 +13261,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:32.990946+00:00 | ANCHOR_TEXT=Presidente | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13270,7 +13277,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:19.534774+00:00 | ANCHOR_TEXT=Prevenzione della Corruzione e Trasparenza | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PAGINA_INSTITUCIONAL_OBRIGATORIA"
           },
@@ -13286,7 +13293,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:14.135434+00:00 | ANCHOR_TEXT=Progetto CalALMA: prorogato al 30 settembre 2026 il termine per l’avvio delle attività dei giovani N | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13302,7 +13309,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:55.785438+00:00 | ANCHOR_TEXT=Programmazione Europea | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13339,7 +13346,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:41.577743+00:00 | ANCHOR_TEXT=Reclami e appelli | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13355,7 +13362,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:10.767090+00:00 | ANCHOR_TEXT=Regione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13371,7 +13378,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:30.997204+00:00 | ANCHOR_TEXT=Regione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13461,7 +13468,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:40.180120+00:00 | ANCHOR_TEXT=Regione informa | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13477,7 +13484,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:23.506514+00:00 | ANCHOR_TEXT=Responsabile Protezione Dati | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -13535,7 +13542,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:27.045029+00:00 | ANCHOR_TEXT=Sanità | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PORTAL_SAUDE_PUBLICA"
           },
@@ -13551,7 +13558,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:52.150676+00:00 | ANCHOR_TEXT=Sanità | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PORTAL_SAUDE_PUBLICA"
           },
@@ -13588,7 +13595,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:21.143502+00:00 | ANCHOR_TEXT=Scopri | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_FISCALIDADE_AUTOMOVEL"
           },
@@ -13604,7 +13611,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:22.583974+00:00 | ANCHOR_TEXT=Scopri | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PORTAL_SAUDE_PUBLICA"
           },
@@ -13620,7 +13627,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:36.861421+00:00 | ANCHOR_TEXT=Sede di Bruxelles | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13636,7 +13643,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:34.873292+00:00 | ANCHOR_TEXT=Sede di Roma | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13652,7 +13659,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:23.053824+00:00 | ANCHOR_TEXT=Servizi digitali | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13668,7 +13675,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:52.312749+00:00 | ANCHOR_TEXT=Servizi informativi | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13700,7 +13707,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:59.401697+00:00 | ANCHOR_TEXT=Sistema di gestione Qualità | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13716,7 +13723,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:29.802867+00:00 | ANCHOR_TEXT=Sito di archivio | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13732,7 +13739,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:14:01.447204+00:00 | ANCHOR_TEXT=Soddisfazione dell’utente | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13748,7 +13755,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:42.909564+00:00 | ANCHOR_TEXT=Speciale Lombardia, infatti | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13764,7 +13771,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:32.021229+00:00 | ANCHOR_TEXT=Sportello imprese Sportello imprese | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13780,7 +13787,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:23.558048+00:00 | ANCHOR_TEXT=Statuto regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13796,7 +13803,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:19.952709+00:00 | ANCHOR_TEXT=Strutture regionali | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PAGINA_INSTITUCIONAL_OBRIGATORIA"
           },
@@ -13812,7 +13819,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:47.741102+00:00 | ANCHOR_TEXT=Tassa automobilistica | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_FISCALIDADE_AUTOMOVEL"
           },
@@ -13828,7 +13835,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:09.776690+00:00 | ANCHOR_TEXT=Temi Ambientali | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13844,7 +13851,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:18.093129+00:00 | ANCHOR_TEXT=Transformer Calabria, pubblicata la graduatoria definitiva: sostegno a occupazione e formazione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13860,7 +13867,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:48.016732+00:00 | ANCHOR_TEXT=URP | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PAGINA_INSTITUCIONAL_OBRIGATORIA"
           },
@@ -13876,7 +13883,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:32.874447+00:00 | ANCHOR_TEXT=URP - Ufficio relazioni con il pubblico | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_PAGINA_INSTITUCIONAL_OBRIGATORIA"
           },
@@ -13892,7 +13899,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:38.048163+00:00 | ANCHOR_TEXT=Uffici e organizzazione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -13908,7 +13915,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:14:05.427876+00:00 | ANCHOR_TEXT=Ufficio relazioni con il pubblico - URP | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "VARREDURA_RETROACTIVA_RC_ISTITUZIONALE_OBBLIGATORIO"
           },
@@ -13924,7 +13931,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:19.815383+00:00 | ANCHOR_TEXT=Usi delle acque | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13940,7 +13947,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:56.299537+00:00 | ANCHOR_TEXT=Vai al profilo Feed RSS di\n                                            ARPAT | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -13956,7 +13963,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:58.023322+00:00 | ANCHOR_TEXT=Vai alla sezione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -14014,7 +14021,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:26.517769+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14030,7 +14037,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:30.557787+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14046,7 +14053,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:25.553378+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14062,7 +14069,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:37.654207+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14078,7 +14085,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:24.937927+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14094,7 +14101,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:04.991873+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14110,7 +14117,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:28.489737+00:00 | ANCHOR_TEXT=rss_feed | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -14126,7 +14133,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:35.059870+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -16743,7 +16750,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:31.564679+00:00 | ANCHOR_TEXT=A journey through the Crotone Sila, amidst nature and footpaths | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -16759,7 +16766,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:27.537239+00:00 | ANCHOR_TEXT=A trip to Lake Ampollino | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -16812,7 +16819,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:04.614376+00:00 | ANCHOR_TEXT=ARSAC SUL TERRITORIO | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -16828,7 +16835,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:02.607543+00:00 | ANCHOR_TEXT=ARSAC Servizi offerti | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -16844,7 +16851,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:11.033438+00:00 | ANCHOR_TEXT=ARUS | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -16860,7 +16867,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:18.607291+00:00 | ANCHOR_TEXT=ATTIVITA’ e SERVIZI | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -16876,7 +16883,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:14.632208+00:00 | ANCHOR_TEXT=Actinidia (Kiwi) | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -16892,7 +16899,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:22.322954+00:00 | ANCHOR_TEXT=Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed  | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -16908,7 +16915,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:33.456149+00:00 | ANCHOR_TEXT=Agenzia | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -16987,7 +16994,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:16.657511+00:00 | ANCHOR_TEXT=Agrumi | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -17003,7 +17010,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:51.322911+00:00 | ANCHOR_TEXT=Albo fornitori | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -17019,7 +17026,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:08.607891+00:00 | ANCHOR_TEXT=Arsac Nelle Scuole | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -17056,7 +17063,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:48.421899+00:00 | ANCHOR_TEXT=Atti dell'Amministrazione | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -17072,7 +17079,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:00.901272+00:00 | ANCHOR_TEXT=Avviso per iscrizione in elenco strutture per reinserimento sociale detenuti adulti | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17157,7 +17164,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:47.631438+00:00 | ANCHOR_TEXT=Calabria Energia - Il Portale Energia della Regione Calabria | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17173,7 +17180,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:26:46.882670+00:00 | ANCHOR_TEXT=Calabria Impresa – Il Portale della Regione Calabria per le Imprese | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17189,7 +17196,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:25:32.981877+00:00 | ANCHOR_TEXT=Calabria Straordinaria | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17205,7 +17212,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:27:11.518210+00:00 | ANCHOR_TEXT=CalabriaSUE - Sportello Unico per l’Edilizia | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17221,7 +17228,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:33.561455+00:00 | ANCHOR_TEXT=Calabrian pasta: traditional shapes | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17237,7 +17244,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:07.767474+00:00 | ANCHOR_TEXT=Camera dei Deputati | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ORGAO_LEGISLATIVO_NACIONAL"
           },
@@ -17253,7 +17260,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:16.248740+00:00 | ANCHOR_TEXT=Campania Artecard | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17458,7 +17465,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:37.289856+00:00 | ANCHOR_TEXT=Consiglio Regionale | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17705,7 +17712,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:43.295307+00:00 | ANCHOR_TEXT=Corecom Abruzzo | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17742,7 +17749,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:26.640887+00:00 | ANCHOR_TEXT=Domande di aiuto per gli allevamenti suinicoli, atti alla prevenzione della diffusione della peste s | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -17821,7 +17828,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:26:23.305122+00:00 | ANCHOR_TEXT=Fondazione Calabria Film Commission | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17837,7 +17844,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:26:43.674480+00:00 | ANCHOR_TEXT=Fondazione Istituto Regionale per la Comunità Grecanica di Calabria | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17853,7 +17860,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:26:28.174674+00:00 | ANCHOR_TEXT=Fondazione Mediterranea terina Onlus | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17927,7 +17934,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:38.058101+00:00 | ANCHOR_TEXT=InLombardia | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -17964,7 +17971,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:41.131540+00:00 | ANCHOR_TEXT=Intranet | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "RD_LOGIN_AUTH:portal_de_autenticacao_microsoft_nao_publica_conteudo"
           },
@@ -17980,7 +17987,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:06.663417+00:00 | ANCHOR_TEXT=Irfis | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18017,7 +18024,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:18:36.135670+00:00 | ANCHOR_TEXT=Lombardia Notizie TV | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18054,7 +18061,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:09.297158+00:00 | ANCHOR_TEXT=NEWS PROTEZIONE CIVILE | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18070,7 +18077,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:24.623220+00:00 | ANCHOR_TEXT=Nomina Commissione di Valutazione domande Intervento SRD01 - investimenti produttivi agricoli per la | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -18128,7 +18135,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:36.395295+00:00 | ANCHOR_TEXT=Organigramma | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18144,7 +18151,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:06.589422+00:00 | ANCHOR_TEXT=PUBBLICAZIONI | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18160,7 +18167,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:54.289633+00:00 | ANCHOR_TEXT=Patrocinio AMAP | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18176,7 +18183,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:12.620090+00:00 | ANCHOR_TEXT=Piante Officinali | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18192,7 +18199,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:09.481342+00:00 | ANCHOR_TEXT=Presidenza del Consiglio dei Ministri | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ORGAO_LEGISLATIVO_NACIONAL"
           },
@@ -18208,7 +18215,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:02.499749+00:00 | ANCHOR_TEXT=Protezione Civile | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18224,7 +18231,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:42.451838+00:00 | ANCHOR_TEXT=Recapiti | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18240,7 +18247,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:29.546790+00:00 | ANCHOR_TEXT=Relax at the Bagni di Guida | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18298,7 +18305,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:28:14.661042+00:00 | ANCHOR_TEXT=SaniBook | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_SERVICO_SAUDE_PUBLICA"
           },
@@ -18314,7 +18321,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:29:20.474687+00:00 | ANCHOR_TEXT=Scadenza Presentazione Domande Di Sostegno Bando Meccanizzazione | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "REGRA_NOVA_RB_ARTIGO_INDIVIDUAL"
           },
@@ -18330,7 +18337,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:32:56.198501+00:00 | ANCHOR_TEXT=Scopri l'evento | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18346,7 +18353,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:39.313161+00:00 | ANCHOR_TEXT=Sedi e Uffici | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18362,7 +18369,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:59.915893+00:00 | ANCHOR_TEXT=Segnalazione di condotte illecite | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18378,7 +18385,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:07.517680+00:00 | ANCHOR_TEXT=Senato della Repubblica | DISCOVERED_HTTP=202",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "FORA_DE_DOMINIO_AGRO_ORGAO_LEGISLATIVO_NACIONAL"
           },
@@ -18415,7 +18422,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:48.754985+00:00 | ANCHOR_TEXT=SpazioRegione - prenota online | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18431,7 +18438,7 @@
             "ONDE_VIU": "https://www.regione.calabria.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:24:50.182882+00:00 | ANCHOR_TEXT=Sportello del Consumatore | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18447,7 +18454,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:39.747516+00:00 | ANCHOR_TEXT=Spotify | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "R6_DOMINIO_IRRELEVANTE:spotify_plataforma_audio_sem_capability_agro_provada"
           },
@@ -18463,7 +18470,7 @@
             "ONDE_VIU": "https://www.arsacweb.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arsacweb.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:10.588470+00:00 | ANCHOR_TEXT=Suoli e carte derivate | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18521,7 +18528,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:57.205017+00:00 | ANCHOR_TEXT=Tutela Dati Personali - Privacy | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "RC_ISTITUZIONALE_OBBLIGATORIO:pagina_GDPR_obrigatoria_nao_publica_conteudo_agro"
           },
@@ -18553,7 +18560,7 @@
             "ONDE_VIU": "https://www.assam.marche.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.assam.marche.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:12:45.490788+00:00 | ANCHOR_TEXT=URP | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "RC_ISTITUZIONALE_OBBLIGATORIO:balcao_atendimento_publico_nao_e_fonte_agro"
           },
@@ -18611,7 +18618,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:53.487818+00:00 | ANCHOR_TEXT=Vai al profilo Issuu di\n                                            ARPAT | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18627,7 +18634,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:22:36.316966+00:00 | ANCHOR_TEXT=Vai al sito | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18685,7 +18692,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:52.733818+00:00 | ANCHOR_TEXT=Visita il sito | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18701,7 +18708,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:42.487758+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -18717,7 +18724,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:31.949930+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "R6_DOMINIO_IRRELEVANTE:whatsapp_canal_nao_e_fonte_estruturada_de_dados"
           },
@@ -18733,7 +18740,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:25.166577+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18749,7 +18756,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:00.646012+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -18765,7 +18772,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:08.003520+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -19054,7 +19061,7 @@
             "ONDE_VIU": "https://www.arpalombardia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpalombardia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:08.837780+00:00 | ANCHOR_TEXT=Attività di ARPA | Video | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -19154,7 +19161,7 @@
             "ONDE_VIU": "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.lombardia.it/wps/portal/istituzionale/HP/DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:19:24.212917+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -19170,7 +19177,7 @@
             "ONDE_VIU": "https://www.regione.sicilia.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.sicilia.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:20:07.215024+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -19186,7 +19193,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:37.260581+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -19202,7 +19209,7 @@
             "ONDE_VIU": "https://www.crea.gov.it/centri-di-ricerca",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.crea.gov.it/centri-di-ricerca | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:31.112742+00:00 | ANCHOR_TEXT= | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -19533,7 +19540,7 @@
             "ONDE_VIU": "https://www.regione.abruzzo.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:33:01.584672+00:00 | ANCHOR_TEXT=Esplora i video | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -20111,7 +20118,7 @@
             "ONDE_VIU": "https://www.arpat.toscana.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpat.toscana.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T13:13:52.791113+00:00 | ANCHOR_TEXT=Vai al profilo YouTube di\n                                            ARPAT | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -20169,7 +20176,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:42.134200+00:00 | ANCHOR_TEXT=You Tube | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           },
@@ -20185,7 +20192,7 @@
             "ONDE_VIU": "https://www.regione.campania.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:30:30.232507+00:00 | ANCHOR_TEXT=YouTube | DISCOVERED_HTTP=200",
-            "ESTADO": "RECUSADA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
           },
@@ -20201,7 +20208,7 @@
             "ONDE_VIU": "https://www.arpae.it/",
             "QUANDO": "2026-09-21",
             "NOTA": "DISCOVERED_FROM=https://www.arpae.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:23:39.179099+00:00 | ANCHOR_TEXT=Youtube | DISCOVERED_HTTP=200",
-            "ESTADO": "CANDIDATA",
+            "ESTADO": "EM_ANALISE",
             "SOURCE_ID": null,
             "MOTIVO_DA_RECUSA": null
           }
@@ -60449,28 +60456,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_execucao_standalone.py",
           "line": 25,
           "snippet": "'leis/telemetria.py',",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CONTRATO-TELEMETRIA--READS-->C-TESTES",
-            "FROM": "C-CONTRATO-TELEMETRIA",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_lingua_unica.py",
-          "line": 56,
-          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'telemetria.py'), encoding='utf-8').read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-TELEMETRIA--READS-->C-TESTES",
             "FROM": "C-CONTRATO-TELEMETRIA",
@@ -101211,7 +101202,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1178,
+  "UNCLAIMED_FILES_COUNT": 1185,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101400,7 +101391,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2193,
+    "files_tracked": 2200,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,
