@@ -78,8 +78,20 @@ const ATAQUES = [
     FICHEIRO: NORMAL,
     // O normalizador passa a comer os paragrafos — ou seja, o corpo da
     // materia. E o defeito que uma lista de volateis demasiado larga produz.
-    DE: `  let texto = bytes.toString("latin1");`,
-    PARA: `  let texto = bytes.toString("latin1").replace(/<p[\\s\\S]*?<\\/p>/gi, "");`,
+    //
+    // ⚠️ ANCORA MUDADA EM 2026-09-22 (RECOLLECTION-V1), E A RAZAO IMPORTA.
+    // Era `let texto = bytes.toString("latin1");`. A RECOLLECTION-V1 tirou o
+    // ciclo de `normalizarConteudo()` para `textoNormalizado()` e meteu a
+    // canonicalizacao de entidades a frente, e essa linha deixou de existir.
+    //
+    //     O ATAQUE PASSOU A NAO ENTRAR — e o arnes leu isso como SURVIVOR.
+    //     ANCORA MORTA NAO E DEFESA FRACA: E ATAQUE QUE NUNCA ACONTECEU.
+    //
+    // Foi apanhado a correr este ficheiro depois de mexer noutro. Quem
+    // refactoriza um modulo tem de correr os red teams que o atacam, nao so as
+    // suites que o testam — uma ancora e um acoplamento ao TEXTO do codigo.
+    DE: `  let texto = canon.TEXTO;`,
+    PARA: `  let texto = canon.TEXTO.replace(/<p[\\s\\S]*?<\\/p>/gi, "");`,
     SONDA: `import('./${NORMAL}').then(m=>{
             const p=b=>Buffer.from('<html><body><p>'+b+'</p></body></html>');
             process.stdout.write(String(m.compararConteudo(p('alfa'),p('beta')).VEREDICTO!=='MATERIAL_CHANGE'));});`,

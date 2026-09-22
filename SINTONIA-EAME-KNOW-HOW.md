@@ -19326,3 +19326,89 @@ O mutante estava morto. Quem estava cega era a leitura da morte.
 > falso — e na direção que parece rigor.
 
 Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.
+
+## 167-11 · A SUÍTE DONA TEM DE MATAR — UMA LEI GUARDADA SÓ NOUTRO FICHEIRO NÃO ESTÁ GUARDADA
+
+Acrescentado em 22/09/2026, por **verificação externa** em clone isolado sobre
+`95d69dba`. A missão tinha declarado `RED_TEAM_SURVIVORS = 0` e estava certa
+— para a régua que usava. A régua é que era fraca.
+
+```
+alvo      regras/incrementalidade.mjs :: recolheitaDoContrato()
+mutacao   DECLARADO: r.DETAIL_CONTENT !== "UNKNOWN"   ->   DECLARADO: true
+
+  regras/incrementalidade_test.mjs    PASSOU 23 · FALHOU 0   ← VERDE
+  regras/recollection_test.mjs        FALHOU                 ← só esta matou
+```
+
+O arnês de mutação dá por morto um mutante que **qualquer** das suítes
+matadoras apanhe. Mas quem mexe numa linha corre a suíte do **ficheiro onde
+mexeu** — não a de outro ficheiro que por acaso também a cobre.
+
+> UMA LEI GUARDADA SÓ NOUTRO FICHEIRO ESTÁ GUARDADA CONTRA O ACASO,
+> NÃO CONTRA QUEM MEXE NA LINHA.
+
+E não era caso único. Aplicada a régua estrita — **a suíte dona do ficheiro
+mutado tem de reprovar** — aos doze ataques, apareceram **três**:
+
+```
+M11       DECLARADO: ... !== "UNKNOWN"  ->  true        incrementalidade_test  VERDE
+M-CENSO   RECOLLECTION_DECLARADA === false -> undefined incrementalidade_test  VERDE
+M12       NAO_SE_TRADUZ = new Set([])                   paridade_test          VERDE
+```
+
+`M-CENSO` desligava o contador que mede a cegueira. `M12` deixava a
+canonicalização traduzir os cinco caracteres com significado em HTML.
+
+**How to apply.** Ao fechar um red team, medir **as duas réguas** e publicar as
+duas:
+
+```
+RED_TEAM_SURVIVORS         qualquer suite mata        (a fraca)
+SURVIVORS_REGUA_ESTRITA    a suite DONA mata          (a que vale)
+```
+
+A régua estrita está em `provas/recollection_red_team_estrito.mjs`. O mapa da
+casa já diz quem é a suíte dona: é a que vive na **mesma peça** do ficheiro
+mutado (`C-IT-INCREMENTALIDADE` junta a regra ao teste dela;
+`C-IT-NORMALIZACAO` junta o normalizador a `paridade_test.mjs`).
+
+E toda a guarda nova leva **controlo positivo**. Sem ele, `DECLARADO: false`
+fixo passaria a guarda de `UNKNOWN` e ela mediria o nada: os valores que **são**
+classificação (`IMMUTABLE`, `MUTABLE`) têm de dar `true` no mesmo teste.
+
+## 167-12 · ÂNCORA MORTA NÃO É DEFESA FRACA: É ATAQUE QUE NUNCA ACONTECEU
+
+Apanhado na mesma corrida, e é o espelho de [167-10](#167-10).
+
+A RECOLLECTION-V1 tirou o ciclo de `normalizarConteudo()` para
+`textoNormalizado()` e pôs a canonicalização à frente. Refactor legítimo, suítes
+todas verdes. Só que apagou a linha exacta que **o red team de OUTRA missão**
+usava como âncora:
+
+```
+provas/paridade_red_team.mjs   M4   DE: `  let texto = bytes.toString("latin1");`
+                                    ANCORA NAO ENCONTRADA
+
+  antes   ATAQUES 8 · SURVIVORS 0
+  depois  ATAQUES 8 · SURVIVORS 1     ← fabricado
+```
+
+Não houve defesa nenhuma a enfraquecer: houve um ataque que **não entrou**, e o
+arnês leu isso como sobrevivente. Em §167-10 foi a evidência truncada a
+fabricar um sobrevivente; aqui foi a âncora morta. O mecanismo é o mesmo —
+**o arnês a medir-se a si próprio em vez de medir o código**.
+
+> UMA ÂNCORA É UM ACOPLAMENTO AO *TEXTO* DO CÓDIGO.
+> Quem refactoriza um módulo tem de correr os red teams que o **atacam**, e não
+> só as suítes que o **testam**.
+
+**How to apply.** Depois de mexer num ficheiro que algum red team ataque:
+
+```bash
+git grep -l "FICHEIRO: .*<o teu ficheiro>\|<nome do ficheiro>" -- provas/*red_team*.mjs
+```
+
+e correr cada um. Um `ANCORA NAO ENCONTRADA` no relatório **nunca** é para
+arrumar baixando o ataque: é para reapontar a âncora à linha nova e confirmar
+que o mutante volta a morrer.

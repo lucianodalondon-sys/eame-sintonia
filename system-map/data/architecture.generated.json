@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "recollection-v1",
-    "HEAD": "10d247b7fd5bacc348a68f10aaca5dd7f0349a18",
-    "GENERATED_AT": "2026-09-22T12:33:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc6ecfa5bdb415ce346a0fba8ff138cf457c7b3a516f0f683e6b073078c12e87"
+    "HEAD": "4270864712957cc62a500d6da653e08da8250cb2",
+    "GENERATED_AT": "2026-09-22T13:09:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "094dd88e1711bcb3037397c3487bd87aa6e40b3ff1240378605b5d9b0b86092b"
   },
   "FILES": [
     {
@@ -346,7 +346,7 @@
     },
     {
       "path": "RELATORIO-RECOLLECTION.md",
-      "sha": "868127c14a79f115725566e1e1408060f8ceff3f",
+      "sha": "b5781c91e84f63ce4b857ac6c494e2a991609f35",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -367,7 +367,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "6ad8e156c11bfff65cdd3215ae34cab818b0d95c",
+      "sha": "8b7dd6ec3678b804f72fe817077bad33ea693935",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -12630,8 +12630,15 @@
       "code_dir": true
     },
     {
+      "path": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
+      "sha": "c6c9d85b3d8f5b82cdbe9e3a718b294e87afe539",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/RECOLLECTION-RED-TEAM-V1.json",
-      "sha": "7421e89cdce174d3f1e3ac96ba290286c19c0816",
+      "sha": "8875a9dd31d1a5d6d237aaa3c2fba5223103b9e2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13478,7 +13485,7 @@
     },
     {
       "path": "provas/paridade_red_team.mjs",
-      "sha": "6542da0cac55942454e39cd7564ec343bd4aff22",
+      "sha": "cc2a937d99443ae67016fe2c302d1af78038627a",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13563,6 +13570,13 @@
     {
       "path": "provas/recollection_red_team.mjs",
       "sha": "d870f0e862b29563e98627f0434777161ec456c4",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/recollection_red_team_estrito.mjs",
+      "sha": "09ca8641293d91bd1d5a0e84d9d338699142ae53",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13870,7 +13884,7 @@
     },
     {
       "path": "regras/incrementalidade_test.mjs",
-      "sha": "791bf265bdb79f28aa6dec0563d1eb2dc5ea43dc",
+      "sha": "d2aa19ddf21819f5f4285a24ea7964a133c6c58a",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13940,7 +13954,7 @@
     },
     {
       "path": "regras/paridade_test.mjs",
-      "sha": "5a842c0c29950817a4bdaf604935f90b03810e40",
+      "sha": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -15305,7 +15319,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c81410b06470d5023d5b78b7ecd024c66198bcf2",
+      "sha": "9222007f842327ad15c242bd6a97de91cd847d75",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -49087,7 +49101,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/paridade_red_team.mjs",
-        "line": 254,
+        "line": 266,
         "snippet": "writeFileSync(\"provas/PARIDADE-RED-TEAM-V1.json\", JSON.stringify({"
       }
     },
@@ -49098,7 +49112,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/paridade_red_team.mjs",
-        "line": 137,
+        "line": 149,
         "snippet": "[\"provas/paridade_duas_rodadas.mjs\", \"a prova de duas rodadas\"],"
       }
     },
@@ -49131,7 +49145,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/paridade_red_team.mjs",
-        "line": 136,
+        "line": 148,
         "snippet": "[\"regras/paridade_test.mjs\", \"as provas da paridade\"],"
       }
     },
@@ -49903,6 +49917,72 @@
         "file": "provas/recollection_red_team.mjs",
         "line": 157,
         "snippet": "[\"regras/recollection_test.mjs\", \"as guardas da recollection\"],"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 147,
+        "snippet": "writeFileSync(\"provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json\", JSON.stringify({"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 31,
+        "snippet": "const REGRA = \"regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/incrementalidade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 38,
+        "snippet": "[REGRA]: \"regras/incrementalidade_test.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 32,
+        "snippet": "const NORMAL = \"regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/paridade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 39,
+        "snippet": "[NORMAL]: \"regras/paridade_test.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/recollection_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 98,
+        "snippet": "const TODAS = [\"regras/incrementalidade_test.mjs\", \"regras/recollection_test.mjs\", \"regras/paridade_test.mjs\"];"
       }
     },
     {
@@ -51419,7 +51499,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/incrementalidade_test.mjs",
-        "line": 19,
+        "line": 20,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51430,7 +51510,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/incrementalidade_test.mjs",
-        "line": 19,
+        "line": 20,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51760,7 +51840,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 232,
+        "line": 260,
         "snippet": "const fonte = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
       }
     },
@@ -51771,7 +51851,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 274,
+        "line": 302,
         "snippet": "const { replay } = await import(\"../medidas/paridade_replay.mjs\");"
       }
     },
@@ -51782,7 +51862,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 29,
+        "line": 30,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51793,7 +51873,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 29,
+        "line": 30,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51804,7 +51884,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 26,
+        "line": 27,
         "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -51815,7 +51895,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 26,
+        "line": 27,
         "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -72095,10 +72175,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2456,
-    "files_readable": 1088,
-    "files_code_dir": 946,
-    "file_edges": 4939,
+    "files_tracked": 2458,
+    "files_readable": 1089,
+    "files_code_dir": 948,
+    "file_edges": 4945,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

@@ -4262,14 +4262,16 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Doze mutantes contra regras/incrementalidade.mjs e regras/normalizacao_de_conteudo.mjs, com o protocolo cache-safe §165 traduzido para Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, SONDA que confirma que o mutante CORREU, restauro em finally e conferido com git diff contra o indice. Cada ataque declara MORTE_ESPERADA: morrer pela prova errada conta como SURVIVOR.",
-   "why_here": "Os dez minimos do briefing mais dois que a missao encontrou por ter o defeito a frente: carimbar UNKNOWN a mao a comprar a admissao, e a canonicalizacao a comer os cinco caracteres com significado em HTML. E apanhou-se aqui um defeito do proprio arnes: ele guardava so as 4 primeiras linhas de falha para conferir a razao da morte, o ataque M8 derrubava OITO provas e a que interessava era a setima — dois mutantes mortos liam-se como SURVIVOR. Truncar a evidencia fabrica um sobrevivente.",
+   "what": "Doze mutantes contra regras/incrementalidade.mjs e regras/normalizacao_de_conteudo.mjs, com o protocolo cache-safe §165 traduzido para Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, SONDA que confirma que o mutante CORREU, restauro em finally e conferido com git diff contra o indice. Cada ataque declara MORTE_ESPERADA: morrer pela prova errada conta como SURVIVOR. E mede a REGUA ESTRITA: so conta como morto se a suite DONA do ficheiro mutado reprovar — a que vive na mesma peca do mapa.",
+   "why_here": "Os dez minimos do briefing mais dois que a missao encontrou por ter o defeito a frente: carimbar UNKNOWN a mao a comprar a admissao, e a canonicalizacao a comer os cinco caracteres com significado em HTML. E apanhou-se aqui um defeito do proprio arnes: ele guardava so as 4 primeiras linhas de falha para conferir a razao da morte, o ataque M8 derrubava OITO provas e a que interessava era a setima — dois mutantes mortos liam-se como SURVIVOR. Truncar a evidencia fabrica um sobrevivente. Acrescentado por verificacao externa em 2026-09-22: o mutante que troca DECLARADO por true deixava regras/incrementalidade_test.mjs em 23/23 verde e so morria por recollection_test.mjs, noutro ficheiro. Pela regua estrita eram TRES sobreviventes (M11, M-CENSO, M12); com as guardas na suite dona sao zero. Uma lei guardada so noutro ficheiro esta guardada contra o acaso, nao contra quem mexe na linha.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
+    "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
     "provas/RECOLLECTION-RED-TEAM-V1.json",
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ]
   }
  ],

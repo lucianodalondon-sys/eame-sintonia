@@ -356,8 +356,14 @@ UNKNOWN_RECOLLECTION_AFTER   175    todos BLOCKED_FOR_BIG_COLLECTION
 ## FASE 12 · RED TEAM
 
 ```
-ATAQUES 12 · KILLED 12 · RED_TEAM_SURVIVORS 0
+ATAQUES 12 · KILLED 12 · RED_TEAM_SURVIVORS 0            (regua declarada)
+ATAQUES 12 · KILLED 12 · SURVIVORS_REGUA_ESTRITA 0       (a suite DONA mata)
 ```
+
+⚠️ **A segunda linha foi acrescentada depois de uma verificação externa**, e é
+a que vale. Na primeira entrega só existia a primeira, e ela escondia três
+leis guardadas apenas a partir de outro ficheiro — ver
+[a correcção mais abaixo](#️-correcção--verificação-externa-22092026-clone-isolado-sobre-95d69dba).
 
 Os dez mínimos do briefing, mais dois que esta missão acrescentou por ter
 encontrado o defeito. Protocolo cache-safe §165 traduzido para Node — o **mesmo
@@ -382,6 +388,138 @@ fim (`git diff` contra o índice, nunca `--porcelain`).
 | M9 | mudança real em morada estável nunca é detectada | o TEXTO a mudar ⇒ MATERIAL_CHANGE |
 | M2/M4 | uma regra volátil alarga-se até comer o corpo da matéria | o TEXTO a mudar ⇒ MATERIAL_CHANGE |
 | M12 | a canonicalização come os cinco caracteres de HTML | os cinco caracteres com significado em HTML não se traduzem |
+
+### ⚠️ CORREÇÃO — verificação externa, 22/09/2026, clone isolado sobre `95d69dba`
+
+A tabela acima diz **12 ataques, 12 mortos**. Isso era verdade **para o
+conjunto de suítes que o arnês usa como matadoras** — e era uma régua fraca
+demais para o que estava em causa.
+
+O que a verificação externa fez, e achou:
+
+```
+alvo      regras/incrementalidade.mjs :: recolheitaDoContrato()
+mutacao   DECLARADO: r.DETAIL_CONTENT !== "UNKNOWN"   ->   DECLARADO: true
+
+  recolheitaDoContrato('IT-X-1', {RECOLLECTION:{DETAIL_CONTENT:'UNKNOWN'}})
+      original  DECLARADO = false
+      mutante   DECLARADO = true
+
+  regras/incrementalidade_test.mjs    PASSOU 23 · FALHOU 0   ← VERDE
+```
+
+**O efeito do mutante não é cosmético:** um contrato com `UNKNOWN` escrito à
+mão deixava de ficar `BLOCKED_FOR_BIG_COLLECTION` e entrava na colheita grande
+sem ninguém ter estudado a fonte — exactamente o defeito que esta missão
+existiu para fechar.
+
+#### O que era verdade e o que não era
+
+Sendo preciso, porque a diferença muda o que se aprende:
+
+- `RED_TEAM_SURVIVORS = 0` **está correcto** para o conjunto declarado de
+  matadoras: o ataque M11 era morto, e pela prova certa, por
+  `regras/recollection_test.mjs` — está no recibo
+  `provas/RECOLLECTION-RED-TEAM-V1.json`.
+- **A régua é que estava errada.** A lei vivia em letra grande num comentário
+  de `recolheitaDoContrato()`, e a suíte do **próprio módulo** não a prendia.
+  Quem mexe numa linha corre a suíte do ficheiro onde mexeu — não a de outro
+  ficheiro que por acaso também a cobre.
+
+> UMA LEI GUARDADA SÓ NOUTRO FICHEIRO ESTÁ GUARDADA CONTRA O ACASO,
+> NÃO CONTRA QUEM MEXE NA LINHA.
+
+Pela régua estrita — **a suíte dona do ficheiro mutado tem de matar** — M11
+**era um sobrevivente**. E a régua estrita é a melhor das duas.
+
+#### E não era o único
+
+Aplicada a régua estrita aos doze ataques
+(`provas/recollection_red_team_estrito.mjs`), apareceram **mais dois** do mesmo
+tipo, que a verificação externa não tinha visto:
+
+| ataque | ficheiro mutado | suíte dona | a dona matava? |
+|---|---|---|---|
+| `M11` | `regras/incrementalidade.mjs` | `incrementalidade_test.mjs` | **não** |
+| `M-CENSO` | `regras/incrementalidade.mjs` | `incrementalidade_test.mjs` | **não** |
+| `M12` | `regras/normalizacao_de_conteudo.mjs` | `paridade_test.mjs` | **não** |
+
+`M-CENSO` desligava o contador `DETAIL_SKIPPED_UNDECLARED` — o número que mede
+a cegueira. `M12` esvaziava `NAO_SE_TRADUZ` e deixava a canonicalização
+traduzir os cinco caracteres com significado em HTML.
+
+#### O que se fez
+
+Três guardas novas, **cada uma com controlo positivo**, na suíte dona:
+
+| guarda | onde | o controlo positivo |
+|---|---|---|
+| `UNKNOWN` à mão não conta como declarado | `incrementalidade_test.mjs` | `IMMUTABLE` e `MUTABLE` dão `DECLARADO = true` |
+| a consequência: fica `BLOCKED_FOR_BIG_COLLECTION` | `incrementalidade_test.mjs` | os dois declarados são `ADMISSIVEL`, e o salto não muda |
+| os cinco caracteres de HTML não se traduzem | `paridade_test.mjs` | as letras traduzem-se, e `TRADUZIDAS = 4` |
+| `DETAIL_SKIPPED_UNDECLARED` conta o cego e só o cego | `incrementalidade_test.mjs` | o informado dá `0`, o cego dá `1` |
+
+O controlo positivo não é enfeite: sem ele, `DECLARADO: false` fixo passaria a
+primeira guarda e ela mediria o nada.
+
+Mutação reaplicada, cache-safe (`NODE_DISABLE_COMPILE_CACHE=1`, processo novo,
+diff provado, sonda a confirmar que o mutante correu, restauro conferido com
+`git diff` contra o índice):
+
+```
+diff     -    DECLARADO: r.DETAIL_CONTENT !== "UNKNOWN",
+         +    DECLARADO: true,
+sonda    DECLARADO com o mutante = true   (original: false)   MUTANTE_EXECUTOU = true
+suite    regras/incrementalidade_test.mjs   PASSOU 23 · FALHOU 2   rc = 1
+
+MUTANT_KILLED = YES
+```
+
+E a régua estrita sobre os doze, depois das guardas:
+
+```
+ATAQUES 12 · KILLED_PELA_DONA 12 · SURVIVORS_REGUA_ESTRITA 0
+```
+
+#### ⚠️ E uma regressão que esta missão tinha causado noutro sítio
+
+A mesma corrida destapou outra coisa, que nada tem a ver com o achado externo
+mas é da mesma família. Esta missão moveu o ciclo de `normalizarConteudo()`
+para `textoNormalizado()` — e com isso **apagou a linha que o red team da
+paridade usava como âncora** no ataque M4:
+
+```
+provas/paridade_red_team.mjs   M4   ANCORA NAO ENCONTRADA
+  antes de 95d69dba   ATAQUES 8 · SURVIVORS 0
+  depois              ATAQUES 8 · SURVIVORS 1   ← fabricado
+```
+
+O ataque deixou de **entrar**. Não houve defesa fraca nenhuma: houve um ataque
+que nunca aconteceu, e o arnês leu isso como sobrevivente — o mesmo mecanismo
+de §167-10, do outro lado.
+
+> ÂNCORA MORTA NÃO É DEFESA FRACA: É ATAQUE QUE NUNCA ACONTECEU.
+> Quem refactoriza um módulo tem de correr os red teams que o **atacam**, e não
+> só as suítes que o **testam** — uma âncora é um acoplamento ao *texto* do
+> código, e um refactor legítimo parte-a sem aviso.
+
+Âncora corrigida para `let texto = canon.TEXTO;`. Conferido:
+
+```
+provas/paridade_red_team.mjs   ATAQUES 8 · KILLED 8 · SURVIVORS 0
+```
+
+#### Contas finais, depois da correcção
+
+```
+RED_TEAM_SURVIVORS (regua declarada, 3 suites)   0
+SURVIVORS_REGUA_ESTRITA (a suite dona mata)      0    ← era 3
+paridade_red_team.mjs                            0    ← era 1, por ancora partida
+```
+
+O gate desta missão não muda de veredicto. O que muda é a confiança com que se
+pode dizer `RED_TEAM_SURVIVORS = 0`: antes dependia de uma suíte noutro
+ficheiro, e agora não depende.
 
 ### ⚠️ Um sobrevivente fabricado, e como se apanhou
 
@@ -624,7 +762,7 @@ Condição a condição, como o briefing as pôs:
 | `SAME_URL_OVERWRITE` com revisita definida | **OK** — as 6 revalidam com razão `CONTRACT_DECLARES_MUTABLE` |
 | `NEW_URL_PER_ITEM` com descoberta provada | **PARCIAL** — 4 de 6 com descoberta observada; `IT-T2-001` e `IT-T7-002` nunca foram observadas nesta árvore, e `IT-T3-010` tem 19 recusas de índice no historial |
 | incrementalidade continua provada | **OK** — `UNNECESSARY_REFETCHES = 0`, 13 provas de paridade verdes |
-| `RED_TEAM_SURVIVORS 0` | **OK** — 12 ataques, 12 mortos |
+| `RED_TEAM_SURVIVORS 0` | **OK** — 12 ataques, 12 mortos; e 12 de 12 também pela régua estrita (a suíte dona mata), depois da correcção da verificação externa |
 | `NEW_FAILURES 0` | **OK** — comparado por nome |
 
 ⚠️ **A linha PARCIAL não se arredonda para cima.** Nenhuma das três está entre
