@@ -1,13 +1,13 @@
 {
  "DATASET": "RECONCILIACAO-V1",
  "LEI": "uma SOURCE_ID, um estado final, sustentado pela prova em disco. Nao se escolhe livro, nao se somam estados, o mais recente nao vence. Bloqueio comprovado preserva-se; READY exige os quatro passos; NAO SEI e resultado.",
- "GERADO_EM": "2026-09-22T18:34:19.285029+00:00",
+ "GERADO_EM": "2026-09-22T18:43:59.767133+00:00",
  "LIVROS": {
   "A": {
-   "COMMIT": "cf422ddd",
+   "COMMIT": "ec29bbb6",
    "FILE": "curadoria/LIFECYCLE-LEDGER-V1.json",
    "SOURCES": 555,
-   "TRANSICOES": 1564,
+   "TRANSICOES": 1592,
    "POR_ESTADO": {
     "READY_FOR_COLLECTION": 102,
     "CANARY_PENDING": 101,
@@ -52,10 +52,10 @@
    }
   },
   "C": {
-   "COMMIT": "463357e5",
+   "COMMIT": "a757e611",
    "FILE": "curadoria/LIFECYCLE-LEDGER-V1.json",
    "SOURCES": 437,
-   "TRANSICOES": 1228,
+   "TRANSICOES": 1256,
    "POR_ESTADO": {
     "RECONCILIATION_REQUIRED": 50,
     "READY_FOR_COLLECTION": 33,
@@ -70,9 +70,9 @@
   }
  },
  "BOT_SNAPSHOT": {
-  "BOT_SNAPSHOT_HEAD": "463357e5",
-  "BOT_SNAPSHOT_TIME": "2026-09-22T18:30:50.867462+00:00",
-  "BOT_SNAPSHOT_TRANSITION_MAX_ID": 1228,
+  "BOT_SNAPSHOT_HEAD": "a757e611",
+  "BOT_SNAPSHOT_TIME": "2026-09-22T18:38:41.761713+00:00",
+  "BOT_SNAPSHOT_TRANSITION_MAX_ID": 1256,
   "BOT_SNAPSHOT_SOURCES": 437,
   "LEITURA": "git show — copia congelada. O ficheiro vivo do bot NAO e lido: o supervisor esta a correr e pode gravar a meio da leitura.",
   "POSTERIOR_AO_CORTE": "atravessa a ponte futura; nao entra retroativo nesta reconciliacao"
@@ -154,8 +154,8 @@
   "IDENTIDADES_FINAIS": 555
  },
  "POR_ESTADO_FINAL": {
-  "READY_CURRENT": 14,
-  "READY_LEGACY": 88,
+  "READY_CURRENT": 21,
+  "READY_LEGACY": 81,
   "RETRY": 19,
   "DEGRADED": 18,
   "POLICY_BLOCK": 69,
@@ -1891,13 +1891,20 @@
  "READY_RECONTADO": {
   "READY_CURRENT": [
    "IT-T10-018",
+   "IT-T10-021",
    "IT-T10-022",
+   "IT-T12-041",
    "IT-T12-057",
    "IT-T12-074",
    "IT-T12-095",
+   "IT-T2-034",
+   "IT-T2-051",
+   "IT-T2-056",
    "IT-T5-041",
    "IT-T5-049",
+   "IT-T5-064",
    "IT-T7-017",
+   "IT-T7-021",
    "IT-T7-033",
    "IT-T7-042",
    "IT-T7-043",
@@ -1907,6 +1914,7 @@
   ],
   "READY_CURRENT_COM_REVISAO_HUMANA": [
    "IT-T12-095",
+   "IT-T5-064",
    "IT-T9-015",
    "IT-T9-019"
   ],
@@ -1923,7 +1931,6 @@
    "IT-T10-010",
    "IT-T10-017",
    "IT-T10-019",
-   "IT-T10-021",
    "IT-T11-005",
    "IT-T11-006",
    "IT-T11-007",
@@ -1937,7 +1944,6 @@
    "IT-T12-015",
    "IT-T12-016",
    "IT-T12-019",
-   "IT-T12-041",
    "IT-T12-086",
    "IT-T12-089",
    "IT-T2-001",
@@ -1950,10 +1956,7 @@
    "IT-T2-026",
    "IT-T2-027",
    "IT-T2-028",
-   "IT-T2-034",
    "IT-T2-049",
-   "IT-T2-051",
-   "IT-T2-056",
    "IT-T3-002",
    "IT-T3-008",
    "IT-T3-010",
@@ -1971,11 +1974,9 @@
    "IT-T5-038",
    "IT-T5-040",
    "IT-T5-051",
-   "IT-T5-064",
    "IT-T5-082",
    "IT-T7-015",
    "IT-T7-020",
-   "IT-T7-021",
    "IT-T7-022",
    "IT-T7-023",
    "IT-T7-024",
@@ -2424,7 +2425,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:23.983795+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0009-QUALIFY-0109"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2464,7 +2465,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.024363+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0010-QUALIFY-0110"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2504,7 +2505,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.069945+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0015-QUALIFY-0111"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2544,7 +2545,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.115690+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0018-QUALIFY-0120"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2584,7 +2585,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.152313+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0026-QUALIFY-0133"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2858,7 +2859,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.190957+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0050-QUALIFY-0157"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2898,7 +2899,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.229509+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0051-QUALIFY-0158"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2938,7 +2939,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.267067+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0057-QUALIFY-0164"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -2978,7 +2979,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.310373+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0060-QUALIFY-0169"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -3018,7 +3019,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.351532+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0063-QUALIFY-0175"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -3058,7 +3059,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.390128+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0064-QUALIFY-0159"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -5789,7 +5790,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.431165+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0137-QUALIFY-0195"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -5829,7 +5830,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.469344+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0139-QUALIFY-0206"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -5869,7 +5870,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.506395+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0144-QUALIFY-0246"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -5909,7 +5910,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.551569+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0145-QUALIFY-0247"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -5949,7 +5950,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.596735+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0148-QUALIFY-0257"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -5989,7 +5990,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.643373+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0168-QUALIFY-0259"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6029,7 +6030,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.686431+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0176-QUALIFY-0253"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6069,7 +6070,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.733448+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0253-QUALIFY-0036"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6109,7 +6110,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.784579+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0257-QUALIFY-0174"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6149,7 +6150,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.828202+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0269-QUALIFY-0258"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6189,7 +6190,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.875257+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0270-QUALIFY-0084"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6229,7 +6230,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.915311+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0271-QUALIFY-0268"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -6269,7 +6270,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:24.960359+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0274-QUALIFY-1006"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6309,7 +6310,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.004996+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0289-QUALIFY-1096"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -6349,7 +6350,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.050588+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0290-QUALIFY-1091"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6389,7 +6390,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.096755+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0296-QUALIFY-1088"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6429,7 +6430,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.156610+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0298-QUALIFY-1055"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6469,7 +6470,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.200211+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0299-QUALIFY-1092"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6509,7 +6510,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.245803+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0300-QUALIFY-1097"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -6549,7 +6550,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.291007+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0311-QUALIFY-1087"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6589,7 +6590,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.339579+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0312-QUALIFY-1039"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6629,7 +6630,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.387199+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0314-QUALIFY-1009"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6669,7 +6670,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.431425+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0315-QUALIFY-1056"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6709,7 +6710,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.477369+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0316-QUALIFY-0975"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6749,7 +6750,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.527425+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0317-QUALIFY-1038"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6789,7 +6790,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.581453+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0318-QUALIFY-0684"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6829,7 +6830,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.627674+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0320-QUALIFY-0513"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6869,7 +6870,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.678938+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0331-QUALIFY-1098"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -6909,7 +6910,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.722572+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0332-QUALIFY-1104"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -6949,7 +6950,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.771224+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0333-QUALIFY-1062"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -6989,7 +6990,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.820143+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0335-QUALIFY-1102"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -7029,7 +7030,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.866907+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0344-QUALIFY-1061"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7069,7 +7070,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.922124+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0345-QUALIFY-0972"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7109,7 +7110,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:25.969822+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0352-QUALIFY-0973"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7149,7 +7150,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.015008+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0353-QUALIFY-1045"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7189,7 +7190,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.072793+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0367-QUALIFY-0910"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7229,7 +7230,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.116423+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0368-QUALIFY-1044"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7269,7 +7270,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.157514+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0369-QUALIFY-0909"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7309,7 +7310,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.211073+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0370-QUALIFY-0974"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7349,7 +7350,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.269755+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0377-QUALIFY-1103"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -7389,7 +7390,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.318406+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0381-QUALIFY-0978"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7429,7 +7430,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.361977+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0395-QUALIFY-0919"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7469,7 +7470,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.401387+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0396-QUALIFY-0976"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7509,7 +7510,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.440878+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0398-QUALIFY-0654"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7549,7 +7550,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.483413+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0408-QUALIFY-0979"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7589,7 +7590,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.525552+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0413-QUALIFY-0955"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7629,7 +7630,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.573237+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0414-QUALIFY-1100"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -7669,7 +7670,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.621859+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0423-QUALIFY-1099"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -7709,7 +7710,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.666439+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0424-QUALIFY-1090"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7749,7 +7750,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.721596+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0429-QUALIFY-0508"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7789,7 +7790,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.772192+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0430-QUALIFY-1007"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7829,7 +7830,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.820288+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0451-QUALIFY-1093"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7869,7 +7870,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.877013+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0452-QUALIFY-1095"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -7909,7 +7910,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.925605+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0465-QUALIFY-1089"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -7949,7 +7950,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:26.971668+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-CAND-0469-QUALIFY-1101"
    },
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -8018,7 +8019,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.638969+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -8066,7 +8067,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.717082+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191235-eb94a10a12884b64"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8114,7 +8115,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.804212+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191247-1dba6f8f941c5b8c"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8158,7 +8159,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.881374+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191300-0374ba8f59677735"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8212,7 +8213,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:17.930555+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191308-2f2ccea3aa242d38"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8260,7 +8261,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.004783+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191324-803240b56549a13a"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8314,7 +8315,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.058840+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191340-fce6e104e4f4af65"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8362,7 +8363,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.140461+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191354-b5f6f135c505ff87"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -8416,7 +8417,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.196201+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191407-b2ebe9f3986b66c5"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8470,7 +8471,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.250264+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191421-e54aa65268e07164"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8524,7 +8525,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.302847+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191433-1536b525db16df88"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8568,7 +8569,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.378144+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191447-5c7a1ddd7de5c44a"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8616,7 +8617,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.467302+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191455-05c83e78a2b754cd"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -8660,7 +8661,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.558662+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191506-e479cbc3504800e6"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8704,7 +8705,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.643962+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191514-df2e417b03513734"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8758,7 +8759,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.707029+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191525-bda65292ddf268cd"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8802,7 +8803,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.797151+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191539-34e0ef5fed39407a"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8856,7 +8857,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.854727+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191549-1a2fb52953efaa4b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -8904,7 +8905,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:18.934822+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191603-1321e1bd1b3b98e7"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -8948,7 +8949,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.016970+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191619-b3415351ccad4317"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -8996,7 +8997,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.088640+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T1-2026-09-20-191628-52120846fd64a5a5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9050,7 +9051,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.140271+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191639-403ffcb4c3d3619a"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9094,7 +9095,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.212479+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T1-2026-09-20-191659-0b158479b96676a0"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9138,7 +9139,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.286608+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193142-c5fd40d5faf505ab"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9182,7 +9183,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.365149+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193149-c29ef9fa74a76e74"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9230,7 +9231,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.437596+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193156-a06aa070dc4ef38e"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9274,7 +9275,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.508889+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193214-ce1dfbaba93be0af"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9328,7 +9329,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.567833+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193222-aee17e0ede6713e6"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9378,7 +9379,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.619903+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193233-ea35142fd47b1e28"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9426,7 +9427,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.709151+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193241-ca803f52619b2920"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9474,7 +9475,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.809299+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193259-92e5795fd53fb95f"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -9522,7 +9523,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.916925+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193310-3ab39d3ab55079e0"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9566,7 +9567,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:19.999038+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193323-0dc0793e28132e6d"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9614,7 +9615,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.079617+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193348-c3850ea3fb2bbf57"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -9658,7 +9659,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.160245+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T10-2026-09-20-193406-ce4313902ce7f8a0"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -9716,7 +9717,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.211348+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-211431-6e543000f0c579f1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9775,7 +9776,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:25:56.142653+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T10-018-CANARY-0037"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -9834,7 +9835,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.267740+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-211812-3babdf62c9941b36"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -9887,7 +9888,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.297765+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T10-2026-09-20-193931-9cf1af71c8c52959"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -9912,9 +9913,9 @@
    "ROUTE_A": "https://plantgest.imagelinenetwork.com/",
    "ROUTE_B": "https://plantgest.imagelinenetwork.com/",
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T10-021-REPAIR-0010",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T10-021-CANARY-1334",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-20T21:50:19.063266+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.489687+00:00"
    },
    "CANARY_B": {
     "BCR_CLASSE": "SUCCESS",
@@ -9931,8 +9932,8 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": true,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -9943,19 +9944,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T10-021-CANARY-1304",
+    "EVIDENCE_REF": "EV-IT-T10-021-CANARY-1334",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:26:51.969501+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:08.997424+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL | B: a BCR colheu materia (BCR_ALVO_MATERIA) pela regua antiga; sem gate de detalhe | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-20T21:50:19.063266+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T10-021-REPAIR-0010"
+    "QUANDO": "2026-09-22T18:43:57.489687+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T10-021-CANARY-1334"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": null
   },
   {
    "SOURCE_ID": "IT-T10-022",
@@ -10011,7 +10013,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:05.817316+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T10-022-CANARY-0039"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -10066,7 +10068,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.353933+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T11-2026-09-20-193416-a32a1573df372f02"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10124,7 +10126,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.416978+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T11-2026-09-20-212112-2def310caa927ec4"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10182,7 +10184,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.474547+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T11-2026-09-20-212421-98a2f8153561bb2e"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10225,7 +10227,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:27.118231+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T11-008-VALIDATE_ROUTE-0256"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -10268,7 +10270,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:15.652781+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T11-009-CANARY-1305"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -10291,9 +10293,9 @@
    "ROUTE_A": "https://www.svilupposostenibile.regione.lombardia.it/it/educazione-ambientale/fiera/fiera-2026",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T11-010-CANARY-1293",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T11-010-CANARY-1335",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T18:17:45.829058+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.565412+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -10314,17 +10316,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T11-010-CANARY-1306",
+    "EVIDENCE_REF": "EV-IT-T11-010-CANARY-1335",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:27:05.180892+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:15.503101+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
    "FINAL_REASON": "A: PASS_PARCIAL: falta DETAIL_LINKS | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T18:17:45.829058+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T11-010-CANARY-1293"
+    "QUANDO": "2026-09-22T18:43:57.565412+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T11-010-CANARY-1335"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -10371,7 +10373,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.592413+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193427-9c7955ad27e6b075"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10419,7 +10421,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.766302+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193451-7781e9732475a4b9"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -10467,7 +10469,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.853907+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193504-873c2af8b2c30ea2"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10515,7 +10517,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:20.942593+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-193518-be8dd1c3eee2e02e"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -10573,7 +10575,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.008210+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-212718-027b1c98484eb5db"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10631,7 +10633,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.075256+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213016-74cb11a35bcac6db"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10684,7 +10686,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.101303+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-194020-6b4e0b0170a770dd"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -10742,7 +10744,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.158698+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213329-ce1143d8fdd408c1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10800,7 +10802,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.210400+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213618-204fec36f8df6d74"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10858,7 +10860,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.300127+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-213929-4de53b036643cc92"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -10911,7 +10913,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:15.324955+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-013-CANARY-0041"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -10969,7 +10971,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.397256+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-214220-11668b73fe94a34c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11027,7 +11029,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.503908+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-214512-631b00b59950219f"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11085,7 +11087,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.623913+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T12-2026-09-20-214800-14bd711d6e11e558"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -11172,7 +11174,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:27.542514+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-018-CANARY-0071"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11195,9 +11197,9 @@
    "ROUTE_A": "https://www.ersaf.lombardia.it/",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-019-CANARY-1294",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-019-CANARY-1336",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T18:17:45.907113+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.631963+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -11218,17 +11220,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T12-019-CANARY-1307",
+    "EVIDENCE_REF": "EV-IT-T12-019-CANARY-1336",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:27:15.845430+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:26.035335+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
    "FINAL_REASON": "A: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T18:17:45.907113+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-019-CANARY-1294"
+    "QUANDO": "2026-09-22T18:43:57.631963+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-019-CANARY-1336"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -11270,7 +11272,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:27.862319+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-020-VALIDATE_ROUTE-0087"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -11313,7 +11315,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:28.012065+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-021-CANARY-0094"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11356,7 +11358,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:28.168820+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-022-CANARY-0100"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11399,7 +11401,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:15.770433+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-023-CANARY-1308"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11442,7 +11444,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:15.896718+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-024-CANARY-1309"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11485,7 +11487,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:28.607694+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-025-VALIDATE_ROUTE-0118"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -11528,7 +11530,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:28.770504+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-026-CANARY-0173"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11571,7 +11573,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:04:23.996581+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@e26de5e2:EV-IT-T12-027-CANARY-1256"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11614,7 +11616,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:03.727459+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-028-CANARY-1198"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11657,7 +11659,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:03.810951+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-029-CANARY-1199"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11700,7 +11702,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:29.391643+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-030-CANARY-0362"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11743,7 +11745,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:29.538061+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-031-CANARY-0372"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11786,7 +11788,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:03.887691+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-032-CANARY-1200"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -11829,7 +11831,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:29.854159+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-033-CANARY-0380"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11872,7 +11874,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:30.021637+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-034-CANARY-0384"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -11915,7 +11917,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:30.170750+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-035-CANARY-0388"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -11958,7 +11960,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:30.312386+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-036-CANARY-0396"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12001,7 +12003,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:30.482558+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-037-CANARY-0418"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12044,7 +12046,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:30.747815+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-038-CANARY-0428"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12087,7 +12089,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:03.970440+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-039-CANARY-1201"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12130,7 +12132,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:31.063771+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-040-CANARY-0438"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12153,9 +12155,9 @@
    "ROUTE_A": "https://bura.regione.abruzzo.it/",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T12-041-CANARY-0442",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-041-CANARY-1337",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T16:26:31.215429+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.704788+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -12164,8 +12166,8 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": true,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -12176,19 +12178,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T12-041-CANARY-1310",
+    "EVIDENCE_REF": "EV-IT-T12-041-CANARY-1337",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:27:33.176198+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:31.959596+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T16:26:31.215429+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T12-041-CANARY-0442"
+    "QUANDO": "2026-09-22T18:43:57.704788+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-041-CANARY-1337"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": null
   },
   {
    "SOURCE_ID": "IT-T12-042",
@@ -12228,7 +12231,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.062336+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-042-CANARY-1202"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12271,7 +12274,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.150888+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-043-CANARY-1203"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12314,7 +12317,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:31.651474+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-044-CANARY-0460"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12357,7 +12360,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:31.820266+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-045-CANARY-0464"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12400,7 +12403,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:31.972771+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-046-CANARY-0475"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12443,7 +12446,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:32.121808+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-047-CANARY-0495"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12486,7 +12489,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:32.270409+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-048-VALIDATE_ROUTE-0497"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -12529,7 +12532,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.255116+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-049-CANARY-1204"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12572,7 +12575,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:32.548808+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-050-CANARY-0507"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12615,7 +12618,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:32.721852+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-051-CANARY-0512"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12658,7 +12661,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:32.886377+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-052-CANARY-0529"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12701,7 +12704,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:33.044324+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-053-VALIDATE_ROUTE-0532"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -12744,7 +12747,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.349400+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-054-CANARY-1205"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -12787,7 +12790,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:33.373642+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-055-CANARY-0549"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -12830,7 +12833,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:33.526915+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-056-CANARY-0559"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12885,7 +12888,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:17:45.985581+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-057-CANARY-1295"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -12929,7 +12932,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:33.888169+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-058-CANARY-0575"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -12972,7 +12975,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:34.048414+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-059-VALIDATE_ROUTE-0569"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -13015,7 +13018,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:34.196789+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-060-CANARY-0576"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13058,7 +13061,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:34.363371+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-061-CANARY-0580"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13101,7 +13104,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:34.520498+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-062-CANARY-0584"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13144,7 +13147,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:34.673983+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-063-VALIDATE_ROUTE-0587"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -13187,7 +13190,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:34.852195+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-064-CANARY-0595"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13230,7 +13233,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:35.019695+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-065-CANARY-0599"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13273,7 +13276,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:35.200260+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-066-CANARY-0603"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13316,7 +13319,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:35.363420+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-067-CANARY-0611"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -13359,7 +13362,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:35.614989+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-068-CANARY-0625"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13402,7 +13405,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.616727+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-069-CANARY-1207"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13445,7 +13448,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.712274+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-070-CANARY-1208"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13488,7 +13491,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.799086+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-071-CANARY-1209"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13531,7 +13534,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:36.339351+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-072-CANARY-0649"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -13574,7 +13577,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:04.872201+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-073-CANARY-1210"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13629,7 +13632,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:17:46.068067+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-074-CANARY-1296"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -13673,7 +13676,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:36.838182+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-075-CANARY-0672"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13716,7 +13719,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:05.123873+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-076-CANARY-1212"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13759,7 +13762,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:37.187906+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-077-CANARY-0683"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13802,7 +13805,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:37.416913+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-078-CANARY-0696"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -13845,7 +13848,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:37.619468+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-079-CANARY-0706"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13888,7 +13891,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:37.831670+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-080-CANARY-0710"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -13931,7 +13934,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:05.214043+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-081-CANARY-1213"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -13974,7 +13977,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:38.321364+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-082-CANARY-0724"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14017,7 +14020,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:38.603488+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-083-CANARY-0741"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14060,7 +14063,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:38.857333+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-084-CANARY-0789"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14103,7 +14106,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:39.025640+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-085-CANARY-0737"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14126,9 +14129,9 @@
    "ROUTE_A": "https://www.regione.lombardia.it/sanita",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-086-CANARY-1297",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-086-CANARY-1338",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T18:17:46.156908+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.775162+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -14149,17 +14152,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T12-086-CANARY-1311",
+    "EVIDENCE_REF": "EV-IT-T12-086-CANARY-1338",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:27:42.104566+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:39.614724+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
    "FINAL_REASON": "A: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T18:17:46.156908+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-086-CANARY-1297"
+    "QUANDO": "2026-09-22T18:43:57.775162+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-086-CANARY-1338"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -14201,7 +14204,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:39.372473+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-087-VALIDATE_ROUTE-0744"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -14244,7 +14247,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:05.474787+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-088-CANARY-1215"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -14267,9 +14270,9 @@
    "ROUTE_A": "https://www.regione.lombardia.it/sanita/ticket-ed-esenzioni/ticket-esenzioni-prestazioni-ssr",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-089-CANARY-1298",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-089-CANARY-1339",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T18:17:46.230026+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.841523+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -14290,17 +14293,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T12-089-CANARY-1312",
+    "EVIDENCE_REF": "EV-IT-T12-089-CANARY-1339",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:27:48.666040+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:46.846224+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
    "FINAL_REASON": "A: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T18:17:46.230026+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-089-CANARY-1298"
+    "QUANDO": "2026-09-22T18:43:57.841523+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T12-089-CANARY-1339"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -14342,7 +14345,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:40.026931+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-090-VALIDATE_ROUTE-0761"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -14385,7 +14388,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:40.279442+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-091-VALIDATE_ROUTE-0790"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -14428,7 +14431,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:40.461043+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-092-CANARY-0768"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14471,7 +14474,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:40.661641+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-093-CANARY-0772"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14514,7 +14517,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.004445+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-094-CANARY-1313"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -14569,7 +14572,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:17:46.301543+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T12-095-CANARY-1299"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -14613,7 +14616,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:41.237208+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-096-CANARY-0803"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14656,7 +14659,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:41.410592+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-097-CANARY-0808"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14699,7 +14702,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.006403+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-098-CANARY-1218"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -14742,7 +14745,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:41.844056+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-099-CANARY-0838"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14785,7 +14788,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:42.028701+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-100-CANARY-0842"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14828,7 +14831,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:42.183783+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-101-VALIDATE_ROUTE-0845"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -14871,7 +14874,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:42.352085+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-102-CANARY-0849"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -14914,7 +14917,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.113322+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-103-CANARY-1219"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -14957,7 +14960,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.208016+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-104-CANARY-1220"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15000,7 +15003,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:42.903843+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-105-CANARY-0897"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15043,7 +15046,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.335183+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-106-CANARY-1221"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15086,7 +15089,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.417031+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-107-CANARY-1222"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15129,7 +15132,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:43.400693+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-108-CANARY-0914"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15172,7 +15175,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:43.564115+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-109-CANARY-0918"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15215,7 +15218,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:43.779391+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-110-CANARY-0926"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15258,7 +15261,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:44.007798+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-111-CANARY-0930"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15301,7 +15304,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.107165+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-112-CANARY-1314"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15344,7 +15347,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:44.345140+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-113-CANARY-0941"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15387,7 +15390,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.217996+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-114-CANARY-1315"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15430,7 +15433,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:44.731754+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-115-CANARY-0949"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15473,7 +15476,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.316290+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-116-CANARY-1316"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15516,7 +15519,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.521540+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-117-CANARY-1223"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15559,7 +15562,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.619758+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T12-118-CANARY-1224"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15602,7 +15605,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.415059+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-119-CANARY-1317"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15645,7 +15648,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:45.659655+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-120-CANARY-1029"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15688,7 +15691,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.522371+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-121-CANARY-1318"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15731,7 +15734,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:46.038454+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-122-CANARY-1037"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15774,7 +15777,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.621160+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-123-CANARY-1319"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15817,7 +15820,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.720930+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-124-CANARY-1320"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15860,7 +15863,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:46.548104+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T12-125-CANARY-1066"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -15903,7 +15906,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.817097+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-126-CANARY-1321"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -15946,7 +15949,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:16.924799+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T12-127-CANARY-1322"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16000,7 +16003,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.678293+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-190938-7bdaa6931f24d3e1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -16050,7 +16053,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.735364+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-190951-7f6c58f2c4154617"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -16100,7 +16103,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.803178+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191023-ae818916b58ae92b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -16154,7 +16157,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.865759+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191709-ee11ba28a6ee3d86"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -16202,7 +16205,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:21.971069+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191720-fffc269df9127812"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16256,7 +16259,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.036183+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191748-54127f65bd58e563"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -16304,7 +16307,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.129473+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191804-171c387334a865a9"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -16352,7 +16355,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.217883+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191813-6c145599e540087c"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16400,7 +16403,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.309758+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191823-c0f415ea0aea1a27"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -16448,7 +16451,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.393130+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191836-919e3f90602af806"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16496,7 +16499,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.517077+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191849-70d5e9e988309dc4"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16546,7 +16549,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.583238+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191901-216f97bfbb992658"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -16594,7 +16597,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.668073+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191913-083fce2f9b36d00a"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -16642,7 +16645,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.755182+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191925-47134303ababe17a"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -16690,7 +16693,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.846222+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-191943-dd3a73f7b3f32397"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16734,7 +16737,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:22.931311+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-191958-104d791e1ff0a7d7"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -16782,7 +16785,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.014416+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192006-a06fe19a8aa05635"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16830,7 +16833,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.097303+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192025-b5580bb31a33bb29"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -16874,7 +16877,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.176413+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-192035-f2ff213175213475"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -16922,7 +16925,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.259051+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192042-43db4421b595a5c1"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -16966,7 +16969,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.338629+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T2-2026-09-20-192054-428a0fc2bd872d80"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -17014,7 +17017,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.419400+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-192107-cf6ce157affc8110"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -17072,7 +17075,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.475950+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194050-455538597dca4500"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -17130,7 +17133,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.531031+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194239-4b3bdf2151b93f3c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -17188,7 +17191,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.585279+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194451-2ad93dcd5a479ecc"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -17246,7 +17249,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.654867+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-194647-78b19842a3d2aab3"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -17343,7 +17346,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.683945+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T2-2026-09-20-193550-f769be593ed8a5fb"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -17386,7 +17389,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:47.173550+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-031-CANARY-0044"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17429,7 +17432,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:47.342711+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-032-CANARY-0048"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17472,7 +17475,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.712943+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-033-CANARY-1225"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -17495,9 +17498,9 @@
    "ROUTE_A": "https://www.arpa.marche.it/",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T2-034-CANARY-0055",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-034-CANARY-1340",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T16:26:47.745290+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.916070+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -17506,8 +17509,8 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": true,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -17518,19 +17521,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T2-034-CANARY-1323",
+    "EVIDENCE_REF": "EV-IT-T2-034-CANARY-1340",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:29:33.241978+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:52.883580+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T16:26:47.745290+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T2-034-CANARY-0055"
+    "QUANDO": "2026-09-22T18:43:57.916070+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-034-CANARY-1340"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": null
   },
   {
    "SOURCE_ID": "IT-T2-035",
@@ -17570,7 +17574,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:47.993582+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-035-CANARY-0059"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17613,7 +17617,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:48.225185+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-036-CANARY-0063"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17656,7 +17660,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.007901+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T2-037-CANARY-1324"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -17699,7 +17703,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:48.640892+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-038-VALIDATE_ROUTE-0090"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -17742,7 +17746,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:48.880986+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-039-CANARY-0317"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17782,7 +17786,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:49.056774+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-040-BUILD_CONTRACT-0319"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17822,7 +17826,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:49.216132+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-041-BUILD_CONTRACT-0321"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17862,7 +17866,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:49.356119+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-042-BUILD_CONTRACT-0323"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -17905,7 +17909,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.822785+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-043-CANARY-1226"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -17948,7 +17952,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:06.933685+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-044-CANARY-1227"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -17991,7 +17995,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.048573+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-045-CANARY-1228"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18034,7 +18038,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.162358+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-046-CANARY-1229"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18077,7 +18081,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.278480+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-047-CANARY-1230"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18117,7 +18121,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:50.543046+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-048-BUILD_CONTRACT-0401"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18140,9 +18144,9 @@
    "ROUTE_A": "https://www.arpa.sicilia.it/",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T2-049-CANARY-0405",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-049-CANARY-1341",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T16:26:50.741510+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:57.990886+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -18151,7 +18155,7 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": false,
-    "ITEM_ABERTO": false,
+    "ITEM_ABERTO": true,
     "BODY_UTIL": false,
     "CONTRATO_ATUAL": true
    },
@@ -18163,17 +18167,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T2-049-CANARY-1325",
+    "EVIDENCE_REF": "EV-IT-T2-049-CANARY-1341",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:29:48.322368+00:00"
+    "OBSERVED_AT": "2026-09-22T18:37:58.232638+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta DETAIL_LINKS,ITEM_ABERTO,BODY_UTIL | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
+   "FINAL_REASON": "A: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T16:26:50.741510+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T2-049-CANARY-0405"
+    "QUANDO": "2026-09-22T18:43:57.990886+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-049-CANARY-1341"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -18215,7 +18219,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:50.964550+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-050-CANARY-0410"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18238,9 +18242,9 @@
    "ROUTE_A": "https://www.arpae.it/it",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T2-051-CANARY-0414",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-051-CANARY-1342",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T16:26:51.162991+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:58.072885+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -18249,8 +18253,8 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": true,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -18261,19 +18265,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T2-051-CANARY-1326",
+    "EVIDENCE_REF": "EV-IT-T2-051-CANARY-1342",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:29:53.578108+00:00"
+    "OBSERVED_AT": "2026-09-22T18:38:02.275484+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T16:26:51.162991+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T2-051-CANARY-0414"
+    "QUANDO": "2026-09-22T18:43:58.072885+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-051-CANARY-1342"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": null
   },
   {
    "SOURCE_ID": "IT-T2-052",
@@ -18313,7 +18318,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:51.363766+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-052-CANARY-0471"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18356,7 +18361,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.395997+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-053-CANARY-1231"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18399,7 +18404,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:51.722735+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-054-CANARY-0541"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18442,7 +18447,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:51.925240+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-055-CANARY-0554"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18465,9 +18470,9 @@
    "ROUTE_A": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T2-056-CANARY-0591",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-056-CANARY-1343",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T16:26:52.123679+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:58.148516+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -18476,8 +18481,8 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": true,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -18488,19 +18493,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T2-056-CANARY-1327",
+    "EVIDENCE_REF": "EV-IT-T2-056-CANARY-1343",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:29:59.522922+00:00"
+    "OBSERVED_AT": "2026-09-22T18:38:08.164285+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T16:26:52.123679+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T2-056-CANARY-0591"
+    "QUANDO": "2026-09-22T18:43:58.148516+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T2-056-CANARY-1343"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": null
   },
   {
    "SOURCE_ID": "IT-T2-057",
@@ -18540,7 +18546,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:52.323659+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-057-CANARY-0607"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18583,7 +18589,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.484786+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-058-CANARY-1232"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18623,7 +18629,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:52.609946+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-059-BUILD_CONTRACT-0633"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18666,7 +18672,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:52.798639+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-060-CANARY-0641"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18709,7 +18715,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:53.005361+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-061-CANARY-0668"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18752,7 +18758,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:53.197799+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-062-CANARY-0718"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18795,7 +18801,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:53.393933+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-063-CANARY-0776"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18838,7 +18844,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:53.586429+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-064-CANARY-0784"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -18881,7 +18887,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.588609+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-065-CANARY-1233"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18924,7 +18930,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.678640+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-066-CANARY-1234"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -18967,7 +18973,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:54.158853+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-067-CANARY-0854"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -19010,7 +19016,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.768842+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T2-068-CANARY-1235"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19053,7 +19059,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:54.553949+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-069-CANARY-0867"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -19096,7 +19102,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:54.729249+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T2-070-CANARY-1086"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -19150,7 +19156,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.739006+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191037-b5e82a9d73b2782e"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -19190,7 +19196,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.771035+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "docs/fontes/ATLAS-DE-FONTES-EAME.md@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "SEMANTIC_REVIEW"
@@ -19244,7 +19250,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.828196+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191052-d2ef01b581d7d551"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -19298,7 +19304,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.894787+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191125-b882ffecc1f95bbb"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -19348,7 +19354,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:23.956307+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-191144-2773077f13fae128"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -19396,7 +19402,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.047210+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192119-8aa08a635041f2b8"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19444,7 +19450,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.133505+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192133-dce004acfbdd6a1f"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19492,7 +19498,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.224657+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192151-fd4d599532c61de6"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19540,7 +19546,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.314793+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192205-9ef28cde9e906463"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19584,7 +19590,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.410855+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-192219-bb11acec8f55fb18"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -19632,7 +19638,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.502264+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192225-9c8e82d0d6c5a33c"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19680,7 +19686,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.595934+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192234-acb12f3848dacbd3"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19728,7 +19734,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.689996+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T3-2026-09-20-192244-c98480cb05ad4fb3"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -19772,7 +19778,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.786991+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T3-2026-09-20-192256-daac964c52058353"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -19815,7 +19821,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.860707+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T3-022-CANARY-1236"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19869,7 +19875,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.852798+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T4-2026-09-20-191216-de6067c40f5d4097"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -19913,7 +19919,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.886492+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -19967,7 +19973,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:24.951604+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192316-0320404b196cf313"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -20015,7 +20021,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.040703+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192326-404ba276fec1312e"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20063,7 +20069,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.137130+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192337-e58047a9fb30c8ae"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20111,7 +20117,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.229024+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192350-8c9ead7e399b416a"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20159,7 +20165,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.317425+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192401-aa7b83aa0341733c"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20207,7 +20213,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.406532+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192416-4ac43a25dc96719b"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20255,7 +20261,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.505568+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192426-7b68be5ac851ce57"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20303,7 +20309,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.598919+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192441-7d2927d2fb50c66d"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20351,7 +20357,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.690818+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192455-af7a674717b940a9"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20405,7 +20411,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.760352+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192508-6a134eecf66c22a3"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -20453,7 +20459,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.854501+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192521-499d7f627375a5c1"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20501,7 +20507,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:25.996144+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192532-9aac8c847b3a9086"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20551,7 +20557,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.063666+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192545-fb7dc64d6d3e53c1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -20599,7 +20605,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.166372+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192556-28f6660efb053984"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20647,7 +20653,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.265554+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192609-0b9eb8a12e27b822"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20691,7 +20697,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.369952+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192620-6b5325f61adff675"
    },
    "LIFECYCLE_TARGET": "DEGRADED"
@@ -20739,7 +20745,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.476060+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192628-bdc09f811878fd5c"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20787,7 +20793,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.578046+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192639-811c2a9f1ddf5820"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20841,7 +20847,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.654710+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192653-3059d44865de3771"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -20895,7 +20901,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.721805+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192708-c824dabebd7f3b61"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -20943,7 +20949,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.849382+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192721-3c4f821504d60c1b"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -20997,7 +21003,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:26.917483+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192734-8b9ef001a8833894"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -21045,7 +21051,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.017955+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192753-50b3827b5360b47a"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -21093,7 +21099,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.132384+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192807-5c07ae2b2063e408"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -21147,7 +21153,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.250951+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192820-3218c890fbdc53ea"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -21194,7 +21200,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.385542+00:00",
-    "COMMIT": "cf422ddd"
+    "COMMIT": "ec29bbb6"
    },
    "FINAL_REASON": "bloqueio preservado pela evidencia (EVIDENCE_REF=EV-IT-T5-032-TRIAGEM-0002); ausencia noutro livro nao e revogacao",
    "LIFECYCLE_TARGET": "CAPABILITY_BLOCK"
@@ -21248,7 +21254,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.451551+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T5-2026-09-20-192843-147a52f842d703b2"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -21296,7 +21302,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.576979+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192855-65f932fb8ca2d940"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -21344,7 +21350,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.674764+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192906-7ab07ae1f5ec1c43"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -21392,7 +21398,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.788849+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-192919-8e956ede5a0f00ca"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -21450,7 +21456,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.855120+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-194902-0fa02d374fbc43c5"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -21508,7 +21514,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.923370+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-195101-91178695d8875e2c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -21561,7 +21567,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:27.959376+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-193605-e847862f7bea0834"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -21619,7 +21625,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.032156+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T5-2026-09-20-195319-8652f3bb627e2469"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -21668,7 +21674,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:58:55.745920+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-041-CANARY-0059"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -21721,7 +21727,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.102759+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -21773,7 +21779,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.177926+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -21825,7 +21831,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.255297+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -21877,7 +21883,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.328235+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -21973,7 +21979,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.397457+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -22025,7 +22031,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.466279+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -22084,7 +22090,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:21.493902+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-049-CANARY-0043"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -22137,7 +22143,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.545173+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -22186,7 +22192,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:59:05.716779+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-051-CANARY-0061"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -22231,7 +22237,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:48:28.237666+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22357,7 +22363,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:55.144776+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-055-CANARY-0040"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22400,7 +22406,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:55.368044+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-056-CANARY-0075"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22443,7 +22449,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:55.578869+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-057-CANARY-0079"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22486,7 +22492,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:55.778733+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-058-CANARY-0124"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22529,7 +22535,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:56.015530+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-059-CANARY-0128"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22572,7 +22578,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:56.242653+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-060-CANARY-0132"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22615,7 +22621,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:56.500738+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-061-CANARY-0138"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22658,7 +22664,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:56.734710+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-062-CANARY-0142"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22701,7 +22707,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:56.952660+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-063-CANARY-0147"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -22724,9 +22730,9 @@
    "ROUTE_A": "https://www.dafnae.unipd.it/",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "EV-IT-T5-064-CANARY-0151",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T5-064-CANARY-1344",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T16:26:57.174890+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:58.228676+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -22735,8 +22741,8 @@
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
     "DETAIL_LINKS": true,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -22747,19 +22753,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T5-064-CANARY-1328",
+    "EVIDENCE_REF": "EV-IT-T5-064-CANARY-1344",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:30:09.423038+00:00"
+    "OBSERVED_AT": "2026-09-22T18:38:17.870954+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: PASS_PARCIAL: falta ITEM_ABERTO,BODY_UTIL | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T16:26:57.174890+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "EV-IT-T5-064-CANARY-0151"
+    "QUANDO": "2026-09-22T18:43:58.228676+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T5-064-CANARY-1344"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": "ITEM_PARECE_SECCAO: https://www.dafnae.unipd.it/ricerca/assegni-di-ricerca — confirmar a olho que e um item e nao uma seccao"
   },
   {
    "SOURCE_ID": "IT-T5-065",
@@ -22799,7 +22806,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:07.951927+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-065-CANARY-1237"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -22842,7 +22849,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.050592+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-066-CANARY-1238"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -22885,7 +22892,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.143662+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-067-CANARY-1239"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -22928,7 +22935,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.235562+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-068-CANARY-1240"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -22971,7 +22978,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.343913+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-069-CANARY-1241"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -23014,7 +23021,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:58.491167+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-070-CANARY-0368"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23057,7 +23064,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:58.715538+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-071-VALIDATE_ROUTE-0467"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -23100,7 +23107,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:58.942802+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-072-CANARY-0479"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23143,7 +23150,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:59.139493+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-073-VALIDATE_ROUTE-0483"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -23186,7 +23193,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:59.318243+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-074-CANARY-0517"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23229,7 +23236,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:59.505822+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-075-CANARY-0521"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23272,7 +23279,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:59.695875+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-076-CANARY-0525"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23315,7 +23322,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:26:59.889678+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-077-CANARY-0664"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23358,7 +23365,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:00.091713+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-078-CANARY-0873"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23401,7 +23408,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:00.303630+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-079-CANARY-0877"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23444,7 +23451,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:00.496438+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-080-CANARY-0882"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23487,7 +23494,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:00.698728+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T5-081-CANARY-0904"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -23510,9 +23517,9 @@
    "ROUTE_A": "https://www.calabriafilmcommission.it/",
    "ROUTE_B": null,
    "CANARY_A": {
-    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T5-082-CANARY-1300",
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T5-082-CANARY-1345",
     "PASS": true,
-    "OBSERVED_AT": "2026-09-22T18:17:46.378680+00:00"
+    "OBSERVED_AT": "2026-09-22T18:43:58.309969+00:00"
    },
    "CANARY_B": null,
    "DETAIL_PROOF_B": null,
@@ -23533,17 +23540,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T5-082-CANARY-1329",
+    "EVIDENCE_REF": "EV-IT-T5-082-CANARY-1345",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:30:15.881811+00:00"
+    "OBSERVED_AT": "2026-09-22T18:38:23.924633+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
    "FINAL_REASON": "A: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-22T18:17:46.378680+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T5-082-CANARY-1300"
+    "QUANDO": "2026-09-22T18:43:58.309969+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T5-082-CANARY-1345"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -23585,7 +23592,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.597388+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-083-CANARY-1243"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -23628,7 +23635,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.696101+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T5-084-CANARY-1244"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -23668,7 +23675,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.581217+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -23716,7 +23723,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.686464+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-192932-34df68b28dff931e"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -23760,7 +23767,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.723687+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -23818,7 +23825,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.799239+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-190507-1de3b5b72cb820f7"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -23870,7 +23877,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.867337+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -23929,7 +23936,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:31.075813+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-017-CANARY-0045"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -23982,7 +23989,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:28.934594+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:data/derivados/YOUTUBE-CANARIO-50-2026-09-20.json@2026-09-20T18:46:12.012Z"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -24027,7 +24034,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-20T21:48:26.483299+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -24085,7 +24092,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.005158+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-201606-ad0f226a13a6ec9b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24110,9 +24117,9 @@
    "ROUTE_A": "https://www.etvilloresi.it/",
    "ROUTE_B": "https://www.etvilloresi.it/",
    "CANARY_A": {
-    "EVIDENCE_REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b",
-    "PASS": null,
-    "OBSERVED_AT": "2026-09-20T21:48:26.544813+00:00"
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T7-021-CANARY-1346",
+    "PASS": true,
+    "OBSERVED_AT": "2026-09-22T18:43:58.378613+00:00"
    },
    "CANARY_B": {
     "BCR_CLASSE": "SUCCESS",
@@ -24128,9 +24135,9 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
-    "DETAIL_LINKS": false,
-    "ITEM_ABERTO": false,
-    "BODY_UTIL": false,
+    "DETAIL_LINKS": true,
+    "ITEM_ABERTO": true,
+    "BODY_UTIL": true,
     "CONTRATO_ATUAL": true
    },
    "DETAIL_PROOF_C": {
@@ -24141,19 +24148,20 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T7-021-CANARY-1330",
+    "EVIDENCE_REF": "EV-IT-T7-021-CANARY-1346",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:30:23.451164+00:00"
+    "OBSERVED_AT": "2026-09-22T18:38:31.483289+00:00"
    },
-   "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: promovida com prova externa (MISSAO-04:curadoria/READY-FOR-COLLECTION) pela regua antiga; PASS_PARCIAL: falta DETAIL_LINKS,ITEM_ABERTO,BODY_UTIL | B: a BCR colheu materia (BCR_ALVO_MATERIA) pela regua antiga; sem gate de detalhe | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
+   "FINAL_STATE": "READY_CURRENT",
+   "FINAL_REASON": "A: os quatro passos estao na evidencia e o contrato e o atual | C concorda (READY_CURRENT), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-20T21:48:26.544813+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
+    "QUANDO": "2026-09-22T18:43:58.378613+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T7-021-CANARY-1346"
    },
-   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
+   "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
+   "REVISAO_HUMANA": null
   },
   {
    "SOURCE_ID": "IT-T7-022",
@@ -24208,7 +24216,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.072888+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-201845-ae18ccdc43c848ff"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24266,7 +24274,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.146596+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202132-f3bc4f423daf6680"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24324,7 +24332,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.215038+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202419-42827795e818506f"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24382,7 +24390,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.289011+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202705-897c05bd82c11e5b"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24440,7 +24448,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.358123+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-202948-362bb576cb62f7dc"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24498,7 +24506,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.427286+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-203233-e7bd976820f7fcb1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24556,7 +24564,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.496748+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-203512-ad25fe78f26d1882"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24658,7 +24666,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.564642+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-203807-132a21d388680511"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24711,7 +24719,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.600642+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-193729-ff9505dfaa9a4440"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -24769,7 +24777,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.672409+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204058-6b8e21d082e8a8cd"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24828,7 +24836,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:37.593952+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-033-CANARY-0047"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -24887,7 +24895,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.740520+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204351-a57d6bfb92beea10"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -24945,7 +24953,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.827338+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204645-5a50f69c53304327"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -25003,7 +25011,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.905387+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-204937-e9161b0eee2a5513"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -25061,7 +25069,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:29.984551+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-205230-4883daad4d79429c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -25158,7 +25166,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.061079+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T7-2026-09-20-205511-1922b5256d09507d"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -25183,9 +25191,9 @@
    "ROUTE_A": "https://www.parmigianoreggiano.it/",
    "ROUTE_B": "https://www.parmigianoreggiano.it/",
    "CANARY_A": {
-    "EVIDENCE_REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b",
-    "PASS": null,
-    "OBSERVED_AT": "2026-09-20T21:48:28.542461+00:00"
+    "EVIDENCE_REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T7-040-CANARY-1347",
+    "PASS": true,
+    "OBSERVED_AT": "2026-09-22T18:43:58.461002+00:00"
    },
    "CANARY_B": {
     "BCR_CLASSE": "SUCCESS",
@@ -25201,8 +25209,8 @@
    "CAPABILITY_EVIDENCE": null,
    "DETAIL_PROOF_A": {
     "INDEX_URL": true,
-    "DETAIL_LINKS": false,
-    "ITEM_ABERTO": false,
+    "DETAIL_LINKS": true,
+    "ITEM_ABERTO": true,
     "BODY_UTIL": false,
     "CONTRATO_ATUAL": true
    },
@@ -25214,17 +25222,17 @@
     "CONTRATO_ATUAL": true
    },
    "CANARY_C": {
-    "EVIDENCE_REF": "EV-IT-T7-040-CANARY-1331",
+    "EVIDENCE_REF": "EV-IT-T7-040-CANARY-1347",
     "RESOLVE_NO_MANIFESTO_DO_BOT": true,
-    "OBSERVED_AT": "2026-09-22T18:30:34.075916+00:00"
+    "OBSERVED_AT": "2026-09-22T18:38:41.761713+00:00"
    },
    "FINAL_STATE": "READY_LEGACY",
-   "FINAL_REASON": "A: promovida com prova externa (MISSAO-04:curadoria/READY-FOR-COLLECTION) pela regua antiga; PASS_PARCIAL: falta DETAIL_LINKS,ITEM_ABERTO,BODY_UTIL | B: a BCR colheu materia (BCR_ALVO_MATERIA) pela regua antiga; sem gate de detalhe | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
+   "FINAL_REASON": "A: o gate passou por «nao parece capa», mas o corpo e MIXED/NAO_SEI — BODY UTIL nao provado; PASS_PARCIAL | B: a BCR colheu materia (BCR_ALVO_MATERIA) pela regua antiga; sem gate de detalhe | C concorda (READY_LEGACY), e a regua nao sobe pelo bot",
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
-    "QUANDO": "2026-09-20T21:48:28.542461+00:00",
-    "COMMIT": "cf422ddd",
-    "REF": "MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46aca0b"
+    "QUANDO": "2026-09-22T18:43:58.461002+00:00",
+    "COMMIT": "ec29bbb6",
+    "REF": "RECONCILIACAO-V1:livro_C_(bot)@a757e611:EV-IT-T7-040-CANARY-1347"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
   },
@@ -25276,7 +25284,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:44.152898+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-041-CANARY-0049"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -25335,7 +25343,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:52.831978+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-042-CANARY-0051"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -25395,7 +25403,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:26:59.611475+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-043-CANARY-0053"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -25439,7 +25447,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:01.509790+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-044-CANARY-0183"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -25482,7 +25490,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:01.710119+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-045-CANARY-0187"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -25525,7 +25533,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:01.929812+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-046-CANARY-0191"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -25568,7 +25576,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.105550+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T7-047-CANARY-1332"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25611,7 +25619,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:08.807734+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T7-048-CANARY-1245"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25654,7 +25662,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:02.497227+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-049-VALIDATE_ROUTE-0205"
    },
    "LIFECYCLE_TARGET": "RETRY_AFTER"
@@ -25697,7 +25705,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.207743+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25740,7 +25748,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.316574+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25783,7 +25791,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.414803+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25826,7 +25834,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.514233+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25869,7 +25877,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:03.498241+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-054-CANARY-0237"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -25912,7 +25920,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:09.600096+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T7-055-CANARY-1250"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -25955,7 +25963,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:03.970025+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-056-VALIDATE_ROUTE-0245"
    },
    "LIFECYCLE_TARGET": "CONTRACT_READY_ROUTE_BLOCKED"
@@ -25998,7 +26006,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:04.190795+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T7-057-CANARY-0251"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26041,7 +26049,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.602547+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -26081,7 +26089,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.101161+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -26139,7 +26147,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.175645+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-205750-cab276717c694c6d"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -26197,7 +26205,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.252546+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-210029-0ba57a1f33613529"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -26255,7 +26263,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.332206+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-210310-d5c601178eef434c"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -26352,7 +26360,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.369596+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T8-2026-09-20-193904-6d7a31f62f27260f"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -26395,7 +26403,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:04.594903+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-009-CANARY-0156"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26438,7 +26446,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:34:17.692300+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@463357e5:EV-IT-T8-010-CANARY-1333"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -26481,7 +26489,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:05.001939+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-011-CANARY-0168"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26524,7 +26532,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:05.197303+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-012-CANARY-0179"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26564,7 +26572,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:05.322643+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-013-BUILD_CONTRACT-0933"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26604,7 +26612,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:05.450755+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-014-BUILD_CONTRACT-0981"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26647,7 +26655,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T17:41:09.858097+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@1c4ef5e8:EV-IT-T8-015-CANARY-1252"
    },
    "LIFECYCLE_TARGET": "CANARY_PENDING"
@@ -26690,7 +26698,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:05.833216+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-016-CANARY-1015"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26730,7 +26738,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:05.962636+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-017-BUILD_CONTRACT-1017"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26770,7 +26778,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:06.093170+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T8-018-BUILD_CONTRACT-1047"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
@@ -26810,7 +26818,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.414602+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "regras/italy_contracts.mjs@3c0ad4d7"
    },
    "LIFECYCLE_TARGET": "CONTRACT_PENDING"
@@ -26864,7 +26872,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.492717+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T9-2026-09-20-193035-161d1a1a177ee9c5"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -26912,7 +26920,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.609184+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-193048-12807feada3eb0ff"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -26966,7 +26974,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.689343+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "BCR-2026-09-20:IT-T9-2026-09-20-193058-ff56ab6f5e532dc1"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -27014,7 +27022,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.799601+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-193111-907ccf99fecc664f"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -27062,7 +27070,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.905649+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-193129-ceb8737f50fc7b23"
    },
    "LIFECYCLE_TARGET": "UNKNOWN"
@@ -27120,7 +27128,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:30.979987+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-210602-f4c184c1659f2066"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -27169,7 +27177,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:59:13.980133+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T9-015-CANARY-0063"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -27228,7 +27236,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:31.058082+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-210845-b9b4bc920d4423bf"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -27286,7 +27294,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T15:20:31.130854+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_B@f98f234c:BCR-2026-09-20:IT-T9-2026-09-20-211129-0fdf5d1554aa9631"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION"
@@ -27379,7 +27387,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-21T03:59:21.936603+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T9-019-CANARY-0065"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -27474,7 +27482,7 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T18:17:46.448459+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "RECONCILIACAO-V1:livro_C_(bot)@d23a44cc:EV-IT-T9-021-CANARY-1301"
    },
    "LIFECYCLE_TARGET": "READY_FOR_COLLECTION",
@@ -27518,26 +27526,26 @@
    "LATEST_VALID_EVIDENCE": {
     "FONTE": "livro A",
     "QUANDO": "2026-09-22T16:27:06.528524+00:00",
-    "COMMIT": "cf422ddd",
+    "COMMIT": "ec29bbb6",
     "REF": "EV-IT-T9-022-CANARY-1060"
    },
    "LIFECYCLE_TARGET": "CONTRACTED_CANARY_FAILED"
   }
  ],
  "APLICADO": {
-  "APLICADO_EM": "2026-09-22T18:34:17.808097+00:00",
-  "LINHAS_ANTES": 1543,
-  "LINHAS_DEPOIS": 1564,
-  "APENDIDAS": 21,
-  "PLANEADAS": 21,
+  "APLICADO_EM": "2026-09-22T18:43:58.558172+00:00",
+  "LINHAS_ANTES": 1578,
+  "LINHAS_DEPOIS": 1592,
+  "APENDIDAS": 14,
+  "PLANEADAS": 14,
   "CADEIAS_ILEGAIS_NAO_IMPORTADAS": [],
   "FALTAS": [],
   "EVIDENCIA": {
-   "PROVAS_CITADAS_DE_C": 16,
-   "PROVAS_IMPORTADAS": 16,
+   "PROVAS_CITADAS_DE_C": 14,
+   "PROVAS_IMPORTADAS": 14,
    "PROVAS_JA_PRESENTES_IDENTICAS": 0,
    "COLISOES_NAO_IMPORTADAS": [],
-   "PROVAS_NO_MANIFESTO_DEPOIS": 590
+   "PROVAS_NO_MANIFESTO_DEPOIS": 604
   },
   "SEGUNDA_PASSAGEM_PLANEIA": 0
  }
