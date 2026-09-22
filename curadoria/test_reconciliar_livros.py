@@ -554,6 +554,40 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(sorted(por_id(d)), [a, b])
         self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
 
+    def test_rt_c16_divergencia_nominal_nao_e_divergencia_de_facto(self):
+        """CONTAR NOMES DE ESTADO CONTA DUAS VEZES O MESMO ACORDO.
+
+        Medido em 2026-09-22, depois da volta 3: comparar o estado desta
+        arvore com o do bot dava **124** divergencias nominais, onde a missao
+        tinha medido 63. Parecia que a reconciliacao tinha piorado o dobro.
+        Nao tinha: 61 dessas 124 eram fontes em que os dois lados dizem a
+        MESMA COISA com nomes diferentes — `CANARY_PENDING` aqui e
+        `CONTRACTED_CANARY_FAILED` no bot sao ambos «nao pronta, falta provar
+        a rota». Sao o mesmo facto, e `_alvo_lifecycle` traduz um no outro de
+        proposito (NOT_READY guarda o passo pendente da familia).
+
+            DOIS NOMES PARA O MESMO FACTO NAO SAO UM DESACORDO.
+
+        Quem contasse nomes concluia que a ponte partiu, e ia «consertar» um
+        acordo. Compara-se por CLASSE — pronta · nao pronta · bloqueada ·
+        adiada — e so o que muda de classe e divergencia a serio.
+        """
+        pares_que_concordam = [
+            (LC.CANARY_PENDING, LC.CONTRACTED_CANARY_FAILED),
+            (LC.CANARY_PENDING, LC.CONTRACT_PENDING),
+            (LC.SEMANTIC_REVIEW, LC.RECONCILIATION_REQUIRED),
+        ]
+        for aqui, no_bot in pares_que_concordam:
+            self.assertIn(aqui, R.FAMILIA_NOT_READY)
+            self.assertIn(no_bot, R.FAMILIA_NOT_READY)
+            self.assertEqual(R._mapa(aqui), R._mapa(no_bot),
+                             "%s e %s deviam ler-se como o mesmo facto" % (aqui, no_bot))
+        # e os que MUDAM de classe continuam a ser desacordo a serio
+        for aqui, no_bot in ((LC.READY_FOR_COLLECTION, LC.CAPABILITY_BLOCK),
+                             (LC.READY_FOR_COLLECTION, LC.RECONCILIATION_REQUIRED),
+                             (LC.CANARY_PENDING, LC.READY_FOR_COLLECTION)):
+            self.assertNotEqual(R._mapa(aqui), R._mapa(no_bot))
+
     def test_rt_c13_o_head_do_bot_e_descoberto_nao_escrito_a_mao(self):
         """A PONTE FUTURA TEM DE ESTAR VIVA.
 
