@@ -2860,6 +2860,24 @@
    ]
   },
   {
+   "id": "C-CANARIO-ROTAS-ELEGIVEIS",
+   "name": "O canario das rotas das fontes aprovadas",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "what": "Para cada fonte que o portao aprova e o coletor nao conhece, prova contra a rede a rota que o Curator DECLAROU: robots pelo leitor da casa (gate_de_rota), INDEX_URL, links de detalhe pelo MESMO motor do coletor (ligacoesDoIndice de regras/motor_de_rota.mjs) e ate 2 alvos retratados pelo gate CAPA != MATERIA. Max 4 pedidos por fonte. Escreve curadoria/ROTAS-ELEGIVEIS-V1.json e mais nada; quem transforma a prova em linha do coletor e curadoria/onboardar_rotas_provadas.py.",
+   "why_here": "ROTA SEM CANARIO NAO E ROTA. Medido em 2026-09-22: 8 elegiveis no livro do lote-76 tinham rota declarada pelo Curator e nenhuma linha na tabela do coletor, porque a tabela onboarded foi escrita uma vez (04A). O canario provou 6, achou uma duplicada (duas fichas, o mesmo documento) e uma fonte que mudou de dominio desde a prova de ontem.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "medidas/canario_rotas_elegiveis.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-CORRIDA-CANONICA",
    "name": "A corrida canonica da micro-colheita",
    "territory": "Z-MEDIDAS",
