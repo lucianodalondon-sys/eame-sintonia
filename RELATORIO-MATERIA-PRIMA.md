@@ -555,3 +555,88 @@ está ligada ao canário do bot. É o mesmo padrão dos 11 do YouTube: a capacid
 existe, a ligação não.
 
 `ITENS_COLHIDOS = 0` · `PAID_USD = 0` · Big Collection **não** executada.
+
+---
+
+## LOTE 8 — os quatro passos fechados: `COLLECTION_ELIGIBLE 8 → 11`
+
+**Objectivo cumprido: `> 8` com prova dos quatro passos.**
+
+### As quatro tampas, por ordem
+
+**1 · O worker do bot não tinha os passos 3 e 4 — tinha o mesmo ficheiro, mais velho.**
+
+```
+grep ITEM_ABERTO|BODY_UTIL|retrato_html na lane do bot  ->  ZERO ocorrencias
+worker.etapa_canary ja chamava CANARIO.canario_html     ->  212 linhas, nao 245
+```
+
+Trazidos ficheiro a ficheiro, sem merge: `retrato_html.py` (novo lá, sem
+dependências do projecto) e `canario.py` (212 → 245). **O worker não foi
+tocado.** Testes 14/14. *(bot `95567c43`)*
+
+**2 · Corridas as 15 no canário completo — 9 provaram os quatro passos.** *(bot `e26de5e2`)*
+
+**3 · `READY → READY` é recusado por lei**, logo recanariar não actualizava a
+promoção, que continuava a citar a prova de 2/4. Caminho legal:
+`READY → CANARY_PENDING`, e só a nova corrida promove. 9 de 9.
+
+**4 · A ponte importava ZERO provas, sempre.** *(canónica `be09703c`)*
+
+```
+o plano cita   RECONCILIACAO-V1:livro_C_(bot)@<commit>:EV-IT-T12-019-CANARY-1282
+o manifesto C  EV-IT-T12-019-CANARY-1282
+```
+
+Nunca casavam. A função que existe **para evitar** o entupimento no último metro
+estava entupida por dentro. Corrigida: procura pela chave nua, importa com a
+chave sintética (a que a promoção cita). **24 provas importadas, 0 colisões**,
+manifesto 550 → 574.
+
+**5 · A régua lê o `INDEX_URL` do CONTRATO — e o contrato ficara na gaveta do bot.**
+*(canónica `a7ddd069`)*
+
+```
+contratos nesta arvore  81        no bot 279        so no bot 202
+desses, READY aqui      36
+uniao por SOURCE_ID: 202 importados · 0 SOBREPOSTOS (o contrato local manda)
+```
+
+### O NÚMERO
+
+```
+                        ANTES   DEPOIS
+READY_TOTAL              109     123
+READY_CURRENT_TOTAL       10      14
+READY_LEGACY_TOTAL        99     109
+HUMAN_REVIEW_REQUIRED      3       4
+COLLECTION_ELIGIBLE        8      11    ← +3
+```
+
+### As três novas, com os cinco campos à vista
+
+```
+IT-T12-057  DETAIL/v1  INDEX_URL·DETAIL_LINKS·ITEM_ABERTO·BODY_UTIL·CONTRATO_ATUAL = todos true
+            /news/news/578/nominato-il-primo-forum-…   CONTENT · MATERIA_PROVAVEL · 1826
+IT-T12-074  idem
+            /it/news/news/9441/digital-h…             CONTENT · MATERIA_PROVAVEL · 2738
+IT-T9-021   idem
+            /it/news/aperte-le-iscrizioni-ai-90-…     CONTENT · MATERIA_PROVAVEL · 3686
+```
+
+Nenhuma foi promovida sem os quatro passos. O que mudou foi a régua passar a
+**ver** a prova que já existia.
+
+### As 6 que continuam de fora, e exactamente porquê
+
+```
+4  BODY_UTIL nao provado — o item abriu e tem 1.564 a 3.471 caracteres de
+   paragrafo, mas o classificador diz MIXED/NAO_SEI. «NAO SEI» nao e «materia»,
+   e esta casa nao promove NAO SEI.
+1  IT-T12-095 e IT-T11-010 sao DETAIL/v1 mas caem em HUMAN_REVIEW_REQUIRED:
+   o endereco do item parece seccao. Pede olho humano, nao condena a fonte.
+1  reprovou o canario
+```
+
+`PAID_USD = 0` · Big Collection **não** executada · supervisor 107504 vivo do
+princípio ao fim.
