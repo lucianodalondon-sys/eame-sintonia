@@ -19500,3 +19500,31 @@ Fecha-se um **corte lógico** — `BOT_SNAPSHOT_HEAD`, `BOT_SNAPSHOT_TIME`,
 reconcilia-se só o que está deste lado dele. O que o bot escrever depois
 atravessa na volta seguinte. Sem o corte, «reconciliado» seria uma palavra
 sobre um alvo em movimento.
+
+## 168-11 · DOIS NOMES PARA O MESMO FACTO NÃO SÃO UM DESACORDO
+
+Ao reconferir a reconciliação no dia seguinte, a comparação crua **por nome de
+estado** entre os dois livros dava **124** divergências, onde a missão tinha
+medido **63**. Lido à letra: a ponte piorou para o dobro.
+
+Não piorou. **61 dessas 124 eram acordo.** Eram as fontes despromovidas na
+volta 3, em que esta árvore diz `CANARY_PENDING` e o bot diz
+`CONTRACTED_CANARY_FAILED` — e os dois querem dizer exatamente a mesma coisa:
+*«não está pronta, falta provar a rota»*. A tradução é deliberada:
+`_alvo_lifecycle` guarda o passo pendente da família quando o veredito é
+`NOT_READY`.
+
+Comparando por **classe** — pronta · não pronta · bloqueada · adiada — são
+outra vez os mesmos 63, com a distribuição intacta (41 · 9 · 8 · 4 · 1).
+
+    O ESTADO É UM NOME. A CLASSE É O FACTO.
+    COMPARAR NOMES CONTA DUAS VEZES O MESMO ACORDO.
+
+O perigo não é o número errado: é o que ele faz a seguir. Quem lê 124 vai
+«consertar» 61 fontes que já estavam certas — e para as consertar teria de
+desfazer a tradução, que é o que impede o livro de perder o passo pendente de
+cada fonte. **Uma medição errada que assusta produz uma correção que estraga.**
+
+Travado em `test_reconciliar_livros.RT-C16`: os pares que se leem como o mesmo
+facto têm de continuar a mapear para o mesmo, e os que mudam de classe têm de
+continuar a divergir.

@@ -415,6 +415,37 @@ LEGACY_LEAK                     0
 As 8 recusas continuam as mesmas 8 promoções sem prova de canário: a ponte
 aceita o trabalho novo do bot e continua a recusar exatamente o que já recusava.
 
+### ⚠️ A armadilha de quem repetir esta medição
+
+Ao reconferir os 63 depois da volta 3, a comparação crua **por nome de estado**
+dá **124** divergências. Parece que a reconciliação piorou para o dobro.
+
+Não piorou. **61 dessas 124 são acordo, não desacordo:** são as fontes
+despromovidas, onde esta árvore diz `CANARY_PENDING` e o bot diz
+`CONTRACTED_CANARY_FAILED` — os dois querem dizer *«não pronta, falta provar a
+rota»*. `_alvo_lifecycle` traduz um no outro de propósito, porque `NOT_READY`
+guarda o passo pendente da família.
+
+Comparando por **classe** — pronta · não pronta · bloqueada · adiada — são
+exatamente **63**, com a mesma distribuição da missão:
+
+```
+aqui PRONTA      vs bot NAO_PRONTA   41
+aqui ADIADA      vs bot NAO_PRONTA    9
+aqui NAO_PRONTA  vs bot PRONTA        8
+aqui PRONTA      vs bot BLOQUEADA     4
+aqui UNKNOWN     vs bot ADIADA        1
+                                  ----
+                                     63
+```
+
+> **Dois nomes para o mesmo facto não são um desacordo.** Quem contasse nomes
+> concluía que a ponte partiu — e ia «consertar» um acordo. Travado por teste
+> (`RT-C16`).
+
+Reconferido no mesmo momento: os 63 continuam **todos** com `FINAL_STATE` e
+`FINAL_REASON` escritos. Zero sem decisão, zero sem razão.
+
 Depois da volta 2:
 
 ```
