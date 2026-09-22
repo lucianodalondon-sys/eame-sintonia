@@ -19146,3 +19146,183 @@ LF, o `git checkout` devolve CRLF, e a partir do **primeiro** restauro uma
 âncora escrita com `\n` deixa de casar. O ataque não entra, o mutante não corre,
 e lê-se `SURVIVOR` onde nunca houve ataque. A âncora tem de ser procurada nas
 duas formas.
+
+---
+
+# §167 · `UNKNOWN` NUNCA É `NEVER` POR OMISSÃO — E A PROVA MAIS VISÍVEL É A MAIS FRACA
+
+`KNOW_HOW_DELTA` da missão RECOLLECTION-V1 (2026-09-22). Nada aqui foi colhido
+da rede: `NETWORK_REQUESTS = 0`. Tudo saiu de 445 observações e 120 endereços
+com os bytes das duas visitas guardados em disco.
+
+## 167-1 · O CAMPO QUE EXISTIA E QUE NINGUÉM LIA
+
+`regras/incrementalidade.mjs` já devolvia `DECLARADO: true|false` — a única
+coisa que distinguia «o dono classificou esta fonte» de «ninguém a
+classificou». **A decisão deitava-o fora.** Medido com os quatro casos:
+
+```
+sem bloco RECOLLECTION   ->  lido UNKNOWN    DECLARADO=false  ->  SKIP_KNOWN
+com UNKNOWN à mão        ->  lido UNKNOWN    DECLARADO=true   ->  SKIP_KNOWN
+com IMMUTABLE            ->  lido IMMUTABLE  DECLARADO=true   ->  SKIP_KNOWN
+com MUTABLE              ->  lido MUTABLE    DECLARADO=true   ->  REVALIDATE
+```
+
+As três primeiras linhas eram indistinguíveis a jusante. Quem nunca fora
+classificado era tratado como quem fora classificado «nunca muda» — e, sem TTL
+e sem um único validador no livro (zero ETag, zero Last-Modified em 445
+observações), esse salto repetia-se para sempre.
+
+```
+RECOLLECTION_UNKNOWN  !=  NEVER_RECOLLECT
+```
+
+**A correção não é «`UNKNOWN` passa a revisitar».** Isso punha 174 contratos a
+bater à porta em todas as corridas, sem razão nomeada e sem nada para trazer, e
+apagava o `UNNECESSARY_REFETCHES = 0` que a paridade acabara de provar.
+
+> Saltar o que muda cega a casa.
+> Revisitar tudo o que não se conhece inunda-a.
+
+A terceira porta: o salto por ignorância continua a ser um salto, **mas deixa
+de ser calado**. `COBERTURA = DECLARADA | BLOCKED_FOR_BIG_COLLECTION`, contador
+`DETAIL_SKIPPED_UNDECLARED` no censo, e uma porta —
+`admissivelNaBigCollection()` — que devolve um **facto contável**, nunca uma
+excepção: um bloqueio tem de poder ser contado e mostrado ao dono; uma excepção
+só pararia a corrida.
+
+E carimbar `UNKNOWN` à mão **não** conta como declarar. «Ainda não sei» é o
+mesmo estado de quem não escreveu nada; dar-lhe valor de medição seria vender a
+admissão ao preço de um carimbo.
+
+## 167-2 · INCREMENTALIDADE != RECOLLECTION
+
+São duas perguntas, e confundi-las faz perder as duas:
+
+```
+INCREMENTALIDADE  «já tenho isto? então não vou lá.»         poupa rede
+RECOLLECTION      «isto que já tenho ainda é o que está lá?» evita cegueira
+```
+
+A primeira é sobre o **passado** (o livro). A segunda é sobre o **futuro** (a
+fonte). Um sistema só com a primeira colhe uma vez e nunca mais volta — uma
+fotografia com nome de coleta.
+
+## 167-3 · URL CONHECIDA != CONTEÚDO PERMANENTEMENTE CONHECIDO
+
+A mesma morada pode carregar factos novos. Medido nos bytes preservados, pelas
+datas que os próprios documentos declaram:
+
+```
+IT-T7-017  riuniteciv           19 de 26 artigos editados >24h depois de publicados
+                                maior atraso: 72,0 dias
+IT-T7-042  consorziobalsamico    3 de  7                    27,1 dias
+IT-T10-022 zootecnica            3 de  4                     7,2 dias
+```
+
+Três fontes que reescrevem artigos **meses** depois de os publicarem. Com a
+morada intacta.
+
+## 167-4 · A EVIDÊNCIA MAIS VISÍVEL PODE SER A MAIS FRACA
+
+O acervo tinha 83 pares de visitas ao mesmo endereço. Todos deram «não mudou».
+Tentador — e quase custou a classificação errada. O que a régua não mostrava:
+
+```
+INTERVALO ENTRE AS DUAS VISITAS COMPARADAS:  518s .. 524s
+                                             8,7 minutos, nos 83 pares
+```
+
+«83 de 83 não mudaram **em 8,7 minutos**» prova que o normalizador funciona.
+Sobre o que a fonte faz numa semana não prova nada. As três fontes de 167-3
+teriam sido declaradas `IMMUTABLE` por esta prova — e ficariam cegas.
+
+> UMA REVISITA CURTA MEDE O NORMALIZADOR, NÃO A FONTE.
+
+A ordem da evidência não é decorativa: contrato medido -> datas dentro do
+documento -> revisita preservada -> forma do endereço. A revisita é a
+terceira, e não a primeira, por causa disto.
+
+## 167-5 · A DATA «MODIFICADO EM» PODE SER A NOSSA VISITA
+
+Em `IT-T10-018` (myfruit), os 30 documentos traziam `article:modified_time` a
+menos de dois segundos do nosso `CAPTURED_AT`. Lido como edição real, fazia a
+fonte parecer reescrita trinta vezes por dia. Uma medição de mutabilidade tem
+de **descontar a própria pegada** antes de contar: só conta o que sobra depois
+de tirar as datas que são a hora a que nós batemos à porta.
+
+## 167-6 · UMA FAMÍLIA VOLÁTIL POR CLASSIFICAR LÊ-SE COMO MUDANÇA
+
+O normalizador tinha sido afinado sobre **duas** fontes. Sobre as outras, 44 de
+83 pares saíam `MATERIAL_CHANGE`. Olhando linha a linha, **nenhuma** era texto
+editorial: nonce do WordPress Download Manager, farol do Wordfence, três
+tokens por pedido do Drupal, e um ofuscador de e-mail.
+
+Três dessas famílias **já estavam nomeadas** no cabeçalho da
+`incrementalidade.mjs`, medidas pela CANONICAL-MICRO-V1 — e nunca tinham
+chegado à lista que age sobre elas.
+
+> UMA FAMÍLIA MEDIDA QUE NÃO CHEGA À LISTA QUE AGE SOBRE ELA
+> NÃO ESTÁ RESOLVIDA: ESTÁ ESCRITA.
+
+A guarda contra alargar a lista por palpite (§5 desta casa) continua de pé, e é
+o que autorizou estas quatro: mediu-se `SEM_FAMILIA = 0` — nenhuma linha
+diferente ficou por explicar — antes de escrever a primeira regra.
+
+## 167-7 · APAGAR != CANONICALIZAR
+
+O ofuscador de e-mail publica `info@consorziobalsamico.it` com um subconjunto
+sorteado de letras em entidades HTML a cada visita: a mesma frase, noutra
+grafia. Isso **não** é um trecho volátil e não entra na lista dos que se
+apagam.
+
+```
+LISTA DE VOLÁTEIS  =  «isto não conta»                        apaga; o valor perde-se
+CANONICALIZAÇÃO    =  «isto conta, e escreve-se sempre igual»  não perde nada
+```
+
+E os cinco caracteres com significado em HTML ficam por traduzir: traduzi-los
+mudaria a estrutura do documento, e um `&` escapado seguido de outra entidade
+passaria a descodificar-se duas vezes.
+
+## 167-8 · «ADITIVO» RESPONDE A OUTRA PERGUNTA
+
+`UPDATE_BEHAVIOR: "ADITIVO"` diz como aparecem itens **novos**. Não diz se os
+**velhos** são reescritos. A distinção que resolve está no que se descarrega:
+
+```
+FICHEIRO (PDF, CSV, ODS)   o ficheiro publicado É a edição; não volta a ser tocado
+PÁGINA   (HTML, extracto)  o item novo ganha morada própria E a morada antiga
+                           continua servida por um sistema que a pode reescrever
+```
+
+Aplicar «ADITIVO -> IMMUTABLE» sem esta distinção declarava cego o catálogo de
+produtos da **ADAMA** (`IT-T9-008`) — onde uma alteração de rótulo é exactamente
+o facto regulatório que se quer ver.
+
+## 167-9 · DETALHE IMUTÁVEL AINDA EXIGE REVISITAR O ÍNDICE
+
+Morada nova por item permite saltar o detalhe. **Não** permite saltar a
+listagem: é ela que anuncia que o item novo existe. `decidirSobreIndice()`
+devolve `FETCH` sem um único `if`, e o red team mata quem lhe tocar.
+
+E provar a rota não é assumi-la. `IT-T3-010` (APOL) tem detalhe imutável bem
+declarado **e** 19 de 22 observações em `DISCOVERY_FAILED` — 403 no índice,
+todos numa hora de 14/09, com recuperação depois. Detalhe imutável com
+descoberta partida é uma fonte que nunca mais traz nada, e o contrato sozinho
+não dá por isso.
+
+## 167-10 · TRUNCAR A EVIDÊNCIA FABRICA UM SOBREVIVENTE
+
+O arnês de mutação guardava as **4 primeiras** linhas de falha de cada suíte
+para conferir se o mutante morrera pela prova certa (§165). O ataque M8
+derrubava **oito** provas, e a que interessava era a **sétima**. O arnês não a
+via, concluía «morreu pela prova errada», e escrevia `SURVIVOR`.
+
+O mutante estava morto. Quem estava cega era a leitura da morte.
+
+> A verificação «morreu pela prova certa» vale o que valer a evidência que lhe
+> é dada. Truncar a lista de falhas não torna o relatório mais curto: torna-o
+> falso — e na direção que parece rigor.
+
+Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.

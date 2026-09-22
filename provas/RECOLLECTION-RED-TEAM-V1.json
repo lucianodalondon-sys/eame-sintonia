@@ -1,0 +1,378 @@
+{
+ "PROVA": "provas/recollection_red_team.mjs",
+ "PROTOCOLO": "cache-safe §165 adaptado a Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, sonda a provar execucao, restauro conferido",
+ "NODE": "v24.18.0",
+ "ATAQUES": 12,
+ "RED_TEAM_SURVIVORS": 0,
+ "ARVORE_LIMPA_DEPOIS": true,
+ "RESULTADO": [
+  {
+   "ID": "M1",
+   "O_QUE": "o salto cego volta a ser indistinguivel do informado",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "contrato ausente e contrato IMMUTABLE",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  contrato ausente e contrato IMMUTABLE nao dao a MESMA resposta ",
+     "TODAS": [
+      "  FAIL  contrato ausente e contrato IMMUTABLE nao dao a MESMA resposta ",
+      "  FAIL  contrato ausente sai BLOCKED_FOR_BIG_COLLECTION ",
+      "  FAIL  UNKNOWN escrito a mao nao compra a admissao ",
+      "  FAIL  o salto por ignorancia traz AVISO e o salto declarado nao ",
+      "  FAIL  o censo separa o salto informado do salto cego "
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M11",
+   "O_QUE": "carimbar UNKNOWN a mao passa a comprar a admissao",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "UNKNOWN escrito a mao nao compra a admissao",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  UNKNOWN escrito a mao nao compra a admissao ",
+     "TODAS": [
+      "  FAIL  UNKNOWN escrito a mao nao compra a admissao ",
+      "  FAIL  o censo separa o salto informado do salto cego ",
+      "  FAIL  admissivelNaBigCollection bloqueia quem nao declarou "
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M6",
+   "O_QUE": "a porta da Big Collection deixa entrar quem nao declarou",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "admissivelNaBigCollection bloqueia quem nao declarou",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  admissivelNaBigCollection bloqueia quem nao declarou ",
+     "TODAS": [
+      "  FAIL  admissivelNaBigCollection bloqueia quem nao declarou "
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M3",
+   "O_QUE": "o indice deixa de se revisitar",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "o indice continua a revisitar-se sempre",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  o indice continua a revisitar-se sempre ",
+     "TODAS": [
+      "  FAIL  o indice continua a revisitar-se sempre "
+     ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  o indice revisita-se sempre",
+     "TODAS": [
+      "  FAIL  o indice revisita-se sempre"
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA o INDICE revisita-se sempre — saltar o indice era deixar de saber do novo",
+     "TODAS": [
+      "  FALHA o INDICE revisita-se sempre — saltar o indice era deixar de saber do novo"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M7",
+   "O_QUE": "um endereco que falhou nunca mais e tentado",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "resultados sem documento NAO contam",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  os QUATRO resultados sem documento NAO contam — volta-se, e diz-se porque",
+     "TODAS": [
+      "  FAIL  os QUATRO resultados sem documento NAO contam — volta-se, e diz-se porque",
+      "        DISCOVERY_FAILED foi tratado como documento guardado",
+      "  FAIL  a ULTIMA observacao sobre o endereco e a que manda",
+      "  FAIL  linhas fora de ordem no livro nao trocam a resposta"
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA conhecido mas a ultima visita falhou -> FETCH, com razao nomeada",
+     "TODAS": [
+      "  FALHA conhecido mas a ultima visita falhou -> FETCH, com razao nomeada"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M5",
+   "O_QUE": "a memoria passa a ser indexada pela identidade, nao pelo endereco",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "os CINCO resultados com documento contam todos como conhecido",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  contrato ausente e contrato IMMUTABLE nao dao a MESMA resposta ",
+     "TODAS": [
+      "  FAIL  contrato ausente e contrato IMMUTABLE nao dao a MESMA resposta ",
+      "  FAIL  contrato ausente sai BLOCKED_FOR_BIG_COLLECTION ",
+      "  FAIL  UNKNOWN escrito a mao nao compra a admissao ",
+      "  FAIL  IMMUTABLE declarado sai DECLARADA ",
+      "  FAIL  o salto por ignorancia traz AVISO e o salto declarado nao ",
+      "  FAIL  nenhum valor de RECOLLECTION faz FETCH a um detalhe ja conhecido ",
+      "  FAIL  UNNECESSARY_REFETCHES continua ZERO com as quatro coberturas ",
+      "  FAIL  o censo separa o salto informado do salto cego "
+     ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  detalhe conhecido COM documento -> SKIP_KNOWN por omissao",
+     "TODAS": [
+      "  FAIL  detalhe conhecido COM documento -> SKIP_KNOWN por omissao",
+      "  FAIL  os CINCO resultados com documento contam todos como conhecido",
+      "  FAIL  os QUATRO resultados sem documento NAO contam — volta-se, e diz-se porque",
+      "- 'PREVIOUS_ATTEMPT_FAILED'",
+      "  FAIL  SEEN_AGAIN significa QUE SE TEM o documento — nao que nao se trouxe nada",
+      "  FAIL  a decisao NAO muda quando os bytes mudam — nem sabe o que e um byte",
+      "  FAIL  DOCUMENT_CHANGED_IN_PLACE no livro NAO justifica tornar a ir",
+      "  FAIL  contrato que declara MUTABLE -> REVALIDATE, com o nome da razao",
+      "  FAIL  TTL vencido -> REVALIDATE; TTL por vencer -> SKIP",
+      "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
+      "  FAIL  evidencia canonica que exige -> REVALIDATE nomeado",
+      "  FAIL  toda razao devolvida pertence ao vocabulario fechado",
+      "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
+      "  FAIL  com ETag guardado, dispara — e diz que o condicional e mesmo possivel",
+      "  FAIL  REVALIDATE sem validador confessa que o pedido NAO pode ser condicional",
+      "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
+      "  FAIL  a ULTIMA observacao sobre o endereco e a que manda",
+      "  FAIL  observacao sem SOURCE_URL nao entra na memoria — nem rebenta"
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+     "TODAS": [
+      "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+      "  FALHA conhecido mas a ultima visita falhou -> FETCH, com razao nomeada",
+      "- 'PREVIOUS_ATTEMPT_FAILED'",
+      "  FALHA contrato declara MUTABLE -> REVALIDATE, e DIZ porque",
+      "  FALHA TTL expirado -> REVALIDATE; TTL fresco -> SKIP",
+      "  FALHA SKIP nao gasta pedido; e o censo da UNNECESSARY_REFETCHES = 0",
+      "  FALHA com a regra ligada, a RUN2 nao teria batido a porta a nenhum detalhe"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M8",
+   "O_QUE": "tudo o que se conhece passa a ser revisitado",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "UNNECESSARY_REFETCHES continua ZERO",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  contrato ausente e contrato IMMUTABLE nao dao a MESMA resposta ",
+     "TODAS": [
+      "  FAIL  contrato ausente e contrato IMMUTABLE nao dao a MESMA resposta ",
+      "  FAIL  contrato ausente sai BLOCKED_FOR_BIG_COLLECTION ",
+      "  FAIL  UNKNOWN escrito a mao nao compra a admissao ",
+      "  FAIL  IMMUTABLE declarado sai DECLARADA ",
+      "  FAIL  o salto por ignorancia traz AVISO e o salto declarado nao ",
+      "  FAIL  nenhum valor de RECOLLECTION faz FETCH a um detalhe ja conhecido ",
+      "  FAIL  UNNECESSARY_REFETCHES continua ZERO com as quatro coberturas ",
+      "  FAIL  o censo separa o salto informado do salto cego "
+     ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  detalhe conhecido COM documento -> SKIP_KNOWN por omissao",
+     "TODAS": [
+      "  FAIL  detalhe conhecido COM documento -> SKIP_KNOWN por omissao",
+      "  FAIL  os CINCO resultados com documento contam todos como conhecido",
+      "  FAIL  SEEN_AGAIN significa QUE SE TEM o documento — nao que nao se trouxe nada",
+      "  FAIL  a decisao NAO muda quando os bytes mudam — nem sabe o que e um byte",
+      "  FAIL  DOCUMENT_CHANGED_IN_PLACE no livro NAO justifica tornar a ir",
+      "  FAIL  TTL vencido -> REVALIDATE; TTL por vencer -> SKIP",
+      "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
+      "  FAIL  evidencia canonica que exige -> REVALIDATE nomeado",
+      "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
+      "  FAIL  com ETag guardado, dispara — e diz que o condicional e mesmo possivel",
+      "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
+      "  FAIL  a ULTIMA observacao sobre o endereco e a que manda"
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+     "TODAS": [
+      "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+      "  FALHA TTL expirado -> REVALIDATE; TTL fresco -> SKIP",
+      "  FALHA SKIP nao gasta pedido; e o censo da UNNECESSARY_REFETCHES = 0",
+      "  FALHA com a regra ligada, a RUN2 nao teria batido a porta a nenhum detalhe"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M10",
+   "O_QUE": "o salto conhecido vira ida a rede",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "nenhum valor de RECOLLECTION faz FETCH",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  nenhum valor de RECOLLECTION faz FETCH a um detalhe ja conhecido ",
+     "TODAS": [
+      "  FAIL  nenhum valor de RECOLLECTION faz FETCH a um detalhe ja conhecido ",
+      "  FAIL  UNNECESSARY_REFETCHES continua ZERO com as quatro coberturas ",
+      "  FAIL  o censo separa o salto informado do salto cego "
+     ]
+    },
+    {
+     "nome": "as provas da incrementalidade",
+     "PRIMEIRA_FALHA": "  FAIL  detalhe conhecido COM documento -> SKIP_KNOWN por omissao",
+     "TODAS": [
+      "  FAIL  detalhe conhecido COM documento -> SKIP_KNOWN por omissao",
+      "  FAIL  os CINCO resultados com documento contam todos como conhecido",
+      "  FAIL  SEEN_AGAIN significa QUE SE TEM o documento — nao que nao se trouxe nada",
+      "  FAIL  a decisao NAO muda quando os bytes mudam — nem sabe o que e um byte",
+      "  FAIL  DOCUMENT_CHANGED_IN_PLACE no livro NAO justifica tornar a ir",
+      "  FAIL  TTL vencido -> REVALIDATE; TTL por vencer -> SKIP",
+      "  FAIL  TTL que nao da para calcular NAO expira — nao sei nao autoriza rede",
+      "  FAIL  sem ETag guardado, CONDITIONAL_REQUEST_AVAILABLE NUNCA dispara",
+      "  FAIL  RECOLLECTION ausente = UNKNOWN, e UNKNOWN nao autoriza rede",
+      "  FAIL  a ULTIMA observacao sobre o endereco e a que manda",
+      "  FAIL  com esta regra, UNNECESSARY_REFETCHES e estruturalmente ZERO"
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+     "TODAS": [
+      "  FALHA conhecido e elegivel -> NAO FAZ FETCH",
+      "  FALHA TTL expirado -> REVALIDATE; TTL fresco -> SKIP",
+      "  FALHA SKIP nao gasta pedido; e o censo da UNNECESSARY_REFETCHES = 0",
+      "  FALHA com a regra ligada, a RUN2 nao teria batido a porta a nenhum detalhe"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M-CENSO",
+   "O_QUE": "o censo deixa de contar o salto cego",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "o censo separa o salto informado do salto cego",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  o censo separa o salto informado do salto cego ",
+     "TODAS": [
+      "  FAIL  o censo separa o salto informado do salto cego ",
+      "  FAIL  uma decisao antiga sem o campo nao e contada como cega "
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M9",
+   "O_QUE": "mudanca real em morada estavel nunca e detectada",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "o TEXTO a mudar => MATERIAL_CHANGE",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  o TEXTO a mudar => MATERIAL_CHANGE, mesmo com o nonce igual ",
+     "TODAS": [
+      "  FAIL  o TEXTO a mudar => MATERIAL_CHANGE, mesmo com o nonce igual ",
+      "  FAIL  o TEXTO a mudar E o nonce a mudar continua MATERIAL_CHANGE "
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA uma palavra do corpo muda -> E CHANGE",
+     "TODAS": [
+      "  FALHA uma palavra do corpo muda -> E CHANGE",
+      "  FALHA o titulo muda -> E CHANGE",
+      "  FALHA UM SO CARACTERE do corpo muda -> E CHANGE",
+      "  FALHA materia muda E os volateis mudam -> E CHANGE (o ruido nao esconde o sinal)",
+      "  FALHA o texto visivel e testemunha independente do veredicto",
+      "  FALHA PDF/CSV nao sao normalizados, e diz-se porque"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M2/M4",
+   "O_QUE": "uma regra volatil alarga-se ate comer o corpo da materia",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "o TEXTO a mudar => MATERIAL_CHANGE",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  so o nonce a mudar => VOLATILE_ONLY ",
+     "TODAS": [
+      "  FAIL  so o nonce a mudar => VOLATILE_ONLY ",
+      "  FAIL  o TEXTO a mudar => MATERIAL_CHANGE, mesmo com o nonce igual "
+     ]
+    },
+    {
+     "nome": "as provas da paridade",
+     "PRIMEIRA_FALHA": "  FALHA uma palavra do corpo muda -> E CHANGE",
+     "TODAS": [
+      "  FALHA uma palavra do corpo muda -> E CHANGE",
+      "  FALHA UM SO CARACTERE do corpo muda -> E CHANGE",
+      "  FALHA materia muda E os volateis mudam -> E CHANGE (o ruido nao esconde o sinal)",
+      "  FALHA o texto visivel e testemunha independente do veredicto"
+     ]
+    }
+   ]
+  },
+  {
+   "ID": "M12",
+   "O_QUE": "a canonicalizacao come os cinco caracteres de HTML",
+   "MUTANTE_EXECUTOU": true,
+   "MORTE_ESPERADA": "os cinco caracteres com significado em HTML",
+   "MORREU_PELA_RAZAO_CERTA": true,
+   "ESTADO": "KILLED",
+   "MORTO_POR": [
+    {
+     "nome": "as guardas da recollection",
+     "PRIMEIRA_FALHA": "  FAIL  os cinco caracteres com significado em HTML NAO se traduzem ",
+     "TODAS": [
+      "  FAIL  os cinco caracteres com significado em HTML NAO se traduzem ",
+      "  FAIL  duplo escape nao se descodifica duas vezes "
+     ]
+    }
+   ]
+  }
+ ]
+}

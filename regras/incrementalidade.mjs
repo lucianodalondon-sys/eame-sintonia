@@ -97,11 +97,50 @@ export const RESULTADOS_SEM_DOCUMENTO = Object.freeze([
 // ja nomeou (`"DD": "dia com 2 digitos"` DESCREVE, NAO EXECUTA), e traria de
 // volta o pior de todos: um campo que o motor promete ler e le mal.
 //
-// O bloco executavel e `RECOLLECTION`, com vocabulario fechado. Nenhum dos 186
-// contratos o tem hoje — e por isso todos caem em `UNKNOWN`, que por lei do
-// briefing significa SKIP. Declarar o bloco e um acto deliberado de quem
-// conhece a fonte, e nao um efeito de redaccao.
+// O bloco executavel e `RECOLLECTION`, com vocabulario fechado. Declarar o
+// bloco e um acto deliberado de quem conhece a fonte, e nao um efeito de
+// redaccao.
 export const MUTABILIDADE = Object.freeze(["IMMUTABLE", "MUTABLE", "UNKNOWN"]);
+
+// ══ O DEFEITO QUE A RECOLLECTION-V1 VEIO FECHAR ═══════════════════════════
+//
+//     RECOLLECTION_UNKNOWN  ≠  NEVER_RECOLLECT
+//
+// Medido em 2026-09-22, correndo a regra com os quatro casos possiveis:
+//
+//     contrato SEM bloco       -> lido UNKNOWN   DECLARADO=false -> SKIP_KNOWN
+//     contrato com UNKNOWN     -> lido UNKNOWN   DECLARADO=true  -> SKIP_KNOWN
+//     contrato com IMMUTABLE   -> lido IMMUTABLE DECLARADO=true  -> SKIP_KNOWN
+//     contrato com MUTABLE     -> lido MUTABLE   DECLARADO=true  -> REVALIDATE
+//
+// Reparar nas duas primeiras linhas ao lado da terceira. `UNKNOWN` e
+// `IMMUTABLE` davam **exactamente a mesma decisao**, para sempre, e sem
+// deixar rasto: quem nunca foi classificado era tratado como quem foi
+// classificado «nunca muda». A leitura da linha 115 estava certa — devolve
+// `UNKNOWN`, que e honesto. O que faltava era alguem LER esse `UNKNOWN`.
+//
+//     `DECLARADO` ja era calculado aqui, e NINGUEM O LIA.
+//     O campo que distinguia «o dono sabe» de «ninguem sabe» existia,
+//     e a decisao deitava-o fora.
+//
+// ⚠️ E PORQUE A CORRECCAO NAO E «UNKNOWN PASSA A REVISITAR».
+// Seria trocar uma avaria por outra maior: 179 dos 186 contratos nao declaram
+// nada, e todos passariam a bater a porta em todas as corridas, sem razao
+// nomeada e sem nada para trazer. A paridade acabou de provar
+// `UNNECESSARY_REFETCHES = 0`; isso apagava a prova e gastava a rede.
+//
+//     SALTAR O QUE MUDA CEGA A CASA.
+//     REVISITAR TUDO O QUE NAO SE CONHECE INUNDA-A.
+//
+// A correccao e a terceira porta, e e a que o briefing pediu: o salto por
+// ignorancia CONTINUA A SER UM SALTO — mas deixa de ser calado. Passa a
+// dizer o nome, e quem nao declarou fica **fora** da Big Collection ate
+// declarar. A cegueira deixa de ser um efeito silencioso e passa a ser um
+// impedimento visivel.
+export const COBERTURA_DE_REVISITA = Object.freeze([
+  "DECLARADA",                   // o contrato diz o que acontece ao detalhe
+  "BLOCKED_FOR_BIG_COLLECTION",  // ninguem declarou; salta-se, e nao entra na Big Collection
+]);
 
 export class RegraInvalida extends Error {}
 
@@ -125,7 +164,48 @@ export function recolheitaDoContrato(sourceId, contrato) {
   return {
     DETAIL_CONTENT: r.DETAIL_CONTENT,
     TTL_SECONDS: r.TTL_SECONDS ?? null,
-    DECLARADO: true,
+    // ⚠️ `UNKNOWN` ESCRITO A MAO NAO E UMA CLASSIFICACAO, e por isso nao
+    // conta como declarado. Alguem que escreva `DETAIL_CONTENT: "UNKNOWN"`
+    // esta a dizer «ainda nao sei» — que e exactamente o estado de quem nao
+    // escreveu nada. Deixar o bloco vazio comprar a admissao a Big Collection
+    // seria dar ao carimbo o valor da medicao.
+    DECLARADO: r.DETAIL_CONTENT !== "UNKNOWN",
+  };
+}
+
+/**
+ * PODE ESTA FONTE ENTRAR NUMA BIG COLLECTION?
+ *
+ * A pergunta nao e «sabemos ir la buscar» — isso e a capacidade, e vive no
+ * coletor. Nem «esta aprovada» — isso e o portao da curadoria. E uma
+ * terceira, que ate hoje ninguem fazia: **sabemos quando voltar?**
+ *
+ *     UMA FONTE QUE NINGUEM CLASSIFICOU ENTRA A COLHER UMA VEZ
+ *     E A NAO VOLTAR NUNCA MAIS. Isso nao e uma coleta incremental:
+ *     e uma fotografia unica com nome de coleta.
+ *
+ * Devolve `BLOCKED_FOR_BIG_COLLECTION` em vez de atirar excepcao, de
+ * proposito: um bloqueio e um facto sobre a fonte, e tem de poder ser
+ * contado, listado e mostrado ao dono. Uma excepcao so pararia a corrida.
+ */
+export function admissivelNaBigCollection(sourceId, contrato) {
+  const rec = recolheitaDoContrato(sourceId, contrato);
+  if (rec.DECLARADO) {
+    return {
+      ADMISSIVEL: true,
+      COBERTURA: "DECLARADA",
+      DETAIL_CONTENT: rec.DETAIL_CONTENT,
+      TTL_SECONDS: rec.TTL_SECONDS,
+      PORQUE: `o contrato declara DETAIL_CONTENT=${rec.DETAIL_CONTENT}`,
+    };
+  }
+  return {
+    ADMISSIVEL: false,
+    COBERTURA: "BLOCKED_FOR_BIG_COLLECTION",
+    DETAIL_CONTENT: "UNKNOWN",
+    TTL_SECONDS: null,
+    PORQUE: "RECOLLECTION nao declarado — sem isso a fonte colhe uma vez e " +
+            "nunca mais e revisitada, e ninguem daria por isso",
   };
 }
 
@@ -219,12 +299,32 @@ export function decidirSobreDetalhe(url, {
   if (evidenciaCanonicaExige) razoes.push("CANONICAL_EVIDENCE_REQUIRES");
 
   if (razoes.length === 0) {
+    // ⚠️ DOIS SALTOS COM O MESMO NOME E DUAS COISAS DIFERENTES.
+    // Saltar porque o dono declarou `IMMUTABLE` e uma decisao informada.
+    // Saltar porque ninguem classificou a fonte e uma aposta — e ate aqui as
+    // duas saiam iguais deste `return`, indistinguiveis a jusante.
+    //
+    // A IDA A REDE E A MESMA NOS DOIS CASOS, e isso e deliberado: mudar o
+    // comportamento faria 179 fontes passarem a bater a porta sem razao. O
+    // que muda e que o salto por ignorancia passa a DIZER O NOME.
+    const declarado = rec.DECLARADO;
     return {
       DECISAO: "SKIP_KNOWN",
       RAZAO: null,
-      PORQUE: `ja se tem este documento (${conhecido.ULTIMO_RESULTADO}` +
-              (conhecido.QUANDO ? ` em ${conhecido.QUANDO}` : "") +
-              `) e o contrato nao declara razao para tornar a ir`,
+      COBERTURA: declarado ? "DECLARADA" : "BLOCKED_FOR_BIG_COLLECTION",
+      RECOLLECTION_DECLARADA: declarado,
+      DETAIL_CONTENT: rec.DETAIL_CONTENT,
+      PORQUE: declarado
+        ? `ja se tem este documento (${conhecido.ULTIMO_RESULTADO}` +
+          (conhecido.QUANDO ? ` em ${conhecido.QUANDO}` : "") +
+          `) e o contrato declara DETAIL_CONTENT=${rec.DETAIL_CONTENT}`
+        : `ja se tem este documento (${conhecido.ULTIMO_RESULTADO}` +
+          (conhecido.QUANDO ? ` em ${conhecido.QUANDO}` : "") +
+          `) e NINGUEM classificou esta fonte — salta-se por ignorancia, nao por saber`,
+      AVISO: declarado ? null
+        : "RECOLLECTION_UNKNOWN nao e NEVER_RECOLLECT: este salto repete-se " +
+          "em todas as corridas e a fonte nunca mais e olhada. Enquanto o " +
+          "contrato nao declarar, ela fica BLOCKED_FOR_BIG_COLLECTION.",
       CONHECIDO: true,
     };
   }
@@ -265,6 +365,10 @@ export function censoDasDecisoes(decisoes, { indiceRequests = 0 } = {}) {
     INDEX_REQUESTS: indiceRequests,
     DETAIL_NEW: 0,
     DETAIL_SKIPPED_KNOWN: 0,
+    // ⚠️ O NUMERO QUE ATE HOJE NAO EXISTIA. Dos saltos acima, quantos foram
+    // dados sobre uma fonte que NINGUEM classificou. Nao e um erro da corrida
+    // — e a medida da cegueira que ela esta a acumular calada.
+    DETAIL_SKIPPED_UNDECLARED: 0,
     DETAIL_REVALIDATED: 0,
     DETAIL_REFETCHED: 0,
     UNNECESSARY_REFETCHES: 0,
@@ -273,7 +377,13 @@ export function censoDasDecisoes(decisoes, { indiceRequests = 0 } = {}) {
   for (const d of decisoes) {
     if (d.DECISAO === "FETCH" && !d.CONHECIDO) c.DETAIL_NEW++;
     else if (d.DECISAO === "FETCH") { c.DETAIL_REFETCHED++; if (!d.RAZAO) c.UNNECESSARY_REFETCHES++; }
-    else if (d.DECISAO === "SKIP_KNOWN") c.DETAIL_SKIPPED_KNOWN++;
+    else if (d.DECISAO === "SKIP_KNOWN") {
+      c.DETAIL_SKIPPED_KNOWN++;
+      // `RECOLLECTION_DECLARADA` so e `false` quando a regra o disse. Um
+      // `undefined` de uma decisao antiga NAO conta como cegueira: inventar
+      // um numero alto a partir de campos em falta seria alarme, nao medida.
+      if (d.RECOLLECTION_DECLARADA === false) c.DETAIL_SKIPPED_UNDECLARED++;
+    }
     else if (d.DECISAO === "REVALIDATE") {
       c.DETAIL_REVALIDATED++;
       if (!d.RAZAO) c.UNNECESSARY_REFETCHES++;

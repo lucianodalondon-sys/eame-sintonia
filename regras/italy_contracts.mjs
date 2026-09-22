@@ -149,10 +149,15 @@ export const CONTRACTS = {
     // motor de rota ja nomeou («"DD": "dia com 2 digitos" DESCREVE, NAO EXECUTA»).
     //
     // `RECOLLECTION` e o bloco de vocabulario fechado que a regra LE.
-    // Medido em 2026-09-22: 0 dos 186 contratos o tinham. Consequencia, depois
-    // de a regra ser ligada ao coletor nesta missao: TODOS caem em `UNKNOWN`,
-    // que por lei significa SKIP — e uma fonte como a ARPAV, que reescreve o
-    // MESMO endereco a cada edicao, deixaria de ser revisitada para sempre.
+    // Medido em 2026-09-22, ANTES desta declaracao: 0 dos 186 contratos o
+    // tinham. Depois dela e das da mesma leva, 7; depois da RECOLLECTION-V1,
+    // 12. Quem ficar sem ele cai em `UNKNOWN` — e uma fonte como a ARPAV, que
+    // reescreve o MESMO endereco a cada edicao, deixaria de ser revisitada.
+    //
+    // ⚠️ E O QUE `UNKNOWN` FAZ MUDOU EM 2026-09-22 (RECOLLECTION-V1).
+    // Ate ai `UNKNOWN` era SKIP, calado e indistinguivel de `IMMUTABLE`.
+    // Continua a saltar — mas agora diz o nome, e a fonte fica
+    // `BLOCKED_FOR_BIG_COLLECTION` ate alguem a classificar.
     //
     //     SALTAR E POUPAR REDE. SALTAR O QUE MUDA E CEGAR A CASA.
     //
@@ -281,6 +286,9 @@ export const CONTRACTS = {
   },
 
   "IT-T2-001": {
+    // UPDATE_BEHAVIOR: «ADITIVO», e a entrega e PDF — o ficheiro publicado E a
+    // edicao. Sustentado por OBSERVED_FREQUENCY: 7 edicoes seguidas na listagem.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-ARPAE", OWNER: "ARPAE Emilia-Romagna", TERRITORY: "T2", VALUE: "P1",
     CANONICAL_ENTRY_URL: "https://www.arpae.it/it/temi-ambientali/meteo/report-meteo/bollettini-e-rapporti-agrometeo/bollettini-agrometeo/bollettini-{ANO}",
     OLD_ROUTE: "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo — 404",
@@ -338,6 +346,10 @@ export const CONTRACTS = {
   },
 
   "IT-T7-002": {
+    // UPDATE_BEHAVIOR: «ADITIVO», entrega ODS — ficheiro fechado por edicao.
+    // Sustentado por tres edicoes anuais distintas (31/12/2023, 31/12/2024
+    // REV.3, 31/12/2025): a revisao ganhou nome proprio em vez de substituir.
+    RECOLLECTION: { DETAIL_CONTENT: "IMMUTABLE", TTL_SECONDS: null },
     OWNER_ID: "IT-OWN-MASAF", OWNER: "MASAF", TERRITORY: "T7", VALUE: "P0",
     CANONICAL_ENTRY_URL: "https://www.masaf.gov.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/6063",
     DISCOVERY_METHOD: "navegar Politiche nazionali > Filiere > Organizzazioni di Produttori > Elenco nazionale; o anexo tem hash opaco na URL e MUDA a cada edicao",
@@ -638,6 +650,17 @@ export function contratoGenerico(linha) {
     // Passa inteira: o contrato nao a resume nem a corrige.
     CARACTERIZACAO: linha.CARACTERIZACAO || null,
     CURADORIA: linha.CURADORIA || null,
+    // ── RECOLLECTION · so quando a LINHA o declarar ──────────────────────
+    // ⚠️ AUSENTE E O VALOR CERTO POR OMISSAO, e tem de continuar a ser.
+    // A tentacao aqui seria dar um valor por defeito as 174 fontes que a
+    // tabela expande — e um valor por defeito seria exactamente o defeito que
+    // a RECOLLECTION-V1 veio fechar, so que carimbado. Quem nao mediu nao
+    // declara; e quem nao declara fica BLOCKED_FOR_BIG_COLLECTION, visivel.
+    //
+    // `undefined` NAO cria a chave no objecto, por isso `contrato.RECOLLECTION`
+    // continua a dar `undefined` e `recolheitaDoContrato()` continua a ler
+    // `UNKNOWN`/`DECLARADO: false`. E o caminho de sempre, intacto.
+    ...(linha.RECOLLECTION ? { RECOLLECTION: linha.RECOLLECTION } : {}),
   };
 }
 
