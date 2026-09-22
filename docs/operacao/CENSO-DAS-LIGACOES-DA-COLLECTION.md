@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  cc5517044645114ec1e3ad1bffb0e1a2428adc6a
-BRANCH           ponte-curador-v1
-GERADO_EM        2026-09-22T16:42:03-03:00
-CARDS            81
+HEAD_DA_MEDICAO  b0330535ccc243a9ce44b5290583e50928131280
+BRANCH           rotas-elegiveis-v1
+GERADO_EM        2026-09-22T20:39:10-03:00
+CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -1266,6 +1266,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
+### `C-CANARIO-ROTAS-ELEGIVEIS` · O canario das rotas das fontes aprovadas
+
+| | |
+|---|---|
+| **peça real** | `medidas/canario_rotas_elegiveis.py` |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json`, `regras/motor_de_rota.mjs` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json` |
+| **arestas no mapa** | entram 1 · saem 0 |
+| **arestas provadas** | entram 1 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
+
 ### `C-CENSO-EXECUTORES` · Censo dos executores — caminhos, papeis e cobertura
 
 | | |
@@ -1808,19 +1833,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE, C-RECOLLECTION-CENSO.  Mas 4 ficheiro(s) mudaram depois d |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; medidas/corrida_canonica.py:127 |
-| **porquê** | estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA · C-IT-INCREMENTALIDADE · C-RECOLLECTION-CENSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | candidatas/italy_write_matrix.mjs:2; coleta/italy_pilot_collect.mjs:38; medidas/canario_rotas_elegiveis.py:68 |
+| **porquê** | estas pecas importam-na — C-CANARIO-ROTAS-ELEGIVEIS · C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA · C-IT-INCREMENTALIDADE — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 8 · saem 14 |
-| **arestas provadas** | entram 8 · saem 9 |
+| **arestas no mapa** | entram 8 · saem 15 |
+| **arestas provadas** | entram 8 · saem 10 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 17 · NÃO SEI 5 |
+| **prova das ligações** | CODE 18 · NÃO SEI 5 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -2085,8 +2110,8 @@ OK                 37
 UNKNOWN            21
 SYSTEM_GAP         10
 EXTERNAL_ENTRY     6
-TERMINAL           4
+TERMINAL           5
 ALVO_SEM_ESCRITOR_MEDIDO 2
 ORPHAN             1
-TOTAL              81
+TOTAL              82
 ```

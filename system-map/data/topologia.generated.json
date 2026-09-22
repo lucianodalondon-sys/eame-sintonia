@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T19:45:27+00:00",
-  "HEAD": "cc5517044645114ec1e3ad1bffb0e1a2428adc6a",
-  "BRANCH": "ponte-curador-v1",
+  "GENERATED_AT": "2026-09-22T23:42:10+00:00",
+  "HEAD": "b0330535ccc243a9ce44b5290583e50928131280",
+  "BRANCH": "rotas-elegiveis-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "22c788ec1a80d9d00ce6a150114386d545999a53d017cfbadf1bcac86c6e563c",
-  "FICHEIROS_NA_IMPRESSAO": 2613,
+  "SOURCE_TREE_FINGERPRINT": "422169bbed7bff9821fbe905746a1e4fdb198b19c65f09f132a1e6b9bec66a62",
+  "FICHEIROS_NA_IMPRESSAO": 2617,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1575,6 +1575,13 @@
     "PATH": "medidas/banco_no_seco.py",
     "PAPEL": "FONTE",
     "VERSAO": "1f4f2b079476b1cda666fbbaf2d8c389a951a7fa",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/canario_rotas_elegiveis.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "7cb19e7e422e1e46cd952fcf5fb9248526d19d1a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3212,14 +3219,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "22c788ec1a80d9d00ce6a150114386d545999a53d017cfbadf1bcac86c6e563c",
+    "VERSAO": "422169bbed7bff9821fbe905746a1e4fdb198b19c65f09f132a1e6b9bec66a62",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "22c788ec1a80d9d00ce6a150114386d545999a53d017cfbadf1bcac86c6e563c",
+    "VERSAO": "422169bbed7bff9821fbe905746a1e4fdb198b19c65f09f132a1e6b9bec66a62",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4484,6 +4491,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_onboardar_rotas_provadas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ced57ae5d628143ad03f948054bf04fe2a5ca256",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_operacao.py",
     "PAPEL": "FONTE",
     "VERSAO": "5ea75fb6c76062f21484df7da28073be23fc69a6",
@@ -4890,8 +4904,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 693,
-  "INPUTS_DIGEST": "25a81437e719e632433765cf1072fffabd4a033439bcc5a032de055ff3c0d748",
+  "INPUTS_COUNT": 695,
+  "INPUTS_DIGEST": "59d6112d254b6f8fc17555ae7dff47566a316010a6230edff35537f57f614075",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4924,8 +4938,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bf81d61460eb51122daa7ec564534413e823339a030289adcb2a52c6cf74a1d0",
-  "SEMANTIC_HASH": "c77fb2d52a4d2aa7adebe8beb69ac10ff2f8b9edd2ac39e6ae69ba91a074c484"
+  "MEASUREMENT_HASH": "bf5fa1eb3a63b66dbd233e26bc411e597cce223765ba8dbf78589e679c05d7ff",
+  "SEMANTIC_HASH": "adacb1725e5a6a8aa533560d30865f0d23f592bca5a07f464d9205ca855ece58"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4945,6 +4959,7 @@
    "C-AS-FONTES",
    "C-BANCO-NO-SECO",
    "C-BIBLIA",
+   "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-EXECUTORES",
    "C-CENSO-OBSERVABILIDADE",
    "C-CI-COLETA",
@@ -5019,7 +5034,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 82
+  "COUNT": 83
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5133,6 +5148,7 @@
    "C-BANCO-NO-SECO",
    "C-BIBLIA",
    "C-CADEIA-V21",
+   "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
    "C-CENSO-CORPUS-IT",
@@ -5284,16 +5300,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 164
+  "COUNT": 165
  },
  "ARITMETICA": {
-  "COLLECTION": 82,
+  "COLLECTION": 83,
   "BOUNDARY": 82,
-  "SOMA": 164,
-  "EXPANDED": 164,
+  "SOMA": 165,
+  "EXPANDED": 165,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 164,
+  "RESUMO_CARTOES_NO_UNIVERSO": 165,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -21080,6 +21096,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/canario_rotas_elegiveis.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -38473,12 +38511,12 @@
     ]
    }
   ],
-  "COUNT": 1084
+  "COUNT": 1085
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 164,
-  "CARTOES_AUDITADOS": 164,
-  "ARESTAS_RELACIONADAS": 1084,
+  "CARTOES_NO_UNIVERSO": 165,
+  "CARTOES_AUDITADOS": 165,
+  "ARESTAS_RELACIONADAS": 1085,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38611,6 +38649,7 @@
    "C-ADAMA-ES",
    "C-APRENDER-COM-A-FONTE",
    "C-AUDIT-GERAL",
+   "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
    "C-CENSO-CORPUS-IT",
@@ -38697,6 +38736,7 @@
    "C-SAUDE-FONTE"
   ],
   "NINGUEM_CORRE": [
+   "C-CANARIO-ROTAS-ELEGIVEIS",
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
    "C-CORRIDA-CANONICA",
@@ -38856,7 +38896,7 @@
    "DATA": 31,
    "PROOF": 361,
    "READ": 246,
-   "RULE": 184,
+   "RULE": 185,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -39631,6 +39671,39 @@
     "PROOF",
     "READ"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-CANARIO-ROTAS-ELEGIVEIS",
+   "NOME": "O canario das rotas das fontes aprovadas",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "medidas/canario_rotas_elegiveis.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "datetime",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 1,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
@@ -42186,7 +42259,7 @@
     "pathlib"
    ],
    "ENTRAM": 8,
-   "SAEM": 14,
+   "SAEM": 15,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -46620,6 +46693,7 @@
     "tests/test_o_raw_fala.py",
     "tests/test_observabilidade.py",
     "tests/test_observabilidade_estrada.py",
+    "tests/test_onboardar_rotas_provadas.py",
     "tests/test_operacao.py",
     "tests/test_pacote_de_revisao_t3.py",
     "tests/test_persistencia_operacional.py",

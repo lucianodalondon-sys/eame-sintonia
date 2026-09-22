@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "ponte-curador-v1",
-    "HEAD": "cc5517044645114ec1e3ad1bffb0e1a2428adc6a",
-    "GENERATED_AT": "2026-09-22T16:42:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "22c788ec1a80d9d00ce6a150114386d545999a53d017cfbadf1bcac86c6e563c"
+    "BRANCH": "rotas-elegiveis-v1",
+    "HEAD": "b0330535ccc243a9ce44b5290583e50928131280",
+    "GENERATED_AT": "2026-09-22T20:39:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "422169bbed7bff9821fbe905746a1e4fdb198b19c65f09f132a1e6b9bec66a62"
   },
   "FILES": [
     {
@@ -374,7 +374,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "392ddaea73fc4f3b9152c226ee3bf6a138a4ee91",
+      "sha": "75a085f87ba1e1758e203a1712f0612ae7839471",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2060,6 +2060,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "sha": "1c143b82406ca14caf0a97962dca4c2e14098475",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/SAMPLE-MANIFEST-V1.json",
       "sha": "23ea2182e766e9b79a4c0bed656764b6a9108571",
       "ext": ".json",
@@ -2300,6 +2307,13 @@
     {
       "path": "curadoria/nivel_da_fila.py",
       "sha": "f729e6de5d7f83384c5f8a15c62b651074ddeb1b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/onboardar_rotas_provadas.py",
+      "sha": "23e72778cdd69578407e8a6a7c1043dc7ce27702",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -11965,6 +11979,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/canario_rotas_elegiveis.py",
+      "sha": "7cb19e7e422e1e46cd952fcf5fb9248526d19d1a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/cicatrizes_brasil.py",
       "sha": "34c9f52b6bee0946cc79261037a1a1272c2950ea",
       "ext": ".py",
@@ -15368,7 +15389,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "5ae94f1e761b7b9add8f25ec3a9a7e6f1f9312ed",
+      "sha": "4af59022bc648836de2a17424e3ed31b7b9a3a60",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -16846,6 +16867,13 @@
     {
       "path": "tests/test_observabilidade_estrada.py",
       "sha": "1b4fdf6b86c682a2d19f7849d0ae800df7a5430e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_onboardar_rotas_provadas.py",
+      "sha": "ced57ae5d628143ad03f948054bf04fe2a5ca256",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23445,6 +23473,72 @@
         "file": "curadoria/nivel_da_fila.py",
         "line": 40,
         "snippet": "import baldes_das_candidatas as B  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/onboardar_rotas_provadas.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/onboardar_rotas_provadas.py",
+        "line": 43,
+        "snippet": "CANARIO = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/onboardar_rotas_provadas.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/onboardar_rotas_provadas.py",
+        "line": 40,
+        "snippet": "import collection_gate as G      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/onboardar_rotas_provadas.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/onboardar_rotas_provadas.py",
+        "line": 44,
+        "snippet": "CURATOR = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/onboardar_rotas_provadas.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/onboardar_rotas_provadas.py",
+        "line": 49,
+        "snippet": "[\"node\", \"-e\", 'import(\"./regras/italy_contracts.mjs\").then(m=>'"
+      }
+    },
+    {
+      "from_file": "curadoria/onboardar_rotas_provadas.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/onboardar_rotas_provadas.py",
+        "line": 42,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/onboardar_rotas_provadas.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/onboardar_rotas_provadas.py",
+        "line": 125,
+        "snippet": "TABELA.write_text(json.dumps(t, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
     {
@@ -33928,6 +34022,39 @@
         "file": "medidas/banco_no_seco.py",
         "line": 157,
         "snippet": "with open(MIGRATION, encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "medidas/canario_rotas_elegiveis.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/canario_rotas_elegiveis.py",
+        "line": 47,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/canario_rotas_elegiveis.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/canario_rotas_elegiveis.py",
+        "line": 210,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "medidas/canario_rotas_elegiveis.py",
+      "to_file": "regras/motor_de_rota.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/canario_rotas_elegiveis.py",
+        "line": 68,
+        "snippet": "r = subprocess.run([\"node\", str(s), str(RAIZ / \"regras\" / \"motor_de_rota.mjs\"),"
       }
     },
     {
@@ -67536,6 +67663,17 @@
       }
     },
     {
+      "from_file": "tests/test_onboardar_rotas_provadas.py",
+      "to_file": "curadoria/onboardar_rotas_provadas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_onboardar_rotas_provadas.py",
+        "line": 90,
+        "snippet": "texto = (RAIZ / \"curadoria\" / \"onboardar_rotas_provadas.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "tests/test_operacao.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -72433,10 +72571,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2465,
-    "files_readable": 1092,
-    "files_code_dir": 948,
-    "file_edges": 4964,
+    "files_tracked": 2469,
+    "files_readable": 1095,
+    "files_code_dir": 950,
+    "file_edges": 4974,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
