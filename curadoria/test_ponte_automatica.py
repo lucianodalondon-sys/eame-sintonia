@@ -133,6 +133,34 @@ class SemDecisaoNovaNadaAcontece(ABancada):
         self.assertEqual(e["TRAVESSIAS"], 1)
         self.assertEqual(e["VOLTAS"], 6)
 
+    def test_rt_p8_livro_diferente_sem_noticia_nao_conta_como_travessia(self):
+        """LIVRO DIFERENTE != NOTICIA NOVA.
+
+        Visto ao vivo: depois de se limpar o residuo de uma prova, o livro do
+        bot ficou com outro `sha256` — mas SEM decisao nova nenhuma. A volta
+        atravessa (o sha mudou) e nao acrescenta uma linha.
+
+        Somar isso a `TRAVESSIAS` daria um contador que sobrestima, e alguem
+        leria «3 travessias» onde houve 2. Conta-se a parte, e o diario
+        continua calado: nao ha noticia para dar.
+        """
+        PA.uma_volta(lane=self.lane)                      # a primeira, essa e real
+        linhas = len(self._linhas_do_diario())
+        travessias = PA.estado_lido()["TRAVESSIAS"]
+
+        # o livro muda de bytes (outra ordem de chaves) sem ganhar decisao
+        doc = json.loads(self.livro_do_bot.read_text(encoding="utf-8"))
+        doc["LEI"] = doc["LEI"] + " "                     # um byte a mais, zero decisoes
+        self._escrever(doc)
+
+        r = PA.uma_volta(lane=self.lane)
+        self.assertEqual(r["ACCAO"], "ATRAVESSOU_SEM_NOVIDADE", r)
+        self.assertEqual(r["LIVRO_CANONICO"]["APENDIDAS"], 0)
+        e = PA.estado_lido()
+        self.assertEqual(e["TRAVESSIAS"], travessias, "contou uma travessia que nao houve")
+        self.assertEqual(e["LIVRO_NOVO_SEM_NOTICIA"], 1)
+        self.assertEqual(len(self._linhas_do_diario()), linhas, "gritou sem noticia")
+
     def test_decisao_nova_do_bot_volta_a_atravessar(self):
         PA.uma_volta(lane=self.lane)
         self._escrever(_livro(

@@ -231,9 +231,7 @@ def uma_volta(*, lane: Path = LANE_DO_BOT, forcar: bool = False) -> dict:
     elegiveis_depois = sorted(CG.elegiveis())
 
     e["ULTIMO_SHA"] = snap["SHA256"]
-    e["TRAVESSIAS"] = e.get("TRAVESSIAS", 0) + 1
     e["SAUDE"] = "SAUDAVEL"
-    estado_gravado(e)
 
     r = {
         "ACCAO": "ATRAVESSOU",
@@ -251,11 +249,21 @@ def uma_volta(*, lane: Path = LANE_DO_BOT, forcar: bool = False) -> dict:
             "SAIRAM": sorted(set(elegiveis_antes) - set(elegiveis_depois)),
         },
     }
-    # ⚠️ So se escreve no diario quando algo MUDOU mesmo. Um livro novo que nao
-    # acrescente linha nenhuma e uma volta sem noticia: conta, nao grita.
-    if aplicado["APENDIDAS"] or r["PORTAO"]["ENTRARAM"] or r["PORTAO"]["SAIRAM"]:
+    # ⚠️ LIVRO DIFERENTE NAO E O MESMO QUE NOTICIA NOVA, e os dois contam-se em
+    # separado. Visto ao vivo: depois de se limpar o residuo de uma prova, o
+    # livro do bot ficou com outro `sha256` sem ter decisao nova nenhuma — a
+    # volta atravessou e nao acrescentou uma linha. Somar isso a TRAVESSIAS
+    # dava um contador que sobrestima, e um contador que sobrestima e um
+    # contador que engana: alguem leria «3 travessias» onde houve 2.
+    houve_noticia = bool(aplicado["APENDIDAS"] or r["PORTAO"]["ENTRARAM"]
+                         or r["PORTAO"]["SAIRAM"])
+    if houve_noticia:
+        e["TRAVESSIAS"] = e.get("TRAVESSIAS", 0) + 1
+        estado_gravado(e)
         anotar(dict(r, EVENTO="TRAVESSIA"))
     else:
+        e["LIVRO_NOVO_SEM_NOTICIA"] = e.get("LIVRO_NOVO_SEM_NOTICIA", 0) + 1
+        estado_gravado(e)
         r["ACCAO"] = "ATRAVESSOU_SEM_NOVIDADE"
     return r
 
