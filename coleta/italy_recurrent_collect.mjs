@@ -97,7 +97,7 @@ async function main() {
   if (!pegarLock()) {
     resumo.RUN_STATE = "SKIPPED_LOCK_HELD";
     resumo.RUNNER_HEALTH = "HEALTHY";
-    resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+    resumo.SOURCE_NOT_MEASURED = null;   // a populacao vem do portao, e o portao ainda nao correu
     resumo.reason = "outra coleta ja esta rodando — nao se inicia segunda instancia";
     return fim(resumo, t0);
   }
@@ -108,7 +108,7 @@ async function main() {
       const h = horaEmRoma();
       if (h !== PROFILE.OPERATIONAL_COLLECTION_HOUR) {
         resumo.RUN_STATE = "SKIPPED_OUT_OF_WINDOW";
-        resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+        resumo.SOURCE_NOT_MEASURED = null;   // a populacao vem do portao, e o portao ainda nao correu
         resumo.reason = `sao ${h}h em Europe/Rome; a janela e ${PROFILE.OPERATIONAL_COLLECTION_HOUR}h`;
         return fim(resumo, t0);
       }
@@ -122,7 +122,7 @@ async function main() {
       resumo.RUN_STATE = "FAILED_PRECONDITION";
       resumo.reason = "VPN_NOT_ITALY";
       resumo.RUNNER_HEALTH = "FAILED";
-      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;   // NAO_MEDIDO, nunca FAILED
+      resumo.SOURCE_NOT_MEASURED = null;   // a populacao vem do portao, e o portao ainda nao correu   // NAO_MEDIDO, nunca FAILED
       resumo.lei = "VPN_FAILURE != SOURCE_FAILURE — as fontes nao foram sequer tocadas";
       resumo.SOURCE_DOWNLOADS = 0;
       return fim(resumo, t0);
@@ -130,32 +130,50 @@ async function main() {
 
     // 5 · storage gravavel
     try { mkdirSync(LEDGER_DIR, { recursive: true }); writeFileSync(`${LEDGER_DIR}/.w`, "x"); unlinkSync(`${LEDGER_DIR}/.w`); }
-    catch (e) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = "storage nao gravavel"; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length; return fim(resumo, t0); }
+    catch (e) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = "storage nao gravavel"; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = null; return fim(resumo, t0); }
 
-    // 6 · contratos existem para todas as fontes do perfil
-    const semContrato = PROFILE.SOURCES.filter(s => !CONTRACTS[s]);
-    if (semContrato.length) { resumo.RUN_STATE = "FAILED_PRECONDITION"; resumo.reason = `sem contrato: ${semContrato}`; resumo.RUNNER_HEALTH = "FAILED"; resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length; return fim(resumo, t0); }
+    // 6 · O PASSO QUE CONFERIA CONTRATOS ANTES DO PORTAO SAIU DAQUI.
+    //
+    // Ele lia `PROFILE.SOURCES` — a lista fixa — e por isso corria ANTES de
+    // se saber quem ia ser colhido. Sem lista fixa, a ordem inverte-se por
+    // obrigacao: primeiro pergunta-se ao portao QUEM pode ser colhido, e so
+    // depois se confere se esta casa sabe chegar a cada um. A conferencia de
+    // contrato passou para o passo 6c, sobre a populacao real.
+    //
+    //     CONFERIR O CAMINHO ANTES DE SABER O DESTINO
+    //     E CONFERIR O CAMINHO DE OUTRA PESSOA.
 
-    // 6b · PORTAO DE ADMISSAO DO CURATOR — quem pode ser colhido hoje.
+    // 6b · O PORTAO DO CURATOR **DA** A POPULACAO. Nao a filtra: da-a.
     //
-    // ⚠️ DEFEITO MEDIDO EM 2026-09-21, E ESTE PASSO E A CORRECCAO.
-    // O perfil `forward-only-live` traz as fontes NUMA LISTA ESCRITA A MAO em
-    // `candidatas/italy_profiles.mjs`. Essa lista nunca falou com o livro do
-    // Curator. Medido no livro canonico nesse dia, as tres fontes do perfil
-    // estavam: uma em SEMANTIC_REVIEW (nunca promovida) e duas READY_LEGACY —
-    // promovidas pela regua antiga, antes de existir gate de detalhe.
+    // ⚠️ AQUI ESTAVA O DEFEITO, E ESTE PASSO E A CORRECCAO (cutover, Fase 5).
+    // Ate 2026-09-22 este passo perguntava `--ids=<lista fixa do perfil>`. O
+    // portao servia de FILTRO de uma lista escrita a mao: se a lista trouxesse
+    // tres fontes erradas, o portao dizia nao as tres e a coleta parava; se
+    // trouxesse tres certas, colhia tres — e as outras elegiveis, que ninguem
+    // escreveu na lista, nunca eram colhidas por NINGUEM.
     //
-    //     TER CONTRATO NAO E ESTAR PRONTA. E ESTAR NUM PERFIL E MENOS AINDA.
+    //     UM PORTAO QUE SO FILTRA UMA LISTA NAO DECIDE A POPULACAO.
+    //     DECIDE QUEM, DENTRO DA LISTA DE OUTRA PESSOA, PODE PASSAR.
     //
-    // A regra NAO e traduzida para JavaScript: isso seria uma segunda copia da
-    // lei, a envelhecer sozinha. Pergunta-se ao dono unico
-    // (`curadoria/collection_gate.py`) e le-se o JSON. Se o portao nao puder
-    // ser consultado, a corrida NAO segue: nao saber quem pode ser colhido e
-    // motivo para parar, nunca para prosseguir.
+    // Pergunta-se agora SEM `--ids`: a resposta e a populacao elegivel
+    // INTEIRA, tal como o livro a conhece hoje. A regra NAO e traduzida para
+    // JavaScript — isso seria uma segunda copia da lei a envelhecer sozinha.
+    // O dono unico e `curadoria/collection_gate.py`.
+    //
+    // Se o portao nao puder ser consultado, a corrida NAO segue: nao saber
+    // quem pode ser colhido e motivo para parar, nunca para prosseguir.
+    if (PROFILE.POPULACAO !== "COLLECTION_GATE") {
+      resumo.RUN_STATE = "FAILED_PRECONDITION";
+      resumo.reason = `o perfil nao declara POPULACAO = "COLLECTION_GATE" (diz: ${JSON.stringify(PROFILE.POPULACAO)})`;
+      resumo.RUNNER_HEALTH = "FAILED";
+      resumo.SOURCE_NOT_MEASURED = null;
+      resumo.lei = "um perfil que nao diz de onde vem a populacao nao autoriza coleta nenhuma";
+      return fim(resumo, t0);
+    }
     const PY = process.env.SINTONIA_PY || (process.platform === "win32" ? "py" : "python3");
     let admissao;
     try {
-      const saida = execFileSync(PY, ["curadoria/collection_gate.py", `--ids=${PROFILE.SOURCES.join(",")}`, "--json"],
+      const saida = execFileSync(PY, ["curadoria/collection_gate.py", "--json"],
         { cwd: RAIZ, encoding: "utf8", maxBuffer: 32 * 1024 * 1024, env: { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" } });
       admissao = JSON.parse(saida.slice(saida.indexOf("{")));
     } catch (e) {
@@ -163,35 +181,59 @@ async function main() {
       resumo.reason = `portao de admissao do Curator nao respondeu: ${String(e.message).slice(0, 160)}`;
       resumo.RUNNER_HEALTH = "FAILED";
       resumo.COLLECTION_INTAKE_GATE = "NAO SEI";
-      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+      resumo.SOURCE_NOT_MEASURED = null;   // a populacao vem do portao, e o portao nao respondeu
       return fim(resumo, t0);
     }
-    const naoElegiveis = admissao.RECUSADAS.map(l => `${l.SOURCE_ID}:${l.MOTIVO}`);
+    const POPULACAO = admissao.COLLECTION_ELIGIBLE_IDS;
     resumo.COLLECTION_INTAKE_GATE = admissao.CONTRATO;
-    resumo.COLLECTION_ELIGIBLE = admissao.COLLECTION_ELIGIBLE_IDS.length;
-    resumo.COLLECTION_REFUSED = naoElegiveis;
+    resumo.COLLECTION_ELIGIBLE = POPULACAO.length;
+    resumo.COLLECTION_SOURCE_SELECTION = "COLLECTION_GATE";
+    // Os recusados vao por MOTIVO, nao numa soma. Uma soma esconde de que lei
+    // cada nao veio, e e por motivo que se mede se algum vazou para a coleta.
+    resumo.COLLECTION_REFUSED_BY_MOTIVE = admissao.RECUSADAS.reduce((a, l) => {
+      (a[l.MOTIVO] = a[l.MOTIVO] || []).push(l.SOURCE_ID); return a;
+    }, {});
+    resumo.COLLECTION_REFUSED_TOTAL = admissao.RECUSADAS.length;
+
+    // 6c · ELEGIVEL NAO E ALCANCAVEL. Sao duas perguntas, e a segunda e nossa.
+    //
+    // O portao responde «esta fonte pode ser colhida». Se ESTA CASA sabe
+    // chegar la e outra pergunta — a do contrato. Uma fonte elegivel sem
+    // contrato nao e um nao do portao nem uma falha da fonte: e uma rota que
+    // falta do nosso lado, e tem nome proprio.
+    //
+    //     ELEGIVEL SEM CONTRATO NAO E `FAILED` NEM `NOT_APPLICABLE`.
+    //     E `ELIGIBLE_WITHOUT_CONTRACT`, E FICA DITO.
+    //
+    // Nao para a corrida: as que TEM contrato seguem. Calar as outras seria
+    // perder a unica lista que diz onde falta trabalho.
+    const comContrato = POPULACAO.filter(s => CONTRACTS[s]);
+    const semContrato = POPULACAO.filter(s => !CONTRACTS[s]);
+    resumo.ELIGIBLE_WITH_CONTRACT = comContrato.length;
+    resumo.ELIGIBLE_WITHOUT_CONTRACT = semContrato;
+
     // `--so-o-portao`: para AQUI, sempre, sem tocar em fonte nenhuma. Existe
     // para o teste poder provar o veredito do portao sem que uma falha do
     // portao vire uma ida a rede — um teste que so se porta bem quando o
     // codigo se porta bem nao prova nada.
     if (tem("--so-o-portao")) {
-      resumo.RUN_STATE = naoElegiveis.length ? "BLOCKED_BY_CURATOR_INTAKE_GATE"
-                                             : "GATE_ONLY_NO_COLLECTION";
+      resumo.RUN_STATE = comContrato.length ? "GATE_ONLY_NO_COLLECTION"
+                                            : "NO_SOURCE_ELIGIBLE";
       resumo.RUNNER_HEALTH = "HEALTHY";
-      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
-      resumo.reason = naoElegiveis.length
-        ? `fontes do perfil que o Curator nao admite: ${naoElegiveis.join(" · ")}`
-        : "so o portao foi consultado; nenhuma fonte foi tocada";
+      resumo.SOURCE_NOT_MEASURED = POPULACAO.length;
+      resumo.reason = `so o portao foi consultado; nenhuma fonte foi tocada. elegiveis=${POPULACAO.length}, com contrato=${comContrato.length}`;
       return fim(resumo, t0);
     }
-    if (naoElegiveis.length) {
-      resumo.RUN_STATE = "BLOCKED_BY_CURATOR_INTAKE_GATE";
-      resumo.reason = `fontes do perfil que o Curator nao admite: ${naoElegiveis.join(" · ")}`;
-      // O CORREDOR ESTA SAO. Quem disse nao foi o portao, e dizer nao e a
-      // funcao dele — marcar RUNNER_HEALTH=FAILED aqui seria culpar a pista.
+    // ZERO ELEGIVEL NAO E AVARIA. E o livro a dizer que hoje ninguem esta
+    // pronta. Marcar FAILED aqui mandava alguem depurar uma decisao.
+    if (!comContrato.length) {
+      resumo.RUN_STATE = "NO_SOURCE_ELIGIBLE";
       resumo.RUNNER_HEALTH = "HEALTHY";
-      resumo.lei = "READY_LEGACY != READY_CURRENT. Perfil nao promove fonte.";
-      resumo.SOURCE_NOT_MEASURED = PROFILE.SOURCES.length;
+      resumo.SOURCE_NOT_MEASURED = POPULACAO.length;
+      resumo.reason = POPULACAO.length
+        ? `o portao admitiu ${POPULACAO.length}, e nenhuma tem contrato nesta casa: ${semContrato.join(" · ")}`
+        : "o portao nao admitiu nenhuma fonte hoje";
+      resumo.lei = "NENHUMA ELEGIVEL NAO E FALHA DO CORREDOR.";
       return fim(resumo, t0);
     }
 
@@ -205,7 +247,16 @@ async function main() {
 
     // 8..14 · a coleta em si fica no coletor do piloto, reusado com o perfil restrito
     const { executarRodada } = await import("./italy_pilot_collect.mjs");
-    const r = await executarRodada({ runId: RUN_ID, nota: `ops ${PROFILE_NAME}`, apenas: PROFILE.SOURCES, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
+    // `apenas: comContrato` — a populacao do portao, menos as que esta casa
+    // nao sabe alcancar. NUNCA `POPULACAO` crua: mandar colher uma fonte sem
+    // contrato fazia o coletor falhar e o log dizer «fonte falhou», quando a
+    // fonte nunca foi tocada e quem falta e a rota deste lado.
+    //
+    // `arpavZonas` continua a sair do perfil: NAO e selecao de fonte, e COMO
+    // se colhe uma delas (as 29 zonas publicadas em vez das 4 do piloto). Fica
+    // inerte quando a ARPAV nao esta na populacao — `__ARPAV_TODAS` so e lido
+    // dentro do ramo dessa fonte, em `italy_pilot_collect.mjs:239`.
+    const r = await executarRodada({ runId: RUN_ID, nota: `ops ${PROFILE_NAME}`, apenas: comContrato, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
     const c = r.resumo.contadores;
     resumo.SOURCE_ATTEMPTED = c.SOURCES_ATTEMPTED; resumo.SOURCE_HEALTHY = c.HEALTHY;
     resumo.SOURCE_DEGRADED = c.DEGRADED; resumo.SOURCE_FAILED = c.FAILED;

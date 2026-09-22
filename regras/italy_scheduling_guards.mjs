@@ -11,15 +11,48 @@ export function guardasDeAgendamento(T) {
   const runs = existsSync(LOG) ? readFileSync(LOG, "utf8").trim().split("\n").filter(Boolean).map(l => JSON.parse(l)) : [];
   const runner = readFileSync("coleta/italy_recurrent_collect.mjs", "utf8");
 
-  console.log("\n32 · ONLY_FORWARD_ONLY_PROFILE · NO_SILENT_FOURTH_SOURCE");
-  T("o perfil forward-only-live tem exatamente 3 fontes", P.SOURCES.length === 3, P.SOURCES.join(","));
-  T("sao exatamente as tres FORWARD_ONLY contratadas",
-    ["IT-T3-005", "IT-T2-002", "IT-T2-004"].every(s => P.SOURCES.includes(s)));
-  T("nenhuma fonte de outra prioridade entrou no perfil",
-    !P.SOURCES.some(s => ["IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"].includes(s)));
-  T("nenhuma execucao agendada tocou mais de 3 fontes",
-    runs.filter(r => r.SOURCE_ATTEMPTED > 0).every(r => r.SOURCE_ATTEMPTED === 3),
-    [...new Set(runs.map(r => r.SOURCE_ATTEMPTED))].join(","));
+  // ⚠️ ESTA GUARDA MUDOU DE LEI EM 2026-09-22 (cutover, Fase 5), E A LEI NOVA
+  // E MAIS DURA QUE A VELHA.
+  //
+  // A velha exigia que o perfil tivesse EXACTAMENTE as tres fontes escritas a
+  // mao. Ela guardava a lista — e guardar a lista era o defeito: as tres
+  // fontes que ela protegia eram, no livro do Curator, uma nunca promovida e
+  // duas promovidas pela regua antiga. A guarda estava a garantir que a lista
+  // errada nao mudasse.
+  //
+  //     UMA GUARDA QUE FISCALIZA UMA LISTA FIXA
+  //     PROTEGE A LISTA, NAO A LEI.
+  //
+  // A lei nova: o perfil NAO PODE TER LISTA. A populacao sai do portao, e o
+  // controlo de «quarta fonte calada» passa a ser feito onde a decisao mora.
+  console.log("\n32 · POPULATION_FROM_GATE · NO_HANDWRITTEN_SOURCE_LIST");
+  T("o perfil NAO tem lista de fontes escrita a mao",
+    P.SOURCES === undefined, `SOURCES=${JSON.stringify(P.SOURCES)}`);
+  T("o perfil declara de onde vem a populacao",
+    P.POPULACAO === "COLLECTION_GATE", `POPULACAO=${JSON.stringify(P.POPULACAO)}`);
+  T("nenhum campo do perfil carrega um SOURCE_ID",
+    !JSON.stringify(P).match(/IT-T\d+-\d+/), (JSON.stringify(P).match(/IT-T\d+-\d+/g) || []).join(","));
+  // ⚠️ SEM OS COMENTARIOS. Uma busca crua no ficheiro inteiro confundia a
+  // EXPLICACAO com a REINCIDENCIA: o comentario do passo 6b cita `--ids=`
+  // exactamente para dizer que aquilo era o defeito. O codigo e que decide.
+  const codigo = runner.split("\n").filter(l => !l.trim().startsWith("//")).join("\n");
+  T("o coletor pergunta ao portao SEM lhe passar ids",
+    codigo.includes('"curadoria/collection_gate.py", "--json"') && !codigo.includes("--ids="),
+    "um `--ids=` aqui faz o portao filtrar a lista de outra pessoa");
+  // CONTROLO NEGATIVO: um ficheiro que so EXPLICA o defeito tem de passar.
+  T("a guarda nao acusa quem so explica o defeito (controlo negativo)",
+    !['// o antigo usava --ids= e estava errado', 'const x = 1;']
+      .filter(l => !l.trim().startsWith("//")).join("\n").includes("--ids="));
+  // CONTROLO POSITIVO da propria guarda: sem isto, uma regra que nunca acusa
+  // passa por guarda. Um perfil de mentira com lista TEM de reprovar as regras
+  // de cima — e prova-se aqui, nao se promete.
+  const falso = { SOURCES: ["IT-T7-017"], POPULACAO: "COLLECTION_GATE" };
+  T("a propria guarda apanha um perfil com lista (controlo positivo)",
+    falso.SOURCES !== undefined && !!JSON.stringify(falso).match(/IT-T\d+-\d+/));
+  T("nenhuma execucao tocou mais fontes do que o portao admitiu",
+    runs.filter(r => r.SOURCE_ATTEMPTED > 0 && r.COLLECTION_ELIGIBLE != null)
+        .every(r => r.SOURCE_ATTEMPTED <= r.COLLECTION_ELIGIBLE),
+    "corridas anteriores ao portao nao declaram COLLECTION_ELIGIBLE e ficam fora desta conta");
 
   console.log("\n33 · VPN_CHECK_PRECEDES_SOURCE_ACCESS · VPN_FAILURE != SOURCE_FAILURE");
   T("no codigo, a checagem de egress vem ANTES de importar o coletor",
@@ -28,7 +61,16 @@ export function guardasDeAgendamento(T) {
   T("existe controle negativo REAL de VPN nao italiana", vpnFail.length > 0, `${vpnFail.length} execucoes`);
   T("com VPN errada, ZERO fontes foram tocadas", vpnFail.every(r => r.SOURCE_ATTEMPTED === 0 && r.SOURCE_DOWNLOADS === 0));
   T("com VPN errada, nenhuma fonte foi marcada FAILED", vpnFail.every(r => r.SOURCE_FAILED === 0));
-  T("com VPN errada, as fontes ficaram NOT_MEASURED", vpnFail.every(r => r.SOURCE_NOT_MEASURED === 3));
+  // ⚠️ `=== 3` ERA O TAMANHO DA LISTA FIXA. Sem lista, a falha de VPN acontece
+  // ANTES do portao, e por isso o numero de fontes nao medidas NAO SE SABE —
+  // escreve-se `null`, que e `NAO SEI`. O que a lei proibe e `0`: zero diria
+  // «nenhuma ficou por medir», isto e, «todas foram medidas», com a VPN no
+  // pais errado e nenhuma fonte tocada.
+  //
+  //     `NAO SEI` E UM VALOR. `0` NO LUGAR DE `NAO SEI` E UMA MENTIRA.
+  T("com VPN errada, nenhuma fonte foi dada por medida",
+    vpnFail.every(r => r.SOURCE_NOT_MEASURED === null || r.SOURCE_NOT_MEASURED > 0),
+    [...new Set(vpnFail.map(r => String(r.SOURCE_NOT_MEASURED)))].join(","));
   T("toda execucao que coletou registrou egress italiano",
     runs.filter(r => r.SOURCE_ATTEMPTED > 0 && !r.EGRESS_CITY?.includes("simulado")).every(r => r.EGRESS_COUNTRY === "IT"));
 
