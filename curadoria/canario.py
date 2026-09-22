@@ -43,6 +43,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "curadoria"))
 import capturador as CAP  # noqa: E402  (UA ja medido: sem `Safari/`)
+import retrato_html as RH  # noqa: E402  (o gate CAPA != MATERIA, mesmos limiares do coletor)
 
 TIMEOUT = 25
 CTX = ssl.create_default_context()
@@ -146,13 +147,45 @@ def canario_html(c: dict) -> dict:
     if st2 != 200 or not b2:
         return {"PASS": False, "CLASSE": "UNKNOWN", "HTTP": st2,
                 "PORQUE": "documento inacessivel: %s" % (err2 or st2), "ALVO": alvo}
-    if not b2.lstrip()[:1] == b"<":
+    # ⚠️ UM BOM UTF-8 A FRENTE DO «<» NAO E «NAO E HTML». Medido no provador de
+    # listagens (CAND-0060): b'\xef\xbb\xbf<!DOC' reprovava como bytes errados.
+    if not b2.lstrip().removeprefix(b"\xef\xbb\xbf")[:1] == b"<":
         return {"PASS": False, "CLASSE": "SOURCE_FAILURE", "HTTP": st2,
                 "PORQUE": "bytes nao sao HTML — BYTE_VALIDATION_FAILED", "ALVO": alvo}
-    return {"PASS": True, "CLASSE": "OK", "HTTP": st2, "ALVO": alvo,
-            "ALVOS_DESCOBERTOS": len(alvos), "BYTES": len(b2),
-            "DOCUMENT_ID": c["IDENTITY"]["DOCUMENT_ID"].replace(
-                "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/"))}
+
+    # ── READY EXIGE ITEM REAL (AQUISICAO-DETALHE-V1, PASSO 8 · integrado) ──
+    # Ate aqui «a rota resolve» chegava: um endereco que casa com o padrao,
+    # abre e traz HTML. Medido na outra linha: 32 das 104 fontes de indice
+    # tinham rota resolvida e o unico item era o menu, e 9 guardavam a
+    # PROPRIA LISTAGEM como documento. HTTP 200 + bytes HTML nao distingue
+    # uma materia de uma capa. Por isso o item aberto e RETRATADO, e:
+    #
+    #     sem texto visivel         -> ITEM_SEM_TEXTO       (BODY util e obrigatorio)
+    #     parece listagem/navegacao -> CAPA_NAO_E_MATERIA   (o gate, com nome)
+    #
+    # Nada e guardado: VALIDAR != COLETAR continua. E o gate so julga o que o
+    # contrato declara como itens de detalhe (ver retrato_html.gate_capa_nao_e_materia).
+    ret = RH.retrato_do_html(b2)
+    item = {"URL": alvo, "HTTP": st2, "BYTES": len(b2),
+            "HTML_KIND": ret["HTML_KIND"], "CAPA_OU_MATERIA": ret["CAPA_OU_MATERIA"],
+            "LINKS": ret["LINKS"],
+            "NON_WHITESPACE_CHARACTERS": ret["NON_WHITESPACE_CHARACTERS"],
+            "PARAGRAPH_CHARACTERS": ret["PARAGRAPH_CHARACTERS"],
+            "TEXT_SHA256": ret["TEXT_SHA256"]}
+    base_r = {"HTTP": st2, "ALVO": alvo, "ALVOS_DESCOBERTOS": len(alvos),
+              "DETAIL_ENUMERATED": len(alvos), "ITEM_ABERTO": item,
+              "DETAIL_GATE": RH.GATE_VERSAO, "BYTES": len(b2)}
+    if ret["HTML_KIND"] == "EMPTY":
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE="ITEM_SEM_TEXTO: o item abriu e nao tem texto visivel "
+                           "— sem BODY util nao ha materia")
+    gate = RH.gate_capa_nao_e_materia(c, ret)
+    if gate:
+        return dict(base_r, PASS=False, CLASSE="SOURCE_FAILURE", DETAIL_GATE_PASSED=False,
+                    PORQUE=gate)
+    return dict(base_r, PASS=True, CLASSE="OK", DETAIL_GATE_PASSED=True,
+                DOCUMENT_ID=c["IDENTITY"]["DOCUMENT_ID"].replace(
+                    "{doc.1}", re.sub(r"^https?://[^/]+/?", "", alvo).rstrip("/")))
 
 
 def main() -> int:
