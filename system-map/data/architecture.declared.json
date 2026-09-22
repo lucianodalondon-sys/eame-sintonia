@@ -554,6 +554,27 @@
    ]
   },
   {
+   "id": "C-DIAGNOSTICO-SALA",
+   "name": "Diagnostico da Sala — porque os itens nao entraram",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Leitura pura de uma corrida ja julgada: junta derived x raw (TSV tirado por SELECT), o LIVRO-DE-DECISOES e os textos derivados (sha256 conferido), refaz _do_universo em memoria para cada universo e diz onde cada palavra casou — corpo da noticia ou moldura do site. Nunca chama adm.escrever(), nunca abre rede, nunca escreve no banco.",
+   "why_here": "RELATORIO-DIAGNOSTICO-SALA: 71 de 76 nao entraram, e a pergunta era se a culpa era da fonte, da rota, da regua ou do dia. Responder pelo URL teria dito «capa»; o texto disse 0/47 capas.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/diagnostico_sala/ler_os_76.py",
+    "scripts/diagnostico_sala/onde_casou.py"
+   ]
+  },
+  {
    "id": "C-PROCEDENCIA",
    "name": "De onde veio — carimbado na coleta",
    "territory": "Z-REGRAS",
