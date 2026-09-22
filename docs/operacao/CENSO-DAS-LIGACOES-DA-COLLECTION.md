@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  3f6888cd2db81d9dae50a4d0ef4a6e93bbf6aac7
+HEAD_DA_MEDICAO  b41fa0802148988ef371e1bee501884a85c59398
 BRANCH           cutover-prod-v1
-GERADO_EM        2026-09-21T23:12:15-03:00
+GERADO_EM        2026-09-21T23:23:28-03:00
 CARDS            79
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
