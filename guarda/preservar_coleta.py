@@ -55,6 +55,8 @@ descartável sem tocar em produção.
 import hashlib
 import json
 import os
+import re
+from datetime import datetime
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -607,13 +609,72 @@ def conferir_os_bytes(plano: dict, armazem: Armazem) -> dict:
 # ─────────────────────────────────────────────────────────────────────────
 # 3 · O CONFLITO — `do nothing` não pode calar divergência
 # ─────────────────────────────────────────────────────────────────────────
+#: A FORMA DE UM INSTANTE ESCRITO. Estreita de propósito: tem de ter data
+#: COMPLETA e hora COMPLETA. `"2026"`, `"1329"` e `"v1_7c93f9ee0a3b"` não
+#: passam aqui, e é isso que impede esta régua de se espalhar para campos que
+#: não são tempo.
+_UM_INSTANTE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(\.\d+)?"
+    # O fuso do Postgres sai com DUAS casas (`+00`), e o de quem escreve a
+    # linha sai com quatro (`+00:00`). As duas formas nomeiam o mesmo fuso.
+    r"([+-]\d{2}(:?\d{2})?|Z)?$")
+
+
+def _instante(v):
+    """O instante que este texto nomeia, ou `None` quando não nomeia nenhum.
+
+    `None` não quer dizer «igual» nem «diferente»: quer dizer «isto não é uma
+    hora», e quem chamou volta a comparar como texto, que é o que sempre fez.
+    """
+    if not isinstance(v, str) or not _UM_INSTANTE.match(v.strip()):
+        return None
+    try:
+        return datetime.fromisoformat(v.strip().replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
 def _difere(existente: dict, esperado: dict, campos) -> list:
+    """Os campos em que a linha do banco e a linha esperada NÃO dizem o mesmo.
+
+    ⚠️ ISTO COMPARAVA TUDO COMO TEXTO, E O TEMPO NÃO É TEXTO.
+
+        NO_BANCO        2026-09-22T18:55:13.64Z
+        NESTA_CORRIDA   2026-09-22T18:55:13.640Z
+
+    É o MESMO instante. O Postgres não imprime o zero final dos milissegundos;
+    quem escreveu a linha imprime-o. `str(a) != str(b)` diz que diferem, e o
+    que sai daqui chama-se `METADATA_CONFLICT` — o nome reservado para «outros
+    bytes no mesmo endereço», que é uma acusação sobre o MUNDO.
+
+        MEDIDO, lote de 76 de 2026-09-22: sete observações — exactamente as
+        sete cujos milissegundos acabam em zero — foram declaradas em
+        conflito, não entraram em `RAW_OBSERVATIONS`, e por isso nunca
+        chegaram à derivação nem à admissão. Os bytes estavam certos, o
+        `sha256` batia, a linha estava escrita. O que falhou foi a régua.
+
+        UM COMPARADOR QUE CHAMA CONFLITO AO MESMO VALOR
+        NÃO ESTÁ A CONFERIR: ESTÁ A INVENTAR DIVERGÊNCIA.
+
+    E a correcção NÃO é afrouxar a conferência. Dois instantes diferentes
+    continuam a divergir, e divergem com o mesmo nome de sempre. O que muda é
+    só a unidade em que o tempo é medido: instante contra instante, e não
+    letra contra letra.
+
+    Campo que não seja hora continua comparado como texto, letra a letra —
+    `_instante()` devolve `None` e nada aqui se aplica.
+    """
     fora = []
     for c in campos:
         a, b = existente.get(c), esperado.get(c)
         if a is None and b is None:
             continue
         if str(a) != str(b):
+            ia, ib = _instante(a), _instante(b)
+            # Os DOIS têm de ser hora. Um instante contra um texto qualquer
+            # não é uma comparação de tempo — é uma divergência, e sai como tal.
+            if ia is not None and ib is not None and ia == ib:
+                continue
             fora.append({"CAMPO": c, "NO_BANCO": a, "NESTA_CORRIDA": b})
     return fora
 
