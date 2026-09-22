@@ -4059,15 +4059,16 @@
     "audit",
     "performance"
    ],
-   "what": "Decide FETCH · SKIP_KNOWN · REVALIDATE para cada endereco de detalhe, ANTES de qualquer pedido. Indice revisita-se sempre; detalhe ja conhecido com sucesso salta-se por omissao; revisitar exige razao nomeada de um vocabulario fechado de cinco.",
-   "why_here": "Medido: o coletor chamava baixar() na linha 474 e so perguntava se ja conhecia o documento na linha 502 — pagava a viagem para descobrir que nao precisava dela. E comparar bytes nao salvava nada: das 374 linhas que diferiam entre duas visitas aos mesmos 83 artigos, 14 eram o CONTADOR DE VISITAS da pagina, que subira porque fomos nos visita-la. Por isso esta funcao nao recebe bytes, nem sha, nem corpo — a assinatura e a lei. RUN B: 85 pedidos passaram a 0, com o indice ainda revisitado.",
+   "what": "Decide FETCH · SKIP_KNOWN · REVALIDATE para cada endereco de detalhe, ANTES de qualquer pedido. Indice revisita-se sempre; detalhe ja conhecido com sucesso salta-se por omissao; revisitar exige razao nomeada de um vocabulario fechado de cinco. Desde a RECOLLECTION-V1 a decisao diz tambem a COBERTURA: DECLARADA quando o contrato classificou a fonte, BLOCKED_FOR_BIG_COLLECTION quando ninguem a classificou — e admissivelNaBigCollection() fecha a porta a segunda.",
+   "why_here": "Medido: o coletor chamava baixar() na linha 474 e so perguntava se ja conhecia o documento na linha 502 — pagava a viagem para descobrir que nao precisava dela. E comparar bytes nao salvava nada: das 374 linhas que diferiam entre duas visitas aos mesmos 83 artigos, 14 eram o CONTADOR DE VISITAS da pagina, que subira porque fomos nos visita-la. Por isso esta funcao nao recebe bytes, nem sha, nem corpo — a assinatura e a lei. RUN B: 85 pedidos passaram a 0, com o indice ainda revisitado. E medido de novo em 2026-09-22: DECLARADO era calculado e nunca lido, por isso «sem bloco RECOLLECTION» e «IMMUTABLE» davam a MESMA decisao, para sempre e sem rasto. UNKNOWN comportava-se como NEVER. A correccao nao muda uma unica ida a rede — muda o facto de o salto por ignorancia passar a ter nome, contador (DETAIL_SKIPPED_UNDECLARED) e consequencia.",
    "departments": [
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
    "files": [
     "regras/incrementalidade.mjs",
-    "regras/incrementalidade_test.mjs"
+    "regras/incrementalidade_test.mjs",
+    "regras/recollection_test.mjs"
    ]
   },
   {
@@ -4098,6 +4099,32 @@
     "medidas/paridade_replay.mjs",
     "medidas/porque_a_sala_nao_recebeu.py",
     "medidas/ultima_milha.py"
+   ]
+  },
+  {
+   "id": "C-RECOLLECTION-CENSO",
+   "name": "O censo da revisita — como cada fonte publica, por evidencia",
+   "territory": "Z-MEDIDAS",
+   "kind": "scanner",
+   "icon": "⌕",
+   "views": [
+    "collection-strategy",
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Le os 186 contratos, o livro de observacoes e os brutos preservados, e responde por fonte: quando se voltou ao MESMO endereco, o que la estava tinha mudado de verdade? Classifica a topologia de publicacao por evidencia ordenada (contrato medido, datas dentro do documento, revisita preservada, forma do endereco), com criterios de HIGH/MEDIUM/LOW escritos ANTES de preencher, e propoe RECOLLECTION so com HIGH ou MEDIUM. Escreve RECOLLECTION-CENSO-V1.json, uma linha por contrato. NETWORK_REQUESTS = 0: nenhum destes abre rede.",
+   "why_here": "Sem isto a classificacao era opiniao com ar de medicao, e mediu-se que teria sido errada por duas vias. Primeira: 44 dos 83 pares de visitas saiam MATERIAL_CHANGE e NENHUM era texto editorial — eram familias de ruido por classificar, e tres delas ja estavam nomeadas na CANONICAL-MICRO-V1 sem nunca terem chegado a lista que age sobre elas. Segunda: os 83 pares estao TODOS a 8,7 minutos de distancia, e essa prova daria IMMUTABLE a tres fontes que, pelas datas dentro dos proprios bytes, reescrevem artigos publicados ate 72 dias depois. A evidencia mais visivel era a mais fraca; por isso a revisita e a TERCEIRA regua e nao a primeira.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "medidas/RECOLLECTION-CENSO-V1.json",
+    "medidas/recollection_censo.mjs",
+    "medidas/recollection_diff.mjs",
+    "medidas/recollection_familias.mjs",
+    "medidas/recollection_relatorio.mjs",
+    "medidas/recollection_topologia.mjs"
    ]
   },
   {
@@ -4223,6 +4250,26 @@
     "provas/PARIDADE-RED-TEAM-V1.json",
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs"
+   ]
+  },
+  {
+   "id": "C-PROVA-RECOLLECTION",
+   "name": "O red team da recollection — doze ataques a semantica da revisita",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Doze mutantes contra regras/incrementalidade.mjs e regras/normalizacao_de_conteudo.mjs, com o protocolo cache-safe §165 traduzido para Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, SONDA que confirma que o mutante CORREU, restauro em finally e conferido com git diff contra o indice. Cada ataque declara MORTE_ESPERADA: morrer pela prova errada conta como SURVIVOR.",
+   "why_here": "Os dez minimos do briefing mais dois que a missao encontrou por ter o defeito a frente: carimbar UNKNOWN a mao a comprar a admissao, e a canonicalizacao a comer os cinco caracteres com significado em HTML. E apanhou-se aqui um defeito do proprio arnes: ele guardava so as 4 primeiras linhas de falha para conferir a razao da morte, o ataque M8 derrubava OITO provas e a que interessava era a setima — dois mutantes mortos liam-se como SURVIVOR. Truncar a evidencia fabrica um sobrevivente.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/RECOLLECTION-RED-TEAM-V1.json",
+    "provas/recollection_red_team.mjs"
    ]
   }
  ],

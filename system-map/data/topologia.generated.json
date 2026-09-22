@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T12:01:12+00:00",
-  "HEAD": "8ecbc5a4b2c513082319fb6435d57ab04057ef45",
-  "BRANCH": "paridade-v1",
+  "GENERATED_AT": "2026-09-22T15:27:15+00:00",
+  "HEAD": "68aef8a9d3488c6ff61b592f73dca098cbd7b4e1",
+  "BRANCH": "recollection-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "480c686ce14ec5b580615764cd45fd3d724876fb229cacab726f82181dbae01c",
-  "FICHEIROS_NA_IMPRESSAO": 2594,
+  "SOURCE_TREE_FINGERPRINT": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
+  "FICHEIROS_NA_IMPRESSAO": 2604,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1684,6 +1684,41 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/recollection_censo.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "be64dd3b8668643f4afbbdb06a45b3b0fa43fca4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/recollection_diff.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "a3a389e6c1f01c4441ac70f455a8e40de9660317",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/recollection_familias.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "132427b14b6fce86e098f4aef8b0a5d8badc5947",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/recollection_relatorio.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "2d29f3c1b8e6917f4f62c5dba1c1f8ff9b5d7919",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/recollection_topologia.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "c9f8c0d24627070075f770c7e207cad8cf2065a2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/red_team_canonico.py",
     "PAPEL": "FONTE",
     "VERSAO": "000a0c582358a7b2f8ee510e5943ec58001d70e1",
@@ -2839,6 +2874,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/recollection_red_team.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "d870f0e862b29563e98627f0434777161ec456c4",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/red_team_adama_referencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "3196750de5730a8efd86f7f2bb48092fa6e8c547",
@@ -3002,7 +3044,7 @@
    {
     "PATH": "regras/incrementalidade.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "b38f79611b9607217039422db8c5c65168f2f14c",
+    "VERSAO": "19efdd48329508d787955da9610617a313590da1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3023,7 +3065,7 @@
    {
     "PATH": "regras/italy_contracts.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "1718d3f081d8c48d48ef326f02e49515a094628c",
+    "VERSAO": "8bd5903b48d2afaaaaa010ef2b55a262c48e3ab3",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3065,7 +3107,7 @@
    {
     "PATH": "regras/normalizacao_de_conteudo.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "00c2626469cbb0223527d7507f09ca1f587255f8",
+    "VERSAO": "e7747ee0db426195a8eb97e1b922b4f54632d04b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3080,6 +3122,13 @@
     "PATH": "regras/proveniencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "c94e9147603bd912b240d841d26e71572137c063",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "regras/recollection_test.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "3c2e64e910dc0a9aa29c500ecb0e3b7520c1afa1",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3156,14 +3205,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "480c686ce14ec5b580615764cd45fd3d724876fb229cacab726f82181dbae01c",
+    "VERSAO": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "480c686ce14ec5b580615764cd45fd3d724876fb229cacab726f82181dbae01c",
+    "VERSAO": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4834,8 +4883,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 685,
-  "INPUTS_DIGEST": "eeb2786f8a0d8dc761e55a49801023a9deef58b7b727ce985d4e1dcbdfdf7d86",
+  "INPUTS_COUNT": 692,
+  "INPUTS_DIGEST": "c153698b81d6ec3e4841034a16b475068714144bf815cb36024196bb84f7f1cd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4861,15 +4910,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 449,
+  "DOCUMENTOS_LIDOS": 450,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e2db9ce83f62f44ea0d38a2fb62930a055655134953d5169d6caaa4387416676",
-  "SEMANTIC_HASH": "3d53bf5d57affd1829b1db76afa7c0e541d3fa9c8b72529c91b865394463f241"
+  "MEASUREMENT_HASH": "bff795e8b95d52bcf797f04acff4e2dd3e5b5b073dc05e74efd12d88b934fe97",
+  "SEMANTIC_HASH": "cdf6e27d6791820dfdcb27c7d581f0782e78d57f53e013133a3fc1ed89d7b61e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4941,6 +4990,7 @@
    "C-RASTRO",
    "C-READY",
    "C-RECEITAS",
+   "C-RECOLLECTION-CENSO",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
    "C-ROTA-M2",
@@ -4962,7 +5012,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 81
+  "COUNT": 82
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5032,6 +5082,7 @@
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
+   "C-PROVA-RECOLLECTION",
    "C-PROVA-RETRY-DO-SCRAP",
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -5054,7 +5105,7 @@
    "C-TESTES",
    "C-V21-INGEST"
   ],
-  "COUNT": 81
+  "COUNT": 82
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -5179,6 +5230,7 @@
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
+   "C-PROVA-RECOLLECTION",
    "C-PROVA-RETRY-DO-SCRAP",
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -5192,6 +5244,7 @@
    "C-READY",
    "C-RECALL-PORTA-IT",
    "C-RECEITAS",
+   "C-RECOLLECTION-CENSO",
    "C-RECORRENCIA",
    "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
@@ -5224,16 +5277,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 162
+  "COUNT": 164
  },
  "ARITMETICA": {
-  "COLLECTION": 81,
-  "BOUNDARY": 81,
-  "SOMA": 162,
-  "EXPANDED": 162,
+  "COLLECTION": 82,
+  "BOUNDARY": 82,
+  "SOMA": 164,
+  "EXPANDED": 164,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 162,
+  "RESUMO_CARTOES_NO_UNIVERSO": 164,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -20965,6 +21018,66 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-INCREMENTALIDADE",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-IT-INCREMENTALIDADE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/recollection_test.mjs",
+      "LINHA": 20,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-INCREMENTALIDADE",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_censo.mjs",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/recollection_relatorio.mjs",
+      "LINHA": 16,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/recollection_topologia.mjs",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-CORRIDA-CANONICA",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-CORRIDA-CANONICA",
@@ -21101,6 +21214,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-INCREMENTALIDADE",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-IT-INCREMENTALIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/recollection_test.mjs",
+      "LINHA": 20,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-AUTORIDADE-FONTE",
     "FROM": "C-IT-CONTRATOS",
     "TO": "C-PROVA-AUTORIDADE-FONTE",
@@ -21141,6 +21276,44 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
       "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-CONTRATOS--READS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-CONTRATOS",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_censo.mjs",
+      "LINHA": 32,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "medidas/recollection_relatorio.mjs",
+      "LINHA": 16,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "medidas/recollection_topologia.mjs",
+      "LINHA": 42,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
      }
     ]
    },
@@ -21265,6 +21438,36 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_relatorio.mjs",
+      "LINHA": 17,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/recollection_topologia.mjs",
+      "LINHA": 43,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-IT-COLETA",
     "FROM": "C-IT-INCREMENTALIDADE",
     "TO": "C-IT-COLETA",
@@ -21361,6 +21564,74 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-PROVA-RECOLLECTION",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/recollection_red_team.mjs",
+      "LINHA": 30,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team.mjs",
+      "LINHA": 157,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team.mjs",
+      "LINHA": 158,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-INCREMENTALIDADE",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_relatorio.mjs",
+      "LINHA": 17,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "medidas/recollection_topologia.mjs",
+      "LINHA": 43,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
     "FROM": "C-IT-NORMALIZACAO",
     "TO": "C-IT-COLETA",
@@ -21378,6 +21649,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-COLETA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-INCREMENTALIDADE",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-IT-INCREMENTALIDADE",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/recollection_test.mjs",
+      "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-INCREMENTALIDADE",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -21405,6 +21698,44 @@
     ]
    },
    {
+    "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_censo.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/recollection_diff.mjs",
+      "LINHA": 17,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/recollection_familias.mjs",
+      "LINHA": 11,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-IT-COLETA",
     "FROM": "C-IT-NORMALIZACAO",
     "TO": "C-IT-COLETA",
@@ -21419,6 +21750,28 @@
      {
       "FICHEIRO": "coleta/italy_pilot_collect.mjs",
       "LINHA": 58,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-IT-INCREMENTALIDADE",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-IT-INCREMENTALIDADE",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "regras/recollection_test.mjs",
+      "LINHA": 19,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -21475,6 +21828,74 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-PARIDADE",
       "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-PROVA-RECOLLECTION",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/recollection_red_team.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team.mjs",
+      "LINHA": 159,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-NORMALIZACAO",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": null,
+    "DECLARED": "UNKNOWN",
+    "CODE": "UNKNOWN",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "UNKNOWN",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_censo.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "medidas/recollection_diff.mjs",
+      "LINHA": 17,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
+     },
+     {
+      "FICHEIRO": "medidas/recollection_familias.mjs",
+      "LINHA": 11,
+      "SUPPORTS": "AMBIGUOUS",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": null,
+      "ASSERTION_PLANE": null
      }
     ]
    },
@@ -21921,6 +22342,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-IT-PRESERVAR--READS-->C-RECOLLECTION-CENSO",
+    "FROM": "C-IT-PRESERVAR",
+    "TO": "C-RECOLLECTION-CENSO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/recollection_censo.mjs",
+      "LINHA": 34,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-RECOLLECTION-CENSO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -37983,12 +38426,12 @@
     ]
    }
   ],
-  "COUNT": 1071
+  "COUNT": 1084
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 162,
-  "CARTOES_AUDITADOS": 162,
-  "ARESTAS_RELACIONADAS": 1071,
+  "CARTOES_NO_UNIVERSO": 164,
+  "CARTOES_AUDITADOS": 164,
+  "ARESTAS_RELACIONADAS": 1084,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38176,11 +38619,13 @@
    "C-PROVA-PARIDADE",
    "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
    "C-PROVA-PORTA-ITALIANA",
+   "C-PROVA-RECOLLECTION",
    "C-PROVA-ROTA-DO-HTML",
    "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "C-PROVA-SALA-ITALIANA",
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RECALL-PORTA-IT",
+   "C-RECOLLECTION-CENSO",
    "C-RECORRENCIA",
    "C-RELATORIO-FLUXO",
    "C-ROTULOS",
@@ -38216,6 +38661,7 @@
    "C-MICRO-COLHEITA",
    "C-PROVA-AUDIO-ONLY",
    "C-PROVA-GATE-1D",
+   "C-RECOLLECTION-CENSO",
    "C-RELATORIO-FLUXO"
   ],
   "SEM_LIGACAO": {
@@ -38302,6 +38748,9 @@
     "audit",
     "diagnostic"
    ],
+   "C-PROVA-RECOLLECTION": [
+    "infra"
+   ],
    "C-PROVENIENCIA": [
     "science"
    ],
@@ -38359,8 +38808,8 @@
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 361,
-   "READ": 245,
-   "RULE": 172,
+   "READ": 246,
+   "RULE": 184,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -41690,7 +42139,7 @@
     "pathlib"
    ],
    "ENTRAM": 8,
-   "SAEM": 10,
+   "SAEM": 14,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "PROOF",
@@ -41714,12 +42163,14 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "regras/incrementalidade.mjs",
-    "regras/incrementalidade_test.mjs"
+    "regras/incrementalidade_test.mjs",
+    "regras/recollection_test.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/paridade_duas_rodadas.mjs",
-    "provas/paridade_red_team.mjs"
+    "provas/paridade_red_team.mjs",
+    "provas/recollection_red_team.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -41727,9 +42178,11 @@
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
    "LE_DE": [],
-   "ENTRAM": 0,
-   "SAEM": 7,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "ENTRAM": 4,
+   "SAEM": 10,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "RULE"
    ],
@@ -41752,7 +42205,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/paridade_red_team.mjs"
+    "provas/paridade_red_team.mjs",
+    "provas/recollection_red_team.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -41761,7 +42215,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 4,
-   "SAEM": 5,
+   "SAEM": 10,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ",
     "RULE"
@@ -41840,7 +42294,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 1,
-   "SAEM": 16,
+   "SAEM": 17,
    "CATEGORIAS_QUE_ENTRAM": [
     "READ"
    ],
@@ -43974,7 +44428,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/paridade_red_team.mjs"
+    "provas/paridade_red_team.mjs",
+    "provas/recollection_red_team.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -44076,6 +44531,39 @@
    "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-PROVA-RECOLLECTION",
+   "NOME": "O red team da recollection — doze ataques a semantica da revisita",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "proof",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "provas/RECOLLECTION-RED-TEAM-V1.json",
+    "provas/recollection_red_team.mjs"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "provas/recollection_red_team.mjs"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [],
+   "ENTRAM": 2,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "infra"
+   ],
    "GAP": null
   },
   {
@@ -44671,6 +45159,42 @@
     "PROOF",
     "READ"
    ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-RECOLLECTION-CENSO",
+   "NOME": "O censo da revisita — como cada fonte publica, por evidencia",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "scanner",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "medidas/RECOLLECTION-CENSO-V1.json",
+    "medidas/recollection_censo.mjs",
+    "medidas/recollection_diff.mjs",
+    "medidas/recollection_familias.mjs",
+    "medidas/recollection_relatorio.mjs",
+    "medidas/recollection_topologia.mjs"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "curadoria"
+   ],
+   "ENTRAM": 7,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ",
+    "RULE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null

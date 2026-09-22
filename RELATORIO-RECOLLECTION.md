@@ -480,7 +480,44 @@ A suíte reescreve `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` ao correr —
 
 ## FASE 14 · MAPA
 
-<!-- MAPA -->
+```
+SYSTEM_MAP_CHECK = PASS
+RUNTIME_MUDOU    = SIM, e vai declarado
+```
+
+Não foi só preencher dados: **o runtime mudou**, e por isso declara-se.
+`regras/incrementalidade.mjs` ganhou uma função exportada nova
+(`admissivelNaBigCollection()`), um vocabulário novo
+(`COBERTURA_DE_REVISITA`) e dois campos novos na decisão. O mapa tinha de
+saber.
+
+A cadeia correu pelo caminho canónico —
+`correr_a_cadeia.py REGERAR` e depois `VALIDAR`, com tudo no índice antes,
+porque a impressão lê o índice e os ficheiros soltos.
+
+Na primeira validação o mapa **reprovou**, e reprovou bem:
+
+```
+P9_CODIGO_DECLARADO   7 ficheiro(s) de codigo que o mapa nao conhece
+```
+
+Código novo sem peça é arquitetura invisível. Declararam-se **duas peças
+novas** e alargou-se **uma existente** — nada mais:
+
+| peça | território | o que é |
+|---|---|---|
+| `C-RECOLLECTION-CENSO` | `Z-MEDIDAS` | os cinco medidores do censo + o `RECOLLECTION-CENSO-V1.json`. Só leem; nenhum abre rede. |
+| `C-PROVA-RECOLLECTION` | `Z-PROVA` | o red team dos doze ataques + os recibos. |
+| `C-IT-INCREMENTALIDADE` | `Z-REGRAS` | **já existia**; recebeu a guarda `regras/recollection_test.mjs` e o `what`/`why_here` actualizados com o que passou a decidir. |
+
+Segunda validação: **`SYSTEM_MAP_CHECK = PASS`**, com `P9_CODIGO_DECLARADO`
+a passar.
+
+Fica registada uma observação que **não** é desta missão e que a cadeia
+continua a emitir: `system-map/data/architecture.declared.json` tem dois
+autores declarados (`C-MAPA-GERADOR` e `C-PROVA-MAPA-NAO-MENTE`), e o dono
+está a ser eleito por ordem alfabética. Um dono eleito por ordem alfabética
+não é um dono — mas quem decide isso é gente, e não esta missão.
 
 ---
 
@@ -568,6 +605,37 @@ RECOLLECTION_COVERAGE = 8/8  comportamento EXPLICITO e seguro
 - `IT-T7-033` — **BLOCKED_FOR_BIG_COLLECTION** — RECOLLECTION nao declarado — sem isso a fonte colhe uma vez e nunca mais e revisitada, e ninguem daria por isso
 - `IT-T7-042` — **DECLARADA** — o contrato declara DETAIL_CONTENT=MUTABLE
 - `IT-T7-043` — **BLOCKED_FOR_BIG_COLLECTION** — RECOLLECTION nao declarado — sem isso a fonte colhe uma vez e nunca mais e revisitada, e ninguem daria por isso
+
+---
+
+### Veredicto
+
+```
+BIG_COLLECTION_RECOLLECTION_GATE        = PASS
+BIG_COLLECTION_READY_AFTER_RECOLLECTION = YES   (declarado — NUNCA executado)
+```
+
+Condição a condição, como o briefing as pôs:
+
+| condição | veredicto |
+|---|---|
+| nenhum elegível depende de recollection implícito perigoso | **OK** — 3 declarados, 5 bloqueados, 0 implícitos |
+| `UNKNOWN` restante explicitamente bloqueado | **OK** — os 175 saem `BLOCKED_FOR_BIG_COLLECTION` |
+| `SAME_URL_OVERWRITE` com revisita definida | **OK** — as 6 revalidam com razão `CONTRACT_DECLARES_MUTABLE` |
+| `NEW_URL_PER_ITEM` com descoberta provada | **PARCIAL** — 4 de 6 com descoberta observada; `IT-T2-001` e `IT-T7-002` nunca foram observadas nesta árvore, e `IT-T3-010` tem 19 recusas de índice no historial |
+| incrementalidade continua provada | **OK** — `UNNECESSARY_REFETCHES = 0`, 13 provas de paridade verdes |
+| `RED_TEAM_SURVIVORS 0` | **OK** — 12 ataques, 12 mortos |
+| `NEW_FAILURES 0` | **OK** — comparado por nome |
+
+⚠️ **A linha PARCIAL não se arredonda para cima.** Nenhuma das três está entre
+as 8 elegíveis de hoje, por isso não bloqueia este gate — mas se alguma delas
+for promovida a elegível, entra com a revisita resolvida e a **descoberta por
+provar**, que é a outra metade da cegueira. Fica dito aqui e no atlas.
+
+E a ressalva maior, que o número do gate esconde: **`PASS` não quer dizer que a
+Big Collection colheria as 8.** Colheria **3**. As outras 5 estão seguras por
+ficarem de fora — o que é melhor do que entrarem cegas, e é bastante menos do
+que estarem resolvidas.
 
 ---
 

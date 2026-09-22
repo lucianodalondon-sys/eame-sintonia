@@ -36,6 +36,7 @@
       "RELATORIO-MICRO-COLLECTION.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PROVAS-P1.md",
+      "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
@@ -1739,6 +1740,7 @@
       "medidas/PARIDADE-REPLAY-V1.json",
       "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
       "medidas/PORTOES-DE-COLETA-10B.md",
+      "medidas/RECOLLECTION-CENSO-V1.json",
       "medidas/RED-TEAM-CANONICO-V1.json",
       "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
       "medidas/ULTIMA-MILHA-V1.json",
@@ -1765,6 +1767,11 @@
       "medidas/portao.py",
       "medidas/portoes_eame.py",
       "medidas/rastro_da_coleta.py",
+      "medidas/recollection_censo.mjs",
+      "medidas/recollection_diff.mjs",
+      "medidas/recollection_familias.mjs",
+      "medidas/recollection_relatorio.mjs",
+      "medidas/recollection_topologia.mjs",
       "medidas/red_team_canonico.py",
       "medidas/scanner_da_coleta.py",
       "medidas/source_health.py",
@@ -1853,6 +1860,7 @@
       "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json",
       "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "provas/PARIDADE-RED-TEAM-V1.json",
+      "provas/RECOLLECTION-RED-TEAM-V1.json",
       "provas/RED-TEAM-DUAS-PORTAS-V1.json",
       "provas/_c106b_filho.py",
       "provas/_c106c_filho.py",
@@ -1985,6 +1993,7 @@
       "provas/rastro_no_postgres.py",
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
+      "provas/recollection_red_team.mjs",
       "provas/red_team_adama_referencia.py",
       "provas/red_team_collection_ate_a_sala.py",
       "provas/red_team_da_release_v1.py",
@@ -2044,6 +2053,7 @@
       "regras/normalizacao_de_conteudo.mjs",
       "regras/paridade_test.mjs",
       "regras/proveniencia.py",
+      "regras/recollection_test.mjs",
       "regras/rotulos_censo.py",
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py"
@@ -3039,10 +3049,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "paridade-v1",
-    "HEAD": "8ecbc5a4b2c513082319fb6435d57ab04057ef45",
-    "GENERATED_AT": "2026-09-22T08:58:02-03:00",
-    "SOURCE_TREE_FINGERPRINT": "480c686ce14ec5b580615764cd45fd3d724876fb229cacab726f82181dbae01c"
+    "BRANCH": "recollection-v1",
+    "HEAD": "68aef8a9d3488c6ff61b592f73dca098cbd7b4e1",
+    "GENERATED_AT": "2026-09-22T12:17:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f"
   },
   "FAMILIES": [
     {
@@ -3070,7 +3080,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 80
+      "count": 81
     },
     {
       "id": "F-ESPERA",
@@ -3113,7 +3123,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 94
+      "count": 95
     },
     {
       "id": "F-ENTREGA",
@@ -3328,7 +3338,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 15
+      "count": 16
     },
     {
       "id": "Z-ADMISSAO",
@@ -3485,7 +3495,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 76
+      "count": 77
     },
     {
       "id": "Z-REFERENCIA",
@@ -26069,7 +26079,7 @@
       ],
       "file_count": 9,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA, C-IT-INCREMENTALIDADE, C-RECOLLECTION-CENSO.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "regras/italy_contract_test.mjs",
         "regras/italy_contracts.mjs",
@@ -26089,8 +26099,10 @@
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
+        "C-IT-INCREMENTALIDADE",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-PARIDADE",
+        "C-RECOLLECTION-CENSO",
         "C-TESTES"
       ],
       "paises": {
@@ -26168,9 +26180,9 @@
           "candidatas/italy_write_matrix.mjs:2",
           "coleta/italy_pilot_collect.mjs:38",
           "medidas/corrida_canonica.py:127",
-          "provas/a_autoridade_da_fonte.py:163"
+          "medidas/recollection_censo.mjs:32"
         ],
-        "PORQUE": "estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CORRIDA-CANONICA · C-IT-CATALOGO · C-IT-COLETA · C-IT-INCREMENTALIDADE · C-RECOLLECTION-CENSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10190,
       "y": 360
@@ -26180,8 +26192,8 @@
       "name": "A regra de revisita — decidir antes de gastar a rede",
       "territory": "Z-REGRAS",
       "kind": "engine",
-      "what": "Decide FETCH · SKIP_KNOWN · REVALIDATE para cada endereco de detalhe, ANTES de qualquer pedido. Indice revisita-se sempre; detalhe ja conhecido com sucesso salta-se por omissao; revisitar exige razao nomeada de um vocabulario fechado de cinco.",
-      "why_here": "Medido: o coletor chamava baixar() na linha 474 e so perguntava se ja conhecia o documento na linha 502 — pagava a viagem para descobrir que nao precisava dela. E comparar bytes nao salvava nada: das 374 linhas que diferiam entre duas visitas aos mesmos 83 artigos, 14 eram o CONTADOR DE VISITAS da pagina, que subira porque fomos nos visita-la. Por isso esta funcao nao recebe bytes, nem sha, nem corpo — a assinatura e a lei. RUN B: 85 pedidos passaram a 0, com o indice ainda revisitado.",
+      "what": "Decide FETCH · SKIP_KNOWN · REVALIDATE para cada endereco de detalhe, ANTES de qualquer pedido. Indice revisita-se sempre; detalhe ja conhecido com sucesso salta-se por omissao; revisitar exige razao nomeada de um vocabulario fechado de cinco. Desde a RECOLLECTION-V1 a decisao diz tambem a COBERTURA: DECLARADA quando o contrato classificou a fonte, BLOCKED_FOR_BIG_COLLECTION quando ninguem a classificou — e admissivelNaBigCollection() fecha a porta a segunda.",
+      "why_here": "Medido: o coletor chamava baixar() na linha 474 e so perguntava se ja conhecia o documento na linha 502 — pagava a viagem para descobrir que nao precisava dela. E comparar bytes nao salvava nada: das 374 linhas que diferiam entre duas visitas aos mesmos 83 artigos, 14 eram o CONTADOR DE VISITAS da pagina, que subira porque fomos nos visita-la. Por isso esta funcao nao recebe bytes, nem sha, nem corpo — a assinatura e a lei. RUN B: 85 pedidos passaram a 0, com o indice ainda revisitado. E medido de novo em 2026-09-22: DECLARADO era calculado e nunca lido, por isso «sem bloco RECOLLECTION» e «IMMUTABLE» davam a MESMA decisao, para sempre e sem rasto. UNKNOWN comportava-se como NEVER. A correccao nao muda uma unica ida a rede — muda o facto de o salto por ignorancia passar a ter nome, contador (DETAIL_SKIPPED_UNDECLARED) e consequencia.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
@@ -26199,23 +26211,29 @@
       "family": "F-COLETA",
       "files": [
         "regras/incrementalidade.mjs",
-        "regras/incrementalidade_test.mjs"
+        "regras/incrementalidade_test.mjs",
+        "regras/recollection_test.mjs"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-IT-CONTRATOS",
+        "C-IT-NORMALIZACAO"
+      ],
       "outbound": [
         "C-IT-COLETA",
         "C-IT-NORMALIZACAO",
         "C-LASTMILE-MEDIDORES",
-        "C-PROVA-PARIDADE"
+        "C-PROVA-PARIDADE",
+        "C-PROVA-RECOLLECTION",
+        "C-RECOLLECTION-CENSO"
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 4
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -26240,7 +26258,9 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
-        "regras/incrementalidade.mjs"
+        "regras/incrementalidade.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/normalizacao_de_conteudo.mjs"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -26257,10 +26277,10 @@
         "PROVA": [
           "coleta/italy_pilot_collect.mjs:57",
           "medidas/incrementalidade_prova.mjs:22",
-          "provas/paridade_red_team.mjs:33",
-          "regras/paridade_test.mjs:29"
+          "medidas/recollection_relatorio.mjs:17",
+          "provas/paridade_red_team.mjs:33"
         ],
-        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-NORMALIZACAO · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-NORMALIZACAO · C-LASTMILE-MEDIDORES · C-RECOLLECTION-CENSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 9775,
       "y": 682
@@ -26303,8 +26323,11 @@
       ],
       "outbound": [
         "C-IT-COLETA",
+        "C-IT-INCREMENTALIDADE",
         "C-LASTMILE-MEDIDORES",
-        "C-PROVA-PARIDADE"
+        "C-PROVA-PARIDADE",
+        "C-PROVA-RECOLLECTION",
+        "C-RECOLLECTION-CENSO"
       ],
       "paises": {},
       "paises_dado": {
@@ -26353,9 +26376,10 @@
         "PROVA": [
           "coleta/italy_pilot_collect.mjs:58",
           "medidas/paridade_replay.mjs:24",
+          "medidas/recollection_censo.mjs:31",
           "provas/paridade_red_team.mjs:32"
         ],
-        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-LASTMILE-MEDIDORES — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-INCREMENTALIDADE · C-LASTMILE-MEDIDORES · C-RECOLLECTION-CENSO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 10190,
       "y": 682
@@ -26513,6 +26537,7 @@
         "C-PROVA-PORTA-CLI-LIGA-O-BANCO",
         "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SALA-ITALIANA",
+        "C-RECOLLECTION-CENSO",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
@@ -33095,6 +33120,94 @@
       "y": 6156
     },
     {
+      "id": "C-PROVA-RECOLLECTION",
+      "name": "O red team da recollection — doze ataques a semantica da revisita",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Doze mutantes contra regras/incrementalidade.mjs e regras/normalizacao_de_conteudo.mjs, com o protocolo cache-safe §165 traduzido para Node: NODE_DISABLE_COMPILE_CACHE=1, processo novo por ataque, diff provado, SONDA que confirma que o mutante CORREU, restauro em finally e conferido com git diff contra o indice. Cada ataque declara MORTE_ESPERADA: morrer pela prova errada conta como SURVIVOR.",
+      "why_here": "Os dez minimos do briefing mais dois que a missao encontrou por ter o defeito a frente: carimbar UNKNOWN a mao a comprar a admissao, e a canonicalizacao a comer os cinco caracteres com significado em HTML. E apanhou-se aqui um defeito do proprio arnes: ele guardava so as 4 primeiras linhas de falha para conferir a razao da morte, o ataque M8 derrubava OITO provas e a que interessava era a setima — dois mutantes mortos liam-se como SURVIVOR. Truncar a evidencia fabrica um sobrevivente.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "diagnostic",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/RECOLLECTION-RED-TEAM-V1.json",
+        "provas/recollection_red_team.mjs"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-INCREMENTALIDADE",
+        "C-IT-NORMALIZACAO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/RECOLLECTION-RED-TEAM-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "PROOF",
+      "ROLE_PLANE": "DECLARED",
+      "ROLE_EVIDENCE": "declarado `kind: proof` em architecture.declared.json — nenhum ficheiro medido sustenta ou contradiz isto",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "regras/incrementalidade.mjs",
+        "regras/incrementalidade_test.mjs",
+        "regras/normalizacao_de_conteudo.mjs",
+        "regras/paridade_test.mjs",
+        "regras/recollection_test.mjs"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 20850,
+      "y": 6478
+    },
+    {
       "id": "C-PROVA-RETRY-DO-SCRAP",
       "name": "A prova de que o retry recupera a MESMA corrida",
       "territory": "Z-PROVA",
@@ -33179,7 +33292,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6478
     },
     {
@@ -33300,7 +33413,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6478
     },
     {
@@ -33402,8 +33515,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 6478
+      "x": 20850,
+      "y": 6800
     },
     {
       "id": "C-PROVA-ROTAS-REAIS",
@@ -33546,7 +33659,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 6800
     },
     {
@@ -33643,7 +33756,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 6800
     },
     {
@@ -33755,8 +33868,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21680,
-      "y": 6800
+      "x": 20850,
+      "y": 7122
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -33866,7 +33979,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7122
     },
     {
@@ -33954,7 +34067,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7122
     },
     {
@@ -34038,8 +34151,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21680,
-      "y": 7122
+      "x": 20850,
+      "y": 7444
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -34134,7 +34247,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7444
     },
     {
@@ -34515,7 +34628,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7444
     },
     {
@@ -34667,6 +34780,108 @@
       "y": 682
     },
     {
+      "id": "C-RECOLLECTION-CENSO",
+      "name": "O censo da revisita — como cada fonte publica, por evidencia",
+      "territory": "Z-MEDIDAS",
+      "kind": "scanner",
+      "what": "Le os 186 contratos, o livro de observacoes e os brutos preservados, e responde por fonte: quando se voltou ao MESMO endereco, o que la estava tinha mudado de verdade? Classifica a topologia de publicacao por evidencia ordenada (contrato medido, datas dentro do documento, revisita preservada, forma do endereco), com criterios de HIGH/MEDIUM/LOW escritos ANTES de preencher, e propoe RECOLLECTION so com HIGH ou MEDIUM. Escreve RECOLLECTION-CENSO-V1.json, uma linha por contrato. NETWORK_REQUESTS = 0: nenhum destes abre rede.",
+      "why_here": "Sem isto a classificacao era opiniao com ar de medicao, e mediu-se que teria sido errada por duas vias. Primeira: 44 dos 83 pares de visitas saiam MATERIAL_CHANGE e NENHUM era texto editorial — eram familias de ruido por classificar, e tres delas ja estavam nomeadas na CANONICAL-MICRO-V1 sem nunca terem chegado a lista que age sobre elas. Segunda: os 83 pares estao TODOS a 8,7 minutos de distancia, e essa prova daria IMMUTABLE a tres fontes que, pelas datas dentro dos proprios bytes, reescrevem artigos publicados ate 72 dias depois. A evidencia mais visivel era a mais fraca; por isso a revisita e a TERCEIRA regua e nao a primeira.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌕",
+      "views": [
+        "audit",
+        "collection-strategy",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "medidas/RECOLLECTION-CENSO-V1.json",
+        "medidas/recollection_censo.mjs",
+        "medidas/recollection_diff.mjs",
+        "medidas/recollection_familias.mjs",
+        "medidas/recollection_relatorio.mjs",
+        "medidas/recollection_topologia.mjs"
+      ],
+      "file_count": 6,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-CONTRATOS",
+        "C-IT-INCREMENTALIDADE",
+        "C-IT-NORMALIZACAO",
+        "C-IT-PRESERVAR"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 6
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "medidas/RECOLLECTION-CENSO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "NAO SEI",
+      "rule_role_evidence": "escreve medidas/RECOLLECTION-CENSO-V1.json e este mapa nao viu ninguem ler",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/collection-ledger/italy/observations.ndjson",
+        "medidas/recollection_censo.mjs",
+        "medidas/recollection_topologia.mjs",
+        "regras/incrementalidade.mjs",
+        "regras/italy_contracts.mjs",
+        "regras/normalizacao_de_conteudo.mjs"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 10895,
+      "y": 1648
+    },
+    {
       "id": "C-RECONCILIACAO-UNIVERSO",
       "name": "Reconciliacao do universo do mapa",
       "territory": "Z-PROVA",
@@ -34779,8 +34994,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 7444
+      "x": 20850,
+      "y": 7766
     },
     {
       "id": "C-RECORRENCIA",
@@ -34878,7 +35093,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 7766
     },
     {
@@ -35025,7 +35240,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1648
     },
     {
@@ -35103,7 +35318,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 7766
     },
     {
@@ -35189,7 +35404,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1648
     },
     {
@@ -35521,8 +35736,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 7766
+      "x": 20850,
+      "y": 8088
     },
     {
       "id": "C-ROTA-M2",
@@ -36005,8 +36220,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
-      "y": 1648
+      "x": 10895,
+      "y": 1970
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -36836,7 +37051,7 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 8088
     },
     {
@@ -37309,7 +37524,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 21265,
+      "x": 21680,
       "y": 8088
     },
     {
@@ -37568,8 +37783,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 21680,
-      "y": 8088
+      "x": 20850,
+      "y": 8410
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -40397,7 +40612,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
+      "x": 21265,
       "y": 8410
     },
     {
@@ -42292,7 +42507,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch paridade-v1"
+        "branch recollection-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -70807,6 +71022,70 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-IT-INCREMENTALIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por A regra de revisita — decidir antes de gastar a rede. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 20,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"./italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-INCREMENTALIDADE",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-INCREMENTALIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-INCREMENTALIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O contrato de cada fonte italiana alimenta A regra de revisita — decidir antes de gastar a rede. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 20,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"./italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-PROVA-AUTORIDADE-FONTE",
       "type": "READS",
       "payload": "artefacto",
@@ -70873,6 +71152,122 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por O censo da revisita — como cada fonte publica, por evidencia. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 32,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 16,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 42,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O contrato de cada fonte italiana alimenta O censo da revisita — como cada fonte publica, por evidencia. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 32,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 16,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 42,
+          "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -71212,6 +71607,163 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-IT-INCREMENTALIDADE",
+      "to": "C-PROVA-RECOLLECTION",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A regra de revisita — decidir antes de gastar a rede alimenta O red team da recollection — doze ataques a semantica da revisita. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/recollection_red_team.mjs",
+          "line": 30,
+          "snippet": "const REGRA = \"regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team.mjs",
+          "line": 157,
+          "snippet": "[\"regras/recollection_test.mjs\", \"as guardas da recollection\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team.mjs",
+          "line": 158,
+          "snippet": "[\"regras/incrementalidade_test.mjs\", \"as provas da incrementalidade\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-INCREMENTALIDADE",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A regra de revisita — decidir antes de gastar a rede tem o seu codigo importado por O censo da revisita — como cada fonte publica, por evidencia. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 17,
+          "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 43,
+          "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-INCREMENTALIDADE",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "A regra de revisita — decidir antes de gastar a rede alimenta O censo da revisita — como cada fonte publica, por evidencia. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_relatorio.mjs",
+          "line": 17,
+          "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_topologia.mjs",
+          "line": 43,
+          "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-IT-NORMALIZACAO",
       "to": "C-IT-COLETA",
       "type": "IMPORTS",
@@ -71260,6 +71812,70 @@
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 58,
           "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-NORMALIZACAO",
+      "to": "C-IT-INCREMENTALIDADE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca tem o seu codigo importado por A regra de revisita — decidir antes de gastar a rede. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 19,
+          "snippet": "} from \"./normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-IT-INCREMENTALIDADE",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-IT-INCREMENTALIDADE",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-NORMALIZACAO",
+      "to": "C-IT-INCREMENTALIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca alimenta A regra de revisita — decidir antes de gastar a rede. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/recollection_test.mjs",
+          "line": 19,
+          "snippet": "} from \"./normalizacao_de_conteudo.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
           "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
@@ -71388,6 +72004,173 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "YES",
       "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-NORMALIZACAO",
+      "to": "C-PROVA-RECOLLECTION",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca alimenta O red team da recollection — doze ataques a semantica da revisita. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/recollection_red_team.mjs",
+          "line": 31,
+          "snippet": "const NORMAL = \"regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team.mjs",
+          "line": 159,
+          "snippet": "[\"regras/paridade_test.mjs\", \"as provas da paridade\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-NORMALIZACAO",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca tem o seu codigo importado por O censo da revisita — como cada fonte publica, por evidencia. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 31,
+          "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_diff.mjs",
+          "line": 17,
+          "snippet": "from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_familias.mjs",
+          "line": 11,
+          "snippet": "import { textoNormalizado } from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--IMPORTS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-RECOLLECTION-CENSO",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-NORMALIZACAO",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca alimenta O censo da revisita — como cada fonte publica, por evidencia. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 31,
+          "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_diff.mjs",
+          "line": 17,
+          "snippet": "from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "medidas/recollection_familias.mjs",
+          "line": 11,
+          "snippet": "import { textoNormalizado } from \"../regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -72117,6 +72900,41 @@
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-SALA-ITALIANA",
             "FROM": "C-IT-PRESERVAR",
             "TO": "C-PROVA-SALA-ITALIANA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-RECOLLECTION-CENSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta O censo da revisita — como cada fonte publica, por evidencia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/recollection_censo.mjs",
+          "line": 34,
+          "snippet": "const LEDGER = \"data/collection-ledger/italy/observations.ndjson\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-RECOLLECTION-CENSO",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-RECOLLECTION-CENSO",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -101387,7 +102205,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1388,
+  "UNCLAIMED_FILES_COUNT": 1389,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101551,7 +102369,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 197,
+      "PECAS_EM_DESACORDO": 199,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -101563,25 +102381,25 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 222
+      "TOTAL_DE_PECAS": 224
     }
   ],
   "COUNTS": {
-    "components": 222,
+    "components": 224,
     "components_proven": 31,
-    "components_pending": 182,
+    "components_pending": 184,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1137,
-    "edges_proven": 1078,
-    "edges_unknown": 59,
+    "edges": 1150,
+    "edges_proven": 1086,
+    "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2446,
-    "files_covered": 1058,
+    "files_tracked": 2456,
+    "files_covered": 1067,
     "files_code_unclaimed": 0,
     "roles_proven": 153,
-    "roles_declared_only": 8,
-    "roles_unknown": 61,
+    "roles_declared_only": 9,
+    "roles_unknown": 62,
     "roles_conflict": 30,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 10,

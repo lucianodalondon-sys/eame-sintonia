@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "paridade-v1",
-    "HEAD": "8ecbc5a4b2c513082319fb6435d57ab04057ef45",
-    "GENERATED_AT": "2026-09-22T08:58:02-03:00",
-    "SOURCE_TREE_FINGERPRINT": "480c686ce14ec5b580615764cd45fd3d724876fb229cacab726f82181dbae01c"
+    "BRANCH": "recollection-v1",
+    "HEAD": "68aef8a9d3488c6ff61b592f73dca098cbd7b4e1",
+    "GENERATED_AT": "2026-09-22T12:17:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f"
   },
   "FILES": [
     {
@@ -345,6 +345,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-RECOLLECTION.md",
+      "sha": "1bbcf23ae6bbb4836216344e9b6ab14f8743f016",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-RECONCILIACAO.md",
       "sha": "b9b38af887e40094313736c5d121e3a1402d3f5e",
       "ext": ".md",
@@ -360,7 +367,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "b873cc20c51666b241b428da742021a616a54a6f",
+      "sha": "6ad8e156c11bfff65cdd3215ae34cab818b0d95c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -11874,6 +11881,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/RECOLLECTION-CENSO-V1.json",
+      "sha": "31309ab73406fb833d6d2259c037e83e3edc2cc1",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "medidas/RED-TEAM-CANONICO-V1.json",
       "sha": "6ba75ac64fc2dc480b8be417152b6e998c57d197",
       "ext": ".json",
@@ -12052,6 +12066,41 @@
       "path": "medidas/rastro_da_coleta.py",
       "sha": "635d5425d249193ccedb8ac249fc93d01ac01de4",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/recollection_censo.mjs",
+      "sha": "be64dd3b8668643f4afbbdb06a45b3b0fa43fca4",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/recollection_diff.mjs",
+      "sha": "a3a389e6c1f01c4441ac70f455a8e40de9660317",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/recollection_familias.mjs",
+      "sha": "132427b14b6fce86e098f4aef8b0a5d8badc5947",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/recollection_relatorio.mjs",
+      "sha": "2d29f3c1b8e6917f4f62c5dba1c1f8ff9b5d7919",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/recollection_topologia.mjs",
+      "sha": "c9f8c0d24627070075f770c7e207cad8cf2065a2",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -12576,6 +12625,13 @@
     {
       "path": "provas/PARIDADE-RED-TEAM-V1.json",
       "sha": "5a08ed60c33980e773750c1f7aa8987d90f7893e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/RECOLLECTION-RED-TEAM-V1.json",
+      "sha": "7421e89cdce174d3f1e3ac96ba290286c19c0816",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13505,6 +13561,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/recollection_red_team.mjs",
+      "sha": "d870f0e862b29563e98627f0434777161ec456c4",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/red_team_adama_referencia.py",
       "sha": "3196750de5730a8efd86f7f2bb48092fa6e8c547",
       "ext": ".py",
@@ -13800,7 +13863,7 @@
     },
     {
       "path": "regras/incrementalidade.mjs",
-      "sha": "b38f79611b9607217039422db8c5c65168f2f14c",
+      "sha": "19efdd48329508d787955da9610617a313590da1",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13821,14 +13884,14 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "1718d3f081d8c48d48ef326f02e49515a094628c",
+      "sha": "8bd5903b48d2afaaaaa010ef2b55a262c48e3ab3",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "regras/italy_contracts_onboarded.json",
-      "sha": "0ce020f20a62fcfc0867e78b1711e985f8726683",
+      "sha": "544f56001e67da537bb391f4a9fd48fdb8c82ad1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13870,7 +13933,7 @@
     },
     {
       "path": "regras/normalizacao_de_conteudo.mjs",
-      "sha": "00c2626469cbb0223527d7507f09ca1f587255f8",
+      "sha": "e7747ee0db426195a8eb97e1b922b4f54632d04b",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13886,6 +13949,13 @@
       "path": "regras/proveniencia.py",
       "sha": "c94e9147603bd912b240d841d26e71572137c063",
       "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "regras/recollection_test.mjs",
+      "sha": "3c2e64e910dc0a9aa29c500ecb0e3b7520c1afa1",
+      "ext": ".mjs",
       "readable": true,
       "code_dir": true
     },
@@ -15235,7 +15305,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "be093651c77a7031074b5f8025ba8561e220d8f5",
+      "sha": "c81410b06470d5023d5b78b7ecd024c66198bcf2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -34535,6 +34605,314 @@
       }
     },
     {
+      "from_file": "medidas/recollection_censo.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_censo.mjs",
+        "line": 34,
+        "snippet": "const LEDGER = \"data/collection-ledger/italy/observations.ndjson\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_censo.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_censo.mjs",
+        "line": 32,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_censo.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_censo.mjs",
+        "line": 32,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_censo.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_censo.mjs",
+        "line": 31,
+        "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_censo.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_censo.mjs",
+        "line": 31,
+        "snippet": "import { compararConteudo } from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_diff.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_diff.mjs",
+        "line": 15,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_diff.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_diff.mjs",
+        "line": 15,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_diff.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_diff.mjs",
+        "line": 17,
+        "snippet": "from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_diff.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_diff.mjs",
+        "line": 17,
+        "snippet": "from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_familias.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_familias.mjs",
+        "line": 10,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_familias.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_familias.mjs",
+        "line": 10,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_familias.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_familias.mjs",
+        "line": 11,
+        "snippet": "import { textoNormalizado } from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_familias.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_familias.mjs",
+        "line": 11,
+        "snippet": "import { textoNormalizado } from \"../regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "medidas/RECOLLECTION-CENSO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 67,
+        "snippet": "writeFileSync(\"medidas/RECOLLECTION-CENSO-V1.json\", JSON.stringify({"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 19,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 19,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "medidas/recollection_topologia.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 18,
+        "snippet": "import { tabela } from \"./recollection_topologia.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "medidas/recollection_topologia.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 18,
+        "snippet": "import { tabela } from \"./recollection_topologia.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 17,
+        "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 17,
+        "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 16,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_relatorio.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_relatorio.mjs",
+        "line": 16,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_topologia.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_topologia.mjs",
+        "line": 41,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_topologia.mjs",
+      "to_file": "medidas/recollection_censo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_topologia.mjs",
+        "line": 41,
+        "snippet": "import { lerObservacoes } from \"./recollection_censo.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_topologia.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_topologia.mjs",
+        "line": 43,
+        "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_topologia.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_topologia.mjs",
+        "line": 43,
+        "snippet": "import { admissivelNaBigCollection } from \"../regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_topologia.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/recollection_topologia.mjs",
+        "line": 42,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "medidas/recollection_topologia.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/recollection_topologia.mjs",
+        "line": 42,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"../regras/italy_contracts.mjs\";"
+      }
+    },
+    {
       "from_file": "medidas/red_team_canonico.py",
       "to_file": "coleta/italy_executor.py",
       "type": "READS",
@@ -49462,6 +49840,72 @@
       }
     },
     {
+      "from_file": "provas/recollection_red_team.mjs",
+      "to_file": "provas/RECOLLECTION-RED-TEAM-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team.mjs",
+        "line": 254,
+        "snippet": "writeFileSync(\"provas/RECOLLECTION-RED-TEAM-V1.json\", JSON.stringify({"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team.mjs",
+        "line": 30,
+        "snippet": "const REGRA = \"regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team.mjs",
+      "to_file": "regras/incrementalidade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team.mjs",
+        "line": 158,
+        "snippet": "[\"regras/incrementalidade_test.mjs\", \"as provas da incrementalidade\"],"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team.mjs",
+        "line": 31,
+        "snippet": "const NORMAL = \"regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team.mjs",
+      "to_file": "regras/paridade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team.mjs",
+        "line": 159,
+        "snippet": "[\"regras/paridade_test.mjs\", \"as provas da paridade\"],"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team.mjs",
+      "to_file": "regras/recollection_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team.mjs",
+        "line": 157,
+        "snippet": "[\"regras/recollection_test.mjs\", \"as guardas da recollection\"],"
+      }
+    },
+    {
       "from_file": "provas/red_team_adama_referencia.py",
       "to_file": "referencia/adama/AUTHORIZED-USES.json",
       "type": "READS",
@@ -51085,7 +51529,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/italy_contracts.mjs",
-        "line": 567,
+        "line": 579,
         "snippet": "readFileSync(new URL(\"./italy_contracts_onboarded.json\", import.meta.url), \"utf8\"));"
       }
     },
@@ -51417,6 +51861,72 @@
         "file": "regras/proveniencia.py",
         "line": 157,
         "snippet": "with open(MANIFESTO, 'w', encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "regras/recollection_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/recollection_test.mjs",
+        "line": 15,
+        "snippet": "} from \"./incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/recollection_test.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/recollection_test.mjs",
+        "line": 15,
+        "snippet": "} from \"./incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/recollection_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/recollection_test.mjs",
+        "line": 20,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/recollection_test.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/recollection_test.mjs",
+        "line": 20,
+        "snippet": "import { CONTRACTS, CONTRACT_IDS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/recollection_test.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "regras/recollection_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "regras/recollection_test.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "regras/recollection_test.mjs",
+        "line": 19,
+        "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
       }
     },
     {
@@ -71585,10 +72095,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2446,
-    "files_readable": 1081,
-    "files_code_dir": 937,
-    "file_edges": 4899,
+    "files_tracked": 2456,
+    "files_readable": 1088,
+    "files_code_dir": 946,
+    "file_edges": 4939,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
