@@ -18904,3 +18904,245 @@ silêncio.
 UM NÚMERO DE SECÇÃO É UMA CHAVE. DUAS LINHAS COM A MESMA CHAVE
 NÃO SÃO DUAS VERSÕES: SÃO DUAS LEIS QUE NINGUÉM CONSEGUE CITAR.
 ```
+
+---
+
+# §166 · A PEÇA CERTA, NO SÍTIO CERTO, QUE NINGUÉM CHAMA
+
+> Secção **nova**. Não apaga nem reescreve nada acima. Número escolhido depois
+> de medir: `§166` está livre neste ficheiro **e em todas as branches** deste
+> repositório — `git show <branch>:SINTONIA-EAME-KNOW-HOW.md` seguido de um
+> `grep` pelo cabeçalho devolve zero ocorrências em todas elas. A lei de `§165`
+> — *um número de secção é uma chave* — continua a valer, e foi obedecida antes
+> de escrever esta linha.
+
+## O QUE MUDOU
+
+A missão `PARIDADE-V1` (2026-09-22) fechou o quarto `MISSING_ROUTE` desta
+série. O padrão já tinha nome; o que faltava era a forma mais cara dele:
+
+```
+A PEÇA EXISTE.  ESTÁ CERTA.  ESTÁ NOS DOIS LADOS, BYTE A BYTE.
+E NINGUÉM A CHAMA DE DENTRO DO CÓDIGO QUE PRODUZ.
+```
+
+Medição que abriu a missão, e que refutou as duas hipóteses fáceis antes de se
+escrever uma linha:
+
+```
+regras/incrementalidade.mjs   md5 fa79d5279b9c   IDÊNTICO em lab e em ops
+   → hipótese A «código stale»      REFUTADA
+   → hipótese B «peça em falta»     REFUTADA
+
+quem chamava decidirSobreDetalhe():
+   regras/incrementalidade.mjs        o próprio
+   regras/incrementalidade_test.mjs   o teste dele
+   medidas/incrementalidade_prova.mjs a prova dele
+
+coleta/italy_pilot_collect.mjs  →  0 referências a incrementalidade
+                                →  e é ELE que escreve DOCUMENT_CHANGED_IN_PLACE
+```
+
+---
+
+## 1 · LAB PASS NÃO PROVA OPS PASS
+
+A bancada dava verde porque **a bancada chamava a peça pela mão**. A prova
+`medidas/incrementalidade_prova.mjs` importava `decidirSobreDetalhe()` e
+exercitava-a directamente. A produção não passa por essa prova: passa pelo
+coletor, e no coletor não havia ligação nenhuma.
+
+```
+UM TESTE QUE IMPORTA A REGRA MEDE A REGRA.
+SÓ UM TESTE QUE ARRANCA O PRODUTOR MEDE A ROTA.
+```
+
+A prova que faltava — e que agora existe em `provas/paridade_duas_rodadas.mjs`
+— arranca `executarRodada()` num processo novo, sobre uma raiz descartável,
+corre **cinco rodadas** e conta as idas ao transporte. Um mutante que desligue
+o salto muda a contagem, e a contagem grita.
+
+## 2 · O CUTOVER TESTA COMPORTAMENTO, NÃO PRESENÇA DE FICHEIROS
+
+O cutover anterior conferiu que os ficheiros da linha canónica estavam na ops.
+Estavam. Todos, com o mesmo md5. E a produção continuou a redescarregar tudo,
+porque **presença não é rota**.
+
+```
+FICHEIRO PRESENTE ≠ FUNÇÃO IMPORTADA ≠ FUNÇÃO CHAMADA ≠ CHAMADA NO SÍTIO CERTO.
+São quatro perguntas. Um cutover que só responde à primeira responde a nenhuma.
+```
+
+A quarta é a que este caso acrescenta: no coletor, a mesma chamada uma linha
+**abaixo** do download seria dedup pós-download, e não incrementalidade. A
+guarda que fecha isto compara posições dentro do ficheiro do coletor: o índice
+de `decidirSobreDetalhe(alvo.url` tem de ser MENOR que o índice de
+`await baixar(alvo.url)`.
+
+## 3 · PRE-FETCH SKIP ≠ NORMALIZAÇÃO — SÃO DUAS DEFESAS, E NENHUMA CHEGA SOZINHA
+
+```
+1 · PRE-FETCH INCREMENTALITY   evita o PEDIDO            poupa rede
+2 · CONTENT NORMALIZATION      evita a MENTIRA no livro  poupa a verdade
+```
+
+A primeira sozinha deixa o livro mentir na revalidação legítima — e a
+revalidação legítima existe. A segunda sozinha é dedup pós-download: a rede já
+foi gasta quando ela fala.
+
+**E vivem em ficheiros diferentes por lei, não por arrumação.**
+`regras/incrementalidade.mjs` declara na própria assinatura que *não recebe
+bytes, nem sha, nem corpo* — porque se os recebesse, a decisão chegava depois
+de a rede ter sido paga. O normalizador come bytes por definição. Juntá-los
+apagaria a única coisa que aquela assinatura garante.
+
+## 4 · VOLÁTIL NÃO É `CHANGED_IN_PLACE` — E A NOSSA VISITA É O VOLÁTIL
+
+Medido sobre os bytes das duas corridas do canário, sem tocar na rede: **32
+documentos apareceram nas duas, 32 mudaram de `RAW_SHA256`, e ZERO mudaram de
+conteúdo.** Vinte e três mudaram de sha **com o mesmo número de bytes** —
+assinatura de token de largura fixa, não de texto reescrito.
+
+Os seis trechos, contados e nomeados:
+
+```
+IT-T10-018  myfruit.it (October CMS)
+   179  input name="_session_key"  value de 40 caracteres
+    48  meta property="article:modified_time"
+    13  input name="_token"        value de 40 caracteres
+     9  div class="views" NNN      ← O CONTADOR DE VISITAS
+
+IT-T10-022  zootecnicainternational.com (WordPress + tagDiv)
+   532  aside class="… zoote-widget"     rotador de banners
+    25  uid: <hex> no comentário «Speed booster» do tema
+     9  script id="zoote-tracking"       a ORDEM dos anúncios
+     9  comentário «Parsed with iubenda … in 0.00315 sec.»  cronómetro do servidor
+```
+
+**Dois desses seis somos nós.**
+
+```
+div class="views" 134 → 135      ·  604 → 606  ·  6444 → 6448
+article:modified_time = 02:01:41   e o nosso CAPTURED_AT = 02:01:42
+                      = 02:06:03   e o nosso CAPTURED_AT = 02:06:04
+```
+
+`article:modified_time` **não é** a data em que alguém editou o artigo: é a
+hora a que nós batemos à porta. A página regista a visita, a visita muda os
+bytes, os bytes mudam o sha, e o coletor conclui que o documento mudou —
+quando o único que mudou fomos nós a olhar para ele.
+
+```
+COMPARAR SHA DEPOIS DE VISITAR É MEDIR A PRÓPRIA PEGADA.
+```
+
+## 5 · ALARGAR UMA REGRA ATÉ O VERMELHO DESAPARECER É APAGAR O TERMÓMETRO
+
+Depois das cinco primeiras regras, nove documentos continuavam `MATERIAL`. A
+tentação é alargar a regra que sobra até o número dar zero. O que se fez em vez
+disso: **medir o que ainda diferia**, e só então nomeá-lo.
+
+```
+RUN1  15851,15321,13882,15995,15441,15000,15859,16233,17136,680,5840
+RUN2  17136,15441,15000,15995,15851,13882,15321,15859,16233,680,5840
+conjunto ordenado idêntico: 9 de 9
+```
+
+O **mesmo** conjunto de 11 anúncios, por outra ordem. Só com essa prova é que a
+regra entrou — e entrou com a medição escrita ao lado dela, no código.
+
+Cada trecho volátil carrega `NOME`, `ONDE` (onde foi medido, com contagem) e
+`PORQUE`. Um teste exige os três. Uma lista sem proveniência cresce por palpite
+e acaba a comer o corpo da matéria — que é exactamente o mutante M4.
+
+## 6 · A SEGUNDA CORRIDA DO CANÁRIO É GATE OBRIGATÓRIO ANTES DA BIG COLLECTION
+
+Uma corrida só mede se a casa **sabe colher**. Só a segunda mede se ela sabe
+**voltar**. E foi só na segunda que este defeito apareceu — a primeira estava
+perfeita e não dizia nada sobre ele.
+
+```
+NENHUMA COLHEITA GRANDE É AUTORIZADA POR UMA CORRIDA SÓ.
+```
+
+E o gate da segunda corrida **não é `DETAIL_REQUESTS = 0`**. Pedidos legítimos
+existem. O gate é:
+
+```
+UNNECESSARY_REFETCHES = 0        e cada pedido da RUN2 traz REASON
+FALSE_DOCUMENT_CHANGED_IN_PLACE = 0
+todo CHANGED_IN_PLACE traz OLD/NEW_NORMALIZED_HASH e MATERIAL_DIFF
+```
+
+Sem `MATERIAL_DIFF`, um `CHANGED_IN_PLACE` é falso positivo — e escrever um
+número que não se consegue justificar é pior do que não ter o número.
+
+## 7 · SALTAR É POUPAR REDE; SALTAR O QUE MUDA É CEGAR A CASA
+
+O achado que só a suíte de regressão apanhou, e o mais perigoso desta missão.
+
+Com a regra ligada, **`UNKNOWN` significa `SKIP`**. Medido: `0 dos 186`
+contratos declaravam o bloco executável `RECOLLECTION`. Consequência — a ARPAV,
+que republica o **mesmo** endereço `agro_01.pdf` a cada edição, deixaria de ser
+revisitada **para sempre**.
+
+Seis testes ficaram vermelhos e estavam certos. A correcção não foi mexer nos
+testes: foi declarar o que já estava escrito em prosa dentro de cada contrato.
+
+```
+UPDATE_BEHAVIOR «SOBRESCRITA»  → RECOLLECTION.DETAIL_CONTENT = MUTABLE    3 fontes
+UPDATE_BEHAVIOR «ADITIVO»      → RECOLLECTION.DETAIL_CONTENT = IMMUTABLE  4 fontes
+```
+
+`UPDATE_BEHAVIOR` **descreve**; `RECOLLECTION` **executa**. A regra recusa-se a
+ler a prosa, e tem razão — mas alguém tem de fazer a tradução à mão, fonte a
+fonte, com a prova citada. Enquanto não a fizer, a resposta honesta é `UNKNOWN`,
+e `UNKNOWN` cala a fonte.
+
+```
+UM CAMPO QUE SÓ EXISTE EM PROSA NÃO PROTEGE NINGUÉM.
+LIGAR A REGRA SEM TRADUZIR A PROSA TROCA DESPERDÍCIO POR CEGUEIRA.
+```
+
+⚠️ **As 179 fontes restantes continuam em `UNKNOWN`.** Isso é uma dívida
+declarada, não um descuido: enquanto o bloco não for escrito por quem conhece a
+fonte, um detalhe já colhido dessas fontes não será revisitado. Antes de
+qualquer colheita grande, esta tradução tem de ser feita — ou a colheita fica
+cega às fontes que reescrevem a mesma morada.
+
+## 8 · O ATAQUE QUE NÃO TOCA NO CAMINHO DA BANCADA NÃO É UM ATAQUE
+
+Do red team desta missão, com `SURVIVORS = 0` em 8 mutantes: o M8 (*dedup
+pós-download em vez de skip*) sobreviveu à primeira versão. Não porque a defesa
+fosse fraca — porque **o mutante não mexia em nada que a bancada pudesse ver**.
+Ele punha um download extra só no ramo com rede, e a bancada corre sem rede.
+
+Isso descobriu um defeito **real** no medidor, e não no ataque: o contador de
+idas ao transporte vivia só dentro da função que fala com a rede, por isso uma
+corrida com bytes injectados não via pedido nenhum.
+
+```
+UM MEDIDOR QUE SÓ CONTA A REDE REAL NÃO MEDE UMA CORRIDA SEM REDE.
+```
+
+Corrigiram-se os dois: o coletor passou a contar o transporte venha ele de onde
+vier, e o ataque passou a ser fiel ao defeito (os bytes chegam primeiro, a
+pergunta vem depois). Só então o M8 morreu — e morreu pela prova de
+comportamento, não pela que lê o texto do ficheiro.
+
+**O protocolo `§165` traduzido para Node**, porque `__pycache__` não existe aqui:
+
+```
+NODE_DISABLE_COMPILE_CACHE=1 · NODE_COMPILE_CACHE apagado
+processo novo por ataque · diff provado por git diff --stat
+SONDA que confirma que o MUTANTE CORREU, e não só que o ficheiro mudou
+MORTE_ESPERADA: morrer pela prova errada conta como SURVIVOR
+restauro em finally, e conferido com git diff — NUNCA com git status,
+  que mostra também o índice e diz «sujo» com a árvore limpa
+```
+
+E a armadilha do Windows, que já custou tempo nesta casa: o repositório guarda
+LF, o `git checkout` devolve CRLF, e a partir do **primeiro** restauro uma
+âncora escrita com `\n` deixa de casar. O ataque não entra, o mutante não corre,
+e lê-se `SURVIVOR` onde nunca houve ataque. A âncora tem de ser procurada nas
+duas formas.
