@@ -19326,3 +19326,177 @@ O mutante estava morto. Quem estava cega era a leitura da morte.
 > falso — e na direção que parece rigor.
 
 Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.
+
+---
+
+# §168 · UM BOT QUE ESCREVE NUM LIVRO QUE NINGUÉM LÊ É TRABALHO PERDIDO
+
+> **Número:** `§168` estava livre neste ficheiro **e em todas as branches**
+> deste repositório no momento da escrita (`git grep -F` pelo cabeçalho sobre
+> `refs/heads` e `refs/remotes`: zero ocorrências). A lei de `§165` sobre
+> reutilizar números de secção foi cumprida antes de escrever, não depois.
+
+Medido em 2026-09-22. O **Source Curator** — um serviço com supervisor vivo no
+sistema operativo — tinha no livro dele **437 fontes e 1008 transições**. A
+linha que colhe tinha **278 e 754**. Das 437, **277 nunca tinham sido vistas
+deste lado**. O bot trabalhava há dias, e nada do que ele descobria chegava ao
+sítio onde a decisão de colher acontece.
+
+    O BOT NÃO ESTAVA PARADO. ESTAVA A ESCREVER PARA UMA GAVETA.
+
+## 168-1 · DOIS LIVROS DO MESMO CONCEITO RECONCILIAM-SE POR IDENTIDADE E PROVA, NUNCA POR DATA
+
+Havia 63 fontes em que os dois livros discordavam. A tentação — somar, ou
+escolher «o livro mais recente» — produz nos dois casos um número maior e
+errado. O que funcionou foi ir a cada `SOURCE_ID`, um a um, e perguntar o que
+cada lado **prova**.
+
+As 63 divergências resolveram-se em **seis famílias**, e nenhuma delas se
+resolveu por antiguidade:
+
+| o que dizia cada lado | quantas | como se resolveu |
+|---|---|---|
+| aqui `READY` · bot `RECONCILIATION_REQUIRED` | 41 | o bot pedia «remede isto»; a remedição **já tinha sido feita aqui**, 16 h depois |
+| aqui `RETRY_AFTER` · bot `RECONCILIATION_REQUIRED` | 9 | o mesmo pedido, mesma resposta |
+| aqui `READY` · bot `CAPABILITY_BLOCK` | 4 | bloqueio **superado por prova posterior** na própria história |
+| aqui `CANARY_PENDING` · bot `READY` | 6 | promoção do bot **sem prova de canário** — recusada |
+| aqui `CANARY_FAILED` · bot `READY` | 2 | idem |
+| `IT-PROVA-RETRY` | 1 | identificador fora do formato: linha de prova, não fonte |
+
+## 168-2 · UM PEDIDO NÃO É UM VEREDITO
+
+As 41 do caso central pareciam um conflito grave: um lado diz «pronta», o
+outro diz «há conflito». Não era conflito nenhum. `RECONCILIATION_REQUIRED`,
+escrito pelo bot às 22:45 de 20/09, **queria dizer «remede isto»** — e a razão
+estava lá escrita: *«bloqueio medido contra `feeds/videos.xml`; a integração
+deu rota nova — remedir lá»*. Esta árvore remediu às 15:20 de 21/09.
+
+> Um estado que pede trabalho não é um estado que contradiz. Lê-se a **razão**,
+> não só o nome do estado. Quem contasse só os nomes via 41 conflitos onde
+> havia 41 tarefas cumpridas.
+
+## 168-3 · UM BLOQUEIO CEDE A CAPACIDADE NOVA PROVADA — NÃO A OMISSÃO
+
+A lei antiga (`POLICY_BLOCK`/`CAPABILITY_BLOCK` provados não desaparecem por
+omissão) continua inteira, e **não** é o mesmo que «bloqueio é para sempre».
+
+Os 4 `CAPABILITY_BLOCK` do bot nasceram de um defeito do próprio worker dele —
+*«contrato reprovado: campos em falta»* — e o bot escreveu-o: `RETIFICACAO`.
+Depois, nesta árvore, o contrato foi escrito em condições e o canário abriu um
+item real. A prova posterior está **na mesma história da fonte**, não noutro
+livro que simplesmente não conhecia o bloqueio.
+
+    AUSÊNCIA DE ANOTAÇÃO NOUTRO LIVRO = OMISSÃO → o bloqueio fica.
+    PROVA POSTERIOR NA PRÓPRIA HISTÓRIA  = capacidade nova → o bloqueio cede.
+
+Distinguir as duas é a diferença entre preservar um facto e congelar um erro.
+
+## 168-4 · UMA PROMOÇÃO QUE CITA UMA PROVA QUE NÃO EXISTE É UM CARIMBO
+
+As 8 promoções do bot citavam todas o mesmo `EVIDENCE_REF`:
+
+    MISSAO-04:curadoria/READY-FOR-COLLECTION-V1.json@959ae46a
+
+Esse identificador **não é uma linha do manifesto de canários**: é o nome de um
+ficheiro de missão. Ao resolvê-lo no manifesto do próprio bot — 1135 provas —
+devolve nada. Zero campos, nenhum item aberto, nenhum gate.
+
+> `READY` é uma consequência, nunca um carimbo. Uma promoção cuja prova não
+> **resolve** não é uma promoção, por muito bem-intencionado que seja quem a
+> escreveu. As 8 ficaram no estado desta árvore.
+
+## 168-5 · O ESTADO SEM A PROVA NÃO ATRAVESSA — O CANO ENTUPIA NO ÚLTIMO METRO
+
+O defeito mais fácil de não ver. A ponte importava os **estados** do bot
+corretamente. Mas `collection_gate` não lê o livro do bot: lê o manifesto de
+provas **desta** árvore. Uma fonte importada como `READY` cuja prova ficou do
+outro lado é lida como *«READY sem nenhuma linha de promoção»* —
+`NUNCA_PROMOVIDA` — e **nunca** seria elegível, com o estado perfeitamente
+correto no livro.
+
+O censo teria ficado verde. A ponte estaria entupida.
+
+    IMPORTAR O ESTADO É METADE DO CANO. A PROVA TEM DE VIAJAR COM ELE.
+
+Importaram-se 485 provas do bot, com proveniência. Guarda obrigatória: uma
+`EVIDENCE_REF` que já exista deste lado com **conteúdo diferente** é uma
+colisão de identidade entre duas árvores — não se resolve escolhendo uma: fica
+de fora e fica dita. (Medido: 35 referências comuns, todas iguais byte a byte,
+0 colisões — mas a guarda existe antes de haver a primeira.)
+
+## 168-6 · A PONTE PROVA-SE EM RUNTIME, NOS DOIS SENTIDOS — NÃO POR EXISTIR
+
+Um censo histórico verde com ponte futura morta **é uma falha**, não um passe.
+O censo diz o que já aconteceu; só uma transição nova a atravessar diz que o
+encanamento está ligado.
+
+Provou-se com três fontes, e as três importam:
+
+| sentido | o que o bot escreveu | o que o portão fez |
+|---|---|---|
+| positivo | `READY` com os 4 passos provados | **atravessou** — elegíveis 8 → 9 |
+| negativo | `CAPABILITY_BLOCK` | não atravessou |
+| negativo | `READY` citando um ficheiro de missão | não atravessou (`UNKNOWN`) |
+
+> Uma ponte que deixa passar tudo não é uma ponte: é um buraco na parede. O
+> sentido negativo prova-se com o mesmo cuidado que o positivo.
+
+### E o ataque que só o tempo revela
+
+`REF_C` era uma constante — o `HEAD` do bot no dia da medição. O mutante que a
+congelava **sobreviveu ao red team**, porque hoje a constante e o `HEAD` real
+são o mesmo valor. Seria um mutante equivalente *até ao dia em que o bot
+avançasse* — e nesse dia a ponte deixaria de ver trabalho novo, em silêncio,
+com todos os testes verdes.
+
+    UMA PONTE PRESA A UM COMMIT FIXO ESTÁ MORTA NO DIA SEGUINTE,
+    E O RELATÓRIO DE HOJE NÃO CONSEGUE DIZÊ-LO.
+
+Corrigiu-se lendo o `HEAD` da branch do bot em cada corrida, e o teste que mata
+o mutante pergunta o `HEAD` de **outra** referência: se a função devolvesse a
+constante, morreria.
+
+## 168-7 · `SOURCE_CURATOR_READY` != `COLLECTION_ELIGIBLE`
+
+O bot alimenta **conhecimento**. A decisão de elegibilidade continua, sempre,
+de `collection_gate`, que a deriva da régua no instante da pergunta. O bot
+nunca escreve elegibilidade — e isso mede-se, não se promete: um teste percorre
+a árvore sintáctica da reconciliação e reprova se `COLLECTION_ELIGIBLE` for
+atribuído em qualquer sítio.
+
+A prova de que os dois portões são mesmo independentes: das 8 fontes elegíveis
+pela curadoria, só **3** passam também o portão da recollection — as outras 5
+estão `BLOCKED_FOR_BIG_COLLECTION` por `DETAIL_CONTENT` não declarado. O bot
+aprovar não compra essa passagem, e a ponte não escreve em contrato nenhum.
+
+## 168-8 · RECONCILIAÇÃO NÃO É MÁQUINA DE LAVAR
+
+Uma fonte promovida aqui pela régua antiga fica `READY_LEGACY` **ainda que o
+bot lhe chame `READY` com prova melhor**. A régua de uma fonte não sobe porque
+um segundo livro concorda: sobe quando alguém mede os quatro passos naquela
+fonte. `LEGACY_LEAK = 0` é uma métrica publicada, não um princípio.
+
+## 168-9 · O NÚMERO HONESTO PODE NÃO SUBIR
+
+O livro canónico passou de 278 para 555 fontes. `READY_TOTAL` passou de 87 para
+109. E `COLLECTION_ELIGIBLE` ficou em **8 — exatamente onde estava**.
+
+Não é a ponte partida: é o portão a morder. Nenhuma das 22 `READY` que o bot
+trouxe tem `DETAIL_GATE_PASSED` na prova; todas entraram como `READY_LEGACY`,
+que não é elegível por omissão.
+
+> O valor de uma ponte não se mede pelo número que ela faz subir. Mede-se pelo
+> trabalho que passa a chegar. Chegaram 277 fontes e 485 provas; o portão
+> continuou a dizer 8, e 8 é a verdade de hoje.
+
+## 168-10 · O CORTE LÓGICO, PARA NÃO PARAR O SERVIÇO
+
+O supervisor do bot estava vivo (dois processos, pai e filho — **um só
+serviço**, um só lock). Não se para um serviço para o ler, e não se lê o
+ficheiro vivo dele: pode estar a meio de uma gravação.
+
+Fecha-se um **corte lógico** — `BOT_SNAPSHOT_HEAD`, `BOT_SNAPSHOT_TIME`,
+`BOT_SNAPSHOT_TRANSITION_MAX_ID` — lê-se por `git show` desse ponto, e
+reconcilia-se só o que está deste lado dele. O que o bot escrever depois
+atravessa na volta seguinte. Sem o corte, «reconciliado» seria uma palavra
+sobre um alvo em movimento.

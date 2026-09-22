@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import sys
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -427,6 +428,33 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(t["RECUSAS_POR_MOTIVO"]["PROMOCAO_SEM_PROVA_DE_CANARIO"], 1)
         self.assertEqual(t["BOT_READY_ACEITES"], 0)
 
+    def test_rt_c3b_o_veredito_do_bot_por_si_nao_diz_ready_sem_prova(self):
+        """A LEI MEDE-SE ONDE ELA VIVE.
+
+        `_degrau_c` tambem recusa esta promocao, mas por outra razao (a regua
+        nao sobe, o bot mediu antes). Se so se medisse o estado final, apagar
+        a guarda DENTRO de `veredito_c` nao partiria teste nenhum — e ficaria
+        uma funcao publica a afirmar «C prova READY» sobre uma promocao que
+        nao tem canario nenhum. O contrato de `veredito_c` e dizer o que C
+        prova POR SI; e por si, sem prova, C nao prova READY.
+        """
+        sid = "IT-T4-089"
+        c = ctx(C=livro(linha(sid, None, LC.CANARY_PENDING, T2),
+                        linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3,
+                              "MISSAO-04:ficheiro-de-missao-nao-e-canario")),
+                EVIDENCIA_C={}, CONTRATOS_C={sid: contrato(sid)})
+        c["_ULT"] = {n: R.ultimos(c.get(n)) for n in R.LIVROS}
+        estado, porque, _ = R.veredito_c(sid, c)
+        self.assertEqual(estado, R.UNKNOWN, porque)
+        self.assertIn("promocao sem canario nao promove", porque)
+        # e com a prova a resolver, a MESMA funcao promove: a guarda distingue.
+        ref = "EV-OK-C3B"
+        c2 = ctx(C=livro(linha(sid, None, LC.CANARY_PENDING, T2),
+                         linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T3, ref)),
+                 EVIDENCIA_C={ref: prova_canario(ref, sid)}, CONTRATOS_C={sid: contrato(sid)})
+        c2["_ULT"] = {n: R.ultimos(c2.get(n)) for n in R.LIVROS}
+        self.assertEqual(R.veredito_c(sid, c2)[0], R.READY_CURRENT)
+
     def test_rt_c4_bot_que_mediu_antes_nao_derruba_esta_arvore(self):
         sid = "IT-T4-080"
         ref = "EV-A4"
@@ -526,6 +554,60 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(sorted(por_id(d)), [a, b])
         self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
 
+    def test_rt_c13_o_head_do_bot_e_descoberto_nao_escrito_a_mao(self):
+        """A PONTE FUTURA TEM DE ESTAR VIVA.
+
+        `REF_C_MEDIDO` e so o registo do corte desta medicao. Se a ponte
+        passasse a devolver essa constante, o censo de hoje continuaria verde
+        para sempre e o trabalho que o bot fizer amanha nunca atravessaria —
+        um censo historico verde com ponte futura morta e uma falha.
+
+        Prova-se pedindo o HEAD de OUTRA referencia conhecida: se a funcao
+        descobre mesmo, devolve o HEAD dela; se devolvesse a constante, este
+        teste morria.
+        """
+        outra = R.ref_do_bot("HEAD")
+        esperado = subprocess.run(["git", "rev-parse", "--short", "HEAD"],
+                                  cwd=str(AQUI.parent), capture_output=True,
+                                  text=True, timeout=30).stdout.strip()
+        if not esperado:
+            self.skipTest("git nao responde nesta arvore")
+        self.assertEqual(outra, esperado)
+        # e o HEAD do bot vem da branch dele, nao de uma constante no ficheiro
+        do_bot = R.ref_do_bot(R.BRANCH_C)
+        da_branch = subprocess.run(["git", "rev-parse", "--short", R.BRANCH_C],
+                                   cwd=str(AQUI.parent), capture_output=True,
+                                   text=True, timeout=30).stdout.strip()
+        if da_branch:
+            self.assertEqual(do_bot, da_branch)
+
+    def test_rt_c15_prova_do_bot_nunca_sobrepoe_a_desta_arvore(self):
+        """Mesma EVIDENCE_REF, conteudo DIFERENTE, e uma colisao de identidade
+        entre duas arvores. Nao se resolve escolhendo uma: a de ca fica, a do
+        bot NAO entra, e a colisao fica dita. Medido: 35 referencias comuns,
+        todas iguais, 0 colisoes — mas a guarda tem de existir antes de haver
+        a primeira."""
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        d = Path(tmp.name)
+        antes = R.EVIDENCIA_A
+        R.EVIDENCIA_A = d / "EVIDENCE.json"
+        self.addCleanup(lambda: setattr(R, "EVIDENCIA_A", antes))
+        ref = "EV-COLISAO-0001"
+        local = prova_canario(ref, "IT-T4-090", item="https://ex.it/news/a-de-ca-2026/")
+        R.EVIDENCIA_A.write_text(json.dumps(
+            {"DATASET": "LIFECYCLE-EVIDENCE-V1", "PROVAS": [local]}, ensure_ascii=False),
+            encoding="utf-8")
+        do_bot = prova_canario(ref, "IT-T4-999", item="https://outra.it/news/do-bot-2026/")
+        c = ctx(EVIDENCIA_C={ref: do_bot}, COMMITS={"A": "a", "B": "b", "B2": "c", "C": "d"})
+        r = R.importar_provas_do_bot([{"SOURCE_ID": "IT-T4-090", "EVIDENCE_REF": ref}], c)
+        self.assertEqual(r["PROVAS_IMPORTADAS"], 0)
+        self.assertEqual(len(r["COLISOES_NAO_IMPORTADAS"]), 1)
+        self.assertEqual(r["COLISOES_NAO_IMPORTADAS"][0]["SOURCE_ID_NO_BOT"], "IT-T4-999")
+        # e o ficheiro em disco continua com a prova DESTA arvore, intacta
+        depois = json.loads(R.EVIDENCIA_A.read_text(encoding="utf-8"))["PROVAS"]
+        self.assertEqual(depois, [local])
+
     def test_rt_c12_a_ponte_nao_escreve_em_regras_nem_em_contratos(self):
         """RECOLLECTION_UNKNOWN_LEAK = 0, por construcao e medido.
 
@@ -579,25 +661,51 @@ class OsLivrosReais(unittest.TestCase):
             self.skipTest("git show nao alcanca %s/%s/%s nesta arvore"
                           % (R.REF_B, R.REF_B2, R.REF_C))
         d = R.censo(c)
-        # 278 desta arvore + as 277 que so o bot conhece = 555 identidades.
-        # 278 desta arvore + as 277 que so o bot conhecia. ⚠️ `SO_C_VS_A` NAO se
-        # afirma aqui: era 277 antes de aplicar e e 0 depois — e essa e a
-        # prova de que a ponte funcionou, nao um invariante. O que nao pode
-        # mudar e a UNIAO: ninguem desaparece nos dois sentidos.
-        self.assertEqual(d["CONJUNTOS"]["IDENTIDADES_FINAIS"], 555)
-        self.assertEqual(d["CONJUNTOS"]["UNIAO_TODOS"], 555)
-        self.assertEqual(d["CONJUNTOS"]["COMUNS_A_C"] + d["CONJUNTOS"]["SO_C_VS_A"], 437)
+        # ⚠️ AQUI AFIRMAM-SE LEIS, NAO FOTOGRAFIAS. O livro do bot e escrito por
+        # um servico que esta a correr: qualquer numero absoluto sobre ele
+        # (fontes, transicoes, recusas) envelhece sozinho e produz um vermelho
+        # que nao significa defeito. Os limites inferiores (`>=`) valem porque
+        # os livros sao append-only e os bloqueios nao se revogam.
+        con = d["CONJUNTOS"]
+        self.assertEqual(con["IDENTIDADES_FINAIS"], con["UNIAO_TODOS"])
+        self.assertGreaterEqual(con["UNIAO_TODOS"], 555)
+        self.assertEqual(con["COMUNS_A_C"] + con["SO_C_VS_A"], d["LIVROS"]["C"]["SOURCES"])
+        self.assertEqual(sum(d["POR_ESTADO_FINAL"].values()), con["IDENTIDADES_FINAIS"])
         self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
-        self.assertEqual(d["POR_ESTADO_FINAL"][R.POLICY_BLOCK], 69)
-        self.assertEqual(d["POR_ESTADO_FINAL"][R.READY_CURRENT], 10)
-        self.assertEqual(sum(d["POR_ESTADO_FINAL"].values()), 555)
-        # ⚠️ O BOT NAO ACRESCENTOU UM SO READY_CURRENT. Se este numero subir sem
-        # uma prova de canario nova, alguem lavou a regua.
+        # bloqueios provados nao desaparecem: o numero nunca desce
+        self.assertGreaterEqual(d["POR_ESTADO_FINAL"][R.POLICY_BLOCK], 69)
+
         t = d["TELEMETRIA_DA_PONTE"]
         self.assertEqual(t["LEGACY_LEAK"], 0)
-        self.assertEqual(t["RECUSAS_POR_MOTIVO"].get("PROMOCAO_SEM_PROVA_DE_CANARIO"), 8)
-        self.assertEqual(d["BOT_SNAPSHOT"]["BOT_SNAPSHOT_HEAD"], R.REF_C)
-        self.assertEqual(d["BOT_SNAPSHOT"]["BOT_SNAPSHOT_TRANSITION_MAX_ID"], 1008)
+        # ⚠️ A LEI, nao a contagem: TODA a fonte que o bot diz READY e que aqui
+        # nao e READY tem de ter um motivo escrito — e se o motivo e «sem prova
+        # de canario», a prova citada tem mesmo de nao resolver no livro dele.
+        porid = {l["SOURCE_ID"]: l for l in d["LINHAS"]}
+        for rec in t["RECUSAS"]:
+            self.assertTrue(rec["MOTIVO"], rec)
+            if rec["MOTIVO"] == "PROMOCAO_SEM_PROVA_DE_CANARIO":
+                self.assertIs(porid[rec["SOURCE_ID"]]["CANARY_C"]
+                              ["RESOLVE_NO_MANIFESTO_DO_BOT"], False, rec)
+        self.assertEqual(t["BOT_READY_ACEITES"] + t["BOT_READY_RECUSADAS"], t["BOT_READY"])
+        # ⚠️ READY_CURRENT nao se afirma por contagem: afirma-se pela regua.
+        # Nenhuma fonte pode estar READY_CURRENT sem os quatro passos na prova.
+        for l in d["LINHAS"]:
+            if l["FINAL_STATE"] == R.READY_CURRENT:
+                passos = l.get("DETAIL_PROOF_A") or l.get("DETAIL_PROOF_C") or {}
+                self.assertTrue(passos.get("BODY_UTIL"),
+                                "%s e READY_CURRENT sem BODY_UTIL provado" % l["SOURCE_ID"])
+        # ⚠️ O LIVRO DO BOT E UM ALVO VIVO. Este teste ja falhou uma vez por
+        # afirmar `TRANSITION_MAX_ID == 1008`: o supervisor escreveu mais 119
+        # transicoes a meio da missao e o numero passou a 1127. Fixar a
+        # fotografia de um servico que corre e garantir um vermelho no dia
+        # seguinte — e, pior, um vermelho que nao significa defeito nenhum.
+        # Afirma-se o INVARIANTE: o livro e append-only, logo o corte nunca
+        # encolhe, e bate sempre com o livro que foi mesmo lido.
+        s = d["BOT_SNAPSHOT"]
+        self.assertEqual(s["BOT_SNAPSHOT_HEAD"], R.REF_C)
+        self.assertEqual(s["BOT_SNAPSHOT_TRANSITION_MAX_ID"], len(c["C"]["TRANSICOES"]))
+        self.assertGreaterEqual(s["BOT_SNAPSHOT_TRANSITION_MAX_ID"], 1008)
+        self.assertEqual(s["BOT_SNAPSHOT_SOURCES"], d["LIVROS"]["C"]["SOURCES"])
 
 
 if __name__ == "__main__":

@@ -44,7 +44,7 @@ ATAQUES = [
      "o bot passa a derrubar medicoes mais recentes desta arvore"),
 
     ("RT-A2_promocao_sem_prova_de_canario_passa", "reconciliar_livros.py",
-     '        if ev is None:',
+     '        if not prova_do_bot_resolve:',
      '        if False:',
      "READY do bot com EVIDENCE_REF que nao resolve passa a promover"),
 

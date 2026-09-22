@@ -467,7 +467,8 @@ def veredito_c(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
         promo = RS.ultima_promocao(sid, ctx.get("C"))
         ref = (promo or {}).get("EVIDENCE_REF") or ""
         ev = ctx.get("EVIDENCIA_C", {}).get(ref)
-        if ev is None:
+        prova_do_bot_resolve = ev is not None
+        if not prova_do_bot_resolve:
             return (UNKNOWN, "C: READY citando prova que o manifesto do bot nao tem (%s) — "
                     "promocao sem canario nao promove" % (ref[:60] or "sem EVIDENCE_REF"), {})
         r = RS.passos_da_promocao(promo, ev, ctx.get("CONTRATOS_C", {}).get(sid))
