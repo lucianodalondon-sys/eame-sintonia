@@ -23,6 +23,10 @@
 //   ... --gate-hour           so executa dentro da janela de 20h em Europe/Rome
 //   ... --so-o-portao         consulta o portao de admissao e PARA ai; nenhuma
 //                             fonte e tocada, com ou sem veredito favoravel
+//   ... --canario-limite N    CANARIO: toca so as N primeiras (ordem
+//                             alfabetica) das elegiveis COM contrato. Corta
+//                             o TAMANHO da populacao, nunca escolhe quais.
+//                             Sem a bandeira, toca a populacao inteira.
 //   ... --simulate-vpn XX     controle negativo: finge outro pais
 //   ... --simulate-push-fail  controle negativo: finge push quebrado
 //   ... --no-git              nao commita nem faz push (para teste local)
@@ -212,21 +216,54 @@ async function main() {
     resumo.ELIGIBLE_WITH_CONTRACT = comContrato.length;
     resumo.ELIGIBLE_WITHOUT_CONTRACT = semContrato;
 
+    // 6d · `--canario-limite N`: INSTRUMENTO DE CANARIO, nao regra de negocio.
+    //
+    // Um canario de producao toca o MENOR subconjunto que ainda prova a
+    // cadeia inteira. Este limite corta o TAMANHO da populacao; NAO escolhe
+    // fontes. A populacao continua a sair do portao, e a ordem e alfabetica
+    // para a segunda passagem cair exactamente sobre a mesma gente — um
+    // canario que muda de populacao entre voltas nao mede incrementalidade,
+    // mede duas coisas diferentes.
+    //
+    //     UM LIMITE QUE ESCOLHE QUAIS E UMA LISTA FIXA COM OUTRO NOME.
+    //     UM LIMITE QUE SO DIZ QUANTAS E UM LIMITE.
+    //
+    // Sem a bandeira, nada muda: a coleta agendada toca toda a populacao.
+    let aColher = comContrato;
+    const limite = arg("--canario-limite");
+    if (limite !== null) {
+      const n = Number(limite);
+      if (!Number.isInteger(n) || n < 1) {
+        resumo.RUN_STATE = "FAILED_PRECONDITION";
+        resumo.reason = `--canario-limite tem de ser inteiro >= 1 (veio: ${JSON.stringify(limite)})`;
+        resumo.RUNNER_HEALTH = "FAILED";
+        resumo.SOURCE_NOT_MEASURED = POPULACAO.length;
+        return fim(resumo, t0);
+      }
+      aColher = [...comContrato].sort().slice(0, n);
+      resumo.CANARY_LIMIT = n;
+      resumo.CANARY_SUBSET = aColher;
+      resumo.CANARY_SUBSET_RULE = "os N primeiros por ordem alfabetica dos elegiveis COM contrato";
+      // O que o limite deixou de fora fica DITO. Um canario que nao diz o que
+      // nao tocou le-se como uma coleta completa.
+      resumo.CANARY_LEFT_OUT = [...comContrato].sort().slice(n);
+    }
+
     // `--so-o-portao`: para AQUI, sempre, sem tocar em fonte nenhuma. Existe
     // para o teste poder provar o veredito do portao sem que uma falha do
     // portao vire uma ida a rede — um teste que so se porta bem quando o
     // codigo se porta bem nao prova nada.
     if (tem("--so-o-portao")) {
-      resumo.RUN_STATE = comContrato.length ? "GATE_ONLY_NO_COLLECTION"
+      resumo.RUN_STATE = aColher.length ? "GATE_ONLY_NO_COLLECTION"
                                             : "NO_SOURCE_ELIGIBLE";
       resumo.RUNNER_HEALTH = "HEALTHY";
       resumo.SOURCE_NOT_MEASURED = POPULACAO.length;
-      resumo.reason = `so o portao foi consultado; nenhuma fonte foi tocada. elegiveis=${POPULACAO.length}, com contrato=${comContrato.length}`;
+      resumo.reason = `so o portao foi consultado; nenhuma fonte foi tocada. elegiveis=${POPULACAO.length}, com contrato=${comContrato.length}, a colher=${aColher.length}`;
       return fim(resumo, t0);
     }
     // ZERO ELEGIVEL NAO E AVARIA. E o livro a dizer que hoje ninguem esta
     // pronta. Marcar FAILED aqui mandava alguem depurar uma decisao.
-    if (!comContrato.length) {
+    if (!aColher.length) {
       resumo.RUN_STATE = "NO_SOURCE_ELIGIBLE";
       resumo.RUNNER_HEALTH = "HEALTHY";
       resumo.SOURCE_NOT_MEASURED = POPULACAO.length;
@@ -256,7 +293,7 @@ async function main() {
     // se colhe uma delas (as 29 zonas publicadas em vez das 4 do piloto). Fica
     // inerte quando a ARPAV nao esta na populacao — `__ARPAV_TODAS` so e lido
     // dentro do ramo dessa fonte, em `italy_pilot_collect.mjs:239`.
-    const r = await executarRodada({ runId: RUN_ID, nota: `ops ${PROFILE_NAME}`, apenas: comContrato, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
+    const r = await executarRodada({ runId: RUN_ID, nota: `ops ${PROFILE_NAME}`, apenas: aColher, arpavZonas: PROFILE.ARPAV_OPERATIONAL_ZONES ? "TODAS" : null, raiz: OPS_ROOT });
     const c = r.resumo.contadores;
     resumo.SOURCE_ATTEMPTED = c.SOURCES_ATTEMPTED; resumo.SOURCE_HEALTHY = c.HEALTHY;
     resumo.SOURCE_DEGRADED = c.DEGRADED; resumo.SOURCE_FAILED = c.FAILED;
