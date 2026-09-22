@@ -19683,3 +19683,132 @@ um defeito à primeira corrida: `AUTH_BLOCK` não tinha classe, e teria caído e
 Lê-se como `CAPABILITY_BLOCK`, **por decisão declarada e não por omissão**: uma
 credencial que não temos é capacidade em falta, não proibição do publicador. O
 vocabulário é fechado, e alargá-lo é decisão de quem manda.
+
+---
+
+# §169 · UMA PONTE QUE ALGUÉM TEM DE MANDAR CORRER NÃO ESTÁ LIGADA
+
+> **Número:** `§169` estava livre neste ficheiro **e em todas as branches** no
+> momento da escrita (`git grep -F` pelo cabeçalho sobre `refs/heads` e
+> `refs/remotes`: zero ocorrências).
+
+Os três sentidos da ponte estavam provados — entra, nunca entrou, sai. E mesmo
+assim a travessia só acontecia quando uma pessoa escrevia um comando: os únicos
+chamadores de `reconciliar_livros` eram **dois testes e duas provas**. Zero
+chamadores de produção.
+
+    UMA PONTE LEVADIÇA COM O GUARDA DE FOLGA ESTÁ FECHADA,
+    POR MUITO BEM CONSTRUÍDA QUE ESTEJA.
+
+## 169-1 · O TRANSPORTE ERRADO: CORRECTO CONTRA UMA COISA, CEGO PARA OUTRA
+
+A ponte lia o livro do bot por `git show`. Isso é **correcto** contra o perigo
+óbvio — nunca apanha meia-gravação, porque um commit é um objeto fechado.
+
+E é **cego** para o perigo verdadeiro: *o bot escreve no disco e não commita*.
+
+```
+livro do bot NO DISCO  : 1275 transições
+livro do bot NO COMMIT : 1270
+                          5 decisões reais, invisíveis
+```
+
+O último commit dele tinha 3 h 40. Uma ponte automática que lê pelo Git
+atravessa **só o que alguém guardou à mão** — e nesse caso a automatização é
+uma ilusão: troca-se «alguém corre a ponte» por «alguém faz commit».
+
+> Ao escolher um transporte, perguntar as duas coisas: contra que falha me
+> protege, e que realidade deixa de ver. A resposta certa aqui não era mudar
+> quem commita — era ler o disco, com garantia própria.
+
+### Ficheiro inteiro sem a cooperação de quem escreve
+
+Não se pede ao bot que coopere (era mudar um serviço a correr, de outra lane).
+Lê-se, confirma-se que o JSON fecha, **relê-se**, e exigem-se bytes iguais nas
+duas leituras. Um ficheiro apanhado a meio falha o parse **ou** muda de tamanho
+— e nos dois casos tenta-se outra vez, em vez de devolver meio livro.
+
+O `sha256` dos bytes passa a ser **o corte lógico**: é ele que responde «já vi
+este livro?». Um corte lógico não tem de ser um commit; tem de ser uma
+identidade estável do que foi lido.
+
+## 169-2 · O SILÊNCIO É UM REQUISITO, NÃO UMA OPTIMIZAÇÃO
+
+Ao lado, medido no mesmo dia: o supervisor do bot, com a fila vazia, grava um
+evento `REALIMENTACAO` **idêntico de 15 em 15 segundos** — lê 476 candidatas,
+enfileira 0. São ~5.760 linhas por dia, todas a dizer o mesmo. É o irmão do
+`DISCOVERY_HOOK_ERRO`: 3.054 ocorrências e **uma só mensagem**.
+
+    UM REGISTO ONDE TUDO SE REPETE É UM REGISTO ONDE NADA SE VÊ.
+
+Por isso a regra do observador não é «escreve pouco», é: **uma volta sem
+novidade não escreve linha nenhuma**. Conta-se no estado, diz-se quando alguém
+pergunta. Medido na prova: 22 voltas, 20 sem novidade → **0 linhas**; o diário
+ficou com 3 (arranque + 2 travessias).
+
+Idempotência e legibilidade do log são aqui a mesma decisão: só se escreve se
+o `sha256` do livro mudou.
+
+## 169-3 · RELANÇADO != VIVO · E «DE FUNDO» NÃO É «SERVIÇO»
+
+O briefing desta missão trazia «supervisor vivo, PID 110748». Medido: **o PID
+não existia**. O lock afirmava-o como dono, o processo tinha morrido ~5 minutos
+depois de arrancar, a meio de um tick normal, sem erro e sem `PARAR.flag`.
+
+A causa, dita pelo coordenador depois: ele tinha lançado o supervisor como
+**processo de fundo da sessão dele**; a sessão terminou e levou o processo
+atrás (`exit -15`). Não houve defeito nenhum no supervisor.
+
+    A LIÇÃO ANTERIOR ERA: COMMIT DO CONSERTO != PROCESSO VIVO COM O CONSERTO.
+    O DEGRAU SEGUINTE É:   RELANÇADO != VIVO AGORA,
+    E «LANÇADO POR MIM EM FUNDO» != SERVIÇO.
+
+Um serviço que herda o tempo de vida de quem o lançou não é um serviço: é um
+subprocesso com nome grande. Relançado num terminal próprio e independente
+(PID 48212), ficou de pé.
+
+E o lock, sozinho, **não prova vida** — afirma um dono. Quem lê o lock tem de
+perguntar ao sistema operativo se aquele PID existe; senão herda uma afirmação
+velha com cara de facto.
+
+## 169-4 · DOIS RELÓGIOS SEM CONVERSÃO INVENTAM UM FANTASMA
+
+Quase concluí que havia um escritor desconhecido a gravar no livro do bot: li
+transições «das 19:11» num ficheiro «escrito às 16:15». Um ficheiro escrito
+antes das linhas que contém é impossível — logo havia um segundo processo.
+
+Não havia. O `OBSERVED_AT` dos livros está em **UTC** e o `LastWriteTime` do
+sistema de ficheiros está em **local (UTC−3)**. 19:11 UTC *é* 16:11 local.
+
+    COMPARAR DOIS RELÓGIOS SEM OS CONVERTER NÃO DÁ UM NÚMERO ERRADO:
+    DÁ UMA HISTÓRIA ERRADA — E MANDA PROCURAR UM PROCESSO QUE NÃO EXISTE.
+
+## 169-5 · MATAR POR SUBSTRING MATA O PRÓPRIO MEDIDOR
+
+Já estava registado que contar processos por substring conta o próprio comando
+que procura (o texto do filtro está na linha de comando dele). Desta vez a
+consequência foi outra: usei a mesma substring para **parar** processos, e
+parei os meus próprios shells no meio da operação.
+
+    CONTAR-SE A SI PRÓPRIO DÁ UM NÚMERO A MAIS.
+    MATAR-SE A SI PRÓPRIO INTERROMPE A OPERAÇÃO A MEIO.
+
+O serviço alvo (PID 48212) ficou intacto — por sorte do filtro, não por
+desenho. Antes de um `Stop-Process` derivado de pesquisa: filtrar pelo
+**nome do executável** além do texto, e excluir explicitamente o próprio ramo.
+
+## 169-6 · O QUE NÃO SE PROVOU, E PORQUÊ
+
+O sentido **SAI** (uma fonte elegível degrada-se e sai do portão) está provado
+em bancada, mas **não ao vivo** — e a razão não é falta de tempo.
+
+Das 8 fontes elegíveis, o bot conhece 7 como `READY_FOR_COLLECTION`. Para
+provocar uma despromoção real seria preciso mandá-lo recanariar **uma fonte de
+produção**. Se reprovasse, a despromoção seria verdadeira e **não removível**:
+apagá-la depois seria apagar uma medição correcta, e mantê-la seria alterar
+produção por causa de uma demonstração.
+
+> Fabricar a evidência do canário para uma fonte de teste resolveria a
+> demonstração e envenenava o livro. **Uma prova que exige falsificar a prova
+> não é uma prova.** Fica por fazer, dito, e com o caminho descrito — é decisão
+> de quem manda, não de quem demonstra.
