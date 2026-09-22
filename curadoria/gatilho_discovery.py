@@ -105,11 +105,18 @@ def _discovery_real() -> dict:
         log=log,
         max_sementes=D.MAX_SEMENTES_ESTA_CORRIDA,
     )
+    # ⚠️ PORQUE E QUE DEU ZERO, E NAO SO QUE DEU ZERO. Sem estes tres campos o
+    # log escrevia «CANDIDATAS_NOVAS: 0» e ficava-se sem saber se o crawl nao
+    # achou nada, se nao teve sementes, ou se as que tinha foram recusadas pela
+    # regra de semente. Sao contadores que `crawl_sementes` ja produz.
     return {"CRAWL": stats.get("SEMENTES_USADAS"),
             "CANDIDATAS_NOVAS": len(registados),
             "PAGINAS_BUSCADAS": stats.get("PAGINAS_BUSCADAS"),
             "REQUESTS_REAIS_A_REDE": orcamento.pedidos_feitos,
-            "ROBOTS_BLOCKS": stats.get("ROBOTS_BLOCKS")}
+            "ROBOTS_BLOCKS": stats.get("ROBOTS_BLOCKS"),
+            "SEMENTES_DISPONIVEIS": stats.get("SEMENTES_DISPONIVEIS"),
+            "SEMENTES_A_USAR": stats.get("SEMENTES_A_USAR"),
+            "SEMENTES_RECUSADAS_POR_REGRA": stats.get("SEMENTES_GENERICAS_RECUSADAS")}
 
 
 def talvez_alimentar(estado: dict | None = None, *,
