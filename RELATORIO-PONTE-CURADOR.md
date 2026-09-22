@@ -26,6 +26,8 @@
 | `RED_TEAM_ATAQUES` / `RED_TEAM_SURVIVORS` | **15 / 0** |
 | `PONTE_VIVA` (prova de runtime) | **TRUE** |
 | `IDEMPOTENCIA_NO_OP` | **TRUE** |
+| `NEW_FAILURES` | **0** (base 377 vermelhos → final 376) |
+| `SYSTEM_MAP_CHECK` | **PASS** (a base chegava `FAIL` com 2) |
 | `BIG_COLLECTION_ALLOWED` | **NO** — a missão proíbe; nada foi corrido |
 
 ---
@@ -192,12 +194,17 @@ PROVAS_NO_MANIFESTO   65  ->     550
 ### O que o livro canónico ficou
 
 ```
-                        ANTES     DEPOIS
-fontes no livro           278        555
-transições                754       1450   (+696, todas por acréscimo)
-cadeias ilegais             —          0
-segunda passagem planeia    —          0   ← idempotente
+                        ANTES     VOLTA 1    VOLTA 2 (trabalho novo do bot)
+fontes no livro           278         555        555
+transições                754        1450       1523
+acrescentadas               —        +696        +73
+cadeias ilegais             —           0          0
+segunda passagem planeia    —           0          0   ← idempotente
 ```
+
+Tudo por **acréscimo**: nenhuma linha existente foi reescrita, e cada linha
+importada leva `IMPORTADO_DE` (livro, commit, chave original, instante
+original) ou `RECONCILIACAO` (a decisão, a prova e o commit dela).
 
 ### A prova ao vivo, nos dois sentidos (ponto 7 do reforço)
 
@@ -316,15 +323,97 @@ Nenhum foi dispensado como «equivalente»:
 
 ## 7 · FASE 6 — REGRESSÃO, MAPA
 
+### `NEW_FAILURES = 0`
+
+Comparado **por nome**, nunca por contagem — a contagem engana (módulos que nem
+carregam somam 1 cada). Base medida numa worktree limpa do commit `42708647`, e
+o estado final medido depois de tudo entregue. **Nunca em paralelo:** duas
+medições ao mesmo tempo mentem.
+
 ```
-NEW_FAILURES        (preenchido abaixo)
-SYSTEM_MAP_CHECK    (preenchido abaixo)
+BASE  (42708647)   2946 testes corridos   377 vermelhos
+FINAL              2961 testes corridos   376 vermelhos
+
+NEW_FAILURES  0
+CURADOS       1   (test_o_controle_separa_lei_de_mencao::M5 — ponto fixo do
+                   carimbo, alcançado pela regeneração da cadeia)
 ```
+
+> Os 377 vermelhos da base são pré-existentes de ambiente e **não** foram
+> tocados por esta missão. O número que interessa é o conjunto de nomes: não
+> apareceu nenhum nome novo.
+
+Houve **um** vermelho novo a meio do trabalho, e era meu: o teste dos livros
+reais afirmava `TRANSITION_MAX_ID == 1008`. O supervisor do bot escreveu mais
+119 transições durante a missão e o número passou a 1127 — fixar a fotografia
+de um serviço que está a correr garante um vermelho no dia seguinte que não
+significa defeito nenhum. Reescrito para afirmar **leis** (append-only nunca
+encolhe; nenhum `READY_CURRENT` sem `BODY_UTIL` provado) em vez de contagens.
+
+### `SYSTEM_MAP_CHECK = PASS`
+
+Pela cadeia (`REGERAR` → `VALIDAR` → `PORTOES_POS_COMMIT`), nunca à mão.
+
+```
+CADEIA=OK · REGERAR            (20 passos)
+SYSTEM_MAP_CHECK=PASS · o mapa corresponde ao repositorio
+IMPRESSAO_DO_CARIMBO=IGUAL · sobre 2611 ficheiros-fonte
+```
+
+⚠️ **A base já chegava vermelha aqui:** `42708647` dava
+`SYSTEM_MAP_CHECK=FAIL` com **2** provas reprovadas, por código sem peça no
+mapa (`provas/recollection_red_team_estrito.mjs`, da missão anterior). Ficou a
+**0** — a pendência herdada foi declarada, não contornada.
 
 Não partidos: `collection_gate` · incrementalidade · recollection · Admissão ·
 Sala · contratos. A ponte só escreve em dois caminhos —
 `curadoria/LIFECYCLE-LEDGER-V1.json` e `curadoria/LIFECYCLE-EVIDENCE-V1.json` —
 e isso está travado por teste.
+
+---
+
+## 7-B · A PONTE APANHOU TRABALHO NOVO REAL, SOZINHA
+
+O melhor resultado desta missão não foi planeado. **A meio do trabalho, o
+supervisor do bot voltou a produzir**: o `HEAD` dele passou de `216dd6db` para
+`e26de5e2`, e o livro de 1008 para **1127 transições**.
+
+Como a ponte lê o `HEAD` da branch em cada corrida — e não um commit escrito à
+mão — a volta seguinte **apanhou esse trabalho sem ninguém lhe tocar**:
+
+```
+volta 1   livro 754 -> 1450   (+696)   snapshot 216dd6db · 1008 transições
+volta 2   livro 1450 -> 1523  (+73)    snapshot e26de5e2 · 1127 transições
+```
+
+Isto não é a prova sintética: é trabalho real do bot a atravessar. O que a
+missão pedia no ponto 7 do reforço está cumprido com dados verdadeiros.
+
+Depois da volta 2:
+
+```
+READY_TOTAL           109 -> 123        (o bot promoveu mais 14)
+READY_CURRENT_TOTAL    10 ->  10
+COLLECTION_ELIGIBLE     8 ->   8        as mesmas 8
+LEGACY_LEAK                    0
+BOT_READY              40 ->  54 · ACEITES 46 · RECUSADAS 8
+```
+
+---
+
+## 7-C · UMA NOTA DE HONESTIDADE SOBRE ESTE WORKTREE
+
+A meio da missão apareceu um commit que **não fui eu a fazer**:
+
+```
+14e4d4fb  wip: ponte curador — checkpoint antes de virar para materia-prima
+          2026-09-22 13:32, mesmo autor configurado
+```
+
+Outra sessão a trabalhar **na mesma pasta** congelou o meu trabalho em
+progresso num commit intermédio. Conferido ficheiro a ficheiro: **nada foi
+alterado nem perdido** — o conteúdo entregue é o mesmo, e está todo em `HEAD`.
+Fica dito porque é um risco real desta bancada, não uma curiosidade.
 
 ---
 
@@ -393,11 +482,16 @@ mentira, e daqui a um mês alguém descobria que metade não servia.
 
 ### O trabalho futuro dele passa a chegar sozinho?
 
-**Sim, e isso ficou provado a funcionar, não prometido.**
+**Sim — e não ficámos pela promessa: aconteceu mesmo, durante o trabalho.**
 
-Fizemos a experiência a sério: pusemos o robô a escrever um sítio novo, com a
-verificação completa, e fomos ver se ele chegava até ao fim da linha. **Chegou**
-— a lista de prontos passou de 8 para 9 na experiência.
+A meio da missão, o robô voltou a trabalhar por conta dele e escreveu mais
+**119 linhas** no caderno. Não fizemos nada. Na passagem seguinte, a ponte foi
+ver o caderno **atual** dele — não a fotografia antiga — e trouxe esse trabalho
+novo. É a prova de que o cano fica aberto, não uma demonstração montada.
+
+Fizemos também a experiência controlada: pusemos o robô a escrever um sítio
+novo, com a verificação completa, e fomos ver se chegava ao fim da linha.
+**Chegou** — a lista de prontos passou de 8 para 9 nessa experiência.
 
 E fizemos a experiência ao contrário, que é igualmente importante: pusemos o
 robô a escrever um sítio **bloqueado**, e outro com um carimbo sem prova.
