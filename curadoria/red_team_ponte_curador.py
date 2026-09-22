@@ -112,6 +112,20 @@ ATAQUES = [
      '            if igual:',
      '            if True:',
      "uma prova do bot com a mesma referencia passa a substituir a desta arvore"),
+
+    # ⚠️ O ESPELHO DO RT-A1. Ali o bot vencia SEMPRE; aqui nunca vence — e o
+    # efeito e pior, porque e silencioso: as promocoes ja aconteceram e o que
+    # deixa de atravessar e a MA noticia. Uma fonte que se degrada fica
+    # elegivel para sempre, com tudo verde.
+    ("RT-A16_despromocao_do_bot_nao_atravessa", "reconciliar_livros.py",
+     '    if tA is not None and _quando(tC) <= _quando(tA):',
+     '    if tA is not None:',
+     "o bot deixa de poder despromover: quem se degrada continua elegivel"),
+
+    ("RT-A17_regua_ignora_gate_reprovado", "ready_split.py",
+     '    passos["BODY_UTIL"] = (dados.get("DETAIL_GATE_PASSED") is True',
+     '    passos["BODY_UTIL"] = (dados.get("DETAIL_GATE_PASSED") is not None',
+     "um canario REPROVADO passa a contar como corpo util"),
 ]
 
 

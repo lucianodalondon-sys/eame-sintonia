@@ -6,8 +6,8 @@
   "SUITE_VERDE_SEM_MUTANTE": true,
   "PROVA_AO_VIVO_VERDE_SEM_MUTANTE": true
  },
- "ATAQUES": 15,
- "MORTOS": 15,
+ "ATAQUES": 17,
+ "MORTOS": 17,
  "SURVIVORS": 0,
  "SOBREVIVENTES": [],
  "LINHAS": [
@@ -16,8 +16,8 @@
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "o bot passa a derrubar medicoes mais recentes desta arvore",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55715,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59976,
     "DE": "if tA is not None and _quando(tC) <= _quando(tA):",
     "PARA": "if False:"
    },
@@ -26,15 +26,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "----\nTraceback (most recent call last):\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 674, in test_zy_censo_dos_livros_reais\n    self.assertEqual(d[\"POR_ESTADO_FINAL\"][R.READY_CURRENT], 10)\nAssertionError: 0 != 10\n\n----------------------------------------------------------------------\nRan 65 tests in 6.179s\n\nFAILED (failures=3)\n"
+   "SAIDA": "tonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 512, in test_rt_c8_bloqueio_do_bot_cede_a_prova_posterior_desta_arvore\n    self.assertEqual(l[\"FINAL_STATE\"], R.READY_CURRENT)\nAssertionError: 'CAPABILITY_BLOCK' != 'READY_CURRENT'\n- CAPABILITY_BLOCK\n+ READY_CURRENT\n\n\n----------------------------------------------------------------------\nRan 70 tests in 8.401s\n\nFAILED (failures=2)\n"
   },
   {
    "ATAQUE": "RT-A2_promocao_sem_prova_de_canario_passa",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "READY do bot com EVIDENCE_REF que nao resolve passa a promover",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55736,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59997,
     "DE": "if not prova_do_bot_resolve:",
     "PARA": "if False:"
    },
@@ -43,15 +43,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "ia\\test_reconciliar_livros.py\", line 448, in test_rt_c3b_o_veredito_do_bot_por_si_nao_diz_ready_sem_prova\n    self.assertEqual(estado, R.UNKNOWN, porque)\nAssertionError: 'READY_LEGACY' != 'UNKNOWN'\n- READY_LEGACY\n+ UNKNOWN\n : C: PASS_PARCIAL: falta DETAIL_LINKS,ITEM_ABERTO,BODY_UTIL\n\n----------------------------------------------------------------------\nRan 65 tests in 6.390s\n\nFAILED (failures=1)\n"
+   "SAIDA": "ia\\test_reconciliar_livros.py\", line 448, in test_rt_c3b_o_veredito_do_bot_por_si_nao_diz_ready_sem_prova\n    self.assertEqual(estado, R.UNKNOWN, porque)\nAssertionError: 'READY_LEGACY' != 'UNKNOWN'\n- READY_LEGACY\n+ UNKNOWN\n : C: PASS_PARCIAL: falta DETAIL_LINKS,ITEM_ABERTO,BODY_UTIL\n\n----------------------------------------------------------------------\nRan 70 tests in 7.552s\n\nFAILED (failures=1)\n"
   },
   {
    "ATAQUE": "RT-A3_legacy_lavada_para_current",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "o bot passa a subir a regua de uma READY_LEGACY",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55682,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59943,
     "DE": "if final in (READY_LEGACY, READY_CURRENT) and vC in (READY_LEGACY, READY_CURRENT):",
     "PARA": "if False:"
    },
@@ -60,15 +60,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "ros.py\", line 412, in test_rt_c2_o_bot_nao_lava_legacy_para_current\n    self.assertEqual(l[\"FINAL_STATE\"], R.READY_LEGACY)   # NAO subiu a CURRENT\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'READY_CURRENT' != 'READY_LEGACY'\n- READY_CURRENT\n+ READY_LEGACY\n\n\n----------------------------------------------------------------------\nRan 65 tests in 6.637s\n\nFAILED (failures=1)\n"
+   "SAIDA": "---------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 831, in test_zy_censo_dos_livros_reais\n    self.assertEqual(t[\"LEGACY_LEAK\"], 0)\nAssertionError: 11 != 0\n\n----------------------------------------------------------------------\nRan 70 tests in 8.230s\n\nFAILED (failures=2)\n"
   },
   {
    "ATAQUE": "RT-A4_policy_block_some_por_omissao",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "bloqueios provados deixam de ser preservados",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55716,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59977,
     "DE": "b = bloqueio_de(chave, chaves_originais, ctx)",
     "PARA": "b = {}"
    },
@@ -77,15 +77,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "a\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 276, in test_rt6_candidata_com_source_id_e_uma_identidade_so\n    self.assertEqual(d[\"LINHAS\"][0][\"FINAL_STATE\"], R.POLICY_BLOCK)\nAssertionError: 'READY_CURRENT' != 'POLICY_BLOCK'\n- READY_CURRENT\n+ POLICY_BLOCK\n\n\n----------------------------------------------------------------------\nRan 65 tests in 6.123s\n\nFAILED (failures=7, errors=1)\n"
+   "SAIDA": "a\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 276, in test_rt6_candidata_com_source_id_e_uma_identidade_so\n    self.assertEqual(d[\"LINHAS\"][0][\"FINAL_STATE\"], R.POLICY_BLOCK)\nAssertionError: 'READY_CURRENT' != 'POLICY_BLOCK'\n- READY_CURRENT\n+ POLICY_BLOCK\n\n\n----------------------------------------------------------------------\nRan 70 tests in 7.522s\n\nFAILED (failures=7, errors=1)\n"
   },
   {
    "ATAQUE": "RT-A5_fonte_so_do_bot_desaparece",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "as fontes que so o bot conhece somem do censo",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55751,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 60012,
     "DE": "for k in sorted(A | B | B2 | C):",
     "PARA": "for k in sorted(A | B | B2):"
    },
@@ -94,15 +94,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "tion_nao_desaparece\n    self.assertEqual(sorted(por_id(d)), [so_a, so_c])\nAssertionError: Lists differ: ['IT-T4-082'] != ['IT-T4-082', 'IT-T4-083']\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n'IT-T4-083'\n\n- ['IT-T4-082']\n+ ['IT-T4-082', 'IT-T4-083']\n\n----------------------------------------------------------------------\nRan 65 tests in 6.147s\n\nFAILED (failures=2, errors=1)\n"
+   "SAIDA": "tion_nao_desaparece\n    self.assertEqual(sorted(por_id(d)), [so_a, so_c])\nAssertionError: Lists differ: ['IT-T4-082'] != ['IT-T4-082', 'IT-T4-083']\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n'IT-T4-083'\n\n- ['IT-T4-082']\n+ ['IT-T4-082', 'IT-T4-083']\n\n----------------------------------------------------------------------\nRan 70 tests in 6.831s\n\nFAILED (failures=2, errors=1)\n"
   },
   {
    "ATAQUE": "RT-A6_fonte_so_da_collection_desaparece",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "as fontes que so a Collection conhece somem do censo",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55766,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 60027,
     "DE": "A, B, B2, C = (set(ctx[\"_ULT\"][n]) for n in LIVROS)",
     "PARA": "A, B, B2, C = (set(ctx[\"_ULT\"][n]) for n in LIVROS); A = A & C"
    },
@@ -111,15 +111,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "id(d)), [so_a, so_c])\nAssertionError: Lists differ: ['IT-T4-083'] != ['IT-T4-082', 'IT-T4-083']\n\nFirst differing element 0:\n'IT-T4-083'\n'IT-T4-082'\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n'IT-T4-083'\n\n- ['IT-T4-083']\n+ ['IT-T4-082', 'IT-T4-083']\n\n----------------------------------------------------------------------\nRan 65 tests in 7.131s\n\nFAILED (failures=1, errors=6)\n"
+   "SAIDA": "id(d)), [so_a, so_c])\nAssertionError: Lists differ: ['IT-T4-083'] != ['IT-T4-082', 'IT-T4-083']\n\nFirst differing element 0:\n'IT-T4-083'\n'IT-T4-082'\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n'IT-T4-083'\n\n- ['IT-T4-083']\n+ ['IT-T4-082', 'IT-T4-083']\n\n----------------------------------------------------------------------\nRan 70 tests in 6.726s\n\nFAILED (failures=1, errors=6)\n"
   },
   {
    "ATAQUE": "RT-A7_identidade_duplicada_passa",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "a candidata deixa de ser alias e vira uma segunda identidade",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55738,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59999,
     "DE": "alvo = ctx[\"ALIAS\"].get(sid)",
     "PARA": "alvo = None"
    },
@@ -128,15 +128,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "ds)\nAssertionError: Lists differ: ['CAND-0500', 'IT-T5-041'] != ['IT-T5-041']\n\nFirst differing element 0:\n'CAND-0500'\n'IT-T5-041'\n\nFirst list contains 1 additional elements.\nFirst extra element 1:\n'IT-T5-041'\n\n- ['CAND-0500', 'IT-T5-041']\n+ ['IT-T5-041'] : ['CAND-0500', 'IT-T5-041']\n\n----------------------------------------------------------------------\nRan 65 tests in 7.241s\n\nFAILED (failures=1)\n"
+   "SAIDA": "ds)\nAssertionError: Lists differ: ['CAND-0500', 'IT-T5-041'] != ['IT-T5-041']\n\nFirst differing element 0:\n'CAND-0500'\n'IT-T5-041'\n\nFirst list contains 1 additional elements.\nFirst extra element 1:\n'IT-T5-041'\n\n- ['CAND-0500', 'IT-T5-041']\n+ ['IT-T5-041'] : ['CAND-0500', 'IT-T5-041']\n\n----------------------------------------------------------------------\nRan 70 tests in 6.330s\n\nFAILED (failures=1)\n"
   },
   {
    "ATAQUE": "RT-A8_ponte_apaga_em_vez_de_acrescentar",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "aplicar passa a reescrever o livro em vez de acrescentar",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55858,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 60119,
     "DE": "LC.registar(t[\"SOURCE_ID\"], t[\"NOVO\"], t[\"REASON\"], owner=t[\"OWNER\"],",
     "PARA": "LC._gravar({\"DATASET\": \"LIFECYCLE-LEDGER-V1\", \"CONTRATO\": LC.CONTRATO, \"LEI\": \"x\", \"TRANSICOES\": []}); LC.regi"
    },
@@ -145,15 +145,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "sintonia\\ponte-curador-v1\\curadoria\\lifecycle.py\", line 214, in registar\n    raise ValueError(\"TRANSICAO RECUSADA [%s]: %s\" % (source_id, porque))\nValueError: TRANSICAO RECUSADA [IT-T3-002]: READY exige canario: so se promove a partir de ['CANARY_PENDING', 'REPAIRING'], e veio de None\n\n----------------------------------------------------------------------\nRan 65 tests in 6.607s\n\nFAILED (errors=1)\n"
+   "SAIDA": "sintonia\\ponte-curador-v1\\curadoria\\lifecycle.py\", line 214, in registar\n    raise ValueError(\"TRANSICAO RECUSADA [%s]: %s\" % (source_id, porque))\nValueError: TRANSICAO RECUSADA [IT-T3-002]: READY exige canario: so se promove a partir de ['CANARY_PENDING', 'REPAIRING'], e veio de None\n\n----------------------------------------------------------------------\nRan 70 tests in 5.752s\n\nFAILED (errors=1)\n"
   },
   {
    "ATAQUE": "RT-A9_reconciliacao_sem_proveniencia",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "o que vem de outro livro deixa de dizer de onde veio",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55759,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 60020,
     "DE": "\"EXTRA\": {\"IMPORTADO_DE\": {\"LIVRO\": origem, \"COMMIT\": ctx[\"COMMITS\"][origem],",
     "PARA": "\"EXTRA\": {\"SEM_PROVENIENCIA\": {\"LIVRO\": origem, \"COMMIT\": ctx[\"COMMITS\"][origem],"
    },
@@ -162,7 +162,7 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "n1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 348, in test_aplicar_e_append_only_com_trilho_e_idempotente\n    self.assertEqual(h[0][\"IMPORTADO_DE\"][\"COMMIT\"], \"bbbbbbbb\")\n                     ~~~~^^^^^^^^^^^^^^^^\nKeyError: 'IMPORTADO_DE'\n\n----------------------------------------------------------------------\nRan 65 tests in 8.145s\n\nFAILED (errors=1)\n"
+   "SAIDA": "n1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 348, in test_aplicar_e_append_only_com_trilho_e_idempotente\n    self.assertEqual(h[0][\"IMPORTADO_DE\"][\"COMMIT\"], \"bbbbbbbb\")\n                     ~~~~^^^^^^^^^^^^^^^^\nKeyError: 'IMPORTADO_DE'\n\n----------------------------------------------------------------------\nRan 70 tests in 7.105s\n\nFAILED (errors=1)\n"
   },
   {
    "ATAQUE": "RT-A10_portao_deixa_de_morder",
@@ -179,7 +179,7 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "rou na entrega\")\nAssertionError: Lists differ: ['IT-PROVA-NOVA'] != ['IT-PROVA-NOVA', 'IT-PROVA-VELHA']\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n'IT-PROVA-VELHA'\n\n- ['IT-PROVA-NOVA']\n+ ['IT-PROVA-NOVA', 'IT-PROVA-VELHA'] : READY_LEGACY entrou na entrega\n\n----------------------------------------------------------------------\nRan 65 tests in 14.786s\n\nFAILED (failures=204)\n"
+   "SAIDA": "trou na entrega\")\nAssertionError: Lists differ: ['IT-PROVA-NOVA'] != ['IT-PROVA-NOVA', 'IT-PROVA-VELHA']\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n'IT-PROVA-VELHA'\n\n- ['IT-PROVA-NOVA']\n+ ['IT-PROVA-NOVA', 'IT-PROVA-VELHA'] : READY_LEGACY entrou na entrega\n\n----------------------------------------------------------------------\nRan 70 tests in 6.453s\n\nFAILED (failures=190)\n"
   },
   {
    "ATAQUE": "RT-A11_portao_ignora_revisao_humana",
@@ -196,7 +196,7 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": " File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_collection_gate.py\", line 190, in test_9_o_lote_entregue_a_Collection_nao_leva_legacy\n    self.assertEqual({NOVA}, entregues)\nAssertionError: Items in the second set but not the first:\n'IT-T9-903'\n\n----------------------------------------------------------------------\nRan 65 tests in 6.762s\n\nFAILED (failures=11)\n"
+   "SAIDA": " File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_collection_gate.py\", line 190, in test_9_o_lote_entregue_a_Collection_nao_leva_legacy\n    self.assertEqual({NOVA}, entregues)\nAssertionError: Items in the second set but not the first:\n'IT-T9-903'\n\n----------------------------------------------------------------------\nRan 70 tests in 5.397s\n\nFAILED (failures=11)\n"
   },
   {
    "ATAQUE": "RT-A12_regua_aceita_capa_como_item",
@@ -213,15 +213,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "a\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 183, in test_os_quatro_passos_decidem_current\n    self.assertEqual(por_id(R.censo(c))[sid][\"FINAL_STATE\"], esperado, nome)\nAssertionError: 'READY_CURRENT' != 'READY_LEGACY'\n- READY_CURRENT\n+ READY_LEGACY\n : corpo NAO_SEI\n\n----------------------------------------------------------------------\nRan 65 tests in 9.259s\n\nFAILED (failures=2)\n"
+   "SAIDA": "a\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 183, in test_os_quatro_passos_decidem_current\n    self.assertEqual(por_id(R.censo(c))[sid][\"FINAL_STATE\"], esperado, nome)\nAssertionError: 'READY_CURRENT' != 'READY_LEGACY'\n- READY_CURRENT\n+ READY_LEGACY\n : corpo NAO_SEI\n\n----------------------------------------------------------------------\nRan 70 tests in 4.845s\n\nFAILED (failures=2)\n"
   },
   {
    "ATAQUE": "RT-A13_ponte_presa_a_um_commit_fixo",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "a ponte deixa de ver o trabalho futuro do bot",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55691,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59952,
     "DE": "return r.stdout.strip() if r.returncode == 0 and r.stdout.strip() else REF_C_MEDIDO",
     "PARA": "return REF_C_MEDIDO"
    },
@@ -230,15 +230,15 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 575, in test_rt_c13_o_head_do_bot_e_descoberto_nao_escrito_a_mao\n    self.assertEqual(outra, esperado)\nAssertionError: '216dd6db' != '14e4d4fb'\n- 216dd6db\n+ 14e4d4fb\n\n\n----------------------------------------------------------------------\nRan 65 tests in 6.498s\n\nFAILED (failures=1)\n"
+   "SAIDA": "\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 727, in test_rt_c13_o_head_do_bot_e_descoberto_nao_escrito_a_mao\n    self.assertEqual(outra, esperado)\nAssertionError: '216dd6db' != '55f6b537'\n- 216dd6db\n+ 55f6b537\n\n\n----------------------------------------------------------------------\nRan 70 tests in 4.757s\n\nFAILED (failures=1)\n"
   },
   {
    "ATAQUE": "RT-A14_prova_do_bot_nao_atravessa",
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "o estado atravessa mas a prova fica para tras — cano entupido no fim",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55829,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 60090,
     "DE": "provas = importar_provas_do_bot([t for t in p if t[\"SOURCE_ID\"] not in ilegais], ctx)",
     "PARA": "provas = {\"PROVAS_CITADAS_DE_C\": 0, \"PROVAS_IMPORTADAS\": 0, \"PROVAS_JA_PRESENTES_IDENTICAS\": 0, \"COLISOES_NAO_"
    },
@@ -254,8 +254,8 @@
    "FICHEIRO": "reconciliar_livros.py",
    "LEI_DESLIGADA": "uma prova do bot com a mesma referencia passa a substituir a desta arvore",
    "DIFF": {
-    "BYTES_ANTES": 55755,
-    "BYTES_DEPOIS": 55754,
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 60015,
     "DE": "if igual:",
     "PARA": "if True:"
    },
@@ -264,7 +264,41 @@
    "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
    "MORTO": true,
    "APANHADO_POR": "suite",
-   "SAIDA": "ost recent call last):\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 605, in test_rt_c15_prova_do_bot_nunca_sobrepoe_a_desta_arvore\n    self.assertEqual(len(r[\"COLISOES_NAO_IMPORTADAS\"]), 1)\nAssertionError: 0 != 1\n\n----------------------------------------------------------------------\nRan 65 tests in 6.832s\n\nFAILED (failures=1)\n"
+   "SAIDA": "ost recent call last):\n  File \"C:\\Users\\London1\\orca\\workspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 757, in test_rt_c15_prova_do_bot_nunca_sobrepoe_a_desta_arvore\n    self.assertEqual(len(r[\"COLISOES_NAO_IMPORTADAS\"]), 1)\nAssertionError: 0 != 1\n\n----------------------------------------------------------------------\nRan 70 tests in 6.249s\n\nFAILED (failures=1)\n"
+  },
+  {
+   "ATAQUE": "RT-A16_despromocao_do_bot_nao_atravessa",
+   "FICHEIRO": "reconciliar_livros.py",
+   "LEI_DESLIGADA": "o bot deixa de poder despromover: quem se degrada continua elegivel",
+   "DIFF": {
+    "BYTES_ANTES": 60016,
+    "BYTES_DEPOIS": 59985,
+    "DE": "if tA is not None and _quando(tC) <= _quando(tA):",
+    "PARA": "if tA is not None:"
+   },
+   "MUTANTE_EXECUTOU": true,
+   "SUITE_VERDE_COM_MUTANTE": false,
+   "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
+   "MORTO": true,
+   "APANHADO_POR": "suite",
+   "SAIDA": "spaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 479, in test_rt_c5_bot_que_mede_depois_com_prova_vence_a_ponte_e_viva\n    self.assertEqual(l[\"FINAL_STATE\"], R.READY_CURRENT)\nAssertionError: 'NOT_READY' != 'READY_CURRENT'\n- NOT_READY\n+ READY_CURRENT\n\n\n----------------------------------------------------------------------\nRan 70 tests in 5.019s\n\nFAILED (failures=2)\n"
+  },
+  {
+   "ATAQUE": "RT-A17_regua_ignora_gate_reprovado",
+   "FICHEIRO": "ready_split.py",
+   "LEI_DESLIGADA": "um canario REPROVADO passa a contar como corpo util",
+   "DIFF": {
+    "BYTES_ANTES": 14738,
+    "BYTES_DEPOIS": 14742,
+    "DE": "passos[\"BODY_UTIL\"] = (dados.get(\"DETAIL_GATE_PASSED\") is True",
+    "PARA": "passos[\"BODY_UTIL\"] = (dados.get(\"DETAIL_GATE_PASSED\") is not None"
+   },
+   "MUTANTE_EXECUTOU": true,
+   "SUITE_VERDE_COM_MUTANTE": false,
+   "PROVA_AO_VIVO_VERDE_COM_MUTANTE": false,
+   "MORTO": true,
+   "APANHADO_POR": "suite",
+   "SAIDA": "kspaces\\eame-sintonia\\ponte-curador-v1\\curadoria\\test_reconciliar_livros.py\", line 619, in test_rt_c19_gate_reprovado_nao_e_corpo_util_mesmo_com_o_resto_bom\n    self.assertFalse(r[\"PASSOS\"][\"BODY_UTIL\"],\nAssertionError: True is not false : um canario REPROVADO contou como corpo util\n\n----------------------------------------------------------------------\nRan 70 tests in 5.369s\n\nFAILED (failures=1)\n"
   }
  ]
 }

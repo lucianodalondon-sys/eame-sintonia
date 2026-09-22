@@ -554,6 +554,72 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(sorted(por_id(d)), [a, b])
         self.assertEqual(d["SOURCE_ID_DUPLICATES"], [])
 
+    def test_rt_c18_a_despromocao_de_quem_era_ready_atravessa(self):
+        """O TERCEIRO SENTIDO, na unidade.
+
+            UMA FONTE QUE SE DEGRADA E QUE NAO SAI DA LISTA
+            E COLHIDA PARA SEMPRE, E NINGUEM DA POR ISSO.
+
+        A ponte tem de deixar passar a MA noticia com a mesma facilidade com
+        que deixa passar a boa. Aqui A diz READY com os quatro passos, e o bot
+        mede DEPOIS e reprova: o resultado nao pode continuar READY.
+
+        ⚠️ Nao confundir com a despromocao de uma `READY_LEGACY`: essa nao
+        mexe no portao (ja nao era elegivel) e por isso nao prova nada sobre
+        degradacao. O que conta e a que vinha de READY pela regua de hoje.
+        """
+        sid = "IT-T4-093"
+        ref = "EV-C18-OK"
+        c = ctx(A=livro(linha(sid, None, LC.CANARY_PENDING, T1),
+                        linha(sid, LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T2, ref)),
+                EVIDENCIA_A={ref: prova_canario(ref, sid)}, CONTRATOS_A={sid: contrato(sid)},
+                # o bot volta a medir DEPOIS e reprova
+                C=livro(linha(sid, None, LC.READY_FOR_COLLECTION, T2, ref),
+                        linha(sid, LC.READY_FOR_COLLECTION, LC.CONTRACTED_CANARY_FAILED,
+                              T3, "EV-C18-MAU", "canario reprovou: CAPA_NAO_E_MATERIA")),
+                EVIDENCIA_C={ref: prova_canario(ref, sid),
+                             "EV-C18-MAU": prova_canario("EV-C18-MAU", sid, gate=False,
+                                                         kind="MIXED", capa="CAPA_PROVAVEL",
+                                                         par=100)},
+                CONTRATOS_C={sid: contrato(sid)})
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["STATE_A"], LC.READY_FOR_COLLECTION)
+        self.assertEqual(l["FINAL_STATE"], R.NOT_READY,
+                         "a ma noticia do bot nao atravessou: %s" % l["FINAL_REASON"])
+        self.assertNotEqual(l["LIFECYCLE_TARGET"], LC.READY_FOR_COLLECTION)
+        # e a classe semantica confirma-o: deixou de ser READY
+        self.assertNotEqual(R.classe_semantica(l["LIFECYCLE_TARGET"]), R.CLASSE_READY)
+
+    def test_rt_c19_gate_reprovado_nao_e_corpo_util_mesmo_com_o_resto_bom(self):
+        """`DETAIL_GATE_PASSED = False` chega para reprovar, SOZINHO.
+
+        Este caso nao aparece por acaso: um canario pode reprovar o item com
+        o resto todo com bom aspeto — `HTML_KIND=CONTENT`,
+        `CAPA_OU_MATERIA=MATERIA_PROVAVEL`, paragrafos a rodos — porque o gate
+        olha para coisas que estes tres campos nao dizem.
+
+        Sem este teste, trocar `is True` por `is not None` em
+        `ready_split.passos_da_promocao` nao parte NADA (as outras tres
+        condicoes tapam o buraco nos casos comuns) — e um veredito REPROVADO
+        passaria a contar como aprovado no unico caso em que o gate era a
+        unica coisa a dizer «nao». Foi exatamente assim que o mutante RT-A17
+        sobreviveu a primeira volta do red team.
+        """
+        ref = "EV-C19"
+        prova = prova_canario(ref, "IT-T4-094", gate=False)   # o resto fica BOM
+        dados = prova["DADOS"]
+        self.assertIs(dados["DETAIL_GATE_PASSED"], False)
+        self.assertEqual(dados["ITEM_ABERTO"]["HTML_KIND"], "CONTENT")
+        self.assertEqual(dados["ITEM_ABERTO"]["CAPA_OU_MATERIA"], "MATERIA_PROVAVEL")
+        self.assertGreaterEqual(dados["ITEM_ABERTO"]["PARAGRAPH_CHARACTERS"], 800)
+
+        import ready_split as RS
+        promo = linha("IT-T4-094", LC.CANARY_PENDING, LC.READY_FOR_COLLECTION, T2, ref)
+        r = RS.passos_da_promocao(promo, prova, contrato("IT-T4-094"))
+        self.assertFalse(r["PASSOS"]["BODY_UTIL"],
+                         "um canario REPROVADO contou como corpo util")
+        self.assertNotEqual(r["REGUA"], RS.REGUA_CURRENT)
+
     def test_rt_c17_a_classe_semantica_e_lei_e_compara_se_primeiro(self):
         """STATE_NAME_DIFF NÃO IMPLICA STATE_MEANING_DIFF — lei permanente.
 
