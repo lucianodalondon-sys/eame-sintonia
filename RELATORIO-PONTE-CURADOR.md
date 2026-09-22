@@ -21,10 +21,12 @@
 | `SOURCE_ID_DUPLICATES` | **0** |
 | `COLLECTION_ELIGIBLE_ANTES` | **8** |
 | `COLLECTION_ELIGIBLE_DEPOIS` | **8** |
+| `STATE_NAME_DIFF vs STATE_MEANING_DIFF` | 124 nominais = **63 reais** + 61 só rótulo |
 | `LEGACY_LEAK` | **0** |
 | `RECOLLECTION_UNKNOWN_LEAK` | **0** |
-| `RED_TEAM_ATAQUES` / `RED_TEAM_SURVIVORS` | **15 / 0** |
-| `PONTE_VIVA` (prova de runtime) | **TRUE** |
+| `RED_TEAM_ATAQUES` / `RED_TEAM_SURVIVORS` | **17 / 0** |
+| `INTEGRACAO_OPERACIONAL` | **ENTRA · NUNCA_ENTROU · SAI — os três** |
+| `PONTE_VIVA` (prova de runtime) | **TRUE** (exige os três sentidos) |
 | `IDEMPOTENCIA_NO_OP` | **TRUE** |
 | `NEW_FAILURES` | **0** (base 377 vermelhos → final 376) |
 | `SYSTEM_MAP_CHECK` | **PASS** (a base chegava `FAIL` com 2) |
@@ -206,22 +208,70 @@ Tudo por **acréscimo**: nenhuma linha existente foi reescrita, e cada linha
 importada leva `IMPORTADO_DE` (livro, commit, chave original, instante
 original) ou `RECONCILIACAO` (a decisão, a prova e o commit dela).
 
-### A prova ao vivo, nos dois sentidos (ponto 7 do reforço)
+### O critério: sincronizar livros não é integrar
+
+O dono fixou a régua que separa as duas coisas:
+
+> **A ponte só conta como integração operacional se provar os TRÊS sentidos
+> até ao gate.**
+
+```
+ENTRA          o bot promove com prova  -> a fonte passa a ser elegível
+NUNCA ENTROU   o bot bloqueia, ou promove sem prova -> não entra
+SAI            a fonte JÁ ELEGÍVEL degrada-se -> deixa de ser aceite
+```
+
+⚠️ **Eu tinha provado dois, e faltava o que mais protege a Collection.** A
+despromoção que reportei na volta 3 (`READY_TOTAL` 123 → 102) **não provava o
+terceiro sentido**: as 21 fontes eram todas `READY_LEGACY`, que já não eram
+elegíveis. O portão nunca se mexeu — `COLLECTION_ELIGIBLE` ficou 8 → 8. Um
+número que desce num sítio que o gate não lê não prova nada sobre degradação.
+
+> **Uma fonte que se degrada e que não sai da lista é colhida para sempre, e
+> ninguém dá por isso.**
+
+### A prova ao vivo, nos TRÊS sentidos (ponto 7 do reforço)
 
 `curadoria/provar_ponte_curador.py`, em bancada descartável — o livro real não
 foi tocado por esta prova:
 
-```
-BOT_HEAD_LIDO_AGORA   216dd6db   (descoberto, não escrito à mão: TRUE)
+A mesma fonte **sobe e desce**, que é o ciclo completo:
 
-POSITIVA  IT-T99-001  ausente -> READY_FOR_COLLECTION | régua DETAIL/v1
-                      COLLECTION_ELIGIBLE = True | ATRAVESSOU = True
-NEGATIVA  IT-T99-002  CAPABILITY_BLOCK  -> NÃO ATRAVESSOU
-NEGATIVA  IT-T99-003  READY sem prova   -> UNKNOWN -> NÃO ATRAVESSOU
-
-PORTÃO    ANTES 8  DEPOIS 9  ENTRARAM ['IT-T99-001']
-PONTE_VIVA = TRUE
 ```
+BOT_HEAD_LIDO_AGORA   41655f3a   (descoberto, não escrito à mão: TRUE)
+
+① ENTRA
+  IT-T99-001  ausente -> READY_FOR_COLLECTION | régua DETAIL/v1
+              COLLECTION_ELIGIBLE = True  ·  ATRAVESSOU = True
+
+② NUNCA ENTROU
+  IT-T99-002  CAPABILITY_BLOCK          -> NÃO ATRAVESSOU
+  IT-T99-003  READY citando um ficheiro -> UNKNOWN -> NÃO ATRAVESSOU
+
+③ SAI  ← o que faltava
+  o bot reprova IT-T99-001 com canário novo (CAPA_NAO_E_MATERIA, gate False)
+  IT-T99-001  era COLLECTION_ELIGIBLE = True  ->  agora False
+              MOTIVO: ESTADO_NAO_READY
+              ELIGIBLE 9 -> 8 · SAIRAM ['IT-T99-001'] · ATRAVESSOU = True
+
+PORTÃO   ANTES 8   APÓS PROMOÇÃO 9   APÓS DESPROMOÇÃO 8
+         ENTRARAM ['IT-T99-001'] · SAIRAM ['IT-T99-001']
+         VOLTOU_AO_PONTO_DE_PARTIDA = True
+
+INTEGRACAO_OPERACIONAL = { ENTRA: true, NUNCA_ENTROU: true, SAI: true }
+PONTE_VIVA = TRUE   ← exige os três; faltando um, é falso
+```
+
+`PONTE_VIVA` passou a **exigir os três sentidos**. Enquanto só exigia dois,
+dizia `TRUE` sobre uma ponte que deixava fontes degradadas elegíveis para
+sempre.
+
+### E um defeito do próprio relatório, apanhado ao escrever isto
+
+A fase ① imprimia `None -> CANARY_PENDING` sobre uma promoção que tinha acabado
+em `READY`. O estado era lido **no fim**, depois de a fase ③ já a ter
+despromovido de propósito. Cada fase lê-se no seu momento — senão a última
+reescreve a história das anteriores.
 
 **O trabalho futuro do bot passa a chegar sozinho.** E a ponte lê o `HEAD` da
 branch dele em cada corrida — não um commit escrito à mão, que estaria morto
