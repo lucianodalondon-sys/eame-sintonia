@@ -461,3 +461,97 @@ parado aí, tinha-te dito que 39 fontes agrícolas estavam mortas. Não estavam.
 
 Ainda não chegou nada ao arquivo. O portão que faz a colheita vive noutro ramo
 do trabalho, e juntar os dois ramos é decisão tua, não minha.
+
+---
+
+## LOTE 7 — as gavetas juntas (autorizado pelo dono)
+
+**Nenhum `git merge`.** A máquina certa já existia:
+`curadoria/reconciliar_livros.py`, que trata o bot como **livro C** — lido por
+`git show` no HEAD dele **de agora** (`1c4ef5e8`), nunca o ficheiro vivo, porque
+o supervisor pode estar a gravar a meio. Reconcilia por `SOURCE_ID` e aplica por
+`lifecycle.registar`: acréscimo validado, nunca cópia por cima.
+
+```
+LINHAS_ANTES   1450        LINHAS_DEPOIS  1524      APENDIDAS 74
+CADEIAS_ILEGAIS_NAO_IMPORTADAS   []
+BOT_READY 55 · ACEITES 47 · RECUSADAS 8 (PROMOCAO_SEM_PROVA_DE_CANARIO)
+```
+
+### As cinco regras, uma a uma, medidas
+
+```
+1  o bot NUNCA escreve COLLECTION_ELIGIBLE
+   quem escreveu `False` em IT-T12-019 foi CG.avaliar — o gate, não o bot
+
+2  READY_LEGACY não se lava pela junção
+   as 15 do bot entram como LEGACY. DETAIL_PROOF_C:
+     INDEX_URL true · DETAIL_LINKS true · ITEM_ABERTO false · BODY_UTIL false
+
+3  POLICY_BLOCK e CAPABILITY_BLOCK com prova não desaparecem
+   POLICY_BLOCK      69 -> 69   sairam do estado: 0
+   CAPABILITY_BLOCK  28 -> 28   sairam do estado: 0
+
+4  replay do mesmo evento = NO_OP
+   SEGUNDA_PASSAGEM_PLANEIA = 0
+
+5  recollection UNKNOWN não ganha passagem
+   UNKNOWN 34 antes · 0 viraram READY
+```
+
+Mudanças de estado na aplicação — **só as 59 que eu tinha reenfileirado**:
+
+```
+44  RETRY_AFTER -> CANARY_PENDING
+15  RETRY_AFTER -> READY_FOR_COLLECTION
+ 0  fontes novas
+```
+
+### O GATE, ANTES E DEPOIS
+
+```
+                        ANTES   DEPOIS
+READY_TOTAL              109     124    +15
+READY_CURRENT_TOTAL       10      10     0
+READY_LEGACY_TOTAL        99     114    +15
+HUMAN_REVIEW_REQUIRED      3       3     0
+COLLECTION_ELIGIBLE        8       8     0
+```
+
+**O número honesto é menor do que se esperava, e reporta-se menor.**
+
+### A prova de UMA fonte, ponta a ponta — `IT-T12-019` (ERSAF Lombardia)
+
+```
+1 O BOT APROVA     livro C @ source-curator-service-v1
+                   NEW_STATE    READY_FOR_COLLECTION
+                   OBSERVED_AT  2026-09-22T17:26:01Z
+                   EVIDENCE_REF EV-IT-T12-019-CANARY-1196
+
+2 LIVRO CANONICO   5 transicoes desta fonte; a ultima:
+                   CANARY_PENDING -> READY_FOR_COLLECTION
+                   IMPORTADO_DE { MISSAO: RECONCILIACAO-V1,
+                                  EVIDENCE_SOURCE: "livro C (bot)" }
+
+3 O GATE VE        STATE                READY_FOR_COLLECTION
+                   READY_RULE           LEGACY
+                   COLLECTION_ELIGIBLE  False
+                   MOTIVO               READY_LEGACY
+                   PORQUE               «promovida pela regua antiga; a regua
+                                        de hoje e DETAIL/v1 — item aberto,
+                                        retratado e com corpo util»
+```
+
+**O caminho está aberto e funciona.** O bot aprova, a prova atravessa com
+proveniência, e o gate vê e decide **sozinho** — e disse que não. Não é falha da
+ponte: é a régua a fazer o seu trabalho.
+
+### O que falta para estes 15 virarem colheita
+
+O canário do bot para em `DETAIL_LINKS`. Para chegar a `DETAIL/v1` falta abrir
+**um item** e provar **corpo útil** — os passos 3 e 4. A máquina que faz isso
+existe nesta lane (`executor_texto_de_html.py`, `incrementalidade.mjs`) e não
+está ligada ao canário do bot. É o mesmo padrão dos 11 do YouTube: a capacidade
+existe, a ligação não.
+
+`ITENS_COLHIDOS = 0` · `PAID_USD = 0` · Big Collection **não** executada.
