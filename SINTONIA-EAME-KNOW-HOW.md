@@ -19588,3 +19588,98 @@ para o canário, e não se responde por otimismo.
 
 Medir isto é uma missão; **re-enfileirar é outra**, e é decisão de quem manda —
 não se escreve na fila de um serviço que está a correr.
+
+## 168-13 · SINCRONIZAR LIVROS NÃO É INTEGRAR — E A PROVA SÃO TRÊS SENTIDOS
+
+Uma ponte entre dois livros pode estar perfeitamente sincronizada e não estar
+integrada. A régua que separa as duas coisas:
+
+    SÓ CONTA COMO INTEGRAÇÃO OPERACIONAL SE O GATE REAGIR NOS TRÊS SENTIDOS.
+
+    ENTRA          promoção com prova      -> passa a ser elegível
+    NUNCA ENTROU   bloqueio, ou sem prova  -> não entra
+    SAI            já elegível, degrada-se -> deixa de ser aceite
+
+Os dois primeiros são os que se pensam primeiro, e são os fáceis. **O terceiro
+é o que protege a casa do que se estraga com o tempo** — e foi o que faltou.
+
+### A despromoção que não provava nada
+
+A ponte tinha trazido 21 despromoções reais do bot e `READY_TOTAL` descera de
+123 para 102. Parecia prova do terceiro sentido. Não era: as 21 eram todas
+`READY_LEGACY` — **já não eram elegíveis**. O portão nunca se mexeu
+(`COLLECTION_ELIGIBLE` 8 → 8).
+
+    UM NÚMERO QUE DESCE NUM SÍTIO QUE O GATE NÃO LÊ
+    NÃO PROVA NADA SOBRE DEGRADAÇÃO.
+
+A prova a sério faz a **mesma** fonte subir e descer: entra com os quatro
+passos (`ELIGIBLE 8 → 9`), o bot reprova-a com canário novo, e ela **sai pelo
+nome** (`ELIGIBLE 9 → 8`, `SAIRAM ['IT-T99-001']`).
+
+> Uma fonte que se degrada e que não sai da lista é colhida para sempre, e
+> ninguém dá por isso. É o defeito mais silencioso que uma ponte pode ter: tudo
+> verde, e a colher lixo.
+
+`PONTE_VIVA` passou a **exigir os três**. Enquanto exigia dois, dizia `TRUE`
+sobre uma ponte meia.
+
+### O ataque espelhado, que é pior do que o original
+
+`RT-A1` desligava a guarda de tempo e fazia o bot vencer **sempre**. O espelho
+(`RT-A16`) faz o bot **nunca** vencer — e é pior, porque é silencioso: as
+promoções já aconteceram e o que deixa de atravessar é só a má notícia.
+
+    UMA PONTE QUE SÓ DEIXA PASSAR BOAS NOTÍCIAS
+    É PIOR DO QUE NÃO TER PONTE: DÁ CONFIANÇA.
+
+### E um mutante que sobreviveu por boa razão
+
+`RT-A17` trocava `DETAIL_GATE_PASSED is True` por `is not None` e **não partia
+nada** — porque as outras três condições de `BODY_UTIL` (`HTML_KIND`,
+`CAPA_OU_MATERIA`, parágrafos) tapavam o buraco em todos os casos testados.
+
+Mas a condição **não era redundante**: um canário pode reprovar com
+`HTML_KIND=CONTENT`, `MATERIA_PROVAVEL` e parágrafos a rodos — o gate olha
+para coisas que esses três campos não dizem. Nesse caso é a única coisa a
+dizer «não». Faltava o teste desse caso, não sobrava a condição.
+
+> Antes de declarar um mutante equivalente, procura-se o caso em que a
+> condição é a **única** a decidir. Se ele existe, o que falta é um teste.
+
+### A fase que reescreveu a história das outras
+
+A própria prova tinha um defeito de leitura: o estado da fonte promovida era
+lido **no fim**, depois de a fase da despromoção já a ter despromovido de
+propósito. O relatório imprimia `None -> CANARY_PENDING` sobre uma promoção que
+acabara em `READY`.
+
+    CADA FASE LÊ-SE NO SEU MOMENTO.
+    SENÃO A ÚLTIMA REESCREVE A HISTÓRIA DAS ANTERIORES.
+
+## 168-14 · `STATE_NAME_DIFF` NÃO IMPLICA `STATE_MEANING_DIFF`
+
+Lei permanente da reconciliação: **compara-se primeiro a CLASSE semântica, e só
+depois o rótulo**.
+
+    READY · NOT_READY_NEEDS_ROUTE_PROOF · POLICY_BLOCK · CAPABILITY_BLOCK
+    RETRY · HUMAN_REVIEW · RECONCILIATION_REQUIRED · FAILED · UNKNOWN
+
+Medido: comparar **rótulos** entre os dois livros dava **124** divergências;
+comparar **classes** dava **63**. As 61 de diferença eram acordo lido como
+conflito — `CANARY_PENDING` e `CONTRACTED_CANARY_FAILED` dizem ambos «não está
+pronta, falta provar a rota», e a reconciliação traduz um no outro de propósito.
+
+O perigo não é o número estar errado. É o que ele provoca: quem lê 124 vai
+«consertar» 61 fontes que já estavam certas — e para as consertar tem de
+desfazer a tradução que guarda o passo pendente de cada uma.
+
+    UMA MEDIÇÃO ERRADA QUE ASSUSTA PRODUZ UMA CORREÇÃO QUE ESTRAGA.
+
+A guarda prende três coisas: o vocabulário fechado, a tradução de cada rótulo,
+e o facto de **todo** o estado do lifecycle ter classe. Essa terceira apanhou
+um defeito à primeira corrida: `AUTH_BLOCK` não tinha classe, e teria caído em
+`UNKNOWN` — inventando uma divergência contra tudo o que não fosse `UNKNOWN`.
+Lê-se como `CAPABILITY_BLOCK`, **por decisão declarada e não por omissão**: uma
+credencial que não temos é capacidade em falta, não proibição do publicador. O
+vocabulário é fechado, e alargá-lo é decisão de quem manda.
