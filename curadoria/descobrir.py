@@ -1314,6 +1314,52 @@ def _extrair_sementes_legitimas() -> list[str]:
     return sementes
 
 
+def _sementes_de_segunda_geracao(caminho: Path | None = None) -> list[dict]:
+    """Sementes novas, DETERMINISTICAS e com proveniencia: as candidatas que o
+    proprio bot ja aceitou (ESTADO == EM_ANALISE) cujo endereco a regra ATUAL
+    de semente classifica TEMATICA.
+
+    Medido em 22/09: as 33 sementes do catalogo estavam gastas (15 visitadas,
+    12 rejeitadas) e as 6 livres eram UNKNOWN (universidades, ISTAT) — o
+    discovery corria com 0 pedidos a rede. No acervo havia 10 candidatas
+    EM_ANALISE em dominio TEMATICO (Coldiretti regionais, Nomisma, UIV,
+    Federunacoma...) que nunca tinham sido rastejadas como semente.
+
+    ⚠️ A REGRA NAO AFROUXA. Nada aqui chama TEMATICA ao que a regra chama
+    UNKNOWN ou GENERICA: a funcao so filtra pela propria `_classificar_semente`.
+    Semente generica recusada continua recusada.
+
+        SEMENTE NOVA != REGRA NOVA.
+
+    Proveniencia: cada semente leva CANDIDATA_ID e ONDE_VIU da candidata; as
+    candidatas que ela gerar terao DISCOVERED_FROM = esta URL (depth 1, como as
+    do catalogo). RECUSADA nao entra — foi recusada por alguem, com motivo.
+    """
+    caminho = caminho or (RAIZ / "candidatas" / "FONTES-CANDIDATAS.json")
+    if not caminho.exists():
+        return []
+    try:
+        doc = json.loads(caminho.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    out: list[dict] = []
+    vistas: set[str] = set()
+    for c in doc.get("CANDIDATAS", []):
+        if c.get("ESTADO") != "EM_ANALISE":
+            continue
+        url = c.get("URL") or ""
+        if not url.startswith(("http://", "https://")):
+            continue
+        tipo, motivo = _classificar_semente(url)
+        if tipo != "TEMATICA" or normalizar(url) in vistas:
+            continue
+        vistas.add(normalizar(url))
+        out.append({"URL": url, "CANDIDATA_ID": c.get("CANDIDATA_ID"),
+                    "ONDE_VIU": c.get("ONDE_VIU"), "CLASSIFICACAO": motivo})
+    out.sort(key=lambda x: (x["CANDIDATA_ID"] or "", x["URL"]))
+    return out
+
+
 def crawl_sementes(
     orcamento: "Orcamento",
     conhecidos: set[str],
@@ -1332,6 +1378,10 @@ def crawl_sementes(
     Devolve (registados, estatisticas).
     """
     todas_sementes = _extrair_sementes_legitimas()
+    # 2.a geracao: so acrescenta o que a MESMA regra ja classifica TEMATICA.
+    for s2 in _sementes_de_segunda_geracao():
+        if normalizar(s2["URL"]) not in {normalizar(x) for x in todas_sementes}:
+            todas_sementes.append(s2["URL"])
     sementes_a_usar = [
         s for s in todas_sementes
         if normalizar(s) not in visitados.get("VISITADOS", {})
@@ -1372,6 +1422,15 @@ def crawl_sementes(
 
         if semente_norm in visitados.get("VISITADOS", {}):
             log.append({"semente": semente, "acao": "SEMENTE_JA_VISITADA"})
+            continue
+
+        # ⚠️ ORCAMENTO ESGOTADO PARA ANTES DO ROBOTS. A leitura do robots.txt
+        # nao passa pelo Orcamento; sem esta guarda, um crawl com total=0 ainda
+        # ia a rede ler o robots de cada semente — medido em 22/09 no teste
+        # test_orcamento_zero_nao_busca_sementes, que batia a ~10 hosts reais.
+        if orcamento.restante <= 0:
+            log.append({"semente": semente, "acao": "SEMENTE_ORCAMENTO_ESGOTADO"})
+            stats["ORCAMENTO_BLOQUEADAS"] += 1
             continue
 
         if not _permitido(semente):

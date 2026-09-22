@@ -643,6 +643,12 @@ def ler_estado_servico() -> dict:
         "LAST_RESTART_AT":           s.get("LAST_RESTART_AT"),
         "LAST_RESTART_REASON":       s.get("LAST_RESTART_REASON"),
         "SUPERVISOR_BLOCKED_REASON": s.get("SUPERVISOR_BLOCKED_REASON"),
+        # O FEEDER so corre quando a condicao muda; as voltas saltadas contam
+        # aqui, para que o silencio no diario nao seja silencio no painel.
+        "FEEDER_CHAMADAS_TOTAL":     s.get("FEEDER_CHAMADAS_TOTAL", 0),
+        "FEEDER_NOOP_TOTAL":         s.get("FEEDER_NOOP_TOTAL", 0),
+        "FEEDER_NOOP_ULTIMO_AT":     s.get("FEEDER_NOOP_ULTIMO_AT"),
+        "FEEDER_ULTIMA_CHAMADA_AT":  s.get("FEEDER_ULTIMA_CHAMADA_AT"),
         "LIVENESS_SOURCE":           "DERIVED_FROM_OS_AT_READ_TIME",
     }
 

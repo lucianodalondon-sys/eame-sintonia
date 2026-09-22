@@ -44,6 +44,7 @@ DISCOVERY_MIN_INTERVAL_S = 3600
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from datetime import datetime, timezone
@@ -119,6 +120,27 @@ def _discovery_real() -> dict:
             "SEMENTES_RECUSADAS_POR_REGRA": stats.get("SEMENTES_GENERICAS_RECUSADAS")}
 
 
+def assinatura_da_condicao() -> str:
+    """O que o FEEDER le, reduzido a uma impressao digital.
+
+    A ponte decide so a partir de duas coisas: o acervo de candidatas e a fila
+    (o BRIDGE-LEDGER so muda quando a propria ponte corre). Se nenhuma mudou,
+    a resposta do FEEDER tambem nao muda. Da fila entra o essencial de cada
+    tarefa (id, estado, tentativas) — e nao os carimbos de hora, que mexem sem
+    mudar nada.
+    """
+    h = hashlib.sha256()
+    h.update(CANDIDATAS.read_bytes() if CANDIDATAS.exists() else b"-")
+    try:
+        tarefas = F._ler()["TAREFAS"]
+    except Exception:
+        tarefas = []
+    for t in sorted(tarefas, key=lambda x: x.get("TASK_ID", "")):
+        h.update(("%s|%s|%s;" % (t.get("TASK_ID"), t.get("STATUS"),
+                                  t.get("ATTEMPTS"))).encode("utf-8"))
+    return h.hexdigest()
+
+
 def talvez_alimentar(estado: dict | None = None, *,
                      feeder_fn=None, descobrir_fn=None,
                      agora: datetime | None = None) -> dict:
@@ -139,9 +161,46 @@ def talvez_alimentar(estado: dict | None = None, *,
         m["DECISAO"] = "QUEUE_OK"
         return m
 
+    # Nivel 0 — REVIVER: FAILED por transporte volta, devagar (ver fila.py).
+    # Sem rede e sem trabalho inventado: so mexe quando o relogio de uma tarefa
+    # chega; nas outras voltas devolve [] e nao deixa rasto.
+    revividas = F.reviver_intermitentes(agora)
+    if revividas:
+        m["REVIVER"] = {
+            "REVIVIDAS": sum(1 for t in revividas
+                             if t.get("INTERMITENCIA_VEREDICTO") != F.MORTA),
+            "DECLARADAS_MORTAS": sum(1 for t in revividas
+                                     if t.get("INTERMITENCIA_VEREDICTO") == F.MORTA),
+            "TASK_IDS": [t["TASK_ID"] for t in revividas][:50],
+        }
+        m["ACCOES"].append("REVIVER")
+
     # Nivel 1 — FEEDER: drenar o acervo para a fila (barato).
-    m["FEEDER"] = feeder()
-    m["ACCOES"].append("FEEDER")
+    #
+    # ⚠️ SEM CONDICAO NOVA, NAO HA FEEDER. Medido em 22/09: com a fila elegivel
+    # a 0, o supervisor chamava o FEEDER a cada volta (15 s) — lia 476
+    # candidatas, enfileirava 0 e anotava um REALIMENTACAO identico: 240 por
+    # hora, ~5.700 por dia, o mesmo defeito do DISCOVERY_HOOK_ERRO noutra
+    # roupa. A ponte e idempotente, logo com as MESMAS candidatas e a MESMA
+    # fila o resultado e o mesmo: chama-la outra vez nao e trabalho, e eco.
+    #
+    #     REPETIR O QUE NADA MUDOU NAO E PERSISTENCIA, E RUIDO.
+    #
+    # Nada e engolido: cada volta saltada soma em FEEDER_NOOP_TOTAL, que o
+    # estado do supervisor persiste e o painel mostra.
+    assin = assinatura_da_condicao()
+    if assin == estado.get("FEEDER_ASSINATURA"):
+        estado["FEEDER_NOOP_TOTAL"] = int(estado.get("FEEDER_NOOP_TOTAL", 0)) + 1
+        estado["FEEDER_NOOP_ULTIMO_AT"] = agora.isoformat()
+        m["FEEDER_NOOP"] = True
+    else:
+        m["FEEDER"] = feeder()
+        m["ACCOES"].append("FEEDER")
+        # a assinatura grava-se DEPOIS do feeder: o que ele proprio escreveu
+        # nao conta como condicao nova na volta seguinte.
+        estado["FEEDER_ASSINATURA"] = assinatura_da_condicao()
+        estado["FEEDER_ULTIMA_CHAMADA_AT"] = agora.isoformat()
+        estado["FEEDER_CHAMADAS_TOTAL"] = int(estado.get("FEEDER_CHAMADAS_TOTAL", 0)) + 1
 
     # Nivel 2 — DISCOVERY: so quando o proprio acervo esta baixo, e com intervalo.
     pend = candidatas_por_qualificar()
