@@ -16171,6 +16171,876 @@
     "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
     "HTTP": 0
    }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T10-021-CANARY-1304",
+   "SOURCE_ID": "IT-T10-021",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:26:51.815348+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565",
+    "ALVOS_DESCOBERTOS": 4,
+    "DETAIL_ENUMERATED": 4,
+    "ITEM_ABERTO": {
+     "URL": "https://plantgest.imagelinenetwork.com/it/eventi/giornate-tecniche-sul-noce-da-frutto/63565",
+     "HTTP": 200,
+     "BYTES": 47192,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 73,
+     "NON_WHITESPACE_CHARACTERS": 2571,
+     "PARAGRAPH_CHARACTERS": 1489,
+     "TEXT_SHA256": "62547a053bc9caa04b2dda4b08e114e53ef1bf197ed6415c480b55891eaac8fb"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 47192,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T10-021:URL:it/eventi/giornate-tecniche-sul-noce-da-frutto/63565"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T11-009-CANARY-1305",
+   "SOURCE_ID": "IT-T11-009",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:26:56.886303+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.vinitaly.com/eventi/eventi-vinitaly-nel-mondo/",
+    "ALVOS_DESCOBERTOS": 8,
+    "DETAIL_ENUMERATED": 8,
+    "ITEM_ABERTO": {
+     "URL": "https://www.vinitaly.com/eventi/eventi-vinitaly-nel-mondo/",
+     "HTTP": 200,
+     "BYTES": 154291,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 132,
+     "NON_WHITESPACE_CHARACTERS": 3185,
+     "PARAGRAPH_CHARACTERS": 596,
+     "TEXT_SHA256": "24f8cffbd60d49a10d64fdc2c9190e192bb2686e7562acbbc9bb1c78033ee23a"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 154291,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (132 ligacoes para 3185 caracteres, 596 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T11-010-CANARY-1306",
+   "SOURCE_ID": "IT-T11-010",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:05.041784+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit",
+    "ALVOS_DESCOBERTOS": 1,
+    "DETAIL_ENUMERATED": 1,
+    "ITEM_ABERTO": {
+     "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit",
+     "HTTP": 200,
+     "BYTES": 46265,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 77,
+     "NON_WHITESPACE_CHARACTERS": 4543,
+     "PARAGRAPH_CHARACTERS": 3201,
+     "TEXT_SHA256": "9993824e09489ca9dcc7091e53a0ab663a6ac9649861f08f8e5b6b9bed84ea1a"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 46265,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T11-010:URL:it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-019-CANARY-1307",
+   "SOURCE_ID": "IT-T12-019",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:15.730080+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.ersaf.lombardia.it/agricoltura/gestione-sostenibile-dei-nitrati/",
+    "ALVOS_DESCOBERTOS": 30,
+    "DETAIL_ENUMERATED": 30,
+    "ITEM_ABERTO": {
+     "URL": "https://www.ersaf.lombardia.it/agricoltura/gestione-sostenibile-dei-nitrati/",
+     "HTTP": 200,
+     "BYTES": 494199,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 210,
+     "NON_WHITESPACE_CHARACTERS": 11500,
+     "PARAGRAPH_CHARACTERS": 3471,
+     "TEXT_SHA256": "65fed5a528c8faf5fa1326f05c988a3600e32a5803bbe9e6ab4cb3a68273f1fa"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 494199,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-019:URL:agricoltura/gestione-sostenibile-dei-nitrati"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-023-CANARY-1308",
+   "SOURCE_ID": "IT-T12-023",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:20.889697+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.puglia.it/web/agricoltura/-/compagnia-del-carosello-evento-conclusivo-e-presentazione-e-book?redirect=%2Fweb%2Fagricoltura",
+    "ALVOS_DESCOBERTOS": 14,
+    "DETAIL_ENUMERATED": 14,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.puglia.it/web/agricoltura/-/compagnia-del-carosello-evento-conclusivo-e-presentazione-e-book?redirect=%2Fweb%2Fagricoltura",
+     "HTTP": 200,
+     "BYTES": 107428,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 65,
+     "NON_WHITESPACE_CHARACTERS": 2231,
+     "PARAGRAPH_CHARACTERS": 720,
+     "TEXT_SHA256": "297abea2c8b42487d5174c8b887cf3e53badc3a7bd2663cb1ce33a343e23505f"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 107428,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (65 ligacoes para 2231 caracteres, 720 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-024-CANARY-1309",
+   "SOURCE_ID": "IT-T12-024",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:26.791369+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.veneto.it/web/agricoltura-e-foreste/dalla-a-alla-z",
+    "ALVOS_DESCOBERTOS": 3,
+    "DETAIL_ENUMERATED": 3,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste/dalla-a-alla-z",
+     "HTTP": 200,
+     "BYTES": 54773,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 72,
+     "NON_WHITESPACE_CHARACTERS": 1410,
+     "PARAGRAPH_CHARACTERS": 300,
+     "TEXT_SHA256": "1e4c3422002b6c604ad3a97f19140bbc0add38850adc047c9e982ffffa1a9600"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 54773,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (72 ligacoes para 1410 caracteres, 300 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-041-CANARY-1310",
+   "SOURCE_ID": "IT-T12-041",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:33.075247+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://bura.regione.abruzzo.it/bollettini/ordinario-32-2026-08-12",
+    "ALVOS_DESCOBERTOS": 14,
+    "DETAIL_ENUMERATED": 14,
+    "ITEM_ABERTO": {
+     "URL": "https://bura.regione.abruzzo.it/bollettini/ordinario-32-2026-08-12",
+     "HTTP": 200,
+     "BYTES": 94074,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 98,
+     "NON_WHITESPACE_CHARACTERS": 8271,
+     "PARAGRAPH_CHARACTERS": 5650,
+     "TEXT_SHA256": "4ea64463f5401c0990eb1d0c503d36c9f37c3413100c80587fee7cfcf1f076a2"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 94074,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-041:URL:bollettini/ordinario-32-2026-08-12"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-086-CANARY-1311",
+   "SOURCE_ID": "IT-T12-086",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:42.015627+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+     "HTTP": 200,
+     "BYTES": 428031,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 195,
+     "NON_WHITESPACE_CHARACTERS": 8753,
+     "PARAGRAPH_CHARACTERS": 1564,
+     "TEXT_SHA256": "d35f4c90c9565c614372b5db32042a809aec596324d97cee98f4e7e79e696feb"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 428031,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-086:URL:sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-089-CANARY-1312",
+   "SOURCE_ID": "IT-T12-089",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:48.569744+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+    "ALVOS_DESCOBERTOS": 1,
+    "DETAIL_ENUMERATED": 1,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+     "HTTP": 200,
+     "BYTES": 428031,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 195,
+     "NON_WHITESPACE_CHARACTERS": 8753,
+     "PARAGRAPH_CHARACTERS": 1564,
+     "TEXT_SHA256": "d35f4c90c9565c614372b5db32042a809aec596324d97cee98f4e7e79e696feb"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 428031,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-089:URL:sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-094-CANARY-1313",
+   "SOURCE_ID": "IT-T12-094",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:27:56.259714+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "http://archivioportale.regione.campania.it/regione/it/news/area-stampa-tsez",
+    "ALVOS_DESCOBERTOS": 27,
+    "DETAIL_ENUMERATED": 27,
+    "ITEM_ABERTO": {
+     "URL": "http://archivioportale.regione.campania.it/regione/it/news/area-stampa-tsez",
+     "HTTP": 200,
+     "BYTES": 97864,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 399,
+     "NON_WHITESPACE_CHARACTERS": 9321,
+     "PARAGRAPH_CHARACTERS": 348,
+     "TEXT_SHA256": "2c88897be3d2d29bc01367e65be027beb9ca5543b62982957c6c41efc1105bdf"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 97864,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (399 ligacoes para 9321 caracteres, 348 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-112-CANARY-1314",
+   "SOURCE_ID": "IT-T12-112",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:28:06.779567+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-114-CANARY-1315",
+   "SOURCE_ID": "IT-T12-114",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:28:16.616621+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-116-CANARY-1316",
+   "SOURCE_ID": "IT-T12-116",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:28:26.271578+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-119-CANARY-1317",
+   "SOURCE_ID": "IT-T12-119",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:28:36.296411+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-121-CANARY-1318",
+   "SOURCE_ID": "IT-T12-121",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:28:46.093560+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-123-CANARY-1319",
+   "SOURCE_ID": "IT-T12-123",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:28:56.183618+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-124-CANARY-1320",
+   "SOURCE_ID": "IT-T12-124",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:06.055799+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-126-CANARY-1321",
+   "SOURCE_ID": "IT-T12-126",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:15.847869+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-127-CANARY-1322",
+   "SOURCE_ID": "IT-T12-127",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:26.170321+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.assam.marche.it/progetti-europei/progetti-europei-conclusi",
+     "HTTP": 200,
+     "BYTES": 151142,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 306,
+     "NON_WHITESPACE_CHARACTERS": 8542,
+     "PARAGRAPH_CHARACTERS": 811,
+     "TEXT_SHA256": "9f10a1fd9a5fcc19cdcbb7bf919532296cfa74d4a33b1e158784b7d35b265504"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 151142,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (306 ligacoes para 8542 caracteres, 811 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T2-034-CANARY-1323",
+   "SOURCE_ID": "IT-T2-034",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:32.971855+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.arpa.marche.it/notizie-2026/1688-rrqa-migrazione-al-sistema-informativo-opas",
+    "ALVOS_DESCOBERTOS": 10,
+    "DETAIL_ENUMERATED": 10,
+    "ITEM_ABERTO": {
+     "URL": "https://www.arpa.marche.it/notizie-2026/1688-rrqa-migrazione-al-sistema-informativo-opas",
+     "HTTP": 200,
+     "BYTES": 64217,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 126,
+     "NON_WHITESPACE_CHARACTERS": 5299,
+     "PARAGRAPH_CHARACTERS": 3109,
+     "TEXT_SHA256": "eba5536d2d0dc36f371fdad15ab25498fce1a6ff67882e74a776db8a53db7468"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 64217,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T2-034:URL:notizie-2026/1688-rrqa-migrazione-al-sistema-informativo-opas"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T2-037-CANARY-1324",
+   "SOURCE_ID": "IT-T2-037",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:41.117950+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.arpat.toscana.it/bollettino/bollettino-giornaliero-qualita-dellaria/",
+    "ALVOS_DESCOBERTOS": 8,
+    "DETAIL_ENUMERATED": 8,
+    "ITEM_ABERTO": {
+     "URL": "https://www.arpat.toscana.it/bollettino/bollettino-giornaliero-qualita-dellaria/",
+     "HTTP": 200,
+     "BYTES": 307617,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 179,
+     "NON_WHITESPACE_CHARACTERS": 5431,
+     "PARAGRAPH_CHARACTERS": 955,
+     "TEXT_SHA256": "bf589b62833899fda5d178a456b0614ad23aabe76b504e2deb0e24a70072ccce"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 307617,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (179 ligacoes para 5431 caracteres, 955 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T2-049-CANARY-1325",
+   "SOURCE_ID": "IT-T2-049",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:47.917628+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.arpa.sicilia.it/attivita/ricerca-e-innovazione/interreg-italia-tunisia-eden-med/",
+    "ALVOS_DESCOBERTOS": 1,
+    "DETAIL_ENUMERATED": 1,
+    "ITEM_ABERTO": {
+     "URL": "https://www.arpa.sicilia.it/attivita/ricerca-e-innovazione/interreg-italia-tunisia-eden-med/",
+     "HTTP": 200,
+     "BYTES": 138385,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 170,
+     "NON_WHITESPACE_CHARACTERS": 6978,
+     "PARAGRAPH_CHARACTERS": 2340,
+     "TEXT_SHA256": "ef597174f490c6aee082b58454dd4729ae107b1b277954052b4d9aa996b38387"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 138385,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T2-049:URL:attivita/ricerca-e-innovazione/interreg-italia-tunisia-eden-med"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T2-051-CANARY-1326",
+   "SOURCE_ID": "IT-T2-051",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:53.399311+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+    "ALVOS_DESCOBERTOS": 8,
+    "DETAIL_ENUMERATED": 8,
+    "ITEM_ABERTO": {
+     "URL": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+     "HTTP": 200,
+     "BYTES": 27643,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 41,
+     "NON_WHITESPACE_CHARACTERS": 2312,
+     "PARAGRAPH_CHARACTERS": 1253,
+     "TEXT_SHA256": "3f068ad9e27cf11da2672650207eb8a8e1d55c203aaf46ccee24e7b71f3669c1"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 27643,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T2-051:URL:it/notizie/30-anni-per-l-ambiente"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T2-056-CANARY-1327",
+   "SOURCE_ID": "IT-T2-056",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:29:59.420283+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+    "ALVOS_DESCOBERTOS": 8,
+    "DETAIL_ENUMERATED": 8,
+    "ITEM_ABERTO": {
+     "URL": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+     "HTTP": 200,
+     "BYTES": 27643,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 41,
+     "NON_WHITESPACE_CHARACTERS": 2312,
+     "PARAGRAPH_CHARACTERS": 1253,
+     "TEXT_SHA256": "3f068ad9e27cf11da2672650207eb8a8e1d55c203aaf46ccee24e7b71f3669c1"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 27643,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T2-056:URL:it/notizie/30-anni-per-l-ambiente"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-064-CANARY-1328",
+   "SOURCE_ID": "IT-T5-064",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:30:09.333825+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.dafnae.unipd.it/ricerca/assegni-di-ricerca",
+    "ALVOS_DESCOBERTOS": 3,
+    "DETAIL_ENUMERATED": 3,
+    "ITEM_ABERTO": {
+     "URL": "https://www.dafnae.unipd.it/ricerca/assegni-di-ricerca",
+     "HTTP": 200,
+     "BYTES": 53705,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 112,
+     "NON_WHITESPACE_CHARACTERS": 4364,
+     "PARAGRAPH_CHARACTERS": 1790,
+     "TEXT_SHA256": "3e10678f5ef948890174903f2a3400ffe1354d27125e2dd5375ab71a968f4c96"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 53705,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T5-064:URL:ricerca/assegni-di-ricerca"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-082-CANARY-1329",
+   "SOURCE_ID": "IT-T5-082",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:30:15.750549+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.calabriafilmcommission.it/news/al-via-sul-pollino-le-riprese-della-serie-tv-la-veterinaria/",
+    "ALVOS_DESCOBERTOS": 6,
+    "DETAIL_ENUMERATED": 6,
+    "ITEM_ABERTO": {
+     "URL": "https://www.calabriafilmcommission.it/news/al-via-sul-pollino-le-riprese-della-serie-tv-la-veterinaria/",
+     "HTTP": 200,
+     "BYTES": 125375,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 45,
+     "NON_WHITESPACE_CHARACTERS": 2079,
+     "PARAGRAPH_CHARACTERS": 799,
+     "TEXT_SHA256": "e436684263b3db063b2684a69c7cd10aacdeee80e927ee7dd1e5f53068d3a1d2"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 125375,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T5-082:URL:news/al-via-sul-pollino-le-riprese-della-serie-tv-la-veterinaria"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-021-CANARY-1330",
+   "SOURCE_ID": "IT-T7-021",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:30:23.355269+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://etvilloresi.it/attivita/progetti/progetto-la-via-del-marmo/",
+    "ALVOS_DESCOBERTOS": 17,
+    "DETAIL_ENUMERATED": 17,
+    "ITEM_ABERTO": {
+     "URL": "https://etvilloresi.it/attivita/progetti/progetto-la-via-del-marmo/",
+     "HTTP": 200,
+     "BYTES": 149896,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 68,
+     "NON_WHITESPACE_CHARACTERS": 5871,
+     "PARAGRAPH_CHARACTERS": 4545,
+     "TEXT_SHA256": "7d7def68b1c3184aa6a9fa2b62aa14bede058fbb9d5cea58ee7033afd740c73a"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 149896,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T7-021:URL:attivita/progetti/progetto-la-via-del-marmo"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-040-CANARY-1331",
+   "SOURCE_ID": "IT-T7-040",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:30:33.992327+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.parmigianoreggiano.it/it/news/console-usa-benning/",
+    "ALVOS_DESCOBERTOS": 9,
+    "DETAIL_ENUMERATED": 9,
+    "ITEM_ABERTO": {
+     "URL": "https://www.parmigianoreggiano.it/it/news/console-usa-benning/",
+     "HTTP": 200,
+     "BYTES": 3007564,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 59,
+     "NON_WHITESPACE_CHARACTERS": 4515,
+     "PARAGRAPH_CHARACTERS": 932,
+     "TEXT_SHA256": "3c37dfb9d719b09690b9df9d25d7dc725913908b9270691d8aa4945122784c51"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 3007564,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T7-040:URL:it/news/console-usa-benning"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-047-CANARY-1332",
+   "SOURCE_ID": "IT-T7-047",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:30:39.573756+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://cia.it/documenti/bandiera-verde-agricoltura-2026/",
+    "ALVOS_DESCOBERTOS": 18,
+    "DETAIL_ENUMERATED": 18,
+    "ITEM_ABERTO": {
+     "URL": "https://cia.it/documenti/bandiera-verde-agricoltura-2026/",
+     "HTTP": 200,
+     "BYTES": 82063,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 88,
+     "NON_WHITESPACE_CHARACTERS": 2076,
+     "PARAGRAPH_CHARACTERS": 688,
+     "TEXT_SHA256": "818ddc0bb4c2d56f3627d428237fb6a561dde9eb7acabd8f5e0cfef37d6a1924"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 82063,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (88 ligacoes para 2076 caracteres, 688 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T8-010-CANARY-1333",
+   "SOURCE_ID": "IT-T8-010",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T18:30:50.700764+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.corrierevinicolo.com/approfondimenti-tematici/news/biocontrollo-botrite-uve-appassimento",
+    "ALVOS_DESCOBERTOS": 5,
+    "DETAIL_ENUMERATED": 5,
+    "ITEM_ABERTO": {
+     "URL": "https://www.corrierevinicolo.com/approfondimenti-tematici/news/biocontrollo-botrite-uve-appassimento",
+     "HTTP": 200,
+     "BYTES": 2898567,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 208,
+     "NON_WHITESPACE_CHARACTERS": 4568,
+     "PARAGRAPH_CHARACTERS": 587,
+     "TEXT_SHA256": "ee21886aac9b111911f378fa18f877d8fa05b0ca12dab7ae8725f8afb4ed8e2a"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 2898567,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (208 ligacoes para 4568 caracteres, 587 em paragrafos)"
+   }
   }
  ]
 }
