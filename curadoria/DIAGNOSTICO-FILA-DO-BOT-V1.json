@@ -1,0 +1,386 @@
+{
+ "DATASET": "DIAGNOSTICO-FILA-DO-BOT-V1",
+ "LEI": "um bot parado e um bot sem trabalho leem-se da mesma maneira no livro; so a fila os distingue. Falha de ligacao nao e fonte morta.",
+ "GERADO_EM": "2026-09-22T19:27:28.669557+00:00",
+ "BOT": {
+  "BRANCH": "source-curator-service-v1",
+  "HEAD": "41655f3a",
+  "LEITURA": "git show — copia congelada; o supervisor esta vivo e nao foi tocado"
+ },
+ "FILA": {
+  "TAREFAS": 1057,
+  "POR_STATUS": {
+   "DONE": 903,
+   "BLOCKED": 80,
+   "FAILED": 69,
+   "WAITING_RETRY": 5
+  },
+  "PENDENTES": 0,
+  "PORQUE_PAROU": "fila esgotada — 0 pendentes; nao esta preso"
+ },
+ "MOTIVOS_DE_FALHA": {
+  "FAILED | teto de 5 tentativas: robots nao pode ser lido — UNKNOWN, nao proibica": 62,
+  "BLOCKED | o endereco do contrato casa com Disallow no robots vivo": 13,
+  "BLOCKED | YouTube exige channel_id e molde de video (conteudo real, nao watch-pa": 11,
+  "FAILED | teto de 5 tentativas: TimeoutError: The read operation timed out": 5,
+  "BLOCKED | territorio indeterminado pelo nome (open.spotify.com) — SOURCE_ID fica": 2,
+  "BLOCKED | sem contrato nesta arvore": 1,
+  "BLOCKED | territorio indeterminado pelo nome (AGEA — Agenzia per le Erogazioni i": 1,
+  "BLOCKED | territorio indeterminado pelo nome (ISTAT — statistiche agricoltura) —": 1,
+  "BLOCKED | territorio indeterminado pelo nome (Rete Rurale Nazionale) — SOURCE_ID": 1,
+  "BLOCKED | territorio indeterminado pelo nome (SIAN — Sistema Informativo Agricol": 1,
+  "BLOCKED | territorio indeterminado pelo nome (Sardegna Agricoltura — Laore) — SO": 1,
+  "BLOCKED | territorio indeterminado pelo nome (Veneto Agricoltura — Agenzia venet": 1
+ },
+ "PRESAS_POR_ROBOTS_ILEGIVEL": {
+  "FONTES": 62,
+  "HOSTS": 44,
+  "SEM_CONTRATO_NESTA_LEITURA": [],
+  "SONDA_FEITA": true,
+  "POR_CLASSE_HOSTS": {
+   "LEGIVEL": 24,
+   "ROBOTS_INEXISTENTE_404": 5,
+   "MURO_ANTI_ROBOT_403": 8,
+   "LIGACAO_CANCELADA": 6,
+   "SSL": 1
+  },
+  "POR_CLASSE_FONTES": {
+   "LEGIVEL": 42,
+   "ROBOTS_INEXISTENTE_404": 5,
+   "MURO_ANTI_ROBOT_403": 8,
+   "LIGACAO_CANCELADA": 6,
+   "SSL": 1
+  },
+  "LEGIVEIS_AGORA": 42,
+  "NOTA": "«legivel agora» NAO quer dizer «pronta»: quer dizer que o motivo pelo qual parou ja nao se verifica, e que merece ser olhada outra vez. Nenhuma das classes medidas e prova de fonte morta.",
+  "HOSTS_SONDADOS": {
+   "acamir.regione.campania.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-027"
+    ]
+   },
+   "agricoltura.regione.campania.it": {
+    "CLASSE": "ROBOTS_INEXISTENTE_404",
+    "DETALHE": "HTTPError: HTTP Error 404: Not Found",
+    "SOURCE_IDS": [
+     "IT-T12-028"
+    ]
+   },
+   "amministrazionetrasparente.regione.campania.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-032"
+    ]
+   },
+   "cultura.regione.campania.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-049"
+    ]
+   },
+   "energia.calabriaimpresa.eu": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-117"
+    ]
+   },
+   "entrate.regione.campania.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-098"
+    ]
+   },
+   "europa.regione.campania.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-054"
+    ]
+   },
+   "experience.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T12-069"
+    ]
+   },
+   "fieradidacta.indire.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T9-021"
+    ]
+   },
+   "monitoraggiopnrr.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T12-070"
+    ]
+   },
+   "pnrr.regione.campania.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-076"
+    ]
+   },
+   "puglia.coldiretti.it": {
+    "CLASSE": "LIGACAO_CANCELADA",
+    "DETALHE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto>",
+    "SOURCE_IDS": [
+     "IT-T7-051"
+    ]
+   },
+   "sicilia.coldiretti.it": {
+    "CLASSE": "LIGACAO_CANCELADA",
+    "DETALHE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto>",
+    "SOURCE_IDS": [
+     "IT-T7-052"
+    ]
+   },
+   "sinfonia.regione.campania.it": {
+    "CLASSE": "ROBOTS_INEXISTENTE_404",
+    "DETALHE": "HTTPError: HTTP Error 404: Not Found",
+    "SOURCE_IDS": [
+     "IT-T12-103"
+    ]
+   },
+   "speciale-lombardiainfatti.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-095"
+    ]
+   },
+   "sportelloimprese.arpalombardia.it": {
+    "CLASSE": "ROBOTS_INEXISTENTE_404",
+    "DETALHE": "HTTPError: HTTP Error 404: Not Found",
+    "SOURCE_IDS": [
+     "IT-T2-065"
+    ]
+   },
+   "tv.lombardianotizie.online": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T8-015"
+    ]
+   },
+   "ue.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T12-081"
+    ]
+   },
+   "veneto.coldiretti.it": {
+    "CLASSE": "LIGACAO_CANCELADA",
+    "DETALHE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto>",
+    "SOURCE_IDS": [
+     "IT-T7-053"
+    ]
+   },
+   "www.allertalom.regione.lombardia.it": {
+    "CLASSE": "ROBOTS_INEXISTENTE_404",
+    "DETALHE": "HTTPError: HTTP Error 404: ",
+    "SOURCE_IDS": [
+     "IT-T12-029"
+    ]
+   },
+   "www.arpalombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T2-033",
+     "IT-T2-043",
+     "IT-T2-044",
+     "IT-T2-045",
+     "IT-T2-046",
+     "IT-T2-047",
+     "IT-T2-053",
+     "IT-T2-058",
+     "IT-T2-066",
+     "IT-T2-068"
+    ]
+   },
+   "www.bandi.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-039"
+    ]
+   },
+   "www.bollettino.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-042"
+    ]
+   },
+   "www.calabriafilmcommission.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T5-082"
+    ]
+   },
+   "www.calabriaimpresa.eu": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-118"
+    ]
+   },
+   "www.coldiretti.it": {
+    "CLASSE": "LIGACAO_CANCELADA",
+    "DETALHE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto>",
+    "SOURCE_IDS": [
+     "IT-T7-050"
+    ]
+   },
+   "www.confai.it": {
+    "CLASSE": "ROBOTS_INEXISTENTE_404",
+    "DETALHE": "HTTPError: HTTP Error 404: Not Found",
+    "SOURCE_IDS": [
+     "IT-T7-048"
+    ]
+   },
+   "www.consorziopiave.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T7-055"
+    ]
+   },
+   "www.copagri.it": {
+    "CLASSE": "SSL",
+    "DETALHE": "URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is n",
+    "SOURCE_IDS": [
+     "IT-T7-049"
+    ]
+   },
+   "www.ersaf.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-019"
+    ]
+   },
+   "www.fitosanitario.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T3-022"
+    ]
+   },
+   "www.fondazionegrecanica.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T5-083"
+    ]
+   },
+   "www.fondazioneterina.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T5-084"
+    ]
+   },
+   "www.geoportale.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-104"
+    ]
+   },
+   "www.giovani.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T12-057"
+    ]
+   },
+   "www.meteotrentino.it": {
+    "CLASSE": "LIGACAO_CANCELADA",
+    "DETALHE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto>",
+    "SOURCE_IDS": [
+     "IT-T2-038"
+    ]
+   },
+   "www.nonseidasola.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-071"
+    ]
+   },
+   "www.oltreigiochi2026.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T12-073"
+    ]
+   },
+   "www.openinnovation.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T12-074"
+    ]
+   },
+   "www.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-043",
+     "IT-T12-086",
+     "IT-T12-088",
+     "IT-T12-089",
+     "IT-T12-106",
+     "IT-T5-065",
+     "IT-T5-066",
+     "IT-T5-067",
+     "IT-T5-068",
+     "IT-T5-069"
+    ]
+   },
+   "www.regione.vda.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-025"
+    ]
+   },
+   "www.sbbl.regione.lombardia.it": {
+    "CLASSE": "LEGIVEL",
+    "DETALHE": "HTTP 200",
+    "SOURCE_IDS": [
+     "IT-T12-107"
+    ]
+   },
+   "www.svilupposostenibile.regione.lombardia.it": {
+    "CLASSE": "MURO_ANTI_ROBOT_403",
+    "DETALHE": "HTTPError: HTTP Error 403: Forbidden",
+    "SOURCE_IDS": [
+     "IT-T11-010"
+    ]
+   },
+   "www.unaprol.it": {
+    "CLASSE": "LIGACAO_CANCELADA",
+    "DETALHE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo host remoto>",
+    "SOURCE_IDS": [
+     "IT-T7-058"
+    ]
+   }
+  }
+ },
+ "NAO_FEITO": "re-enfileirar, corrigir a fila ou tocar na worktree do bot. Isto mede e diz; decidir e de quem manda."
+}
