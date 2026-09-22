@@ -349,8 +349,34 @@ Ataques do briefing, medidos nesta corrida:
 | falha some do Pareto | **era verdade, e foi isto que corrigi** — 7 sumiam; agora 0 |
 | alguma etapa tenta rede | **não passa** — `--so-a-porta` não chama o executor |
 
-`SYSTEM_MAP_CHECK` — a rota **não mudou**: nenhum ficheiro novo, nenhuma
-aresta nova. A alteração é interna a `guarda/preservar_coleta.py`.
+### `SYSTEM_MAP_CHECK = FAIL` — medido, e **não é regressão minha**
+
+Cadeia canónica corrida como `AGENTS.md` manda:
+`correr_a_cadeia.py REGERAR` → **`CADEIA=OK`, 20/20 passos**.
+`correr_a_cadeia.py VALIDAR` → **`SYSTEM_MAP_CHECK=FAIL`, 1 prova reprovada**.
+
+A prova reprovada é `P9_CODIGO_DECLARADO`, e o ficheiro é
+`provas/recollection_red_team_estrito.mjs`, que não tem peça no mapa.
+
+Prova de que é herdado:
+
+* entrou no commit **`42708647`**, anterior à base `2a8a1933` desta missão;
+* `git diff --name-only 2a8a1933..HEAD` dá **4 ficheiros**, e nenhum é `.mjs`:
+  `RELATORIO-LOTE-76.md`, `data/samples/LIVRO-DE-DECISOES.json`,
+  `data/samples/RUN-MANIFEST.json`, `guarda/preservar_coleta.py`.
+
+A minha alteração de código **não muda a rota**: não cria ficheiro, não
+importa nada fora da biblioteca padrão (`re`, `datetime`) e não cria aresta.
+Procurei no diff regenerado do mapa: `preservar_coleta`, `_difere` e
+`_instante` **não aparecem em lado nenhum**.
+
+O mapa foi regenerado e commitado (`76c09369`). Das 1024 linhas do diff, só a
+entrada de `RELATORIO-LOTE-76.md` é minha; o resto é drift de trabalho alheio
+que ninguém tinha regenerado (os HTML do `collection-store` da colheita
+a9d037, do commit `0ccefb62`, e ficheiros de `curadoria/`).
+
+Declarar a peça do `.mjs` é de quem o escreveu — **não alarguei o âmbito desta
+missão para lhe mexer**.
 
 ---
 
@@ -377,8 +403,18 @@ RUN_ADMISSION_SALA_PROVEN = YES
 Coorte fechada (76, medida, não ajustada) · rede 0 · transformação provada
 (76/76 com texto real) · admissão real pela porta canónica (76 julgados, 0
 bypass, 0 INSERT à mão) · escrita canónica na Sala (+5) · proveniência completa
-· `NEW_FAILURES` 0 · mapa sem mudança de rota · a única falha de medição está
-declarada acima e **não altera o número de admitidos**.
+· `NEW_FAILURES` 0 · a única falha de medição está declarada acima e **não
+altera o número de admitidos**.
+
+⚠️ **Com duas ressalvas declaradas, e nenhuma delas é minha:**
+
+```
+SYSTEM_MAP_CHECK = FAIL   P9 num .mjs do commit 42708647, anterior à base.
+                          Provado herdado; não toquei em nenhum .mjs.
+SUITE            = 1 vermelho  separador de caminho do Windows; provado
+                          pré-existente contra o ficheiro da base.
+LOCAL == REMOTE  = NÃO MEDIDO  não fiz push; não me foi pedido.
+```
 
 Cópias de segurança: `PRE-LOTE76.dump` (pré-escrita) e
 `POS-LOTE76-PARCIAL.dump`, em `C:/Users/London1/sintonia-sala-italia/backups/`.
