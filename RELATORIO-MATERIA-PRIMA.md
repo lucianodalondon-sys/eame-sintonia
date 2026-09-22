@@ -640,3 +640,56 @@ Nenhuma foi promovida sem os quatro passos. O que mudou foi a régua passar a
 
 `PAID_USD = 0` · Big Collection **não** executada · supervisor 107504 vivo do
 princípio ao fim.
+
+---
+
+## LOTE 9 — FASE 2 da missão: as 77 `READY_LEGACY` re-testadas
+
+As «77» da missão apareceram, e são exactamente 77:
+
+```
+READY_LEGACY no gate        109
+  com contrato nesta arvore  77   ← as 77
+  conhecidas pelo bot        77
+  e READY no livro do bot    35   ← as que podiam correr JA
+```
+
+As 35 voltaram a `CANARY_PENDING` (porque `READY → READY` é recusado por lei) e
+correram o canário dos 4 passos:
+
+```
+14  READY_FOR_COLLECTION
+16  CONTRACTED_CANARY_FAILED
+ 5  por acabar
+```
+
+### O que isto mudou — e o que não mudou
+
+```
+                        ANTES   DEPOIS
+READY_TOTAL              123     102    −21
+READY_CURRENT             14      14      0
+READY_LEGACY             109      88    −21
+COLLECTION_ELIGIBLE       11      11      0
+```
+
+**16 fontes que se diziam `READY` não resolvem contra a rede real.** Estavam
+promovidas pela régua antiga e nunca tinham sido re-testadas. Não se perdeu
+colheita nenhuma — `LEGACY` nunca foi elegível. Ganhou-se a verdade sobre elas.
+
+A correcção da ponte (`be09703c`) provou-se nesta corrida: **16 provas
+importadas**, onde antes eram sempre 0.
+
+### As 14 que passaram continuam `LEGACY`, e porquê
+
+```
+6  falta ITEM_ABERTO,BODY_UTIL     a promocao citada e anterior ao canario novo
+4  BODY_UTIL: corpo MIXED/NAO_SEI  ha texto, o classificador nao jura que e materia
+3  falta DETAIL_LINKS,ITEM_ABERTO,BODY_UTIL
+1  falta DETAIL_LINKS
+```
+
+Os 6 e os 3 são o mesmo padrão estrutural já visto: a promoção no livro
+canónico aponta para a evidência que existia **antes** do canário novo. A ponte
+move estados e agora também traz provas, mas **não refresca a citação de uma
+promoção cujo estado não mudou**. É a próxima tampa, e está nomeada.
