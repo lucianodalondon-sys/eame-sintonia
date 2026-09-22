@@ -20,7 +20,8 @@ SUPERVISOR_PID_BEFORE    48212
 SUPERVISOR_PID_AFTER     48212  (vivo, nunca tocado — zero kills, zero PARAR.flag)
 NEW_FAILURES             0
 SYSTEM_MAP_CHECK         PASS  (IMPRESSAO_DO_CARIMBO = IGUAL)
-PONTE_AUTONOMA_PROVADA   PARTIAL
+PONTE_AUTONOMA_PROVADA   PARTIAL  (o caminho, ao vivo; os extremos do portão, em bancada)
+OBSERVER_RUNNING_AS_SERVICE  YES  (PID 14960, filho do Orca, não da sessão)
 ```
 
 ### `PONTE_AUTONOMA_PROVADA = PARTIAL`, e a contagem separada
@@ -28,6 +29,7 @@ PONTE_AUTONOMA_PROVADA   PARTIAL
 | o que | REAL (produção) | SIMULADO (bancada) |
 |---|---|---|
 | a ponte corre sem ninguém mandar | **✅ sim** | — |
+| a ponte corre como **serviço**, fora da sessão | **✅ sim** (PID 14960) | — |
 | transporte disco→ponte com ficheiro inteiro | **✅ sim** | ✅ |
 | decisão nova do bot atravessa até ao portão | **✅ sim** (`IT-TEST-001`) | ✅ |
 | idempotência (sem decisão → zero escritas) | **✅ sim** | ✅ |
@@ -174,11 +176,40 @@ py curadoria/ponte_automatica.py --servir --intervalo 20
 py curadoria/ponte_automatica.py --estado     # o que ela viu
 ```
 
-⚠️ **Tem de ser lançado como serviço** — terminal próprio, independente da
-sessão de quem o lança. Foi exactamente assim que o supervisor do bot morreu
-hoje. **Neste momento o observador NÃO está a correr:** parei-o para limpar o
-resíduo da prova, e não o relancei como serviço porque essa é a decisão que
-fecha a autonomia e é sua.
+### ✅ LANÇADO COMO SERVIÇO — e provado pela árvore de processos
+
+Por decisão do dono, o observador está **a correr como serviço** desde
+2026-09-22 20:33 local, em terminal Orca próprio
+(`term_93a624a0-4249-4b4c-9a76-488547b2aa9e`, título
+`PONTE-CURADOR-OBSERVADOR (servico)`), intervalo 20 s.
+
+```
+OBSERVER_PID        14960  (python.exe)
+OBSERVER_INTERVAL   20 s
+```
+
+⚠️ **A prova de que é serviço não é o PID: é a ascendência.** Foi por não a
+verificar que o supervisor do bot morreu hoje — estava pendurado na sessão de
+quem o lançou, e caiu com ela.
+
+```
+OBSERVADOR : python(14960) <- py <- powershell <- Orca.exe(39696)
+EU (claude): powershell <- bash <- bash <- bash <- claude.exe(118288)
+                                              <- powershell <- Orca.exe(39696)
+```
+
+O observador pendura **directamente do Orca**, sem passar pela sessão do
+agente. Quando esta sessão terminar, ele fica.
+
+Aos 2 minutos de vida: `VOLTAS 32 · NOOPS 29 · SAUDE SAUDAVEL · FALHAS 0`, e o
+diário ganhou **uma** linha (o arranque) — o silêncio a funcionar.
+
+**Como se opera:**
+
+```bash
+py curadoria/ponte_automatica.py --estado     # o que ela viu
+orca terminal list                            # onde ela corre
+```
 
 ### Aberto, e não é escopo desta missão
 
