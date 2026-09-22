@@ -4089,11 +4089,13 @@
    "files": [
     "medidas/COORTE-MICRO-COLLECTION-V1.json",
     "medidas/INCREMENTALIDADE-V1.json",
+    "medidas/PARIDADE-REPLAY-V1.json",
     "medidas/PORQUE-A-SALA-NAO-RECEBEU-V1.json",
     "medidas/ULTIMA-MILHA-V1.json",
     "medidas/coorte_da_micro_collection.py",
     "medidas/corrida_sem_rede.py",
     "medidas/incrementalidade_prova.mjs",
+    "medidas/paridade_replay.mjs",
     "medidas/porque_a_sala_nao_recebeu.py",
     "medidas/ultima_milha.py"
    ]
@@ -4160,6 +4162,67 @@
    "views": [
     "audit",
     "diagnostic"
+   ]
+  },
+  {
+   "id": "C-PROVA-CUTOVER",
+   "name": "As provas do cutover da Collection",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "what": "Duas provas de ZERO REDE que guardam o cutover de 2026-09-22. A primeira cruza, por SOURCE_ID e nunca por contagem, os recusados do portao de admissao com os que a coleta agendada ia buscar, e devolve os quatro vazamentos com nome proprio (READY_LEGACY, HUMAN_REVIEW, POLICY_BLOCK, CAPABILITY_BLOCK). A segunda le o armazem e responde se um CHANGED_IN_PLACE foi noticia nova ou o rasto da nossa propria visita, comparando o TEXTO VISIVEL de duas versoes depois de tirar toda a marcacao.",
+   "why_here": "O cutover tirou a lista fixa de fontes do perfil agendado e pos a populacao a sair do portao. Isso abre duas maneiras novas de mentir em silencio, e cada uma tem aqui a sua prova. Uma: uma fonte que o portao recusou entrar na coleta por outro caminho — e uma contagem igual nao prova que sao os mesmos IDs, so o cruzamento por ID prova. Outra: o canario correu duas vezes e escreveu 71 versoes novas com zero palavras mudadas, porque os sitios carimbam a hora de quem os visita e rodam banners; quem compara bytes conta a propria pegada como noticia. As duas provas foram elas mesmas corrigidas por medicao — a dos vazamentos deixou de ler o valor esperado do mesmo JSON que fiscalizava, e a da pegada deixou de dar `0 de 0` quando nao havia nada para comparar, porque zero comparado nao e zero mudado.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_cutover_nao_vaza.py",
+    "provas/O-CUTOVER-NAO-VAZA-V1.json",
+    "provas/a_mudanca_e_nossa_pegada.py",
+    "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json"
+   ],
+   "views": [
+    "audit",
+    "diagnostic"
+   ]
+  },
+  {
+   "id": "C-IT-NORMALIZACAO",
+   "name": "A normalizacao de conteudo — o que e ruido nao e mudanca",
+   "territory": "Z-REGRAS",
+   "kind": "engine",
+   "icon": "≈",
+   "views": [
+    "collection-strategy",
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Recebe os bytes de duas visitas ao MESMO endereco e responde se houve mudanca MATERIAL. Tira seis trechos volateis de vocabulario fechado, cada um com nome, medicao e razao escritos, e compara o sha do que sobra. Devolve IDENTICAL_BYTES, VOLATILE_ONLY ou MATERIAL_CHANGE, com OLD/NEW_NORMALIZED_HASH e uma segunda regua independente (o texto visivel) que acusa em voz alta se as duas discordarem. So HTML: PDF, CSV e ZIP saem com NOT_APPLICABLE e sem normalizar.",
+   "why_here": "E a SEGUNDA defesa, e nao substitui a primeira. Medido em 2026-09-22 nos bytes das duas corridas do canario, sem rede: 32 documentos apareceram nas duas, 32 mudaram de RAW_SHA256 e ZERO mudaram de conteudo — 23 deles com O MESMO numero de bytes. Dois dos seis trechos volateis sao a nossa propria visita: o contador `views` que sobe de 134 para 135 porque fomos la, e `article:modified_time`, que nao e a data em que alguem editou o artigo mas a hora a que NOS batemos a porta. Vive fora de regras/incrementalidade.mjs por lei: aquele ficheiro declara na assinatura que nao recebe bytes nem sha, porque se os recebesse a decisao chegava depois de a rede ter sido paga; este come bytes por definicao, e juntar os dois apagava a unica garantia daquela assinatura.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "regras/normalizacao_de_conteudo.mjs",
+    "regras/paridade_test.mjs"
+   ]
+  },
+  {
+   "id": "C-PROVA-PARIDADE",
+   "name": "As provas da paridade de incrementalidade",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "✓",
+   "what": "Tres provas de ZERO REDE que guardam a ligacao das duas defesas ao coletor real. A primeira exercita os dois lados de cada par (volatil NAO e change · materia nova CONTINUA a ser change · conhecido NAO faz fetch · novo faz fetch) e confere no TEXTO do coletor que a decisao esta acima do download. A segunda arranca executarRodada() numa raiz descartavel, corre cinco rodadas e conta as idas ao transporte. A terceira ataca o codigo desta missao com oito mutantes, provando o diff E que o mutante correu.",
+   "why_here": "A peca da incrementalidade existia, tinha md5 IDENTICO em laboratorio e producao, e o teste dela passava — porque o teste chamava a regra pela mao. A producao passa pelo coletor, e o coletor nao a chamava: MISSING_ROUTE. Um teste que importa a regra mede a regra; so um teste que arranca o produtor mede a ROTA. Por isso a prova de duas rodadas arranca o coletor, e por isso o red team exige que cada mutante morra pela prova CERTA — o M8 sobreviveu a primeira versao nao por a defesa ser fraca, mas por o ataque nao tocar em nada que a bancada sem rede pudesse ver, e isso descobriu um defeito real no medidor.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/PARIDADE-RED-TEAM-V1.json",
+    "provas/paridade_duas_rodadas.mjs",
+    "provas/paridade_red_team.mjs"
    ]
   }
  ],

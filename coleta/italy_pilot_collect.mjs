@@ -39,6 +39,23 @@ import { CONTRACTS } from "../regras/italy_contracts.mjs";
 // O motor declarativo de rota. Ele responde «que enderecos buscar?» a partir
 // do bloco `ACQUISITION` do contrato — e NAO le nenhum campo em prosa.
 import { alvosDoContrato, identidadeDoContrato } from "../regras/motor_de_rota.mjs";
+// ── AS DUAS DEFESAS DA INCREMENTALIDADE ────────────────────────────────────
+// ⚠️ ESTAS DUAS LINHAS SAO A MISSAO INTEIRA, E O DEFEITO ERA A FALTA DELAS.
+// Medido em 2026-09-22: `regras/incrementalidade.mjs` tinha md5 IDENTICO no
+// laboratorio e na producao (fa79d5279b9c) — nao era codigo velho nem peca em
+// falta. Mas quem chamava `decidirSobreDetalhe()` eram TRES ficheiros: o
+// proprio, o teste dele e a prova. Este coletor — que e quem bate a porta e
+// quem escreve `DOCUMENT_CHANGED_IN_PLACE` — tinha ZERO referencias a
+// incrementalidade.
+//
+//     A PECA EXISTIA, ESTAVA CERTA, E NINGUEM A CHAMAVA.
+//     ISTO E `MISSING_ROUTE`, NAO E CODIGO EM FALTA.
+//
+// A bancada passava porque a bancada chamava a peca pela mao (a prova em
+// `medidas/incrementalidade_prova.mjs`). A producao corria por aqui, e aqui
+// nao havia ligacao nenhuma. LAB PASS NAO PROVA OPS PASS.
+import { memoriaDosDetalhes, decidirSobreDetalhe, decidirSobreIndice } from "../regras/incrementalidade.mjs";
+import { compararConteudo } from "../regras/normalizacao_de_conteudo.mjs";
 
 // ── O REGISTRY DE ADAPTERS ─────────────────────────────────────────────────
 // Vazio, e isso e uma medicao e nao um esquecimento: das sete fontes com
@@ -144,7 +161,20 @@ function guardarRaw(sourceId, documentId, versionId, nome, buf) {
 
 // ---------- baixar ----------
 const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, reset, resposta vazia, recv failure, connect
+
+// ── O CONTADOR DE PORTAS BATIDAS ───────────────────────────────────────────
+// ⚠️ CONTA-SE AQUI, NO UNICO SITIO QUE FALA COM A REDE, e nao la em cima por
+// deducao. Tentar deduzir `INDEX_REQUESTS` pela estrategia do contrato daria
+// um numero errado para as sete fontes do `switch`: quatro delas buscam um
+// indice, tres nao, e `STATIC_ENDPOINT` nunca busca. Um pedido conta-se onde
+// ele acontece; em qualquer outro sitio e um palpite com cara de medida.
+//
+//     `REDE.total` sao TODAS as idas a fonte.
+//     `DETAIL_REQUESTS` sao as idas a um detalhe, contadas no laco.
+//     INDEX_REQUESTS = total - detalhes.  Exacto, e sem adivinhar.
+const REDE = { total: 0 };
 async function baixar(url, tentativas = 2) {
+  REDE.total++;
   for (let i = 1; i <= tentativas; i++) {
     try {
       // ⚠️ `%{content_type}` ENTRA PORQUE O TRANSPORTE JA O SABIA E NINGUEM O ESCREVIA.
@@ -418,6 +448,10 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
                     + "Este coletor NAO cunha corrida.");
   }
   globalThis.__ARPAV_TODAS = arpavZonas === "TODAS";
+  // ⚠️ ZERA-SE AQUI porque o contador e do modulo, e um teste que corra duas
+  // rodadas no mesmo processo somaria a rede da primeira a segunda — e o
+  // numero saia maior sem ninguem ter batido a porta.
+  REDE.total = 0;
   // ── NAO HA CONJUNTO POR OMISSAO — BG-06 ────────────────────────────────
   // `apenas ?? PILOT_SOURCES` fazia uma corrida sem fontes nomeadas colher as
   // SETE — e a setima, IT-T3-005, tem ZERO mencoes no Atlas: e candidata
@@ -456,12 +490,32 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   }
   const GIT_HEAD = (() => { try { return execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(); } catch { return "NAO SEI"; } })();
 
-  const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0 };
+  const cont = { SOURCES_ATTEMPTED: 0, HEALTHY: 0, DEGRADED: 0, FAILED: 0, UNKNOWN: 0, NEW_DOCUMENTS: 0, CHANGED_IN_PLACE: 0, SEEN_AGAIN: 0, SEMANTIC_ID_CHANGED_SAME_BYTES: 0, RAW_OBJECTS_CREATED: 0, NORMALIZED_OBSERVATIONS_NEW: 0,
+    // ── O CENSO DA INCREMENTALIDADE, NOS NOMES DO BRIEFING ─────────────────
+    // `DETAIL_REQUESTS` conta portas batidas, nao documentos: e o numero que
+    // diz se a segunda corrida custou rede. `SKIPPED_KNOWN` e a poupanca, e
+    // `UNNECESSARY_REFETCHES` e o gate — um pedido a um detalhe ja conhecido
+    // SEM razao nomeada. Com a regra ligada tem de dar zero, porque sem razao
+    // a regra devolve SKIP e o pedido nao chega a acontecer.
+    INDEX_REQUESTS: 0, DETAIL_REQUESTS: 0, DETAIL_NEW: 0, SKIPPED_KNOWN: 0,
+    REVALIDATED: 0, UNNECESSARY_REFETCHES: 0, REVISIT_REASONS: {},
+    // Quantas vezes a segunda defesa impediu o livro de mentir.
+    VOLATILE_ONLY_NOT_CHANGED: 0 };
   const detalhes = [];
+  // ⚠️ A MEMORIA CONSTROI-SE UMA VEZ, ANTES DA CORRIDA, e nao se actualiza a
+  // meio de proposito: uma corrida decide com o que o livro sabia quando ela
+  // comecou. Se se fosse actualizando, o primeiro alvo de hoje mudaria a
+  // decisao sobre o segundo, e duas corridas iguais dariam contas diferentes.
+  const memoria = memoriaDosDetalhes(anterior);
 
   for (const sourceId of FONTES) {
     cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
+    // O indice revisita-se SEMPRE, e e ele que anuncia o que ha de novo.
+    // `alvosDe` gasta zero ou um pedido de indice conforme a estrategia; o
+    // `decidirSobreIndice()` esta aqui para que a lei seja lida no codigo e
+    // nao so no comentario — ela nao tem excepcao, e por isso nao tem `if`.
+    decidirSobreIndice();
     const alvos = await alvosDe(sourceId);
     if (alvos?.erro) {
       cont.FAILED++;
@@ -471,6 +525,67 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
 
     let saudeFonte = "HEALTHY";
     for (const alvo of alvos) {
+      // ══ DEFESA 1 · A DECISAO DE IR, TOMADA ANTES DE BATER A PORTA ════════
+      // ⚠️ ESTE BLOCO TEM DE FICAR ACIMA DE `baixar()`, E ISSO E A CORRECCAO.
+      // Ate 2026-09-22 a pergunta «ja conheco isto?» era feita na linha 502,
+      // DEPOIS de os bytes terem atravessado a rede. O resultado, medido nas
+      // duas corridas do canario na ops:
+      //
+      //     RUN2: 39 de 39 detalhes redescarregados
+      //           39 de 39 escritos como DOCUMENT_CHANGED_IN_PLACE
+      //           dos 32 que tinham par na RUN1, 32 eram RUIDO VOLATIL
+      //
+      //     REUTILIZAR O ARMAZEM DEPOIS DO DOWNLOAD NAO E
+      //     INCREMENTALIDADE: A REDE JA FOI GASTA.
+      //
+      // A regra nao recebe bytes nem sha — nao os pode ter, porque se os
+      // tivesse ja teriamos pago o pedido. Ela decide com o endereco, o que o
+      // livro diz da ultima vez, o relogio e o contrato.
+      const decisao = decidirSobreDetalhe(alvo.url, {
+        memoria, sourceId, contrato: c, agora: agora(),
+      });
+      if (decisao.DECISAO === "SKIP_KNOWN") {
+        cont.SKIPPED_KNOWN++;
+        // ⚠️ UM SALTO NAO VAI PARA O LIVRO, E ISSO NAO E DESLEIXO.
+        // O livro e um registo de OBSERVACOES, e nao se observou nada: nao
+        // ha bytes, nao ha sha, nao ha documento novo. Pior — o vocabulario
+        // de `RESULTADOS_COM_DOCUMENTO` nao tem `SKIPPED_KNOWN`, por isso uma
+        // linha assim faria `memoriaDosDetalhes()` concluir «nunca se obteve
+        // documento deste endereco» e a corrida SEGUINTE voltava a
+        // descarregar tudo. O salto envenenaria a memoria que o autorizou.
+        //
+        //     NAO REGISTAR UM SALTO NAO E ESCONDE-LO:
+        //     ELE VAI NO RESUMO DA CORRIDA, CONTADO E COM RAZAO.
+        detalhes.push({ RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url,
+          DECISAO: "SKIP_KNOWN", PORQUE: decisao.PORQUE,
+          LIVRO: "NAO_ESCRITO — um salto nao e uma observacao",
+          COLLECTION_RUN_STARTED_AT: STARTED_AT });
+        continue;
+      }
+      if (decisao.DECISAO === "REVALIDATE") {
+        cont.REVALIDATED++;
+        cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
+      } else if (decisao.CONHECIDO) {
+        // FETCH a um endereco JA CONHECIDO. A regra so o devolve com razao
+        // nomeada (`PREVIOUS_ATTEMPT_FAILED`); sem razao e desperdicio, e e
+        // esse o numero que o gate desta missao olha.
+        if (!decisao.RAZAO) cont.UNNECESSARY_REFETCHES++;
+        else cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
+      } else {
+        cont.DETAIL_NEW++;
+      }
+      cont.DETAIL_REQUESTS++;
+
+      // ⚠️ OS BYTES INJECTADOS TAMBEM CONTAM COMO IDA AO TRANSPORTE.
+      // Apanhado pelo red team desta missao (M8): o contador vivia so dentro
+      // de `baixar()`, e por isso uma corrida com `forcarBuf` nao via
+      // pedido nenhum. Um ataque que descarregasse ANTES de decidir — que e
+      // o defeito «dedup pos-download» em pessoa — passava invisivel na
+      // bancada offline, e a bancada offline e onde isto se prova.
+      //
+      //     UM MEDIDOR QUE SO CONTA A REDE REAL NAO MEDE
+      //     UMA CORRIDA SEM REDE. CONTA-SE O TRANSPORTE, VENHA DE ONDE VIER.
+      if (forcarBuf) REDE.total++;
       const r = forcarBuf ? { buf: forcarBuf(sourceId, alvo), status: 200, tentativas: 1 } : await baixar(alvo.url);
       const CAPTURED_AT = agora();
 
@@ -490,7 +605,11 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         gravar(obs); detalhes.push(obs); continue;
       }
 
-      const RAW_SHA256 = sha(r.buf);
+      // `let` e nao `const`: quando a DEFESA 2 conclui que a mudanca foi so
+      // ruido, este campo volta a ser o sha dos bytes PRESERVADOS, para nunca
+      // desmentir o ficheiro em `RAW_PATH`. O sha do que chegou agora fica em
+      // `RECEIVED_RAW_SHA256`.
+      let RAW_SHA256 = sha(r.buf);
       const ident = identidade(sourceId, alvo, r.buf);
       if (!ident.DOCUMENT_ID) {
         saudeFonte = "FAILED";
@@ -502,15 +621,66 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       const mesmoDoc = anterior.filter(o => o.SOURCE_ID === sourceId && o.DOCUMENT_ID === ident.DOCUMENT_ID);
       const mesmoSha = anterior.filter(o => o.RAW_SHA256 === RAW_SHA256 && o.SOURCE_ID === sourceId);
       let OBSERVATION_RESULT, DOCUMENT_VERSION_ID;
+      // Campos que so nascem quando a segunda defesa fala. Ausentes por
+      // omissao: um campo a `null` numa observacao onde a pergunta nem se pos
+      // seria uma resposta a pergunta nenhuma.
+      let conteudo = null, RECEIVED_RAW_SHA256;
 
       if (mesmoDoc.some(o => o.RAW_SHA256 === RAW_SHA256)) {
         OBSERVATION_RESULT = "SEEN_AGAIN";                       // CASO A
         DOCUMENT_VERSION_ID = mesmoDoc.find(o => o.RAW_SHA256 === RAW_SHA256).DOCUMENT_VERSION_ID;
         cont.SEEN_AGAIN++;
       } else if (mesmoDoc.length) {
-        OBSERVATION_RESULT = "DOCUMENT_CHANGED_IN_PLACE";        // CASO B
-        DOCUMENT_VERSION_ID = `v${mesmoDoc.length + 1}_${RAW_SHA256.slice(0, 12)}`;
-        cont.CHANGED_IN_PLACE++;
+        // ══ DEFESA 2 · BYTES DIFERENTES NAO SAO DOCUMENTO DIFERENTE ════════
+        // ⚠️ AQUI NASCIA O FALSO `DOCUMENT_CHANGED_IN_PLACE`, E A PROVA ESTA
+        // MEDIDA: dos 32 documentos que apareceram nas DUAS corridas do
+        // canario, 32 mudaram de sha e ZERO mudaram de conteudo. 23 deles
+        // mudaram de sha com O MESMO NUMERO DE BYTES.
+        //
+        // Os trechos que mexiam eram seis, e dois SAO A NOSSA PROPRIA VISITA:
+        //     <div class="views">134</div> -> 135
+        //     article:modified_time = a hora a que NOS pedimos a pagina
+        //
+        // A pagina regista a visita, a visita muda os bytes, os bytes mudam o
+        // sha, e o coletor conclui que o documento mudou — quando o unico que
+        // mudou fomos nos a olhar para ele.
+        //
+        //     VOLATIL NAO E `CHANGED_IN_PLACE`.
+        //
+        // ⚠️ E ISTO NAO E DEDUP POS-DOWNLOAD A FAZER DE INCREMENTALIDADE. A
+        // rede ja foi gasta quando se chega aqui; quem a poupa e a DEFESA 1,
+        // la em cima. Esta so impede que o livro minta quando a ida FOI
+        // legitima — uma revalidacao com razao nomeada, por exemplo.
+        const anteriorDoDoc = mesmoDoc.at(-1);
+        let bytesAntes = null;
+        try {
+          if (anteriorDoDoc?.RAW_PATH && existsSync(anteriorDoDoc.RAW_PATH)) bytesAntes = readFileSync(anteriorDoDoc.RAW_PATH);
+        } catch { bytesAntes = null; }
+
+        if (bytesAntes) conteudo = compararConteudo(bytesAntes, r.buf);
+
+        if (conteudo && conteudo.VEREDICTO === "VOLATILE_ONLY" && !conteudo.AVISO) {
+          // O documento e o mesmo. Fica a VERSAO que ja estava guardada, e
+          // nao nasce um `v4` para arrumar ruido.
+          OBSERVATION_RESULT = "SEEN_AGAIN";
+          DOCUMENT_VERSION_ID = anteriorDoDoc.DOCUMENT_VERSION_ID;
+          cont.SEEN_AGAIN++;
+          cont.VOLATILE_ONLY_NOT_CHANGED++;
+          // ⚠️ `RAW_SHA256` CONTINUA A SER O SHA DO FICHEIRO EM `RAW_PATH`, e
+          // isso e obrigatorio: `medidas/coorte_da_micro_collection.py` acende
+          // `SHA_MISMATCH` quando o livro aponta para bytes que nao batem —
+          // «o que falta sabe-se que falta; o trocado passa por bom». Os bytes
+          // que chegaram AGORA, e que nao se guardam, vao num campo com nome
+          // proprio. Sao duas perguntas, e a casa ja separa as duas noutro
+          // sitio: `MIME_ASSINATURA` (o que eu medi) != `CONTENT_TYPE` (o que
+          // ele disse).
+          RECEIVED_RAW_SHA256 = RAW_SHA256;
+          RAW_SHA256 = anteriorDoDoc.RAW_SHA256;
+        } else {
+          OBSERVATION_RESULT = "DOCUMENT_CHANGED_IN_PLACE";      // CASO B
+          DOCUMENT_VERSION_ID = `v${mesmoDoc.length + 1}_${RAW_SHA256.slice(0, 12)}`;
+          cont.CHANGED_IN_PLACE++;
+        }
       } else if (mesmoSha.length) {
         OBSERVATION_RESULT = "SEMANTIC_ID_CHANGED_SAME_BYTES";   // CASO D
         DOCUMENT_VERSION_ID = `v1_${RAW_SHA256.slice(0, 12)}`;
@@ -613,6 +783,33 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
         DECLARED_FREQUENCY: c.DECLARED_FREQUENCY, OBSERVED_FREQUENCY: c.OBSERVED_FREQUENCY,
         RAW_OBJECT_CREATED: rawCriado, RAW_PATH: rawDir ? `${rawDir}/${alvo.nome}` : null,
         RAW_PRESERVED_BEFORE_PARSE: true,
+        // ── O QUE A SEGUNDA DEFESA VIU, quando teve o que comparar ─────────
+        // Condicional, como `RESOLVED_STRUCTURED_TARGET`: estes campos so
+        // existem quando a pergunta se pos — ou seja, quando ja havia uma
+        // versao deste mesmo DOCUMENT_ID para comparar. Numa observacao de
+        // documento novo a pergunta nao existe, e a resposta certa e a
+        // AUSENCIA do campo, nunca um `null` que se leia como «nao sei».
+        ...(conteudo ? {
+          NORMALIZATION: conteudo.NORMALIZACAO,
+          CONTENT_VERDICT: conteudo.VEREDICTO,
+          RAW_CHANGED: conteudo.RAW_CHANGED,
+          NORMALIZED_CHANGED: conteudo.NORMALIZED_CHANGED,
+          VISIBLE_TEXT_CHANGED: conteudo.VISIBLE_TEXT_CHANGED,
+          VOLATILE_DIFFERENCE: conteudo.VOLATILE_DIFFERENCE,
+          OLD_NORMALIZED_HASH: conteudo.OLD_NORMALIZED_HASH,
+          NEW_NORMALIZED_HASH: conteudo.NEW_NORMALIZED_HASH,
+          // ⚠️ SEM DIFF MATERIAL, UM `CHANGED_IN_PLACE` E FALSO POSITIVO. O
+          // campo vai escrito para que quem ler o livro nao tenha de
+          // acreditar: MATERIAL_DIFF diz se os hashes normalizados diferem.
+          MATERIAL_DIFF: conteudo.NORMALIZED_CHANGED,
+          VOLATILE_FRAGMENTS: conteudo.TRECHOS_VOLATEIS_ENCONTRADOS,
+          ...(conteudo.AVISO ? { NORMALIZER_WARNING: conteudo.AVISO } : {}),
+        } : {}),
+        // O sha dos bytes que chegaram nesta visita, quando ele difere do
+        // que ficou guardado. Presente SO nesse caso — se estivesse sempre,
+        // duplicaria `RAW_SHA256` e um leitor distraido compararia o campo
+        // errado com o disco.
+        ...(RECEIVED_RAW_SHA256 ? { RECEIVED_RAW_SHA256 } : {}),
         DISCOVERY_DEGRADED: alvo.descoberta_degradada ?? null,
         PARSE_ERROR: parseErro,
         parse: parse ? Object.fromEntries(Object.entries(parse).filter(([k]) => !k.startsWith("_"))) : null,
@@ -627,6 +824,10 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   }
 
   const FINISHED_AT = agora();
+  // INDEX_REQUESTS por subtraccao, que e a unica conta exacta: tudo o que foi
+  // a rede menos o que foi a um detalhe. Com `forcarBuf` nao houve rede
+  // nenhuma e o numero e zero — o que tambem e verdade.
+  cont.INDEX_REQUESTS = Math.max(0, REDE.total - cont.DETAIL_REQUESTS);
   const resumo = {
     RUN_ID, STARTED_AT, FINISHED_AT,
     IS_BASELINE: primeira,
