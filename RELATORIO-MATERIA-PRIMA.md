@@ -884,3 +884,55 @@ supervisor 107504          vivo do principio ao fim
 
 **HARD STOP** — a missão manda parar depois da primeira colheita com o conjunto
 novo. Paro aqui.
+
+---
+
+## LOTE 13 — o rótulo errado que está prestes a ser posto em 5 fontes
+
+Cinco fontes ficaram em `WAITING_RETRY`, na **tentativa 4 de 5**. À quinta, o
+worker escreve `CONTRACTED_CANARY_FAILED` — que se lê como «a fonte não presta».
+**Medi antes de deixar acontecer, e o rótulo estaria errado.**
+
+```
+IT-T7-050  https://www.coldiretti.it/
+IT-T7-051  https://puglia.coldiretti.it/
+IT-T7-052  https://sicilia.coldiretti.it/
+IT-T7-053  https://veneto.coldiretti.it/
+IT-T7-058  https://www.unaprol.it/
+```
+
+São a Coldiretti (nacional e três delegações) e a Unaprol — das maiores
+organizações agrícolas italianas. O erro é sempre o mesmo:
+`URLError [WinError 10054]`, ligação cortada pelo outro lado.
+
+### As três perguntas, respondidas por medição
+
+```
+1  E o nosso User-Agent?        NAO.
+   UA da casa (Chrome/125.0) e UA de navegador completo dao os DOIS `000`.
+
+2  E a nossa rede/egresso?      NAO.
+   EGRESSO 205.147.30.2 · Italy · Milan · Proton AG
+   CONTROLO POSITIVO: istat.it 200 · ersaf.lombardia.it 200 · arpae.it 302
+
+3  Sao estes hosts, a ESTA saida?  SIM.
+   As 15:5x davam 403 (recusa explicita). Agora dao 000 (nem liga).
+   Ou seja: a recusa endureceu ao longo do dia.
+```
+
+### O que isto quer dizer, e o que não quer
+
+`CLIENT_FAILURE` está **excluído** — o controlo positivo passa e o UA é
+irrelevante. O vocabulário certo da casa para isto é `ENVIRONMENT_GAP`, não
+`SOURCE_FAILURE`.
+
+⚠️ **Hipótese que não consigo separar com o que tenho:** hoje estes hosts foram
+tocados muitas vezes — duas varreduras de 44 hosts, mais as tentativas do
+canário. A recusa passou de `403` para `000` no espaço de horas. **É possível
+que a nossa própria medição nos tenha valido um bloqueio de IP.** Não o afirmo:
+não tenho segunda saída para comparar.
+
+⚠️ **Não forcei nada.** Não promovi, não mexi no classificador, não escrevi
+regra. Deixo as 5 a retentar e deixo isto escrito, porque quem ler
+`CONTRACTED_CANARY_FAILED` nestas cinco daqui a um mês vai concluir que a
+Coldiretti não serve — e não é isso que foi medido.
