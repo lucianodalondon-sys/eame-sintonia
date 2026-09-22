@@ -19767,6 +19767,18 @@ Um serviço que herda o tempo de vida de quem o lançou não é um serviço: é 
 subprocesso com nome grande. Relançado num terminal próprio e independente
 (PID 48212), ficou de pé.
 
+**E a prova de que é serviço não é o PID: é a ascendência.** Ao lançar o
+observador desta ponte, a verificação que conta foi traçar a árvore até à raiz
+e comparar com a do próprio agente:
+
+    OBSERVADOR : python(14960) <- py <- powershell <- Orca.exe(39696)
+    O AGENTE   : powershell <- bash x3 <- claude.exe(118288) <- ... <- Orca.exe
+
+Os dois acabam no mesmo Orca — e isso não chega. O que importa é que o
+observador **não passa pelo `claude.exe`** pelo caminho: quando a sessão do
+agente terminar, ele fica. Um PID vivo agora não distingue os dois casos; a
+cadeia de pais distingue.
+
 E o lock, sozinho, **não prova vida** — afirma um dono. Quem lê o lock tem de
 perguntar ao sistema operativo se aquele PID existe; senão herda uma afirmação
 velha com cara de facto.
