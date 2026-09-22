@@ -32,6 +32,22 @@ const { executarRodada } = await import("../coleta/italy_pilot_collect.mjs");
 
 // ── A FONTE DE PROVA: uma pagina HTML com volateis e com materia ──────────
 const FONTE = "IT-T3-005";   // contrato existente, EXPECTED_SIGNATURE "<"
+
+// ⚠️ A PROVA DECLARA O SEU CENARIO, E NAO O PEDE EMPRESTADO AO CONTRATO.
+// Apanhado em 2026-09-22, minutos depois de os contratos ganharem
+// `RECOLLECTION`: esta prova passava a vermelho porque IT-T3-005 tinha
+// acabado de ser declarada `MUTABLE` — e uma fonte MUTABLE revalida SEMPRE,
+// que e o comportamento certo dela e o oposto do que estas rodadas medem.
+//
+//     UMA PROVA QUE DEPENDE DE CONFIGURACAO ALHEIA
+//     MEDE A CONFIGURACAO, E NAO O QUE DIZ MEDIR.
+//
+// As rodadas 1 a 3 sao sobre a fonte que NAO declara nada — que e o caso de
+// 179 dos 186 contratos hoje. Fixa-se aqui, em voz alta, e restaura-se no
+// fim. A rodada 4 muda para `MUTABLE` de proposito, para medir o outro ramo.
+const { CONTRACTS } = await import("../regras/italy_contracts.mjs");
+const RECOLLECTION_ORIGINAL = CONTRACTS[FONTE].RECOLLECTION;
+CONTRACTS[FONTE].RECOLLECTION = undefined;   // «UNKNOWN» — nada declarado
 let VISITAS = 0;
 const pagina = (v = {}) => Buffer.from(`<!DOCTYPE html><html><head>
 <meta property="article:modified_time" content="${v.hora ?? "2026-09-22T02:01:41+00:00"}" />
@@ -111,8 +127,6 @@ try {
   console.log("\n══ RODADA 4 · a revalidacao legitima, e o que ela ve ═══════════");
   // Com `RECOLLECTION.DETAIL_CONTENT = "MUTABLE"` ha razao NOMEADA para ir.
   // A rede gasta-se de proposito — e e aqui que a DEFESA 2 tem de falar.
-  const { CONTRACTS } = await import("../regras/italy_contracts.mjs");
-  const guardado = CONTRACTS[FONTE].RECOLLECTION;
   CONTRACTS[FONTE].RECOLLECTION = { DETAIL_CONTENT: "MUTABLE" };
   estado = { visitas: 999, hora: "2026-09-23T00:00:00+00:00", token: "C".repeat(40) };
   const r4 = await rodada("RUN4");
@@ -169,7 +183,7 @@ try {
     assert.notEqual(u.OLD_NORMALIZED_HASH, u.NEW_NORMALIZED_HASH);
     assert.equal(u.NORMALIZER_WARNING, undefined);
   });
-  CONTRACTS[FONTE].RECOLLECTION = guardado;
+  // (o restauro do contrato faz-se no `finally`, com o resto)
 
   console.log("\n══ CENSO DAS CINCO RODADAS ═════════════════════════════════════");
   for (const c of contadores) {
@@ -186,6 +200,9 @@ try {
       `${c.nome}: o contador diz ${c.DETAIL_REQUESTS} e o transporte foi chamado ${c.PEDIDOS_AO_TRANSPORTE}`);
   });
 } finally {
+  // ⚠️ O CONTRATO E UM OBJECTO PARTILHADO NO PROCESSO. Deixa-lo mexido faria
+  // a proxima prova do mesmo processo medir a configuracao desta.
+  CONTRACTS[FONTE].RECOLLECTION = RECOLLECTION_ORIGINAL;
   rmSync(RAIZ, { recursive: true, force: true });
 }
 
