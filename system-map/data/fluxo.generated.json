@@ -4,8 +4,8 @@
  "O_QUE_E": "o que o sistema consegue contar HOJE sobre o proprio fluxo, lendo so o que ja existe no repositorio.",
  "DE_ONDE_VEM": "data/collection-ledger/italy/{runs,observations}.ndjson",
  "SEM_DADO_NAO_E_ZERO": "onde ninguem mediu, escreve-se NOT_INSTRUMENTED. Um relatorio que mostra 0 onde ninguem mediu convida a concluir que nada aconteceu — e pior do que nao existir.",
- "CORRIDAS": 58,
- "OBSERVACOES": 445,
+ "CORRIDAS": 59,
+ "OBSERVACOES": 521,
  "POR_CORRIDA": [
   {
    "RUN_ID": "PILOT_RUN_20260907153737_4c34b3",
@@ -1167,11 +1167,34 @@
    "STAGE": "NOT_INSTRUMENTED",
    "COST": "NOT_INSTRUMENTED",
    "EXECUTOR": "NOT_INSTRUMENTED"
+  },
+  {
+   "RUN_ID": "OPS_forward-only-live_20260922185447_a9d037",
+   "STARTED_AT": "2026-09-22T18:54:49.238Z",
+   "FINISHED_AT": "2026-09-22T18:58:26.031Z",
+   "DURATION_MS": 216793,
+   "EGRESS_COUNTRY": "IT",
+   "CODE_VERSION": "pilot-v1",
+   "POLICY_VERSION": "italy-contracts-v1",
+   "INPUT_GRAIN": "documento observado",
+   "OUTPUT_GRAIN": "documento observado",
+   "INPUT_COUNT": 76,
+   "DESTINOS": {
+    "DOCUMENT_CHANGED_IN_PLACE": 17,
+    "NEW_DOCUMENT": 29,
+    "SEEN_AGAIN": 30
+   },
+   "UNACCOUNTED_INPUT": 0,
+   "FONTES": 7,
+   "STAGE": "NOT_INSTRUMENTED",
+   "COST": "NOT_INSTRUMENTED",
+   "EXECUTOR": "NOT_INSTRUMENTED"
   }
  ],
  "POR_FONTE": {
-  "IT-T10-018": 91,
-  "IT-T10-022": 28,
+  "IT-T10-018": 100,
+  "IT-T10-021": 1,
+  "IT-T10-022": 38,
   "IT-T2-002": 140,
   "IT-T2-004": 7,
   "IT-T3-002": 3,
@@ -1180,22 +1203,24 @@
   "IT-T3-010": 22,
   "IT-T4-001": 3,
   "IT-T5-049": 13,
-  "IT-T7-017": 91,
-  "IT-T7-042": 31,
+  "IT-T7-017": 121,
+  "IT-T7-021": 1,
+  "IT-T7-033": 15,
+  "IT-T7-042": 41,
   "IT-T7-043": 7
  },
  "POR_DESTINO": {
   "BASELINE_DOCUMENT": 10,
   "DISCOVERY_FAILED": 25,
-  "DOCUMENT_CHANGED_IN_PLACE": 83,
+  "DOCUMENT_CHANGED_IN_PLACE": 100,
   "IDENTITY_FAILED": 85,
-  "NEW_DOCUMENT": 113,
-  "SEEN_AGAIN": 111,
+  "NEW_DOCUMENT": 142,
+  "SEEN_AGAIN": 141,
   "SEMANTIC_ID_CHANGED_SAME_BYTES": 6,
   "TRANSPORT_OR_EMPTY": 12
  },
  "POR_MIME": {
-  "HTML": 183,
+  "HTML": 259,
   "NAO SEI": 122,
   "PDF": 137,
   "TEXTO": 3
@@ -1206,10 +1231,11 @@
   "2026-09-14T15": 8,
   "2026-09-14T16": 23,
   "2026-09-18T17": 9,
-  "2026-09-21T19": 261
+  "2026-09-21T19": 261,
+  "2026-09-22T18": 76
  },
  "POR_ROTA": {
-  "RC-9": 445,
+  "RC-9": 521,
   "NOTA": "todo este ledger e da RC-9 (GIT_LEDGER), que e DIVIDA e nao estrada a fechar. As outras rotas nao emitem nada — nao e que tenham emitido zero."
  },
  "POR_ETAPA": {

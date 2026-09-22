@@ -33,6 +33,8 @@
       "RELATORIO-DUAS-PORTAS.md",
       "RELATORIO-INTAKE-GATE.md",
       "RELATORIO-LAST-MILE.md",
+      "RELATORIO-LOTE-76.md",
+      "RELATORIO-MATERIA-PRIMA.md",
       "RELATORIO-MICRO-COLLECTION.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PROVAS-P1.md",
@@ -304,6 +306,7 @@
       "curadoria/LIFECYCLE-RED-TEAM-V1.json",
       "curadoria/LISTAGENS-PROVADAS-V1.json",
       "curadoria/POLITICA-MODELO.json",
+      "curadoria/PONTE-CURADOR-PROOF-V1.json",
       "curadoria/READY-BATCHES-V1.json",
       "curadoria/READY-FOR-COLLECTION-V1.json",
       "curadoria/READY-SOURCES-V1.json",
@@ -351,11 +354,13 @@
       "curadoria/provar_autonomia.py",
       "curadoria/provar_lifecycle.py",
       "curadoria/provar_listagem.py",
+      "curadoria/provar_ponte_curador.py",
       "curadoria/provar_supervisor.py",
       "curadoria/ready_split.py",
       "curadoria/reconciliar.py",
       "curadoria/reconciliar_livros.py",
       "curadoria/red_team_lifecycle.py",
+      "curadoria/red_team_ponte_curador.py",
       "curadoria/retrato_html.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
@@ -391,20 +396,25 @@
       "data/collection-store/.gitattributes",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_annamaria-medici-in-ortofrutta-vince-il-valore-percepito/v1_451255119590/annamaria-medici-in-ortofrutta-vince-il-valore-percepito.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_annamaria-medici-in-ortofrutta-vince-il-valore-percepito/v2_7439053c83bd/annamaria-medici-in-ortofrutta-vince-il-valore-percepito.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_apofruit-appuntamento-a-madrid-per-fruit-attraction/v1_969800979b6e/apofruit-appuntamento-a-madrid-per-fruit-attraction.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_arachidi-statunitensi-prezzi-in-forte-rialzo/v1_17187d9161f8/arachidi-statunitensi-prezzi-in-forte-rialzo.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_arachidi-statunitensi-prezzi-in-forte-rialzo/v2_76bd3ee9237b/arachidi-statunitensi-prezzi-in-forte-rialzo.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_banane-eti-mette-sotto-esame-il-prezzo-della-gdo/v1_9d41e259ea98/banane-eti-mette-sotto-esame-il-prezzo-della-gdo.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_bari-trasloco-nel-nuovo-mercato-ortofrutticolo-dal-2027/v1_0aa5915bcdfd/bari-trasloco-nel-nuovo-mercato-ortofrutticolo-dal-2027.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_bari-trasloco-nel-nuovo-mercato-ortofrutticolo-dal-2027/v2_d6cda9089c81/bari-trasloco-nel-nuovo-mercato-ortofrutticolo-dal-2027.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme/v1_995614babca7/certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme/v2_0704ca5347f2/certificazioni-e-ppwr-il-settore-tedesco-lancia-lallarme.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_cibus-tec-for-africa-successo-per-il-made-in-italy/v1_0c6893050f82/cibus-tec-for-africa-successo-per-il-made-in-italy.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_cibus-tec-for-africa-successo-per-il-made-in-italy/v2_7ce12d626fc6/cibus-tec-for-africa-successo-per-il-made-in-italy.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_dai-mercati-pomodori-sempre-alle-stelle/v1_6c3c4385586e/dai-mercati-pomodori-sempre-alle-stelle.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_despar-nord-wecity-riparte-il-progetto-mobilita-sostenibile/v1_a3b16912a54c/despar-nord-wecity-riparte-il-progetto-mobilita-sostenibile.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_despar-nord-wecity-riparte-il-progetto-mobilita-sostenibile/v2_f1e667a74795/despar-nord-wecity-riparte-il-progetto-mobilita-sostenibile.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_dole-promperu-e-conad-weekend-allinsegna-dellavocado/v1_dccee5998e5d/dole-promperu-e-conad-weekend-allinsegna-dellavocado.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_dole-promperu-e-conad-weekend-allinsegna-dellavocado/v2_3d8a95144724/dole-promperu-e-conad-weekend-allinsegna-dellavocado.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_enjoy-dolcefrutta-distribuite-6176-nettarine-agli-eug-2026/v1_7bcbfe89b1b5/enjoy-dolcefrutta-distribuite-6176-nettarine-agli-eug-2026.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_enjoy-dolcefrutta-distribuite-6176-nettarine-agli-eug-2026/v2_bde34a76de40/enjoy-dolcefrutta-distribuite-6176-nettarine-agli-eug-2026.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_etichette-compostabili-sinclair-punta-sui-consumatori/v1_042a1c27d12a/etichette-compostabili-sinclair-punta-sui-consumatori.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_federdistribuzione-firmato-il-nuovo-protocollo-di-legalita/v1_bb3559b8254a/federdistribuzione-firmato-il-nuovo-protocollo-di-legalita.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_frutta-e-verdura-perche-lesperienza-batte-lefficienza/v1_8853cd0f758c/frutta-e-verdura-perche-lesperienza-batte-lefficienza.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_frutta-e-verdura-perche-lesperienza-batte-lefficienza/v2_be85c5bd49d0/frutta-e-verdura-perche-lesperienza-batte-lefficienza.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_frutta-il-mercato-non-da-piu-certezze/v1_bfc602e88feb/frutta-il-mercato-non-da-piu-certezze.html",
@@ -413,8 +423,10 @@
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_germania-i-freschi-crescono-mentre-i-consumi-restano-cauti/v2_94cd384df128/germania-i-freschi-crescono-mentre-i-consumi-restano-cauti.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_gruppo-gabrielli-ecco-il-primo-bilancio-sostenibilita/v1_7a2c104d649c/gruppo-gabrielli-ecco-il-primo-bilancio-sostenibilita.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_gruppo-gabrielli-ecco-il-primo-bilancio-sostenibilita/v2_9efb3d8d8501/gruppo-gabrielli-ecco-il-primo-bilancio-sostenibilita.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_gruppo-vege-lancia-la-nona-edizione-di-noi-amiamo-la-scuola/v1_8a76f4ffef3f/gruppo-vege-lancia-la-nona-edizione-di-noi-amiamo-la-scuola.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_i-cambiamenti-climatici-presentano-il-conto/v1_65f50cbb0736/i-cambiamenti-climatici-presentano-il-conto.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_i-cambiamenti-climatici-presentano-il-conto/v2_7cfa839da36a/i-cambiamenti-climatici-presentano-il-conto.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_ins-mercato-due-nuove-aperture-in-piemonte-e-lombardia/v1_7c93f9ee0a3b/ins-mercato-due-nuove-aperture-in-piemonte-e-lombardia.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_italmark-a-cremona-negozio-tutto-nuovo/v1_b15707063d2a/italmark-a-cremona-negozio-tutto-nuovo.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_italmark-a-cremona-negozio-tutto-nuovo/v2_8773ae682c38/italmark-a-cremona-negozio-tutto-nuovo.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_kanzi-eventi-e-attivita-supportano-la-stagione-commerciale/v1_6f634c147f8f/kanzi-eventi-e-attivita-supportano-la-stagione-commerciale.html",
@@ -435,6 +447,7 @@
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_pere-conference-il-belgio-guarda-allitalia/v2_03aadc9a2d0f/pere-conference-il-belgio-guarda-allitalia.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_pewex-lortofrutta-diventera-il-terzo-pilastro/v1_cde9dc9c4839/pewex-lortofrutta-diventera-il-terzo-pilastro.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_pewex-lortofrutta-diventera-il-terzo-pilastro/v2_e22e75996ec5/pewex-lortofrutta-diventera-il-terzo-pilastro.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_planner-uva-da-tavola-le-varieta-con-semi-perdono-quota/v1_880fc054b824/planner-uva-da-tavola-le-varieta-con-semi-perdono-quota.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_pomodoro-da-industria-ismea-rafforza-le-alleanze-di-filiera/v1_b84caebf3245/pomodoro-da-industria-ismea-rafforza-le-alleanze-di-filiera.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_pomodoro-da-industria-ismea-rafforza-le-alleanze-di-filiera/v2_c61087ff89bc/pomodoro-da-industria-ismea-rafforza-le-alleanze-di-filiera.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_prezzi-uva-da-tavola-trend-ancora-in-calo/v1_4dce69f285dd/prezzi-uva-da-tavola-trend-ancora-in-calo.html",
@@ -449,24 +462,36 @@
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_torna-per-le-famiglie-italiane-la-carta-dedicata-a-te/v2_169fe469c0b1/torna-per-le-famiglie-italiane-la-carta-dedicata-a-te.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_uva-da-tavola-online-prezzi-2026-sotto-i-livelli-del-2025/v1_35a0acaa21b4/uva-da-tavola-online-prezzi-2026-sotto-i-livelli-del-2025.html",
       "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_uva-da-tavola-online-prezzi-2026-sotto-i-livelli-del-2025/v2_27a67e27d0dd/uva-da-tavola-online-prezzi-2026-sotto-i-livelli-del-2025.html",
+      "data/collection-store/italy/IT-T10-018/IT-T10-018_URL_news_uva-nera-con-semi-prezzi-giu-del-163/v1_d77e085f1f13/uva-nera-con-semi-prezzi-giu-del-163.html",
+      "data/collection-store/italy/IT-T10-021/IT-T10-021_URL_it_eventi_giornate-tecniche-sul-noce-da-frutto_63565/v1_4c724f677c3f/63565.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_bob-buresh-2026-psa-poultry-industry-award/v1_47fb3e8825be/bob-buresh-2026-psa-poultry-industry-award.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_bob-buresh-2026-psa-poultry-industry-award/v2_3b00e59abd0a/bob-buresh-2026-psa-poultry-industry-award.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_bob-buresh-2026-psa-poultry-industry-award/v3_40e9bc621612/bob-buresh-2026-psa-poultry-industry-award.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_dr-james-jim-mckay-obituary-2026/v1_719bb732793d/dr-james-jim-mckay-obituary-2026.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_dr-james-jim-mckay-obituary-2026/v2_5b1395785369/dr-james-jim-mckay-obituary-2026.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_dr-james-jim-mckay-obituary-2026/v3_d494d7043326/dr-james-jim-mckay-obituary-2026.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eu-member-states-give-political-backing-to-new-operating-rules-for-large-poultry-farms/v1_299b5b71f12b/tical-backing-to-new-operating-rules-for-large-poultry-farms.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eu-member-states-give-political-backing-to-new-operating-rules-for-large-poultry-farms/v2_583329d1c5d8/tical-backing-to-new-operating-rules-for-large-poultry-farms.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eu-member-states-give-political-backing-to-new-operating-rules-for-large-poultry-farms/v3_679e7181484d/tical-backing-to-new-operating-rules-for-large-poultry-farms.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eu-poultry-meat-market-records-higher-output-and-lower-broiler-prices/v1_18f59ddf4119/y-meat-market-records-higher-output-and-lower-broiler-prices.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eu-poultry-meat-market-records-higher-output-and-lower-broiler-prices/v2_ad31d0486551/y-meat-market-records-higher-output-and-lower-broiler-prices.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eu-poultry-meat-market-records-higher-output-and-lower-broiler-prices/v3_6b9d7aad9749/y-meat-market-records-higher-output-and-lower-broiler-prices.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_eurotier-2026-poultry-biosecurity-ai/v1_10a6eccdeaaf/eurotier-2026-poultry-biosecurity-ai.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_fefac-sindiracoes-feed-industry-mou/v1_b5fa9fbee612/fefac-sindiracoes-feed-industry-mou.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_fefac-sindiracoes-feed-industry-mou/v2_3d5e19ea786a/fefac-sindiracoes-feed-industry-mou.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_fefac-sindiracoes-feed-industry-mou/v3_390ee4a86ff4/fefac-sindiracoes-feed-industry-mou.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_indonesia-eyes-china-middle-east-poultry-exports/v1_fe38ab931dc0/indonesia-eyes-china-middle-east-poultry-exports.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_indonesia-eyes-china-middle-east-poultry-exports/v2_a5286195e21d/indonesia-eyes-china-middle-east-poultry-exports.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_indonesia-eyes-china-middle-east-poultry-exports/v3_2abe33300656/indonesia-eyes-china-middle-east-poultry-exports.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_indonesia-feed-mills-delay-price-increases/v1_5768d98b1f7b/indonesia-feed-mills-delay-price-increases.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_indonesia-feed-mills-delay-price-increases/v2_886798550365/indonesia-feed-mills-delay-price-increases.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_indonesia-feed-mills-delay-price-increases/v3_b5f3d0c16ba8/indonesia-feed-mills-delay-price-increases.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_newcastle-disease-hungary-broiler-farms/v1_995fd0add27b/newcastle-disease-hungary-broiler-farms.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_newcastle-disease-hungary-broiler-farms/v2_7c22d675d788/newcastle-disease-hungary-broiler-farms.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_newcastle-disease-hungary-broiler-farms/v3_283e7bb5b14b/newcastle-disease-hungary-broiler-farms.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_nkoko-nkitinkiti-poultry-revitalisation-ghana/v1_d80f550c2316/nkoko-nkitinkiti-poultry-revitalisation-ghana.html",
       "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_nkoko-nkitinkiti-poultry-revitalisation-ghana/v2_de7fb69d7120/nkoko-nkitinkiti-poultry-revitalisation-ghana.html",
+      "data/collection-store/italy/IT-T10-022/IT-T10-022_URL_news_nkoko-nkitinkiti-poultry-revitalisation-ghana/v3_5db8a14f3316/nkoko-nkitinkiti-poultry-revitalisation-ghana.html",
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
@@ -538,26 +563,52 @@
       "data/collection-store/italy/IT-T7-017/IT-T7-017_URL_news-e-eventi_una-serata-di-auguri-e-visione-cantine-maschio-celebra-i-traguardi-e-guarda-al-futuro/v2_42a792bc7ad2/sione-cantine-maschio-celebra-i-traguardi-e-guarda-al-futuro.html",
       "data/collection-store/italy/IT-T7-017/IT-T7-017_URL_news-e-eventi_world-lambrusco-day-i-vini-di-cantine-riunite-civ-protagonisti-sul-monte-bianco/v1_62c44699678c/-i-vini-di-cantine-riunite-civ-protagonisti-sul-monte-bianco.html",
       "data/collection-store/italy/IT-T7-017/IT-T7-017_URL_news-e-eventi_world-lambrusco-day-i-vini-di-cantine-riunite-civ-protagonisti-sul-monte-bianco/v2_c219e4e849b6/-i-vini-di-cantine-riunite-civ-protagonisti-sul-monte-bianco.html",
+      "data/collection-store/italy/IT-T7-021/IT-T7-021_URL_news_imprese_sversamento-nel-naviglio-grande-riprende-la-navigazione/v1_d44208dc767f/sversamento-nel-naviglio-grande-riprende-la-navigazione.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_27-ottobre-2025-milano-degustazione-chianticlassicodocg/v1_470499b5460a/27-ottobre-2025-milano-degustazione-chianticlassicodocg.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/v1_b4d711f90fb3/ttorio-frescobaldi-imprenditore-illuminato-del-vino-italiano.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_chianti-classico-100-punti-vinous/v1_c0a228be6b1d/chianti-classico-100-punti-vinous.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_chianti-classico-collection-2026-2/v1_ac2312c3c186/chianti-classico-collection-2026-2.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_chianti-classico-collection-2026/v1_1aa22bb144cd/chianti-classico-collection-2026.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_consorzio-chianti-classico-vinexpo-asia-hongkong/v1_4b2cd0cf9ec0/consorzio-chianti-classico-vinexpo-asia-hongkong.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_e-learning-vuoi-diventare-un-esperto-di-chianti-classico/v1_cf6ac17d07ad/e-learning-vuoi-diventare-un-esperto-di-chianti-classico.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_gallo-nero-ai-vertici-delle-classifiche-internazionali/v1_5140677cdc63/gallo-nero-ai-vertici-delle-classifiche-internazionali.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_il-gallo-nero-a-vinitaly-2026/v1_9c38b3431759/il-gallo-nero-a-vinitaly-2026.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_il-gallo-nero-vola-a-parigi-con-due-eventi-esclusivi/v1_e1ae3b2d028b/il-gallo-nero-vola-a-parigi-con-due-eventi-esclusivi.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_kerin-o-keefe-assegna-100-punti-a-un-vino-del-gallo-nero/v1_72d5b848cee2/kerin-o-keefe-assegna-100-punti-a-un-vino-del-gallo-nero.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_la-dop-chianti-classico-2025/v1_d8c8097bb6fc/la-dop-chianti-classico-2025.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_narrazione-arti-memoria-degustazione-format-originale-coinvolgente/v1_1f17556b3fbe/ione-arti-memoria-degustazione-format-originale-coinvolgente.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_slow-wine-fair-chianti-classico/v1_eb99f4e54030/slow-wine-fair-chianti-classico.html",
+      "data/collection-store/italy/IT-T7-033/IT-T7-033_URL_news_sulle-tracce-del-gallo-nero-premio-biblioteca-lunelli/v1_ccf82840ad27/sulle-tracce-del-gallo-nero-premio-biblioteca-lunelli.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_a-sostegno-della-filiera-del-vino-italiano/v1_6296ba29a21e/a-sostegno-della-filiera-del-vino-italiano.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_a-sostegno-della-filiera-del-vino-italiano/v2_7d6ff716cde2/a-sostegno-della-filiera-del-vino-italiano.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_a-sostegno-della-filiera-del-vino-italiano/v3_2797e324a40f/a-sostegno-della-filiera-del-vino-italiano.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere/v1_d26dacbd4c55/aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere/v2_618a7e0f0278/aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere/v3_a60c8a2d06e1/aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_al-festivalfilosofia-2026-il-consorzio-porta-supermerkaos-un-laboratorio-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp/v1_3ae3c2d70d61/io-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_al-festivalfilosofia-2026-il-consorzio-porta-supermerkaos-un-laboratorio-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp/v2_7d52d6ab0553/io-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_al-festivalfilosofia-2026-il-consorzio-porta-supermerkaos-un-laboratorio-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp/v3_979f8e719dca/io-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/v1_def7e3219a46/mento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/v2_dc0b2b288d37/mento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/v3_fc54e7375f78/mento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_domenica-27-settembre-torna-acetaie-aperte/v1_7981d22708b2/domenica-27-settembre-torna-acetaie-aperte.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_domenica-27-settembre-torna-acetaie-aperte/v2_2e0a443a8df7/domenica-27-settembre-torna-acetaie-aperte.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_domenica-27-settembre-torna-acetaie-aperte/v3_ccb3e95c820b/domenica-27-settembre-torna-acetaie-aperte.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-24-settembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026/v1_b0cf35b37df0/tembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026-2/v1_7ee0af308edf/na-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026-2.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026-2/v2_cdf42ca4266e/na-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026-2.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026-2/v3_747c7700ee75/na-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026-2.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026/v1_9418dd07b396/dena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026/v2_a5ae80879606/dena-al-summer-fancy-food-show-di-new-york-28-30-giugno-2026.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-igp-partecipa-a-tramonto-divino-2026/v1_599aabb1e245/eto-balsamico-di-modena-igp-partecipa-a-tramonto-divino-2026.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-igp-partecipa-a-tramonto-divino-2026/v2_33482438eb6e/eto-balsamico-di-modena-igp-partecipa-a-tramonto-divino-2026.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day/v1_611ccec87e65/a-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day/v2_aee361a99812/a-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_il-consorzio-tutela-aceto-balsamico-di-modena-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day/v3_b218369bd0ce/a-igp-tra-gli-organizzatori-della-ix-edizione-di-ms-food-day.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_imparare-a-riconoscere-lautentico-aceto-balsamico-di-modena-igp-diventa-un-gioco/v1_788e68ea580c/re-lautentico-aceto-balsamico-di-modena-igp-diventa-un-gioco.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_laceto-balsamico-di-modena-igp-diventa-lingrediente-segreto-della-mixology/v1_34b29f549895/co-di-modena-igp-diventa-lingrediente-segreto-della-mixology.html",
       "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_laceto-balsamico-di-modena-igp-diventa-lingrediente-segreto-della-mixology/v2_0af64c2cfa9f/co-di-modena-igp-diventa-lingrediente-segreto-della-mixology.html",
+      "data/collection-store/italy/IT-T7-042/IT-T7-042_URL_news-blog_laceto-balsamico-di-modena-igp-diventa-lingrediente-segreto-della-mixology/v3_114bdcdb5c31/co-di-modena-igp-diventa-lingrediente-segreto-della-mixology.html",
       "data/collection-store/italy/IT-T7-043/IT-T7-043_URL_news-ed-eventi_dettaglio-news_2026_06_07_osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana/v1_96aca2861923/grofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana.html",
       "data/collection-store/italy/IT-T7-043/IT-T7-043_URL_news-ed-eventi_dettaglio-news_2026_06_08_agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo/v1_9c33685e904b/rofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo.html",
       "data/derivados/A-COLLECTION-PRESERVA-O-FATO.json",
@@ -1860,6 +1911,7 @@
       "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json",
       "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "provas/PARIDADE-RED-TEAM-V1.json",
+      "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
       "provas/RECOLLECTION-RED-TEAM-V1.json",
       "provas/RED-TEAM-DUAS-PORTAS-V1.json",
       "provas/_c106b_filho.py",
@@ -1994,6 +2046,7 @@
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
       "provas/recollection_red_team.mjs",
+      "provas/recollection_red_team_estrito.mjs",
       "provas/red_team_adama_referencia.py",
       "provas/red_team_collection_ate_a_sala.py",
       "provas/red_team_da_release_v1.py",
@@ -2536,8 +2589,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 876 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 876 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 922 ficheiros (91%) · ESPANHA 76 ficheiros (8%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (0%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 244. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 922 ficheiros e 244 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -2556,7 +2609,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 47 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 49 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2566,7 +2619,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "297 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 47 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 27. Elas trouxeram 4132 itens e 3028 atravessaram a régua. As outras 297 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 49 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 29. Elas trouxeram 4277 itens e 3038 atravessaram a régua. As outras 297 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -3049,10 +3102,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "recollection-v1",
-    "HEAD": "10d247b7fd5bacc348a68f10aaca5dd7f0349a18",
-    "GENERATED_AT": "2026-09-22T12:33:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc6ecfa5bdb415ce346a0fba8ff138cf457c7b3a516f0f683e6b073078c12e87"
+    "BRANCH": "lote-76-v1",
+    "HEAD": "fddcf63fa0c8a86cb71da0a9b42941a0148b984f",
+    "GENERATED_AT": "2026-09-22T16:48:10-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334"
   },
   "FAMILIES": [
     {
@@ -4537,8 +4590,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 448",
-        "desses, mostrados aqui: 40 (ficam de fora 408)"
+        "enderecos que o codigo realmente chama: 450",
+        "desses, mostrados aqui: 40 (ficam de fora 410)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -10955,16 +11008,56 @@
             "erro": null,
             "prova": null,
             "bruto": null
+          },
+          {
+            "run_id": "XX-T10-2026-09-22-191922-ff35048c147ed0ea",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "universo": "T10"
+            },
+            "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · universo=T10",
+            "pais": "NAO SEI",
+            "missao": "MARKET / TRADE / INDUSTRY",
+            "trouxe": 69,
+            "sobrou": 5,
+            "rendimento": 7,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
+          },
+          {
+            "run_id": "XX-T10-2026-09-22-193411-0a8a01dbc999da85",
+            "fonte": null,
+            "plataforma": "HTTP direto",
+            "quem_foi_buscar": "coleta/italy_executor.py",
+            "com_que_parametros": {
+              "universo": "T10"
+            },
+            "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · universo=T10",
+            "pais": "NAO SEI",
+            "missao": "MARKET / TRADE / INDUSTRY",
+            "trouxe": 76,
+            "sobrou": 5,
+            "rendimento": 7,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": null,
+            "bruto": null
           }
         ],
-        "total": 47,
+        "total": 49,
         "por_pais": {
           "ES": 10,
           "IT": 10,
-          "NAO SEI": 27
+          "NAO SEI": 29
         },
         "por_plataforma": {
-          "HTTP direto": 24,
+          "HTTP direto": 26,
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
           "LOCAL": 10,
@@ -11279,11 +11372,11 @@
           "IT-T9-019",
           "IT-T9-020"
         ],
-        "com_rendimento_medido": 46,
-        "com_custo_medido": 41,
+        "com_rendimento_medido": 48,
+        "com_custo_medido": 43,
         "custo_total_usd": 0.48,
-        "trouxe_total": 4132,
-        "sobrou_total": 3028
+        "trouxe_total": 4277,
+        "sobrou_total": 3038
       },
       "memoria": [
         {
@@ -27093,7 +27186,7 @@
           "medidas/duas_portas_reprocessa.py:146",
           "medidas/o_contrato_do_universo.py:105",
           "provas/a_rota_do_html_nao_vai_a_rede.py:40",
-          "regras/paridade_test.mjs:274"
+          "regras/paridade_test.mjs:302"
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -42507,7 +42600,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch recollection-v1"
+        "branch lote-76-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -69853,7 +69946,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 232,
+          "line": 260,
           "snippet": "const fonte = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-IT-NORMALIZACAO",
@@ -71429,7 +71522,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 29,
+          "line": 30,
           "snippet": "} from \"./incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
@@ -71464,7 +71557,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 29,
+          "line": 30,
           "snippet": "} from \"./incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -73543,7 +73636,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 274,
+          "line": 302,
           "snippet": "const { replay } = await import(\"../medidas/paridade_replay.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
@@ -102204,8 +102297,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1389,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/recollection_red_team_estrito.mjs"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1442,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102394,9 +102489,9 @@
     "edges_proven": 1086,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2456,
+    "files_tracked": 2509,
     "files_covered": 1067,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 153,
     "roles_declared_only": 9,
     "roles_unknown": 62,

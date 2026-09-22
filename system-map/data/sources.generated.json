@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-22T15:42:39+00:00",
-    "HEAD": "10d247b7fd5bacc348a68f10aaca5dd7f0349a18",
+    "GENERATED_AT": "2026-09-22T19:54:46+00:00",
+    "HEAD": "fddcf63fa0c8a86cb71da0a9b42941a0148b984f",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "fc6ecfa5bdb415ce346a0fba8ff138cf457c7b3a516f0f683e6b073078c12e87",
-    "FICHEIROS_NA_IMPRESSAO": 2604,
+    "SOURCE_TREE_FINGERPRINT": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
+    "FICHEIROS_NA_IMPRESSAO": 2657,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -27,14 +27,14 @@
       {
         "PATH": "data/collection-ledger/italy/observations.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "1f0c5073329ce1b2de7c8ca040ec835c15f4c98f",
+        "VERSAO": "580aa9c203859f898e3133c0f04c020249435417",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
       {
         "PATH": "data/collection-ledger/italy/runs.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "099d354719cb6a0ec5154815ba2f11cb8bec2143",
+        "VERSAO": "812699f58126a4363cbec83fd6aae38eee6e82d3",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
@@ -48,7 +48,7 @@
       {
         "PATH": "data/samples/RUN-MANIFEST.json",
         "PAPEL": "FONTE",
-        "VERSAO": "cb178a9c7c4b3761d60ae99ee3bb9efbb295bad0",
+        "VERSAO": "5bf6fa1cc2b93b9dbb40fc0ba6ad8c91883450ce",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_manifesto() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "9a01d4a48fac4e53a6dd8aaa9aa9845f0a1e8f74d7e0816ee56a4960a62bf79d",
+    "INPUTS_DIGEST": "88c037bcacbc7c778d88f0dfd106c4196d78538a140e306301bb0b1e93c7bcdf",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -17766,16 +17766,56 @@
         "erro": null,
         "prova": null,
         "bruto": null
+      },
+      {
+        "run_id": "XX-T10-2026-09-22-191922-ff35048c147ed0ea",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "universo": "T10"
+        },
+        "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · universo=T10",
+        "pais": "NAO SEI",
+        "missao": "MARKET / TRADE / INDUSTRY",
+        "trouxe": 69,
+        "sobrou": 5,
+        "rendimento": 7,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
+      },
+      {
+        "run_id": "XX-T10-2026-09-22-193411-0a8a01dbc999da85",
+        "fonte": null,
+        "plataforma": "HTTP direto",
+        "quem_foi_buscar": "coleta/italy_executor.py",
+        "com_que_parametros": {
+          "universo": "T10"
+        },
+        "que_pergunta": "MARKET / TRADE / INDUSTRY (T10) · PONTUAL · pedido manual · universo=T10",
+        "pais": "NAO SEI",
+        "missao": "MARKET / TRADE / INDUSTRY",
+        "trouxe": 76,
+        "sobrou": 5,
+        "rendimento": 7,
+        "custou_usd": 0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": null,
+        "bruto": null
       }
     ],
-    "total": 47,
+    "total": 49,
     "por_pais": {
       "ES": 10,
       "IT": 10,
-      "NAO SEI": 27
+      "NAO SEI": 29
     },
     "por_plataforma": {
-      "HTTP direto": 24,
+      "HTTP direto": 26,
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
       "LOCAL": 10,
@@ -18090,38 +18130,41 @@
       "IT-T9-019",
       "IT-T9-020"
     ],
-    "com_rendimento_medido": 46,
-    "com_custo_medido": 41,
+    "com_rendimento_medido": 48,
+    "com_custo_medido": 43,
     "custo_total_usd": 0.48,
-    "trouxe_total": 4132,
-    "sobrou_total": 3028
+    "trouxe_total": 4277,
+    "sobrou_total": 3038
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
     "ficheiro_corridas": "data/collection-ledger/italy/runs.ndjson",
-    "observacoes": 445,
-    "corridas": 58,
+    "observacoes": 521,
+    "corridas": 59,
     "por_fonte": {
       "IT-T2-002": 140,
-      "IT-T10-018": 91,
-      "IT-T7-017": 91,
-      "IT-T7-042": 31,
-      "IT-T10-022": 28,
+      "IT-T7-017": 121,
+      "IT-T10-018": 100,
+      "IT-T7-042": 41,
+      "IT-T10-022": 38,
       "IT-T3-010": 22,
+      "IT-T7-033": 15,
       "IT-T5-049": 13,
       "IT-T2-004": 7,
       "IT-T7-043": 7,
       "IT-T3-005": 6,
       "IT-T3-002": 3,
       "IT-T3-008": 3,
-      "IT-T4-001": 3
+      "IT-T4-001": 3,
+      "IT-T10-021": 1,
+      "IT-T7-021": 1
     },
-    "documentos_novos": 113,
-    "ja_vistos": 111,
-    "com_sha256": 408,
-    "com_fact_time": 323,
-    "com_cadencia": 323,
-    "corridas_com_egress": 58,
+    "documentos_novos": 142,
+    "ja_vistos": 141,
+    "com_sha256": 484,
+    "com_fact_time": 399,
+    "com_cadencia": 399,
+    "corridas_com_egress": 59,
     "campos": [
       "BYTES",
       "CADENCE_STATE",
@@ -18937,9 +18980,9 @@
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 448,
+  "ENDPOINTS_FOUND": 450,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 408,
+  "ENDPOINTS_TRUNCATED": 410,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -18957,17 +19000,17 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 448,
+    "endpoints": 450,
     "endpoints_published": 40,
-    "endpoints_truncated": 408,
+    "endpoints_truncated": 410,
     "candidates": 241,
     "coletores": 53,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
     "coletores_que_separam_fonte_do_fato": 21,
     "coletores_que_registam_descarte": 19,
-    "corridas_registadas": 105,
-    "observacoes_registadas": 445,
+    "corridas_registadas": 108,
+    "observacoes_registadas": 521,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 297,
     "citadas_sem_ficha": 4,

@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T15:27:15+00:00",
-  "HEAD": "68aef8a9d3488c6ff61b592f73dca098cbd7b4e1",
-  "BRANCH": "recollection-v1",
+  "GENERATED_AT": "2026-09-22T19:52:44+00:00",
+  "HEAD": "fddcf63fa0c8a86cb71da0a9b42941a0148b984f",
+  "BRANCH": "lote-76-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
-  "FICHEIROS_NA_IMPRESSAO": 2604,
+  "SOURCE_TREE_FINGERPRINT": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
+  "FICHEIROS_NA_IMPRESSAO": 2657,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -916,7 +916,7 @@
    {
     "PATH": "guarda/preservar_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b8933063a1438238334f42795160198073674c8b",
+    "VERSAO": "11f6dc8a3df20e27a8687e526cdc7765ff68868f",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3051,7 +3051,7 @@
    {
     "PATH": "regras/incrementalidade_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "791bf265bdb79f28aa6dec0563d1eb2dc5ea43dc",
+    "VERSAO": "d2aa19ddf21819f5f4285a24ea7964a133c6c58a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3114,7 +3114,7 @@
    {
     "PATH": "regras/paridade_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "5a842c0c29950817a4bdaf604935f90b03810e40",
+    "VERSAO": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3205,14 +3205,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
+    "VERSAO": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
+    "VERSAO": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4884,7 +4884,7 @@
    }
   ],
   "INPUTS_COUNT": 692,
-  "INPUTS_DIGEST": "c153698b81d6ec3e4841034a16b475068714144bf815cb36024196bb84f7f1cd",
+  "INPUTS_DIGEST": "4bc94feaa6498b2f8dd342d8dd96209b3251cdd16614bf49a6c6cb1b02a24681",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4910,15 +4910,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 450,
+  "DOCUMENTOS_LIDOS": 452,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bff795e8b95d52bcf797f04acff4e2dd3e5b5b073dc05e74efd12d88b934fe97",
-  "SEMANTIC_HASH": "cdf6e27d6791820dfdcb27c7d581f0782e78d57f53e013133a3fc1ed89d7b61e"
+  "MEASUREMENT_HASH": "68118cf332514d060171e633c3734a6889ea052380f965dd3e1f73642c9f7568",
+  "SEMANTIC_HASH": "31c082d98895d08fc89f4efe5a9cc1ff790db60b7340267193dd913608c4d05d"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -20593,7 +20593,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 232,
+      "LINHA": 260,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-NORMALIZACAO",
@@ -21399,7 +21399,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 29,
+      "LINHA": 30,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
@@ -21503,7 +21503,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 29,
+      "LINHA": 30,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -22759,7 +22759,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 274,
+      "LINHA": 302,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
@@ -42033,6 +42033,7 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "RELATORIO-CANONICAL-MICRO.md",
+    "RELATORIO-MATERIA-PRIMA.md",
     "docs/operacao/ITALIA-NA-PORTA-CANONICA.md",
     "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md"
    ],
@@ -42170,7 +42171,8 @@
    "SO_MEDEM_ESTE": [
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs",
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -42206,7 +42208,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/paridade_red_team.mjs",
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -44546,7 +44549,8 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
