@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lote-76-v1",
-    "HEAD": "fddcf63fa0c8a86cb71da0a9b42941a0148b984f",
-    "GENERATED_AT": "2026-09-22T16:48:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334"
+    "BRANCH": "diagnostico-sala-v1",
+    "HEAD": "87ddeb854e4b6de4a9af198410d45bdac505df9b",
+    "GENERATED_AT": "2026-09-22T20:30:44-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b7e7a4515d8a39c03a0666ecede4a5c48b114a18dd0e78d87e4c8d4bb9121231"
   },
   "FILES": [
     {
@@ -303,6 +303,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-DIAGNOSTICO-SALA.md",
+      "sha": "0ea678d7f456c6700a63190e6d11ce20ff072bfa",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-DUAS-PORTAS.md",
       "sha": "765e300ec131a701825a5b7bcca2b56425a26095",
       "ext": ".md",
@@ -325,7 +332,7 @@
     },
     {
       "path": "RELATORIO-LOTE-76.md",
-      "sha": "9c2a2dfa7f44e22cf8247c3eb16f2021a27814c0",
+      "sha": "d6e96e3bca56b2bb7fbfbb0bec88ad2124a86bac",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15080,6 +15087,20 @@
       "code_dir": true
     },
     {
+      "path": "scripts/diagnostico_sala/ler_os_76.py",
+      "sha": "a2aad3aace669c32401a41304bc032969430fe84",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/diagnostico_sala/onde_casou.py",
+      "sha": "bf0b990cf23f5d9c69b2de76c5ec181431e6f648",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "security/ACCOES-DE-ADMINISTRADOR.md",
       "sha": "05cbaae9a8dd420a88524ece8287f89ea1426804",
       "ext": ".md",
@@ -15676,7 +15697,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c81410b06470d5023d5b78b7ecd024c66198bcf2",
+      "sha": "23fedadc421bc222d70bb7d24fb6ab33540a0b87",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -52642,6 +52663,39 @@
       }
     },
     {
+      "from_file": "scripts/diagnostico_sala/ler_os_76.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/diagnostico_sala/ler_os_76.py",
+        "line": 16,
+        "snippet": "from admissao import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/diagnostico_sala/ler_os_76.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/diagnostico_sala/ler_os_76.py",
+        "line": 22,
+        "snippet": "livro = json.loads((RAIZ / \"data/samples/LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "scripts/diagnostico_sala/onde_casou.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/diagnostico_sala/onde_casou.py",
+        "line": 17,
+        "snippet": "from admissao import admissao as adm  # noqa: E402"
+      }
+    },
+    {
       "from_file": "security/censo_do_cliente.py",
       "to_file": "security/cliente-classificacao.json",
       "type": "READS",
@@ -72653,10 +72707,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2509,
-    "files_readable": 1137,
-    "files_code_dir": 948,
-    "file_edges": 4956,
+    "files_tracked": 2512,
+    "files_readable": 1139,
+    "files_code_dir": 950,
+    "file_edges": 4959,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

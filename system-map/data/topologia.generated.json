@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T19:52:44+00:00",
-  "HEAD": "fddcf63fa0c8a86cb71da0a9b42941a0148b984f",
-  "BRANCH": "lote-76-v1",
+  "GENERATED_AT": "2026-09-22T23:35:02+00:00",
+  "HEAD": "87ddeb854e4b6de4a9af198410d45bdac505df9b",
+  "BRANCH": "diagnostico-sala-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
-  "FICHEIROS_NA_IMPRESSAO": 2657,
+  "SOURCE_TREE_FINGERPRINT": "b7e7a4515d8a39c03a0666ecede4a5c48b114a18dd0e78d87e4c8d4bb9121231",
+  "FICHEIROS_NA_IMPRESSAO": 2660,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3154,6 +3154,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/diagnostico_sala/ler_os_76.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a2aad3aace669c32401a41304bc032969430fe84",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/diagnostico_sala/onde_casou.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "bf0b990cf23f5d9c69b2de76c5ec181431e6f648",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "security/censo_do_cliente.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bca8482feee20bdd30331d6830d31fd06ed17b",
@@ -3205,14 +3219,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
+    "VERSAO": "b7e7a4515d8a39c03a0666ecede4a5c48b114a18dd0e78d87e4c8d4bb9121231",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334",
+    "VERSAO": "b7e7a4515d8a39c03a0666ecede4a5c48b114a18dd0e78d87e4c8d4bb9121231",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4883,8 +4897,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 692,
-  "INPUTS_DIGEST": "4bc94feaa6498b2f8dd342d8dd96209b3251cdd16614bf49a6c6cb1b02a24681",
+  "INPUTS_COUNT": 694,
+  "INPUTS_DIGEST": "f45a4490153270ca5cde0c31656afc40affdd0c6a8ec6f0964859789607f2294",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4910,15 +4924,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 452,
+  "DOCUMENTOS_LIDOS": 453,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "68118cf332514d060171e633c3734a6889ea052380f965dd3e1f73642c9f7568",
-  "SEMANTIC_HASH": "31c082d98895d08fc89f4efe5a9cc1ff790db60b7340267193dd913608c4d05d"
+  "MEASUREMENT_HASH": "dcb8b9cee097d860fee2208c658fd5b3ee6139daa2da5df3fdbd92e3d93dd9f7",
+  "SEMANTIC_HASH": "64199a8ae4c3df7d3f72ab9919fcc8f0947876455f28e253eecdd65395304cdb"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4953,6 +4967,7 @@
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
+   "C-DIAGNOSTICO-SALA",
    "C-DONO-DA-ESCRITA",
    "C-DONO-DO-DERIVADO",
    "C-DONO-DO-DOCUMENTO",
@@ -5012,7 +5027,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 82
+  "COUNT": 83
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5156,6 +5171,7 @@
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
    "C-DIAGNOSTICO",
+   "C-DIAGNOSTICO-SALA",
    "C-DONO-DA-ESCRITA",
    "C-DONO-DO-DERIVADO",
    "C-DONO-DO-DOCUMENTO",
@@ -5277,16 +5293,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 164
+  "COUNT": 165
  },
  "ARITMETICA": {
-  "COLLECTION": 82,
+  "COLLECTION": 83,
   "BOUNDARY": 82,
-  "SOMA": 164,
-  "EXPANDED": 164,
+  "SOMA": 165,
+  "EXPANDED": 165,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 164,
+  "RESUMO_CARTOES_NO_UNIVERSO": 165,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -5938,6 +5954,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-V21-INGEST",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-DIAGNOSTICO-SALA",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-DIAGNOSTICO-SALA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/diagnostico_sala/ler_os_76.py",
+      "LINHA": 16,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-DIAGNOSTICO-SALA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/diagnostico_sala/onde_casou.py",
+      "LINHA": 17,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-DIAGNOSTICO-SALA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -38426,12 +38472,12 @@
     ]
    }
   ],
-  "COUNT": 1084
+  "COUNT": 1085
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 164,
-  "CARTOES_AUDITADOS": 164,
-  "ARESTAS_RELACIONADAS": 1084,
+  "CARTOES_NO_UNIVERSO": 165,
+  "CARTOES_AUDITADOS": 165,
+  "ARESTAS_RELACIONADAS": 1085,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38578,6 +38624,7 @@
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
+   "C-DIAGNOSTICO-SALA",
    "C-DONO-DO-DOCUMENTO",
    "C-DUAS-PORTAS-MEDIDORES",
    "C-ESPECIE-DO-TEXTO",
@@ -38653,6 +38700,7 @@
    "C-CENSO-DERIVACOES",
    "C-CENSO-SEMANTICO-IT",
    "C-CORRIDA-CANONICA",
+   "C-DIAGNOSTICO-SALA",
    "C-DUAS-PORTAS-MEDIDORES",
    "C-ESPECIE-DO-TEXTO",
    "C-INT-CONSUMO-ADAMA",
@@ -38702,6 +38750,10 @@
    ],
    "C-DIAGNOSTICO": [
     "evolution"
+   ],
+   "C-DIAGNOSTICO-SALA": [
+    "audit",
+    "diagnostic"
    ],
    "C-DONO-DO-DOCUMENTO": [
     "audit",
@@ -38804,7 +38856,7 @@
    "C-MICRO-COLHEITA"
   ],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 182,
+   "CODE": 183,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 361,
@@ -39041,7 +39093,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 6,
-   "SAEM": 33,
+   "SAEM": 34,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -40830,6 +40882,41 @@
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [
     "evolution"
+   ],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-DIAGNOSTICO-SALA",
+   "NOME": "Diagnostico da Sala — porque os itens nao entraram",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/diagnostico_sala/ler_os_76.py",
+    "scripts/diagnostico_sala/onde_casou.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "admissao",
+    "pathlib"
+   ],
+   "ENTRAM": 1,
+   "SAEM": 0,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "CODE"
+   ],
+   "CATEGORIAS_QUE_SAEM": [],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "audit",
+    "diagnostic"
    ],
    "GAP": null
   },

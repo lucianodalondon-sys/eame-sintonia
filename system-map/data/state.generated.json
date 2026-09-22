@@ -30,6 +30,7 @@
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
       "RELATORIO-CUTOVER.md",
+      "RELATORIO-DIAGNOSTICO-SALA.md",
       "RELATORIO-DUAS-PORTAS.md",
       "RELATORIO-INTAKE-GATE.md",
       "RELATORIO-LAST-MILE.md",
@@ -2217,7 +2218,9 @@
       "research/spain/.gitkeep"
     ],
     "scripts": [
-      "scripts/.gitkeep"
+      "scripts/.gitkeep",
+      "scripts/diagnostico_sala/ler_os_76.py",
+      "scripts/diagnostico_sala/onde_casou.py"
     ],
     "security": [
       "security/ACCOES-DE-ADMINISTRADOR.md",
@@ -3102,10 +3105,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "lote-76-v1",
-    "HEAD": "fddcf63fa0c8a86cb71da0a9b42941a0148b984f",
-    "GENERATED_AT": "2026-09-22T16:48:10-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cb0db49b981b1dd7cd88295b393c9349c2eac1ace3afa23aba38065e943a1334"
+    "BRANCH": "diagnostico-sala-v1",
+    "HEAD": "87ddeb854e4b6de4a9af198410d45bdac505df9b",
+    "GENERATED_AT": "2026-09-22T20:30:44-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b7e7a4515d8a39c03a0666ecede4a5c48b114a18dd0e78d87e4c8d4bb9121231"
   },
   "FAMILIES": [
     {
@@ -3133,7 +3136,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 81
+      "count": 82
     },
     {
       "id": "F-ESPERA",
@@ -3391,7 +3394,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 16
+      "count": 17
     },
     {
       "id": "Z-ADMISSAO",
@@ -4081,6 +4084,7 @@
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-CENSO-SEMANTICO-IT",
+        "C-DIAGNOSTICO-SALA",
         "C-DUAS-PORTAS-MEDIDORES",
         "C-ESTRADA-PDF",
         "C-INT-ARBITRAGEM",
@@ -22063,6 +22067,95 @@
       "y": 1004
     },
     {
+      "id": "C-DIAGNOSTICO-SALA",
+      "name": "Diagnostico da Sala — porque os itens nao entraram",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Leitura pura de uma corrida ja julgada: junta derived x raw (TSV tirado por SELECT), o LIVRO-DE-DECISOES e os textos derivados (sha256 conferido), refaz _do_universo em memoria para cada universo e diz onde cada palavra casou — corpo da noticia ou moldura do site. Nunca chama adm.escrever(), nunca abre rede, nunca escreve no banco.",
+      "why_here": "RELATORIO-DIAGNOSTICO-SALA: 71 de 76 nao entraram, e a pergunta era se a culpa era da fonte, da rota, da regua ou do dia. Responder pelo URL teria dito «capa»; o texto disse 0/47 capas.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/diagnostico_sala/ler_os_76.py",
+        "scripts/diagnostico_sala/onde_casou.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "RODAPE"
+        ],
+        "palavras": 10,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 10,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: le artefato e nao escreve nenhum: olha e da nota",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "data/samples/LIVRO-DE-DECISOES.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 10895,
+      "y": 1004
+    },
+    {
       "id": "C-DONO-DA-ESCRITA",
       "name": "O dono canônico da escrita do bruto (OBSERVED)",
       "territory": "Z-GUARDA",
@@ -22603,7 +22696,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1004
     },
     {
@@ -23857,7 +23950,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1004
     },
     {
@@ -27190,8 +27283,8 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 11725,
-      "y": 1004
+      "x": 10895,
+      "y": 1326
     },
     {
       "id": "C-LEITOR-DA-CADEIA",
@@ -28623,7 +28716,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1326
     },
     {
@@ -29264,7 +29357,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1326
     },
     {
@@ -34558,8 +34651,8 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11725,
-      "y": 1326
+      "x": 10895,
+      "y": 1648
     },
     {
       "id": "C-READY",
@@ -34971,7 +35064,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1648
     },
     {
@@ -35333,7 +35426,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1648
     },
     {
@@ -35497,8 +35590,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
-      "y": 1648
+      "x": 10895,
+      "y": 1970
     },
     {
       "id": "C-RELEVANCIA",
@@ -36313,7 +36406,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1970
     },
     {
@@ -42600,7 +42693,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch lote-76-v1"
+        "branch diagnostico-sala-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -44116,6 +44209,57 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-DIAGNOSTICO-SALA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por Diagnostico da Sala — porque os itens nao entraram. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "scripts/diagnostico_sala/ler_os_76.py",
+          "line": 16,
+          "snippet": "from admissao import admissao as adm  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-DIAGNOSTICO-SALA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-DIAGNOSTICO-SALA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "scripts/diagnostico_sala/onde_casou.py",
+          "line": 17,
+          "snippet": "from admissao import admissao as adm  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-DIAGNOSTICO-SALA",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-DIAGNOSTICO-SALA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -102300,7 +102444,7 @@
   "UNCLAIMED_CODE_FILES": [
     "provas/recollection_red_team_estrito.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1442,
+  "UNCLAIMED_FILES_COUNT": 1443,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102464,7 +102608,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 199,
+      "PECAS_EM_DESACORDO": 200,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -102476,23 +102620,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 224
+      "TOTAL_DE_PECAS": 225
     }
   ],
   "COUNTS": {
-    "components": 224,
+    "components": 225,
     "components_proven": 31,
-    "components_pending": 184,
+    "components_pending": 185,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1150,
-    "edges_proven": 1086,
+    "edges": 1151,
+    "edges_proven": 1087,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2509,
-    "files_covered": 1067,
+    "files_tracked": 2512,
+    "files_covered": 1069,
     "files_code_unclaimed": 1,
-    "roles_proven": 153,
+    "roles_proven": 154,
     "roles_declared_only": 9,
     "roles_unknown": 62,
     "roles_conflict": 30,
