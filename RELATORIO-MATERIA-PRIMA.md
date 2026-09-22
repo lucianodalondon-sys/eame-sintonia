@@ -290,19 +290,78 @@ QUEUE_PENDING                    0                     0
 
 ---
 
+## LOTE 5 — o que o motor produziu
+
+O worker correu as 59 até ao fim, sozinho, e esvaziou a fila outra vez:
+
+```
+DESTINO DAS 59
+  15  READY_FOR_COLLECTION          ← materia-prima nova
+  44  CONTRACTED_CANARY_FAILED      «nenhum dos N enderecos da entrada casa
+                                     com o padrao — EMPTY_LIST, como o
+                                     contrato preve»
+```
+
+As 15 que passaram a régua inteira:
+
+```
+IT-T11-010  IT-T12-019  IT-T12-027  IT-T12-057  IT-T12-074  IT-T12-086
+IT-T12-089  IT-T12-095  IT-T5-082   IT-T7-050   IT-T7-051   IT-T7-052
+IT-T7-053   IT-T7-058   IT-T9-021
+```
+
+Movimento no livro, medido nas duas pontas:
+
+```
+                      ANTES   DEPOIS
+READY_FOR_COLLECTION    40      55     +15
+RETRY_AFTER             70      11     −59
+CANARY_FAILED          153     153 (109 -> 153, +44 das reenfileiradas)
+QUEUE_DONE             706     824
+QUEUE_PENDING            0       0     (0 -> 59 -> 0: entrou e saiu)
+```
+
+`READY-SOURCES-V1.json` — o ficheiro que a Collection lê — foi regerado com
+`READY_TOTAL = 55`. Commit na lane viva: **`1c4ef5e8`**.
+
+Taxa real desta leva: **15 em 59 = 25,4%**. As 44 que caíram não caíram por
+culpa da fonte: o padrão de link do contrato não casou com nenhum endereço da
+página de entrada. É defeito de contrato, e fica escrito como tal.
+
+---
+
 ## ESTADO DA MISSÃO
 
 ```
-CARIMBOS_OBSOLETOS_REPOSTOS = 0 ate agora (6 do Facebook medidos e VALIDOS)
-POLICY_BLOCK_SEM_PROVA      = por medir
-FILA_ANTES/DEPOIS           = 0 / 0
-CREATORS_ANTES/DEPOIS       = por medir
-PAID_USD                    = 0
-NEW_FAILURES                = 0
+CARIMBOS_OBSOLETOS_REPOSTOS   = 0   (6 Facebook + 11 YouTube medidos e VALIDOS hoje)
+POLICY_BLOCK_SEM_PROVA        = 69  medidos, NAO repostos — decisao do dono
+FILA_ANTES/DEPOIS             = 0 / 59 / 0   (entrou e foi toda consumida)
+READY_CURRENT_ANTES/DEPOIS    = 40 / 55
+CREATORS_ANTES/DEPOIS         = 6 / 6    (T8 nao mexido)
+RESEARCHERS_ANTES/DEPOIS      = 0 / 0    (T6 nao mexido)
+COLLECTION_ELIGIBLE_ANTES/DEPOIS = por medir — ver abaixo
+ITENS_COLHIDOS                = 0
+PAID_USD                      = 0
+NEW_FAILURES                  = 0
 ```
 
-**A FAZER:** os 11 do YouTube · a prova dos 69 `POLICY_BLOCK` · encher a fila ·
-reiniciar o supervisor com a fila já cheia.
+### Porque é que a Fase 4 (colher) não avançou aqui
+
+O portão de colheita — `curadoria/collection_gate.py` e `ready_split.py` — **não
+existe na lane viva**. Vive nesta worktree (`materia-prima-v1`). As duas
+linhagens divergiram: a lane do serviço tem o bot, esta tem o portão.
+
+Colher exigiria correr o portão desta árvore sobre o livro da outra. Não o faço
+por iniciativa própria: é cirurgia entre ramos, e a missão diz `zero bypass`.
+**Fica como a decisão seguinte do dono.**
+
+### Falha pré-existente encontrada (não minha, não corrigida)
+
+```
+curadoria/veredito_ready.py  ->  KeyError: 'CAND-0013'  (linha 58)
+```
+
+Já vinha assim. Não lhe toquei — arranjá-lo é obra fora desta missão.
 
 ---
 
@@ -321,3 +380,23 @@ ainda não entrou matéria-prima nenhuma. Nenhum dinheiro foi gasto.
 Do lado dos carimbos: os 6 do Facebook **não** estavam errados. O ficheiro que
 parecia ser a chave da porta é, na verdade, o relatório de quem foi lá bater e
 levou com a porta na cara.
+
+Onde estava mesmo a comida: **70 fontes tinham dois papéis a dizer coisas
+diferentes.** Um dizia "volta cá amanhã"; o outro, na fila, dizia "esta morreu".
+Ninguém comparava os dois. E 62 delas não tinham morrido: a casa só não
+conseguiu ler a placa da porta cinco vezes seguidas — e a lei desta casa diz,
+com todas as letras, que não conseguir ler a placa **não é** proibição.
+
+Fui lá bater outra vez: **41 das 44 portas abriram**. Voltei a pôr 59 fontes na
+fila, e o robô — que nunca desliguei — acordou sozinho e trabalhou-as todas.
+**Quinze passaram a régua inteira e são matéria-prima nova.** As outras 44
+caíram, e não foi culpa delas: a receita que tínhamos escrito para as ler estava
+errada.
+
+E há uma coisa que eu próprio fiz mal, e convém ficar escrita: à primeira
+medição, disse que 39 destes sites estavam bloqueados. Estava errado — era a
+nossa ligação que tinha parado naquele minuto, não os sites. Se eu tivesse
+parado aí, tinha-te dito que 39 fontes agrícolas estavam mortas. Não estavam.
+
+Ainda não chegou nada ao arquivo. O portão que faz a colheita vive noutro ramo
+do trabalho, e juntar os dois ramos é decisão tua, não minha.
