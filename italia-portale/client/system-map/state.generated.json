@@ -264,6 +264,7 @@
     ],
     "curadoria": [
       "curadoria/.gitignore",
+      "curadoria/ABASTECIMENTO-PROOF-V1.json",
       "curadoria/ATLAS-WRITE-V1.json",
       "curadoria/BRIDGE-LEDGER-V1.json",
       "curadoria/BRIDGE-PROOF-V1.json",
@@ -329,6 +330,7 @@
       "curadoria/manifesto_da_evidencia.py",
       "curadoria/manifesto_das_amostras.py",
       "curadoria/ponte_candidatas.py",
+      "curadoria/provar_abastecimento.py",
       "curadoria/provar_autonomia.py",
       "curadoria/provar_ciclo_fonte.py",
       "curadoria/provar_lifecycle.py",
@@ -337,10 +339,12 @@
       "curadoria/red_team_lifecycle.py",
       "curadoria/red_team_service.py",
       "curadoria/red_team_telemetria.py",
+      "curadoria/retrato_html.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
       "curadoria/supervisor.py",
       "curadoria/telemetria.py",
+      "curadoria/test_abastecimento.py",
       "curadoria/test_capturador.py",
       "curadoria/test_caracterizador.py",
       "curadoria/test_cartao_de_fonte.py",
@@ -2793,10 +2797,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "source-curator-service-v1",
-    "HEAD": "5f06c24e42c00aca5071a1d049131599c22d4844",
-    "GENERATED_AT": "2026-09-21T18:47:52-03:00",
-    "SOURCE_TREE_FINGERPRINT": "d56b0428b621ca08420dd4b241d027adccaddaa6961837a4bb4057b3bf7d15c0"
+    "BRANCH": "abastecimento-bot-v1",
+    "HEAD": "f90f5d7cad16e0c6dd92965bb75ba853bb8cd17c",
+    "GENERATED_AT": "2026-09-22T20:34:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "59ac074133ca1ec6cfd16d58e0672c2a52a32e37327ff067658ce5cf74979043"
   },
   "FAMILIES": [
     {
@@ -4278,8 +4282,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 469",
-        "desses, mostrados aqui: 40 (ficam de fora 429)"
+        "enderecos que o codigo realmente chama: 471",
+        "desses, mostrados aqui: 40 (ficam de fora 431)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -44276,7 +44280,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch source-curator-service-v1"
+        "branch abastecimento-bot-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101202,7 +101206,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1185,
+  "UNCLAIMED_FILES_COUNT": 1189,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101391,7 +101395,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2200,
+    "files_tracked": 2204,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,
