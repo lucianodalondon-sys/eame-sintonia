@@ -131,6 +131,101 @@ declarar `SEMENTES_DISPONIVEIS` · `SEMENTES_A_USAR` ·
 
 ---
 
+## LOTE 3 — onde estava a fome de verdade
+
+### 3a · Os 11 do YouTube — o carimbo descreve mal o que bloqueia
+
+```
+CAND-0271  https://www.youtube.com/@ismeaofficial
+CAND-0289  https://www.youtube.com/user/regionelombardia
+CAND-0300  https://www.youtube.com/channel/UCNXmEqmby16fYsXOLP012tw
+CAND-0331  https://www.youtube.com/playlist?list=PLrgSqU5xBcBMgcv3dofeB4RlMRFoh5-j7
+CAND-0332  https://www.youtube.com/channel/UCCMlh614oidOkq-HNSa9RVA
+CAND-0335  https://www.youtube.com/channel/UCCMlh614oidOkq-HNSa9RVA/featured  (duplicado de 0332)
+CAND-0377  https://www.youtube.com/user/regcampania
+CAND-0414  https://www.youtube.com/playlist?list=PLio2jmFoouCaMP0URkqMF83PBUSG1m1NA
+CAND-0423  https://www.youtube.com/channel/UCJ8RdeFgPyGA8eyVHulEiOg
+CAND-0452  https://youtube.com/playlist?list=PLrgIzVMUdTJ17DXc5r2FjOBvxEBKTt5gC
+CAND-0469  http://www.youtube.com/arpatoscana
+```
+
+O motivo escrito diz *«YouTube exige channel_id … não watch-page»*. **Nenhuma é
+watch-page**, e quatro trazem o `channel_id` no próprio endereço.
+
+A causa real está em `curadoria/worker.py:396`: o `etapa_qualify` bloqueia
+**todo** `TIPO == YOUTUBE` antes de olhar para o endereço, porque *«o worker só
+tem molde HTML … capacidade com outro dono»*.
+
+```
+ADAPTADOR_NECESSARIO   coleta/adaptador_youtube.py
+ADAPTADOR_EXISTE_HOJE  SIM — 779 linhas, coletor a serio (ao contrario do Facebook)
+LIGADO AO WORKER       NAO — a rota do curator so tem molde HTML
+VEREDITO               BLOQUEIO_REAL_HOJE, MOTIVO_MAL_ESCRITO
+```
+
+⚠️ **Não repostos, e digo porquê.** Repor para `CANARY_PENDING` mandá-las-ia
+outra vez contra a mesma linha de código, que as voltaria a bloquear na volta
+seguinte — trabalho a fingir. Ligar o adaptador do YouTube à rota do curator é
+obra de integração, fora do «usa as máquinas que já existem» desta missão.
+**Fica como decisão do dono**, com a medição feita.
+
+### 3b · Os 69 `POLICY_BLOCK` — carimbo por plataforma, não por endereço
+
+```
+COM_PROVA_DE_ROBOTS = 0     SEM_PROVA_DE_ROBOTS = 69
+```
+
+A origem está em `curadoria/ponte_candidatas.py:59-71`: um dicionário fixo que
+carimba por `TIPO` (`LINKEDIN`, `INSTAGRAM`), sem tocar em `robots.txt` de
+endereço nenhum. Nunca houve leitura.
+
+⚠️ **Mesmo assim, NÃO os reponho.** A missão manda repor «carimbo sem prova»,
+mas aqui não é ausência de fundamento: é uma decisão de política da casa,
+escrita no código ao lado do carimbo —
+
+> *«Insistir no que a política barra não é persistência — é contorno. A ponte
+> não pode ser a porta das traseiras.»*
+
+Trocar TOS por `robots.txt` seria escolher a régua mais permissiva para chegar
+ao resultado que se quer. **É decisão do dono, não minha.** Deixo o número à
+vista: 69 fontes paradas por uma regra de plataforma que ninguém reexaminou.
+
+### 3c · A fome verdadeira: 70 fontes que a casa marcou «tenta outra vez» e nunca mais tentou
+
+```
+RETRY_AFTER (no livro)      70
+tarefas dessas fontes       69 FAILED · 76 DONE · 1 BLOCKED · 0 PENDING
+ATTEMPTS das 69 FAILED      5 em 5 — todas no tecto
+```
+
+E o motivo das falhas:
+
+```
+62  teto de 5 tentativas: robots nao pode ser lido — UNKNOWN, nao proibicao
+ 5  teto de 5 tentativas: TimeoutError: The read operation timed out
+ 1  teto de 5 tentativas: URLError (ligacao forcada a fechar)
+ 1  teto de 5 tentativas: HTTP 500
+```
+
+**62 das 69 morreram por não se conseguir LER o `robots.txt`** — exactamente o
+`UNKNOWN` que a lei da casa diz não ser proibição. Cinco tentativas, tecto, e a
+fonte ficou parada para sempre: o livro diz `RETRY_AFTER`, a fila diz `FAILED`.
+Ninguém as volta a pôr.
+
+São **44 hosts distintos**, e entre eles estão fontes agrícolas a sério —
+`coldiretti.it` (e as delegações de Puglia, Sicilia, Veneto), `confai.it`,
+`copagri.it`, `unaprol.it`, `ersaf.lombardia.it`, `arpalombardia.it`,
+`fitosanitario.regione.lombardia.it`, `meteotrentino.it`.
+
+```
+EGRESSO MEDIDO AGORA   146.70.182.38 · Italy · Figino (Milao) · M247  → IT = SIM
+```
+
+A releitura dos 44 `robots.txt` com o leitor da casa
+(`gate_de_rota.robots_de`) está a correr.
+
+---
+
 ## AS DUAS LEITURAS, LADO A LADO
 
 ```
