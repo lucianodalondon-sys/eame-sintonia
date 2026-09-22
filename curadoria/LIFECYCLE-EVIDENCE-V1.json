@@ -15095,6 +15095,500 @@
     "BYTES": 54551,
     "DOCUMENT_ID": "IT-T9-021:URL:it/news/aperte-le-iscrizioni-ai-90-eventi-formativi-di-didacta-italia-edizione-abruzzo"
    }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T11-010-CANARY-1254",
+   "SOURCE_ID": "IT-T11-010",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:47:16.621553+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit",
+    "ALVOS_DESCOBERTOS": 1,
+    "DETAIL_ENUMERATED": 1,
+    "ITEM_ABERTO": {
+     "URL": "https://www.svilupposostenibile.regione.lombardia.it/it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit",
+     "HTTP": 200,
+     "BYTES": 46265,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 77,
+     "NON_WHITESPACE_CHARACTERS": 4543,
+     "PARAGRAPH_CHARACTERS": 3201,
+     "TEXT_SHA256": "9993824e09489ca9dcc7091e53a0ab663a6ac9649861f08f8e5b6b9bed84ea1a"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 46265,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T11-010:URL:it/news/news/5649/in-un-mondo-di-policrisi-la-sfida-di-educare-alla-complessit"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-019-CANARY-1255",
+   "SOURCE_ID": "IT-T12-019",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:47:37.149243+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.ersaf.lombardia.it/agricoltura/gestione-sostenibile-dei-nitrati/",
+    "ALVOS_DESCOBERTOS": 30,
+    "DETAIL_ENUMERATED": 30,
+    "ITEM_ABERTO": {
+     "URL": "https://www.ersaf.lombardia.it/agricoltura/gestione-sostenibile-dei-nitrati/",
+     "HTTP": 200,
+     "BYTES": 494204,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 210,
+     "NON_WHITESPACE_CHARACTERS": 11500,
+     "PARAGRAPH_CHARACTERS": 3471,
+     "TEXT_SHA256": "65fed5a528c8faf5fa1326f05c988a3600e32a5803bbe9e6ab4cb3a68273f1fa"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 494204,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-019:URL:agricoltura/gestione-sostenibile-dei-nitrati"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-027-CANARY-1256",
+   "SOURCE_ID": "IT-T12-027",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:47:46.183246+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://acamir.regione.campania.it/news/avviso-indizione-gara-europea-a-procedura-telematica-aperta-ai-sensi-dellart-71-del-d-lgs-36-2023-avente-ad-oggetto-laggiudicazione-con-il-criterio-dellofferta-economi-2/",
+    "ALVOS_DESCOBERTOS": 11,
+    "DETAIL_ENUMERATED": 11,
+    "ITEM_ABERTO": {
+     "URL": "https://acamir.regione.campania.it/news/avviso-indizione-gara-europea-a-procedura-telematica-aperta-ai-sensi-dellart-71-del-d-lgs-36-2023-avente-ad-oggetto-laggiudicazione-con-il-criterio-dellofferta-economi-2/",
+     "HTTP": 200,
+     "BYTES": 108981,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 144,
+     "NON_WHITESPACE_CHARACTERS": 5487,
+     "PARAGRAPH_CHARACTERS": 1067,
+     "TEXT_SHA256": "90774d639d28eb45d7f79d056bb87852c48a6c27be5bdc99c33e4cc829627e2e"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 108981,
+    "PASS": false,
+    "CLASSE": "SOURCE_FAILURE",
+    "DETAIL_GATE_PASSED": false,
+    "PORQUE": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (144 ligacoes para 5487 caracteres, 1067 em paragrafos)"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-057-CANARY-1257",
+   "SOURCE_ID": "IT-T12-057",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:47:55.615003+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia",
+    "ALVOS_DESCOBERTOS": 10,
+    "DETAIL_ENUMERATED": 10,
+    "ITEM_ABERTO": {
+     "URL": "https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia",
+     "HTTP": 200,
+     "BYTES": 81688,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 74,
+     "NON_WHITESPACE_CHARACTERS": 3352,
+     "PARAGRAPH_CHARACTERS": 1826,
+     "TEXT_SHA256": "92a773f20a23d96d099a3930d1ce08ee2f013c82129224ed3ea8f3b620aac8e5"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 81688,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-057:URL:news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-074-CANARY-1258",
+   "SOURCE_ID": "IT-T12-074",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:48:05.449233+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.openinnovation.regione.lombardia.it/it/news/news/9441/digital-health-aperta-la-seconda-open-call-di-unite-da-6-milioni",
+    "ALVOS_DESCOBERTOS": 7,
+    "DETAIL_ENUMERATED": 7,
+    "ITEM_ABERTO": {
+     "URL": "https://www.openinnovation.regione.lombardia.it/it/news/news/9441/digital-health-aperta-la-seconda-open-call-di-unite-da-6-milioni",
+     "HTTP": 200,
+     "BYTES": 70787,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 93,
+     "NON_WHITESPACE_CHARACTERS": 5677,
+     "PARAGRAPH_CHARACTERS": 2738,
+     "TEXT_SHA256": "49cc4e9ce455d360d2d86b54689662513db678fdc050bbd90c43abe24615152e"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 70787,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-074:URL:it/news/news/9441/digital-health-aperta-la-seconda-open-call-di-unite-da-6-milioni"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-086-CANARY-1259",
+   "SOURCE_ID": "IT-T12-086",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:48:19.036616+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+    "ALVOS_DESCOBERTOS": 2,
+    "DETAIL_ENUMERATED": 2,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+     "HTTP": 200,
+     "BYTES": 428031,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 195,
+     "NON_WHITESPACE_CHARACTERS": 8753,
+     "PARAGRAPH_CHARACTERS": 1564,
+     "TEXT_SHA256": "d35f4c90c9565c614372b5db32042a809aec596324d97cee98f4e7e79e696feb"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 428031,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-086:URL:sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-089-CANARY-1260",
+   "SOURCE_ID": "IT-T12-089",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:48:29.713626+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-095-CANARY-1261",
+   "SOURCE_ID": "IT-T12-095",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:48:32.847823+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T5-082-CANARY-1262",
+   "SOURCE_ID": "IT-T5-082",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:48:40.261511+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.calabriafilmcommission.it/news/al-via-sul-pollino-le-riprese-della-serie-tv-la-veterinaria/",
+    "ALVOS_DESCOBERTOS": 6,
+    "DETAIL_ENUMERATED": 6,
+    "ITEM_ABERTO": {
+     "URL": "https://www.calabriafilmcommission.it/news/al-via-sul-pollino-le-riprese-della-serie-tv-la-veterinaria/",
+     "HTTP": 200,
+     "BYTES": 125375,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 45,
+     "NON_WHITESPACE_CHARACTERS": 2079,
+     "PARAGRAPH_CHARACTERS": 799,
+     "TEXT_SHA256": "e436684263b3db063b2684a69c7cd10aacdeee80e927ee7dd1e5f53068d3a1d2"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 125375,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T5-082:URL:news/al-via-sul-pollino-le-riprese-della-serie-tv-la-veterinaria"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-050-CANARY-1263",
+   "SOURCE_ID": "IT-T7-050",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:49:03.447038+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-051-CANARY-1264",
+   "SOURCE_ID": "IT-T7-051",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:49:24.694187+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-052-CANARY-1265",
+   "SOURCE_ID": "IT-T7-052",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:49:45.957585+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-089-CANARY-1266",
+   "SOURCE_ID": "IT-T12-089",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:49:51.566385+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+    "ALVOS_DESCOBERTOS": 1,
+    "DETAIL_ENUMERATED": 1,
+    "ITEM_ABERTO": {
+     "URL": "https://www.regione.lombardia.it/sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale",
+     "HTTP": 200,
+     "BYTES": 428031,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 195,
+     "NON_WHITESPACE_CHARACTERS": 8753,
+     "PARAGRAPH_CHARACTERS": 1564,
+     "TEXT_SHA256": "d35f4c90c9565c614372b5db32042a809aec596324d97cee98f4e7e79e696feb"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 428031,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-089:URL:sanita/monitoraggio-dei-servizi-sanitari/progetti-europei-ambito-sanitario-partecipazione-regionale"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T12-095-CANARY-1267",
+   "SOURCE_ID": "IT-T12-095",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:50:07.227340+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://speciale-lombardiainfatti.regione.lombardia.it/progetti/autostrada-pedemontana-lombarda/",
+    "ALVOS_DESCOBERTOS": 8,
+    "DETAIL_ENUMERATED": 8,
+    "ITEM_ABERTO": {
+     "URL": "https://speciale-lombardiainfatti.regione.lombardia.it/progetti/autostrada-pedemontana-lombarda/",
+     "HTTP": 200,
+     "BYTES": 70683,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 67,
+     "NON_WHITESPACE_CHARACTERS": 3994,
+     "PARAGRAPH_CHARACTERS": 1463,
+     "TEXT_SHA256": "6c700cd5a44002cbfbe07ea75f834564179ffc5cb6895d78008c675819b12722"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 70683,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T12-095:URL:progetti/autostrada-pedemontana-lombarda"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-050-CANARY-1268",
+   "SOURCE_ID": "IT-T7-050",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:50:36.884871+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-051-CANARY-1269",
+   "SOURCE_ID": "IT-T7-051",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:50:57.879991+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-052-CANARY-1270",
+   "SOURCE_ID": "IT-T7-052",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:51:18.868224+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-053-CANARY-1271",
+   "SOURCE_ID": "IT-T7-053",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:51:40.118361+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-058-CANARY-1272",
+   "SOURCE_ID": "IT-T7-058",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:52:01.365972+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T9-021-CANARY-1273",
+   "SOURCE_ID": "IT-T9-021",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:52:07.971226+00:00",
+   "DADOS": {
+    "HTTP": 200,
+    "ALVO": "https://fieradidacta.indire.it/it/news/aperte-le-iscrizioni-ai-90-eventi-formativi-di-didacta-italia-edizione-abruzzo/",
+    "ALVOS_DESCOBERTOS": 4,
+    "DETAIL_ENUMERATED": 4,
+    "ITEM_ABERTO": {
+     "URL": "https://fieradidacta.indire.it/it/news/aperte-le-iscrizioni-ai-90-eventi-formativi-di-didacta-italia-edizione-abruzzo/",
+     "HTTP": 200,
+     "BYTES": 54551,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 75,
+     "NON_WHITESPACE_CHARACTERS": 4811,
+     "PARAGRAPH_CHARACTERS": 3686,
+     "TEXT_SHA256": "3ff814cee7dbbd6368aa86893ee47ac19b3ed406d9096cfb5bab55cb35eec4f7"
+    },
+    "DETAIL_GATE": "CAPA_NAO_E_MATERIA/v1",
+    "BYTES": 54551,
+    "PASS": true,
+    "CLASSE": "OK",
+    "DETAIL_GATE_PASSED": true,
+    "DOCUMENT_ID": "IT-T9-021:URL:it/news/aperte-le-iscrizioni-ai-90-eventi-formativi-di-didacta-italia-edizione-abruzzo"
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-053-CANARY-1274",
+   "SOURCE_ID": "IT-T7-053",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:53:13.045880+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-058-CANARY-1275",
+   "SOURCE_ID": "IT-T7-058",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:53:34.297633+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-050-CANARY-1276",
+   "SOURCE_ID": "IT-T7-050",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:55:57.897339+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-051-CANARY-1277",
+   "SOURCE_ID": "IT-T7-051",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:56:18.885697+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-052-CANARY-1278",
+   "SOURCE_ID": "IT-T7-052",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:56:39.882764+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-053-CANARY-1279",
+   "SOURCE_ID": "IT-T7-053",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:58:34.052819+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
+  },
+  {
+   "EVIDENCE_REF": "EV-IT-T7-058-CANARY-1280",
+   "SOURCE_ID": "IT-T7-058",
+   "ETAPA": "CANARY",
+   "OBSERVED_AT": "2026-09-22T17:58:55.057390+00:00",
+   "DADOS": {
+    "PASS": false,
+    "CLASSE": "UNKNOWN",
+    "PORQUE": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
+    "HTTP": 0
+   }
   }
  ]
 }
