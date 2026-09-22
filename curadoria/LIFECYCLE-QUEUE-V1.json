@@ -2,7 +2,7 @@
  "DATASET": "LIFECYCLE-QUEUE-V1",
  "CONTRATO": "SOURCE_CURATOR_QUEUE/v1",
  "LEI": "fila duravel. Um 429 adia UMA tarefa, nunca a fila. O worker nunca dorme a espera de uma fonte.",
- "PROXIMO_ID": 1086,
+ "PROXIMO_ID": 1095,
  "TAREFAS": [
   {
    "TASK_ID": "T00001",
@@ -12775,13 +12775,13 @@
    "SOURCE_ID": "IT-T7-050",
    "TASK_TYPE": "CANARY",
    "PRIORITY": 70,
-   "STATUS": "WAITING_RETRY",
+   "STATUS": "IN_PROGRESS",
    "ATTEMPTS": 3,
    "NEXT_ATTEMPT_AT": "2026-09-22T18:10:57.927364+00:00",
    "LAST_ERROR": "URLError: <urlopen error [WinError 10054] Foi forçado o cancelamento de uma conexão existente pelo h",
    "MOTIVO": "regua dos 4 passos integrada (retrato_html + canario novo): recanariar com ITEM_ABERTO e BODY_UTIL",
    "CREATED_AT": "2026-09-22T17:46:58.707922+00:00",
-   "UPDATED_AT": "2026-09-22T17:55:57.927364+00:00"
+   "UPDATED_AT": "2026-09-22T18:10:58.963113+00:00"
   },
   {
    "TASK_ID": "T01081",
@@ -12847,6 +12847,123 @@
    "MOTIVO": "CANARY OK",
    "CREATED_AT": "2026-09-22T17:46:58.917773+00:00",
    "UPDATED_AT": "2026-09-22T17:52:08.013346+00:00"
+  },
+  {
+   "TASK_ID": "T01086",
+   "SOURCE_ID": "IT-T11-010",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.305936+00:00",
+   "UPDATED_AT": "2026-09-22T18:07:16.700283+00:00"
+  },
+  {
+   "TASK_ID": "T01087",
+   "SOURCE_ID": "IT-T12-019",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.393176+00:00",
+   "UPDATED_AT": "2026-09-22T18:07:27.030678+00:00"
+  },
+  {
+   "TASK_ID": "T01088",
+   "SOURCE_ID": "IT-T12-057",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.473795+00:00",
+   "UPDATED_AT": "2026-09-22T18:07:34.623674+00:00"
+  },
+  {
+   "TASK_ID": "T01089",
+   "SOURCE_ID": "IT-T12-074",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.561046+00:00",
+   "UPDATED_AT": "2026-09-22T18:07:42.251937+00:00"
+  },
+  {
+   "TASK_ID": "T01090",
+   "SOURCE_ID": "IT-T12-086",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.659647+00:00",
+   "UPDATED_AT": "2026-09-22T18:07:52.671757+00:00"
+  },
+  {
+   "TASK_ID": "T01091",
+   "SOURCE_ID": "IT-T12-089",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.759241+00:00",
+   "UPDATED_AT": "2026-09-22T18:07:58.214603+00:00"
+  },
+  {
+   "TASK_ID": "T01092",
+   "SOURCE_ID": "IT-T12-095",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.848840+00:00",
+   "UPDATED_AT": "2026-09-22T18:08:04.763369+00:00"
+  },
+  {
+   "TASK_ID": "T01093",
+   "SOURCE_ID": "IT-T5-082",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:42.933975+00:00",
+   "UPDATED_AT": "2026-09-22T18:08:10.952671+00:00"
+  },
+  {
+   "TASK_ID": "T01094",
+   "SOURCE_ID": "IT-T9-021",
+   "TASK_TYPE": "CANARY",
+   "PRIORITY": 80,
+   "STATUS": "DONE",
+   "ATTEMPTS": 0,
+   "NEXT_ATTEMPT_AT": null,
+   "LAST_ERROR": null,
+   "MOTIVO": "CANARY OK",
+   "CREATED_AT": "2026-09-22T18:05:43.018116+00:00",
+   "UPDATED_AT": "2026-09-22T18:08:16.551608+00:00"
   }
  ]
 }
