@@ -87,10 +87,29 @@ def _discovery_real() -> dict:
     nao pode exigir 250 pedidos de rede a cada corrida do teste.
     """
     import descobrir as D
-    stats = D.crawl_sementes(max_sementes=D.MAX_SEMENTES_ESTA_CORRIDA)
+
+    # A MESMA CONSTRUCAO DO `descobrir.py --crawl`, e nao outra. crawl_sementes
+    # exige quatro posicionais (orcamento, conhecidos, visitados, log) e devolve
+    # o par (registados, stats). Chamar so com `max_sementes` levantava
+    # TypeError, que o except do supervisor engolia como DISCOVERY_HOOK_ERRO:
+    # o servico ficava IDLE para sempre e parecia saudavel.
+    orcamento  = D.Orcamento(total=D.MAX_PEDIDOS_TOTAIS)
+    conhecidos = D._construir_set_conhecido()
+    visitados  = D._ler_visitados()   # `_marcar_visitado` persiste por dentro
+    log: list[dict] = []
+
+    registados, stats = D.crawl_sementes(
+        orcamento=orcamento,
+        conhecidos=conhecidos,
+        visitados=visitados,
+        log=log,
+        max_sementes=D.MAX_SEMENTES_ESTA_CORRIDA,
+    )
     return {"CRAWL": stats.get("SEMENTES_USADAS"),
-            "CANDIDATAS_NOVAS": stats.get("NOVEL_CANDIDATES",
-                                          stats.get("CANDIDATAS_NOVAS"))}
+            "CANDIDATAS_NOVAS": len(registados),
+            "PAGINAS_BUSCADAS": stats.get("PAGINAS_BUSCADAS"),
+            "REQUESTS_REAIS_A_REDE": orcamento.pedidos_feitos,
+            "ROBOTS_BLOCKS": stats.get("ROBOTS_BLOCKS")}
 
 
 def talvez_alimentar(estado: dict | None = None, *,
