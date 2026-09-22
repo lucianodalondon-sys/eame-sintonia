@@ -328,19 +328,46 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
             "caminho de producao que arranca coleta sem consultar o portao "
             "de admissao: %s" % sem_portao))
 
-    def test_o_perfil_agendado_nao_promove_fonte_nenhuma(self):
-        """O perfil e uma lista escrita a mao. Ter contrato nao e estar pronta.
+    def test_o_perfil_agendado_nao_nomeia_fonte_nenhuma(self):
+        """⚠️ ESTE TESTE MUDOU DE LEI EM 2026-09-22 (cutover, Fase 5).
 
-        Medido em 2026-09-21: as tres fontes do `forward-only-live` eram uma
-        SEMANTIC_REVIEW e duas READY_LEGACY. O perfil continua a poder nomear
-        o que quiser — quem decide se entra e o portao, e o coletor agendado
-        para antes de tocar em qualquer fonte.
+        A lei velha era «o perfil pode nomear o que quiser; quem decide e o
+        portao», e procurava `BLOCKED_BY_CURATOR_INTAKE_GATE` no coletor.
+        Enquanto o perfil tinha lista, esse era o estado esperado — as tres
+        fontes escritas a mao eram uma SEMANTIC_REVIEW e duas READY_LEGACY, e
+        o portao dizia nao as tres.
+
+        A lei nova e mais dura: O PERFIL NAO NOMEIA NADA. A populacao sai do
+        portao, e por isso `BLOCKED_BY_CURATOR_INTAKE_GATE` deixou de poder
+        acontecer por esta via — nao ha lista para o portao recusar.
+
+            ENQUANTO O PERFIL NOMEAVA FONTES, O MELHOR QUE O PORTAO PODIA
+            FAZER ERA DIZER NAO. AGORA ELE DIZ QUEM.
         """
+        perfil = (RAIZ / "candidatas" / "italy_profiles.mjs").read_text(
+            encoding="utf-8", errors="replace")
+        # so o CODIGO: o comentario cita a lista removida para explicar o
+        # defeito, e explicacao nao e reincidencia.
+        codigo = "\n".join(l for l in perfil.split("\n")
+                           if not l.strip().startswith("//"))
+        self.assertNotIn("SOURCES", codigo,
+                         "a lista fixa de fontes voltou ao perfil")
+        self.assertEqual([], re.findall(r"IT-T\d+-\d+", codigo),
+                         "um SOURCE_ID voltou ao perfil")
+        self.assertIn('POPULACAO: "COLLECTION_GATE"', codigo,
+                      "o perfil tem de declarar de onde vem a populacao")
+
         t = (RAIZ / "coleta" / "italy_recurrent_collect.mjs").read_text(
             encoding="utf-8", errors="replace")
-        self.assertIn("BLOCKED_BY_CURATOR_INTAKE_GATE", t)
+        tc = "\n".join(l for l in t.split("\n")
+                       if not l.strip().startswith("//"))
+        self.assertIn('"curadoria/collection_gate.py", "--json"', tc)
+        self.assertNotIn("--ids=", tc,
+                         "o coletor voltou a mandar ids ao portao — assim o "
+                         "portao filtra a lista de outra pessoa, nao decide "
+                         "a populacao")
         # o portao vem ANTES de cunhar o RUN_ID e de chamar o coletor
-        self.assertLess(t.index("collection_gate.py"), t.index("executarRodada"),
+        self.assertLess(tc.index("collection_gate.py"), tc.index("executarRodada"),
                         "o portao foi consultado DEPOIS de a coleta comecar")
 
     def test_o_coletor_agendado_para_mesmo_no_portao(self):
@@ -369,15 +396,42 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
                 env={**os.environ, "ITALY_OPS_ROOT": d})
         self.assertIn("{", r.stdout, "o coletor nao devolveu resumo: %s" % r.stderr[-400:])
         resumo = json.loads(r.stdout[r.stdout.index("{"):])
-        self.assertEqual("BLOCKED_BY_CURATOR_INTAKE_GATE", resumo["RUN_STATE"],
-                         "o perfil agendado passou o portao: %s" % resumo.get("reason"))
+
+        # ⚠️ O VALOR ESPERADO NAO SAI DESTE JSON. Comparar `COLLECTION_ELIGIBLE`
+        # com `len(COLLECTION_ELIGIBLE_IDS)` do MESMO resumo era comparar a
+        # lista consigo propria. O portao e perguntado OUTRA VEZ, por OUTRO
+        # caminho — em processo, pela API Python (`CG.elegiveis()`), enquanto o
+        # coletor o correu por subprocesso e leu JSON.
+        #
+        #     DOIS CAMINHOS INDEPENDENTES QUE DAO O MESMO NUMERO
+        #     SAO UMA PROVA. UM CAMINHO SO E UM ECO.
+        esperados = CG.elegiveis()
+
+        self.assertEqual("COLLECTION_GATE", resumo["COLLECTION_SOURCE_SELECTION"],
+                         "a selecao deixou de sair do portao")
+        self.assertEqual("GATE_ONLY_NO_COLLECTION", resumo["RUN_STATE"],
+                         "o coletor agendado nao parou no portao: %s"
+                         % resumo.get("reason"))
         self.assertEqual(0, resumo["SOURCE_ATTEMPTED"],
                          "alguma fonte foi tocada antes do portao dizer sim")
-        self.assertEqual(0, resumo["COLLECTION_ELIGIBLE"])
-        self.assertTrue(resumo["COLLECTION_REFUSED"],
-                        "o portao nao nomeou nenhuma recusada — nao mordeu")
+        self.assertEqual(len(esperados), resumo["COLLECTION_ELIGIBLE"],
+                         "o coletor viu uma populacao diferente da que o "
+                         "portao da: %s vs %s"
+                         % (resumo["COLLECTION_ELIGIBLE"], len(esperados)))
+        # O PORTAO TEM DE MORDER. Um portao que admite tudo nao e um portao —
+        # e este e o ataque que a mutacao `RECUSADAS -> []` faz.
+        self.assertTrue(resumo["COLLECTION_REFUSED_TOTAL"],
+                        "o portao nao recusou ninguem — nao mordeu")
+        self.assertTrue(resumo["COLLECTION_REFUSED_BY_MOTIVE"],
+                        "as recusas nao vieram com motivo; uma soma nao diz "
+                        "de que lei o nao veio")
+        # ELEGIVEL NAO E ALCANCAVEL, e a diferenca fica DITA, nao calada.
+        self.assertEqual(
+            resumo["ELIGIBLE_WITH_CONTRACT"] + len(resumo["ELIGIBLE_WITHOUT_CONTRACT"]),
+            resumo["COLLECTION_ELIGIBLE"],
+            "a conta nao fecha: elegivel = com contrato + sem contrato")
         self.assertEqual("HEALTHY", resumo["RUNNER_HEALTH"],
-                         "o portao dizer nao nao e o corredor estar doente")
+                         "o portao decidir nao e o corredor estar doente")
 
     def test_o_adapter_do_pedido_recusa_a_fonte_por_omissao_da_receita(self):
         """PROVA DE RUNTIME do segundo caminho de producao, SEM REDE ALCANCAVEL.
