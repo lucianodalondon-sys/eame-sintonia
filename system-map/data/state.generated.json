@@ -35,6 +35,7 @@
       "RELATORIO-LAST-MILE.md",
       "RELATORIO-MICRO-COLLECTION.md",
       "RELATORIO-PARIDADE.md",
+      "RELATORIO-PONTE-CURADOR.md",
       "RELATORIO-PROVAS-P1.md",
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
@@ -304,6 +305,7 @@
       "curadoria/LIFECYCLE-RED-TEAM-V1.json",
       "curadoria/LISTAGENS-PROVADAS-V1.json",
       "curadoria/POLITICA-MODELO.json",
+      "curadoria/PONTE-CURADOR-PROOF-V1.json",
       "curadoria/READY-BATCHES-V1.json",
       "curadoria/READY-FOR-COLLECTION-V1.json",
       "curadoria/READY-SOURCES-V1.json",
@@ -311,6 +313,7 @@
       "curadoria/REAL-EXAMPLE-INDEX-V1.json",
       "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
       "curadoria/RECONCILIACAO-V1.json",
+      "curadoria/RED-TEAM-PONTE-CURADOR-V1.json",
       "curadoria/RELATORIO-MISSAO-02.md",
       "curadoria/RELATORIO-MISSAO-03.md",
       "curadoria/SAMPLE-MANIFEST-V1.json",
@@ -351,11 +354,13 @@
       "curadoria/provar_autonomia.py",
       "curadoria/provar_lifecycle.py",
       "curadoria/provar_listagem.py",
+      "curadoria/provar_ponte_curador.py",
       "curadoria/provar_supervisor.py",
       "curadoria/ready_split.py",
       "curadoria/reconciliar.py",
       "curadoria/reconciliar_livros.py",
       "curadoria/red_team_lifecycle.py",
+      "curadoria/red_team_ponte_curador.py",
       "curadoria/retrato_html.py",
       "curadoria/semear_lifecycle.py",
       "curadoria/status_live.py",
@@ -1860,6 +1865,7 @@
       "provas/A-MUDANCA-E-NOSSA-PEGADA-V1.json",
       "provas/O-CUTOVER-NAO-VAZA-V1.json",
       "provas/PARIDADE-RED-TEAM-V1.json",
+      "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
       "provas/RECOLLECTION-RED-TEAM-V1.json",
       "provas/RED-TEAM-DUAS-PORTAS-V1.json",
       "provas/_c106b_filho.py",
@@ -1994,6 +2000,7 @@
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
       "provas/recollection_red_team.mjs",
+      "provas/recollection_red_team_estrito.mjs",
       "provas/red_team_adama_referencia.py",
       "provas/red_team_collection_ate_a_sala.py",
       "provas/red_team_da_release_v1.py",
@@ -3049,10 +3056,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "recollection-v1",
-    "HEAD": "10d247b7fd5bacc348a68f10aaca5dd7f0349a18",
-    "GENERATED_AT": "2026-09-22T12:33:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc6ecfa5bdb415ce346a0fba8ff138cf457c7b3a516f0f683e6b073078c12e87"
+    "BRANCH": "ponte-curador-v1",
+    "HEAD": "48803c7c82fb9b11f32a0e9bdcdc568abf200fe6",
+    "GENERATED_AT": "2026-09-22T15:12:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fb42cfa8f574bbadf7223b511f272f966f7e8a992d5f98d6e427420a35b06fc7"
   },
   "FAMILIES": [
     {
@@ -4537,8 +4544,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 448",
-        "desses, mostrados aqui: 40 (ficam de fora 408)"
+        "enderecos que o codigo realmente chama: 451",
+        "desses, mostrados aqui: 40 (ficam de fora 411)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -27093,7 +27100,7 @@
           "medidas/duas_portas_reprocessa.py:146",
           "medidas/o_contrato_do_universo.py:105",
           "provas/a_rota_do_html_nao_vai_a_rede.py:40",
-          "regras/paridade_test.mjs:274"
+          "regras/paridade_test.mjs:302"
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -33140,10 +33147,12 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
         "provas/RECOLLECTION-RED-TEAM-V1.json",
-        "provas/recollection_red_team.mjs"
+        "provas/recollection_red_team.mjs",
+        "provas/recollection_red_team_estrito.mjs"
       ],
-      "file_count": 2,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -33162,6 +33171,12 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "provas/RECOLLECTION-RED-TEAM-V1.json",
@@ -42507,7 +42522,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch recollection-v1"
+        "branch ponte-curador-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -69853,7 +69868,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 232,
+          "line": 260,
           "snippet": "const fonte = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-IT-NORMALIZACAO",
@@ -71429,7 +71444,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 29,
+          "line": 30,
           "snippet": "} from \"./incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
@@ -71464,7 +71479,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 29,
+          "line": 30,
           "snippet": "} from \"./incrementalidade.mjs\";",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "AMBIGUOUS",
@@ -71614,7 +71629,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A regra de revisita — decidir antes de gastar a rede alimenta O red team da recollection — doze ataques a semantica da revisita. Provado por 3 linhas de codigo.",
+      "reason": "A regra de revisita — decidir antes de gastar a rede alimenta O red team da recollection — doze ataques a semantica da revisita. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/recollection_red_team.mjs",
@@ -71652,6 +71667,54 @@
           "file": "provas/recollection_red_team.mjs",
           "line": 158,
           "snippet": "[\"regras/incrementalidade_test.mjs\", \"as provas da incrementalidade\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team_estrito.mjs",
+          "line": 31,
+          "snippet": "const REGRA = \"regras/incrementalidade.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team_estrito.mjs",
+          "line": 38,
+          "snippet": "[REGRA]: \"regras/incrementalidade_test.mjs\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-INCREMENTALIDADE",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team_estrito.mjs",
+          "line": 98,
+          "snippet": "const TODAS = [\"regras/incrementalidade_test.mjs\", \"regras/recollection_test.mjs\", \"regras/paridade_test.mjs\"];",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
             "FROM": "C-IT-INCREMENTALIDADE",
@@ -72014,7 +72077,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca alimenta O red team da recollection — doze ataques a semantica da revisita. Provado por 2 linhas de codigo.",
+      "reason": "A normalizacao de conteudo — o que e ruido nao e mudanca alimenta O red team da recollection — doze ataques a semantica da revisita. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/recollection_red_team.mjs",
@@ -72036,6 +72099,38 @@
           "file": "provas/recollection_red_team.mjs",
           "line": 159,
           "snippet": "[\"regras/paridade_test.mjs\", \"as provas da paridade\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team_estrito.mjs",
+          "line": 32,
+          "snippet": "const NORMAL = \"regras/normalizacao_de_conteudo.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+            "FROM": "C-IT-NORMALIZACAO",
+            "TO": "C-PROVA-RECOLLECTION",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_red_team_estrito.mjs",
+          "line": 39,
+          "snippet": "[NORMAL]: \"regras/paridade_test.mjs\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
             "FROM": "C-IT-NORMALIZACAO",
@@ -73543,7 +73638,7 @@
       "evidence": [
         {
           "file": "regras/paridade_test.mjs",
-          "line": 274,
+          "line": 302,
           "snippet": "const { replay } = await import(\"../medidas/paridade_replay.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
@@ -102205,7 +102300,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1389,
+  "UNCLAIMED_FILES_COUNT": 1394,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102394,8 +102489,8 @@
     "edges_proven": 1086,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2456,
-    "files_covered": 1067,
+    "files_tracked": 2463,
+    "files_covered": 1069,
     "files_code_unclaimed": 0,
     "roles_proven": 153,
     "roles_declared_only": 9,

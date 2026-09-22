@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T15:27:15+00:00",
-  "HEAD": "68aef8a9d3488c6ff61b592f73dca098cbd7b4e1",
-  "BRANCH": "recollection-v1",
+  "GENERATED_AT": "2026-09-22T18:20:47+00:00",
+  "HEAD": "48803c7c82fb9b11f32a0e9bdcdc568abf200fe6",
+  "BRANCH": "ponte-curador-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
-  "FICHEIROS_NA_IMPRESSAO": 2604,
+  "SOURCE_TREE_FINGERPRINT": "fb42cfa8f574bbadf7223b511f272f966f7e8a992d5f98d6e427420a35b06fc7",
+  "FICHEIROS_NA_IMPRESSAO": 2611,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2881,6 +2881,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/recollection_red_team_estrito.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "09ca8641293d91bd1d5a0e84d9d338699142ae53",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/red_team_adama_referencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "3196750de5730a8efd86f7f2bb48092fa6e8c547",
@@ -3051,7 +3058,7 @@
    {
     "PATH": "regras/incrementalidade_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "791bf265bdb79f28aa6dec0563d1eb2dc5ea43dc",
+    "VERSAO": "d2aa19ddf21819f5f4285a24ea7964a133c6c58a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3114,7 +3121,7 @@
    {
     "PATH": "regras/paridade_test.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "5a842c0c29950817a4bdaf604935f90b03810e40",
+    "VERSAO": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3205,14 +3212,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
+    "VERSAO": "fb42cfa8f574bbadf7223b511f272f966f7e8a992d5f98d6e427420a35b06fc7",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8fd98b0754a56f0845455a3491affce385dc5e30aaf7c62203010d1505ff7b4f",
+    "VERSAO": "fb42cfa8f574bbadf7223b511f272f966f7e8a992d5f98d6e427420a35b06fc7",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4883,8 +4890,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 692,
-  "INPUTS_DIGEST": "c153698b81d6ec3e4841034a16b475068714144bf815cb36024196bb84f7f1cd",
+  "INPUTS_COUNT": 693,
+  "INPUTS_DIGEST": "73d23758482e47545973c3c9fe78a7f193921ac4e4860b8d39d9c7d03ef51689",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4910,15 +4917,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 450,
+  "DOCUMENTOS_LIDOS": 451,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bff795e8b95d52bcf797f04acff4e2dd3e5b5b073dc05e74efd12d88b934fe97",
-  "SEMANTIC_HASH": "cdf6e27d6791820dfdcb27c7d581f0782e78d57f53e013133a3fc1ed89d7b61e"
+  "MEASUREMENT_HASH": "bf81d61460eb51122daa7ec564534413e823339a030289adcb2a52c6cf74a1d0",
+  "SEMANTIC_HASH": "3419350f5e792785e7104ca1f824fe09940975e8ce374fab42b52de78f68a770"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -20593,7 +20600,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 232,
+      "LINHA": 260,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-IT-NORMALIZACAO",
@@ -21399,7 +21406,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 29,
+      "LINHA": 30,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--IMPORTS-->C-IT-NORMALIZACAO",
@@ -21503,7 +21510,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 29,
+      "LINHA": 30,
       "SUPPORTS": "AMBIGUOUS",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
@@ -21594,6 +21601,30 @@
      {
       "FICHEIRO": "provas/recollection_red_team.mjs",
       "LINHA": 158,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team_estrito.mjs",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team_estrito.mjs",
+      "LINHA": 38,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team_estrito.mjs",
+      "LINHA": 98,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-INCREMENTALIDADE--READS-->C-PROVA-RECOLLECTION",
@@ -21854,6 +21885,22 @@
      {
       "FICHEIRO": "provas/recollection_red_team.mjs",
       "LINHA": 159,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team_estrito.mjs",
+      "LINHA": 32,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_red_team_estrito.mjs",
+      "LINHA": 39,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-NORMALIZACAO--READS-->C-PROVA-RECOLLECTION",
@@ -22759,7 +22806,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "regras/paridade_test.mjs",
-      "LINHA": 274,
+      "LINHA": 302,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-IT-NORMALIZACAO",
@@ -42170,7 +42217,8 @@
    "SO_MEDEM_ESTE": [
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs",
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -42206,7 +42254,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/paridade_red_team.mjs",
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
@@ -44541,12 +44590,15 @@
    "KIND": "proof",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
     "provas/RECOLLECTION-RED-TEAM-V1.json",
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
-    "provas/recollection_red_team.mjs"
+    "provas/recollection_red_team.mjs",
+    "provas/recollection_red_team_estrito.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,

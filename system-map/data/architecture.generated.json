@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "recollection-v1",
-    "HEAD": "10d247b7fd5bacc348a68f10aaca5dd7f0349a18",
-    "GENERATED_AT": "2026-09-22T12:33:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc6ecfa5bdb415ce346a0fba8ff138cf457c7b3a516f0f683e6b073078c12e87"
+    "BRANCH": "ponte-curador-v1",
+    "HEAD": "48803c7c82fb9b11f32a0e9bdcdc568abf200fe6",
+    "GENERATED_AT": "2026-09-22T15:12:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fb42cfa8f574bbadf7223b511f272f966f7e8a992d5f98d6e427420a35b06fc7"
   },
   "FILES": [
     {
@@ -338,6 +338,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-PONTE-CURADOR.md",
+      "sha": "c286d1cc0172fd6dbcd0a52673dd7081c7c82548",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-PROVAS-P1.md",
       "sha": "434a3cd3f0eec6699605d8679a357f64a65ee70a",
       "ext": ".md",
@@ -367,7 +374,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "6ad8e156c11bfff65cdd3215ae34cab818b0d95c",
+      "sha": "a7c4c61aefa1746b50851dd8c19bc2f6a04d584a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1914,14 +1921,14 @@
     },
     {
       "path": "curadoria/LIFECYCLE-EVIDENCE-V1.json",
-      "sha": "722e77a7637d419c1845e3935bdd6de5863c0786",
+      "sha": "ad6e5780963d20d9d97f78731071ce43db017683",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "curadoria/LIFECYCLE-LEDGER-V1.json",
-      "sha": "1b3e5014388d1107a9d885cc5de190bafcf5eaee",
+      "sha": "a54671698d0fb0a578288fee0f26b4be69e6d9a9",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1964,6 +1971,13 @@
     {
       "path": "curadoria/POLITICA-MODELO.json",
       "sha": "5f9694b01753af039125cc2b45bb8fe7e53f1e4c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PONTE-CURADOR-PROOF-V1.json",
+      "sha": "772dc02c29f5d8720b236ddd52ef7a53a2dfea59",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2012,7 +2026,14 @@
     },
     {
       "path": "curadoria/RECONCILIACAO-V1.json",
-      "sha": "0c9bdc9bf9529a726397a64235ed1122095bcae8",
+      "sha": "e550a4f57f989b51666cb608bafd74849f23b17e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/RED-TEAM-PONTE-CURADOR-V1.json",
+      "sha": "1e3ce96dc09239762eb37768fd4ece69941e39ce",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2298,6 +2319,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/provar_ponte_curador.py",
+      "sha": "bff2394097a44d1f5530ab8b1dbebe0a74d234c8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/provar_supervisor.py",
       "sha": "766d11063229c405b2a141ee11935b331eda4d48",
       "ext": ".py",
@@ -2320,7 +2348,7 @@
     },
     {
       "path": "curadoria/reconciliar_livros.py",
-      "sha": "968d1cc461b0965dbbb746b61fd99d3e556b1b4a",
+      "sha": "8dd3c1b7de1d1346dcfbf7c585f7ae56d771ca4e",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2328,6 +2356,13 @@
     {
       "path": "curadoria/red_team_lifecycle.py",
       "sha": "0078ce8c27def397b5944be6ac2af9a9059d03d5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/red_team_ponte_curador.py",
+      "sha": "3f4a72e7ab00f210c5fabcbf06380b457ddedd83",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2467,7 +2502,7 @@
     },
     {
       "path": "curadoria/test_reconciliar_livros.py",
-      "sha": "0baf6a152b9fc04655325512a532f467215436cf",
+      "sha": "12d90df9fb7b8e3c59348d82ee6683c58ab8b192",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -12630,8 +12665,15 @@
       "code_dir": true
     },
     {
+      "path": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
+      "sha": "c6c9d85b3d8f5b82cdbe9e3a718b294e87afe539",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/RECOLLECTION-RED-TEAM-V1.json",
-      "sha": "7421e89cdce174d3f1e3ac96ba290286c19c0816",
+      "sha": "8875a9dd31d1a5d6d237aaa3c2fba5223103b9e2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13568,6 +13610,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/recollection_red_team_estrito.mjs",
+      "sha": "09ca8641293d91bd1d5a0e84d9d338699142ae53",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/red_team_adama_referencia.py",
       "sha": "3196750de5730a8efd86f7f2bb48092fa6e8c547",
       "ext": ".py",
@@ -13870,7 +13919,7 @@
     },
     {
       "path": "regras/incrementalidade_test.mjs",
-      "sha": "791bf265bdb79f28aa6dec0563d1eb2dc5ea43dc",
+      "sha": "d2aa19ddf21819f5f4285a24ea7964a133c6c58a",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13940,7 +13989,7 @@
     },
     {
       "path": "regras/paridade_test.mjs",
-      "sha": "5a842c0c29950817a4bdaf604935f90b03810e40",
+      "sha": "d9d722293b2694e72f05198ae9366ac55bcfaac4",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -15305,7 +15354,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c81410b06470d5023d5b78b7ecd024c66198bcf2",
+      "sha": "5ae94f1e761b7b9add8f25ec3a9a7e6f1f9312ed",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -23627,6 +23676,72 @@
       }
     },
     {
+      "from_file": "curadoria/provar_ponte_curador.py",
+      "to_file": "curadoria/PONTE-CURADOR-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_ponte_curador.py",
+        "line": 51,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"PONTE-CURADOR-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ponte_curador.py",
+      "to_file": "curadoria/PONTE-CURADOR-PROOF-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/provar_ponte_curador.py",
+        "line": 237,
+        "snippet": "SAIDA.write_text(json.dumps(p, ensure_ascii=False, indent=1) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ponte_curador.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ponte_curador.py",
+        "line": 46,
+        "snippet": "import collection_gate as CG        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ponte_curador.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ponte_curador.py",
+        "line": 47,
+        "snippet": "import lifecycle as LC              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ponte_curador.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ponte_curador.py",
+        "line": 48,
+        "snippet": "import ready_split as RS            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/provar_ponte_curador.py",
+      "to_file": "curadoria/reconciliar_livros.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/provar_ponte_curador.py",
+        "line": 49,
+        "snippet": "import reconciliar_livros as R      # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/provar_supervisor.py",
       "to_file": "curadoria/SUPERVISOR-PROOF-V1.json",
       "type": "READS",
@@ -23798,7 +23913,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 68,
+        "line": 114,
         "snippet": "PORTA = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
       }
     },
@@ -23809,7 +23924,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 67,
+        "line": 113,
         "snippet": "MATCH = RAIZ / \"curadoria\" / \"CANDIDATE-TO-SOURCE-MATCH-V1.json\""
       }
     },
@@ -23820,7 +23935,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 162,
+        "line": 209,
         "snippet": "passo2_b = do_git(ref_b, \"curadoria/CONTRATOS-PASSO-2-V1.json\") or {}"
       }
     },
@@ -23831,7 +23946,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 63,
+        "line": 109,
         "snippet": "EVIDENCIA_A = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -23842,7 +23957,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 168,
+        "line": 218,
         "snippet": "\"B\": do_git(ref_b, \"curadoria/LIFECYCLE-LEDGER-V1.json\"),"
       }
     },
@@ -23853,7 +23968,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 65,
+        "line": 111,
         "snippet": "LISTAGENS_A = RAIZ / \"curadoria\" / \"LISTAGENS-PROVADAS-V1.json\""
       }
     },
@@ -23864,7 +23979,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 69,
+        "line": 115,
         "snippet": "SAIDA = RAIZ / \"curadoria\" / \"RECONCILIACAO-V1.json\""
       }
     },
@@ -23875,7 +23990,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 782,
+        "line": 1065,
         "snippet": "SAIDA.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -23886,7 +24001,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 66,
+        "line": 112,
         "snippet": "ALLOC = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
@@ -23908,7 +24023,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/reconciliar_livros.py",
-        "line": 64,
+        "line": 110,
         "snippet": "CONTRATOS_A = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -24031,6 +24146,72 @@
         "file": "curadoria/red_team_lifecycle.py",
         "line": 144,
         "snippet": "wtxt = (CUR / \"worker.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_ponte_curador.py",
+      "to_file": "curadoria/RED-TEAM-PONTE-CURADOR-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_ponte_curador.py",
+        "line": 34,
+        "snippet": "SAIDA = CUR / \"RED-TEAM-PONTE-CURADOR-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_ponte_curador.py",
+      "to_file": "curadoria/RED-TEAM-PONTE-CURADOR-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_ponte_curador.py",
+        "line": 203,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_ponte_curador.py",
+      "to_file": "curadoria/collection_gate.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_ponte_curador.py",
+        "line": 86,
+        "snippet": "(\"RT-A10_portao_deixa_de_morder\", \"collection_gate.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_ponte_curador.py",
+      "to_file": "curadoria/provar_ponte_curador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_ponte_curador.py",
+        "line": 135,
+        "snippet": "r = subprocess.run([sys.executable, \"curadoria/provar_ponte_curador.py\"],"
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_ponte_curador.py",
+      "to_file": "curadoria/ready_split.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_ponte_curador.py",
+        "line": 96,
+        "snippet": "(\"RT-A12_regua_aceita_capa_como_item\", \"ready_split.py\","
+      }
+    },
+    {
+      "from_file": "curadoria/red_team_ponte_curador.py",
+      "to_file": "curadoria/reconciliar_livros.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/red_team_ponte_curador.py",
+        "line": 41,
+        "snippet": "(\"RT-A1_livro_do_bot_sobrescreve_o_canonico\", \"reconciliar_livros.py\","
       }
     },
     {
@@ -25019,7 +25200,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/test_reconciliar_livros.py",
-        "line": 375,
+        "line": 655,
         "snippet": "LC.LIVRO = AQUI / \"LIFECYCLE-LEDGER-V1.json\""
       }
     },
@@ -25030,7 +25211,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/test_reconciliar_livros.py",
-        "line": 127,
+        "line": 129,
         "snippet": "linha(sid, LC.CAPABILITY_BLOCK, LC.CANARY_PENDING, T2, \"LISTAGENS-PROVADAS-V1.json\"),"
       }
     },
@@ -25041,7 +25222,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reconciliar_livros.py",
-        "line": 26,
+        "line": 27,
         "snippet": "import lifecycle as LC              # noqa: E402"
       }
     },
@@ -25052,8 +25233,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reconciliar_livros.py",
-        "line": 27,
+        "line": 28,
         "snippet": "import reconciliar_livros as R      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reconciliar_livros.py",
+      "to_file": "curadoria/reconciliar_livros.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_reconciliar_livros.py",
+        "line": 520,
+        "snippet": "arvore = ast.parse((AQUI / \"reconciliar_livros.py\").read_text(encoding=\"utf-8\"))"
       }
     },
     {
@@ -25063,7 +25255,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/test_reconciliar_livros.py",
-        "line": 318,
+        "line": 320,
         "snippet": "linha(so_b, None, LC.CANARY_PENDING, T1, \"regras/italy_contracts.mjs\"),"
       }
     },
@@ -49906,6 +50098,72 @@
       }
     },
     {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 147,
+        "snippet": "writeFileSync(\"provas/RECOLLECTION-RED-TEAM-ESTRITO-V1.json\", JSON.stringify({"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/incrementalidade.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 31,
+        "snippet": "const REGRA = \"regras/incrementalidade.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/incrementalidade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 38,
+        "snippet": "[REGRA]: \"regras/incrementalidade_test.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/normalizacao_de_conteudo.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 32,
+        "snippet": "const NORMAL = \"regras/normalizacao_de_conteudo.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/paridade_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 39,
+        "snippet": "[NORMAL]: \"regras/paridade_test.mjs\","
+      }
+    },
+    {
+      "from_file": "provas/recollection_red_team_estrito.mjs",
+      "to_file": "regras/recollection_test.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_red_team_estrito.mjs",
+        "line": 98,
+        "snippet": "const TODAS = [\"regras/incrementalidade_test.mjs\", \"regras/recollection_test.mjs\", \"regras/paridade_test.mjs\"];"
+      }
+    },
+    {
       "from_file": "provas/red_team_adama_referencia.py",
       "to_file": "referencia/adama/AUTHORIZED-USES.json",
       "type": "READS",
@@ -51419,7 +51677,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/incrementalidade_test.mjs",
-        "line": 19,
+        "line": 20,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51430,7 +51688,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/incrementalidade_test.mjs",
-        "line": 19,
+        "line": 20,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51760,7 +52018,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 232,
+        "line": 260,
         "snippet": "const fonte = readFileSync(new URL(\"../coleta/italy_pilot_collect.mjs\", import.meta.url), \"utf8\");"
       }
     },
@@ -51771,7 +52029,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 274,
+        "line": 302,
         "snippet": "const { replay } = await import(\"../medidas/paridade_replay.mjs\");"
       }
     },
@@ -51782,7 +52040,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 29,
+        "line": 30,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51793,7 +52051,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 29,
+        "line": 30,
         "snippet": "} from \"./incrementalidade.mjs\";"
       }
     },
@@ -51804,7 +52062,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 26,
+        "line": 27,
         "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -51815,7 +52073,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/paridade_test.mjs",
-        "line": 26,
+        "line": 27,
         "snippet": "} from \"./normalizacao_de_conteudo.mjs\";"
       }
     },
@@ -72095,10 +72353,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2456,
-    "files_readable": 1088,
-    "files_code_dir": 946,
-    "file_edges": 4939,
+    "files_tracked": 2463,
+    "files_readable": 1091,
+    "files_code_dir": 948,
+    "file_edges": 4958,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
