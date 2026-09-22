@@ -1,0 +1,841 @@
+{
+ "DATASET": "ROTAS-ELEGIVEIS-V1",
+ "GERADO_EM": "2026-09-22T23:27:17.976092+00:00",
+ "INSTRUMENTO": "medidas/canario_rotas_elegiveis.py",
+ "LEI": "rota sem canario real nao e rota; 403 e robots sao resposta, nao se contornam",
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T5-041",
+   "OWNER": "CRPV",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.crpv.it/it/news/",
+   "LINK_PATTERN": "^https?://(www\\.)?crpv\\.it/it/news/(?:[a-z0-9-]+/)?(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|(?:19|20)\\d{2}[^?#]*)/?$",
+   "MAX_TARGETS": 6,
+   "PEDIDOS": 1,
+   "ROBOTS": "robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "VEREDITO": "UNKNOWN",
+   "CAUSA": "robots ilegivel deste egresso: robots inacessivel apos 2 tentativas (URLError) — UNKNOWN, tratado como barrado por prudencia",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-041",
+   "OWNER": "Bollettino Ufficiale Regione Abruzzo",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://bura.regione.abruzzo.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?bura\\.regione\\.abruzzo\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://bura.regione.abruzzo.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 45,
+    "NON_WHITESPACE_CHARACTERS": 2465,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 14,
+   "AMOSTRA_LINKS": [
+    "https://bura.regione.abruzzo.it/bollettini/ordinario-37-2026-09-16",
+    "https://bura.regione.abruzzo.it/bollettini/ordinario-36-2026-09-09",
+    "https://bura.regione.abruzzo.it/bollettini/ordinario-35-2026-09-02",
+    "https://bura.regione.abruzzo.it/bollettini/ordinario-34-2026-08-26",
+    "https://bura.regione.abruzzo.it/bollettini/ordinario-33-2026-08-19"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://bura.regione.abruzzo.it/bollettini/ordinario-37-2026-09-16",
+     "HTTP": 200,
+     "BYTES": 85453,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 76,
+     "NON_WHITESPACE_CHARACTERS": 7271,
+     "PARAGRAPH_CHARACTERS": 5111,
+     "TEXT_SHA256": "fc65716cea185943c104a9977dbc5b7e1b46bf7c095c55ad2ef3a0675091e622",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://bura.regione.abruzzo.it/bollettini/ordinario-37-2026-09-16",
+    "HTTP": 200,
+    "BYTES": 85453,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 76,
+    "NON_WHITESPACE_CHARACTERS": 7271,
+    "PARAGRAPH_CHARACTERS": 5111,
+    "TEXT_SHA256": "fc65716cea185943c104a9977dbc5b7e1b46bf7c095c55ad2ef3a0675091e622",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 14 links pelo motor -> https://bura.regione.abruzzo.it/bollettini/ordinario-37-2026-09-16 com 5111 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-057",
+   "OWNER": "Generazione Lombardia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.giovani.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?giovani\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.giovani.regione.lombardia.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 105,
+    "NON_WHITESPACE_CHARACTERS": 5197,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 10,
+   "AMOSTRA_LINKS": [
+    "https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia",
+    "https://www.giovani.regione.lombardia.it/news/news/940/premio-lombardia-ricerca-studenti",
+    "https://www.giovani.regione.lombardia.it/news/news/938/intime-visioni-900-segreto",
+    "https://www.giovani.regione.lombardia.it/news/news/933/quando-la-forma-si-dissolve-due-mostre-gratuite-a-palazzo-lombardia",
+    "https://www.giovani.regione.lombardia.it/news/news/939/oxfam-milano-apre-le-porte-ai-nuovi-volontari-il-29-settembre-l-open-d"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia",
+     "HTTP": 200,
+     "BYTES": 81688,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 74,
+     "NON_WHITESPACE_CHARACTERS": 3352,
+     "PARAGRAPH_CHARACTERS": 1826,
+     "TEXT_SHA256": "92a773f20a23d96d099a3930d1ce08ee2f013c82129224ed3ea8f3b620aac8e5",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia",
+    "HTTP": 200,
+    "BYTES": 81688,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 74,
+    "NON_WHITESPACE_CHARACTERS": 3352,
+    "PARAGRAPH_CHARACTERS": 1826,
+    "TEXT_SHA256": "92a773f20a23d96d099a3930d1ce08ee2f013c82129224ed3ea8f3b620aac8e5",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 10 links pelo motor -> https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia com 1826 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T12-074",
+   "OWNER": "Open Innovation",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.openinnovation.regione.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?openinnovation\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.openinnovation.regione.lombardia.it/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 132,
+    "NON_WHITESPACE_CHARACTERS": 7371,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 7,
+   "AMOSTRA_LINKS": [
+    "https://www.openinnovation.regione.lombardia.it/it/news/news/9463/negoziare-un-round-di-finanziamento-l-1-10-il-webinar-di-investor-lab",
+    "https://www.openinnovation.regione.lombardia.it/it/news/news/9460/il-premio-della-regione-per-le-innovazioni-degli-studenti-prorogato-al",
+    "https://www.openinnovation.regione.lombardia.it/it/news/news/9450/il-24-9-nuovo-open-webinar-ai-e-imprese-le-applicazioni-in-operations",
+    "https://www.openinnovation.regione.lombardia.it/it/news/news/9441/digital-health-aperta-la-seconda-open-call-di-unite-da-6-milioni",
+    "https://www.openinnovation.regione.lombardia.it/it/news/news/9459/alleanza-internazionale-bicocca-kaust-su-ai-salute-ed-energia"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.openinnovation.regione.lombardia.it/it/news/news/9463/negoziare-un-round-di-finanziamento-l-1-10-il-webinar-di-investor-lab",
+     "HTTP": 200,
+     "BYTES": 68705,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 97,
+     "NON_WHITESPACE_CHARACTERS": 4016,
+     "PARAGRAPH_CHARACTERS": 1951,
+     "TEXT_SHA256": "11e04d8f5598237ef1d983ada307e8aae1b5be42f03c8d415e30b4b81ba2b8cf",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.openinnovation.regione.lombardia.it/it/news/news/9463/negoziare-un-round-di-finanziamento-l-1-10-il-webinar-di-investor-lab",
+    "HTTP": 200,
+    "BYTES": 68705,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 97,
+    "NON_WHITESPACE_CHARACTERS": 4016,
+    "PARAGRAPH_CHARACTERS": 1951,
+    "TEXT_SHA256": "11e04d8f5598237ef1d983ada307e8aae1b5be42f03c8d415e30b4b81ba2b8cf",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 7 links pelo motor -> https://www.openinnovation.regione.lombardia.it/it/news/news/9463/negoziare-un-round-di-finanziamento-l-1-10-il-webinar-di-investor-lab com 1951 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "OWNER": "ARPA Marche",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpa.marche.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?arpa\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpa.marche.it/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 163,
+    "NON_WHITESPACE_CHARACTERS": 5891,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 10,
+   "AMOSTRA_LINKS": [
+    "https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026",
+    "https://www.arpa.marche.it/notizie-2026/1696-bando-community-engagement-progetti-sintesi-e-insinergia",
+    "https://www.arpa.marche.it/notizie-2026/1695-18-08-2026-ostreopsis-cf-ovata-alte-concentrazioni-al-passetto",
+    "https://www.arpa.marche.it/notizie-2026/1694-evento-pesaro-i-dati-ambientali-dalla-realta-dei-fatti-ai-possibili-sviluppi",
+    "https://www.arpa.marche.it/notizie-2026/1693-bolletino-monitoraggi-marini-luglio-il-mare-si-raffredda"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026",
+     "HTTP": 200,
+     "BYTES": 65698,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 127,
+     "NON_WHITESPACE_CHARACTERS": 5839,
+     "PARAGRAPH_CHARACTERS": 3565,
+     "TEXT_SHA256": "5ca135d7eb6e414c6df682c2d66d1f317c9c7d5efc99a864cb00bb4a52867420",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026",
+    "HTTP": 200,
+    "BYTES": 65698,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 127,
+    "NON_WHITESPACE_CHARACTERS": 5839,
+    "PARAGRAPH_CHARACTERS": 3565,
+    "TEXT_SHA256": "5ca135d7eb6e414c6df682c2d66d1f317c9c7d5efc99a864cb00bb4a52867420",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 10 links pelo motor -> https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026 com 3565 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "OWNER": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpae.it/it",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpae.it/it",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 112,
+    "NON_WHITESPACE_CHARACTERS": 4261,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 8,
+   "AMOSTRA_LINKS": [
+    "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026",
+    "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+    "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1-1",
+    "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+     "HTTP": 200,
+     "BYTES": 26593,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 35,
+     "NON_WHITESPACE_CHARACTERS": 1952,
+     "PARAGRAPH_CHARACTERS": 851,
+     "TEXT_SHA256": "5d751d35740022fb513f6b1a535ee9e6375f210a7f2eb803f3c663aaee29abc4",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "HTTP": 200,
+    "BYTES": 26593,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 35,
+    "NON_WHITESPACE_CHARACTERS": 1952,
+    "PARAGRAPH_CHARACTERS": 851,
+    "TEXT_SHA256": "5d751d35740022fb513f6b1a535ee9e6375f210a7f2eb803f3c663aaee29abc4",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 8 links pelo motor -> https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2 com 851 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "OWNER": "Italiano",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
+   "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 112,
+    "NON_WHITESPACE_CHARACTERS": 4261,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 8,
+   "AMOSTRA_LINKS": [
+    "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026",
+    "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+    "https://www.arpae.it/it/notizie/aggiornamento-al-portale-prelievi-1-1",
+    "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+     "HTTP": 200,
+     "BYTES": 26593,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 35,
+     "NON_WHITESPACE_CHARACTERS": 1952,
+     "PARAGRAPH_CHARACTERS": 851,
+     "TEXT_SHA256": "5d751d35740022fb513f6b1a535ee9e6375f210a7f2eb803f3c663aaee29abc4",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "HTTP": 200,
+    "BYTES": 26593,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 35,
+    "NON_WHITESPACE_CHARACTERS": 1952,
+    "PARAGRAPH_CHARACTERS": 851,
+    "TEXT_SHA256": "5d751d35740022fb513f6b1a535ee9e6375f210a7f2eb803f3c663aaee29abc4",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 8 links pelo motor -> https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2 com 851 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "OWNER": "Scopri l'evento",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+   "LINK_PATTERN": "^https?://(www\\.)?fieradidacta\\.indire\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "MAX_TARGETS": 1,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 58,
+    "NON_WHITESPACE_CHARACTERS": 2455,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 4,
+   "AMOSTRA_LINKS": [
+    "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
+    "https://fieradidacta.indire.it/it/news/e-online-il-programma-degli-eventi-espositori-con-workshop-presentazioni-e-novita-per-didacta-abruzzo/",
+    "https://fieradidacta.indire.it/it/news/didacta-lanciano-la-sostenibilita-si-mette-in-gioco-con-un-laboratorio-tra-greencomp-e-cambiamento/",
+    "https://fieradidacta.indire.it/it/news/aperte-le-iscrizioni-ai-90-eventi-formativi-di-didacta-italia-edizione-abruzzo/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
+     "HTTP": 200,
+     "BYTES": 52272,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 75,
+     "NON_WHITESPACE_CHARACTERS": 2982,
+     "PARAGRAPH_CHARACTERS": 1796,
+     "TEXT_SHA256": "50a5921eddc31681a24a17d823c24132eb8c4e0f6481b5f8ed7813a8eb24350a",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
+    "HTTP": 200,
+    "BYTES": 52272,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 75,
+    "NON_WHITESPACE_CHARACTERS": 2982,
+    "PARAGRAPH_CHARACTERS": 1796,
+    "TEXT_SHA256": "50a5921eddc31681a24a17d823c24132eb8c4e0f6481b5f8ed7813a8eb24350a",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 4 links pelo motor -> https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/ com 1796 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "origin/lote-76-v1:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "OWNER": "Myfruit.it",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.myfruit.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/news/(?!category/)[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "MAX_TARGETS": 30,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.myfruit.it/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 282,
+    "NON_WHITESPACE_CHARACTERS": 13330,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 34,
+   "AMOSTRA_LINKS": [
+    "https://www.myfruit.it/news/torna-per-le-famiglie-italiane-la-carta-dedicata-a-te",
+    "https://www.myfruit.it/news/riapre-a-mugnano-il-primo-md-della-storia-del-gruppo",
+    "https://www.myfruit.it/news/ins-mercato-due-nuove-aperture-in-piemonte-e-lombardia",
+    "https://www.myfruit.it/news/despar-nord-wecity-riparte-il-progetto-mobilita-sostenibile",
+    "https://www.myfruit.it/news/lidl-dalla-piattaforma-al-negozio-con-il-camion-autonomo"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.myfruit.it/news/torna-per-le-famiglie-italiane-la-carta-dedicata-a-te",
+     "HTTP": 200,
+     "BYTES": 102406,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 145,
+     "NON_WHITESPACE_CHARACTERS": 12321,
+     "PARAGRAPH_CHARACTERS": 7833,
+     "TEXT_SHA256": "b4c69502aa28d71583b485af7645370973069e99865128516aad933554ee6a92",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.myfruit.it/news/torna-per-le-famiglie-italiane-la-carta-dedicata-a-te",
+    "HTTP": 200,
+    "BYTES": 102406,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 145,
+    "NON_WHITESPACE_CHARACTERS": 12321,
+    "PARAGRAPH_CHARACTERS": 7833,
+    "TEXT_SHA256": "b4c69502aa28d71583b485af7645370973069e99865128516aad933554ee6a92",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 34 links pelo motor -> https://www.myfruit.it/news/torna-per-le-famiglie-italiane-la-carta-dedicata-a-te com 7833 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "OWNER": "Zootecnica International",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://zootecnicainternational.com/news/",
+   "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+   "MAX_TARGETS": 14,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://zootecnicainternational.com/news/",
+    "HTML_KIND": "MIXED",
+    "LINKS": 456,
+    "NON_WHITESPACE_CHARACTERS": 22014,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 10,
+   "AMOSTRA_LINKS": [
+    "https://zootecnicainternational.com/news/eurotier-2026-poultry-biosecurity-ai/",
+    "https://zootecnicainternational.com/news/dr-james-jim-mckay-obituary-2026/",
+    "https://zootecnicainternational.com/news/newcastle-disease-hungary-broiler-farms/",
+    "https://zootecnicainternational.com/news/eu-poultry-meat-market-records-higher-output-and-lower-broiler-prices/",
+    "https://zootecnicainternational.com/news/bob-buresh-2026-psa-poultry-industry-award/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://zootecnicainternational.com/news/eurotier-2026-poultry-biosecurity-ai/",
+     "HTTP": 200,
+     "BYTES": 180487,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 155,
+     "NON_WHITESPACE_CHARACTERS": 7354,
+     "PARAGRAPH_CHARACTERS": 5248,
+     "TEXT_SHA256": "38619b6d6d8177572fb64e00256143eb36bb447d5627d852e958a86cf6f1fa74",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://zootecnicainternational.com/news/eurotier-2026-poultry-biosecurity-ai/",
+    "HTTP": 200,
+    "BYTES": 180487,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 155,
+    "NON_WHITESPACE_CHARACTERS": 7354,
+    "PARAGRAPH_CHARACTERS": 5248,
+    "TEXT_SHA256": "38619b6d6d8177572fb64e00256143eb36bb447d5627d852e958a86cf6f1fa74",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 10 links pelo motor -> https://zootecnicainternational.com/news/eurotier-2026-poultry-biosecurity-ai/ com 5248 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T5-049",
+   "OWNER": "UNICT Di3A",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.di3a.unict.it/it/notizie",
+   "LINK_PATTERN": "^https?://(www\\.)?di3a\\.unict\\.it/it/notizie/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "MAX_TARGETS": 4,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.di3a.unict.it/it/notizie",
+    "HTML_KIND": "MIXED",
+    "LINKS": 68,
+    "NON_WHITESPACE_CHARACTERS": 3674,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 5,
+   "AMOSTRA_LINKS": [
+    "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+    "https://www.di3a.unict.it/it/notizie/kit-di-sopravvivenza-la-sessione-di-esami-strumenti-psicologici-contro-lansia",
+    "https://www.di3a.unict.it/it/notizie/welcome-day-1",
+    "https://www.di3a.unict.it/it/notizie/avvisi-esami-e-prove-itinere",
+    "https://www.di3a.unict.it/it/notizie/pubblica-selezione-titoli-e-colloquio-633"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni",
+     "HTTP": 200,
+     "BYTES": 38558,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 56,
+     "NON_WHITESPACE_CHARACTERS": 3555,
+     "PARAGRAPH_CHARACTERS": 846,
+     "TEXT_SHA256": "e29757d71f4d81323fc27dc6b2d84388bc9f62ffaf07d2e104fa49abb123ceb2",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    },
+    {
+     "URL": "https://www.di3a.unict.it/it/notizie/kit-di-sopravvivenza-la-sessione-di-esami-strumenti-psicologici-contro-lansia",
+     "HTTP": 200,
+     "BYTES": 39277,
+     "HTML_KIND": "MIXED",
+     "CAPA_OU_MATERIA": "NAO_SEI",
+     "LINKS": 58,
+     "NON_WHITESPACE_CHARACTERS": 3042,
+     "PARAGRAPH_CHARACTERS": 140,
+     "TEXT_SHA256": "6f149d34cc9199c22b1fa5ac43deebc9880f169ec537efe022b7742f60b7ff12",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "alvo sem corpo util: HTML_KIND=MIXED"
+    }
+   ],
+   "VEREDITO": "CAPABILITY_BLOCK",
+   "CAUSA": "https://www.di3a.unict.it/it/notizie/avvisi-lezioni: alvo sem corpo util: HTML_KIND=MIXED; https://www.di3a.unict.it/it/notizie/kit-di-sopravvivenza-la-sessione-di-esami-strumenti-psicologici-contro-lansia: alvo sem corpo util: HTML_KIND=MIXED",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "OWNER": "Cantina Sociale Cooperativa Riunite e CIV",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+   "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/news-e-eventi/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "MAX_TARGETS": 30,
+   "PEDIDOS": 3,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.riuniteciv.com/news-e-eventi/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 186,
+    "NON_WHITESPACE_CHARACTERS": 6275,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 54,
+   "AMOSTRA_LINKS": [
+    "https://www.riuniteciv.com/news-e-eventi/raccontare-ascoltare-creare-relazioni/",
+    "https://www.riuniteciv.com/news-e-eventi/cantine-maschio-torna-sulle-spiagge-italiane-con-beach-like-a-deejay/",
+    "https://www.riuniteciv.com/news-e-eventi/cantine-maschio-e-maratona-dles-dolomites-sedici-anni-sulla-stessa-strada/",
+    "https://www.riuniteciv.com/news-e-eventi/cantine-riunite-civ-ottiene-lesg-recognition-da-dnv/",
+    "https://www.riuniteciv.com/news-e-eventi/nuove-forme-di-eleganza/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.riuniteciv.com/news-e-eventi/raccontare-ascoltare-creare-relazioni/",
+     "HTTP": 200,
+     "BYTES": 75225,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 67,
+     "NON_WHITESPACE_CHARACTERS": 3766,
+     "PARAGRAPH_CHARACTERS": 2813,
+     "TEXT_SHA256": "c55cbef8dc1259896978d531990ba6806073f6a43928d157af873c8baf524976",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.riuniteciv.com/news-e-eventi/raccontare-ascoltare-creare-relazioni/",
+    "HTTP": 200,
+    "BYTES": 75225,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 67,
+    "NON_WHITESPACE_CHARACTERS": 3766,
+    "PARAGRAPH_CHARACTERS": 2813,
+    "TEXT_SHA256": "c55cbef8dc1259896978d531990ba6806073f6a43928d157af873c8baf524976",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 54 links pelo motor -> https://www.riuniteciv.com/news-e-eventi/raccontare-ascoltare-creare-relazioni/ com 2813 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "OWNER": "Consorzio Vino Chianti Classico",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.chianticlassico.com/news/",
+   "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "MAX_TARGETS": 15,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.chianticlassico.com/news/",
+    "HTML_KIND": "CONTENT",
+    "LINKS": 131,
+    "NON_WHITESPACE_CHARACTERS": 6794,
+    "PASSARIA_COMO_MATERIA": true
+   },
+   "LINKS_DE_DETALHE": 15,
+   "AMOSTRA_LINKS": [
+    "https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/",
+    "https://www.chianticlassico.com/news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/",
+    "https://www.chianticlassico.com/news/consorzio-chianti-classico-vinexpo-asia-hongkong/",
+    "https://www.chianticlassico.com/news/il-gallo-nero-a-vinitaly-2026/",
+    "https://www.chianticlassico.com/news/slow-wine-fair-chianti-classico/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.chianticlassico.com/news/e-learning-vuoi-diventare-un-esperto-di-chianti-classico/",
+     "HTTP": 200,
+     "BYTES": 104459,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 88,
+     "NON_WHITESPACE_CHARACTERS": 1920,
+     "PARAGRAPH_CHARACTERS": 646,
+     "TEXT_SHA256": "df82b7c81c02291fdc4ee8ae870af6bb96b1d02a04adbb58a9675093b54f698d",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (88 ligacoes para 1920 caracteres, 646 em paragrafos)"
+    },
+    {
+     "URL": "https://www.chianticlassico.com/news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/",
+     "HTTP": 200,
+     "BYTES": 106348,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 87,
+     "NON_WHITESPACE_CHARACTERS": 2542,
+     "PARAGRAPH_CHARACTERS": 1233,
+     "TEXT_SHA256": "de32392ca8c0c2608b68ebd0ed9f561742b61791eedf4919df454a492c600115",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.chianticlassico.com/news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/",
+    "HTTP": 200,
+    "BYTES": 106348,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 87,
+    "NON_WHITESPACE_CHARACTERS": 2542,
+    "PARAGRAPH_CHARACTERS": 1233,
+    "TEXT_SHA256": "de32392ca8c0c2608b68ebd0ed9f561742b61791eedf4919df454a492c600115",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 15 links pelo motor -> https://www.chianticlassico.com/news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/ com 1233 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-042",
+   "OWNER": "Consorzio di Tutela dell'Aceto Balsamico di Modena",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://www.consorziobalsamico.it/news-blog/",
+   "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/news-blog/[a-z0-9]+(?:-[a-z0-9]+)+/?$",
+   "MAX_TARGETS": 10,
+   "PEDIDOS": 4,
+   "ROBOTS": "lido",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://www.consorziobalsamico.it/news-blog/",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 111,
+    "NON_WHITESPACE_CHARACTERS": 2397,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 10,
+   "AMOSTRA_LINKS": [
+    "https://www.consorziobalsamico.it/news-blog/imparare-a-riconoscere-lautentico-aceto-balsamico-di-modena-igp-diventa-un-gioco/",
+    "https://www.consorziobalsamico.it/news-blog/il-24-settembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026/",
+    "https://www.consorziobalsamico.it/news-blog/aceto-balsamico-di-modena-igp-dal-piatto-al-bicchiere/",
+    "https://www.consorziobalsamico.it/news-blog/al-festivalfilosofia-2026-il-consorzio-porta-supermerkaos-un-laboratorio-per-imparare-a-riconoscere-laceto-balsamico-di-modena-igp/",
+    "https://www.consorziobalsamico.it/news-blog/ddl-coltiva-italia-federvini-e-consorzio-tutela-aceto-balsamico-di-modena-plaudono-allemendamento-che-chiarisce-e-qualifica-le-denominazioni-degli-aceti/"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://www.consorziobalsamico.it/news-blog/imparare-a-riconoscere-lautentico-aceto-balsamico-di-modena-igp-diventa-un-gioco/",
+     "HTTP": 200,
+     "BYTES": 93486,
+     "HTML_KIND": "NAVIGATION",
+     "CAPA_OU_MATERIA": "CAPA_PROVAVEL",
+     "LINKS": 92,
+     "NON_WHITESPACE_CHARACTERS": 2447,
+     "PARAGRAPH_CHARACTERS": 786,
+     "TEXT_SHA256": "6c34a37ec38965aa99561db565d5d91842f380dc0b33e34e21962463c37649c9",
+     "VEREDITO": "CAPABILITY_BLOCK",
+     "CAUSA": "CAPA_NAO_E_MATERIA: o contrato declara itens de detalhe e o alvo parece listagem/navegacao (92 ligacoes para 2447 caracteres, 786 em paragrafos)"
+    },
+    {
+     "URL": "https://www.consorziobalsamico.it/news-blog/il-24-settembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026/",
+     "HTTP": 200,
+     "BYTES": 95459,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 91,
+     "NON_WHITESPACE_CHARACTERS": 3710,
+     "PARAGRAPH_CHARACTERS": 2103,
+     "TEXT_SHA256": "61a90822dee993675475b67e98c1857dc454a6c9bd308504356b5a656cd71824",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://www.consorziobalsamico.it/news-blog/il-24-settembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026/",
+    "HTTP": 200,
+    "BYTES": 95459,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 91,
+    "NON_WHITESPACE_CHARACTERS": 3710,
+    "PARAGRAPH_CHARACTERS": 2103,
+    "TEXT_SHA256": "61a90822dee993675475b67e98c1857dc454a6c9bd308504356b5a656cd71824",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 10 links pelo motor -> https://www.consorziobalsamico.it/news-blog/il-24-settembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026/ com 2103 caracteres em paragrafos (2 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "OWNER": "Agrofarma",
+   "TIPO": "LISTAGEM_DE_NOTICIAS",
+   "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+   "LINK_PATTERN": "^https?://agrofarma\\.federchimica\\.it/news-ed-eventi/dettaglio-news/\\d{4}/\\d{2}/\\d{2}/[^?#/]+/?$",
+   "MAX_TARGETS": 2,
+   "PEDIDOS": 3,
+   "ROBOTS": "HTTP 404 — o host nao publica robots.txt",
+   "INDEX_HTTP": 200,
+   "NEGATIVE_CONTROL": {
+    "URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+    "HTML_KIND": "NAVIGATION",
+    "LINKS": 68,
+    "NON_WHITESPACE_CHARACTERS": 1480,
+    "PASSARIA_COMO_MATERIA": false
+   },
+   "LINKS_DE_DETALHE": 2,
+   "AMOSTRA_LINKS": [
+    "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/07/osservatorio-agrofarma-innovazione-e-bio-ridisegnano-lagricoltura-italiana"
+   ],
+   "CANARIOS": [
+    {
+     "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+     "HTTP": 200,
+     "BYTES": 64738,
+     "HTML_KIND": "CONTENT",
+     "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+     "LINKS": 66,
+     "NON_WHITESPACE_CHARACTERS": 3897,
+     "PARAGRAPH_CHARACTERS": 2344,
+     "TEXT_SHA256": "f448c03e6693783746ec2ac7025ddd8f0fe9126f56239071ba8baca3c65c98d4",
+     "VEREDITO": "ROUTE_PROVEN",
+     "CAUSA": "materia com corpo"
+    }
+   ],
+   "CANARIO": {
+    "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+    "HTTP": 200,
+    "BYTES": 64738,
+    "HTML_KIND": "CONTENT",
+    "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+    "LINKS": 66,
+    "NON_WHITESPACE_CHARACTERS": 3897,
+    "PARAGRAPH_CHARACTERS": 2344,
+    "TEXT_SHA256": "f448c03e6693783746ec2ac7025ddd8f0fe9126f56239071ba8baca3c65c98d4",
+    "VEREDITO": "ROUTE_PROVEN",
+    "CAUSA": "materia com corpo"
+   },
+   "VEREDITO": "ROUTE_PROVEN",
+   "CAUSA": "indice -> 2 links pelo motor -> https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo com 2344 caracteres em paragrafos (1 alvo(s) aberto(s))",
+   "CONTRATO_LIDO_DE": "HEAD:curadoria/italy_contracts_curator.json"
+  }
+ ]
+}
