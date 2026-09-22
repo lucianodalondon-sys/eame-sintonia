@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2d8344a9377e3ee35c0e88c397f876c4be7e2f01
+HEAD_DA_MEDICAO  220412641ff714f980ece9a5ba55c3a9e2c67f84
 BRANCH           ponte-curador-v1
-GERADO_EM        2026-09-22T20:36:35-03:00
+GERADO_EM        2026-09-22T20:47:57-03:00
 CARDS            81
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
