@@ -992,14 +992,33 @@ def importar_provas_do_bot(plano_: list, ctx: dict) -> dict:
     comuns, todas iguais byte a byte, 0 colisoes.
     """
     refs = {p["EVIDENCE_REF"] for p in plano_ if p.get("EVIDENCE_REF")}
-    # as provas citadas pelas cadeias importadas de C, e so essas
-    quero = {r for r in refs if r in ctx.get("EVIDENCIA_C", {})}
+    # ⚠️ A REFERENCIA QUE O PLANO CITA NAO E A CHAVE DO MANIFESTO DO BOT.
+    # `_ref_da_decisao` carimba a proveniencia no proprio texto —
+    # «RECONCILIACAO-V1:livro_C_(bot)@<commit>:EV-IT-T12-019-CANARY-1282» — e o
+    # manifesto de C tem a chave NUA, «EV-IT-T12-019-CANARY-1282». Comparar as
+    # duas directamente dava sempre conjunto vazio: PROVAS_IMPORTADAS = 0 em
+    # todas as corridas, e o entupimento no ultimo metro que esta funcao existe
+    # para evitar acontecia na propria funcao.
+    #
+    # A prova importa-se com a chave SINTETICA, e nao com a nua: e essa que a
+    # promocao cita no livro, e e por essa que `ready_split.regua_de` a procura.
+    # A chave nua fica escrita ao lado, para nao se perder a origem.
+    EC = ctx.get("EVIDENCIA_C", {})
+    quero = {}
+    for r in refs:
+        if r in EC:
+            quero[r] = r
+        elif ":" in r and r.rsplit(":", 1)[1] in EC:
+            quero[r] = r.rsplit(":", 1)[1]
     caminho = EVIDENCIA_A
     doc = _json(caminho, {"DATASET": "LIFECYCLE-EVIDENCE-V1", "PROVAS": []})
     locais = {p["EVIDENCE_REF"]: p for p in doc["PROVAS"]}
     novas, colisoes, ja_ca = [], [], 0
     for r in sorted(quero):
-        prova = dict(ctx["EVIDENCIA_C"][r])
+        prova = dict(EC[quero[r]])
+        if quero[r] != r:
+            prova["EVIDENCE_REF_NO_BOT"] = quero[r]
+            prova["EVIDENCE_REF"] = r
         if r in locais:
             igual = (json.dumps(locais[r], sort_keys=True, ensure_ascii=False)
                      == json.dumps(prova, sort_keys=True, ensure_ascii=False))
