@@ -27,5 +27,13 @@ italia-portale/client/**   -text
 # precisar de livro sem repeticao une por identidade de linha inteira, nunca
 # por um campo: `DOCUMENT_VERSION_ID` repete-se de proposito em cada
 # revisita, e usa-lo como chave colapsa 476 observacoes em 213.
-data/collection-ledger/**.ndjson   merge=union
-data/collection-ledger/**/runs.log merge=union
+# ⚠️ `**.ndjson` NAO CASA NADA. A primeira versao destas duas linhas dizia
+# `data/collection-ledger/**.ndjson` e `git check-attr` devolveu
+# «merge: unspecified» para os dois livros .ndjson — a regra estava escrita,
+# commitada, e nao valia para ficheiro nenhum. O padrao precisa da barra e do
+# asterisco do nome: `**/*.ndjson`.
+#
+#     UMA REGRA QUE NAO CASA NADA LE-SE COMO UMA REGRA QUE PASSA SEMPRE.
+#     CONFERIR COM `git check-attr`, NUNCA CONFIAR NO PADRAO ESCRITO.
+data/collection-ledger/**/*.ndjson  merge=union
+data/collection-ledger/**/*.log     merge=union
