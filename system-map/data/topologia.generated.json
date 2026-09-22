@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-22T11:33:10+00:00",
-  "HEAD": "9f7523e345d1c165d8b112307903431c90f2df9a",
+  "GENERATED_AT": "2026-09-22T11:46:17+00:00",
+  "HEAD": "04f2c7481490482d02462aebe49492606d4f0595",
   "BRANCH": "paridade-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941",
+  "SOURCE_TREE_FINGERPRINT": "7e1b59c474ce6d2600bac1a43e619bf6d9b7ef9e095fb7e084a1ec025899373a",
   "FICHEIROS_NA_IMPRESSAO": 2593,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2750,7 +2750,7 @@
    {
     "PATH": "provas/paridade_duas_rodadas.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "721aba3ab045935238ec0c9b22e16384aa96d783",
+    "VERSAO": "4f3e867c38f2bac4e17053d896bb000ab4485ce8",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3156,14 +3156,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941",
+    "VERSAO": "7e1b59c474ce6d2600bac1a43e619bf6d9b7ef9e095fb7e084a1ec025899373a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "76d7e8709faeb7c57d93f07ef47ae9749f438e3b817955496b8abe7be011b941",
+    "VERSAO": "7e1b59c474ce6d2600bac1a43e619bf6d9b7ef9e095fb7e084a1ec025899373a",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4835,7 +4835,7 @@
    }
   ],
   "INPUTS_COUNT": 685,
-  "INPUTS_DIGEST": "545851014e21e7c9347e21848642fa389e96cfbdeb5d0b8c9a49d453c08286a4",
+  "INPUTS_DIGEST": "4e6faedbffd8ce8761cc708b606c4dcb77384a84e12d1d842d2a05ce7bb0abdd",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4868,8 +4868,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5d294e291fce073af49a06559e9814aa9e46112ccf2065efdc25e2d48905625d",
-  "SEMANTIC_HASH": "e765864e2934a83b01f98e6d5ec23d20028c66aaa3525b76e43a986287400419"
+  "MEASUREMENT_HASH": "e2db9ce83f62f44ea0d38a2fb62930a055655134953d5169d6caaa4387416676",
+  "SEMANTIC_HASH": "dc660b968b7950f2d35abfd72ba8cd870d2020f3c73525a5156914a9f289875a"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -21136,7 +21136,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
-      "LINHA": 114,
+      "LINHA": 48,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -21843,7 +21843,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
-      "LINHA": 92,
+      "LINHA": 108,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
