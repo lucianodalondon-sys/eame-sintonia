@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import descobrir as D            # noqa: E402
 import fila as F                 # noqa: E402
 import gatilho_discovery as GD   # noqa: E402
+import lifecycle as LC            # noqa: E402
 
 T0 = datetime(2026, 9, 22, 12, 0, tzinfo=timezone.utc)
 
@@ -39,12 +40,17 @@ class _Isolado(unittest.TestCase):
     def setUp(self):
         self._td = tempfile.TemporaryDirectory(prefix="abastecimento-")
         self.tmp = Path(self._td.name)
-        self._orig = (F.FILA, GD.CANDIDATAS)
+        self._orig = (F.FILA, GD.CANDIDATAS, LC.LIVRO, GD.CONTRATOS)
         F.FILA = self.tmp / "fila.json"
         GD.CANDIDATAS = self.tmp / "cand.json"
+        # R1: o gatilho le o livro e os contratos (reparo antes de discovery);
+        # vazios aqui, senao o livro REAL da arvore decidia por estes testes.
+        LC.LIVRO = self.tmp / "livro.json"
+        GD.CONTRATOS = self.tmp / "contratos.json"
+        GD.CONTRATOS.write_text('{"FONTES": []}', encoding="utf-8")
 
     def tearDown(self):
-        F.FILA, GD.CANDIDATAS = self._orig
+        F.FILA, GD.CANDIDATAS, LC.LIVRO, GD.CONTRATOS = self._orig
         self._td.cleanup()
 
     def _gravar_fila(self, tarefas):
