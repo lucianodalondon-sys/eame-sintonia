@@ -21107,3 +21107,58 @@ provado no ensaio.
   coincidem. Quem guarda a regra é o teste que compara a coorte com `elegiveis()`.
 
 Tudo em `scripts/micro_coleta/MICRO-RUNBOOK.md`.
+# §198 · O SCRAP DIZ «CONSIGO», A PORTA DIZ «NÃO PODES» — E A ROTA PERMITIDA TRAZ UMA REGRA DE RETENÇÃO
+
+SOC1 (23/09/2026), D16 e D17 do dono real. Matriz medida por `provas/prontidao_social_v1.py`.
+
+Três coisas que só se viram ao juntar os registos numa tabela só:
+
+1. **Dois donos, duas frases, nenhuma apaga a outra.** O `scrap_executor.CHECK` responde
+   `CAN_COLLECT_NOW` a 4 capacidades do Instagram e a 1 do LinkedIn; a porta da Collection
+   (`ponte_candidatas` e `worker.etapa_qualify`) diz `POLICY_BLOCK` às mesmas plataformas. As
+   duas estão certas no que dizem: uma mede se a rota corre, a outra se os termos a deixam. A
+   matriz mostra-as lado a lado e a prontidão final segue a porta.
+
+       CONSEGUIR CORRER NÃO É PODER ENTRAR.
+
+2. **O curator bloqueia por uma capacidade que já existe.** `worker.py` devolve
+   `BLOCK/CAPABILITY` a toda candidata YouTube («exige channel_id … outro dono»), e o Scrap tem
+   quatro fases oficiais do YouTube ligadas. O bloqueio foi verdade quando se escreveu; o que
+   falta agora é o encaminhamento, não a capacidade. Um «não sei fazer» escrito à mão não se
+   desactualiza sozinho — tem de ser medido contra o runtime.
+
+3. **A rota permitida traz uma regra que o código não tem.** A YouTube Data API v3 é a rota
+   grátis e oficial, e as Developer Policies III.E.4 limitam a 30 dias o que se guarda dela sem
+   apagar ou refrescar (texto e sha256 em `candidatas/PROVA-TERMOS-SOC1-V1.json`). A Big
+   Collection guarda RAW para sempre, e `grep "30 calendar days"` no código dava 0. Não é um
+   bloqueio — é uma regra de retenção que vem com a chave.
+
+       QUEM PEGA NA CHAVE PEGA NO CONTRATO QUE VEM COM ELA (C5) — INCLUINDO O PRAZO.
+
+Armadilhas medidas nesta missão:
+- `superficie_do_scrap_v1._e_paga()` procura `coletor` no código-fonte da rota e acha-o num
+  **comentário** de `adaptador_youtube.py`: `youtube.public_audio` aparece «paga» e custa 0.
+  `inspect.getsource` lê comentários; uma sonda por substring mede o que se escreveu, não o
+  que se executa.
+- O valor de uma credencial nunca entra na matriz: só nome, presença neste shell e os
+  workflows que a declaram. «Declarado no workflow» ≠ «preenchido no GitHub» — sem sessão do
+  `gh`, a segunda resposta é `NAO_SEI`, e escreve-se assim.
+- LinkedIn não tem, hoje, rota grátis e permitida para posts de terceiros: raspar é proibido,
+  a API só lê páginas de que se é administrador, e agregador pago também é proibido (§8.2).
+  Isto é uma resposta, não uma pendência de engenharia.
+
+Conferência da matriz do engenheiro do Scrap (mesmo dia, sem rede):
+- **O `CHECK` não lê a permissão da matriz.** `scrap_executor.CHECK` confere declaração,
+  rota registada, alvo e sonda — e nunca chama `social_matriz.decisao`. Medido: dá
+  `CAN_COLLECT_NOW` a `instagram.reel.transcribe` (matriz `FETCH_TRANSCRIPT` =
+  `ROUTE_NOT_ALLOWED`) e a `instagram.profile.discovery` (matriz `INCREMENTAL` =
+  `ROUTE_NOT_ALLOWED`: a rota `grade` tem `PLATFORM_POLICY=NOT_MEASURED` e fecha).
+  `reel.capture` e `reel.audio` nem têm capacidade na matriz. «CAN_COLLECT_NOW» lê-se
+  «a peça existe e está configurada», não «pode colher».
+- A chave do YouTube está no `scrap-social.yml:311`, que corre `social_scrap` (para no
+  COLLECT); as fases canónicas correm pelo `sintonia-scrap.yml`, que não a injecta e não tem
+  ramo para nenhuma delas (FASE_DESCONHECIDA). E o mesmo ficheiro recusa `yt-transcrever`
+  com um motivo de 12/09 que a matriz deixou de ter a 19/09.
+
+Número: `§196` e `§197` já existem noutras branches (varridas todas as refs locais e
+remotas); este é o `§198`.
