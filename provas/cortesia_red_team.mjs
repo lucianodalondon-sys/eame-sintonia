@@ -46,7 +46,7 @@ const ATAQUES = [
     DE: `  const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;`,
     PARA: `  const minimo = ${B} && CORTESIA.cfg.PAUSA_S * 1000;` },
   { ID: "K6", O_QUE: "o teto de pedidos por host desaparece",
-    DE: `const tetoAtingido = host => (CORTESIA.porHost.get(host) || 0) >= CORTESIA.cfg.TETO_POR_HOST;`,
+    DE: `const tetoAtingido = host => (CORTESIA.porHost.get(siteDe(host)) || 0) >= CORTESIA.cfg.TETO_POR_HOST;`,
     PARA: `const tetoAtingido = host => ${B} && false;` },
   { ID: "K7", O_QUE: "o salto de redireccionamento deixa de pedir licenca",
     DE: `    const lic = await licenca(atual);`,
@@ -77,6 +77,12 @@ const ATAQUES = [
     PARA: `    if (!foiARede) { REDE.total++; foiARede = true; }`,
     ANTES_DE: `    const lic = await licenca(atual);`,
     INSERIR: `    if (${B}) REDE.total++;` },
+  { ID: "K16", O_QUE: "www.site e site voltam a ser dois sites (o caso Villoresi: 6 pedidos)",
+    DE: `export const siteDe = host => String(host).toLowerCase().replace(/^www\\./, "");`,
+    PARA: `export const siteDe = host => ${B} && String(host).toLowerCase();` },
+  { ID: "K17", O_QUE: "o robots lido no fim de um salto deixa de servir a origem de destino",
+    DE: `    if (rb.origemLida && !CORTESIA.robots.has(rb.origemLida)) CORTESIA.robots.set(rb.origemLida, rb);`,
+    PARA: `    if (rb.origemLida && ${B} && false) CORTESIA.robots.set(rb.origemLida, rb);` },
 ];
 
 const pedidos = process.argv.slice(2);

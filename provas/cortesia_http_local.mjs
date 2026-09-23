@@ -23,8 +23,9 @@
 //   C10 redireccionamento                       -> o salto pede licenca: destino proibido nunca e pedido
 //   C11 o leitor do robots (sem rede)           -> mais longo vence, Allow no empate, `$`, grupo proprio
 //   C12 configuracao invalida                   -> falha alto
+//   C13 www.site -> site (o caso Villoresi)     -> teto e pausa contam o SITE; robots do destino lido 1 vez
 import { createServer } from "node:http";
-import { mkdtempSync, rmSync, readFileSync, existsSync } from "node:fs";
+import { mkdtempSync, rmSync, readFileSync, existsSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import assert from "node:assert/strict";
@@ -33,7 +34,7 @@ const RAIZ = mkdtempSync(join(tmpdir(), "cortesia-http-"));
 process.env.ITALY_OPS_ROOT = RAIZ;
 for (const k of ["http_proxy", "https_proxy", "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "all_proxy"])
   process.env[k] = "http://127.0.0.1:9";
-process.env.NO_PROXY = process.env.no_proxy = "127.0.0.1,localhost";
+process.env.NO_PROXY = process.env.no_proxy = "127.0.0.1,localhost,cortesia.test,www.cortesia.test";
 for (const k of ["SINTONIA_PAUSA_POR_HOST_S", "SINTONIA_TETO_POR_HOST"]) delete process.env[k];
 
 // ── O SERVIDOR ──────────────────────────────────────────────────────────────
@@ -44,7 +45,12 @@ const SALTOS = {};                            // "/news/x/" -> destino do 301
 const PEDIDOS = [];                           // { p, t } pela ordem de chegada
 const servidor = createServer((req, res) => {
   const p = req.url;
-  PEDIDOS.push({ p, t: Date.now() });
+  const host = String(req.headers.host || "").split(":")[0];
+  PEDIDOS.push({ p, t: Date.now(), host });
+  // C13: `www.cortesia.test` manda TUDO (robots incluido) para `cortesia.test`.
+  if (host === "www.cortesia.test") {
+    res.writeHead(301, { Location: `http://cortesia.test:${servidor.address().port}${p}` }); res.end(); return;
+  }
   if (p === "/robots.txt") {
     if (ROBOTS.modo === "cortar") { req.socket.destroy(); return; }
     if (ROBOTS.modo === "404") { res.writeHead(404); res.end("non trovato"); return; }
@@ -66,6 +72,12 @@ const servidor = createServer((req, res) => {
 });
 await new Promise(r => servidor.listen(0, "127.0.0.1", r));
 const BASE = `http://127.0.0.1:${servidor.address().port}`;
+// Os dois nomes do C13 resolvem para este servidor pelo `_curlrc` (o mecanismo do
+// ensaio offline), num CURL_HOME so desta prova. As aspas sao obrigatorias.
+const CURL_HOME = mkdtempSync(join(tmpdir(), "cortesia-curl-"));
+const rc = ["www.cortesia.test", "cortesia.test"].map(h => `resolve = "${h}:${servidor.address().port}:127.0.0.1"`).join("\n") + "\n";
+for (const n of ["_curlrc", ".curlrc"]) writeFileSync(join(CURL_HOME, n), rc);
+process.env.CURL_HOME = CURL_HOME;
 
 const M = await import("../coleta/italy_pilot_collect.mjs");
 const { CONTRACTS } = await import("../regras/italy_contracts.mjs");
@@ -274,6 +286,26 @@ try {
     assert.match(String(l?.motivo), /CORTESIA ROBOTS_PROIBE/);
   });
 
+  console.log("\n══ C13 · www.site -> site: o mesmo site, o mesmo teto ═══════════");
+  const PORTA = servidor.address().port;
+  CONTRACTS[FONTE].ACQUISITION = { ...CONTRACTS[FONTE].ACQUISITION, INDEX_URL: `http://www.cortesia.test:${PORTA}/news/`,
+    LINK_PATTERN: String.raw`^http://(www\.)?cortesia\.test:\d+/news/[a-z0-9]+(?:-[a-z0-9]+)+/?$` };
+  ROBOTS = { modo: "texto", texto: "User-agent: *\nDisallow: /privato/\n" };
+  INDICE = ["tredici-a", "tredici-b", "tredici-c", "tredici-d", "tredici-e", "tredici-f"];
+  const c13 = await rodada("C13"); anota("C13", c13);
+  const vistos = c13.feitos.map(x => `${x.host}${x.p}`);
+  t("C13: www e sem-www sao UM site — o servidor recebe 5 pedidos, nao 5 + 5", () => {
+    assert.equal(c13.feitos.length, 5, JSON.stringify(vistos));
+    assert.deepEqual(c13.resumo.CORTESIA.PEDIDOS_POR_HOST, { "cortesia.test": 5 });
+  });
+  t("C13: o robots do destino e lido UMA vez (o salto do robots serve a origem de destino)", () => {
+    assert.equal(vistos.filter(v => v === "cortesia.test/robots.txt").length, 1, JSON.stringify(vistos));
+  });
+  t("C13: a pausa vale entre os dois nomes do mesmo site", () => {
+    const iv = intervalos(c13.feitos);
+    assert.ok(iv.every(ms => ms >= 990), `intervalos ${JSON.stringify(iv)} ms`);
+  });
+
   console.log("\n══ C11 · o leitor do robots, sem rede ═══════════════════════════");
   t("C11: o caminho mais longo vence; no empate vence Allow; `$` ancora; `*` no meio", () => {
     const g = M.lerRobots("User-agent: *\nDisallow: /a/\nAllow: /a/b\nDisallow: /x\nAllow: /x\nDisallow: /*.pdf$\nDisallow: /q*?s=\n");
@@ -306,6 +338,7 @@ try {
   Object.assign(CONTRACTS[FONTE], ORIGINAL);
   servidor.close();
   rmSync(RAIZ, { recursive: true, force: true });
+  rmSync(CURL_HOME, { recursive: true, force: true });
 }
 
 console.log("\n── censo (pedidos contados pelo servidor) ──");

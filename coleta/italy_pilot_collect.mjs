@@ -212,7 +212,7 @@ const REDE = { total: 0 };
 //           (SINTONIA_PAUSA_POR_HOST_S); por omissao 1,0 s, o
 //           `PAUSA_ENTRE_CHAMADAS` de `scrap_http.py`. Um `Crawl-delay` maior
 //           no robots manda sobre ela.
-//   TETO    pedidos HTTP por host numa corrida, configuravel
+//   TETO    pedidos HTTP por SITE (host sem `www.`) numa corrida, configuravel
 //           (SINTONIA_TETO_POR_HOST); por omissao 5 — a D7 do dono: «ate 5
 //           pedidos por site (robots + pagina + ate 3 materias)». Conta TODAS
 //           as idas: robots, indice, materias, saltos e retentativas.
@@ -328,8 +328,15 @@ export function robotsPermite(grupos, caminho) {
 // Pausa ANTES, teto contado ANTES (o pedido que sai gasta o lugar, responda ou
 // nao), hora do fim guardada DEPOIS — a pausa mede-se do fim de um pedido ao
 // comeco do seguinte.
+// ── O SITE E O HOST SEM `www.` ─────────────────────────────────────────────
+// ⚠️ MEDIDO NA MICRO DA A5 (23/09): `www.etvilloresi.it` redirecciona para
+// `etvilloresi.it`, e com o teto contado por HOST o mesmo site levou 6 pedidos
+// (2 + 4) — a D7 diz «ate 5 pedidos por SITE». Teto e pausa contam-se pela chave
+// do site; o robots continua por ORIGEM, que e o que a norma manda.
+export const siteDe = host => String(host).toLowerCase().replace(/^www\./, "");
 async function umaIda(url, host, tipo, crawlDelay) {
   const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;
+  host = siteDe(host);
   const ultimo = CORTESIA.ultimo.get(host);
   if (ultimo !== undefined) {
     const falta = ultimo + minimo - Date.now();
@@ -381,7 +388,7 @@ async function umaIda(url, host, tipo, crawlDelay) {
     CORTESIA.ultimo.set(host, Date.now());
   }
 }
-const tetoAtingido = host => (CORTESIA.porHost.get(host) || 0) >= CORTESIA.cfg.TETO_POR_HOST;
+const tetoAtingido = host => (CORTESIA.porHost.get(siteDe(host)) || 0) >= CORTESIA.cfg.TETO_POR_HOST;
 
 async function robotsDaOrigem(origem) {
   let alvo = `${origem}/robots.txt`;
@@ -398,13 +405,20 @@ async function robotsDaOrigem(origem) {
       }
     }
     if (r.status >= 300 && r.status < 400 && r.destino) { alvo = r.destino; continue; }
-    if (r.status === 404 || r.status === 410) return { estado: "AUSENTE", porque: `HTTP ${r.status} — o host nao publica robots.txt` };
-    if (r.status !== 200) return { estado: "ILEGIVEL", porque: `HTTP ${r.status} no robots.txt — nao afirmamos permissao que nao lemos` };
+    // ⚠️ O ROBOTS LIDO NO FIM DE UM SALTO E O ROBOTS DAQUELA ORIGEM TAMBEM.
+    // Medido na micro da A5: o robots de `www.etvilloresi.it` redireccionava para
+    // `etvilloresi.it/robots.txt`, e a seguir o coletor pedia o MESMO ficheiro
+    // outra vez para a origem de destino — um pedido gasto do teto por nada.
+    // `origemLida` diz a quem o ficheiro pertence; `licenca()` guarda-o para as duas.
+    const fimEm = new URL(alvo);
+    const origemLida = fimEm.pathname === "/robots.txt" ? fimEm.origin : null;
+    if (r.status === 404 || r.status === 410) return { estado: "AUSENTE", origemLida, porque: `HTTP ${r.status} — o host nao publica robots.txt` };
+    if (r.status !== 200) return { estado: "ILEGIVEL", origemLida, porque: `HTTP ${r.status} no robots.txt — nao afirmamos permissao que nao lemos` };
     const corpo = r.buf.toString("utf8").trimStart().toLowerCase();
     if (corpo.startsWith("<!doctype") || corpo.startsWith("<html"))
-      return { estado: "ILEGIVEL", porque: "o robots.txt veio em HTML — nao afirmamos permissao que nao lemos" };
+      return { estado: "ILEGIVEL", origemLida, porque: "o robots.txt veio em HTML — nao afirmamos permissao que nao lemos" };
     const grupos = lerRobots(r.buf.toString("utf8"));
-    return { estado: "LIDO", grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null, porque: "robots.txt lido" };
+    return { estado: "LIDO", origemLida, grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null, porque: "robots.txt lido" };
   }
   return { estado: "ILEGIVEL", porque: `robots.txt com mais de ${CORTESIA.cfg.MAX_SALTOS} redireccionamentos` };
 }
@@ -421,6 +435,7 @@ async function licenca(url) {
     if (rb.recusado) return rb;
     // INDISPONIVEL nao fica em cache (a regra de scrap_http.permitido).
     if (rb.estado !== "INDISPONIVEL") CORTESIA.robots.set(u.origin, rb);
+    if (rb.origemLida && !CORTESIA.robots.has(rb.origemLida)) CORTESIA.robots.set(rb.origemLida, rb);
   }
   if (rb.estado === "INDISPONIVEL") return { recusado: "ROBOTS_INDISPONIVEL", porque: rb.porque };
   if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };
@@ -1169,6 +1184,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       PAUSA_MINIMA_S: CORTESIA.cfg.PAUSA_S, TETO_POR_HOST: CORTESIA.cfg.TETO_POR_HOST,
       MAX_SALTOS: CORTESIA.cfg.MAX_SALTOS, EXCECOES: [...EXCECOES_DE_CORTESIA],
       ROBOTS: Object.fromEntries([...CORTESIA.robots].map(([o, r]) => [o, { ESTADO: r.estado, CRAWL_DELAY: r.crawlDelay ?? null, PORQUE: r.porque }])),
+      // Chave = o SITE (host sem `www.`), a mesma do teto e da pausa.
       PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost),
       RECUSAS: CORTESIA.recusas }
   };

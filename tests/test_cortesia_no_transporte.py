@@ -28,7 +28,7 @@ class TestCortesiaNoTransporte(unittest.TestCase):
         self.assertIsNotNone(m, r.stdout[-2000:] + r.stderr[-2000:])
         self.assertEqual(m.group(2), "0", r.stdout[-3000:])
         # Vazio nao passa: a prova tem de ter verificado alguma coisa.
-        self.assertGreaterEqual(int(m.group(1)), 27, r.stdout[-3000:])
+        self.assertGreaterEqual(int(m.group(1)), 30, r.stdout[-3000:])
         self.assertEqual(r.returncode, 0, r.stdout[-3000:])
 
 
