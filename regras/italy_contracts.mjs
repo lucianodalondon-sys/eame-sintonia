@@ -664,9 +664,24 @@ export function contratoGenerico(linha) {
   };
 }
 
+// D9 (23/09, bot Luciano por delegacao do dono): o pacote G1 marca na tabela
+// `ESTADO_CATALOGO = RETIRADA_POR_DECISAO` quando retira uma fonte do universo.
+// Uma linha retirada NAO vira contrato — e se a fonte tiver contrato escrito a
+// mao, ele sai de CONTRACTS: sem contrato, o coletor nao a colhe. A marca nunca
+// apaga a linha (e reversivel pelo catalogo); o motivo fica em
+// RETIRADAS_POR_DECISAO, para quem perguntar porque a fonte nao foi colhida.
+const _retiradas = {};
 for (const linha of TABELA_ONBOARDED.FONTES) {
   if (!/^IT-T\d+-\d{3}$/.test(String(linha.SOURCE_ID || "")))
     throw new Error(`SOURCE_ID invalido na tabela onboarded: ${linha.SOURCE_ID}`);
+  if (linha.ESTADO_CATALOGO === "RETIRADA_POR_DECISAO") {
+    _retiradas[linha.SOURCE_ID] = {
+      MOTIVO: "RETIRADA_POR_DECISAO",
+      PORQUE: `retirada do universo por decisao (D9${linha.CATALOGO_D9?.PORQUE ? ": " + linha.CATALOGO_D9.PORQUE : ""}); reversivel pelo catalogo`,
+    };
+    delete CONTRACTS[linha.SOURCE_ID];
+    continue;
+  }
   if (CONTRACTS[linha.SOURCE_ID]) {
     // Uma fonte que JA tem contrato escrito a mao nao e reescrita: a tabela
     // so lhe empresta a forma de aquisicao se ele ainda nao a tiver.
@@ -681,6 +696,8 @@ for (const linha of TABELA_ONBOARDED.FONTES) {
   }
   CONTRACTS[linha.SOURCE_ID] = contratoGenerico(linha);
 }
-export const ONBOARDED_IDS = Object.freeze(TABELA_ONBOARDED.FONTES.map((l) => l.SOURCE_ID));
+export const RETIRADAS_POR_DECISAO = Object.freeze(_retiradas);
+export const ONBOARDED_IDS = Object.freeze(TABELA_ONBOARDED.FONTES
+  .filter((l) => l.ESTADO_CATALOGO !== "RETIRADA_POR_DECISAO").map((l) => l.SOURCE_ID));
 
 export const CONTRACT_IDS = Object.keys(CONTRACTS);

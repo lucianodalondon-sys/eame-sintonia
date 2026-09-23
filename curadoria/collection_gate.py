@@ -4,6 +4,7 @@
 
     COLLECTION_ELIGIBLE = READY_CURRENT
                           AND NOT HUMAN_REVIEW_REQUIRED
+                          AND NOT RETIRADA_POR_DECISAO (D9, marca no contrato)
                           AND NOT (POLICY_BLOCK | CAPABILITY_BLOCK | RETRY
                                    | UNKNOWN | DEGRADED | NOT_READY)
 
@@ -63,6 +64,12 @@ NUNCA_PROMOVIDA = "NUNCA_PROMOVIDA"
 ESTADO_NAO_READY = "ESTADO_NAO_READY"
 READY_LEGACY = "READY_LEGACY"
 HUMAN_REVIEW_REQUIRED = "HUMAN_REVIEW_REQUIRED"
+# D9 (23/09, bot Luciano por delegacao do dono): o pacote G1 marca no contrato
+# do Curator `ESTADO_CATALOGO = RETIRADA_POR_DECISAO`. Uma fonte retirada do
+# universo nao entra, qualquer que seja o estado ou a regua — e o motivo diz
+# que foi DECISAO, nao defeito. A marca le-se do livro de contratos corrente
+# (o mesmo que a regua le), nunca do git.
+RETIRADA_POR_DECISAO = "RETIRADA_POR_DECISAO"
 ELEGIVEL = "ELIGIBLE"
 
 
@@ -118,6 +125,8 @@ def avaliar(source_id: str, *, livro: dict | None = None,
     Devolve sempre os mesmos campos — tambem quando recusa, porque quem recusa
     sem dizer o motivo obriga o proximo a adivinhar.
     """
+    if contratos is None:
+        contratos = RS._contratos()
     estado = LC.estado_de(source_id, livro)
     regua = RS.regua_de(source_id, livro=livro, evidencias=evidencias,
                         contratos=contratos)
@@ -131,6 +140,14 @@ def avaliar(source_id: str, *, livro: dict | None = None,
         "MOTIVO": "",
         "PORQUE": "",
     }
+    contrato = contratos.get(source_id) or {}
+    if contrato.get("ESTADO_CATALOGO") == RETIRADA_POR_DECISAO:
+        d9 = contrato.get("CATALOGO_D9") or {}
+        linha["MOTIVO"] = RETIRADA_POR_DECISAO
+        linha["PORQUE"] = ("retirada do universo por decisao (D9%s); reversivel pelo "
+                           "catalogo, nunca por omissao" % (
+                               ": %s" % d9.get("PORQUE") if d9.get("PORQUE") else ""))
+        return linha
     if estado != LC.READY_FOR_COLLECTION:
         linha["MOTIVO"] = ESTADO_NAO_READY
         linha["PORQUE"] = ("o estado no livro e %s; so entra quem esta em %s"
