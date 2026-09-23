@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T09:06:30+00:00",
-  "HEAD": "8a072e7479f5287f9c65a9908acca85820d2381a",
-  "BRANCH": "detector-erro-v1",
+  "GENERATED_AT": "2026-09-23T09:56:31+00:00",
+  "HEAD": "1a02c9866e0ff0bcac90335f5cae6603c46067d8",
+  "BRANCH": "receitas-gabaritos-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "915d3b5268a055895336adb61935b7906b559b8db2d0c48de1c98a172edd412e",
-  "FICHEIROS_NA_IMPRESSAO": 2790,
+  "SOURCE_TREE_FINGERPRINT": "df9e332b1da8ae45adf07d1d6164c0fa91441b6559912e2e094ff67e172f002f",
+  "FICHEIROS_NA_IMPRESSAO": 2800,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1635,6 +1635,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/canario_receitas_k1.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d4208ad66b742a293be430a00d9e6ae6ec54eead",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/canario_rotas_elegiveis.py",
     "PAPEL": "FONTE",
     "VERSAO": "7cb19e7e422e1e46cd952fcf5fb9248526d19d1a",
@@ -1715,6 +1722,13 @@
     "PATH": "medidas/medir_detector_moldura.py",
     "PAPEL": "FONTE",
     "VERSAO": "714336ea94770cc40624bc5122cd5488a17ee37f",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/medir_k1.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "9db2f37fb3d5484a06b28260755c169ec5a2ecdf",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3289,7 +3303,7 @@
    {
     "PATH": "scripts/desbloqueio/aplicar_desbloqueio.py",
     "PAPEL": "FONTE",
-    "VERSAO": "75072f32c485b0ec52c25f6c63a875ead61fc3b5",
+    "VERSAO": "1ad17cd85482daff2a03e28289e7cfb73807595a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3364,6 +3378,20 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/receitas/propor_receitas_v3.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "44273965c15b834c01644eda63adde66172c3910",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/receitas/propor_receitas_v4.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "43180097fe2496ae3997c4a3fe31547ee88564db",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/receitas/provar_indices.py",
     "PAPEL": "FONTE",
     "VERSAO": "36277086c8e454656febfd4278efd98c6c6d7ab7",
@@ -3422,14 +3450,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "915d3b5268a055895336adb61935b7906b559b8db2d0c48de1c98a172edd412e",
+    "VERSAO": "df9e332b1da8ae45adf07d1d6164c0fa91441b6559912e2e094ff67e172f002f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "915d3b5268a055895336adb61935b7906b559b8db2d0c48de1c98a172edd412e",
+    "VERSAO": "df9e332b1da8ae45adf07d1d6164c0fa91441b6559912e2e094ff67e172f002f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4526,6 +4554,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_k1_receitas.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "a24a7ff07afd86ba4713debdc780a600dd84dd95",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_legado_fora_do_fluxo.py",
     "PAPEL": "FONTE",
     "VERSAO": "2e5ecac006f1d56d98d1f7a1165ad87cb0795496",
@@ -5177,8 +5212,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 734,
-  "INPUTS_DIGEST": "f3632aa9750010665d2885b8a7bd504e974737632aa1c0f892bdd16c25d1cebd",
+  "INPUTS_COUNT": 739,
+  "INPUTS_DIGEST": "08f50b5db1baa62f05209753a1f104f68b3d529f37c8f95354fd76326a75b478",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5204,15 +5239,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 470,
+  "DOCUMENTOS_LIDOS": 471,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "18f8e235c271e8010d7297acf85149637db3d7cc36b34647c4551e31e7ef60b2",
-  "SEMANTIC_HASH": "f5bcdc952f13cb22dbdcb5404b57e28015ab90a59dd102cc9a979c08bbacddac"
+  "MEASUREMENT_HASH": "12d9ef7d90c1c5daa9d6dd3f3e21079449410453aee256cb2304829c18bcfd42",
+  "SEMANTIC_HASH": "733a4654c61fa94d3762767739310b703813d4a07a058c23ab39afa9cdb731e8"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -9894,7 +9929,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 182,
+      "LINHA": 186,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -9902,7 +9937,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 229,
+      "LINHA": 235,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-DESBLOQUEIO-PACOTE",
@@ -14724,7 +14759,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 208,
+      "LINHA": 212,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-COORTE-MICRO-FUNIL--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15493,6 +15528,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_k1_receitas.py",
+      "LINHA": 95,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -15511,6 +15554,22 @@
      {
       "FICHEIRO": "tests/test_d1_detector_d14.py",
       "LINHA": 92,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_k1_receitas.py",
+      "LINHA": 12,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_k1_receitas.py",
+      "LINHA": 14,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--IMPORTS-->C-TESTES",
@@ -15562,7 +15621,7 @@
      },
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 137,
+      "LINHA": 141,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-DESBLOQUEIO-PACOTE",
@@ -15615,6 +15674,14 @@
      {
       "FICHEIRO": "scripts/receitas/censo_e_proposta.py",
       "LINHA": 159,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/receitas/propor_receitas_v3.py",
+      "LINHA": 57,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-RECEITAS-PROPOSTA",
@@ -30988,7 +31055,23 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "LINHA": 208,
+      "LINHA": 212,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 213,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/desbloqueio/aplicar_desbloqueio.py",
+      "LINHA": 214,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-DESBLOQUEIO-PACOTE",
@@ -31019,6 +31102,22 @@
      {
       "FICHEIRO": "tests/test_aplicar_desbloqueio.py",
       "LINHA": 33,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_k1_receitas.py",
+      "LINHA": 96,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_k1_receitas.py",
+      "LINHA": 96,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-TESTES",
@@ -37624,6 +37723,76 @@
     ]
    },
    {
+    "EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+    "FROM": "C-TESTES",
+    "TO": "C-CENSO-UNIFICACAO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "curadoria/test_supervisor.py",
+      "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "LINHA": 25,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/congelar_livros_do_servico.py",
+      "LINHA": 26,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/unir_ledger.py",
+      "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/unir_livros_do_servico.py",
+      "LINHA": 103,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "ferramentas/unificacao/unir_livros_do_servico.py",
+      "LINHA": 104,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-CENSO-UNIFICACAO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-TESTES--READS-->C-CICATRIZES-BR",
     "FROM": "C-TESTES",
     "TO": "C-CICATRIZES-BR",
@@ -37659,10 +37828,80 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 63,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/coorte_micro/funil.py",
       "LINHA": 70,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-COORTE-MICRO-FUNIL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-DETECTOR-CAPA-GABARITO",
+    "FROM": "C-TESTES",
+    "TO": "C-DETECTOR-CAPA-GABARITO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/medir_k1.py",
+      "LINHA": 40,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/medir_k1.py",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "medidas/medir_k1.py",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/detector_capa/colher_gabarito.py",
+      "LINHA": 64,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-DETECTOR-CAPA-GABARITO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/detector_capa/medir_gabarito.py",
+      "LINHA": 120,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-DETECTOR-CAPA-GABARITO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -37724,11 +37963,41 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "scripts/micro_coleta/medir_detector_de_capa.py",
+      "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
       "LINHA": 53,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-TESTES--READS-->C-MICRO-COLHEITA",
+    "FROM": "C-TESTES",
+    "TO": "C-MICRO-COLHEITA",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/micro_colheita.py",
+      "LINHA": 72,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MICRO-COLHEITA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -39660,12 +39929,12 @@
     ]
    }
   ],
-  "COUNT": 1118
+  "COUNT": 1121
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1118,
+  "ARESTAS_RELACIONADAS": 1121,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -39914,8 +40183,7 @@
   ],
   "SEM_LIGACAO": {
    "C-ARMAZEM-IT-SEM-LIVRO": "ARMAZEM",
-   "C-DERIVED-ARTIFACT": "ARMAZEM",
-   "C-MICRO-COLHEITA": "UNKNOWN"
+   "C-DERIVED-ARTIFACT": "ARMAZEM"
   },
   "ORFAOS_FALSOS_POR_VISTA": {
    "C-APRENDER-COM-A-FONTE": [
@@ -39930,9 +40198,6 @@
    ],
    "C-CENSO-EXECUTORES": [
     "coverage"
-   ],
-   "C-CENSO-UNIFICACAO": [
-    "infra"
    ],
    "C-CONTRATO-ARTEFATO": [
     "opportunity",
@@ -40061,14 +40326,12 @@
     "official"
    ]
   },
-  "SEM_LIGACAO_INEXPLICADOS": [
-   "C-MICRO-COLHEITA"
-  ],
+  "SEM_LIGACAO_INEXPLICADOS": [],
   "CATEGORIAS_DAS_ARESTAS": {
    "CODE": 188,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 373,
+   "PROOF": 376,
    "READ": 250,
    "RULE": 196,
    "WRITE": 8
@@ -41293,18 +41556,17 @@
     "telemetria",
     "telemetria_do_curador"
    ],
-   "ENTRAM": 3,
+   "ENTRAM": 4,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
+    "PROOF",
     "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "infra"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {
@@ -42211,6 +42473,7 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "tests/test_aplicar_desbloqueio.py",
+    "tests/test_k1_receitas.py",
     "tests/test_retirada_por_decisao.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
@@ -42246,8 +42509,10 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
+    "medidas/canario_receitas_k1.py",
     "medidas/ensaio_quarentena_naosei.py",
     "medidas/medir_detector_moldura.py",
+    "medidas/medir_k1.py",
     "scripts/detector_capa/GABARITO-CAPA-V1.json",
     "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
     "scripts/detector_capa/colher_gabarito.py",
@@ -42272,9 +42537,11 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 0,
+   "ENTRAM": 1,
    "SAEM": 7,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF"
+   ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF",
     "RULE"
@@ -44409,7 +44676,7 @@
    "FAMILIA": "F-COLETA",
    "TERRITORIO": "Z-MEDIDAS",
    "KIND": "engine",
-   "STATUS": "UNKNOWN",
+   "STATUS": "PENDING",
    "FICHEIROS": [
     "medidas/MICRO-COLLECTION-RUN1-BR-V1.json",
     "medidas/MICRO-COLLECTION-RUN2-BR-V1.json",
@@ -44429,11 +44696,13 @@
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 0,
+   "ENTRAM": 1,
    "SAEM": 0,
-   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_ENTRAM": [
+    "PROOF"
+   ],
    "CATEGORIAS_QUE_SAEM": [],
-   "PORQUE_SOZINHO": "UNKNOWN",
+   "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
@@ -46762,6 +47031,8 @@
     "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
     "scripts/receitas/censo_e_proposta.py",
     "scripts/receitas/medir_efeito.py",
+    "scripts/receitas/propor_receitas_v3.py",
+    "scripts/receitas/propor_receitas_v4.py",
     "scripts/receitas/provar_indices.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -48174,6 +48445,7 @@
     "tests/test_integracao_biblia.py",
     "tests/test_integracao_e7_contrato_na_linha_funcional.py",
     "tests/test_italia_na_porta_canonica.py",
+    "tests/test_k1_receitas.py",
     "tests/test_legado_fora_do_fluxo.py",
     "tests/test_leitores_depois_da_fase_10.py",
     "tests/test_lingua_da_porta.py",
@@ -48389,7 +48661,7 @@
     "v_saude_da_rota"
    ],
    "ENTRAM": 195,
-   "SAEM": 25,
+   "SAEM": 28,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
