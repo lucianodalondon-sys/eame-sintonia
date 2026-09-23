@@ -20351,3 +20351,61 @@ Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
   lê regra nenhuma e trata como «tudo permitido».
 - `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
   Numa medição de 105 sites, é isso que domina o tempo.
+
+## RECOLLECTION-R1 · A PROVA SEM REDE DESLIGAVA O TRANSPORTE, E UMA FALHA NÃO É UM ENDEREÇO CONHECIDO
+
+**Missão R1** (`recollection-prova-v1`, a partir de `unificacao-v1`, 2026-09-23).
+Nada colhido, nada escrito na Sala, rede externa fechada e provada fechada.
+
+**ONDE ESTAVA PROVADO.** Tudo já estava na linha unificada, e passa nela:
+`regras/incrementalidade_test.mjs` (26/0), `regras/recollection_test.mjs` (31/0),
+`regras/paridade_test.mjs` (32/0), `provas/paridade_duas_rodadas.mjs` (13/0),
+`provas/recollection_red_team.mjs` (12 ataques, 12 mortos) e
+`provas/recollection_red_team_estrito.mjs` (12 ataques, 12 mortos pela suíte DONA).
+Nascem em `69d16ea3`, `68aef8a9` e `42708647` (22/09); a secção 167 conta a história.
+
+**O QUE FALTAVA.** A prova de duas rodadas injecta os bytes por `forcarBuf`. Isso
+prova a regra DENTRO do coletor, mas desliga três coisas: o `curl`, o HTTP que
+falha, e o egresso (com `forcarBuf` o coletor nem o mede). E nenhuma prova olhava
+para o disco depois de uma mudança — a versão antiga continua lá?
+
+**A PROVA NOVA — `provas/recollection_http_local.mjs`.** Servidor `node:http` em
+127.0.0.1, porta aleatória; raiz descartável; o contrato de IT-T3-005 apontado para
+o servidor, em memória, e restaurado no `finally`. A saída para a internet fecha-se
+SEM TOCAR NO CÓDIGO: `http(s)_proxy`/`ALL_PROXY` para `127.0.0.1:9` (porta fechada),
+e só `127.0.0.1,localhost` em `NO_PROXY`. O curl honra estas variáveis; o pedido ao
+ipinfo falha antes de sair, e a prova confirma as duas coisas: `EGRESS_IP = NAO SEI`
+no resumo, e um curl à parte à internet devolve `000`.
+
+    R1 novo                         1 pedido   NEW=1
+    R2 o mesmo endereço             0 pedidos  SKIPPED_KNOWN=1
+    R3 boletim novo, servidor 503   1 pedido   FAILED=1, TRANSPORT_OR_EMPTY, DOCUMENT_ID null
+    R4 o servidor volta             1 pedido   NEW=1 — o endereço que falhou é retomado
+    R5 MUTABLE declarado, só ruído  1 pedido   SEEN_AGAIN, 0 objectos RAW novos (UNKNOWN nas R1–R4 não congelou a fonte)
+    R6 a matéria muda               1 pedido   CHANGED=1, versão nova; a anterior continua em disco com o seu sha256
+    UNNECESSARY_REFETCHES = 0 nas seis.   15 verificações, 15 passam.
+
+**ARMADILHA DE LEITURA: `DETAIL_NEW` NÃO É `NEW_DOCUMENTS`.** `DETAIL_NEW` conta a
+DECISÃO de ir buscar um endereço novo, antes do transporte; `NEW_DOCUMENTS` conta o
+documento que nasceu. Na R3 (503) o primeiro vale 1 e o segundo 0. A primeira versão
+da prova confundiu os dois e acusou um defeito que não existia.
+
+**ARMADILHA DE FIXTURE: MESMOS BYTES NUM ENDEREÇO NOVO SÃO O MESMO DOCUMENTO.** A
+identidade vem do conteúdo (o período do boletim), não do endereço. Servir a página
+da R1 num endereço novo dá `SEEN_AGAIN`, e está certo. Para provar «retomado» é
+preciso um boletim novo (outro período).
+
+**MUTANTES NO COLETOR (execução provada por ficheiro-marca, NODE_DISABLE_COMPILE_CACHE=1,
+restauro por `git checkout -- <ficheiro>`).** Cinco, cinco mortos:
+a falha gravada como `NEW_DOCUMENT` (morre em R3/R4) · a versão nova reusa o id da
+antiga (R6) · `guardarRaw` sem a guarda de existência, sobrescreve (R5/R6) · o salto
+`SKIP_KNOWN` desligado (R2) · o veredicto de ruído desligado (R5).
+
+**P9.** O `.mjs` do red team estrito já está declarado nesta linha (em
+`C-PROVA-RECOLLECTION`). Continua sem dono em 11 das 23 branches remotas que o têm —
+todas anteriores à unificação; ficam resolvidas quando juntarem `unificacao-v1`, e
+não se tocou nelas. A prova nova entrou em `C-PROVA-PARIDADE`.
+
+**O QUE NÃO SE PROVOU.** Validadores HTTP (ETag/Last-Modified): o coletor não os pede
+nem os grava, por isso não há 304 a provar. O timeout de rede (só o 503). Uma fonte
+com índice (a prova usa uma STATIC_ROUTE, um endereço por corrida).
