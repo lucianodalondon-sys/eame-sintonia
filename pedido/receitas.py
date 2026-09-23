@@ -739,6 +739,28 @@ class Plano:
         return "\n".join(L)
 
 
+def promover_o_scrap(execs: list, fase: str, executores: dict | None = None) -> list:
+    """A FASE DO SCRAP E SEMPRE DO SCRAP — em qualquer territorio (SOC4).
+
+    O executor era escolhido pelo TERRITORIO (`EXECUTORES[p.alvo]`), e o
+    `scrap-colheita` so estava registado em T8/T9. Medido em 23/09 nos 50 canais
+    YouTube da tabela: 6 chegavam ao Scrap, 34 iam para o executor HTML (e o
+    filtro `canal_id` morria em FILTRO_NAO_CONSUMIDO) e 10 nao tinham executor
+    nenhum (T12). Com esta promocao, 50 de 50.
+
+        A PLATAFORMA DECIDE O EXECUTOR; O TERRITORIO DECIDE O ASSUNTO.
+
+    A lista de fases e a que o proprio registo `scrap-colheita` declara em
+    `serve_fases` — nada inventado aqui. Pedido sem fase, ou com fase que nao e
+    do Scrap: a lista volta exactamente como chegou (o mesmo objecto).
+    """
+    executores = EXECUTORES if executores is None else executores
+    scrap = next((e for e in executores.get("T9", []) if e.get("id") == "scrap-colheita"), None)
+    if not scrap or fase not in (scrap.get("serve_fases") or ()):
+        return execs
+    return [scrap] + [e for e in execs if e.get("id") != "scrap-colheita"]
+
+
 def resolver(p: Pedido) -> Plano:
     """Do pedido ao caminho. Tudo medido do atlas; nada adivinhado."""
     pais = (p.filtros.get("pais") or "").upper()
@@ -793,6 +815,8 @@ def resolver(p: Pedido) -> Plano:
         execs.sort(key=lambda e: (
             0 if declarados <= filtros_consumidos(e) else 1,
             0 if fase in (e.get("serve_fases") or [fase]) else 1))
+
+    execs = promover_o_scrap(execs, fase)
 
     return Plano(
         pedido=p,
