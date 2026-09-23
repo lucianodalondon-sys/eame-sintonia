@@ -193,6 +193,43 @@ class Inferir(unittest.TestCase):
         self.assertEqual(("BLOCK", "ROBOTS"), (p["DESFECHO"], p["CLASSE"]))
         self.assertEqual([], site.pedidos)
 
+    def test_familia_que_e_quase_a_pagina_toda_e_generica(self):
+        muitas = ["/articoli/%d/il-titolo-di-una-notizia-numero-%d" % (100 + i, i) for i in range(30)]
+        site = Site({B + "/": (200, _html(muitas)), B + muitas[0]: (200, _html([], CORPO))})
+        p = inferir(_contrato(), site)                  # 30 de 36 links: > 80 % -> guarda recusa
+        self.assertEqual(("RECUSA", "SEM_FAMILIA_DE_ITENS"), (p["DESFECHO"], p["MOTIVO"]))
+
+    def test_um_so_item_nao_e_familia(self):
+        site = Site({B + "/": (200, _html(NOTICIAS[:1])), B + NOTICIAS[0]: (200, _html([], CORPO))})
+        p = inferir(_contrato(), site)
+        self.assertEqual(("RECUSA", "SEM_FAMILIA_DE_ITENS"), (p["DESFECHO"], p["MOTIVO"]))
+
+    def test_robots_do_destino_manda_depois_do_redireccionamento(self):
+        novo = "https://proibido.exemplo.it/"
+        site = Site({novo: (200, _html([novo.rstrip("/") + n for n in NOTICIAS]))},
+                    redir={B + "/": novo})
+        p = inferir(_contrato(), site, proibe=("proibido.exemplo.it",))
+        self.assertEqual(("BLOCK", "ROBOTS"), (p["DESFECHO"], p["CLASSE"]))
+        self.assertEqual(1, len(site.pedidos))
+
+    def test_item_proibido_pelo_robots_nao_se_abre(self):
+        site = Site({B + "/": (200, _html(NOTICIAS)), B + NOTICIAS[0]: (200, _html([], CORPO))})
+        p = inferir(_contrato(), site, proibe=("/articoli/",))
+        self.assertEqual("RECUSA", p["DESFECHO"])
+        self.assertEqual([B + "/"], site.pedidos)
+        self.assertIn("robots", p["TENTADOS"][0]["VEREDITO"])
+
+    def test_teto_de_pedidos_com_muitas_familias(self):
+        fams = ["/sez%s/%d/titolo-lungo-di-una-cosa-%d" % (s, i, i) for s in "abcdef" for i in range(2)]
+        pags = {B + "/": (200, _html(fams))}
+        for f in fams:
+            pags[B + f] = (200, _html([], "<p>curto</p>"))
+        site = Site(pags)
+        with mock.patch.object(RC, "MAX_FAMILIAS_TENTADAS", 10):
+            p = inferir(_contrato(), site)
+        self.assertEqual("RECUSA", p["DESFECHO"])
+        self.assertEqual(RC.MAX_PEDIDOS, len(site.pedidos))
+
     def test_teto_de_pedidos(self):
         pags = {B + "/": (200, _html(MENU + MENU + NOTICIAS[:3] + ["/eventi/%d/evento-numero-%d-bello" % (i, i)
                                                                    for i in range(3)]))}
@@ -350,6 +387,13 @@ class Alimentador(_Pasta):
                                       (F.PENDING, velho, False)):
             t = dict(base, STATUS=status, UPDATED_AT=quando)
             self.assertEqual(entra, bool(self._cands(tarefas=[t])), (status, quando))
+
+    def test_fonte_com_tarefa_aberta_nao_entra(self):
+        self._contratos(_contrato("IT-T7-001"))
+        self._estado("IT-T7-001", LC.CONTRACTED_CANARY_FAILED)
+        t = {"SOURCE_ID": "IT-T7-001", "TASK_TYPE": F.CANARY, "TASK_ID": "T1",
+             "STATUS": F.WAITING_RETRY, "UPDATED_AT": AGORA.isoformat()}
+        self.assertEqual(set(), self._cands(tarefas=[t]))
 
     def test_pendente_recente_nao_volta(self):
         self._contratos(_contrato("IT-T7-002"))
