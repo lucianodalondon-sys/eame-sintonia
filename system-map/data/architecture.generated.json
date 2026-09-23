@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "diagnostico-sala-v1",
-    "HEAD": "87ddeb854e4b6de4a9af198410d45bdac505df9b",
-    "GENERATED_AT": "2026-09-22T20:30:44-03:00",
-    "SOURCE_TREE_FINGERPRINT": "b7e7a4515d8a39c03a0666ecede4a5c48b114a18dd0e78d87e4c8d4bb9121231"
+    "BRANCH": "micro-prep-v1",
+    "HEAD": "93a6eef85d6ae08d6ba817b14f2c382b0b49a28c",
+    "GENERATED_AT": "2026-09-22T21:33:05-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3d69a19203009a0279f0502aa687edcd1f2554e8e46e34befdb60f6b2ff38bfc"
   },
   "FILES": [
     {
@@ -304,7 +304,7 @@
     },
     {
       "path": "RELATORIO-DIAGNOSTICO-SALA.md",
-      "sha": "0ea678d7f456c6700a63190e6d11ce20ff072bfa",
+      "sha": "3e938a3cfae09213a47209966050a416384d86d1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15101,6 +15101,27 @@
       "code_dir": true
     },
     {
+      "path": "scripts/micro_coleta/COORTE-PROPOSTA.json",
+      "sha": "aa5191aedce41b7561670985456e252f6f4448de",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+      "sha": "0a098dd9db52317ba63e58404fdc126f72d2b4d5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/micro_coleta/micro_coleta.py",
+      "sha": "c0e2bf00ef5af45be694ff41e6db0081140f2472",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "security/ACCOES-DE-ADMINISTRADOR.md",
       "sha": "05cbaae9a8dd420a88524ece8287f89ea1426804",
       "ext": ".md",
@@ -15697,7 +15718,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "23fedadc421bc222d70bb7d24fb6ab33540a0b87",
+      "sha": "7629824c8e9ab59d9348345f316747c6f22878cc",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17070,6 +17091,13 @@
     {
       "path": "tests/test_metricas.py",
       "sha": "442dfcec526402c8d46abfb162aae64b0613f658",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_micro_coleta_instrumento.py",
+      "sha": "fcc48f8257ccc6ccee521e53b65a889b3ceea97c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52696,6 +52724,94 @@
       }
     },
     {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 43,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 55,
+        "snippet": "EXECUTOR = \"coleta/italy_executor.py\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 54,
+        "snippet": "LIVRO = RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 98,
+        "snippet": "return [sys.executable, \"orquestrador/orquestrador.py\", apelido_de(u) or u,"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 49,
+        "snippet": "from pedido import de_uma_frase        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 48,
+        "snippet": "import receitas as REC                 # noqa: E402  (a gaveta pedido/ esta no caminho)"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 53,
+        "snippet": "CONTRATOS = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "scripts/micro_coleta/COORTE-PROPOSTA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 52,
+        "snippet": "COORTE = AQUI / \"COORTE-PROPOSTA.json\""
+      }
+    },
+    {
       "from_file": "security/censo_do_cliente.py",
       "to_file": "security/cliente-classificacao.json",
       "type": "READS",
@@ -66600,6 +66716,28 @@
       }
     },
     {
+      "from_file": "tests/test_micro_coleta_instrumento.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_coleta_instrumento.py",
+        "line": 83,
+        "snippet": "self.assertEqual(c[1], \"orquestrador/orquestrador.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_micro_coleta_instrumento.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_coleta_instrumento.py",
+        "line": 19,
+        "snippet": "\"micro_coleta\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_migrations.py",
       "to_file": "data/samples/RAW-PESADO-CONGELADO.txt",
       "type": "READS",
@@ -72707,10 +72845,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2512,
-    "files_readable": 1139,
-    "files_code_dir": 950,
-    "file_edges": 4959,
+    "files_tracked": 2516,
+    "files_readable": 1141,
+    "files_code_dir": 954,
+    "file_edges": 4969,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
