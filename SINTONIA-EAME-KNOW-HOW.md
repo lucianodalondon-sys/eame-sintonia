@@ -20087,3 +20087,16 @@ fontes elegíveis tinham todas, no bot, um contrato diferente do que o portão l
 E duas coisas que pareciam defeito de código eram código velho a correr: o bot
 e a ponte vivos estavam atrás das correcções que já existiam na linha. Antes de
 consertar, medir QUE commit está a correr.
+
+## A PROVA DA ROTA ENVELHECE — E SÓ SE DESCOBRE SE ALGUÉM A VOLTAR A MEDIR
+
+B3 (2026-09-23). O bot re-media o que tinha falhado e nunca o que tinha passado.
+Uma fonte aprovada ficava aprovada até alguém reparar — a CRPV mudou de casa num
+dia e continuava no portão. A re-medição periódica (7 dias, declarados) é o que
+faz uma DEMOTION acontecer sem humano.
+
+    UMA RESPOSTA QUE NÃO ESCREVE NO LIVRO NÃO PODE SER MOTIVO PARA PERGUNTAR OUTRA VEZ.
+
+A prova viva T02077 mostrou porquê a guarda anti-eco é obrigatória: «BLOCK sem
+contrato» não deixa linha no livro, e a fonte continuaria velha e elegível —
+pedida em cada volta ociosa, para sempre.
