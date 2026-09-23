@@ -2132,6 +2132,7 @@
       "provas/rastro_no_postgres.py",
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
+      "provas/recollection_http_local.mjs",
       "provas/recollection_red_team.mjs",
       "provas/recollection_red_team_estrito.mjs",
       "provas/red_team_adama_referencia.py",
@@ -3223,10 +3224,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "recollection-prova-v1",
+    "HEAD": "c2a8453c2d7506993a97f85a5530ea732b1f3304",
+    "GENERATED_AT": "2026-09-23T03:51:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "70a7837eac20bac0f75bc55b9bd714af6d0e25f9b9a557583181a895984fa104"
   },
   "FAMILIES": [
     {
@@ -37727,7 +37728,7 @@
       "name": "As provas da paridade de incrementalidade",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Tres provas de ZERO REDE que guardam a ligacao das duas defesas ao coletor real. A primeira exercita os dois lados de cada par (volatil NAO e change · materia nova CONTINUA a ser change · conhecido NAO faz fetch · novo faz fetch) e confere no TEXTO do coletor que a decisao esta acima do download. A segunda arranca executarRodada() numa raiz descartavel, corre cinco rodadas e conta as idas ao transporte. A terceira ataca o codigo desta missao com oito mutantes, provando o diff E que o mutante correu.",
+      "what": "Quatro provas de ZERO REDE EXTERNA que guardam a ligacao das duas defesas ao coletor real. A primeira exercita os dois lados de cada par (volatil NAO e change · materia nova CONTINUA a ser change · conhecido NAO faz fetch · novo faz fetch) e confere no TEXTO do coletor que a decisao esta acima do download. A segunda arranca executarRodada() numa raiz descartavel, corre cinco rodadas e conta as idas ao transporte. A terceira ataca o codigo desta missao com oito mutantes, provando o diff E que o mutante correu. A quarta (R1, 2026-09-23) liga o TRANSPORTE que a segunda desliga: o coletor chama o curl contra um servidor HTTP em 127.0.0.1, com a saida para a internet fechada por proxy e provada fechada, e seis rodadas medem na contagem do SERVIDOR a incrementalidade, a falha 503 que nao vira endereco conhecido e e retomada, o ruido que nao vira mudanca e a versao antiga que continua em disco com o seu sha256.",
       "why_here": "A peca da incrementalidade existia, tinha md5 IDENTICO em laboratorio e producao, e o teste dela passava — porque o teste chamava a regra pela mao. A producao passa pelo coletor, e o coletor nao a chamava: MISSING_ROUTE. Um teste que importa a regra mede a regra; so um teste que arranca o produtor mede a ROTA. Por isso a prova de duas rodadas arranca o coletor, e por isso o red team exige que cada mutante morra pela prova CERTA — o M8 sobreviveu a primeira versao nao por a defesa ser fraca, mas por o ataque nao tocar em nada que a bancada sem rede pudesse ver, e isso descobriu um defeito real no medidor.",
       "departments": [
         "ENGENHARIA"
@@ -37744,9 +37745,10 @@
       "files": [
         "provas/PARIDADE-RED-TEAM-V1.json",
         "provas/paridade_duas_rodadas.mjs",
-        "provas/paridade_red_team.mjs"
+        "provas/paridade_red_team.mjs",
+        "provas/recollection_http_local.mjs"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -37761,7 +37763,7 @@
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
@@ -47568,7 +47570,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch recollection-prova-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -75958,7 +75960,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta As provas da paridade de incrementalidade. Provado por 2 linhas de codigo.",
+      "reason": "Colher as fontes italianas alimenta As provas da paridade de incrementalidade. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/paridade_duas_rodadas.mjs",
@@ -75980,6 +75982,22 @@
           "file": "provas/paridade_red_team.mjs",
           "line": 31,
           "snippet": "const COLETOR = \"coleta/italy_pilot_collect.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-PROVA-PARIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_http_local.mjs",
+          "line": 58,
+          "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
             "FROM": "C-IT-COLETA",
@@ -76997,11 +77015,27 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta As provas da paridade de incrementalidade. Provado por 1 linha de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta As provas da paridade de incrementalidade. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/paridade_duas_rodadas.mjs",
           "line": 48,
+          "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-PROVA-PARIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_http_local.mjs",
+          "line": 59,
           "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -78735,12 +78769,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta As provas da paridade de incrementalidade. Provado por 1 linha de codigo.",
+      "reason": "Guardar com impressao digital alimenta As provas da paridade de incrementalidade. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/paridade_duas_rodadas.mjs",
           "line": 108,
           "snippet": "const livro = readFileSync(join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\"), \"utf8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
+            "FROM": "C-IT-PRESERVAR",
+            "TO": "C-PROVA-PARIDADE",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/recollection_http_local.mjs",
+          "line": 66,
+          "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
             "FROM": "C-IT-PRESERVAR",
@@ -108930,8 +108980,8 @@
     "edges_proven": 1119,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2630,
-    "files_covered": 1135,
+    "files_tracked": 2631,
+    "files_covered": 1136,
     "files_code_unclaimed": 0,
     "roles_proven": 159,
     "roles_declared_only": 9,

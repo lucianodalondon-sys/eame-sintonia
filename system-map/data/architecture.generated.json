@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-    "GENERATED_AT": "2026-09-23T02:36:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901"
+    "BRANCH": "recollection-prova-v1",
+    "HEAD": "c2a8453c2d7506993a97f85a5530ea732b1f3304",
+    "GENERATED_AT": "2026-09-23T03:51:47-03:00",
+    "SOURCE_TREE_FINGERPRINT": "70a7837eac20bac0f75bc55b9bd714af6d0e25f9b9a557583181a895984fa104"
   },
   "FILES": [
     {
@@ -14534,6 +14534,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/recollection_http_local.mjs",
+      "sha": "5fadd303ca89bf2ded04f11c431bebe7cbc3c41c",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/recollection_red_team.mjs",
       "sha": "d870f0e862b29563e98627f0434777161ec456c4",
       "ext": ".mjs",
@@ -16467,7 +16474,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e42bd5a28182c9947c672981d771ffbc0c30d85f",
+      "sha": "5ee751c7a08514b2dbfcbe4dd2dffcf0e107604d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -53335,6 +53342,39 @@
       }
     },
     {
+      "from_file": "provas/recollection_http_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_http_local.mjs",
+        "line": 58,
+        "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/recollection_http_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_http_local.mjs",
+        "line": 66,
+        "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/recollection_http_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_http_local.mjs",
+        "line": 59,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
       "from_file": "provas/recollection_red_team.mjs",
       "to_file": "provas/RECOLLECTION-RED-TEAM-V1.json",
       "type": "WRITES",
@@ -76459,10 +76499,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2630,
-    "files_readable": 1198,
-    "files_code_dir": 1006,
-    "file_edges": 5225,
+    "files_tracked": 2631,
+    "files_readable": 1199,
+    "files_code_dir": 1007,
+    "file_edges": 5228,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

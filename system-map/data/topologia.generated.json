@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T05:39:55+00:00",
-  "HEAD": "7177cdb934f0f0d69521fae069612d5f221d02c1",
-  "BRANCH": "unificacao-v1",
+  "GENERATED_AT": "2026-09-23T07:06:21+00:00",
+  "HEAD": "c2a8453c2d7506993a97f85a5530ea732b1f3304",
+  "BRANCH": "recollection-prova-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
-  "FICHEIROS_NA_IMPRESSAO": 2778,
+  "SOURCE_TREE_FINGERPRINT": "70a7837eac20bac0f75bc55b9bd714af6d0e25f9b9a557583181a895984fa104",
+  "FICHEIROS_NA_IMPRESSAO": 2779,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2972,6 +2972,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/recollection_http_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "5fadd303ca89bf2ded04f11c431bebe7cbc3c41c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/recollection_red_team.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "d870f0e862b29563e98627f0434777161ec456c4",
@@ -3408,14 +3415,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
+    "VERSAO": "70a7837eac20bac0f75bc55b9bd714af6d0e25f9b9a557583181a895984fa104",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a2e76442de23272a87e01bfe02f4b2d859d444c5941eb39cc093084128914901",
+    "VERSAO": "70a7837eac20bac0f75bc55b9bd714af6d0e25f9b9a557583181a895984fa104",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5142,8 +5149,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 729,
-  "INPUTS_DIGEST": "e10c45a1e4f8e30e86a291ea50f9d71c5cfa2e3eaeb6fb0971ad7c258a5784f5",
+  "INPUTS_COUNT": 730,
+  "INPUTS_DIGEST": "5a44f2923387824da79d7bcdf8a4f15a1c244c47cf15d104028a8db429f6c368",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5176,8 +5183,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "198184cc1e7dd070d8636383cb51d96442e170cbe699943cb97e582698cafb7f",
-  "SEMANTIC_HASH": "b1dc4d64cba1e9fe991aaa7366a354af17e07ef5ab7776dd3661ecb1ca083acb"
+  "MEASUREMENT_HASH": "bbe61618bbfa4c13bb5e8c720e7679013b2299c14637eab42847d69dc5130b36",
+  "SEMANTIC_HASH": "0c69402e5b34b8b6c0f7c48d67c599cb85f4e49a4567f403d39c9e81195b5cfc"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -21483,6 +21490,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_http_local.mjs",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -22037,6 +22052,14 @@
      {
       "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
       "LINHA": 48,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_http_local.mjs",
+      "LINHA": 59,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -23078,6 +23101,14 @@
      {
       "FICHEIRO": "provas/paridade_duas_rodadas.mjs",
       "LINHA": 108,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_http_local.mjs",
+      "LINHA": 66,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -43460,6 +43491,7 @@
     "provas/os_portoes_da_collection.py",
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs",
+    "provas/recollection_http_local.mjs",
     "provas/so_a_colheita_atravessa.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
@@ -43558,6 +43590,7 @@
     "provas/a_collection_preserva_o_fato.py",
     "provas/italy_pilot_negativos.mjs",
     "provas/paridade_duas_rodadas.mjs",
+    "provas/recollection_http_local.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_integracao_04a_curator.py",
@@ -43721,6 +43754,7 @@
     "provas/o_raw_local_nao_e_duravel.py",
     "provas/paridade_duas_rodadas.mjs",
     "provas/primeira_coleta_controlada_italia.py",
+    "provas/recollection_http_local.mjs",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_de_identidade_it.py",
     "system-map/scripts/relatorio_do_fluxo.py",
@@ -45922,11 +45956,13 @@
    "FICHEIROS": [
     "provas/PARIDADE-RED-TEAM-V1.json",
     "provas/paridade_duas_rodadas.mjs",
-    "provas/paridade_red_team.mjs"
+    "provas/paridade_red_team.mjs",
+    "provas/recollection_http_local.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "provas/paridade_red_team.mjs",
+    "provas/recollection_http_local.mjs",
     "provas/recollection_red_team.mjs"
    ],
    "DOCUMENTADO_COMO_CLI": [],

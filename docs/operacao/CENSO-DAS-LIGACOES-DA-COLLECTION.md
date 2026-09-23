@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7177cdb934f0f0d69521fae069612d5f221d02c1
-BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T02:36:14-03:00
+HEAD_DA_MEDICAO  c2a8453c2d7506993a97f85a5530ea732b1f3304
+BRANCH           recollection-prova-v1
+GERADO_EM        2026-09-23T03:51:47-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
