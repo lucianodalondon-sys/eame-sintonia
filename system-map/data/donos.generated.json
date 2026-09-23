@@ -45,7 +45,7 @@
     "guarda/memoria_postgres.py"
    ],
    "QUANTOS_LEEM": 37,
-   "INSTRUMENTOS_QUE_CITAM": 59,
+   "INSTRUMENTOS_QUE_CITAM": 61,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -120,8 +120,8 @@
     "coleta/rota_forward_documento.py",
     "coleta/scrap_colheita.py"
    ],
-   "QUANTOS_LEEM": 55,
-   "INSTRUMENTOS_QUE_CITAM": 86,
+   "QUANTOS_LEEM": 58,
+   "INSTRUMENTOS_QUE_CITAM": 89,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -139,14 +139,14 @@
     "guarda/memoria_descartavel.py",
     "guarda/memoria_postgres.py",
     "guarda/preservar_documento.py",
+    "guarda/retencao_youtube_api.py",
     "medidas/coorte_da_micro_collection.py",
+    "medidas/medir_v1a.py",
     "medidas/relevancia_antes_da_coleta.py",
-    "medidas/ultima_milha.py",
-    "orquestrador/orquestrador.py",
-    "scripts/diagnostico_sala/ler_os_76.py"
+    "medidas/ultima_milha.py"
    ],
-   "QUANTOS_LEEM": 17,
-   "INSTRUMENTOS_QUE_CITAM": 43,
+   "QUANTOS_LEEM": 20,
+   "INSTRUMENTOS_QUE_CITAM": 46,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -199,26 +199,29 @@
     "coleta/executor_transcricao_midia.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 174,
-   "INSTRUMENTOS_QUE_CITAM": 207,
+   "QUANTOS_LEEM": 183,
+   "INSTRUMENTOS_QUE_CITAM": 211,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "ORQUESTRADOR",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "11 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "14 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "admissao/sala_de_espera.py",
     "coleta/italy_executor.py",
     "curadoria/test_collection_gate.py",
     "ferramentas/reel_transcricao.py",
     "guarda/memoria_postgres.py",
+    "guarda/retencao_youtube_api.py",
     "leis/relevancia_da_fonte.py",
     "medidas/corrida_canonica.py",
     "medidas/corrida_sem_rede.py",
+    "medidas/mutacao_v1a.py",
     "orquestrador/orquestrador.py",
     "scripts/micro_coleta/ensaio_offline.py",
-    "scripts/micro_coleta/micro_coleta.py"
+    "scripts/micro_coleta/micro_coleta.py",
+    "scripts/micro_coleta/micro_rede_real.py"
    ],
    "LEEM": [
     "_gavetas.py",
@@ -230,18 +233,18 @@
     "coleta/scrap_colheita.py",
     "coleta/scrap_executor.py",
     "coleta/social_scrap.py",
+    "curadoria/rota_do_scrap_youtube.py",
     "guarda/banco_descartavel.py",
-    "guarda/banco_operacional.py",
-    "italia-portale/client/system-map/map.js"
+    "guarda/banco_operacional.py"
    ],
-   "QUANTOS_LEEM": 20,
-   "INSTRUMENTOS_QUE_CITAM": 106,
+   "QUANTOS_LEEM": 22,
+   "INSTRUMENTOS_QUE_CITAM": 109,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "RECEITAS",
    "ESTADO": "DONO_E_INSTRUMENTO",
-   "NOTA": "nenhum dono fora das gavetas de medida, e 43 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
+   "NOTA": "nenhum dono fora das gavetas de medida, e 46 ficheiros de medida escrevem. Para este conceito isso e o esperado: o dono legitimo mora no instrumento. NAO e um buraco.",
    "ESCREVEM": [],
    "LEEM": [
     "coleta/italy_executor.py",
@@ -249,16 +252,16 @@
     "leis/relevancia_da_fonte.py",
     "leis/retorno_da_coleta.py",
     "leis/territorios.py",
+    "medidas/canario_receitas_k1.py",
     "medidas/corrida_canonica.py",
+    "medidas/medir_k1.py",
+    "medidas/medir_v1a.py",
     "orquestrador/orquestrador.py",
     "pacote/v21_handoff_json.py",
-    "scripts/coorte_micro/funil.py",
-    "scripts/coorte_micro/receitas_v2.py",
-    "scripts/desbloqueio/aplicar_desbloqueio.py",
-    "scripts/desbloqueio/canario_desbloqueio.py"
+    "scripts/coorte_micro/funil.py"
    ],
-   "QUANTOS_LEEM": 19,
-   "INSTRUMENTOS_QUE_CITAM": 43,
+   "QUANTOS_LEEM": 23,
+   "INSTRUMENTOS_QUE_CITAM": 46,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -361,7 +364,7 @@
     "coleta/scrap_fornecedores.py",
     "coleta/social_rotas.py"
    ],
-   "QUANTOS_LEEM": 80,
+   "QUANTOS_LEEM": 82,
    "INSTRUMENTOS_QUE_CITAM": 34,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
@@ -391,18 +394,19 @@
     "coleta/executor_texto_de_pdf.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 140,
-   "INSTRUMENTOS_QUE_CITAM": 108,
+   "QUANTOS_LEEM": 141,
+   "INSTRUMENTOS_QUE_CITAM": 110,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
    "CONCEITO": "HISTORY",
    "ESTADO": "DONO_DUPLICADO",
-   "NOTA": "3 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
+   "NOTA": "4 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
     "medidas/corrida_canonica.py",
     "medidas/padrao_da_coleta.py",
-    "scripts/micro_coleta/ensaio_offline.py"
+    "scripts/micro_coleta/ensaio_offline.py",
+    "scripts/micro_coleta/micro_rede_real.py"
    ],
    "LEEM": [
     "coleta/italy_executor.py",

@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T14:32:40+00:00",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
+    "GENERATED_AT": "2026-09-23T17:21:09+00:00",
+    "HEAD": "7b9c17cc8b173a350798e7fd79825531dde40081",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d",
-    "FICHEIROS_NA_IMPRESSAO": 2873,
+    "SOURCE_TREE_FINGERPRINT": "e3b7e28b421dfa3b5e5abb4416f0325f407598e275a39626482e21ab6d454b05",
+    "FICHEIROS_NA_IMPRESSAO": 2912,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -23178,6 +23178,10 @@
           "line": 142
         },
         {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 339
+        },
+        {
           "file": "provas/censo_executavel_da_v1.py",
           "line": 97
         },
@@ -23404,6 +23408,10 @@
           "line": 61
         },
         {
+          "file": "tests/test_k1_receitas.py",
+          "line": 16
+        },
+        {
           "file": "tests/test_ld2_aditamento.py",
           "line": 77
         },
@@ -23420,6 +23428,10 @@
     {
       "endpoint": "https://ipinfo.io/json",
       "usado_por": [
+        {
+          "file": "medidas/canario_receitas_k1.py",
+          "line": 31
+        },
         {
           "file": "medidas/gabarito_t2_t12.py",
           "line": 127
@@ -23443,6 +23455,31 @@
         {
           "file": "scripts/micro_coleta/micro_coleta.py",
           "line": 341
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/feeds",
+      "usado_por": [
+        {
+          "file": "curadoria/canario.py",
+          "line": 56
+        },
+        {
+          "file": "curadoria/capturador.py",
+          "line": 585
+        },
+        {
+          "file": "curadoria/escrever_contratos.py",
+          "line": 121
+        },
+        {
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 63
+        },
+        {
+          "file": "curadoria/validar_contratos.py",
+          "line": 187
         }
       ]
     },
@@ -23531,23 +23568,23 @@
       ]
     },
     {
-      "endpoint": "https://www.youtube.com/feeds",
+      "endpoint": "https://www.youtube.com/channel",
       "usado_por": [
         {
-          "file": "curadoria/canario.py",
-          "line": 56
+          "file": "coleta/youtube_oficial.py",
+          "line": 450
         },
         {
-          "file": "curadoria/capturador.py",
-          "line": 585
+          "file": "curadoria/test_d21_heranca.py",
+          "line": 43
         },
         {
-          "file": "curadoria/escrever_contratos.py",
-          "line": 121
+          "file": "curadoria/test_soc2_curator_youtube.py",
+          "line": 59
         },
         {
-          "file": "curadoria/validar_contratos.py",
-          "line": 178
+          "file": "regras/sensor_coleta.py",
+          "line": 806
         }
       ]
     },
@@ -23991,24 +24028,11 @@
           "line": 111
         }
       ]
-    },
-    {
-      "endpoint": "https://www.ec.europa.eu/agrifood",
-      "usado_por": [
-        {
-          "file": "coleta/agrifood_ue.py",
-          "line": 33
-        },
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 42
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 591,
+  "ENDPOINTS_FOUND": 605,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 551,
+  "ENDPOINTS_TRUNCATED": 565,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -24026,9 +24050,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 591,
+    "endpoints": 605,
     "endpoints_published": 40,
-    "endpoints_truncated": 551,
+    "endpoints_truncated": 565,
     "candidates": 476,
     "coletores": 53,
     "coletores_com_data": 20,

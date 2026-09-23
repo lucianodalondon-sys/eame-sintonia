@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f"
+    "HEAD": "7b9c17cc8b173a350798e7fd79825531dde40081"
   },
   "VOCABULARIOS": [
     {
@@ -1271,7 +1271,9 @@
         "ferramentas/reel_transcricao.py",
         "leis/artefato.py",
         "leis/relevancia_da_fonte.py",
+        "medidas/medir_v1a.py",
         "medidas/micro_colheita.py",
+        "medidas/mutacao_v1a.py",
         "medidas/o_contrato_do_universo.py",
         "medidas/porque_a_sala_nao_recebeu.py",
         "medidas/relevancia_antes_da_coleta.py",
@@ -1349,6 +1351,7 @@
         "tests/test_candidatos_tematicos.py",
         "tests/test_censo_corpus_rotulado_admission.py",
         "tests/test_col_e7_contrato_do_texto.py",
+        "tests/test_d1_detector_d14.py",
         "tests/test_estagio_atravessa_a_fronteira.py",
         "tests/test_fonte_atravessa.py",
         "tests/test_fronteira_mede_producao.py",
@@ -1366,9 +1369,11 @@
         "tests/test_reel_transcricao_trava.py",
         "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_sala_duravel.py",
+        "tests/test_sala_idempotente_por_documento.py",
         "tests/test_ui_revisao_t3_ptbr.py",
         "tests/test_universo_explicito.py",
-        "tests/test_universo_vem_do_pedido.py"
+        "tests/test_universo_vem_do_pedido.py",
+        "tests/test_v1a_v1_ligada.py"
       ],
       "TERMOS": [
         {
