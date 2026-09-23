@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "bot-impasse-v1",
-    "HEAD": "cfa84fc157a10d3ac6b99579717378c49d57f9f3",
-    "GENERATED_AT": "2026-09-23T14:08:51-03:00",
-    "SOURCE_TREE_FINGERPRINT": "33fa1c26781d08344295ec77667dd55af3dfb070ab091b071afad10026a0fccf"
+    "HEAD": "3c5048158785a27a5b4b5e0723fa22af5611db4e",
+    "GENERATED_AT": "2026-09-23T15:07:20-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a3c161b1c1e4f9379255443d520f3e3ba2582fd380d737e0270054fcd40799b3"
   },
   "FILES": [
     {
@@ -317,6 +317,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-B4-BOT-PARADO.md",
+      "sha": "ef9d25d2d51bf4496ce9fb4b8283714b65037d52",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-BRIDGE-FEEDER.md",
       "sha": "12a6e18dfd5ddf05377ecdb5609187b09b40e8c0",
       "ext": ".md",
@@ -584,7 +591,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "9f5340a9611ec60b43c5689cf592376ffac1027d",
+      "sha": "56c5a995e1f34004f1878dfc11ef956d7395c686",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2621,7 +2628,7 @@
     },
     {
       "path": "curadoria/baldes_das_candidatas.py",
-      "sha": "a7dcbe4475168427973be59c6d7f186f60e00cb8",
+      "sha": "b61376ca8a9878ea829e4a048587b34b5101f70f",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2852,7 +2859,7 @@
     },
     {
       "path": "curadoria/nivel_da_fila.py",
-      "sha": "6757359f7751183ba50ded8fd23af5348f41b11f",
+      "sha": "2fff527b291f94476cb186ae0e150368b1f124d8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3125,7 +3132,7 @@
     },
     {
       "path": "curadoria/test_impasse_b4.py",
-      "sha": "dea1eab2b485bc370319c2cd96af3c50c13df4bb",
+      "sha": "310d1e055ed5a9559ab693c488780d7321d03acf",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3153,7 +3160,7 @@
     },
     {
       "path": "curadoria/test_nivel_da_fila.py",
-      "sha": "cd9c334487c960ae600dae7a97fae32c392d6202",
+      "sha": "d7cfc8cf1df62d61b7274fed57ee39e0be1c0e68",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -24137,7 +24144,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/baldes_das_candidatas.py",
-        "line": 210,
+        "line": 213,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\","
       }
     },
@@ -25688,7 +25695,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/nivel_da_fila.py",
-        "line": 102,
+        "line": 110,
         "snippet": "SAIDA.write_text(json.dumps(r, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -28108,7 +28115,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_nivel_da_fila.py",
-        "line": 79,
+        "line": 81,
         "snippet": "import baldes_das_candidatas as B"
       }
     },
@@ -78913,7 +78920,7 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2726,
+    "files_tracked": 2727,
     "files_readable": 1246,
     "files_code_dir": 1065,
     "file_edges": 5387,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  2be3248225169571919d2052f72f80260e29cfc4
+HEAD_DA_MEDICAO  3c5048158785a27a5b4b5e0723fa22af5611db4e
 BRANCH           bot-impasse-v1
-GERADO_EM        2026-09-23T14:16:26-03:00
+GERADO_EM        2026-09-23T15:07:20-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
