@@ -18827,3 +18827,27 @@ RC vazio → `terminate`/`kill` e `WORKER_PENDURADO_TERMINADO` antes de relança
   arranque do supervisor e no início de cada volta do worker. Com o serviço IDLE, a órfã
   ficava presa para sempre. Agora o supervisor recupera-as (> 30 min) no único ponto em
   que sabe que não há worker vivo.
+
+# §173 · REGISTADO NÃO É RASTEJADO — O DISCOVERY SEM COMBUSTÍVEL
+
+**O QUE ESTAVA ERRADO.** O livro `DISCOVERY-VISITED.json` guarda em `VISITADOS` dois
+significados com o mesmo nome: a página rastejada como semente (`SEMENTE_PROCESSADA`) e o
+link registado como candidata (`REGISTADO_CAND-xxxx`). O filtro de sementes de
+`crawl_sementes` lia os dois como «já usada». Cada candidata nova nascia já impedida de
+ser semente: a 2.ª geração secava na mesma corrida em que nascia.
+
+**PROVA (cópia dos livros do serviço, 23/09).** 166 sementes conhecidas; 6 livres (todas
+UNKNOWN). Com o filtro novo: 132 livres, 125 TEMÁTICAS. O mesmo nome de estado não é o
+mesmo significado (ver §170 ponto 3).
+
+**O QUE MUDOU.** `_semente_ja_gasta()` em `curadoria/descobrir.py`: fora só o que foi
+REJEITADO ou está em VISITADOS com motivo que não começa por `REGISTADO_`. Depois de
+rastejada, a semente passa a `SEMENTE_PROCESSADA` e nunca repete. A regra
+`_classificar_semente`, o orçamento (250), o tecto de 15 sementes por corrida e o robots
+ficaram iguais. Testes em `curadoria/test_discovery_sementes.py`; o mutante «filtro
+antigo» executou (ficheiro-bandeira) e reprovou 4 de 7.
+
+**O QUE NÃO SE SABE.** A taxa agro das filhas da 2.ª geração não foi medida sem rede; a
+referência é 21,7 % (21/09). A árvore cresce: cada candidata TEMÁTICA vira semente. O
+custo por corrida está travado (15 sementes, 250 pedidos); a fila de sementes pode
+crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
