@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  fc0ff45ecd6c00b910ffafed336e8e30041a6676
-BRANCH           semantico-opus-v2
-GERADO_EM        2026-09-23T03:48:26-03:00
+HEAD_DA_MEDICAO  d297cac05ac9788547ae1fa43654e93e54af9fb8
+BRANCH           sementes-travao-v1
+GERADO_EM        2026-09-23T04:13:53-03:00
 CARDS            73
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

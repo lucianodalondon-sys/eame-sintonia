@@ -320,6 +320,7 @@
       "curadoria/consolidar.py",
       "curadoria/consolidar_caracterizacao.py",
       "curadoria/correr_lote.py",
+      "curadoria/corrigir_pais_das_candidatas.py",
       "curadoria/decisao_semantica.py",
       "curadoria/descobrir.py",
       "curadoria/emparelhar_com_atlas.py",
@@ -368,10 +369,12 @@
       "curadoria/test_interface_collection.py",
       "curadoria/test_lifecycle.py",
       "curadoria/test_livros_reais_intactos.py",
+      "curadoria/test_pais_das_candidatas.py",
       "curadoria/test_ponte_candidatas.py",
       "curadoria/test_status_liveness.py",
       "curadoria/test_supervisor.py",
       "curadoria/test_telemetria.py",
+      "curadoria/test_travao_sementes.py",
       "curadoria/test_worker_pendurado.py",
       "curadoria/test_worker_qualify.py",
       "curadoria/validar_contratos.py",
@@ -2813,10 +2816,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "semantico-opus-v2",
-    "HEAD": "fc0ff45ecd6c00b910ffafed336e8e30041a6676",
-    "GENERATED_AT": "2026-09-23T03:48:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6b129bc82168556ff8e7a7f33fabe107ff4afda5c198a3af7d09c75c9f7e95de"
+    "BRANCH": "sementes-travao-v1",
+    "HEAD": "d297cac05ac9788547ae1fa43654e93e54af9fb8",
+    "GENERATED_AT": "2026-09-23T04:13:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "996c49574ce64195b50195283d02aad57229214a6b970b419dc27301ac47fa96"
   },
   "FAMILIES": [
     {
@@ -4298,8 +4301,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 475",
-        "desses, mostrados aqui: 40 (ficam de fora 435)"
+        "enderecos que o codigo realmente chama: 488",
+        "desses, mostrados aqui: 40 (ficam de fora 448)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -44296,7 +44299,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch semantico-opus-v2"
+        "branch sementes-travao-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101222,7 +101225,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1205,
+  "UNCLAIMED_FILES_COUNT": 1208,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101411,7 +101414,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2220,
+    "files_tracked": 2223,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,

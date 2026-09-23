@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "semantico-opus-v2",
-    "HEAD": "fc0ff45ecd6c00b910ffafed336e8e30041a6676",
-    "GENERATED_AT": "2026-09-23T03:48:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "6b129bc82168556ff8e7a7f33fabe107ff4afda5c198a3af7d09c75c9f7e95de"
+    "BRANCH": "sementes-travao-v1",
+    "HEAD": "d297cac05ac9788547ae1fa43654e93e54af9fb8",
+    "GENERATED_AT": "2026-09-23T04:13:53-03:00",
+    "SOURCE_TREE_FINGERPRINT": "996c49574ce64195b50195283d02aad57229214a6b970b419dc27301ac47fa96"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "3d86495b254a4197e0d1f0ba88f1d1773dba6c05",
+      "sha": "d0c60fc3f92d9622d47cda884acd992893e3dca5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1144,7 +1144,7 @@
     },
     {
       "path": "candidatas/fonte_nova.py",
-      "sha": "31b00a51187ee60c72668b0a9a85f836add3b66d",
+      "sha": "361d0d34d69bdbd4e5c744d80d182ca123b1fc52",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1760,7 +1760,7 @@
     },
     {
       "path": "curadoria/DECISOES-SEMANTICAS-V1.json",
-      "sha": "c7dfcf01cfd96a239dede0d4db8ad2b9ab846f07",
+      "sha": "939e55c49c018102650d56cb0eb8711d33d549a4",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2081,15 +2081,22 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/corrigir_pais_das_candidatas.py",
+      "sha": "5bee591a752db054ba9f682747df2239f69c549f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/decisao_semantica.py",
-      "sha": "7fecff83b73cd6ed7a6530b8e52f5beb8b1f70c6",
+      "sha": "ccfe5036cfe216018de1851d20b384889bc7c155",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "curadoria/descobrir.py",
-      "sha": "40a67f5751c3c1446c64e1a8eee44e44c1c819ab",
+      "sha": "7c31e5c732b21ef3dcf3f15ef7334b8e33acf7a4",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2369,7 +2376,7 @@
     },
     {
       "path": "curadoria/test_discovery_sementes.py",
-      "sha": "94ff96a96317b7782d1e671cdcc70e6adc07c9bb",
+      "sha": "9dbc263f4c199daf05b26ab21ccd8a8ef3d1fab9",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2417,6 +2424,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_pais_das_candidatas.py",
+      "sha": "3836b8dbb322fa513d6fe5640da77992674fae28",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_ponte_candidatas.py",
       "sha": "a9d452086f899717f68bf3adf056a81577321933",
       "ext": ".py",
@@ -2440,6 +2454,13 @@
     {
       "path": "curadoria/test_telemetria.py",
       "sha": "89d1c13a84c09165f03d905e024d292c0c6c6af1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_travao_sementes.py",
+      "sha": "8fee2e9ef95597d0e3e93e5f7936962e2dbc0830",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -17207,7 +17228,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "candidatas/fonte_nova.py",
-        "line": 187,
+        "line": 190,
         "snippet": "FILA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -20754,6 +20775,28 @@
       }
     },
     {
+      "from_file": "curadoria/corrigir_pais_das_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/corrigir_pais_das_candidatas.py",
+        "line": 29,
+        "snippet": "import fonte_nova as FN          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/corrigir_pais_das_candidatas.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/corrigir_pais_das_candidatas.py",
+        "line": 30,
+        "snippet": "from descobrir import pais_pela_prova  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/decisao_semantica.py",
       "to_file": "curadoria/DECISOES-SEMANTICAS-V1.json",
       "type": "READS",
@@ -20771,7 +20814,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/descobrir.py",
-        "line": 1355,
+        "line": 1376,
         "snippet": "caminho = caminho or (RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\")"
       }
     },
@@ -20828,6 +20871,17 @@
         "file": "curadoria/descobrir.py",
         "line": 769,
         "snippet": "(RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/descobrir.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/descobrir.py",
+        "line": 1443,
+        "snippet": "import decisao_semantica as DS"
       }
     },
     {
@@ -22493,6 +22547,17 @@
     },
     {
       "from_file": "curadoria/test_discovery_sementes.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_discovery_sementes.py",
+        "line": 19,
+        "snippet": "import decisao_semantica as DS  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_discovery_sementes.py",
       "to_file": "curadoria/descobrir.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22745,6 +22810,50 @@
       }
     },
     {
+      "from_file": "curadoria/test_pais_das_candidatas.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pais_das_candidatas.py",
+        "line": 20,
+        "snippet": "import fonte_nova as FN                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pais_das_candidatas.py",
+      "to_file": "curadoria/corrigir_pais_das_candidatas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pais_das_candidatas.py",
+        "line": 18,
+        "snippet": "import corrigir_pais_das_candidatas as CP   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pais_das_candidatas.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_pais_das_candidatas.py",
+        "line": 19,
+        "snippet": "import descobrir as D                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_pais_das_candidatas.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_pais_das_candidatas.py",
+        "line": 89,
+        "snippet": "\"QUEM_VIU\": \"curadoria/descobrir.py\", \"NOTA\": \"catalogo declarado\"},"
+      }
+    },
+    {
       "from_file": "curadoria/test_ponte_candidatas.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -22885,6 +22994,28 @@
         "file": "curadoria/test_telemetria.py",
         "line": 22,
         "snippet": "import telemetria as T"
+      }
+    },
+    {
+      "from_file": "curadoria/test_travao_sementes.py",
+      "to_file": "curadoria/decisao_semantica.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_travao_sementes.py",
+        "line": 19,
+        "snippet": "import decisao_semantica as DS   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_travao_sementes.py",
+      "to_file": "curadoria/descobrir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_travao_sementes.py",
+        "line": 18,
+        "snippet": "import descobrir as D            # noqa: E402"
       }
     },
     {
@@ -67831,10 +67962,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2220,
-    "files_readable": 891,
+    "files_tracked": 2223,
+    "files_readable": 894,
     "files_code_dir": 883,
-    "file_edges": 4706,
+    "file_edges": 4716,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
