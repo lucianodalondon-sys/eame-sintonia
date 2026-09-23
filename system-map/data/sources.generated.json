@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T00:57:48+00:00",
-    "HEAD": "9b4dea1da7190cb747d46fce2aa544bce13d5413",
+    "GENERATED_AT": "2026-09-23T01:28:48+00:00",
+    "HEAD": "195a6634ce754c1b6e0571a0d22bd301a9cbd1c1",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "097c57ebf816d2ea4c6a10de3e75a3c2cfa4678e828d088c467bacab3fd83e42",
-    "FICHEIROS_NA_IMPRESSAO": 2623,
+    "SOURCE_TREE_FINGERPRINT": "2821fbd0b65915e3eb63123546571eb4ba03fb736333ecdfb6abd7328395b502",
+    "FICHEIROS_NA_IMPRESSAO": 2637,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -18631,6 +18631,23 @@
       ]
     },
     {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 139
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 80
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/",
       "usado_por": [
         {
@@ -18837,15 +18854,41 @@
       ]
     },
     {
-      "endpoint": "https://www.regione.veneto.it/web",
+      "endpoint": "https://www.politicheagricole.it/",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 139
+          "line": 130
         },
         {
-          "file": "provas/testa_rota_italia.py",
-          "line": 62
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 85
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arpae.it/it",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 173
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arsacweb.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 187
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 88
         }
       ]
     },
@@ -18863,87 +18906,48 @@
       ]
     },
     {
-      "endpoint": "https://www.crea.gov.it/",
+      "endpoint": "https://www.meteotrentino.it/",
       "usado_por": [
         {
           "file": "curadoria/descobrir.py",
-          "line": 252
+          "line": 209
         },
         {
-          "file": "curadoria/test_discovery.py",
-          "line": 353
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 75
         }
       ]
     },
     {
-      "endpoint": "https://exemplo.it/notizie",
+      "endpoint": "https://www.arpal.liguria.it/",
       "usado_por": [
         {
-          "file": "curadoria/test_capturador.py",
-          "line": 145
+          "file": "curadoria/descobrir.py",
+          "line": 216
         },
         {
-          "file": "curadoria/validar_contratos.py",
-          "line": 212
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 68
         }
       ]
     },
     {
-      "endpoint": "https://a.it/news",
+      "endpoint": "https://www.arpalombardia.it/",
       "usado_por": [
         {
-          "file": "curadoria/test_capturador.py",
-          "line": 200
+          "file": "curadoria/descobrir.py",
+          "line": 223
         },
         {
-          "file": "tests/test_onboardar_rotas_provadas.py",
-          "line": 28
-        }
-      ]
-    },
-    {
-      "endpoint": "https://a.it/x.pdf",
-      "usado_por": [
-        {
-          "file": "curadoria/test_capturador.py",
-          "line": 219
-        },
-        {
-          "file": "curadoria/test_correr_lote.py",
-          "line": 87
-        }
-      ]
-    },
-    {
-      "endpoint": "https://youtube.com/@x",
-      "usado_por": [
-        {
-          "file": "curadoria/test_correr_lote.py",
-          "line": 46
-        },
-        {
-          "file": "curadoria/validar_contratos.py",
-          "line": 174
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.exemplo.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 462
-        },
-        {
-          "file": "tests/test_fila_italia_decisoes.py",
-          "line": 92
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 58
         }
       ]
     }
   ],
-  "ENDPOINTS_FOUND": 452,
+  "ENDPOINTS_FOUND": 495,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 412,
+  "ENDPOINTS_TRUNCATED": 455,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -18961,9 +18965,9 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 452,
+    "endpoints": 495,
     "endpoints_published": 40,
-    "endpoints_truncated": 412,
+    "endpoints_truncated": 455,
     "candidates": 241,
     "coletores": 53,
     "coletores_com_data": 20,

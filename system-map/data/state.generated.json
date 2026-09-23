@@ -755,6 +755,18 @@
       "data/samples/FR-T4-001/FR-T4-001-adama-crop-target.json",
       "data/samples/FR-T4-001/FR-T4-001-adama-produtos.json",
       "data/samples/FR-T4-001/substance_active_utf8.csv",
+      "data/samples/GABARITO-T2-T12/0e4777c2c58fc734.html",
+      "data/samples/GABARITO-T2-T12/21914d1965ff6332.html",
+      "data/samples/GABARITO-T2-T12/2689db0c9ade0144.html",
+      "data/samples/GABARITO-T2-T12/363932bd7b018ce3.html",
+      "data/samples/GABARITO-T2-T12/779f95def8053840.html",
+      "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
+      "data/samples/GABARITO-T2-T12/b3d8fcc0d86aa7dd.html",
+      "data/samples/GABARITO-T2-T12/b7666f5aec5465de.html",
+      "data/samples/GABARITO-T2-T12/be8c688138c7cb67.html",
+      "data/samples/GABARITO-T2-T12/c0356e34c298b02d.html",
+      "data/samples/GABARITO-T2-T12/d7e3dc5333347a50.html",
+      "data/samples/GABARITO-T2-T12/f58fa49f4ab33c05.html",
       "data/samples/INVENTARIO-SCRATCHPAD-HANDOFF.json",
       "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-enumeration.json",
       "data/samples/IT-ADAMA-CATALOG/2026-09-15/catalog-page-manifest.json",
@@ -1766,6 +1778,7 @@
       "medidas/corrida_instrumentada.py",
       "medidas/corrida_sem_rede.py",
       "medidas/duas_portas_reprocessa.py",
+      "medidas/gabarito_t2_t12.py",
       "medidas/incrementalidade_prova.mjs",
       "medidas/lastmile/REDE-IT-T10-018.json",
       "medidas/lastmile/REDE-IT-T10-022.json",
@@ -2452,6 +2465,7 @@
       "tests/test_fronteira_mede_a_sala_canonica.py",
       "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
+      "tests/test_gabarito_t2_t12.py",
       "tests/test_gate_de_aceitacao_tematica.py",
       "tests/test_gestao_da_coleta.py",
       "tests/test_handoff.py",
@@ -2593,16 +2607,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "9 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json … e mais 1",
+      "titulo": "10 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · GABARITO-T2-T12-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json … e mais 2",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
-        "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
-        "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json"
+        "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json"
       ]
     },
     {
@@ -3069,9 +3083,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "regua-t2-t12-v1",
-    "HEAD": "9b4dea1da7190cb747d46fce2aa544bce13d5413",
-    "GENERATED_AT": "2026-09-22T21:56:01-03:00",
-    "SOURCE_TREE_FINGERPRINT": "097c57ebf816d2ea4c6a10de3e75a3c2cfa4678e828d088c467bacab3fd83e42"
+    "HEAD": "195a6634ce754c1b6e0571a0d22bd301a9cbd1c1",
+    "GENERATED_AT": "2026-09-22T22:28:20-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2821fbd0b65915e3eb63123546571eb4ba03fb736333ecdfb6abd7328395b502"
   },
   "FAMILIES": [
     {
@@ -4557,8 +4571,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 452",
-        "desses, mostrados aqui: 40 (ficam de fora 412)"
+        "enderecos que o codigo realmente chama: 495",
+        "desses, mostrados aqui: 40 (ficam de fora 455)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -18313,30 +18327,46 @@
       "family": "F-COLETA",
       "files": [
         "medidas/canario_rotas_elegiveis.py",
+        "medidas/gabarito_t2_t12.py",
         "medidas/relevancia_antes_da_coleta.py"
       ],
-      "file_count": 2,
+      "file_count": 3,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json"
+        "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json"
       ],
       "inbound": [
         "C-ADMISSAO",
         "C-IT-CONTRATOS",
         "C-ORQUESTRADOR"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json"
+        "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json"
       ],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "SITES"
+        ],
+        "palavras": 199,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 199,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
@@ -18352,6 +18382,12 @@
         {
           "onde": "GIT",
           "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -18374,6 +18410,7 @@
       "consumes": [
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "data/samples/GABARITO-T2-T12/GABARITO-T2-T12-V1.json",
         "regras/motor_de_rota.mjs"
       ],
       "consumes_plane": "CODE",
@@ -18385,11 +18422,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "tests/test_gabarito_t2_t12.py:9"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 11310,
       "y": 360
@@ -39860,6 +39901,7 @@
         "tests/test_fronteira_mede_a_sala_canonica.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
+        "tests/test_gabarito_t2_t12.py",
         "tests/test_gate_de_aceitacao_tematica.py",
         "tests/test_gestao_da_coleta.py",
         "tests/test_handoff.py",
@@ -39958,7 +40000,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 201,
+      "file_count": 202,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -39997,6 +40039,7 @@
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
         "C-CADEIA-V21",
+        "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CENSO-ARMAZEM-IT",
         "C-CENSO-CARDS-SENSORES",
         "C-CENSO-CONGELAMENTO",
@@ -50892,6 +50935,41 @@
         }
       ],
       "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O canario das rotas das fontes aprovadas tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_gabarito_t2_t12.py",
+          "line": 9,
+          "snippet": "import gabarito_t2_t12 as G  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--IMPORTS-->C-TESTES",
+            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -102524,7 +102602,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1401,
+  "UNCLAIMED_FILES_COUNT": 1412,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102709,12 +102787,12 @@
     "components_pending": 185,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1153,
-    "edges_proven": 1089,
+    "edges": 1154,
+    "edges_proven": 1090,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2475,
-    "files_covered": 1074,
+    "files_tracked": 2489,
+    "files_covered": 1077,
     "files_code_unclaimed": 0,
     "roles_proven": 154,
     "roles_declared_only": 9,
