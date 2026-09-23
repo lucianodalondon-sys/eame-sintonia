@@ -284,6 +284,40 @@ def cadeia_dos_documentos(run_ids) -> dict:
             "DERIVADOS_DE_DOCUMENTO": sorted({l[3] for l in docs if l[3]})}
 
 
+def segunda_passagem(obs1: list[dict], obs2: list[dict], runs2: list[dict],
+                     registo2: list[dict], antes2: dict, depois2: dict) -> dict:
+    """REFETCH e FALSO-MUDOU medidos a serio: a mesma coorte, a mesma base, o mesmo
+    livro do coletor, e o servidor serve EXACTAMENTE os mesmos bytes. Qualquer
+    «mudou» ou «novo» para um URL cujo sha e igual ao da 1.a passagem e falso."""
+    sha1 = {}
+    for o in obs1:
+        if o.get("RAW_SHA256"):
+            sha1[o.get("SOURCE_URL")] = o["RAW_SHA256"]
+    falso_mudou, falso_novo, resultados = [], [], {}
+    for o in obs2:
+        r = str(o.get("OBSERVATION_RESULT") or AUSENCIA)
+        resultados[r] = resultados.get(r, 0) + 1
+        igual = o.get("RAW_SHA256") and sha1.get(o.get("SOURCE_URL")) == o.get("RAW_SHA256")
+        if igual and "CHANGED" in r:
+            falso_mudou.append(o.get("SOURCE_URL"))
+        if igual and r in ("NEW_DOCUMENT", "BASELINE_DOCUMENT"):
+            falso_novo.append(o.get("SOURCE_URL"))
+
+    def soma(k):
+        return sum(int((x.get("contadores") or x).get(k) or 0) for x in runs2)
+    return {
+        "UNNECESSARY_REFETCHES": soma("UNNECESSARY_REFETCHES"),
+        "FALSE_DOCUMENT_CHANGED": len(falso_mudou),
+        "FALSO_NOVO_DOCUMENTO": len(falso_novo),
+        "SKIPPED_KNOWN": soma("SKIPPED_KNOWN"), "REVALIDATED": soma("REVALIDATED"),
+        "DETAIL_REQUESTS": soma("DETAIL_REQUESTS"), "INDEX_REQUESTS": soma("INDEX_REQUESTS"),
+        "OBSERVACOES": len(obs2), "RESULTADOS": resultados,
+        "PEDIDOS_AO_SERVIDOR": len(registo2),
+        "RAW_NOVOS_NA_BASE": depois2["raw_asset"] - antes2["raw_asset"],
+        "SALA_DELTA": depois2["sala_de_espera"] - antes2["sala_de_espera"],
+        "EXEMPLOS_FALSO_MUDOU": falso_mudou[:10], "EXEMPLOS_FALSO_NOVO": falso_novo[:10]}
+
+
 def campos(corridas, rel, antes, depois, runs, observacoes, registo, rede_py, cad=None) -> dict:
     """Cada campo com o VALOR, a PECA que o produziu e o ESTADO da rota ate ao instrumento."""
     ids = {c.get("RUN_ID") for c in corridas}
@@ -373,7 +407,13 @@ def campos(corridas, rel, antes, depois, runs, observacoes, registo, rede_py, ca
 # ── A CORRIDA ─────────────────────────────────────────────────────────────
 def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
-    fontes = next((a.split("=", 1)[1].split(",") for a in argv if a.startswith("--fontes=")), COORTE_G1)
+    fontes = next((a.split("=", 1)[1].split(",") for a in argv if a.startswith("--fontes=")), None)
+    duas = "--duas-passagens" in argv
+    plano_do_portao = None
+    if fontes is None:
+        # A coorte e a do instrumento: o que o PORTAO elege e a capacidade deixa correr.
+        plano_do_portao = MC.plano()
+        fontes = [l["SOURCE_ID"] for l in plano_do_portao["LINHAS"] if l["ESTADO"] == "PRONTA"]
     manter = "--manter" in argv
     provar_rollback = "--provar-rollback" in argv
     D = Path(os.environ.get("TEMP", "/tmp")) / ("micro-ensaio-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
@@ -408,6 +448,11 @@ def main(argv=None) -> int:
                 "PATH": str(PG_BIN) + os.pathsep + os.environ.get("PATH", "")})
     (D / "ops").mkdir()
     resultado = {"ENSAIO": str(D), "INICIO": agora(), "FONTES": fontes,
+                 "COORTE": (plano_do_portao or {}).get("COORTE", "ARGUMENTO --fontes"),
+                 "BLOQUEADAS_PELA_CAPACIDADE": [{"SOURCE_ID": l["SOURCE_ID"], "FALTA": l["FALTA"]}
+                                                for l in (plano_do_portao or {}).get("LINHAS", [])
+                                                if l["ESTADO"] != "PRONTA"],
+                 "G1_FORA_DO_PORTAO": (plano_do_portao or {}).get("G1_FORA_DO_PORTAO"),
                  "FIXTURES": len(mapa), "PORTOS": {"HTTP": ph, "HTTPS": ps, "PG": base.porto}}
     try:
         resultado["BASE"] = base.subir(arvore, env)
@@ -465,6 +510,33 @@ def main(argv=None) -> int:
         rel = MC.relatorio(runs, corridas=corridas,
                            livro=arvore / "data" / "samples" / "LIVRO-DE-DECISOES.json",
                            armazem=arvore, saida=saida) if runs and not provar_rollback else None
+        led = D / "ops" / "data" / "collection-ledger" / "italy"
+        if duas:
+            obs1 = ler_ndjson(led / "observations.ndjson")
+            n_reg, antes2 = len(srv.registo), contagens()
+            corridas2 = []
+            for s in fontes:
+                x = subprocess.run([sys.executable, "medidas/corrida_sem_rede.py",
+                                    f"--saida={saida / ('rede2-' + s + '.json')}", "--"] + MC.comando(s)[2:],
+                                   cwd=str(arvore), env=env, capture_output=True, text=True,
+                                   encoding="utf-8", errors="replace", timeout=1800)
+                (saida / f"saida2-{s}.txt").write_text(x.stdout + "\n--- ERR\n" + x.stderr,
+                                                       encoding="utf-8")
+                m = re.search(r"CORRIDA (\S+) · (\S+)", x.stdout)
+                corridas2.append({"SOURCE_ID": s, "CODIGO": x.returncode,
+                                  "STATUS": m.group(1) if m else AUSENCIA,
+                                  "RUN_ID": m.group(2) if m else AUSENCIA})
+                print("2a", s, corridas2[-1]["STATUS"], corridas2[-1]["RUN_ID"], flush=True)
+            ids2 = {c["RUN_ID"] for c in corridas2}
+            obs_todas = ler_ndjson(led / "observations.ndjson")
+            resultado["SEGUNDA_PASSAGEM"] = {
+                "CORRIDAS": corridas2,
+                **segunda_passagem(obs1, [o for o in obs_todas if o.get("RUN_ID") in ids2],
+                                   [r for r in ler_ndjson(led / "runs.ndjson") if r.get("RUN_ID") in ids2],
+                                   srv.registo[n_reg:], antes2, contagens()),
+                "SALA_ITENS_EM_MAIS_DE_UMA_CORRIDA": [x[0] for x in MC.sql(
+                    "select item_id from sala_de_espera group by item_id"
+                    " having count(distinct run_id) > 1 order by 1")]}
         rede_py = {"EGRESSO": sum(len(c["REDE_PYTHON"].get("EGRESSO") or [])
                                   if isinstance(c["REDE_PYTHON"].get("EGRESSO"), list)
                                   else int(c["REDE_PYTHON"].get("EGRESSO") or 0) for c in corridas)}

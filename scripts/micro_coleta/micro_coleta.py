@@ -467,9 +467,41 @@ def e_tentativa_falhada(armazem: Path, storage_path: str, media_type: str) -> di
     return None
 
 
+# ── OS CONTADORES DO COLETOR ───────────────────────────────────────────────
+# O coletor Node conta o que so ele ve (saude real da fonte, detalhes, refetch,
+# pedidos a rede) e escreve-o em runs.ndjson — o italy_executor so devolve o
+# codigo de saida. Sem isto, SUCCESS = «o processo saiu com 0», e uma fonte
+# FAILED no coletor sai SUCCESS (medido na A1).
+def ledger_do_coletor() -> Path:
+    return Path(os.environ.get("ITALY_OPS_ROOT") or RAIZ) / "data" / "collection-ledger" / "italy"
+
+
+def contadores_do_coletor(run_ids: list[str], pasta: Path | None = None) -> dict:
+    p = (pasta or ledger_do_coletor()) / "runs.ndjson"
+    somas: dict = {}
+    achados = set()
+    if p.exists():
+        for l in p.read_text(encoding="utf-8").splitlines():
+            if not l.strip():
+                continue
+            r = json.loads(l)
+            if r.get("RUN_ID") in run_ids:
+                achados.add(r["RUN_ID"])
+                for k, v in (r.get("contadores") or {}).items():
+                    if isinstance(v, (int, float)):
+                        somas[k] = somas.get(k, 0) + v
+    return {"RUNS_NO_LEDGER": len(achados), "RUNS_SEM_LEDGER": sorted(set(run_ids) - achados),
+            "SOURCES_SUCCESS": somas.get("HEALTHY", 0), "SOURCES_DEGRADED": somas.get("DEGRADED", 0),
+            "SOURCES_FAILED": somas.get("FAILED", 0), "DETAIL_DOCUMENTS": somas.get("DETAIL_NEW", 0),
+            "DETAIL_REQUESTS": somas.get("DETAIL_REQUESTS", 0),
+            "NETWORK_REQUESTS": somas.get("DETAIL_REQUESTS", 0) + somas.get("INDEX_REQUESTS", 0),
+            "UNNECESSARY_REFETCHES": somas.get("UNNECESSARY_REFETCHES", 0),
+            "SKIPPED_KNOWN": somas.get("SKIPPED_KNOWN", 0), "LEDGER": str(p)}
+
+
 def relatorio(run_ids: list[str], *, corridas: list | None = None,
               consulta=sql, livro: Path = LIVRO, armazem: Path | None = None,
-              saida: Path | None = None) -> dict:
+              saida: Path | None = None, ledger: Path | None = None) -> dict:
     em = _em(run_ids)
     armazem = armazem or _armazem()
     obs = consulta(
@@ -486,6 +518,15 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
         "   join collection_run c on c.run_id = r.run_id"
         "  where r.id::text = s.raw_observation_id::text and 'derived:' || d.id = s.item_id)"
         f" from sala_de_espera s where s.run_id in ({em})")
+    # ⚠️ O MESMO ITEM DUAS VEZES NA SALA. Medido na 2.a passagem do ensaio (A2):
+    # uma materia REVALIDADA e igual (SEEN_AGAIN) atravessou a Admission outra vez
+    # e pousou de novo, com outra observacao e outro run_id — 4 itens em dobro.
+    # A Sala real ja tem itens do lote-76; conta-se aqui, sem corrigir (a Sala e
+    # a Admission tem outro dono).
+    ja_na_sala = consulta(
+        "select s.item_id, count(distinct s.run_id) from sala_de_espera s"
+        f" where s.item_id in (select item_id from sala_de_espera where run_id in ({em}))"
+        f" and s.run_id not in ({em}) group by s.item_id")
     decisoes = [d for d in json.loads(Path(livro).read_text(encoding="utf-8"))["DECISOES"]
                 if d.get("corrida") in run_ids]
     por_item = {d["item"]: d for d in decisoes}
@@ -629,7 +670,10 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
            "CONTAGENS": {"RAW_LINHAS": todas_as_linhas, "RAW_CREATED": len(obs),
                          "TENTATIVAS_FALHADAS": len(falhadas),
                          "TENTATIVAS_POR_RESULTADO": motivos,
-                         "TENTATIVAS": falhadas[:200]},
+                         "TENTATIVAS": falhadas[:200],
+                         "COLETOR": contadores_do_coletor(run_ids, ledger),
+                         "SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA": len(ja_na_sala),
+                         "SALA_DUPLICADOS_EXEMPLOS": [x[0] for x in ja_na_sala][:20]},
            "PASSOU": sum(1 for c in C.values() if c["PASSA"]), "DE": len(C),
            "LEI": "so SELECT; default_transaction_read_only=on na ligacao"}
     if saida:

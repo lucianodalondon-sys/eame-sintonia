@@ -122,6 +122,45 @@ class TestRegistoDeFalha(unittest.TestCase):
         self.assertFalse(E.e_registo_de_falha(t, "p.html", "text/html"))
 
 
+class TestSegundaPassagem(unittest.TestCase):
+    """Mesmos bytes nas duas passagens: todo «mudou»/«novo» para o mesmo URL e falso."""
+
+    def test_falso_mudou_e_falso_novo_contam_so_com_sha_igual(self):
+        obs1 = [{"SOURCE_URL": "u1", "RAW_SHA256": "a"}, {"SOURCE_URL": "u2", "RAW_SHA256": "b"},
+                {"SOURCE_URL": "u3", "RAW_SHA256": "c"}]
+        obs2 = [{"SOURCE_URL": "u1", "RAW_SHA256": "a", "OBSERVATION_RESULT": "DOCUMENT_CHANGED_IN_PLACE"},
+                {"SOURCE_URL": "u2", "RAW_SHA256": "b", "OBSERVATION_RESULT": "NEW_DOCUMENT"},
+                {"SOURCE_URL": "u3", "RAW_SHA256": "c", "OBSERVATION_RESULT": "SEEN_AGAIN"},
+                {"SOURCE_URL": "u4", "RAW_SHA256": "z", "OBSERVATION_RESULT": "NEW_DOCUMENT"}]
+        runs2 = [{"contadores": {"UNNECESSARY_REFETCHES": 2, "SKIPPED_KNOWN": 5}}]
+        r = E.segunda_passagem(obs1, obs2, runs2, [{}] * 3,
+                               {"raw_asset": 10, "sala_de_espera": 4}, {"raw_asset": 11, "sala_de_espera": 4})
+        self.assertEqual(r["FALSE_DOCUMENT_CHANGED"], 1)
+        self.assertEqual(r["FALSO_NOVO_DOCUMENTO"], 1)       # u4 e novo de verdade: nao conta
+        self.assertEqual(r["UNNECESSARY_REFETCHES"], 2)
+        self.assertEqual(r["SKIPPED_KNOWN"], 5)
+        self.assertEqual(r["RAW_NOVOS_NA_BASE"], 1)
+
+
+class TestComandoDeBackup(unittest.TestCase):
+    """O comando da micro e o do backup_sala.cmd oficial — se um mudar, o outro reprova."""
+
+    def test_mesmas_opcoes_do_backup_oficial(self):
+        cmd_oficial = Path.home() / "sintonia-sala-italia" / "backup_sala.cmd"
+        if not cmd_oficial.exists():
+            self.skipTest("backup_sala.cmd ausente nesta maquina")
+        linha = next(l for l in cmd_oficial.read_text(encoding="utf-8", errors="replace").splitlines()
+                     if "pg_dump.exe" in l and not l.strip().upper().startswith("REM"))
+        _spec_b = importlib.util.spec_from_file_location(
+            "provar_backup_da_sala", RAIZ / "scripts" / "micro_coleta" / "provar_backup_da_sala.py")
+        B = importlib.util.module_from_spec(_spec_b)
+        _spec_b.loader.exec_module(B)
+        meu = B.comando_de_backup("DSN", Path("x.dump"))
+        for opcao in ("-Fc", "-Z", "6", "--no-owner", "--no-privileges", "-f"):
+            self.assertIn(opcao, linha, opcao)
+            self.assertIn(opcao, meu, opcao)
+
+
 class TestCampos(unittest.TestCase):
     """Os 15 campos do mandato: valor, peca e rota — sem falha de ensaio contada como proveniencia."""
 

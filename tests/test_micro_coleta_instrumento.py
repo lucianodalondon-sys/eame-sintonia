@@ -255,6 +255,7 @@ class TestRelatorioComFixture(unittest.TestCase):
             + b"</body></html>")
         (self.t / "XX" / "en.txt").write_text("the price of the pears and of the apples is up for the market " * 5, encoding="utf-8")
         (self.t / "XX" / "it.txt").write_text("il prezzo delle pere e di che per con gli nel " * 5, encoding="utf-8")
+        self.duplicados = []
         self.livro = self.t / "livro.json"
         self.livro.write_text(json.dumps({"DECISOES": [
             {"item": "derived:10", "resultado": "SIM", "corrida": "R1"},
@@ -266,6 +267,8 @@ class TestRelatorioComFixture(unittest.TestCase):
                 return [["1", "IT-X-1", "text/html", "XX/materia.html", "7", "10", "t", "R1",
                          "https://www.myfruit.it/news/dai-mercati-pomodori-sempre-alle-stelle", "XX/en.txt"],
                         ["2", "IT-X-1", "text/html", "XX/capa.html", "8", "11", "t", "R1", "", "XX/it.txt"]]
+            if "count(distinct s.run_id)" in s:
+                return self.duplicados
             if "from sala_de_espera" in s:
                 return [[sala_item, "1", "IT-X-1", "NAO SEI", "NAO SEI", "t", "R1", cadeia]]
             raise AssertionError(s)
@@ -293,6 +296,33 @@ class TestRelatorioComFixture(unittest.TestCase):
         self.assertEqual(c4["OBSERVACOES"], 2)
         self.assertEqual(c4["TENTATIVAS_FALHADAS_A_PARTE"], 1)
         self.assertNotIn("SEM_DERIVADO", r["CRITERIOS"]["C7_PROPORCAO_POR_FONTE_E_CLASSE"]["POR_FONTE"]["IT-X-1"])
+
+    def test_contadores_do_coletor_vem_do_runs_ndjson_pelo_run_id(self):
+        led = self.t / "led"
+        led.mkdir()
+        linhas = [
+            {"RUN_ID": "R1", "contadores": {"HEALTHY": 0, "FAILED": 1, "DETAIL_NEW": 3,
+                                            "DETAIL_REQUESTS": 3, "INDEX_REQUESTS": 1,
+                                            "UNNECESSARY_REFETCHES": 0}},
+            {"RUN_ID": "OUTRA", "contadores": {"HEALTHY": 9}}]
+        (led / "runs.ndjson").write_text("".join(json.dumps(x) + "\n" for x in linhas),
+                                         encoding="utf-8")
+        r = MC.relatorio(["R1"], consulta=self._consulta(), livro=self.livro, armazem=self.t, ledger=led)
+        c = r["CONTAGENS"]["COLETOR"]
+        self.assertEqual((c["SOURCES_SUCCESS"], c["SOURCES_FAILED"]), (0, 1))
+        self.assertEqual(c["DETAIL_DOCUMENTS"], 3)
+        self.assertEqual(c["NETWORK_REQUESTS"], 4)
+        self.assertEqual(c["RUNS_SEM_LEDGER"], [])
+
+    def test_item_que_ja_estava_na_sala_por_outra_corrida_e_contado(self):
+        self.duplicados = [["derived:10", "1"]]
+        r = MC.relatorio(["R1"], consulta=self._consulta(), livro=self.livro, armazem=self.t)
+        self.assertEqual(r["CONTAGENS"]["SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA"], 1)
+        self.assertEqual(r["CONTAGENS"]["SALA_DUPLICADOS_EXEMPLOS"], ["derived:10"])
+
+    def test_sem_duplicados_conta_zero(self):
+        r = MC.relatorio(["R1"], consulta=self._consulta(), livro=self.livro, armazem=self.t)
+        self.assertEqual(r["CONTAGENS"]["SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA"], 0)
 
     def test_json_de_verdade_continua_documento(self):
         (self.t / "XX" / "api.json").write_text(json.dumps({"dados": [1, 2]}), encoding="utf-8")
