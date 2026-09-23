@@ -347,6 +347,9 @@
       "curadoria/FILA-WINDOWS-PROOF-V1.json",
       "curadoria/FRENTE2-FACTOS-REMEDIDOS.md",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
+      "curadoria/G2-GATES-MEDIDOS-V1.json",
+      "curadoria/G2-PROVENIENCIA-V1.json",
+      "curadoria/G2-RED-TEAM-V1.json",
       "curadoria/GABARITO-T2-T12-INVENTARIO-V1.json",
       "curadoria/GABARITO-T2-T12-V1.json",
       "curadoria/GABARITO-T2-T12-V2.json",
@@ -1957,8 +1960,11 @@
       "medidas/lastmile/REDE-IT-T7-042.json",
       "medidas/lastmile/REDE-T7-043.json",
       "medidas/lastmile/REDE-T7-043b.json",
+      "medidas/medir_gates_g2.py",
+      "medidas/medir_proveniencia_g2.py",
       "medidas/micro_colheita.py",
       "medidas/montar_proposta_catalogo.py",
+      "medidas/mutacao_trava_g2.py",
       "medidas/o_contrato_do_universo.py",
       "medidas/padrao_da_coleta.py",
       "medidas/paridade_replay.mjs",
@@ -3318,10 +3324,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
-    "GENERATED_AT": "2026-09-23T11:26:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d"
+    "BRANCH": "gates-medidos-v1",
+    "HEAD": "bf1de5a36511c769dd7747ce19f2b8a8e29d91dc",
+    "GENERATED_AT": "2026-09-23T13:59:28-03:00",
+    "SOURCE_TREE_FINGERPRINT": "44f531d718c3b14e6629382a5d68e2c8db28657f08e052f47189ac3024d22d6a"
   },
   "FAMILIES": [
     {
@@ -49041,7 +49047,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch gates-medidos-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -111729,8 +111735,12 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1536,
+  "UNCLAIMED_CODE_FILES": [
+    "medidas/medir_gates_g2.py",
+    "medidas/medir_proveniencia_g2.py",
+    "medidas/mutacao_trava_g2.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1542,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -111967,9 +111977,9 @@
     "edges_proven": 1139,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2725,
+    "files_tracked": 2731,
     "files_covered": 1189,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 3,
     "roles_proven": 161,
     "roles_declared_only": 8,
     "roles_unknown": 63,
