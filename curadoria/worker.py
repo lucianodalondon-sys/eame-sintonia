@@ -458,7 +458,9 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
     #     UM «NAO SEI FAZER» ESCRITO A MAO NAO SE DESACTUALIZA SOZINHO.
     canal = None
     if familia == "YOUTUBE":
-        canal = RSY.channel_id_da_url(ficha.get("URL", ""))
+        canal = (RSY.channel_id_da_url(ficha.get("URL", ""))
+                 # SOC4: o @handle que a API oficial ja resolveu (registo com a corrida)
+                 or RSY.canal_resolvido(cand_id, ficha.get("URL", "")))
         if not canal:
             return "BLOCK", {"CLASSE": "CAPABILITY", "IDENTIDADE": "NAO SEI",
                              "PORQUE": ("NAO SEI: canal YouTube sem channel_id no endereco (%s): "

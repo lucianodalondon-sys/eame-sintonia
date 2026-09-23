@@ -244,3 +244,20 @@ def heranca_do_site(ficha: dict, *, tabela=None, livro=None, atlas_texto=None) -
                                 % (host, ", ".join(territorios))}
     return territorios[0], {"REGRA": "D21", "SITE": pagina, "HOST": host, "LIGACAO": como,
                             "SOURCE_IDS_DO_SITE": sorted(por_sid), "TERRITORIO": territorios[0]}
+
+
+# ── SOC4 · O channel_id QUE A API DEVOLVEU PARA UM @handle ──────────────────
+# `curadoria/resolver_handles_youtube.py` pede ao Scrap (`youtube.channel.resolve`,
+# API oficial) o channel_id das candidatas cujo endereço não o traz, e guarda o
+# resultado em RESOLUCAO-HANDLES-YOUTUBE-V1.json. O QUALIFY lê daqui SÓ o que ficou
+# RESOLVIDO e bate com o endereço da ficha — nunca por nome, nunca por palpite.
+RESOLUCAO = RAIZ / "curadoria" / "RESOLUCAO-HANDLES-YOUTUBE-V1.json"
+
+
+def canal_resolvido(cand_id: str, url: str, caminho: Path | None = None) -> str | None:
+    d = _ler(caminho or RESOLUCAO)
+    for l in d.get("LINHAS") or []:
+        if (l.get("CANDIDATA_ID") == cand_id and l.get("ESTADO") == "RESOLVIDO"
+                and l.get("URL") == url and RE_CANAL.match(l.get("CHANNEL_ID") or "")):
+            return l["CHANNEL_ID"]
+    return None
