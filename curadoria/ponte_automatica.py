@@ -284,6 +284,8 @@ def uma_volta(*, lane: Path = LANE_DO_BOT, forcar: bool = False) -> dict:
                            "DEPOIS": aplicado["LINHAS_DEPOIS"],
                            "APENDIDAS": aplicado["APENDIDAS"]},
         "PROVAS_IMPORTADAS": aplicado["EVIDENCIA"]["PROVAS_IMPORTADAS"],
+        "CONTRATOS_IMPORTADOS": aplicado["CONTRATOS"]["CONTRATOS_IMPORTADOS"],
+        "COLISOES_DE_DONO": len(aplicado["CONTRATOS"]["COLISOES_DE_DONO"]),
         "PORTAO": {
             "ELIGIBLE_ANTES": len(elegiveis_antes),
             "ELIGIBLE_DEPOIS": len(elegiveis_depois),
@@ -297,8 +299,11 @@ def uma_volta(*, lane: Path = LANE_DO_BOT, forcar: bool = False) -> dict:
     # volta atravessou e nao acrescentou uma linha. Somar isso a TRAVESSIAS
     # dava um contador que sobrestima, e um contador que sobrestima e um
     # contador que engana: alguem leria «3 travessias» onde houve 2.
+    # Uma prova ou um contrato que atravessou sem transicao nova tambem e
+    # noticia: e o que faz uma fonte parada em READY_LEGACY passar a regua.
     houve_noticia = bool(aplicado["APENDIDAS"] or r["PORTAO"]["ENTRARAM"]
-                         or r["PORTAO"]["SAIRAM"])
+                         or r["PORTAO"]["SAIRAM"] or r["PROVAS_IMPORTADAS"]
+                         or r["CONTRATOS_IMPORTADOS"])
     if houve_noticia:
         e["TRAVESSIAS"] = e.get("TRAVESSIAS", 0) + 1
         estado_gravado(e)

@@ -674,11 +674,52 @@ def decidir(chave: str, chaves_originais: list, tipo: str, ctx: dict) -> dict:
 
     final, porque, ev_final = _combinar(chave, tA, tB, vA, pA, vB, pB, ctx)
     final, porque, ev_final = _degrau_c(chave, tA, tC, vC, pC, final, porque, ev_final, ctx)
+    if final == READY_CURRENT:
+        falta_dono = dono_do_contrato(chave, ctx)
+        if falta_dono:
+            linha["DONO_DO_CONTRATO"] = falta_dono
+            final, porque = NOT_READY, falta_dono + " | antes: " + porque
     linha.update(FINAL_STATE=final, FINAL_REASON=porque, LATEST_VALID_EVIDENCE=ev_final,
                  LIFECYCLE_TARGET=_alvo_lifecycle(final, tA, tB, tB2, tC))
     if final == READY_CURRENT:
         linha["REVISAO_HUMANA"] = _item_parece_seccao(chave, ctx)
     return linha
+
+
+def dono_do_contrato(sid: str, ctx: dict) -> str | None:
+    """`None` = o bot mede o MESMO contrato que o portao le. Texto = nao mede, e porque.
+
+    ⚠️ UM SO DONO DO CONTRATO (B2, 2026-09-23). Prova viva T02077: a
+    coordenacao pediu ao bot que re-medisse IT-T5-041 e ele respondeu «BLOCK
+    VALIDATE_ROUTE sem contrato» — nenhuma transicao nova, e o portao ficou com
+    ela ELIGIBLE. O READY dela nasceu nesta arvore (listagem provada a 21/09),
+    com um contrato que o bot nao tem. Medido no mesmo dia: as 8 elegiveis tem
+    TODAS um contrato diferente no bot (o bot mede a homepage; esta arvore, a
+    listagem afinada). Uma fonte que o bot nao consegue re-medir e uma fonte
+    que nunca sai do portao — nem quando o sitio muda de casa.
+
+        O PORTAO NAO TEM ELEGIVEL O QUE O BOT NAO CONSEGUE MEDIR.
+
+    Contrato em falta NESTA arvore e presente no bot nao e falta de dono:
+    `importar_contratos_do_bot` trá-lo nesta mesma volta, igual.
+
+    ⚠️ LIVRO DE CONTRATOS DO BOT ILEGIVEL NAO E «O BOT NAO TEM». Com
+    `CONTRATOS_C` vazio (ficheiro ausente, corte sem contratos) a regra nao
+    se aplica — senao uma falha de leitura despromovia o portao inteiro.
+    """
+    CC = ctx.get("CONTRATOS_C") or {}
+    if not CC:
+        return None
+    cC = CC.get(sid)
+    cA = (ctx.get("CONTRATOS_A") or {}).get(sid)
+    if cC is None:
+        return ("DONO_DO_CONTRATO: o bot nao tem contrato para esta fonte — nao a consegue "
+                "re-medir; o READY desta arvore fica sem quem o confirme")
+    if cA is not None and _aquisicao(cA) != _aquisicao(cC):
+        rota = lambda c: (c.get("ACQUISITION") or {}).get("INDEX_URL") or c.get("CANONICAL_ENTRY_URL")
+        return ("DONO_DO_CONTRATO: o bot mede outra rota (%s) que nao a que o portao le (%s) — "
+                "dois donos para o mesmo contrato" % (rota(cC), rota(cA)))
+    return None
 
 
 def _item_parece_seccao(sid: str, ctx: dict) -> str | None:
@@ -1196,6 +1237,16 @@ def importar_provas_do_bot(plano_: list, ctx: dict) -> dict:
     comuns, todas iguais byte a byte, 0 colisoes.
     """
     refs = {p["EVIDENCE_REF"] for p in plano_ if p.get("EVIDENCE_REF")}
+    # ⚠️ E O QUE FICOU PARA TRAS TAMBEM (B2, 2026-09-23). O plano so traz as
+    # fontes cujo estado MUDA nesta volta. Uma promocao que atravessou numa
+    # volta em que a prova nao veio (medido: a ponte viva corria codigo
+    # anterior a esta funcao importar alguma coisa — 23 de 35 READY do bot
+    # ficaram sem prova no manifesto) nunca mais entrava no plano: o estado ja
+    # estava certo, e a prova ficava no bot para sempre. Cada volta olha
+    # tambem para todas as referencias que o livro canonico JA cita e que o
+    # manifesto local nao tem. Idempotente: uma prova ja ca nao volta a vir.
+    refs |= {t["EVIDENCE_REF"] for t in LC._ler_bruto()["TRANSICOES"]
+             if t.get("EVIDENCE_REF")}
     # ⚠️ A REFERENCIA QUE O PLANO CITA NAO E A CHAVE DO MANIFESTO DO BOT.
     # `_ref_da_decisao` carimba a proveniencia no proprio texto —
     # «RECONCILIACAO-V1:livro_C_(bot)@<commit>:EV-IT-T12-019-CANARY-1282» — e o
@@ -1247,6 +1298,62 @@ def importar_provas_do_bot(plano_: list, ctx: dict) -> dict:
             "PROVAS_NO_MANIFESTO_DEPOIS": len(doc["PROVAS"])}
 
 
+def _aquisicao(c: dict | None) -> str:
+    return json.dumps((c or {}).get("ACQUISITION"), sort_keys=True, ensure_ascii=False)
+
+
+def importar_contratos_do_bot(ctx: dict) -> dict:
+    """Traz para o livro de contratos DESTA arvore os contratos que so o bot tem.
+
+    ⚠️ O CONTRATO SEM O ESTADO NAO SERVE, E O ESTADO SEM O CONTRATO TAMBEM NAO.
+    `collection_gate` le a regua sobre `italy_contracts_curator.json` DESTA
+    arvore. Medido (B1/B2, 2026-09-23): das 35 fontes que o bot promoveu na
+    janela do observador, 35 atravessaram SEM contrato aqui — e sem contrato
+    o passo INDEX_URL da regua e falso, e a fonte nunca sai de READY_LEGACY.
+    Nenhuma peca trazia o contrato: `CONTRATOS_C` so servia para decidir.
+
+    SO O QUE FALTA. Um contrato que ja existe aqui NUNCA e sobreposto: se o do
+    bot tiver outra aquisicao, e uma COLISAO de dono (dois contratos para a
+    mesma fonte) — fica de fora e fica dita, com as duas entradas lado a lado.
+    Quem decide o dono e o dono, nao esta funcao.
+
+    So entram contratos de fontes que o livro canonico conhece: a ponte nao
+    semeia fontes no livro de contratos.
+    """
+    CC = ctx.get("CONTRATOS_C", {}) or {}
+    caminho = CONTRATOS_A
+    doc = _json(caminho, {"DATASET": "SOURCE-CURATOR-CONTRACTS-V1", "FONTES": []})
+    locais = {c["SOURCE_ID"]: c for c in doc.get("FONTES", [])}
+    conhecidas = {t["SOURCE_ID"] for t in LC._ler_bruto()["TRANSICOES"]}
+    novos, colisoes, iguais = [], [], 0
+    for sid in sorted(conhecidas & set(CC)):
+        c = CC[sid]
+        if sid in locais:
+            if _aquisicao(locais[sid]) == _aquisicao(c):
+                iguais += 1
+            else:
+                colisoes.append({
+                    "SOURCE_ID": sid,
+                    "INDEX_AQUI": ((locais[sid].get("ACQUISITION") or {}).get("INDEX_URL")
+                                   or locais[sid].get("CANONICAL_ENTRY_URL")),
+                    "INDEX_NO_BOT": ((c.get("ACQUISITION") or {}).get("INDEX_URL")
+                                     or c.get("CANONICAL_ENTRY_URL")),
+                    "RESOLUCAO": "NAO IMPORTADO — dois contratos para a mesma fonte; decide o dono"})
+            continue
+        novo = dict(c)
+        novo["IMPORTADO_DE"] = {"LIVRO": "C", "COMMIT": ctx["COMMITS"].get("C"),
+                                "BRANCH": BRANCH_C, "MISSAO": MISSAO, "EM": agora()}
+        novos.append(novo)
+    if novos:
+        doc["FONTES"] = doc.get("FONTES", []) + novos
+        caminho.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n",
+                           encoding="utf-8")
+    return {"CONTRATOS_IMPORTADOS": len(novos),
+            "IMPORTADOS": [c["SOURCE_ID"] for c in novos],
+            "CONTRATOS_JA_IGUAIS": iguais,
+            "COLISOES_DE_DONO": colisoes}
+
+
 def aplicar(doc: dict, ctx: dict) -> dict:
     """Grava o plano no livro A por `lifecycle.registar`. Devolve o resumo.
     Fontes cuja cadeia e ilegal ficam de fora, nomeadas."""
@@ -1263,10 +1370,11 @@ def aplicar(doc: dict, ctx: dict) -> dict:
         gravadas += 1
     depois = len(LC._ler_bruto()["TRANSICOES"])
     provas = importar_provas_do_bot([t for t in p if t["SOURCE_ID"] not in ilegais], ctx)
+    contratos = importar_contratos_do_bot(ctx)
     return {"APLICADO_EM": agora(), "LINHAS_ANTES": antes, "LINHAS_DEPOIS": depois,
             "APENDIDAS": gravadas, "PLANEADAS": len(p),
             "CADEIAS_ILEGAIS_NAO_IMPORTADAS": sorted(ilegais), "FALTAS": faltas,
-            "EVIDENCIA": provas}
+            "EVIDENCIA": provas, "CONTRATOS": contratos}
 
 
 def _opcao(argv: list, nome: str) -> str | None:
