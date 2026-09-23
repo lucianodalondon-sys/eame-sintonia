@@ -416,6 +416,31 @@ def _valores_de_identidade(objeto):
             if isinstance(k, str) and v not in (None, '')}
 
 
+def _referencia_e_especie(objeto):
+    """→ (caminho do ficheiro, espécie dos bytes) tal como o COLETOR os declarou.
+
+    ⚠️ DUAS FORMAS DECLARADAS, E NENHUMA ADIVINHADA. Medido no HEAD:
+
+        YouTube · `youtube_audio_publico`   AUDIO_REFERENCE + CONTENT_TYPE
+                                            no TOPO do objeto
+        Reel    · `reel_transcricao`        RAW.STORAGE_LOCATION + RAW.CONTENT_TYPE
+                                            dentro da ficha que a cadeia escreveu
+
+    São duas maneiras de o dono da aquisição dizer a MESMA coisa, e a fronteira
+    lê as duas em vez de obrigar uma delas a mudar de forma. O que ela NÃO faz
+    continua a ser o essencial: não deriva nenhuma das duas da extensão do
+    ficheiro, e não aceita uma sem a outra.
+
+        TRADUZIR NOME E FORMA E TRABALHO DE ADAPTER.
+        DECIDIR O QUE A COISA E, NAO E.
+    """
+    fora = objeto if isinstance(objeto, dict) else {}
+    if _limpo(fora.get('AUDIO_REFERENCE')):
+        return _limpo(fora.get('AUDIO_REFERENCE')), _limpo(fora.get('CONTENT_TYPE'))
+    raw = fora.get('RAW') if isinstance(fora.get('RAW'), dict) else {}
+    return _limpo(raw.get('STORAGE_LOCATION')), _limpo(raw.get('CONTENT_TYPE'))
+
+
 def unidade(objeto, *, run_id, fonte):
     """Um objeto do SCRAP na língua da porta. → a unidade de COLHEITA.
 
@@ -517,8 +542,7 @@ def unidade(objeto, *, run_id, fonte):
     # existe no disco não vira RAW de áudio; e sem `CONTENT_TYPE` do coletor
     # não se adivinha pela extensão — ficaria `NAO SEI`, que o ingresso trata
     # como «tenta», e foi assim que um `.mp4` foi parar ao `pdftotext`.
-    referencia = _limpo(objeto.get('AUDIO_REFERENCE'))
-    especie = _limpo(objeto.get('CONTENT_TYPE'))
+    referencia, especie = _referencia_e_especie(objeto)
     if referencia and especie and os.path.isfile(referencia):
         # Relativo à raiz, que é a língua de `STORAGE_LOCATION`. O caminho é
         # ENDEREÇO, nunca identidade: quem identifica os bytes é o `sha256`

@@ -419,6 +419,97 @@ class ODocumentIdVemDoContrato(unittest.TestCase):
         self.assertEqual("NAO SEI", u["DOCUMENT_ID"])
         self.assertIn("nao declara DOCUMENT_ID_RULE", u["DOCUMENT_ID_BASE"])
 
+class OPrazoDaDataApi(unittest.TestCase):
+    """D20 · os metadados da Data API têm prazo; o áudio local NÃO tem.
+
+        D17.4 AUTORIZA USAR A ROTA. NÃO AUTORIZA IGNORAR UMA OBRIGAÇÃO DELA.
+
+    30 dias no acervo, e ao vencer: renovar por nova busca ou apagar. E o que
+    a decisão NÃO muda: áudio e transcrição local não entram neste prazo —
+    eles não vêm da Data API.
+    """
+
+    ROTA_API = "youtube-data-api-v3:videos.list"
+    ROTA_AUDIO = "yt-dlp:public_audio"
+    ROTA_REEL = "instagram_transcrever.py:faster-whisper"
+
+    def _envelope(self, rota):
+        import social_envelope as se
+        return se.envelope(platform='YOUTUBE', native_id='X1',
+                           url='https://youtu.be/X1', content_type='VIDEO',
+                           route=rota, executor='prova', run_id='D20',
+                           country_scope='IT')
+
+    def test_20_a_rota_oficial_recebe_o_prazo_de_30_dias(self):
+        import social_envelope as se
+        o = self._envelope(self.ROTA_API)
+        self.assertEqual(30, o['RETENTION_DAYS'])
+        self.assertEqual('YOUTUBE_DATA_API_30D', o['RETENTION_POLICY'])
+        self.assertEqual('RENEW_OR_DELETE', o['RETENTION_ACTION'])
+        self.assertEqual(o['COLLECTED_AT'], o['RETENTION_FROM'],
+                         'o relogio comeca quando NOS recebemos — nao quando a fonte publicou')
+        self.assertEqual(se._mais_dias(o['COLLECTED_AT'], 30),
+                         o['RETENTION_DEADLINE'])
+        self.assertIn('renovar', o['RETENTION_BASIS'])
+        self.assertIn('apagar', o['RETENTION_BASIS'])
+
+    def test_21_o_audio_local_NAO_recebe_prazo_nenhum(self):
+        """O áudio vem do `yt-dlp` e do reconhecedor da casa, não da Data API.
+
+        Alargar-lhe o prazo seria colar a obrigação de uma rota ao material de
+        outra — e a D20.2 diz exactamente o contrário.
+        """
+        for rota in (self.ROTA_AUDIO, self.ROTA_REEL):
+            with self.subTest(rota=rota):
+                o = self._envelope(rota)
+                for campo in ('RETENTION_POLICY', 'RETENTION_DAYS',
+                              'RETENTION_DEADLINE', 'RETENTION_ACTION'):
+                    self.assertNotIn(campo, o,
+                                     '%s: %s foi colado a uma rota local'
+                                     % (rota, campo))
+
+    def test_22_o_prazo_e_do_DONO_da_rota_e_nao_de_uma_lista_local(self):
+        """A regra reconhece o prefixo que a matriz declara, e so ele."""
+        import social_envelope as se
+        self.assertTrue(se.retencao_da_rota(self.ROTA_API))
+        # contraprova: uma rota oficial que ninguem declarou com prazo
+        self.assertEqual({}, se.retencao_da_rota('apify:transcricao'))
+        self.assertEqual({}, se.retencao_da_rota(None))
+
+    def test_23_vencido_responde_True_False_e_NAO_SEI(self):
+        import social_envelope as se
+        o = self._envelope(self.ROTA_API)
+        self.assertFalse(se.vencido(o))
+        self.assertTrue(se.vencido(o, agora_iso=se._mais_dias(
+            o['RETENTION_DEADLINE'], 1)))
+        # prazo ilegivel NAO e «nao venceu»: e «nao sei»
+        quebrado = dict(o, RETENTION_DEADLINE='nao-e-data')
+        self.assertEqual('UNKNOWN', se.vencido(quebrado))
+        self.assertNotEqual(False, se.vencido(quebrado))
+        # sem prazo declarado, a resposta e False — a rota nao impoe nenhum
+        self.assertFalse(se.vencido(self._envelope(self.ROTA_AUDIO)))
+
+    def test_24_nada_apaga_sozinho(self):
+        """A acao declarada tem as DUAS saidas; apagar sozinho nao esta escrito.
+
+        E o unico sitio que escreve o prazo e o produtor do envelope: duas
+        rotinas a carimbar o mesmo prazo divergiriam no primeiro dia.
+        """
+        import social_envelope as se
+        self.assertEqual('RENEW_OR_DELETE', se.RETENCAO_ACAO)
+        donos = []
+        for gaveta in ('coleta', 'leis', 'guarda', 'medidas', 'ferramentas'):
+            d = os.path.join(RAIZ, gaveta)
+            for nome in sorted(os.listdir(d)):
+                if not nome.endswith('.py'):
+                    continue
+                with io.open(os.path.join(d, nome), encoding='utf-8') as fh:
+                    txt = fh.read()
+                if 'RETENTION_POLICY' in txt:
+                    donos.append('%s/%s' % (gaveta, nome))
+        self.assertEqual(['coleta/social_envelope.py'], donos,
+                         'mais de um dono a carimbar o prazo: %s' % donos)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
