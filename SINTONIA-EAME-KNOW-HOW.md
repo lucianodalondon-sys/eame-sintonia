@@ -19368,7 +19368,9 @@ da 3b. A rota certa para uma fonte que não serve é só uma rota certa.
 
 Universo de 134 fontes (READY vivo ∪ gate desta linha ∪ M3 ∪ censo das
 receitas). Funil em cadeia: **A pronta 45 → B rota executável 14 → C receita
-reconhece notícia lida 7 → D relevante 5 → E não é marca 3**. O maior corte é
+reconhece notícia lida 8 → D relevante 5 → E 5** (números finais, com a VPN de
+volta e com a D8 do dono: a propaganda deixa de ser cortada em E e passa a ser
+julgada notícia a notícia — só passa a que tem facto de mercado). O maior corte é
 **A** (89 não estão prontas; 69 delas por `EMPTY_LIST`, a receita), e dentro
 das prontas é **B** (31: 24 sem contrato na tabela do coletor, 7 dos quais com
 rota já provada pela M3 à espera de aplicação).
@@ -19384,3 +19386,6 @@ a da 3b.
 Uma VPN que cai a meio não é uma fonte que falha. A recolha mediu o egresso
 antes de cada site, viu BR no 8.º e parou **antes** do pedido — 0 pedidos pelo
 Brasil. O que ficou por ler fica NÃO SEI, com nome.
+
+E contar SOURCE_ID não é contar sites: com os desbloqueios, 11 códigos são 9
+sites (IT-T2-051/056 e IT-T7-043/100 são a mesma fonte com dois nomes).

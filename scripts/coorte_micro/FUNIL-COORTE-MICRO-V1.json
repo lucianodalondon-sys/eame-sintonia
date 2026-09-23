@@ -5,27 +5,27 @@
   "A": 45,
   "B": 14,
   "C": 8,
-  "D": 6,
-  "E": 4
+  "D": 5,
+  "E": 5
  },
  "CADA_DEGRAU_SOZINHO": {
   "A": 45,
   "B": 14,
   "C": 16,
-  "D": 14,
-  "E": 131
+  "D": 13,
+  "E": 134
  },
  "PARA_EM": {
-  "PASSA": 4,
+  "PASSA": 5,
   "C": 6,
   "B": 31,
   "A": 89,
-  "D": 2,
-  "E": 2
+  "D": 3
  },
  "PASSAM_TUDO": [
   "IT-T10-018",
   "IT-T10-021",
+  "IT-T7-017",
   "IT-T7-041",
   "IT-T7-043"
  ],
@@ -38,11 +38,12 @@
     "IT-T10-026",
     "IT-T7-100"
    ],
-   "ACUMULADO": 6,
+   "ACUMULADO": 7,
    "ACUMULADO_FONTES": [
     "IT-T10-018",
     "IT-T10-021",
     "IT-T10-026",
+    "IT-T7-017",
     "IT-T7-041",
     "IT-T7-043",
     "IT-T7-100"
@@ -56,27 +57,7 @@
     "IT-T2-051",
     "IT-T2-056"
    ],
-   "ACUMULADO": 8,
-   "ACUMULADO_FONTES": [
-    "IT-T10-018",
-    "IT-T10-021",
-    "IT-T10-026",
-    "IT-T2-051",
-    "IT-T2-056",
-    "IT-T7-041",
-    "IT-T7-043",
-    "IT-T7-100"
-   ]
-  },
-  {
-   "DESBLOQUEIO": "DONO_DECIDE_MARCA_T7_017_033",
-   "DONO": "dono",
-   "GANHO_SOZINHO": 2,
-   "FONTES": [
-    "IT-T7-017",
-    "IT-T7-033"
-   ],
-   "ACUMULADO": 10,
+   "ACUMULADO": 9,
    "ACUMULADO_FONTES": [
     "IT-T10-018",
     "IT-T10-021",
@@ -84,7 +65,6 @@
     "IT-T2-051",
     "IT-T2-056",
     "IT-T7-017",
-    "IT-T7-033",
     "IT-T7-041",
     "IT-T7-043",
     "IT-T7-100"
@@ -97,7 +77,7 @@
    "FONTES": [
     "IT-T10-022"
    ],
-   "ACUMULADO": 11,
+   "ACUMULADO": 10,
    "ACUMULADO_FONTES": [
     "IT-T10-018",
     "IT-T10-021",
@@ -106,7 +86,6 @@
     "IT-T2-051",
     "IT-T2-056",
     "IT-T7-017",
-    "IT-T7-033",
     "IT-T7-041",
     "IT-T7-043",
     "IT-T7-100"
@@ -2243,8 +2222,9 @@
    "UNIVERSE_MATCH": "NO",
    "ACTION": "REROUTE -> T10",
    "D": true,
-   "E": false,
-   "PARA_EM": "E"
+   "D8": "YES — balanco: facturacao 266 M EUR, preco medio pago a uva 47,20 EUR/q",
+   "E": true,
+   "PARA_EM": "PASSA"
   },
   {
    "SOURCE_ID": "IT-T7-019",
@@ -2350,9 +2330,10 @@
    "D_PORQUE": "leitura G0: gabarito item 10 (campanha do azeite DOP 2025); a fonte segue fora por MARCA ate decisao do dono",
    "UNIVERSE_MATCH": "NO",
    "ACTION": "REROUTE -> T1",
-   "D": true,
-   "E": false,
-   "PARA_EM": "E"
+   "D": false,
+   "D8": "NAO_SEI — campanha do azeite DOP 2025 (quantidade/qualidade): o dono mandou-a para T1 (D1), nao para mercado; a D8 so aceita mercado. Conflito D1/D8 para o dono",
+   "E": true,
+   "PARA_EM": "D"
   },
   {
    "SOURCE_ID": "IT-T7-040",
@@ -2419,7 +2400,8 @@
    "UNIVERSE_MATCH": "NO",
    "ACTION": "NAO_SEI",
    "D": false,
-   "E": false,
+   "D8": "NO — emenda de lei sobre a denominacao do vinagre",
+   "E": true,
    "PARA_EM": "D"
   },
   {

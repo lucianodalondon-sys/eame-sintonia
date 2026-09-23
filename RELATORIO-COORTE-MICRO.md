@@ -4,7 +4,7 @@ Branch `coorte-micro-v1`, a partir de `9925bfaf`. Motor: `claude-opus-5-5`.
 
 ```
 NÃO CORREU COLLECTION · NADA NA SALA · DB_WRITES = 0
-catálogo · Admission · detector · micro_coleta.py = INTOCADOS
+catálogo · Admission · detector · micro_coleta.py = INTOCADOS (git diff desde 9925bfaf: vazio)
 Nenhuma régua baixada: os desbloqueios só removem bloqueios com dono e decisão conhecidos
 ```
 
@@ -13,8 +13,8 @@ Nenhuma régua baixada: os desbloqueios só removem bloqueios com dono e decisã
 ## 0 — DE ONDE VEM O UNIVERSO
 
 Serviço vivo lido **por cópia**: `source-curator-service-v1` @ `9a82197c`, 03:36Z
-(`%TEMP%\curator-snap-20260923T033656Z`; o `LIFECYCLE-LEDGER` tem o mesmo sha256
-que às 02:51Z: `c3888c0b…`).
+(`%TEMP%\curator-snap-20260923T033656Z`; `LIFECYCLE-LEDGER` com o mesmo sha256 das
+02:51Z: `c3888c0b…`).
 
 ```
 UNIVERSO = 134 fontes (dedup por SOURCE_ID) =
@@ -33,42 +33,58 @@ Lista em `scripts/coorte_micro/UNIVERSO-G0.json`.
 
 | degrau | pergunta | regra | em cadeia | sozinho |
 |---|---|---|---|---|
-| **A** | está pronta? | READY no livro vivo (canário do worker) **ou** READY_CURRENT nesta linha (régua dos 4 passos). Só READY_LEGACY não passa. Não se decide qual dos dois manda (é da M5) | **45** | 45 |
+| **A** | está pronta? | READY no livro vivo (canário do worker) **ou** READY_CURRENT nesta linha (régua dos 4 passos). Só READY_LEGACY não passa. Não se decide qual manda (é da M5) | **45** | 45 |
 | **B** | a rota é executável? | contrato na tabela do coletor + receita web para o universo + sem bloqueio vivo/M3 | **14** | 14 |
-| **C** | a receita reconhece uma notícia **real**? | uma matéria **lida** da fonte casa o `LINK_PATTERN` que o coletor usa. Sem matéria lida = NÃO SEI, não passa | **7** | 13 |
-| **D** | é relevante (D2)? | `SINTONIA_RELEVANT = YES` (decisão do dono > leitura minha > 3b). Idioma não exclui (D3) | **5** | 11 |
-| **E** | não é propaganda de marca? | IT-T7-017, IT-T7-033, IT-T7-042 fora até decisão do dono | **3** | 131 |
+| **C** | a receita reconhece uma notícia **real**? | uma matéria **lida** da fonte casa o `LINK_PATTERN` que o coletor usa. Sem matéria lida = NÃO SEI, não passa | **8** | 16 |
+| **D** | é relevante (D2)? | `SINTONIA_RELEVANT = YES` (decisão do dono > leitura minha > 3b). Idioma não exclui (D3). **D8:** nas 3 de propaganda, só passa notícia com facto de mercado | **5** | 13 |
+| **E** | não é propaganda de marca? | **Depois da D8 não corta**: as 3 ficam e são julgadas página a página em C/D | **5** | 134 |
 
 ```
-PASSAM_TUDO = 3   IT-T10-018 myfruit (T10) · IT-T10-021 Plantgest (T10 → REROUTE T7) ·
-                  IT-T7-043 Agrofarma/Federchimica (T7 → REROUTE T10/T9)
+PASSAM_TUDO = 5
+  IT-T10-018  myfruit                         T10 · mercado hortofrutícola
+  IT-T10-021  Plantgest                       T10 → REROUTE T7 · técnica (antigeada)
+  IT-T7-017   Riunite (D8)                    T7  → REROUTE T10 · balanço, preço pago à uva
+  IT-T7-041   Consorzio di Bonifica Romagna   T7  · água e rega
+  IT-T7-043   Agrofarma (Federchimica)        T7  → REROUTE T10/T9 · indústria de agrofármacos
 ```
 
-**Onde cada fonte pára** (primeiro degrau que falha): A 89 · B 31 · C 7 · D 2 · E 2 · passa 3.
+**Onde cada fonte pára** (primeiro degrau que falha): A 89 · B 31 · C 6 · D 3 · E 0 · passa 5.
 
 ### Porque param
 
-* **A (89)** — `CONTRACTED_CANARY_FAILED` 78 (**69** com `EMPTY_LIST`: a receita
-  não reconhece nada da entrada), `CAPABILITY_BLOCK` 6, `CONTRACT_READY_ROUTE_BLOCKED` 2,
+* **A (89)** — `CONTRACTED_CANARY_FAILED` 78 (**69** com `EMPTY_LIST`: a receita não
+  reconhece nada da entrada), `CAPABILITY_BLOCK` 6, `CONTRACT_READY_ROUTE_BLOCKED` 2,
   `RETRY_AFTER` 2, `AUTH_BLOCK` 1.
-* **B (31 das prontas)** — `NEEDS_CONTRACT` 24 (fora da tabela do coletor; **7**
+* **B (31 das 45 prontas)** — `NEEDS_CONTRACT` 24 (fora da tabela do coletor; **7**
   com rota já provada pela M3, por aplicar), `CAPABILITY_BLOCK` 4, `MISSING_ROUTE` 3
   (sem receita web para T12/T8/T9).
-* **C (7)** — 4 **sem matéria lida** (IT-T5-039, IT-T7-031, IT-T7-040, IT-T7-041 — a
-  VPN caiu antes de lá chegar); IT-T10-022 (receita não casa `/featured/…`; a V1
-  corrige); IT-T10-020 (não casa; relevância NÃO SEI); IT-T7-021 (a página lida é um
-  projecto único; família < 2 → NÃO SEI).
-* **D (2)** — IT-T2-030 (a rota da Nomisma trouxe imobiliário e BCE: NO);
-  IT-T7-042 (NÃO SEI, e é marca).
-* **E (2)** — IT-T7-017 e IT-T7-033: **o dono já as deu como relevantes**
-  (gabarito itens 9 e 10, REROUTE), mas a exclusão por marca é decisão dele.
+* **C (6)** — IT-T10-022 (receita não casa `/featured/…`; a V1 corrige); IT-T10-020
+  (não casa; relevância NÃO SEI); IT-T7-021 (a página lida é um projecto único,
+  família < 2); IT-T5-039 (não casa; e a notícia era aviso de matrícula);
+  IT-T7-031 FederBio e IT-T7-040 Parmigiano (visitadas: a página-alvo era capa).
+* **D (3)** — IT-T2-030 (a rota da Nomisma trouxe imobiliário e BCE: NO);
+  IT-T7-042 (D8: emenda de lei sobre a denominação, sem facto de mercado);
+  **IT-T7-033** Chianti — ⚠️ **conflito D1/D8 para o dono**: a notícia lida (campanha
+  do azeite DOP 2025) foi mandada pelo dono para **produção (T1)** na D1, e a D8 só
+  aceita, nestas 3, notícia de **mercado**. Fica NÃO SEI até o dono dizer.
+* **E (0)** — depois da **D8** (23/09) a propaganda deixa de ser cortada aqui.
+
+### As prontas sem notícia lida — o motivo real, não «falta rede»
+
+```
+PRECISA_REDE_IT = 0 das 45 prontas, depois de a VPN voltar. As 19 sem notícia lida:
+  9  ROBOTS_NEGA — política do site; não se contorna
+  4  visitadas: a página-alvo era capa, não matéria
+  3  domínio já visitado por outra fonte: teto de 3 pedidos por site gasto
+  2  sem contrato no livro vivo
+  1  visitada, sem link com forma de matéria na entrada
+```
 
 ### A relevância, com base declarada (`ROTULOS-RELEVANCIA-G0.json`)
 
-21 fontes prontas com notícia lida, julgadas pelas duas perguntas separadas (D2).
-**BASE = DONO** em 4 (IT-T10-018, IT-T10-022, IT-T7-017, IT-T7-033); nas outras 17
-é **leitura minha**, quase sempre sobre **uma** notícia — humano-proposto, precisa
-de visto.
+26 fontes julgadas pelas duas perguntas separadas (D2). **BASE = DONO** em 4
+(IT-T10-018, IT-T10-022, IT-T7-017, IT-T7-033); nas outras 22 é **leitura
+minha**, quase sempre sobre **uma** notícia — humano-proposto, precisa de visto.
 
 ⚠️ **A 3b tinha tirado a Zootecnica por idioma.** A lei D3 proíbe-o e o dono já
 validou duas notícias dela (itens 5 e 6). Aqui a decisão do dono vence a 3b.
@@ -85,24 +101,25 @@ MAIOR_CORTE = A (89 de 134 não estão prontas; 69 por EMPTY_LIST = a receita)
 ```
 
 **Desbloqueios, por ordem de rendimento** — simulados em memória
-(`funil.desbloqueios`); nenhum mexe em A nem em D por conta própria:
+(`funil.desbloqueios`). Nenhum mexe em A nem em D:
 
-| # | desbloqueio | dono | fontes | acumulado |
-|---|---|---|---|---|
-| 1 | decidir a marca das 2 que o dono já deu como relevantes (REROUTE) | **dono** | +2 · IT-T7-017, IT-T7-033 | **5** |
-| 2 | aplicar a PROPOSTA-RECEITAS-V1 (6-PREP-d) | Curator/rotas, depois da M5 | +1 · IT-T10-022 | **6** |
-| 3 | aplicar o onboarding das rotas provadas pela M3 | coordenador, depois da M5 | +1 · IT-T2-051 | **7** |
-| 4 | contrato na tabela do coletor + receita V2 (**2 passos**) | Curator + coordenador | +1 · IT-T10-026 Granaria | **8** |
-| 5 | **ler** uma notícia das 4 prontas e executáveis sem página (precisa de VPN) | coordenação | **até** +4 · IT-T5-039, IT-T7-031, IT-T7-040, IT-T7-041 — sem garantia: C e D por medir | **até 12** |
-| 6 | canário novo nas 69 `EMPTY_LIST` depois da V1 (12 delas têm proposta) + régua T2/T12 (M3c) + receita web T12 | vários | **NÃO SEI** — não se conta sem medir | — |
+| # | desbloqueio | dono | ganha (SOURCE_ID) | acumulado | **sites distintos** |
+|---|---|---|---|---|---|
+| 1 | contrato novo na tabela do coletor, com canário, + receita V2 | Curator + coordenador | IT-T10-026 Granaria · IT-T7-100 Agrofarma | 7 | **6** (IT-T7-100 é o mesmo site da IT-T7-043) |
+| 2 | aplicar o onboarding das rotas provadas pela M3 | coordenador, depois da M5 | IT-T2-051 · IT-T2-056 Arpae | 9 | **7** (IT-T2-056 é duplicada da IT-T2-051) |
+| 3 | aplicar a PROPOSTA-RECEITAS-V1 (6-PREP-d) | Curator/rotas, depois da M5 | IT-T10-022 Zootecnica | 10 | **8** |
+| 4 | o dono resolve o conflito D1/D8 da IT-T7-033 (se a campanha do azeite contar como mercado) | **dono** | IT-T7-033 | 11 | **9** |
+| 5 | canário novo nas 69 `EMPTY_LIST` depois da V1 (12 têm proposta) + régua T2/T12 (M3c) + receita web T12 | vários | **NÃO SEI** — não se conta sem medir | — | — |
 
 ```
-DESBLOQUEIOS: certos → 8 fontes (1–4) · com a VPN → até 12 (5) · o resto não se conta sem canário
+DESBLOQUEIOS 1–3 → 10 SOURCE_ID = 8 sites · com o conflito D1/D8 resolvido a favor → 11 = 9 sites.
+Chega a 10 SOURCE_ID, mas não a 10 sites.
 ```
 
-⚠️ Com os desbloqueios 1–4 a coorte teria **8 fontes**, e **3 delas são de
-vinho/marca ou de mercado muito próximo** (IT-T7-017 Riunite, IT-T7-033 Chianti,
-IT-T10-018 myfruit). A variedade pedida pelo mandato não fica garantida.
+⚠️ **Variedade.** Dos 9 sites: 2 de vinho/marca (Riunite pela D8; Chianti só se o dono resolver D1/D8), 3 de mercado (myfruit, Zootecnica, Granaria), 2 de água/rega (Arpae,
+Bonifica Romagna), 1 técnico (Plantgest), 1 de indústria de agrofármacos
+(Agrofarma). Nenhum de pragas/doenças (T3), nenhum científico (T5), nenhum
+regulatório (T4).
 
 ---
 
@@ -123,20 +140,20 @@ NÃO SEI: IT-T12-019 ERSAF e IT-T7-021 Villoresi — a página lida é um projec
 ## 4 — REDE
 
 ```
-EGRESS = IT em 7 de 8 idas (149.22.91.172 Palermo) · a 8.ª mediu BR (177.95.91.48 Londrina)
-         e a recolha PAROU antes de qualquer pedido a esse site → 0 pedidos pelo Brasil
-         A VPN caiu durante a missão e continuava em BR no fim. Das 27 fontes prontas
-         sem página: 22 buscáveis (uma por domínio, com contrato) · 7 visitadas ·
-         15 por buscar por causa da VPN · 5 não buscáveis (sem contrato no livro vivo
-         ou domínio repetido).
-páginas  10 páginas de 7 sites em ~/coorte-paginas/ (fora do Git e da Sala), sha256 no MANIFESTO
+EGRESS = IT em 22/22 idas com pedido (149.22.91.172 e, depois da volta, 149.22.91.171 — Palermo)
+         0 pedidos pelo Brasil.
+         A VPN caiu a meio: a 8.ª ida mediu BR (177.95.91.48 Londrina) e a recolha PAROU
+         antes de qualquer pedido a esse site. Sem rede, marquei PRECISA_REDE_IT.
+         Quando a coordenação avisou que voltou, a ida parada foi retirada do registo
+         (0 pedidos feitos) e a recolha retomou os 15 sites em falta: 15/15 IT.
+páginas  24 páginas de 22 sites em ~/coorte-paginas/ (fora do Git e da Sala), sha256 no MANIFESTO
 ```
 
 ---
 
 ## 5 — PROVAS
 
-`tests/test_funil_coorte.py` — **13 provas**, dados sintéticos com resposta
+`tests/test_funil_coorte.py` — **14 provas**, dados sintéticos com resposta
 conhecida à partida, sem rede nem git.
 
 **Lei de mutação Python** (mandato): cache `__pycache__` apagada antes e depois,
@@ -147,7 +164,9 @@ conhecida à partida, sem rede nem git.
 |---|---|---|---|
 | A aceita READY_LEGACY | sim | sim | morto |
 | C passa sem matéria lida | sim | sim | morto |
-| a lista de marca esquecida | sim | sim | morto |
+| a D8 ignorada (propaganda passa sem facto de mercado) | sim | sim | morto |
+
+(O mutante «lista de marca esquecida», morto antes da D8, deixou de fazer sentido: a regra mudou.)
 | um desbloqueio baixa A | sim | sim | morto |
 
 ⚠️ Na primeira tentativa o 4.º mutante tinha um erro meu de indentação e **não
@@ -157,28 +176,31 @@ executou**. Não o contei como sobrevivente: refi-lo e confirmei a execução.
 
 ## 6 — LIMITES
 
-* A relevância de 17 fontes é leitura minha sobre **uma** notícia.
-* O degrau C depende da tabela do coletor desta linha; o livro vivo tem outra
-  (`italy_contracts_curator.json`). Usei a do coletor, que é a que corre.
-* A decisão «qual canário manda» (worker vivo ou régua dos 4 passos) não foi
-  tomada: as duas ficam escritas por fonte (`A_PORQUE`).
+* A relevância de 22 fontes é leitura minha sobre **uma** notícia.
+* O degrau C usa a receita da tabela do coletor desta linha (é a que corre); o
+  livro vivo tem outra.
+* «Qual canário manda» (worker vivo ou régua dos 4 passos) não foi decidido: as
+  duas ficam escritas por fonte (`A_PORQUE`).
+* Duplicados de fonte (IT-T2-051/056; IT-T7-043/100) são decisão de identidade
+  no Atlas; contei-os à parte.
 
 ---
 
 ## ENTREGA
 
 ```
-UNIVERSO       = 134 (dedup)
-FUNIL          = A 45 · B 14 · C 7 · D 5 · E 3
-PASSAM_TUDO    = 3 — IT-T10-018, IT-T10-021, IT-T7-043
-MAIOR_CORTE    = A (89: 69 EMPTY_LIST = receita); dentro das prontas, B (24 sem contrato no coletor)
-DESBLOQUEIOS   = 1) dono decide marca +2 → 5 · 2) aplicar receitas V1 +1 → 6 ·
-                 3) aplicar rotas da M3 +1 → 7 · 4) contrato + receita V2 +1 → 8 ·
-                 5) ler 4 prontas sem página (VPN) até +4 → até 12 · 6) o resto: NÃO SEI sem canário
-RECEITAS_NOVAS = 1 com prova (IT-T10-026)
-EGRESS         = IT 7/8 · 8.ª BR, parada antes do pedido · 0 pedidos BR · VPN em baixo no fim
-PRECISA_REDE_IT = 24 das 45 prontas sem notícia lida (88 das 134 no universo) — marcadas no
-                 FUNIL (C_PORQUE); nada foi buscado depois da queda, a pedido da coordenação
+UNIVERSO        = 134 (dedup)
+FUNIL           = A 45 · B 14 · C 8 · D 5 · E 5   (com a D8)
+PASSAM_TUDO     = 5 — IT-T10-018, IT-T10-021, IT-T7-017, IT-T7-041, IT-T7-043
+MAIOR_CORTE     = A (89: 69 EMPTY_LIST = receita); dentro das prontas, B (24 sem contrato no coletor)
+DESBLOQUEIOS    = 1) contrato novo com canário + receita V2 → 7 · 2) rotas da M3 → 9 ·
+                  3) receitas V1 → 10 SOURCE_ID = 8 sites · 4) dono resolve D1/D8 do Chianti → 11 = 9 sites ·
+                  5) o resto: NÃO SEI sem canário novo
+D8              = aplicada: E deixa de cortar a propaganda; só passa notícia com facto de mercado
+                  (Riunite passa; Chianti em conflito D1/D8; Balsamico não)
+RECEITAS_NOVAS  = 1 com prova (IT-T10-026)
+EGRESS          = IT 22/22 idas com pedido · 0 BR · 1 ida parada por BR antes do pedido
+PRECISA_REDE_IT = 0 (depois da volta da VPN)
 ```
 
 ---
@@ -190,27 +212,30 @@ e passei cada uma por 5 peneiras, uma atrás da outra:
 
 1. está pronta? → **45**
 2. o coletor sabe lá ir? → **14**
-3. a receita reconhece uma notícia de verdade? → **7**
-4. o assunto serve ao Sintonia? → **5**
-5. não é propaganda de marca? → **3**
+3. a receita reconhece uma notícia de verdade? → **8**
+4. o assunto serve ao Sintonia? → **6**
+5. não é propaganda de marca? → **5** (pela sua decisão D8, a propaganda já não é
+   cortada aqui: cada notícia é julgada sozinha, e só passa se tiver facto de mercado)
 
-Sobram **3 fontes**: preços de fruta, técnica de pomares, e a associação
-italiana dos fabricantes de agroquímicos.
+Sobram **5 fontes**: preços de fruta, técnica de pomares, rega na Romagna, a
+associação dos fabricantes de agroquímicos, e as contas da cooperativa Riunite.
 
 **A peneira que mais corta é a primeira.** 89 fontes nem estão prontas, e a
-maioria por culpa da receita (a mesma que medi na missão anterior). A relevância
-quase nunca é o problema: quando uma fonte chega a ser lida, costuma servir.
+maioria por culpa da receita. A relevância quase nunca é o problema: quando uma
+fonte chega a ser lida, costuma servir.
 
-**Como chegar a 8**, sem baixar nenhuma exigência:
+**Como chegar perto de 10**, sem baixar nenhuma exigência:
 
-- você decide sobre as 2 fontes de vinho que já disse que servem;
-- aplicam-se as receitas corrigidas;
-- aplicam-se as rotas já provadas;
-- dá-se contrato a uma associação de cereais.
+- dar contrato a duas fontes que já sabemos que servem;
+- aplicar as rotas já provadas;
+- aplicar as receitas corrigidas;
+- você dizer se a notícia do azeite do Chianti conta como "mercado" (na D1 mandou-a
+  para produção, e a D8 só deixa passar mercado nestas fontes).
 
-**Com a VPN italiana ligada, talvez 12.** Faltam ler 4 fontes que já estão
-prontas.
+Isso dá **11 códigos, mas 9 sites diferentes**: duas fontes são o mesmo site
+com dois nomes. E faltam temas: nenhuma fonte de pragas, de ciência ou de leis.
 
-⚠️ **A VPN caiu a meio desta missão.** O programa viu que a internet tinha
-passado a sair pelo Brasil e parou antes de pedir fosse o que fosse. Ficaram 15
-fontes por ler por causa disso.
+A VPN caiu a meio. O programa viu, parou antes de pedir fosse o que fosse pelo
+Brasil, e retomou quando ela voltou. Agora já não falta ler nada por causa da
+rede. O que falta é por outros motivos: sites que não autorizam, ou páginas que
+eram só capa.

@@ -96,12 +96,22 @@ class TestDegraus(unittest.TestCase):
     def test_relevancia_nao_medida_nao_passa_D(self):
         self.assertFalse(self.completa(rot={})["D"])
 
-    def test_marca_fica_fora_em_E(self):
+    def test_d8_marca_com_facto_de_mercado_passa(self):
         sid = "IT-T7-033"
+        rot = {sid: dict(REL, D8_FACTO_DE_MERCADO="YES — preco pago a uva")}
         r = FU.avaliar(sid, D(ultimo={sid: PRONTA}, onboarded={sid: contrato()},
-                              paginas=[mat(sid)], rot={sid: REL}))
-        self.assertFalse(r["E"])
-        self.assertEqual(r["PARA_EM"], "E")
+                              paginas=[mat(sid)], rot=rot))
+        self.assertEqual(r["PARA_EM"], "PASSA")
+
+    def test_d8_marca_sem_facto_de_mercado_para_em_D_e_E_ja_nao_corta(self):
+        sid = "IT-T7-033"
+        for f8 in (None, "NAO_SEI — campanha de producao", "NO — lei de denominacao"):
+            rot = {sid: dict(REL, **({"D8_FACTO_DE_MERCADO": f8} if f8 else {}))}
+            r = FU.avaliar(sid, D(ultimo={sid: PRONTA}, onboarded={sid: contrato()},
+                                  paginas=[mat(sid)], rot=rot))
+            self.assertFalse(r["D"], f8)
+            self.assertTrue(r["E"])
+            self.assertEqual(r["PARA_EM"], "D")
 
 
 class TestDesbloqueiosNaoBaixamARegua(unittest.TestCase):

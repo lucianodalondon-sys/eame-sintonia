@@ -23,7 +23,9 @@ DEGRAUS (cada fonte leva o primeiro que falha; os seguintes medem-se na mesma):
   D  relevancia (D2 do dono): SINTONIA_RELEVANT = YES — pela decisao da 3b,
      do dono (gabarito) ou pela leitura da materia (ROTULOS-RELEVANCIA-G0.json).
      O idioma nao exclui (D3).
-  E  nao e propaganda de marca: IT-T7-017, IT-T7-033, IT-T7-042 fora ate o dono decidir.
+  E  nao e propaganda de marca. DEPOIS DA D8 (23/09) NAO CORTA: as 3 de propaganda
+     (IT-T7-017, IT-T7-033, IT-T7-042) ficam e sao julgadas pagina a pagina — so passa
+     em D a noticia com facto de mercado (D8_FACTO_DE_MERCADO no rotulo).
 """
 from __future__ import annotations
 
@@ -169,8 +171,14 @@ def avaliar(sid: str, D: dict) -> dict:
     else:
         r["SINTONIA_RELEVANT"], r["D_PORQUE"] = "NAO_SEI", "nao medida"
     r["D"] = r["SINTONIA_RELEVANT"] == "YES"
-    # E
-    r["E"] = sid not in MARCA
+    # D8 (23/09): as 3 de propaganda FICAM, julgadas pagina a pagina; so passa
+    # NOTICIA com facto de mercado. Sem esse facto provado, nao passa D.
+    if sid in MARCA:
+        f8 = str((rot or {}).get("D8_FACTO_DE_MERCADO", "NAO_SEI"))
+        r["D8"] = f8
+        r["D"] = r["D"] and f8.startswith("YES")
+    # E — depois da D8 a marca deixa de cortar aqui (fica como anotacao)
+    r["E"] = True
     # o primeiro degrau que falha
     r["PARA_EM"] = next((k for k in "ABCDE" if not r[k]), "PASSA")
     return r
@@ -197,10 +205,6 @@ def desbloqueios(linhas: list[dict], D: dict) -> list[dict]:
         if not l["B"] and "M3, por aplicar" in l["B_PORQUE"] and MC.receita_web(l["UNIVERSO"]):
             l["B"] = True
 
-    def u3(l):   # o dono decide a marca (as 2 que ele ja deu como relevantes: REROUTE)
-        if not l["E"] and l.get("SINTONIA_RELEVANT") == "YES":
-            l["E"] = True
-
     v2 = RAIZ / "curadoria/PROPOSTA-RECEITAS-V2.json"
     novo_v2 = {l["SOURCE_ID"]: p["DEPOIS"] for l in (json.loads(v2.read_text(encoding="utf-8"))["FONTES"]
                if v2.exists() else []) for p in l["PROPOSTAS"] if p["CAMPO"] == "ACQUISITION.LINK_PATTERN"}
@@ -213,8 +217,7 @@ def desbloqueios(linhas: list[dict], D: dict) -> list[dict]:
 
     acoes = [("APLICAR_PROPOSTA_RECEITAS_V1", "Curator/rotas, depois da M5", u1),
              ("ONBOARDAR_CONTRATO_NOVO_COM_CANARIO_E_RECEITA_V2", "Curator + coordenador (canario novo)", u4),
-             ("APLICAR_ONBOARDING_M3", "coordenador (onboardar_rotas_provadas.py --aplicar), depois da M5", u2),
-             ("DONO_DECIDE_MARCA_T7_017_033", "dono", u3)]
+             ("APLICAR_ONBOARDING_M3", "coordenador (onboardar_rotas_provadas.py --aplicar), depois da M5", u2)]
     base = {l["SOURCE_ID"] for l in linhas if passa(l)}
     out = []
     for nome, dono, f in acoes:
