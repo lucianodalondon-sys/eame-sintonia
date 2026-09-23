@@ -93,6 +93,21 @@ não passa os 4 passos», em Python e em Node. Na primeira volta sobreviveu 1 (�
 régua por mandar sempre»): havia duas travas para a mesma coisa. Tirou-se a repetida, e o
 ataque seguinte matou 11 de 11.
 
+### A suíte completa, comparada por NOME
+
+Base = bfb99224 (unificação + K1): 5139 testes, **286 vermelhos** (suíte inteira num processo).
+V1A = c02a6882, corrida ficheiro a ficheiro (a máquina tinha 4,7 GB livres de 32; a suíte
+inteira foi morta por falta de memória): **214/214 ficheiros** com resultado.
+
+| grupo | n | prova |
+|---|---|---|
+| **NEW_RED_BY_NAME (da V1A)** | **2 → corrigidos** (074f0f98) | `test_raw_observation_id_volta` (a projecção conferida ganhou `SOURCE_URL`); `test_politica_nao_sei` (`medir_v1a.py` citava `politica_nao_sei` num comentário e o teste contava-o como chamador) |
+| herdados, na lista da base | 281 | o mesmo nome na base |
+| herdados só por correr ficheiro a ficheiro | 27 | cada ficheiro corrido sozinho NA BASE dá os mesmos nomes: `No module named 'yaml'` (20 `test_c10_*`/`test_fase_italiana_no_workflow`, 2 `test_preflight_de_egresso`, 1 `test_security_ratchet`) e 4 `test_metricas` (a contagem de testes não se mede sem o yaml) — na suíte inteira outro teste empresta o yaml |
+| 10 de `test_o_controle_separa_lei_de_mencao` | 0 | transitórios: na 1.ª volta o censo filho saiu com erro e a mensagem perdeu-se (o pai lê cp1252, o filho escreve UTF-8); na 2.ª volta a V1A dá os mesmos 2 vermelhos da base (B0, M5), por nome. O S1 isolado passa. Causa da 1.ª falha: NÃO SEI ao certo — coincidiu com a pressão de memória |
+
+`test_v21_*` (4 ficheiros) correm 0 testes em unittest na base e na V1A: são funções ao estilo pytest.
+
 ## 6 — Writeset (para a M5D reconciliar)
 
 ```
@@ -101,7 +116,7 @@ curadoria/canario.py · curadoria/ready_split.py · curadoria/retrato_html.py ·
 curadoria/V1A-MEDICAO-V1.json (novo) · guarda/preservar_coleta.py · medidas/canario_rotas_elegiveis.py
 medidas/micro_colheita.py · medidas/medir_v1a.py (novo) · medidas/mutacao_v1a.py (novo)
 orquestrador/orquestrador.py · tests/test_politica_nao_sei.py · tests/test_quarentena_naosei.py
-tests/test_v1a_v1_ligada.py (novo) · SINTONIA-EAME-KNOW-HOW.md (§196 renumerado, §197)
+tests/test_v1a_v1_ligada.py (novo) · tests/test_raw_observation_id_volta.py · SINTONIA-EAME-KNOW-HOW.md (§196 renumerado, §197)
 RELATORIO-V1A-V1-LIGADA.md · system-map/data/architecture.declared.json · gerados do mapa
 + tudo o que o merge da K1 trouxe (bfb99224)
 ```
