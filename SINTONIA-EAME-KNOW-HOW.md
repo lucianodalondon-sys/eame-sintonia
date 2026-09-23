@@ -20012,3 +20012,47 @@ não o soma a `CRASHES_SEM_PROGRESSO`.
   Três mutantes, cada um com diff de 1 linha, todos mortos.
 - `WORKER_MORTO` continua a ser anotado antes de `WORKER_SAIU_LIMPO` (traz o RC).
   Nenhum leitor o consome hoje; quem o vier a contar tem de excluir RC 0.
+
+---
+
+# §174 · A MESMA RECONCILIAÇÃO DUAS VEZES NÃO SÃO DOIS FACTOS — A UNIFICAÇÃO DAS TRÊS LINHAS
+
+Missão 5 · UNIFICACAO-V1 (22-23/09/2026). Ponte (20c06500) + diagnóstico
+(e22c2593) + rotas (3b5080b9) + serviço (9a82197c) num ramo só, `unificacao-v1`.
+Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5/`.
+
+**O QUE SE APRENDEU.**
+
+- **Colar duas caudas de um livro append-only parte a cadeia.** A ponte e o
+  diagnóstico aplicaram a MESMA reconciliação, cada uma a partir de uma cópia
+  diferente do livro do bot (99 e 156 transições depois da base comum, 0 iguais
+  byte a byte). Unir por linha duplicava transições e deixava `PREVIOUS_STATE`
+  a apontar para um estado que já não era o anterior. A regra que funcionou
+  (`unir_ledger.py`): fica a cauda da base inteira; cada transição da outra é
+  confrontada com o estado corrente — DUPLICADA, ABSORVIDA (a fonte já está no
+  destino), APLICADA (a cadeia continua legal) ou CONFLITO (listada, não
+  escrita). Medido: 77 aplicadas, 70 absorvidas, 9 em conflito, 0 apagadas.
+
+      O MESMO FACTO VISTO DUAS VEZES CONTA UMA.
+
+- **Renomear um módulo não é só corrigir os `import`.** `telemetria.py` do
+  serviço tapava `leis/telemetria.py` (passou a `telemetria_do_curador.py`). O
+  red team da telemetria escolhe o ficheiro a mutar por TEXTO: com o nome velho,
+  cada mutante falhava a abrir o alvo e o ataque deixava de acontecer sem nenhum
+  import partido que o denunciasse. Procurar o nome como texto, não como símbolo.
+- **Um número de § só está livre depois de medido em TODAS as refs, incluindo as
+  lanes que ainda correm.** O §159 do serviço ia para §172; `worker-pendurado-v1`
+  (ainda não integrado) já tinha §172. Foi para §173.
+- **«450/451» e «445/446» eram o mesmo resultado.** O `unittest` correu 451 e
+  reprovou 1. O leitor do ensaio só reconhece o nome de um teste quando a linha
+  `... ok` sai inteira; cinco testes escrevem no ecrã a meio dessa linha e
+  sumiram da contagem por nome. O número certo é o do `unittest` (Ran/FAILED);
+  por nome, compara-se só a lista de linhas `FAIL:`/`ERROR:`.
+- **Dois canários a promover é um READY que o portão não deixa colher.** No livro
+  unido, 111 READY, 88 delas LEGACY pela régua dos quatro passos. Desde esta
+  missão o worker só promove se a régua dos quatro passos passar na própria prova
+  do canário; o resto é PASS_PARCIAL → `CONTRACTED_CANARY_FAILED`, com o passo em
+  falta escrito. O passado não se reescreve.
+- **Classe antes do rótulo.** `AUTH_BLOCK` (muro de login) caía em UNKNOWN na
+  reconciliação por não estar no vocabulário. Lê-se como CAPABILITY_BLOCK (a
+  decisão já estava declarada em `_CLASSE_DE`); o rótulo fica no livro.

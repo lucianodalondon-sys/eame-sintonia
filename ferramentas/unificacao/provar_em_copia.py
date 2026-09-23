@@ -1,0 +1,98 @@
+"""Passo 4 da missao 5: as provas da ponte e do supervisor numa COPIA descartavel.
+
+    py ferramentas/unificacao/provar_em_copia.py <ref> <saida.json>
+
+- `git worktree add --detach` em %TEMP%; a fila fica VAZIA (a suite e as provas
+  do curator lancam worker real, que le a fila do disco e bateria a rede);
+- nenhum PID vivo e tocado: a copia nao tem SUPERVISOR-STATE, SUPERVISOR.lock
+  nem PARAR.flag (estao no .gitignore), e o supervisor so e exercitado por
+  `uma_volta_sup` com o lancador trocado por um processo inerte;
+- corre:
+    1. curadoria/provar_ponte_curador.py         (a ponte nos dois sentidos)
+    2. curadoria/red_team_ponte_curador.py       (SURVIVORS tem de ser 0)
+    3. supervisor.py --estado e ponte_automatica.py --saude (so leitura)
+    4. uma volta do supervisor observada: fila vazia -> IDLE, hook chamado,
+       nenhum worker lancado; e o worker ocioso (rc 0) nao conta como crash.
+- remove a worktree no fim.
+"""
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+VOLTA = r'''
+import json, subprocess, sys
+from pathlib import Path
+sys.path.insert(0, "curadoria")
+import supervisor as S
+lancados = []
+def inerte(pausa=1.0):
+    lancados.append(1)
+    return subprocess.Popen([sys.executable, "-c", "pass"])
+S._lancar_worker = inerte
+estado = {"CRASHES_SEM_PROGRESSO": [], "RESTARTS": 0, "WORKER_PID": None,
+          "SUPERVISOR_STATE": "RUNNING"}
+chamadas = []
+accao, estado, proc = S.uma_volta_sup(estado, None, pausa_worker=0.1,
+                                      hook_fila_vazia=lambda: chamadas.append(1))
+# o worker ocioso sai com rc 0: nao e crash
+p = subprocess.Popen([sys.executable, "-c", "pass"]); p.wait()
+est2 = {"CRASHES_SEM_PROGRESSO": [], "RESTARTS": 0, "WORKER_PID": p.pid,
+        "SUPERVISOR_STATE": "RUNNING"}
+accao2, est2, _ = S.uma_volta_sup(est2, p, pausa_worker=0.1, hook_fila_vazia=lambda: None)
+print(json.dumps({"ACCAO_FILA_VAZIA": accao, "HOOK_CHAMADO": len(chamadas),
+                  "WORKERS_LANCADOS": len(lancados),
+                  "ACCAO_DEPOIS_DE_SAIDA_LIMPA": accao2,
+                  "CRASHES_DEPOIS_DE_SAIDA_LIMPA": len(est2.get("CRASHES_SEM_PROGRESSO", []))}))
+'''
+
+
+def git(cwd, *a, ok=(0,)):
+    p = subprocess.run(["git", *a], cwd=str(cwd), capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
+    if p.returncode not in ok:
+        raise SystemExit("git %s: %s%s" % (a, p.stdout[-800:], p.stderr[-800:]))
+    return p
+
+
+def correr(wt, args, timeout=3000):
+    env = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1")
+    p = subprocess.run([sys.executable, *args], cwd=str(wt), capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", env=env, timeout=timeout)
+    out = (p.stdout + "\n" + p.stderr).replace("Could not find platform independent libraries <prefix>\n", "")
+    return {"RC": p.returncode, "FIM": out.strip().splitlines()[-25:]}
+
+
+def main(ref, saida):
+    raiz = Path(git(Path(__file__).parent, "rev-parse", "--show-toplevel").stdout.strip())
+    sha = git(raiz, "rev-parse", ref).stdout.strip()
+    wt = Path(tempfile.gettempdir()) / ("provar-copia-%s" % sha[:8])
+    if wt.exists():
+        git(raiz, "worktree", "remove", "--force", str(wt), ok=(0, 128))
+        shutil.rmtree(wt, ignore_errors=True)
+    git(raiz, "worktree", "add", "-q", "--detach", str(wt), sha)
+    doc = {"REF": ref, "SHA": sha}
+    try:
+        (wt / "curadoria/LIFECYCLE-QUEUE-V1.json").write_text(
+            json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}), encoding="utf-8")
+        doc["PONTE_PROOF"] = correr(wt, ["curadoria/provar_ponte_curador.py"])
+        doc["RED_TEAM_PONTE"] = correr(wt, ["curadoria/red_team_ponte_curador.py"])
+        doc["SUPERVISOR_ESTADO"] = correr(wt, ["curadoria/supervisor.py", "--estado"], 120)
+        doc["PONTE_SAUDE"] = correr(wt, ["curadoria/ponte_automatica.py", "--saude"], 120)
+        doc["SUPERVISOR_VOLTA"] = correr(wt, ["-c", VOLTA], 300)
+        doc["COPIA_SUJA_DEPOIS"] = git(wt, "status", "--short").stdout.splitlines()[:40]
+    finally:
+        git(raiz, "worktree", "remove", "--force", str(wt), ok=(0, 128))
+        git(raiz, "worktree", "prune")
+    doc["WORKTREE_REMOVIDA"] = not wt.exists()
+    Path(saida).write_text(json.dumps(doc, indent=1, ensure_ascii=False), encoding="utf-8")
+    for k in ("PONTE_PROOF", "RED_TEAM_PONTE", "SUPERVISOR_ESTADO", "PONTE_SAUDE", "SUPERVISOR_VOLTA"):
+        print("==", k, "rc=%s" % doc[k]["RC"])
+        print("\n".join(doc[k]["FIM"][-8:]))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
