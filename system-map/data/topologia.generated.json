@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T11:11:52+00:00",
-  "HEAD": "99123195c127ecb2f6c06cf9ccd652200d34ce9f",
-  "BRANCH": "micro-pronta-v2",
+  "GENERATED_AT": "2026-09-23T12:39:44+00:00",
+  "HEAD": "e137f16e7e237bf58886814b588ed32291057560",
+  "BRANCH": "sala-duplicados-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077",
-  "FICHEIROS_NA_IMPRESSAO": 2844,
+  "SOURCE_TREE_FINGERPRINT": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411",
+  "FICHEIROS_NA_IMPRESSAO": 2845,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -174,7 +174,7 @@
    {
     "PATH": "admissao/sala_de_espera.py",
     "PAPEL": "FONTE",
-    "VERSAO": "e207de26ee4101b99030f3de1752049e91addfc4",
+    "VERSAO": "2efcbc92d8b1848dfd30ab7cedebb2d979e77de6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3506,14 +3506,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077",
+    "VERSAO": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077",
+    "VERSAO": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4493,7 +4493,7 @@
    {
     "PATH": "tests/test_fila_italia_decisoes.py",
     "PAPEL": "FONTE",
-    "VERSAO": "9681466277ef06dd5c88657ed83dbf43a14979ad",
+    "VERSAO": "6cf1cdb8cf819112b63541e6be9113d346f04892",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5100,6 +5100,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_sala_idempotente_por_documento.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "cd582d96e66a3ee217189c8de01d98e029c0f7a2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_scrap_convergencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "dc6b33cc9da70170a564ab47c355711d8aebf7c9",
@@ -5289,8 +5296,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 750,
-  "INPUTS_DIGEST": "36789841826510c28e239eeee2cea23db3afc8b754baee2abc9dc5f1d057e5cc",
+  "INPUTS_COUNT": 751,
+  "INPUTS_DIGEST": "4aeb28f72f52d39ecd30913b95fac1ee4abf975eae9c7c31c8dd62bfa7de415b",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5323,8 +5330,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "7c149054a0e8c80b3d5d587466388fdc79f2869f8faa7cd099586c85f4116c2e",
-  "SEMANTIC_HASH": "f0840ef6a76a68400c0b2c0ef79ee234cbe727a7708fdb8cf9e4692544b51901"
+  "MEASUREMENT_HASH": "35b8d3f680aa7435bd0538f420fd4ee3db5ca3ac02a035081f4f5e2c26aaefbe",
+  "SEMANTIC_HASH": "653c67b1a20f19d2d98274d0f99c4e8be37474962bcd85e4f854a78e18cac631"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15304,7 +15311,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
-      "LINHA": 418,
+      "LINHA": 470,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DECISAO-DA-FILA--READS-->C-TESTES",
@@ -21283,7 +21290,7 @@
      },
      {
       "FICHEIRO": "tests/test_fila_italia_decisoes.py",
-      "LINHA": 313,
+      "LINHA": 365,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
@@ -25370,6 +25377,14 @@
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 19,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_sala_idempotente_por_documento.py",
+      "LINHA": 35,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
@@ -33192,6 +33207,14 @@
      {
       "FICHEIRO": "tests/test_sala_duravel.py",
       "LINHA": 31,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_sala_idempotente_por_documento.py",
+      "LINHA": 32,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
@@ -44911,7 +44934,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
     "tests/test_ensaio_offline_micro.py",
-    "tests/test_micro_coleta_instrumento.py"
+    "tests/test_micro_coleta_instrumento.py",
+    "tests/test_sala_idempotente_por_documento.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
     "RELATORIO-MICRO-PREP-B.md",
@@ -47753,6 +47777,7 @@
    "ALCANCADO_POR_CORRIDA": true,
    "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [
+    "_entrada",
     "_recibo",
     "sala_de_espera"
    ],
@@ -48813,6 +48838,7 @@
     "tests/test_route_membership.py",
     "tests/test_runtime_so_deixa_passar_colheita.py",
     "tests/test_sala_duravel.py",
+    "tests/test_sala_idempotente_por_documento.py",
     "tests/test_scrap_convergencia.py",
     "tests/test_scrap_flow01_caminho_canonico.py",
     "tests/test_scrap_rc01_release_candidate.py",

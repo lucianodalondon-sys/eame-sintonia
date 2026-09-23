@@ -2743,6 +2743,7 @@
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
       "tests/test_sala_duravel.py",
+      "tests/test_sala_idempotente_por_documento.py",
       "tests/test_scrap_convergencia.py",
       "tests/test_scrap_flow01_caminho_canonico.py",
       "tests/test_scrap_rc01_release_candidate.py",
@@ -3289,10 +3290,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-pronta-v2",
-    "HEAD": "99123195c127ecb2f6c06cf9ccd652200d34ce9f",
-    "GENERATED_AT": "2026-09-23T08:05:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077"
+    "BRANCH": "sala-duplicados-v1",
+    "HEAD": "e137f16e7e237bf58886814b588ed32291057560",
+    "GENERATED_AT": "2026-09-23T09:26:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411"
   },
   "FAMILIES": [
     {
@@ -27260,7 +27261,7 @@
         "PLANO": "CODE",
         "PROVA": [
           "tests/test_fila_italia_decisoes.py:33",
-          "tests/test_fila_italia_decisoes.py:418"
+          "tests/test_fila_italia_decisoes.py:470"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -46171,6 +46172,7 @@
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
         "tests/test_sala_duravel.py",
+        "tests/test_sala_idempotente_por_documento.py",
         "tests/test_scrap_convergencia.py",
         "tests/test_scrap_flow01_caminho_canonico.py",
         "tests/test_scrap_rc01_release_candidate.py",
@@ -46199,7 +46201,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 215,
+      "file_count": 216,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -48916,7 +48918,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-pronta-v2"
+        "branch sala-duplicados-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -51832,7 +51834,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 33 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 34 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/medir_multilingue.py",
@@ -66524,7 +66526,7 @@
       "evidence": [
         {
           "file": "tests/test_fila_italia_decisoes.py",
-          "line": 418,
+          "line": 470,
           "snippet": "codigo = (RAIZ / \"candidatas\" / \"decidir_fila_italia.py\").read_text(",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DECISAO-DA-FILA--READS-->C-TESTES",
@@ -76975,7 +76977,7 @@
         },
         {
           "file": "tests/test_fila_italia_decisoes.py",
-          "line": 313,
+          "line": 365,
           "snippet": "master = (RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\") \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-TESTES",
@@ -83907,7 +83909,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_ensaio_offline_micro.py",
@@ -83945,6 +83947,22 @@
           "file": "tests/test_micro_coleta_instrumento.py",
           "line": 19,
           "snippet": "\"micro_coleta\", RAIZ / \"scripts\" / \"micro_coleta\" / \"micro_coleta.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+            "FROM": "C-MICRO-COLETA-INSTRUMENTO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_sala_idempotente_por_documento.py",
+          "line": 35,
+          "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
             "FROM": "C-MICRO-COLETA-INSTRUMENTO",
@@ -98250,7 +98268,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_collection_preserva_o_fato.py",
@@ -98368,6 +98386,22 @@
           "file": "tests/test_sala_duravel.py",
           "line": 31,
           "snippet": "import sala_de_espera as espera                            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_sala_idempotente_por_documento.py",
+          "line": 32,
+          "snippet": "import sala_de_espera as espera          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-TESTES",
             "FROM": "C-SALA-DE-ESPERA",
@@ -111100,8 +111134,8 @@
     "edges_proven": 1129,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2696,
-    "files_covered": 1168,
+    "files_tracked": 2697,
+    "files_covered": 1169,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,

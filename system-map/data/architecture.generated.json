@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-pronta-v2",
-    "HEAD": "99123195c127ecb2f6c06cf9ccd652200d34ce9f",
-    "GENERATED_AT": "2026-09-23T08:05:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cf6b07e2243f7b661a663e5c9b4d300c9b99d27e97248029dd882e379a782077"
+    "BRANCH": "sala-duplicados-v1",
+    "HEAD": "e137f16e7e237bf58886814b588ed32291057560",
+    "GENERATED_AT": "2026-09-23T09:26:04-03:00",
+    "SOURCE_TREE_FINGERPRINT": "8ca60cfeb7a3dd40134fece493b58998fe2f57e50734e9168414a725618bd411"
   },
   "FILES": [
     {
@@ -542,7 +542,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "3a0488e80a89985d173dd137dee69581090f6259",
+      "sha": "fce1a06454df68cb9781de55ef6acd6f5cd9691c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -570,7 +570,7 @@
     },
     {
       "path": "admissao/sala_de_espera.py",
-      "sha": "e207de26ee4101b99030f3de1752049e91addfc4",
+      "sha": "2efcbc92d8b1848dfd30ab7cedebb2d979e77de6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18077,7 +18077,7 @@
     },
     {
       "path": "tests/test_fila_italia_decisoes.py",
-      "sha": "9681466277ef06dd5c88657ed83dbf43a14979ad",
+      "sha": "6cf1cdb8cf819112b63541e6be9113d346f04892",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18680,6 +18680,13 @@
     {
       "path": "tests/test_sala_duravel.py",
       "sha": "d9a32dc2b325580af177c79c11920794acc4be66",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_sala_idempotente_por_documento.py",
+      "sha": "cd582d96e66a3ee217189c8de01d98e029c0f7a2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -69368,7 +69375,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 396,
+        "line": 448,
         "snippet": "d = XL.folhas(RAIZ / \"candidatas\" / \"ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx\")"
       }
     },
@@ -69379,7 +69386,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 313,
+        "line": 365,
         "snippet": "master = (RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\") \\"
       }
     },
@@ -69390,7 +69397,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 393,
+        "line": 445,
         "snippet": "q = XL.folhas(RAIZ / \"candidatas\" / \"ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx\")"
       }
     },
@@ -69412,7 +69419,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 418,
+        "line": 470,
         "snippet": "codigo = (RAIZ / \"candidatas\" / \"decidir_fila_italia.py\").read_text("
       }
     },
@@ -69445,7 +69452,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_fila_italia_decisoes.py",
-        "line": 361,
+        "line": 413,
         "snippet": "self.assertIn(\"data/samples/IT-SOURCE-SAMPLES/IT-T2-001/MANIFEST.json\", bloco)"
       }
     },
@@ -75412,6 +75419,50 @@
       }
     },
     {
+      "from_file": "tests/test_sala_idempotente_por_documento.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_sala_idempotente_por_documento.py",
+        "line": 30,
+        "snippet": "import _gavetas                          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_sala_idempotente_por_documento.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_sala_idempotente_por_documento.py",
+        "line": 31,
+        "snippet": "import admissao                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_sala_idempotente_por_documento.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_sala_idempotente_por_documento.py",
+        "line": 32,
+        "snippet": "import sala_de_espera as espera          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_sala_idempotente_por_documento.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_sala_idempotente_por_documento.py",
+        "line": 35,
+        "snippet": "\"ensaio_offline\", RAIZ / \"scripts\" / \"micro_coleta\" / \"ensaio_offline.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_scrap_convergencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -78164,10 +78215,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2696,
-    "files_readable": 1232,
-    "files_code_dir": 1043,
-    "file_edges": 5338,
+    "files_tracked": 2697,
+    "files_readable": 1233,
+    "files_code_dir": 1044,
+    "file_edges": 5342,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
