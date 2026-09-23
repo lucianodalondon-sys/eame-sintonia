@@ -18721,3 +18721,39 @@ gerada por `curadoria/provar_abastecimento.py` sobre uma CÓPIA da worktree viva
 
 **O QUE NÃO SE FEZ.** Não se tocou no serviço vivo, na fila, no ledger nem nas
 candidatas dele. Aplicar é decisão do coordenador (plano na entrega da missão).
+
+---
+
+# §171 · SAIR NÃO É MORRER — O WORKER OCIOSO QUE DESLIGAVA O GATILHO
+
+*Missão 2c (gatilho-ocioso-v1), 23/09/2026. Prova: `curadoria/GATILHO-OCIOSO-ENSAIO-V1.json`
+(supervisor e worker reais numa cópia) e `curadoria/test_gatilho_ocioso.py`.*
+
+**O QUE ESTAVA ERRADO.** Visto ao vivo depois da §170: o `ciclo_continuo` nunca saía com
+a fila vazia (dormia 120 s e dava outra volta), e o supervisor só chama o gatilho
+(reviver → feeder → discovery) quando o worker está MORTO. O gatilho só corria nos
+intervalos em que o worker caía por outro motivo. Medido: 12 voltas vazias seguidas,
+0 realimentações, discovery e revivências paradas.
+
+**O QUE MUDOU (via A).** O worker lançado pelo supervisor sai com rc 0 e o evento
+`WORKER_OCIOSO_SAIU` quando não há nada elegível e nenhum relógio de `WAITING_RETRY`
+cabe numa espera (≤ `ESPERA_MAX`). O supervisor lê rc 0 como `WORKER_SAIU_LIMPO` e
+não o soma a `CRASHES_SEM_PROGRESSO`.
+
+**O QUE SE APRENDEU.**
+
+- **A saída limpa lia-se como crash.** A volta `VIVO` do supervisor copia o último
+  heartbeat para `LAST_PROGRESS_AT`. Quando um worker ocioso sai, o heartbeat não
+  avançou desde essa cópia: «morreu sem progresso». Três saídas em 120 s mandariam o
+  serviço a BLOCKED. Sem a regra do rc 0, o remédio criava uma avaria nova.
+- **A via B (hook com o worker vivo) caía pela fila.** `fila._gravar` lê, muda e
+  substitui o ficheiro inteiro, sem trinco: dois escritores ao mesmo tempo perdem
+  escritas sem erro nenhum. Um só escritor de cada vez não é preferência, é
+  a condição para a fila dizer a verdade.
+- **Um teste antigo dizia «crash» com `python -c pass`**, que sai com rc 0. Pela regra
+  nova isso é saída limpa. O teste passou a `sys.exit(1)`, que é o que queria dizer.
+- **Ensaio real, não só unitário:** IDLE → RELANCADO → `WORKER_OCIOSO_SAIU` →
+  `WORKER_SAIU_LIMPO` → IDLE com gatilho, e 0 eventos em 180 s parado (poll de 15 s).
+  Três mutantes, cada um com diff de 1 linha, todos mortos.
+- `WORKER_MORTO` continua a ser anotado antes de `WORKER_SAIU_LIMPO` (traz o RC).
+  Nenhum leitor o consome hoje; quem o vier a contar tem de excluir RC 0.
