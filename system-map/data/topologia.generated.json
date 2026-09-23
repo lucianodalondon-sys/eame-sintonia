@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T07:34:57+00:00",
-  "HEAD": "4c9cae80cde9a7a85b53fe25a27fcfb52f9c32be",
-  "BRANCH": "recollection-prova-v1",
+  "GENERATED_AT": "2026-09-23T08:54:24+00:00",
+  "HEAD": "5d990571a00600404c61d40591e75bc1706fff32",
+  "BRANCH": "recollection-prova-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8bab043484da58e8e159b78680daedc31fcf2f6b427ec101b7e7e72604bdba23",
-  "FICHEIROS_NA_IMPRESSAO": 2780,
+  "SOURCE_TREE_FINGERPRINT": "13ed4eb65426e0330342d9ac7196c01b92838dba2bc645ca03dc98363c9c57a6",
+  "FICHEIROS_NA_IMPRESSAO": 2785,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -475,7 +475,7 @@
    {
     "PATH": "coleta/italy_pilot_collect.mjs",
     "PAPEL": "FONTE",
-    "VERSAO": "72412e63d5422025f0fafdab7bf76b7ecaa2aaf5",
+    "VERSAO": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2615,6 +2615,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/medir_validadores_coorte.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "8e8dc8c223a23166afdc223967bc33a487c09619",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/mutacao_da_autorizacao.py",
     "PAPEL": "FONTE",
     "VERSAO": "07b703a304e8e1e2c1304615fd2437fd89e37ccb",
@@ -2979,6 +2986,13 @@
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
    {
+    "PATH": "provas/recollection_indice_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "d3fd359339762b5aaa0a0ea54df45adac8481451",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
     "PATH": "provas/recollection_red_team.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "d870f0e862b29563e98627f0434777161ec456c4",
@@ -2989,6 +3003,13 @@
     "PATH": "provas/recollection_red_team_estrito.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "09ca8641293d91bd1d5a0e84d9d338699142ae53",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": "provas/recollection_timeout_local.mjs",
+    "PAPEL": "FONTE",
+    "VERSAO": "f984a85a83be3e88eda853195ca6b737bd4a9495",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3415,14 +3436,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8bab043484da58e8e159b78680daedc31fcf2f6b427ec101b7e7e72604bdba23",
+    "VERSAO": "13ed4eb65426e0330342d9ac7196c01b92838dba2bc645ca03dc98363c9c57a6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8bab043484da58e8e159b78680daedc31fcf2f6b427ec101b7e7e72604bdba23",
+    "VERSAO": "13ed4eb65426e0330342d9ac7196c01b92838dba2bc645ca03dc98363c9c57a6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5149,8 +5170,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 730,
-  "INPUTS_DIGEST": "e9d9bbb65bccd7b09c4da377e5709b6c14128ff3a82936a360ef5277ea4adb0e",
+  "INPUTS_COUNT": 733,
+  "INPUTS_DIGEST": "307b6e9f9710f59fadb4d554d2aa31c2d4b63472f83c7f6ea5d45ada2444d5fc",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5176,15 +5197,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 469,
+  "DOCUMENTOS_LIDOS": 470,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bbe61618bbfa4c13bb5e8c720e7679013b2299c14637eab42847d69dc5130b36",
-  "SEMANTIC_HASH": "4c498adf04e068f1a934715e485d9a5f58b8436bd320a54101c142d9094fe435"
+  "MEASUREMENT_HASH": "5fb8851bf8c4fec2aabb7fcd2f386763116d06bac04cd5584864d87005040664",
+  "SEMANTIC_HASH": "6d8c0f9932833058230f61c4baf8fe9365acba3a6978f6019ea2fada0c5f21ca"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -21498,6 +21519,22 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_indice_local.mjs",
+      "LINHA": 75,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_timeout_local.mjs",
+      "LINHA": 64,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -22060,6 +22097,22 @@
      {
       "FICHEIRO": "provas/recollection_http_local.mjs",
       "LINHA": 59,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_indice_local.mjs",
+      "LINHA": 76,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_timeout_local.mjs",
+      "LINHA": 65,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CONTRATOS--READS-->C-PROVA-PARIDADE",
@@ -23109,6 +23162,22 @@
      {
       "FICHEIRO": "provas/recollection_http_local.mjs",
       "LINHA": 66,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_indice_local.mjs",
+      "LINHA": 89,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "provas/recollection_timeout_local.mjs",
+      "LINHA": 73,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-PARIDADE",
@@ -43492,6 +43561,8 @@
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs",
     "provas/recollection_http_local.mjs",
+    "provas/recollection_indice_local.mjs",
+    "provas/recollection_timeout_local.mjs",
     "provas/so_a_colheita_atravessa.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
@@ -43591,6 +43662,8 @@
     "provas/italy_pilot_negativos.mjs",
     "provas/paridade_duas_rodadas.mjs",
     "provas/recollection_http_local.mjs",
+    "provas/recollection_indice_local.mjs",
+    "provas/recollection_timeout_local.mjs",
     "system-map/scripts/scan_repo.py",
     "tests/test_alvo_estruturado_resolvido.py",
     "tests/test_integracao_04a_curator.py",
@@ -43755,6 +43828,8 @@
     "provas/paridade_duas_rodadas.mjs",
     "provas/primeira_coleta_controlada_italia.py",
     "provas/recollection_http_local.mjs",
+    "provas/recollection_indice_local.mjs",
+    "provas/recollection_timeout_local.mjs",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_de_identidade_it.py",
     "system-map/scripts/relatorio_do_fluxo.py",
@@ -45955,12 +46030,17 @@
    "STATUS": "PENDING",
    "FICHEIROS": [
     "provas/PARIDADE-RED-TEAM-V1.json",
+    "provas/VALIDADORES-COORTE-R2.json",
+    "provas/medir_validadores_coorte.py",
     "provas/paridade_duas_rodadas.mjs",
     "provas/paridade_red_team.mjs",
-    "provas/recollection_http_local.mjs"
+    "provas/recollection_http_local.mjs",
+    "provas/recollection_indice_local.mjs",
+    "provas/recollection_timeout_local.mjs"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/medir_validadores_coorte.py",
     "provas/paridade_red_team.mjs",
     "provas/recollection_http_local.mjs",
     "provas/recollection_red_team.mjs"
@@ -45970,7 +46050,11 @@
    "ALCANCADO_POR_CORRIDA": false,
    "RUNTIME_OBSERVADO": false,
    "ESCREVE_EM": [],
-   "LE_DE": [],
+   "LE_DE": [
+    "datetime",
+    "pathlib",
+    "urllib"
+   ],
    "ENTRAM": 5,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [

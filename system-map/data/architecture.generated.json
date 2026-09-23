@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "recollection-prova-v1",
-    "HEAD": "4c9cae80cde9a7a85b53fe25a27fcfb52f9c32be",
-    "GENERATED_AT": "2026-09-23T04:19:51-03:00",
-    "SOURCE_TREE_FINGERPRINT": "8bab043484da58e8e159b78680daedc31fcf2f6b427ec101b7e7e72604bdba23"
+    "BRANCH": "recollection-prova-v2",
+    "HEAD": "5d990571a00600404c61d40591e75bc1706fff32",
+    "GENERATED_AT": "2026-09-23T05:49:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "13ed4eb65426e0330342d9ac7196c01b92838dba2bc645ca03dc98363c9c57a6"
   },
   "FILES": [
     {
@@ -443,6 +443,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-RECOLLECTION-R2.md",
+      "sha": "49dbec29f15a3cea028161c30f91466cdcecbfc8",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-RECOLLECTION.md",
       "sha": "868127c14a79f115725566e1e1408060f8ceff3f",
       "ext": ".md",
@@ -479,7 +486,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "03c2db22e4d9dc3fa8d551b0149b2b48a347d248",
+      "sha": "c0816608b904c132f3d6f36d5d4bd6a10655388a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1655,7 +1662,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "72412e63d5422025f0fafdab7bf76b7ecaa2aaf5",
+      "sha": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -13624,6 +13631,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/VALIDADORES-COORTE-R2.json",
+      "sha": "18c64be81b37895d15acdd982c3af99215854a4e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/_c106b_filho.py",
       "sha": "20c80db99fda4284c77abac4c87df9747d8943ff",
       "ext": ".py",
@@ -14170,6 +14184,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/medir_validadores_coorte.py",
+      "sha": "8e8dc8c223a23166afdc223967bc33a487c09619",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/modelo_de_objetos_da_intelligence.py",
       "sha": "ad3455379ac2e32760c9c69d5e7d608576d20ee3",
       "ext": ".py",
@@ -14548,6 +14569,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/recollection_indice_local.mjs",
+      "sha": "d3fd359339762b5aaa0a0ea54df45adac8481451",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/recollection_red_team.mjs",
       "sha": "d870f0e862b29563e98627f0434777161ec456c4",
       "ext": ".mjs",
@@ -14557,6 +14585,13 @@
     {
       "path": "provas/recollection_red_team_estrito.mjs",
       "sha": "09ca8641293d91bd1d5a0e84d9d338699142ae53",
+      "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/recollection_timeout_local.mjs",
+      "sha": "f984a85a83be3e88eda853195ca6b737bd4a9495",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16481,7 +16516,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "5ee751c7a08514b2dbfcbe4dd2dffcf0e107604d",
+      "sha": "6390a8ffa0742d3c400c5a95c573103db676d1cc",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -21697,7 +21732,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 265,
+        "line": 268,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -49268,6 +49303,28 @@
       }
     },
     {
+      "from_file": "provas/medir_validadores_coorte.py",
+      "to_file": "provas/VALIDADORES-COORTE-R2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_validadores_coorte.py",
+        "line": 31,
+        "snippet": "SAIDA = Path(__file__).with_name(\"VALIDADORES-COORTE-R2.json\")"
+      }
+    },
+    {
+      "from_file": "provas/medir_validadores_coorte.py",
+      "to_file": "provas/VALIDADORES-COORTE-R2.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_validadores_coorte.py",
+        "line": 149,
+        "snippet": "SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "provas/modelo_de_objetos_da_intelligence.py",
       "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
       "type": "READS",
@@ -53382,6 +53439,39 @@
       }
     },
     {
+      "from_file": "provas/recollection_indice_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_indice_local.mjs",
+        "line": 75,
+        "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/recollection_indice_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_indice_local.mjs",
+        "line": 89,
+        "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/recollection_indice_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_indice_local.mjs",
+        "line": 76,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
+      }
+    },
+    {
       "from_file": "provas/recollection_red_team.mjs",
       "to_file": "provas/RECOLLECTION-RED-TEAM-V1.json",
       "type": "WRITES",
@@ -53511,6 +53601,39 @@
         "file": "provas/recollection_red_team_estrito.mjs",
         "line": 98,
         "snippet": "const TODAS = [\"regras/incrementalidade_test.mjs\", \"regras/recollection_test.mjs\", \"regras/paridade_test.mjs\"];"
+      }
+    },
+    {
+      "from_file": "provas/recollection_timeout_local.mjs",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_timeout_local.mjs",
+        "line": 64,
+        "snippet": "const { executarRodada } = await import(\"../coleta/italy_pilot_collect.mjs\");"
+      }
+    },
+    {
+      "from_file": "provas/recollection_timeout_local.mjs",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_timeout_local.mjs",
+        "line": 73,
+        "snippet": "const f = join(RAIZ, \"data/collection-ledger/italy/observations.ndjson\");"
+      }
+    },
+    {
+      "from_file": "provas/recollection_timeout_local.mjs",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recollection_timeout_local.mjs",
+        "line": 65,
+        "snippet": "const { CONTRACTS } = await import(\"../regras/italy_contracts.mjs\");"
       }
     },
     {
@@ -76506,10 +76629,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2632,
-    "files_readable": 1199,
-    "files_code_dir": 1007,
-    "file_edges": 5228,
+    "files_tracked": 2637,
+    "files_readable": 1202,
+    "files_code_dir": 1011,
+    "file_edges": 5236,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
