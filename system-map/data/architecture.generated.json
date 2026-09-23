@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "96cf46d837c60aa9ddbe325e6a7429c6652a2148",
-    "GENERATED_AT": "2026-09-23T04:58:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc8100d242c32f8619325b0eb70879cd7a780c3e97a916e486d3245961da81b4"
+    "HEAD": "e6f72ce8d1ea46d3893daa00ac0b06b8e4eef232",
+    "GENERATED_AT": "2026-09-23T06:08:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "999b79de2d64bcb7fd60d36b7fe72af13265b89d5967a01af583550d094d13de"
   },
   "FILES": [
     {
@@ -507,7 +507,7 @@
     },
     {
       "path": "RELATORIO-UNIFICACAO.md",
-      "sha": "f4f6d115631b447705e618c4c7c908b3cf332149",
+      "sha": "f320dcbb89c6a1f02f48bbddbdd709bd622c0cc1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10432,6 +10432,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/unificacao/m5/provas-passagem3.json",
+      "sha": "67c5b4c5a8603b501bbbb0aaa61fc72e0693fb52",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/unificacao/m5/provas-passo4.json",
       "sha": "eaf24ed263bdfa386b6f6ad6bb76cbc573df32a6",
       "ext": ".json",
@@ -10460,6 +10467,13 @@
       "code_dir": true
     },
     {
+      "path": "ferramentas/unificacao/m5/suite-unificado-8fe122cb.json",
+      "sha": "f6fb2a1bdaa9fa27a13a43212fe1f1cf81c4b44b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "ferramentas/unificacao/m5/suite-unificado-91b5f38e.json",
       "sha": "e1eae9b3ffe1c769638d46f25a84382a9bbaa973",
       "ext": ".json",
@@ -10475,7 +10489,7 @@
     },
     {
       "path": "ferramentas/unificacao/provar_em_copia.py",
-      "sha": "e174cc2279dc9b4c94a6a02c2ccd1cd2aed8e873",
+      "sha": "4e360e7eb0c8b924dfb38b361acc8a66452ea6b0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30494,8 +30508,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 83,
+        "line": 84,
         "snippet": "(wt / \"curadoria/LIFECYCLE-QUEUE-V1.json\").write_text("
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/provar_em_copia.py",
+      "to_file": "curadoria/ensaiar_fila_windows.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/provar_em_copia.py",
+        "line": 126,
+        "snippet": "if (arq / \"curadoria/ensaiar_fila_windows.py\").exists():"
       }
     },
     {
@@ -30505,7 +30530,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 106,
+        "line": 125,
         "snippet": "arq, [\"curadoria/ensaiar_gatilho_ocioso.py\", \"--sou-uma-copia\"], 1800)"
       }
     },
@@ -30516,7 +30541,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 104,
+        "line": 123,
         "snippet": "arq, [\"curadoria/ensaiar_worker_pendurado.py\", \"--sou-uma-copia\"], 1800)"
       }
     },
@@ -30527,7 +30552,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 88,
+        "line": 89,
         "snippet": "doc[\"PONTE_SAUDE\"] = correr(wt, [\"curadoria/ponte_automatica.py\", \"--saude\"], 120)"
       }
     },
@@ -30538,7 +30563,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 85,
+        "line": 86,
         "snippet": "doc[\"PONTE_PROOF\"] = correr(wt, [\"curadoria/provar_ponte_curador.py\"])"
       }
     },
@@ -30549,7 +30574,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 86,
+        "line": 87,
         "snippet": "doc[\"RED_TEAM_PONTE\"] = correr(wt, [\"curadoria/red_team_ponte_curador.py\"])"
       }
     },
@@ -30560,8 +30585,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "ferramentas/unificacao/provar_em_copia.py",
-        "line": 87,
+        "line": 88,
         "snippet": "doc[\"SUPERVISOR_ESTADO\"] = correr(wt, [\"curadoria/supervisor.py\", \"--estado\"], 120)"
+      }
+    },
+    {
+      "from_file": "ferramentas/unificacao/provar_em_copia.py",
+      "to_file": "medidas/prova_b2_ponte_em_copia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "ferramentas/unificacao/provar_em_copia.py",
+        "line": 109,
+        "snippet": "if snaps and (wt / \"medidas/prova_b2_ponte_em_copia.py\").exists():"
       }
     },
     {
@@ -77504,10 +77540,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2674,
+    "files_tracked": 2676,
     "files_readable": 1220,
-    "files_code_dir": 1025,
-    "file_edges": 5292,
+    "files_code_dir": 1027,
+    "file_edges": 5294,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

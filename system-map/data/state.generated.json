@@ -1519,10 +1519,12 @@
       "ferramentas/unificacao/m5/ledger-passo1-diagnostico.json",
       "ferramentas/unificacao/m5/livros-passo3-servico.json",
       "ferramentas/unificacao/m5/provas-passagem2.json",
+      "ferramentas/unificacao/m5/provas-passagem3.json",
       "ferramentas/unificacao/m5/provas-passo4.json",
       "ferramentas/unificacao/m5/suite-base-20c06500.json",
       "ferramentas/unificacao/m5/suite-base-2cfdc3b3.json",
       "ferramentas/unificacao/m5/suite-unificado-5a16d077.json",
+      "ferramentas/unificacao/m5/suite-unificado-8fe122cb.json",
       "ferramentas/unificacao/m5/suite-unificado-91b5f38e.json",
       "ferramentas/unificacao/medir_suite.py",
       "ferramentas/unificacao/provar_em_copia.py",
@@ -3268,9 +3270,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "unificacao-v1",
-    "HEAD": "96cf46d837c60aa9ddbe325e6a7429c6652a2148",
-    "GENERATED_AT": "2026-09-23T04:58:46-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fc8100d242c32f8619325b0eb70879cd7a780c3e97a916e486d3245961da81b4"
+    "HEAD": "e6f72ce8d1ea46d3893daa00ac0b06b8e4eef232",
+    "GENERATED_AT": "2026-09-23T06:08:46-03:00",
+    "SOURCE_TREE_FINGERPRINT": "999b79de2d64bcb7fd60d36b7fe72af13265b89d5967a01af583550d094d13de"
   },
   "FAMILIES": [
     {
@@ -22387,6 +22389,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-CENSO-UNIFICACAO",
         "C-DESBLOQUEIO-PACOTE",
         "C-MICRO-COLETA-INSTRUMENTO",
         "C-TESTES"
@@ -22512,12 +22515,12 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "ferramentas/unificacao/provar_em_copia.py:109",
           "scripts/desbloqueio/aplicar_desbloqueio.py:182",
           "scripts/micro_coleta/micro_coleta.py:120",
-          "tests/test_gabarito_t2_t12.py:9",
-          "tests/test_micro_coleta_instrumento.py:171"
+          "tests/test_gabarito_t2_t12.py:9"
         ],
-        "PORQUE": "estas pecas importam-na — C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 11310,
       "y": 360
@@ -23930,6 +23933,7 @@
         "curadoria/test_supervisor.py"
       ],
       "inbound": [
+        "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CONTRATO-TELEMETRIA",
         "C-PORTA-FONTE"
       ],
@@ -24020,6 +24024,7 @@
         "curadoria/READY-BATCHES-V1.json",
         "curadoria/RED-TEAM-TELEMETRIA-V1.json",
         "curadoria/descobrir.py",
+        "curadoria/ensaiar_fila_windows.py",
         "curadoria/ensaiar_gatilho_ocioso.py",
         "curadoria/ensaiar_worker_pendurado.py",
         "curadoria/italy_contracts_curator.json",
@@ -24037,7 +24042,8 @@
         "curadoria/test_supervisor.py",
         "curadoria/test_worker_qualify.py",
         "curadoria/worker.py",
-        "leis/telemetria.py"
+        "leis/telemetria.py",
+        "medidas/prova_b2_ponte_em_copia.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -56048,6 +56054,41 @@
         }
       ],
       "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "to": "C-CENSO-UNIFICACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O canario das rotas das fontes aprovadas alimenta Censo das lanes antes de unificar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "ferramentas/unificacao/provar_em_copia.py",
+          "line": 109,
+          "snippet": "if snaps and (wt / \"medidas/prova_b2_ponte_em_copia.py\").exists():",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-CENSO-UNIFICACAO",
+            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "TO": "C-CENSO-UNIFICACAO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -108996,7 +109037,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1522,
+  "UNCLAIMED_FILES_COUNT": 1524,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -109197,11 +109238,11 @@
     "components_pending": 192,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1183,
-    "edges_proven": 1119,
+    "edges": 1184,
+    "edges_proven": 1120,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2674,
+    "files_tracked": 2676,
     "files_covered": 1152,
     "files_code_unclaimed": 0,
     "roles_proven": 159,
