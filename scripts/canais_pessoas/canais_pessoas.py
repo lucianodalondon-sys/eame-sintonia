@@ -382,7 +382,12 @@ def registar():
             x = dec.get(a["URL"])
             if not x or x["DECISAO"] != "ENTRA":
                 continue
-            pais, prova_pais = D.pais_pela_prova(h.get("URL_FINAL") or h["URL"])
+            # O pais le-se PRIMEIRO no dominio da semente (o que a propria organizacao
+            # publica) e so depois no endereco apos o redireccionamento: biolchim.it
+            # -> biolchim.com deu NAO SEI na 1.a gravacao (YT3, corrigido a mao, 5 linhas).
+            pais, prova_pais = D.pais_pela_prova(h["URL"])
+            if pais == "NAO SEI" and h.get("URL_FINAL"):
+                pais, prova_pais = D.pais_pela_prova(h["URL_FINAL"])
             nota = ("YT3 D24 · IDENTIDADE: a pagina oficial %s (sha256 %s, lida %s) liga a este %s "
                     "[ancora «%s»] — descoberta-indireta:site-da-organizacao · TERRITORIO: %s (%s) · "
                     "DONO: %s (%s; semente %s) · FREQUENCIA: %s · TECNICO: %s · %s") % (
