@@ -21162,3 +21162,57 @@ Conferência da matriz do engenheiro do Scrap (mesmo dia, sem rede):
 
 Número: `§196` e `§197` já existem noutras branches (varridas todas as refs locais e
 remotas); este é o `§198`.
+# §196 · YT1 · O SOM DO YOUTUBE ATRAVESSA ATÉ AO TEXTO — E PARA NA PORTA POR FALTA DE RÉGUA T8
+
+**Missão YT1** (`youtube-oficial-v1`, 2026-09-23), reorientada pela D17 do dono: as rotas de
+YouTube são as que o Sintonia Scrap JÁ declara (`leis/social_matriz.py`,
+`coleta/scrap_capacidades.py`), sem reabrir a análise; a paga fica fora; conta pessoal fica fora.
+
+**O CANÁRIO.** 1 vídeo público (`7Ps4g3juOIU`, fonte IT-T8-001 AgroNotizie), pelo comando do
+engenheiro do Scrap, VPN IT medida antes (Palermo), numa base DESCARTÁVEL (cluster novo,
+31 migrations, Sala em POSTGRES apontada para ESSE banco, apagado no fim):
+
+    python orquestrador/orquestrador.py 'colete agricultores' --filtro fase=audio-youtube \
+        --filtro fonte=IT-T8-001 --filtro video=7Ps4g3juOIU --filtro pais=IT
+
+    RAW        PASS · audio/wav · 7.112.072 bytes · sha256 7785c505…2bda · 1 faixa de som, 0 de imagem
+    DERIVED    PASS · faster-whisper `small` · língua it (DETECTED) · 3.346 bytes de texto
+    ESTRUTURADO 1 documento
+    ADMISSÃO   (1.ª corrida) o processo morre: UNIVERSO_NAO_DECLARADO — o comando não traz universo
+               (2.ª, pela porta de reprocesso, sem rede, com --filtro universo=T8):
+               legível SIM · origem SIM · linhagem SIM · identidade SIM · matéria SIM
+               pertence ao universo  NAO_SE_APLICA — «não há regra escrita do que conta como T8»
+    SALA       0
+
+**TRÊS FALTAS, TRÊS DONOS.**
+1. O comando canónico do audio-youtube tem de declarar `--filtro universo=…` (a porta exige-o
+   desde `836a9c89`, e não inventa um).
+2. A Admissão NÃO TEM RÉGUA T8 (`admissao/admissao.py::PERGUNTAS_DO_UNIVERSO` não tem a chave).
+   Nenhum vídeo de «agricultores e influenciadores» chega à Sala, por melhor que seja. Decisão
+   do dono: escrever a régua T8, ou pedir estes vídeos num universo com régua.
+3. A rota de áudio não traz `PUBLISHED_AT` (só `CAPTURED_AT`) e o envelope sai com
+   `DOCUMENT_ID = NAO SEI`. A data vem da fase `video-youtube` (Data API; a chave existe como
+   secret do GitHub — `docs/sintonia-scrap/C9-…:157`, RUN 35401296232 — e NÃO nesta máquina).
+
+**ARMADILHA DE LEITURA: O ESTÁGIO.** Chamar `admissao.decidir()` à mão sobre o texto dá
+`NAO_SEI` por «tempo do fato» — e engana. A porta canónica julga o DERIVADO em estágio
+DOCUMENTO, onde o FACT_TIME é `NAO_SE_APLICA` (pertence ao claim, COL-LAW-201/502). Só o livro
+de decisões da corrida diz a regra que parou o item.
+
+**ARMADILHAS DE AMBIENTE (esta máquina).**
+- `~/.sintonia-libs` tem numpy/ctranslate2 **cp311**; o `py` é 3.12 → `fala_local` falha com
+  «numpy C-extensions». `SINTONIA_LIBS=<Python312>\Lib\site-packages` (faster-whisper cp312) resolve.
+- `youtube_transcrever._audio` chama `sys.executable -m yt_dlp`, e o `py` não o tem →
+  `PYTHONPATH` para uma pasta só com `yt_dlp` (2026.8.19, o do C13).
+- A corrida escreve `IT/` na raiz da worktree (armazém local, o WAV) e acrescenta ~300 linhas a
+  `LIVRO-DE-DECISOES.json` e `RUN-MANIFEST.json`: tirar antes de commitar.
+
+**QUOTA (documentação oficial relida hoje).** `search.list` tem balde próprio: 100 buscas/dia,
+1 por busca — o «100 unidades» está desactualizado, a matriz da casa já o sabia.
+`channels/playlistItems/videos/commentThreads.list` custam 1 de 10.000/dia; `captions.list` 50
+e exige OAuth. Vigiar um canal conhecido custa ~2 unidades/dia (canal + 1 página de uploads)
+mais 1 por cada 50 vídeos de metadados: ~4.000 canais/dia sem comentários.
+
+**CANAIS IT COM IDENTIDADE PROVADA.** 51 com `channelId` e SOURCE_ID (50 em
+`regras/italy_contracts_onboarded.json` + IT-T8-001); +3 resolvidos pela API sem SOURCE_ID
+(`YOUTUBE-PILOTO-IT.json`). «Agro» é largo: os 50 incluem agências ambientais (ARPA, ISPRA).
