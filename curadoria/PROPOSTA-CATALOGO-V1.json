@@ -1,0 +1,3840 @@
+{
+ "DATASET": "PROPOSTA-CATALOGO-V1",
+ "ESTADO": "PROPOSTA — NADA APLICADO; decide o dono (D5)",
+ "INSTRUMENTO": "medidas/montar_proposta_catalogo.py (sem rede)",
+ "BYTES_FORA_DO_GIT": "~/sintonia-gabarito/{GABARITO-T2-T12-V2,GABARITO-T2-T12-V3,CATALOGO-PROVA-V1}",
+ "CONTAGEM": {
+  "FONTES": 189,
+  "POR_ACCAO": {
+   "MANTER": 34,
+   "UNKNOWN": 101,
+   "MUDAR_PARA_T7": 2,
+   "RETIRAR_DO_UNIVERSO": 47,
+   "MUDAR_PARA_T2": 2,
+   "MUDAR_PARA_T5": 1,
+   "MUDAR_PARA_T10": 1,
+   "MUDAR_PARA_T9": 1
+  },
+  "POR_UNIVERSO": {
+   "T2": {
+    "MANTER": 28,
+    "UNKNOWN": 25,
+    "MUDAR_PARA_T5": 1,
+    "MUDAR_PARA_T10": 1,
+    "RETIRAR_DO_UNIVERSO": 8
+   },
+   "T12": {
+    "MANTER": 6,
+    "UNKNOWN": 76,
+    "MUDAR_PARA_T7": 2,
+    "RETIRAR_DO_UNIVERSO": 39,
+    "MUDAR_PARA_T2": 2
+   },
+   "T7": {
+    "MUDAR_PARA_T9": 1
+   }
+  }
+ },
+ "TRES_NUMEROS": {
+  "1_T12_AGRICOLAS_DE_VERDADE_PROVADAS": {
+   "N": 6,
+   "IDS": [
+    "IT-T12-003",
+    "IT-T12-006",
+    "IT-T12-020",
+    "IT-T12-024",
+    "IT-T12-026",
+    "IT-T12-028"
+   ],
+   "POSSIVEIS_SEM_PROVA": [
+    "IT-T12-004",
+    "IT-T12-005",
+    "IT-T12-007",
+    "IT-T12-008",
+    "IT-T12-009",
+    "IT-T12-010",
+    "IT-T12-011",
+    "IT-T12-012",
+    "IT-T12-013",
+    "IT-T12-014",
+    "IT-T12-016",
+    "IT-T12-017",
+    "IT-T12-021",
+    "IT-T12-022",
+    "IT-T12-023",
+    "IT-T12-025",
+    "IT-T12-110",
+    "IT-T12-115",
+    "IT-T12-120"
+   ]
+  },
+  "2_POSITIVOS_ATINGIVEIS_SO_COM_ESSAS": {
+   "T12_OBTIDOS_EM_3_IDAS": 9,
+   "T12_TETO_POR_IDA": 18,
+   "T2_OBTIDOS_EM_3_IDAS": 13,
+   "T2_FONTES_MANTER_SEM_DUPLICADO": 21,
+   "T2_TETO_POR_IDA": 63,
+   "NOTA": "teto = 3 materias por sitio por ida (o limite autorizado). O observado ficou muito abaixo do teto: as paginas de entrada levam primeiro a administracao"
+  },
+  "3_T12_CHEGA_A_20_SEM_FONTES_NOVAS": {
+   "RESPOSTA": "NAO numa ida: o teto e 18 e o observado em 3 idas foi 9. So se chegaria acumulando idas ao longo do tempo, e isso nao esta garantido",
+   "FONTES_REAIS_EM_FALTA": [
+    {
+     "FONTE": "AGEA — Agenzia per le Erogazioni in Agricoltura (paga a PAC)",
+     "NO_CATALOGO": "NAO",
+     "NAS_CANDIDATAS": "so via SIAN (sian.it), sem SOURCE_ID"
+    },
+    {
+     "FONTE": "CREA-PB — Centro Politiche e Bioeconomia",
+     "NO_CATALOGO": "NAO (o CREA tem 14 centros no livro, todos T5; o PB nao esta)",
+     "NAS_CANDIDATAS": "NAO"
+    },
+    {
+     "FONTE": "Rete Rurale Nazionale (reterurale.it)",
+     "NO_CATALOGO": "so o canal YouTube IT-T12-011 e a revista Pianeta PSR IT-T12-026",
+     "NAS_CANDIDATAS": "sim (12 mencoes a reterurale/pianetapsr)"
+    },
+    {
+     "FONTE": "ISMEA",
+     "NO_CATALOGO": "NAO no livro; no Atlas como IT-T10-007 (mercado)",
+     "NAS_CANDIDATAS": "NAO",
+     "NOTA": "publica tambem analise da PAC; decidir se ganha ficha T12"
+    },
+    {
+     "FONTE": "Agriregionieuropa (revista de economia e politica agraria)",
+     "NO_CATALOGO": "NAO",
+     "NAS_CANDIDATAS": "NAO"
+    },
+    {
+     "FONTE": "MASAF — seccao de comunicados",
+     "NO_CATALOGO": "a fonte existe (IT-T12-020), mas a entrada so deu paginas de concurso; falta o INDEX_URL das noticias",
+     "NAS_CANDIDATAS": "—"
+    },
+    {
+     "FONTE": "Coldiretti, CIA nacional, Confagricoltura, Copagri",
+     "NO_CATALOGO": "SIM, mas em T7 (11 fontes)",
+     "NAS_CANDIDATAS": "sim",
+     "NOTA": "publicam sobretudo posicoes de politica agricola; pela lei D2 os itens podem ir para T12 por REROUTE sem mudar a gaveta da fonte"
+    }
+   ]
+  }
+ },
+ "LINHAS": [
+  {
+   "SOURCE_ID": "IT-T12-003",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "CIA — Agricoltori Italiani",
+   "ENTRADA": "https://www.cia.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "CIA: politica de uso do solo agricola (V3)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.cia.it/dove-siamo/sedi/22461/",
+     "SHA256": "363932bd7b018ce3964bb08befbca2edc9fa500b2b927aeb31fba6489507df50",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.cia.it/associazioni-cia/aidaldo-invalidi-e-datori-lavoro-domestico/",
+     "SHA256": "8accd3a5316cf917a164dbe6977e7daed1f0ac725d3a65e9b538fea2ce5537b7",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.cia.it/associazioni-cia/donne-in-campo/",
+     "SHA256": "ac6d4591484c56c2451dfb1da9c744079f0dfbed62a11ea5c31701cae922e7ea",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://cia.it/news/notizie/alla-certosa-di-calci-la-festa-del-pensionato-di-anp-cia-toscana/",
+     "SHA256": "9f44f1cd1d33a34ef74438aa2e55eaf4756b1c89af0cb279a8786796e07561e4",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://cia.it/news/notizie/cia-e-universita-del-salento-ricerca-e-cooperazione-sono-il-futuro-dellagricoltura/",
+     "SHA256": "616fc5cd1f248dbb069ba8a6c95befa295cb66ef5400d8d86afd0fb2ceee0c84",
+     "ROTULO": "T5/NO/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://cia.it/news/notizie/cia-siena-eolico-nelle-crete-senesi-no-al-progetto-di-mucigliani/",
+     "SHA256": "3eb088dab7be8bca971916fe9a29bc7ed3882e5e78817e678a479144a34d3725",
+     "ROTULO": "T12/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-004",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Confagricoltura",
+   "ENTRADA": "https://www.confagricoltura.it/ita/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-005",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "AIAB — Associazione Italiana Agricoltura Biologica",
+   "ENTRADA": "https://aiab.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-006",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "CIA Toscana",
+   "ENTRADA": "https://www.ciatoscana.eu/home/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "CIA Toscana: comunicados de politica agricola (3 positivos)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/dimensione-agricoltura/accademia-dei-georgofili/",
+     "SHA256": "a0ebe9d87412fa872b91bcdda5bc9b1d6b1256a3a49b6e26c52dee0ba43c1ab1",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/dimensione-agricoltura/fisco-lavoro-e-impresa/",
+     "SHA256": "a4f1605a3d87692f3e5a98eb52694401e4c2af0a7093513097ff65dbc4a0c52e",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/dimensione-agricoltura/il-corsivo-del-cugino-emme/",
+     "SHA256": "2515f6c4bb5d21e8bc1932386f59f9369447813e833fc93bb55f0d57375c2ac5",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2026/",
+     "SHA256": "514aa00499319c689c119fcc416bce6d57bf35a556d0e48a1dcd49060ccb9d04",
+     "ROTULO": "T12/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2025/",
+     "SHA256": "29567be14373fb4a26a3bf9ed961f5264ca745b4f2ef55fdf059bdfdcb6e0307",
+     "ROTULO": "T12/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.ciatoscana.eu/home/tutte-le-notizie/comunicati-stampa/comunicati-stampa-2024/",
+     "SHA256": "ab402a7bf588cd2f2a213438ca1f8da3201d6d30f9e5175beb5b0029d56e9f51",
+     "ROTULO": "T12/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-007",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCEg22ii3Awy6eyRybNqO-8Q",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-008",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCpiryXByW32kGxQXTlbnSXA",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-009",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche",
+   "ENTRADA": "https://www.assam.marche.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina de cortesia: a ASSAM passou a chamar-se AMAP — rever o endereco",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.assam.marche.it/agenzia/sedi-e-uffici",
+     "SHA256": "d5b4b6df7f742c3eebd0527505a4c3cce1771d425b24d60d6b634ef4d3cbba67",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.assam.marche.it/agenzia/amministrazione-trasparente/disposizioni-generali/piano-triennale-per-la-prevenzione-della-corruzione-e-per-la-trasparenza",
+     "SHA256": "013240bd3b20bdf6a9cbdc8e70890ab775c9e9d4dbeb821ec4c963479e13b1e7",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.assam.marche.it/agenzia/amministrazione-trasparente/disposizioni-generali/oneri-informativi-per-cittadini-ed-imprese",
+     "SHA256": "4ed62bae252d81b89db79edf8d8292ee02bda3a583adcf899f36ebc5a087c289",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-010",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Molise — Agricoltura — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCH_LCqE9qGb6TvpXwGudNbQ",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-011",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Pianeta PSR — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/user/reterurale",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-012",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Piemonte — Agricoltura e cibo — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/user/LaRegionePiemonte",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-013",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Piemonte — Agricoltura e cibo",
+   "ENTRADA": "https://www.regione.piemonte.it/web/temi/agricoltura",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-014",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Toscana — Agricoltura — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/c/RegioneToscanaUfficiale",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-015",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "APPA Trento — Agenzia provinciale protezione ambiente — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCxIuSXfCNVnzTLD3EJFcQng",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-016",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Valle d'Aosta — Agricoltura — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UC4wxlAIQauBZe7CDnLXkWqA",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-017",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ERSA FVG — Agenzia regionale per lo sviluppo rurale",
+   "ENTRADA": "https://www.ersa.fvg.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-018",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese",
+   "ENTRADA": "https://www.arsacweb.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MUDAR_PARA_T7",
+   "PORQUE": "agencia de desenvolvimento agricola: assistencia tecnica as empresas (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arsacweb.it/arsac-sul-territorio/",
+     "SHA256": "c88cfa1a0583a376bf1a638752fae189e33813802e36494ce01eb5bd993e2c88",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arsacweb.it/suoli-e-carte-derivate/",
+     "SHA256": "7e4a5cd3fe61d874ba3cc3ef4e61ba920175df75fdbc17771adf95026a858a51",
+     "ROTULO": "T2/NO/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "http://www.arsacweb.it/pubblicazioni-piante-officinali/",
+     "SHA256": "e185858423699f015236e8a8418f3dda0999d4ba619710151561906dbff38b04",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ERSAF Lombardia — Ente Regionale per i Servizi all'Agricoltura e alle Foreste",
+   "ENTRADA": "https://www.ersaf.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MUDAR_PARA_T7",
+   "PORQUE": "servicos a agricultura: jornadas de demonstracao em campo (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.ersaf.lombardia.it/amministrazione-trasparente/opere-pubbliche/atti-di-programmazione-delle-opere-pubbliche/bandi-di-gara-avvisi-ed-esiti/",
+     "SHA256": "a502ab340f221390fd04202ff342ae18826f5a723815abc0aa0a3be00a0c54b3",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.ersaf.lombardia.it/recapiti-dirigenti-e-p-e-q-ersaf/",
+     "SHA256": "9dffcd4b1398d14a214a4598c791145ed179476f70659aff30e98929bfc93150",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.ersaf.lombardia.it/formazione-e-giornate-dimostrative/",
+     "SHA256": "79c8c00f924a51153ae3df726a316c23a3edbd7fe44c491364419d5f589501fe",
+     "ROTULO": "T7/NO/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-020",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "MASAF — Ministero dell'Agricoltura della Sovranita Alimentare e delle Foreste",
+   "ENTRADA": "https://www.politicheagricole.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "ministerio da agricultura: nucleo de T12; a entrada so deu paginas de concurso",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.politicheagricole.it/23844",
+     "SHA256": "6877cd45d17ef9388d392c3d924eaf9c09efa00c1ad988d09adbcbe891a10c24",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.politicheagricole.it/25155",
+     "SHA256": "6877cd45d17ef9388d392c3d924eaf9c09efa00c1ad988d09adbcbe891a10c24",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.politicheagricole.it/17910",
+     "SHA256": "6877cd45d17ef9388d392c3d924eaf9c09efa00c1ad988d09adbcbe891a10c24",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-021",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Provincia autonoma di Bolzano — Agricoltura",
+   "ENTRADA": "https://www.provincia.bz.it/agricoltura-foreste/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo (conteudo por JavaScript)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.provincia.bz.it/agricoltura-foreste/",
+     "SHA256": "537c9190cc4db0001075a52f852d8350c3b8128fc11aa3b9d72b6472087e4144",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-022",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Molise — Agricoltura",
+   "ENTRADA": "https://www.regione.molise.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "a entrada e o portal geral da Regiao, nao a seccao agricola",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/15989",
+     "SHA256": "2486f0eedb35e72bc94638ecb453bc3de02cbcd2584d127fa8d17bf717b3a16e",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/10886",
+     "SHA256": "39baa438210a59a6f095f2fc703a3830afd9d5919fab1e52c79021c60efd6779",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/14767",
+     "SHA256": "e7e9d1399cab342a266f3c458adc47cc6d6dbb19b07098a5230b3606c12a00e5",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-023",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Puglia — Agricoltura",
+   "ENTRADA": "https://www.regione.puglia.it/web/agricoltura",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "a entrada agricola so deu o menu geral do portal",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.puglia.it/web/agricoltura/come-fare-per",
+     "SHA256": "e0107c4025ab9ef657d32d46de60663980b4f6544d187efb2e51d6e928e3d10a",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.puglia.it/web/competitivita-e-innovazione",
+     "SHA256": "dc2dc60346be5febecc5fcfcde776c3bcfd0b0e7fe25f6ea75e67fb3274dfbf5",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.puglia.it/web/istituzione-e-partecipazione",
+     "SHA256": "5cf7cd3605409f5df1a3517f79c5b2e6611b3213f1003ddfa3ff0cd3c250edfd",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-024",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione Veneto — Agricoltura",
+   "ENTRADA": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "portal agricola: Natura 2000 e areas protegidas (politica agro-ambiental)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.veneto.it/uffici-agricoltura-e-foreste",
+     "SHA256": "4ea34fcec3411cbf8606839237690ce52e694ddad49f0de09a6e41835ceb8e82",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste/dalla-a-alla-z",
+     "SHA256": "68c4cc7e2489dcb9246cf5ffc64382502144a7225e0509c5ee1e81a62da8ac65",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste/parchi-e-aree-protette",
+     "SHA256": "1c41a33db90a5f6a21a450f3a147f2f9d2861a361b8d6c6566306d6c66e29927",
+     "ROTULO": "T12/YES/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-025",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Valle d'Aosta — Assessorato Agricoltura e Risorse Naturali",
+   "ENTRADA": "https://www.regione.vda.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "a entrada e o portal geral da Regiao",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.vda.it/servsociali/archivio_avvisi/concessione_contributi_fondi_terzo_settore_2026_i.aspx",
+     "SHA256": "b6ced4b28656e80762829f5785c3bca987787b352d83fb1d32d7976bd5bbaced",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.vda.it/servsociali/evidenze/bando_progetti_intersezionalita_genere_disabili_2026_i.aspx",
+     "SHA256": "2135d1f9bfef7198e870b6ce324d620855b14a2fbe39cc85b47d421832b9f018",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.vda.it/prefettura/avvisienotizia/inevidenza/esamefochini_2026_i.aspx",
+     "SHA256": "21ef5556252e8c04b36588d03f3ac83dc4a7dfb076c6070f344f10fd0a79cdf1",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-026",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Pianeta PSR",
+   "ENTRADA": "https://www.pianetapsr.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "Pianeta PSR: PAC e desenvolvimento rural (3 positivos)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.pianetapsr.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/1906",
+     "SHA256": "ba691be200d2b06ac9448d16fac0309c84fe3c48016edb5b252e822b9e0e1b21",
+     "ROTULO": "T12/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.pianetapsr.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/2327",
+     "SHA256": "ab62e085bc1cea54e085c34d316a82ee7a43e408b668bb41f05868459c40699e",
+     "ROTULO": "T12/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.pianetapsr.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/1907",
+     "SHA256": "85ff10fa321b4f4efcd453bd4dcff37057191f4450c57a5d9c6be77ab6674c56",
+     "ROTULO": "T12/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-027",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ACaMIR",
+   "ENTRADA": "https://acamir.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "agencia regional de mobilidade: concurso publico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://acamir.regione.campania.it/",
+     "SHA256": "6fff8d2a1de193ad3b830cb6df4758bebfa1d1e1d0f560e57664d2152f49d8e6",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-028",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Agricoltura Campania",
+   "ENTRADA": "https://agricoltura.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "CSR Campania 2023-2027 (PAC)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://agricoltura.regione.campania.it/CSR_2023-2027/CSR-23-27.html",
+     "SHA256": "f58fa49f4ab33c05988e0d0c7cae31873726372d188e3c7201b3471b716f0652",
+     "ROTULO": "T12/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://agricoltura.regione.campania.it/comunicati/stampa/comunicato_22-09-26.html",
+     "SHA256": "cc282324e175fa3edd4a782502d789e9baedbde14bb5adf6b50628878eea4ce2",
+     "ROTULO": "T11/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://agricoltura.regione.campania.it/fiere/biofach-2027.html",
+     "SHA256": "64dc011fd976a44b1c6b8fe33d51b9058b0bb5128c630f0442c144376beea608",
+     "ROTULO": "T11/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-029",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Allerte Protezione Civile",
+   "ENTRADA": "https://www.allertalom.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MUDAR_PARA_T2",
+   "PORQUE": "alertas e boletins meteo da protecao civil",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.allertalom.regione.lombardia.it/",
+     "SHA256": "4ce9e87a2503746e3bac80a656ee78142019e1e6bdbd0c66494b51d0db10f743",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-030",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Amministrazione Trasparente",
+   "ENTRADA": "https://trasparenza.regione.calabria.it/REGIONECALABRIA",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://trasparenza.regione.calabria.it/REGIONECALABRIA",
+     "SHA256": "7001a5151c6de2f6d67ca5ef35e8a8d813a1cf6f231e06c1384e17ebd27e7b5c",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-031",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Amministrazione trasparente",
+   "ENTRADA": "https://amministrazionetrasparente.regione.sicilia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://amministrazionetrasparente.regione.sicilia.it/",
+     "SHA256": "a07c3034359d90e98f013d0a2701420e9e7e9439042ad4c3ae84a7c847562c72",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-032",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Amministrazione trasparente",
+   "ENTRADA": "https://amministrazionetrasparente.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://amministrazionetrasparente.regione.campania.it/",
+     "SHA256": "4c36d7c73e3b6841193f804f1013e61e9a2f5b217fdf01595182839a9edc3b15",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-033",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Amministrazione trasparente",
+   "ENTRADA": "https://trasparenza.regione.abruzzo.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://trasparenza.regione.abruzzo.it/",
+     "SHA256": "c16fc1c2de1fedbc3357b92b32f5db605570d689d7fcfd0036c5eaa1449c42d5",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-034",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Anagrafe Pubblica",
+   "ENTRADA": "https://www.regione.calabria.it/la-regione/anagrafe-pubblica/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.calabria.it/la-regione/anagrafe-pubblica/",
+     "SHA256": "c674e669eb61fe1497e76bec54403e21a5de2f6de2919e29d5cf162c3f309354",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-035",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Area Dipendenti",
+   "ENTRADA": "https://regione.campania.it/area-riservata",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://regione.campania.it/area-riservata",
+     "SHA256": "3c9aec19f0497d9582ad317a5141f3e5211c7f95b95ace4b42fbf040263e395f",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-036",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Area intranet",
+   "ENTRADA": "https://intranet.regione.abruzzo.it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo (intranet)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://intranet.regione.abruzzo.it",
+     "SHA256": "7daf67b9c5a51c95a0680b8ed395aff11d777889e55128272780c109a05721e0",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-037",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Assemblea Regionale Siciliana",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/assemblea-regionale-siciliana",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (assembleia legislativa)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.sicilia.it/istituzioni/regione/assemblea-regionale-siciliana",
+     "SHA256": "16fafe37ee20126261d2e5e331c5c138104f56816cdbd9d95716de527ad0c50e",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-038",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "BURC",
+   "ENTRADA": "https://regione.campania.it/informazioni-utili/opengov/burc",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "boletim oficial geral; nao lido item a item",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://regione.campania.it/informazioni-utili/opengov/burc",
+     "SHA256": "2e8ce4d870d59721826967debd5ce2ec6e6ef89b2d8c6c7c740a8a4fc7b3d5bc",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-039",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Bandi e Servizi",
+   "ENTRADA": "https://www.bandi.regione.lombardia.it/servizi/home",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "concursos, portais e emprego (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.bandi.regione.lombardia.it/servizi/servizio/gare-e-affidamenti",
+     "SHA256": "30ff70dcbdb3495e921a4fad0dcec8dabf969d00e9b9ffe51b76482a419c0563",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.bandi.regione.lombardia.it/servizi/servizio/altri-portali-utili",
+     "SHA256": "19a1bc5ec26ffa610c1499ff5b43db889343f87f972790d6b718cb6581222aa7",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.bandi.regione.lombardia.it/servizi/la-mia-area",
+     "SHA256": "3184d770988ddbc0a698bc59b50d14145619712195bde8187b3adfab9861cdff",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-040",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Bandi e avvisi pubblici",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/bandi?f%5B0%5D=expired%3A0",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (concursos gerais)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.sicilia.it/istituzioni/servizi-informativi/bandi?f%5B0%5D=expired%3A0",
+     "SHA256": "5f2ca8cd6899b7883465c200195a425e7aeeb73bb843f336827b8d7844ef9c7f",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-041",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Bollettino Ufficiale Regione Abruzzo",
+   "ENTRADA": "https://bura.regione.abruzzo.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "boletim oficial geral: 0 de 3 com ato agricola; 'PAC' = Piano Attuativo Comunale",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://bura.regione.abruzzo.it/bollettini/ordinario-37-2026-09-16",
+     "SHA256": "720f46f60fe970395d6f2ffec4b8458ebc8d14a2a4af84a497f10b4152aa06f9",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://bura.regione.abruzzo.it/bollettini/ordinario-36-2026-09-09",
+     "SHA256": "97e9a8a06006585aaa46ad4f7ef952927ac21aeda91fbad87c82acd4239b4136",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://bura.regione.abruzzo.it/bollettini/ordinario-35-2026-09-02",
+     "SHA256": "f17be4652702d76c7d2e65a11bff56392236ded4aa61ce96497d9fe5af64f56b",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-042",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Bollettino ufficiale",
+   "ENTRADA": "http://www.bollettino.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "so a pagina de pesquisa foi lida",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "http://www.bollettino.regione.lombardia.it/",
+     "SHA256": "3783da71cf8a64d3efd9921f8a8a61ffcd56c88163bc0a12832fb118e108dbba",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-043",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Bollo auto e tributi regionali",
+   "ENTRADA": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (imposto automovel)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali",
+     "SHA256": "5154e1d53fdbcd66b0dc5d6c3312b4d52b18a387974214da667627c2e3d399a2",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-044",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini",
+   "ENTRADA": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+     "SHA256": "44c98d96eddc907252be167eb8b01eeaadc03c324b808aa73cded6769e97790e",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-045",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Calabria Istruzione",
+   "ENTRADA": "https://istruzione.regione.calabria.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://istruzione.regione.calabria.it/",
+     "SHA256": "748dc2f108f6ba821d4b7f28bde19f7fb8274f376ddd0d8166871e39fe76ccf7",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-046",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Comunicati",
+   "ENTRADA": "https://www.regione.campania.it/comunicazione/area-stampa/comunicati",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-047",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Contatti",
+   "ENTRADA": "https://www.regione.calabria.it/ufficio-relazioni-con-il-pubblico/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.calabria.it/ufficio-relazioni-con-il-pubblico/",
+     "SHA256": "282f9171f6e49a888267bd0fdfe07d304bfd2f650e5deef585ad2465cc541348",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-048",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Contatti",
+   "ENTRADA": "https://www.regione.abruzzo.it/argomenti/amministrazione/contatti-della-regione-abruzzo",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.abruzzo.it/argomenti/amministrazione/contatti-della-regione-abruzzo",
+     "SHA256": "e353beec884a0c6034a2772216b641fd9f8fe56fc72de3cc62b708d867fdb8a6",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-049",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Cultura Campania",
+   "ENTRADA": "https://cultura.regione.campania.it/home",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "cultura e museus (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://cultura.regione.campania.it/sistema-informativo-culturale",
+     "SHA256": "3fe4074ddc7d4dc3c4ab2452b4c31bbd1bf70c9a42133780f1d98ac5e53a06be",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://cultura.regione.campania.it/web/catalogo-bibliografico-campano",
+     "SHA256": "2560b30da12d8120de70dc5cf441a8b15682678914d52a100574804509518ac3",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://cultura.regione.campania.it/web/via-duomo-strada-dei-musei",
+     "SHA256": "e2435bc634676f9d8d77b123a3200bb66bf7c5ee00f890ca16bfc6d9d1315579",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-050",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Cup",
+   "ENTRADA": "https://prenota.regione.calabria.it/home",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://prenota.regione.calabria.it/home",
+     "SHA256": "94bf9a486bc4092204e6060c2e4ec32944e71aa3e04496816332331a8df13ea5",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-051",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Delibere della Giunta",
+   "ENTRADA": "http://www2.regione.sicilia.it/deliberegiunta",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "http://www2.regione.sicilia.it/deliberegiunta",
+     "SHA256": "340337895d4c7d687f6f2b5fef7dd2ad976fa37a3f84379c6aa8088cd83c414d",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-052",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Ecosistema Calabria Sanità",
+   "ENTRADA": "https://ecosanita.regione.calabria.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "saude (vacinas)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://ecosanita.regione.calabria.it/",
+     "SHA256": "6efbb57e0a486fa731787523b5d145ab196bb0e1c5e9e88206c586d39c08f1b2",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-053",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Elezioni regionali",
+   "ENTRADA": "https://www.regione.abruzzo.it/argomenti/amministrazione/elezioni-regionali",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (eleicoes)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.abruzzo.it/argomenti/amministrazione/elezioni-regionali",
+     "SHA256": "c540be6809baf383a3cddaf7b84eb1a2c3d344df9669f7c6ef19c6bd7ebcdde8",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-054",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Europa Campania",
+   "ENTRADA": "https://europa.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "politica de coesao, regeneracao urbana, aeroporto (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://europa.regione.campania.it/politiche-di-coesione-campania-ai-vertici-nellattuazione-concreta-delle-risorse/",
+     "SHA256": "62aa76d3030f485a5042dbd1cb42dff5462135f6d3a5598fe4c1eaf78c5491a0",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://europa.regione.campania.it/rigenerazione-urbana-di-avellino-sottoscritto-accordo-di-programma/",
+     "SHA256": "71047742ec171816bd4a2bcc053574e34fce32cf6e81190a0306e53d05cb3dd9",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://europa.regione.campania.it/masterplan-2035-dellaeroporto-di-napoli-un-nuovo-sistema-di-mobilita-integrata-tra-terra-aria-e-mare/",
+     "SHA256": "82fd4a64f559c8cbfa6854033083f7f6f947285b17c0a43b899da64dba7bbede",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-055",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Eventi",
+   "ENTRADA": "https://www.regione.campania.it/regione-informa/eventi",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-056",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Fascicolo Sanitario Elettronico",
+   "ENTRADA": "https://www.fascicolosanitario.regione.calabria.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "saude (ficha sanitaria)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.fascicolosanitario.regione.calabria.it/",
+     "SHA256": "29d656a55f9894c8891d5ad3e345d6172c1349296b228b8027730f9479102749",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-057",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Generazione Lombardia",
+   "ENTRADA": "https://www.giovani.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "juventude (V2/V3)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.giovani.regione.lombardia.it/site/to-menu-url?url=/",
+     "SHA256": "06da34011e8fe1d4ec6f3cf8b6eb0e30dc18b24771be8c24c42aead90dbc0ede",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.giovani.regione.lombardia.it/site/to-menu-url?url=https://www.giovani.regione.lombardia.it/progetti/progetti/index",
+     "SHA256": "db5a7900168466b34646cbc2b44f8d4fd9fb2a06f0a31be5a5de2f59b16796ec",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.giovani.regione.lombardia.it/site/to-menu-url?url=https://giovani.regione.lombardia.it/agenda/agenda/index",
+     "SHA256": "4b0ea6f0658515fd21e9a5e2f82b35ce09331acdd8b2dd9a1c6bb3793025badd",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://giovani.regione.lombardia.it/news/news/578/nominato-il-primo-forum-giovani-di-regione-lombardia",
+     "SHA256": "9221e2172bc703dc5b401a7152761fa23bffe443616bd39f24640a69052ce547",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.giovani.regione.lombardia.it/news/news/940/premio-lombardia-ricerca-studenti",
+     "SHA256": "7d2b8598c8f4c2d6574cd9829076e5c95559a738f01908ae51eae6c079fba9eb",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.giovani.regione.lombardia.it/news/news/938/intime-visioni-900-segreto",
+     "SHA256": "f20aa37ee450fff95a7899a601f1bb30bd4ef88ad2dbad1d8966d250242dfdc8",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-058",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Giunta Regionale",
+   "ENTRADA": "https://www.regione.campania.it/regione/la-giunta-regionale",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-059",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Giunta regionale",
+   "ENTRADA": "https://www.regione.abruzzo.it/giunta",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-060",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Il Consiglio Regionale",
+   "ENTRADA": "https://www.regione.calabria.it/il-consiglio-regionale/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-061",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Il Presidente",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/il-presidente",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-062",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Il Presidente",
+   "ENTRADA": "https://www.regione.calabria.it/la-regione/la-giunta-regionale/il-presidente/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-063",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Il Presidente",
+   "ENTRADA": "https://www.regione.abruzzo.it/giunta/marco-marsilio",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-064",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "La Calabria alla European Week of Regions and Cities 2026: focus su resilienza climatica e strategie macroregionali",
+   "ENTRADA": "https://calabriaeuropa.regione.calabria.it/la-calabria-alla-european-week-of-regions-and-cities-2026-focus-su-resilienza-climatica-e-strategie-macroregionali/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://calabriaeuropa.regione.calabria.it/programmazione-2021-2027/",
+     "SHA256": "4910327c7bc4620f1f23a7794b557d4c6b938549de5f63c863836dce3a976b30",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://calabriaeuropa.regione.calabria.it/fsc-2021-2027/",
+     "SHA256": "1882aa3609aef5518dc7a6aab9ff02201d3342428e097757207bbdf19f5e9aad",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://calabriaeuropa.regione.calabria.it/piano-sviluppo-e-coesione-psc/",
+     "SHA256": "0a5dcfee39bf0594a9344b0a4da8e42702db304f420d3ece2393d70b6c2a210f",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-065",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "La Giunta Regionale",
+   "ENTRADA": "https://www.regione.sicilia.it/giunta-regionale",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-066",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "La Giunta Regionale",
+   "ENTRADA": "https://www.regione.calabria.it/la-regione/la-giunta-regionale/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-067",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Lavoro, formazione e istruzione",
+   "ENTRADA": "https://selfi.regione.abruzzo.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-068",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Link utili",
+   "ENTRADA": "https://www.regione.campania.it/link-utili",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-069",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Lombardia Experience",
+   "ENTRADA": "https://experience.regione.lombardia.it/it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "turismo e cultura (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://experience.regione.lombardia.it/luoghi-e-citta",
+     "SHA256": "d38b06905ffa8376de0fbe269b6cfecf91a0997e60efe8e84603b087be12c55e",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://experience.regione.lombardia.it/cultura/architettura-e-scultura",
+     "SHA256": "0858ef2052c950712cd0ed1ec8a439eb82ae4968fa50095b2f773d12b449d33e",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://experience.regione.lombardia.it/cultura/storia-e-tradizioni",
+     "SHA256": "d4fb65d11d9fcd456515e7ae792060bd9d22d7bf1773589d50137797b9370b60",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-070",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Monitoraggio PNRR",
+   "ENTRADA": "https://monitoraggiopnrr.regione.lombardia.it/homepage",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "monitorizacao geral do PNRR",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://monitoraggiopnrr.regione.lombardia.it/homepage",
+     "SHA256": "63ec347c67d8b514a29f2022e309f309706d210ed897558c9915f2d71b425f1c",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-071",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Non sei da sola",
+   "ENTRADA": "https://www.nonseidasola.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.nonseidasola.regione.lombardia.it/",
+     "SHA256": "bf81e1945ba262c3c5d4f6d9033c733a26763c5cafb2f5dc7c8da72a7cad4fb5",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-072",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Notizie",
+   "ENTRADA": "https://www.regione.campania.it/regione-informa/notizie",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-073",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Oltreigiochi2026",
+   "ENTRADA": "https://www.oltreigiochi2026.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "jogos olimpicos (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.oltreigiochi2026.regione.lombardia.it/site/to-menu-url?url=/",
+     "SHA256": "5f4a98d32375a2695106bdc1d42cecbf82f6b11bc4a127f9025035d0d4a89b7d",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.oltreigiochi2026.regione.lombardia.it/site/to-menu-url?url=/it/homepage",
+     "SHA256": "ad98c5b571ccf124cb92f3679230b16d98b794b70d8dfeae7f43f629bac7620a",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.oltreigiochi2026.regione.lombardia.it/site/to-menu-url?url=/it/legacy-olimpica",
+     "SHA256": "eed312af0038ba6a7aa9b6e483a8dd2a60a94163368d9703f5b9a77c90a73d51",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-074",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Open Innovation",
+   "ENTRADA": "https://www.openinnovation.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "inovacao e startups (V2/V3)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.openinnovation.regione.lombardia.it/site/to-menu-url?url=/",
+     "SHA256": "7b6b82180338c5172ae92090df1d4326553e9c81eda56b2e5a9146c110c31560",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.openinnovation.regione.lombardia.it/site/to-menu-url?url=/it/it",
+     "SHA256": "7b6b82180338c5172ae92090df1d4326553e9c81eda56b2e5a9146c110c31560",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.openinnovation.regione.lombardia.it/site/to-menu-url?url=/it/contesto-strategico/chi-siamo",
+     "SHA256": "29356fb654b49845b10537d758a7adb2a78d37bf5c511d0362ce5c33c4cb34d9",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.openinnovation.regione.lombardia.it/it/news/news/9463/negoziare-un-round-di-finanziamento-l-1-10-il-webinar-di-investor-lab",
+     "SHA256": "ee567588893d3c881547f430851144d03db552012368d3aa95646a5ce5b155a3",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.openinnovation.regione.lombardia.it/it/news/news/9460/il-premio-della-regione-per-le-innovazioni-degli-studenti-prorogato-al",
+     "SHA256": "b08d2126132ae0bfa1aa43a5c9912048fb80f2be6fe175a108a9cae5e0750626",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.openinnovation.regione.lombardia.it/it/news/news/9450/il-24-9-nuovo-open-webinar-ai-e-imprese-le-applicazioni-in-operations",
+     "SHA256": "f67c1f1a3898937ccb44c2f96ba1a65f1e8b2a4fb98b1b2f59a7e79d9945b0cb",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-075",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Osservatorio Istruzione",
+   "ENTRADA": "https://osservatorio.regione.calabria.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "educacao",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://osservatorio.regione.calabria.it/",
+     "SHA256": "4d214c6b24ee3457e67b36cefaee40229525bc539f72a51e481f96614a3505d3",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-076",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "PNRR in Campania",
+   "ENTRADA": "https://pnrr.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "PNRR geral; 1 item sobre barragem/irrigacao foi para T2 por REROUTE",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://pnrr.regione.campania.it/bandi-e-avvisi/",
+     "SHA256": "be59e004cdb38a4bd87e376bec586b68cf5c1097a6c9053301dd85f26b99cab3",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://pnrr.regione.campania.it/progetto-borgo-sanza/",
+     "SHA256": "c0e45793d93ab80bda9c548b8754cc55970b240a4a8e5bb5c7cd80427598f682",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://pnrr.regione.campania.it/la-diga-di-campolattaro/",
+     "SHA256": "51eedf66f49019f973a922d1ef38650687bc41f3d20359104015b389cf8ed26d",
+     "ROTULO": "T2/NO/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-077",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "PagoPA - MyPay",
+   "ENTRADA": "https://pagopa.regione.calabria.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://pagopa.regione.calabria.it/",
+     "SHA256": "347b9e8ea9dc0665e20cc2398bcb6537ec31861b754ee6e7e0735fff80b90d59",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-078",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Presidente",
+   "ENTRADA": "https://www.regione.campania.it/regione/presidente",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-079",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Prevenzione della Corruzione e Trasparenza",
+   "ENTRADA": "https://www.regione.calabria.it/anticorruzione-e-trasparenza/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-080",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Progetto CalALMA: prorogato al 30 settembre 2026 il termine per l’avvio delle attività dei giovani NEET",
+   "ENTRADA": "https://calabriaeuropa.regione.calabria.it/progetto-calalma-prorogato-al-30-settembre-2026-il-termine-per-lavvio-delle-attivita-dei-giovani-neet/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://calabriaeuropa.regione.calabria.it/progetto-calalma-prorogato-al-30-settembre-2026-il-termine-per-lavvio-delle-attivita-dei-giovani-neet/",
+     "SHA256": "5efc8836b7c85f38c85642e42b39fa732551b8ef8af86a65f41faa3c7bcce6d5",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-081",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Programmazione Europea",
+   "ENTRADA": "https://ue.regione.lombardia.it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "programacao europeia: menciona o PSR, mas as paginas lidas eram coesao urbana",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://ue.regione.lombardia.it/pc1420/poc/programma-operativo-complementare-lombardia-2014-2020",
+     "SHA256": "3cc38dedf3ff6c817055d7e8b123ce4b59509c1173fb73fc2e8884321de37c23",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://ue.regione.lombardia.it/site/to-menu-url?url=https://ue.regione.lombardia.it/it/homepage",
+     "SHA256": "a56f529d1604d89102c007dcdace3ee10192318db69226cea44d260b53328e79",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://ue.regione.lombardia.it/site/to-menu-url?url=https://ue.regione.lombardia.it/it/verso-la-nuova-programmazione-europea-2028-2034",
+     "SHA256": "3b51667cd286e4a4c6120d66093e0a675485e5c82bb4cb914783bcc8d08aafcf",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-082",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-083",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione",
+   "ENTRADA": "https://www.regione.campania.it/regione",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-084",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Regione informa",
+   "ENTRADA": "https://www.regione.campania.it/regione-informa",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-085",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Responsabile Protezione Dati",
+   "ENTRADA": "https://www.regione.calabria.it/responsabile-protezione-dati/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-086",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Sanità",
+   "ENTRADA": "https://www.regione.lombardia.it/sanita",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "saude",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.regione.lombardia.it/sanita",
+     "SHA256": "d0ddb7f47ce2fcded3185616717e2cfec40d1b1fa0e1623589f23471774d2b4a",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-087",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Sanità",
+   "ENTRADA": "https://sanita.regione.abruzzo.it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "saude",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://sanita.regione.abruzzo.it",
+     "SHA256": "44b5459224566f3ae54279caff127195ac98dd43b46ab58eeecf0beb9fdf9b5f",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-088",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Scopri",
+   "ENTRADA": "https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/area-personale-tributi",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-089",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Scopri",
+   "ENTRADA": "https://www.regione.lombardia.it/sanita/ticket-ed-esenzioni/ticket-esenzioni-prestazioni-ssr",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-090",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Sede di Bruxelles",
+   "ENTRADA": "https://www.regione.abruzzo.it/argomenti/amministrazione/sede-bruxelles",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-091",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Sede di Roma",
+   "ENTRADA": "https://www.regione.abruzzo.it/argomenti/amministrazione/sede-di-roma",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-092",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Servizi digitali",
+   "ENTRADA": "https://servizi-digitali.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (catalogo de servicos digitais)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://servizi-digitali.regione.campania.it/",
+     "SHA256": "69f6ba8c25cf8d4b7e380a2812ef9ac02ba9427ed69d9c3cbc472f31cd5f2332",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-093",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Servizi informativi",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/servizi-informativi",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-094",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Sito di archivio",
+   "ENTRADA": "http://archivioportale.regione.campania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "so rodape",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "http://archivioportale.regione.campania.it/",
+     "SHA256": "eed876bbb0ba792a223e15f4308a3ee71c26de1214b7a375e3a4edb3ae2b46cf",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-095",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Speciale Lombardia, infatti",
+   "ENTRADA": "https://speciale-lombardiainfatti.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "hub de sitios regionais",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://speciale-lombardiainfatti.regione.lombardia.it/",
+     "SHA256": "d14e349973bb804454388df4d3d19af1879765241acdbe8b8747f4e5bcceaebe",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-096",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Statuto regionale",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/lo-statuto-regionale",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-097",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Strutture regionali",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-098",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Tassa automobilistica",
+   "ENTRADA": "https://entrate.regione.campania.it/tassa-automobilistica-info",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (imposto automovel)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://entrate.regione.campania.it/tassa-automobilistica-info",
+     "SHA256": "b335453b7e016cc7841d0853e5ba780b57efdd895161ce66c1d43c730084abc4",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-099",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Transformer Calabria, pubblicata la graduatoria definitiva: sostegno a occupazione e formazione",
+   "ENTRADA": "https://calabriaeuropa.regione.calabria.it/transformer-calabria-pubblicata-la-graduatoria-definitiva-sostegno-a-occupazione-e-formazione/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-100",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "URP",
+   "ENTRADA": "https://www.regione.sicilia.it/istituzioni/regione/urp",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-101",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "URP - Ufficio relazioni con il pubblico",
+   "ENTRADA": "https://www.regione.abruzzo.it/amministrazione/organizzazione/urp",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-102",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Uffici e organizzazione",
+   "ENTRADA": "https://www.regione.campania.it/regione/uffici-e-organizzazione",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-103",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Vai alla sezione",
+   "ENTRADA": "https://sinfonia.regione.campania.it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://sinfonia.regione.campania.it",
+     "SHA256": "1143b3d39b7eb7ba25dc36aaf78dc47fd56014182062033b089ae9edadfaa081",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-104",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "geoportale.regione.lombardia.it",
+   "ENTRADA": "https://www.geoportale.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "geoportal: pagina sem corpo (podia servir T2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.geoportale.regione.lombardia.it/",
+     "SHA256": "a06b8b0aa656f00393941e2cb6518b3bee56b2bb6141d721b4780f3d9f4aaf48",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-105",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "regione.emilia-romagna.it",
+   "ENTRADA": "https://www.regione.emilia-romagna.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "portal geral da Regiao; itens institucionais (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.emilia-romagna.it/regione/enti-aziende-e-agenzie-regionali",
+     "SHA256": "3e0d96adfdfb80de017e946f258c850227998ff879170d8e298d18846b81bbec",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.emilia-romagna.it/menu/regione/istituti-di-garanzia",
+     "SHA256": "47aff6a2681935b8d18a2e850971c81b74db5f5a708d37f1c7456d46025f6c35",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.regione.emilia-romagna.it/fondazione-per-le-vittime-dei-reati",
+     "SHA256": "8068b9e76a88b936c5df33a31013507568ad7c988b58524bbf32db3811bbcba3",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-106",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "regione.lombardia.it",
+   "ENTRADA": "https://www.regione.lombardia.it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-107",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "sbbl.regione.lombardia.it",
+   "ENTRADA": "https://www.sbbl.regione.lombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.sbbl.regione.lombardia.it/",
+     "SHA256": "868430724cadfabc7f7bb4672164588d2365ffb490f064414772b66e088202b3",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-108",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ARSAC SUL TERRITORIO",
+   "ENTRADA": "https://www.arsacweb.it/arsac-sul-territorio/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-018)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arsacweb.it/arsac-sul-territorio/",
+     "SHA256": "c88cfa1a0583a376bf1a638752fae189e33813802e36494ce01eb5bd993e2c88",
+     "ROTULO": ""
+    },
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "https://www.arsacweb.it/arsac-sul-territorio/",
+     "SHA256": "c88cfa1a0583a376bf1a638752fae189e33813802e36494ce01eb5bd993e2c88",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-109",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ARSAC Servizi offerti",
+   "ENTRADA": "https://www.arsacweb.it/servizi-offerti/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-018)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arsacweb.it/servizi-offerti/",
+     "SHA256": "0e88ffcd0afce01ee6993036f69954421be1a68b278be77ee57b839f61d5d4d7",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-110",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "ATTIVITA’ e SERVIZI",
+   "ENTRADA": "https://www.arsacweb.it/notizie-tecniche-produzioni-agricole/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-111",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Actinidia (Kiwi)",
+   "ENTRADA": "http://www.arsacweb.it/pubblicazioni-actinidia-kiwi/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-112",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Agenzia",
+   "ENTRADA": "https://www.assam.marche.it/agenzia",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-009)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.assam.marche.it/agenzia",
+     "SHA256": "3f13272812ce2251c9f088e27b461d5f487cc4be4b4dfe8014bebfdfb0354a51",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-113",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Agrumi",
+   "ENTRADA": "http://www.arsacweb.it/pubblicazioni-agrumi/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-114",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Albo fornitori",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/albo-fornitori",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-009)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.assam.marche.it/agenzia/albo-fornitori",
+     "SHA256": "44f6b5c6397314c29b113ddd0fdf5871fe059163ce94ccefc4c4c4f53929fa17",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-115",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Arsac Nelle Scuole",
+   "ENTRADA": "https://www.arsacweb.it/arsacnellescuole/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-116",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Atti dell'Amministrazione",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/atti-dell-amministrazione?view=atti&dal=2026-01-01%2010:19:27",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-117",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Calabria Energia - Il Portale Energia della Regione Calabria",
+   "ENTRADA": "https://energia.calabriaimpresa.eu/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-118",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Calabria Impresa – Il Portale della Regione Calabria per le Imprese",
+   "ENTRADA": "https://www.calabriaimpresa.eu/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-119",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Organigramma",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/organigramma",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-120",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "PUBBLICAZIONI",
+   "ENTRADA": "https://www.arsacweb.it/pubblicazioni-arsac/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-121",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Patrocinio AMAP",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/patrocinio-amap",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-122",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Piante Officinali",
+   "ENTRADA": "http://www.arsacweb.it/pubblicazioni-piante-officinali/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-018)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "http://www.arsacweb.it/pubblicazioni-piante-officinali/",
+     "SHA256": "e185858423699f015236e8a8418f3dda0999d4ba619710151561906dbff38b04",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-123",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Recapiti",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/recapiti",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-124",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Sedi e Uffici",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/sedi-e-uffici",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-009)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "https://www.assam.marche.it/agenzia/sedi-e-uffici",
+     "SHA256": "d5b4b6df7f742c3eebd0527505a4c3cce1771d425b24d60d6b634ef4d3cbba67",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-125",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Suoli e carte derivate",
+   "ENTRADA": "https://www.arsacweb.it/suoli-e-carte-derivate/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MUDAR_PARA_T2",
+   "PORQUE": "cartas de solos e zonas vulneraveis a nitratos (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "https://www.arsacweb.it/suoli-e-carte-derivate/",
+     "SHA256": "7e4a5cd3fe61d874ba3cc3ef4e61ba920175df75fdbc17771adf95026a858a51",
+     "ROTULO": "T2/NO/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T12-126",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "Tutela Dati Personali - Privacy",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/tutela-dati-personali-privacy",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T12-127",
+   "UNIVERSO_ACTUAL": "T12",
+   "NOME": "URP",
+   "ENTRADA": "https://www.assam.marche.it/agenzia/urp",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-001",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPAE — Bollettino agrometeorologico regionale",
+   "ENTRADA": "https://www.arpae.it/it/temi-ambientali/meteo/agrometeo",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "boletim agrometeorologico regional (acervo)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "ACERVO_GIT",
+     "URL": "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf",
+     "SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
+     "ROTULO": "T2/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-002",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPAV — Agrometeo / Agrometeo Informa / bollettini zonali",
+   "ENTRADA": "https://www.arpa.veneto.it/dati-ambientali/bollettini/agrometeo",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "boletim meteo do Veneto (V3) e boletins agrometeo (acervo)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.veneto.it/arpav/chi-e-arpav",
+     "SHA256": "2ed9a58969c274233216b2178e2e40499c99d052fae1276412644ac19775a73b",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.veneto.it/arpav/albo-on-line",
+     "SHA256": "3d3a864afc19285df4acd9dcf3118d0510fa3646d95a66278c30091cd8bcfdc7",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.veneto.it/temi-ambientali/luminosita-del-cielo",
+     "SHA256": "da1c777cc5fe92d40cbc5cb83355316d77ff34b4e9fcd7d7bad2c9cb4f92ad7e",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini/aria/previsione-polveri-pm10",
+     "SHA256": "8c000707a9a7cddb9597c5c3a8954d389fbdbde5955806005b76234f132e5b7b",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini/aria/bollettino-livelli-di-allerta-pm10",
+     "SHA256": "50f9780c951b6055337fe4b87324cabdff598f129cdb08e31251e2d482a01afb",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.arpa.veneto.it/dati-ambientali/bollettini/meteo/bollettino-meteo-veneto",
+     "SHA256": "f5f1b8acd90c278b2dfa4f9a0971bb424b354bc76d4b3a0fa98c32987493a148",
+     "ROTULO": "T2/YES/YES"
+    },
+    {
+     "ORIGEM": "ACERVO_GIT",
+     "URL": "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf",
+     "SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+     "ROTULO": "T2/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-004",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "SIAS Sicilia — agrometeorologia regional",
+   "ENTRADA": "http://www.sias.regione.sicilia.it",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "dados de precipitacao diaria SIAS (acervo)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "ACERVO_GIT",
+     "URL": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html",
+     "SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+     "ROTULO": "T2/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-006",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Campania",
+   "ENTRADA": "https://www.arpacampania.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental regional; paginas lidas institucionais — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpacampania.it/albo-informatico-1",
+     "SHA256": "6eccac2523010c6d307355d538deaff853cdbaa8339f2bfd26d18ddf72fcd017",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpacampania.it/u-r-p",
+     "SHA256": "a970bc771d1fcbfd6e44374e2e84da52adec2fb88bcd0db19efe65212bcb702c",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpacampania.it/comitato-unico-di-garanzia",
+     "SHA256": "3d908d821cf25e55286b9eed0dcd5b8cf6df25a520c278406ab329104abbfd84",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-007",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Sicilia",
+   "ENTRADA": "https://www.arpa.sicilia.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; noticias de ar e mar — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.sicilia.it/marine-strategy-a-lampedusa-istituzioni-ricerca-e-territorio-insieme-per-il-futuro-del-mediterraneo/",
+     "SHA256": "0906b8743803a859d841ce20693187bedb2b08c518ff3a98e29b84cb5193b1e0",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.sicilia.it/fisica-e-intelligenza-artificiale-per-prevedere-linquinamento-da-biossido-di-azoto-lo-studio-relizzato-da-arpa-sicilia-pubblicato-sulla-rivista-scientifica-atmosphere-mdpi/",
+     "SHA256": "ca9c28d61e88eb16dd71480314b031db1455e26d61a576846f603fa039271a97",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.sicilia.it/incendio-al-centro-commerciale-conca-doro-di-palermo-aggiornamento-sulle-attivita-di-monitoraggio-e-sui-dati-ambientali/",
+     "SHA256": "72274b5608ba2c82773fdd25c6eb3632cb30fa2dc5fae2fdfe0e5b4496ba4af4",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-008",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPAT Toscana",
+   "ENTRADA": "https://www.arpat.toscana.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; a entrada so deu paginas institucionais",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpat.toscana.it/news-ed-eventi/",
+     "SHA256": "9996d054a79bc8d64b1a4fdbdda04ec16f800099b2dd997386bc42e9ca50987b",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpat.toscana.it/lavora-con-noi/",
+     "SHA256": "7971145ff704062d7de1be64f8d72eee25d13b65213e72b9adbddd280e219909",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpat.toscana.it/risposte-a-domande-frequenti/",
+     "SHA256": "b4118cd4e5abf4e86c3e17efd0105e4ab09684b4cf0075067ef5a418843fe8ae",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-009",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale",
+   "ENTRADA": "https://www.isprambiente.gov.it/it",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "instituto nacional do ambiente; noticias de eventos (agua) — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.isprambiente.gov.it/it/news/notte-europea-dei-ricercatori-e-delle-ricercatrici-2026",
+     "SHA256": "3892d475ba1804494ff6a6da3b8df39df794dd95928ae0f631f5ef5b5a1ea3c5",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.isprambiente.gov.it/resolveuid/e8dd083731c64f948efa9ec639fc1bdf",
+     "SHA256": "1e824b1edbbd6323e98504907e460f54de30e2ce0ac01b9b544c115e624d8921",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.isprambiente.gov.it/resolveuid/6b7f6dabc3514d94a1bbaea3b942fde1",
+     "SHA256": "f38ee44bb931424b843ba9d7e782228b1ac9f5f96318a6ac1d72af45ac3a8509",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.isprambiente.gov.it/it/news/stati-generali-dell2019ambiente",
+     "SHA256": "e81b88fe1034af5c0f819c40584f672cc0c3b274ab12bbafc34b14c0be2720b8",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.isprambiente.gov.it/it/news/pianeta-terra-festival-2026",
+     "SHA256": "8cea2d94ba7c19d58fb93eeb978be93e9f40f1111ed41080db1415370b2bc833",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.isprambiente.gov.it/it/news/festival-dell-acqua",
+     "SHA256": "3cec2256e8b5c6bceed3f94646e848ce9c8c5e58ea5ca87be16c9de1d5a30710",
+     "ROTULO": "T11/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-010",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "APPA Trento — Agenzia provinciale protezione ambiente",
+   "ENTRADA": "https://appa.provincia.tn.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; ozono, dados — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://appa.provincia.tn.it/Documenti-e-dati",
+     "SHA256": "dcfdb8467df3c430eb1a87a02a98146ffe80cc7662289d35de232b28204c8d8b",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.appa.provincia.tn.it/Documenti-e-dati/Documenti-tecnici-di-supporto/Spedizioni-transfrontaliere-di-rifiuti-il-nuovo-Regolamento-UE-2024-1157",
+     "SHA256": "428e2c3a3f04bfd3be5e85b51e9a05869a4400ed7c47f96d0578c93da1cb3003",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.appa.provincia.tn.it/News/Avvisi/Aggiornamento-situazione-ozono-estate-2026",
+     "SHA256": "b4efe0f15034bbf5a5f92da5e30c24cf4c340a8e81bb254a01533f25840a07e8",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://appa.provincia.tn.it/Amministrazione/Siti-web-tematici-di-APPA",
+     "SHA256": "123307a9441a87b07e9044c5eaae93da652b9cd504f7eff057c7f79f5dbf0b6c",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://appa.provincia.tn.it/Documenti-e-dati/Accordi-tra-enti",
+     "SHA256": "0436e0e3bba6d1cfd5308d61df2210551d1a89c743e261b50dc79b58fd1a45a5",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-011",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Lombardia",
+   "ENTRADA": "https://www.arpalombardia.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; a entrada so deu paginas institucionais",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpalombardia.it/chi-siamo/lagenzia/prevenzione-della-corruzione-e-trasparenza/",
+     "SHA256": "29fc12ad20021e6423040ed4fd34d771d24eb0ebde87c988ca25aee18ab409a1",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpalombardia.it/chi-siamo/lagenzia/comitato-di-indirizzo/",
+     "SHA256": "b044edf83dcc4ea1b6c4abac2896550108613733b1a7f4a8d51b563210868f71",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpalombardia.it/chi-siamo/lagenzia/comitato-unico-di-garanzia-cug/",
+     "SHA256": "01c7890f1fb0864b3ce6d4399c977a19fb86478ae03b2dd49df715d21f8b5f76",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-012",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Friuli Venezia Giulia — OSMER",
+   "ENTRADA": "https://www.arpa.fvg.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-013",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Lazio",
+   "ENTRADA": "https://www.arpalazio.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "rede micrometeorologica, solos (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpalazio.it/web/guest/rete-micro-meteorologica",
+     "SHA256": "f49db9ee2908d477723fcd3e4b28ef0ec1accb96c4fe21e4717d89b3c15b7091",
+     "ROTULO": "T2/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpalazio.it/web/guest/ambiente/suolo-e-bonifiche",
+     "SHA256": "f5a2309dbb9e207b41f60977c03dcb3aec9a0de0da86e333ca8a62725143e02d",
+     "ROTULO": "T2/YES/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpalazio.it/web/guest/sin-sacco-tavole",
+     "SHA256": "4903ffe795900abe1af7e669c76f9915384dbf2dc5cd509043398f4b0f3ce5f0",
+     "ROTULO": "T2/YES/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-014",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Molise",
+   "ENTRADA": "https://www.arpamolise.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; emissoes, odores — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpamolise.it/WP/attivazione-sistema-odorbot-per-rilevazione-molestie-olfattive-per-le-aree-di/",
+     "SHA256": "823c93b878321fcc8e110c7378e974d9ce28b8a5ad27275a4d742ee99d3ddfa4",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpamolise.it/WP/emissioni-in-atmosfera/",
+     "SHA256": "4e82344d0733e013d9b9ad796e05b39f010cc12fe5f4152f7ae359e58877eb94",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpamolise.it/WP/laboratori-arpa-molise/",
+     "SHA256": "ac3db2fbc6a832ea2b4b08c24f966b0cdc8f02d22e9002a64740a845bc20f512",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-015",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "AIAM — Associazione Italiana di Agrometeorologia",
+   "ENTRADA": "https://www.agrometeorologia.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "associacao de agrometeorologia (brochura: agrometeo, balancos hidricos)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "http://www.agrometeorologia.it/wp-content/uploads/2021/03/2021_brochure_it.pdf",
+     "SHA256": "59d587c8337b64fa625e03b63e98b3d34b3c67587fbeb73f3c2ccb3754de5520",
+     "ROTULO": "T2/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.agrometeorologia.it/programmazione-in-python-save-the-date/",
+     "SHA256": "2bb66071853d1492989d7f24544264557c34c3a6ba6ca9f846f047041c571860",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.agrometeorologia.it/corso-linguaggio-r/",
+     "SHA256": "b3184516711c3b01812e380ae2283954e659a25e49dfd4bb563c744ebfaab32a",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-016",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Marche",
+   "ENTRADA": "https://www.arpa.marche.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; a entrada so deu paginas institucionais",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.marche.it/agenzia/bandi-di-gara-e-contratti",
+     "SHA256": "d048c640922229a51f67ec18e2fb4d979b1127cef39e6a977255ea0d8d8215dc",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.marche.it/agenzia/affari-generali-e-legali",
+     "SHA256": "04e7f0cb12a31e05675c8679dba0a1021a70db4c6c8fa8c60ac8087e84723fd6",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.marche.it/concorsi-ed-avvisi-pubblici",
+     "SHA256": "94362dd9d6f56abfe62f4d7453750f12a11e707c0c9008db515a4077fb37734b",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-017",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "CNR IRET — Istituto di Ricerca sugli Ecosistemi Terrestri",
+   "ENTRADA": "https://www.iret.cnr.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MUDAR_PARA_T5",
+   "PORQUE": "instituto de investigacao: linhas de pesquisa em plantas e ecossistemas",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.iret.cnr.it/sede/sesto-fiorentino-fi/",
+     "SHA256": "d6411ce4e98b9d4c90919cb10e944c410ae40dac863728f9e9ba6e8d6d8465b1",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.iret.cnr.it/linee-di-ricerca/",
+     "SHA256": "44ebc3116e50a5e3bf7f5b451d4c84bc4158f3adc641988f659eb31a01b61fa5",
+     "ROTULO": "T5/NO/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.iret.cnr.it/tesi-di-laurea/",
+     "SHA256": "13fed32d0cadb286ae8fa4dbea34caf117b0678ca60276101624fdf66dc4a3d3",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-018",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo",
+   "ENTRADA": "https://www.isafom.cnr.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "so navegacao e webcam lidas",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://isafom.cnr.it/live-webcam-panoramiche/",
+     "SHA256": "0f28cb3403d62802349193b9b5fb8e5bd955375097c2ef2bb3cb506d95827833",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://isafom.cnr.it/strutture-di-servizio/",
+     "SHA256": "dce592142bf7dd5e044140c8816be6a2e166d7ed930378c5864f031074ee67f9",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://isafom.cnr.it/consiglio-di-istituto-2/",
+     "SHA256": "b43945a439a52168cefddd926f1ed1991750bbf736da595460c9f1f07afe7f49",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-019",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Piemonte",
+   "ENTRADA": "https://www.arpa.piemonte.it/home",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-020",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARTA Abruzzo",
+   "ENTRADA": "https://www.artaabruzzo.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; carta da natureza — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.artaabruzzo.it/carta-della-natura.php",
+     "SHA256": "0be227b7ed9b491a83e4ced611148629d5652dc41e2aa18f1e4a421dbd9b1ffe",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-021",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Liguria",
+   "ENTRADA": "https://www.arpal.liguria.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "verao 2026 de calor recorde (V2)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpal.liguria.it/attivita-e-servizi.html",
+     "SHA256": "e70811ef25f34ce94f8687f5ffa4c20ea8a1b4ae1bb7fb2bbd0714298eb77108",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpal.liguria.it/tematiche/meteo/archivio-news/item/estate-2026-caldo-da-record-in-liguria.html",
+     "SHA256": "64fca8bf4560419772cea58be56d285d79a435e888db0839e362f02b69ebfd35",
+     "ROTULO": "T2/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpal.liguria.it/home-page/notizie-tematiche/item/acustica-ambientale-il-29-ottobre-nuovo-corso-di-aggiornamento-arpal.html",
+     "SHA256": "561a663d8cbdc50939b757893a9a643014cc902ca4b452b6dab628d211320370",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-022",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Valle d'Aosta",
+   "ENTRADA": "https://www.arpa.vda.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; so paginas institucionais lidas",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.vda.it/arpa-m/qualita-e-sicurezza",
+     "SHA256": "b63d301b7e7d2ddbb38574c3a5c211c629e0badc9c4507c89f3749f4ab853a77",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.vda.it/arpa-m/cug-comitato-unico-di-garanzia",
+     "SHA256": "7c804d4d7648cf5bdd0d6667618a4d8cad56aee40ba43c8a99432a6b36ff3da7",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-023",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Basilicata",
+   "ENTRADA": "https://www.arpab.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-024",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e acque irrigue",
+   "ENTRADA": "https://www.anbi.it/",
+   "ORIGEM_NO_CATALOGO": "ATLAS",
+   "ACCAO": "MANTER",
+   "PORQUE": "consorcios de bonifica e irrigacao (agua)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.anbi.it/p/piu-sicurezza-idrogeologica-ed-ambientale-grazie-a-deepfores",
+     "SHA256": "0203ca5a23b0014a0ca4f0c42927ea1973822a9bde6278b3077545953b700d0a",
+     "ROTULO": "INUTILIZAVEL"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.anbi.it/p/nazionale-consorzi-bonifica",
+     "SHA256": "89f8a93a7283dd19aa143878c1beda45a58888b1131f6f74c9da5d0e3d1aec43",
+     "ROTULO": "T2/YES/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.anbi.it/p/regionale-consorzi-bonifica",
+     "SHA256": "58a0ecdbb22abcc00df3fc9f440301e05818d5fef17343a6b76003ced4c01fbf",
+     "ROTULO": "T2/YES/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-025",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Lazio — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/@arpa_lazio",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-026",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Liguria — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCTK_ULXg3gzn8el_oFk-5eA",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-027",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Lombardia — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCamw8rL1JPLjfa3Bx6ax8Eg",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-028",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Marche — Youtube ufficiale",
+   "ENTRADA": "https://www.youtube.com/channel/UCtBD35n-HE7x_MWnjc1kt7g",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada (YouTube nao aberto: 429)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-029",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Puglia",
+   "ENTRADA": "https://www.arpa.puglia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; ar, wind day — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.puglia.it/pagina2910_chi-siamo.html",
+     "SHA256": "b109303c2de7e614a3033479f34c5401bad9b783fbd8d9a2b3636327f1f10f01",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpa.puglia.it/pagina2819_urp.html",
+     "SHA256": "834121a6f157ebc4a836f0b8a2c9d42df7582d71bf0a82d6ddd004b1382da3a0",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-030",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Nomisma",
+   "ENTRADA": "https://www.nomisma.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MUDAR_PARA_T10",
+   "PORQUE": "consultoria e observatorios de mercado; noticias de credito e mobilidade",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.nomisma.it/chi-siamo/il-nostro-metodo/",
+     "SHA256": "c3e7e6bcbe58bfa266eb870ebe4020f173c0f2ab15f19bb9d0c4f66b20253e29",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.nomisma.it/chi-siamo/i-nostri-partners/",
+     "SHA256": "a1236fe2be1a1111a7692aaf934f9ad161d5d948e8e47dbc82ec6443b35504f4",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.nomisma.it/settori/consulenza-mercato-agroalimentare/",
+     "SHA256": "5630e1b1a4080173a92c68f013510dddd2fd17fab121c7a2327b19830a1fdfe1",
+     "ROTULO": "T10/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.nomisma.it/news/city-flows-2026-mobilita-inclusiva-disabilita-trasporto-pubblico-sicurezza/",
+     "SHA256": "85da92c7181fc3c034c7fd5ef57ab8db647e1211fde681474fb421700c9f9ddc",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.nomisma.it/news/studio-difficolta-giovani-veterinari-e-supporto-ai-nomisma-nestle-purina/",
+     "SHA256": "a96eedc0f01f9e7298337bc160556381dae9403555383308faf95731539b2cbd",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.nomisma.it/news/mutui-mercato-immobiliare-rialzo-tassi-bce-domanda-abitativa/",
+     "SHA256": "35dcb81c7ac005fe2a0751691923c6ddd3aa22560006c1adfd075f407645c031",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-031",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Lazio — Agenzia regionale protezione ambientale",
+   "ENTRADA": "https://www.arpalazio.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "homepage da agencia ambiental",
+   "DUPLICADA_DE": "IT-T2-013 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpalazio.it/",
+     "SHA256": "3f9a2325cff24a8145a7a9cc2086044f31f919baaebf7383455935c83f744be3",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-032",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Liguria — dati meteo e qualita aria",
+   "ENTRADA": "https://www.arpal.liguria.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "homepage da agencia ambiental",
+   "DUPLICADA_DE": "IT-T2-021 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpal.liguria.it/",
+     "SHA256": "826e8232ccf53797ae42b4b52f17373ec5135a59c6541a3b3d8417134f2b4db2",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-033",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Lombardia — dati ambientali e meteo",
+   "ENTRADA": "https://www.arpalombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "homepage da agencia ambiental",
+   "DUPLICADA_DE": "IT-T2-011 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpalombardia.it/",
+     "SHA256": "d5e6bda479594e2ecfbc2bc4dbc4f60203d8cce2fb1809fe894a53cce7675eb8",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Marche — dati ambientali e meteo",
+   "ENTRADA": "https://www.arpa.marche.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "noticias ambientais (polens, algas)",
+   "DUPLICADA_DE": "IT-T2-016 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026",
+     "SHA256": "9ab53e35f7b244f78b4ae337674f8f7531d10ceda1bd4ab4a1ea234337080c0b",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.arpa.marche.it/notizie-2026/1696-bando-community-engagement-progetti-sintesi-e-insinergia",
+     "SHA256": "8e9cf308d21dd03071fb4526cc04bf3e39dde6b2369d6675e9b8bff1fba6e01e",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V3",
+     "URL": "https://www.arpa.marche.it/notizie-2026/1695-18-08-2026-ostreopsis-cf-ovata-alte-concentrazioni-al-passetto",
+     "SHA256": "67291bb271a625d6e551cbfb4e0cd8f8a21ddde40f7b0d3428858f45e56efbeb",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-035",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPA Sardegna",
+   "ENTRADA": "https://www.arpa.sardegna.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-036",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPACAL Calabria",
+   "ENTRADA": "https://www.arpacal.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-037",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ARPAT Toscana — Agenzia regionale protezione ambientale",
+   "ENTRADA": "https://www.arpat.toscana.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "homepage da agencia ambiental",
+   "DUPLICADA_DE": "IT-T2-008 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpat.toscana.it/",
+     "SHA256": "b2f41a2a2e050caa9ae963b6abb140bbc0aa98f42ee5c4e5266c3218f975e998",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-038",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Meteo Trentino — previsioni meteo e dati agro",
+   "ENTRADA": "https://www.meteotrentino.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "boletins meteorologicos oficiais (3 positivos)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.meteotrentino.it/previsioni/bollettino-meteorologico-ufficiale-per-il-trentino/",
+     "SHA256": "c3a3ca628585ce17ae3901d2f378eec5dfbc693be79db043535200024ff793eb",
+     "ROTULO": "T2/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.meteotrentino.it/previsioni/bollettino-eventi-intensi/",
+     "SHA256": "87af66d08a627b5abdfb195f6ad63236662174b88d90d020c9d6833c2ebc86f1",
+     "ROTULO": "T2/YES/YES"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.meteotrentino.it/dati/meteo/ultimi-dati-meteo/",
+     "SHA256": "e7fe750ee25a6edfbbe531f4e84a90450abdeea5932af800fdc3a116fb1f7ddc",
+     "ROTULO": "T2/YES/YES"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-039",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "16 settembre 2026 Pollini e spore: amaranto, ambrosia, parietaria e alternaria I dati del monitoraggio in Emilia-Romagna",
+   "ENTRADA": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo (IT-T2-051)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
+     "SHA256": "0d162bd8bd9d22e1d25c851627d7db8913d021915d5cf54197b747c09e70a3b3",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-043",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Acqua",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/acqua/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "seccao 'Acqua' da agencia ambiental",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpalombardia.it/temi-ambientali/acqua/",
+     "SHA256": "28aba92b5c374d7a17f587eae4bdf0d8d18eee37aa8662d48ed5c2100c2dac28",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-044",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Acque reflue",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/acqua/acque-reflue/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-045",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Acque sotterranee",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/acqua/acque-sotterranee/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-046",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Acque superficiali",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/acqua/acque-superficiali/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-047",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Aria",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/aria/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-049",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Arpa Sicilia",
+   "ENTRADA": "https://www.arpa.sicilia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "homepage da agencia ambiental",
+   "DUPLICADA_DE": "IT-T2-007 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpa.sicilia.it/",
+     "SHA256": "a6ef875fdea176b0a29d945304fa3abe8daa706acb151b2ebe93b4ed827b1e50",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-050",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "ArpaC",
+   "ENTRADA": "https://www.arpacampania.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "homepage da agencia ambiental",
+   "DUPLICADA_DE": "IT-T2-006 (mesmo sitio)",
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpacampania.it/",
+     "SHA256": "e352ff5a10c03c1b74c323d7fee018f0287e366f24f2f74f9c8bae6d1fc12531",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "ENTRADA": "https://www.arpae.it/it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MANTER",
+   "PORQUE": "agencia ambiental; itens lidos institucionais/balneares — rendimento T2 baixo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+     "SHA256": "fd16f7f75cc31a33ed29b72f081f047e36efbaf3600985a3df16edae651b9362",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026",
+     "SHA256": "0c7de20eea86b3812ea565ecfb57138157d84701fb50716bb01f6e5a688a902b",
+     "ROTULO": "NENHUM/NO/NO"
+    },
+    {
+     "ORIGEM": "GABARITO-V2",
+     "URL": "https://www.arpae.it/it/notizie/30-anni-per-l-ambiente",
+     "SHA256": "3deb3b318e3f42177f3ddca1ea5bebb4599065ec04ae8d454c1e91b761e75b37",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-052",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Comitato unico di garanzia - CUG",
+   "ENTRADA": "https://www.arpat.toscana.it/comitato-unico-di-garanzia/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpat.toscana.it/comitato-unico-di-garanzia/",
+     "SHA256": "085c71600a25f8bf15571ceb493c1e5fb4c6dfd1618cece4259b2c70f187711d",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-053",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Consulta la PRIVACY POLICY",
+   "ENTRADA": "https://www.arpalombardia.it/termini-duso/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-054",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "English",
+   "ENTRADA": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/en?set_language=en",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "seletor de idioma: pagina sem corpo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/en?set_language=en",
+     "SHA256": "7ff4440c0359f4d701cf9d83ce09b2cc1cc68f0ae96a81633135bdbb989761e1",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-055",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "FAQ",
+   "ENTRADA": "https://www.arpat.toscana.it/risposte-a-domande-frequenti/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "https://www.arpat.toscana.it/risposte-a-domande-frequenti/",
+     "SHA256": "b4118cd4e5abf4e86c3e17efd0105e4ab09684b4cf0075067ef5a418843fe8ae",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-056",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Italiano",
+   "ENTRADA": "https://www.arpae.it/@@multilingual-selector/36ad11ddb4c349d993ce47b42066a4c2/it?set_language=it",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-057",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Lavora con noi",
+   "ENTRADA": "https://www.arpat.toscana.it/lavora-con-noi/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "https://www.arpat.toscana.it/lavora-con-noi/",
+     "SHA256": "7971145ff704062d7de1be64f8d72eee25d13b65213e72b9adbddd280e219909",
+     "ROTULO": "NENHUM/NO/NO"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-058",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Mappe",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/aria/mappe-qualita-dellaria/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-060",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "News ed Eventi",
+   "ENTRADA": "https://www.arpat.toscana.it/news-ed-eventi/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo; serve como INDEX_URL de IT-T2-037",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "GABARITO-V2 (o item e a entrada desta fonte)",
+     "URL": "https://www.arpat.toscana.it/news-ed-eventi/",
+     "SHA256": "9996d054a79bc8d64b1a4fdbdda04ec16f800099b2dd997386bc42e9ca50987b",
+     "ROTULO": "INUTILIZAVEL"
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-061",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Organizzazione",
+   "ENTRADA": "https://www.arpat.toscana.it/organizzazione/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-062",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Reclami e appelli",
+   "ENTRADA": "https://service.arpae.it/interview/Reclami_Informazioni/index.asp?pg=2",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://service.arpae.it/interview/Reclami_Informazioni/index.asp?pg=2",
+     "SHA256": "2b1b82da46713db1a0073d4162753a4e0bba4bf18b8b0bb76a920d2785495bf0",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-063",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Sistema di gestione Qualità",
+   "ENTRADA": "https://www.arpat.toscana.it/sistema-di-gestione-per-la-qualita/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-064",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Soddisfazione dell’utente",
+   "ENTRADA": "https://www.arpat.toscana.it/soddisfazione/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-065",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Sportello imprese Sportello imprese",
+   "ENTRADA": "https://sportelloimprese.arpalombardia.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "https://sportelloimprese.arpalombardia.it/",
+     "SHA256": "ead13b6f3a7fa80bc1b46c9ece97f16c94ec2f5352efbd40aac46fa9b3d0d8fa",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T2-066",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Temi Ambientali",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-067",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Ufficio relazioni con il pubblico - URP",
+   "ENTRADA": "https://www.arpat.toscana.it/ufficio-relazioni-con-il-pubblico-urp/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-068",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Usi delle acque",
+   "ENTRADA": "https://www.arpalombardia.it/temi-ambientali/acqua/usi-delle-acque/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere assunto agricola ou climatico",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-069",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Vai al profilo Feed RSS di ARPAT",
+   "ENTRADA": "https://www.arpat.toscana.it/rss-di-arpat",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "UNKNOWN",
+   "PORQUE": "sem pagina guardada",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": "o nome/endereco sugere pagina administrativa ou geral",
+   "PROVA": []
+  },
+  {
+   "SOURCE_ID": "IT-T2-070",
+   "UNIVERSO_ACTUAL": "T2",
+   "NOME": "Vai al profilo Issuu di ARPAT",
+   "ENTRADA": "http://issuu.com/arpatoscana",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "RETIRAR_DO_UNIVERSO",
+   "PORQUE": "perfil do mesmo publicador noutra plataforma (Issuu)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CATALOGO-PROVA-V1",
+     "URL": "http://issuu.com/arpatoscana",
+     "SHA256": "c0fc983be8df2d8382e5b0cd731e61aa5bc3da67ff144ae18279f912a6a8ffc9",
+     "ROTULO": ""
+    }
+   ]
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "UNIVERSO_ACTUAL": "T7",
+   "NOME": "Agrofarma — Federchimica",
+   "ENTRADA": "https://agrofarma.federchimica.it/",
+   "ORIGEM_NO_CATALOGO": "origin/lote-76-v1",
+   "ACCAO": "MUDAR_PARA_T9",
+   "PORQUE": "associacao das empresas de defensivos (os pares da ADAMA)",
+   "DUPLICADA_DE": null,
+   "INDICIO_DO_CATALOGO": null,
+   "PROVA": [
+    {
+     "ORIGEM": "CANARIO_3B",
+     "URL": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo",
+     "SHA256": "TEXT_SHA256:f448c03e6693783746ec2ac7025ddd8f0fe9126f56239071ba8baca3c65c98d4",
+     "ROTULO": "biocontrolo"
+    }
+   ]
+  }
+ ]
+}
