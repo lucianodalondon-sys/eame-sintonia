@@ -16,6 +16,11 @@
 | B2 | robots e ritmo | o coletor Node não lê robots nem espaça pedidos (A4, medido). O único sítio que faz isso é `micro_rede_real.py` (A4), que está **fora** da linha e só trabalha com Sala descartável | A5 (robots e ritmo dentro do coletor) juntada à linha; ou a A4 com modo Sala real. Sem isto, a corrida viola o §27 («violations de policy/robots») | A5 → M5 |
 | B3 | cobertura | portão 37 elegíveis → **10 PRONTAS**; 27 bloqueadas por capacidade: 25 `SEM_CONTRATO_DE_COLETA` (9 destas também `SEM_RECEITA_WEB` para T8/T12), 1 `SEM_RECEITA_WEB_PARA_T9`, 1 `ROTA:CAPABILITY_BLOCK` | decidir: a Big Collection de hoje é de 10 fontes, ou espera os contratos | dono (decisão) / curador (contratos) |
 
+⚠️ **Não correr `provar_ponte_curador.py` na `ponte-viva`.** Medido hoje numa cópia: a
+prova diz trabalhar numa cópia descartável, mas escreve as fontes de mentira IT-T99-001 e
+IT-T99-003 no `italy_contracts_curator.json` da árvore onde corre (`R.CONTRATOS_A` não é
+redirecionado). Dono: M5 (ponte).
+
 Também fora da linha, e não bloqueiam: V1A (`v1-ligada`, régua capa/matéria ligada) e D1
 (`detector-erro-v1`). Sem a V1A, a Admission usa a régua actual: mais capas passam
 (ensaio LD3: 6/8 contra 2/8). O C8 do relatório (0 SIM errado no gabarito) continua a ser
@@ -44,8 +49,8 @@ código ficou igual ao da linha; `regras/italy_contracts_onboarded.json` recebeu
 mudanças (TTL da T1 + D9 do G1), com JSON válido. Os 13 conflitos são só no mapa gerado.
 
 ```bash
-VIVA=/c/Users/London1/orca/workspaces/eame-sintonia/source-curator-service-v1
-CASA=/c/Users/London1/orca/workspaces/eame-sintonia/ponte-viva
+VIVA=$HOME/orca/workspaces/eame-sintonia/source-curator-service-v1
+CASA=$HOME/orca/workspaces/eame-sintonia/ponte-viva
 # 1. esperar o worker ocioso; PARAR.flag; parar o observador (como no CUTOVER-RUNBOOK passo 1)
 # 2. na CASA: gravar os livros sujos da ponte, e juntar a linha
 cd $CASA && git add -A curadoria candidatas && git commit -q -m "ponte: livros antes de instalar a linha"
@@ -74,6 +79,7 @@ for f in candidatas/FONTES-CANDIDATAS.json curadoria/LIFECYCLE-LEDGER-V1.json cu
 | 0.5 | egresso IT | `py superficie/rede.py --portao-de-egresso IT` → `EGRESS_GATE` aberto, `IT` | outro país / BLOCKED |
 | 0.6 | um só bot | `py curadoria/supervisor.py --estado` → worker IDLE, `PID_CHECK_NAO_SEI` vazio | worker a trabalhar: esperar |
 | 0.7 | memória livre | o dono pode estar a editar vídeo | falta de memória: **esperar e repetir**, nunca reduzir a coorte |
+| 0.8 | tudo de pé depois de um reinício | a tela azul das ~13 h de 23/09 deixou **desligados** o supervisor do bot, o observador da ponte e **a Sala real (54330)**; nada disso volta sozinho. Religar pelo dono: `~\sintonia-sala-italia\ligar_sala.cmd`, o supervisor e o observador como no `CUTOVER-RUNBOOK.md` passo 8/10. Os livros sobreviveram (75 e 73 JSON válidos) | algum em baixo |
 
 ### 1 · Parar a escrita concorrente
 
@@ -152,4 +158,30 @@ nas 5 tabelas) e no ensaio (secção 4).
 
 ## 4 · O ensaio (BC1)
 
-ENSAIO_PLACEHOLDER
+Três ensaios offline (`scripts/micro_coleta/ensaio_offline.py`) sobre a árvore da
+instalação (passo I) com os livros vivos do bot das 13:01, e as mesmas 3 fontes PRONTAS:
+IT-T10-018, IT-T10-022 e IT-T7-033. Sem internet: um servidor local serve 304 páginas
+guardadas. Postgres descartável com o nome `sala_italia`. Prova completa em
+`ferramentas/big_collection/BC1-ENSAIO.json`; relatório do ensaio 3 em
+`ferramentas/big_collection/BC1-RELATORIO-PASSAGEM-ENSAIO.md`.
+
+| ensaio | o que prova | resultado |
+|---|---|---|
+| 1 · livros do commit da troca | o coletor recusa quem o portão não aprova | as 3 **recusadas pelo próprio coletor** (`ESTADO_NAO_READY`: no commit das 09:36 ainda estavam CANARY_PENDING), 0 pedidos |
+| 2 · `--duas-passagens --provar-rollback` | o rollback desfaz uma corrida que mudou algo | Sala 8 → 12 → **8**; raw 30 → 55 → **30**; as 5 tabelas com o **mesmo md5** de antes; `dropdb` + `createdb` + `pg_restore`, todos com código 0 |
+| 3 · `--duas-passagens` | a estrada inteira, e o relatório C1..C9 | abaixo |
+
+Ensaio 3, 1.ª passagem: 3/3 HEALTHY · 55 documentos = 55 RAW = 55 DERIVED · Admission
+**SIM 12 / NÃO 10 / NÃO SEI 33** · Sala **+12** · proveniência **0 falhas** · 61 pedidos,
+todos ao servidor local (0 à internet) · 134 + 50 + 62 s por fonte · US$ 0.
+C3, C4, C5, C6 (zero bypass), C7, C8 (0 SIM errado no gabarito) e C9: **PASS**. C2:
+PENDENTE_HUMANO (alguém lê as capas a confirmar). C1: **FAIL, esperado offline**: o egresso
+fica NÃO SEI, e o ensaio nunca finge um IT.
+
+2.ª passagem: **0** re-pedidos desnecessários, **0** «mudou» falso, **0** «novo» falso, 55
+conhecidas puladas, 6 pedidos (só os índices), 0 RAW novos, Sala +0, **0 itens em dobro
+na Sala**.
+
+**Não provado pelo ensaio:** a rede real (robots, ritmo, egresso IT), a Sala real (só foi
+lida pelo `pg_dump`) e a coorte inteira (10 PRONTAS). Estimativa sem rede: ~80 s por fonte;
+com a rede e a pausa entre fontes, **NÃO SEI**.
