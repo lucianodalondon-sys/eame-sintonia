@@ -83,6 +83,39 @@ class TestContagemPorSite(unittest.TestCase):
         self.assertEqual(1 + 1 + R.MAX_MATERIAS, 5)
 
 
+class TestPortaoDeEgressoRepeteSoUnknown(unittest.TestCase):
+    """A5: UNKNOWN (checker calado) mede-se outra vez; UNKNOWN nunca passa;
+    outro pais para logo, sem repetir."""
+
+    def _com(self, respostas):
+        fila = list(respostas)
+        chamadas = []
+        orig = R._uma_medicao_de_egresso
+
+        def falsa():
+            pais = fila.pop(0)
+            chamadas.append(pais)
+            return {"GATE": "PASS" if pais == "IT" else "BLOCKED", "PAIS": pais, "IP": None, "QUANDO": "t"}
+        R._uma_medicao_de_egresso = falsa
+        try:
+            return R.portao_de_egresso(tentativas=3, espera=0), chamadas
+        finally:
+            R._uma_medicao_de_egresso = orig
+
+    def test_unknown_depois_it_passa_e_guarda_as_duas(self):
+        m, ch = self._com(["UNKNOWN", "IT"])
+        self.assertEqual((m["GATE"], ch), ("PASS", ["UNKNOWN", "IT"]))
+        self.assertEqual([x["PAIS"] for x in m["MEDICOES"]], ["UNKNOWN", "IT"])
+
+    def test_tres_unknown_bloqueiam(self):
+        m, ch = self._com(["UNKNOWN", "UNKNOWN", "UNKNOWN", "IT"])
+        self.assertEqual((m["GATE"], len(ch)), ("BLOCKED", 3))
+
+    def test_outro_pais_para_sem_repetir(self):
+        m, ch = self._com(["US", "IT"])
+        self.assertEqual((m["GATE"], ch), ("BLOCKED", ["US"]))
+
+
 class TestQuarentena(unittest.TestCase):
 
     def test_so_as_decisoes_da_corrida_em_quarentena(self):

@@ -54,7 +54,29 @@ PAUSA_ENTRE_FONTES = 15
 AUSENCIA = "NAO SEI"
 
 
-def portao_de_egresso() -> dict:
+def portao_de_egresso(tentativas: int = 3, espera: int = 20) -> dict:
+    """O portao, repetido SO quando a resposta e UNKNOWN (o checker nao respondeu).
+
+    ⚠️ MEDIDO NA A5 (23/09): tres paragens em 40 min com PAIS=UNKNOWN, e em todas
+    a medicao seguinte (16 s depois) deu IT — e o proprio coletor, na mesma
+    corrida, mediu IT no ipinfo. UNKNOWN e o checker calado, nao a VPN noutro
+    pais. Por isso: UNKNOWN mede-se outra vez (ate `tentativas`, `espera` s
+    entre elas); UNKNOWN NUNCA passa; um pais != IT para logo, sem repetir.
+    Todas as medicoes ficam no resultado, em `MEDICOES`.
+    """
+    medicoes = []
+    for i in range(tentativas):
+        if i:
+            time.sleep(espera)
+        m = _uma_medicao_de_egresso()
+        medicoes.append({k: m[k] for k in ("GATE", "PAIS", "QUANDO")})
+        if m["PAIS"] not in ("UNKNOWN", AUSENCIA):
+            break
+    m["MEDICOES"] = medicoes
+    return m
+
+
+def _uma_medicao_de_egresso() -> dict:
     r = subprocess.run([sys.executable, "superficie/rede.py", "--portao-de-egresso", "IT"],
                        cwd=str(RAIZ), capture_output=True, text=True, encoding="utf-8",
                        errors="replace", timeout=90)
@@ -140,8 +162,9 @@ def passagem(nome, fontes, arvore, env, saida, contratos, robots_lidos, log, aju
         corridas.append({"SOURCE_ID": s, "CORREU": True, "CODIGO": x.returncode,
                          "STATUS": m.group(1) if m else AUSENCIA, "RUN_ID": m.group(2) if m else AUSENCIA,
                          "GATE_NO_INSTANTE": gate,
-                         "EGRESSO_ANTES": {"PAIS": antes["PAIS"], "GATE": antes["GATE"]},
-                         "EGRESSO_DEPOIS": {"PAIS": depois["PAIS"], "GATE": depois["GATE"]}})
+                         "EGRESSO_ANTES": {"PAIS": antes["PAIS"], "GATE": antes["GATE"], "MEDICOES": antes.get("MEDICOES")},
+                         "EGRESSO_DEPOIS": {"PAIS": depois["PAIS"], "GATE": depois["GATE"],
+                                            "MEDICOES": depois.get("MEDICOES")}})
         log(f"{nome} {s} {corridas[-1]['STATUS']} {corridas[-1]['RUN_ID']} egresso {antes['PAIS']}->{depois['PAIS']}")
         if depois["GATE"] != "PASS":
             parou = {"FONTE": s, "EGRESSO": depois, "PORQUE": "portao de egresso caiu depois da fonte"}
