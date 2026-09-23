@@ -165,6 +165,44 @@ class Transporte(unittest.TestCase):
     def test_o_item_da_porta_leva_o_retrato(self):
         self.assertEqual("NAO_SEI", _item(_retrato("NAO_SEI"))["retrato_do_detector"]["CAPA_OU_MATERIA"])
 
+    def test_derivar_um_do_html_devolve_o_retrato(self):
+        from unittest import mock
+        import guarda.preservar_derivado as PD
+        html = (b"<html><body><h1>Difesa</h1><p>" + b"testo lungo della notizia " * 60
+                + b"</p></body></html>")
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / "p.html"
+            f.write_bytes(html)
+            with mock.patch.object(PD, "preservar_derivado", return_value={"ESTADO": "INSERTED"}):
+                r = HTMLX.derivar_um(5, str(f), armazem=None, memoria=None)
+        self.assertEqual("MATERIA_PROVAVEL", r["RETRATO_DO_DETECTOR"]["CAPA_OU_MATERIA"])
+
+    def test_a_derivacao_forward_transporta_o_retrato(self):
+        from coleta import derivacao_forward as DF
+        ret = _retrato("NAO_SEI")
+
+        def falso(raw_id, caminho, armazem, memoria, **kw):
+            return {"ESTADO": "INSERTED", "LINHA_ESCRITA": {"id": 1, "storage_path": "x"},
+                    "RETRATO_DO_DETECTOR": ret}
+        r = DF.correr([{"RAW_ASSET_ID": 5, "PDF": "p.html", "MEDIA_TYPE": "text/html"}],
+                      banco_do_rastro=None, run_id="R", armazem=None, memoria=None, derivar=falso)
+        self.assertEqual(ret, r["RESULTADOS"][0]["RETRATO_DO_DETECTOR"])
+
+    def test_a_estruturacao_transporta_o_retrato(self):
+        from unittest import mock
+        ret = _retrato("NAO_SEI")
+
+        class Armazem:
+            def ler(self, caminho):
+                return b"texto derivado"
+        der = {"RESULTADOS": [{"PORTA": "PASSED", "RAW_ASSET_ID": 5, "SOURCE_ID": "IT-T3-002",
+                               "LINHA": {"id": 9, "storage_path": "x", "parent_sha256": SHA},
+                               "RETRATO_DO_DETECTOR": ret}]}
+        with mock.patch.object(ORQ.pdoc, "preservar_documento",
+                               return_value={"ESTADO": ORQ.pdoc.INSERTED}):
+            e = ORQ.pela_estruturacao(der, run_id="R", armazem=Armazem(), memoria=None)
+        self.assertEqual(ret, e["ESTRUTURADOS"][0]["RETRATO_DO_DETECTOR"])
+
 
 if __name__ == "__main__":
     unittest.main()
