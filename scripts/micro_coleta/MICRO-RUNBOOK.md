@@ -47,6 +47,16 @@ No ensaio da A2: 19 elegíveis → **8 PRONTAS** (IT-T10-018, -021, -022, IT-T7-
 -033, -042, -043); 11 bloqueadas por capacidade (9 sem contrato, 4 sem receita web,
 2 rota); do G1, só a IT-T7-041 fica fora (canário do contrato falhou).
 
+Resultado esperado (ensaio offline sobre `unificacao-v1` @ `77077dee`, a 4.ª passagem):
+
+| passagem | resultado |
+|---|---|
+| 1.ª | 8/8 HEALTHY, 99 documentos = 99 RAW = 99 DERIVED; SIM 12 / NÃO 34 / NÃO SEI 53; Sala +12; 115 pedidos (107 do coletor + 8 ipinfo); C3..C9 PASS; gabarito do dono 10/10 com 0 SIM errado |
+| 2.ª | REFETCH 0, FALSE_CHANGED 0, falso novo 0; 49 conhecidas puladas, 50 revalidadas (SEEN_AGAIN); **+4 na Sala em dobro** (ver passo 6) |
+
+Na rede real os números mudam: a coorte colhe o que a fonte tem hoje, não as páginas
+guardadas.
+
 **Abortar se** o plano sair com `FILTRO_AUSENTE` (código 3): um filtro declarado não se lê.
 
 ## 3. Backup da Sala, IMEDIATAMENTE antes

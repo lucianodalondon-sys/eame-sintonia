@@ -20991,6 +20991,11 @@ não as tomam por falha de proveniência. Nada apagado.
 rede e refetch estão em `runs.ndjson`; o relatório lê-os agora pelo RUN_ID
 (`CONTAGENS.COLETOR`). Antes, SUCCESS era «o processo saiu com 0».
 
+**NÚMEROS (ensaio sobre `unificacao-v1` @ `77077dee`, com R2 e Q1).** 1.ª passagem: 8/8
+HEALTHY, 99 documentos, SIM 12 / NAO 34 / NAO_SEI 53, Sala 0 → 12, 115 pedidos locais,
+C3..C9 PASS, gabarito 10/10 com 0 SIM errado. Antes da 4.ª passagem eram SIM 14 / NAO 31 /
+NAO_SEI 54 (a Myfruit passou de SIM 10 para SIM 8; a causa exata NÃO SEI).
+
 **A 2.ª PASSAGEM, MEDIDA A SÉRIO.** A mesma coorte, a mesma base, o mesmo livro do coletor, e o
 servidor do ensaio serve exatamente os mesmos bytes:
 - UNNECESSARY_REFETCHES = 0 e FALSE_DOCUMENT_CHANGED = 0;
