@@ -4513,14 +4513,15 @@
    "kind": "engine",
    "icon": "◎",
    "what": "Mede, so em leitura, tres gates do ponto de chegada da Collection: APPROVED_SOURCE_ROUTE_COVERAGE numa fotografia dos livros vivos (portao x coletor x bot: rota validada, canario <= 7 dias, contrato unico); PROVENANCE_COMPLETE nos documentos das micro A2/A4 (Sala lida numa COPIA do Postgres parado + registo do coletor); e reataca os sobreviventes 4b/4c/5c/5d da auditoria 08 na trava do supervisor, restaurando o alvo byte a byte.",
-   "why_here": "Os tres estavam escritos como SAFE/YES/0 no handoff sem dono de medida. A regua de SAFE e a frase do mandato: «fontes aprovadas possuem rota ou bloqueio explicito». Resultados em curadoria/G2-*.json; know-how §202.",
+   "why_here": "Os tres estavam escritos como SAFE/YES/0 no handoff sem dono de medida. A regua de SAFE e a frase do mandato: «fontes aprovadas possuem rota ou bloqueio explicito». Resultados em curadoria/G2-*.json; know-how §202. D25 (dono, 23/09): a coorte da Big Collection = elegiveis COM contrato no coletor; SAFE le-se sobre a coorte.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
     "medidas/medir_gates_g2.py",
     "medidas/medir_proveniencia_g2.py",
-    "medidas/mutacao_trava_g2.py"
+    "medidas/mutacao_trava_g2.py",
+    "medidas/test_medir_gates_g2.py"
    ],
    "views": [
     "audit"

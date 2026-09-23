@@ -21,6 +21,13 @@ Collection da por ELIGIBLE (`collection_gate.avaliar`, sem copia):
 
 SAFE  <=> toda aprovada tem ROTA_VALIDADA + NO_COLETOR + CANARIO_RECENTE + CONTRATO_UNICO,
           ou um bloqueio explicito escrito. Uma so que falhe = NOT_SAFE, com o nome dela.
+
+D25 (dono real, 23/09 ~15:20, DECISOES-DONO-2026-09-23.md): a Big Collection nao espera
+pelas fontes. COORTE = as READY_FOR_COLLECTION «com contrato, rota validada e canario» no
+momento do arranque, medidas pelo portao; SAFE = «toda fonte da COORTE tem rota segura
+provada», nao «fontes suficientes». O coletor colhe as elegiveis COM contrato e declara
+as outras como ELIGIBLE_WITHOUT_CONTRACT (coleta/italy_recurrent_collect.mjs:209-217) —
+ficam para as ondas seguintes. Medem-se as duas leituras, lado a lado.
 """
 from __future__ import annotations
 
@@ -82,6 +89,18 @@ def hora_do_canario(sid: str, f: dict) -> tuple:
     return _quando(p.get("OBSERVED_AT")), "linha do livro %s (prova %s nao encontrada)" % (p.get("OBSERVED_AT"), ref)
 
 
+def _d25(linhas: list) -> dict:
+    coorte = [x for x in linhas if x["NO_COLETOR"]]
+    falham = [x["SOURCE_ID"] for x in coorte if not x["OK"]]
+    return {"COORTE": sorted(x["SOURCE_ID"] for x in coorte),
+            "COORTE_N": len(coorte),
+            "COORTE_OK_NOS_QUATRO": len(coorte) - len(falham),
+            "COORTE_FALHAM": sorted(falham),
+            "ONDAS_SEGUINTES_ELIGIBLE_WITHOUT_CONTRACT": sorted(x["SOURCE_ID"] for x in linhas if not x["NO_COLETOR"]),
+            "APPROVED_SOURCE_ROUTE_COVERAGE": ("SAFE" if coorte and not falham else
+                                               "NOT_SAFE" if falham else "NAO_SEI (coorte vazia)")}
+
+
 def medir_cobertura(f: dict) -> dict:
     ctx = {"livro": f["livro"], "evidencias": f["evidencias"], "contratos": f["contratos"]}
     inv = CG.inventario(ctx=ctx)
@@ -123,6 +142,7 @@ def medir_cobertura(f: dict) -> dict:
         "CONTRATO_DIVERGENTE": sorted(x["SOURCE_ID"] for x in linhas if x["DONOS_QUE_DIVERGEM"]),
         "OK_NOS_QUATRO": len(linhas) - len(falham),
         "APPROVED_SOURCE_ROUTE_COVERAGE": "SAFE" if not falham else "NOT_SAFE",
+        "D25": _d25(linhas),
         "LINHAS": linhas,
     }
 
