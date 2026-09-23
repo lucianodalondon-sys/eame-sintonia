@@ -795,6 +795,47 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(s["BOT_SNAPSHOT_TIME"], T2)
 
 
+class OCorteDoServicoEEntradaExplicita(unittest.TestCase):
+    """O livro do servico vivo entra como CORTE com sha256 — e so assim."""
+
+    def _corte(self, pasta: Path, livro: dict) -> Path:
+        import hashlib
+        pasta.mkdir(parents=True, exist_ok=True)
+        b = json.dumps(livro).encode("utf-8")
+        (pasta / "LIFECYCLE-LEDGER-V1.json").write_bytes(b)
+        (pasta / "CORTE.json").write_text(json.dumps(
+            {"SHA256": {"LIFECYCLE-LEDGER-V1.json": hashlib.sha256(b).hexdigest()}}), encoding="utf-8")
+        return pasta
+
+    def test_corte_integro_e_lido(self):
+        with tempfile.TemporaryDirectory() as d:
+            livro = {"TRANSICOES": [linha("IT-T7-001", None, LC.DISCOVERED, T0)]}
+            c = R.ler_corte_do_servico(self._corte(Path(d) / "c", livro))
+            self.assertEqual(c["LIVRO"], livro)
+            self.assertEqual(c["EVIDENCIAS"], {})
+
+    def test_corte_adulterado_e_recusado(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = self._corte(Path(d) / "c", {"TRANSICOES": []})
+            (p / "LIFECYCLE-LEDGER-V1.json").write_text('{"TRANSICOES": [1]}', encoding="utf-8")
+            with self.assertRaises(R.CorteInvalido):
+                R.ler_corte_do_servico(p)
+
+    def test_corte_sem_manifesto_e_recusado(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d)
+            (p / "LIFECYCLE-LEDGER-V1.json").write_text('{"TRANSICOES": []}', encoding="utf-8")
+            with self.assertRaises(R.CorteInvalido):
+                R.ler_corte_do_servico(p)
+
+    def test_aplicar_com_corte_sem_livro_de_ensaio_e_recusado(self):
+        antes = LC.LIVRO.read_bytes() if LC.LIVRO.exists() else None
+        with tempfile.TemporaryDirectory() as d:
+            p = self._corte(Path(d) / "c", {"TRANSICOES": []})
+            self.assertEqual(R.main(["--livro-servico", str(p), "--aplicar"]), 2)
+        self.assertEqual(LC.LIVRO.read_bytes() if LC.LIVRO.exists() else None, antes)
+
+
 class OsLivrosReais(unittest.TestCase):
     """Le os QUATRO livros reais (A do disco; B, B2 e C por git show) e NAO
     escreve. Invariantes que valem antes e depois de aplicar a reconciliacao."""

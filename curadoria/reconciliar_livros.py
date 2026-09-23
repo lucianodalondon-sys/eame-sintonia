@@ -40,6 +40,7 @@ por `lifecycle.registar`, que valida a transicao, e grava a proveniencia
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -200,9 +201,65 @@ def historias(livro: dict | None) -> dict:
     return h
 
 
+# ---------------------------------------------------------------------------
+# LIVRO C COMO ENTRADA EXPLICITA — o corte congelado do servico vivo.
+#
+# `git show REF_C` so ve o que o bot COMMITOU. O servico vivo escreve os livros
+# no disco e nao os commita: o que ficou por commitar nunca atravessaria. Por
+# isso C aceita tambem um CORTE: um directorio com a copia dos livros e um
+# CORTE.json que guarda o sha256 de cada um (feito por
+# ferramentas/unificacao/congelar_livros_do_servico.py). O sha256 e verificado
+# aqui — um corte que nao bate com o seu proprio manifesto nao entra.
+#
+# A regra de reconciliacao NAO muda: C continua a ser o quarto testemunho.
+# ---------------------------------------------------------------------------
+CORTE_MANIFESTO = "CORTE.json"
+CORTE_LIVROS = ("LIFECYCLE-LEDGER-V1.json", "LIFECYCLE-EVIDENCE-V1.json",
+                "italy_contracts_curator.json")
+
+
+class CorteInvalido(Exception):
+    """O corte nao tem manifesto, falta-lhe um livro, ou o sha256 nao bate."""
+
+
+def ler_corte_do_servico(pasta: Path) -> dict:
+    """{LIVRO, EVIDENCIAS, CONTRATOS, SHA256, MANIFESTO} — ou `CorteInvalido`."""
+    pasta = Path(pasta)
+    man_p = pasta / CORTE_MANIFESTO
+    if not man_p.exists():
+        raise CorteInvalido("sem %s em %s" % (CORTE_MANIFESTO, pasta))
+    man = json.loads(man_p.read_text(encoding="utf-8"))
+    shas = man.get("SHA256") or {}
+    docs = {}
+    for nome in CORTE_LIVROS:
+        f = pasta / nome
+        if not f.exists():
+            if nome == "LIFECYCLE-LEDGER-V1.json":
+                raise CorteInvalido("o corte nao tem o livro %s" % nome)
+            docs[nome] = None
+            continue
+        b = f.read_bytes()
+        real = hashlib.sha256(b).hexdigest()
+        if shas.get(nome) != real:
+            raise CorteInvalido("%s: sha256 %s != manifesto %s" % (nome, real[:12], str(shas.get(nome))[:12]))
+        docs[nome] = json.loads(b.decode("utf-8"))
+    evid = docs["LIFECYCLE-EVIDENCE-V1.json"] or {"PROVAS": []}
+    contr = docs["italy_contracts_curator.json"] or {"FONTES": []}
+    return {
+        "LIVRO": docs["LIFECYCLE-LEDGER-V1.json"],
+        "EVIDENCIAS": {x["EVIDENCE_REF"]: x for x in evid.get("PROVAS", [])},
+        "CONTRATOS": {x["SOURCE_ID"]: x for x in contr.get("FONTES", [])},
+        "SHA256": shas["LIFECYCLE-LEDGER-V1.json"],
+        "MANIFESTO": man,
+    }
+
+
 def carregar_contexto(*, ref_b: str = REF_B, ref_b2: str = REF_B2,
-                      ref_c: str = REF_C) -> dict:
-    """Tudo o que a decisao precisa, lido UMA vez. Em testes, constroi-se a mao."""
+                      ref_c: str = REF_C, corte_c: Path | None = None) -> dict:
+    """Tudo o que a decisao precisa, lido UMA vez. Em testes, constroi-se a mao.
+
+    `corte_c`: directorio de um corte congelado do servico. Quando dado,
+    substitui o `git show REF_C` para o livro, as provas e os contratos de C."""
     porta = _json(PORTA, {"CANDIDATAS": []})
     cands = porta.get("CANDIDATAS") or []
     if isinstance(cands, dict):
@@ -223,15 +280,25 @@ def carregar_contexto(*, ref_b: str = REF_B, ref_b2: str = REF_B2,
     passo2_b = do_git(ref_b, "curadoria/CONTRATOS-PASSO-2-V1.json") or {}
     contratos_b = do_git(ref_b, "curadoria/italy_contracts_curator.json") or {}
 
-    evid_c = do_git(ref_c, "curadoria/LIFECYCLE-EVIDENCE-V1.json") or {"PROVAS": []}
-    contratos_c = do_git(ref_c, "curadoria/italy_contracts_curator.json") or {}
+    corte = ler_corte_do_servico(corte_c) if corte_c else None
+    if corte:
+        livro_c = corte["LIVRO"]
+        evid_c = {"PROVAS": list(corte["EVIDENCIAS"].values())}
+        contratos_c = {"FONTES": list(corte["CONTRATOS"].values())}
+        commit_c = "CORTE:%s" % corte["SHA256"][:12]
+    else:
+        livro_c = do_git(ref_c, "curadoria/LIFECYCLE-LEDGER-V1.json")
+        evid_c = do_git(ref_c, "curadoria/LIFECYCLE-EVIDENCE-V1.json") or {"PROVAS": []}
+        contratos_c = do_git(ref_c, "curadoria/italy_contracts_curator.json") or {}
+        commit_c = ref_c
 
     return {
-        "COMMITS": {"A": _head_curto(), "B": ref_b, "B2": ref_b2, "C": ref_c},
+        "COMMITS": {"A": _head_curto(), "B": ref_b, "B2": ref_b2, "C": commit_c},
+        "CORTE_C": ({"SHA256": corte["SHA256"], "MANIFESTO": corte["MANIFESTO"]} if corte else None),
         "A": LC._ler_bruto(),
         "B": do_git(ref_b, "curadoria/LIFECYCLE-LEDGER-V1.json"),
         "B2": do_git(ref_b2, "curadoria/LIFECYCLE-LEDGER-V1.json"),
-        "C": do_git(ref_c, "curadoria/LIFECYCLE-LEDGER-V1.json"),
+        "C": livro_c,
         "EVIDENCIA_C": {p["EVIDENCE_REF"]: p for p in evid_c.get("PROVAS", [])},
         "CONTRATOS_C": {c["SOURCE_ID"]: c for c in contratos_c.get("FONTES", [])},
         "EVIDENCIA_A": {p["EVIDENCE_REF"]: p for p in _json(EVIDENCIA_A, {"PROVAS": []})["PROVAS"]},
@@ -830,8 +897,10 @@ def _corte_do_bot(ctx: dict) -> dict:
         "BOT_SNAPSHOT_TIME": max((t.get("OBSERVED_AT") or "") for t in ts) if ts else None,
         "BOT_SNAPSHOT_TRANSITION_MAX_ID": len(ts),
         "BOT_SNAPSHOT_SOURCES": len(ctx["_ULT"]["C"]),
-        "LEITURA": ("git show — copia congelada. O ficheiro vivo do bot NAO e lido: "
-                    "o supervisor esta a correr e pode gravar a meio da leitura."),
+        "LEITURA": (("corte congelado com sha256 verificado: %s" % ctx["CORTE_C"]["SHA256"])
+                    if ctx.get("CORTE_C") else
+                    ("git show — copia congelada. O ficheiro vivo do bot NAO e lido: "
+                     "o supervisor esta a correr e pode gravar a meio da leitura.")),
         "POSTERIOR_AO_CORTE": "atravessa a ponte futura; nao entra retroativo nesta reconciliacao",
     }
 
@@ -1160,9 +1229,47 @@ def aplicar(doc: dict, ctx: dict) -> dict:
             "EVIDENCIA": provas}
 
 
+def _opcao(argv: list, nome: str) -> str | None:
+    if nome in argv:
+        i = argv.index(nome)
+        if i + 1 < len(argv):
+            return argv[i + 1]
+        raise SystemExit("%s precisa de um valor" % nome)
+    return None
+
+
 def main(argv: list | None = None) -> int:
+    """Opcoes (todas opcionais; sem elas, o comportamento e o de sempre):
+      --livro-servico DIR  corte congelado do servico (CORTE.json com sha256)
+      --livro-ponte FILE   livro A a usar no lugar do da arvore (ensaio); as
+                           provas A leem-se/escrevem-se ao lado dele
+      --saida FILE         onde escrever o censo (no lugar de RECONCILIACAO-V1.json)
+    Com --livro-servico, --aplicar so e aceite se --livro-ponte tambem for dado:
+    um corte de ensaio nunca escreve no livro real."""
+    global SAIDA, EVIDENCIA_A
     argv = sys.argv[1:] if argv is None else argv
-    ctx = carregar_contexto()
+    corte = _opcao(argv, "--livro-servico")
+    livro_a = _opcao(argv, "--livro-ponte")
+    saida = _opcao(argv, "--saida")
+    if corte and "--aplicar" in argv and not livro_a:
+        print("--aplicar com --livro-servico exige --livro-ponte (ensaio). O livro real nao se toca.")
+        return 2
+    if livro_a:
+        # o livro A de ensaio leva as provas ao lado: aplicar() tambem escreve
+        # nelas, e as provas reais da arvore nao se tocam num ensaio.
+        ev = Path(livro_a).parent / EVIDENCIA_A.name
+        if not ev.exists():
+            print("--livro-ponte exige %s ao lado do livro (copia das provas A)." % ev.name)
+            return 2
+        LC.LIVRO = Path(livro_a)
+        EVIDENCIA_A = ev
+    if saida:
+        SAIDA = Path(saida)
+    try:
+        ctx = carregar_contexto(corte_c=Path(corte) if corte else None)
+    except CorteInvalido as e:
+        print("CORTE DO SERVICO RECUSADO: %s" % e)
+        return 3
     if not ctx["B"] or not ctx["B2"]:
         print("LIVRO B ou B2 ilegivel por git show (%s / %s). NAO SE INVENTA O OUTRO LIVRO." % (REF_B, REF_B2))
         return 1
@@ -1170,7 +1277,7 @@ def main(argv: list | None = None) -> int:
     if "--aplicar" in argv:
         doc["APLICADO"] = aplicar(doc, ctx)
         # o censo relido sobre o livro evoluido — e o que fica escrito.
-        ctx2 = carregar_contexto()
+        ctx2 = carregar_contexto(corte_c=Path(corte) if corte else None)
         doc2 = censo(ctx2)
         doc2["APLICADO"] = doc["APLICADO"]
         doc2["APLICADO"]["SEGUNDA_PASSAGEM_PLANEIA"] = len(plano(doc2, ctx2))
@@ -1183,7 +1290,10 @@ def main(argv: list | None = None) -> int:
                                                 for k, v in doc["BLOQUEIOS"].items()}))
     if "APLICADO" in doc:
         print("APLICADO            %s" % json.dumps({k: v for k, v in doc["APLICADO"].items() if k != "FALTAS"}))
-    print("escrito: %s" % SAIDA.relative_to(RAIZ))
+    try:
+        print("escrito: %s" % SAIDA.relative_to(RAIZ))
+    except ValueError:
+        print("escrito: %s" % SAIDA)
     return 0
 
 
