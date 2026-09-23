@@ -677,3 +677,68 @@ FINAL_HEAD        = (na entrega ao coordenador) — para a X2/X3: descende de 05
 O plano da troca continua a ser o `CUTOVER-RUNBOOK.md` (X1/X2). Os 2 vermelhos conhecidos de
 `tests/test_fila_italia_decisoes` (amostras e população de SOURCE_ID) estão com a A3 e não foram
 mexidos.
+
+---
+
+# 6.ª PASSAGEM — UNIFICACAO-V1-F (23/09/2026) — com tela azul a meio
+
+Base 940f3b14 (5.ª passagem). Worktree nova: **`unificacao-v1-f`** (a `unificacao-v1` antiga foi
+usada por outra sessão, ver abaixo). Nenhuma coleta; nenhum serviço vivo tocado; nada na Sala real.
+D25 (a Big Collection não espera pelas fontes; coorte = READY do portão no arranque): não muda
+código desta junção — o portão está verde e é ele que dá a coorte.
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | sala-duplicados-v1 a0111921 (A3: Sala idempotente por documento) | 6dfc75a5 |
+| 2 | micro-rede-real-v1 dbbd7271 (A4: micro com rede real) | a21901a2 |
+| 3 | v1-ligada 039c0160 (V1A; traz K1 receitas V4 e D1 detector D14) | 22ae87ee |
+| — | retira o que a sessão P1 escreveu nesta worktree | accd8f44 |
+| 4 | retencao-youtube-v1 f899ed7f (SOC3 + SOC2) — **depois retirada** | f07349e3 → revert 63169df3 |
+| — | know-how §202-§208, métricas, mapa | até FINAL_HEAD |
+
+## ENTREGA-F
+
+```
+PONTAS JUNTAS     = 3: A3, A4, V1A (com K1 e D1 dentro)
+FORA (declarado)  = SOC3+SOC2 (f899ed7f): juntada, medida e RETIRADA por revert — a propria
+                    lane reprova 4 leis da casa (SQL da Sala fora do dono, 2.o dialeto psql no
+                    runtime, migration 033 sem marca de proposta, migration nova desde o tronco).
+                    A 033 nao se corrige aqui: o sha256 e guardado pela cadeia do banco e NAO SEI
+                    se ja foi aplicada. Ref confirmada: f899ed7f esta em origin/retencao-youtube-v1.
+                  = REELS scrap-portas-v1: 0c3bd0a2 (ultimo antes da queda) tem 27 vermelhos
+                    proprios nos testes do Scrap (a decisao do Instagram mudou para ALLOWED e os
+                    testes antigos exigem NAO; o teste novo das duas portas rebenta a ler o
+                    workflow); o head no origin passou a um CHECKPOINT pos-queda com
+                    data/samples/RUN-MANIFEST.json CORTADO A MEIO (JSON invalido na linha 19349).
+                  = LINKEDIN scrap-linkedin-v1: 8f3ddca5 (ultimo antes da queda) tem 14 vermelhos
+                    nesses testes (a base tem 5); o head no origin e tambem um CHECKPOINT pos-queda.
+CONFLITOS         = 0 de codigo nas 3 que ficaram; test_collection_gate por uniao (SOC3, depois
+                    revertida). Know-how por uniao; gerados e censos pela cadeia.
+DEFEITOS          = 2 corrigidos: coleta/retrato_html.mjs (V1A) cita o coletor e nao estava
+                    declarado no portao (declarado LIBRARY); a guarda de isolamento passou a
+                    aceitar redirecionamento por tabela `(W, "PULSO")` + setattr (alarme falso nos
+                    testes da SOC2; mutacao: tirar a entrada da tabela -> reprova).
+INCIDENTES        = (1) as 12:4x a sessao P1 «pesquisadores» fez `checkout -b pesquisadores-v1`
+                    NESTA worktree e escreveu 4 ficheiros (pesquisadores.py, PESQUISADORES-PROOF,
+                    FONTES-CANDIDATAS +306 linhas, DISCOVERY-VISITED); os meus merges cairam no ramo
+                    dela e um `git add -A` levou os ficheiros dela. Retirados em accd8f44; o trabalho
+                    dela ficou inteiro no ramo local pesquisadores-v1 @ a803d6b7 e em
+                    %TEMP%/m5/intruso-1247. A unificacao mudou para a worktree unificacao-v1-f.
+                    (2) tela azul 12:50: repositorio integro (0 objetos em falta na linha; fsck limpo);
+                    a juncao da SOC3 que estava aberta retomou-se sem perda.
+SUITE             = UMA vez, em de4dec2b: curadoria/ Ran 618 OK · tests/ 91 vermelhos por nome.
+                    Contra a 5.a (75e9ce3e, 90): sairam 3 (os 2 da fila italiana — A3 — e o da
+                    PERMITIDA); entraram 4, todos da SOC3. Depois do revert (63169df3) os 4
+                    medidos de novo, modulo a modulo, numa copia: ja nao reprovam.
+NEW_RED_BY_NAME   = 0 no FINAL_HEAD (a suite inteira nao correu de novo depois do revert: 1 h).
+PROVAS_COPIA      (de4dec2b) todas PASS: ponte, red team 17/17 com base verde, B2, supervisor,
+                  worker pendurado, gatilho ocioso, fila windows, 183 + 28 modulos, R1/R2 node
+                  15/13/8. A3 41/41 · A4 5/5 + portao · V1A+K1+D1 133/133.
+KNOW_HOW_TABLE    = §202 D1 · §203 K1 (era §196) · §204 V1A (era §197) · §205 SOC2 (era §199;
+                    codigo fora) · §206 A3 (era §197) · §207 SOC3 (era §200; codigo fora) ·
+                    §208 A4 (era §198). Proximo livre: §209.
+SYSTEM_MAP_CHECK  = PASS
+FINAL_HEAD        = na entrega (descende de 05fd018a)
+```
+
+Pronto para instalar no vivo pelo `CUTOVER-RUNBOOK.md`, com o bot quieto.
