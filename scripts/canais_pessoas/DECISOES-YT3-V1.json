@@ -1,0 +1,481 @@
+{
+ "DATASET": "DECISOES-YT3-V1",
+ "DECIDIDO_POR": "Claude Opus 5.5 (YT3), 2026-09-23 — VALIDADO_POR_HUMANO = NAO",
+ "REGRA": "ENTRA so canal/podcast com (1) pagina oficial do dono a ligar-lhe, (2) dono agricola, (3) dono inequivoco. Newsletter so com arquivo PUBLICO datado e que nao repita fonte existente.",
+ "DECISOES": [
+  {
+   "URL": "https://www.youtube.com/c/UciIt",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "DONO INCERTO: a pagina da Agricoltura Moderna liga a c/UciIt, cujo dono nao se provou — nao se regista canal sem dono"
+  },
+  {
+   "URL": "https://www.agrifoodtoday.it/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "http://newsletters.ilsole24ore.com/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (newsletters.ilsole24ore.com) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.ansa.it/sito/static/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/user/Ansa",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: canal geral da agencia ANSA (a semente e a seccao agro, o canal nao)"
+  },
+  {
+   "URL": "https://www.youtube.com/@AgroalimentareNews-i2o",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Agroalimentare News — canal YouTube",
+   "DONO": "Agroalimentare News",
+   "TIPO_DE_DONO": "MEDIA_AGRO",
+   "TECNICO": "NAO_MEDIDO (sem rota de listagem aqui)",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.freshplaza.it/subscribe/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.italiafruit.net/pagina/newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 2 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/user/AgroterVideo",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Agroter / Italiafruit News — canal YouTube",
+   "DONO": "Italiafruit News",
+   "TIPO_DE_DONO": "MEDIA_AGRO",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.solarelli.it/?utm_source=newsletter_italiafruit&utm_medium=email&utm_campaign=brand",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (solarelli.it) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.myfruit.it/newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "ja e fonte: a newsletter repete o conteudo de IT-T10-018 (myfruit.it)"
+  },
+  {
+   "URL": "https://www.youtube.com/@myfruitvideo",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Myfruit.it — canal YouTube",
+   "DONO": "Myfruit.it",
+   "TIPO_DE_DONO": "MEDIA_AGRO",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.edagricole.it/iscriviti-alle-newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (edagricole.it) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://open.spotify.com/show/0cqa1I9ccmuQ9Db5P3TJ4v",
+   "TIPO": "PODCAST",
+   "DECISAO": "ENTRA",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi — podcast (Spotify)",
+   "DONO": "Sherwood — Foreste ed Alberi Oggi",
+   "TIPO_DE_DONO": "MEDIA_AGRO (florestal)",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.youtube.com/user/sherwoodweb",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi — canal YouTube",
+   "DONO": "Sherwood — Foreste ed Alberi Oggi",
+   "TIPO_DE_DONO": "MEDIA_AGRO (florestal)",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://terraevita.edagricole.it/iscriviti-a-terra-e-vita-daily/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (terraevita.edagricole.it) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.edagricole.it/iscriviti-alle-newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (edagricole.it) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://winenews.it/it/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://winenews.it/it/newsletter/la-prima/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://winenews.it/it/newsletter/i-vini/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://winenews.it/it/newsletter/i-quaderni/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://winenews.it/it/newsletter/italian-weekly/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://zootecnicainternational.com/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.anbi.it/p/newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.arsacweb.it/iscriviti-alla-newsletter-arsacweb/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UCE3BgIE0ztA9PXEv6oxI-LQ",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "PSR Calabria — canal YouTube do Programa de Desenvolvimento Rural",
+   "DONO": "Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed attrezzature agricole,",
+   "TIPO_DE_DONO": "INSTITUCIONAL_AGRO",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.youtube.com/user/Agrilevante",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "FEIRA: canal de evento (promocao da feira), fora do ambito pessoas/grupos"
+  },
+  {
+   "URL": "https://www.agrilevante.eu/it/newsletter.php",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.agriumbria.eu/default2.asp?active_page_id=90",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UCwYwWxp3G2Wk1nbYI3UZBYg",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: canal do Ministerio da Justica (giustizia.it)"
+  },
+  {
+   "URL": "https://www.biolchim.com/contatti",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (biolchim.com) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.youtube.com/@BiolchimSpA",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Biolchim — canal YouTube",
+   "DONO": "Biolchim",
+   "TIPO_DE_DONO": "EMPRESA_INSUMOS",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UC9lEB256a-l0bFj98W4tRUA",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: sessoes do Conselho Regional da Campania"
+  },
+  {
+   "URL": "https://www.chianticlassico.com/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/user/ParmigianoReggianoIT",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Consorzio del Parmigiano Reggiano — canal YouTube",
+   "DONO": "Consorzio del Parmigiano Reggiano",
+   "TIPO_DE_DONO": "CONSORCIO_AGRO",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://etvilloresi.it/servizi/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/@diachem",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Diachem — canal YouTube",
+   "DONO": "Diachem",
+   "TIPO_DE_DONO": "EMPRESA_DEFENSIVOS",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://feder.bio/federbio-informa/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/user/federunacoma",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "FederUnacoma — canal YouTube",
+   "DONO": "FederUnacoma — Federazione Nazionale Costruttori Macchine per l'Agricoltura",
+   "TIPO_DE_DONO": "ASSOCIACAO_AGRO (maquinas)",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.granariamilano.it/newsletter/newsletter-settembre-2026/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (granariamilano.it) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UCytijBXXLKFyrcf3PArWZ2A",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: turismo da Lombardia"
+  },
+  {
+   "URL": "https://www.nomisma.it/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 2 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/@nomisma8372",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Nomisma — canal YouTube",
+   "DONO": "Nomisma",
+   "TIPO_DE_DONO": "INVESTIGACAO_ECONOMICA_AGRO",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.youtube.com/user/drpcinforma",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: protecao civil da Sicilia"
+  },
+  {
+   "URL": "https://www.sana.it/press/newsletter/1280.html",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "FEIRA: newsletter da feira SANA (arquivo publico, mas canal de evento)"
+  },
+  {
+   "URL": "https://www.sana.it/nqcontent.cfm?a_id=1282&tt=sana2k22",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UC8Uto03To7JFiY6HM1PAb7Q",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Sipcam Italia — canal YouTube",
+   "DONO": "Sipcam Italia",
+   "TIPO_DE_DONO": "EMPRESA_DEFENSIVOS",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://mcws59s79vyly0r39khmdb64v-51.pub.sfmc-content.com/2c4wrxp1m02",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (mcws59s79vyly0r39khmdb64v-51.pub.sfmc-content.com) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UCosdY_KOmRiqEd6gpwAnSDg",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "FEIRA: canal de evento (alimentar)"
+  },
+  {
+   "URL": "https://www.youtube.com/user/TerremerseCoop",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "Terremerse — canal YouTube",
+   "DONO": "Terremerse",
+   "TIPO_DE_DONO": "COOPERATIVA_AGRO",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.youtube.com/@unaitalia-unionenazionalef9849",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "ENTRA",
+   "NOME": "UNAITALIA — canal YouTube",
+   "DONO": "UNAITALIA — Unione Nazionale Filiere Agroalimentari Carni",
+   "TIPO_DE_DONO": "ASSOCIACAO_AGRO (filieras avicolas)",
+   "TECNICO": "NAO_MEDIDO",
+   "PESSOA": false,
+   "PARA_QUE": "T8/T9/T10 conforme o dono: acompanhar o que a organizacao agricola publica em video/audio (D24) — frequencia por medir pela fase canal-youtube (Data API)",
+   "PORQUE": "pagina oficial da propria organizacao liga ao canal (identidade); dono agricola"
+  },
+  {
+   "URL": "https://www.youtube.com/user/siciliaturismo",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: turismo da Sicilia"
+  },
+  {
+   "URL": "https://www.vinitaly.com/newsletter/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.youtube.com/user/Vinitaly2012",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "FEIRA: canal de evento"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UCAuerig2N-RZWJT8x75V9yw",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO AGRO: canal do WhatsApp (semente errada na fila)"
+  },
+  {
+   "URL": "https://www.aissa.it/newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://conaf.us20.list-manage.com/subscribe?u=03ab9319cc25ef42226cef071&id=282eb1694a",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (conaf.us20.list-manage.com) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.youtube.com/user/UNIFIRENZE",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO E DO DEPARTAMENTO: canal geral da Universidade de Florenca (a pagina do DAGRI liga ao canal do ateneo)"
+  },
+  {
+   "URL": "https://www.youtube.com/channel/UCHONiY5UKDqI8KaLl720Feg",
+   "TIPO": "YOUTUBE",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO E DO DEPARTAMENTO: canal ligado na raiz unipa.it — canal geral do ateneo"
+  },
+  {
+   "URL": "https://www.unipa.it/newsletter.html?list=69185f89-8564-11ea-9011-005056010139%3a%2f",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.unipa.it/newsletter.html?list=a9c0e627-855f-11ea-9011-005056010139%3a%2f",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.unipa.it/newsletter.html?list=b7dd43d3-855f-11ea-9011-005056010139%3a%2f",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: orcamento do host gasto (3 pedidos) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://terraevita.edagricole.it/iscriviti-a-terra-e-vita-daily/",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  },
+  {
+   "URL": "https://www.edagricole.it/iscriviti-alle-newsletter",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "NAO MEDIDA: o link sai do host da semente (edagricole.it) — sem prova de conteudo publico"
+  },
+  {
+   "URL": "https://www.cnr.it/it/riviste-newsletter-rete-cnr",
+   "TIPO": "NEWSLETTER",
+   "DECISAO": "FICA_FORA",
+   "PORQUE": "SO INSCRICAO: o conteudo chega por e-mail, sem arquivo publico datado na pagina (medido: 0 datas nos ultimos 365 d)"
+  }
+ ]
+}
