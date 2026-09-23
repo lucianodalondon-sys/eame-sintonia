@@ -58,6 +58,7 @@ import fila as F                   # noqa: E402
 import fonte_nova as FN            # noqa: E402
 import gate_de_rota as GATE        # noqa: E402
 import lifecycle as LC             # noqa: E402
+import rota_do_scrap_youtube as RSY  # noqa: E402
 import ready_split as RS           # noqa: E402
 
 CONTRATO = "SOURCE_CURATOR_WORKER/v1"
@@ -126,6 +127,18 @@ def etapa_validate_route(source_id: str, contrato: dict) -> tuple[str, dict]:
     proposito: nao se bate a uma porta que ja se sabe estar proibida.
     """
     aq = contrato.get("ACQUISITION", {})
+    # ⚠️ ROTA DO SCRAP: O PORTAO E A MATRIZ DELE, NAO O ROBOTS (SOC2).
+    # A fase `canal-youtube` fala com a API oficial; nao ha pagina a que pedir
+    # robots. Quem diz se a rota e permitida e a matriz do Scrap, lida por
+    # `rota_do_scrap_youtube.conferir` — e se ela deixar de a declarar, isto
+    # para aqui, antes de qualquer canario.
+    if aq.get("STRATEGY") == RSY.STRATEGY:
+        ok, porque = RSY.conferir(aq)
+        if ok:
+            return "OK", {"ROTA": aq.get("ROTA_DECLARADA_PELO_SCRAP"), "PERMITIDO": True,
+                          "PORTAO": "matriz do Scrap", "PORQUE": porque}
+        return "BLOCK", {"CLASSE": "CAPABILITY", "PORTAO": "matriz do Scrap",
+                         "PORQUE": "a rota do Scrap nao confere: %s" % porque}
     url = aq.get("FEED_URL") or aq.get("INDEX_URL")
     if not url:
         return "FAIL", {"PORQUE": "contrato sem endereco de aquisicao"}
@@ -164,6 +177,19 @@ def etapa_canary(source_id: str, contrato: dict) -> tuple[str, dict]:
     plataforma a pedir tempo, nao a fonte a dizer que nao presta.
     """
     estrategia = contrato.get("ACQUISITION", {}).get("STRATEGY")
+    # ⚠️ O CANARIO DE UMA ROTA DO SCRAP E UMA COLHEITA DO SCRAP. O Curator nao
+    # a corre (a chave vive no runner, e o Scrap e de outro dono), e a regua de
+    # promocao dos quatro passos e de HTML. Promover aqui seria READY sem prova.
+    # O caminho normal nem chega a esta etapa (VALIDATE_ROUTE para em
+    # CANARY_PENDING); isto e a guarda para quem a enfileirar por outra porta.
+    if estrategia == RSY.STRATEGY:
+        return "BLOCK", {"CLASSE": "CAPABILITY", "CANARIO": "DO_SCRAP",
+                         "PORQUE": ("o canario desta rota e uma colheita do Scrap "
+                                    "(fase %s, --fonte %s, --canal_id %s) com a chave do "
+                                    "runner; o Curator nao corre o Scrap nem promove "
+                                    "YouTube pela regua de HTML"
+                                    % (RSY.FASE, source_id,
+                                       contrato.get("ACQUISITION", {}).get("CHANNEL_ID")))}
     try:
         if estrategia == "YOUTUBE_CHANNEL_FEED":
             r = CANARIO.canario_youtube(contrato)
@@ -199,8 +225,9 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
     import escrever_contratos as EC
     import validar_contratos as VC
 
-    alloc = json.loads((RAIZ / "curadoria" / "SOURCE-ID-ALLOCATION-V1.json")
-                       .read_text(encoding="utf-8"))
+    # O MESMO registo que o QUALIFY escreve (ALLOCATION), e nao um caminho
+    # fixo ao lado: um teste que o redireciona tem de ver aqui o que la gravou.
+    alloc = _ler_alloc()
     n = next((x for x in alloc["NOVAS"] if x["SOURCE_ID"] == source_id), None)
     if not n:
         return "FAIL", {"PORQUE": "sem identidade alocada para esta fonte"}
@@ -222,22 +249,38 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
     #
     #     UMA FILA UNIFORME PODE SER UMA DECISAO UNIFORME, NAO UM ESQUECIMENTO.
     #     O GARGALO DELAS E CAPACIDADE, E CAPACIDADE TEM OUTRO DONO.
+    # ── YOUTUBE: O MOLDE QUE NOMEIA A ROTA DO SCRAP (SOC2) ──────────────────
+    # A caracterizacao das HTML nao se aplica: o canal tem identidade propria
+    # (o channel_id que o QUALIFY guardou) e a rota e a do Scrap.
+    if n.get("FAMILY") == "YOUTUBE":
+        canal = n.get("SOURCE_NATIVE_ID")
+        if not canal:
+            return "FAIL", {"PORQUE": "canal YouTube sem channel_id na alocacao"}
+        outras = [x for x in _donos_do_canal(canal) if x != source_id]
+        if outras:
+            return "BLOCK", {"CLASSE": "SEMANTIC",
+                             "PORQUE": "o canal %s ja e de %s: nao se escreve um segundo "
+                                       "contrato para o mesmo canal" % (canal, ", ".join(outras))}
+        novo = EC.contrato_youtube_scrap(n, canal)
+    else:
+        novo = None
     car = json.loads((RAIZ / "curadoria" / "SOURCE-CHARACTERIZATION-V1.json")
                      .read_text(encoding="utf-8"))
     f = next((x for x in car["FONTES"]
               if x.get("CANDIDATE_ID") == n.get("CANDIDATE_ID")), {})
     adaptacao = str(f.get("SMALL_ADAPTATION_REQUIRED", ""))
-    if adaptacao and not adaptacao.startswith("NAO"):
+    if novo is None and adaptacao and not adaptacao.startswith("NAO"):
         return "BLOCK", {"CLASSE": "CAPABILITY",
                          "PORQUE": ("exige capacidade nova (%s) — o molde "
                                     "generico daria EMPTY_LIST garantido; "
                                     "dono: SCRAP ENGINEER" % adaptacao[:60])}
-    if f.get("FAMILY") not in ("HTML_SITE", None, ""):
+    if novo is None and f.get("FAMILY") not in ("HTML_SITE", None, ""):
         return "BLOCK", {"CLASSE": "CAPABILITY",
                          "PORQUE": "familia %s sem molde provado nesta arvore"
                                    % f.get("FAMILY")}
 
-    novo = EC.contrato_html(n, f)
+    if novo is None:
+        novo = EC.contrato_html(n, f)
 
     # O carimbo de procedencia faz parte do contrato, nao do script que o
     # escreveu: sem ele o proprio validador da casa recusa a linha.
@@ -262,7 +305,9 @@ def etapa_build_contract(source_id: str, contrato: dict | None) -> tuple[str, di
                          encoding="utf-8")
     return "OK", {"CONTRATO": source_id,
                   "STRATEGY": novo["ACQUISITION"]["STRATEGY"],
-                  "INDEX_URL": novo["ACQUISITION"]["INDEX_URL"][:110]}
+                  "INDEX_URL": (novo["ACQUISITION"].get("INDEX_URL")
+                                or "%s/%s" % (novo["ACQUISITION"].get("EXECUTOR"),
+                                              novo["ACQUISITION"].get("FASE")))[:110]}
 
 
 # ---------------------------------------------------------------------------
@@ -295,6 +340,13 @@ def _ler_alloc() -> dict:
         return json.loads(ALLOCATION.read_text(encoding="utf-8"))
     return {"DATASET": "SOURCE-ID-ALLOCATION-V1",
             "MAIOR_POR_TERRITORIO_ANTES": {}, "ATRIBUIDOS": 0, "NOVAS": []}
+
+
+def _donos_do_canal(canal: str) -> list[str]:
+    """Os SOURCE_ID que ja ligam este canal: tabela do coletor, contratos escritos
+    a mao, ESTE livro de contratos e ESTE registo de alocacao."""
+    livro = json.loads(CONTRATOS.read_text(encoding="utf-8")) if CONTRATOS.exists() else {}
+    return RSY.canal_conhecido(canal, livro=livro, alloc=_ler_alloc())
 
 
 def _gravar_alloc(d: dict) -> None:
@@ -331,7 +383,7 @@ def _max_por_territorio(alloc: dict) -> dict:
 
 
 def _alocar_source_id(cand_id: str, territorio: str, familia: str,
-                      ficha: dict, porque: str) -> tuple[str, bool]:
+                      ficha: dict, porque: str, native: str | None = None) -> tuple[str, bool]:
     """Pede o SOURCE_ID canonico ao registo de alocacao. Idempotente: se esta
     candidata ja tem numero, devolve o mesmo (nunca cunha um segundo).
 
@@ -353,6 +405,8 @@ def _alocar_source_id(cand_id: str, territorio: str, familia: str,
         "URL": ficha.get("URL", ""),
         "FAMILY": familia,
         "MESMA_ORGANIZACAO": None,
+        **({"SOURCE_NATIVE_ID": native, "SOURCE_NATIVE_ID_KIND": "YOUTUBE_CHANNEL_ID"}
+           if native else {}),
         "ALLOCATED_BY": ("SOURCE-CURATOR-WORKER/QUALIFY — regra do Atlas "
                          "(IT-T<territorio>-<seq>, max+1, nunca recicla)"),
         "ALLOCATED_AT": agora(),
@@ -391,15 +445,42 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
 
     familia = "YOUTUBE" if tipo == "YOUTUBE" else "HTML_SITE"
 
-    # ⚠️ CAPACIDADE ANTES DE IDENTIDADE. O worker so tem molde HTML. Um canal de
-    # YouTube nao se coleta com watch-page: exige channel_id e captura de video,
-    # capacidade com outro dono. Como nao ha caminho a seguir, o territorio e
-    # irrelevante — bloquear por capacidade e a verdade, independentemente dele.
+    # ── O YOUTUBE SEGUE PARA O SCRAP (SOC2, D17.4) ─────────────────────────
+    # Aqui havia um BLOCK/CAPABILITY para toda candidata YouTube: «exige
+    # channel_id e molde de video — capacidade com outro dono». Era verdade
+    # quando se escreveu; deixou de ser quando o Scrap declarou a fase
+    # `canal-youtube` (API oficial, matriz ALLOWED). A capacidade continua a ser
+    # do outro dono — e por isso o Curator nao a imita: so NOMEIA a rota dele no
+    # contrato. O que ficou do bloqueio antigo e a condicao verdadeira dele:
+    # sem channel_id nao ha identidade, e sem identidade nao ha numero.
+    #
+    #     UM «NAO SEI FAZER» ESCRITO A MAO NAO SE DESACTUALIZA SOZINHO.
+    canal = None
     if familia == "YOUTUBE":
-        return "BLOCK", {"CLASSE": "CAPABILITY",
-                         "PORQUE": ("YouTube exige channel_id e molde de video "
-                                    "(conteudo real, nao watch-page) — capacidade com "
-                                    "outro dono")}
+        canal = RSY.channel_id_da_url(ficha.get("URL", ""))
+        if not canal:
+            return "BLOCK", {"CLASSE": "CAPABILITY", "IDENTIDADE": "NAO SEI",
+                             "PORQUE": ("NAO SEI: canal YouTube sem channel_id no endereco (%s): "
+                                        "@handle, /user/, /c/ e playlist so se resolvem "
+                                        "pela API (youtube.channel.resolve, chave e "
+                                        "rede) — sem fabricar"
+                                        % (ficha.get("URL", "")[:80]))}
+        # ⚠️ UM CANAL, UM SOURCE_ID. Um canal que a casa ja liga a uma fonte
+        # nao recebe um segundo numero: seriam duas fontes a colher o mesmo
+        # canal, e a Sala com tudo em dobro.
+        ja = _donos_do_canal(canal)
+        if len(ja) > 1:
+            return "BLOCK", {"CLASSE": "SEMANTIC", "CHANNEL_ID": canal,
+                             "PORQUE": ("o canal %s ja esta ligado a %d fontes (%s): "
+                                        "colisao de identidade, decisao humana"
+                                        % (canal, len(ja), ", ".join(ja)))}
+        if ja:
+            return "OK", {"SOURCE_ID_REAL": ja[0], "SOURCE_ID_NOVO": False,
+                          "FAMILY": familia, "CHANNEL_ID": canal, "TIPO": tipo,
+                          "JA_TINHA_IDENTIDADE": True,
+                          "PORQUE": ("o canal %s ja e %s: nenhum numero novo; o "
+                                     "contrato dessa fonte e que nomeia a rota"
+                                     % (canal, ja[0]))}
 
     territorio, porque = ASI.territorio_de({
         "NOME": ficha.get("NOME", ""), "URL": ficha.get("URL", ""),
@@ -440,7 +521,8 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
                                     % (ficha.get("NOME", "")[:50], porque_ds))}
 
     # HTML: pedir/alocar o SOURCE_ID canonico e passar ao degrau do contrato.
-    sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque)
+    sid_real, novo = _alocar_source_id(cand_id, territorio, familia, ficha, porque,
+                                       native=canal)
 
     if LC.estado_de(sid_real) != LC.CONTRACT_PENDING:
         LC.registar(sid_real, LC.CONTRACT_PENDING,
@@ -453,6 +535,7 @@ def etapa_qualify(source_id: str, contrato: dict | None) -> tuple[str, dict]:
 
     return "OK", {"SOURCE_ID_REAL": sid_real, "TERRITORY": territorio,
                   "FAMILY": familia, "PAIS": pais, "TIPO": tipo,
+                  "CHANNEL_ID": canal,
                   "SOURCE_ID_NOVO": novo,
                   "TERRITORY_REASON": porque,
                   "DECISAO_SEMANTICA": decisao,
@@ -536,12 +619,17 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
             F.enfileirar(sid, F.VALIDATE_ROUTE, priority=55,
                          motivo="contrato novo — validar rota e canariar")
         elif tipo == F.VALIDATE_ROUTE:
+            do_scrap = (contrato or {}).get("ACQUISITION", {}).get("STRATEGY") == RSY.STRATEGY
             if LC.estado_de(sid) != LC.CANARY_PENDING:
                 LC.registar(sid, LC.CANARY_PENDING,
-                            "rota permitida pelo portao do anfitriao",
+                            ("rota do Scrap permitida pela matriz dele; o canario e "
+                             "uma colheita do Scrap" if do_scrap else
+                             "rota permitida pelo portao do anfitriao"),
                             evidence_ref=ref)
-            F.enfileirar(sid, F.CANARY, priority=60,
-                         motivo="rota validada, falta o canario")
+            # A rota do Scrap para aqui: o canario dela nao e do Curator.
+            if not do_scrap:
+                F.enfileirar(sid, F.CANARY, priority=60,
+                             motivo="rota validada, falta o canario")
         elif tipo == F.QUALIFY:
             # ⚠️ QUALIFY NAO PROMOVE. A alocacao de identidade, o lifecycle
             # (CONTRACT_PENDING) e o enfileiramento do BUILD_CONTRACT ja

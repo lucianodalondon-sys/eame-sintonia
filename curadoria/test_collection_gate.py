@@ -281,6 +281,8 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         "ferramentas/italy-forward-only-live.cmd": ("PRODUCTION_LAUNCHER", False),
         ".github/workflows/sintonia-scrap.yml": ("TEST_ONLY", False),
         "curadoria/test_collection_gate.py": ("TEST_ONLY", False),
+        # SOC2: importa `alvosDe` para provar a guarda COLETADO_POR; nao colhe.
+        "curadoria/test_soc2_curator_youtube.py": ("TEST_ONLY", False),
     }
     PREFIXOS_DECLARADOS = {
         "regras/": "TEST_ONLY",      # guardas e motor de rota, nao correm coleta

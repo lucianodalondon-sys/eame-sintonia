@@ -20989,3 +20989,44 @@ Conferência da matriz do engenheiro do Scrap (mesmo dia, sem rede):
 
 Número: `§196` e `§197` já existem noutras branches (varridas todas as refs locais e
 remotas); este é o `§198`.
+
+# §199 · UM «NÃO SEI FAZER» ESCRITO À MÃO NÃO SE DESACTUALIZA SOZINHO — E UM CANAL É UMA FONTE
+
+SOC2 (23/09/2026), D17.4, D18, D19, D20. `RELATORIO-SOC2-CURATOR-YOUTUBE.md`.
+
+O Curator bloqueava toda candidata YouTube por «capacidade com outro dono». Foi verdade até o
+Scrap declarar a fase `canal-youtube`; depois disso passou a ser só texto. Três lições:
+
+1. **O Curator nomeia a rota; o Scrap corre-a; a matriz permite-a.** O contrato novo
+   (`STRATEGY = SCRAP_FASE`) é escrito por `curadoria/rota_do_scrap_youtube.py`, que LÊ
+   `scrap_colheita.FASES/NOMEADOS` e `social_matriz.decisao` e nunca os escreve. O validador
+   do Curator reprova o contrato no dia em que o Scrap deixar de declarar a rota — é assim que
+   um bloqueio (ou uma permissão) deixa de poder ficar velho sem ninguém ver.
+
+2. **Um canal, um SOURCE_ID.** Das 71 candidatas YouTube, 28 já eram fontes com outro nome
+   (o canal estava na tabela do coletor). Sem a pergunta «este canal já tem dono?», o QUALIFY
+   teria cunhado 28 números novos e a Sala receberia tudo em dobro. O canal procura-se em
+   QUATRO sítios: tabela do coletor, livro do Curator, registo de alocação — e o `.mjs` dos
+   contratos escritos à mão (IT-T8-001 só existe lá).
+
+3. **Uma fonte sem dono no motor derrubava a corrida inteira.** As 50 da tabela nomeiam um
+   adapter que não está nesta árvore; `alvosDoContrato` lança, e a rodada do coletor não apanha
+   exceções. Não rebentou porque o portão só admite READY. `COLETADO_POR` transforma-o num
+   resultado por fonte — e diz quem colhe.
+
+Armadilhas medidas:
+- `executar_uma` enfileira o CANARY depois de qualquer VALIDATE_ROUTE OK; a rota do Scrap para
+  em CANARY_PENDING porque o canário dela é uma colheita do Scrap e a régua dos quatro passos é
+  de HTML — promover por ela seria READY sem prova.
+- `etapa_build_contract` lia a alocação por um caminho fixo e o QUALIFY escrevia-a por
+  `ALLOCATION`: um teste que redireciona uma não via a outra. Agora é o mesmo nome.
+- `recuperar_bloqueadas_por_defeito` existe e ninguém a chama em produção: tarefas BLOCKED pelo
+  bloqueio antigo não voltam sozinhas.
+- D20: `raw_asset` não reescreve identidade e o derivado aponta-lhe com `on delete restrict`;
+  «apagar a linha» choca com a lei da casa, «apagar os bytes e deixar a lápide»
+  (`preserved=false`) não. O prazo lê-se pela proveniência (`youtube-data-api-v3:*`).
+- Uma regex escrita por heredoc levou um `\b` que virou backspace (0x08): a regra da casa
+  (`caractere invisível desliga a verificação`) mordeu outra vez; os ficheiros novos passaram
+  por `grep -c $'\x08'`.
+
+Número: `§196`–`§197` ocupados noutras branches; `§198` é da SOC1; este é o `§199`.
