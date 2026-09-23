@@ -169,20 +169,43 @@ class ACadeia(unittest.TestCase):
         self.assertEqual(estado["WORKER_PID"], pid_worker)
 
         # 6. worker processa (o real, em processo, sem rede)
+        #
+        # ⚠️ REESCRITO NA UNIFICACAO-V1 (23/09/2026), NAO AFROUXADO. Este passo
+        # afirmava que a QUALIFY era barrada no worker por «sem contrato» e
+        # que por isso nada chegava ao livro: era o BURACO que o teste
+        # documentava (o guard de contrato apanhava etapas que correm sem
+        # contrato por desenho). O worker do servico (em producao desde
+        # 21/09) fechou o buraco: a QUALIFY CORRE, tenta o territorio pelo
+        # nome e, quando o nome nao o diz, NAO FABRICA SOURCE_ID — bloqueia
+        # por decisao semantica e escreve-o no livro, com prova. Medido nesta
+        # cadeia: 2 QUALIFY -> 2 BLOCK «territorio indeterminado pelo nome»,
+        # 2 tarefas BLOCKED, 0 elegiveis, e o livro recebe SEMANTIC_REVIEW
+        # com EVIDENCE_REF para as 2. As afirmacoes abaixo sao as mesmas em
+        # forca (resultado exacto, estado exacto, prova obrigatoria) — so o
+        # comportamento medido mudou, e mudou para o correcto.
         feitos = W.correr(pausa=0, verboso=False)
         self.assertEqual(len(feitos), 2, feitos)
         self.assertEqual({f["RESULTADO"] for f in feitos}, {"BLOCK"}, feitos)
-        self.assertEqual({f["PORQUE"] for f in feitos}, {"sem contrato"}, feitos)
+        self.assertEqual({f["TASK_TYPE"] for f in feitos}, {F.QUALIFY}, feitos)
+        for f in feitos:
+            self.assertTrue(f["PORQUE"].startswith("territorio indeterminado pelo nome"), f)
+            self.assertIn("SOURCE_ID fica UNKNOWN, sem fabricar", f["PORQUE"])
+            self.assertTrue(f["EVIDENCE_REF"], f)
         tarefas = self._tarefas()
         self.assertEqual({t["STATUS"] for t in tarefas}, {F.BLOCKED})
-        self.assertEqual({t["LAST_ERROR"] for t in tarefas},
-                         {"sem contrato nesta arvore"})
+        self.assertEqual({t["LAST_ERROR"][:33] for t in tarefas},
+                         {"territorio indeterminado pelo nom"})
         self.assertEqual(F.elegiveis(), [])
 
-        # 7. lifecycle recebe: NADA para QUALIFY (medido, nao escondido).
-        self.assertIsNone(LC.estado_de(a["CANDIDATA_ID"]),
-                          "QUALIFY bloqueada no worker nao chega ao livro")
-        self.assertIsNone(LC.estado_de(c["CANDIDATA_ID"]))
+        # 7. lifecycle recebe: SEMANTIC_REVIEW com prova, sob o CANDIDATA_ID
+        #    (nenhum SOURCE_ID inventado); a social continua POLICY_BLOCK.
+        for cand in (a, c):
+            hist = LC.historia(cand["CANDIDATA_ID"])
+            self.assertEqual([h["NEW_STATE"] for h in hist], [LC.SEMANTIC_REVIEW], hist)
+            self.assertTrue(hist[-1]["EVIDENCE_REF"])
+        self.assertFalse(any(t["SOURCE_ID"].startswith("IT-")
+                             for t in json.loads(LC.LIVRO.read_text(encoding="utf-8"))["TRANSICOES"]),
+                         "a QUALIFY fabricou um SOURCE_ID")
         self.assertEqual(LC.estado_de(b["CANDIDATA_ID"]), LC.POLICY_BLOCK)
 
         # 8. e a volta seguinte do supervisor, com o worker morto e a fila
@@ -197,7 +220,7 @@ class ACadeia(unittest.TestCase):
 
         print("\nG1 CADEIA: candidatas=3 -> ponte: tarefas_criadas=%d barradas=%d "
               "-> fila: elegiveis=%d -> supervisor: RELANCADO pid=%d -> worker: "
-              "feitos=%d resultado=%s -> livro: POLICY_BLOCK=1 QUALIFY=0 -> IDLE hook=1"
+              "feitos=%d resultado=%s -> livro: POLICY_BLOCK=1 SEMANTIC_REVIEW=2 -> IDLE hook=1"
               % (m["TAREFAS_CRIADAS"], m["CLASSIFICADAS_BARRADAS"], len(elegiveis),
                  pid_worker, len(feitos), sorted({f["RESULTADO"] for f in feitos})))
 

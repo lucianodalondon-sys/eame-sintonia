@@ -50,7 +50,7 @@ class OPainel(unittest.TestCase):
         self._estado(SUPERVISOR_STATE="RUNNING", WORKER_PID=97820, SUPERVISOR_PID=1)
         self._batimento(10)
         r = self._ler(vivos=set())
-        self.assertEqual("STOPPED_BROKEN", r["SOURCE_CURATOR_SERVICE"])
+        self.assertEqual("STOPPED_BROKEN", r["SERVICE_DIAGNOSIS"])
         self.assertFalse(r["WORKER_ALIVE"])
         self.assertFalse(r["SUPERVISOR_ALIVE"])
         self.assertEqual("RUNNING", r["SERVICE_STATE_IN_FILE"], "o que o ficheiro dizia fica visivel")
@@ -59,24 +59,24 @@ class OPainel(unittest.TestCase):
         self._estado(SUPERVISOR_STATE="RUNNING", WORKER_PID=200, SUPERVISOR_PID=100)
         self._batimento(10)
         r = self._ler(vivos={100, 200})
-        self.assertEqual("RUNNING", r["SOURCE_CURATOR_SERVICE"])
+        self.assertEqual("RUNNING", r["SERVICE_DIAGNOSIS"])
         self.assertTrue(r["HEARTBEAT_FRESH"])
 
     def test_3_RUNNING_com_worker_vivo_mas_batimento_velho_e_STOPPED_BROKEN(self):
         self._estado(SUPERVISOR_STATE="RUNNING", WORKER_PID=200, SUPERVISOR_PID=100)
         self._batimento(SUP.HEARTBEAT_TIMEOUT_S + 60)
         r = self._ler(vivos={100, 200})
-        self.assertEqual("STOPPED_BROKEN", r["SOURCE_CURATOR_SERVICE"], "um processo pendurado nao e RUNNING")
+        self.assertEqual("STOPPED_BROKEN", r["SERVICE_DIAGNOSIS"], "um processo pendurado nao e RUNNING")
         self.assertFalse(r["HEARTBEAT_FRESH"])
 
     def test_4_IDLE_com_supervisor_vivo_e_IDLE_e_com_supervisor_morto_e_STOPPED_BROKEN(self):
         self._estado(SUPERVISOR_STATE="IDLE", WORKER_PID=None, SUPERVISOR_PID=100)
-        self.assertEqual("IDLE", self._ler(vivos={100})["SOURCE_CURATOR_SERVICE"])
-        self.assertEqual("STOPPED_BROKEN", self._ler(vivos=set())["SOURCE_CURATOR_SERVICE"])
+        self.assertEqual("IDLE", self._ler(vivos={100})["SERVICE_DIAGNOSIS"])
+        self.assertEqual("STOPPED_BROKEN", self._ler(vivos=set())["SERVICE_DIAGNOSIS"])
 
     def test_5_STOPPED_pela_bandeira_e_STOPPED_FINISHED(self):
         self._estado(SUPERVISOR_STATE="STOPPED", WORKER_PID=None, SUPERVISOR_PID=100)
-        self.assertEqual("STOPPED_FINISHED", self._ler(vivos=set())["SOURCE_CURATOR_SERVICE"])
+        self.assertEqual("STOPPED_FINISHED", self._ler(vivos=set())["SERVICE_DIAGNOSIS"])
 
     def test_6_pid_reciclado_por_processo_que_nao_e_python_nao_conta_como_vivo(self):
         self._estado(SUPERVISOR_STATE="RUNNING", WORKER_PID=200, SUPERVISOR_PID=100)
@@ -85,11 +85,11 @@ class OPainel(unittest.TestCase):
              mock.patch.object(SUP, "_proc_e_python", lambda pid: pid == 100):
             r = SUP.ler_estado_servico()
         self.assertFalse(r["WORKER_ALIVE"])
-        self.assertEqual("STOPPED_BROKEN", r["SOURCE_CURATOR_SERVICE"])
+        self.assertEqual("STOPPED_BROKEN", r["SERVICE_DIAGNOSIS"])
 
     def test_7_sem_ficheiro_e_UNKNOWN_nao_verde(self):
         r = self._ler(vivos={1, 2, 3})
-        self.assertEqual("UNKNOWN", r["SOURCE_CURATOR_SERVICE"])
+        self.assertEqual("UNKNOWN", r["SERVICE_DIAGNOSIS"])
         self.assertFalse(r["WORKER_ALIVE"])
 
 

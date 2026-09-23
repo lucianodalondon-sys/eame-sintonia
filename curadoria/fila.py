@@ -253,6 +253,130 @@ def recuperar_orfas(agora: datetime | None = None, limite_s: int = 1800) -> list
     return mexidas
 
 
+def recuperar_bloqueadas_por_defeito(assinaturas: list[str],
+                                     task_types: set[str] | None = None,
+                                     agora: datetime | None = None) -> list[dict]:
+    """Reenfileira tarefas BLOCKED por um DEFEITO do worker — nunca por politica.
+
+        BLOQUEIO POR DEFEITO SOME QUANDO O DEFEITO E CORRIGIDO.
+        BLOQUEIO POR POLICY/AUTH/CAPABILITY, NAO — e nao se toca nele aqui.
+
+    So mexe em BLOCKED cujo LAST_ERROR casa uma das `assinaturas` (ex.: «sem
+    contrato», «etapa nao implementada») E, se `task_types` for dado, cujo tipo
+    esteja nesse conjunto. Uma QUALIFY barrada pelo guard «sem contrato» foi
+    vitima do defeito (uma candidata nunca tem contrato); mas um CANARY barrado
+    por «sem contrato» e um canario legitimo sem contrato — outra coisa. Por
+    isso o tipo importa, e por isso as assinaturas sao explicitas, nao
+    «desbloquear tudo».
+    """
+    n = agora or agora_utc()
+    d = _ler()
+    mexidas = []
+    for t in d["TAREFAS"]:
+        if t["STATUS"] != BLOCKED:
+            continue
+        if task_types is not None and t["TASK_TYPE"] not in task_types:
+            continue
+        err = t.get("LAST_ERROR") or ""
+        if any(a in err for a in assinaturas):
+            t["STATUS"] = PENDING
+            t["LAST_ERROR"] = ("reenfileirada: bloqueio por defeito corrigido "
+                               "(era: %s)" % err[:90])
+            t["UPDATED_AT"] = _iso(n)
+            mexidas.append(dict(t))
+    if mexidas:
+        _gravar(d)
+    return mexidas
+
+
+# ---------------------------------------------------------------------------
+# INTERMITENCIA != SENTENCA
+# ---------------------------------------------------------------------------
+# Medido em 22/09 (DIAGNOSTICO-FILA-DO-BOT-V1, a6c68263): 62 das 69 FAILED
+# morreram por «teto de 5 tentativas: robots nao pode ser lido». Sondadas, 42
+# liam o robots.txt nessa mesma tarde. www.meteotrentino.it deu 200 e, minutos
+# depois, ligacao cancelada. O teto de 5 tentativas em ~4 h (BACKOFF) mede a
+# rede de UMA tarde, nao a fonte — e depois a fonte fica FAILED para sempre.
+#
+#     UM TETO DE TENTATIVAS TRANSFORMA UMA INTERMITENCIA NUMA SENTENCA.
+#
+# O remedio NAO e apagar o teto: e dar-lhe uma segunda escala, lenta. Uma FAILED
+# cujo erro e de TRANSPORTE (nunca de politica) volta a WAITING_RETRY depois de
+# um intervalo longo, UMA tentativa de cada vez, e com teto proprio. Esgotado o
+# teto de revivencias sem nunca ter lido, fica MORTA — declarada, com o motivo.
+#
+# ⚠️ So assinaturas de transporte. Um 403 no robots chega ao worker como
+# Disallow total -> BLOCK (policy), nunca como «nao pode ser lido»: nao passa
+# por aqui, e revive-lo seria contornar o muro.
+ASSINATURAS_INTERMITENTES = (
+    "robots nao pode ser lido",
+    "robots.txt ilegivel",
+    "URLError",
+    "TimeoutError",
+    "timed out",
+    "ConnectionResetError",
+    "RemoteDisconnected",
+)
+# Tentativas de revivencia: 6 h, 24 h, 72 h depois da ultima falha. Tres
+# leituras em dias diferentes separam «rede de uma tarde» de «host que nao
+# responde»; mais do que isso seria insistencia, menos seria a mesma tarde.
+REVIVE_BACKOFF_S = (6 * 3600, 24 * 3600, 72 * 3600)
+REVIVE_MAX = len(REVIVE_BACKOFF_S)
+MORTA = "MORTA"   # marca em INTERMITENCIA_VEREDICTO; o STATUS continua FAILED
+
+
+def e_intermitente(t: dict) -> bool:
+    err = t.get("LAST_ERROR") or ""
+    return (t.get("STATUS") == FAILED and err.startswith("teto de")
+            and any(a in err for a in ASSINATURAS_INTERMITENTES))
+
+
+def reviver_intermitentes(agora: datetime | None = None) -> list[dict]:
+    """FAILED por transporte -> WAITING_RETRY com backoff longo e teto proprio.
+
+    Deterministico, sem rede: a tentativa de revivencia E a sonda — quem le o
+    robots de novo e o worker, pela etapa normal. Devolve as tarefas mexidas
+    (revividas ou declaradas MORTAS); nada e apagado.
+
+    A tarefa revivida recebe ATTEMPTS = MAX_ATTEMPTS - 1: UMA tentativa. Se
+    falhar outra vez, `adiar` devolve-a a FAILED pelo teto normal e a proxima
+    revivencia usa o degrau seguinte de REVIVE_BACKOFF_S.
+    """
+    n = agora or agora_utc()
+    d = _ler()
+    mexidas = []
+    for t in d["TAREFAS"]:
+        if not e_intermitente(t):
+            continue
+        if t.get("INTERMITENCIA_VEREDICTO") == MORTA:
+            continue
+        k = int(t.get("REVIVALS", 0))
+        if k >= REVIVE_MAX:
+            t["INTERMITENCIA_VEREDICTO"] = MORTA
+            t["MOTIVO"] = ("morta: %d revivencias em dias diferentes sem ler "
+                           "(ultimo erro: %s)" % (k, (t["LAST_ERROR"] or "")[:90]))
+            t["UPDATED_AT"] = _iso(n)
+            mexidas.append(dict(t))
+            continue
+        quando = _parse(t["UPDATED_AT"]) + timedelta(seconds=REVIVE_BACKOFF_S[k])
+        if quando > n:
+            continue          # ainda nao e a hora: nem mexe, nem anota
+        t.setdefault("REVIVE_HISTORICO", []).append(
+            {"AT": _iso(n), "ERA": (t["LAST_ERROR"] or "")[:120]})
+        t["REVIVALS"] = k + 1
+        t["STATUS"] = WAITING_RETRY
+        t["ATTEMPTS"] = MAX_ATTEMPTS - 1
+        t["NEXT_ATTEMPT_AT"] = _iso(n)
+        t["LAST_ERROR"] = ("revivida %d/%d: falha de transporte nao e sentenca "
+                           "(era: %s)" % (k + 1, REVIVE_MAX,
+                                          (t["LAST_ERROR"] or "")[:90]))
+        t["UPDATED_AT"] = _iso(n)
+        mexidas.append(dict(t))
+    if mexidas:
+        _gravar(d)
+    return mexidas
+
+
 def metricas(agora: datetime | None = None) -> dict:
     n = agora or agora_utc()
     d = _ler()

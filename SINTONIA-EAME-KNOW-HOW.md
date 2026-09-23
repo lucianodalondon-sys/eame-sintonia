@@ -19860,3 +19860,155 @@ produção por causa de uma demonstração.
 > demonstração e envenenava o livro. **Uma prova que exige falsificar a prova
 > não é uma prova.** Fica por fazer, dito, e com o caminho descrito — é decisão
 > de quem manda, não de quem demonstra.
+
+# §173 · SAÚDE NÃO É PRODUTIVIDADE — A OBSERVABILIDADE DO SOURCE CURATOR
+
+> Era §159 no serviço (source-curator-service-v1); renumerado na unificação (UNIFICACAO-V1, 22/09/2026): o §159 da ponte («A PORTA EXISTIA…») ocupava o número, o §170 e o §171 já eram do serviço, e o §172 já está ocupado em worker-pendurado-v1 («UM CANO SEM LEITOR…», que entra depois). Nenhuma secção foi apagada.
+
+**O QUE.** O Source Curator virou serviço contínuo (§ anterior) e o painel sabia
+dizer se estava VIVO — mas não se estava a PRODUZIR. Medido numa janela real:
+`QUALIFY_COMPLETED_24H = 277` e `READY_CURRENT_24H = 22` — yield de **7,9%**. Um
+painel que só mostrasse «RUNNING» diria que estava tudo bem. Não estava: 277
+fontes qualificadas para 22 READY é a verdade que não se pode mascarar.
+
+```
+RUNNING = YES  NÃO SIGNIFICA  PRODUZINDO = YES.
+```
+
+**A REGRA.** A telemetria (`curadoria/telemetria.py`) é **100% Python
+determinístico, ZERO LLM**. Somar contadores, calcular janelas, percentuais e
+checkpoint é aritmética — nunca se chama Opus/Fable para isso. O resumo editorial
+do cartão (`cartao_de_fonte.py`) pode, em teoria, usar OPUS, mas nesta entrega
+compôs-se de evidência estruturada já observada: `LLM_USED_FOR_SUMMARY = NO`.
+
+**AS MÉTRICAS QUE IMPORTAM.**
+- `READY_CURRENT/24h` é o indicador **principal** — fonte útil de verdade.
+- `QUALIFY_COMPLETED` é throughput: trabalho útil que pode ter acabado em bloqueio
+  (RETRY/CAPABILITY_BLOCK/SEMANTIC). Mostra-se ao lado do READY, para não esconder
+  esforço que não virou resultado.
+- **Discovery ≠ fonte útil.** `DISCOVERED = 500` com `READY = 0` são 500
+  descobertas e ZERO úteis — nunca «500 fontes produzidas».
+
+**A FONTE DE VERDADE.** Tudo deriva de `LIFECYCLE-LEDGER-V1.json` (transições
+append-only, `OBSERVED_AT`) + fila + run-log + o SO. **Nenhum contador paralelo.**
+O estado ATUAL de uma fonte é a ÚLTIMA transição dela — não se somam transições
+para totais atuais. Atribui-se uma transição ao QUALIFY pelo `EVIDENCE_REF`
+(`-QUALIFY-`) ou pelo `REASON` («QUALIFY:»), o que separa o trabalho do worker do
+trabalho da ponte (`BRIDGE:`).
+
+**CHECKPOINT EVENT-DRIVEN.** Grava quando muda (10 QUALIFY, fim de lote, worker
+volta a IDLE depois de produzir, paragem, ou 30 min com mudança). Se nada mudou,
+NÃO grava — sem spam. O histórico persiste no disco e **sobrevive a restart** do
+supervisor e do painel (é gitignored, como o run-log: muda sozinho).
+
+**STATUS RUNTIME VEM DO SO, NÃO DO JSON.** `SUPERVISOR_ALIVE`/`WORKER_ALIVE`
+derivam do PID existir no instante da leitura; heartbeat velho → STALE com o delta
+à vista; supervisor vivo + fila 0 → RUNNING/IDLE, **nunca STOPPED**.
+
+**PRODUCTIVITY_STATE** (separado da saúde): `ACTIVE_PRODUCTIVE` · `ACTIVE_NO_OUTPUT`
+(vivo + fila > 0 + sem progresso além do `HEARTBEAT_TIMEOUT_S=300`) · `IDLE_NO_WORK`
+· `BLOCKED` · `STOPPED`. Não se inventou timeout — deriva do heartbeat que já existe.
+
+**O QUE A TELEMETRIA APANHOU (e não mascarou).** `DISCOVERY_HOOK_ERRORS_24H = 1366`:
+o hook de discovery do modo contínuo chama `crawl_sementes()` com a assinatura
+errada e rebenta a cada volta IDLE (o supervisor apanha e sobrevive, mas a
+discovery **nunca corre**). É defeito real, reportado — não corrigido nesta missão
+de observabilidade (é discovery, e o serviço está vivo).
+
+**NAVEGABILIDADE.** `READY_CURRENT_24H = 22` chega às 22 fontes reais, cada uma com
+NOME/TIPO/RESUMO/READY_AT, via `cartao_de_fonte.cartoes_navegaveis`. O número é
+navegável até ao resultado.
+
+**MAPA.** A telemetria vive em `curadoria/` (o Source Curator), que o System Map
+ainda **não zona formalmente** — por isso o P9 não a exige declarada, e não se fez
+cirurgia de zona num serviço vivo. Não está classificada como Big Collection nem
+Intelligence. `P1_SEM_DRIFT = PASS`; o único FAIL é o P9 pré-existente de
+`regras/motor_de_rota.mjs` (commit 606974c3), alheio a esta missão.
+
+**RED TEAM.** 8 mutantes, SURVIVORS = 0, com baseline-passa→muta→reprova a provar
+que o código mutado executou (`red_team_telemetria.py`).
+
+---
+
+# §170 · REPETIR O QUE NADA MUDOU NÃO É PERSISTÊNCIA — O ABASTECIMENTO DO BOT
+
+*Missão 2 (abastecimento-bot-v1), 22/09/2026. Prova: `curadoria/ABASTECIMENTO-PROOF-V1.json`,
+gerada por `curadoria/provar_abastecimento.py` sobre uma CÓPIA da worktree viva.*
+
+**O QUE MUDOU.** Três defeitos do bot de fontes, três remédios determinísticos:
+
+1. **Eco do FEEDER.** Com a fila elegível a 0, o supervisor chamava o FEEDER a cada
+   volta de 15 s: lia 476 candidatas, enfileirava 0, anotava um `REALIMENTACAO`
+   idêntico. Medido no run-log vivo: intervalo mediano entre ecos **15,1 s** (= 240/h
+   enquanto parado). Agora o gatilho guarda uma impressão digital de (candidatas +
+   fila: id·estado·tentativas); igual à da última chamada → NO-OP, contado em
+   `FEEDER_NOOP_TOTAL` e exposto em `ler_estado_servico`. Simulado sobre a cópia
+   real: **1 chamada e 239 NO-OP em 240 voltas**, 1 evento no diário em vez de 240.
+2. **Intermitência virava sentença.** 62 FAILED por «robots não pode ser lido»
+   ficavam FAILED para sempre. Relidas às 23h UTC pela MESMA função do worker
+   (`gate_de_rota.robots_de`): **60 de 62 leem agora** (51 legível + 9 sem robots,
+   que é permissão); 2 ainda não (meteotrentino.it, regione.vda.it). À tarde, a
+   sonda do coordenador dera 42 — o número muda de hora a hora, que é a lição.
+   `fila.reviver_intermitentes`: só erros de TRANSPORTE; uma tentativa de cada vez,
+   a 6 h / 24 h / 72 h da última falha; esgotado o teto, `MORTA` com motivo. Um 403
+   no robots nunca chega aqui (vira BLOCK de policy).
+3. **Sem combustível.** As 33 sementes do catálogo: 15 visitadas, 12 rejeitadas, 6
+   livres — e as 6 são UNKNOWN (cnr, unimi, unipd, unibo, unito, istat) porque a
+   regra decide pelo HOST, não pelo caminho. A regra NÃO foi afrouxada. Fonte nova:
+   `_sementes_de_segunda_geracao` — candidatas EM_ANALISE que a PRÓPRIA regra chama
+   TEMÁTICA. Hoje: 10 (Nomisma, UIV, Federunacoma, 3 Coldiretti regionais, ...),
+   9 com robots a permitir, 1 a barrar (fedagripesca).
+
+**O QUE SE APRENDEU.**
+
+- **O NO-OP só se prova com o outro remédio desligado.** Na simulação com os dois,
+  as 68 revividas enchem a fila, o gatilho sai por `QUEUE_OK` e o caminho do NO-OP
+  nunca é exercido — o verde viria de outro sítio. Mede-se cada remédio isolado.
+- **O orçamento de rede não contava o robots.txt.** `crawl_sementes` com
+  `Orcamento(total=0)` ainda lia o robots de cada semente; o teste
+  `test_orcamento_zero_nao_busca_sementes` batia a ~10 hosts reais sem ninguém ver
+  (só se notou porque a suíte passou de 5 s a 19 s). Orçamento esgotado agora para
+  antes do robots. Fica por decidir se o robots deve contar nos 250 pedidos.
+- **O número do briefing não é o número do disco.** «~5.700 eventos/dia» é a
+  cadência projetada; a hora mais cheia observada teve 28, porque o bot só ficou
+  parado janelas de minutos. Os dois números entram, cada um com o que mede.
+- **O tecto por domínio no código é 10, não 5** (`MAX_PEDIDOS_POR_DOMINIO`).
+
+**O QUE NÃO SE FEZ.** Não se tocou no serviço vivo, na fila, no ledger nem nas
+candidatas dele. Aplicar é decisão do coordenador (plano na entrega da missão).
+
+---
+
+# §171 · SAIR NÃO É MORRER — O WORKER OCIOSO QUE DESLIGAVA O GATILHO
+
+*Missão 2c (gatilho-ocioso-v1), 23/09/2026. Prova: `curadoria/GATILHO-OCIOSO-ENSAIO-V1.json`
+(supervisor e worker reais numa cópia) e `curadoria/test_gatilho_ocioso.py`.*
+
+**O QUE ESTAVA ERRADO.** Visto ao vivo depois da §170: o `ciclo_continuo` nunca saía com
+a fila vazia (dormia 120 s e dava outra volta), e o supervisor só chama o gatilho
+(reviver → feeder → discovery) quando o worker está MORTO. O gatilho só corria nos
+intervalos em que o worker caía por outro motivo. Medido: 12 voltas vazias seguidas,
+0 realimentações, discovery e revivências paradas.
+
+**O QUE MUDOU (via A).** O worker lançado pelo supervisor sai com rc 0 e o evento
+`WORKER_OCIOSO_SAIU` quando não há nada elegível e nenhum relógio de `WAITING_RETRY`
+cabe numa espera (≤ `ESPERA_MAX`). O supervisor lê rc 0 como `WORKER_SAIU_LIMPO` e
+não o soma a `CRASHES_SEM_PROGRESSO`.
+
+**O QUE SE APRENDEU.**
+
+- **A saída limpa lia-se como crash.** A volta `VIVO` do supervisor copia o último
+  heartbeat para `LAST_PROGRESS_AT`. Quando um worker ocioso sai, o heartbeat não
+  avançou desde essa cópia: «morreu sem progresso». Três saídas em 120 s mandariam o
+  serviço a BLOCKED. Sem a regra do rc 0, o remédio criava uma avaria nova.
+- **A via B (hook com o worker vivo) caía pela fila.** `fila._gravar` lê, muda e
+  substitui o ficheiro inteiro, sem trinco: dois escritores ao mesmo tempo perdem
+  escritas sem erro nenhum. Um só escritor de cada vez não é preferência, é
+  a condição para a fila dizer a verdade.
+- **Um teste antigo dizia «crash» com `python -c pass`**, que sai com rc 0. Pela regra
+  nova isso é saída limpa. O teste passou a `sys.exit(1)`, que é o que queria dizer.
+- **Ensaio real, não só unitário:** IDLE → RELANCADO → `WORKER_OCIOSO_SAIU` →
+  `WORKER_SAIU_LIMPO` → IDLE com gatilho, e 0 eventos em 180 s parado (poll de 15 s).
+  Três mutantes, cada um com diff de 1 linha, todos mortos.
+- `WORKER_MORTO` continua a ser anotado antes de `WORKER_SAIU_LIMPO` (traz o RC).
+  Nenhum leitor o consome hoje; quem o vier a contar tem de excluir RC 0.

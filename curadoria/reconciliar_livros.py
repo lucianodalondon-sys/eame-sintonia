@@ -444,6 +444,16 @@ def prova_b(sid: str, ctx: dict) -> dict:
     }
 
 
+# ⚠️ AUTH_BLOCK — CLASSE ANTES DO ROTULO (missao 5, UNIFICACAO-V1). O worker do
+# servico escreve `AUTH_BLOCK` (muro de login) desde 22/09; os vereditos so
+# conheciam POLICY/CAPABILITY e diziam «estado fora do vocabulario» -> UNKNOWN.
+# Medido no corte de 23/09: 5 fontes (IT-T12-035/046/055/072/078) caiam em
+# UNKNOWN so por isto. A classe e a de _CLASSE_DE (decisao ja declarada ali):
+# CAPABILITY_BLOCK — «fonte boa, aquisicao impossivel com o que a casa tem».
+# O rotulo AUTH_BLOCK mantem-se no livro (ver _alvo_lifecycle).
+_AUTH_COMO_CAPACIDADE = "AUTH_BLOCK (muro de login) lido como CAPABILITY_BLOCK: credencial em falta e capacidade em falta"
+
+
 def veredito_b(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
     """O que o livro B prova, por si, sobre a rota de hoje. (estado, porque, prova)."""
     t = ctx["_ULT"]["B"].get(sid)
@@ -455,6 +465,8 @@ def veredito_b(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
         return DEGRADED, "B: a Collection reportou falha na corrida real (%s)" % (t.get("EVIDENCE_REF") or "")[:60], pb
     if e in (LC.POLICY_BLOCK, LC.CAPABILITY_BLOCK):
         return e, "B: bloqueio %s" % e, pb
+    if e == LC.AUTH_BLOCK:
+        return CAPABILITY_BLOCK, "B: " + _AUTH_COMO_CAPACIDADE, pb
     if e == LC.RETRY_AFTER:
         return RETRY, "B: RETRY_AFTER", pb
     if e == LC.UNKNOWN:
@@ -523,6 +535,8 @@ def veredito_a(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
         return UNKNOWN, "A: UNKNOWN", {}
     if e in (LC.POLICY_BLOCK, LC.CAPABILITY_BLOCK):
         return e, "A: %s" % e, {}
+    if e == LC.AUTH_BLOCK:
+        return CAPABILITY_BLOCK, "A: " + _AUTH_COMO_CAPACIDADE, {}
     if e in FAMILIA_NOT_READY:
         return NOT_READY, "A: %s (%s)" % (e, (t.get("REASON") or "")[:70]), {}
     return UNKNOWN, "A: estado fora do vocabulario: %s" % e, {}
@@ -564,6 +578,8 @@ def veredito_c(sid: str, ctx: dict) -> tuple[str | None, str, dict]:
         return UNKNOWN, "C: UNKNOWN", {}
     if e in (LC.POLICY_BLOCK, LC.CAPABILITY_BLOCK):
         return e, "C: %s" % e, {}
+    if e == LC.AUTH_BLOCK:
+        return CAPABILITY_BLOCK, "C: " + _AUTH_COMO_CAPACIDADE, {}
     if e in FAMILIA_NOT_READY:
         return NOT_READY, "C: %s (%s)" % (e, (t.get("REASON") or "")[:70]), {}
     return UNKNOWN, "C: estado fora do vocabulario: %s" % e, {}
@@ -769,6 +785,11 @@ def _alvo_lifecycle(final: str, tA: dict | None, tB: dict | None = None,
                     tB2: dict | None = None, tC: dict | None = None) -> str:
     if final in (READY_CURRENT, READY_LEGACY):
         return LC.READY_FOR_COLLECTION
+    if final == CAPABILITY_BLOCK and any(x is not None and x["NEW_STATE"] == LC.AUTH_BLOCK
+                                         for x in (tA, tC, tB, tB2)):
+        # a classe e CAPABILITY, o rotulo continua AUTH_BLOCK: o livro nao
+        # perde que a falta e uma credencial (e nao um adaptador).
+        return LC.AUTH_BLOCK
     if final == RETRY:
         return LC.RETRY_AFTER
     if final in (DEGRADED, POLICY_BLOCK, CAPABILITY_BLOCK, UNKNOWN):

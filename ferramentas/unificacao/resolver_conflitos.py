@@ -7,6 +7,7 @@ semanticos que o merge limpo nao ve.
 
 Uso:  py ferramentas/unificacao/resolver_conflitos.py <worktree-de-ensaio>
 """
+import os
 import re
 import subprocess
 import sys
@@ -14,7 +15,7 @@ import tempfile
 from pathlib import Path
 
 PONTE = "2018ed6a"
-SERVICO = "779ac8f6"
+SERVICO = os.environ.get("UNIF_SERVICO", "9a82197c")  # missao 5: +gatilho ocioso (era 779ac8f6 no ensaio)
 # A ponte recebeu estes tres por COPIA de candidate-bridge-v1 (63b71421, commit
 # 5b6068cf), nao por merge: para o git sao add/add contra 8bbea01c. A base
 # verdadeira e 63b71421, que esta na historia do servico. Com ela: 0 conflitos.
@@ -89,6 +90,13 @@ ESCOLHAS = {
         #   DIARIO e troca o lancador por um processo inerte — contem o
         #   isolamento da fila que o servico acrescentou, e mais.
         "P",
+        # 2 (so com o servico >= 9a82197c, gatilho ocioso) o processo morto do
+        #   test_crash_com_progresso: o ajudante _popen da ponte (pipes iguais
+        #   aos do lancador) com o CODIGO do servico — rc 1, porque desde o
+        #   gatilho ocioso rc 0 e «saida limpa», nao crash, e o teste deixaria
+        #   de medir a morte com progresso.
+        lambda p, s: p.replace('self._popen("pass")',
+                               'self._popen("import sys; sys.exit(1)")  # crash: rc 0 e saida limpa'),
     ],
 }
 
@@ -136,6 +144,16 @@ def _telemetria_com_nome_proprio(raiz: Path) -> list:
         if u != t:
             f.write_text(u, encoding="utf-8", newline="\n")
             mud.append("import corrigido: %s" % f.name)
+    # (missao 5) o red team da telemetria nomeia o FICHEIRO a mutar por texto:
+    # com o nome velho, cada mutante falhava a abrir o alvo — o red team
+    # deixava de atacar sem nenhum import partido que o denunciasse.
+    rt = raiz / "curadoria/red_team_telemetria.py"
+    if rt.exists():
+        t = rt.read_text(encoding="utf-8")
+        u = re.sub(r'^(\s*)"telemetria\.py",', r'\1"telemetria_do_curador.py",', t, flags=re.M)
+        if u != t:
+            rt.write_text(u, encoding="utf-8", newline="\n")
+            mud.append("red_team_telemetria: alvo das mutacoes -> telemetria_do_curador.py")
     return mud
 
 

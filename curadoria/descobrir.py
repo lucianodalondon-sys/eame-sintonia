@@ -87,6 +87,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import urllib.robotparser
+import html.parser as _htmlparser
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -96,7 +97,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ / "candidatas"))
 sys.path.insert(0, str(RAIZ / "curadoria"))
 
-from fonte_nova import normalizar, registar, carregar  # noqa: E402
+from fonte_nova import normalizar, registar, carregar, recusar  # noqa: E402
 
 # ------------------------------------------------------------------ constantes
 UA = "SintoniaEAME-Discovery/1.0 (research; contact: londoncreativecreative@gmail.com)"
@@ -105,8 +106,10 @@ CTX.check_hostname = False
 CTX.verify_mode    = ssl.CERT_NONE
 
 # Limites da FASE 3
-MAX_PEDIDOS_TOTAIS       = 400
-MAX_PEDIDOS_POR_DOMINIO  = 8
+MAX_PEDIDOS_TOTAIS       = 250
+MAX_PEDIDOS_POR_DOMINIO  = 10
+MAX_SEMENTES_ESTA_CORRIDA = 15
+PROFUNDIDADE_MAX          = 1
 PAUSA_ENTRE_PEDIDOS_S    = 2.0
 TIMEOUT_S                = 20
 
@@ -114,8 +117,9 @@ TIMEOUT_S                = 20
 QUEUE_LOW_THRESHOLD = 20
 
 # Ficheiros persistidos
-VISITADOS_JSON = RAIZ / "curadoria" / "DISCOVERY-VISITED.json"
-PROOF_JSON     = RAIZ / "curadoria" / "DISCOVERY-PROOF-V1.json"
+VISITADOS_JSON   = RAIZ / "curadoria" / "DISCOVERY-VISITED.json"
+PROOF_JSON       = RAIZ / "curadoria" / "DISCOVERY-PROOF-V1.json"
+CRAWL_PROOF_JSON = RAIZ / "curadoria" / "CRAWL-PROOF-V1.json"
 
 
 # ------------------------------------------------------------------ familias
@@ -187,6 +191,43 @@ CATALOGO_ITALIA: list[dict] = [
      "url": "https://www.arsacweb.it/",
      "para_que": "bollettini difesa e supporto tecnico agri Calabria",
      "discovered_from": "https://www.regione.calabria.it/",
+     "method": "directorio_curado"},
+
+    # ---- sub-entradas para expor dominios TEMATICOS como sementes ----
+    # discovered_from != url -> dominio raiz entra em _extrair_sementes_legitimas()
+    {"familia": "BOLETINS_AGRONOMICOS", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ARSAC Calabria — bollettini di difesa integrata",
+     "url": "https://www.arsacweb.it/difesa-integrata/",
+     "para_que": "bollettini tecnici di difesa integrata colture ARSAC Calabria",
+     "discovered_from": "https://www.arsacweb.it/",
+     "method": "directorio_curado"},
+
+    {"familia": "BOLETINS_AGRONOMICOS", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ASSAM Marche — agrometeo e difesa colture",
+     "url": "https://www.assam.marche.it/index.php/agromet",
+     "para_que": "dati agro-meteorologici e bollettini difesa colture ASSAM Marche",
+     "discovered_from": "https://www.assam.marche.it/",
+     "method": "directorio_curado"},
+
+    {"familia": "BOLETINS_AGRONOMICOS", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "Agriliguria.net — difesa integrata colture Liguria",
+     "url": "https://www.agriliguria.net/difesa-integrata/",
+     "para_que": "bollettini difesa integrata e avvisi fitosanitari Liguria",
+     "discovered_from": "https://www.agriliguria.net/",
+     "method": "directorio_curado"},
+
+    {"familia": "AGROMETEOROLOGIA_CLIMA", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ARPA Lombardia — sezione agrometeorologia",
+     "url": "https://www.arpalombardia.it/settori/agrometeorologia/",
+     "para_que": "dati agro-meteorologici per uso agricolo Lombardia",
+     "discovered_from": "https://www.arpalombardia.it/",
+     "method": "directorio_curado"},
+
+    {"familia": "AGROMETEOROLOGIA_CLIMA", "tipo": "BASE_OFICIAL", "pais": "IT",
+     "nome": "ARPAT Toscana — notizie ambientali e agro",
+     "url": "https://www.arpat.toscana.it/notizie-e-comunicati/",
+     "para_que": "bollettini ambientali e agro-meteorologici ARPAT Toscana",
+     "discovered_from": "https://www.arpat.toscana.it/",
      "method": "directorio_curado"},
 
     {"familia": "BOLETINS_AGRONOMICOS", "tipo": "IMPRENSA", "pais": "IT",
@@ -858,6 +899,665 @@ def _verificar_url(url: str, orcamento: Orcamento) -> tuple[bool, int, str]:
         return False, 0, "ERRO: %s" % type(ex).__name__
 
 
+# ------------------------------------------------------------------ HTML / crawl
+
+class _LinkParser(_htmlparser.HTMLParser):
+    """Extrai pares (url, anchor_text) de tags <a href>."""
+
+    def __init__(self, base_url: str):
+        super().__init__(convert_charrefs=True)
+        self.base_url = base_url
+        self.links: list[tuple[str, str]] = []
+        self._cur_href: Optional[str] = None
+        self._cur_text: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list) -> None:
+        if tag == "a":
+            d = dict(attrs)
+            href = (d.get("href") or "").strip()
+            if href:
+                self._cur_href = urllib.parse.urljoin(self.base_url, href)
+                self._cur_text = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._cur_href is not None:
+            self.links.append((self._cur_href, " ".join(self._cur_text).strip()))
+            self._cur_href = None
+            self._cur_text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._cur_href is not None:
+            t = data.strip()
+            if t:
+                self._cur_text.append(t)
+
+
+def extrair_links(html: str, base_url: str) -> list[tuple[str, str]]:
+    """Devolve lista de (url_absoluto, anchor_text) de um HTML."""
+    p = _LinkParser(base_url)
+    try:
+        p.feed(html)
+    except Exception:
+        pass
+    return p.links
+
+
+# Extensoes de ficheiro nao-navegaveis a descartar
+_EXT_BINARIAS = frozenset([
+    ".pdf", ".zip", ".docx", ".doc", ".xls", ".xlsx", ".csv",
+    ".ppt", ".pptx", ".odt", ".ods", ".jpg", ".jpeg", ".png",
+    ".gif", ".svg", ".ico", ".mp4", ".mp3", ".avi", ".webm",
+])
+
+# Caminhos de servico a descartar (regex de segmento de path)
+_RE_SERVICO = re.compile(
+    r"(?:^|/)(?:privacy|cookie|login|logout|mappa.del.sito|sitemap|"
+    r"search|cerca|tag[s]?|categor[a-z]*|author[s]?|feed|rss|"
+    r"chi.siamo|contatti|contattaci|about|newsletter|iscriviti|"
+    r"subscribe|print|stampa|share|condividi|404|error|terms|"
+    r"accessibilita|dichiarazione-accessibilita)(?:/|$|\?)",
+    re.I
+)
+
+# Mapeamento dominio social -> tipo
+_SOCIAL_MAP: dict[str, str] = {
+    "instagram.com": "INSTAGRAM",
+    "youtube.com": "YOUTUBE",
+    "linkedin.com": "LINKEDIN",
+    "facebook.com": "FACEBOOK",
+    "youtu.be": "YOUTUBE",
+    "fb.com": "FACEBOOK",
+    "fb.me": "FACEBOOK",
+}
+
+# Dominios irrelevantes (analytics, CDN, social login, etc.)
+_DOMINIOS_SKIP = frozenset([
+    "google.com", "google.it", "goo.gl", "googleapis.com",
+    "cloudflare.com", "amazonaws.com", "akamai.net",
+    "jquery.com", "bootstrap.com", "cdnjs.cloudflare.com",
+    "twitter.com", "x.com", "t.co", "tiktok.com",
+    "pinterest.com", "whatsapp.com", "telegram.org", "t.me",
+    "addtoany.com", "sharethis.com", "disqus.com",
+    "spotify.com",  # plataforma audio sem capability agro provada
+])
+
+
+# RA — facets de pesquisa: segmento de path que é motor de busca
+_RE_FACET_PATH = re.compile(r"^ricerca$", re.I)
+
+# RB — artigos individuais: slug com >= 4 partes separadas por hífen
+#      OU prefixo numérico de ID (ex: 2456-scadenza-...)
+_RE_ARTIGO_INDIVIDUAL = re.compile(
+    r"/(notizie|news|articol[oi]|comunicat[oi]|press-release)"
+    r"/(\d{1,6}-[a-z0-9_%\-]{5,}"
+    r"|[a-z0-9][a-z0-9_%\-]*(?:-[a-z0-9_%\-]+){4,})"
+    r"(?:/|$|\?|#)",
+    re.I
+)
+
+# RC — páginas institucionais obrigatórias italianas
+# PORQUE FALHOU EM ADDENDUM-03: a regex original cobria nomes de paginas de
+# governo regional (giunta, presidente, anticorruzione) mas omitiu termos
+# genericos que aparecem em QUALQUER agencia publica: urp (balcao cidadao) e
+# tutela-dati-personali (pagina de privacidade obrigatoria por GDPR).
+# ADDENDUM-04: acrescentada a familia de paginas legais obrigatorias que nao
+# publicam conteudo agronomico — termini-duso, termini-di-uso, note-legali,
+# condizioni-d-uso, condizioni-duso, condizioni-di-uso, disclaimer, credits,
+# crediti. Sao paginas legais de site (termos, notas legais, disclaimer),
+# nao fontes de informacao agronomica.
+_RE_ISTITUZIONALE_PATH = re.compile(
+    r"/(?:amministrazione-trasparente|amministrazionetrasparente|"
+    r"il-presidente|la-giunta-regionale|giunta-regionale|"
+    r"istituti-di-garanzia|responsabile-protezione-dati|"
+    r"anticorruzione|lo-statuto|statuto-regionale|"
+    r"assemblea-regionale|"
+    r"urp|ufficio-relazioni-con-il-pubblico|"
+    r"termini-duso|termini-d[iu]-uso|note-legali|"
+    r"condizioni-duso|condizioni-d[iu]-uso|condizioni-d-uso|"
+    r"disclaimer|credits|crediti)(?:/|$|\?)",
+    re.I
+)
+# RC — prefixos: nomes compostos que variam no sufixo (ex: tutela-dati-personali-privacy,
+# ufficio-relazioni-con-il-pubblico-urp). Separados do pattern principal para nao exigir
+# final-de-segmento estrito — qualquer sufixo depois do prefixo e igualmente bloqueado.
+_RE_ISTITUZIONALE_PATH_PREFIX = re.compile(
+    r"/(?:tutela-dati|privacy[- ]|cookie-policy|dati-personali|protezione-dati|"
+    r"ufficio-relazioni-con-il-pubblico)",
+    re.I
+)
+_RE_ISTITUZIONALE_HOST = re.compile(
+    r"^(?:trasparenza|amministrazionetrasparente|intranet)\.",
+    re.I
+)
+
+# RD — paginas de autenticacao/login: nao publicam conteudo, sao portais de
+# acesso. login.microsoftonline.com foi o caso que revelou a lacuna.
+_RE_LOGIN_AUTH_HOST = re.compile(
+    r"^(?:login|accounts?|auth|sso|signin|idp)\.",
+    re.I
+)
+_LOGIN_AUTH_DOMINIOS = frozenset([
+    "microsoftonline.com", "live.com", "okta.com",
+    "auth0.com", "onelogin.com", "pingidentity.com",
+])
+
+# ---- Classificacao de sementes: TEMATICA / GENERICA / UNKNOWN ----
+#
+# REGRA DECLARADA (testavel):
+# TEMATICA — dominio pertence exclusivamente a escopo agricola/ambiental:
+#   agencias agro-ambientais, imprensa agricola, associacoes do setor, ou
+#   o subdominio comeca por agri. / agricoltura. / fitosanitario.
+# GENERICA — portal de governo regional (regione.*.it): escopo generico;
+#   a colheita provou 3.7% de sinal agro independentemente do path.
+# UNKNOWN — nao se consegue decidir sem analisar o conteudo da pagina.
+
+_SEMENTE_TEMATICA_DOMINIOS: frozenset = frozenset([
+    # Agencias agro-ambientais
+    "arpae.it", "arsacweb.it", "agriliguria.net", "assam.marche.it",
+    "agea.gov.it", "ismea.it", "crea.gov.it",
+    "meteotrentino.it", "arpal.liguria.it", "arpalombardia.it",
+    "arpat.toscana.it", "arpa.marche.it", "arpalazio.it",
+    "fitosanitario.venezia.it", "fitosanitario.regione.lombardia.it",
+    # Imprensa agricola
+    "agronotizie.imagelinenetwork.com", "terraevita.it",
+    "informatoreagrario.it", "colturaecultura.it",
+    "vitaincampagna.it", "agribusiness.it", "sherwood.it",
+    # Associacoes e cooperativas agricolas
+    "coldiretti.it", "confagricoltura.it", "cia.it",
+    "copagri.it", "anbi.it", "assosementi.it", "confai.it",
+    "agrofarma.federchimica.it",
+    "fedagripesca.confcooperative.it",
+    "granlatte.it", "unaitalia.com", "unaproa.it",
+    # Industria/mercado agricola
+    "federunacoma.it", "assofertilizzanti.federchimica.it",
+    "uiv.it", "nomisma.it", "granariamilano.org",
+    # Nacional agricola
+    "politicheagricole.it",
+])
+
+_RE_SEMENTE_TEMATICA_SUBDOMINIO = re.compile(
+    r"^(?:agri|agricoltura|fitosanitario)\.", re.I
+)
+
+_RE_SEMENTE_GENERICA_DOMINIO = re.compile(
+    r"^(?:www\.)?regione\.[a-z-]+\.it$", re.I
+)
+
+# Sinal agro no dominio de uma candidata (nao da semente): preserva candidata
+# descoberta mesmo quando a semente era GENERICA.
+_RE_DOMINIO_AGRO_SINAL = re.compile(
+    r"(?:^|\.)(?:agri[a-z]*|agricoltura|fitosanitario|arsac|assam|acamir|"
+    r"agea|ismea|arpae|arpa[a-z]*|agronotizie|colturaecultura|vitaincampagna|"
+    r"informatoreagrario|terraevita|agribusiness|sherwood|coldiretti|"
+    r"confagricoltura|nomisma|granaria|unaproa|fedagripesca|"
+    r"arsacweb|agriliguria)",
+    re.I
+)
+
+
+def _classificar_semente(url: str) -> tuple[str, str]:
+    """Classifica uma semente como TEMATICA, GENERICA ou UNKNOWN.
+
+    REGRA DECLARADA — ver constantes acima. Testavel via TestClassificarSemente.
+    """
+    try:
+        host = urllib.parse.urlparse(url).netloc.lower()
+        host_sem_www = re.sub(r"^www\.", "", host)
+    except Exception:
+        return "UNKNOWN", "erro_a_parsear_url"
+
+    if _RE_SEMENTE_TEMATICA_SUBDOMINIO.match(host_sem_www):
+        return "TEMATICA", "subdominio_agricola_%s" % host_sem_www
+
+    for dom in _SEMENTE_TEMATICA_DOMINIOS:
+        if host_sem_www == dom or host_sem_www.endswith("." + dom):
+            return "TEMATICA", "dominio_tematico_%s" % dom
+
+    if _RE_SEMENTE_GENERICA_DOMINIO.match(host):
+        return "GENERICA", "portal_regional_%s" % host_sem_www
+
+    return "UNKNOWN", "escopo_nao_verificavel_%s" % host_sem_www
+
+
+def _host_de(url: str) -> str:
+    try:
+        return urllib.parse.urlparse(url).netloc.lower().lstrip("www.")
+    except Exception:
+        return ""
+
+
+def _e_social_url(url: str) -> bool:
+    h = _host_de(url)
+    return any(soc in h for soc in _SOCIAL_MAP)
+
+
+def _filtrar_link(url: str, semente_url: str, anchor: str = "") -> tuple[bool, str]:
+    """Decide se um link vale a pena verificar.
+
+    REGRA ESCRITA (declarada e testavel):
+    R1  Descartar esquemas nao-HTTP/HTTPS (mailto:, tel:, javascript:, etc.)
+    R2  Descartar fragmentos puros (#ancora sem mudanca de path)
+    R3  Descartar extensoes de ficheiro nao-navegaveis
+    R4  Descartar caminhos de servico (privacy, login, cookie, etc.)
+    R5  Descartar a propria semente (mesma URL normalizada)
+    R6  Descartar dominios irrelevantes (analytics, CDN, redes sociais
+        nao-agri, etc.) -- EXCECAO: LinkedIn/Instagram/Facebook/YouTube
+        que sao aceites como candidatas (mas nao enfileiradas)
+    R7  Dominio mesmo: manter se path tem profundidade >= 1 (e sub-recurso,
+        nao apenas ancora na mesma pagina)
+    RA  Descartar facets de pesquisa: anchor comeca por '#', path contem
+        segmento 'ricerca', ou query string tem parametro de busca
+    RB  Descartar artigos individuais: ITEM != FONTE. Slug com >= 4 partes
+        hifenadas ou prefixo numerico apos /notizie/, /news/, etc.
+    RC  Descartar paginas institucionais obrigatorias italianas:
+        Amministrazione Trasparente, presidente, giunta, intranet,
+        formularios de acessibilidade AGID, etc.
+
+    Decisao sobre dominio interno vs. externo:
+    - Externo nao e garantia de fonte nova; interno nao e lixo.
+    - Sub-portais do mesmo dominio (ex: agri.regione.* -> /fitosanitario)
+      sao canais validos -- mantemos path-depth >= 1 do mesmo dominio.
+    - Nao filtramos por dominio externo vs. interno; filtramos por CONTEUDO
+      do path (regra R4) e por dominio reconhecidamente irrelevante (R6).
+    """
+    if not isinstance(url, str) or not url:
+        return False, "R1_URL_VAZIA"
+
+    # R1: esquema
+    if not url.startswith(("http://", "https://")):
+        return False, "R1_ESQUEMA_NAO_HTTP"
+
+    parsed = urllib.parse.urlparse(url)
+    host = parsed.netloc.lower().lstrip("www.")
+    path = parsed.path or "/"
+
+    # R5: propria semente (antes de R2, para ter motivo correcto quando sem fragmento)
+    if normalizar(url) == normalizar(semente_url):
+        return False, "R5_PROPRIA_SEMENTE"
+
+    # R2: fragmento puro (ancora na mesma pagina — so quando ha # no URL)
+    if "#" in url:
+        url_sem_frag = url.split("#")[0].rstrip("/")
+        if url_sem_frag == semente_url.rstrip("/"):
+            return False, "R2_ANCORA_MESMA_PAGINA"
+
+    # R3: extensao binaria
+    path_low = path.lower()
+    for ext in _EXT_BINARIAS:
+        if path_low.endswith(ext):
+            return False, "R3_FICHEIRO_BINARIO"
+
+    # R4: caminhos de servico
+    if _RE_SERVICO.search(path):
+        return False, "R4_CAMINHO_SERVICO"
+
+    # RA: facet de pesquisa ou hashtag (nao e fonte, e filtro de resultado)
+    if anchor.strip().startswith("#"):
+        return False, "RA_FACET_PESQUISA"
+    _segs = [s.lower() for s in path.strip("/").split("/") if s]
+    if _segs and _RE_FACET_PATH.match(_segs[0]):
+        return False, "RA_FACET_PESQUISA"
+    for _k, _v in urllib.parse.parse_qsl(parsed.query):
+        if any(t in _k.lower() for t in ("query", "search", "keyword")):
+            return False, "RA_FACET_PESQUISA"
+
+    # RB: artigo individual (ITEM != FONTE)
+    if _RE_ARTIGO_INDIVIDUAL.search(path):
+        return False, "RB_ARTIGO_INDIVIDUAL"
+
+    # RD: pagina de autenticacao/login — nao publica conteudo
+    host_sem_www_rd = re.sub(r"^www\.", "", host)
+    if _RE_LOGIN_AUTH_HOST.match(host_sem_www_rd):
+        return False, "RD_LOGIN_AUTH"
+    for dom in _LOGIN_AUTH_DOMINIOS:
+        if host_sem_www_rd == dom or host_sem_www_rd.endswith("." + dom):
+            return False, "RD_LOGIN_AUTH"
+
+    # RC: pagina institucional obrigatoria
+    if _RE_ISTITUZIONALE_HOST.match(host):
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+    if _RE_ISTITUZIONALE_PATH.search(path):
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+    if _RE_ISTITUZIONALE_PATH_PREFIX.search(path):
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+    if "agid.gov.it" in host and "/view/" in path:
+        return False, "RC_ISTITUZIONALE_OBBLIGATORIO"
+
+    # R6: dominios irrelevantes -- mas sociais permitidos passam
+    for skip in _DOMINIOS_SKIP:
+        if skip in host and not any(soc in host for soc in _SOCIAL_MAP):
+            return False, "R6_DOMINIO_IRRELEVANTE"
+
+    # R7: mesmo dominio -- manter se path tem pelo menos um segmento real
+    semente_host = _host_de(semente_url)
+    if host == semente_host:
+        segments = [s for s in path.strip("/").split("/") if s]
+        if not segments:
+            return False, "R7_MESMO_DOMINIO_SEM_PATH"
+
+    return True, ""
+
+
+def _inferir_tipo_crawl(url: str, anchor: str) -> tuple[str, str]:
+    """Infere (tipo, nome) para um link descoberto por crawl."""
+    host = _host_de(url)
+
+    for dominio, tipo in _SOCIAL_MAP.items():
+        if dominio in host:
+            nome = anchor.strip() or ("Canal %s em %s" % (tipo, host))
+            return tipo, nome
+
+    if any(p in host for p in (".gov.it", "regione.", "arpa", ".europa.eu",
+                                "agea.", "ismea.", "istat.", "crea.")):
+        tipo = "BASE_OFICIAL"
+    elif any(p in host for p in (".cnr.it", "univ", ".edu", "ricerca",
+                                  "accademia", "politecnico")):
+        tipo = "CIENCIA"
+    else:
+        tipo = "ORGANIZACAO"
+
+    nome = anchor.strip() or host
+    return tipo, nome
+
+
+def _checar_sem_circularidade(discovered_from: str, url_candidato: str) -> None:
+    """Garante invariante PROVENIENCIA_CIRCULAR = 0.
+
+    PONTO DE FALHA DOS TESTES RED TEAM.
+    Mutar esta funcao para no-op permite que proveniencia circular passe.
+    """
+    if normalizar(discovered_from) == normalizar(url_candidato):
+        raise ValueError(
+            "PROVENIENCIA_CIRCULAR: discovered_from=%r == url=%r. "
+            "discovered_from deve ser a PAGINA ONDE o link foi encontrado, "
+            "nao o proprio candidato." % (discovered_from, url_candidato)
+        )
+
+
+def _buscar_pagina_html(url: str, orcamento: "Orcamento") -> tuple[Optional[str], int, str]:
+    """GET na URL. Devolve (html | None, http_code, content_type).
+
+    Conta no orcamento. Le no maximo 512 KB de HTML.
+    Nao faz verificacao de robots -- quem chama e responsavel.
+    """
+    ok, motivo = orcamento.pode(url)
+    if not ok:
+        return None, 0, "ORCAMENTO: " + motivo
+
+    orcamento.pausar(url)
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        orcamento.registar(url)
+        with urllib.request.urlopen(req, timeout=TIMEOUT_S, context=CTX) as r:
+            ct = r.headers.get("Content-Type", "")
+            if "text/html" not in ct:
+                return None, r.status, ct
+            html = r.read(524_288).decode("utf-8", "replace")
+            return html, r.status, ct
+    except urllib.error.HTTPError as e:
+        if e.code in (429, 503):
+            orcamento.bloquear_dominio(url)
+        return None, e.code, "HTTP_%d" % e.code
+    except Exception as ex:
+        return None, 0, "ERRO: " + type(ex).__name__
+
+
+def _extrair_sementes_legitimas() -> list[str]:
+    """Paginas-pai com proveniencia legitima (discovered_from != url)."""
+    vistas: set[str] = set()
+    sementes: list[str] = []
+    for cand in CATALOGO_ITALIA:
+        d = cand["discovered_from"]
+        if normalizar(d) != normalizar(cand["url"]) and normalizar(d) not in vistas:
+            vistas.add(normalizar(d))
+            sementes.append(d)
+    return sementes
+
+
+def _sementes_de_segunda_geracao(caminho: Path | None = None) -> list[dict]:
+    """Sementes novas, DETERMINISTICAS e com proveniencia: as candidatas que o
+    proprio bot ja aceitou (ESTADO == EM_ANALISE) cujo endereco a regra ATUAL
+    de semente classifica TEMATICA.
+
+    Medido em 22/09: as 33 sementes do catalogo estavam gastas (15 visitadas,
+    12 rejeitadas) e as 6 livres eram UNKNOWN (universidades, ISTAT) — o
+    discovery corria com 0 pedidos a rede. No acervo havia 10 candidatas
+    EM_ANALISE em dominio TEMATICO (Coldiretti regionais, Nomisma, UIV,
+    Federunacoma...) que nunca tinham sido rastejadas como semente.
+
+    ⚠️ A REGRA NAO AFROUXA. Nada aqui chama TEMATICA ao que a regra chama
+    UNKNOWN ou GENERICA: a funcao so filtra pela propria `_classificar_semente`.
+    Semente generica recusada continua recusada.
+
+        SEMENTE NOVA != REGRA NOVA.
+
+    Proveniencia: cada semente leva CANDIDATA_ID e ONDE_VIU da candidata; as
+    candidatas que ela gerar terao DISCOVERED_FROM = esta URL (depth 1, como as
+    do catalogo). RECUSADA nao entra — foi recusada por alguem, com motivo.
+    """
+    caminho = caminho or (RAIZ / "candidatas" / "FONTES-CANDIDATAS.json")
+    if not caminho.exists():
+        return []
+    try:
+        doc = json.loads(caminho.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    out: list[dict] = []
+    vistas: set[str] = set()
+    for c in doc.get("CANDIDATAS", []):
+        if c.get("ESTADO") != "EM_ANALISE":
+            continue
+        url = c.get("URL") or ""
+        if not url.startswith(("http://", "https://")):
+            continue
+        tipo, motivo = _classificar_semente(url)
+        if tipo != "TEMATICA" or normalizar(url) in vistas:
+            continue
+        vistas.add(normalizar(url))
+        out.append({"URL": url, "CANDIDATA_ID": c.get("CANDIDATA_ID"),
+                    "ONDE_VIU": c.get("ONDE_VIU"), "CLASSIFICACAO": motivo})
+    out.sort(key=lambda x: (x["CANDIDATA_ID"] or "", x["URL"]))
+    return out
+
+
+def crawl_sementes(
+    orcamento: "Orcamento",
+    conhecidos: set[str],
+    visitados: dict,
+    log: list[dict],
+    max_sementes: int = MAX_SEMENTES_ESTA_CORRIDA,
+) -> tuple[list[dict], dict]:
+    """Segue links a partir das sementes legitimas do catalogo.
+
+    Profundidade 1: semente -> links directos.
+    Nunca revisita sementes desta ou de corridas anteriores.
+    Proveniencia: DISCOVERED_FROM = URL da pagina onde o link foi encontrado.
+    PROVENIENCIA_CIRCULAR = 0 e invariante -- _checar_sem_circularidade lanca
+    ValueError se for violado.
+
+    Devolve (registados, estatisticas).
+    """
+    todas_sementes = _extrair_sementes_legitimas()
+    # 2.a geracao: so acrescenta o que a MESMA regra ja classifica TEMATICA.
+    for s2 in _sementes_de_segunda_geracao():
+        if normalizar(s2["URL"]) not in {normalizar(x) for x in todas_sementes}:
+            todas_sementes.append(s2["URL"])
+    sementes_a_usar = [
+        s for s in todas_sementes
+        if normalizar(s) not in visitados.get("VISITADOS", {})
+        and normalizar(s) not in visitados.get("REJEITADOS", {})
+    ][:max_sementes]
+
+    registados: list[dict] = []
+    stats: dict = {
+        "SEMENTES_DISPONIVEIS": len(todas_sementes),
+        "SEMENTES_A_USAR": len(sementes_a_usar),
+        "SEMENTES_TEMATICAS_USADAS": 0,
+        "SEMENTES_GENERICAS_RECUSADAS": 0,
+        "SEMENTES_USADAS": 0,
+        "PAGINAS_BUSCADAS": 0,
+        "LINKS_EXTRAIDOS_TOTAL": 0,
+        "LINKS_APOS_FILTRO": 0,
+        "CANDIDATOS_VERIFICADOS": 0,
+        "ROBOTS_BLOCKS": 0,
+        "ORCAMENTO_BLOQUEADAS": 0,
+        "HTTP_ERROS_REAIS": 0,
+        "SEMENTE_FETCH_FAILED": 0,
+        "FILTRADOS_POR_REGRA": {},
+    }
+
+    for semente in sementes_a_usar:
+        semente_norm = normalizar(semente)
+
+        # Classificar semente ANTES de qualquer pedido de rede.
+        # TEMATICA: escopo agricola/ambiental confirmado -> rastejar.
+        # GENERICA/UNKNOWN: escopo nao-agricola ou desconhecido -> saltar.
+        tipo_semente, motivo_semente = _classificar_semente(semente)
+        if tipo_semente != "TEMATICA":
+            stats["SEMENTES_GENERICAS_RECUSADAS"] += 1
+            log.append({"semente": semente, "acao": "SEMENTE_%s" % tipo_semente,
+                        "motivo": motivo_semente})
+            continue
+        stats["SEMENTES_TEMATICAS_USADAS"] += 1
+
+        if semente_norm in visitados.get("VISITADOS", {}):
+            log.append({"semente": semente, "acao": "SEMENTE_JA_VISITADA"})
+            continue
+
+        # ⚠️ ORCAMENTO ESGOTADO PARA ANTES DO ROBOTS. A leitura do robots.txt
+        # nao passa pelo Orcamento; sem esta guarda, um crawl com total=0 ainda
+        # ia a rede ler o robots de cada semente — medido em 22/09 no teste
+        # test_orcamento_zero_nao_busca_sementes, que batia a ~10 hosts reais.
+        if orcamento.restante <= 0:
+            log.append({"semente": semente, "acao": "SEMENTE_ORCAMENTO_ESGOTADO"})
+            stats["ORCAMENTO_BLOQUEADAS"] += 1
+            continue
+
+        if not _permitido(semente):
+            _marcar_rejeitado(semente_norm, "ROBOTS_BLOCKED_SEMENTE", visitados)
+            stats["ROBOTS_BLOCKS"] += 1
+            log.append({"semente": semente, "acao": "SEMENTE_ROBOTS_BLOCKED"})
+            continue
+
+        html, status, ct = _buscar_pagina_html(semente, orcamento)
+        stats["SEMENTES_USADAS"] += 1
+
+        if html is None:
+            stats["SEMENTE_FETCH_FAILED"] += 1
+            _marcar_rejeitado(semente_norm, "FETCH_FAILED_%d" % status, visitados)
+            log.append({"semente": semente, "acao": "SEMENTE_FETCH_FAILED",
+                        "status": status, "ct": ct})
+            continue
+
+        stats["PAGINAS_BUSCADAS"] += 1
+
+        links = extrair_links(html, semente)
+        stats["LINKS_EXTRAIDOS_TOTAL"] += len(links)
+
+        links_ok: list[tuple[str, str]] = []
+        for url_lnk, anchor in links:
+            manter, motivo = _filtrar_link(url_lnk, semente, anchor)
+            if manter:
+                links_ok.append((url_lnk, anchor))
+            else:
+                stats["FILTRADOS_POR_REGRA"][motivo] = (
+                    stats["FILTRADOS_POR_REGRA"].get(motivo, 0) + 1)
+
+        stats["LINKS_APOS_FILTRO"] += len(links_ok)
+
+        vistos_aqui: set[str] = set()
+
+        for url_lnk, anchor in links_ok:
+            url_norm = normalizar(url_lnk)
+
+            if url_norm in vistos_aqui:
+                continue
+            vistos_aqui.add(url_norm)
+
+            dup, tipo_dup = _e_duplicado(url_lnk, conhecidos, visitados)
+            if dup:
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "DEDUP", "motivo": tipo_dup})
+                continue
+
+            if not _permitido(url_lnk):
+                _marcar_rejeitado(url_norm, "ROBOTS_BLOCKED", visitados)
+                stats["ROBOTS_BLOCKS"] += 1
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "ROBOTS_BLOCKED"})
+                continue
+
+            stats["CANDIDATOS_VERIFICADOS"] += 1
+            existe, http_code, ct_verify = _verificar_url(url_lnk, orcamento)
+
+            if not existe:
+                if ct_verify.startswith("ORCAMENTO:"):
+                    stats["ORCAMENTO_BLOQUEADAS"] += 1
+                else:
+                    stats["HTTP_ERROS_REAIS"] += 1
+                _marcar_rejeitado(url_norm, "HTTP_%d" % http_code, visitados)
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "FALHOU_HTTP", "http": http_code})
+                continue
+
+            discovered_from = semente
+            try:
+                _checar_sem_circularidade(discovered_from, url_lnk)
+            except ValueError as ve:
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "CIRCULAR_PROVENIENCIA_BUG",
+                            "motivo": str(ve)})
+                continue
+
+            tipo, nome = _inferir_tipo_crawl(url_lnk, anchor)
+            para_que = (anchor.strip() or
+                        ("link encontrado em %s" % urllib.parse.urlparse(semente).netloc))
+            nota = (
+                "DISCOVERED_FROM=%s | DISCOVERY_METHOD=CRAWL_LINK | "
+                "DISCOVERED_AT=%s | ANCHOR_TEXT=%s | DISCOVERED_HTTP=%d"
+                % (discovered_from,
+                   datetime.now(timezone.utc).isoformat(),
+                   (anchor or "")[:100], http_code)
+            )
+
+            try:
+                linha = registar(
+                    tipo=tipo, pais="IT",
+                    nome=(nome or urllib.parse.urlparse(url_lnk).netloc)[:200],
+                    url=url_lnk,
+                    para_que=para_que[:500],
+                    quem_viu="curadoria/crawl_sementes",
+                    onde_viu=discovered_from,
+                    nota=nota,
+                )
+                _marcar_visitado(url_norm,
+                                 "REGISTADO_%s" % linha["CANDIDATA_ID"],
+                                 visitados)
+                conhecidos.add(url_norm)
+                registados.append({
+                    "url": url_lnk,
+                    "id": linha["CANDIDATA_ID"],
+                    "tipo": tipo,
+                    "nome": nome,
+                    "semente": semente,
+                    "anchor": anchor,
+                    "is_social": tipo in {"INSTAGRAM", "YOUTUBE", "LINKEDIN", "FACEBOOK"},
+                })
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "REGISTADO",
+                            "id": linha["CANDIDATA_ID"],
+                            "is_social": tipo in {"INSTAGRAM", "YOUTUBE",
+                                                  "LINKEDIN", "FACEBOOK"}})
+            except ValueError as e:
+                _marcar_rejeitado(url_norm, "VALIDACAO: %s" % e, visitados)
+                log.append({"url": url_lnk, "semente": semente,
+                            "acao": "RECUSADO_VALIDACAO", "motivo": str(e)})
+
+        _marcar_visitado(semente_norm, "SEMENTE_PROCESSADA", visitados)
+
+    return registados, stats
+
+
 # ------------------------------------------------------------------ descoberta
 def _descobrir_familia(
     familia: str,
@@ -930,6 +1630,221 @@ def _descobrir_familia(
                         "motivo": str(e)})
 
     return registados
+
+
+def recusar_candidatas_lixo() -> dict:
+    """Aplica retroativamente as regras RA/RB/RC às candidatas CRAWL_LINK já registadas.
+
+    Marca como RECUSADA qualquer candidata cujo URL (+ anchor gravado na nota)
+    viole as regras RA, RB ou RC. O DONO (fonte_nova.recusar) faz a gravação —
+    nunca se edita o JSON a mão.
+
+    Devolve um dict com os contadores.
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        nota = c.get("NOTA", "")
+        if "DISCOVERY_METHOD=CRAWL_LINK" not in nota:
+            continue
+
+        url = c["URL"]
+        m = re.search(r"ANCHOR_TEXT=([^|]*)", nota)
+        anchor = m.group(1).strip() if m else ""
+
+        manter, motivo = _filtrar_link(url, url + "_dummy_semente_diferente", anchor)
+        if not manter and motivo in ("RA_FACET_PESQUISA", "RB_ARTIGO_INDIVIDUAL",
+                                     "RC_ISTITUZIONALE_OBBLIGATORIO"):
+            resultado = recusar(url, "REGRA_NOVA_%s" % motivo)
+            if resultado is not None:
+                recusadas.append({"url": url, "id": c["CANDIDATA_ID"],
+                                  "motivo": motivo})
+
+    return {
+        "RECUSADAS_POR_REGRA_NOVA": len(recusadas),
+        "DETALHE": recusadas,
+    }
+
+
+def recusar_candidatas_por_varredura_retroactiva() -> dict:
+    """Varredura retroactiva: passa TODAS as candidatas activas pelo filtro actual.
+
+    Recusa as que seriam barradas hoje por RC ou RD, independentemente do
+    DISCOVERY_METHOD. Cobre residuos de corridas anteriores a existencia da
+    regra (REGRA CORRIGIDA != BANCO LIMPO). NAO usa rede.
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        url = c["URL"]
+        nota = c.get("NOTA", "")
+        m = re.search(r"ANCHOR_TEXT=([^|]*)", nota)
+        anchor = m.group(1).strip() if m else ""
+        manter, motivo = _filtrar_link(url, url + "_dummy_semente_diferente", anchor)
+        if not manter and motivo in ("RC_ISTITUZIONALE_OBBLIGATORIO", "RD_LOGIN_AUTH"):
+            resultado = recusar(url, "VARREDURA_RETROACTIVA_%s" % motivo)
+            if resultado is not None:
+                recusadas.append({"url": url, "id": c["CANDIDATA_ID"],
+                                  "motivo": motivo})
+    return {
+        "VARREDURA_RETROACTIVA_RECUSADAS": len(recusadas),
+        "DETALHE": recusadas,
+    }
+
+
+def _e_fora_de_dominio_agro(url: str) -> tuple[bool, str]:
+    """Verifica se uma URL pertence categoricamente a um dominio nao-agricola.
+
+    REGRA DECLARADA (6 categorias):
+    (1) orgaos legislativos/executivos nacionais
+    (2) saude publica italiana (sanita, fascicolo, prenota, cup)
+    (3) fiscalidade automovel (bollo-auto, tassa-automobil, pagopa.regione)
+    (4) seletores de idioma-servico (@@multilingual-selector, update_language)
+    (5) orgaos de cidadao obrigatorios (urp, ufficio-relazioni, anticorruzione,
+        deliberegiunta, giunta [path raiz], strutture-regionali)
+    (6) eleicoes, portais culturais e juventude sem componente agri
+    """
+    try:
+        parsed = urllib.parse.urlparse(url)
+        host = parsed.netloc.lower()
+        host_sem_www = re.sub(r"^www\.", "", host)
+        path = parsed.path.lower()
+        query = parsed.query.lower()
+    except Exception:
+        return False, ""
+
+    first_sub = host_sem_www.split(".")[0] if "." in host_sem_www else ""
+
+    # (1) Orgaos nacionais fora da regiao
+    for dom_nac in ("senato.it", "camera.it", "governo.it", "europarl.europa.eu"):
+        if host_sem_www == dom_nac or host_sem_www.endswith("." + dom_nac):
+            return True, "ORGAO_LEGISLATIVO_NACIONAL"
+
+    # (2) Saude publica
+    if any(p in host_sem_www for p in ("ecosanita.", "fascicolosanitario.", "sanibook.")):
+        return True, "SERVICO_SAUDE_PUBLICA"
+    if "prenota.regione" in host_sem_www:
+        return True, "SERVICO_SAUDE_PUBLICA"
+    if first_sub == "sanita":
+        return True, "PORTAL_SAUDE_PUBLICA"
+    if re.search(r"/sanita(?:/|$|\?)", path):
+        return True, "PORTAL_SAUDE_PUBLICA"
+
+    # (3) Fiscalidade automovel
+    if "bollo-auto" in path or "bollo_auto" in path:
+        return True, "FISCALIDADE_AUTOMOVEL"
+    if "tassa-automobil" in path or "tassa_automobil" in path:
+        return True, "FISCALIDADE_AUTOMOVEL"
+    if "pagopa.regione" in host_sem_www:
+        return True, "PAGAMENTO_SERVICOS_PUBLICOS"
+
+    # (4) Seletores de idioma (service URL, nao e pagina)
+    if "@@multilingual-selector" in path:
+        return True, "SELETOR_IDIOMA_SERVICO"
+    if "update_language" in path or "update_language" in query:
+        return True, "SELETOR_IDIOMA_SERVICO"
+
+    # (5) Orgaos de cidadao obrigatorios por lei
+    if re.search(r"/urp(?:/|$|\?)", path):
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+    if "/ufficio-relazioni-con-il-pubblico" in path:
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+    if "/anticorruzione" in path:
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+    if "deliberegiunta" in host_sem_www or "/deliberegiunta" in path:
+        return True, "ATOS_GOVERNAMENTAIS"
+    if re.search(r"/giunta(?:/|$|\?)", path):
+        return True, "ATOS_GOVERNAMENTAIS"
+    if "/strutture-regionali" in path:
+        return True, "PAGINA_INSTITUCIONAL_OBRIGATORIA"
+
+    # (6) Eleicoes, cultura sem agri, juventude
+    if re.search(r"/elezioni(?:/|$|\?)", path):
+        return True, "ELEICOES"
+    if first_sub == "cultura" and "regione" in host_sem_www:
+        return True, "PORTAL_CULTURAL"
+    if first_sub == "giovani" and "regione" in host_sem_www:
+        return True, "POLITICA_JUVENTUDE"
+
+    return False, ""
+
+
+def recusar_candidatas_fora_de_dominio() -> dict:
+    """Recusa candidatas CRAWL_LINK cujos URLs pertencem a dominios fora-de-dominio-agro.
+
+    REGRA: _e_fora_de_dominio_agro() — 6 categorias declaradas e testaveis.
+    So atua sobre candidatas com ESTADO != RECUSADA.
+    NAO apaga linha — lei da casa.
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        if "DISCOVERY_METHOD=CRAWL_LINK" not in c.get("NOTA", ""):
+            continue
+        e_fora, categoria = _e_fora_de_dominio_agro(c["URL"])
+        if e_fora:
+            resultado = recusar(c["URL"], "FORA_DE_DOMINIO_AGRO_%s" % categoria)
+            if resultado is not None:
+                recusadas.append({"url": c["URL"], "id": c["CANDIDATA_ID"],
+                                  "categoria": categoria})
+    return {"RECUSADAS_FORA_DE_DOMINIO": len(recusadas), "DETALHE": recusadas}
+
+
+def recusar_candidatas_de_semente_generica() -> dict:
+    """Recusa candidatas CRAWL_LINK descobertas via semente de escopo generico.
+
+    REGRA: se a semente classificada como GENERICA e a candidata nao tem sinal
+    agro no seu proprio dominio, a candidata e recusada.
+
+    BASE EMPIRICA (ADDENDUM-02):
+    - Amostra de 20 candidatas da categoria NEUTRO: 15/20 (75%) nao servem.
+    - Margem: +/- 10% → 65-85% nao defensaveis.
+    - Maioria nao serve → recusa em bloco pela regra de proveniencia.
+
+    EXCECAO: dominio da candidata com sinal agro confirmado e preservado
+    (_RE_DOMINIO_AGRO_SINAL).
+    """
+    d = carregar()
+    recusadas = []
+    for c in d["CANDIDATAS"]:
+        if c["ESTADO"] == "RECUSADA":
+            continue
+        nota = c.get("NOTA", "")
+        if "DISCOVERY_METHOD=CRAWL_LINK" not in nota:
+            continue
+
+        # Extrair semente da nota
+        m_disc = re.search(r"DISCOVERED_FROM=([^|]+)", nota)
+        if not m_disc:
+            continue
+        semente_url = m_disc.group(1).strip()
+
+        tipo_semente, _ = _classificar_semente(semente_url)
+        if tipo_semente != "GENERICA":
+            continue
+
+        # Preservar candidata com sinal agro no proprio dominio
+        if _RE_DOMINIO_AGRO_SINAL.search(
+                urllib.parse.urlparse(c["URL"]).netloc.lower()):
+            continue
+
+        resultado = recusar(c["URL"],
+                            "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO")
+        if resultado is not None:
+            recusadas.append({"url": c["URL"], "id": c["CANDIDATA_ID"],
+                              "semente": semente_url})
+
+    return {
+        "RECUSADAS_SEMENTE_GENERICA": len(recusadas),
+        "AMOSTRA_DECLARADA": "15/20=75% nao agro, margem+-10%, maioria nao serve",
+        "DETALHE": recusadas,
+    }
 
 
 def descobrir(
@@ -1035,6 +1950,18 @@ def main() -> int:
                     help="max pedidos de rede (default: %d)" % MAX_PEDIDOS_TOTAIS)
     ap.add_argument("--listar-familias", action="store_true",
                     help="lista as familias disponiveis")
+    ap.add_argument("--crawl", action="store_true",
+                    help="correr crawl de sementes (profundidade 1)")
+    ap.add_argument("--max-sementes", type=int, default=MAX_SEMENTES_ESTA_CORRIDA,
+                    help="max sementes desta corrida (default: %d)" % MAX_SEMENTES_ESTA_CORRIDA)
+    ap.add_argument("--limpar", action="store_true",
+                    help="marcar candidatas CRAWL_LINK que violam RA/RB/RC como RECUSADA")
+    ap.add_argument("--limpar-dominio", action="store_true",
+                    help="marcar candidatas fora de dominio agro como RECUSADA")
+    ap.add_argument("--limpar-genericas", action="store_true",
+                    help="marcar candidatas de semente GENERICA sem sinal agro como RECUSADA")
+    ap.add_argument("--varredura-retroactiva", action="store_true",
+                    help="recusar activas que RC/RD de hoje barraria (residuos de corridas antigas)")
     a = ap.parse_args()
 
     if a.listar_familias:
@@ -1042,10 +1969,129 @@ def main() -> int:
             print("  %s" % f)
         return 0
 
+    if a.limpar:
+        resultado = recusar_candidatas_lixo()
+        print("RECUSADAS_POR_REGRA_NOVA  %d" % resultado["RECUSADAS_POR_REGRA_NOVA"])
+        for d_ in resultado["DETALHE"]:
+            print("  [%s] %s  %s" % (d_["motivo"], d_["id"], d_["url"][:80]))
+        return 0
+
+    if a.limpar_dominio:
+        resultado = recusar_candidatas_fora_de_dominio()
+        print("RECUSADAS_FORA_DE_DOMINIO  %d" % resultado["RECUSADAS_FORA_DE_DOMINIO"])
+        for d_ in resultado["DETALHE"]:
+            print("  [%s] %s  %s" % (d_["categoria"], d_["id"], d_["url"][:80]))
+        return 0
+
+    if a.limpar_genericas:
+        resultado = recusar_candidatas_de_semente_generica()
+        print("RECUSADAS_SEMENTE_GENERICA  %d" % resultado["RECUSADAS_SEMENTE_GENERICA"])
+        print("AMOSTRA  %s" % resultado["AMOSTRA_DECLARADA"])
+        for d_ in resultado["DETALHE"][:20]:
+            print("  %s  %s" % (d_["id"], d_["url"][:80]))
+        if len(resultado["DETALHE"]) > 20:
+            print("  ... e mais %d" % (len(resultado["DETALHE"]) - 20))
+        return 0
+
+    if a.varredura_retroactiva:
+        resultado = recusar_candidatas_por_varredura_retroactiva()
+        print("VARREDURA_RETROACTIVA_RECUSADAS  %d" % resultado["VARREDURA_RETROACTIVA_RECUSADAS"])
+        for d_ in resultado["DETALHE"]:
+            print("  [%s] %s  %s" % (d_["motivo"], d_["id"], d_["url"][:80]))
+        return 0
+
     if a.orcamento > MAX_PEDIDOS_TOTAIS:
         print("ERRO: orcamento %d > limite autorizado %d"
               % (a.orcamento, MAX_PEDIDOS_TOTAIS), file=sys.stderr)
         return 1
+
+    if a.crawl:
+        orcam      = Orcamento(total=a.orcamento)
+        conhecidos = _construir_set_conhecido()
+        visitados  = _ler_visitados()
+        log: list[dict] = []
+        inicio_crawl = datetime.now(timezone.utc)
+
+        registados_crawl, stats_crawl = crawl_sementes(
+            orcamento=orcam,
+            conhecidos=conhecidos,
+            visitados=visitados,
+            log=log,
+            max_sementes=a.max_sementes,
+        )
+
+        circular = sum(
+            1 for e in log
+            if e.get("acao") == "REGISTADO"
+            and normalizar(e.get("semente", "")) == normalizar(e.get("url", "X"))
+        )
+
+        sociais_enfileiradas = 0
+
+        _ob = stats_crawl["ORCAMENTO_BLOQUEADAS"]
+        _he = stats_crawl["HTTP_ERROS_REAIS"]
+        _sf = stats_crawl["SEMENTE_FETCH_FAILED"]
+        prova_crawl = {
+            "DATASET": "CRAWL-PROOF-V1",
+            "CORRIDA_EM": inicio_crawl.isoformat(),
+            "SEMENTES_USADAS": stats_crawl["SEMENTES_USADAS"],
+            "PAGINAS_BUSCADAS": stats_crawl["PAGINAS_BUSCADAS"],
+            "LINKS_EXTRAIDOS_TOTAL": stats_crawl["LINKS_EXTRAIDOS_TOTAL"],
+            "LINKS_APOS_FILTRO": stats_crawl["LINKS_APOS_FILTRO"],
+            "CANDIDATOS_VERIFICADOS": stats_crawl["CANDIDATOS_VERIFICADOS"],
+            "NOVEL_CANDIDATES": len(registados_crawl),
+            "DUPLICATES_REJECTED": sum(1 for e in log if e.get("acao") == "DEDUP"),
+            "ROBOTS_BLOCKS": stats_crawl["ROBOTS_BLOCKS"],
+            "VERIFICACOES_SEM_SUCESSO": _ob + _he + _sf,
+            "ORCAMENTO_BLOQUEADAS": _ob,
+            "HTTP_ERROS_REAIS": _he,
+            "SEMENTE_FETCH_FAILED": _sf,
+            "FAILED_HTTP_EXPLICADO": (
+                "ORCAMENTO_BLOQUEADAS=%d candidatas bloqueadas por orcamento antes do "
+                "pedido de rede (ct=ORCAMENTO:...). HTTP_ERROS_REAIS=%d erros HTTP reais "
+                "de candidatos. SEMENTE_FETCH_FAILED=%d sementes sem HTML. "
+                "REQUESTS_REAIS_A_REDE conta so pedidos que saíram para a rede."
+                % (_ob, _he, _sf)
+            ),
+            "FILTRADOS_POR_REGRA": stats_crawl["FILTRADOS_POR_REGRA"],
+            "REQUESTS_REAIS_A_REDE": orcam.pedidos_feitos,
+            "SEMENTES_TEMATICAS_USADAS": stats_crawl["SEMENTES_TEMATICAS_USADAS"],
+            "SEMENTES_GENERICAS_RECUSADAS": stats_crawl["SEMENTES_GENERICAS_RECUSADAS"],
+            "REGRA_DE_SEMENTE": (
+                "TEMATICA=dominio dedicado agro/ambiental ou subdominio agri./agricoltura./fitosanitario.; "
+                "GENERICA=portal regional regione.*.it (3.7% agro medido no 1o crawl); "
+                "UNKNOWN=nao verificavel sem conteudo"
+            ),
+            "TAXA_AGRO_GENERICA": "3.7% (4/107, medido pelo coordenador no 1o crawl)",
+            "ORCAMENTO_250_RESPEITADO": "YES" if orcam.pedidos_feitos <= MAX_PEDIDOS_TOTAIS else "NO",
+            "MAX_REQUESTS_ONE_DOMAIN": orcam.max_num_dominio(),
+            "PROVENIENCIA_CIRCULAR": circular,
+            "READY_PROMOTED_BY_CRAWL": 0,
+            "SOCIAIS_ENFILEIRADAS": sociais_enfileiradas,
+            "CANDIDATOS_REGISTADOS": registados_crawl,
+            "LOG": log,
+        }
+
+        fd2, tmp2 = tempfile.mkstemp(dir=str(CRAWL_PROOF_JSON.parent), suffix=".tmp")
+        try:
+            with os.fdopen(fd2, "w", encoding="utf-8") as fh:
+                json.dump(prova_crawl, fh, ensure_ascii=False, indent=1)
+            os.replace(tmp2, CRAWL_PROOF_JSON)
+        except BaseException:
+            if os.path.exists(tmp2):
+                os.unlink(tmp2)
+
+        print("\n=== CRAWL ===")
+        print("SEMENTES_USADAS          %d" % stats_crawl["SEMENTES_USADAS"])
+        print("PAGINAS_BUSCADAS         %d" % stats_crawl["PAGINAS_BUSCADAS"])
+        print("LINKS_EXTRAIDOS_TOTAL    %d" % stats_crawl["LINKS_EXTRAIDOS_TOTAL"])
+        print("LINKS_APOS_FILTRO        %d" % stats_crawl["LINKS_APOS_FILTRO"])
+        print("CANDIDATOS_VERIFICADOS   %d" % stats_crawl["CANDIDATOS_VERIFICADOS"])
+        print("NOVEL_CANDIDATES         %d" % len(registados_crawl))
+        print("PROVENIENCIA_CIRCULAR    %d" % circular)
+        print("REQUESTS_MADE            %d" % orcam.pedidos_feitos)
+        print("PROOF -> %s" % CRAWL_PROOF_JSON)
+        return 0
 
     prova = descobrir(familia=a.familia, orcamento=a.orcamento)
 

@@ -513,5 +513,650 @@ class TestCatalogo(unittest.TestCase):
                          "candidatos com tipo invalido: %s" % familias_sem_tipo)
 
 
+# ---------------------------------------------------------------------------
+# FASE 7 — CONTRAPROVAS DO CRAWL
+# ---------------------------------------------------------------------------
+
+class TestExtrairLinks(unittest.TestCase):
+    """Extracao de links de HTML."""
+
+    def test_extrai_href_absoluto(self):
+        html = '<a href="https://www.crea.gov.it/page">CREA</a>'
+        links = D.extrair_links(html, "https://www.crea.gov.it/")
+        self.assertEqual(len(links), 1)
+        self.assertEqual(links[0][0], "https://www.crea.gov.it/page")
+        self.assertEqual(links[0][1], "CREA")
+
+    def test_resolve_href_relativo(self):
+        html = '<a href="/fitosanitario">Difesa</a>'
+        links = D.extrair_links(html, "https://agri.regione.emilia-romagna.it/")
+        self.assertEqual(links[0][0],
+                         "https://agri.regione.emilia-romagna.it/fitosanitario")
+
+    def test_html_sem_links_devolve_lista_vazia(self):
+        self.assertEqual(D.extrair_links("<p>Sem links</p>", "https://x.it/"), [])
+
+    def test_ancora_interna_extraida(self):
+        html = '<a href="#section1">Secao</a>'
+        links = D.extrair_links(html, "https://www.exemplo.it/pagina")
+        self.assertEqual(len(links), 1)
+
+    def test_mailto_extraido_mas_filtrado_depois(self):
+        html = '<a href="mailto:info@exemplo.it">Email</a>'
+        links = D.extrair_links(html, "https://www.exemplo.it/")
+        self.assertEqual(len(links), 1)
+        manter, motivo = D._filtrar_link(links[0][0], "https://www.exemplo.it/")
+        self.assertFalse(manter)
+        self.assertEqual(motivo, "R1_ESQUEMA_NAO_HTTP")
+
+
+class TestFiltrarLink(unittest.TestCase):
+    """Regras de filtro declaradas e testaveis."""
+
+    BASE = "https://www.crea.gov.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_r1_mailto_descartado(self):
+        self.assertFalse(self._ok("mailto:info@crea.gov.it"))
+        self.assertEqual(self._motivo("mailto:info@crea.gov.it"), "R1_ESQUEMA_NAO_HTTP")
+
+    def test_r1_tel_descartado(self):
+        self.assertFalse(self._ok("tel:+39061234567"))
+        self.assertEqual(self._motivo("tel:+39061234567"), "R1_ESQUEMA_NAO_HTTP")
+
+    def test_r1_javascript_descartado(self):
+        self.assertFalse(self._ok("javascript:void(0)"))
+        self.assertEqual(self._motivo("javascript:void(0)"), "R1_ESQUEMA_NAO_HTTP")
+
+    def test_r2_ancora_mesma_pagina_descartada(self):
+        url = "https://www.crea.gov.it/#section"
+        self.assertFalse(self._ok(url))
+
+    def test_r3_pdf_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/doc.pdf"))
+        self.assertEqual(self._motivo("https://www.crea.gov.it/doc.pdf"),
+                         "R3_FICHEIRO_BINARIO")
+
+    def test_r3_zip_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/data.zip"))
+
+    def test_r4_privacy_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/privacy"))
+
+    def test_r4_login_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/login"))
+
+    def test_r4_cookie_descartado(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/cookie"))
+
+    def test_r5_propria_semente_descartada(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it/"))
+        self.assertEqual(self._motivo("https://www.crea.gov.it/"),
+                         "R5_PROPRIA_SEMENTE")
+
+    def test_r5_semente_sem_trailing_slash_descartada(self):
+        self.assertFalse(self._ok("https://www.crea.gov.it"))
+
+    def test_r6_google_descartado(self):
+        self.assertFalse(self._ok("https://www.google.com/maps"))
+
+    def test_subpath_mesmo_dominio_mantido(self):
+        self.assertTrue(self._ok("https://www.crea.gov.it/difesa"))
+
+    def test_dominio_externo_gov_it_mantido(self):
+        self.assertTrue(self._ok("https://www.politicheagricole.it/"))
+
+    def test_social_linkedin_mantido(self):
+        self.assertTrue(self._ok("https://www.linkedin.com/company/crea"))
+
+    def test_social_instagram_mantido(self):
+        self.assertTrue(self._ok("https://www.instagram.com/creagov"))
+
+
+class TestProvenanciaCircular(unittest.TestCase):
+    """Contraprova 3: DISCOVERED_FROM nunca igual a URL do candidato."""
+
+    def test_guarda_detecta_circularidade(self):
+        url = "https://www.fonte-test.it/"
+        with self.assertRaises(ValueError):
+            D._checar_sem_circularidade(url, url)
+
+    def test_guarda_aceita_proveniencia_valida(self):
+        semente = "https://www.origem.it/"
+        candidato = "https://www.destino.it/"
+        try:
+            D._checar_sem_circularidade(semente, candidato)
+        except ValueError:
+            self.fail("proveniencia valida nao deve lancar ValueError")
+
+    def test_guarda_com_www_e_sem_www(self):
+        url_com = "https://www.circular.it/"
+        url_sem = "https://circular.it"
+        with self.assertRaises(ValueError):
+            D._checar_sem_circularidade(url_com, url_sem)
+
+
+class TestRedTeamProvenanciaCircular(unittest.TestCase):
+    """RED TEAM: mutar a guarda e provar que a contraprova REPROVA."""
+
+    def test_red_team_mute_guarda_bug_passa(self):
+        """Com _checar_sem_circularidade mutada para no-op, o bug nao e detectado.
+        RED TEAM: confirma que a guarda e o ponto de proteccao real.
+        """
+        url = "https://www.circular-red-team.it/"
+        guarda_orig = D._checar_sem_circularidade
+
+        D._checar_sem_circularidade = lambda disc, cand: None
+
+        try:
+            D._checar_sem_circularidade(url, url)
+
+            circular = int(D.normalizar(url) == D.normalizar(url))
+            self.assertEqual(circular, 1,
+                             "RED TEAM: PROVENIENCIA_CIRCULAR=1 sob mutacao")
+        finally:
+            D._checar_sem_circularidade = guarda_orig
+
+    def test_apos_restaurar_guarda_reprova(self):
+        url = "https://www.circular-red-team.it/"
+        with self.assertRaises(ValueError,
+                               msg="guarda restaurada deve detectar circularidade"):
+            D._checar_sem_circularidade(url, url)
+
+
+class TestCrawlMesmaUrlDuasSementes(Isolada):
+    """Contraprova 1: mesmo link em duas sementes -> UM candidato."""
+
+    def test_mesmo_link_duas_sementes_um_candidato(self):
+        url_candidato = "https://www.agri-test-sintonia.it/candidato"
+
+        conhecidos: set[str] = set()
+        visitados = D._ler_visitados()
+
+        D._marcar_visitado(D.normalizar(url_candidato),
+                           "REGISTADO_CAND-9999", visitados)
+        conhecidos.add(D.normalizar(url_candidato))
+
+        dup, tipo_dup = D._e_duplicado(url_candidato, conhecidos, visitados)
+        self.assertTrue(dup,
+                        "segundo registo do mesmo link deve ser detectado como dedup")
+        self.assertEqual(tipo_dup, "SAME_URL")
+
+
+class TestSementeJaVisitadaNaoRevisitada(Isolada):
+    """Contraprova 5: semente ja visitada nao e revisitada."""
+
+    def test_semente_visitada_ignorada(self):
+        sementes = D._extrair_sementes_legitimas()
+        if not sementes:
+            self.skipTest("sem sementes legitimas no catalogo")
+        semente = sementes[0]
+
+        visitados = D._ler_visitados()
+        D._marcar_visitado(D.normalizar(semente), "JA_VISITADA_TESTE",
+                           visitados)
+
+        orcam = D.Orcamento(total=0)
+        conhecidos: set[str] = set()
+        log: list[dict] = []
+
+        D.crawl_sementes(orcam, conhecidos, visitados, log, max_sementes=1)
+
+        acoes_semente = [e for e in log if e.get("semente") == semente]
+        fetch_failed = [e for e in acoes_semente
+                        if e.get("acao") == "SEMENTE_FETCH_FAILED"]
+        self.assertEqual(fetch_failed, [],
+                         "semente ja visitada nao deve ser buscada")
+
+
+class TestSociaisRegistadasNaoEnfileiradas(unittest.TestCase):
+    """Contraprova 9: sociais encontradas -> registadas, mas NAO enfileiradas."""
+
+    def test_inferir_tipo_social_linkedin(self):
+        tipo, _ = D._inferir_tipo_crawl(
+            "https://www.linkedin.com/company/crea-test", "CREA LinkedIn")
+        self.assertEqual(tipo, "LINKEDIN")
+
+    def test_inferir_tipo_social_instagram(self):
+        tipo, _ = D._inferir_tipo_crawl(
+            "https://www.instagram.com/agri_test", "Agri Instagram")
+        self.assertEqual(tipo, "INSTAGRAM")
+
+    def test_inferir_tipo_social_youtube(self):
+        tipo, _ = D._inferir_tipo_crawl(
+            "https://www.youtube.com/@agri_test", "Canal Agri")
+        self.assertEqual(tipo, "YOUTUBE")
+
+    def test_e_social_url_detecta_linkedin(self):
+        self.assertTrue(D._e_social_url("https://www.linkedin.com/company/x"))
+
+    def test_e_social_url_nao_confunde_gov_it(self):
+        self.assertFalse(D._e_social_url("https://www.crea.gov.it/"))
+
+
+class TestOrcamentoEsgotadoParaLimpo(Isolada):
+    """Contraprova 7: orcamento esgotado -> para limpo, estado persistido."""
+
+    def test_orcamento_zero_nao_busca_sementes(self):
+        orcam = D.Orcamento(total=0)
+        conhecidos: set[str] = set()
+        visitados = D._ler_visitados()
+        log: list[dict] = []
+
+        registados, stats = D.crawl_sementes(
+            orcam, conhecidos, visitados, log, max_sementes=15
+        )
+
+        self.assertEqual(orcam.pedidos_feitos, 0)
+        self.assertEqual(registados, [])
+
+
+class TestExtrairSementesLegitimas(unittest.TestCase):
+    """Sementes extraidas sao os discovered_from != url do catalogo."""
+
+    def test_sementes_nao_sao_urls_do_catalogo(self):
+        sementes = D._extrair_sementes_legitimas()
+        self.assertGreater(len(sementes), 0,
+                           "deve haver sementes legitimas no catalogo")
+
+    def test_sementes_sao_distintas(self):
+        sementes = D._extrair_sementes_legitimas()
+        norms = [D.normalizar(s) for s in sementes]
+        self.assertEqual(len(norms), len(set(norms)),
+                         "sementes devem ser distintas")
+
+    def test_contagem_sementes_legitimas(self):
+        sementes = D._extrair_sementes_legitimas()
+        self.assertEqual(len(sementes), 33,
+                         "ADDENDUM-02 acrescentou 4 sementes TEMATICAS novas (assam.marche.it ja existia via Instagram); total 33")
+
+
+class TestFiltrarLinkRA(unittest.TestCase):
+    """RA — facets de pesquisa e hashtags nao sao fontes."""
+
+    BASE = "https://www.regione.lombardia.it/"
+
+    def _ok(self, url: str, anchor: str = "") -> bool:
+        return D._filtrar_link(url, self.BASE, anchor)[0]
+
+    def _motivo(self, url: str, anchor: str = "") -> str:
+        return D._filtrar_link(url, self.BASE, anchor)[1]
+
+    def test_anchor_hashtag_descartado(self):
+        url = "https://www.regione.lombardia.it/ricerca?q=Bandi"
+        self.assertFalse(self._ok(url, "#Bandi"))
+        self.assertEqual(self._motivo(url, "#Bandi"), "RA_FACET_PESQUISA")
+
+    def test_ancora_bollo_auto_descartada(self):
+        url = "https://www.regione.lombardia.it/ricerca?lombardia_articoli%5Bquery%5D=Bollo+Auto"
+        self.assertFalse(self._ok(url, "#BolloAuto"))
+        self.assertEqual(self._motivo(url, "#BolloAuto"), "RA_FACET_PESQUISA")
+
+    def test_path_ricerca_descartado(self):
+        url = "https://www.regione.lombardia.it/ricerca"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RA_FACET_PESQUISA")
+
+    def test_query_param_query_descartado(self):
+        url = "https://example.it/risultati?query=cereali&page=1"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RA_FACET_PESQUISA")
+
+    def test_pagina_legittima_sem_anchor_hash_mantida(self):
+        url = "https://www.regione.lombardia.it/agricoltura/bandi"
+        self.assertTrue(self._ok(url, "Bandi e concorsi"))
+
+
+class TestFiltrarLinkRB(unittest.TestCase):
+    """RB — artigos individuais nao sao fontes. ITEM != FONTE."""
+
+    BASE = "https://www.arpae.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_artigo_notizie_slug_longo(self):
+        url = "https://www.arpae.it/it/notizie/mare-riviera-interamente-balneabile-14sett2026"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RB_ARTIGO_INDIVIDUAL")
+
+    def test_artigo_incendio_com_data(self):
+        url = "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RB_ARTIGO_INDIVIDUAL")
+
+    def test_artigo_news_id_numerico(self):
+        url = "http://www.calabriapsr.it/news/2456-scadenza-presentazione-domande-di-sostegno"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RB_ARTIGO_INDIVIDUAL")
+
+    def test_listagem_notizie_argomenti_mantida(self):
+        url = "https://www.arpae.it/it/notizie/argomenti/agro-meteo"
+        self.assertTrue(self._ok(url),
+                        "listagem com subseccao nao e artigo — deve ser mantida")
+
+    def test_listagem_notizie_raiz_mantida(self):
+        url = "https://www.arpae.it/it/notizie"
+        self.assertTrue(self._ok(url))
+
+
+class TestFiltrarLinkRC(unittest.TestCase):
+    """RC — paginas institucionais obrigatorias nao publicam conteudo agronomico."""
+
+    BASE = "https://www.regione.sicilia.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_amministrazione_trasparente_path(self):
+        url = "https://www.crea.gov.it/amministrazione-trasparente"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_subdomain_trasparenza(self):
+        url = "https://trasparenza.regione.calabria.it/REGIONECALABRIA"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_subdomain_intranet(self):
+        url = "https://intranet.regione.abruzzo.it"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_il_presidente_path(self):
+        url = "https://www.regione.sicilia.it/istituzioni/regione/il-presidente"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_agid_formulario_acessibilidade(self):
+        url = "https://form.agid.gov.it/view/78bd7980-9859-11f0-b114-bda70f0f6c0f"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_pagina_agricoltura_legittima_mantida(self):
+        url = "https://www.regione.sicilia.it/agricoltura-foreste/fitosanitario"
+        self.assertTrue(self._ok(url))
+
+
+class TestRedTeamFiltroRB(unittest.TestCase):
+    """RED TEAM DO FILTRO: mutar RB e provar que a contraprova REPROVA."""
+
+    BASE = "https://www.arpae.it/"
+    ARTIGO_URL = "https://www.arpae.it/it/notizie/incendio-alla-sorgenia-di-finale-emilia-17-9-2026"
+
+    def test_red_team_mute_rb_artigo_passa_incorretamente(self):
+        """Com RB mutado (regex vazia), o artigo passa o filtro — BUG simulado."""
+        orig = D._RE_ARTIGO_INDIVIDUAL
+        try:
+            D._RE_ARTIGO_INDIVIDUAL = __import__("re").compile(r"(?!)")  # nunca casa
+            ok, motivo = D._filtrar_link(self.ARTIGO_URL, self.BASE)
+            self.assertTrue(ok, "mutacao deve deixar o artigo passar (BUG)")
+        finally:
+            D._RE_ARTIGO_INDIVIDUAL = orig
+
+    def test_red_team_restaurada_rb_reprova(self):
+        """Com RB restaurado, o mesmo artigo e corretamente recusado."""
+        ok, motivo = D._filtrar_link(self.ARTIGO_URL, self.BASE)
+        self.assertFalse(ok, "RB restaurado deve reprovar o artigo")
+        self.assertEqual(motivo, "RB_ARTIGO_INDIVIDUAL")
+
+
+class TestClassificarSemente(unittest.TestCase):
+    """_classificar_semente — regra DECLARADA e TESTAVEL (ADDENDUM-02 tarefa 1)."""
+
+    def test_crea_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.crea.gov.it/centri-di-ricerca")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_arpae_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.arpae.it/")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_agri_subdominio_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://agri.regione.emilia-romagna.it/")
+        self.assertEqual(tipo, "TEMATICA",
+                         "subdominio agri. e sempre TEMATICA")
+
+    def test_arsacweb_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.arsacweb.it/")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_portal_regional_raiz_e_generica(self):
+        tipo, motivo = D._classificar_semente("https://www.regione.calabria.it/")
+        self.assertEqual(tipo, "GENERICA")
+        self.assertIn("portal_regional", motivo)
+
+    def test_portal_regional_path_agri_continua_generica(self):
+        """Mesmo com /settore-agricolo, o portal regional e GENERICA (colheita provou 0 agro)."""
+        tipo, _ = D._classificar_semente(
+            "https://www.regione.lombardia.it/wps/portal/istituzionale/HP/"
+            "DettaglioRedazionale/servizi-e-informazioni/imprese/settore-agricolo"
+        )
+        self.assertEqual(tipo, "GENERICA",
+                         "portal regional e GENERICA mesmo com path agricolo")
+
+    def test_coldiretti_e_tematica(self):
+        tipo, _ = D._classificar_semente("https://www.coldiretti.it/")
+        self.assertEqual(tipo, "TEMATICA")
+
+    def test_cnr_e_unknown(self):
+        tipo, _ = D._classificar_semente("https://www.cnr.it/it/istituto?cds=0")
+        self.assertEqual(tipo, "UNKNOWN",
+                         "CNR tem escopo amplo — nao e decidivel pelo dominio")
+
+
+class TestRedTeamClassificarSemente(unittest.TestCase):
+    """RED TEAM: mutar _classificar_semente para TEMATICA e provar que semente
+    GENERICA entraria no loop — o que e o BUG que o ADDENDUM-02 identificou."""
+
+    URL_GENERICA = "https://www.regione.calabria.it/"
+
+    def test_red_team_mute_generica_passa_como_tematica(self):
+        """Com classificacao mutada (sempre TEMATICA), semente GENERICA nao e filtrada."""
+        orig = D._classificar_semente
+        D._classificar_semente = lambda url: ("TEMATICA", "muted")
+        try:
+            tipo, _ = D._classificar_semente(self.URL_GENERICA)
+            self.assertEqual(tipo, "TEMATICA",
+                             "mutacao deve declarar TEMATICA mesmo para semente GENERICA (BUG)")
+        finally:
+            D._classificar_semente = orig
+
+    def test_red_team_restaurado_reprova_generica(self):
+        """Com classificacao restaurada, homepage regional e corretamente GENERICA."""
+        tipo, _ = D._classificar_semente(self.URL_GENERICA)
+        self.assertEqual(tipo, "GENERICA",
+                         "classificacao real deve detectar portal regional como GENERICA")
+
+
+class TestFiltrarLinkRCFix(unittest.TestCase):
+    """RC corrigida (ADDENDUM-03): urp e tutela-dati-personali que passavam antes."""
+
+    BASE = "https://www.assam.marche.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_urp_raiz_descartado(self):
+        url = "https://www.regione.sicilia.it/urp"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_urp_aninhado_descartado(self):
+        """Caso que falhou no ADDENDUM-03: /agenzia/urp nao era apanhado."""
+        url = "https://www.assam.marche.it/agenzia/urp"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_tutela_dati_aninhado_descartado(self):
+        """Caso que falhou no ADDENDUM-03: /agenzia/tutela-dati-personali-privacy."""
+        url = "https://www.assam.marche.it/agenzia/tutela-dati-personali-privacy"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_pagina_servizi_assam_mantida(self):
+        url = "https://www.assam.marche.it/servizi"
+        self.assertTrue(self._ok(url))
+
+    def test_termini_duso_descartado(self):
+        """ADDENDUM-04: arpalombardia.it/termini-duso/ passava antes da correcao."""
+        url = "https://www.arpalombardia.it/termini-duso/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_note_legali_descartado(self):
+        url = "https://www.arpalombardia.it/note-legali"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_disclaimer_descartado(self):
+        url = "https://www.arpalombardia.it/disclaimer/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_termini_di_uso_descartado(self):
+        url = "https://www.assam.marche.it/termini-di-uso"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_ufficio_relazioni_urp_sufixo_descartado(self):
+        """ADDENDUM-04 residuo: ufficio-relazioni-con-il-pubblico-urp passava por ter -urp no fim."""
+        url = "https://www.arpat.toscana.it/ufficio-relazioni-con-il-pubblico-urp/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+
+class TestFiltrarLinkRD(unittest.TestCase):
+    """RD_LOGIN_AUTH — portais de autenticacao nao publicam conteudo (ADDENDUM-03)."""
+
+    BASE = "https://www.assam.marche.it/"
+
+    def _ok(self, url: str) -> bool:
+        return D._filtrar_link(url, self.BASE)[0]
+
+    def _motivo(self, url: str) -> str:
+        return D._filtrar_link(url, self.BASE)[1]
+
+    def test_microsoftonline_descartado(self):
+        """Caso que revelou a lacuna: login.microsoftonline.com."""
+        url = "https://login.microsoftonline.com/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RD_LOGIN_AUTH")
+
+    def test_login_subdominio_generico_descartado(self):
+        url = "https://login.exemplo.gov.it/"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RD_LOGIN_AUTH")
+
+    def test_accounts_descartado(self):
+        url = "https://accounts.google.com/signin"
+        self.assertFalse(self._ok(url))
+        self.assertEqual(self._motivo(url), "RD_LOGIN_AUTH")
+
+    def test_pagina_normal_nao_descartada(self):
+        url = "https://www.arpalombardia.it/temi-ambientali/aria/"
+        self.assertTrue(self._ok(url))
+
+
+class TestRedTeamRC(unittest.TestCase):
+    """RED TEAM: mutar RC e provar que os testes de urp/termini-duso REPROVAM.
+
+    Se a RC for desligada (regex que nunca casa), as URLs que ela devia barrar
+    passam pelo filtro — isso e o BUG simulado. O teste afirma o BUG. Restaurar
+    a regra faz o comportamento correcto voltar.
+    """
+
+    BASE = "https://www.assam.marche.it/"
+
+    def test_red_team_mute_rc_urp_passa_incorretamente(self):
+        """Com RC mutada (nunca casa), urp passa — BUG simulado."""
+        import re as _re
+        orig_path = D._RE_ISTITUZIONALE_PATH
+        orig_prefix = D._RE_ISTITUZIONALE_PATH_PREFIX
+        orig_host = D._RE_ISTITUZIONALE_HOST
+        try:
+            D._RE_ISTITUZIONALE_PATH = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_PATH_PREFIX = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_HOST = _re.compile(r"(?!)")
+            ok, _ = D._filtrar_link("https://www.assam.marche.it/agenzia/urp", self.BASE)
+            self.assertTrue(ok, "RC mutada deve deixar urp passar (BUG simulado)")
+        finally:
+            D._RE_ISTITUZIONALE_PATH = orig_path
+            D._RE_ISTITUZIONALE_PATH_PREFIX = orig_prefix
+            D._RE_ISTITUZIONALE_HOST = orig_host
+
+    def test_red_team_mute_rc_termini_duso_passa_incorretamente(self):
+        """Com RC mutada, termini-duso passa — BUG simulado (lacuna ADDENDUM-04)."""
+        import re as _re
+        orig_path = D._RE_ISTITUZIONALE_PATH
+        orig_prefix = D._RE_ISTITUZIONALE_PATH_PREFIX
+        orig_host = D._RE_ISTITUZIONALE_HOST
+        try:
+            D._RE_ISTITUZIONALE_PATH = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_PATH_PREFIX = _re.compile(r"(?!)")
+            D._RE_ISTITUZIONALE_HOST = _re.compile(r"(?!)")
+            ok, _ = D._filtrar_link("https://www.arpalombardia.it/termini-duso/", self.BASE)
+            self.assertTrue(ok, "RC mutada deve deixar termini-duso passar (BUG simulado)")
+        finally:
+            D._RE_ISTITUZIONALE_PATH = orig_path
+            D._RE_ISTITUZIONALE_PATH_PREFIX = orig_prefix
+            D._RE_ISTITUZIONALE_HOST = orig_host
+
+    def test_red_team_restaurada_rc_reprova_urp(self):
+        """Com RC restaurada, urp e corretamente bloqueado."""
+        ok, motivo = D._filtrar_link("https://www.assam.marche.it/agenzia/urp", self.BASE)
+        self.assertFalse(ok, "RC restaurada deve reprovar urp")
+        self.assertEqual(motivo, "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+    def test_red_team_restaurada_rc_reprova_termini_duso(self):
+        """Com RC restaurada, termini-duso e corretamente bloqueado."""
+        ok, motivo = D._filtrar_link("https://www.arpalombardia.it/termini-duso/", self.BASE)
+        self.assertFalse(ok, "RC restaurada deve reprovar termini-duso")
+        self.assertEqual(motivo, "RC_ISTITUZIONALE_OBBLIGATORIO")
+
+
+class TestRedTeamRD(unittest.TestCase):
+    """RED TEAM: mutar RD e provar que login.microsoftonline REPROVA.
+
+    Se a RD for desligada, a pagina de login passa pelo filtro — BUG simulado.
+    """
+
+    BASE = "https://www.assam.marche.it/"
+
+    def test_red_team_mute_rd_login_passa_incorretamente(self):
+        """Com RD mutada (nunca casa), login.microsoftonline passa — BUG simulado."""
+        import re as _re
+        orig_host = D._RE_LOGIN_AUTH_HOST
+        orig_dom = D._LOGIN_AUTH_DOMINIOS
+        try:
+            D._RE_LOGIN_AUTH_HOST = _re.compile(r"(?!)")
+            D._LOGIN_AUTH_DOMINIOS = frozenset()
+            ok, _ = D._filtrar_link("https://login.microsoftonline.com/", self.BASE)
+            self.assertTrue(ok, "RD mutada deve deixar login passar (BUG simulado)")
+        finally:
+            D._RE_LOGIN_AUTH_HOST = orig_host
+            D._LOGIN_AUTH_DOMINIOS = orig_dom
+
+    def test_red_team_restaurada_rd_reprova_login(self):
+        """Com RD restaurada, login.microsoftonline e corretamente bloqueado."""
+        ok, motivo = D._filtrar_link("https://login.microsoftonline.com/", self.BASE)
+        self.assertFalse(ok, "RD restaurada deve reprovar login")
+        self.assertEqual(motivo, "RD_LOGIN_AUTH")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

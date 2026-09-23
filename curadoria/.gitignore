@@ -30,3 +30,7 @@ SUPERVISOR.lock
 # codigo e as provas; o que a ponte viu le-se no ficheiro vivo.
 PONTE-AUTOMATICA-STATE.json
 PONTE-AUTOMATICA-LOG.ndjson
+# Historico de checkpoints da telemetria: append-only, event-driven, escrito
+# pelo servico. Persiste no disco (sobrevive a restart) mas nao se versiona —
+# muda sozinho, como o run-log.
+TELEMETRY-CHECKPOINT-HISTORY-V1.ndjson

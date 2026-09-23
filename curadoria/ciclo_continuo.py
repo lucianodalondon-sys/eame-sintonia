@@ -83,7 +83,7 @@ def uma_volta(pausa: float) -> dict:
     v = {"EVENTO": "VOLTA", "ORFAS_RECUPERADAS": len(orfas),
          "TAREFAS_EXECUTADAS": len(feitos),
          "RESULTADOS": {r: sum(1 for x in feitos if x["RESULTADO"] == r)
-                        for r in ("OK", "RETRY", "BLOCK", "FAIL")},
+                        for r in ("OK", "PASS_PARCIAL", "RETRY", "BLOCK", "FAIL")},
          # FONTE FALHOU != SERVICO MORREU: etapas que levantaram excecao e
          # foram adiadas pelo worker. A volta sobreviveu — esta linha e a prova.
          "FONTES_REBENTARAM": sum(1 for x in feitos if x.get("FONTE_FALHOU")),
@@ -99,6 +99,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--voltas", type=int, default=0, help="0 = sem fim")
     ap.add_argument("--pausa", type=float, default=1.0)
+    ap.add_argument("--sair-quando-ocioso", action="store_true",
+                    help="sair (rc 0) sem elegiveis e sem relogio dentro de ESPERA_MAX")
     a = ap.parse_args()
 
     print("CICLO CONTINUO DO SOURCE CURATOR — arranque %s" % SL.LC.agora(),
@@ -126,6 +128,27 @@ def main() -> int:
 
         # Dormir SO com a fila sem nada elegivel, e so ate o proximo relogio.
         prox = _proximo_relogio()
+
+        # ⚠️ OCIOSO SAI. Medido em 23/09 (M2b): o worker 91744 deu 12 voltas
+        # com 0 tarefas e nunca saiu; o supervisor so chama o gatilho
+        # (reviver -> feeder -> discovery) com o worker MORTO, logo o gatilho
+        # ficou desligado — sem discovery, sem revivencias. Sair aqui devolve
+        # a vez ao supervisor. Continua-se a dormir so quando o proximo
+        # relogio cabe numa espera (<= ESPERA_MAX): esse trabalho e nosso.
+        #
+        #     SEM TRABALHO A VISTA, O WORKER DEVOLVE A CADEIRA.
+        #
+        # Saida limpa = rc 0 e evento proprio; o supervisor nao a conta como
+        # crash (supervisor._saida_limpa).
+        if (a.sair_quando_ocioso and v["QUEUE_ELIGIBLE_NOW"] == 0
+                and (prox is None or prox > ESPERA_MAX)):
+            print("  ocioso: nada elegivel e nenhum relogio dentro de %ds — "
+                  "a devolver a vez ao supervisor" % ESPERA_MAX, flush=True)
+            _anotar({"EVENTO": "WORKER_OCIOSO_SAIU", "VOLTA": n,
+                     "PROXIMO_RELOGIO_S": round(prox, 0) if prox else None,
+                     "ESPERA_MAX": ESPERA_MAX})
+            return 0
+
         if v["QUEUE_ELIGIBLE_NOW"] == 0:
             if prox is None:
                 print("  fila sem trabalho e sem adiadas — a aguardar %ds"

@@ -56,8 +56,13 @@ def etapa_com_veneno(chamadas: list):
         chamadas.append(sid)
         if sid == VENENOSA:
             raise RuntimeError("a fonte rebentou a meio da etapa")
+        # A prova tem os QUATRO passos: desde a UNIFICACAO-V1 e a regua dos
+        # quatro passos que promove, e este teste mede a volta, nao a regua.
         return "OK", {"PASS": True, "ALVO": "x", "DETAIL_GATE_PASSED": True,
-                      "DETAIL_GATE": "prova"}
+                      "DETAIL_GATE": "prova", "DETAIL_ENUMERATED": 5,
+                      "ITEM_ABERTO": {"URL": "https://ex.it/news/mosca-olivo-2026/", "HTTP": 200,
+                                      "HTML_KIND": "CONTENT", "CAPA_OU_MATERIA": "MATERIA_PROVAVEL",
+                                      "PARAGRAPH_CHARACTERS": 2000}}
     return _fn
 
 

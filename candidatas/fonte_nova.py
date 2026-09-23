@@ -160,6 +160,26 @@ def registar(tipo: str, pais: str, nome: str, url: str, para_que: str,
     return linha
 
 
+def recusar(url: str, motivo: str):
+    """Marca uma candidata existente como RECUSADA.
+
+    Devolve a linha marcada, ou None se a URL nao existe na fila.
+    NAO apaga a linha — preservar historico e lei da casa.
+    """
+    if not (motivo or "").strip():
+        raise ValueError("motivo_da_recusa e obrigatorio")
+    d = carregar()
+    chave = normalizar(url)
+    for c in d["CANDIDATAS"]:
+        if normalizar(c["URL"]) == chave:
+            if c["ESTADO"] != "RECUSADA":
+                c["ESTADO"] = "RECUSADA"
+                c["MOTIVO_DA_RECUSA"] = motivo.strip()
+                gravar(d)
+            return c
+    return None
+
+
 def gravar(d: dict) -> None:
     FILA.parent.mkdir(parents=True, exist_ok=True)
     d["CANDIDATAS"].sort(key=lambda c: (c["TIPO"], c["PAIS"], c["NOME"]))

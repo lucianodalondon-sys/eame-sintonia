@@ -496,6 +496,31 @@ class OLivroDoBotAtravessa(unittest.TestCase):
         self.assertEqual(l["FINAL_STATE"], R.CAPABILITY_BLOCK)
         self.assertEqual(l["CAPABILITY_EVIDENCE"]["LIVRO"], "C")
 
+    def test_rt_c20_auth_block_do_bot_e_capacidade_e_o_rotulo_fica(self):
+        """UNIFICACAO-V1: o worker do servico escreve AUTH_BLOCK (muro de login).
+        Antes caia em UNKNOWN «fora do vocabulario». Classe antes do rotulo:
+        CAPABILITY_BLOCK na classe, AUTH_BLOCK no alvo do livro."""
+        sid = "IT-T12-035"
+        c = self._c(C=livro(linha(sid, None, LC.QUALIFYING, T1),
+                            linha(sid, LC.QUALIFYING, LC.AUTH_BLOCK, T2, "EV-AUTH")))
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["FINAL_STATE"], R.CAPABILITY_BLOCK)
+        self.assertNotIn("fora do vocabulario", l["FINAL_REASON"])
+        self.assertEqual(l["LIFECYCLE_TARGET"], LC.AUTH_BLOCK)
+        # e o veredito de cada livro, sozinho, diz o mesmo
+        for f, nome in ((R.veredito_a, "A"), (R.veredito_c, "C")):
+            cc = self._c(**{nome: livro(linha(sid, None, LC.AUTH_BLOCK, T2, "EV-AUTH"))})
+            cc["_ULT"] = {n: R.ultimos(cc.get(n)) for n in R.LIVROS}
+            self.assertEqual(f(sid, cc)[0], R.CAPABILITY_BLOCK, nome)
+
+    def test_rt_c20b_auth_block_nao_vira_ready_nem_unknown_quando_a_mediu_antes(self):
+        sid = "IT-T12-046"
+        c = self._c(A=livro(linha(sid, None, LC.CANARY_PENDING, T1)),
+                    C=livro(linha(sid, None, LC.AUTH_BLOCK, T2, "EV-AUTH")))
+        l = por_id(R.censo(c))[sid]
+        self.assertEqual(l["FINAL_STATE"], R.CAPABILITY_BLOCK)
+        self.assertEqual(l["LIFECYCLE_TARGET"], LC.AUTH_BLOCK)
+
     def test_rt_c8_bloqueio_do_bot_cede_a_prova_posterior_desta_arvore(self):
         """O caso real dos 4: o bot marcou CAPABILITY_BLOCK as 22:54 de 20/09;
         esta arvore escreveu o contrato e passou o canario a 21/09. Capacidade

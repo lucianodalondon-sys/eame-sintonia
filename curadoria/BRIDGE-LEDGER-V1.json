@@ -1,1254 +1,3099 @@
 {
-  "DATASET": "BRIDGE-LEDGER-V1",
-  "LEI": "Registo append-only da ponte. Garante que correr duas vezes nao cria trabalho duplicado. Chave = CANDIDATA_ID.",
-  "PROCESSADAS": {
-    "CAND-0253": {
-      "CANDIDATA_ID": "CAND-0253",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "AGEA — Agenzia per le Erogazioni in Agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:25.940735+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00126",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0013": {
-      "CANDIDATA_ID": "CAND-0013",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "AGRIS Sardegna — Agenzia per la ricerca in agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:25.947738+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00127",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0251": {
-      "CANDIDATA_ID": "CAND-0251",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPA Lazio — Agenzia regionale protezione ambientale",
-      "PROCESSADO_EM": "2026-09-21T10:44:25.964801+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00128",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0247": {
-      "CANDIDATA_ID": "CAND-0247",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPA Liguria — dati meteo e qualita aria",
-      "PROCESSADO_EM": "2026-09-21T10:44:25.980335+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00129",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0248": {
-      "CANDIDATA_ID": "CAND-0248",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPA Lombardia — dati ambientali e meteo",
-      "PROCESSADO_EM": "2026-09-21T10:44:25.994862+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00130",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0250": {
-      "CANDIDATA_ID": "CAND-0250",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPA Marche — dati ambientali e meteo",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.010385+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00131",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0014": {
-      "CANDIDATA_ID": "CAND-0014",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPA Sardegna",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.029429+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00132",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0001": {
-      "CANDIDATA_ID": "CAND-0001",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPACAL Calabria",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.043452+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00133",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0249": {
-      "CANDIDATA_ID": "CAND-0249",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARPAT Toscana — Agenzia regionale protezione ambientale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.058440+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00134",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0244": {
-      "CANDIDATA_ID": "CAND-0244",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.073974+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00135",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0252": {
-      "CANDIDATA_ID": "CAND-0252",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "CREA — Consiglio per la Ricerca in Agricoltura e l'Analisi dell'Economia Agraria",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.088545+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00136",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0002": {
-      "CANDIDATA_ID": "CAND-0002",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Calabria — Dipartimento Agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.103086+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00137",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0006": {
-      "CANDIDATA_ID": "CAND-0006",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ERSAF Lombardia — Ente Regionale per i Servizi all'Agricoltura e alle Foreste",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.117086+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00138",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0270": {
-      "CANDIDATA_ID": "CAND-0270",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "ISTAT — statistiche agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.133607+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00139",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0242": {
-      "CANDIDATA_ID": "CAND-0242",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "MASAF — Ministero dell'Agricoltura della Sovranita Alimentare e delle Foreste",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.148661+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00140",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0246": {
-      "CANDIDATA_ID": "CAND-0246",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Meteo Trentino — previsioni meteo e dati agro",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.167663+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00141",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0016": {
-      "CANDIDATA_ID": "CAND-0016",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Provincia autonoma di Bolzano — Agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.182763+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00142",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0008": {
-      "CANDIDATA_ID": "CAND-0008",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Regione Molise — Agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.196761+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00143",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0255": {
-      "CANDIDATA_ID": "CAND-0255",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Regione Puglia — Agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.209759+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00144",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0254": {
-      "CANDIDATA_ID": "CAND-0254",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Regione Veneto — Agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.226325+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00145",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0009": {
-      "CANDIDATA_ID": "CAND-0009",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Rete Rurale Nazionale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.243971+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00146",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0010": {
-      "CANDIDATA_ID": "CAND-0010",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "SIAN — Sistema Informativo Agricolo Nazionale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.260488+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00147",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0015": {
-      "CANDIDATA_ID": "CAND-0015",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Sardegna Agricoltura — Laore",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.274504+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00148",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0243": {
-      "CANDIDATA_ID": "CAND-0243",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Servizio Fitosanitario Regione Lombardia",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.290155+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00149",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0017": {
-      "CANDIDATA_ID": "CAND-0017",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Valle d'Aosta — Assessorato Agricoltura e Risorse Naturali",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.304183+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00150",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0018": {
-      "CANDIDATA_ID": "CAND-0018",
-      "TIPO": "BASE_OFICIAL",
-      "NOME": "Veneto Agricoltura — Agenzia veneta per l'innovazione nel settore primario",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.318431+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00151",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0259": {
-      "CANDIDATA_ID": "CAND-0259",
-      "TIPO": "CIENCIA",
-      "NOME": "CREA — Centro Cerealicoltura e Colture Industriali",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.331023+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00152",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0258": {
-      "CANDIDATA_ID": "CAND-0258",
-      "TIPO": "CIENCIA",
-      "NOME": "CREA — Centro Difesa e Certificazione",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.346697+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00153",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0260": {
-      "CANDIDATA_ID": "CAND-0260",
-      "TIPO": "CIENCIA",
-      "NOME": "CREA — Centro Orticoltura e Florovivaismo",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.361596+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00154",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0026": {
-      "CANDIDATA_ID": "CAND-0026",
-      "TIPO": "CIENCIA",
-      "NOME": "Centro di Sperimentazione Laimburg",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.376590+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00155",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0263": {
-      "CANDIDATA_ID": "CAND-0263",
-      "TIPO": "CIENCIA",
-      "NOME": "DISAFA — Universita di Torino",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.390127+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00156",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0027": {
-      "CANDIDATA_ID": "CAND-0027",
-      "TIPO": "CIENCIA",
-      "NOME": "Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.404137+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00157",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0261": {
-      "CANDIDATA_ID": "CAND-0261",
-      "TIPO": "CIENCIA",
-      "NOME": "Universita degli Studi di Milano — Agraria DISAA",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.420192+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00158",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0262": {
-      "CANDIDATA_ID": "CAND-0262",
-      "TIPO": "CIENCIA",
-      "NOME": "Universita degli Studi di Padova — DAFNAE",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.434709+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00159",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0030": {
-      "CANDIDATA_ID": "CAND-0030",
-      "TIPO": "FACEBOOK",
-      "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — Facebook ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.450224+00:00",
-      "DESTINO": "CAPABILITY_BLOCK",
-      "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
-    },
-    "CAND-0032": {
-      "CANDIDATA_ID": "CAND-0032",
-      "TIPO": "FACEBOOK",
-      "NOME": "Caviro — Facebook ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.459227+00:00",
-      "DESTINO": "CAPABILITY_BLOCK",
-      "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
-    },
-    "CAND-0046": {
-      "CANDIDATA_ID": "CAND-0046",
-      "TIPO": "FACEBOOK",
-      "NOME": "Consorzio Tutela Prosecco DOC — Facebook ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.476228+00:00",
-      "DESTINO": "CAPABILITY_BLOCK",
-      "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
-    },
-    "CAND-0047": {
-      "CANDIDATA_ID": "CAND-0047",
-      "TIPO": "FACEBOOK",
-      "NOME": "Consorzio Tutela Vini Valpolicella — Facebook ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.491759+00:00",
-      "DESTINO": "CAPABILITY_BLOCK",
-      "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
-    },
-    "CAND-0029": {
-      "CANDIDATA_ID": "CAND-0029",
-      "TIPO": "FACEBOOK",
-      "NOME": "Consorzio Tutela Vini d'Abruzzo — Facebook ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.509290+00:00",
-      "DESTINO": "CAPABILITY_BLOCK",
-      "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
-    },
-    "CAND-0043": {
-      "CANDIDATA_ID": "CAND-0043",
-      "TIPO": "FACEBOOK",
-      "NOME": "Consorzio Vino Chianti Classico — Facebook ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.526389+00:00",
-      "DESTINO": "CAPABILITY_BLOCK",
-      "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
-    },
-    "CAND-0256": {
-      "CANDIDATA_ID": "CAND-0256",
-      "TIPO": "IMPRENSA",
-      "NOME": "Agribusiness Paoli — notizie agri-business",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.542953+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00160",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0050": {
-      "CANDIDATA_ID": "CAND-0050",
-      "TIPO": "IMPRENSA",
-      "NOME": "Agricoltura Moderna",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.561488+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00161",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0051": {
-      "CANDIDATA_ID": "CAND-0051",
-      "TIPO": "IMPRENSA",
-      "NOME": "Agrifoodtoday",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.576011+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00162",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0064": {
-      "CANDIDATA_ID": "CAND-0064",
-      "TIPO": "IMPRENSA",
-      "NOME": "Agrisicilia",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.591542+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00163",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0056": {
-      "CANDIDATA_ID": "CAND-0056",
-      "TIPO": "IMPRENSA",
-      "NOME": "Il Corriere Vinicolo",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.606057+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00164",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0057": {
-      "CANDIDATA_ID": "CAND-0057",
-      "TIPO": "IMPRENSA",
-      "NOME": "Il Fatto Alimentare",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.622056+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00165",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0048": {
-      "CANDIDATA_ID": "CAND-0048",
-      "TIPO": "IMPRENSA",
-      "NOME": "Italiafruit News",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.636598+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00166",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0060": {
-      "CANDIDATA_ID": "CAND-0060",
-      "TIPO": "IMPRENSA",
-      "NOME": "Noi Siamo Agricoltura — sito",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.651110+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00167",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0062": {
-      "CANDIDATA_ID": "CAND-0062",
-      "TIPO": "IMPRENSA",
-      "NOME": "Pianeta PSR",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.665637+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00168",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0257": {
-      "CANDIDATA_ID": "CAND-0257",
-      "TIPO": "IMPRENSA",
-      "NOME": "Sherwood — Foreste ed Alberi Oggi",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.681173+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00169",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0063": {
-      "CANDIDATA_ID": "CAND-0063",
-      "TIPO": "IMPRENSA",
-      "NOME": "Teatro Naturale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.695220+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00170",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0245": {
-      "CANDIDATA_ID": "CAND-0245",
-      "TIPO": "IMPRENSA",
-      "NOME": "Terra e Vita — settimanale agricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.709870+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00171",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0087": {
-      "CANDIDATA_ID": "CAND-0087",
-      "TIPO": "INSTAGRAM",
-      "NOME": "APPA Trento — Agenzia provinciale protezione ambiente — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.724983+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0074": {
-      "CANDIDATA_ID": "CAND-0074",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ARPA Liguria — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.742548+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0075": {
-      "CANDIDATA_ID": "CAND-0075",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ARPA Lombardia — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.760090+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0081": {
-      "CANDIDATA_ID": "CAND-0081",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ARPA Piemonte — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.783089+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0088": {
-      "CANDIDATA_ID": "CAND-0088",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ARPA Valle d'Aosta — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.803148+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0073": {
-      "CANDIDATA_ID": "CAND-0073",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.822681+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0080": {
-      "CANDIDATA_ID": "CAND-0080",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.845707+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0082": {
-      "CANDIDATA_ID": "CAND-0082",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Agrilevante — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.867292+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0068": {
-      "CANDIDATA_ID": "CAND-0068",
-      "TIPO": "INSTAGRAM",
-      "NOME": "CRPV — Centro Ricerche Produzioni Vegetali — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.889819+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0069": {
-      "CANDIDATA_ID": "CAND-0069",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Caviro — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.916461+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0070": {
-      "CANDIDATA_ID": "CAND-0070",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Cifo — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.942469+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0076": {
-      "CANDIDATA_ID": "CAND-0076",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Confagricoltura Lombardia — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.964553+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0083": {
-      "CANDIDATA_ID": "CAND-0083",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio Tutela Pecorino Romano — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:26.988552+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0089": {
-      "CANDIDATA_ID": "CAND-0089",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio Tutela Prosecco DOC — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.007688+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0090": {
-      "CANDIDATA_ID": "CAND-0090",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio Tutela Vini Valpolicella — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.029689+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0067": {
-      "CANDIDATA_ID": "CAND-0067",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio Tutela Vini d'Abruzzo — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.051208+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0085": {
-      "CANDIDATA_ID": "CAND-0085",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio Vino Chianti Classico — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.073871+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0086": {
-      "CANDIDATA_ID": "CAND-0086",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio del Vino Brunello di Montalcino — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.097460+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0077": {
-      "CANDIDATA_ID": "CAND-0077",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio di Bonifica Est Ticino Villoresi — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.116080+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0091": {
-      "CANDIDATA_ID": "CAND-0091",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio di Bonifica Piave — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.134132+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0084": {
-      "CANDIDATA_ID": "CAND-0084",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio di Tutela Arancia Rossa di Sicilia IGP — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.151659+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0078": {
-      "CANDIDATA_ID": "CAND-0078",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio di Tutela del Grana Padano — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.169660+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0071": {
-      "CANDIDATA_ID": "CAND-0071",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Consorzio di Tutela dell'Aceto Balsamico di Modena — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.186191+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0072": {
-      "CANDIDATA_ID": "CAND-0072",
-      "TIPO": "INSTAGRAM",
-      "NOME": "ERSA FVG — Agenzia regionale per lo sviluppo rurale — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.204188+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0079": {
-      "CANDIDATA_ID": "CAND-0079",
-      "TIPO": "INSTAGRAM",
-      "NOME": "Fondazione Minoprio — Instagram ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.222769+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0130": {
-      "CANDIDATA_ID": "CAND-0130",
-      "TIPO": "LINKEDIN",
-      "NOME": "APPA Trento — Agenzia provinciale protezione ambiente — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.241769+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0101": {
-      "CANDIDATA_ID": "CAND-0101",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPA Lazio — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.260293+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0102": {
-      "CANDIDATA_ID": "CAND-0102",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPA Lombardia — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.278338+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0106": {
-      "CANDIDATA_ID": "CAND-0106",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPA Marche — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.297877+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0108": {
-      "CANDIDATA_ID": "CAND-0108",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPA Molise — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.317873+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0126": {
-      "CANDIDATA_ID": "CAND-0126",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPA Piemonte — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.335404+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0133": {
-      "CANDIDATA_ID": "CAND-0133",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPA Valle d'Aosta — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.353925+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0128": {
-      "CANDIDATA_ID": "CAND-0128",
-      "TIPO": "LINKEDIN",
-      "NOME": "ARPAT Toscana — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.371018+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0107": {
-      "CANDIDATA_ID": "CAND-0107",
-      "TIPO": "LINKEDIN",
-      "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.390017+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0109": {
-      "CANDIDATA_ID": "CAND-0109",
-      "TIPO": "LINKEDIN",
-      "NOME": "Agrofarma — Federchimica — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.408752+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0110": {
-      "CANDIDATA_ID": "CAND-0110",
-      "TIPO": "LINKEDIN",
-      "NOME": "Assofertilizzanti — Federchimica — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.426312+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0111": {
-      "CANDIDATA_ID": "CAND-0111",
-      "TIPO": "LINKEDIN",
-      "NOME": "Assosementi — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.448112+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0112": {
-      "CANDIDATA_ID": "CAND-0112",
-      "TIPO": "LINKEDIN",
-      "NOME": "CIA — Agricoltori Italiani — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.466702+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0113": {
-      "CANDIDATA_ID": "CAND-0113",
-      "TIPO": "LINKEDIN",
-      "NOME": "CNR — Consiglio Nazionale delle Ricerche — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.488424+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0093": {
-      "CANDIDATA_ID": "CAND-0093",
-      "TIPO": "LINKEDIN",
-      "NOME": "CRPV — Centro Ricerche Produzioni Vegetali — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.507474+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0094": {
-      "CANDIDATA_ID": "CAND-0094",
-      "TIPO": "LINKEDIN",
-      "NOME": "Caviro — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.526479+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0114": {
-      "CANDIDATA_ID": "CAND-0114",
-      "TIPO": "LINKEDIN",
-      "NOME": "Certis Belchim Italia — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.544998+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0095": {
-      "CANDIDATA_ID": "CAND-0095",
-      "TIPO": "LINKEDIN",
-      "NOME": "Cifo — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.568536+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0115": {
-      "CANDIDATA_ID": "CAND-0115",
-      "TIPO": "LINKEDIN",
-      "NOME": "Coldiretti — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.586135+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0134": {
-      "CANDIDATA_ID": "CAND-0134",
-      "TIPO": "LINKEDIN",
-      "NOME": "Consorzio Tutela Vini Valpolicella — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.608665+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0135": {
-      "CANDIDATA_ID": "CAND-0135",
-      "TIPO": "LINKEDIN",
-      "NOME": "Consorzio di Bonifica Piave — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.629718+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0103": {
-      "CANDIDATA_ID": "CAND-0103",
-      "TIPO": "LINKEDIN",
-      "NOME": "Consorzio di Tutela del Grana Padano — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.647718+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0116": {
-      "CANDIDATA_ID": "CAND-0116",
-      "TIPO": "LINKEDIN",
-      "NOME": "FederUnacoma — Federazione Nazionale Costruttori Macchine per l'Agricoltura — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.674202+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0096": {
-      "CANDIDATA_ID": "CAND-0096",
-      "TIPO": "LINKEDIN",
-      "NOME": "Fieravicola — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.700614+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0104": {
-      "CANDIDATA_ID": "CAND-0104",
-      "TIPO": "LINKEDIN",
-      "NOME": "Fondazione Minoprio — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.725282+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0117": {
-      "CANDIDATA_ID": "CAND-0117",
-      "TIPO": "LINKEDIN",
-      "NOME": "FreshPlaza Italia — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.752816+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0118": {
-      "CANDIDATA_ID": "CAND-0118",
-      "TIPO": "LINKEDIN",
-      "NOME": "ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.778875+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0131": {
-      "CANDIDATA_ID": "CAND-0131",
-      "TIPO": "LINKEDIN",
-      "NOME": "Interpoma — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.804005+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0119": {
-      "CANDIDATA_ID": "CAND-0119",
-      "TIPO": "LINKEDIN",
-      "NOME": "Italmopa — Associazione Industriali Mugnai d'Italia — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.824030+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0120": {
-      "CANDIDATA_ID": "CAND-0120",
-      "TIPO": "LINKEDIN",
-      "NOME": "Koppert Italia — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.850624+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0132": {
-      "CANDIDATA_ID": "CAND-0132",
-      "TIPO": "LINKEDIN",
-      "NOME": "Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.871758+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0097": {
-      "CANDIDATA_ID": "CAND-0097",
-      "TIPO": "LINKEDIN",
-      "NOME": "Macfrut — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.893809+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0121": {
-      "CANDIDATA_ID": "CAND-0121",
-      "TIPO": "LINKEDIN",
-      "NOME": "Myfruit.it — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.914899+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0122": {
-      "CANDIDATA_ID": "CAND-0122",
-      "TIPO": "LINKEDIN",
-      "NOME": "Olio Officina — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.934920+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0127": {
-      "CANDIDATA_ID": "CAND-0127",
-      "TIPO": "LINKEDIN",
-      "NOME": "Regione Piemonte — Agricoltura e cibo — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.955962+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0123": {
-      "CANDIDATA_ID": "CAND-0123",
-      "TIPO": "LINKEDIN",
-      "NOME": "Rete Rurale Nazionale — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.977487+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0098": {
-      "CANDIDATA_ID": "CAND-0098",
-      "TIPO": "LINKEDIN",
-      "NOME": "SANA — Salone del biologico e naturale — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:27.997009+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0124": {
-      "CANDIDATA_ID": "CAND-0124",
-      "TIPO": "LINKEDIN",
-      "NOME": "SIA — Societa Italiana di Agronomia — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.016041+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0125": {
-      "CANDIDATA_ID": "CAND-0125",
-      "TIPO": "LINKEDIN",
-      "NOME": "SIMEI — Salone Internazionale Macchine per Enologia e Imbottigliamento — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.034131+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0099": {
-      "CANDIDATA_ID": "CAND-0099",
-      "TIPO": "LINKEDIN",
-      "NOME": "Terra e Vita — Edagricole — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.052205+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0100": {
-      "CANDIDATA_ID": "CAND-0100",
-      "TIPO": "LINKEDIN",
-      "NOME": "UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.070744+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0105": {
-      "CANDIDATA_ID": "CAND-0105",
-      "TIPO": "LINKEDIN",
-      "NOME": "UNIMI DiSAA — Dipartimento di Scienze Agrarie e Ambientali — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.090260+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0092": {
-      "CANDIDATA_ID": "CAND-0092",
-      "TIPO": "LINKEDIN",
-      "NOME": "Valagro — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.107257+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0129": {
-      "CANDIDATA_ID": "CAND-0129",
-      "TIPO": "LINKEDIN",
-      "NOME": "WineNews — Linkedin ufficiale",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.125900+00:00",
-      "DESTINO": "POLICY_BLOCK",
-      "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
-    },
-    "CAND-0266": {
-      "CANDIDATA_ID": "CAND-0266",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "ANBI — Associazione Nazionale Consorzi di Gestione e Tutela del Territorio",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.144420+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00172",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0160": {
-      "CANDIDATA_ID": "CAND-0160",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "ANGA — Giovani di Confagricoltura",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.158944+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00173",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0162": {
-      "CANDIDATA_ID": "CAND-0162",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Assofertilizzanti — Federchimica",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.175518+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00174",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0137": {
-      "CANDIDATA_ID": "CAND-0137",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Biolchim",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.192528+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00175",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0264": {
-      "CANDIDATA_ID": "CAND-0264",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "CIA — Confederazione Italiana Agricoltori",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.207541+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00176",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0267": {
-      "CANDIDATA_ID": "CAND-0267",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "CONFAI — Federazione Nazionale Coltivatori Diretti Compartimentali",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.223564+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00177",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0265": {
-      "CANDIDATA_ID": "CAND-0265",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "COPAGRI — Confederazione dei Produttori Agricoli",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.239023+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00178",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0139": {
-      "CANDIDATA_ID": "CAND-0139",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Caviro",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.255556+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00179",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0163": {
-      "CANDIDATA_ID": "CAND-0163",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Coldiretti",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.271114+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00180",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0171": {
-      "CANDIDATA_ID": "CAND-0171",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Coldiretti Puglia",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.286671+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00181",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0173": {
-      "CANDIDATA_ID": "CAND-0173",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Coldiretti Sicilia",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.322460+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00182",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0178": {
-      "CANDIDATA_ID": "CAND-0178",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Coldiretti Veneto",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.362034+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00183",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0175": {
-      "CANDIDATA_ID": "CAND-0175",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Consorzio del Vino Brunello di Montalcino",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.412487+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00184",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0180": {
-      "CANDIDATA_ID": "CAND-0180",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Consorzio di Bonifica Piave",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.427654+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00185",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0169": {
-      "CANDIDATA_ID": "CAND-0169",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Consorzio di Tutela Nocciola Piemonte IGP",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.444786+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00186",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0144": {
-      "CANDIDATA_ID": "CAND-0144",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Fieravicola",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.461322+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00187",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0145": {
-      "CANDIDATA_ID": "CAND-0145",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Granarolo",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.480846+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00188",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0268": {
-      "CANDIDATA_ID": "CAND-0268",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Granlatte — cooperativa latte bovina",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.496889+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00189",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0176": {
-      "CANDIDATA_ID": "CAND-0176",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Interpoma",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.512537+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00190",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0146": {
-      "CANDIDATA_ID": "CAND-0146",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Macfrut",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.528054+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00191",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0148": {
-      "CANDIDATA_ID": "CAND-0148",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "OP Alegra",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.544565+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00192",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0269": {
-      "CANDIDATA_ID": "CAND-0269",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "UNAITALIA — Unione Nazionale Filiere Agroalimentari Carni",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.562112+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00193",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0168": {
-      "CANDIDATA_ID": "CAND-0168",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Unione Italiana Vini",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.578631+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00194",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0152": {
-      "CANDIDATA_ID": "CAND-0152",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Unione Nazionale Associazioni Produttori Olivicoli — UNAPROL",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.594172+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00195",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0181": {
-      "CANDIDATA_ID": "CAND-0181",
-      "TIPO": "ORGANIZACAO",
-      "NOME": "Vinitaly",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.610170+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00196",
-      "TASK_STATUS": "PENDING"
-    },
-    "CAND-0271": {
-      "CANDIDATA_ID": "CAND-0271",
-      "TIPO": "YOUTUBE",
-      "NOME": "ISMEA — canale YouTube",
-      "PROCESSADO_EM": "2026-09-21T10:44:28.626163+00:00",
-      "DESTINO": "QUALIFY",
-      "TASK_ID": "T00197",
-      "TASK_STATUS": "PENDING"
-    }
+ "DATASET": "BRIDGE-LEDGER-V1",
+ "LEI": "Registo append-only da ponte. Garante que correr duas vezes nao cria trabalho duplicado. Chave = CANDIDATA_ID.",
+ "PROCESSADAS": {
+  "CAND-0253": {
+   "CANDIDATA_ID": "CAND-0253",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "AGEA — Agenzia per le Erogazioni in Agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:25.940735+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00126",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0013": {
+   "CANDIDATA_ID": "CAND-0013",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "AGRIS Sardegna — Agenzia per la ricerca in agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:25.947738+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00127",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0251": {
+   "CANDIDATA_ID": "CAND-0251",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPA Lazio — Agenzia regionale protezione ambientale",
+   "PROCESSADO_EM": "2026-09-21T10:44:25.964801+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00128",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0247": {
+   "CANDIDATA_ID": "CAND-0247",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPA Liguria — dati meteo e qualita aria",
+   "PROCESSADO_EM": "2026-09-21T10:44:25.980335+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00129",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0248": {
+   "CANDIDATA_ID": "CAND-0248",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPA Lombardia — dati ambientali e meteo",
+   "PROCESSADO_EM": "2026-09-21T10:44:25.994862+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00130",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0250": {
+   "CANDIDATA_ID": "CAND-0250",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPA Marche — dati ambientali e meteo",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.010385+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00131",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0014": {
+   "CANDIDATA_ID": "CAND-0014",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPA Sardegna",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.029429+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00132",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0001": {
+   "CANDIDATA_ID": "CAND-0001",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPACAL Calabria",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.043452+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00133",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0249": {
+   "CANDIDATA_ID": "CAND-0249",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARPAT Toscana — Agenzia regionale protezione ambientale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.058440+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00134",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0244": {
+   "CANDIDATA_ID": "CAND-0244",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.073974+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00135",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0252": {
+   "CANDIDATA_ID": "CAND-0252",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "CREA — Consiglio per la Ricerca in Agricoltura e l'Analisi dell'Economia Agraria",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.088545+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00136",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0002": {
+   "CANDIDATA_ID": "CAND-0002",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Calabria — Dipartimento Agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.103086+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00137",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0006": {
+   "CANDIDATA_ID": "CAND-0006",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ERSAF Lombardia — Ente Regionale per i Servizi all'Agricoltura e alle Foreste",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.117086+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00138",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0270": {
+   "CANDIDATA_ID": "CAND-0270",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ISTAT — statistiche agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.133607+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00139",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0242": {
+   "CANDIDATA_ID": "CAND-0242",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "MASAF — Ministero dell'Agricoltura della Sovranita Alimentare e delle Foreste",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.148661+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00140",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0246": {
+   "CANDIDATA_ID": "CAND-0246",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Meteo Trentino — previsioni meteo e dati agro",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.167663+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00141",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0016": {
+   "CANDIDATA_ID": "CAND-0016",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Provincia autonoma di Bolzano — Agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.182763+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00142",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0008": {
+   "CANDIDATA_ID": "CAND-0008",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Regione Molise — Agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.196761+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00143",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0255": {
+   "CANDIDATA_ID": "CAND-0255",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Regione Puglia — Agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.209759+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00144",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0254": {
+   "CANDIDATA_ID": "CAND-0254",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Regione Veneto — Agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.226325+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00145",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0009": {
+   "CANDIDATA_ID": "CAND-0009",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Rete Rurale Nazionale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.243971+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00146",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0010": {
+   "CANDIDATA_ID": "CAND-0010",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "SIAN — Sistema Informativo Agricolo Nazionale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.260488+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00147",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0015": {
+   "CANDIDATA_ID": "CAND-0015",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sardegna Agricoltura — Laore",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.274504+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00148",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0243": {
+   "CANDIDATA_ID": "CAND-0243",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Servizio Fitosanitario Regione Lombardia",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.290155+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00149",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0017": {
+   "CANDIDATA_ID": "CAND-0017",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Valle d'Aosta — Assessorato Agricoltura e Risorse Naturali",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.304183+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00150",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0018": {
+   "CANDIDATA_ID": "CAND-0018",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Veneto Agricoltura — Agenzia veneta per l'innovazione nel settore primario",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.318431+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00151",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0259": {
+   "CANDIDATA_ID": "CAND-0259",
+   "TIPO": "CIENCIA",
+   "NOME": "CREA — Centro Cerealicoltura e Colture Industriali",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.331023+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00152",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0258": {
+   "CANDIDATA_ID": "CAND-0258",
+   "TIPO": "CIENCIA",
+   "NOME": "CREA — Centro Difesa e Certificazione",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.346697+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00153",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0260": {
+   "CANDIDATA_ID": "CAND-0260",
+   "TIPO": "CIENCIA",
+   "NOME": "CREA — Centro Orticoltura e Florovivaismo",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.361596+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00154",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0026": {
+   "CANDIDATA_ID": "CAND-0026",
+   "TIPO": "CIENCIA",
+   "NOME": "Centro di Sperimentazione Laimburg",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.376590+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00155",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0263": {
+   "CANDIDATA_ID": "CAND-0263",
+   "TIPO": "CIENCIA",
+   "NOME": "DISAFA — Universita di Torino",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.390127+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00156",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0027": {
+   "CANDIDATA_ID": "CAND-0027",
+   "TIPO": "CIENCIA",
+   "NOME": "Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.404137+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00157",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0261": {
+   "CANDIDATA_ID": "CAND-0261",
+   "TIPO": "CIENCIA",
+   "NOME": "Universita degli Studi di Milano — Agraria DISAA",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.420192+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00158",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0262": {
+   "CANDIDATA_ID": "CAND-0262",
+   "TIPO": "CIENCIA",
+   "NOME": "Universita degli Studi di Padova — DAFNAE",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.434709+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00159",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0030": {
+   "CANDIDATA_ID": "CAND-0030",
+   "TIPO": "FACEBOOK",
+   "NOME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese — Facebook ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.450224+00:00",
+   "DESTINO": "CAPABILITY_BLOCK",
+   "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
+  },
+  "CAND-0032": {
+   "CANDIDATA_ID": "CAND-0032",
+   "TIPO": "FACEBOOK",
+   "NOME": "Caviro — Facebook ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.459227+00:00",
+   "DESTINO": "CAPABILITY_BLOCK",
+   "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
+  },
+  "CAND-0046": {
+   "CANDIDATA_ID": "CAND-0046",
+   "TIPO": "FACEBOOK",
+   "NOME": "Consorzio Tutela Prosecco DOC — Facebook ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.476228+00:00",
+   "DESTINO": "CAPABILITY_BLOCK",
+   "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
+  },
+  "CAND-0047": {
+   "CANDIDATA_ID": "CAND-0047",
+   "TIPO": "FACEBOOK",
+   "NOME": "Consorzio Tutela Vini Valpolicella — Facebook ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.491759+00:00",
+   "DESTINO": "CAPABILITY_BLOCK",
+   "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
+  },
+  "CAND-0029": {
+   "CANDIDATA_ID": "CAND-0029",
+   "TIPO": "FACEBOOK",
+   "NOME": "Consorzio Tutela Vini d'Abruzzo — Facebook ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.509290+00:00",
+   "DESTINO": "CAPABILITY_BLOCK",
+   "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
+  },
+  "CAND-0043": {
+   "CANDIDATA_ID": "CAND-0043",
+   "TIPO": "FACEBOOK",
+   "NOME": "Consorzio Vino Chianti Classico — Facebook ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.526389+00:00",
+   "DESTINO": "CAPABILITY_BLOCK",
+   "MOTIVO": "FACEBOOK_CAPABILITY_BLOCK: sem capacidade de coleta automatizada para Facebook nesta instalacao."
+  },
+  "CAND-0256": {
+   "CANDIDATA_ID": "CAND-0256",
+   "TIPO": "IMPRENSA",
+   "NOME": "Agribusiness Paoli — notizie agri-business",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.542953+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00160",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0050": {
+   "CANDIDATA_ID": "CAND-0050",
+   "TIPO": "IMPRENSA",
+   "NOME": "Agricoltura Moderna",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.561488+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00161",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0051": {
+   "CANDIDATA_ID": "CAND-0051",
+   "TIPO": "IMPRENSA",
+   "NOME": "Agrifoodtoday",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.576011+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00162",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0064": {
+   "CANDIDATA_ID": "CAND-0064",
+   "TIPO": "IMPRENSA",
+   "NOME": "Agrisicilia",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.591542+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00163",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0056": {
+   "CANDIDATA_ID": "CAND-0056",
+   "TIPO": "IMPRENSA",
+   "NOME": "Il Corriere Vinicolo",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.606057+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00164",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0057": {
+   "CANDIDATA_ID": "CAND-0057",
+   "TIPO": "IMPRENSA",
+   "NOME": "Il Fatto Alimentare",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.622056+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00165",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0048": {
+   "CANDIDATA_ID": "CAND-0048",
+   "TIPO": "IMPRENSA",
+   "NOME": "Italiafruit News",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.636598+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00166",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0060": {
+   "CANDIDATA_ID": "CAND-0060",
+   "TIPO": "IMPRENSA",
+   "NOME": "Noi Siamo Agricoltura — sito",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.651110+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00167",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0062": {
+   "CANDIDATA_ID": "CAND-0062",
+   "TIPO": "IMPRENSA",
+   "NOME": "Pianeta PSR",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.665637+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00168",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0257": {
+   "CANDIDATA_ID": "CAND-0257",
+   "TIPO": "IMPRENSA",
+   "NOME": "Sherwood — Foreste ed Alberi Oggi",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.681173+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00169",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0063": {
+   "CANDIDATA_ID": "CAND-0063",
+   "TIPO": "IMPRENSA",
+   "NOME": "Teatro Naturale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.695220+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00170",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0245": {
+   "CANDIDATA_ID": "CAND-0245",
+   "TIPO": "IMPRENSA",
+   "NOME": "Terra e Vita — settimanale agricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.709870+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00171",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0087": {
+   "CANDIDATA_ID": "CAND-0087",
+   "TIPO": "INSTAGRAM",
+   "NOME": "APPA Trento — Agenzia provinciale protezione ambiente — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.724983+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0074": {
+   "CANDIDATA_ID": "CAND-0074",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ARPA Liguria — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.742548+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0075": {
+   "CANDIDATA_ID": "CAND-0075",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ARPA Lombardia — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.760090+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0081": {
+   "CANDIDATA_ID": "CAND-0081",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ARPA Piemonte — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.783089+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0088": {
+   "CANDIDATA_ID": "CAND-0088",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ARPA Valle d'Aosta — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.803148+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0073": {
+   "CANDIDATA_ID": "CAND-0073",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.822681+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0080": {
+   "CANDIDATA_ID": "CAND-0080",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.845707+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0082": {
+   "CANDIDATA_ID": "CAND-0082",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Agrilevante — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.867292+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0068": {
+   "CANDIDATA_ID": "CAND-0068",
+   "TIPO": "INSTAGRAM",
+   "NOME": "CRPV — Centro Ricerche Produzioni Vegetali — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.889819+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0069": {
+   "CANDIDATA_ID": "CAND-0069",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Caviro — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.916461+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0070": {
+   "CANDIDATA_ID": "CAND-0070",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Cifo — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.942469+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0076": {
+   "CANDIDATA_ID": "CAND-0076",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Confagricoltura Lombardia — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.964553+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0083": {
+   "CANDIDATA_ID": "CAND-0083",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio Tutela Pecorino Romano — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:26.988552+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0089": {
+   "CANDIDATA_ID": "CAND-0089",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio Tutela Prosecco DOC — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.007688+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0090": {
+   "CANDIDATA_ID": "CAND-0090",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio Tutela Vini Valpolicella — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.029689+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0067": {
+   "CANDIDATA_ID": "CAND-0067",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio Tutela Vini d'Abruzzo — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.051208+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0085": {
+   "CANDIDATA_ID": "CAND-0085",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio Vino Chianti Classico — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.073871+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0086": {
+   "CANDIDATA_ID": "CAND-0086",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio del Vino Brunello di Montalcino — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.097460+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0077": {
+   "CANDIDATA_ID": "CAND-0077",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio di Bonifica Est Ticino Villoresi — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.116080+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0091": {
+   "CANDIDATA_ID": "CAND-0091",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio di Bonifica Piave — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.134132+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0084": {
+   "CANDIDATA_ID": "CAND-0084",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio di Tutela Arancia Rossa di Sicilia IGP — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.151659+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0078": {
+   "CANDIDATA_ID": "CAND-0078",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio di Tutela del Grana Padano — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.169660+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0071": {
+   "CANDIDATA_ID": "CAND-0071",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Consorzio di Tutela dell'Aceto Balsamico di Modena — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.186191+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0072": {
+   "CANDIDATA_ID": "CAND-0072",
+   "TIPO": "INSTAGRAM",
+   "NOME": "ERSA FVG — Agenzia regionale per lo sviluppo rurale — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.204188+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0079": {
+   "CANDIDATA_ID": "CAND-0079",
+   "TIPO": "INSTAGRAM",
+   "NOME": "Fondazione Minoprio — Instagram ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.222769+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "INSTAGRAM_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0130": {
+   "CANDIDATA_ID": "CAND-0130",
+   "TIPO": "LINKEDIN",
+   "NOME": "APPA Trento — Agenzia provinciale protezione ambiente — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.241769+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0101": {
+   "CANDIDATA_ID": "CAND-0101",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPA Lazio — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.260293+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0102": {
+   "CANDIDATA_ID": "CAND-0102",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPA Lombardia — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.278338+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0106": {
+   "CANDIDATA_ID": "CAND-0106",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPA Marche — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.297877+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0108": {
+   "CANDIDATA_ID": "CAND-0108",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPA Molise — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.317873+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0126": {
+   "CANDIDATA_ID": "CAND-0126",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPA Piemonte — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.335404+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0133": {
+   "CANDIDATA_ID": "CAND-0133",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPA Valle d'Aosta — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.353925+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0128": {
+   "CANDIDATA_ID": "CAND-0128",
+   "TIPO": "LINKEDIN",
+   "NOME": "ARPAT Toscana — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.371018+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0107": {
+   "CANDIDATA_ID": "CAND-0107",
+   "TIPO": "LINKEDIN",
+   "NOME": "ASSAM Marche — Agenzia Servizi Settore Agroalimentare delle Marche — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.390017+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0109": {
+   "CANDIDATA_ID": "CAND-0109",
+   "TIPO": "LINKEDIN",
+   "NOME": "Agrofarma — Federchimica — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.408752+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0110": {
+   "CANDIDATA_ID": "CAND-0110",
+   "TIPO": "LINKEDIN",
+   "NOME": "Assofertilizzanti — Federchimica — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.426312+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0111": {
+   "CANDIDATA_ID": "CAND-0111",
+   "TIPO": "LINKEDIN",
+   "NOME": "Assosementi — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.448112+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0112": {
+   "CANDIDATA_ID": "CAND-0112",
+   "TIPO": "LINKEDIN",
+   "NOME": "CIA — Agricoltori Italiani — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.466702+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0113": {
+   "CANDIDATA_ID": "CAND-0113",
+   "TIPO": "LINKEDIN",
+   "NOME": "CNR — Consiglio Nazionale delle Ricerche — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.488424+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0093": {
+   "CANDIDATA_ID": "CAND-0093",
+   "TIPO": "LINKEDIN",
+   "NOME": "CRPV — Centro Ricerche Produzioni Vegetali — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.507474+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0094": {
+   "CANDIDATA_ID": "CAND-0094",
+   "TIPO": "LINKEDIN",
+   "NOME": "Caviro — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.526479+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0114": {
+   "CANDIDATA_ID": "CAND-0114",
+   "TIPO": "LINKEDIN",
+   "NOME": "Certis Belchim Italia — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.544998+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0095": {
+   "CANDIDATA_ID": "CAND-0095",
+   "TIPO": "LINKEDIN",
+   "NOME": "Cifo — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.568536+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0115": {
+   "CANDIDATA_ID": "CAND-0115",
+   "TIPO": "LINKEDIN",
+   "NOME": "Coldiretti — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.586135+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0134": {
+   "CANDIDATA_ID": "CAND-0134",
+   "TIPO": "LINKEDIN",
+   "NOME": "Consorzio Tutela Vini Valpolicella — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.608665+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0135": {
+   "CANDIDATA_ID": "CAND-0135",
+   "TIPO": "LINKEDIN",
+   "NOME": "Consorzio di Bonifica Piave — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.629718+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0103": {
+   "CANDIDATA_ID": "CAND-0103",
+   "TIPO": "LINKEDIN",
+   "NOME": "Consorzio di Tutela del Grana Padano — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.647718+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0116": {
+   "CANDIDATA_ID": "CAND-0116",
+   "TIPO": "LINKEDIN",
+   "NOME": "FederUnacoma — Federazione Nazionale Costruttori Macchine per l'Agricoltura — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.674202+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0096": {
+   "CANDIDATA_ID": "CAND-0096",
+   "TIPO": "LINKEDIN",
+   "NOME": "Fieravicola — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.700614+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0104": {
+   "CANDIDATA_ID": "CAND-0104",
+   "TIPO": "LINKEDIN",
+   "NOME": "Fondazione Minoprio — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.725282+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0117": {
+   "CANDIDATA_ID": "CAND-0117",
+   "TIPO": "LINKEDIN",
+   "NOME": "FreshPlaza Italia — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.752816+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0118": {
+   "CANDIDATA_ID": "CAND-0118",
+   "TIPO": "LINKEDIN",
+   "NOME": "ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.778875+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0131": {
+   "CANDIDATA_ID": "CAND-0131",
+   "TIPO": "LINKEDIN",
+   "NOME": "Interpoma — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.804005+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0119": {
+   "CANDIDATA_ID": "CAND-0119",
+   "TIPO": "LINKEDIN",
+   "NOME": "Italmopa — Associazione Industriali Mugnai d'Italia — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.824030+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0120": {
+   "CANDIDATA_ID": "CAND-0120",
+   "TIPO": "LINKEDIN",
+   "NOME": "Koppert Italia — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.850624+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0132": {
+   "CANDIDATA_ID": "CAND-0132",
+   "TIPO": "LINKEDIN",
+   "NOME": "Libera Universita di Bolzano — Facolta di Scienze agrarie ambientali e alimentari — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.871758+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0097": {
+   "CANDIDATA_ID": "CAND-0097",
+   "TIPO": "LINKEDIN",
+   "NOME": "Macfrut — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.893809+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0121": {
+   "CANDIDATA_ID": "CAND-0121",
+   "TIPO": "LINKEDIN",
+   "NOME": "Myfruit.it — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.914899+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0122": {
+   "CANDIDATA_ID": "CAND-0122",
+   "TIPO": "LINKEDIN",
+   "NOME": "Olio Officina — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.934920+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0127": {
+   "CANDIDATA_ID": "CAND-0127",
+   "TIPO": "LINKEDIN",
+   "NOME": "Regione Piemonte — Agricoltura e cibo — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.955962+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0123": {
+   "CANDIDATA_ID": "CAND-0123",
+   "TIPO": "LINKEDIN",
+   "NOME": "Rete Rurale Nazionale — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.977487+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0098": {
+   "CANDIDATA_ID": "CAND-0098",
+   "TIPO": "LINKEDIN",
+   "NOME": "SANA — Salone del biologico e naturale — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:27.997009+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0124": {
+   "CANDIDATA_ID": "CAND-0124",
+   "TIPO": "LINKEDIN",
+   "NOME": "SIA — Societa Italiana di Agronomia — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.016041+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0125": {
+   "CANDIDATA_ID": "CAND-0125",
+   "TIPO": "LINKEDIN",
+   "NOME": "SIMEI — Salone Internazionale Macchine per Enologia e Imbottigliamento — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.034131+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0099": {
+   "CANDIDATA_ID": "CAND-0099",
+   "TIPO": "LINKEDIN",
+   "NOME": "Terra e Vita — Edagricole — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.052205+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0100": {
+   "CANDIDATA_ID": "CAND-0100",
+   "TIPO": "LINKEDIN",
+   "NOME": "UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.070744+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0105": {
+   "CANDIDATA_ID": "CAND-0105",
+   "TIPO": "LINKEDIN",
+   "NOME": "UNIMI DiSAA — Dipartimento di Scienze Agrarie e Ambientali — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.090260+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0092": {
+   "CANDIDATA_ID": "CAND-0092",
+   "TIPO": "LINKEDIN",
+   "NOME": "Valagro — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.107257+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0129": {
+   "CANDIDATA_ID": "CAND-0129",
+   "TIPO": "LINKEDIN",
+   "NOME": "WineNews — Linkedin ufficiale",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.125900+00:00",
+   "DESTINO": "POLICY_BLOCK",
+   "MOTIVO": "LINKEDIN_POLICY: coleta automatizada proibida pelos TOS da plataforma. Worker marcado NAO_INSISTIR."
+  },
+  "CAND-0266": {
+   "CANDIDATA_ID": "CAND-0266",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "ANBI — Associazione Nazionale Consorzi di Gestione e Tutela del Territorio",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.144420+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00172",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0160": {
+   "CANDIDATA_ID": "CAND-0160",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "ANGA — Giovani di Confagricoltura",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.158944+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00173",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0162": {
+   "CANDIDATA_ID": "CAND-0162",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Assofertilizzanti — Federchimica",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.175518+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00174",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0137": {
+   "CANDIDATA_ID": "CAND-0137",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Biolchim",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.192528+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00175",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0264": {
+   "CANDIDATA_ID": "CAND-0264",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "CIA — Confederazione Italiana Agricoltori",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.207541+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00176",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0267": {
+   "CANDIDATA_ID": "CAND-0267",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "CONFAI — Federazione Nazionale Coltivatori Diretti Compartimentali",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.223564+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00177",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0265": {
+   "CANDIDATA_ID": "CAND-0265",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "COPAGRI — Confederazione dei Produttori Agricoli",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.239023+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00178",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0139": {
+   "CANDIDATA_ID": "CAND-0139",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Caviro",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.255556+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00179",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0163": {
+   "CANDIDATA_ID": "CAND-0163",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Coldiretti",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.271114+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00180",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0171": {
+   "CANDIDATA_ID": "CAND-0171",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Coldiretti Puglia",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.286671+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00181",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0173": {
+   "CANDIDATA_ID": "CAND-0173",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Coldiretti Sicilia",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.322460+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00182",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0178": {
+   "CANDIDATA_ID": "CAND-0178",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Coldiretti Veneto",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.362034+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00183",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0175": {
+   "CANDIDATA_ID": "CAND-0175",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Consorzio del Vino Brunello di Montalcino",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.412487+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00184",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0180": {
+   "CANDIDATA_ID": "CAND-0180",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Consorzio di Bonifica Piave",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.427654+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00185",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0169": {
+   "CANDIDATA_ID": "CAND-0169",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Consorzio di Tutela Nocciola Piemonte IGP",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.444786+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00186",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0144": {
+   "CANDIDATA_ID": "CAND-0144",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Fieravicola",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.461322+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00187",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0145": {
+   "CANDIDATA_ID": "CAND-0145",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Granarolo",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.480846+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00188",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0268": {
+   "CANDIDATA_ID": "CAND-0268",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Granlatte — cooperativa latte bovina",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.496889+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00189",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0176": {
+   "CANDIDATA_ID": "CAND-0176",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Interpoma",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.512537+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00190",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0146": {
+   "CANDIDATA_ID": "CAND-0146",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Macfrut",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.528054+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00191",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0148": {
+   "CANDIDATA_ID": "CAND-0148",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "OP Alegra",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.544565+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00192",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0269": {
+   "CANDIDATA_ID": "CAND-0269",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "UNAITALIA — Unione Nazionale Filiere Agroalimentari Carni",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.562112+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00193",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0168": {
+   "CANDIDATA_ID": "CAND-0168",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Unione Italiana Vini",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.578631+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00194",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0152": {
+   "CANDIDATA_ID": "CAND-0152",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Unione Nazionale Associazioni Produttori Olivicoli — UNAPROL",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.594172+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00195",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0181": {
+   "CANDIDATA_ID": "CAND-0181",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Vinitaly",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.610170+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00196",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0271": {
+   "CANDIDATA_ID": "CAND-0271",
+   "TIPO": "YOUTUBE",
+   "NOME": "ISMEA — canale YouTube",
+   "PROCESSADO_EM": "2026-09-21T10:44:28.626163+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00197",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0284": {
+   "CANDIDATA_ID": "CAND-0284",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "#Bandi",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.419841+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00339",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0282": {
+   "CANDIDATA_ID": "CAND-0282",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "#BolloAuto",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.432354+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00340",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0283": {
+   "CANDIDATA_ID": "CAND-0283",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "#DoteScuola",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.456929+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00341",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0285": {
+   "CANDIDATA_ID": "CAND-0285",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "#FascicoloSanitario",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.477610+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00342",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0286": {
+   "CANDIDATA_ID": "CAND-0286",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "#Notizie",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.498256+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00343",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0330": {
+   "CANDIDATA_ID": "CAND-0330",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "16 settembre 2026 Pollini e spore: amaranto, ambrosia, parietaria e alternaria I dati del monitoraggio in Emilia-Romagna rilevati dal 7 al 13 settembre 2026",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.517382+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00344",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0329": {
+   "CANDIDATA_ID": "CAND-0329",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "17 settembre 2026 Incendio alla Sorgenia di Finale Emilia Intervenuta Arpae per i controlli ambientali",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.539483+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00345",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0328": {
+   "CANDIDATA_ID": "CAND-0328",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "18 settembre 2026 Aggiornamento al portale prelievi Il 18 settembre effettuato un nuovo intervento sui dati, a seguito degli eventi meteorologici registrati",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.562016+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00346",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0326": {
+   "CANDIDATA_ID": "CAND-0326",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "30 anni per l’ambiente",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.582382+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00347",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0392": {
+   "CANDIDATA_ID": "CAND-0392",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ACaMIR",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.603922+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00348",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0454": {
+   "CANDIDATA_ID": "CAND-0454",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Acqua",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.624966+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00349",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0457": {
+   "CANDIDATA_ID": "CAND-0457",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Acque reflue",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.643515+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00350",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0456": {
+   "CANDIDATA_ID": "CAND-0456",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Acque sotterranee",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.665037+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00351",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0455": {
+   "CANDIDATA_ID": "CAND-0455",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Acque superficiali",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.689598+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00352",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0393": {
+   "CANDIDATA_ID": "CAND-0393",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Agricoltura Campania",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.708119+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00353",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0294": {
+   "CANDIDATA_ID": "CAND-0294",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Allerte Protezione Civile",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.728135+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00354",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0371": {
+   "CANDIDATA_ID": "CAND-0371",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Amministrazione Trasparente",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.747316+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00355",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0417": {
+   "CANDIDATA_ID": "CAND-0417",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Amministrazione Trasparente",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.773827+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00356",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0319": {
+   "CANDIDATA_ID": "CAND-0319",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Amministrazione trasparente",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.794989+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00357",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0372": {
+   "CANDIDATA_ID": "CAND-0372",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Amministrazione trasparente",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.819102+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00358",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0415": {
+   "CANDIDATA_ID": "CAND-0415",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Amministrazione trasparente",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.840126+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00359",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0340": {
+   "CANDIDATA_ID": "CAND-0340",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Anagrafe Pubblica",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.861664+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00360",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0375": {
+   "CANDIDATA_ID": "CAND-0375",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Area Dipendenti",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.881247+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00361",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0416": {
+   "CANDIDATA_ID": "CAND-0416",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Area intranet",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.903244+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00362",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0459": {
+   "CANDIDATA_ID": "CAND-0459",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Aria",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.923767+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00363",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0327": {
+   "CANDIDATA_ID": "CAND-0327",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Aria, sospeso il blocco strutturale ai diesel euro 5 dal 1°ottobre",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.944390+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00364",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0313": {
+   "CANDIDATA_ID": "CAND-0313",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Arpa Sicilia",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.967910+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00365",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0394": {
+   "CANDIDATA_ID": "CAND-0394",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "ArpaC",
+   "PROCESSADO_EM": "2026-09-22T02:57:43.992910+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00366",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0323": {
+   "CANDIDATA_ID": "CAND-0323",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.013431+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00367",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0304": {
+   "CANDIDATA_ID": "CAND-0304",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Assemblea Regionale Siciliana",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.036434+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00368",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0397": {
+   "CANDIDATA_ID": "CAND-0397",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "BURC",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.069501+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00369",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0293": {
+   "CANDIDATA_ID": "CAND-0293",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Bandi e Servizi",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.088522+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00370",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0309": {
+   "CANDIDATA_ID": "CAND-0309",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Bandi e avvisi pubblici",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.108106+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00371",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0409": {
+   "CANDIDATA_ID": "CAND-0409",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Bollettino Ufficiale Regione Abruzzo",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.128636+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00372",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0297": {
+   "CANDIDATA_ID": "CAND-0297",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Bollettino ufficiale",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.150632+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00373",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0292": {
+   "CANDIDATA_ID": "CAND-0292",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Bollo auto e tributi regionali",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.174635+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00374",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0361": {
+   "CANDIDATA_ID": "CAND-0361",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "CalabriAmbiente, la nuova app regionale che coinvolge i cittadini",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.193719+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00375",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0346": {
+   "CANDIDATA_ID": "CAND-0346",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Calabria Istruzione",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.219713+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00376",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0406": {
+   "CANDIDATA_ID": "CAND-0406",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Comitato Unico di Garanzia (CUG)",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.249711+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00377",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0475": {
+   "CANDIDATA_ID": "CAND-0475",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Comitato unico di garanzia - CUG",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.281241+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00378",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0386": {
+   "CANDIDATA_ID": "CAND-0386",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Comunicati",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.305758+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00379",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0425": {
+   "CANDIDATA_ID": "CAND-0425",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Conosci il CREA",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.327279+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00380",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0407": {
+   "CANDIDATA_ID": "CAND-0407",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Consigliera regionale di parità",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.347282+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00381",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0449": {
+   "CANDIDATA_ID": "CAND-0449",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Consulta la PRIVACY POLICY",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.370283+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00382",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0336": {
+   "CANDIDATA_ID": "CAND-0336",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Contatti",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.391284+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00383",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0402": {
+   "CANDIDATA_ID": "CAND-0402",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Contatti",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.411281+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00384",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0390": {
+   "CANDIDATA_ID": "CAND-0390",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Cultura Campania",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.433349+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00385",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0355": {
+   "CANDIDATA_ID": "CAND-0355",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Cup",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.455347+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00386",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0429": {
+   "CANDIDATA_ID": "CAND-0429",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "DICHIARAZIONE DI ACCESSIBILITA'",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.477445+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00387",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0310": {
+   "CANDIDATA_ID": "CAND-0310",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Delibere della Giunta",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.496600+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00388",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0320": {
+   "CANDIDATA_ID": "CAND-0320",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Dichiarazione di accessibilità",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.517654+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00389",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0427": {
+   "CANDIDATA_ID": "CAND-0427",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Direzione Generale",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.540659+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00390",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0428": {
+   "CANDIDATA_ID": "CAND-0428",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Direzione Tecnico Scientifica",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.560686+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00391",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0418": {
+   "CANDIDATA_ID": "CAND-0418",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "EN",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.581674+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00392",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0354": {
+   "CANDIDATA_ID": "CAND-0354",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Ecosistema Calabria Sanità",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.605252+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00393",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0401": {
+   "CANDIDATA_ID": "CAND-0401",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Elezioni regionali",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.629250+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00394",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0322": {
+   "CANDIDATA_ID": "CAND-0322",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "English",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.654918+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00395",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0388": {
+   "CANDIDATA_ID": "CAND-0388",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Europa Campania",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.678920+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00396",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0385": {
+   "CANDIDATA_ID": "CAND-0385",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Eventi",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.699042+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00397",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0468": {
+   "CANDIDATA_ID": "CAND-0468",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "FAQ",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.718045+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00398",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0356": {
+   "CANDIDATA_ID": "CAND-0356",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Fascicolo Sanitario Elettronico",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.740087+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00399",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0281": {
+   "CANDIDATA_ID": "CAND-0281",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Generazione Lombardia",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.767087+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00400",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0380": {
+   "CANDIDATA_ID": "CAND-0380",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Giunta Regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.792090+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00401",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0400": {
+   "CANDIDATA_ID": "CAND-0400",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Giunta regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.814085+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00402",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0339": {
+   "CANDIDATA_ID": "CAND-0339",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Il Consiglio Regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.837650+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00403",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0302": {
+   "CANDIDATA_ID": "CAND-0302",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Il Presidente",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.866226+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00404",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0337": {
+   "CANDIDATA_ID": "CAND-0337",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Il Presidente",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.890222+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00405",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0399": {
+   "CANDIDATA_ID": "CAND-0399",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Il Presidente",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.921223+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00406",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0321": {
+   "CANDIDATA_ID": "CAND-0321",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Italiano",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.940262+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00407",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0359": {
+   "CANDIDATA_ID": "CAND-0359",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "La Calabria alla European Week of Regions and Cities 2026: focus su resilienza climatica e strategie macroregionali",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.960262+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00408",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0303": {
+   "CANDIDATA_ID": "CAND-0303",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "La Giunta Regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:44.989310+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00409",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0338": {
+   "CANDIDATA_ID": "CAND-0338",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "La Giunta Regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.011310+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00410",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0467": {
+   "CANDIDATA_ID": "CAND-0467",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Lavora con noi",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.037218+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00411",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0410": {
+   "CANDIDATA_ID": "CAND-0410",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Lavoro, formazione e istruzione",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.060221+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00412",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0374": {
+   "CANDIDATA_ID": "CAND-0374",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Link utili",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.081218+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00413",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0272": {
+   "CANDIDATA_ID": "CAND-0272",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Lombardia Experience",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.104664+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00414",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0460": {
+   "CANDIDATA_ID": "CAND-0460",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Mappe",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.127184+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00415",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0325": {
+   "CANDIDATA_ID": "CAND-0325",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Mare, riviera interamente balneabile",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.148870+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00416",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0276": {
+   "CANDIDATA_ID": "CAND-0276",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Monitoraggio PNRR",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.170276+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00417",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0466": {
+   "CANDIDATA_ID": "CAND-0466",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "News ed Eventi",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.188274+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00418",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0280": {
+   "CANDIDATA_ID": "CAND-0280",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Non sei da sola",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.210792+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00419",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0384": {
+   "CANDIDATA_ID": "CAND-0384",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Notizie",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.235319+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00420",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0398": {
+   "CANDIDATA_ID": "CAND-0398",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Obiettivi di accessibilità",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.257840+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00421",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0277": {
+   "CANDIDATA_ID": "CAND-0277",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Oltreigiochi2026",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.281367+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00422",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0279": {
+   "CANDIDATA_ID": "CAND-0279",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Open Innovation",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.305370+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00423",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0426": {
+   "CANDIDATA_ID": "CAND-0426",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Organi",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.328892+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00424",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0472": {
+   "CANDIDATA_ID": "CAND-0472",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Organizzazione",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.350421+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00425",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0347": {
+   "CANDIDATA_ID": "CAND-0347",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Osservatorio Istruzione",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.373948+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00426",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0389": {
+   "CANDIDATA_ID": "CAND-0389",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "PNRR in Campania",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.398953+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00427",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0357": {
+   "CANDIDATA_ID": "CAND-0357",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "PagoPA - MyPay",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.425599+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00428",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0318": {
+   "CANDIDATA_ID": "CAND-0318",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Parlamento Europeo",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.455598+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00429",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0461": {
+   "CANDIDATA_ID": "CAND-0461",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Per saperne di più Per saperne di più",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.476817+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00430",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0379": {
+   "CANDIDATA_ID": "CAND-0379",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Presidente",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.501250+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00431",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0341": {
+   "CANDIDATA_ID": "CAND-0341",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Prevenzione della Corruzione e Trasparenza",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.524180+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00432",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0360": {
+   "CANDIDATA_ID": "CAND-0360",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Progetto CalALMA: prorogato al 30 settembre 2026 il termine per l’avvio delle attività dei giovani NEET",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.545717+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00433",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0278": {
+   "CANDIDATA_ID": "CAND-0278",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Programmazione Europea",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.566726+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00434",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0334": {
+   "CANDIDATA_ID": "CAND-0334",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Reclami e appelli",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.591361+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00435",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0301": {
+   "CANDIDATA_ID": "CAND-0301",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Regione",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.613896+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00436",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0378": {
+   "CANDIDATA_ID": "CAND-0378",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Regione",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.637457+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00437",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0383": {
+   "CANDIDATA_ID": "CAND-0383",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Regione informa",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.660456+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00438",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0342": {
+   "CANDIDATA_ID": "CAND-0342",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Responsabile Protezione Dati",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.684070+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00439",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0291": {
+   "CANDIDATA_ID": "CAND-0291",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sanità",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.709398+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00440",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0411": {
+   "CANDIDATA_ID": "CAND-0411",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sanità",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.731398+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00441",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0287": {
+   "CANDIDATA_ID": "CAND-0287",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Scopri",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.758403+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00442",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0288": {
+   "CANDIDATA_ID": "CAND-0288",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Scopri",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.781402+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00443",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0405": {
+   "CANDIDATA_ID": "CAND-0405",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sede di Bruxelles",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.808400+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00444",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0404": {
+   "CANDIDATA_ID": "CAND-0404",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sede di Roma",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.831401+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00445",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0373": {
+   "CANDIDATA_ID": "CAND-0373",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Servizi digitali",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.863398+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00446",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0308": {
+   "CANDIDATA_ID": "CAND-0308",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Servizi informativi",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.886588+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00447",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0473": {
+   "CANDIDATA_ID": "CAND-0473",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sistema di gestione Qualità",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.910835+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00448",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0376": {
+   "CANDIDATA_ID": "CAND-0376",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sito di archivio",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.931840+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00449",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0474": {
+   "CANDIDATA_ID": "CAND-0474",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Soddisfazione dell’utente",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.956952+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00450",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0275": {
+   "CANDIDATA_ID": "CAND-0275",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Speciale Lombardia, infatti",
+   "PROCESSADO_EM": "2026-09-22T02:57:45.978950+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00451",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0462": {
+   "CANDIDATA_ID": "CAND-0462",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Sportello imprese Sportello imprese",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.003945+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00452",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0306": {
+   "CANDIDATA_ID": "CAND-0306",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Statuto regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.029950+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00453",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0305": {
+   "CANDIDATA_ID": "CAND-0305",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Strutture regionali",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.051509+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00454",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0387": {
+   "CANDIDATA_ID": "CAND-0387",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Tassa automobilistica",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.088604+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00455",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0453": {
+   "CANDIDATA_ID": "CAND-0453",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Temi Ambientali",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.109779+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00456",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0362": {
+   "CANDIDATA_ID": "CAND-0362",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Transformer Calabria, pubblicata la graduatoria definitiva: sostegno a occupazione e formazione",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.131784+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00457",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0307": {
+   "CANDIDATA_ID": "CAND-0307",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "URP",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.151780+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00458",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0403": {
+   "CANDIDATA_ID": "CAND-0403",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "URP - Ufficio relazioni con il pubblico",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.174299+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00459",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0382": {
+   "CANDIDATA_ID": "CAND-0382",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Uffici e organizzazione",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.194299+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00460",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0476": {
+   "CANDIDATA_ID": "CAND-0476",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Ufficio relazioni con il pubblico - URP",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.215818+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00461",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0458": {
+   "CANDIDATA_ID": "CAND-0458",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Usi delle acque",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.236829+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00462",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0471": {
+   "CANDIDATA_ID": "CAND-0471",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Vai al profilo Feed RSS di\n                                            ARPAT",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.262361+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00463",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0391": {
+   "CANDIDATA_ID": "CAND-0391",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "Vai alla sezione",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.284883+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00464",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0420": {
+   "CANDIDATA_ID": "CAND-0420",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "crea.gov.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.308888+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00465",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0422": {
+   "CANDIDATA_ID": "CAND-0422",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "crea.gov.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.329884+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00466",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0419": {
+   "CANDIDATA_ID": "CAND-0419",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "creafuturo.crea.gov.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.352519+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00467",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0464": {
+   "CANDIDATA_ID": "CAND-0464",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "geoportale.regione.lombardia.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.371519+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00468",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0324": {
+   "CANDIDATA_ID": "CAND-0324",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "regione.emilia-romagna.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.404519+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00469",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0450": {
+   "CANDIDATA_ID": "CAND-0450",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "regione.lombardia.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.427048+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00470",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0421": {
+   "CANDIDATA_ID": "CAND-0421",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "rss_feed",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.447569+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00471",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0463": {
+   "CANDIDATA_ID": "CAND-0463",
+   "TIPO": "BASE_OFICIAL",
+   "NOME": "sbbl.regione.lombardia.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.471087+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00472",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0369": {
+   "CANDIDATA_ID": "CAND-0369",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "A journey through the Crotone Sila, amidst nature and footpaths",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.494087+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00473",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0367": {
+   "CANDIDATA_ID": "CAND-0367",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "A trip to Lake Ampollino",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.526579+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00474",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0432": {
+   "CANDIDATA_ID": "CAND-0432",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "ARSAC SUL TERRITORIO",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.554580+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00475",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0431": {
+   "CANDIDATA_ID": "CAND-0431",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "ARSAC Servizi offerti",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.584096+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00476",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0395": {
+   "CANDIDATA_ID": "CAND-0395",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "ARUS",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.614140+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00477",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0439": {
+   "CANDIDATA_ID": "CAND-0439",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "ATTIVITA’ e SERVIZI",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.636662+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00478",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0437": {
+   "CANDIDATA_ID": "CAND-0437",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Actinidia (Kiwi)",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.662193+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00479",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0364": {
+   "CANDIDATA_ID": "CAND-0364",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Adozione versione 2.0 di giugno 2026 del Prezzario dei costi Massimi di riferimento per macchine ed attrezzature agricole,",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.687194+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00480",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0440": {
+   "CANDIDATA_ID": "CAND-0440",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Agenzia",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.710713+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00481",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0438": {
+   "CANDIDATA_ID": "CAND-0438",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Agrumi",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.732715+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00482",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0446": {
+   "CANDIDATA_ID": "CAND-0446",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Albo fornitori",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.754714+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00483",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0434": {
+   "CANDIDATA_ID": "CAND-0434",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Arsac Nelle Scuole",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.779250+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00484",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0445": {
+   "CANDIDATA_ID": "CAND-0445",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Atti dell'Amministrazione",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.800939+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00485",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0413": {
+   "CANDIDATA_ID": "CAND-0413",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Avviso per iscrizione in elenco strutture per reinserimento sociale detenuti adulti",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.825004+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00486",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0343": {
+   "CANDIDATA_ID": "CAND-0343",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Calabria Energia - Il Portale Energia della Regione Calabria",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.846907+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00487",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0351": {
+   "CANDIDATA_ID": "CAND-0351",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Calabria Impresa – Il Portale della Regione Calabria per le Imprese",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.869965+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00488",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0345": {
+   "CANDIDATA_ID": "CAND-0345",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Calabria Straordinaria",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.891621+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00489",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0352": {
+   "CANDIDATA_ID": "CAND-0352",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "CalabriaSUE - Sportello Unico per l’Edilizia",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.912628+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00490",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0370": {
+   "CANDIDATA_ID": "CAND-0370",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Calabrian pasta: traditional shapes",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.936181+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00491",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0316": {
+   "CANDIDATA_ID": "CAND-0316",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Camera dei Deputati",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.958180+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00492",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0396": {
+   "CANDIDATA_ID": "CAND-0396",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Campania Artecard",
+   "PROCESSADO_EM": "2026-09-22T02:57:46.982702+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00493",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0381": {
+   "CANDIDATA_ID": "CAND-0381",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Consiglio Regionale",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.006232+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00494",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0408": {
+   "CANDIDATA_ID": "CAND-0408",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Corecom Abruzzo",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.030234+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00495",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0366": {
+   "CANDIDATA_ID": "CAND-0366",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Domande di aiuto per gli allevamenti suinicoli, atti alla prevenzione della diffusione della peste suina africana (2)",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.052233+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00496",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0348": {
+   "CANDIDATA_ID": "CAND-0348",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Fondazione Calabria Film Commission",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.076758+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00497",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0350": {
+   "CANDIDATA_ID": "CAND-0350",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Fondazione Istituto Regionale per la Comunità Grecanica di Calabria",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.103755+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00498",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0349": {
+   "CANDIDATA_ID": "CAND-0349",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Fondazione Mediterranea terina Onlus",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.125814+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00499",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0274": {
+   "CANDIDATA_ID": "CAND-0274",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "InLombardia",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.147810+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00500",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0430": {
+   "CANDIDATA_ID": "CAND-0430",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Intranet",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.169862+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00501",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0314": {
+   "CANDIDATA_ID": "CAND-0314",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Irfis",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.194378+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00502",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0273": {
+   "CANDIDATA_ID": "CAND-0273",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Lombardia Notizie TV",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.217904+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00503",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0358": {
+   "CANDIDATA_ID": "CAND-0358",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "NEWS PROTEZIONE CIVILE",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.241910+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00504",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0365": {
+   "CANDIDATA_ID": "CAND-0365",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Nomina Commissione di Valutazione domande Intervento SRD01 - investimenti produttivi agricoli per la competitività delle aziende agricole del comparto olivicolo",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.266036+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00505",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0441": {
+   "CANDIDATA_ID": "CAND-0441",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Organigramma",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.291036+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00506",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0433": {
+   "CANDIDATA_ID": "CAND-0433",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "PUBBLICAZIONI",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.314203+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00507",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0447": {
+   "CANDIDATA_ID": "CAND-0447",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Patrocinio AMAP",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.339202+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00508",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0436": {
+   "CANDIDATA_ID": "CAND-0436",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Piante Officinali",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.364204+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00509",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0317": {
+   "CANDIDATA_ID": "CAND-0317",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Presidenza del Consiglio dei Ministri",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.390064+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00510",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0312": {
+   "CANDIDATA_ID": "CAND-0312",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Protezione Civile",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.412585+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00511",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0443": {
+   "CANDIDATA_ID": "CAND-0443",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Recapiti",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.435110+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00512",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0368": {
+   "CANDIDATA_ID": "CAND-0368",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Relax at the Bagni di Guida",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.457105+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00513",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0353": {
+   "CANDIDATA_ID": "CAND-0353",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "SaniBook",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.482322+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00514",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0363": {
+   "CANDIDATA_ID": "CAND-0363",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Scadenza Presentazione Domande Di Sostegno Bando Meccanizzazione",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.507337+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00515",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0412": {
+   "CANDIDATA_ID": "CAND-0412",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Scopri l'evento",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.533502+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00516",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0442": {
+   "CANDIDATA_ID": "CAND-0442",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Sedi e Uffici",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.556856+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00517",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0298": {
+   "CANDIDATA_ID": "CAND-0298",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Segnalazione di condotte illecite",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.580856+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00518",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0315": {
+   "CANDIDATA_ID": "CAND-0315",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Senato della Repubblica",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.607377+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00519",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0295": {
+   "CANDIDATA_ID": "CAND-0295",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "SpazioRegione - prenota online",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.634911+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00520",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0344": {
+   "CANDIDATA_ID": "CAND-0344",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Sportello del Consumatore",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.657910+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00521",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0333": {
+   "CANDIDATA_ID": "CAND-0333",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Spotify",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.683436+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00522",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0435": {
+   "CANDIDATA_ID": "CAND-0435",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Suoli e carte derivate",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.707512+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00523",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0448": {
+   "CANDIDATA_ID": "CAND-0448",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Tutela Dati Personali - Privacy",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.730507+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00524",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0444": {
+   "CANDIDATA_ID": "CAND-0444",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "URP",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.755536+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00525",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0470": {
+   "CANDIDATA_ID": "CAND-0470",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Vai al profilo Issuu di\n                                            ARPAT",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.779535+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00526",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0311": {
+   "CANDIDATA_ID": "CAND-0311",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Vai al sito",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.806754+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00527",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0296": {
+   "CANDIDATA_ID": "CAND-0296",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "Visita il sito",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.832265+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00528",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0465": {
+   "CANDIDATA_ID": "CAND-0465",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "dati.lombardia.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.857540+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00529",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0424": {
+   "CANDIDATA_ID": "CAND-0424",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "hatsapp.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.883668+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00530",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0290": {
+   "CANDIDATA_ID": "CAND-0290",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "open.spotify.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.917997+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00531",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0299": {
+   "CANDIDATA_ID": "CAND-0299",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "open.spotify.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.942533+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00532",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0451": {
+   "CANDIDATA_ID": "CAND-0451",
+   "TIPO": "ORGANIZACAO",
+   "NOME": "snpambiente.it",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.968048+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00533",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0452": {
+   "CANDIDATA_ID": "CAND-0452",
+   "TIPO": "YOUTUBE",
+   "NOME": "Attività di ARPA | Video",
+   "PROCESSADO_EM": "2026-09-22T02:57:47.991077+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00534",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0289": {
+   "CANDIDATA_ID": "CAND-0289",
+   "TIPO": "YOUTUBE",
+   "NOME": "Canal YOUTUBE em youtube.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.015608+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00535",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0300": {
+   "CANDIDATA_ID": "CAND-0300",
+   "TIPO": "YOUTUBE",
+   "NOME": "Canal YOUTUBE em youtube.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.039618+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00536",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0331": {
+   "CANDIDATA_ID": "CAND-0331",
+   "TIPO": "YOUTUBE",
+   "NOME": "Canal YOUTUBE em youtube.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.068133+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00537",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0423": {
+   "CANDIDATA_ID": "CAND-0423",
+   "TIPO": "YOUTUBE",
+   "NOME": "Canal YOUTUBE em youtube.com",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.093177+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00538",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0414": {
+   "CANDIDATA_ID": "CAND-0414",
+   "TIPO": "YOUTUBE",
+   "NOME": "Esplora i video",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.117707+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00539",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0469": {
+   "CANDIDATA_ID": "CAND-0469",
+   "TIPO": "YOUTUBE",
+   "NOME": "Vai al profilo YouTube di\n                                            ARPAT",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.142702+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00540",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0335": {
+   "CANDIDATA_ID": "CAND-0335",
+   "TIPO": "YOUTUBE",
+   "NOME": "You Tube",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.170739+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00541",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0377": {
+   "CANDIDATA_ID": "CAND-0377",
+   "TIPO": "YOUTUBE",
+   "NOME": "YouTube",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.192739+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00542",
+   "TASK_STATUS": "PENDING"
+  },
+  "CAND-0332": {
+   "CANDIDATA_ID": "CAND-0332",
+   "TIPO": "YOUTUBE",
+   "NOME": "Youtube",
+   "PROCESSADO_EM": "2026-09-22T02:57:48.218740+00:00",
+   "DESTINO": "QUALIFY",
+   "TASK_ID": "T00543",
+   "TASK_STATUS": "PENDING"
   }
+ }
 }

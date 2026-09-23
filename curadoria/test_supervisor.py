@@ -285,7 +285,7 @@ class TestUmaVoltaSup(Isolado):
         # Escrever heartbeat recente no log.
         with S.DIARIO.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps({"EVENTO": "TESTE", "AT": agora_ts}) + "\n")
-        proc_morto = self._popen("pass")
+        proc_morto = self._popen("import sys; sys.exit(1)")  # crash: rc 0 e saida limpa
         proc_morto.wait(timeout=5)
         accao, estado2, proc_new = S.uma_volta_sup(estado, proc_morto)
         # Com progresso, contador zerado.
