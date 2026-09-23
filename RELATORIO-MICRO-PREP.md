@@ -206,7 +206,7 @@ NAO_SEI.
 
 | # | risco | dono |
 |---|---|---|
-| R1 | 74 dos 76 bytes do lote-76 vivem só na pasta de trabalho `lote-76-v1/XX/`, não no armazém operacional | quem fez o lote-76 / dono do armazém (`guarda/preservar_coleta.py::ArmazemLocal`) |
+| R1 | 74 dos 76 bytes do lote-76 vivem só na pasta de trabalho `lote-76-v1/XX/`, não no armazém operacional. **Actualizado (6-PREP-b):** cópia do coordenador em `sintonia-acervo-backup/lote-76-XX-20260922`, sha256 76/76, mesmo disco; a cópia não tem o nível `XX/` que o `storage_path` pede. Protegido, não resolvido | unificação / dono do armazém (`guarda/preservar_coleta.py::ArmazemLocal`) |
 | R2 | VPN italiana: sem ela nada corre. É **pré-requisito do dono** | Luciano |
 | R3 | 7 rotas provadas pela M3 ainda fora da tabela do coletor (`onboardar_rotas_provadas.py --aplicar` não foi corrido) | M3 / coordenação |
 | R4 | receita T12 e receita web T9 não existem — 4 fontes nunca chegam à Sala | dono (é política de coleta) |
