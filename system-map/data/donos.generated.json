@@ -9,9 +9,9 @@
  ],
  "CONCEITOS": 15,
  "POR_ESTADO": {
-  "DONO_DUPLICADO": 10,
+  "DONO_DUPLICADO": 11,
   "DONO_E_INSTRUMENTO": 2,
-  "UM_DONO": 3
+  "UM_DONO": 2
  },
  "DETALHE": [
   {
@@ -199,8 +199,8 @@
     "coleta/executor_transcricao_midia.py",
     "coleta/golden_path_pdf.py"
    ],
-   "QUANTOS_LEEM": 172,
-   "INSTRUMENTOS_QUE_CITAM": 202,
+   "QUANTOS_LEEM": 173,
+   "INSTRUMENTOS_QUE_CITAM": 203,
    "COMO_FOI_MEDIDO": "grep sem comentarios: escrita por padrao declarado, leitura por mencao. E grosseiro de proposito, e o mesmo para todos os conceitos — criterio que muda por conceito deixa de comparar."
   },
   {
@@ -291,10 +291,11 @@
   },
   {
    "CONCEITO": "SYSTEM_MAP",
-   "ESTADO": "UM_DONO",
-   "NOTA": "um so ficheiro escreve",
+   "ESTADO": "DONO_DUPLICADO",
+   "NOTA": "2 ficheiros escrevem. Nao e erro por si: pode ser um dono canonico mais um legado. Mas e onde a verdade se parte em duas se ninguem olhar.",
    "ESCREVEM": [
-    "controle/censo_do_controle.py"
+    "controle/censo_do_controle.py",
+    "ferramentas/cutover/resolver_conflitos_ensaio.py"
    ],
    "LEEM": [
     "italia-portale/client/system-map/map.js"

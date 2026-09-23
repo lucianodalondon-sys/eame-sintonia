@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/pente_fino_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T10:00:26+00:00",
-    "HEAD": "e752c3da9f709c5f01d5f130b5bf350b022151f0",
+    "GENERATED_AT": "2026-09-23T11:27:05+00:00",
+    "HEAD": "3981d84fe76440745b62a262a59366c99a52dd5e",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
-    "FICHEIROS_NA_IMPRESSAO": 2839,
+    "SOURCE_TREE_FINGERPRINT": "4314bde97908ea60e4fa42fc4c3c9dfd2268611388f7b7b25845e78dec31e442",
+    "FICHEIROS_NA_IMPRESSAO": 2848,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -132,13 +132,13 @@
       {
         "PATH": "system-map/data/state.generated.json",
         "PAPEL": "GERADO",
-        "VERSAO": "c90e5ed74d8531653805e467941b751a119d3d66eb78abddeebfb0a7e45d482d",
+        "VERSAO": "4314bde97908ea60e4fa42fc4c3c9dfd2268611388f7b7b25845e78dec31e442",
         "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
         "LIDO_POR": "medir() · json"
       }
     ],
     "INPUTS_COUNT": 18,
-    "INPUTS_DIGEST": "7b0bd6a7cb399fe0c57d747abf8928295ebb6602759d07ab46eadcbce8902550",
+    "INPUTS_DIGEST": "1ca00ed677a4d92edb3fbbff6b6b188af4fdc3bc40aa3d58a2633820f39f82f2",
     "INPUTS_AUSENTES": []
   },
   "PECAS": [
@@ -177,18 +177,6 @@
       "respostas": 1,
       "ficheiros": 20,
       "estado": "gray"
-    },
-    {
-      "id": "C-PORTA-FONTE",
-      "nome": "A porta de entrada de fonte nova",
-      "zona": "· de onde vem uma fonte",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 5,
-      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -260,6 +248,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 2,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PORTA-FONTE",
+      "nome": "A porta de entrada de fonte nova",
+      "zona": "· de onde vem uma fonte",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 5,
       "estado": "yellow"
     },
     {
@@ -343,7 +343,7 @@
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 3,
-      "ficheiros": 10,
+      "ficheiros": 15,
       "estado": "yellow"
     },
     {
@@ -842,8 +842,8 @@
   "RESUMO": {
     "pecas_da_coleta": 58,
     "respondem_as_quatro": 26,
-    "respondem_a_tres": 24,
-    "respondem_a_duas": 5,
+    "respondem_a_tres": 25,
+    "respondem_a_duas": 4,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }
