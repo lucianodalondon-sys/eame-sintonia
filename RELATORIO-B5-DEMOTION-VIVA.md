@@ -4,12 +4,15 @@ Missão: `C:/Users/London1/auditoria-madrugada/missao-b5-demotion-viva.txt`.
 Ramo `b5-demotion-viva-v1`, base `origin/unificacao-v1` @ `a8812861`. Data 2026-09-23.
 
 ```
-ESTADO                     = PARADO_POR_EGRESSO (VPN caiu: BR as 21:12Z, portao BLOCKED)
+RESULTADO                  = NINGUEM SAIU DO PORTAO, porque NENHUMA das 37 elegiveis falha hoje
 CANDIDATA_VIVA_REAL        = NENHUMA (§1)
-DEMOTION_PROVEN_AO_VIVO    = NAO (sem candidata honesta; o caminho vivo nao dispara hoje)
-DEMOTION_PROVEN_EM_COPIA   = POR FAZER — copia fiel montada, a espera de egresso IT (§3)
-SERVICO_VIVO_TOCADO        = NAO (so leitura)
-PEDIDOS_A_REDE_DESTA_B5    = 0 (fora a medicao do portao de egresso)
+DEMOTION_PROVEN_AO_VIVO    = NAO — sem falha real nao ha saida honesta (instrucao 19:37: nao forcar)
+PROVA_EM_COPIA_FIEL        = FEITA (§6): 37/37 re-medidas contra os sites reais pela VPN IT
+                             28 canario OK (sairam do portao durante a medicao e voltaram sozinhas)
+                              9 robots ilegivel = RETRY, ficam no portao (ligacao != fonte morta)
+                              0 reprovadas · ELIGIBLE 37 -> 37 · ponte (copia) SAIRAM []
+SERVICO_VIVO_TOCADO        = NAO (so leitura; regra de um escritor respeitada)
+EGRESSO                    = IT verificado antes de CADA tarefa (91), 0 paragens; IT no fim (22:41Z)
 ```
 
 ## 1 · Não há candidata real no vivo (FATO MEDIDO, só leitura, livro do bot 21:0xZ)
@@ -94,3 +97,53 @@ A cópia continua igual ao vivo: sha256 de LEDGER, QUEUE, EVIDENCE, contratos e 
 Para retomar: a VPN IT tem de ficar estável (por exemplo, 3 medições PASS em 5 min). Idealmente
 correr a cópia com uma guarda de egresso entre voltas do worker, que é o que a BC3 já faz para o
 bot vivo.
+
+## 6 · A prova em cópia fiel (23/09, 21:46Z–22:41Z)
+
+- **Cópia:** `git archive` do bot vivo @ `3d62e87d` + os livros vivos e o SUPERVISOR-STATE
+  (sha256 conferido às 21:45Z) + a ponte viva @ `5c02bbe4` com o livro e o estado dela.
+  As duas cópias ficaram em `%TEMP%`, fora de todo o repositório, e foram apagadas no fim.
+  As provas estão em `curadoria/provas-b5/`.
+- **O que foi simulado, e só isto:** o relógio do gatilho, +8 dias (o limiar é
+  `REVALIDAR_ELEGIVEIS_DIAS = 7`). Na 2.ª passagem também as datas das tarefas feitas durante
+  a prova, que ficam no mesmo relógio (§6.1). Discovery desligado (`descobrir_fn`). Tudo o
+  resto é o gatilho, o worker, o canário, o livro e a ponte do vivo, a medir os sites reais.
+- **Guarda:** `superficie/rede.py --portao-de-egresso IT` antes de cada tarefa, com paragem
+  automática se não for IT. Correu 91 vezes e nunca parou.
+
+| | fontes |
+|---|---|
+| re-medidas (VALIDATE_ROUTE → CANARY) com canário OK: saíram do portão durante a medição (READY → CANARY_PENDING) e voltaram sozinhas (→ READY_FOR_COLLECTION) | 28 |
+| robots.txt ilegível, só RETRY: ficam READY e no portão, como manda `etapa_validate_route` («UM TIMEOUT NÃO É UM DISALLOW») | 9: IT-T5-101, IT-T7-053, T7-058, T7-112, T7-115, T7-118, T7-121, T7-123, T7-135 |
+| reprovadas (CONTRACTED_CANARY_FAILED / ROUTE_BLOCKED) | **0** |
+
+91 tarefas: 56 OK, 35 RETRY. O portão do bot ficou em 37 → 37. A travessia da cópia da ponte
+deu `ATRAVESSOU_SEM_NOVIDADE`, 37 → 37, `SAIRAM []`, 0 linhas acrescentadas: o estado final
+de todas as 37 é o mesmo de antes.
+
+**IT-T5-049** foi re-medida e o canário do bot **passou** outra vez. A reprovação do BC2
+(«corpo útil: HTML_KIND=MIXED») continua a ser outra régua, que o canário do bot não aplica.
+Fica registado como divergência entre as duas réguas, não como falha da fonte.
+
+### 6.1 · Um erro meu na 1.ª passagem
+
+Com o relógio a +8 dias, a guarda anti-eco da B3 («VALIDATE_ROUTE há menos de 7 dias não
+volta a ser pedida») via as medições feitas minutos antes como velhas. Resultado: as mesmas
+5 fontes inalcançáveis voltavam ao topo em todas as voltas, e 22 nunca foram pedidas. Isto
+foi um artefacto da simulação, não um defeito do bot. Corrigi na 2.ª passagem datando no
+relógio simulado as tarefas mexidas durante a prova, e as 22 foram medidas.
+
+### 6.2 · O que isto prova e o que não prova
+
+- **Prova:** o caminho automático existe e corre sem humano. Uma fonte elegível re-medida sai
+  do portão no primeiro passo e só volta se o canário passar, com a régua dos quatro passos.
+  Hoje as 28 que responderam passaram todas.
+- **Não prova:** a saída **definitiva** de uma fonte que falha. Hoje nenhuma falha, e o
+  resultado certo é ninguém sair (instrução da coordenação às 19:37: não forçar saída). O
+  portão só pode provar a saída definitiva quando houver uma falha real.
+- **Continua aberto (§2):** o coletor real não chama `source_repair_needed`, e o gatilho não
+  corre `alimentar_fila`, por isso DEGRADED não vira REPAIR. Uma fonte que avarie **na
+  coleta** só sai do portão quando a prova fizer 7 dias.
+- **9 fontes que esta máquina não alcança** (robots ilegível, sobretudo T7) ficam no portão
+  por desenho. Se a rota real também não as alcança, a coleta vai falhar nelas e ninguém vai
+  avisar o curator: é o mesmo buraco da linha acima.
