@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a5a164d52d38e89a8a3515ce000c55522026e730
+HEAD_DA_MEDICAO  cbe5a1a34a2ba6ca8dfd5ff1e9959929aaf1fe9f
 BRANCH           quarentena-naosei-v1
-GERADO_EM        2026-09-23T04:55:07-03:00
+GERADO_EM        2026-09-23T04:58:59-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
