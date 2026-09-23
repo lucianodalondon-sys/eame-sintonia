@@ -71,6 +71,21 @@ READY_CURRENT) e quando houver mais matérias READY_CURRENT no gabarito.
 e `ACTIVA = PASSA`, que é o comportamento de hoje. Nenhum ficheiro a chama, e um teste
 prova isso. Ligá-la é mudar `ACTIVA` e chamar `decidir()` no portão, depois da D11.
 
+## 5 — D11 = QUARENTENA: O QUE CADA REGRA LÁ POUSA (medido; a quarentena é da Q1)
+
+| população | gabarito | regra | páginas em quarentena | capas | **notícias verdadeiras retidas** | capas que entram caladas | notícias barradas |
+|---|---|---|---|---|---|---|---|
+| todas | original | ACTUAL | 34/146 | 26/109 | **8/37** | 37/109 | 6/37 |
+| todas | original | V1 | 15/146 | 8/109 | **7/37** | 12/109 | 7/37 |
+| todas | controlo | ACTUAL | 19/69 | 18/49 | **1/20** | 10/49 | 4/20 |
+| todas | controlo | V1 | 4/69 | 3/49 | **1/20** | 2/49 | 5/20 |
+| READY_CURRENT | original | ACTUAL | 1/9 | 1/8 | 0/1 | 5/8 | 0/1 |
+| READY_CURRENT | original | V1 | 1/9 | 1/8 | 0/1 | 1/8 | 0/1 |
+| READY_CURRENT | controlo | ACTUAL | 5/18 | 5/11 | 0/7 | 1/11 | 1/7 |
+| READY_CURRENT | controlo | V1 | 1/18 | 1/11 | 0/7 | 0/11 | 1/7 |
+
+`politica_nao_sei.py` continua com `ACTIVA = PASSA` e sem chamadores: ligar é trabalho da Q1.
+
 ## ENTREGA
 
 ```

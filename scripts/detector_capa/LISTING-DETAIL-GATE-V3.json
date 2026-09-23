@@ -162,7 +162,80 @@
   "MAS": "original READY_CURRENT tem 5 fontes e 1 materia — a dominancia no erro de materia e vazia; com todas as READY de hoje V1 perde no original (2/15 vs 1/15, #28); a regua ainda nao manda (36/68 READY sao LEGACY)",
   "CUSTO_DE_APLICAR": "gate_capa_nao_e_materia nao recebe o URL da pagina: a V1 exige mudar a assinatura e os chamadores (canario, provar_listagem, micro_coleta) e os gemeos .mjs/_kind"
  },
- "NAO_SEI_D11": "curadoria/politica_nao_sei.py — PASSA/PESSOA/QUARENTENA prontas, ACTIVA=PASSA (hoje), nenhum chamador; teste prova que nao esta ligada",
+ "NAO_SEI_D11": {
+  "DECISAO": "D11 = OPCAO C, QUARENTENA (bot Luciano). Feita pela equipa Q1, nao aqui. politica_nao_sei.py continua ACTIVA=PASSA e sem chamadores ate a Q1 a ligar.",
+  "QUARENTENA_POR_REGRA": {
+   "ORIGINAL": {
+    "TODAS": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "34/146",
+      "QUARENTENA_CAPAS": "26/109",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "8/37",
+      "CAPAS_QUE_ENTRAM_CALADAS": "37/109",
+      "NOTICIAS_BARRADAS": "6/37"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "15/146",
+      "QUARENTENA_CAPAS": "8/109",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "7/37",
+      "CAPAS_QUE_ENTRAM_CALADAS": "12/109",
+      "NOTICIAS_BARRADAS": "7/37"
+     }
+    },
+    "READY_CURRENT": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "1/9",
+      "QUARENTENA_CAPAS": "1/8",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/1",
+      "CAPAS_QUE_ENTRAM_CALADAS": "5/8",
+      "NOTICIAS_BARRADAS": "0/1"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "1/9",
+      "QUARENTENA_CAPAS": "1/8",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/1",
+      "CAPAS_QUE_ENTRAM_CALADAS": "1/8",
+      "NOTICIAS_BARRADAS": "0/1"
+     }
+    }
+   },
+   "CONTROLO": {
+    "TODAS": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "19/69",
+      "QUARENTENA_CAPAS": "18/49",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "1/20",
+      "CAPAS_QUE_ENTRAM_CALADAS": "10/49",
+      "NOTICIAS_BARRADAS": "4/20"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "4/69",
+      "QUARENTENA_CAPAS": "3/49",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "1/20",
+      "CAPAS_QUE_ENTRAM_CALADAS": "2/49",
+      "NOTICIAS_BARRADAS": "5/20"
+     }
+    },
+    "READY_CURRENT": {
+     "ACTUAL": {
+      "QUARENTENA_PAGINAS": "5/18",
+      "QUARENTENA_CAPAS": "5/11",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/7",
+      "CAPAS_QUE_ENTRAM_CALADAS": "1/11",
+      "NOTICIAS_BARRADAS": "1/7"
+     },
+     "V1_SO_INDICE": {
+      "QUARENTENA_PAGINAS": "1/18",
+      "QUARENTENA_CAPAS": "1/11",
+      "NOTICIAS_VERDADEIRAS_RETIDAS": "0/7",
+      "CAPAS_QUE_ENTRAM_CALADAS": "0/11",
+      "NOTICIAS_BARRADAS": "1/7"
+     }
+    }
+   }
+  },
+  "LEITURA": "com o ACTUAL, a quarentena recebe 34/146 (original) e 19/69 (controlo) paginas e retem 8/37 e 1/20 noticias verdadeiras; com a V1, 15/146 e 4/69, retendo 7/37 e 1/20. Nas READY_CURRENT: ACTUAL 1/9 e 5/18, V1 1/9 e 1/18; 0 noticias retidas nas duas regras."
+ },
  "DECISAO": {
   "V1_APLICADA": "NO",
   "LISTING_DETAIL_GATE_PROVEN": "NO",
