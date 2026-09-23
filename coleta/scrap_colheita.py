@@ -285,6 +285,30 @@ FASES = {
                          rc.COLHEITA),
     'transcricao-reel': ('INSTAGRAM', 'instagram.reel.transcribe', {},
                          rc.COLHEITA),
+
+    # ── D23 · O VIDEO DE ORGANIZACAO NO LINKEDIN ──────────────────────────
+    # Tres actos numa fase so, e por que: descobrir as publicacoes com video
+    # nao serve de nada sem os bytes, e os bytes sem o post nao dizem de que
+    # publicacao sao. A cadeia e DESCOBERTA -> IDENTIDADE -> BYTES -> TEXTO,
+    # e ela corre DENTRO do adaptador (`video_da_pagina_publica`), que e quem
+    # tem a autorizacao do dono viva enquanto atravessa o portao.
+    #
+    #     UMA FASE POR ACTO SO SERVE QUANDO O ACTO ANTERIOR PODE ACABAR
+    #     SEM O SEGUINTE. Aqui nao pode: o endereco do MP4 vive na pagina e
+    #     morre com ela.
+    #
+    # ESPECIE: COLHEITA. O que volta e material observado — o video que a
+    # organizacao publicou e o texto da legenda que ela serve. A mesma regra
+    # que poe `canal-youtube` em COLHEITA e `busca-youtube` em CATALOG.
+    #
+    # FIXOS = {}: nao ha teto fixo aqui. O teto desce como FILTRO nomeado,
+    # porque quem pede e que decide quantos videos se pedem — e a rota tem um
+    # valor por omissao declarado para quando ninguem o disser.
+    #
+    # ⚠️ A CAPACIDADE E `linkedin.org.video` E NAO `.posts`: a fase existe
+    # para TRAZER O VIDEO. A descoberta e um degrau dela, e nao um fim.
+    'video-linkedin': ('LINKEDIN', 'linkedin.org.video', {},
+                       rc.COLHEITA),
 }
 
 #: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
@@ -369,6 +393,18 @@ NOMEADOS = {
     'captura-reel':         {'url': 'url'},
     'audio-reel':           {'url': 'url'},
     'transcricao-reel':     {'url': 'url'},
+    # ── A PAGINA DA ORGANIZACAO, E O TETO DE VIDEOS ───────────────────────
+    # `pagina` e o ENDERECO da pagina publica da ORGANIZACAO. Nao e o
+    # SOURCE_ID (`--fonte` desce ao lado) e nao e o `site` da descoberta de
+    # identidade: e o lugar onde as publicacoes com video sao servidas.
+    #
+    # `teto` e o numero maximo de videos ADQUIRIDOS nesta corrida. Ele e
+    # filtro e nao constante porque a banda e do dono: a mesma fase que pede
+    # tres videos para provar a cadeia pediria tres de uma pagina com trinta
+    # publicacoes so com alguem a decidir isso.
+    #
+    #     UM TETO QUE SE PEDE E UM TETO QUE SE VE NO PEDIDO.
+    'video-linkedin':      {'pagina': 'pagina_url', 'teto': 'teto'},
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.

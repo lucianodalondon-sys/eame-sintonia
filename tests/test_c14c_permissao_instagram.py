@@ -108,9 +108,34 @@ class OVocabularioGanhouUmLimite(unittest.TestCase):
         self.assertIn('PUBLIC_AUDIO_ONLY', mz.LIMITES)
 
     def test_3_o_vocabulario_continua_FECHADO(self):
-        """Ampliar não é abrir: só estes dois, e um terceiro exige decisão."""
-        self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_PROFILE_DISCOVERY_ONLY'},
-                         set(mz.LIMITES))
+        """Ampliar não é abrir: cada limite existe por uma decisão ESCRITA.
+
+        ⚠️ O CONJUNTO PASSOU DE DOIS PARA TRÊS EM 2026-09-23, e cresceu
+        DECLARADO. `PUBLIC_ORG_VIDEO_ONLY` nasceu da decisão do dono (D23,
+        `DECISOES-DONO-2026-09-23.md`): VÍDEO e legenda de páginas de
+        ORGANIZAÇÃO no LinkedIn, com o risco assumido e a política da
+        plataforma medida ao lado (`DISALLOWED`).
+
+            UM LIMITE NOVO POR DECISÃO NÃO É UM VOCABULÁRIO ABERTO.
+            É UM VOCABULÁRIO QUE REGISTA QUEM O AMPLIOU.
+
+        O que o teste guarda continua inteiro, e passa a ser medido em dois
+        passos: a lista é FECHADA, e nenhum nome dela é decorativo.
+        """
+        self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_PROFILE_DISCOVERY_ONLY',
+                          'PUBLIC_ORG_VIDEO_ONLY'}, set(mz.LIMITES))
+        # Nenhum limite é vocabulário decorativo: cada um é DECLARADO por pelo
+        # menos uma rota da matriz. Um limite que ninguém usa promete travar o
+        # que já ninguém faz.
+        usados = set()
+        for plat, caps in mz.MATRIZ.items():
+            if plat.startswith('_'):
+                continue
+            for rota in [r for rs in caps.values() if isinstance(rs, list) for r in rs]:
+                if rota.get('LIMITE'):
+                    usados.add(rota['LIMITE'])
+        self.assertEqual(set(mz.LIMITES), usados,
+                         'há limite no vocabulário que nenhuma rota declara')
 
     def test_4_nao_se_criou_segundo_vocabulario(self):
         """O limite vive em `LIMITES`, e só lá."""

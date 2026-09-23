@@ -80,6 +80,7 @@ on:
           # PRÓPRIA organização e traz de lá o endereço que ela publicou.
           # Devolve CATÁLOGO, e catálogo não atravessa a Admissão.
           - identidade-linkedin # o endereço LinkedIn publicado pela organização
+          - video-linkedin # D23: o VÍDEO (e a legenda) das páginas públicas de ORGANIZAÇÃO
           # `transcrever` e `transcrever-alvos` foram APOSENTADAS na C10.4C.
           # A fala de Reel tem um dono só, e ele pede áudio — nunca o vídeo
           # inteiro. Ver `docs/sintonia-scrap/C10-4C-APOSENTAR-A-ROTA-LEGADA.md`.
@@ -168,6 +169,20 @@ on:
         type: string
       site:
         description: 'só para `identidade-linkedin` — o site DA ORGANIZAÇÃO onde ela publica o próprio endereço. NUNCA linkedin.com.'
+        required: false
+        type: string
+      # ⚠️ `pagina` NAO E `site`, E NAO E O `url` DO REEL.
+      #
+      #     `site`    o site PRÓPRIO da organização, de onde se descobre o
+      #               endereço que ela publicou. Route de IDENTIDADE.
+      #     `pagina`  a página do LinkedIn que ela SERVE PUBLICAMENTE, de
+      #               onde vêm as publicações com vídeo. D23.
+      #     `url`     a publicação directa de um Reel (Instagram).
+      #
+      # Três endereços, três actos, três nomes — e nenhum deles é o
+      # SOURCE_ID, que continua a descer em `fonte`.
+      pagina:
+        description: 'só para `video-linkedin` — a PÁGINA PÚBLICA da organização (ex.: https://www.linkedin.com/company/<slug>/). NÃO é o SOURCE_ID.'
         required: false
         type: string
       orcamento_h:
@@ -667,6 +682,42 @@ jobs:
                 --filtro pais=IT \
                 --filtro fonte="${{ inputs.fonte }}" \
                 --filtro site="${{ inputs.site }}" ;;
+
+            # ── D23 · O VÍDEO DA PÁGINA PÚBLICA DE ORGANIZAÇÃO ─────────────
+            # Ramo PRÓPRIO, pela mesma razão do irmão acima: leva um
+            # endereço que nenhuma outra fase leva — a PÁGINA PÚBLICA da
+            # ORGANIZAÇÃO.
+            #
+            # ⚠️ A MATRIZ PERMITE ESTA ROTA E A PLATAFORMA PROÍBE — e é isso
+            # que o dono autorizou, com o risco assumido (D23). As duas
+            # frases ficam escritas, e viajam em cada objeto que sai daqui:
+            #
+            #     OWNER_AUTHORIZED        = SIM        (decisão do dono)
+            #     PLATFORM_POLICY_STATUS  = DISALLOWED (robots.txt, medido)
+            #
+            #     PERMITIDA POR DECISÃO DO DONO ≠ PERMITIDA PELA PLATAFORMA.
+            #     ESCONDER A SEGUNDA SERIA A CASA A MENTIR NO PRÓPRIO RASTO.
+            #
+            # `fonte` é OBRIGATÓRIA: o SCRAP observa PLATAFORMAS e a porta
+            # fala em FONTES. Sem SOURCE_ID provado não há colheita a
+            # declarar, por muito que os bytes tenham chegado.
+            #
+            # O teto desce SÓ quando alguém o escreveu: um filtro vazio não
+            # é um teto de zero, e passá-lo vazio diria à rota que se pediu
+            # zero vídeos quando ninguém pediu nada.
+            video-linkedin)
+              FONTE_LI="$(fonte_do_pedido '${{ inputs.fonte }}')"
+              PEDIDO_TETO=''
+              if [ -n "${{ inputs.teto }}" ]; then
+                PEDIDO_TETO="--filtro teto=${{ inputs.teto }}"
+              fi
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="video-linkedin" \
+                --filtro pais=IT \
+                --filtro fonte="$FONTE_LI" \
+                --filtro pagina="${{ inputs.pagina }}" \
+                $PEDIDO_TETO ;;
 
             # ── AS CINCO OFICIAIS DO YOUTUBE, PELA PORTA CANÓNICA ─────────
             # `coleta/youtube_janela.py canais|objetos` sobe NAVEGADOR e

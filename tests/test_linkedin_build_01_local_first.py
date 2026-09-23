@@ -130,12 +130,29 @@ class FalaNaoSeFabrica(unittest.TestCase):
 
     def test_8_asr_nao_corre_sem_midia(self):
         """`MEDIA ACCESS != ASR`. O transcript e LOCAL e exige bytes antes."""
+        # ⚠️ O VEREDITO DA LEGENDA MUDOU EM 2026-09-23, E A LEI NÃO MUDOU.
+        # Ela era `BLOCKED_NO_PERMITTED_ROUTE` porque NENHUMA rota do LinkedIn
+        # estava permitida. Com D23 a matriz passou a permitir a rota da
+        # legenda (`linkedin:data-captions-url` — decisão do dono com a
+        # política da plataforma medida e escrita ao lado), e ela sai
+        # `NEEDS_FREE`.
+        #
+        #     A LEGENDA TER CAMINHO NÃO ABRE CAMINHO PARA A FALA.
+        #
+        # O que este teste existe para guardar continua a ser isto: o
+        # TRANSCRIPT é do ASR desta casa, é LOCAL, e não sai READY sem bytes
+        # de áudio nesta casa. E a ORDEM prova-o: os BYTES vêm antes da fala.
         self.assertEqual(li.ONDE_SE_OBTEM['TRANSCRIPT']['NIVEL'], li.LOCAL)
         p = li.plano_de_aquisicao(um('VIDEO_URL'), dict(li.pedido_vazio(), WANT_TRANSCRIPT=True))
         passos = {x['NEED']: x for x in p['PLAN']}
-        # A legenda vem antes, e ela esta BLOCKED: logo a fala nao tem caminho
-        # completo, e o plano di-lo em vez de prometer transcript.
-        self.assertEqual(passos['NATIVE_CAPTION']['VERDICT'], 'BLOCKED_NO_PERMITTED_ROUTE')
+        self.assertEqual(passos['NATIVE_CAPTION']['VERDICT'], 'NEEDS_FREE')
+        self.assertEqual(passos['TRANSCRIPT']['TIER'], li.LOCAL)
+        # E os BYTES de vídeo vêm ANTES da fala no plano, quando pedidos.
+        p2 = li.plano_de_aquisicao(um('VIDEO_URL'),
+                                   dict(li.pedido_vazio(), WANT_MEDIA=True, WANT_TRANSCRIPT=True))
+        ordem = [x['NEED'] for x in p2['PLAN']]
+        self.assertLess(ordem.index('VIDEO_BYTES'), ordem.index('TRANSCRIPT'),
+                        'o plano pede fala antes de ter bytes nesta casa')
 
     def test_9_caption_inexistente_nao_vira_transcript(self):
         es, c = envelopes()
@@ -207,13 +224,36 @@ class ADeltaNaoViraHistoria(unittest.TestCase):
 class OPagoEResidual(unittest.TestCase):
 
     def test_13_pago_nao_corre_antes_da_rota_livre(self):
-        """A unica capacidade ligada do LinkedIn e a GRATUITA e PERMITIDA."""
+        """As capacidades ligadas do LinkedIn são GRATUITAS e PERMITIDAS.
+
+        ⚠️ ERAM UMA, SÃO QUATRO DESDE 2026-09-23 (D23): a identidade, e os três
+        actos do vídeo de organização — descobrir as publicações, buscar os
+        bytes e buscar a legenda. O que este teste guarda NÃO é o número: é que
+        nenhuma capacidade ligada do LinkedIn sai por rota paga, e que o que
+        atravessa um robots que PROÍBE o faz por decisão escrita.
+
+            UM NÚMERO QUE CRESCE POR DECISÃO DO DONO NÃO É O DEFEITO.
+            UM `APIFY` NO MEIO DELAS SERIA.
+        """
         ligadas = [k for k in reg.executaveis() if k[0] == 'LINKEDIN']
-        self.assertEqual(ligadas, [('LINKEDIN', 'linkedin.identity.discovery')])
+        self.assertEqual(sorted(ligadas), sorted([
+            ('LINKEDIN', 'linkedin.identity.discovery'),
+            ('LINKEDIN', 'linkedin.org.posts'),
+            ('LINKEDIN', 'linkedin.org.video'),
+            ('LINKEDIN', 'linkedin.org.caption')]))
         rota = mz.decisao('LINKEDIN', 'DISCOVER_ACCOUNT')
         self.assertEqual(rota['DECISAO'], 'ALLOWED')
         self.assertEqual(rota['CLASSE'], 'DIRECT_HTTP')
         self.assertNotIn(rota['CLASSE'], ('APIFY', 'OFFICIAL_API_PAID'))
+        # ── E NENHUMA DELAS PAGA, NEM PASSA POR UM ROBOTS EM SILÊNCIO ─────
+        for plat, nome in ligadas:
+            d = mz.decisao(plat, cap.da_matriz(nome))
+            self.assertEqual(d['DECISAO'], 'ALLOWED', nome)
+            self.assertNotIn(d['CLASSE'], ('APIFY', 'OFFICIAL_API_PAID'), nome)
+            if d.get('PLATFORM_POLICY_STATUS') == 'DISALLOWED':
+                self.assertEqual('SIM', d.get('OWNER_AUTHORIZED'), nome)
+                self.assertEqual('PUBLIC_ORG_VIDEO_ONLY', d.get('LIMITE'), nome)
+                self.assertIn('D23', d.get('PORQUE') or '', nome)
 
     def test_14_enriquecimento_nao_compra_campo_ja_presente(self):
         e = json.loads(json.dumps(um('VIDEO_URL')))
@@ -457,7 +497,14 @@ class OsMutantes(unittest.TestCase):
         self.assertFalse(e['RAW']['VIDEO_BYTES_ACQUIRED'])
         p = li.plano_de_aquisicao(e, dict(li.pedido_vazio(), WANT_TRANSCRIPT=True))
         passos = {x['NEED']: x for x in p['PLAN']}
-        self.assertEqual(passos['NATIVE_CAPTION']['VERDICT'], 'BLOCKED_NO_PERMITTED_ROUTE')
+        # ⚠️ MESMA CORRECÇÃO DO test_8: com D23 a legenda passou a ter rota
+        # permitida e o veredito dela é `NEEDS_FREE`. A garantia que este
+        # mutante mede nunca foi sobre a legenda — é sobre o TRANSCRIPT: ele é
+        # do ASR DESTA casa, e depende de bytes que aqui não existem.
+        self.assertEqual(passos['NATIVE_CAPTION']['VERDICT'], 'NEEDS_FREE')
+        self.assertEqual(passos['TRANSCRIPT']['TIER'], li.LOCAL)
+        self.assertNotIn('TRANSCRIPT', p['ALREADY_PRESENT'],
+                         'fala dada como presente sem bytes nesta casa')
 
     def test_M10_provider_direto(self):
         """Nenhuma CHAMADA a provider vive neste adaptador.
