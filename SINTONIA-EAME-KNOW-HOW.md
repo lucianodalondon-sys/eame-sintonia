@@ -18886,3 +18886,78 @@ crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
   importa) é parte da prova.
 - **No ensaio, a produção reproduziu o defeito tal qual**: 149/150, 1 órfã, 1 morte RC=1 por
   `PermissionError`, 240 s parados. O novo: 150/150, 20 s, 0 falsos pendurados, 1 worker.
+**A DECISÃO.** A ligação foi escrita e testada (`572fe46b`: 7 testes, 4 mutantes
+executados e apanhados) e **revertida** (`be2433ad`). Ligar a peça não resolve 99 e
+fabrica território nas que resolve. O próprio `atribuir_source_id` já avisava:
+
+    UMA EMPRESA QUE FALA DE CLIMA NAO E UM SERVICO CLIMATICO.
+
+Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
+«comunicato» num site do governo basta para o chamar de meio agrícola.
+
+**O QUE FALTARIA (proposta, não aplicada).**
+1. Achar item em portal institucional: 68 de 105 param porque
+   `capturador.candidatos_a_item` não acha nenhum link com cara de item na página
+   de entrada. Candidatos: `sitemap.xml` ou uma página de listagem conhecida.
+2. Uma regra de amostra que sustente a decisão: vários itens (a peça já prevê de 3
+   a 10) e concordância entre eles, e não «o tema do primeiro item». Isso é regra
+   nova e precisa de dono.
+3. Enquanto isso, as 105 são **SEMANTIC_PENDING**: decisão semântica (Opus/humano),
+   como já dizia a mensagem de bloqueio.
+
+**ARMADILHAS DESTA MEDIÇÃO.**
+- `amostrar` grava a amostra com um caminho relativo à sua `RAIZ`. Mudar só
+  `AMOSTRAS` para fora do repositório faz `relative_to` rebentar no primeiro site que
+  tiver item. É preciso mudar `RAIZ` também.
+- O robots de alguns sites (SIAN, entre outros) devolve HTML com HTTP 200. O parser não
+  lê regra nenhuma e trata como «tudo permitido».
+- `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
+  Numa medição de 105 sites, é isso que domina o tempo.
+
+
+# § (sem número) · UMA DECISÃO SEM PROVA É UMA OPINIÃO — O CANAL DA DECISÃO SEMÂNTICA
+
+**O QUE FALTAVA.** O QUALIFY bloqueia em SEMANTIC quando nem o nome nem o endereço dizem o
+território, e a mensagem sempre disse «precisa de decisão semântica (Opus/humano)». Mas não
+havia por onde essa decisão entrar no circuito. O CSV de `candidatas/` decide outra coisa
+(promover ou recusar) e o QUALIFY não o lê. Quem decidisse teria de escrever no livro à mão.
+
+**O CANAL.** `curadoria/decisao_semantica.py` lê `curadoria/DECISOES-SEMANTICAS-V1.json`.
+O QUALIFY consulta-o só quando o nome dá NÃO SEI, antes do BLOCK, e nunca por cima de um
+território que a regra do nome já decidiu. Uma decisão só vale com:
+- a URL da candidata, um território de T1 a T12 e `DECIDIDO_POR`;
+- ≥1 prova do que a organização É (INSTITUCIONAL ou LEI);
+- ≥2 provas do que ela PUBLICA (CONTEUDO);
+- cada prova com URL e sha256 **distintos**.
+
+Sem isso, a decisão é ignorada e a fonte continua bloqueada. `NAO SEI` com motivo fica
+registado e continua bloqueado. A proveniência (quem decidiu, porquê, cada prova) viaja até
+`TERRITORY_REASON` na alocação do SOURCE_ID.
+
+**BYTES IGUAIS SÃO UMA PROVA SÓ.** Medido em 23/09: em 4 sites (Veneto Agricoltura, Laimburg,
+Wine Monitor, Agrifood Monitor), três URLs diferentes devolveram os mesmos bytes, uma casca de
+JavaScript sem conteúdo. A primeira versão do canal só comparava URLs e teria aceitado três
+endereços com zero leitura.
+
+**A DECISÃO (Opus, 23/09, 105 candidatas).** 12 com território e prova; 93 NÃO SEI.
+Das 93: 29 nem são fonte (Spotify, WhatsApp, login da Microsoft, Firefox, formulários de
+acessibilidade: o crawler recolheu rodapés), 7 são páginas internas do MASAF, 19 são
+instituições sem relação agrícola evidente, e as restantes têm motivo próprio (casca JS,
+404/502, robots, identidade trocada, possível número duplicado, listagem sem item). Egresso
+IT medido antes de cada site (129/129); no máximo 3 pedidos por site, mais 1 de segunda
+leitura em 5 sites.
+
+**CONTROLO.** Das 6 que a S1 decidiu pela amostra, as ≥4 erradas foram corrigidas:
+Presidenza → NÃO SEI, `lombardianotizie` → NÃO SEI, Sherwood → NÃO SEI (a URL é a Radio
+Sherwood, não a revista florestal), «Frutta nelle scuole» → T12. SNPA passou de T8 a T2.
+Segunda leitura com outro item, 5 sorteadas (semente 20260923): 3 concordam, 2 inconclusivas
+(404 e redirecionamento para a home), 0 discordam.
+
+**ARMADILHAS.**
+- O robots da Rete Rurale traz `Visit-time: 0100-0300`. O `urllib.robotparser` ignora essa
+  linha: quem só perguntar «posso?» visita fora da janela.
+- Resumo de busca não é prova. A prova são os bytes lidos pela nossa saída, com sha256.
+- O ensaio correu `W.executar_uma` sobre cópias. A função da fila
+  `recuperar_bloqueadas_por_defeito(["territorio indeterminado"], {QUALIFY})` reabre as
+  bloqueadas: 12 saíram, as outras 151 voltaram a BLOCKED com a mesma mensagem, e nenhuma
+  tarefa fora do alvo mudou.
