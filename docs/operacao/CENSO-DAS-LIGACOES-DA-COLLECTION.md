@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  46c517c58a91bdf178c494753791478b101c69de
-BRANCH           rotas-elegiveis-v1
-GERADO_EM        2026-09-22T21:20:32-03:00
+HEAD_DA_MEDICAO  41ab844778e08b2e7766ce863acf3c3b6450e49e
+BRANCH           relevancia-elegiveis-v1
+GERADO_EM        2026-09-22T21:40:23-03:00
 CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -490,13 +490,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 33 |
-| **arestas provadas** | entram 4 · saem 32 |
+| **arestas no mapa** | entram 6 · saem 34 |
+| **arestas provadas** | entram 4 · saem 33 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 34 · NÃO SEI 3 · OBSERVED 2 |
+| **prova das ligações** | CODE 35 · NÃO SEI 3 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1270,7 +1270,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `medidas/canario_rotas_elegiveis.py` |
+| **peça real** | `medidas/canario_rotas_elegiveis.py`, `medidas/relevancia_antes_da_coleta.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
@@ -1278,16 +1278,16 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | — NÃO SEI |
 | **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json`, `regras/motor_de_rota.mjs` |
+| **o que entra · ficheiros** | `curadoria/RELEVANCIA-ELEGIVEIS-V1.json`, `curadoria/ROTAS-ELEGIVEIS-V1.json`, `regras/motor_de_rota.mjs` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que sai · ficheiros** | `curadoria/ROTAS-ELEGIVEIS-V1.json` |
-| **arestas no mapa** | entram 1 · saem 0 |
-| **arestas provadas** | entram 1 · saem 0 |
+| **o que sai · ficheiros** | `curadoria/RELEVANCIA-ELEGIVEIS-V1.json`, `curadoria/ROTAS-ELEGIVEIS-V1.json` |
+| **arestas no mapa** | entram 3 · saem 0 |
+| **arestas provadas** | entram 3 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 1 |
+| **prova das ligações** | CODE 3 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -1683,13 +1683,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/executor_texto_de_pdf.py`, `guarda/preservar_documento.py` |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 16 · saem 29 |
-| **arestas provadas** | entram 16 · saem 28 |
+| **arestas no mapa** | entram 16 · saem 30 |
+| **arestas provadas** | entram 16 · saem 29 |
 | **OBSERVADAS** | 3 — corrida `?` |
 | **control plane** | entram 3 · saem 7 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 41 · OBSERVED 3 · NÃO SEI 1 |
+| **prova das ligações** | CODE 42 · OBSERVED 3 · NÃO SEI 1 |
 | **lei da Bíblia** | COL-LAW-011/012 · um dono da orquestracao; ele controla e nao transporta dado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "rotas-elegiveis-v1",
-    "HEAD": "46c517c58a91bdf178c494753791478b101c69de",
-    "GENERATED_AT": "2026-09-22T21:20:32-03:00",
-    "SOURCE_TREE_FINGERPRINT": "61a99b4b67d94c3fc2aa32d26824a0d8ed62c910b7a4f8ab1037f91c0bbfacff"
+    "BRANCH": "relevancia-elegiveis-v1",
+    "HEAD": "41ab844778e08b2e7766ce863acf3c3b6450e49e",
+    "GENERATED_AT": "2026-09-22T21:40:23-03:00",
+    "SOURCE_TREE_FINGERPRINT": "39449a3ef68f9d375b8f0a8309141fbf5cedcf2e1dcc5854ae8dd35e7e589c8c"
   },
   "FILES": [
     {
@@ -361,6 +361,13 @@
     {
       "path": "RELATORIO-RECONCILIACAO.md",
       "sha": "b9b38af887e40094313736c5d121e3a1402d3f5e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
+      "sha": "cdd3124e346f7168145a0f71a951c1262124a93c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2056,6 +2063,13 @@
       "path": "curadoria/RELATORIO-MISSAO-03.md",
       "sha": "565bd85fd7fdfc94455bd76d375cc4edbcf6d81b",
       "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+      "sha": "54ee44e61c0dac75c2246c672b765c3d740ae1c1",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -12189,6 +12203,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/relevancia_antes_da_coleta.py",
+      "sha": "d439283ef54f6aeea8f6fb23d3c3ac0972b83f78",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/scanner_da_coleta.py",
       "sha": "b4bf30280c1fe6100810d5f2470a65f648ef8b4a",
       "ext": ".py",
@@ -15396,7 +15417,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "4af59022bc648836de2a17424e3ed31b7b9a3a60",
+      "sha": "e14652908874901429f3860442b9736cd34c8d3e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -35404,6 +35425,83 @@
         "file": "medidas/red_team_canonico.py",
         "line": 103,
         "snippet": "\"prova\": NODE(\"regras/motor_de_rota_test.mjs\"),"
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 40,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 41,
+        "snippet": "import admissao as adm                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 49,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"RELEVANCIA-ELEGIVEIS-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 147,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 48,
+        "snippet": "PROVAS = RAIZ / \"curadoria\" / \"ROTAS-ELEGIVEIS-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "medidas/canario_rotas_elegiveis.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 46,
+        "snippet": "import canario_rotas_elegiveis as ROTAS     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "medidas/relevancia_antes_da_coleta.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/relevancia_antes_da_coleta.py",
+        "line": 43,
+        "snippet": "import orquestrador as ORQ  # noqa: E402"
       }
     },
     {
@@ -72578,10 +72676,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2470,
-    "files_readable": 1095,
-    "files_code_dir": 950,
-    "file_edges": 4974,
+    "files_tracked": 2473,
+    "files_readable": 1096,
+    "files_code_dir": 951,
+    "file_edges": 4981,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

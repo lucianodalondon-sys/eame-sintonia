@@ -39,6 +39,7 @@
       "RELATORIO-PROVAS-P1.md",
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
+      "RELATORIO-RELEVANCIA-ELEGIVEIS.md",
       "SALA-DE-CONTROLE-SINTONIA.md",
       "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
@@ -317,6 +318,7 @@
       "curadoria/RED-TEAM-PONTE-CURADOR-V1.json",
       "curadoria/RELATORIO-MISSAO-02.md",
       "curadoria/RELATORIO-MISSAO-03.md",
+      "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
       "curadoria/ROTAS-ELEGIVEIS-V1-ADENDA-SECCOES.json",
       "curadoria/ROTAS-ELEGIVEIS-V1.json",
       "curadoria/SAMPLE-MANIFEST-V1.json",
@@ -1784,6 +1786,7 @@
       "medidas/recollection_relatorio.mjs",
       "medidas/recollection_topologia.mjs",
       "medidas/red_team_canonico.py",
+      "medidas/relevancia_antes_da_coleta.py",
       "medidas/scanner_da_coleta.py",
       "medidas/source_health.py",
       "medidas/test_corrida_canonica.py",
@@ -2588,16 +2591,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "8 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "titulo": "9 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json … e mais 1",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
+        "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
         "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json",
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
-        "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
+        "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json"
       ]
     },
     {
@@ -3063,10 +3066,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "rotas-elegiveis-v1",
-    "HEAD": "46c517c58a91bdf178c494753791478b101c69de",
-    "GENERATED_AT": "2026-09-22T21:20:32-03:00",
-    "SOURCE_TREE_FINGERPRINT": "61a99b4b67d94c3fc2aa32d26824a0d8ed62c910b7a4f8ab1037f91c0bbfacff"
+    "BRANCH": "relevancia-elegiveis-v1",
+    "HEAD": "41ab844778e08b2e7766ce863acf3c3b6450e49e",
+    "GENERATED_AT": "2026-09-22T21:40:23-03:00",
+    "SOURCE_TREE_FINGERPRINT": "39449a3ef68f9d375b8f0a8309141fbf5cedcf2e1dcc5854ae8dd35e7e589c8c"
   },
   "FAMILIES": [
     {
@@ -4040,6 +4043,7 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CENSO-DERIVACOES",
         "C-CENSO-SEMANTICO-IT",
         "C-DUAS-PORTAS-MEDIDORES",
@@ -4551,8 +4555,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 451",
-        "desses, mostrados aqui: 40 (ficam de fora 411)"
+        "enderecos que o codigo realmente chama: 452",
+        "desses, mostrados aqui: 40 (ficam de fora 412)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -18306,17 +18310,21 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
-        "medidas/canario_rotas_elegiveis.py"
+        "medidas/canario_rotas_elegiveis.py",
+        "medidas/relevancia_antes_da_coleta.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [
+        "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
       "inbound": [
-        "C-IT-CONTRATOS"
+        "C-ADMISSAO",
+        "C-IT-CONTRATOS",
+        "C-ORQUESTRADOR"
       ],
       "outbound": [],
       "paises": {},
@@ -18324,6 +18332,7 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [
+        "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
       "nivel": "INTERNO",
@@ -18334,6 +18343,12 @@
       "destino_prova": [
         {
           "onde": "GIT",
+          "file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -18341,7 +18356,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve curadoria/ROTAS-ELEGIVEIS-V1.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve curadoria/RELEVANCIA-ELEGIVEIS-V1.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
@@ -18355,6 +18370,7 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
         "regras/motor_de_rota.mjs"
       ],
@@ -28787,6 +28803,7 @@
         "C-SINTONIA-SCRAP"
       ],
       "outbound": [
+        "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-DUAS-PORTAS-MEDIDORES",
@@ -42622,7 +42639,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch rotas-elegiveis-v1"
+        "branch relevancia-elegiveis-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -44068,6 +44085,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por O canario das rotas das fontes aprovadas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/relevancia_antes_da_coleta.py",
+          "line": 41,
+          "snippet": "import admissao as adm                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -76614,6 +76666,41 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador tem o seu codigo importado por O canario das rotas das fontes aprovadas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/relevancia_antes_da_coleta.py",
+          "line": 43,
+          "snippet": "import orquestrador as ORQ  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-COLETA-PUBLICA",
       "type": "RUNS",
       "raw_type": "RUNS",
@@ -102435,7 +102522,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1398,
+  "UNCLAIMED_FILES_COUNT": 1399,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102620,12 +102707,12 @@
     "components_pending": 185,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1151,
-    "edges_proven": 1087,
+    "edges": 1153,
+    "edges_proven": 1089,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2470,
-    "files_covered": 1072,
+    "files_tracked": 2473,
+    "files_covered": 1074,
     "files_code_unclaimed": 0,
     "roles_proven": 154,
     "roles_declared_only": 9,

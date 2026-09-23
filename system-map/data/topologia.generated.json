@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T00:27:56+00:00",
-  "HEAD": "46c517c58a91bdf178c494753791478b101c69de",
-  "BRANCH": "rotas-elegiveis-v1",
+  "GENERATED_AT": "2026-09-23T00:43:08+00:00",
+  "HEAD": "41ab844778e08b2e7766ce863acf3c3b6450e49e",
+  "BRANCH": "relevancia-elegiveis-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "61a99b4b67d94c3fc2aa32d26824a0d8ed62c910b7a4f8ab1037f91c0bbfacff",
-  "FICHEIROS_NA_IMPRESSAO": 2618,
+  "SOURCE_TREE_FINGERPRINT": "39449a3ef68f9d375b8f0a8309141fbf5cedcf2e1dcc5854ae8dd35e7e589c8c",
+  "FICHEIROS_NA_IMPRESSAO": 2621,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1733,6 +1733,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/relevancia_antes_da_coleta.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "d439283ef54f6aeea8f6fb23d3c3ac0972b83f78",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/scanner_da_coleta.py",
     "PAPEL": "FONTE",
     "VERSAO": "b4bf30280c1fe6100810d5f2470a65f648ef8b4a",
@@ -3219,14 +3226,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "61a99b4b67d94c3fc2aa32d26824a0d8ed62c910b7a4f8ab1037f91c0bbfacff",
+    "VERSAO": "39449a3ef68f9d375b8f0a8309141fbf5cedcf2e1dcc5854ae8dd35e7e589c8c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "61a99b4b67d94c3fc2aa32d26824a0d8ed62c910b7a4f8ab1037f91c0bbfacff",
+    "VERSAO": "39449a3ef68f9d375b8f0a8309141fbf5cedcf2e1dcc5854ae8dd35e7e589c8c",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4904,8 +4911,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 695,
-  "INPUTS_DIGEST": "df7572cd8163fd89787e601dea2938d16e72d77238a702bd28d2bdedf9c6b856",
+  "INPUTS_COUNT": 696,
+  "INPUTS_DIGEST": "d68bf71c70beb6b4be549c4e6c8b8caadc92601ce154bd2efe6db6f637a6c21b",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4931,15 +4938,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 451,
+  "DOCUMENTOS_LIDOS": 452,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "bf5fa1eb3a63b66dbd233e26bc411e597cce223765ba8dbf78589e679c05d7ff",
-  "SEMANTIC_HASH": "d418a18b95a4dc36a43360caa34051a2f36b0539ae7f03f94f2919b7535e66c2"
+  "MEASUREMENT_HASH": "24b81222f5d5d8e0b5f66f95a0d6588a7abd8241e639461f118eb5a5e1144c25",
+  "SEMANTIC_HASH": "b06c64bce3a9a47495c444f2f2c640c0429cdd3d1d628f22262789458ed39e2b"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5961,6 +5968,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADAMA-REFERENCE--READS-->C-V21-INGEST",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-CANARIO-ROTAS-ELEGIVEIS",
+    "FROM": "C-ADMISSAO",
+    "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/relevancia_antes_da_coleta.py",
+      "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-CANARIO-ROTAS-ELEGIVEIS",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -24388,6 +24417,28 @@
     "EVIDENCE_BINDING": []
    },
    {
+    "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-CANARIO-ROTAS-ELEGIVEIS",
+    "FROM": "C-ORQUESTRADOR",
+    "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/relevancia_antes_da_coleta.py",
+      "LINHA": 43,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-ORQUESTRADOR--IMPORTS-->C-DUAS-PORTAS-MEDIDORES",
     "FROM": "C-ORQUESTRADOR",
     "TO": "C-DUAS-PORTAS-MEDIDORES",
@@ -38511,12 +38562,12 @@
     ]
    }
   ],
-  "COUNT": 1085
+  "COUNT": 1087
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 165,
   "CARTOES_AUDITADOS": 165,
-  "ARESTAS_RELACIONADAS": 1085,
+  "ARESTAS_RELACIONADAS": 1087,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38891,7 +38942,7 @@
    "C-MICRO-COLHEITA"
   ],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 182,
+   "CODE": 184,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 361,
@@ -39128,7 +39179,7 @@
     "preservar_coleta"
    ],
    "ENTRAM": 6,
-   "SAEM": 33,
+   "SAEM": 34,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -39683,7 +39734,8 @@
    "KIND": "engine",
    "STATUS": "PENDING",
    "FICHEIROS": [
-    "medidas/canario_rotas_elegiveis.py"
+    "medidas/canario_rotas_elegiveis.py",
+    "medidas/relevancia_antes_da_coleta.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
@@ -39694,13 +39746,15 @@
    "ESCREVE_EM": [],
    "LE_DE": [
     "__future__",
+    "coleta",
     "datetime",
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 1,
+   "ENTRAM": 3,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
+    "CODE",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [],
@@ -43092,7 +43146,7 @@
     "receitas"
    ],
    "ENTRAM": 16,
-   "SAEM": 29,
+   "SAEM": 30,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
