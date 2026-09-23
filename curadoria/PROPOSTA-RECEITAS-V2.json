@@ -1,0 +1,105 @@
+{
+ "DATASET": "PROPOSTA-RECEITAS-V2",
+ "MISSAO": "G0",
+ "ESTADO": "PROPOSTA — NAO APLICADA. Mesma aplicacao da V1: depois da unificacao (M5).",
+ "METODO": "scripts/receitas/censo_e_proposta.por_fonte (6-PREP-d), sem alteracao",
+ "FONTES": [
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+     "DEPOIS": "^https?://(www\\.)?zootecnicainternational\\.com/featured/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://zootecnicainternational.com/featured/aviagen-south-africa-expands-schikfontein-facilities/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "10/128",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "75/128",
+      "EXEMPLOS_DEPOIS": [
+       "https://zootecnicainternational.com/featured/2026-environmental-management-seminar-to-address-regulatory-changes-sustainability-and-environmental-solutions/",
+       "https://zootecnicainternational.com/featured/2026-poultry-summit-keynotes-ipwa-student-award/",
+       "https://zootecnicainternational.com/featured/2026-weo-award-winners/",
+       "https://zootecnicainternational.com/featured/272-poultry-facilities-safety-awards-2026/",
+       "https://zootecnicainternational.com/featured/anaelle-le-teuff-technical-manager-france-hubbard/"
+      ],
+      "PAGINA_DE_ENTRADA": "gabarito#39"
+     }
+    }
+   ],
+   "INDEX_URL": "https://zootecnicainternational.com/news/",
+   "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/news/[a-z0-9]+(?:-[a-z0-9]+){3,}/?$",
+   "PORQUE_NESTA_LISTA": "SINTONIA_RELEVANT=YES e a receita nao casa a materia lida (G0)"
+  },
+  {
+   "SOURCE_ID": "IT-T10-026",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [
+    {
+     "CAMPO": "ACQUISITION.LINK_PATTERN",
+     "ANTES": "^https?://(www\\.)?granariamilano\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "DEPOIS": "^https?://(www\\.)?granariamilano\\.it/comunicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
+     "PROVA": {
+      "MATERIAS_CONFIRMADAS": [
+       "https://www.granariamilano.it/comunicazione/world-durum-and-pasta-forum-2026/"
+      ],
+      "MATERIAS_CASADAS_ANTES": "0/1",
+      "MATERIAS_CASADAS_DEPOIS": "1/1",
+      "CAPAS_CASADAS_ANTES": "0/1",
+      "CAPAS_CASADAS_DEPOIS": "0/1",
+      "LINKS_DA_ENTRADA_CASADOS_ANTES": "1/16",
+      "LINKS_DA_ENTRADA_CASADOS_DEPOIS": "2/16",
+      "EXEMPLOS_DEPOIS": [
+       "https://www.granariamilano.it/comunicazione/muovere-le-commodity/",
+       "https://www.granariamilano.it/comunicazione/world-durum-and-pasta-forum-2026/"
+      ],
+      "PAGINA_DE_ENTRADA": "coorte#2"
+     }
+    }
+   ],
+   "INDEX_URL": "https://www.granariamilano.it/en/",
+   "LINK_PATTERN": "^https?://(www\\.)?granariamilano\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "PORQUE_NESTA_LISTA": "SINTONIA_RELEVANT=YES e a receita nao casa a materia lida (G0)"
+  },
+  {
+   "SOURCE_ID": "IT-T12-019",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.ersaf.lombardia.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?ersaf\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://www.ersaf.lombardia.it/progetti-ersaf/mrv4soc/: < 2",
+   "PORQUE_NESTA_LISTA": "SINTONIA_RELEVANT=YES e a receita nao casa a materia lida (G0)"
+  },
+  {
+   "SOURCE_ID": "IT-T7-021",
+   "DEFEITOS": [
+    "PADRAO_NAO_CASA_MATERIA"
+   ],
+   "PROPOSTAS": [],
+   "INDEX_URL": "https://www.etvilloresi.it/",
+   "LINK_PATTERN": "^https?://(www\\.)?etvilloresi\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+   "SEM_PROPOSTA": "NAO SEI: familia com 1 link(s) na entrada para https://etvilloresi.it/attivita/progetti/csis/: < 2",
+   "PORQUE_NESTA_LISTA": "SINTONIA_RELEVANT=YES e a receita nao casa a materia lida (G0)"
+  },
+  {
+   "SOURCE_ID": "IT-T9-019",
+   "DEFEITOS": [
+    "SEM_CONTRATO"
+   ],
+   "PROPOSTAS": [],
+   "PORQUE_NESTA_LISTA": "SINTONIA_RELEVANT=YES e a receita nao casa a materia lida (G0)"
+  }
+ ]
+}
