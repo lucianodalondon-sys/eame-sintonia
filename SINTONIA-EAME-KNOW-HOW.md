@@ -21382,3 +21382,32 @@ diferentes; a Sala é idempotente por documento) e ficam para o dono da identida
 - A Sala depois da tela azul: `ligar_sala.cmd` via Git Bash (`cmd //c "..."`) **não corre**
   o script (abre uma consola vazia e sai com 0). Pelo PowerShell corre. O Postgres fez a
   recuperação normal e ficou com o md5 igual ao do backup.
+
+---
+
+# § (sem número) · VOLTAR SOZINHO NÃO É VOLTAR A QUALQUER CUSTO — O ARRANQUE COM PORTÃO DE EGRESSO (BC3)
+
+**O QUE SE FEZ (23/09).** Depois da tela azul, a Sala, o supervisor e o observador só voltaram
+à mão. Agora a Tarefa Agendada `SINTONIA-Arranque` corre no logon (atraso 1 min, sem
+administrador) o `arranque_sintonia.ps1`: Sala → vigia da VPN → observador → **portão de
+egresso IT** → supervisor, e fica de guarda. Uma só instância (mutex + `IgnoreNew`).
+
+**O PORTÃO APANHOU UM CASO REAL NA PRÓPRIA PROVA.** A VPN caiu para o Brasil (Londrina) às
+~17:49, com o bot a correr. O vigia só avisa: nada parava o bot. O bot não verifica o egresso
+sozinho (0 chamadas ao portão em `curadoria/`). A guarda põe o bot quieto pelo procedimento
+da casa (`PARAR.flag` com a marca dela), e só tira o flag que ela mesma escreveu. Na simulação,
+com tudo parado, o arranque levantou a Sala, o vigia e o observador, e **recusou o
+supervisor**, porque o egresso era BR.
+
+    O QUE NÃO VAI À REDE ARRANCA SEMPRE; O QUE VAI À REDE ESPERA PELA ITÁLIA.
+
+**ARMADILHAS.**
+- **Redirecionar a saída do `ligar_sala.cmd` pendura o arranque.** O postmaster herda o
+  handle, e o PowerShell espera um fim que nunca vem (é o mesmo defeito do `pg_ctl start` com
+  `capture_output`). Lança-se com `Start-Process`, sem redirecionar, e espera-se pelo
+  `pg_isready`.
+- **Contar processos pela linha de comando conta o próprio medidor:** o `powershell` que
+  procura «vigia_vpn» casa consigo mesmo. Medir só `python.exe`/`bash.exe`, ou partir o
+  texto que se procura.
+- O lado positivo (o supervisor a arrancar sozinho com egresso IT) só se vê com a VPN de pé:
+  fica no `arranque-AAAAMMDD.log`.

@@ -80,7 +80,7 @@ for f in candidatas/FONTES-CANDIDATAS.json curadoria/LIFECYCLE-LEDGER-V1.json cu
 | 0.5 | egresso IT | `py superficie/rede.py --portao-de-egresso IT` → `EGRESS_GATE` aberto, `IT` | outro país / BLOCKED |
 | 0.6 | um só bot | `py curadoria/supervisor.py --estado` → worker IDLE, `PID_CHECK_NAO_SEI` vazio | worker a trabalhar: esperar |
 | 0.7 | memória livre | o dono pode estar a editar vídeo | falta de memória: **esperar e repetir**, nunca reduzir a coorte |
-| 0.8 | tudo de pé depois de um reinício | a tela azul das ~13 h de 23/09 deixou **desligados** o supervisor do bot, o observador da ponte e **a Sala real (54330)**; nada disso volta sozinho. Religar pelo dono: `~\sintonia-sala-italia\ligar_sala.cmd`, o supervisor e o observador como no `CUTOVER-RUNBOOK.md` passo 8/10. Os livros sobreviveram (75 e 73 JSON válidos) | algum em baixo |
+| 0.8 | tudo de pé, e de pé sozinho | a Tarefa `SINTONIA-Arranque` (BC3) liga no logon: Sala → vigia → observador → portão de egresso IT → supervisor, e fica de guarda (2 medições fora de IT → `PARAR.flag`; de volta a IT → relança). Log: `~/auditoria-madrugada/arranque-AAAAMMDD.log`. Conferir: `Get-ScheduledTask SINTONIA-Arranque` = Running; supervisor, observador e Sala de pé | algum em baixo, ou `SUPERVISOR NAO arranca` no log (egresso ≠ IT) |
 
 ### 1 · Parar a escrita concorrente
 

@@ -12,11 +12,12 @@
 
 ## Resultado
 
-**GATES_YES = 16 / 20** (BC2, 23/09 ~16 h; eram 12 na BC1). YES: 1, 2, 3 (o serviço foi
-religado à mão pelo coordenador), 4, 5, 6, **7 = SAFE pela D25**, 8, 9, 11, 14, 15, 17, 18, 19,
-20. Destes, 4 valem **só sem internet ou só em cópia** (5, 8, 9, 14) e 1 só para it/pt/en (11).
-**NO: 2** (10 capa/matéria, 12 unificação). **NAO_SEI: 2** (13 micro pela rede real, 16
-suíte inteira). Pelo §25, a Big Collection **ainda não** pode avançar.
+**GATES_YES = 16 / 20** (BC3, 23/09 ~18 h). YES: 1, 2, 3 (voltam sozinhos pela Tarefa
+`SINTONIA-Arranque`; o bot **só** com egresso IT), 4, 5, 6, **7 = SAFE pela D25**, 8, 9, 11, 14,
+15, 17, 18, 19, 20. Destes, 4 valem **só sem internet ou só em cópia** (5, 8, 9, 14) e 1 só
+para it/pt/en (11). **NO: 2** (10 capa/matéria, 12 unificação). **NAO_SEI: 2** (13 micro pela
+rede real, 16 suíte inteira). Pelo §25, a Big Collection **ainda não** pode avançar, e hoje
+**nem a rede está em IT**.
 
 **BC2 também:** a Sala real (54330) voltou pelo `ligar_sala.cmd` depois da queda; integridade
 só-leitura: as 5 tabelas com o **md5 igual** ao backup da BC1 (61 / 1405 / 1097 / 908 / 389).
@@ -24,9 +25,9 @@ Prova: `ferramentas/big_collection/BC2-SALA-RELIGADA.json`.
 
 | # | gate | veredito | prova (comando) | resultado medido | falta · dono |
 |---|---|---|---|---|---|
-| 1 | SOURCE_CURATOR_CONTINUOUS | **YES** (religado à mão depois da queda) | `py curadoria/supervisor.py --estado` + `SOURCE-CURATOR-RUN-LOG.ndjson` (no bot) | antes da queda (12:38): 4 voltas, 4/4 saídas limpas, CAND-0918 → IT-T8-051 → READY → ponte sem humano. Queda ~13 h: `STOPPED_BROKEN`. BC2 (15:5x): RUNNING, supervisor PID 40520 desde 14:51, worker IDLE, `PID_CHECK_NAO_SEI` vazio | nada o religa sozinho depois de um reinício · coordenador |
-| 2 | DISCOVERY_CONTINUOUS | **YES** (com o supervisor de pé) | o mesmo registo, eventos `DISCOVERY_ACCIONADA` | 3 rodadas de hora a hora antes da queda (15 + 3 + 8 candidatas novas); corre dentro do supervisor, que voltou às 14:51 | o mesmo do 1 |
-| 3 | BRIDGE_AUTOMATIC | **YES** (religada à mão) | `py curadoria/ponte_automatica.py --saude` (ponte-viva); `test_ponte_automatica` numa cópia | antes: 484 voltas, 18 travessias, 0 falhas; testes 16/16. BC2 (15:5x): `A_TRABALHAR: true`, `VIVACIDADE: A_TRABALHAR`, PID 35196 desde 13:55 | o mesmo do 1 |
+| 1 | SOURCE_CURATOR_CONTINUOUS | **YES**, e volta sozinho pelo arranque (BC3), **só com egresso IT** | Tarefa `SINTONIA-Arranque` + `ferramentas/arranque/arranque_sintonia.ps1`; `supervisor.py --estado` | BC3: de tudo parado, o arranque não lançou o supervisor porque o egresso era **BR** (real: a VPN caiu às ~17:49), e fica a medir de minuto a minuto. A guarda pôs o bot quieto pelo `PARAR.flag` às 17:54, sem rede pelo Brasil medida. O arranque automático do supervisor com egresso IT **ainda não foi visto** (a VPN não voltou durante a prova) | religar a VPN IT e ler no `arranque-AAAAMMDD.log` o `SUPERVISOR lancado` · coordenador |
+| 2 | DISCOVERY_CONTINUOUS | **YES** quando o supervisor corre; parada de propósito fora de IT | o mesmo | corre dentro do supervisor: segue o gate 1 | o mesmo do 1 |
+| 3 | BRIDGE_AUTOMATIC | **YES**, e volta sozinho pelo arranque (BC3) | Tarefa `SINTONIA-Arranque`; `ponte_automatica.py --saude` | BC3: de tudo parado, observador lançado da `ponte-viva` com `--lane`; `A_TRABALHAR`, `SAUDAVEL`. Sala de pé em 8 s, com md5 igual ao backup; vigia lançado; segundo arranque ignorado (mutex + IgnoreNew) | um logon real (proibido reiniciar na missão) |
 | 4 | PROMOTION_PROVEN | **YES** | diário da ponte + livro do bot; `provar_ponte_curador.py` e `test_ponte_promocao` numa cópia | ao vivo: portão 29 → 36 (as 7 da D10) → 37 (IT-T8-051); recalculado sobre uma cópia dos livros da ponte = 37; testes 13/13 | — |
 | 5 | DEMOTION_PROVEN | **YES só em cópia** | `provar_ponte_curador.py`, `test_ponte_promocao.PontaAPontaNaFotografia` | cópia: 12 → 11, `SAIRAM=[IT-T99-001]`. Ao vivo, nenhuma das 18 travessias tirou fonte do portão | ver um rebaixamento real sair do portão · coordenador |
 | 6 | SINGLE_WORKER_INVARIANT | **YES** | `test_supervisor` (30), `test_worker_pendurado` (11), `test_fila_windows` (13), `test_status_liveness` (4), `test_worker_volta_sobrevive` (4), numa cópia; lista de processos | todos OK; ao vivo, 4 workers um de cada vez. Ressalva: a trava é do supervisor, não do worker | — |
@@ -49,7 +50,7 @@ Prova: `ferramentas/big_collection/BC2-SALA-RELIGADA.json`.
 
 | dono | o quê | gates |
 |---|---|---|
-| coordenador | fazer a Sala, o supervisor e o observador voltarem **sozinhos** depois de um reinício (hoje: Sala religada pela BC2, serviço pelo coordenador, tudo à mão) | 1, 2, 3 |
+| coordenador / dono | **religar a VPN IT** (caiu para o Brasil às ~17:49 de 23/09; o bot está quieto pela guarda até lá). O arranque automático está instalado (BC3) | 1, 2 |
 | coordenador + M5 | instalar a linha na produção (passo I do runbook) e, depois, medir de novo 10 e 13 sobre essa árvore | 12, 10, 13 |
 | A5 → M5 | robots e ritmo dentro do coletor (`cortesia-coleta-v1`, hoje só um checkpoint não testado), juntados à linha | 13, e o B2 do runbook |
 | dono das receitas web | receita web para T8 (8 fontes Edagricole, já com contrato), T12 (1) e T9 (1) | 7 (ondas seguintes) |
