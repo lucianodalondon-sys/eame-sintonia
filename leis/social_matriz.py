@@ -198,6 +198,23 @@ LIMITES = ('PUBLIC_AUDIO_ONLY',
            # E NAO SE HERDA. Uma cadeia que peca internamente outra especie
            # nao ganha esta autorizacao por passar por aqui — a lei da C14-B
            # continua a valer, e o `LIMITE` e da ROTA, nao do pedido.
+           # ── O LIMITE DO REEL PÚBLICO, POR URL DIRECTA (D22) ────────────
+           # ⚠️ AMPLIAR ESTE VOCABULÁRIO É DECISÃO DE DONO, E FOI-O — D22,
+           # 2026-09-23. `PUBLIC_AUDIO_ONLY` descreve BYTES DE SOM do YouTube;
+           # `PUBLIC_PROFILE_DISCOVERY_ONLY` descreve LOCALIZAR um perfil e não
+           # adquire mídia nenhuma. A coleta de REELS por URL directa adquire
+           # BYTES DE UM REEL PÚBLICO cujo endereço foi dado — nenhum dos dois
+           # limites descreve isso, e um limite que não descreve o que a rota
+           # faz não trava o que promete travar.
+           #
+           # O QUE ELE PERMITE: baixar os bytes de UM reel público, com o
+           # endereço dado, sem login e sem conta.
+           #
+           # O QUE ELE NÃO PERMITE, e a lista é fechada de propósito: perfil
+           # privado · login, conta ou cookie de terceiro · CAPTCHA · bypass ·
+           # stories · comentários · listar reels de um perfil (isso é outra
+           # rota, com outro limite) · qualquer rota paga.
+           'PUBLIC_REEL_BY_URL_ONLY',
            'PUBLIC_PROFILE_DISCOVERY_ONLY')
 
 #: Os tres campos, na ordem em que se leem. Uma rota declara-os TODOS ou nenhum.
@@ -642,15 +659,21 @@ MATRIZ = {
             # Quem faz valer esta decisão é o portão que vive no ponto onde o
             # socket abre (`ferramentas/reel_transcricao.py`), e é por viver lá
             # que ele recusa a aquisição sem recusar o reprocessamento.
-            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',
-              'ROUTE_NOT_ALLOWED',
+            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM',
+              'PROVED',
               'zero dólar, ~6 h/1.000 vídeos no modelo small',
               'A ROTA SAI PARA A PLATAFORMA: baixa o MP4 inteiro da CDN da Meta e '
               'só depois transcreve. O `robots.txt` vivo de instagram.com responde '
-              '`Disallow: /` ao agente desta casa — medido na C10.5. O motor local '
-              'continua provado e os bytes já preservados continuam reprocessáveis; '
-              'o que está recusado é SAIR para buscar mídia nova.',
-              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),
+              '`Disallow: /` ao agente desta casa — medido na C10.5D, e continua '
+              'escrito por cima: medir a política não é obedecer-lhe, é saber o que '
+              'se assume. O dono do projeto autorizou nomeadamente esta coleta '
+              '(D22, 2026-09-23) para REELS PÚBLICOS POR URL DIRECTA, sem login, '
+              'sem conta e sem rota paga, com o risco por ele assumido — como a '
+              'D17.4 fez com o som do YouTube. NÃO autoriza perfil privado, '
+              'stories, comentários nem listar reels de um perfil.',
+              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md',
+              owner_authorized='SIM', platform_policy='DISALLOWED',
+              limite='PUBLIC_REEL_BY_URL_ONLY'),
         ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',

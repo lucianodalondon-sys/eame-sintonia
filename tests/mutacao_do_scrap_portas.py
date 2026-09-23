@@ -17,6 +17,9 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PY = sys.executable
+#: Onde ficam as cópias de segurança dos ficheiros mutados.
+TMP = os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'Temp',
+                   'mutacao-scrap-portas')
 
 
 def corre(modulo):
@@ -39,15 +42,40 @@ def muta(ficheiro, velho, novo):
                             (velho.replace('\n', '\r\n'),
                              novo.replace('\n', '\r\n'))):
         if s.count(velho_a) == 1:
+            _copia_de_seguranca(ficheiro, s)
             io.open(caminho, 'w', encoding='utf-8', newline='').write(
                 s.replace(velho_a, novo_a))
             return True, "ok"
     return False, "ocorrencias=%d" % s.count(velho)
 
 
+def _copia_de_seguranca(ficheiro, conteudo):
+    """Guarda o ficheiro como estava, ANTES de o estragar.
+
+    ⚠️ ESTA FUNÇÃO NASCEU DE UM ESTRAGO MEDIDO, NÃO DE UMA PRECAUÇÃO.
+    A primeira versão desta bancada restaurava com `git checkout --`, e isso
+    apagou trabalho que ainda não estava commitado: a matriz foi mutada e
+    «restaurada» para o HEAD — que era ANTERIOR à decisão D22 — e o commit
+    seguinte levou a matriz velha com os testes novos. O teste ficou vermelho
+    depois de ter estado verde, e o defeito não estava em nenhum dos dois.
+
+        RESTAURAR DO HEAD NÃO É RESTAURAR: É DESCARTAR O QUE AINDA NÃO FOI
+        COMMITADO. A GUARDA TEM DE GUARDAR O FICHEIRO ANTES DE O ESTRAGAR.
+    """
+    destino = os.path.join(TMP, ficheiro.replace('/', '__'))
+    io.open(destino, 'w', encoding='utf-8', newline='').write(conteudo)
+    return destino
+
+
 def restaura(ficheiro):
-    subprocess.run(["git", "checkout", "--", ficheiro], cwd=RAIZ,
-                   capture_output=True, text=True)
+    """Devolve o ficheiro EXACTAMENTE como estava antes da mutação."""
+    copia = os.path.join(TMP, ficheiro.replace('/', '__'))
+    caminho = os.path.join(RAIZ, ficheiro)
+    if os.path.exists(copia):
+        io.open(caminho, 'w', encoding='utf-8', newline='').write(
+            io.open(copia, encoding='utf-8', newline='').read())
+        return True
+    return False
 
 
 CASOS = [
