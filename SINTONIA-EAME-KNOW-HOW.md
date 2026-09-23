@@ -20351,3 +20351,22 @@ Um item só mede do que a fonte falou naquele dia, não o que ela é. A palavra
   lê regra nenhuma e trata como «tudo permitido».
 - `robots_de` tenta duas vezes, com esperas de 25 e 45 s, quando o robots não responde.
   Numa medição de 105 sites, é isso que domina o tempo.
+
+## O DETECTOR SÓ OLHAVA PARA A FONTE — NENHUMA PÁGINA COLHIDA PASSAVA POR ELE
+
+Q1 (2026-09-23). A pergunta «isto é matéria ou página de entrada?» tinha dono,
+teste, gabarito e régua — e corria só no canário da FONTE. As páginas que o
+coletor trazia seguiam para a porta sem ninguém lhes fazer a pergunta: medido
+nos dois gabaritos, 63/109 e 28/49 capas entrariam caladas.
+
+    UMA REGRA QUE SÓ JULGA A FONTE NÃO JULGA O QUE A FONTE ENTREGA.
+
+A quarentena do NÃO SEI (D11) não precisou de estado novo: o `NAO_SEI` da porta
+já dizia «não há prova suficiente para dizer sim ou não», e é exactamente o que o
+detector diz. Classe antes do rótulo. O que faltava era o CAMINHO: o retrato
+nasce onde estão os bytes (o derivador de HTML, chamado também no replay),
+viaja no item, e a porta pergunta.
+
+E um custo que a D11 não decidiu e que fica à vista: ligar a política inteira
+barra também o que o detector chama capa — e ele erra, 6/37 e 4/20 notícias
+verdadeiras. Registadas, reprocessáveis, mas barradas.

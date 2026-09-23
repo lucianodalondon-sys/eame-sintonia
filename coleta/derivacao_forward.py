@@ -437,6 +437,9 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                            # nao monta unidade nenhuma, e nao se lhe inventa
                            # uma aqui.
                            "TEXT_UNIT": r.get("TEXT_UNIT"),
+                           # Q1 (D11): o veredito do detector de capa, quando o
+                           # executor o der (so o de HTML da). Transportado.
+                           "RETRATO_DO_DETECTOR": r.get("RETRATO_DO_DETECTOR"),
                            "LANGUAGE": r.get("LANGUAGE"),
                            "LANGUAGE_SOURCE": r.get("LANGUAGE_SOURCE")})
         if porta in ("PASSED", "REUSED"):
