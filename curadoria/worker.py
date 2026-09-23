@@ -528,6 +528,20 @@ def executar_uma(tarefa: dict, contratos: dict) -> dict:
             "PORQUE": detalhe.get("PORQUE", "")[:160]}
 
 
+PULSO = RAIZ / "curadoria" / "WORKER-HEARTBEAT.json"
+
+
+def _pulso(r: dict) -> None:
+    """Sinal de vida do worker, por tarefa. Nunca levanta."""
+    try:
+        PULSO.write_text(json.dumps({
+            "AT": datetime.now(timezone.utc).isoformat(), "PID": os.getpid(),
+            "TASK_ID": r.get("TASK_ID"), "RESULTADO": r.get("RESULTADO")}),
+            encoding="utf-8")
+    except Exception:
+        pass
+
+
 def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> list[dict]:
     """O LOOP. Para quando a fila nao tem nada ELEGIVEL — o que nao e o mesmo
     que a fila estar vazia: pode haver tarefas a espera do relogio delas, e
@@ -550,6 +564,12 @@ def correr(max_tarefas: int = 0, pausa: float = 0.8, verboso: bool = True) -> li
         if r.get("TASK_TYPE") == F.BUILD_CONTRACT and r["RESULTADO"] == "OK":
             contratos = _contratos()
         feitos.append(r)
+        # ⚠️ PULSO POR TAREFA. O diario so recebe a VOLTA no fim de todas as
+        # tarefas; uma volta com mais de HEARTBEAT_TIMEOUT_S de rede lia-se
+        # como worker morto (medido: 37 das 50 «mortes» de RC vazio eram
+        # workers ainda a escrever no livro). O pulso vai para um ficheiro
+        # proprio, nao para o diario: uma linha por tarefa seria ruido.
+        _pulso(r)
         if verboso:
             print("  %-12s %-10s %s  %s" % (r["SOURCE_ID"], r["RESULTADO"],
                                             r["TASK_TYPE"], r["PORQUE"][:70]),
