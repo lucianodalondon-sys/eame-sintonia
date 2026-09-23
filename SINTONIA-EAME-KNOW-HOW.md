@@ -20207,6 +20207,25 @@ Ferramentas em `ferramentas/unificacao/`; números em `ferramentas/unificacao/m5
 - **Classe antes do rótulo.** `AUTH_BLOCK` (muro de login) caía em UNKNOWN na
   reconciliação por não estar no vocabulário. Lê-se como CAPABILITY_BLOCK (a
   decisão já estava declarada em `_CLASSE_DE`); o rótulo fica no livro.
+## 174-1 · O PULSO DO WORKER É PROVA DE VIDA — E A SUÍTE ESCREVIA O REAL (2.ª passagem)
+
+O worker-pendurado-v1 (M2d) deu ao supervisor uma segunda prova de vida: o ficheiro
+`curadoria/WORKER-HEARTBEAT.json`, escrito a cada tarefa. Na unificação, 3 ficheiros de
+teste corriam `W.correr()` sem redirecionar `W.PULSO` e escreviam o pulso REAL; 7 davam
+voltas ao supervisor (ou liam o estado) sem redirecionar `S.PULSO` e liam o pulso real.
+A suíte continuava verde. Numa pasta onde o bot corre, um teste teria feito um worker
+pendurado parecer vivo durante 5 minutos. A guarda do isolamento ganhou o ficheiro e duas
+regras (`W.PULSO =`, `S.PULSO =`); os 10 ficheiros foram corrigidos.
+
+    UMA PROVA DE VIDA NOVA É UM FICHEIRO NOVO A PROTEGER.
+
+Também desta passagem: `RETIRADA_POR_DECISAO` (D9) passa a ser recusada pelo portão da
+Collection (lê o contrato corrente) e pela tabela do coletor (a linha não vira contrato),
+com motivo escrito e dois mutantes mortos. E a nota «o que falta» das 235 candidatas
+novas: a Bíblia e o know-how não a exigem — a regra vive só em `decidir_fila_italia.py`
+(REGRA 3) e num plano que se declara «não é lei». Ficou NÃO SEI + proposta, sem estreitar
+o teste.
+
 # §172 · UM CANO SEM LEITOR NÃO É UM LOG, É UM TRAVÃO
 
 *Missão 2d (worker-pendurado-v1), 23/09/2026. Prova: `curadoria/WORKER-PENDURADO-PROOF-V1.json`,

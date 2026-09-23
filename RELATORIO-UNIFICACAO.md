@@ -207,3 +207,136 @@ explícito, com teste que morda (mutante: tirar a recusa → o teste reprova).
 worker-pendurado-v1 (14f68f30, em produção, traz §172), discovery-sementes-v2
 (5b8f400c, em produção), desbloqueio-coorte-v1 (pacote do cutover),
 catalogo-proposta-v1 (0644a916), regua-t2-t12-v1, detector-capa-v1.
+
+---
+
+# 2.ª PASSAGEM — UNIFICACAO-V1-B (23/09/2026)
+
+Base 2cfdc3b3 (1.ª passagem aceite). Nenhuma coleta corrida; nenhum serviço vivo tocado.
+Não puxados, de propósito: fila-windows-v1 (M2e), multilingue-v1 (L1), ponte-prova-viva-v1 (B1).
+As secções «RETIRADA_POR_DECISAO» e «2.ª passagem» acima ficam como registo da 1.ª; o que
+aconteceu com elas está aqui.
+
+| passo | junta / faz | commit |
+|---|---|---|
+| 1 | micro-prep-v1 75185e09 (resumo do gabarito) | 2679843e |
+| 2 | qualify-semantico-v1 5aaf7810 (M2d worker pendurado + C1 sementes + know-how S1) | 283a6ece |
+| 3 | desbloqueio-coorte-v1 06d25deb (detector-capa, receitas, coorte-micro, pacote G1) | b74d6ccc |
+| — | RETIRADA_POR_DECISAO no portão e no coletor | 8ae62ec7 |
+| 4 | catalogo-proposta-v1 0644a916 (régua T2/T12 + PROPOSTA-CATALOGO-V1) | 718b5863 |
+| 5 | provar_em_copia com ensaios reais, métricas, mapa pela cadeia | 7177cdb9, 5a16d077 |
+| 6 | este relatório, know-how 174-1, mapa | FINAL_HEAD |
+
+## ENTREGA-B
+
+```
+PONTAS_JUNTAS     = 4
+CONFLITOS         = codigo: 1 bloco (curadoria/supervisor.py, _ultimo_heartbeat): fica a
+                    estrutura do servico (batimento = max(diario, pulso por tarefa)) com a
+                    docstring da ponte em _heartbeat_do_diario; o filtro ORIGEM=SUPERVISOR
+                    ja estava no corpo comum e fica. Know-how: 3 blocos, uniao por
+                    significado (tabela abaixo). Gerados e censos: lado da base, regerados
+                    pela cadeia. Livros: 0 conflitos (as 4 pontas nao commitaram livros do bot).
+HIDDEN_DEFECT     = 9.o da unificacao: o pulso real do worker (WORKER-HEARTBEAT.json) era
+                    escrito por 3 ficheiros de teste e lido por 7. Numa pasta com o bot vivo
+                    faria um worker pendurado parecer vivo. 10 ficheiros corrigidos; a guarda
+                    do isolamento protege o ficheiro e exige W.PULSO / S.PULSO redirecionados.
+BASE_SUITE        = 2cfdc3b3: curadoria/ Ran 469, OK · tests/ Ran 5047, 93 testes vermelhos por nome
+UNIFIED_SUITE     = 5a16d077: curadoria/ Ran 487, OK · tests/ Ran 5103, 93 testes vermelhos por nome
+NEW_RED_BY_NAME   = 0 (nenhum novo, nenhum sumiu)
+RETIRADA_GATE     = YES. collection_gate.avaliar recusa com MOTIVO RETIRADA_POR_DECISAO (le o
+                    contrato do livro corrente, nunca o git); regras/italy_contracts.mjs nao faz
+                    contrato de linha retirada e expoe RETIRADAS_POR_DECISAO.
+                    tests/test_retirada_por_decisao.py: 4 testes (o coletor corre numa copia
+                    de regras/). Mutacao: 2 mutantes, 2 mortos.
+NOTA_235          = NAO SEI + proposta (abaixo). O teste continua a olhar TODAS.
+PACOTE_G1_ENSAIO  = 1.a passagem 73 (livro 68 + tabela 5) / 2.a passagem 0, sobre copia do
+                    livro vivo (servico @ 409eeb8e, sha 9c14afed...) e a tabela desta linha.
+                    0 invariantes quebrados. Com o livro ensaiado, o portao recusa 5 READY por
+                    RETIRADA_POR_DECISAO (IT-T12-041/057/074/086/095); elegiveis 19 -> 16
+                    (sai IT-T5-041 porque o pacote lhe muda a rota depois da promocao, regua
+                    LEGACY; entra IT-T7-100 porque o livro vivo tem um contrato que esta linha nao tem).
+PONTE_PROOF       = PASS (copia; red team 17/17, SURVIVORS 0)
+SUPERVISOR_PROOF  = PASS (copia)
+GATILHO_OCIOSO    = PASS (ensaio real, copia sem .git: 9/9 assercoes)
+WORKER_PENDURADO_PROOF = PASS (ensaio real: PENDURADO=false, 0 bytes de stdout, WORKER_OCIOSO_SAIU)
+DISCOVERY_PROOF   = PASS (test_discovery_sementes + gatilho + pendurado: 28/28 na copia)
+SYSTEM_MAP_CHECK  = PASS
+```
+
+## NOTA_235 — porque é NÃO SEI, e a proposta
+
+Procurado pela ordem pedida:
+- **Bíblia** (BIBLIA-CANONICA-DA-COLETA.md e docs/biblia/): a COL-LAW-053 define a escada
+  CANDIDATA → REGISTADA → CONTRATADA → AUTOMÁTICA; nenhuma lei exige `O_QUE_FALTA` numa
+  candidata EM_ANALISE.
+- **Know-how**: nenhuma secção o exige.
+- **System Map**: a regra vive só no código de UMA peça, `candidatas/decidir_fila_italia.py`
+  («REGRA 3 · o resto fica EM_ANALISE, com o que falta escrito»), e em
+  `docs/arquitetura/BOT-DE-FONTES-V2-PLANO.md`, que se declara «NÃO É LEI».
+
+Medido: as 235 foram registadas pela discovery (205 por `curadoria/crawl_sementes`, 30 por
+`descobrir.py`) em estado CANDIDATA. Quem as põe em EM_ANALISE é a **ponte**
+(`curadoria/ponte_candidatas.py`, linhas 200 e 215), quando cria a tarefa QUALIFY, sem
+escrever o que falta. 144 delas têm ainda MOTIVO_DA_RECUSA preenchido com ESTADO EM_ANALISE:
+uma linha que diz duas coisas.
+
+Os outros 3 vermelhos do mesmo ficheiro não são desta nota. Fixam a coorte de 241 de 14/09
+(«se mudar, tem de mudar com motivo escrito») e as 25 recusas revogadas a 14/09. Dessas 25,
+o serviço voltou a pôr as redes sociais em RECUSADA (FACEBOOK_CAPABILITY_BLOCK), mas deixou
+no PORQUE o texto «RECUSA ANTERIOR REVOGADA» e na EVIDENCIA a sonda de 429.
+
+**Proposta (decisão do dono):**
+1. Elevar a REGRA 3 a lei (Bíblia ou know-how): «EM_ANALISE diz sempre o que falta».
+2. Sendo lei: quem põe EM_ANALISE escreve a nota. É a ponte, na mesma linha em que muda o
+   estado: `O_QUE_FALTA = "QUALIFY pelo curator (tarefa T…)"`, ou, para tipo desconhecido, o
+   motivo que ela já escreve no BRIDGE-LEDGER. O teste continua a olhar todas.
+3. Separar a coorte da população: o teste das 241 passa a ler a coorte de 14/09 pela
+   DECIDIDA_EM (é o que ele diz medir); as novas são outra população, com a sua própria prova.
+4. Redes sociais: CAPABILITY_BLOCK é «fonte boa, sem capacidade», não recusa. Deviam ter o seu
+   próprio estado, e não RECUSADA com um PORQUE que diz o contrário.
+
+## KNOW_HOW_TABLE (§170 em diante, nesta linha)
+
+| § | título | origem | nota |
+|---|---|---|---|
+| §170 | REPETIR O QUE NADA MUDOU NÃO É PERSISTÊNCIA | serviço (abastecimento) | — |
+| §171 | SAIR NÃO É MORRER | serviço (gatilho ocioso) | — |
+| §172 | UM CANO SEM LEITOR NÃO É UM LOG, É UM TRAVÃO | worker-pendurado-v1 | — |
+| §173 | REGISTADO NÃO É RASTEJADO | discovery-sementes-v2 | — |
+| §174 | A MESMA RECONCILIAÇÃO DUAS VEZES NÃO SÃO DOIS FACTOS | esta unificação | + 174-1 (2.ª passagem: o pulso) |
+| §175 | SAÚDE NÃO É PRODUTIVIDADE | serviço (era §159) | renumerada duas vezes: §159 → §173 (1.ª) → §175 (2.ª) |
+| § (sem número) | A PEÇA EXISTIA E NÃO ESTAVA LIGADA | qualify-semantico-v1 (S1) | fica sem número, como veio |
+| 168-16 a 168-18 | régua T2/T12 | catalogo-proposta-v1 | subsecções do §168 |
+| RECEITAS-1/2, COORTE-1, DESBLOQUEIO-1 | — | desbloqueio-coorte-v1 | subsecções sem número, depois do §167 |
+
+Nenhuma secção apagada. Próximo número livre: **§176** — medir de novo antes da 3.ª passagem.
+
+## SWITCH_PLAN — actualizado na 2.ª passagem
+
+**Medido agora (23/09):** supervisor **PID 103316** (arrancou às 02:28; já não é 80704);
+observador **PID 14960** (`ponte_automatica.py --servir --intervalo 20`, em ponte-curador-v1);
+a pasta viva está em **409eeb8e = fila-windows-v1 (M2e)**, com 11 ficheiros sujos.
+
+⚠️ **Condição nova.** O serviço vivo já corre o M2e, que ficou fora desta passagem. Trocar
+para `unificacao-v1` agora **tiraria o M2e de produção**. Ou se junta fila-windows-v1 primeiro
+(3.ª passagem), ou o dono aceita essa regressão por escrito.
+
+Os 9 passos da 1.ª passagem continuam, com estas mudanças:
+1. **Medir na hora** os PIDs (tasklist, pelo PID exacto, nunca por substring) e o HEAD da
+   pasta viva. Os deste relatório já mudaram duas vezes durante a missão.
+2. Parar pela `PARAR.flag`; confirmar que o supervisor medido no passo 1 saiu.
+3. Corte final com o bot parado, mais cópia com sha256 de `italy_contracts_curator.json`
+   da pasta viva e da tabela `regras/italy_contracts_onboarded.json`.
+4. **Pacote G1 com o bot parado**, sobre o livro do corte e a tabela da linha unificada:
+   `py scripts/desbloqueio/aplicar_desbloqueio.py --livro=<corte>/italy_contracts_curator.json
+   --tabela=regras/italy_contracts_onboarded.json --escrever`. Correr outra vez e exigir
+   `ESCRITO: 0`. Ensaiado hoje: 73 → 0.
+5. Reconciliar (`reconciliar_livros.py --livro-servico … --aplicar`), unir os livros
+   (`unir_livros_do_servico.py`), `interface_collection.py`, cadeia, push, LOCAL == REMOTO.
+6. Trocar o código na pasta viva (a mesma pasta, ramo novo no HEAD final).
+7. Relançar o supervisor e o observador (o observador a partir de unificacao-v1).
+8. Medir o de antes e mais: `WORKER-HEARTBEAT.json` a avançar por tarefa; o motivo
+   `RETIRADA_POR_DECISAO` no portão para as 5 retiradas; elegíveis perto de 16.
+9. **Desfazer: volta ao HEAD medido no passo 1** (hoje seria 409eeb8e, não 9a82197c), com os
+   livros do corte (conferir sha256) e a tabela copiada no passo 3.
