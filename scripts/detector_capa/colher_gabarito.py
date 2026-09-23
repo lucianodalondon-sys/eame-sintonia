@@ -61,10 +61,27 @@ def egresso() -> dict:
         return {"PAIS": "NAO SEI"}
 
 
-def hosts(n: int) -> list[dict]:
+CONTRATOS = RAIZ / "curadoria" / "italy_contracts_curator.json"
+
+
+def hosts(n: int, ids: list[str] | None = None) -> list[dict]:
     """n fontes HTML do Curator, uma por dominio, espalhadas por universo e
-    escolhidas de forma deterministica (ordenadas por SOURCE_ID, round-robin)."""
-    c = json.loads((RAIZ / "curadoria" / "italy_contracts_curator.json").read_text(encoding="utf-8"))
+    escolhidas de forma deterministica (ordenadas por SOURCE_ID, round-robin).
+    Com `ids`, so essas (a ordem dada), uma por dominio na mesma."""
+    c = json.loads(Path(CONTRATOS).read_text(encoding="utf-8"))
+    if ids is not None:
+        por_id = {f["SOURCE_ID"]: f for f in c["FONTES"]}
+        out, vistos = [], set()
+        for s in ids:
+            f = por_id.get(s)
+            aq = (f or {}).get("ACQUISITION") or {}
+            if aq.get("STRATEGY") != "HTML_LINK_DISCOVERY":
+                continue
+            h = urlparse(aq["INDEX_URL"]).netloc.lower().removeprefix("www.")
+            if h not in vistos:
+                vistos.add(h)
+                out.append(f)
+        return out
     por_u, vistos = {}, set()
     for f in sorted(c["FONTES"], key=lambda f: f["SOURCE_ID"]):
         aq = f.get("ACQUISITION") or {}
@@ -124,6 +141,10 @@ def main(argv=None) -> int:
     n = int(next((a.split("=", 1)[1] for a in argv if a.startswith("--n=")), 50))
     pasta = Path(next((a.split("=", 1)[1] for a in argv if a.startswith("--saida=")),
                       Path.home() / "detector-capa-gabarito"))
+    global CONTRATOS
+    CONTRATOS = Path(next((a.split("=", 1)[1] for a in argv if a.startswith("--contratos=")), CONTRATOS))
+    ids = next((a.split("=", 1)[1].split(",") for a in argv if a.startswith("--ids=")), None)
+    so_materia = "--so-materia" in argv
     pasta.mkdir(parents=True, exist_ok=True)
     manifesto, registo = [], []
     # RETOMA: um site ja visitado nao se visita outra vez — o teto e 3 pedidos
@@ -133,11 +154,11 @@ def main(argv=None) -> int:
         velho = json.loads(mf.read_text(encoding="utf-8"))
         manifesto, registo = velho["PAGINAS"], velho["REGISTO"]
     feitos = {r["SOURCE_ID"] for r in registo}
-    for i, f in enumerate(hosts(n)):
+    for i, f in enumerate(hosts(n, ids)):
         sid, aq = f["SOURCE_ID"], f["ACQUISITION"]
         if sid in feitos:
             continue
-        modo = "CAPA_OUTRA" if i % 4 == 3 else "MATERIA"
+        modo = "MATERIA" if so_materia else ("CAPA_OUTRA" if i % 4 == 3 else "MATERIA")
         eg = egresso()
         if eg.get("PAIS") != "IT":
             registo.append({"SOURCE_ID": sid, "PAROU": "EGRESSO_NAO_IT", "EGRESSO": eg})
