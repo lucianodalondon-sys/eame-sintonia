@@ -223,6 +223,18 @@ class TestD2QualifyTentadas(unittest.TestCase):
         self.assertEqual(11, r["CANDIDATE_BACKLOG"])
         self.assertEqual(11, r["CANDIDATE_BACKLOG_COMPOSICAO"]["NEEDS_MORE_SAMPLING"])
 
+    def test_needs_more_sampling_ja_tentada_sai_do_backlog(self):
+        """Vivo 23/09 17:44: 11 enfileiradas, 7 ganharam SOURCE_ID, 4 bloquearam -> 0, nao 4."""
+        bloq = ["CAND-0003", "CAND-0058", "CAND-0151", "CAND-0156"]
+        _fila_com_qualify(self.tmp, [(c, F.BLOCKED) for c in bloq])
+        b = _baldes_html([], mais_amostra=5)
+        b["NEEDS_MORE_SAMPLING_IDS"] = bloq + ["CAND-0999"]
+
+        r = N.medir(b, watermark=20)
+
+        self.assertEqual(1, r["CANDIDATE_BACKLOG_COMPOSICAO"]["NEEDS_MORE_SAMPLING"])
+        self.assertEqual(4, r["FORA_DO_BACKLOG"]["NEEDS_MORE_SAMPLING_JA_TENTADAS"])
+
     def test_impasse_real_11_needs_175_blocked_discovery_needed(self):
         """175 BLOCKED + 11 NEEDS_MORE_SAMPLING -> backlog=11 -> DISCOVERY_NEEDED."""
         ids = ["CAND-%04d" % i for i in range(175)]
