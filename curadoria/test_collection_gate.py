@@ -286,6 +286,9 @@ class NenhumCaminhoParaleloArrancaColeta(unittest.TestCase):
         # descartavel e uma worktree temporaria — a Sala real nao e tocada.
         # Ferramenta corrida a mao; nao arranca coleta de producao.
         "scripts/micro_coleta/ensaio_offline.py": ("MANUAL_TOOL", False),
+        # A4/A5: a micro-coleta com rede real (VPN IT) sobre uma Sala DESCARTAVEL,
+        # corrida a mao. Desde a A5 cita o coletor na docstring (o transporte e dele).
+        "scripts/micro_coleta/micro_rede_real.py": ("MANUAL_TOOL", False),
         # V1A: o retrato de um HTML (mede bytes: HTML_KIND, TEXT_SHA256). E uma
         # biblioteca que o coletor usa; so CITA o coletor num comentario. Nao
         # arranca coleta nenhuma.
