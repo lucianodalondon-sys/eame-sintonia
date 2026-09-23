@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "discovery-sementes-v2",
-    "HEAD": "14f68f30a2664d3767ac59db8f64b95f2505ca94",
-    "GENERATED_AT": "2026-09-23T00:22:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3e89a9dc0085d1b94aa23c9fed30279ca09f331d7308c58541643cf6c1d0b41c"
+    "BRANCH": "fila-windows-v1",
+    "HEAD": "760a4a0011613d57612d1a8d03208226f66ac94d",
+    "GENERATED_AT": "2026-09-23T02:12:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "79d15b9ba2c164c863633bb388820365efd3e315928e6236420290b59d5e5741"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "1ee570ada7771cb6069a3d7e8b7dad463b6f322b",
+      "sha": "b44ca9e53cc27e1d9cbcad834f5837d65d2d3371",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1773,6 +1773,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/FILA-WINDOWS-PROOF-V1.json",
+      "sha": "c1ed96344dd9df0d2e2b9282b62922ab5f7780e9",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/FUNIL-DO-CURATOR-V1.json",
       "sha": "73b33bd1ba68a772529968e312b7644236ddc05d",
       "ext": ".json",
@@ -2088,6 +2095,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/ensaiar_fila_windows.py",
+      "sha": "83b7a0b7cf40c9c771b89cb2c356a9b31f734aca",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/ensaiar_gatilho_ocioso.py",
       "sha": "3841d02bdd8d1ba0b629cdd0ae490a3278ce2c15",
       "ext": ".py",
@@ -2117,7 +2131,7 @@
     },
     {
       "path": "curadoria/fila.py",
-      "sha": "e3c253fe1dad549ad21ac3de3ff8d10b3aa9c673",
+      "sha": "23bed6e927650d9ed0b090b5ae89c7046f9d8b2d",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2278,7 +2292,7 @@
     },
     {
       "path": "curadoria/supervisor.py",
-      "sha": "3dbd9f518c875a4791ee6d88e73f6a547e9612a5",
+      "sha": "9863f7015ee9c7c22f859fa33b012d2ed4084fe3",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2335,6 +2349,13 @@
     {
       "path": "curadoria/test_discovery_sementes.py",
       "sha": "94ff96a96317b7782d1e671cdcc70e6adc07c9bb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_fila_windows.py",
+      "sha": "a3c5e5fa444ef777eb7686c02a07e06e1e7aa0bb",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20837,6 +20858,28 @@
       }
     },
     {
+      "from_file": "curadoria/ensaiar_fila_windows.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_fila_windows.py",
+        "line": 44,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_fila_windows.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_fila_windows.py",
+        "line": 63,
+        "snippet": "import supervisor as S"
+      }
+    },
+    {
       "from_file": "curadoria/ensaiar_gatilho_ocioso.py",
       "to_file": "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
       "type": "READS",
@@ -21052,7 +21095,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/fila.py",
-        "line": 37,
+        "line": 38,
         "snippet": "FILA = RAIZ / \"curadoria\" / \"LIFECYCLE-QUEUE-V1.json\""
       }
     },
@@ -22108,7 +22151,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 286,
+        "line": 309,
         "snippet": "str(RAIZ / \"curadoria\" / \"ciclo_continuo.py\"),"
       }
     },
@@ -22130,7 +22173,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/supervisor.py",
-        "line": 599,
+        "line": 630,
         "snippet": "import gatilho_discovery as GD  # noqa: E402"
       }
     },
@@ -22363,6 +22406,28 @@
         "file": "curadoria/test_discovery_sementes.py",
         "line": 18,
         "snippet": "import descobrir as D  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_fila_windows.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_fila_windows.py",
+        "line": 30,
+        "snippet": "import fila as F          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_fila_windows.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_fila_windows.py",
+        "line": 31,
+        "snippet": "import supervisor as S    # noqa: E402"
       }
     },
     {
@@ -67584,10 +67649,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2213,
-    "files_readable": 886,
+    "files_tracked": 2216,
+    "files_readable": 888,
     "files_code_dir": 883,
-    "file_edges": 4688,
+    "file_edges": 4692,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },

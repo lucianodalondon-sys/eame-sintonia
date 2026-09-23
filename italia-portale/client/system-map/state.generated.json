@@ -276,6 +276,7 @@
       "curadoria/CRAWL-PROOF-V1.json",
       "curadoria/DISCOVERY-PROOF-V1.json",
       "curadoria/DISCOVERY-VISITED.json",
+      "curadoria/FILA-WINDOWS-PROOF-V1.json",
       "curadoria/FUNIL-DO-CURATOR-V1.json",
       "curadoria/GATILHO-OCIOSO-ENSAIO-V1.json",
       "curadoria/HANDOFF-INTEGRACAO-04.md",
@@ -321,6 +322,7 @@
       "curadoria/descobrir.py",
       "curadoria/emparelhar_com_atlas.py",
       "curadoria/ensaiar_dois_escritores.py",
+      "curadoria/ensaiar_fila_windows.py",
       "curadoria/ensaiar_gatilho_ocioso.py",
       "curadoria/ensaiar_worker_pendurado.py",
       "curadoria/escrever_contratos.py",
@@ -357,6 +359,7 @@
       "curadoria/test_correr_lote.py",
       "curadoria/test_discovery.py",
       "curadoria/test_discovery_sementes.py",
+      "curadoria/test_fila_windows.py",
       "curadoria/test_gatilho_discovery.py",
       "curadoria/test_gatilho_ocioso.py",
       "curadoria/test_interface_collection.py",
@@ -2806,10 +2809,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "discovery-sementes-v2",
-    "HEAD": "14f68f30a2664d3767ac59db8f64b95f2505ca94",
-    "GENERATED_AT": "2026-09-23T00:22:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3e89a9dc0085d1b94aa23c9fed30279ca09f331d7308c58541643cf6c1d0b41c"
+    "BRANCH": "fila-windows-v1",
+    "HEAD": "760a4a0011613d57612d1a8d03208226f66ac94d",
+    "GENERATED_AT": "2026-09-23T02:12:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "79d15b9ba2c164c863633bb388820365efd3e315928e6236420290b59d5e5741"
   },
   "FAMILIES": [
     {
@@ -44289,7 +44292,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch discovery-sementes-v2"
+        "branch fila-windows-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -101215,7 +101218,7 @@
     "regras/motor_de_rota.mjs",
     "regras/motor_de_rota_test.mjs"
   ],
-  "UNCLAIMED_FILES_COUNT": 1198,
+  "UNCLAIMED_FILES_COUNT": 1201,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -101404,7 +101407,7 @@
     "edges_proven": 1033,
     "edges_unknown": 54,
     "business_edges": 4,
-    "files_tracked": 2213,
+    "files_tracked": 2216,
     "files_covered": 1015,
     "files_code_unclaimed": 2,
     "roles_proven": 147,
