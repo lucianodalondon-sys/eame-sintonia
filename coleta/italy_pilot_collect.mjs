@@ -172,59 +172,299 @@ const TRANSITORIOS = [28, 35, 52, 56, 7];  // timeout, reset, resposta vazia, re
 //     `REDE.total` sao TODAS as idas a fonte.
 //     `DETAIL_REQUESTS` sao as idas a um detalhe, contadas no laco.
 //     INDEX_REQUESTS = total - detalhes.  Exacto, e sem adivinhar.
+//
+// ⚠️ DESDE A A5, `REDE.total` SO SOBE QUANDO O PEDIDO SAI. Um pedido que a
+// cortesia recusa (robots, teto) nao bateu a porta — conta-lo como ida faria
+// `INDEX_REQUESTS` inventar indices que ninguem pediu. As idas ao robots.txt
+// tambem ficam fora: sao contadas a parte, em `CORTESIA.pedidos.ROBOTS`.
 const REDE = { total: 0 };
-async function baixar(url, tentativas = 2) {
-  REDE.total++;
-  for (let i = 1; i <= tentativas; i++) {
-    try {
-      // ⚠️ `%{content_type}` ENTRA PORQUE O TRANSPORTE JA O SABIA E NINGUEM O ESCREVIA.
-      // A ESPECIE dos bytes vinha no cabecalho da resposta, era deitada fora aqui, e
-      // a observacao chegava a porta sem dizer o que os bytes SAO. O resultado esta
-      // medido nesta bancada a 2026-09-15, com `IT-T4-001` (um CSV de 4,59 MB):
-      //
-      //     raw_asset.media_type = 'NAO SEI'
-      //     etapa DERIVED        = FAIL / DERIVATION_FAILED
-      //
-      // E o FAIL era mentira sobre o documento. `coleta/ingresso.py` ja tem a lei
-      // escrita — «UMA FERRAMENTA QUE RECEBE O QUE NAO SABE ABRIR NAO FALHOU: FOI
-      // CHAMADA PARA O TRABALHO ERRADO» — e ja tem o desfecho certo pronto
-      // (`DERIVACAO_ESPECIE_NAO_SUPORTADA` -> `NOT_APPLICABLE`). Ele nunca corria,
-      // porque a pergunta que o dispara e `MEDIA_TYPE`, e o campo chegava vazio.
-      // Sem especie declarada, o CSV era entregue ao extractor de PDF.
-      //
-      //     ESPECIE POR DECLARAR NAO E ESPECIE DESCONHECIDA:
-      //     E UMA PERGUNTA QUE O TRANSPORTE JA TINHA RESPONDIDO.
-      //
-      // ⚠️ E ISTO NAO E A EXTENSAO DO FICHEIRO OUTRA VEZ. E o que o SERVIDOR
-      // declarou, e declaracao de terceiro nao e prova: quem guarda continua a ser
-      // a validacao de BYTES contra `EXPECTED_SIGNATURE`, que corre antes de
-      // qualquer parse e ja reprova um HTML servido como PDF. Esta linha nao a
-      // substitui nem a afrouxa — acrescenta o que a fonte disse de si.
-      const { stdout } = await run("curl", ["-sSL", "--max-time", "90", "-A", UA,
-        "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-",
-        "-w", "\\n__S__%{http_code}\\t%{content_type}", url],
-        { maxBuffer: 128e6, encoding: "buffer" });
-      const s = stdout.toString("latin1");
-      const k = s.lastIndexOf("\n__S__");
-      // O reboque tem DOIS campos agora. `split` com limite implicito chega: o
-      // `content_type` nunca traz tabulacao, e o `http_code` e so digitos.
-      const reboque = (k < 0 ? "" : s.slice(k + 6)).split("\t");
-      const status = Number(reboque[0]);
-      // AUSENTE CONTINUA AUSENTE: um servidor que nao declara tipo devolve vazio
-      // aqui, e vazio vira `null` — nunca uma especie adivinhada pelo nome.
-      const contentType = (reboque[1] || "").trim().split(";")[0].trim() || null;
-      return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status,
-               contentType, tentativas: i };
-    } catch (e) {
-      const cod = e.code ?? 0;
-      const transitorio = TRANSITORIOS.includes(cod);
-      // retry SO para falha de transporte. Nunca para schema, MIME, login ou WAF.
-      // `codigo` sai para fora porque o laco das materias precisa de distinguir
-      // o site PENDURADO (28 = timeout) de uma falha rapida: ver
-      // DETAIL_DEFERRED_AFTER_TIMEOUT em executarRodada().
-      if (!transitorio || i === tentativas) return { erro: (e.stderr?.toString() || e.message || "").slice(0, 200), status: 0, tentativas: i, retry_permitido: transitorio, codigo: cod };
+
+// ══ A CORTESIA VIVE AQUI, DENTRO DO TRANSPORTE ═════════════════════════════
+// ⚠️ MEDIDO NA A4 (23/09): este coletor nao lia robots.txt e disparava os
+// pedidos a um mesmo site seguidos, sem pausa. Quem leu o robots e espacou os
+// pedidos na micro com rede real foi o CONDUTOR, por fora
+// (`scripts/micro_coleta/micro_rede_real.py`) — e uma regra que vive no
+// condutor vale para aquele condutor e falta a todos os outros.
+//
+//     A CORTESIA E UMA PROPRIEDADE DO TRANSPORTE, E O TRANSPORTE TEM DONO.
+//
+// `baixar()` e o dono: e o unico sitio deste coletor por onde um pedido a uma
+// fonte sai (o motor de rota recebe-o como `buscar`, os `case` chamam-no
+// directamente). A unica outra saida e a medicao do egresso em ipinfo.io, que
+// nao e pedido a fonte nenhuma e nao passa por aqui de proposito.
+//
+// As tres guardas, cada uma com a regra que ja existia na casa:
+//   ROBOTS  lido por origem, uma vez por corrida, com os estados de
+//           `coleta/scrap_http.py::_carregar_robots`:
+//             404/410            -> AUSENTE      permitido (sem ficheiro = sem proibicao)
+//             200 com regras     -> LIDO         vale o que ele diz
+//             200 com HTML, ou   -> ILEGIVEL     NAO permitido — «nao afirmamos
+//             qualquer outro HTTP                 permissao que nao lemos»
+//             sem resposta       -> INDISPONIVEL o pedido NAO sai, e NAO e uma
+//                                                 recusa do host; nao fica em
+//                                                 cache (um soluco de rede nao
+//                                                 vira proibicao para a corrida)
+//           e vale EM CADA SALTO: o curl deixou de seguir redireccionamentos
+//           sozinho (`-L` saiu), porque um 301 para outro caminho ou outro host
+//           e um pedido novo e pede licenca outra vez (a mesma lei de
+//           `scrap_http._PortaoEmCadaSalto`).
+//   PAUSA   minima entre dois pedidos ao MESMO host, configuravel
+//           (SINTONIA_PAUSA_POR_HOST_S); por omissao 1,0 s, o
+//           `PAUSA_ENTRE_CHAMADAS` de `scrap_http.py`. Um `Crawl-delay` maior
+//           no robots manda sobre ela.
+//   TETO    pedidos HTTP por host numa corrida, configuravel
+//           (SINTONIA_TETO_POR_HOST); por omissao 5 — a D7 do dono: «ate 5
+//           pedidos por site (robots + pagina + ate 3 materias)». Conta TODAS
+//           as idas: robots, indice, materias, saltos e retentativas.
+//
+// O que a cortesia recusa NAO e uma observacao da fonte: nao se escreve no
+// livro (como `DEFERRED_AFTER_TIMEOUT`), vai contado no resumo e em
+// `detalhes`, com o motivo. Na corrida seguinte o endereco continua
+// desconhecido e volta a ser pedido — ADIADO != NUNCA.
+export const CORTESIA_PADRAO = Object.freeze({ PAUSA_S: 1.0, TETO_POR_HOST: 5, MAX_SALTOS: 10 });
+// ── AS EXCECOES: NENHUMA, E ISSO E UMA MEDICAO ─────────────────────────────
+// A regra da missao: so excecoes ja decididas pelo dono E ja escritas no
+// codigo. A unica que existe (D23, videos de organizacoes no LinkedIn) vive no
+// Scrap (`coleta/scrap_http.py` e as rotas dele), nao passa por este coletor, e
+// por isso nao se copia para aqui. Uma lista vazia e nomeada diz «procurou-se,
+// nao ha»; um interruptor generico («desligar robots») seria uma excecao que
+// ninguem decidiu.
+export const EXCECOES_DE_CORTESIA = Object.freeze([]);
+
+function cortesiaDoAmbiente() {
+  const ler = (nome, omissao) => {
+    const v = process.env[nome];
+    if (v === undefined || v === "") return omissao;
+    const n = Number(v);
+    if (!Number.isFinite(n) || n < 0) throw new Error(`CORTESIA_INVALIDA: ${nome}=${v}`);
+    return n;
+  };
+  const TETO_POR_HOST = ler("SINTONIA_TETO_POR_HOST", CORTESIA_PADRAO.TETO_POR_HOST);
+  // Um teto 0 ou fracionario nao e um teto: e uma forma de desligar a coleta
+  // (ou de a deixar a adivinhar) sem o dizer. Falha alto.
+  if (!Number.isInteger(TETO_POR_HOST) || TETO_POR_HOST < 1)
+    throw new Error(`CORTESIA_INVALIDA: SINTONIA_TETO_POR_HOST=${TETO_POR_HOST} (inteiro >= 1)`);
+  return { PAUSA_S: ler("SINTONIA_PAUSA_POR_HOST_S", CORTESIA_PADRAO.PAUSA_S), TETO_POR_HOST,
+           MAX_SALTOS: CORTESIA_PADRAO.MAX_SALTOS };
+}
+// Estado de UMA corrida. `executarRodada()` recomeca-o, como faz a `REDE.total`.
+const CORTESIA = { cfg: CORTESIA_PADRAO, robots: new Map(), porHost: new Map(), ultimo: new Map(),
+                   pedidos: { ROBOTS: 0, FONTE: 0 }, recusas: [] };
+function reiniciarCortesia() {
+  CORTESIA.cfg = cortesiaDoAmbiente();
+  CORTESIA.robots = new Map(); CORTESIA.porHost = new Map(); CORTESIA.ultimo = new Map();
+  CORTESIA.pedidos = { ROBOTS: 0, FONTE: 0 }; CORTESIA.recusas = [];
+}
+const dormir = ms => new Promise(r => setTimeout(r, ms));
+
+// ── O ROBOTS.TXT, LIDO COMO A NORMA MANDA (RFC 9309) ──────────────────────
+// Grupos por `User-agent`; `Allow`/`Disallow` com `*` e `$`; vence a regra de
+// caminho MAIS LONGO, e no empate vence `Allow`. `Disallow:` vazio nao proibe
+// nada. O grupo que vale para nos: o do nosso token de produto (o que vem
+// antes da primeira `/` do User-Agent, como faz `urllib.robotparser`, que e o
+// leitor da casa); nao havendo, o `*`; nao havendo nenhum, tudo permitido.
+//
+// ⚠️ NAO E O `urllib.robotparser` LINHA A LINHA, e a diferenca vai declarada:
+// o da casa usa a PRIMEIRA regra que casa e nao conhece `*` no meio do caminho
+// (le `Disallow: /*?` como o prefixo literal «/*?», que nunca casa). Aqui vale
+// a norma. Onde as duas leituras divergem, esta e a mais restritiva nos casos
+// com curinga — nunca a mais permissiva por um defeito de leitura.
+export function lerRobots(txt) {
+  const grupos = [];
+  let atual = null, aLerAgentes = false;
+  for (const bruta of String(txt ?? "").split(/\r\n|\r|\n/)) {
+    const linha = bruta.replace(/#.*$/, "").trim();
+    const m = linha.match(/^([A-Za-z-]+)\s*:\s*(.*)$/);
+    if (!m) continue;
+    const campo = m[1].toLowerCase(), valor = m[2].trim();
+    if (campo === "user-agent") {
+      if (!atual || !aLerAgentes) { atual = { agentes: [], regras: [], crawlDelay: null }; grupos.push(atual); }
+      atual.agentes.push(valor.toLowerCase());
+      aLerAgentes = true;
+    } else if (campo === "allow" || campo === "disallow" || campo === "crawl-delay") {
+      if (!atual) continue;            // regra antes de qualquer User-agent: nao pertence a ninguem
+      aLerAgentes = false;
+      if (campo === "crawl-delay") {
+        const n = Number(valor);
+        if (Number.isFinite(n) && n >= 0) atual.crawlDelay = n;
+      } else if (valor !== "") {
+        atual.regras.push({ permite: campo === "allow", caminho: valor });
+      }
     }
   }
+  return grupos;
+}
+const TOKEN_DO_AGENTE = UA.split("/")[0].toLowerCase();
+export function grupoQueVale(grupos, token = TOKEN_DO_AGENTE) {
+  const nossos = grupos.filter(g => g.agentes.includes(token));
+  const escolhidos = nossos.length ? nossos : grupos.filter(g => g.agentes.includes("*"));
+  if (!escolhidos.length) return null;
+  const atrasos = escolhidos.map(g => g.crawlDelay).filter(n => n !== null);
+  return { regras: escolhidos.flatMap(g => g.regras), crawlDelay: atrasos.length ? Math.max(...atrasos) : null };
+}
+const semEscape = s => { try { return decodeURI(s); } catch { return s; } };
+function casaCaminho(padrao, caminho) {
+  const ancorado = padrao.endsWith("$");
+  const corpo = ancorado ? padrao.slice(0, -1) : padrao;
+  const re = corpo.split("*").map(p => p.replace(/[.+?^${}()|[\]\\]/g, "\\$&")).join(".*");
+  return new RegExp("^" + re + (ancorado ? "$" : "")).test(caminho);
+}
+export function robotsPermite(grupos, caminho) {
+  if (caminho === "/robots.txt") return true;
+  const g = grupoQueVale(grupos);
+  if (!g) return true;
+  const alvo = semEscape(caminho);
+  let melhor = null;
+  for (const r of g.regras) {
+    const padrao = semEscape(r.caminho);
+    if (!casaCaminho(padrao, alvo)) continue;
+    if (!melhor || padrao.length > melhor.len || (padrao.length === melhor.len && r.permite))
+      melhor = { len: padrao.length, permite: r.permite };
+  }
+  return melhor ? melhor.permite : true;
+}
+
+// ── UMA IDA A REDE: um pedido HTTP, sem seguir saltos ──────────────────────
+// Pausa ANTES, teto contado ANTES (o pedido que sai gasta o lugar, responda ou
+// nao), hora do fim guardada DEPOIS — a pausa mede-se do fim de um pedido ao
+// comeco do seguinte.
+async function umaIda(url, host, tipo, crawlDelay) {
+  const minimo = Math.max(CORTESIA.cfg.PAUSA_S, crawlDelay || 0) * 1000;
+  const ultimo = CORTESIA.ultimo.get(host);
+  if (ultimo !== undefined) {
+    const falta = ultimo + minimo - Date.now();
+    if (falta > 0) await dormir(falta);
+  }
+  CORTESIA.porHost.set(host, (CORTESIA.porHost.get(host) || 0) + 1);
+  CORTESIA.pedidos[tipo]++;
+  try {
+    // ⚠️ `%{content_type}` ENTRA PORQUE O TRANSPORTE JA O SABIA E NINGUEM O ESCREVIA.
+    // A ESPECIE dos bytes vinha no cabecalho da resposta, era deitada fora aqui, e
+    // a observacao chegava a porta sem dizer o que os bytes SAO. O resultado esta
+    // medido nesta bancada a 2026-09-15, com `IT-T4-001` (um CSV de 4,59 MB):
+    //
+    //     raw_asset.media_type = 'NAO SEI'
+    //     etapa DERIVED        = FAIL / DERIVATION_FAILED
+    //
+    // E o FAIL era mentira sobre o documento. `coleta/ingresso.py` ja tem a lei
+    // escrita — «UMA FERRAMENTA QUE RECEBE O QUE NAO SABE ABRIR NAO FALHOU: FOI
+    // CHAMADA PARA O TRABALHO ERRADO» — e ja tem o desfecho certo pronto
+    // (`DERIVACAO_ESPECIE_NAO_SUPORTADA` -> `NOT_APPLICABLE`). Ele nunca corria,
+    // porque a pergunta que o dispara e `MEDIA_TYPE`, e o campo chegava vazio.
+    // Sem especie declarada, o CSV era entregue ao extractor de PDF.
+    //
+    //     ESPECIE POR DECLARAR NAO E ESPECIE DESCONHECIDA:
+    //     E UMA PERGUNTA QUE O TRANSPORTE JA TINHA RESPONDIDO.
+    //
+    // ⚠️ E ISTO NAO E A EXTENSAO DO FICHEIRO OUTRA VEZ. E o que o SERVIDOR
+    // declarou, e declaracao de terceiro nao e prova: quem guarda continua a ser
+    // a validacao de BYTES contra `EXPECTED_SIGNATURE`, que corre antes de
+    // qualquer parse e ja reprova um HTML servido como PDF. Esta linha nao a
+    // substitui nem a afrouxa — acrescenta o que a fonte disse de si.
+    //
+    // ⚠️ `-L` SAIU DE PROPOSITO (ver o bloco da cortesia): quem segue o salto e
+    // `baixar()`, que pede licenca ao robots do destino antes de ir.
+    const { stdout } = await run("curl", ["-sS", "--max-time", "90", "-A", UA,
+      "-H", "Accept-Language: it-IT,it;q=0.9", "-o", "-",
+      "-w", "\\n__S__%{http_code}\\t%{content_type}\\t%{redirect_url}", url],
+      { maxBuffer: 128e6, encoding: "buffer" });
+    const s = stdout.toString("latin1");
+    const k = s.lastIndexOf("\n__S__");
+    const reboque = (k < 0 ? "" : s.slice(k + 6)).split("\t");
+    // O reboque tem TRES campos: codigo, especie e destino do salto. Nenhum traz
+    // tabulacao. AUSENTE CONTINUA AUSENTE: um servidor que nao declara tipo devolve
+    // vazio aqui, e vazio vira `null` — nunca uma especie adivinhada pelo nome.
+    return { buf: stdout.subarray(0, k < 0 ? stdout.length : k), status: Number(reboque[0]),
+             contentType: (reboque[1] || "").trim().split(";")[0].trim() || null,
+             destino: (reboque[2] || "").trim() || null };
+  } finally {
+    CORTESIA.ultimo.set(host, Date.now());
+  }
+}
+const tetoAtingido = host => (CORTESIA.porHost.get(host) || 0) >= CORTESIA.cfg.TETO_POR_HOST;
+
+async function robotsDaOrigem(origem) {
+  let alvo = `${origem}/robots.txt`;
+  for (let salto = 0; salto <= CORTESIA.cfg.MAX_SALTOS; salto++) {
+    const host = new URL(alvo).hostname;
+    let r = null;
+    for (let i = 1; i <= 2 && !r; i++) {
+      if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado antes de ler o robots.txt` };
+      try { r = await umaIda(alvo, host, "ROBOTS", 0); }
+      catch (e) {
+        const cod = e.code ?? 0;
+        if (!TRANSITORIOS.includes(cod) || i === 2)
+          return { estado: "INDISPONIVEL", porque: `o transporte caiu antes da resposta (curl ${cod}) — nao e uma recusa do host` };
+      }
+    }
+    if (r.status >= 300 && r.status < 400 && r.destino) { alvo = r.destino; continue; }
+    if (r.status === 404 || r.status === 410) return { estado: "AUSENTE", porque: `HTTP ${r.status} — o host nao publica robots.txt` };
+    if (r.status !== 200) return { estado: "ILEGIVEL", porque: `HTTP ${r.status} no robots.txt — nao afirmamos permissao que nao lemos` };
+    const corpo = r.buf.toString("utf8").trimStart().toLowerCase();
+    if (corpo.startsWith("<!doctype") || corpo.startsWith("<html"))
+      return { estado: "ILEGIVEL", porque: "o robots.txt veio em HTML — nao afirmamos permissao que nao lemos" };
+    const grupos = lerRobots(r.buf.toString("utf8"));
+    return { estado: "LIDO", grupos, crawlDelay: grupoQueVale(grupos)?.crawlDelay ?? null, porque: "robots.txt lido" };
+  }
+  return { estado: "ILEGIVEL", porque: `robots.txt com mais de ${CORTESIA.cfg.MAX_SALTOS} redireccionamentos` };
+}
+
+// A licenca para UM endereco: teto, robots (lido uma vez por origem), teto outra vez.
+async function licenca(url) {
+  let u;
+  try { u = new URL(url); } catch { return { recusado: "URL_INVALIDA", porque: `endereco invalido: ${url}` }; }
+  const host = u.hostname;
+  if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} nesta corrida` };
+  let rb = CORTESIA.robots.get(u.origin);
+  if (!rb) {
+    rb = await robotsDaOrigem(u.origin);
+    if (rb.recusado) return rb;
+    // INDISPONIVEL nao fica em cache (a regra de scrap_http.permitido).
+    if (rb.estado !== "INDISPONIVEL") CORTESIA.robots.set(u.origin, rb);
+  }
+  if (rb.estado === "INDISPONIVEL") return { recusado: "ROBOTS_INDISPONIVEL", porque: rb.porque };
+  if (rb.estado === "ILEGIVEL") return { recusado: "ROBOTS_ILEGIVEL", porque: rb.porque };
+  if (rb.estado === "LIDO" && !robotsPermite(rb.grupos, u.pathname + u.search))
+    return { recusado: "ROBOTS_PROIBE", porque: `o robots.txt de ${u.origin} proibe ${u.pathname}${u.search}` };
+  if (tetoAtingido(host)) return { recusado: "TETO_POR_HOST", porque: `teto de ${CORTESIA.cfg.TETO_POR_HOST} pedidos a ${host} esgotado pelo robots.txt` };
+  return { host, crawlDelay: rb.crawlDelay ?? null };
+}
+
+async function baixar(url, tentativas = 2) {
+  let atual = url, foiARede = false;
+  for (let salto = 0; salto <= CORTESIA.cfg.MAX_SALTOS; salto++) {
+    const lic = await licenca(atual);
+    if (lic.recusado) {
+      CORTESIA.recusas.push({ URL: atual, PEDIDO: url, MOTIVO: lic.recusado, PORQUE: lic.porque, SALTO: salto });
+      // `erro` para que quem so conhece `erro` (motor de rota, `case`) pare aqui
+      // e nao leia bytes que nao vieram; `recusado` para quem sabe distinguir.
+      return { erro: `CORTESIA ${lic.recusado}: ${lic.porque}`, status: 0, tentativas: 0,
+               recusado: lic.recusado, foiARede, retry_permitido: false };
+    }
+    if (!foiARede) { REDE.total++; foiARede = true; }
+    let r = null;
+    for (let i = 1; i <= tentativas && !r; i++) {
+      if (i > 1 && tetoAtingido(lic.host))
+        return { erro: `CORTESIA TETO_POR_HOST: retentativa recusada, teto de ${CORTESIA.cfg.TETO_POR_HOST} esgotado`, status: 0, tentativas: i - 1, recusado: "TETO_POR_HOST", foiARede, retry_permitido: false };
+      try {
+        r = await umaIda(atual, lic.host, "FONTE", lic.crawlDelay);
+        r.tentativas = i;
+      } catch (e) {
+        const cod = e.code ?? 0;
+        const transitorio = TRANSITORIOS.includes(cod);
+        // retry SO para falha de transporte. Nunca para schema, MIME, login ou WAF.
+        // `codigo` sai para fora porque o laco das materias precisa de distinguir
+        // o site PENDURADO (28 = timeout) de uma falha rapida: ver
+        // DETAIL_DEFERRED_AFTER_TIMEOUT em executarRodada().
+        if (!transitorio || i === tentativas) return { erro: (e.stderr?.toString() || e.message || "").slice(0, 200), status: 0, tentativas: i, retry_permitido: transitorio, codigo: cod, foiARede };
+      }
+    }
+    // O SALTO PEDE LICENCA OUTRA VEZ: volta ao topo do laco, a `licenca()`.
+    if (r.status >= 300 && r.status < 400 && r.destino) { atual = r.destino; continue; }
+    const { destino, ...resposta } = r;
+    return { ...resposta, foiARede, ...(atual !== url ? { URL_FINAL: atual } : {}) };
+  }
+  return { erro: `mais de ${CORTESIA.cfg.MAX_SALTOS} redireccionamentos a partir de ${url}`, status: 0, tentativas: 1, foiARede, retry_permitido: false };
 }
 
 // ---------- cadencia ----------
@@ -455,6 +695,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // rodadas no mesmo processo somaria a rede da primeira a segunda — e o
   // numero saia maior sem ninguem ter batido a porta.
   REDE.total = 0;
+  // A cortesia tambem e de UMA corrida: robots, pedidos por host e pausas
+  // recomecam aqui, e a configuracao (pausa, teto) le-se agora — invalida, falha alto.
+  reiniciarCortesia();
   // ── NAO HA CONJUNTO POR OMISSAO — BG-06 ────────────────────────────────
   // `apenas ?? PILOT_SOURCES` fazia uma corrida sem fontes nomeadas colher as
   // SETE — e a setima, IT-T3-005, tem ZERO mencoes no Atlas: e candidata
@@ -488,6 +731,9 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // numero com cara de medida. NAO_SE_APLICA e a resposta certa, e e diferente
   // de NAO SEI: aqui a pergunta e que nao faz sentido.
   let egress = forcarBuf ? "NAO_SE_APLICA" : "NAO SEI";
+  // ⚠️ A MEDICAO DO EGRESSO NAO PASSA POR `baixar()`, DE PROPOSITO: ipinfo.io nao e
+  // fonte, nao entra no teto de nenhum site nem no robots de ninguem. E a unica
+  // saida deste coletor fora do transporte, e esta nomeada aqui.
   if (!forcarBuf) {
     try { egress = JSON.parse((await run("curl", ["-s", "--max-time", "15", "https://ipinfo.io/json"], { encoding: "utf8" })).stdout); } catch { }
   }
@@ -505,6 +751,12 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // Materias que ficaram para a proxima corrida porque o site pendurou
     // numa materia anterior DESTA fonte (ver o laco). Nao sao observacoes.
     DETAIL_DEFERRED_AFTER_TIMEOUT: 0,
+    // A CORTESIA (A5): pedidos que o transporte NAO deixou sair, por motivo
+    // (ROBOTS_PROIBE · ROBOTS_ILEGIVEL · ROBOTS_INDISPONIVEL · TETO_POR_HOST).
+    // Nao sao observacoes e nao mexem na saude da fonte. As idas ao robots.txt
+    // contam-se a parte: nao sao indice nem materia.
+    DETAIL_DEFERRED_BY_COURTESY: 0, DISCOVERY_NOT_REQUESTED_BY_COURTESY: 0,
+    COURTESY_REFUSALS: {}, ROBOTS_REQUESTS: 0,
     // Quantas vezes a segunda defesa impediu o livro de mentir.
     VOLATILE_ONLY_NOT_CHANGED: 0 };
   const detalhes = [];
@@ -523,6 +775,23 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     // nao so no comentario — ela nao tem excepcao, e por isso nao tem `if`.
     decidirSobreIndice();
     const alvos = await alvosDe(sourceId);
+    // ── O INDICE QUE A CORTESIA NAO DEIXOU PEDIR ─────────────────────────────
+    // Robots que proibe (ou que nao se deixou ler), teto esgotado: a porta NAO
+    // foi batida, por isso nao ha falha da fonte para escrever. A fonte fica
+    // UNKNOWN nesta corrida — nao se olhou para ela — e o motivo vai no resumo.
+    // O texto «CORTESIA » e o que `baixar()` poe no `erro`, e o motor de rota e
+    // os `case` passam-no tal e qual.
+    if (alvos?.erro && String(alvos.erro).includes("CORTESIA ")) {
+      cont.UNKNOWN++;
+      const motivo = (String(alvos.erro).match(/CORTESIA (\w+)/) || [])[1];
+      cont.COURTESY_REFUSALS[motivo] = (cont.COURTESY_REFUSALS[motivo] || 0) + 1;
+      cont.DISCOVERY_NOT_REQUESTED_BY_COURTESY++;
+      detalhes.push({ RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null,
+        DECISAO: "DISCOVERY_NOT_REQUESTED_BY_COURTESY", MOTIVO: motivo, PORQUE: alvos.erro,
+        LIVRO: "NAO_ESCRITO — um pedido que nao saiu nao e uma observacao",
+        COLLECTION_RUN_STARTED_AT: STARTED_AT });
+      continue;
+    }
     if (alvos?.erro) {
       cont.FAILED++;
       const obs = { RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null, HEALTH_STATE: "FAILED", OBSERVATION_RESULT: "DISCOVERY_FAILED", motivo: alvos.erro, CAPTURED_AT: agora(), COLLECTION_RUN_STARTED_AT: STARTED_AT };
@@ -594,19 +863,26 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
           COLLECTION_RUN_STARTED_AT: STARTED_AT });
         continue;
       }
-      if (decisao.DECISAO === "REVALIDATE") {
-        cont.REVALIDATED++;
-        cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
-      } else if (decisao.CONHECIDO) {
-        // FETCH a um endereco JA CONHECIDO. A regra so o devolve com razao
-        // nomeada (`PREVIOUS_ATTEMPT_FAILED`); sem razao e desperdicio, e e
-        // esse o numero que o gate desta missao olha.
-        if (!decisao.RAZAO) cont.UNNECESSARY_REFETCHES++;
-        else cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
-      } else {
-        cont.DETAIL_NEW++;
-      }
-      cont.DETAIL_REQUESTS++;
+      // ⚠️ A CONTA DA IDA FAZ-SE DEPOIS DE SE SABER QUE A IDA HOUVE (A5). Ate
+      // aqui contava-se antes de `baixar()`, porque `baixar()` saia sempre. Com a
+      // cortesia dentro do transporte, um pedido pode ser recusado sem sair — e
+      // conta-lo como DETAIL_REQUESTS/DETAIL_NEW diria que se bateu a uma porta
+      // onde ninguem bateu.
+      const contarIda = () => {
+        if (decisao.DECISAO === "REVALIDATE") {
+          cont.REVALIDATED++;
+          cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
+        } else if (decisao.CONHECIDO) {
+          // FETCH a um endereco JA CONHECIDO. A regra so o devolve com razao
+          // nomeada (`PREVIOUS_ATTEMPT_FAILED`); sem razao e desperdicio, e e
+          // esse o numero que o gate desta missao olha.
+          if (!decisao.RAZAO) cont.UNNECESSARY_REFETCHES++;
+          else cont.REVISIT_REASONS[decisao.RAZAO] = (cont.REVISIT_REASONS[decisao.RAZAO] || 0) + 1;
+        } else {
+          cont.DETAIL_NEW++;
+        }
+        cont.DETAIL_REQUESTS++;
+      };
 
       // ⚠️ OS BYTES INJECTADOS TAMBEM CONTAM COMO IDA AO TRANSPORTE.
       // Apanhado pelo red team desta missao (M8): o contador vivia so dentro
@@ -619,6 +895,22 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
       //     UMA CORRIDA SEM REDE. CONTA-SE O TRANSPORTE, VENHA DE ONDE VIER.
       if (forcarBuf) REDE.total++;
       const r = forcarBuf ? { buf: forcarBuf(sourceId, alvo), status: 200, tentativas: 1 } : await baixar(alvo.url);
+      // ── A MATERIA QUE A CORTESIA NAO DEIXOU PEDIR ──────────────────────────
+      // Robots proibe o caminho, robots ilegivel/indisponivel, teto do site
+      // esgotado: o pedido NAO saiu. Nao e observacao (nao vai ao livro), nao e
+      // falha da fonte (a saude nao muda) — e adiamento contado, com o motivo,
+      // como o DEFERRED_AFTER_TIMEOUT. Um salto recusado A MEIO (`foiARede`) ja
+      // bateu a porta e segue como falha de transporte, la em baixo.
+      if (r.recusado && !r.foiARede) {
+        cont.DETAIL_DEFERRED_BY_COURTESY++;
+        cont.COURTESY_REFUSALS[r.recusado] = (cont.COURTESY_REFUSALS[r.recusado] || 0) + 1;
+        detalhes.push({ RUN_ID, SOURCE_ID: sourceId, SOURCE_URL: alvo.url,
+          DECISAO: "DEFERRED_BY_COURTESY", MOTIVO: r.recusado, PORQUE: r.erro,
+          LIVRO: "NAO_ESCRITO — um pedido que nao saiu nao e uma observacao",
+          COLLECTION_RUN_STARTED_AT: STARTED_AT });
+        continue;
+      }
+      contarIda();
       const CAPTURED_AT = agora();
 
       if (r.erro || r.status !== 200 || !r.buf?.length) {
@@ -861,6 +1153,7 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   // a rede menos o que foi a um detalhe. Com `forcarBuf` nao houve rede
   // nenhuma e o numero e zero — o que tambem e verdade.
   cont.INDEX_REQUESTS = Math.max(0, REDE.total - cont.DETAIL_REQUESTS);
+  cont.ROBOTS_REQUESTS = CORTESIA.pedidos.ROBOTS;
   const resumo = {
     RUN_ID, STARTED_AT, FINISHED_AT,
     IS_BASELINE: primeira,
@@ -868,7 +1161,16 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
     VPN_COUNTRY: egress?.country ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
     EGRESS_IP: egress?.ip ?? (forcarBuf ? "NAO_SE_APLICA" : "NAO SEI"),
     COLLECTOR_VERSION, SOURCE_CONTRACT_VERSION: "italy-contracts-v1", GIT_HEAD,
-    nota, contadores: cont
+    nota, contadores: cont,
+    // O que a cortesia fez nesta corrida, auditavel: a configuracao em vigor, o
+    // estado do robots de cada origem, os pedidos HTTP REAIS por host (robots,
+    // indice, materias, saltos e retentativas) e cada recusa com o porque.
+    CORTESIA: forcarBuf ? "NAO_SE_APLICA" : {
+      PAUSA_MINIMA_S: CORTESIA.cfg.PAUSA_S, TETO_POR_HOST: CORTESIA.cfg.TETO_POR_HOST,
+      MAX_SALTOS: CORTESIA.cfg.MAX_SALTOS, EXCECOES: [...EXCECOES_DE_CORTESIA],
+      ROBOTS: Object.fromEntries([...CORTESIA.robots].map(([o, r]) => [o, { ESTADO: r.estado, CRAWL_DELAY: r.crawlDelay ?? null, PORQUE: r.porque }])),
+      PEDIDOS_POR_HOST: Object.fromEntries(CORTESIA.porHost),
+      RECUSAS: CORTESIA.recusas }
   };
   mkdirSync(LEDGER_DIR, { recursive: true });
   appendFileSync(`${LEDGER_DIR}/runs.ndjson`, JSON.stringify(resumo) + "\n");

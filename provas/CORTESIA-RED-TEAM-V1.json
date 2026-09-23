@@ -1,0 +1,166 @@
+{
+ "DATASET": "CORTESIA-RED-TEAM-V1",
+ "ALVO": "coleta/italy_pilot_collect.mjs",
+ "PROVA": "provas/cortesia_http_local.mjs",
+ "SHA256_DO_ALVO": "8a1a6226650acf2c3725f3ddb655ac992a7caab6eaa831147bd0374e90dc1045",
+ "ATAQUES": [
+  {
+   "ID": "K1",
+   "O_QUE": "o robots deixa de ser respeitado (caminho proibido e pedido)",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C1: ZERO pedidos ao caminho proibido; a materia livre vem",
+    "FALHA C1: a recusa e contada com o motivo, e NAO e observacao nem falha",
+    "FALHA C1: o resumo mostra a cortesia (robots, pedidos por host, recusas)"
+   ]
+  },
+  {
+   "ID": "K2",
+   "O_QUE": "robots ilegivel passa a valer como permissao",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C7 html: so o robots e pedido — nao se afirma permissao que nao se leu",
+    "FALHA C7 500: so o robots e pedido — nao se afirma permissao que nao se leu"
+   ]
+  },
+  {
+   "ID": "K3",
+   "O_QUE": "robots indisponivel passa a valer como permissao",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C8: nada alem do robots e pedido, e a recusa diz INDISPONIVEL (nao «o host recusou»)"
+   ]
+  },
+  {
+   "ID": "K4",
+   "O_QUE": "a pausa entre pedidos ao mesmo host desaparece",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C3: robots + indice + 2 materias, cada pedido >= 1,0 s depois do anterior",
+    "FALHA C4: com SINTONIA_PAUSA_POR_HOST_S=2, cada intervalo >= 2 s",
+    "FALHA C4b: Crawl-delay 3 no robots manda sobre a pausa de 1 s (depois de o ler)"
+   ]
+  },
+  {
+   "ID": "K5",
+   "O_QUE": "o Crawl-delay do robots deixa de mandar",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C4b: Crawl-delay 3 no robots manda sobre a pausa de 1 s (depois de o ler)"
+   ]
+  },
+  {
+   "ID": "K6",
+   "O_QUE": "o teto de pedidos por host desaparece",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C5: 6 materias anunciadas, o servidor recebe EXACTAMENTE 5 pedidos",
+    "FALHA C5: as 3 que ficaram de fora sao adiadas pelo teto, fora do livro",
+    "FALHA C5b: na corrida seguinte as adiadas voltam a ser pedidas (ADIADO != NUNCA)"
+   ]
+  },
+  {
+   "ID": "K7",
+   "O_QUE": "o salto de redireccionamento deixa de pedir licenca",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C10: o destino proibido pelo robots NUNCA e pedido",
+    "FALHA C10: o salto recusado a meio JA bateu a porta — fica como falha de transporte, com o porque"
+   ]
+  },
+  {
+   "ID": "K8",
+   "O_QUE": "o robots volta a ser lido a cada pedido (sem cache por corrida)",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C1: robots lido UMA vez na corrida (cache por corrida), antes de tudo",
+    "FALHA C1: a recusa e contada com o motivo, e NAO e observacao nem falha",
+    "FALHA C1: o resumo mostra a cortesia (robots, pedidos por host, recusas)"
+   ]
+  },
+  {
+   "ID": "K9",
+   "O_QUE": "INDISPONIVEL fica em cache (um soluco vira proibicao da corrida)",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C8: nada alem do robots e pedido, e a recusa diz INDISPONIVEL (nao «o host recusou»)"
+   ]
+  },
+  {
+   "ID": "K10",
+   "O_QUE": "a materia recusada volta a contar como pedido e a ir ao livro",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C1: a recusa e contada com o motivo, e NAO e observacao nem falha",
+    "FALHA C5: as 3 que ficaram de fora sao adiadas pelo teto, fora do livro",
+    "FALHA C6: com SINTONIA_TETO_POR_HOST=3, o servidor recebe 3 pedidos"
+   ]
+  },
+  {
+   "ID": "K11",
+   "O_QUE": "o indice recusado volta a ser falha da fonte, escrita no livro",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C2: a fonte fica UNKNOWN (nao se olhou), nao FAILED, e nada vai ao livro",
+    "FALHA C7 html: so o robots e pedido — nao se afirma permissao que nao se leu",
+    "FALHA C7 500: so o robots e pedido — nao se afirma permissao que nao se leu"
+   ]
+  },
+  {
+   "ID": "K12",
+   "O_QUE": "a pausa configurada e ignorada",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C4: com SINTONIA_PAUSA_POR_HOST_S=2, cada intervalo >= 2 s",
+    "FALHA C12: SINTONIA_PAUSA_POR_HOST_S=-1 recusa arrancar",
+    "FALHA C12: SINTONIA_PAUSA_POR_HOST_S=x recusa arrancar"
+   ]
+  },
+  {
+   "ID": "K13",
+   "O_QUE": "o teto configurado e ignorado",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C6: com SINTONIA_TETO_POR_HOST=3, o servidor recebe 3 pedidos",
+    "FALHA C12: SINTONIA_TETO_POR_HOST=0 recusa arrancar",
+    "FALHA C12: SINTONIA_TETO_POR_HOST=2.5 recusa arrancar"
+   ]
+  },
+  {
+   "ID": "K14",
+   "O_QUE": "a configuracao invalida passa em silencio",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C12: SINTONIA_PAUSA_POR_HOST_S=-1 recusa arrancar",
+    "FALHA C12: SINTONIA_PAUSA_POR_HOST_S=x recusa arrancar"
+   ]
+  },
+  {
+   "ID": "K15",
+   "O_QUE": "o pedido recusado conta como ida a rede (REDE.total inventa indices)",
+   "VEREDICTO": "MORTO",
+   "CODIGO": 1,
+   "MORTO_POR": [
+    "FALHA C1: a recusa e contada com o motivo, e NAO e observacao nem falha",
+    "FALHA C2: a fonte fica UNKNOWN (nao se olhou), nao FAILED, e nada vai ao livro"
+   ]
+  }
+ ],
+ "MORTOS": 15,
+ "TOTAL": 15,
+ "RESTAURADO": true
+}

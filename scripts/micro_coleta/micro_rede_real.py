@@ -1,6 +1,6 @@
 """MICRO-COLETA COM REDE REAL (VPN IT) SOBRE UMA SALA DESCARTAVEL — A4.
 
-    py scripts/micro_coleta/micro_rede_real.py [--fontes=...] [--manter]
+    py scripts/micro_coleta/micro_rede_real.py [--fontes=...] [--manter] [--ajudas-da-a4]
 
 O mesmo caminho do ensaio offline (orquestrador -> coletor Node -> RAW -> DERIVED ->
 Admission -> Sala, pelo comando do micro_coleta), mas os pedidos vao a INTERNET
@@ -17,6 +17,18 @@ por PASSAGEM; com as duas passagens da prova de idempotencia, o teto por site e 
   * 15 s entre fontes. Dentro de uma fonte o coletor nao espaça os pedidos (medido;
     nao se muda o coletor aqui).
 US$0: nenhuma rota paga, sem login. A coorte e a do PORTAO (micro_coleta.plano).
+
+⚠️ DESDE A A5 AS TRES AJUDAS DE CIMA SAIRAM DO CAMINHO POR OMISSAO. O robots, a pausa
+entre pedidos ao mesmo host e o teto de 5 pedidos por site (D7) vivem agora DENTRO do
+coletor (`coleta/italy_pilot_collect.mjs::baixar`), que e o dono do transporte. Correr
+as ajudas por cima seria ter DOIS donos da mesma regra. Sem flag, este condutor:
+  * NAO le robots (quem le e o coletor, por origem, uma vez por corrida);
+  * NAO baixa MAX_TARGETS (o teto por host do coletor corta aos 5 pedidos);
+  * NAO espera entre fontes (a pausa e por host, dentro do coletor).
+Fica so o que e do condutor: o portao de egresso IT antes e depois de cada fonte, e
+a Sala descartavel. `--ajudas-da-a4` repoe as tres, SO para reproduzir a A4.
+Os pedidos por site passam a ler-se do resumo do coletor (`CORTESIA.PEDIDOS_POR_HOST`):
+e a conta do transporte, com robots, saltos e retentativas, e nao uma soma deduzida.
 """
 from __future__ import annotations
 
@@ -95,19 +107,19 @@ def limitar_contratos(arvore: Path) -> dict:
     return mudados
 
 
-def passagem(nome, fontes, arvore, env, saida, contratos, robots_lidos, log):
+def passagem(nome, fontes, arvore, env, saida, contratos, robots_lidos, log, ajudas=False):
     corridas, parou = [], None
     for i, s in enumerate(fontes):
-        if i:
+        if i and ajudas:
             time.sleep(PAUSA_ENTRE_FONTES)
         antes = portao_de_egresso()
         if antes["GATE"] != "PASS":
             parou = {"FONTE": s, "EGRESSO": antes, "PORQUE": "portao de egresso caiu antes da fonte"}
             log(f"PARAR {nome}: egresso {antes} antes de {s}")
             break
-        if s not in robots_lidos:
+        if ajudas and s not in robots_lidos:
             robots_lidos[s] = robots(contratos.get(s) or {})
-        rb = robots_lidos[s]
+        rb = robots_lidos.get(s) or {"PERMITE": True}
         if not rb["PERMITE"]:
             corridas.append({"SOURCE_ID": s, "CORREU": False, "PORQUE": "ROBOTS_PROIBE", "ROBOTS": rb,
                              "EGRESSO_ANTES": antes})
@@ -139,7 +151,13 @@ def passagem(nome, fontes, arvore, env, saida, contratos, robots_lidos, log):
 
 
 def por_site(corridas, runs, obs, robots_lidos) -> dict:
-    """Pedidos reais e falhas por site, sem esconder codigo nenhum."""
+    """Pedidos reais e falhas por site, sem esconder codigo nenhum.
+
+    Desde a A5 o coletor conta ele proprio os pedidos HTTP por host (`CORTESIA` no
+    resumo da corrida). Quando essa conta existe, ela manda: `PEDIDOS_POR_HOST`,
+    `MAX_POR_HOST` e as `RECUSAS` da cortesia vem de la. ROBOTS/INDICE/MATERIAS
+    continuam, para comparar com a A4.
+    """
     out = {}
     for c in corridas:
         s = c["SOURCE_ID"]
@@ -152,13 +170,27 @@ def por_site(corridas, runs, obs, robots_lidos) -> dict:
                 k = r.get("contadores") or {}
                 linha["INDICE"] += int(k.get("INDEX_REQUESTS") or 0)
                 linha["MATERIAS"] += int(k.get("DETAIL_REQUESTS") or 0)
+                cort = r.get("CORTESIA")
+                if isinstance(cort, dict):
+                    linha["ROBOTS"] += int(k.get("ROBOTS_REQUESTS") or 0)
+                    ph = linha.setdefault("PEDIDOS_POR_HOST", {})
+                    for h, n in (cort.get("PEDIDOS_POR_HOST") or {}).items():
+                        ph[h] = ph.get(h, 0) + int(n)
+                    linha.setdefault("RECUSAS", []).extend(
+                        {"URL": x.get("URL"), "MOTIVO": x.get("MOTIVO")} for x in cort.get("RECUSAS") or [])
+                    linha["ROBOTS_ESTADO"] = {o: v.get("ESTADO") for o, v in (cort.get("ROBOTS") or {}).items()}
         for o in obs:
             if o.get("RUN_ID") == c.get("RUN_ID") and o.get("HEALTH_STATE") == "FAILED":
                 linha["FALHAS"].append({"URL": o.get("SOURCE_URL"), "RESULTADO": o.get("OBSERVATION_RESULT"),
                                         "MOTIVO": str(o.get("motivo") or AUSENCIA)[:80]})
     for s, l in out.items():
         l.pop("_robots_contado", None)
-        l["TOTAL"] = l["ROBOTS"] + l["INDICE"] + l["MATERIAS"]
+        if "PEDIDOS_POR_HOST" in l:
+            # A conta do transporte: inclui saltos e retentativas, que a soma nao ve.
+            l["TOTAL"] = sum(l["PEDIDOS_POR_HOST"].values())
+            l["MAX_POR_HOST"] = max(l["PEDIDOS_POR_HOST"].values(), default=0)
+        else:
+            l["TOTAL"] = l["ROBOTS"] + l["INDICE"] + l["MATERIAS"]
     return out
 
 
@@ -174,6 +206,7 @@ def main(argv=None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     fontes = next((a.split("=", 1)[1].split(",") for a in argv if a.startswith("--fontes=")), None)
     manter = "--manter" in argv
+    ajudas = "--ajudas-da-a4" in argv
     D = Path(os.environ.get("TEMP", "/tmp")) / ("micro-rede-real-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
     saida = D / "saida"
     saida.mkdir(parents=True)
@@ -184,7 +217,9 @@ def main(argv=None) -> int:
         with diario.open("a", encoding="utf-8") as f:
             f.write(E.agora() + " " + t + "\n")
 
-    resultado = {"INICIO": E.agora(), "PASTA": str(D)}
+    resultado = {"INICIO": E.agora(), "PASTA": str(D),
+                 "AJUDAS_EXTERNAS": "A4 (robots no condutor, MAX_TARGETS 3, 15 s entre fontes)"
+                 if ajudas else "NENHUMA — robots, pausa e teto sao do coletor (A5)"}
     resultado["EGRESSO_INICIO"] = portao_de_egresso()
     log(f"egresso inicio {resultado['EGRESSO_INICIO']}")
     if resultado["EGRESSO_INICIO"]["GATE"] != "PASS":
@@ -205,7 +240,7 @@ def main(argv=None) -> int:
     arvore = D / "arvore"
     subprocess.run(["git", "worktree", "add", "--detach", str(arvore), "HEAD"], cwd=RAIZ,
                    check=True, capture_output=True)
-    resultado["MAX_TARGETS_BAIXADO"] = limitar_contratos(arvore)
+    resultado["MAX_TARGETS_BAIXADO"] = limitar_contratos(arvore) if ajudas else "NAO — teto por host do coletor"
     contratos = {c["SOURCE_ID"]: c for c in json.loads(
         (arvore / "regras" / "italy_contracts_onboarded.json").read_text(encoding="utf-8"))["FONTES"]}
     base = E.Base(D / "pg")
@@ -224,7 +259,7 @@ def main(argv=None) -> int:
         resultado["BASE"] = base.subir(arvore, env)
         os.environ.update({k: env[k] for k in ("SINTONIA_SALA_DSN", "SINTONIA_PSQL_EXE", "ITALY_OPS_ROOT")})
         antes = E.contagens()
-        c1, parou1 = passagem("1a", fontes, arvore, env, saida, contratos, robots_lidos, log)
+        c1, parou1 = passagem("1a", fontes, arvore, env, saida, contratos, robots_lidos, log, ajudas)
         depois1 = E.contagens()
         runs1 = [c["RUN_ID"] for c in c1 if c.get("RUN_ID") not in (None, AUSENCIA)]
         rel = MC.relatorio(runs1, corridas=[c for c in c1 if c.get("CORREU")],
@@ -245,7 +280,7 @@ def main(argv=None) -> int:
             "POR_SITE": por_site(c1, runs_nd, obs1, robots_lidos)}
         if parou1 is None:
             antes2 = E.contagens()
-            c2, parou2 = passagem("2a", fontes, arvore, env, saida, contratos, robots_lidos, log)
+            c2, parou2 = passagem("2a", fontes, arvore, env, saida, contratos, robots_lidos, log, ajudas)
             runs2 = {c["RUN_ID"] for c in c2 if c.get("RUN_ID") not in (None, AUSENCIA)}
             obs_t = E.ler_ndjson(led / "observations.ndjson")
             runs_t = E.ler_ndjson(led / "runs.ndjson")
