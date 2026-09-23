@@ -575,6 +575,30 @@
    ]
   },
   {
+   "id": "C-RECEITAS-PROPOSTA",
+   "name": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada)",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Le uma COPIA do livro de contratos do Curator e as paginas com veredito (gabarito do detector + paginas novas), classifica o defeito de cada receita (LINK_PATTERN que nao casa nada / nao casa a materia / generico; INDEX_URL que aponta para materia) e propoe LINK_PATTERN e INDEX_URL novos so com prova: materia lida, familia >= 2 na entrada, guarda contra padrao generico. Mede o efeito em memoria. Nunca escreve nos contratos.",
+   "why_here": "O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/receitas/censo_e_proposta.py",
+    "scripts/receitas/provar_indices.py",
+    "scripts/receitas/medir_efeito.py",
+    "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
+    "curadoria/PROPOSTA-RECEITAS-V1.json"
+   ]
+  },
+  {
    "id": "C-DETECTOR-CAPA-GABARITO",
    "name": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
    "territory": "Z-MEDIDAS",
