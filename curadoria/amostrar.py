@@ -100,20 +100,12 @@ def amostrar_facebook(f: dict, cand: dict) -> dict:
     }
 
 
-def amostrar_html(f: dict, cand: dict, pausa: float,
-                  tecto: int | None = None, permitido=None) -> dict:
+def amostrar_html(f: dict, cand: dict, pausa: float) -> dict:
     """Volta ao indice, colhe ate ao tecto, e PARA quando o padrao estabiliza.
 
     ⚠️ O indice serve para contar e datar; o conteudo vem dos ITENS. Misturar
     os dois foi o bug da missao 02.
-
-    `tecto` e `permitido` sao para quem chama a peca dentro do servico (o
-    QUALIFY): um tecto de pedidos por site e o robots lido na hora. Sem eles,
-    a peca faz o que sempre fez.
     """
-    tecto = CH.AMOSTRA_TECTO if tecto is None else tecto
-    if permitido and not permitido(cand["URL"]):
-        return {"ERRO": "robots nao permite o indice", "ITENS": []}
     r = CAP.buscar(cand["URL"], "text/html,application/xhtml+xml,*/*;q=0.8")
     if not r["OK"]:
         return {"ERRO": "indice nao respondeu (%s)" % (r.get("FALHA")), "ITENS": []}
@@ -133,11 +125,9 @@ def amostrar_html(f: dict, cand: dict, pausa: float,
         vistos.add(f["REAL_EXAMPLE_URL"])
 
     for url in links:
-        if len(itens) >= tecto:
+        if len(itens) >= CH.AMOSTRA_TECTO:
             break
         if url in vistos:
-            continue
-        if permitido and not permitido(url):
             continue
         # para de pedir assim que aprendeu: o tecto e limite, nao meta
         if len(itens) >= CH.AMOSTRA_INICIAL:
@@ -168,15 +158,14 @@ def amostrar_html(f: dict, cand: dict, pausa: float,
 
 
 # ─────────────────────────────────────────────────────────────────────────
-def caracterizar(f: dict, cand: dict, dec: dict, pausa: float,
-                 tecto: int | None = None, permitido=None) -> dict:
+def caracterizar(f: dict, cand: dict, dec: dict, pausa: float) -> dict:
     fam = f["FAMILY"]
     if fam == "YOUTUBE":
         a = amostrar_youtube(f, cand)
     elif fam == "FACEBOOK":
         a = amostrar_facebook(f, cand)
     else:
-        a = amostrar_html(f, cand, pausa, tecto=tecto, permitido=permitido)
+        a = amostrar_html(f, cand, pausa)
 
     itens = a.get("ITENS", [])
     n = len(itens)
