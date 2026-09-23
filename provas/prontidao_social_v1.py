@@ -103,7 +103,9 @@ def rotas_da_matriz(plat, capacidade):
     for r in (mz.MATRIZ.get(plat) or {}).get(grossa) or []:
         fora.append({
             'ROTA': r['ROTA'], 'CLASSE': r['CLASSE'], 'TIPO': _tipo_da_rota(r),
-            'PERMITIDA': r['PERMITIDA'], 'ESTADO': r['ESTADO'],
+            # COPIA da resposta do dono (leis/social_matriz.py), com nome de copia:
+            # esta prova nao responde «pode?» — le quem responde (test_c10_4_route_gate).
+            'PERMITIDA_NA_MATRIZ': r['PERMITIDA'], 'ESTADO': r['ESTADO'],
             'OWNER_AUTHORIZED': r.get('OWNER_AUTHORIZED'),
             'PLATFORM_POLICY_STATUS': r.get('PLATFORM_POLICY_STATUS'),
             'CREDENCIAL': _credencial_de(r['ROTA']),
@@ -174,10 +176,10 @@ def classificar(l):
     com engenharia), depois o CAMINHO, depois a CREDENCIAL, depois a FASE.
     """
     rotas = l['ROTAS']
-    livres_sim = [r for r in rotas if r['TIPO'] in GRATIS and r['PERMITIDA'] == 'SIM']
+    livres_sim = [r for r in rotas if r['TIPO'] in GRATIS and r['PERMITIDA_NA_MATRIZ'] == 'SIM']
     if l['PORTA_PONTE'] == 'POLICY_BLOCK':
         return ROUTE_NOT_ALLOWED
-    if rotas and not any(r['PERMITIDA'] in ('SIM', 'CONDICIONAL') for r in rotas):
+    if rotas and not any(r['PERMITIDA_NA_MATRIZ'] in ('SIM', 'CONDICIONAL') for r in rotas):
         return ROUTE_NOT_ALLOWED
     if not l['EDGE_EXISTS']:
         return FAIL_CLOSED
@@ -200,7 +202,7 @@ def o_que_falta(l, globais=None):
     f = []
     if l['PORTA_PONTE'] == 'POLICY_BLOCK':
         f.append('DONO: D15 POLICY_BLOCK na porta (termos proíbem); sai só com rota autorizada')
-    tipos = {r['TIPO'] for r in l['ROTAS'] if r['PERMITIDA'] in ('SIM', 'CONDICIONAL')}
+    tipos = {r['TIPO'] for r in l['ROTAS'] if r['PERMITIDA_NA_MATRIZ'] in ('SIM', 'CONDICIONAL')}
     if l['ROTAS'] and not (tipos & set(GRATIS)):
         f.append('NAO_EXISTE rota grátis permitida na matriz')
     if l['CHECK_STATE'] == 'CREDENTIAL_MISSING':

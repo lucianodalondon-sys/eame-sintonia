@@ -48,7 +48,7 @@ def _linha(**k):
 
 def _rota(classe, permitida='SIM'):
     return {'ROTA': 'r', 'CLASSE': classe, 'TIPO': ps.TIPO_DA_CLASSE[classe],
-            'PERMITIDA': permitida, 'ESTADO': 'PROVED', 'CREDENCIAL': None,
+            'PERMITIDA_NA_MATRIZ': permitida, 'ESTADO': 'PROVED', 'CREDENCIAL': None,
             'OWNER_AUTHORIZED': None, 'PLATFORM_POLICY_STATUS': None}
 
 
