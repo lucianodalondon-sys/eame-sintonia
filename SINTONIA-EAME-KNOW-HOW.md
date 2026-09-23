@@ -18800,3 +18800,22 @@ RC vazio → `terminate`/`kill` e `WORKER_PENDURADO_TERMINADO` antes de relança
 - **NÃO SEI:** nos dados antigos não se separa caso a caso se o cano encheu antes dos
   300 s ou se só o pulso envelheceu, porque o worker não anotava cada tarefa. As duas
   causas estão provadas; a proporção entre elas, não.
+
+**ADENDA À §172 — o que a evidência ao vivo e o ensaio de dois escritores acrescentaram.**
+
+- **Ao vivo, depois de 9a82197c:** quatro workers seguidos (01:32–01:52Z) pararam ao fim de
+  EXACTAMENTE 44 transições e morreram 303–304 s depois de arrancar. Um número fixo de
+  tarefas é a assinatura de um limite de bytes (o cano); o ritmo de 5 min é só o
+  `HEARTBEAT_TIMEOUT_S` que o deteta. Uma tarefa longa daria contagens diferentes.
+- **Dois escritores, medidos em cópia:** com o relógio encurtado, o código anterior teve até
+  3 workers vivos e 3 PIDs a fechar tarefas intercaladas da mesma fila. O novo nunca passa de 1.
+- **O remédio do cano agravava o outro defeito.** Com o stdout em ficheiro, o worker antigo
+  já não morre no print seguinte (o cano fechado era o que o matava). Sem o `terminate`
+  antes de relançar, ficaria vivo para sempre ao lado do novo. Os dois consertos só são
+  seguros juntos.
+- **Pulso durante a tarefa, com teto.** Um fio que pulsa sempre esconderia um worker
+  encravado; por isso só pulsa até `TAREFA_MAX_S = 900`.
+- **Um mutante sobreviveu à primeira**: os testes arrancavam o fio à mão, e ninguém
+  verificava que o `correr` o arranca sozinho. Teste acrescentado; o mutante morre.
+- **CRASH_MAX (3 em 120 s) não é alcançável** com mortes a 303 s umas das outras: o
+  risco destas mortes nunca foi BLOCKED, foi o escritor duplicado.
