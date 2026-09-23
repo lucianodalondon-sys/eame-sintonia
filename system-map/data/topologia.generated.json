@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T03:54:54+00:00",
-  "HEAD": "27b4fb0556d003e6c316f4dc3077d7ba5030da75",
+  "GENERATED_AT": "2026-09-23T04:21:51+00:00",
+  "HEAD": "c604760a8fcdb268904ed1e14b24c0e75ba70339",
   "BRANCH": "coorte-micro-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389",
+  "SOURCE_TREE_FINGERPRINT": "5a6a0ddeb6383f987c43f93c0831a337017cc318c2ec1b824227a03a7d9f76d0",
   "FICHEIROS_NA_IMPRESSAO": 2689,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -3156,7 +3156,7 @@
    {
     "PATH": "scripts/coorte_micro/funil.py",
     "PAPEL": "FONTE",
-    "VERSAO": "2139378365be765f5d58525cb74be06b12ab596c",
+    "VERSAO": "29d04b0422c8133048b9d2f8ad821a8e5c061cab",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3289,14 +3289,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389",
+    "VERSAO": "5a6a0ddeb6383f987c43f93c0831a337017cc318c2ec1b824227a03a7d9f76d0",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389",
+    "VERSAO": "5a6a0ddeb6383f987c43f93c0831a337017cc318c2ec1b824227a03a7d9f76d0",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4297,7 +4297,7 @@
    {
     "PATH": "tests/test_funil_coorte.py",
     "PAPEL": "FONTE",
-    "VERSAO": "1989272a8fe179b1cbf6946e7b49c165c5223fa1",
+    "VERSAO": "5230280c8d2a1f32cac70cdb7f2be187551a791b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4989,7 +4989,7 @@
    }
   ],
   "INPUTS_COUNT": 707,
-  "INPUTS_DIGEST": "870bc77fe2e156dfd8a1abf1b77c58b1551a06a9954a3c123e8a58ffd6951e35",
+  "INPUTS_DIGEST": "3e4773c669504dbf61c01d3902001b8a75fcc4fbb76bc5f88a7d720de3181a48",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5022,8 +5022,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "2a186ec600552b72f61cfb09054d52e87dc90051d2d84c886e62fb37af863812",
-  "SEMANTIC_HASH": "96573d566d711a4ae98c67a7e7cf5acf7bf9fade24936c3e02b5f4524f211332"
+  "MEASUREMENT_HASH": "e5d16a5cabeb08d9b353f05b42c7655c64183d933394b09da367251e28c134d5",
+  "SEMANTIC_HASH": "4b471eecb600793858a0c470039f245bc270a17efcf7d41b31587068b375f57e"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -15061,7 +15061,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/coorte_micro/funil.py",
-      "LINHA": 84,
+      "LINHA": 86,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-MICRO-FUNIL",
@@ -30313,7 +30313,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/coorte_micro/funil.py",
-      "LINHA": 161,
+      "LINHA": 195,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",

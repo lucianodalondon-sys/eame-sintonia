@@ -3135,9 +3135,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "coorte-micro-v1",
-    "HEAD": "27b4fb0556d003e6c316f4dc3077d7ba5030da75",
-    "GENERATED_AT": "2026-09-23T00:49:56-03:00",
-    "SOURCE_TREE_FINGERPRINT": "289016513f2490702124609e1e4550f97e6f4aa726d948a2503fad483e964389"
+    "HEAD": "c604760a8fcdb268904ed1e14b24c0e75ba70339",
+    "GENERATED_AT": "2026-09-23T01:15:35-03:00",
+    "SOURCE_TREE_FINGERPRINT": "5a6a0ddeb6383f987c43f93c0831a337017cc318c2ec1b824227a03a7d9f76d0"
   },
   "FAMILIES": [
     {
@@ -22243,7 +22243,7 @@
         "PROVA": [
           "coleta/social_scrap.py:775",
           "pacote/v21_handoff_json.py:106",
-          "scripts/coorte_micro/funil.py:84",
+          "scripts/coorte_micro/funil.py:86",
           "scripts/receitas/censo_e_proposta.py:147"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL · C-PACOTE-CAMADAS · C-RECEITAS-PROPOSTA · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -35465,7 +35465,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "scripts/coorte_micro/funil.py:161",
+          "scripts/coorte_micro/funil.py:195",
           "tests/test_receitas_proposta.py:15"
         ],
         "PORQUE": "estas pecas importam-na — C-COORTE-MICRO-FUNIL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -60923,8 +60923,8 @@
       "evidence": [
         {
           "file": "scripts/coorte_micro/funil.py",
-          "line": 84,
-          "snippet": "if (pc / \"MANIFESTO.json\").exists():",
+          "line": 86,
+          "snippet": "for mf in (Path.home() / \"coorte-paginas\" / \"MANIFESTO.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-COORTE-MICRO-FUNIL",
             "FROM": "C-DETECTOR-CAPA-GABARITO",
@@ -88073,7 +88073,7 @@
       "evidence": [
         {
           "file": "scripts/coorte_micro/funil.py",
-          "line": 161,
+          "line": 195,
           "snippet": "prop = json.loads((RAIZ / \"curadoria/PROPOSTA-RECEITAS-V1.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS-PROPOSTA--READS-->C-COORTE-MICRO-FUNIL",
