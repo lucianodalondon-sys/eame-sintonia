@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T09:38:38+00:00",
-  "HEAD": "fac33f530264e9360ab9d9c52a57128b9e19ebeb",
+  "GENERATED_AT": "2026-09-23T10:38:34+00:00",
+  "HEAD": "1ece8ec42b7636cc27257585afa4405afb3763bb",
   "BRANCH": "micro-pronta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "e159686853fc40b82b69b039b5e3c1e1558dd3a3ee921c5befd3aca66723c1d2",
-  "FICHEIROS_NA_IMPRESSAO": 2827,
+  "SOURCE_TREE_FINGERPRINT": "74779486ebbaa04c2aeed99c56f433ca62a59a842693c60fe33c56f479ab3a5f",
+  "FICHEIROS_NA_IMPRESSAO": 2829,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3359,7 +3359,7 @@
    {
     "PATH": "scripts/micro_coleta/ensaio_offline.py",
     "PAPEL": "FONTE",
-    "VERSAO": "4202e4e1187cc02afea8c6bee58e820bd59f1edf",
+    "VERSAO": "ad23b79a713491f2be82746bbf87af10b4708d3b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3373,7 +3373,14 @@
    {
     "PATH": "scripts/micro_coleta/micro_coleta.py",
     "PAPEL": "FONTE",
-    "VERSAO": "f9849698157d2777dae0c63bfbe48ecb90004d60",
+    "VERSAO": "84b157afb93da33fcd8a69609b906d4feaba6696",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/micro_coleta/provar_backup_da_sala.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "0fb475127ef2f991437a0dd4e9abf6cbd56d5d1a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3457,14 +3464,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e159686853fc40b82b69b039b5e3c1e1558dd3a3ee921c5befd3aca66723c1d2",
+    "VERSAO": "74779486ebbaa04c2aeed99c56f433ca62a59a842693c60fe33c56f479ab3a5f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "e159686853fc40b82b69b039b5e3c1e1558dd3a3ee921c5befd3aca66723c1d2",
+    "VERSAO": "74779486ebbaa04c2aeed99c56f433ca62a59a842693c60fe33c56f479ab3a5f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4374,7 +4381,7 @@
    {
     "PATH": "tests/test_ensaio_offline_micro.py",
     "PAPEL": "FONTE",
-    "VERSAO": "05c323980d643dd3a33ffc4a94359525f5adb7a7",
+    "VERSAO": "cce3f6aa96b9a797d545e2890d462509de3484aa",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -4682,7 +4689,7 @@
    {
     "PATH": "tests/test_micro_coleta_instrumento.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a06a2c982d54cf47c2591819d715f510be6c9cea",
+    "VERSAO": "1dff049fafd953bd65be609f542207473dd09c0c",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5233,8 +5240,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 742,
-  "INPUTS_DIGEST": "7bc18f29fab6ab7e390cba85b3634ef13f11b99609d653a71831f1d0566d1a66",
+  "INPUTS_COUNT": 743,
+  "INPUTS_DIGEST": "277eb09eb7be0e80dd043492dafb34d2d1fcd1655c0d9f51699cc11f50349274",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5260,15 +5267,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 476,
+  "DOCUMENTOS_LIDOS": 477,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "6ff8f5e6a2ce796c9d82dfdeef9e90b17aff20dd7beb5e28c5c044533a75baac",
-  "SEMANTIC_HASH": "380b3ddeb6dd37881a760cd6efa03febc7a546b923611c0a008c16da5f865d16"
+  "MEASUREMENT_HASH": "5b002b30925f6c42feec4d6f7d7b7f539b2eb5b274823caaac95068aee708596",
+  "SEMANTIC_HASH": "d0be194befec5a5ee785bf48c0edddda354a2ea3804a604129664206df1b984c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7182,7 +7189,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
-      "LINHA": 339,
+      "LINHA": 367,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10054,7 +10061,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 120,
+      "LINHA": 121,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10062,7 +10069,7 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 122,
+      "LINHA": 123,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -10084,7 +10091,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 171,
+      "LINHA": 184,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -10092,7 +10099,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 172,
+      "LINHA": 185,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
@@ -15592,6 +15599,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-MICRO-COLETA-INSTRUMENTO",
+    "FROM": "C-DESBLOQUEIO-PACOTE",
+    "TO": "C-MICRO-COLETA-INSTRUMENTO",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
+      "LINHA": 210,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DESBLOQUEIO-PACOTE--READS-->C-MICRO-COLETA-INSTRUMENTO",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -21555,7 +21584,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 55,
+      "LINHA": 56,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-COLETA--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -23204,7 +23233,15 @@
      },
      {
       "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
-      "LINHA": 483,
+      "LINHA": 536,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
+      "LINHA": 480,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-PRESERVAR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -23843,7 +23880,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/ensaio_offline.py",
-      "LINHA": 433,
+      "LINHA": 472,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LASTMILE-MEDIDORES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -25178,6 +25215,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "tests/test_ensaio_offline_micro.py",
+      "LINHA": 155,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MICRO-COLETA-INSTRUMENTO--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
       "LINHA": 19,
       "SUPPORTS": "YES",
@@ -25936,7 +25981,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 98,
+      "LINHA": 99,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -26784,7 +26829,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 49,
+      "LINHA": 50,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PEDIDO--IMPORTS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -30770,7 +30815,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 48,
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-RECEITAS--IMPORTS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -37955,7 +38000,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "scripts/micro_coleta/micro_coleta.py",
-      "LINHA": 53,
+      "LINHA": 54,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--READS-->C-MICRO-COLETA-INSTRUMENTO",
@@ -38257,7 +38302,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 37,
+      "LINHA": 38,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -38265,7 +38310,7 @@
      },
      {
       "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
-      "LINHA": 39,
+      "LINHA": 40,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -38354,6 +38399,14 @@
      {
       "FICHEIRO": "tests/test_ensaio_offline_micro.py",
       "LINHA": 41,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "tests/test_micro_coleta_instrumento.py",
+      "LINHA": 308,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TESTES--WRITES-->C-IT-PRESERVAR",
@@ -39934,12 +39987,12 @@
     ]
    }
   ],
-  "COUNT": 1125
+  "COUNT": 1126
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 172,
   "CARTOES_AUDITADOS": 172,
-  "ARESTAS_RELACIONADAS": 1125,
+  "ARESTAS_RELACIONADAS": 1126,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -40268,9 +40321,6 @@
    "C-LUGAR-DO-FATO": [
     "science"
    ],
-   "C-MICRO-COLETA-INSTRUMENTO": [
-    "collection-strategy"
-   ],
    "C-POLITICA-COLETA": [
     "collection-strategy",
     "opportunity",
@@ -40344,7 +40394,7 @@
    "DATA": 31,
    "PROOF": 374,
    "READ": 253,
-   "RULE": 199,
+   "RULE": 200,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -42509,12 +42559,13 @@
     "pathlib"
    ],
    "ENTRAM": 4,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [
-    "PROOF"
+    "PROOF",
+    "RULE"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -44103,6 +44154,7 @@
     "tests/test_a_linhagem_do_ready_e_do_raw_asset.py",
     "tests/test_ensaio_offline_micro.py",
     "tests/test_fontes_explicitas_no_coletor.py",
+    "tests/test_micro_coleta_instrumento.py",
     "tests/test_observabilidade_estrada.py"
    ],
    "DOCUMENTADO_COMO_CLI": [],
@@ -44651,9 +44703,11 @@
     "scripts/micro_coleta/COORTE-PROPOSTA.json",
     "scripts/micro_coleta/GABARITO-MICRO-V1.json",
     "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
+    "scripts/micro_coleta/MICRO-RUNBOOK.md",
     "scripts/micro_coleta/ensaio_offline.py",
     "scripts/micro_coleta/medir_detector_de_capa.py",
-    "scripts/micro_coleta/micro_coleta.py"
+    "scripts/micro_coleta/micro_coleta.py",
+    "scripts/micro_coleta/provar_backup_da_sala.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
@@ -44663,7 +44717,8 @@
    "DOCUMENTADO_COMO_CLI": [
     "RELATORIO-MICRO-PREP-B.md",
     "RELATORIO-MICRO-PREP.md",
-    "scripts/micro_coleta/MICRO-CAMINHO-A1.md"
+    "scripts/micro_coleta/MICRO-CAMINHO-A1.md",
+    "scripts/micro_coleta/MICRO-RUNBOOK.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -44681,7 +44736,7 @@
     "sala_de_espera",
     "urllib"
    ],
-   "ENTRAM": 11,
+   "ENTRAM": 12,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -44693,9 +44748,7 @@
     "PROOF"
    ],
    "PORQUE_SOZINHO": null,
-   "ORFAO_FALSO_NAS_VISTAS": [
-    "collection-strategy"
-   ],
+   "ORFAO_FALSO_NAS_VISTAS": [],
    "GAP": null
   },
   {

@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "micro-pronta-v1",
-    "HEAD": "fac33f530264e9360ab9d9c52a57128b9e19ebeb",
-    "GENERATED_AT": "2026-09-23T06:33:47-03:00",
-    "SOURCE_TREE_FINGERPRINT": "e159686853fc40b82b69b039b5e3c1e1558dd3a3ee921c5befd3aca66723c1d2"
+    "HEAD": "1ece8ec42b7636cc27257585afa4405afb3763bb",
+    "GENERATED_AT": "2026-09-23T07:31:39-03:00",
+    "SOURCE_TREE_FINGERPRINT": "74779486ebbaa04c2aeed99c56f433ca62a59a842693c60fe33c56f479ab3a5f"
   },
   "FILES": [
     {
@@ -521,7 +521,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "d33c0833fdda908b6cc796f85d8076ab3dd946d8",
+      "sha": "814fe01848f765a88f60b8c593853ef7a0d34ff7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -16109,8 +16109,15 @@
       "code_dir": true
     },
     {
+      "path": "scripts/micro_coleta/MICRO-RUNBOOK.md",
+      "sha": "3b23d2ef4929c8e575f7951cb0c0e255b170ff5a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/micro_coleta/ensaio_offline.py",
-      "sha": "4202e4e1187cc02afea8c6bee58e820bd59f1edf",
+      "sha": "ad23b79a713491f2be82746bbf87af10b4708d3b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16124,7 +16131,14 @@
     },
     {
       "path": "scripts/micro_coleta/micro_coleta.py",
-      "sha": "f9849698157d2777dae0c63bfbe48ecb90004d60",
+      "sha": "84b157afb93da33fcd8a69609b906d4feaba6696",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/micro_coleta/provar_backup_da_sala.py",
+      "sha": "0fb475127ef2f991437a0dd4e9abf6cbd56d5d1a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16768,7 +16782,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "bd10406fede3551e53440311acd6b27ed4c550a0",
+      "sha": "a0e598da37d5ae71357559cf725a0447d573af25",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -17895,7 +17909,7 @@
     },
     {
       "path": "tests/test_ensaio_offline_micro.py",
-      "sha": "05c323980d643dd3a33ffc4a94359525f5adb7a7",
+      "sha": "cce3f6aa96b9a797d545e2890d462509de3484aa",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -18203,7 +18217,7 @@
     },
     {
       "path": "tests/test_micro_coleta_instrumento.py",
-      "sha": "a06a2c982d54cf47c2591819d715f510be6c9cea",
+      "sha": "1dff049fafd953bd65be609f542207473dd09c0c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -56962,7 +56976,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 339,
+        "line": 367,
         "snippet": "\"ADMISSION_NAO\": {\"VALOR\": adm.get(\"NAO\", 0), \"PECA\": \"admissao/admissao.py\", \"ROTA\": \"READ_BY_INSTRUMENT\"},"
       }
     },
@@ -56984,8 +56998,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 483,
-        "snippet": "ler_ndjson(D / \"ops\" / \"data\" / \"collection-ledger\" / \"italy\" / \"runs.ndjson\"),"
+        "line": 536,
+        "snippet": "[r for r in ler_ndjson(led / \"runs.ndjson\") if r.get(\"RUN_ID\") in ids2],"
       }
     },
     {
@@ -56995,7 +57009,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 472,
+        "line": 511,
         "snippet": "livro=arvore / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\","
       }
     },
@@ -57017,7 +57031,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/ensaio_offline.py",
-        "line": 433,
+        "line": 472,
         "snippet": "lanc = [sys.executable, \"medidas/corrida_sem_rede.py\", f\"--saida={medida}\", \"--\"] + cmd[2:]"
       }
     },
@@ -57072,7 +57086,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 123,
+        "line": 124,
         "snippet": "\"DECISAO\": \"RELATORIO-RELEVANCIA-ELEGIVEIS.md\"},"
       }
     },
@@ -57083,7 +57097,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 43,
+        "line": 44,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -57094,7 +57108,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 55,
+        "line": 56,
         "snippet": "EXECUTOR = \"coleta/italy_executor.py\""
       }
     },
@@ -57105,7 +57119,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 122,
+        "line": 123,
         "snippet": "\"DADOS\": \"curadoria/RELEVANCIA-ELEGIVEIS-V1.json\","
       }
     },
@@ -57116,8 +57130,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 120,
+        "line": 121,
         "snippet": "\"DADOS\": \"curadoria/ROTAS-ELEGIVEIS-V1.json\"},"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 480,
+        "snippet": "p = (pasta or ledger_do_coletor()) / \"runs.ndjson\""
       }
     },
     {
@@ -57127,7 +57152,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 54,
+        "line": 55,
         "snippet": "LIVRO = RAIZ / \"data\" / \"samples\" / \"LIVRO-DE-DECISOES.json\""
       }
     },
@@ -57138,7 +57163,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 98,
+        "line": 99,
         "snippet": "return [sys.executable, \"orquestrador/orquestrador.py\", apelido_de(u) or u,"
       }
     },
@@ -57149,7 +57174,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 49,
+        "line": 50,
         "snippet": "from pedido import de_uma_frase        # noqa: E402"
       }
     },
@@ -57160,7 +57185,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 48,
+        "line": 49,
         "snippet": "import receitas as REC                 # noqa: E402  (a gaveta pedido/ esta no caminho)"
       }
     },
@@ -57171,8 +57196,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 53,
+        "line": 54,
         "snippet": "CONTRATOS = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 210,
+        "snippet": "G1 = RAIZ / \"scripts\" / \"desbloqueio\" / \"FUNIL-APOS-ENSAIO-G1.json\""
       }
     },
     {
@@ -57182,7 +57218,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 52,
+        "line": 53,
         "snippet": "COORTE = AQUI / \"COORTE-PROPOSTA.json\""
       }
     },
@@ -57193,8 +57229,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/micro_coleta/micro_coleta.py",
-        "line": 389,
+        "line": 426,
         "snippet": "GABARITO = AQUI / \"GABARITO-MICRO-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/provar_backup_da_sala.py",
+      "to_file": "scripts/micro_coleta/ensaio_offline.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/provar_backup_da_sala.py",
+        "line": 29,
+        "snippet": "import ensaio_offline as E  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "scripts/micro_coleta/provar_backup_da_sala.py",
+      "to_file": "scripts/micro_coleta/micro_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "scripts/micro_coleta/provar_backup_da_sala.py",
+        "line": 30,
+        "snippet": "import micro_coleta as MC   # noqa: E402"
       }
     },
     {
@@ -68528,6 +68586,17 @@
       }
     },
     {
+      "from_file": "tests/test_ensaio_offline_micro.py",
+      "to_file": "scripts/micro_coleta/provar_backup_da_sala.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ensaio_offline_micro.py",
+        "line": 155,
+        "snippet": "\"provar_backup_da_sala\", RAIZ / \"scripts\" / \"micro_coleta\" / \"provar_backup_da_sala.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_espinha_da_intelligence.py",
       "to_file": "provas/espinha_da_intelligence.py",
       "type": "IMPORTS",
@@ -71416,7 +71485,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 41,
+        "line": 42,
         "snippet": "\"RELATORIO-RELEVANCIA-ELEGIVEIS.md\": \"\\n\".join("
       }
     },
@@ -71427,7 +71496,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 171,
+        "line": 184,
         "snippet": "for c in (\"curadoria/RELEVANCIA-ELEGIVEIS-V1.json\", \"RELATORIO-RELEVANCIA-ELEGIVEIS.md\","
       }
     },
@@ -71438,7 +71507,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 39,
+        "line": 40,
         "snippet": "\"curadoria/RELEVANCIA-ELEGIVEIS-V1.json\": json.dumps({\"FONTES\": ["
       }
     },
@@ -71449,7 +71518,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 172,
+        "line": 185,
         "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\"):"
       }
     },
@@ -71460,8 +71529,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 37,
+        "line": 38,
         "snippet": "\"curadoria/ROTAS-ELEGIVEIS-V1.json\": json.dumps({\"LINHAS\": ["
+      }
+    },
+    {
+      "from_file": "tests/test_micro_coleta_instrumento.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_micro_coleta_instrumento.py",
+        "line": 308,
+        "snippet": "(led / \"runs.ndjson\").write_text(\"\".join(json.dumps(x) + \"\\n\" for x in linhas),"
       }
     },
     {
@@ -71471,7 +71551,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_micro_coleta_instrumento.py",
-        "line": 110,
+        "line": 111,
         "snippet": "self.assertEqual(c[1], \"orquestrador/orquestrador.py\")"
       }
     },
@@ -77682,10 +77762,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2679,
-    "files_readable": 1222,
-    "files_code_dir": 1030,
-    "file_edges": 5305,
+    "files_tracked": 2681,
+    "files_readable": 1223,
+    "files_code_dir": 1032,
+    "file_edges": 5311,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
