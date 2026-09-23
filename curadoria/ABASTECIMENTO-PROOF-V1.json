@@ -648,7 +648,8 @@
     ]
    ],
    "SEGUNDA_VOLTA_NO_MESMO_INSTANTE": 0
-  }
+  },
+  "ESTATUTO": "SIMULADO em 22/09 -> REAL em 23/09 (ver VIVO_REAL)"
  },
  "C_SEMENTES": {
   "CATALOGO_REAL": {
@@ -778,6 +779,103 @@
     "ONDE_VIU": "descoberta por familia de fonte 'organizzazione_agricola' e verificada por sonda HTTP",
     "CLASSIFICACAO": "dominio_tematico_coldiretti.it",
     "ROBOTS_PERMITE_A_SEMENTE": true
+   }
+  ]
+ },
+ "VIVO_REAL": {
+  "FONTE": "worktree viva source-curator-service-v1 @ 779ac8f6, supervisor 117276, lida por copia (medir_abastecimento_vivo.py); instalacao as 00:23:20Z, run-log a partir da linha 3577",
+  "JANELA": "2026-09-23T00:23:20Z a 01:02Z",
+  "REVIVIDAS": {
+   "TOTAL": 68,
+   "VALIDATE_ROUTE_REVIVIDAS": 62,
+   "CANARY_REVIVIDAS": 6,
+   "ULTIMO_ESTADO_NO_LEDGER": {
+    "READY_FOR_COLLECTION": 14,
+    "CONTRACTED_CANARY_FAILED": 46,
+    "AUTH_BLOCK": 5,
+    "SEM_TRANSICAO_NOVA": 3
+   },
+   "CANARY_FAILED_MOTIVO": {
+    "EMPTY_LIST_padrao_do_contrato_nao_casa": 45,
+    "CAPA_NAO_E_MATERIA": 1
+   },
+   "FAILED_DE_NOVO": {
+    "www.meteotrentino.it (robots)": 1,
+    "www.regione.vda.it (robots)": 1,
+    "SSL handshake (canario)": 1
+   },
+   "PREVISAO_DA_SONDA_CONFIRMADA": "as 2 que a sonda de 22/09 23h dava AINDA_ILEGIVEL sao exatamente as 2 VALIDATE_ROUTE que voltaram a FAILED; as 60 legiveis passaram VALIDATE_ROUTE",
+   "LEITURA": "intermitente confirmado em 60/62: o robots leu; o que as parava a seguir e o contrato (EMPTY_LIST), nao a ligacao"
+  },
+  "FEEDER": {
+   "ANTES_CADENCIA_REAL_S": 15.1,
+   "DEPOIS_REALIMENTACAO_EVENTOS": 1,
+   "FEEDER_CHAMADAS_TOTAL": 1,
+   "FEEDER_NOOP_TOTAL": "nao exercido — o gatilho nao correu depois da 1a volta (ver DEFEITO)"
+  },
+  "DISCOVERY": {
+   "CORRIDAS": 0,
+   "ULTIMA": "2026-09-22T23:59:15Z (antes da instalacao)",
+   "PORQUE": "ver DEFEITO"
+  },
+  "DEFEITO_PRE_EXISTENTE": {
+   "O_QUE": "o worker (ciclo_continuo.py, --voltas 0) nao sai com a fila vazia: dorme ESPERA_MAX e da outra VOLTA; o supervisor so chama o gatilho (reviver/feeder/discovery) quando o worker NAO esta vivo",
+   "MEDIDO": "worker 91744 vivo desde 00:34:11Z; 12 VOLTA com 0 tarefas entre 00:36:57 e 00:59:50 (~30/h); 0 REALIMENTACAO; fila DONE 1023 BLOCKED 85 FAILED 9, elegiveis 0",
+   "EFEITO": "sem discovery (sementes de 2.a geracao por usar), sem revivencia das 5 CANARY URLError 10054 (T01080..T01084, vencidas a partir de ~01:11Z) nem dos degraus 24h/72h",
+   "NAO_E": "eco do feeder, erro repetido ou rajada de rede — 0 pedidos novos"
+  },
+  "PONTE": {
+   "PID": 14960,
+   "TRAVESSIAS_DESDE_INSTALACAO": 6,
+   "LINHAS_APENDIDAS": 16,
+   "PORTAO_ELIGIBLE": "8 -> 8 (as READY novas nao entraram no portao de admissao)"
+  },
+  "READY_POR_QUAL_REGUA": "canario so (worker.py desta arvore); a regua dos 4 passos nao existe nesta arvore",
+  "AMOSTRAS": [
+   {
+    "MEDIDO_EM": "2026-09-23T00:28:18.565915+00:00",
+    "POR_TIPO_ESTADO": {
+     "VALIDATE_ROUTE/DONE": 25,
+     "VALIDATE_ROUTE/FAILED": 2,
+     "CANARY/FAILED": 1,
+     "CANARY/BLOCKED": 5,
+     "VALIDATE_ROUTE/WAITING_RETRY": 35
+    },
+    "READY_LEDGER": 6,
+    "WORKER_PID": 120428
+   },
+   {
+    "MEDIDO_EM": "2026-09-23T00:38:31.797815+00:00",
+    "POR_TIPO_ESTADO": {
+     "VALIDATE_ROUTE/DONE": 60,
+     "VALIDATE_ROUTE/FAILED": 2,
+     "CANARY/FAILED": 1,
+     "CANARY/BLOCKED": 5
+    },
+    "READY_LEDGER": 14,
+    "WORKER_PID": 91744
+   },
+   {
+    "MEDIDO_EM": "2026-09-23T00:48:32.900147+00:00",
+    "POR_TIPO_ESTADO": {
+     "VALIDATE_ROUTE/DONE": 60,
+     "VALIDATE_ROUTE/FAILED": 2,
+     "CANARY/FAILED": 1,
+     "CANARY/BLOCKED": 5
+    },
+    "READY_LEDGER": 14,
+    "WORKER_PID": 91744
+   },
+   {
+    "MEDIDO_EM": "2026-09-23T00:58:34.715389+00:00",
+    "POR_TIPO_ESTADO": {
+     "VALIDATE_ROUTE/DONE": 60,
+     "VALIDATE_ROUTE/FAILED": 2,
+     "CANARY/FAILED": 1,
+     "CANARY/BLOCKED": 5
+    },
+    "READY_LEDGER": 14,
+    "WORKER_PID": 91744
    }
   ]
  }
