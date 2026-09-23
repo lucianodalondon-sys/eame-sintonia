@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  b85c448f8bc88d6739b90cd548c37f1ad5a120aa
+HEAD_DA_MEDICAO  864159847fb7e3b5d5a11839c7301f20b3c8abbe
 BRANCH           scrap-linkedin-v1
-GERADO_EM        2026-09-23T12:19:57-03:00
+GERADO_EM        2026-09-23T12:31:25-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
