@@ -126,6 +126,15 @@ Os ficheiros ficam em `%TEMP%\micro-coleta-real\`: `RELATORIO-PASSAGEM.json`, `.
 Critérios: **C6 (zero bypass) e C8 (0 SIM errado no gabarito do dono) têm de passar.**
 C2 PENDENTE_HUMANO significa que uma pessoa lê o `CAPAS-A-CONFIRMAR.tsv`.
 
+⚠️ **Defeito conhecido: o mesmo item duas vezes na Sala.** Medido na 2.ª passagem do ensaio
+(A2): uma matéria **revalidada** e igual (SEEN_AGAIN) atravessa a Admission outra vez e pousa
+de novo na Sala, com outra observação e outro run_id. Foram 4 itens da Zootecnica. A Sala
+real **já tem** 5 itens da IT-T10-018 do lote-76. Ler
+`CONTAGENS.SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA`:
+- **0** → nada a fazer;
+- **> 0** → anotar os exemplos (`SALA_DUPLICADOS_EXEMPLOS`) e levá-los ao dono da Sala e da
+  Admission. A micro não os corrige. Se o dono não aceitar duplicados na Sala, ir a R.
+
 ## 7. Depois
 
 - Registar SALA_AFTER (mesmo comando do passo 3).

@@ -20765,3 +20765,56 @@ O sucesso real por fonte, os detalhes, o refetch e a rede estão em `runs.ndjson
 LISTINGS_REJECTED e FALSE_DOCUMENT_CHANGED não têm contador. E o `plano` de hoje só deixa
 correr 1 dos 8 da coorte G1: o ficheiro de coorte e o filtro 3b estão atrás da decisão D8.
 Tudo em `scripts/micro_coleta/MICRO-CAMINHO-A1.md`, com a checklist antes da micro real.
+
+
+# §192 · A COORTE VEM DO PORTÃO, A FALHA NÃO É DOCUMENTO — E O «VISTO DE NOVO» ENTRA EM DOBRO NA SALA
+
+**A COORTE.** O `micro_coleta plano` lia uma lista fixa (`COORTE-PROPOSTA.json`, 14 fontes) e
+o filtro de relevância da 3b barrava fontes: só 1 das 8 do funil G1 passava. As duas coisas
+estavam atrás da decisão do dono. A lei do mandato diz «não usar lista fixa», e a D2 + D8 dizem
+que a relevância se decide **por item**, na Admission (REROUTE), nunca por fonte. Agora:
+- a coorte é `collection_gate.elegiveis()` no instante: 19 elegíveis, 8 PRONTAS;
+- as 11 bloqueadas são-no por capacidade (contrato, receita web, rota), com a FALTA escrita;
+- cada fonte READY fora do portão aparece com MOTIVO/PORQUE (92: 88 régua antiga, 4 revisão
+  humana);
+- do funil G1 só a IT-T7-041 fica fora (CONTRACTED_CANARY_FAILED);
+- a 3b continua a ser lida com rigor (filtro declarado e ausente rebenta), mas não barra.
+
+**A FALHA NÃO É DOCUMENTO.** O relatório separa DOCUMENTO de TENTATIVA_FALHADA pelo conteúdo do
+registo (o coletor escreve `HEALTH_STATE=FAILED` e `SHA256` vazio), não pela pasta, que é a
+mesma. RAW_CREATED conta só documentos; as tentativas ficam à parte, com o motivo; C4 e C7 já
+não as tomam por falha de proveniência. Nada apagado.
+
+**OS CONTADORES QUE SÓ O COLETOR VÊ.** Sucesso real por fonte, documentos de detalhe, pedidos à
+rede e refetch estão em `runs.ndjson`; o relatório lê-os agora pelo RUN_ID
+(`CONTAGENS.COLETOR`). Antes, SUCCESS era «o processo saiu com 0».
+
+**A 2.ª PASSAGEM, MEDIDA A SÉRIO.** A mesma coorte, a mesma base, o mesmo livro do coletor, e o
+servidor do ensaio serve exatamente os mesmos bytes:
+- UNNECESSARY_REFETCHES = 0 e FALSE_DOCUMENT_CHANGED = 0;
+- falso «novo» = 0;
+- 49 URLs puladas como conhecidas e 50 revalidadas, todas SEEN_AGAIN.
+
+**MAS O «VISTO DE NOVO» ENTRA EM DOBRO NA SALA.** As 50 revalidações criaram +50 linhas de
+`raw_asset` (observações; o `storage_object` e o `derived_artifact` ficaram 99 = 99, bem
+deduplicados) e **+4 linhas na Sala**. Foram 4 notícias da Zootecnica (derived 33, 36, 39 e 41)
+em dois run_id. Uma matéria revalidada e igual atravessa a Admission outra vez e pousa de novo.
+A Sala real já tem itens do lote-76. O relatório conta agora
+`SALA_ITENS_JA_NA_SALA_POR_OUTRA_CORRIDA` (só SELECT); a correção é do dono da Sala e da
+Admission.
+
+**O BACKUP PROVADO COM OS DADOS REAIS.** `provar_backup_da_sala.py` corre o comando do
+`backup_sala.cmd` sobre a Sala real (só lê), fotografa-a antes e depois do dump (não mudou) e
+restaura o dump num Postgres descartável. Resultado: md5 igual nas 5 tabelas
+(61 / 1405 / 1097 / 908 / 389), com 2,17 MB. O `dropdb` da Sala real não se exerce aqui; está
+provado no ensaio.
+
+**ARMADILHAS.**
+- O shell desta máquina come barras invertidas dentro de heredoc: a sequência barra-n de um
+  script gerado vira uma quebra de linha real e parte a string (aconteceu três vezes nesta
+  missão, incluindo nesta mesma nota). Editar ficheiros Python com a ferramenta de edição, não
+  por heredoc com barras.
+- Um teste que diz «o portão manda mesmo contra a lista antiga» é vazio enquanto as duas
+  coincidem. Quem guarda a regra é o teste que compara a coorte com `elegiveis()`.
+
+Tudo em `scripts/micro_coleta/MICRO-RUNBOOK.md`.
