@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T18:51:26+00:00",
-    "HEAD": "ed005349f3927e80055e191b39c344cbcd059af7",
+    "GENERATED_AT": "2026-09-23T22:04:59+00:00",
+    "HEAD": "5ae903936cc79fa339085fd534bee1c0a42ce4e2",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "3661babaf08bb149c7149a3240be450d4cf3a57c7180e958d4d114c0049183da",
-    "FICHEIROS_NA_IMPRESSAO": 2879,
+    "SOURCE_TREE_FINGERPRINT": "e42aa854524bc1f2f6a3265cfa51dd94b5c9f0f68479bc1e21f3e534c8baf311",
+    "FICHEIROS_NA_IMPRESSAO": 2882,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "252459602e66d5bbd11b55e63552adb6b1901a9d",
+        "VERSAO": "b4adb3be0f5cb9476bed9813535a9702bcbb43d7",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "3d7a0951013ca3c357d0348d39eb2a14bc90ada8e238b19b6f0d51a722f56bc5",
+    "INPUTS_DIGEST": "b57c1997f6429eb48656c9a1cbca9de67f28bc1768eadb84b4070b98e17b55e9",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 154,
+        "quantas": 212,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10586,8 +10586,8 @@
       }
     ],
     "por_tipo": {
-      "BASE_OFICIAL": 166,
-      "CIENCIA": 99,
+      "BASE_OFICIAL": 204,
+      "CIENCIA": 123,
       "FACEBOOK": 20,
       "IMPRENSA": 22,
       "INSTAGRAM": 25,
@@ -10921,6 +10921,38 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0655",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAE Emilia-Romagna — SIMC",
+        "URL": "https://simc.arpae.it/",
+        "PARA_QUE_SERVE": "meteo e agrometeo Emilia-Romagna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://simc.arpae.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://simc.arpae.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:53:34.815089+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Welcome to SIMC | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0651",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAS Sardegna — Meteo",
+        "URL": "https://www.sar.sardegna.it/",
+        "PARA_QUE_SERVE": "meteo e agrometeo Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.sar.sardegna.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.sar.sardegna.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:53:10.407470+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=ARPAS - Dipartimento MeteoClimatico | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0249",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -10937,6 +10969,54 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0656",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAV Veneto",
+        "URL": "https://www.arpa.veneto.it/",
+        "PARA_QUE_SERVE": "agrometeo e bollettini Veneto",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.arpa.veneto.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.arpa.veneto.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:53:39.834638+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Home - Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0657",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAV Veneto — Comunicati Stampa",
+        "URL": "https://www.arpa.veneto.it/arpav/comunicati-stampa",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: agrometeo e bollettini Veneto",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.arpa.veneto.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.arpa.veneto.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:53:44.111011+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.arpa.veneto.it/ (texto: Comunicati Stampa) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0658",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARPAV Veneto — Notizie",
+        "URL": "https://www.arpa.veneto.it/arpav/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: agrometeo e bollettini Veneto",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.arpa.veneto.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.arpa.veneto.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:53:47.703541+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.arpa.veneto.it/ (texto: Notizie) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0244",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -10949,6 +11029,38 @@
         "QUANDO": "2026-09-20",
         "NOTA": "DISCOVERED_FROM=https://www.regione.calabria.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:12:16.516629+00:00 | DISCOVERED_HTTP=200 | FAMILIA=BOLETINS_AGRONOMICOS",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0653",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARSARP Molise",
+        "URL": "https://www.arsarp.it/",
+        "PARA_QUE_SERVE": "sviluppo agricolo e assistenza tecnica Molise",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.arsarp.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.arsarp.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:53:28.383280+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Arsarp &#8211; Agenzia Regionale per lo Sviluppo Agricolo, Rurale e della Pesca | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0654",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "ARSARP Molise — Pubblicazioni",
+        "URL": "https://www.arsarp.it/category/vivai-forestali/pubblicazioni/",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: sviluppo agricolo e assistenza tecnica Molise",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.arsarp.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.arsarp.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:53:30.814573+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.arsarp.it/ (texto: Pubblicazioni) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -11050,6 +11162,54 @@
         "QUANDO": "2026-09-21",
         "NOTA": "DISCOVERED_FROM=https://www.regione.campania.it/ | DISCOVERY_METHOD=CRAWL_LINK | DISCOVERED_AT=2026-09-21T11:31:05.109301+00:00 | ANCHOR_TEXT=Agricoltura Campania | DISCOVERED_HTTP=200",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0652",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Agriligurianet",
+        "URL": "https://www.agriligurianet.it/",
+        "PARA_QUE_SERVE": "agricoltura, assistenza tecnica e fitosanitario Liguria",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.agriligurianet.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.agriligurianet.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:53:20.645110+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Gestione e sviluppo dell'impresa - Agriligurianet | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0644",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Agrometeo Puglia",
+        "URL": "https://www.agrometeopuglia.it/",
+        "PARA_QUE_SERVE": "bollettini agrometeorologici Puglia",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.agrometeopuglia.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.agrometeopuglia.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:52:34.420975+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Home | Agrometeopuglia - ARIF PUGLIA | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0645",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Agrometeo Puglia — Bollettini",
+        "URL": "https://www.agrometeopuglia.it/bollettini",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: bollettini agrometeorologici Puglia",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.agrometeopuglia.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.agrometeopuglia.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:52:36.491356+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.agrometeopuglia.it/ (texto: Bollettini) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -12082,6 +12242,54 @@
         "MOTIVO_DA_RECUSA": "REGRA_NOVA_RC_ISTITUZIONALE_OBBLIGATORIO"
       },
       {
+        "CANDIDATA_ID": "CAND-0647",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "LaMMA Toscana",
+        "URL": "https://www.lamma.toscana.it/",
+        "PARA_QUE_SERVE": "meteo e agrometeo Toscana",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.lamma.toscana.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.lamma.toscana.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:52:55.128259+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Il Meteo in Toscana | Consorzio LaMMA | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0648",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "LaMMA Toscana — News",
+        "URL": "https://www.lamma.toscana.it/consorzio/news",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: meteo e agrometeo Toscana",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.lamma.toscana.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.lamma.toscana.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:52:58.238793+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.lamma.toscana.it/ (texto: News) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0649",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "LaMMA Toscana — Pubblicazioni scientifiche",
+        "URL": "https://www.lamma.toscana.it/consorzio/pubblicazioni",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: meteo e agrometeo Toscana",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.lamma.toscana.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.lamma.toscana.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:53:00.254270+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.lamma.toscana.it/ (texto: Pubblicazioni scientifiche) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0467",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -12272,6 +12480,22 @@
         "ESTADO": "EM_ANALISE",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0646",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "OSMER FVG — Osservatorio meteorologico",
+        "URL": "https://www.osmer.fvg.it/",
+        "PARA_QUE_SERVE": "meteo e agrometeo Friuli Venezia Giulia",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.osmer.fvg.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.osmer.fvg.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:52:47.552597+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Arpa FVG - Osservatorio meteorologico regionale del Friuli Venezia Giulia | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0398",
@@ -12588,6 +12812,22 @@
         "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
       },
       {
+        "CANDIDATA_ID": "CAND-0643",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Regione Abruzzo — Agrometeorologia e Agroambiente",
+        "URL": "https://www.regione.abruzzo.it/content/agrometeorologia-agroambiente-0",
+        "PARA_QUE_SERVE": "bollettini agrometeo e difesa integrata Abruzzo",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.regione.abruzzo.it/agricoltura",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.abruzzo.it/agricoltura | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:52:30.017916+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0008",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -12715,6 +12955,22 @@
         "DECIDIDA_EM": "2026-09-15"
       },
       {
+        "CANDIDATA_ID": "CAND-0642",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "SFN — Emergenze fitosanitarie",
+        "URL": "https://www.protezionedellepiante.it/emergenze-fitosanitarie/",
+        "PARA_QUE_SERVE": "organismi nocivi da quarantena e misure d'emergenza",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:52:20.224675+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0010",
         "TIPO": "BASE_OFICIAL",
         "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
@@ -12734,6 +12990,22 @@
         "O_QUE_FALTA": "um item real da fonte, aberto e identificado como o atlas exige das 140 ja registadas: endereco proprio do item, tipo, titulo, HTTP, content-type, bytes e data visivel. A sonda de 14/09 leu o titulo da pagina de entrada e parou; frequencia de actualizacao, nunca medida",
         "VIZINHA_NO_ATLAS": null,
         "DECIDIDA_EM": "2026-09-15"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0650",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "SIARL Lazio — agrometeo",
+        "URL": "https://www.siarl-lazio.it/",
+        "PARA_QUE_SERVE": "agrometeo e assistenza tecnica Lazio",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.siarl-lazio.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.siarl-lazio.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:53:04.780305+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Fine vita del sito web del SIARL | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0291",
@@ -12883,6 +13155,342 @@
         "ESTADO": "EM_ANALISE",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": "SEMENTE_GENERICA_SEM_SINAL_AGRO_NO_DOMINIO"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0641",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Nazionale",
+        "URL": "https://www.protezionedellepiante.it/",
+        "PARA_QUE_SERVE": "emergenze, ordinanze e notizie fitosanitarie nazionali",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:52:16.953654+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0693",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — abruzzo",
+        "URL": "https://www.regione.abruzzo.it/content/fitosanitario",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (abruzzo)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:32.357568+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0700",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — basilicata",
+        "URL": "https://www.regione.basilicata.it/giunta/site/giunta/department.jsp?dep=100049&area=104835&level=1",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (basilicata)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:58:18.051592+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0692",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — bolzano",
+        "URL": "https://www.provincia.bz.it/agricoltura-foreste/agricoltura/default.asp",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (bolzano)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:23.578972+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0698",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — calabria",
+        "URL": "https://www.regione.calabria.it/website/organizzazione/dipartimento8/subsite/fitosanitario/",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (calabria)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:54.900702+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0691",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — campania",
+        "URL": "http://www.agricoltura.regione.campania.it/difesa/difesa.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (campania)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:08.790324+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0690",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — friuli-venezia-giulia",
+        "URL": "https://www.ersa.fvg.it/cms/hp/",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (friuli-venezia-giulia)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:03.684284+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0701",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — lazio",
+        "URL": "https://www.regione.lazio.it/cittadini/agricoltura/servizio-fitosanitario-regionale",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (lazio)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:58:23.393349+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0684",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — liguria",
+        "URL": "https://www.agriligurianet.it/it/impresa/assistenza-tecnica-e-centri-serivizio/servizio-fitosanitario-regionale.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (liguria)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:29.947787+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0695",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — marche",
+        "URL": "https://www.amap.marche.it/servizi/fitosanitario",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (marche)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:45.360147+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0697",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — marche — Eventi",
+        "URL": "https://www.amap.marche.it/progetti-europei/eventi",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: bollettini e avvisi fitosanitari, difesa integrata (marche)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.amap.marche.it/servizi/fitosanitario",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.amap.marche.it/servizi/fitosanitario | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:57:50.345481+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.amap.marche.it/servizi/fitosanitario (texto: Eventi) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0696",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — marche — Notizie",
+        "URL": "https://www.amap.marche.it/progetti-europei/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: bollettini e avvisi fitosanitari, difesa integrata (marche)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.amap.marche.it/servizi/fitosanitario",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.amap.marche.it/servizi/fitosanitario | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:57:47.873236+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.amap.marche.it/servizi/fitosanitario (texto: Notizie) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0699",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — molise",
+        "URL": "https://www.regione.molise.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/4130",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (molise)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:58:00.235361+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0683",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — piemonte",
+        "URL": "https://www.regione.piemonte.it/web/temi/agricoltura/servizi-fitosanitari-pan",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (piemonte)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:26.942313+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0687",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — sardegna",
+        "URL": "http://www.sardegnaagricoltura.it/index.html",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (sardegna)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:46.851545+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0688",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — sicilia",
+        "URL": "https://www.regione.sicilia.it/istituzioni/regione/strutture-regionali/assessorato-agricoltura-sviluppo-rurale-pesca-mediterranea/dipartimento-agricoltura/servizi/servizio-fitosanitario-regionale",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (sicilia)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:52.008306+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0685",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — toscana",
+        "URL": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (toscana)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:39.170425+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0686",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — toscana — Pubblicazioni",
+        "URL": "https://www.regione.toscana.it/pubblicazioni",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: bollettini e avvisi fitosanitari, difesa integrata (toscana)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:56:42.966623+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.regione.toscana.it/speciali/servizio-fitosanitario-regionale (texto: Pubblicazioni) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "RECUSADA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": "P1C: subpagina de didattica/generica, nao fonte de pesquisa agri"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0694",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — umbria",
+        "URL": "https://www.regione.umbria.it/agricoltura/servizio-fitosanitario-regionale",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (umbria)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:57:39.900882+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0682",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — valle-daosta",
+        "URL": "https://www.regione.vda.it/agricoltura/per_gli_agricoltori/fitosanitario/default_i.asp",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (valle-daosta)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:21.770617+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0689",
+        "TIPO": "BASE_OFICIAL",
+        "TIPO_SIGNIFICA": "Registro publico, dado aberto, base regulatoria ou estatistica.",
+        "PAIS": "IT",
+        "NOME": "Servizio Fitosanitario Regionale — veneto",
+        "URL": "https://www.regione.veneto.it/web/fitosanitario",
+        "PARA_QUE_SERVE": "bollettini e avvisi fitosanitari, difesa integrata (veneto)",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.protezionedellepiante.it/servizi-fitosanitari-regionali/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:58.745725+00:00 | DISCOVERED_HTTP=200 | PROVA=listado no mapa oficial dos SFR do Servizio Fitosanitario Nazionale | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0243",
@@ -13423,6 +14031,22 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0679",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Acta Italus Hortus — atti SOI",
+        "URL": "https://www.soihs.it/acta/default.aspx",
+        "PARA_QUE_SERVE": "atti dei convegni di orticoltura",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.soihs.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.soihs.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:55:54.394640+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0489",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -13886,6 +14510,22 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0674",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "D3A — Scienze Agrarie, Alimentari e Ambientali, Univ. Politecnica delle Marche",
+        "URL": "https://www.d3a.univpm.it/",
+        "PARA_QUE_SERVE": "ricerca agraria Marche",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.d3a.univpm.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.d3a.univpm.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:55:15.060028+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Dipartimento di Scienze Agrarie, Alimentari ed Ambientali | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0485",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -13897,6 +14537,38 @@
         "ONDE_VIU": "https://www.unifi.it/dipartimenti/dagri",
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.unifi.it/dipartimenti/dagri | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:43:21.743144+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0659",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "DIMEVET — Scienze Mediche Veterinarie, Univ. Bologna",
+        "URL": "https://scienzemedicheveterinarie.unibo.it/it",
+        "PARA_QUE_SERVE": "ricerca veterinaria Bologna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.unibo.it/it/ateneo/sedi-e-strutture/dipartimenti",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unibo.it/it/ateneo/sedi-e-strutture/dipartimenti | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:54:04.223353+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Scienze Mediche Veterinarie - DIMEVET | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0660",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "DIMEVET — Scienze Mediche Veterinarie, Univ. Bologna — Notizie",
+        "URL": "https://scienzemedicheveterinarie.unibo.it/it/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca veterinaria Bologna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://scienzemedicheveterinarie.unibo.it/it",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://scienzemedicheveterinarie.unibo.it/it | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:54:06.204156+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://scienzemedicheveterinarie.unibo.it/it (texto: Notizie) | MISSAO=PESQUISADORES-P1B",
         "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
@@ -13914,6 +14586,38 @@
         "QUANDO": "2026-09-20",
         "NOTA": "DISCOVERED_FROM=https://www.unito.it/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-21T02:14:10.785613+00:00 | DISCOVERED_HTTP=200 | FAMILIA=UNIVERSIDADES_CENTROS",
         "ESTADO": "EM_ANALISE",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0668",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "DISTAL — Scienze e Tecnologie Agro-Alimentari, Univ. Bologna",
+        "URL": "https://distal.unibo.it/it",
+        "PARA_QUE_SERVE": "ricerca agroalimentare Bologna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.unibo.it/it/ateneo/sedi-e-strutture/dipartimenti",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unibo.it/it/ateneo/sedi-e-strutture/dipartimenti | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:54:52.216226+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Scienze e Tecnologie Agro-Alimentari | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0669",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "DISTAL — Scienze e Tecnologie Agro-Alimentari, Univ. Bologna — Notizie",
+        "URL": "https://distal.unibo.it/it/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca agroalimentare Bologna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://distal.unibo.it/it",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://distal.unibo.it/it | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:54:54.898415+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://distal.unibo.it/it (texto: Notizie) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
       },
@@ -14014,6 +14718,54 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0670",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Agraria, Univ. Sassari",
+        "URL": "http://agrariaweb.uniss.it/",
+        "PARA_QUE_SERVE": "ricerca agraria Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.uniss.it/it/ateneo/strutture/dipartimenti",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.uniss.it/it/ateneo/strutture/dipartimenti | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:55:00.824170+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Home page | Dipartimento di Agraria | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0671",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Agraria, Univ. Sassari — Tutte le notizie",
+        "URL": "http://agrariaweb.uniss.it/it/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca agraria Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "http://agrariaweb.uniss.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=http://agrariaweb.uniss.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:55:02.805259+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial http://agrariaweb.uniss.it/ (texto: Tutte le notizie) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0672",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Agraria, Univ. Sassari — Tutti gli eventi",
+        "URL": "http://agrariaweb.uniss.it/it/eventi",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca agraria Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "http://agrariaweb.uniss.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=http://agrariaweb.uniss.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:55:05.884808+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial http://agrariaweb.uniss.it/ (texto: Tutti gli eventi) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0541",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -14046,6 +14798,86 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0661",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Medicina Veterinaria, Univ. Perugia",
+        "URL": "http://www.medvet.unipg.it/",
+        "PARA_QUE_SERVE": "ricerca veterinaria Umbria",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.unipg.it/ateneo/organizzazione/dipartimenti?view=navigatorestrutture&struttura=517200",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unipg.it/ateneo/organizzazione/dipartimenti?view=navigatorestrutture&struttura=517200 | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:54:13.684796+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Home - Dipartimento di Medicina Veterinaria | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0662",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Medicina Veterinaria, Univ. Perugia — notizie dalla Segreteria Didattica",
+        "URL": "http://www.medvet.unipg.it/67-didattica/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca veterinaria Umbria",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "http://www.medvet.unipg.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=http://www.medvet.unipg.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:54:16.763139+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial http://www.medvet.unipg.it/ (texto: notizie dalla Segreteria Didattica) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "RECUSADA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": "P1C: subpagina de didattica/generica, nao fonte de pesquisa agri"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0663",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Medicina Veterinaria, Univ. Sassari",
+        "URL": "https://veterinaria.uniss.it/",
+        "PARA_QUE_SERVE": "ricerca veterinaria Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.uniss.it/it/ateneo/strutture/dipartimenti",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.uniss.it/it/ateneo/strutture/dipartimenti | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:54:22.236492+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Home page | Dipartimento di Medicina veterinaria | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0664",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Medicina Veterinaria, Univ. Sassari — Tutte le notizie",
+        "URL": "https://veterinaria.uniss.it/it/notizie",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca veterinaria Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://veterinaria.uniss.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://veterinaria.uniss.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:54:23.725777+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://veterinaria.uniss.it/ (texto: Tutte le notizie) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0665",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Medicina Veterinaria, Univ. Sassari — Tutti gli eventi",
+        "URL": "https://veterinaria.uniss.it/it/eventi",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca veterinaria Sardegna",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://veterinaria.uniss.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://veterinaria.uniss.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:54:26.293867+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://veterinaria.uniss.it/ (texto: Tutti gli eventi) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0639",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -14073,6 +14905,22 @@
         "ONDE_VIU": "https://www.agr.unipi.it/",
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.agr.unipi.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T18:28:54.269909+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0673",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Scienze Agrarie, Alimenti, Risorse Naturali e Ingegneria, Univ. Foggia",
+        "URL": "https://www.agraria.unifg.it/it",
+        "PARA_QUE_SERVE": "ricerca agraria Foggia",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.unifg.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unifg.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:55:10.483340+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Homepage | Dipartimento di Scienze Agrarie, Alimenti, Risorse Naturali e Ingegneria | MISSAO=PESQUISADORES-P1B",
         "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
@@ -14121,6 +14969,38 @@
         "ONDE_VIU": "https://smv.unipr.it/",
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://smv.unipr.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T18:27:56.778153+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://smv.unipr.it/ (texto: Archivio notizie) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0666",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Scienze Veterinarie, Univ. Messina",
+        "URL": "https://vet.unime.it/",
+        "PARA_QUE_SERVE": "ricerca veterinaria Sicilia",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.unime.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.unime.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:54:31.344825+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Dipartimento di Scienze Veterinarie | Dipartimento di Scienze veterinarie | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0667",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Dip. Scienze Veterinarie, Univ. Messina — Tutti gli eventi",
+        "URL": "https://vet.unime.it/eventi",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca veterinaria Sicilia",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://vet.unime.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://vet.unime.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:54:33.363189+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://vet.unime.it/ (texto: Tutti gli eventi) | MISSAO=PESQUISADORES-P1B",
         "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
@@ -14494,6 +15374,22 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0702",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "IZSPLV — Istituto Zooprofilattico Piemonte, Liguria e Valle d'Aosta",
+        "URL": "https://www.izsplv.it/",
+        "PARA_QUE_SERVE": "sanita animale e sicurezza alimentare Piemonte-Liguria-VdA",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.izsplv.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.izsplv.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T22:00:37.028693+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS; o texto da home oficial nomeia o instituto | TEXTO_DA_PAGINA_CONTEM=Zooprofilattico Sperimentale del Piemonte | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0527",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -14590,6 +15486,38 @@
         "MOTIVO_DA_RECUSA": null
       },
       {
+        "CANDIDATA_ID": "CAND-0680",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Italian Journal of Food Safety — PAGEPress",
+        "URL": "https://www.pagepressjournals.org/ijfs",
+        "PARA_QUE_SERVE": "rivista open di sicurezza alimentare e igiene veterinaria",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.pagepressjournals.org/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.pagepressjournals.org/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:56:00.264391+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | TITULO=Italian Journal of Food Safety | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0681",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Italian Journal of Food Science",
+        "URL": "https://www.itjfs.com/",
+        "PARA_QUE_SERVE": "rivista di scienze e tecnologie alimentari",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.itjfs.com/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.itjfs.com/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:56:08.692686+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Italian Journal of Food Science | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0488",
         "TIPO": "CIENCIA",
         "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
@@ -14601,6 +15529,22 @@
         "ONDE_VIU": "https://www.pagepressjournals.org/",
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.pagepressjournals.org/ | DISCOVERY_METHOD=directorio_curado | DISCOVERED_AT=2026-09-23T15:44:37.233929+00:00 | DISCOVERED_HTTP=200 | MISSAO=PESQUISADORES-P1",
+        "ESTADO": "RECUSADA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": "P1C: NOME TROCADO. O endereco e o Italian Journal of Food SAFETY (PAGEPress), nao Food Science. Substituida por CAND-0680 (pagepressjournals.org/ijfs, titulo confirmado 'Food Safety'); o Italian Journal of Food Science real e CAND-0681 (itjfs.com, titulo confirmado)."
+      },
+      {
+        "CANDIDATA_ID": "CAND-0678",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "Italus Hortus — rivista SOI",
+        "URL": "https://www.soihs.it/italushortus/default.aspx",
+        "PARA_QUE_SERVE": "rivista scientifica di orticoltura",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.soihs.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.soihs.it/ | DISCOVERY_METHOD=link_de_pagina_oficial | DISCOVERED_AT=2026-09-23T21:55:52.285471+00:00 | DISCOVERED_HTTP=200 | PROVA=pagina oficial responde | MISSAO=PESQUISADORES-P1B",
         "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
@@ -14856,6 +15800,54 @@
         "ONDE_VIU": "https://www.societaentomologicaitaliana.it/",
         "QUANDO": "2026-09-23",
         "NOTA": "DISCOVERED_FROM=https://www.societaentomologicaitaliana.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T18:30:06.228467+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.societaentomologicaitaliana.it/ (texto: News) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0675",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "TESAF — Territorio e Sistemi Agro-Forestali, Univ. Padova",
+        "URL": "https://www.tesaf.unipd.it/",
+        "PARA_QUE_SERVE": "ricerca agro-forestale Padova",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.tesaf.unipd.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.tesaf.unipd.it/ | DISCOVERY_METHOD=dns_e_titulo | DISCOVERED_AT=2026-09-23T21:55:21.155822+00:00 | DISCOVERED_HTTP=200 | PROVA=nome resolve no DNS (medido 23/09) e a propria home responde | TITULO=Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0676",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "TESAF — Territorio e Sistemi Agro-Forestali, Univ. Padova — Eventi",
+        "URL": "https://www.tesaf.unipd.it/didattica/eventi",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca agro-forestale Padova",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.tesaf.unipd.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.tesaf.unipd.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:55:23.018331+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.tesaf.unipd.it/ (texto: Eventi) | MISSAO=PESQUISADORES-P1B",
+        "ESTADO": "RECUSADA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": "P1C: subpagina de didattica/generica, nao fonte de pesquisa agri"
+      },
+      {
+        "CANDIDATA_ID": "CAND-0677",
+        "TIPO": "CIENCIA",
+        "TIPO_SIGNIFICA": "Artigo, ensaio, repositorio bibliografico, congresso.",
+        "PAIS": "IT",
+        "NOME": "TESAF — Territorio e Sistemi Agro-Forestali, Univ. Padova — Eventi",
+        "URL": "https://www.tesaf.unipd.it/terza-missione/eventi",
+        "PARA_QUE_SERVE": "pagina de noticias/publicacoes de: ricerca agro-forestale Padova",
+        "QUEM_VIU": "curadoria/pesquisadores.py (P1b)",
+        "ONDE_VIU": "https://www.tesaf.unipd.it/",
+        "QUANDO": "2026-09-23",
+        "NOTA": "DISCOVERED_FROM=https://www.tesaf.unipd.it/ | DISCOVERY_METHOD=link_da_home_oficial | DISCOVERED_AT=2026-09-23T21:55:26.720764+00:00 | DISCOVERED_HTTP=200 | PROVA=ligada pela home oficial https://www.tesaf.unipd.it/ (texto: Eventi) | MISSAO=PESQUISADORES-P1B",
         "ESTADO": "CANDIDATA",
         "SOURCE_ID": null,
         "MOTIVO_DA_RECUSA": null
@@ -26091,7 +27083,7 @@
         },
         {
           "file": "curadoria/pesquisadores.py",
-          "line": 698
+          "line": 699
         },
         {
           "file": "medidas/micro_colheita.py",
@@ -26243,6 +27235,48 @@
         {
           "file": "curadoria/test_pais_das_candidatas.py",
           "line": 86
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arsacweb.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 191
+        },
+        {
+          "file": "curadoria/pesquisadores.py",
+          "line": 1161
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 932
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.assam.marche.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 209
+        },
+        {
+          "file": "curadoria/pesquisadores.py",
+          "line": 1157
+        },
+        {
+          "file": "curadoria/test_discovery.py",
+          "line": 986
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 93
         }
       ]
     },
@@ -26437,23 +27471,6 @@
       ]
     },
     {
-      "endpoint": "https://www.arsacweb.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 191
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 932
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 92
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.regione.calabria.it/",
       "usado_por": [
         {
@@ -26471,23 +27488,6 @@
       ]
     },
     {
-      "endpoint": "https://www.assam.marche.it/",
-      "usado_por": [
-        {
-          "file": "curadoria/descobrir.py",
-          "line": 209
-        },
-        {
-          "file": "curadoria/test_discovery.py",
-          "line": 986
-        },
-        {
-          "file": "medidas/gabarito_t2_t12.py",
-          "line": 93
-        }
-      ]
-    },
-    {
       "endpoint": "https://agronotizie.imagelinenetwork.com/",
       "usado_por": [
         {
@@ -26501,6 +27501,23 @@
         {
           "file": "curadoria/test_emparelhar_ataques.py",
           "line": 39
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.meteotrentino.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/descobrir.py",
+          "line": 250
+        },
+        {
+          "file": "curadoria/pesquisadores.py",
+          "line": 1154
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 79
         }
       ]
     },
@@ -26535,6 +27552,23 @@
         {
           "file": "medidas/gabarito_t2_t12.py",
           "line": 80
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arpa.veneto.it/",
+      "usado_por": [
+        {
+          "file": "curadoria/pesquisadores.py",
+          "line": 1168
+        },
+        {
+          "file": "medidas/gabarito_t2_t12.py",
+          "line": 55
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 143
         }
       ]
     },
@@ -26622,41 +27656,11 @@
           "line": 173
         }
       ]
-    },
-    {
-      "endpoint": "https://exemplo.tld/x')",
-      "usado_por": [
-        {
-          "file": "provas/orcamento_de_rede.py",
-          "line": 287
-        },
-        {
-          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
-          "line": 96
-        },
-        {
-          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
-          "line": 207
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.linkedin.com/login",
-      "usado_por": [
-        {
-          "file": "candidatas/decidir_fila_italia.py",
-          "line": 46
-        },
-        {
-          "file": "tests/test_fila_italia_decisoes.py",
-          "line": 222
-        }
-      ]
     }
   ],
-  "ENDPOINTS_FOUND": 699,
+  "ENDPOINTS_FOUND": 739,
   "ENDPOINTS_PUBLISHED": 40,
-  "ENDPOINTS_TRUNCATED": 659,
+  "ENDPOINTS_TRUNCATED": 699,
   "COUNTS": {
     "sources": 297,
     "with_contract": 5,
@@ -26674,10 +27678,10 @@
     },
     "search_term_groups": 34,
     "search_terms": 103,
-    "endpoints": 699,
+    "endpoints": 739,
     "endpoints_published": 40,
-    "endpoints_truncated": 659,
-    "candidates": 640,
+    "endpoints_truncated": 699,
+    "candidates": 702,
     "coletores": 53,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,

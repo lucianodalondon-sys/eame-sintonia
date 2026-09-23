@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "pesquisadores-v1",
-    "HEAD": "ed005349f3927e80055e191b39c344cbcd059af7",
-    "GENERATED_AT": "2026-09-23T15:48:58-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3661babaf08bb149c7149a3240be450d4cf3a57c7180e958d4d114c0049183da"
+    "HEAD": "5ae903936cc79fa339085fd534bee1c0a42ce4e2",
+    "GENERATED_AT": "2026-09-23T19:03:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "e42aa854524bc1f2f6a3265cfa51dd94b5c9f0f68479bc1e21f3e534c8baf311"
   },
   "FILES": [
     {
@@ -1382,7 +1382,7 @@
     },
     {
       "path": "candidatas/FONTES-CANDIDATAS.json",
-      "sha": "252459602e66d5bbd11b55e63552adb6b1901a9d",
+      "sha": "b4adb3be0f5cb9476bed9813535a9702bcbb43d7",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -2236,7 +2236,7 @@
     },
     {
       "path": "curadoria/DISCOVERY-VISITED.json",
-      "sha": "cd4e09b960dd04dcc50189f2f46252d44f7ac555",
+      "sha": "5617bf312e4a0596e212ea18099079b600d9cfac",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2369,7 +2369,7 @@
     },
     {
       "path": "curadoria/PESQUISADORES-LISTA-V1.json",
-      "sha": "449ddbe4449594b5e21c4b8a2f0c50402b28bcc0",
+      "sha": "229ae54cda2a2c9320be8852e561d9116af51ee6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2391,6 +2391,27 @@
     {
       "path": "curadoria/PESQUISADORES-P1B-RELEITURA-PROOF-V1.json",
       "sha": "2da7ed8a3746ce5d416e285defff45583c14566a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1C-PROOF-V1.json",
+      "sha": "57884a3e03f41a9d317390214ea040b2ba99b508",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1C-RELEITURA-PROOF-V1.json",
+      "sha": "f933de5abc53c8edfb8c732299f1b75393a8f146",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PESQUISADORES-P1C-SFR-LINKS.json",
+      "sha": "559f49494bb370771b78503a907c9bedb0d41849",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2901,7 +2922,7 @@
     },
     {
       "path": "curadoria/pesquisadores.py",
-      "sha": "07bb54bd7b4b13960959ac56b3358260d62deb17",
+      "sha": "414b7fb65eeb27a2de563731cf578a3b73d327b7",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -25833,7 +25854,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/pesquisadores.py",
-        "line": 888,
+        "line": 895,
         "snippet": "CONAF_LINKS = RAIZ / \"curadoria\" / \"PESQUISADORES-P1B-CONAF-LINKS.json\""
       }
     },
@@ -25846,6 +25867,28 @@
         "file": "curadoria/pesquisadores.py",
         "line": 653,
         "snippet": "PROOF_P1B = RAIZ / \"curadoria\" / \"PESQUISADORES-P1B-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-P1C-PROOF-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 1117,
+        "snippet": "PROOF_P1C = RAIZ / \"curadoria\" / \"PESQUISADORES-P1C-PROOF-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/pesquisadores.py",
+      "to_file": "curadoria/PESQUISADORES-P1C-SFR-LINKS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/pesquisadores.py",
+        "line": 1116,
+        "snippet": "SFR_LINKS = RAIZ / \"curadoria\" / \"PESQUISADORES-P1C-SFR-LINKS.json\""
       }
     },
     {
@@ -78937,10 +78980,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2731,
+    "files_tracked": 2734,
     "files_readable": 1246,
     "files_code_dir": 1065,
-    "file_edges": 5386,
+    "file_edges": 5388,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
