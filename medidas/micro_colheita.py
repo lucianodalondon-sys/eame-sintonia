@@ -271,7 +271,7 @@ def colher_fonte(sid: str, contrato: dict, reg: Registo, max_itens: int) -> dict
         if ret["HTML_KIND"] == "EMPTY":
             item["PORQUE"] = "ITEM_SEM_TEXTO: abriu e nao tem texto visivel"
         else:
-            gate = RH.gate_capa_nao_e_materia(contrato, ret)
+            gate = RH.gate_capa_nao_e_materia(contrato, ret, url=url, regua_a_mandar=CAN._regua_manda(sid))  # V1A
             if gate:
                 item["PORQUE"] = gate
             else:

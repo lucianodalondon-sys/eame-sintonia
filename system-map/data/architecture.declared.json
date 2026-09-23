@@ -673,6 +673,8 @@
     "INTELIGENCIA"
    ],
    "files": [
+    "scripts/receitas/propor_receitas_v3.py",
+    "scripts/receitas/propor_receitas_v4.py",
     "scripts/receitas/censo_e_proposta.py",
     "scripts/receitas/provar_indices.py",
     "scripts/receitas/medir_efeito.py",
@@ -693,14 +695,17 @@
     "audit",
     "diagnostic"
    ],
-   "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
-   "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
+   "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector. V1A (2026-09-23): a V1 LIGADA no codigo real — curadoria/retrato_html.py::veredito e o gemeo Node coleta/retrato_html.mjs (enxertado de aquisicao-detalhe-v1) dizem CAPA a pagina que e o proprio INDEX_URL do contrato, SO quando a fonte passa os 4 passos (ready_split.regua_manda). O gate pede url e regua_a_mandar por nome; medir_v1a.py mede pelo caminho de producao (executor -> item_documental_para_a_porta -> admissao._e_materia) e reproduz 30/5/3.",
+   "why_here": "DIVIDA DECLARADA (D1/K1/V1A, 2026-09-23): a regra e os limiares do detector existem em DOIS juizes, curadoria/retrato_html.py e coleta/retrato_html.mjs; mudam-se no mesmo commit, e tests/test_v1a_v1_ligada.py compara-os pagina a pagina (veredito igual nas 251 paginas reais; em 8 a CONTAGEM de caracteres difere — unidades UTF-16 e U+FEFF no Node —, divida aberta). Os chamadores Node (coleta/italy_pilot_collect.mjs, curadoria/canario_do_motor.mjs) vivem em aquisicao-detalhe-v1 e ao juntar tem de passar { url, reguaAMandar }. A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
    "departments": [
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
    "files": [
     "medidas/ensaio_quarentena_naosei.py",
+    "medidas/medir_detector_moldura.py",
+    "medidas/medir_k1.py",
+    "medidas/canario_receitas_k1.py",
     "scripts/detector_capa/colher_gabarito.py",
     "scripts/detector_capa/rotular_gabarito.py",
     "scripts/detector_capa/medir_gabarito.py",
@@ -711,7 +716,9 @@
     "scripts/detector_capa/colher_urls.py",
     "scripts/detector_capa/GABARITO-CONTROLO-LD2.json",
     "scripts/detector_capa/LISTING-DETAIL-GATE-V2.json",
-    "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json"
+    "scripts/detector_capa/LISTING-DETAIL-GATE-V3.json",
+    "medidas/medir_v1a.py",
+    "medidas/mutacao_v1a.py"
    ]
   },
   {
@@ -4357,13 +4364,14 @@
    "territory": "Z-ACOES",
    "kind": "engine",
    "icon": "⚙",
-   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao.",
+   "what": "Abre o HTML arquivado e entrega o texto e a receita ao dono da escrita, como os executores de PDF e de midia. Nao julga, nao escreve no banco, nao abre ligacao. IMPORTA `coleta/texto_fonte.py::limpar` — nao duplica a extraccao. V1A (2026-09-23): coleta/retrato_html.mjs e o gemeo Node do detector curadoria/retrato_html.py (retrato + V1 + gate), enxertado de aquisicao-detalhe-v1; a paridade pagina a pagina vive em tests/test_v1a_v1_ligada.py.",
    "why_here": "A peca que converte HTML em texto existia nesta arvore desde antes e tinha ZERO chamadores em producao: 46 observacoes reais paravam em DERIVED com MISSING_ROUTE. CAPABILITY EXISTS != EDGE EXISTS. Declarar a capacidade tambem nao bastava — o `SUPPORTS` do executor de PDF viveu um ano sem leitores. O que liga e o nome na lista `coleta/ingresso.py::_DONOS_DA_DERIVACAO`.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    "coleta/executor_texto_de_html.py"
+    "coleta/executor_texto_de_html.py",
+    "coleta/retrato_html.mjs"
    ],
    "views": [
     "audit",

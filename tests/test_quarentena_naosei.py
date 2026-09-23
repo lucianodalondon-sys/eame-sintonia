@@ -91,7 +91,8 @@ class Porta(Isolado):
         self.assertNotIn("retrato_do_detector", _item(None))
 
     def test_a_versao_da_regra_subiu(self):
-        self.assertEqual("6", adm.VERSAO_DA_REGRA)
+        # Q1 subiu-a para 6; a V1A para 7. So pode subir.
+        self.assertGreaterEqual(int(adm.VERSAO_DA_REGRA), 6)
 
 
 class Saidas(Isolado):

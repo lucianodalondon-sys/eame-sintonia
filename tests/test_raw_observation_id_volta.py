@@ -99,10 +99,14 @@ from test_italia_na_porta_canonica import CasoB1             # noqa: E402
 #                STRUCTURED recusava os sete com «o documento nao diz de que
 #                fonte veio».
 #
-# Ambos ja existiam na linha e ja eram lidos por `objetos_da_corrida()`. O que
+#   SOURCE_URL   `raw_asset.source_url` — o ENDERECO da pagina (V1A, 23/09). A
+#                porta de admissao precisa dele para a V1: a pagina e o proprio
+#                INDEX_URL do contrato? Sem ele a V1 nao se aplica.
+#
+# Todos ja existiam na linha e ja eram lidos por `objetos_da_corrida()`. O que
 # mudou foi a PROJECCAO desta porta.
 CAMPOS = ("RAW_OBSERVATION_ID", "RUN_ID", "STORAGE_PATH", "SHA256",
-          "MEDIA_TYPE", "CAPTURED_AT", "SOURCE_ID", "PASSAGENS")
+          "MEDIA_TYPE", "CAPTURED_AT", "SOURCE_ID", "PASSAGENS", "SOURCE_URL")
 
 
 def _codigo(caminho):

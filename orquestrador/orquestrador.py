@@ -504,6 +504,9 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
                            "ESTADO": recibo["ESTADO"],
                            # Q1 (D11): transportado ate a porta, que o julga.
                            "RETRATO_DO_DETECTOR": r.get("RETRATO_DO_DETECTOR"),
+                           # V1A: o endereco da pagina, para a porta perguntar
+                           # se ela e o INDEX_URL do contrato (V1).
+                           "SOURCE_URL": r.get("SOURCE_URL"),
                            "TEXTO": corpo})
         else:
             recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
@@ -579,6 +582,10 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     # Sem retrato (PDF, video) nao se escreve a chave: ausencia continua ausencia.
     if estruturado.get("RETRATO_DO_DETECTOR"):
         item["retrato_do_detector"] = estruturado["RETRATO_DO_DETECTOR"]
+    # V1A: o endereco da pagina, para a V1 da pergunta `materia`. Sem ele a V1
+    # nao se aplica (a porta nao adivinha se a pagina era o indice).
+    if estruturado.get("SOURCE_URL"):
+        item["url_da_pagina"] = estruturado["SOURCE_URL"]
     return item
 
 

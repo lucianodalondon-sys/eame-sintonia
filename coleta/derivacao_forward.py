@@ -406,6 +406,8 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                            # reconstruida: `SOURCE_ID` nao sai de caminho,
                            # de pasta, de slug nem de sha.
                            "SOURCE_ID": u.get("SOURCE_ID"),
+                           # V1A: o endereco da observacao-pai, transportado.
+                           "SOURCE_URL": u.get("SOURCE_URL"),
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
                            "LINHA": linha or None,

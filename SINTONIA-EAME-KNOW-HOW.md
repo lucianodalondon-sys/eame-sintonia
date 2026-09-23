@@ -21396,3 +21396,74 @@ seguidos. **Para a Big Collection isto tem de viver no coletor**, não num condu
 aplicado baixando MAX_TARGETS para 3 só na cópia temporária da árvore. Um teste apanhou um
 defeito meu: `c.get("ACQUISITION") or {}` dá um dicionário solto quando ACQUISITION está vazio
 (vazio é falso), e o teto não ficava gravado. Usar `setdefault`.
+## O MENU DO SÍTIO NÃO É A PÁGINA — E CORRIGIR ISSO TAMBÉM TEM PREÇO
+
+D1 (2026-09-23). O detector chamava capa a notícias porque contava os links do
+menu do sítio como se fossem da página: em 9 de 10, a maioria dos links vivia em
+`<nav>/<header>/<footer>`. Tirar a moldura da conta recupera as notícias — e
+leva junto dezenas de capas verdadeiras, que também são «um corpo pequeno dentro
+de um menu grande». Não passam a matéria (a régua de matéria não mudou), mas
+enchem a quarentena.
+
+    NENHUM ERRO DO DETECTOR SE CORRIGE DE GRAÇA: O QUE NÃO VAI PARA «CAPA» VAI PARA «NÃO SEI».
+
+A validação cega foi sorteada e commitada ANTES de olhar para as páginas, e sem
+as já vistas: uma correção medida só nos casos que a inspiraram prova só que
+lê bem esses casos.
+
+## §196 · A RECEITA ARRUMA A ROTA; OS 4 PASSOS PEDEM MAIS DO QUE A ROTA
+
+K1 (2026-09-23; escrita como §192 na branch receitas-gabaritos-v1 e renumerada na
+fusao V1A, porque a unificacao ja tinha um §192). Corrigir a configuração das fontes era o caminho certo — e o
+primeiro número foi outro: 105 das 133 fontes dos gabaritos nem tinham contrato
+no livro do portão (vivia no bot, e a B2 é que o traz). Medir receitas sobre um
+livro sem contratos mediria o livro, não as receitas.
+
+Depois das receitas, 13 com prova — mas só 5 passaram os 4 passos. A receita
+ensina o caminho até à notícia; os 4 passos exigem que a notícia aberta tenha
+corpo. Em 7 fontes a rota ficou certa e o item aberto continuava curto ou em
+`<div>`: é o mesmo defeito do detector (D1), visto do outro lado.
+
+    UMA RECEITA NÃO FAZ UMA PÁGINA TER TEXTO.
+
+E a comparação que decidiu: a opção C recupera notícias à custa de capas na
+quarentena, e na validação cega é só custo; a V1 da LD3, com a régua a mandar,
+tira capas sem perder nenhuma notícia. Medir as três políticas lado a lado, com
+um conjunto cego, foi o que deu a resposta — não a intuição de qual «devia»
+funcionar.
+
+---
+
+# §197 · UMA REGRA NOVA PRECISA DE UM DADO QUE NINGUÉM TRANSPORTAVA — E DE DOIS JUÍZES QUE DIGAM O MESMO
+
+V1A (23/09/2026). A V1 da LD3 — «a página que é o próprio INDEX_URL do contrato é capa» —
+cumpriu o critério escrito ANTES de medir (dominar o ACTUAL nos dois erros, nos três
+conjuntos, incluindo o cego) e foi ligada. Três coisas aprenderam-se ao ligá-la:
+
+**1. A regra era uma linha; o dado que ela lê não chegava à porta.** A porta de admissão
+julga a página pelo retrato do detector, mas não sabia DE QUE ENDEREÇO a página veio.
+`raw_asset.source_url` existia no banco e era lido por `objetos_da_corrida()` — e ficava
+lá. Foi preciso passá-lo por cinco mãos (preservar_coleta → ingresso → derivacao_forward →
+orquestrador → `item.url_da_pagina`). O orquestrador até já pedia `r.get("SOURCE_URL")`,
+e recebia `None` sem ninguém reparar.
+
+    UMA REGRA QUE LÊ UM CAMPO AUSENTE NÃO FALHA: JULGA CALADA COMO SE ELE NÃO EXISTISSE.
+
+Por isso o gate passou a EXIGIR `url` e `regua_a_mandar` por nome, em Python e em Node:
+um chamador esquecido rebenta, em vez de julgar sem a regra.
+
+**2. Duas travas para a mesma coisa escondem-se uma à outra.** A porta só passava o
+contrato quando a régua mandava, E o veredito só usava a V1 quando a régua mandava. O
+mutante «a régua manda sempre» sobreviveu — não por falta de teste, mas porque a outra
+trava o apanhava. Tirou-se a repetida; o ataque seguinte matou 11 de 11.
+
+**3. A paridade de veredito não é paridade de contagem.** Nas 251 páginas reais dos
+gabaritos, Python e Node dão o mesmo veredito — e em 8 contam caracteres diferente: o Node
+mede em unidades UTF-16 (um emoji vale 2) e o `\s` do JavaScript apanha U+FEFF. Uma delas
+(IT-T12-030) está a 39,6 caracteres por ligação, com o limiar nos 40: o mesmo veredito,
+por uma margem de dezenas de caracteres. Ficou declarado e vigiado (a lista só pode
+encolher), não corrigido: mudar a contagem é mudar o detector, e isso mede-se antes.
+
+Medido pelo código real, com o estado das fontes da K1 numa cópia: capas que entram
+37→30 · 6→5 · 4→3; notícias barradas e retidas iguais. A V1 disparou em 17 páginas — todas
+capas verdadeiras, todas de fontes que passam os 4 passos.

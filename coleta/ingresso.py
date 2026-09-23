@@ -760,6 +760,8 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
                          # corrida pode ter colhido sete fontes, e entao ela
                          # nao tem nenhuma.
                          "SOURCE_ID": o.get("SOURCE_ID"),
+                         # V1A: o endereco da observacao, ate a porta (V1).
+                         "SOURCE_URL": o.get("SOURCE_URL"),
                          "PDF": local})
     return unidades, sem_bytes
 
