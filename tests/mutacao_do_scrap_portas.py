@@ -63,6 +63,7 @@ def _copia_de_seguranca(ficheiro, conteudo):
         COMMITADO. A GUARDA TEM DE GUARDAR O FICHEIRO ANTES DE O ESTRAGAR.
     """
     destino = os.path.join(TMP, ficheiro.replace('/', '__'))
+    os.makedirs(TMP, exist_ok=True)
     io.open(destino, 'w', encoding='utf-8', newline='').write(conteudo)
     return destino
 
