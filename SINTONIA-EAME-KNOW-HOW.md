@@ -20081,7 +20081,7 @@ As armadilhas de substring também existem em inglês e ficam de fora, declarada
 `thesis` (syn**thesis**), `import` (**import**ant), `pest` (**pest**icide,
 Buda**pest**), `trap` (s**trap**).
 
-Medido no conteúdo real (528 ficheiros): italiano domina, inglês existe (19),
+Medido no conteúdo real (507 ficheiros): italiano domina, inglês existe (19),
 francês/espanhol/alemão/português **zero** — não se finge suporte.
 
 Duas guardas de missões antigas (`test_a_admissao_e_o_gate_nao_mudaram`,
