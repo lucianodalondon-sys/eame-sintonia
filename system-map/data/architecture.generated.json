@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "abastecimento-bot-v1",
-    "HEAD": "f90f5d7cad16e0c6dd92965bb75ba853bb8cd17c",
-    "GENERATED_AT": "2026-09-22T20:34:11-03:00",
-    "SOURCE_TREE_FINGERPRINT": "59ac074133ca1ec6cfd16d58e0672c2a52a32e37327ff067658ce5cf74979043"
+    "BRANCH": "abastecimento-vivo-v1",
+    "HEAD": "cfe3c71c0c8612379841998eca98403c2cbf29b6",
+    "GENERATED_AT": "2026-09-22T22:02:06-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fb2d8dfad569edb24908472fc6ad2666d1bd3e9527e9b5da4b37c612cf0968eb"
   },
   "FILES": [
     {
@@ -1690,7 +1690,7 @@
     },
     {
       "path": "curadoria/ABASTECIMENTO-PROOF-V1.json",
-      "sha": "964523b29270a272193d0c5d19f1e363cb4c9c2b",
+      "sha": "f7dada38f7a0803486d4276749b08c33faee6e70",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2139,6 +2139,13 @@
     {
       "path": "curadoria/manifesto_das_amostras.py",
       "sha": "d0b7630d14060a743d3bf45a3c285bf2cc797a1e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/medir_abastecimento_vivo.py",
+      "sha": "dc8d2c5e2284348f762c12c7495dd1bec8bc29e6",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -21200,6 +21207,28 @@
         "file": "curadoria/manifesto_das_amostras.py",
         "line": 23,
         "snippet": "CAR = RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/medir_abastecimento_vivo.py",
+      "to_file": "curadoria/LIFECYCLE-LEDGER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/medir_abastecimento_vivo.py",
+        "line": 26,
+        "snippet": "\"SUPERVISOR-STATE.json\", \"LIFECYCLE-LEDGER-V1.json\")"
+      }
+    },
+    {
+      "from_file": "curadoria/medir_abastecimento_vivo.py",
+      "to_file": "curadoria/LIFECYCLE-QUEUE-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/medir_abastecimento_vivo.py",
+        "line": 25,
+        "snippet": "FICHEIROS = (\"LIFECYCLE-QUEUE-V1.json\", \"SOURCE-CURATOR-RUN-LOG.ndjson\","
       }
     },
     {
@@ -67312,10 +67341,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2204,
-    "files_readable": 879,
+    "files_tracked": 2205,
+    "files_readable": 880,
     "files_code_dir": 883,
-    "file_edges": 4669,
+    "file_edges": 4671,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
