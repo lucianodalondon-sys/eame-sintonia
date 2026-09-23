@@ -465,7 +465,14 @@ class ADecisaoNaoTrouxeNadaAtrasDela(unittest.TestCase):
             self.skipTest('a gaveta de midia nao esta nesta arvore')
         antes = {f: os.path.getsize(os.path.join(gaveta, f))
                  for f in os.listdir(gaveta)}
-        self.assertTrue(antes, 'a gaveta veio vazia; a sonda mediria zero por engano')
+        if not antes:
+            # ⚠️ MEDIDO EM ARVORE LIMPA: a pasta pode EXISTIR e estar VAZIA — foi
+            # outra prova desta suite que a criou (`guardar=True` na oficina) e
+            # nao ha ali byte historico nenhum. Uma sonda sem nada para comparar
+            # mediria zero por engano, e um `assert` aqui transformava a limpeza
+            # da arvore em falha desta missao.
+            #     AUSENCIA DE PROVA NAO E PROVA DE REGRESSAO.
+            self.skipTest('a gaveta existe mas veio vazia: nao ha bruto historico para comparar')
         espia = _EspiaYtdlp()
         orig = rt._ytdlp
         rt._ytdlp = espia

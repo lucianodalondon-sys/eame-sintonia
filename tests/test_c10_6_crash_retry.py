@@ -61,8 +61,22 @@ import reel_transcricao as rt       # noqa: E402
 import adaptador_instagram as ai    # noqa: E402
 
 GROSSA = 'FETCH_TRANSCRIPT'
+# ⚠️ A IDENTIDADE DA PROVA DECLARA OS METADADOS DELA PROPRIA (D22, 2026-09-23).
+#
+# A D22 abriu a rota dos REELS por URL directa. Antes dela a politica barrava o
+# passo dos metadados desta cadeia; depois dela, uma identidade que traz
+# SOURCE_URL e nao traz CAPTION_TEXT faz a cadeia SAIR PARA A REDE para os ir
+# buscar. Medido nesta maquina: as provas deste modulo deixavam de correr num
+# segundo e ficavam minutos a espera de yt-dlp — e uma delas nunca terminava.
+#
+# Estas provas medem IDEMPOTENCIA (repetir nao duplica, nao infla, nao fabrica
+# identidade). Os metadados nao sao o que esta em causa, e a plataforma tambem
+# nao: por isso vem declarados, e a prova deixa de depender de haver rede.
+#
+#     UMA PROVA DE IDEMPOTENCIA NAO PEDE A PLATAFORMA. PEDE OS MESMOS BYTES.
 IDENT = {'PLATFORM': 'INSTAGRAM', 'POST_ID': 'C106TESTE',
-         'SOURCE_URL': 'https://www.instagram.com/reel/C106TESTE/'}
+         'SOURCE_URL': 'https://www.instagram.com/reel/C106TESTE/',
+         'CAPTION_TEXT': 'legenda declarada pela prova de crash'}
 
 
 def _som(destino, nome='fixture.m4a'):
@@ -183,6 +197,20 @@ import fala_local as fl, reel_transcricao as rt
 rt.SAIDA = SAIDA
 os.makedirs(SAIDA, exist_ok=True)
 
+# ⚠️ DESDE A D22 (2026-09-23) A ROTA DO INSTAGRAM ESTA ABERTA: o passo dos
+# METADADOS desta cadeia deixa de ser barrado pela politica e passa a SAIR PARA A
+# REDE sempre que a identidade traz SOURCE_URL e nao traz CAPTION_TEXT. Medido:
+# cada fase passou a levar minutos, e uma prova de MORTE nao pode depender de a
+# plataforma estar aberta nem de haver rede onde ela corre.
+#
+# POR ISSO OS METADADOS VEM DECLARADOS AQUI, no filho — no proprio sitio onde a
+# cadeia os iria buscar. Eles nao sao medidos por esta prova; o que esta em causa
+# e o processo morrer no ponto marcado e o que ja estava preservado sobreviver.
+#     A PROVA DE CRASH NAO PEDE A PLATAFORMA. PEDE O PONTO DE MORTE.
+IDENT_PROVA = {'PLATFORM': 'INSTAGRAM', 'POST_ID': 'C106TESTE',
+               'SOURCE_URL': 'https://www.instagram.com/reel/C106TESTE/',
+               'CAPTION_TEXT': 'legenda declarada pela prova de crash'}
+
 def marca(nome, **e):
     d = dict(e); d['MARCA'] = nome
     open(MARCAS, 'a', encoding='utf-8').write(json.dumps(d, default=str) + '\n')
@@ -211,8 +239,7 @@ rt._ficha_raw = ficha
 
 if FASE == 'F0':
     morrer('antes de qualquer preservacao')
-r = rt.transcrever_reel({'PLATFORM':'INSTAGRAM','POST_ID':'C106TESTE',
-                         'SOURCE_URL':'https://www.instagram.com/reel/C106TESTE/'},
+r = rt.transcrever_reel(dict(IDENT_PROVA),
                         run_id='C106-' + FASE, midia_ficheiro=FIXTURE,
                         guardar=True, oficina=OFICINA)
 caminho, _c = rt.gravar_lote([r])

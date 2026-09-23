@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-23 — **§197** (REELS-FUNCIONANDO, `scrap-portas-v1` @ `79140941`): a D22 — decisão do dono REAL — autorizou a coleta de REELS do Instagram por URL directa, sem login, sem conta e sem rota paga, com o risco assumido por ele; a matriz passou a `OWNER_AUTHORIZED=SIM` com `PLATFORM_POLICY_STATUS=DISALLOWED` (a medição do robots.txt fica escrita ao lado da autorização) e a rota ganhou o limite próprio `PUBLIC_REEL_BY_URL_ONLY`. Matriz, portão (`CHECK`), cadeia e porta operacional passaram a responder o MESMO — as quatro provas de discordância estão no teste das duas portas. DESCOBERTA medida: o embed do perfil com UA curto devolve os itens (`graphql_media`), o UA completo devolve uma casca, `__a=1` devolve 0 bytes e o yt-dlp NÃO lista perfil — a captura por URL directa funciona. CANÁRIO REAL: 3/3 Reels ponta a ponta, US$ 0, sem conta, base descartável — 3 RAW com sha256, 3 DERIVED com TEXTO REAL em italiano pelo dono único do ASR. **Antes, §196**
+**Última atualização material:** 2026-09-23 — **§198** (REELS-FUNCIONANDO, bloco 7, `scrap-portas-v1`): a medição também é uma peça — base de comparação sem `.git` dá verde falso (`git ls-files` responde zero); uma corrida de teste reescreveu um artefacto rastreado (`RUN-MANIFEST.json`) e isso apareceu como 23 falhas novas; a gaveta não rastreada `data/raw/REEL-MIDIA` faz a prova correr em vez de saltar (900 s vs 11 s); e depois da D22 a prova que não mede a plataforma não pode pagar pela rede — os metadados declaram-se no fixture. `NEW_FAILURES_BY_NAME = 0` medido por nome contra `6ea92f6a`. **Antes, §197:** a D22 autorizou a coleta de REELS do Instagram por URL directa, sem login, sem conta e sem rota paga; a matriz passou a `OWNER_AUTHORIZED=SIM` com `PLATFORM_POLICY_STATUS=DISALLOWED` e a rota ganhou o limite `PUBLIC_REEL_BY_URL_ONLY`; canário real 3/3 ponta a ponta, US$ 0. **Antes, §196:** as duas portas do Scrap.
 **§134 (2026-09-17):** o `INDEPENDENT_WORKFLOW_CANARY_REPLAY_2` (run GitHub `35227662328`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `b8e07e03`) deu **BLOCKED**: o portão de egresso (5c) mediu `EGRESS_COUNTRY_CODE = BR` — o ProtonVPN da máquina do runner estava sem túnel — e fechou a corrida ANTES da rede; o passo 6 ficou `skipped`, o orquestrador nunca correu, zero RUN/RAW/Sala, teardown físico limpo, produção intocada. O conserto do §133 **não foi observado** no workflow, nem bem nem mal: `CLI_POSTGRES_BINDING_OBSERVED_IN_WORKFLOW = NOT_MEASURED`. **BLOCKED NÃO É FAIL.** Antes de qualquer replay 3: ligar a VPN italiana na máquina do runner e medir `country: IT` ANTES de despachar. `BIG_COLLECTION = NÃO AUTORIZADA`.
 **§133 (2026-09-17):** o blocker do §132 foi FECHADO NO CÓDIGO (`CLI_POSTGRES_BINDING_FIX = PASS`): a porta CLI do orquestrador compõe `memoria`/`banco_do_rastro` a partir de `BANCO_DESCARTAVEL_URL` (`orquestrador/persistencia.py`), com a trava canónica no runtime (`guarda/banco_descartavel.py`) e o adaptador Postgres canónico (`guarda/memoria_postgres.py`). Provado com a porta como PROCESSO contra Postgres 16 real (36 casos), red team 0 blockers, NEW_FAILURES = 0. **PROVA NÃO É RUNTIME.** O workflow não mudou.
 **§132 (2026-09-17):** o replay canário pelo workflow real ACONTECEU (`INDEPENDENT_WORKFLOW_CANARY_REPLAY`, run GitHub `35215565657`, IT-T3-002, runner SINTONIA-EAME-LOCAL, HEAD `c93f6920`) e deu **FAIL**: `WORKFLOW_EXECUTED = YES` (bancada descartável, 31 migrations, Sala gate e egresso IT antes da rede, orquestrador chamado, PDF novo adquirido, teardown físico limpo, produção intocada) mas `WORKFLOW_FLOW_OBSERVED = NO` — a porta CLI do orquestrador (`orquestrador.py:1052`) chama `correr()` sem `memoria`/`banco_do_rastro`, o banco criado nunca recebe `raw_asset`, DERIVED/STRUCTURED não correm, ADMISSION = NAO_SEI, Sala = 0. A primeira coleta (§130) passou por OUTRA porta (o corredor ligava o banco em processo) e continua de pé. `COLLECTION_INTEGRATION_CANDIDATE = NO`. Dono canônico: `docs/operacao/REVISAO-INDEPENDENTE-PRIMEIRA-COLETA-ITALIA-V1.md` §14. `BIG_COLLECTION = NÃO AUTORIZADA`.
@@ -21180,3 +21180,102 @@ apareceu no canário real — a cadeia respondia `ROUTE_NOT_ALLOWED` com a porta
 - **A rota da JANELA (navegador) continua fechada na matriz** (`INSTAGRAM/INCREMENTAL`,
   `PLATFORM_POLICY_STATUS = NOT_MEASURED`). O que foi medido nesta missão foi o EMBED — outra
   rota. Abrir a janela exige medir a política DELA, e isso é outra missão.
+
+---
+
+# §198 · A MEDIÇÃO TAMBÉM É UMA PEÇA — E, DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+
+**Data:** 2026-09-23 · **Branch:** `scrap-portas-v1` · **Bloco 7** (as 12 provas congeladas que a D22 tornou falsas)
+
+Esta secção existe por causa de um número que eu entreguei errado. Depois do bloco 6, a
+bateria do Scrap foi comparada com a base e deu `NEW_FAILURES_BY_NAME = 12`. Onze eram
+verdade; o décimo segundo não era, e a bateria inteira, quando comparada de outra maneira,
+também deu "novos" que não existiam. **Os três enganos são da mesma família, e todos os
+três faziam o verde e o vermelho mentirem para o lado confortável.**
+
+## 198.1 · COMPARAR CONTRA UMA ÁRVORE SEM `.git` DÁ VERDE FALSO
+
+A base da comparação era um `git archive` extraído para uma pasta. Vários testes desta
+casa perguntam ao git **que ficheiros estão rastreados** (`git ls-files`) para depois os
+medirem — o teste dos segredos é um deles. Sem repositório, a pergunta responde "nenhum",
+a lista vem vazia, e a prova fica **verde por não ter medido nada**.
+
+MEDIDO: no arquivo sem `.git`, `test_security_secret_shapes` passava em 1,1 s. Numa
+worktree de git no MESMO commit da base, o mesmo teste leva 278 s e **reprova**, com os
+mesmos dois ficheiros que reprovam no meu HEAD — os quais foram acrescentados por commits
+que são antepassados comuns (`1bca4901`, `0799f2bb`) e não têm nada a ver com esta missão.
+
+```
+UMA BASE DE COMPARAÇÃO TEM DE TER O QUE O TESTE PERGUNTA.
+SEM REPOSITÓRIO, `git ls-files` RESPONDE ZERO — E ZERO NÃO É «LIMPO».
+```
+
+## 198.2 · UMA CORRIDA DE TESTE PODE REESCREVER UM ARTEFATO RASTREADO
+
+O checkpoint apanhado depois da queda do PC trazia `data/samples/RUN-MANIFEST.json` com
+`-44491/+19349` linhas. Não era trabalho nenhum: era uma corrida de testes a reescrever o
+manifesto da casa na árvore de trabalho. Na bateria seguinte isso apareceu como **23
+falhas novas** em `tests.test_proveniencia` — todas de um ficheiro que ninguém tinha
+mexido à mão.
+
+Reposto de `0c3bd0a2` em bytes. A prova de que era efeito lateral e não trabalho: o mesmo
+`git diff` contra a base dá o mesmo número antes e depois do restauro.
+
+```
+O QUE A CORRIDA ESCREVE, A CORRIDA NÃO DECIDE SE FICA.
+ARTEFATO RASTREADO SUJO = FALSO NOVO, NÃO REGRESSÃO.
+```
+
+## 198.3 · A GAVETA LOCAL FAZ A PROVA CORRER EM VEZ DE SALTAR
+
+`tests/test_c10_6_crash_retry` corre em 11 s na base e levava mais de 900 s no meu HEAD —
+e a classe do crash nem existia na listagem da base. A causa não era a lei: era
+`data/raw/REEL-MIDIA`, uma pasta **não rastreada** materializada na minha árvore por
+corridas anteriores. Onde ela não existe, a prova salta; onde existe, ela corre.
+
+E o inverso também aconteceu: `test_T10_o_bruto_historico_nao_foi_tocado` era verde na
+minha árvore e **reprovava numa árvore limpa** — porque nessa árvore a pasta existia (criada
+por outra prova) e estava **vazia**, e o teste transformava "não há nada para comparar" numa
+falha desta missão.
+
+```
+A PROVA TEM DE DAR O MESMO ONDE NINGUÉM TRABALHOU AINDA.
+CORRER ≠ SALTAR ≠ REPROVAR — E SÓ UM DOS TRÊS É RESULTADO.
+```
+
+## 198.4 · DEPOIS DA D22, A PROVA NÃO PODE DEPENDER DA PLATAFORMA ESTAR FECHADA
+
+Onze das doze provas novas eram falsas por decisão, e a cura foi declarada: a linha
+congelada muda **citando a D22 no próprio teste**, sem apagar e sem afrouxar. E onde o
+teste precisava do sentido contrário, a recusa passou a ser **injectada em memória**
+(`_PoliticaRecusada`, `_RotaRecusada`) — nunca reescrita no ficheiro da lei para o teste
+voltar a ficar verde.
+
+A décima segunda era outra coisa, e é a lição que faltava nomear. A D22 abriu a rota dos
+Reels; a partir daí, uma identidade que traz `SOURCE_URL` e **não** traz `CAPTION_TEXT`
+faz a cadeia **sair para a rede** para ir buscar os metadados. Duas provas alheias à
+política — uma de crash e idempotência, outra de repetição — passaram a levar minutos e
+uma delas nunca terminava. Elas nunca mediram a plataforma: medem **morte, preservação e
+idempotência**. A cura foi declarar os metadados no fixture, no sítio exacto onde a cadeia
+os iria buscar.
+
+```
+ABRIR UMA ROTA MUDA O CUSTO DE TODAS AS PROVAS QUE PASSAM POR ELA.
+UMA PROVA QUE NÃO MEDE A PLATAFORMA NÃO PODE PAGAR POR ELA.
+```
+
+E o portão fecha-se nos DOIS sentidos: uma prova que só mede o lado permissivo fica verde
+com um portão que nunca deixa passar nada — por isso cada uma destas ganhou o lado
+simétrico (`test_P7b`).
+
+## 198.5 · O QUE ESTA SECÇÃO CUSTOU, EM NÚMEROS
+
+- bateria do Scrap (147 módulos que tocam scrap/social/rota), **por nome**, base `6ea92f6a`
+  vs HEAD: `NEW_FAILURES_BY_NAME = 0` — e os 4 nomes que apareceram como novos na primeira
+  passagem foram um a um medidos isolados na base e todos reprovam lá com o MESMO nome
+  (`test_a_porta_cli_liga_o_banco`, `test_security_secret_shapes`, e 2 de `test_social_sessao`).
+- teto por módulo: quando um módulo bate no teto de segundos, os vermelhos dele **não
+  entram** — e o lado que não bateu aparece com "novos" que são só o teto. Um módulo no
+  teto é um módulo AINDA NÃO MEDIDO, nunca um módulo limpo.
+- mutação própria: 10/10 mordem (M8/M9 mexem no eixo do dono e no limite da rota do Reel;
+  M10 numa rota de outra plataforma).
