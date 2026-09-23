@@ -533,6 +533,16 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
                                f"Sem regra, esta porta nao inventa uma."), {}
     texto = _dobrar(" ".join(str(item.get(k) or "") for k in
                              ("texto", "title", "nome", "topics", "crops", "resumo")))
+    # D3: a mesma regua, na lingua do texto. it/pt/NAO SEI: nada muda.
+    lingua = _lingua_do_item(item)
+    reguas = PERGUNTAS_DO_UNIVERSO
+    if lingua in IDIOMAS_SEM_REGUA:
+        return NAO_SEI, (f"IDIOMA_NAO_SUPORTADO:{lingua} — o texto esta em «{lingua}» e esta "
+                         f"porta nao tem regua nessa lingua. NAO_SEI dito, nao fingido."), \
+            {"idioma": lingua}
+    if lingua == "en":
+        reguas = PERGUNTAS_EN
+        palavras = PERGUNTAS_EN.get(universo, [])
     achadas = [p for p in palavras if _dobrar(p) in texto]
     # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
     # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
@@ -559,7 +569,7 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
 
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
-    for outro, termos in PERGUNTAS_DO_UNIVERSO.items():
+    for outro, termos in reguas.items():
         if outro == universo:
             continue
         casou = [t for t in termos if t.lower() in texto]
@@ -807,6 +817,67 @@ PERGUNTAS_DO_UNIVERSO = {
             "importacao", "importacoes",
             "exportacao", "exportacoes"],                    # pt
 }
+
+
+# ── A MESMA REGUA, NA LINGUA DO TEXTO (D3 do dono, 23/09/2026) ─────────────
+# Medido no lote-76: 10 de 76 documentos eram NAO_SEI so por estarem em ingles
+# (os 10 da Zootecnica), e o dono validou dois deles como ENTRA (gabarito itens 5
+# e 6: precos e exportacoes de frango). Uma regua que so fala italiano e
+# portugues nao julga um texto ingles: cala-se, e o calar tem nome de NAO_SEI.
+#
+# A CORRECCAO NAO JUNTA O INGLES A LISTA ITALIANA. `export` saiu de T10 porque
+# casava nos blocos «potrebbe interessarti» de paginas ITALIANAS; juntar o ingles
+# ao lado traria esse ruido de volta e mudaria vereditos italianos. Em vez disso,
+# a porta ve em que lingua o texto esta (`admissao/idioma.py`) e aplica a lista
+# DESSA lingua:
+#
+#     it / pt / lingua NAO SEI  ->  PERGUNTAS_DO_UNIVERSO, exactamente como antes
+#     en                        ->  PERGUNTAS_EN (os mesmos conceitos, em ingles)
+#     fr / es / de              ->  NAO_SEI com motivo IDIOMA_NAO_SUPORTADO:<xx>
+#
+# Os limiares nao mudam (SINAIS_MINIMOS = 2; NAO so com prova de outro universo).
+#
+# CADA TERMO INGLES E O EQUIVALENTE DE UM TERMO QUE JA ESTA NA LISTA IT/PT. As
+# mesmas licoes de substring que limparam o italiano valem aqui, e por isso
+# ficaram DE FORA, declarado:
+#     trial   dentro de «indusTRIAL»          event    dentro de «prEVENT»
+#     product dentro de «PRODUCTion»           thesis   dentro de «synTHESIS»
+#     import  dentro de «IMPORTant»            pest     dentro de «PESTicide», «BudaPEST»
+#     trap    dentro de «sTRAP»                resistance: nao ha equivalente italiano na lista
+#     listino / rincar / borsa merci: as formas inglesas («price list», «price
+#     increase», «commodity exchange») cabem dentro de `price`/`commodity`, e dariam
+#     dois sinais a uma palavra — a regra dos SINAIS_MINIMOS deixava de valer.
+# E, como no italiano, NENHUMA FORMA CABE DENTRO DE OUTRA DA MESMA LISTA.
+PERGUNTAS_EN = {
+    "T5": ["doi", "orcid",                                    # sem lingua
+           "study", "research", "journal", "article", "university", "institute",
+           "publication", "conference", "experiment", "field trial"],
+    "T7": ["cooperative", "consortium", "agronomist", "extension service",
+           "technical assistance", "agronomic advice", "field technician"],
+    "T9": ["competitor", "launch", "campaign", "announce", "novelty", "trade fair"],
+    "T4": ["registration", "ministry", "decree", "authorisation", "authorization",
+           "label", "leaflet", "gazette"],
+    "T3": ["fungus", "fungi", "larva",                        # larva: sem lingua
+           "pests", "disease", "insect", "infestation", "symptom",
+           "weeds", "weed control", "herbicide", "parasit", "pathogen",
+           "phytopatholog", "plant patholog", "oviposition",
+           "downy mildew", "powdery mildew", "botrytis", "apple scab"],
+    "T10": ["commodity",                                      # sem lingua
+            "price", "quotation", "imports", "exports", "supply and demand"],
+}
+IDIOMAS_SEM_REGUA = ("fr", "es", "de")
+
+
+def _lingua_do_item(item: dict) -> str:
+    import importlib.util as _iu
+    global _IDIOMA
+    if "_IDIOMA" not in globals():
+        _sp = _iu.spec_from_file_location("admissao_idioma", Path(__file__).resolve().parent / "idioma.py")
+        _IDIOMA = _iu.module_from_spec(_sp)
+        _sp.loader.exec_module(_IDIOMA)
+    _I = _IDIOMA
+    return _I.idioma(" ".join(str(item.get(k) or "") for k in
+                              ("texto", "title", "nome", "topics", "crops", "resumo")))
 
 
 def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
