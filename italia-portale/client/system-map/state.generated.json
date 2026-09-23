@@ -801,6 +801,7 @@
       "data/samples/BENCHMARK-RESEARCH-SAVING-B1.json",
       "data/samples/BRAZIL-LESSONS-TRANSFER-EAME.json",
       "data/samples/CANARIO-D24-PESSOA-V1.json",
+      "data/samples/CANARIO-D24-YOUTUBE-PESSOA-V1.json",
       "data/samples/CANARIO-LINKEDIN-D23-V1.json",
       "data/samples/CAPTURE-VS-REGISTRATION-CONTRACT-V1.json",
       "data/samples/CASE-006-es41-rain-window-vs-yield.json",
@@ -1256,6 +1257,8 @@
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/identidade-https---imagelinenetwork.com__9e40b34272e2139f.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__8abb69b1fec05d64.txt",
+      "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__b9cdaa45c8488171.txt",
+      "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__c23bafd0a6a3df1f.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7488216289828753409__729cc597cc25ab27.txt",
       "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7490681050906439680__3fa4d7dc1dfd8eed.txt",
       "data/samples/SPAIN-DEMO-CONTENT-V1.json",
@@ -2108,6 +2111,7 @@
       "provas/canario_d23_linkedin_video.py",
       "provas/canario_d24_reel_de_pessoa.py",
       "provas/canario_d24_video_de_pessoa.py",
+      "provas/canario_d24_video_youtube_de_pessoa.py",
       "provas/candidatos_tematicos.py",
       "provas/censo_corpus_rotulado_admission.py",
       "provas/censo_executavel_da_v1.py",
@@ -3303,9 +3307,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "d028e0402ff79f64a115e88e74a806838fac3508",
-    "GENERATED_AT": "2026-09-23T16:32:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25"
+    "HEAD": "3f7a2467f36a3639426ca1ca7134e736292cba5b",
+    "GENERATED_AT": "2026-09-23T17:06:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "49ff8a483ec916d424a41d228a5c7e38913321cf77cebd6f857f01467c3068a5"
   },
   "FAMILIES": [
     {
@@ -4799,8 +4803,8 @@
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
-        "enderecos que o codigo realmente chama: 595",
-        "desses, mostrados aqui: 40 (ficam de fora 555)"
+        "enderecos que o codigo realmente chama: 597",
+        "desses, mostrados aqui: 40 (ficam de fora 557)"
       ],
       "status_reason": "297 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 292, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
@@ -104275,7 +104279,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 332,
+          "line": 347,
           "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -109682,7 +109686,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 521,
+          "line": 536,
           "snippet": "'ferramentas/reel_transcricao.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -109698,7 +109702,7 @@
         },
         {
           "file": "tests/test_c10_4_route_gate.py",
-          "line": 522,
+          "line": 537,
           "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -111947,8 +111951,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1536,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/canario_d24_video_youtube_de_pessoa.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 1540,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -112153,9 +112159,9 @@
     "edges_proven": 1143,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2709,
+    "files_tracked": 2713,
     "files_covered": 1173,
-    "files_code_unclaimed": 0,
+    "files_code_unclaimed": 1,
     "roles_proven": 160,
     "roles_declared_only": 8,
     "roles_unknown": 67,

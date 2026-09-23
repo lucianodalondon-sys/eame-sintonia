@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T19:42:35+00:00",
-  "HEAD": "d028e0402ff79f64a115e88e74a806838fac3508",
+  "GENERATED_AT": "2026-09-23T20:21:39+00:00",
+  "HEAD": "3f7a2467f36a3639426ca1ca7134e736292cba5b",
   "BRANCH": "scrap-linkedin-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25",
-  "FICHEIROS_NA_IMPRESSAO": 2859,
+  "SOURCE_TREE_FINGERPRINT": "49ff8a483ec916d424a41d228a5c7e38913321cf77cebd6f857f01467c3068a5",
+  "FICHEIROS_NA_IMPRESSAO": 2861,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3541,14 +3541,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25",
+    "VERSAO": "49ff8a483ec916d424a41d228a5c7e38913321cf77cebd6f857f01467c3068a5",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25",
+    "VERSAO": "49ff8a483ec916d424a41d228a5c7e38913321cf77cebd6f857f01467c3068a5",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4101,7 +4101,7 @@
    {
     "PATH": "tests/test_c10_4_route_gate.py",
     "PAPEL": "FONTE",
-    "VERSAO": "0be51c4950ec4d4a91f129b553635946c41ae88f",
+    "VERSAO": "0ead3e8b6dbc78877c42061c3560a726992b7127",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -5339,7 +5339,7 @@
    }
   ],
   "INPUTS_COUNT": 757,
-  "INPUTS_DIGEST": "7c93b5d8d1cd82a8f50bf945e7ee46b7550fb59cdd5d0676a8efe8214f651bf3",
+  "INPUTS_DIGEST": "121c40267f24c3fb6c4ce621c87a5d350426760218e28651e8f46d8f426c1a88",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5372,8 +5372,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "42844a2543159b06c68c8c48fc255fc6d8fe3ffa79eca31c34b6128f080872db",
-  "SEMANTIC_HASH": "cd3842b3b1dc403fd3b9aaf30ec9ccdb82165acfd99c45d0be5cb4fec54b3937"
+  "MEASUREMENT_HASH": "875e37fbb22b04be53c3a9683a03bc28c6b8e81630471794f85d0dd387ad4d73",
+  "SEMANTIC_HASH": "4e655dc538628b06b54a6b715f13fe7858b224e24d1d897290a2022e8f4808ef"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -36568,7 +36568,7 @@
      },
      {
       "FICHEIRO": "tests/test_c10_4_route_gate.py",
-      "LINHA": 332,
+      "LINHA": 347,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -39630,7 +39630,7 @@
      },
      {
       "FICHEIRO": "tests/test_c10_4_route_gate.py",
-      "LINHA": 521,
+      "LINHA": 536,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -39638,7 +39638,7 @@
      },
      {
       "FICHEIRO": "tests/test_c10_4_route_gate.py",
-      "LINHA": 522,
+      "LINHA": 537,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
@@ -41522,6 +41522,7 @@
     "provas/a_rota_do_html_nao_vai_a_rede.py",
     "provas/a_rota_gratuita_ainda_e_gratuita.py",
     "provas/canario_d24_video_de_pessoa.py",
+    "provas/canario_d24_video_youtube_de_pessoa.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
@@ -46389,6 +46390,7 @@
    ],
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [
+    "provas/canario_d24_video_youtube_de_pessoa.py",
     "tests/test_c10_5d_decisao_instagram.py",
     "tests/test_c13_route_gate.py",
     "tests/test_d24_video_de_pessoa.py"
@@ -49612,6 +49614,7 @@
     "provas/a_fonte_t4_italiana_atravessa.py",
     "provas/asr_banco.py",
     "provas/canario_d23_linkedin_video.py",
+    "provas/canario_d24_video_youtube_de_pessoa.py",
     "provas/gpu_asr_smoke.py",
     "provas/hardware_local.py",
     "provas/o_video_tem_consumidor.py",

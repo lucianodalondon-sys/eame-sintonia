@@ -317,7 +317,22 @@ class OCaminhoCanonico(unittest.TestCase):
         self.assertEqual(v['MATRIZ_CAPABILITY'], GROSSA)
         self.assertEqual(v['MATRIZ_DECISAO'], mz.PERMITIDA_SIM)
         self.assertTrue(v['CAN'])
-        self.assertEqual(mz.PERMITIDA_SIM, v['STATE'])
+        # ⚠️ DUAS PALAVRAS, DOIS DONOS — e esta linha afirmava a errada.
+        #
+        # `MATRIZ_DECISAO` é a permissão da POLÍTICA (`ALLOWED`, dona
+        # `leis/social_matriz.py`), e está medida na linha de cima. `STATE` é a
+        # PRONTIDÃO do portão (`CAN_COLLECT_NOW`, dona `coleta/scrap_executor.py`).
+        # O portão ESPELHA a palavra da matriz quando ela RECUSA, e diz a palavra
+        # dele quando pode colher — confundir as duas exigia `ALLOWED` de um campo
+        # que nunca falou essa língua.
+        self.assertEqual(scrap.PODE, v['STATE'])
+        # E a contraprova, no mesmo instante: com a matriz a RECUSAR, o portão
+        # fala a língua dela. O espelho é COMPORTAMENTO, e não coincidência — sem
+        # esta metade, trocar o `STATE` por uma constante qualquer passaria.
+        with _PoliticaNegativa():
+            recusado = scrap.CHECK('INSTAGRAM', CAPACIDADE)
+        self.assertFalse(recusado['CAN'])
+        self.assertEqual(mz.NAO_PERMITIDA, recusado['STATE'])
         self.assertEqual(v['ADAPTER'], 'adaptador_instagram')
         self.assertEqual(v['COST_TO_CHECK_USD'], 0.0)
 

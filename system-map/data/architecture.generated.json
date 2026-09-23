@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "d028e0402ff79f64a115e88e74a806838fac3508",
-    "GENERATED_AT": "2026-09-23T16:32:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25"
+    "HEAD": "3f7a2467f36a3639426ca1ca7134e736292cba5b",
+    "GENERATED_AT": "2026-09-23T17:06:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "49ff8a483ec916d424a41d228a5c7e38913321cf77cebd6f857f01467c3068a5"
   },
   "FILES": [
     {
@@ -5434,6 +5434,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/CANARIO-D24-YOUTUBE-PESSOA-V1.json",
+      "sha": "36a0fa15e1cf7a6e9e5f086251375a5a3aef0638",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/CANARIO-LINKEDIN-D23-V1.json",
       "sha": "3291ab8079836fa76fa01aefa84d4ed46ff2c7f9",
       "ext": ".json",
@@ -8614,6 +8621,20 @@
     {
       "path": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__8abb69b1fec05d64.txt",
       "sha": "aa77eb9b6de49dda39f171c821ffce4986ace387",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__b9cdaa45c8488171.txt",
+      "sha": "fadb609140b6306d4b6dc41ff3356c728ebbd276",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/LINKEDIN/post-7445139302390382592__c23bafd0a6a3df1f.txt",
+      "sha": "e095d2e3116964c139545eab26f0aa3c67c65c7b",
       "ext": ".txt",
       "readable": false,
       "code_dir": false
@@ -14366,6 +14387,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "sha": "c2c7b9eda6c39e114f1b869d85595fe0de5e79df",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/candidatos_tematicos.py",
       "sha": "af59736a246110751ff40c000d3141cacf7e26a8",
       "ext": ".py",
@@ -17727,7 +17755,7 @@
     },
     {
       "path": "tests/test_c10_4_route_gate.py",
-      "sha": "0be51c4950ec4d4a91f129b553635946c41ae88f",
+      "sha": "0ead3e8b6dbc78877c42061c3560a726992b7127",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -49290,6 +49318,72 @@
       }
     },
     {
+      "from_file": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_video_youtube_de_pessoa.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_video_youtube_de_pessoa.py",
+        "line": 52,
+        "snippet": "import adaptador_youtube as ay         # noqa: E402 — a rota provada do audio publico"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "to_file": "data/samples/CANARIO-D24-YOUTUBE-PESSOA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_d24_video_youtube_de_pessoa.py",
+        "line": 75,
+        "snippet": "SAIDA = os.path.join(RAIZ, 'data', 'samples', 'CANARIO-D24-YOUTUBE-PESSOA-V1.json')"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_video_youtube_de_pessoa.py",
+        "line": 51,
+        "snippet": "import social_matriz as mz             # noqa: E402 — o dono da politica"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "to_file": "provas/canario_d24_reel_de_pessoa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/canario_d24_video_youtube_de_pessoa.py",
+        "line": 72,
+        "snippet": "'MESMA_PESSOA_DO_CANARIO': 'provas/canario_d24_reel_de_pessoa.py',"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_video_youtube_de_pessoa.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_video_youtube_de_pessoa.py",
+        "line": 50,
+        "snippet": "import rede as superficie              # noqa: E402 — o DONO do portao de egresso"
+      }
+    },
+    {
       "from_file": "provas/candidatos_tematicos.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -64168,7 +64262,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 332,
+        "line": 347,
         "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))"
       }
     },
@@ -64223,7 +64317,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 522,
+        "line": 537,
         "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')"
       }
     },
@@ -64245,7 +64339,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4_route_gate.py",
-        "line": 521,
+        "line": 536,
         "snippet": "'ferramentas/reel_transcricao.py')"
       }
     },
@@ -78937,10 +79031,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2709,
-    "files_readable": 1239,
-    "files_code_dir": 1048,
-    "file_edges": 5400,
+    "files_tracked": 2713,
+    "files_readable": 1240,
+    "files_code_dir": 1049,
+    "file_edges": 5406,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
