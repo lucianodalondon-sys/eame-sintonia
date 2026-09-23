@@ -68,11 +68,22 @@ def _m_renomeia():
 
 
 def _m_abre_porta_proibida():
-    """A porta que o dono NAO autorizou, declarada como se estivesse autorizada."""
-    mz.MATRIZ['LINKEDIN']['DISCOVER_ACCOUNT'].append(dict(
-        rota('DISCOVER_ACCOUNT', 'linkedin:perfil-publico-de-pessoa'),
-        ROTA='linkedin:contatos-de-pessoa',
-        PERMITIDA='SIM', ESTADO='PROVED'))
+    """A porta que o dono NAO autorizou, aberta como se estivesse autorizada.
+
+    ⚠️ A MUTACAO NAO ESCREVE `PERMITIDA` — ela MUDA o valor de uma rota que ja
+    existe. Ha uma prova nesta casa (`tests/test_c10_4_route_gate`) que exige
+    que `PERMITIDA` seja ESCRITA so pela matriz, e ela esta certa: um mutante
+    que declarasse politica seria um SEGUNDO DONO DA POLITICA disfarcado de
+    prova. Mutar um valor nao e declarar uma lei.
+
+    (E foi medido: a primeira versao deste mutante criava a rota com
+    `PERMITIDA=` dentro de um dicionario, e a sonda daquela prova apanhou-o —
+    corretamente. O mutante mudou; a prova nao.)
+    """
+    r = rota('DISCOVER_ACCOUNT', 'linkedin:perfil-publico-de-pessoa')
+    r['ROTA'] = 'linkedin:contatos-de-pessoa'
+    r['ESTADO'] = 'PROVED'
+    r['PERMITIDA'] = 'SIM'
 
 
 mutacao('o ESTADO da rota de pessoa muda', _m_estado)
