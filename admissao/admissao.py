@@ -490,6 +490,33 @@ def _politica_nao_sei():
     return m
 
 
+# ── D14 (bot Luciano, delegado do dono, 23/09): OPCAO C — DESLIGADA ─────────
+# CAPA de fonte cujo contrato passa a regua dos 4 passos (INDEX_URL provado) vai
+# para QUARENTENA em vez de ser barrada. A D14 manda: desligada ate medir, e so
+# ligar se as condicoes baterem. MEDIDO (D1, 2026-09-23, livros do portao das
+# 08:25Z): das noticias barradas como capa, a C recupera 0/6 (original) e 0/4
+# (controlo) — todas vem de fontes MAL configuradas —, e poria 3 capas
+# verdadeiras em quarentena. «Se a C recuperar quase nada: volta ao dono».
+# Fica DESLIGADA; ligar e mudar esta linha, com a medicao nova ao lado.
+D14_C_LIGADA = False
+
+
+def _fonte_bem_configurada(source_id) -> bool:
+    """A fonte passa a regua dos 4 passos (DETAIL/v1)? Le o dono, sem copia."""
+    if not source_id:
+        return False
+    import importlib.util  # noqa: PLC0415
+    sys.path.insert(0, str(RAIZ / "curadoria"))
+    f = RAIZ / "curadoria" / "ready_split.py"
+    spec = importlib.util.spec_from_file_location("ready_split", f)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    try:
+        return m.regua_de(source_id) == m.REGUA_CURRENT
+    except Exception:                                            # noqa: BLE001
+        return False
+
+
 def _decisoes_humanas() -> dict:
     """{sha256 da pagina: ultima linha humana}. Append-only; a ultima manda."""
     out = {}
@@ -524,6 +551,16 @@ def _e_materia(item: dict) -> tuple:
     if d["ACCAO"] == "ENTRA":
         return SIM, "o detector diz materia", ev
     if d["ACCAO"] == "REPROVA":
+        # A capa barrada fica no livro com o que e preciso para voltar a porta:
+        # a fonte e a observacao-pai (os bytes vivem no armazem pelo raw_asset).
+        ev["fonte"] = item.get("source_id") or item.get("SOURCE_ID")
+        ev["raw_asset_id"] = item.get("raw_asset_id")
+        if D14_C_LIGADA and _fonte_bem_configurada(ev["fonte"]):
+            ev["estado"] = QUARENTENA
+            ev["d14"] = "CAPA de fonte cujo contrato passa os 4 passos: QUARENTENA, nao barrada"
+            return NAO_SEI, ("QUARENTENA (D14 opcao C): o detector diz capa, mas a fonte tem o "
+                             "INDEX_URL provado pelos 4 passos — pode ser noticia mal lida. Sai "
+                             "pela D11: regra provada ou decisao humana"), ev
         return NAO, ("o detector diz pagina de entrada (capa), nao materia — CAPA != MATERIA; "
                      "fica no livro e volta a ser julgada no replay"), ev
     ev["estado"] = QUARENTENA
@@ -584,7 +621,22 @@ def painel_da_quarentena(livro: dict | None = None, agora: datetime | None = Non
     if dentro and mais_antiga > QUARENTENA_JANELA_DIAS and not saidas:
         alarmes.append("SEM_SAIDAS: a mais antiga tem %.1f dias e nada saiu em %d dias"
                        % (mais_antiga, QUARENTENA_JANELA_DIAS))
+    # D14 (4): barradas vs retidas, separando fontes bem e mal configuradas.
+    # Conta-se a ULTIMA decisao `materia` de cada pagina; a regua le-se uma vez por fonte.
+    ult_materia = {}
+    for d in livro.get("DECISOES", []):
+        if d.get("regra") == "materia":
+            ult_materia[(d.get("item"), d.get("universo"))] = d
+    cache, d14 = {}, {}
+    for d in ult_materia.values():
+        fonte = (d.get("evidencia") or {}).get("fonte")
+        if fonte not in cache:
+            cache[fonte] = _fonte_bem_configurada(fonte)
+        destino = "RETIDAS" if (d.get("evidencia") or {}).get("estado") == QUARENTENA else "BARRADAS"
+        chave = "%s_FONTE_%s" % (destino, "BEM" if cache[fonte] else "MAL")
+        d14[chave] = d14.get(chave, 0) + 1
     return {"TAMANHO": len(dentro), "MAIS_ANTIGA_DIAS": mais_antiga,
+            "D14_BARRADAS_VS_RETIDAS": d14, "D14_C_LIGADA": D14_C_LIGADA,
             "SAIDAS_NA_JANELA": len(saidas), "JANELA_DIAS": QUARENTENA_JANELA_DIAS,
             "TAMANHO_MAXIMO": QUARENTENA_TAMANHO_MAXIMO,
             "ALARME": bool(alarmes), "PORQUE": alarmes,

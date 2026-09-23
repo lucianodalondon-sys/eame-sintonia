@@ -668,6 +668,8 @@
     "INTELIGENCIA"
    ],
    "files": [
+    "scripts/receitas/propor_receitas_v3.py",
+    "scripts/receitas/propor_receitas_v4.py",
     "scripts/receitas/censo_e_proposta.py",
     "scripts/receitas/provar_indices.py",
     "scripts/receitas/medir_efeito.py",
@@ -689,13 +691,16 @@
     "diagnostic"
    ],
    "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
-   "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
+   "why_here": "DIVIDA DECLARADA (D1/K1, 2026-09-23): os limiares do detector (800 caracteres em paragrafos, 35%, 40 caracteres por ligacao) existem TAMBEM em coleta/retrato_html.mjs, na linha aquisicao-detalhe-v1 (nao nesta arvore); qualquer mudanca faz-se nos dois ao mesmo tempo, senao nasce um segundo juiz. A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. || (segunda declaracao da mesma peca, unida na UNIFICACAO-V1-C) A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao. [enxertada de origin/unificacao-v1 na B3, so com os ficheiros presentes nesta arvore]",
    "departments": [
     "ENGENHARIA",
     "INTELIGENCIA"
    ],
    "files": [
     "medidas/ensaio_quarentena_naosei.py",
+    "medidas/medir_detector_moldura.py",
+    "medidas/medir_k1.py",
+    "medidas/canario_receitas_k1.py",
     "scripts/detector_capa/colher_gabarito.py",
     "scripts/detector_capa/rotular_gabarito.py",
     "scripts/detector_capa/medir_gabarito.py",
