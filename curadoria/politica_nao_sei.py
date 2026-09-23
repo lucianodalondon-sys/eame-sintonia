@@ -31,7 +31,7 @@ PASSA, PESSOA, QUARENTENA = "PASSA", "PESSOA", "QUARENTENA"
 POLITICAS = (PASSA, PESSOA, QUARENTENA)
 
 # ⚠️ O VALOR DE HOJE. So muda com a decisao D11 do dono — e muda-se aqui, num sitio.
-ACTIVA = PASSA
+ACTIVA = QUARENTENA   # D11 (bot Luciano, delegado do dono, 23/09): opcao C
 
 
 def decidir(retrato: dict | None, politica: str | None = None) -> dict:

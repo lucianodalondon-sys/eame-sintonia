@@ -20884,3 +20884,23 @@ Cinco, cinco mortos:
     MI3 ligacoesDoIndice sem deduplicação (motor)      morre em I1, I2, I3  (sobrevivia antes da foto+título)
     MT1 disjuntor desligado                            morre em T1 (tempo e adiadas)
     MT2 a adiada escrita no livro                      morre em T1 (livro)
+# §194 · O DETECTOR SÓ OLHAVA PARA A FONTE — NENHUMA PÁGINA COLHIDA PASSAVA POR ELE
+
+> Numerada na unificação (UNIFICACAO-V1-D, 23/09/2026), por ordem de chegada: chegou sem número em quarentena-naosei-v1 (Q1). Nada foi apagado.
+
+Q1 (2026-09-23). A pergunta «isto é matéria ou página de entrada?» tinha dono,
+teste, gabarito e régua — e corria só no canário da FONTE. As páginas que o
+coletor trazia seguiam para a porta sem ninguém lhes fazer a pergunta: medido
+nos dois gabaritos, 63/109 e 28/49 capas entrariam caladas.
+
+    UMA REGRA QUE SÓ JULGA A FONTE NÃO JULGA O QUE A FONTE ENTREGA.
+
+A quarentena do NÃO SEI (D11) não precisou de estado novo: o `NAO_SEI` da porta
+já dizia «não há prova suficiente para dizer sim ou não», e é exactamente o que o
+detector diz. Classe antes do rótulo. O que faltava era o CAMINHO: o retrato
+nasce onde estão os bytes (o derivador de HTML, chamado também no replay),
+viaja no item, e a porta pergunta.
+
+E um custo que a D11 não decidiu e que fica à vista: ligar a política inteira
+barra também o que o detector chama capa — e ele erra, 6/37 e 4/20 notícias
+verdadeiras. Registadas, reprocessáveis, mas barradas.
