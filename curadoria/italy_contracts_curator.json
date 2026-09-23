@@ -788,6 +788,32 @@
     "NOTA": "a listagem anuncia 60 itens: o TETO corta para 30.",
     "INTEGRADO_EM": "2026-09-21T03:04:17.105873+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   },
+   "CONTRATO_UNICO": {
+    "DECISAO": "D10",
+    "OPCAO": "A",
+    "APLICADO_EM": "2026-09-23T12:35:03Z",
+    "ORIGEM": {
+     "MISSAO": "AQUISICAO-DETALHE-V1",
+     "FERRAMENTA": "NAO SEI",
+     "PROVADO_EM": "2026-09-21T03:04:17.105873+00:00",
+     "LISTAGEM": "https://www.riuniteciv.com/news-e-eventi/",
+     "BANCADA": "ponte-curador-v1 (livro do portao)"
+    },
+    "PROVA": {
+     "CANARIO": "M3",
+     "QUANDO": "2026-09-22T23:27:17.976092+00:00",
+     "DOCUMENTO": "https://www.riuniteciv.com/news-e-eventi/raccontare-ascoltare-creare-relazioni/"
+    },
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.riuniteciv.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?riuniteciv\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"
    }
   },
   {
@@ -3741,6 +3767,32 @@
     "NOTA": "/news redirecciona para a capa, e a capa lista as noticias: a rota fica a capa e o padrao passa a exigir /news/<slug> sem 'category'. 'padrao' contou categorias tambem — e teto.",
     "INTEGRADO_EM": "2026-09-21T03:04:17.106868+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   },
+   "CONTRATO_UNICO": {
+    "DECISAO": "D10",
+    "OPCAO": "A",
+    "APLICADO_EM": "2026-09-23T12:35:03Z",
+    "ORIGEM": {
+     "MISSAO": "AQUISICAO-DETALHE-V1",
+     "FERRAMENTA": "NAO SEI",
+     "PROVADO_EM": "2026-09-21T03:04:17.106868+00:00",
+     "LISTAGEM": "https://www.myfruit.it/",
+     "BANCADA": "ponte-curador-v1 (livro do portao)"
+    },
+    "PROVA": {
+     "CANARIO": "M3",
+     "QUANDO": "2026-09-22T23:27:17.976092+00:00",
+     "DOCUMENTO": "https://www.myfruit.it/news/torna-per-le-famiglie-italiane-la-carta-dedicata-a-te"
+    },
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.myfruit.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?myfruit\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"
    }
   },
   {
@@ -4694,6 +4746,32 @@
     "NOTA": "",
     "INTEGRADO_EM": "2026-09-21T03:04:17.107866+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   },
+   "CONTRATO_UNICO": {
+    "DECISAO": "D10",
+    "OPCAO": "A",
+    "APLICADO_EM": "2026-09-23T12:35:03Z",
+    "ORIGEM": {
+     "MISSAO": "AQUISICAO-DETALHE-V1",
+     "FERRAMENTA": "NAO SEI",
+     "PROVADO_EM": "2026-09-21T03:04:17.107866+00:00",
+     "LISTAGEM": "https://www.chianticlassico.com/news/",
+     "BANCADA": "ponte-curador-v1 (livro do portao)"
+    },
+    "PROVA": {
+     "CANARIO": "M3",
+     "QUANDO": "2026-09-22T23:27:17.976092+00:00",
+     "DOCUMENTO": "https://www.chianticlassico.com/news/addio-al-marchese-vittorio-frescobaldi-imprenditore-illuminato-del-vino-italiano/"
+    },
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.chianticlassico.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?chianticlassico\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"
    }
   },
   {
@@ -6174,7 +6252,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "http://www.bulletinofinsectology.org/",
-    "LINK_PATTERN": "^https?://(www\\.)?bulletinofinsectology\\.org/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?bulletinofinsectology\\.org/article/\\d+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -6252,7 +6330,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://oajournals.fupress.net/index.php/pm",
-    "LINK_PATTERN": "^https?://(www\\.)?oajournals\\.fupress\\.net/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?oajournals\\.fupress\\.net/index\\.php/pm/article/view/\\d+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -6500,7 +6578,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.freshplaza.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?freshplaza\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?freshplaza\\.it/article/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -6676,6 +6754,32 @@
     "NOTA": "categorias (/news/shows-and-fairs/, /news/company-news/) tem 1-2 hifens; itens tem 3+. Heuristica declarada; 'sob' contou categorias — e teto.",
     "INTEGRADO_EM": "2026-09-21T03:04:17.108471+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   },
+   "CONTRATO_UNICO": {
+    "DECISAO": "D10",
+    "OPCAO": "A",
+    "APLICADO_EM": "2026-09-23T12:35:03Z",
+    "ORIGEM": {
+     "MISSAO": "AQUISICAO-DETALHE-V1",
+     "FERRAMENTA": "NAO SEI",
+     "PROVADO_EM": "2026-09-21T03:04:17.108471+00:00",
+     "LISTAGEM": "https://zootecnicainternational.com/news/",
+     "BANCADA": "ponte-curador-v1 (livro do portao)"
+    },
+    "PROVA": {
+     "CANARIO": "M3",
+     "QUANDO": "2026-09-22T23:27:17.976092+00:00",
+     "DOCUMENTO": "https://zootecnicainternational.com/news/eurotier-2026-poultry-biosecurity-ai/"
+    },
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.zootecnicainternational.com/",
+     "LINK_PATTERN": "^https?://(www\\.)?zootecnicainternational\\.com/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"
    }
   },
   {
@@ -6965,13 +7069,39 @@
     "NOTA": "",
     "INTEGRADO_EM": "2026-09-21T03:04:17.109389+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   },
+   "CONTRATO_UNICO": {
+    "DECISAO": "D10",
+    "OPCAO": "A",
+    "APLICADO_EM": "2026-09-23T12:35:03Z",
+    "ORIGEM": {
+     "MISSAO": "AQUISICAO-DETALHE-V1",
+     "FERRAMENTA": "NAO SEI",
+     "PROVADO_EM": "2026-09-21T03:04:17.109389+00:00",
+     "LISTAGEM": "https://www.consorziobalsamico.it/news-blog/",
+     "BANCADA": "ponte-curador-v1 (livro do portao)"
+    },
+    "PROVA": {
+     "CANARIO": "M3",
+     "QUANDO": "2026-09-22T23:27:17.976092+00:00",
+     "DOCUMENTO": "https://www.consorziobalsamico.it/news-blog/il-24-settembre-a-modena-il-premio-le-chiavi-dellacetaia-ditalia-2026/"
+    },
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://www.consorziobalsamico.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?consorziobalsamico\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"
    }
   },
   {
    "SOURCE_ID": "IT-T2-030",
    "OWNER": "Nomisma",
    "NAME": "Nomisma",
-   "TERRITORY": "T2",
+   "TERRITORY": "T10",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "CANONICAL_ENTRY_URL": "https://www.nomisma.it/",
@@ -7051,7 +7181,14 @@
    "SOURCE_CONTRACT_VERSION": "SOURCE-CURATOR-CONTRACTS-V1",
    "SOURCE_CONTRACT_HASH": "2848c30b3ece121c",
    "ONBOARDED_BY": "SOURCE-CURATOR-04 · caracterizacao de 2026-09-20, amostra representativa com 3 itens reais",
-   "EVIDENCE": "curadoria/evidencia/CAND-0147/amostra"
+   "EVIDENCE": "curadoria/evidencia/CAND-0147/amostra",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T10",
+    "UNIVERSO_ANTERIOR": "T2",
+    "PORQUE": "consultoria e observatorios de mercado; noticias de credito e mobilidade",
+    "REVERSIVEL": true
+   }
   },
   {
    "SOURCE_ID": "IT-T7-043",
@@ -7155,6 +7292,32 @@
     "NOTA": "",
     "INTEGRADO_EM": "2026-09-21T03:04:17.109389+00:00",
     "INTEGRADO_POR": "curadoria/integrar_gate_de_detalhe.py (CANDIDATE-FEEDER-V1, PASSO 6)"
+   },
+   "CONTRATO_UNICO": {
+    "DECISAO": "D10",
+    "OPCAO": "A",
+    "APLICADO_EM": "2026-09-23T12:35:03Z",
+    "ORIGEM": {
+     "MISSAO": "AQUISICAO-DETALHE-V1",
+     "FERRAMENTA": "NAO SEI",
+     "PROVADO_EM": "2026-09-21T03:04:17.109389+00:00",
+     "LISTAGEM": "https://agrofarma.federchimica.it/news-ed-eventi",
+     "BANCADA": "ponte-curador-v1 (livro do portao)"
+    },
+    "PROVA": {
+     "CANARIO": "M3",
+     "QUANDO": "2026-09-22T23:27:17.976092+00:00",
+     "DOCUMENTO": "https://agrofarma.federchimica.it/news-ed-eventi/dettaglio-news/2026/06/08/agrofarma-e-federbio-lanciano-il-manifesto-per-il-biocontrollo"
+    },
+    "ACQUISITION_ANTERIOR": {
+     "STRATEGY": "HTML_LINK_DISCOVERY",
+     "MATCH": "URL",
+     "INDEX_URL": "https://agrofarma.federchimica.it/",
+     "LINK_PATTERN": "^https?://(www\\.)?agrofarma\\.federchimica\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+     "MAX_TARGETS": 1
+    },
+    "PRECISA_DE_REMEDIR": true,
+    "NOTA": "contrato novo: o bot re-mede (4 passos + canario) antes de voltar a ser elegivel"
    }
   },
   {
@@ -7897,7 +8060,7 @@
    "SOURCE_ID": "IT-T12-018",
    "OWNER": "ARSAC Calabria",
    "NAME": "ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese",
-   "TERRITORY": "T12",
+   "TERRITORY": "T7",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "CANONICAL_ENTRY_URL": "https://www.arsacweb.it/",
@@ -7948,6 +8111,13 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T7",
+    "UNIVERSO_ANTERIOR": "T12",
+    "PORQUE": "agencia de desenvolvimento agricola: assistencia tecnica as empresas (V2)",
+    "REVERSIVEL": true
    }
   },
   {
@@ -8068,7 +8238,7 @@
    "SOURCE_ID": "IT-T12-019",
    "OWNER": "ERSAF Lombardia",
    "NAME": "ERSAF Lombardia — Ente Regionale per i Servizi all'Agricoltura e alle Foreste",
-   "TERRITORY": "T12",
+   "TERRITORY": "T7",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "CANONICAL_ENTRY_URL": "https://www.ersaf.lombardia.it/",
@@ -8119,6 +8289,13 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T7",
+    "UNIVERSO_ANTERIOR": "T12",
+    "PORQUE": "servicos a agricultura: jornadas de demonstracao em campo (V2)",
+    "REVERSIVEL": true
    }
   },
   {
@@ -8190,7 +8367,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.meteotrentino.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?meteotrentino\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?meteotrentino\\.it/previsioni/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -8418,7 +8595,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.regione.veneto.it/web/agricoltura-e-foreste",
-    "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?regione\\.veneto\\.it/web/agricoltura\\-e\\-foreste/dettaglio\\-news/?\\?articleId=\\d+$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -9444,7 +9621,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.cia.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?cia\\.it/multimedia/video/\\d+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -10526,8 +10703,8 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://www.arpae.it/it/notizie/copy_of_monitoraggio-pollini-e-spore-alternaria-ovunque",
-    "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "INDEX_URL": "https://www.arpae.it/it/notizie",
+    "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/it/notizie/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -10570,6 +10747,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo (IT-T2-051)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -10627,6 +10812,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "agencia regional de mobilidade: concurso publico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -10918,7 +11111,7 @@
    "SOURCE_ID": "IT-T12-029",
    "OWNER": "Allerte Protezione Civile",
    "NAME": "Allerte Protezione Civile",
-   "TERRITORY": "T12",
+   "TERRITORY": "T2",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "CANONICAL_ENTRY_URL": "https://www.allertalom.regione.lombardia.it/",
@@ -10969,6 +11162,13 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T2",
+    "UNIVERSO_ANTERIOR": "T12",
+    "PORQUE": "alertas e boletins meteo da protecao civil",
+    "REVERSIVEL": true
    }
   },
   {
@@ -11026,6 +11226,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11254,6 +11462,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11311,6 +11527,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11368,6 +11592,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11553,7 +11785,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.arpacampania.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?arpacampania\\.it/\\-/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?\\?redirect=[^&]+$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -11710,6 +11942,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (assembleia legislativa)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11781,7 +12021,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.bandi.regione.lombardia.it/servizi/home",
-    "LINK_PATTERN": "^https?://(www\\.)?bandi\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?bandi\\.regione\\.lombardia\\.it/servizi/servizio/comunicazioni/dettaglio/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -11824,6 +12064,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "concursos, portais e emprego (V2)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11881,6 +12129,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (concursos gerais)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -11938,6 +12194,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "boletim oficial geral: 0 de 3 com ato agricola; 'PAC' = Piano Attuativo Comunale",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -12052,6 +12316,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (imposto automovel)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -12065,7 +12337,7 @@
    "ACQUISITION": {
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
-    "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/calabriambiente-la-nuova-app-regionale-che-coinvolge-i-cittadini/",
+    "INDEX_URL": "https://calabriaeuropa.regione.calabria.it/news",
     "LINK_PATTERN": "^https?://(www\\.)?calabriaeuropa\\.regione\\.calabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
     "MAX_TARGETS": 1
    },
@@ -12109,6 +12381,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -12280,6 +12560,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -12565,6 +12853,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -12622,6 +12918,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -12679,6 +12983,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "cultura e museus (V2)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13021,6 +13333,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "saude (vacinas)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13078,6 +13398,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (eleicoes)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13192,6 +13520,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "politica de coesao, regeneracao urbana, aeroporto (V2)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13306,6 +13642,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13363,6 +13707,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "saude (ficha sanitaria)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13377,7 +13729,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.giovani.regione.lombardia.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?giovani\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?giovani\\.regione\\.lombardia\\.it/announcements/announcements/view/?\\?id=\\d+$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -13420,6 +13772,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "juventude (V2/V3)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -13876,6 +14236,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14047,6 +14415,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14218,6 +14594,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "turismo e cultura (V2)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14332,6 +14716,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "monitorizacao geral do PNRR",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14389,6 +14781,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo; serve como INDEX_URL de IT-T2-037",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14560,6 +14960,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "jogos olimpicos (V2)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14574,7 +14982,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.openinnovation.regione.lombardia.it/",
-    "LINK_PATTERN": "^https?://(www\\.)?openinnovation\\.regione\\.lombardia\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?openinnovation\\.regione\\.lombardia\\.it/it/collaborations/collaboration\\-proposals/view/?\\?id=\\d+$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -14617,6 +15025,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "inovacao e startups (V2/V3)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -14788,6 +15204,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "educacao",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -15130,6 +15554,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "noticia avulsa registada como fonte; o publicador ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -15244,6 +15676,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -15529,6 +15969,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "saude",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -15586,6 +16034,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "saude",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -15871,6 +16327,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (catalogo de servicos digitais)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -16156,6 +16620,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "hub de sitios regionais",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -16213,6 +16685,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -16384,6 +16864,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "pagina administrativa/institucional sem assunto agricola nem climatico (imposto automovel)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -17182,6 +17670,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "portal geral da Regiao; itens institucionais (V2)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -17410,6 +17906,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-018)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -17467,6 +17971,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-018)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -17638,6 +18150,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-009)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -17752,6 +18272,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-009)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -17880,7 +18408,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://energia.calabriaimpresa.eu/",
-    "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?energia\\.calabriaimpresa\\.eu/\\d+/\\d+/\\d+/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -18222,7 +18750,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.protezionecivilecalabria.it/?cat=4",
-    "LINK_PATTERN": "^https?://(www\\.)?protezionecivilecalabria\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?protezionecivilecalabria\\.it//?\\?p=\\d+$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",
@@ -18493,6 +19021,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-018)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -18664,6 +19200,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "subpagina institucional de um publicador que ja esta no catalogo (IT-T12-009)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -18727,7 +19271,7 @@
    "SOURCE_ID": "IT-T12-125",
    "OWNER": "Suoli e carte derivate",
    "NAME": "Suoli e carte derivate",
-   "TERRITORY": "T12",
+   "TERRITORY": "T2",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "CANONICAL_ENTRY_URL": "https://www.arsacweb.it/suoli-e-carte-derivate/",
@@ -18778,6 +19322,13 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T2",
+    "UNIVERSO_ANTERIOR": "T12",
+    "PORQUE": "cartas de solos e zonas vulneraveis a nitratos (V2)",
+    "REVERSIVEL": true
    }
   },
   {
@@ -18949,6 +19500,14 @@
     "BRANCH": "source-curator-service-v1",
     "COMMIT": "d23a44cc",
     "MISSAO": "MATERIA-PRIMA-V1"
+   },
+   "ESTADO_CATALOGO": "RETIRADA_POR_DECISAO",
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "RETIRAR_DO_UNIVERSO",
+    "PORQUE": "perfil do mesmo publicador noutra plataforma (Issuu)",
+    "REVERSIVEL": true,
+    "NOTA": "pode voltar pelo circuito do Curator"
    }
   },
   {
@@ -19253,7 +19812,7 @@
     "STRATEGY": "HTML_LINK_DISCOVERY",
     "MATCH": "URL",
     "INDEX_URL": "https://www.granariamilano.it/en/",
-    "LINK_PATTERN": "^https?://(www\\.)?granariamilano\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "LINK_PATTERN": "^https?://(www\\.)?granariamilano\\.it/comunicazione/[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)+/?$",
     "MAX_TARGETS": 1
    },
    "ROUTE_TYPE": "DISCOVERED_ROUTE",

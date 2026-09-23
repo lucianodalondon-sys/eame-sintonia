@@ -4211,7 +4211,7 @@
    "SOURCE_ID": "IT-T2-030",
    "OWNER": "Nomisma",
    "NAME": "Nomisma",
-   "TERRITORY": "T2",
+   "TERRITORY": "T10",
    "BATCH_ID": "LOTE-HTML-ARTIGO",
    "OUTPUT_TYPE": "HTML",
    "ACQUISITION": {
@@ -4277,6 +4277,13 @@
     "ROBOTS_HOST": "www.nomisma.it",
     "INITIAL_COLLECTION_CADENCE": "WEEKLY",
     "ACTIVITY_STATE": "ACTIVE_MEDIUM_FREQUENCY"
+   },
+   "CATALOGO_D9": {
+    "DECISAO": "D9",
+    "ACCAO": "MUDAR_PARA_T10",
+    "UNIVERSO_ANTERIOR": "T2",
+    "PORQUE": "consultoria e observatorios de mercado; noticias de credito e mobilidade",
+    "REVERSIVEL": true
    }
   },
   {
@@ -9126,6 +9133,90 @@
    ],
    "IDENTITY_KIND": "PLATFORM_NATIVE_ID",
    "DOCUMENT_ID_RULE": "IT-T12-016:YT:{VIDEO_ID} - o videoId nativo do YouTube e a identidade do ITEM, nao da FONTE (LEI_DA_IDENTIDADE do curator); lido do endereco do alvo /watch?v=<videoId>, o mesmo que o curator lia de yt:videoId no feed"
+  },
+  {
+   "SOURCE_ID": "IT-T2-034",
+   "OWNER": "ARPA Marche",
+   "NAME": "ARPA Marche — dati ambientali e meteo",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpa.marche.it/",
+    "LINK_PATTERN": "^https?://(www\\.)?arpa\\.marche\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.arpa.marche.it/notizie-2026/1699-pesaro-parco-miralfiore-1-2-ottobre-2026",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 65698,
+    "ALVOS_DESCOBERTOS": 10,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 3565
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "OWNER": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "NAME": "Arpae Emilia-Romagna agenzia prevenzione ambiente energia",
+   "TERRITORY": "T2",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://www.arpae.it/it",
+    "LINK_PATTERN": "^https?://(www\\.)?arpae\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://www.arpae.it/it/notizie/opportunita-di-lavoro-in-arpae-2",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 26593,
+    "ALVOS_DESCOBERTOS": 8,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 851
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
+  },
+  {
+   "SOURCE_ID": "IT-T9-021",
+   "OWNER": "Scopri l'evento",
+   "NAME": "Scopri l'evento",
+   "TERRITORY": "T9",
+   "BATCH_ID": "LOTE-HTML-ARTIGO",
+   "OUTPUT_TYPE": "HTML",
+   "ACQUISITION": {
+    "STRATEGY": "HTML_LINK_DISCOVERY",
+    "MATCH": "URL",
+    "INDEX_URL": "https://fieradidacta.indire.it/it/visita-didacta-italia-edizione-abruzzo/",
+    "LINK_PATTERN": "^https?://(www\\.)?fieradidacta\\.indire\\.it/(?!(?:category|tag|author|wp-json|wp-content|wp-admin|page|feed|rss|search|cerca|login|privacy|cookie|lavora-con-noi|mappa-del-sito|amministrazione-trasparente|contatti|chi-siamo|dove-siamo|note-legali|accessibilita|albo|trasparenza|concorsi|bandi-di-gara)(?:/|$))(?:[^?#]*/)?(?:news|notizie|notizia|comunicat|articol|attualita|eventi|evento|bollettin|press|approfondiment|blog|pubblicazion|documenti|avvisi|primo-piano|in-evidenza|rassegna|agrometeo|monitoraggio|progetti|ricerca|pubblicazioni|tecnica|agricoltura)[^?#]*/(?:[a-z0-9]+(?:-[a-z0-9]+){2,}|\\d{4}[^?#]*)/?(?:[?#].*)?$",
+    "MAX_TARGETS": 1
+   },
+   "EVIDENCE": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+   "SONDAGEM": {
+    "SONDADO_EM": "2026-09-22",
+    "REGRA": "medidas/canario_rotas_elegiveis.py: robots pela casa, INDEX_URL, links pelo motor do coletor, alvo aberto e retratado, gate CAPA != MATERIA",
+    "ENTRADA_STATUS": 200,
+    "DOCUMENTO": "https://fieradidacta.indire.it/it/news/didacta-italia-edizione-abruzzo-2026-il-mim-invia-la-circolare-ai-dirigenti-scolastici/",
+    "DOCUMENTO_ASSINATURA": "HTML",
+    "DOCUMENTO_BYTES": 52272,
+    "ALVOS_DESCOBERTOS": 4,
+    "HTML_KIND": "CONTENT",
+    "PARAGRAPH_CHARACTERS": 1796
+   },
+   "ONBOARDED_BY": "ROTAS-ELEGIVEIS-V1 (canario de rota 2026-09-22) — curadoria/onboardar_rotas_provadas.py"
   }
  ]
 }
