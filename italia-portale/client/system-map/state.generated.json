@@ -15,6 +15,8 @@
       "AGENTS.md",
       "BIBLIA-CANONICA-DA-COLETA.md",
       "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "BIG-COLLECTION-GATES.md",
+      "BIG-COLLECTION-RUNBOOK.md",
       "CASCO-CLIENT-DEMO.md",
       "CLAUDE.md",
       "CUTOVER-CHECKLIST.md",
@@ -1515,6 +1517,8 @@
     ],
     "ferramentas": [
       "ferramentas/apify_pool.py",
+      "ferramentas/big_collection/BC1-ENSAIO.json",
+      "ferramentas/big_collection/BC1-RELATORIO-PASSAGEM-ENSAIO.md",
       "ferramentas/cdp.py",
       "ferramentas/contrato_ator.py",
       "ferramentas/cutover/CUTOVER-ENSAIO-V1.json",
@@ -3318,10 +3322,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
-    "GENERATED_AT": "2026-09-23T11:26:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d"
+    "BRANCH": "big-collection-runbook-v1",
+    "HEAD": "53ec7761649f8f13c10f4a05a42a90b69b6cbc53",
+    "GENERATED_AT": "2026-09-23T14:48:25-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0ca210b8e2d047e1a4fcb423234648aea2225f3d78f30647fa05315b6caa456c"
   },
   "FAMILIES": [
     {
@@ -49041,7 +49045,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch unificacao-v1"
+        "branch big-collection-runbook-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -111730,7 +111734,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1536,
+  "UNCLAIMED_FILES_COUNT": 1540,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -111967,7 +111971,7 @@
     "edges_proven": 1139,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2725,
+    "files_tracked": 2729,
     "files_covered": 1189,
     "files_code_unclaimed": 0,
     "roles_proven": 161,
