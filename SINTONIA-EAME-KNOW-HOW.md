@@ -21163,13 +21163,17 @@ provas/canario_d23_linkedin_video.py   ·   CUSTO_USD = 0.0
   `porta_de_producao` e `a_porta_cli_liga_o_banco`. **A única regressão que era
   desta missão** (`c13_route_gate`) foi corrigida e passa 25/25.
 
-### E a armadilha do proprio mapa: o carimbo anda uma volta atras
+### A armadilha do proprio mapa: a impressao mede o INDICE, nao o disco
 
-Medido hoje, e vale como regra para quem mexer no mapa: o mapa CARIMBA o HEAD que o gerou. Se alguem gerar, commitar e VOLTAR a gerar, a segunda geracao difere da commitada apenas em duas linhas por ficheiro — `HEAD` e `GENERATED_AT` — e o resultado e uma arvore que nunca fica limpa: cada commit novo torna o carimbo commitado um passo velho, e cada nova geracao cria trabalho novo. 
+Medido hoje, e custou tres voltas de vai-e-vem ate a causa aparecer: a IMPRESSAO_DA_ARVORE mede o INDICE DO GIT (`git ls-files -s`), e nao o disco. Se alguem EDITA uma fonte, gera o mapa ANTES de encenar a edicao, e so depois commita, o carimbo sai da arvore VELHA — e o mapa que fica no commit aponta para uma arvore que ja nao existe. Regenerar depois disso muda so o carimbo, e a volta seguinte mede outra vez a arvore da volta anterior. 
 
-     O CICLO ACABA NO COMMIT DA GERACAO. Quem regerar depois dele nao commita a segunda volta: REVERTE os ficheiros gerados para a versao commitada (`git checkout -- system-map/data italia-portale/client/system-map`). O que prova saude do mapa sao as duas medidas do fim — `SYSTEM_MAP_CHECK=PASS` e `IMPRESSAO_DO_CARIMBO=IGUAL` — e as duas comparam o CARIMBO, que e da ARVORE, e nao a hora em que a linha foi escrita.
+     ENCENAR AS FONTES PRIMEIRO. REGERAR DEPOIS. COMMITAR TUDO JUNTO. 
 
-Nesta missao as duas fecharam: `SystemMap=PASS` e `Carimbo=IGUAL sobre 2849 ficheiros-fonte`. Duas geracoes seguidas sobre a mesma arvore deram ficheiros identicos (md5 `e51cdd34`) — o scanner NAO e a fonte de deriva: a deriva tinha sido a ORDEM dos acontecimentos.
+E a LEI_DO_CICLO_ATRASADO desta cadeia a funcionar como esta escrita: a varredura le o indice que existe quando ela corre, e o que for escrito depois so e visto na rodada seguinte. 
+
+Uma segunda fonte de sujidade, declarada no proprio manifesto: o VALIDADOR corre SCAN_REPO, SCAN_SOURCES, SCAN_CASCO e GENERATE_SYSTEM_MAP como subprocessos para comparar o regerado com o commitado, e por isso REESCREVE essas saidas em disco. Quem as vir sujas depois de validar nao esta com drift: os ficheiros diferem em `HEAD` e `GENERATED_AT`, campos que a impressao exclui. O gesto certo e REPOR (`git checkout -- system-map/data italia-portale/client/system-map`), e nao commitar a segunda volta.
+
+Estado medido no fecho, nesta ordem: `SYSTEM_MAP_CHECK=PASS` · `IMPRESSAO_DO_CARIMBO=IGUAL` sobre 2849 ficheiros-fonte · arvore limpa (`git status` = 0 linhas) · `LOCAL == REMOTO` em `012821be`. Duas geracoes seguidas sobre a mesma arvore deram ficheiros identicos (md5 `e51cdd34`) — o scanner NAO e a fonte de deriva: a deriva era a ORDEM dos acontecimentos. 
 
 ### A bateria do Scrap por NOME, contra a base
 
