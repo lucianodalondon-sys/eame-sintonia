@@ -2,18 +2,18 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-23T17:28:53+00:00",
-    "HEAD": "59f045cf86e5ebadbf0636c2bc750275c3ea38c0",
+    "GENERATED_AT": "2026-09-23T21:04:15+00:00",
+    "HEAD": "ec73224393242d4cd67eff025483e34b96c7af9a",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "08228772f4b76b7509cd3f01923c211c0f72c5ae5aafee30ee2db4a83efae749",
+    "SOURCE_TREE_FINGERPRINT": "3946b91953486cb14b34955a46013bb07a33f94897da6b0220c4242cde3ba589",
     "FICHEIROS_NA_IMPRESSAO": 2912,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
         "PATH": "candidatas/FONTES-CANDIDATAS.json",
         "PAPEL": "FONTE",
-        "VERSAO": "10ad60d2e6a312cde3995e6307fd35ec93db166d",
+        "VERSAO": "ddf5c1a1b0fdbd98725ec71ff467c17a88f3aa91",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "a_fila() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "669e68aac451942089a360a3e4e7fb7ede741c15376f512956800bda9203bacb",
+    "INPUTS_DIGEST": "8fc5b62b61c74fbc75403590d7252da0017866b377b0b9e875965666d3553402",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -10556,7 +10556,7 @@
         "degrau": 1,
         "nome": "CANDIDATA",
         "o_que_e": "alguem viu que existe. Ninguem abriu ainda.",
-        "quantas": 0,
+        "quantas": 15,
         "onde": "candidatas/FONTES-CANDIDATAS.json",
         "sobe_como": "abrir, olhar o que entrega e guardar um exemplo real"
       },
@@ -10590,8 +10590,8 @@
       "CIENCIA": 15,
       "FACEBOOK": 20,
       "IMPRENSA": 22,
-      "INSTAGRAM": 25,
-      "LINKEDIN": 44,
+      "INSTAGRAM": 26,
+      "LINKEDIN": 58,
       "ORGANIZACAO": 113,
       "YOUTUBE": 71
     },
@@ -15425,6 +15425,22 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0484",
+        "TIPO": "INSTAGRAM",
+        "TIPO_SIGNIFICA": "Conta publica no Instagram.",
+        "PAIS": "IT",
+        "NOME": "Fernanda Giorda — Instagram pessoal",
+        "URL": "https://www.instagram.com/lagiorda",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Torino (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinetorino.conaf.it/wp-content/uploads/sites/64/2023/07/CVEuropass-GIORDA-15122022-1.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinetorino.conaf.it/wp-content/uploads/sites/64/2023/07/CVEuropass-GIORDA-15122022-1.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Torino (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Torino; REGIAO=Piemonte (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0079",
         "TIPO": "INSTAGRAM",
         "TIPO_SIGNIFICA": "Conta publica no Instagram.",
@@ -16276,6 +16292,86 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0486",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Daniela Marone — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/daniela-marone-8b9b4b44",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pesquisador(a) do CREA - cerealicoltura-e-colture-industriali (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/daniela-marone",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://www.crea.gov.it/web/cerealicoltura-e-colture-industriali/-/daniela-marone | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pesquisador(a) do CREA - cerealicoltura-e-colture-industriali | REGIAO=NAO SEI (centro nacional CREA; sede da pessoa nao provada) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0488",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Daniele Massa — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/daniele-massa-b6712233",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pesquisador(a) do CREA - orticoltura-e-florovivaismo (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://www.crea.gov.it/web/orticoltura-e-florovivaismo/-/daniele-massa",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://www.crea.gov.it/web/orticoltura-e-florovivaismo/-/daniele-massa | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pesquisador(a) do CREA - orticoltura-e-florovivaismo | REGIAO=NAO SEI (centro nacional CREA; sede da pessoa nao provada) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0477",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "David Knollseisen — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/david-knollseisen-a15595143",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Bolzano (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinebolzano.conaf.it/wp-content/uploads/sites/13/2026/01/CV-Knollseisen.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinebolzano.conaf.it/wp-content/uploads/sites/13/2026/01/CV-Knollseisen.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Bolzano (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Bolzano; REGIAO=Trentino-Alto Adige (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0489",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Elena Benedetti — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/elena-benedetti-3350458a",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de docente/pesquisador(a) da Universita di Bologna - DISTAL (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://www.unibo.it/sitoweb/elena.benedetti9",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://www.unibo.it/sitoweb/elena.benedetti9 | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | docente/pesquisador(a) da Universita di Bologna - DISTAL (lista de docentes do DISTAL e da LM Scienze e tecnologie agrarie) | REGIAO=Emilia-Romagna (TERRITORIO_PROVA=afiliacao Unibo DISTAL) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0481",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Emanuel Di Marco — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/emanuel-di-marco-09b513197",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Milano (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinemilano.conaf.it/wp-content/uploads/sites/27/2025/02/Di-Marco-Emanuel-CV.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinemilano.conaf.it/wp-content/uploads/sites/27/2025/02/Di-Marco-Emanuel-CV.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Milano (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Milano; REGIAO=Lombardia (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0116",
         "TIPO": "LINKEDIN",
         "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
@@ -16311,6 +16407,38 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-0480",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Federica Mereghetti — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/federica-mereghetti-8236b6180",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Brescia (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2023/10/CV-MEREGHETTI-FEDERICA.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2023/07/CV-MEREGHETTI-FEDERICA.pdf ; https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2023/10/CV-MEREGHETTI-FEDERICA.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Brescia (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Brescia; REGIAO=Lombardia (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0485",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Fernanda Giorda — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/fernandagiorda",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Torino (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinetorino.conaf.it/wp-content/uploads/sites/64/2023/07/CVEuropass-GIORDA-15122022-1.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinetorino.conaf.it/wp-content/uploads/sites/64/2023/07/CVEuropass-GIORDA-15122022-1.pdf ; https://ordinetorino.conaf.it/wp-content/uploads/sites/64/2023/07/Giorda-CVEuropass-GIORDA07012022-ridottoperODAF-TO-1.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Torino (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Torino; REGIAO=Piemonte (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0096",
@@ -16385,6 +16513,38 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-0483",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Francesca Cossu — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/francesca-cossu-683ba04a",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Nuoro (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinenuoro.conaf.it/wp-content/uploads/sites/29/2023/05/Francesca-Cossu_CV.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinenuoro.conaf.it/wp-content/uploads/sites/29/2023/05/Francesca-Cossu_CV.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Nuoro (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Nuoro; REGIAO=Sardegna (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0478",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Francesco Saverio Mazzi — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/francesco-saverio-mazzi-1a76b4159",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Brescia (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2026/06/CV-Mazzi-Francesco-Saverio.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2026/06/CV-Mazzi-Francesco-Saverio.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Brescia (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Brescia; REGIAO=Lombardia (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0117",
@@ -16609,6 +16769,22 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0482",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Lorena Valdicelli — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/lorenavaldicelli",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Milano (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinemilano.conaf.it/wp-content/uploads/sites/27/2024/02/Valdicelli-Lorena-CV.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinemilano.conaf.it/wp-content/uploads/sites/27/2024/02/Valdicelli-Lorena-CV.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Milano (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Milano; REGIAO=Lombardia (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0097",
         "TIPO": "LINKEDIN",
         "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
@@ -16644,6 +16820,38 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-0490",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Manuela Plutino — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/manuela-plutino-13964b109",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pesquisador(a) do CREA - foreste-e-legno (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://www.crea.gov.it/web/foreste-e-legno/-/manuela-plutino",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://www.crea.gov.it/web/foreste-e-legno/-/manuela-plutino | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pesquisador(a) do CREA - foreste-e-legno | REGIAO=NAO SEI (centro nacional CREA; sede da pessoa nao provada) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
+        "CANDIDATA_ID": "CAND-0479",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Massimo Gatta — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/massimo-gatta-5ba525109",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pessoa com CV publicado pelo Ordine Brescia (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2026/01/CV-Gatta-Massimo.pdf",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://ordinebrescia.conaf.it/wp-content/uploads/sites/14/2026/01/CV-Gatta-Massimo.pdf | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pessoa com CV publicado pelo Ordine Brescia (qualifica NAO lida: o CV foi lido so para o link, por minimizacao) | PROVINCIA=Brescia; REGIAO=Lombardia (TERRITORIO_PROVA=o Ordine provincial que publica o CV) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0121",
@@ -16905,6 +17113,22 @@
         }
       },
       {
+        "CANDIDATA_ID": "CAND-0491",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Stefania Nin — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/stefania-nin-9684a530",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pesquisador(a) do CREA - orticoltura-e-florovivaismo (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://www.crea.gov.it/documents/65305/0/CV_NIN_2026_02_25_per+Comitato+Scientifico.pdf/679fe314-bd44-a842-1c77-2b9f6bd0c72c?t=1772034878923",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://www.crea.gov.it/documents/65305/0/CV_NIN_2026_02_25_per+Comitato+Scientifico.pdf/679fe314-bd44-a842-1c77-2b9f6bd0c72c?t=1772034878923 | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pesquisador(a) do CREA - orticoltura-e-florovivaismo (sede Pescia) | REGIAO=Toscana (sede Pescia, declarada no CV no crea.gov.it) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=o CV lista 10 videos tecnicos no YouTube (canal CREA e outros) | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
+      },
+      {
         "CANDIDATA_ID": "CAND-0099",
         "TIPO": "LINKEDIN",
         "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
@@ -17014,6 +17238,22 @@
           "FICHEIRO": "candidatas/prova-termos/linkedin-user-agreement-20260923T0942Z.html",
           "SHA256": "50a50231d8d15ae1dd3c4131c27249710b8bc8eddd2e98633b5c3c7de70bb694"
         }
+      },
+      {
+        "CANDIDATA_ID": "CAND-0487",
+        "TIPO": "LINKEDIN",
+        "TIPO_SIGNIFICA": "Pagina publica no LinkedIn.",
+        "PAIS": "IT",
+        "NOME": "Ugo Chiavetta — Linkedin pessoal",
+        "URL": "https://www.linkedin.com/in/ugo-chiavetta",
+        "PARA_QUE_SERVE": "video/conteudo tecnico publico de pesquisador(a) do CREA - foreste-e-legno (pessoa do agro, D24)",
+        "QUEM_VIU": "p4_pessoas_agro",
+        "ONDE_VIU": "https://www.crea.gov.it/web/foreste-e-legno/-/ugo-chiavetta",
+        "QUANDO": "2026-09-23",
+        "NOTA": "PROVA_IDENTIDADE=https://www.crea.gov.it/web/foreste-e-legno/-/ugo-chiavetta | PROVA_TIPO=pagina/CV oficial que liga a pessoa a este perfil | pesquisador(a) do CREA - foreste-e-legno | REGIAO=NAO SEI (centro nacional CREA; sede da pessoa nao provada) | PAIS_PROVA=instituicao oficial italiana | D24=OWNER_AUTHORIZED video de pessoa do agro | PLATFORM_POLICY_STATUS=NAO_MEDIDO (a plataforma nao foi aberta nesta missao) | VIDEO=NAO_MEDIDO | MINIMIZACAO=sem contatos/seguidores | P4",
+        "ESTADO": "CANDIDATA",
+        "SOURCE_ID": null,
+        "MOTIVO_DA_RECUSA": null
       },
       {
         "CANDIDATA_ID": "CAND-0092",
@@ -24053,7 +24293,7 @@
     "endpoints": 605,
     "endpoints_published": 40,
     "endpoints_truncated": 565,
-    "candidates": 476,
+    "candidates": 491,
     "coletores": 53,
     "coletores_com_data": 20,
     "coletores_com_lugar": 34,
