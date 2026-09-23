@@ -37,6 +37,7 @@ from urllib.parse import urlparse
 RAIZ = Path(__file__).resolve().parents[1]
 CUR = RAIZ / "curadoria"
 SAIDA = CUR / "PROPOSTA-CATALOGO-V1.json"
+PROVAS_EM = Path.home() / "sintonia-gabarito"
 LIVRO = "origin/lote-76-v1"
 
 R, M, U = "RETIRAR_DO_UNIVERSO", "MANTER", "UNKNOWN"
@@ -191,30 +192,48 @@ def fontes() -> dict:
 def provas(F: dict) -> dict:
     prov = {}
 
-    def add(s, orig, url, sha, rot=""):
-        prov.setdefault(s, []).append({"ORIGEM": orig, "URL": url, "SHA256": sha, "ROTULO": rot})
+    def add(s, orig, url, sha, rot="", ficheiro=None):
+        prov.setdefault(s, []).append({"ORIGEM": orig, "URL": url, "SHA256": sha, "ROTULO": rot,
+                                       "FICHEIRO": ficheiro})
 
     for p in _json(CUR / "CATALOGO-PROVA-V1.json")["PAGINAS"]:
         if p.get("SHA256"):
-            add(p["SOURCE_ID"], "CATALOGO-PROVA-V1", p["URL"], p["SHA256"])
+            add(p["SOURCE_ID"], "CATALOGO-PROVA-V1", p["URL"], p["SHA256"], "",
+                p.get("FICHEIRO_FORA_DO_GIT"))
     por_url = {x["CANONICAL_ENTRY_URL"].rstrip("/"): s for s, x in F.items()}
     for v in ("V2", "V3"):
         for i in _json(CUR / ("GABARITO-T2-T12-%s.json" % v))["ITENS"]:
             rot = ("%s/%s/%s" % (i.get("UNIVERSO_DO_CONTEUDO"), i.get("UNIVERSE_MATCH"),
                                  i.get("SINTONIA_RELEVANT")) if i.get("UTILIZAVEL") else "INUTILIZAVEL")
-            add(i["SOURCE_ID"], "GABARITO-" + v, i["URL"], i["SHA256"], rot)
+            add(i["SOURCE_ID"], "GABARITO-" + v, i["URL"], i["SHA256"], rot,
+                i.get("FICHEIRO_FORA_DO_GIT"))
             s2 = por_url.get(i["URL"].rstrip("/"))
             if s2 and s2 != i["SOURCE_ID"]:
-                add(s2, "GABARITO-%s (o item e a entrada desta fonte)" % v, i["URL"], i["SHA256"], rot)
+                add(s2, "GABARITO-%s (o item e a entrada desta fonte)" % v, i["URL"], i["SHA256"], rot,
+                    i.get("FICHEIRO_FORA_DO_GIT"))
     for s, f in [("IT-T2-001", "data/samples/IT-SOURCE-SAMPLES/IT-T2-001/35_boll_agro_20260831.pdf"),
                  ("IT-T2-002", "data/samples/IT-SOURCE-SAMPLES/IT-T2-002/agro_01.pdf"),
                  ("IT-T2-004", "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html")]:
-        add(s, "ACERVO_GIT", f, hashlib.sha256((RAIZ / f).read_bytes()).hexdigest(), "T2/YES/YES")
+        h = hashlib.sha256((RAIZ / f).read_bytes()).hexdigest()
+        # copia com o nome pelo sha em ~/sintonia-gabarito/ACERVO-GIT, para a
+        # prova se conferir no MESMO sitio que as outras
+        add(s, "ACERVO_GIT", f, h, "T2/YES/YES",
+            str(PROVAS_EM / "ACERVO-GIT" / (h[:16] + Path(f).suffix)))
     for l in _json(CUR / "ROTAS-ELEGIVEIS-V1.json")["LINHAS"]:
         if l["SOURCE_ID"] == "IT-T7-043":
+            # ⚠️ o canario da 3b guardou o sha do TEXTO, nao os bytes: nao ha
+            # ficheiro. Fica registado, e a conferencia abaixo rebaixa a accao.
             add("IT-T7-043", "CANARIO_3B", l["CANARIO"]["URL"],
-                "TEXT_SHA256:" + l["CANARIO"]["TEXT_SHA256"], "biocontrolo")
+                "TEXT_SHA256:" + l["CANARIO"]["TEXT_SHA256"], "biocontrolo", None)
     return prov
+
+
+def prova_confere(p: dict) -> bool:
+    """A prova existe em disco com o sha256 que declara? Sem ficheiro = nao."""
+    f = p.get("FICHEIRO")
+    if not f or not Path(f).is_file():
+        return False
+    return hashlib.sha256(Path(f).read_bytes()).hexdigest() == p.get("SHA256")
 
 
 def main() -> int:
@@ -224,7 +243,14 @@ def main() -> int:
     chave = lambda s: (s.split("-")[1], int(s.split("-")[2]))
     for s in sorted(F, key=chave):
         x, pv = F[s], prov.get(s, [])
-        if s in D and pv:
+        conferidas = [p for p in pv if prova_confere(p)]
+        if s in D and pv and len(conferidas) < len(pv):
+            # PROVA DECLARADA SEM FICHEIRO QUE A CONFIRA: a accao nao sobrevive.
+            a, dup = U, None
+            why = ("rebaixada a UNKNOWN: %d de %d provas sem ficheiro com o sha256 declarado "
+                   "(%s). Decisao lida: %s — %s" % (len(pv) - len(conferidas), len(pv),
+                   ", ".join(p["ORIGEM"] for p in pv if p not in conferidas), D[s][0], D[s][2]))
+        elif s in D and pv:
             a, dup, why = D[s]
         else:
             a, dup = U, None

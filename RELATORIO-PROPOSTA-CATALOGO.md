@@ -18,11 +18,11 @@ com dúvida é UNKNOWN, e o que o nome sugere vai à parte (`INDICIO_DO_CATALOGO
 | acção | T2 | T12 | T7 |
 |---|---|---|---|
 | MANTER | 28 (7 duplicam uma ficha do Atlas no mesmo sítio) | **6** | — |
-| MUDAR_PARA_Tx | T5: 1 · T10: 1 | T7: 2 · T2: 2 | T9: 1 |
+| MUDAR_PARA_Tx | T5: 1 · T10: 1 | T7: 2 · T2: 2 | — |
 | RETIRAR_DO_UNIVERSO | 8 | **39** | — |
-| UNKNOWN | 25 | 76 | — |
+| UNKNOWN | 25 | 76 | 1 |
 
-As 3 fontes em gaveta errada: IT-T2-030 Nomisma → T10 · IT-T7-043 Agrofarma → T9 ·
+As 3 fontes em gaveta errada: IT-T2-030 Nomisma → T10 · IT-T7-043 Agrofarma → **UNKNOWN** (a leitura é T9, mas a única prova era o sha256 do texto do canário da 3b, sem bytes guardados — rebaixada na conferência de 2026-09-23) ·
 IT-T12-015 APPA Trento → UNKNOWN (é um canal YouTube não aberto; o indício diz
 T2). As 4 não agrícolas: IT-T12-057 e IT-T12-074 → RETIRAR (com prova);
 IT-T12-012 e IT-T12-014 → UNKNOWN (canais YouTube gerais da Região, não abertos).
@@ -46,3 +46,19 @@ Pianeta PSR) · **ISMEA** (no Atlas como T10) · **Agriregionieuropa** (ausente)
 **MASAF comunicados** (a fonte existe, falta a entrada de notícias). E Coldiretti,
 CIA nacional, Confagricoltura e Copagri **existem, mas em T7** — pela lei D2, os
 itens de política delas podem ir para T12 por REROUTE sem mudar a gaveta da fonte.
+
+## Conferência das provas (2026-09-23)
+
+A coordenação indexou os ficheiros de `~/sintonia-gabarito` por sha256: das 88
+linhas com ACÇÃO, 4 tinham provas fora desse sítio.
+
+* IT-T2-001, IT-T2-002, IT-T2-004 — a prova é o acervo versionado
+  (`data/samples/IT-SOURCE-SAMPLES/`); copiada, com o mesmo sha256, para
+  `~/sintonia-gabarito/ACERVO-GIT/`. ACÇÃO mantida.
+* IT-T7-043 — só havia o sha256 do TEXTO do canário; os bytes nunca foram
+  guardados. **Rebaixada a UNKNOWN**, sem rede nova.
+
+O montador passou a conferir cada prova (ficheiro + sha256) e rebaixa sozinho a
+UNKNOWN a acção cuja prova não confere. `tests/test_proposta_catalogo.py`
+reprova qualquer ACÇÃO ≠ UNKNOWN com prova sem ficheiro ou com sha256 diferente
+(atacado duas vezes: ficheiro apagado, sha256 trocado — apanhado nas duas).
