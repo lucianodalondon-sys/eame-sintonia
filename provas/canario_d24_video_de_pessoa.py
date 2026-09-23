@@ -6,6 +6,8 @@
 
 O QUE ELE PROVA, e por que cada metade existe:
 
+  0 · O AMBIENTE DE REDE, ANTES — pelo portao do DONO (`superficie/rede.py`),
+      que sai com codigo 1 quando reprova. Fora de IT a corrida nao comeca.
   1 · A PORTA QUE A PLATAFORMA FECHOU. A pagina de PERFIL de uma pessoa
       (`/in/<slug>/`) e um pedido real, e a resposta fica registada. Nao se
       contorna nada: mede-se.
@@ -15,6 +17,11 @@ O QUE ELE PROVA, e por que cada metade existe:
       o dono do RAW, contra uma base DESCARTAVEL (nada toca a Sala real).
   4 · AS TRAVAS DO D24, sem rede: contatos, seguidores, mensagens e comentarios
       de terceiros morrem na trava ANTES de qualquer pedido.
+  5 · O MESMO PORTAO DE EGRESSO, DEPOIS — a corrida INTEIRA saiu por IT?
+
+⚠️ O EGRESSO QUE VIAJA NO OBJETO E O MEDIDO NA HORA, e nunca o que a missao
+dizia. Uma corrida que declara «VPN IT» porque o pedido pedia «VPN IT» esta a
+inventar uma medicao — por isso o portao corre nas duas pontas.
 
 Limites, cumpridos e verificados: sem conta, sem login, sem cookie de sessao,
 sem navegador, sem rota paga, sem contornar login wall/CAPTCHA/bloqueio. Toca
@@ -31,10 +38,11 @@ import sys
 import tempfile
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-for _g in ('coleta', 'leis', 'regras', 'guarda', 'pedido', ''):
+for _g in ('coleta', 'leis', 'regras', 'guarda', 'pedido', 'superficie', ''):
     sys.path.insert(0, os.path.join(RAIZ, _g) if _g else RAIZ)
 import _gavetas  # noqa: E402,F401
 
+import rede as superficie             # noqa: E402 — o DONO do portao de egresso
 import adaptador_linkedin as al       # noqa: E402
 import scrap_http as http             # noqa: E402
 import ingresso as ing                # noqa: E402
@@ -54,6 +62,8 @@ PERFIL = 'https://www.linkedin.com/in/celestino-dom%C3%ADnguez-infante-423b4957'
 #: nenhum deles.
 ID_DESTA_PESSOA = '7445139302390382592'
 RUN_ID = 'CANARIO-D24-PESSOA'
+#: O egresso que a rota exige — e quem o mede e o portao do dono, na hora.
+EGRESSO_EXIGIDO = 'IT'
 SAIDA = os.path.join(RAIZ, 'data', 'samples', 'CANARIO-D24-PESSOA-V1.json')
 PASTA_RAW = os.path.join(RAIZ, 'data', 'samples', 'SOCIAL-IT', 'raw-free', 'LINKEDIN')
 ACHADOS = {}
@@ -155,6 +165,23 @@ def main():
     print('=' * 78)
     print('CANARIO REAL · D24 · O VIDEO DE UMA PESSOA DO AGRO')
     print('=' * 78)
+
+    # ── 0 · O AMBIENTE DE REDE, ANTES — PELO DONO DO PORTAO ───────────────
+    # ⚠️ A porta de egresso NAO e medida por um `curl` improvisado: quem manda
+    # neste numero e `superficie/rede.py`, que sai com codigo 1 quando reprova.
+    # Medir a mesma coisa por conta propria daria um segundo numero a discutir
+    # com o dono — e o veredito tem de ser o do dono.
+    porta_antes = superficie.portao_de_egresso(EGRESSO_EXIGIDO)
+    mede('EGRESS_GATE_BEFORE', porta_antes['EGRESS_GATE'],
+         'o portao do dono (superficie/rede.py), ANTES de qualquer pedido')
+    mede('EGRESS_COUNTRY_BEFORE', porta_antes['EGRESS_COUNTRY_CODE'],
+         'o pais de saida medido na hora, e nao o que a missao dizia')
+    if porta_antes['EGRESS_GATE'] != 'PASS':
+        mede('RESULTADO', 'PARADO_NO_PORTAO_DE_EGRESSO',
+             'a corrida nao comeca fora de %s' % EGRESSO_EXIGIDO)
+        print('\nARTEFACTO NAO ESCRITO: a corrida nao aconteceu.')
+        return 1
+
     e = egresso()
     mede('EGRESSO', '%s · %s' % (e.get('ip'), (e.get('org') or '')[:34]),
          'por aqui saiu a corrida (%s)' % e.get('country'))
@@ -264,6 +291,17 @@ def main():
         mede('DERIVED_CHARS', sum(len(t['TEXT']) for t in tx), 'caracteres de fala real')
         mede('DERIVED_AMOSTRA', ' '.join(tx[0]['TEXT'].split())[:110], 'primeiros caracteres')
     mede('ADMISSAO_IMPORTAVEL', _admissao_importavel(), 'o que impede a regua de correr aqui')
+
+    # ── 7 · O AMBIENTE DE REDE, DEPOIS ────────────────────────────────────
+    print('\n  7 · o portao de egresso, depois da corrida')
+    porta_depois = superficie.portao_de_egresso(EGRESSO_EXIGIDO)
+    mede('EGRESS_GATE_AFTER', porta_depois['EGRESS_GATE'],
+         'o mesmo portao do dono, DEPOIS da corrida inteira')
+    mede('EGRESS_COUNTRY_AFTER', porta_depois['EGRESS_COUNTRY_CODE'],
+         'a corrida INTEIRA saiu por %s?' % EGRESSO_EXIGIDO)
+    mede('EGRESSO_UNICO_NA_CORRIDA',
+         porta_antes['EGRESS_COUNTRY_CODE'] == porta_depois['EGRESS_COUNTRY_CODE'] == EGRESSO_EXIGIDO,
+         'antes e depois dão o mesmo pais exigido — sem troca a meio')
 
     ACHADOS['_O_QUE_ISTO_E'] = ('O canario real do D24: o video e a legenda de uma PESSOA do agro, '
                                 'adquiridos da pagina PUBLICA do post dela, sem conta, sem login, '

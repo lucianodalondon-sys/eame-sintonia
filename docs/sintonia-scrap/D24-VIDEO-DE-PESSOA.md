@@ -12,7 +12,30 @@ Egresso A · IT/datacenter   149.22.91.171 · AS212238 Datacamp Ltd · Palermo
 Egresso B · US             146.70.98.171 · AS9009 M247 Europe SRL · Miami
            └ depois do reinício: a corrida completa do canário e a conferência
              do perfil.
+Egresso C · IT/datacenter   149.22.91.162 · AS212238 Datacamp Ltd · Palermo
+           └ a REPETIÇÃO do mesmo canário, a pedido do coordenador, e desta vez
+             com o portão do dono (`superficie/rede.py`) medido ANTES e DEPOIS:
+             PASS/PASS, antes e depois em IT. Mesma recusa 999, mesmo sha256 do
+             MP4 (`bff909e5…`), mesmo tamanho de legenda.
 ```
+
+> **AS DUAS CORRIDAS FORAM COMPARADAS CAMPO A CAMPO, e o resultado é o que
+> interessa:** 12 dos 13 campos medidos são **idênticos** entre a saída de Miami
+> e a saída de Palermo — a recusa do perfil (`999`, 1 530 bytes, `authwall`, zero
+> `urn:li:activity`), os 4 pedidos de rede, o `PUBLISHED_AT` do JSON-LD, a
+> contraprova de identidade, os 6 935 096 bytes do MP4 e os 1 371 bytes da
+> legenda. O **único** campo que muda é o do egresso — que é exactamente a
+> variável que se estava a testar. **O que muda com o país de saída não é esta
+> porta**, e agora isso está medido, e não suposto.
+
+> ⚠️ **E O CANÁRIO PASSOU A FECHAR-SE POR SI.** Até esta corrida ele media o
+> egresso com um pedido `ipinfo` próprio e **não** usava o portão do dono, nem
+> media as duas pontas. Passou a correr `superficie/rede.py` (o dono do número,
+> que sai com código 1 quando reprova) **antes** de qualquer pedido e **depois**
+> da corrida inteira, e a escrever no artefacto `EGRESS_GATE_BEFORE`,
+> `EGRESS_COUNTRY_BEFORE`, `EGRESS_GATE_AFTER`, `EGRESS_COUNTRY_AFTER` e
+> `EGRESSO_UNICO_NA_CORRIDA`. Fora de IT a corrida **não começa** e o artefacto
+> **não é escrito** — uma corrida que não aconteceu não ganha números.
 
 > **E OS DOIS EGRESSOS CONCORDARAM, o que vale mais do que um só:** a página de
 > **perfil** respondeu **999** com `authwall` nos dois, e o **MP4** servido nos
@@ -102,6 +125,7 @@ O alvo foi o **post público** dele — e o perfil **nunca** foi tocado.
 | contraprova de identidade | `CONFIRMADA_PELO_ASSET_DO_JSON_LD` |
 | `DERIVED` | `AUTHOR_TEXT` 1 061 car. + `NATIVE_CAPTION` 1 358 car. |
 | pedidos de rede | **4** — página do post, 1 salto IT→ES, o MP4 e a legenda |
+| `EGRESSO` | **IT** (`149.22.91.162` · AS212238 Datacamp Ltd) · portão do dono **PASS** antes **e** depois da corrida |
 | `CUSTO_USD` | **0.0** |
 | limites | sem conta · sem login · sem cookie · sem contornar muro · só público |
 

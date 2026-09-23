@@ -1,7 +1,15 @@
 {
+ "EGRESS_GATE_BEFORE": {
+  "VALOR": "PASS",
+  "PORQUE": "o portao do dono (superficie/rede.py), ANTES de qualquer pedido"
+ },
+ "EGRESS_COUNTRY_BEFORE": {
+  "VALOR": "IT",
+  "PORQUE": "o pais de saida medido na hora, e nao o que a missao dizia"
+ },
  "EGRESSO": {
-  "VALOR": "146.70.98.171 · AS9009 M247 Europe SRL",
-  "PORQUE": "por aqui saiu a corrida (US)"
+  "VALOR": "149.22.91.162 · AS212238 Datacamp Limited",
+  "PORQUE": "por aqui saiu a corrida (IT)"
  },
  "CUSTO_USD": {
   "VALOR": 0.0,
@@ -154,6 +162,18 @@
  "ADMISSAO_IMPORTAVEL": {
   "VALOR": "NAO (No module named 'fcntl')",
   "PORQUE": "o que impede a regua de correr aqui"
+ },
+ "EGRESS_GATE_AFTER": {
+  "VALOR": "PASS",
+  "PORQUE": "o mesmo portao do dono, DEPOIS da corrida inteira"
+ },
+ "EGRESS_COUNTRY_AFTER": {
+  "VALOR": "IT",
+  "PORQUE": "a corrida INTEIRA saiu por IT?"
+ },
+ "EGRESSO_UNICO_NA_CORRIDA": {
+  "VALOR": true,
+  "PORQUE": "antes e depois dão o mesmo pais exigido — sem troca a meio"
  },
  "_O_QUE_ISTO_E": "O canario real do D24: o video e a legenda de uma PESSOA do agro, adquiridos da pagina PUBLICA do post dela, sem conta, sem login, sem contornar muro e por US$ 0. O perfil da mesma pessoa foi medido e esta fechado (999/authwall) — e nao se contorna.",
  "_COMO_REFAZER": "py provas/canario_d24_video_de_pessoa.py",

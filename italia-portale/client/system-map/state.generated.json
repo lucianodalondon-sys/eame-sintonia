@@ -3303,9 +3303,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "fa63e262a5268d359a4dc298caa484e2666d1bc4",
-    "GENERATED_AT": "2026-09-23T16:11:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af"
+    "HEAD": "d028e0402ff79f64a115e88e74a806838fac3508",
+    "GENERATED_AT": "2026-09-23T16:32:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25"
   },
   "FAMILIES": [
     {
@@ -22414,6 +22414,7 @@
       "outbound": [
         "C-IT-PRESERVAR",
         "C-PACOTE-CAMADAS",
+        "C-PROVA-CANARIO-D24-PESSOA",
         "C-PROVA-CANARIO-D24-REEL-PESSOA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTAS-REAIS",
@@ -37257,6 +37258,7 @@
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
+        "C-ASK-SINTONIA",
         "C-DONO-DA-ESCRITA",
         "C-INGRESSO",
         "C-SCRAP-COLHEITA",
@@ -51149,7 +51151,7 @@
       "evidence": [
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 291,
+          "line": 329,
           "snippet": "import admissao  # noqa: F401",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -54507,6 +54509,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-PROVA-CANARIO-D24-PESSOA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por O canario do video de PESSOA no LinkedIn (D24) — e os mutantes da rota nova. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/canario_d24_video_de_pessoa.py",
+          "line": 45,
+          "snippet": "import rede as superficie             # noqa: E402 — o DONO do portao de egresso",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-PROVA-CANARIO-D24-PESSOA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -68681,7 +68718,7 @@
       "evidence": [
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 42,
+          "line": 50,
           "snippet": "from guarda.preservar_coleta import ArmazemLocal  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -68697,7 +68734,7 @@
         },
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 43,
+          "line": 51,
           "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -74608,7 +74645,7 @@
       "evidence": [
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 40,
+          "line": 48,
           "snippet": "import ingresso as ing                # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -99358,7 +99395,7 @@
       "evidence": [
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 41,
+          "line": 49,
           "snippet": "import scrap_colheita as SC           # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -103009,7 +103046,7 @@
       "evidence": [
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 38,
+          "line": 46,
           "snippet": "import adaptador_linkedin as al       # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -103025,7 +103062,7 @@
         },
         {
           "file": "provas/canario_d24_video_de_pessoa.py",
-          "line": 39,
+          "line": 47,
           "snippet": "import scrap_http as http             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -112112,8 +112149,8 @@
     "components_pending": 195,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1206,
-    "edges_proven": 1142,
+    "edges": 1207,
+    "edges_proven": 1143,
     "edges_unknown": 64,
     "business_edges": 4,
     "files_tracked": 2709,

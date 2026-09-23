@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T19:26:22+00:00",
-  "HEAD": "fa63e262a5268d359a4dc298caa484e2666d1bc4",
+  "GENERATED_AT": "2026-09-23T19:42:35+00:00",
+  "HEAD": "d028e0402ff79f64a115e88e74a806838fac3508",
   "BRANCH": "scrap-linkedin-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af",
-  "FICHEIROS_NA_IMPRESSAO": 2857,
+  "SOURCE_TREE_FINGERPRINT": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25",
+  "FICHEIROS_NA_IMPRESSAO": 2859,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2505,7 +2505,7 @@
    {
     "PATH": "provas/canario_d24_video_de_pessoa.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a37333629a335f22dc23f08e7832bd07b58db69a",
+    "VERSAO": "56c598c5695d43503d632ebc4cc14f29118833f6",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -3541,14 +3541,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af",
+    "VERSAO": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af",
+    "VERSAO": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -5339,7 +5339,7 @@
    }
   ],
   "INPUTS_COUNT": 757,
-  "INPUTS_DIGEST": "ffe7b9d68678ef459c3d9ad8975abfcb95f66802af03bdc41ca9bb42f0b97175",
+  "INPUTS_DIGEST": "7c93b5d8d1cd82a8f50bf945e7ee46b7550fb59cdd5d0676a8efe8214f651bf3",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -5372,8 +5372,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "752f7df2eaf4ed68dcadccf25157606f576a2f2ac1f4708393cb9007fe082553",
-  "SEMANTIC_HASH": "c48424b77508422fc37d11d5e51da57fd4681231b7e046d1814c8d15f49952aa"
+  "MEASUREMENT_HASH": "42844a2543159b06c68c8c48fc255fc6d8fe3ffa79eca31c34b6128f080872db",
+  "SEMANTIC_HASH": "cd3842b3b1dc403fd3b9aaf30ec9ccdb82165acfd99c45d0be5cb4fec54b3937"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -6617,7 +6617,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 291,
+      "LINHA": 329,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -8515,6 +8515,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
+    "FROM": "C-ASK-SINTONIA",
+    "TO": "C-PROVA-CANARIO-D24-PESSOA",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "CODE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
+      "LINHA": 45,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ASK-SINTONIA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -16469,7 +16491,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 42,
+      "LINHA": 50,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -16477,7 +16499,7 @@
      },
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 43,
+      "LINHA": 51,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -19797,7 +19819,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 40,
+      "LINHA": 48,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -33720,7 +33742,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 41,
+      "LINHA": 49,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -35834,7 +35856,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 38,
+      "LINHA": 46,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -35842,7 +35864,7 @@
      },
      {
       "FICHEIRO": "provas/canario_d24_video_de_pessoa.py",
-      "LINHA": 39,
+      "LINHA": 47,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-CANARIO-D24-PESSOA",
@@ -40655,12 +40677,12 @@
     ]
    }
   ],
-  "COUNT": 1140
+  "COUNT": 1141
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 175,
   "CARTOES_AUDITADOS": 175,
-  "ARESTAS_RELACIONADAS": 1140,
+  "ARESTAS_RELACIONADAS": 1141,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -41062,7 +41084,7 @@
    "C-MICRO-COLHEITA"
   ],
   "CATEGORIAS_DAS_ARESTAS": {
-   "CODE": 200,
+   "CODE": 201,
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 374,
@@ -41499,6 +41521,7 @@
     "provas/a_porta_le_italiano.py",
     "provas/a_rota_do_html_nao_vai_a_rede.py",
     "provas/a_rota_gratuita_ainda_e_gratuita.py",
+    "provas/canario_d24_video_de_pessoa.py",
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
     "provas/orcamento_de_rede.py",
@@ -41520,7 +41543,7 @@
     "collections"
    ],
    "ENTRAM": 2,
-   "SAEM": 8,
+   "SAEM": 9,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "PROOF"
@@ -46343,7 +46366,7 @@
     "__future__",
     "guarda"
    ],
-   "ENTRAM": 6,
+   "ENTRAM": 7,
    "SAEM": 0,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",

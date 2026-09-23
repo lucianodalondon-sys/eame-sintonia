@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "fa63e262a5268d359a4dc298caa484e2666d1bc4",
-    "GENERATED_AT": "2026-09-23T16:11:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f0680790c678e6305f4dab134c22ac52f53d13f0924e7af45d2f9ce35e345af"
+    "HEAD": "d028e0402ff79f64a115e88e74a806838fac3508",
+    "GENERATED_AT": "2026-09-23T16:32:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c0049c7960fcc0ac7904b58e49bb82ecc6eeaa5e41824abeadc5c8b54857ce25"
   },
   "FILES": [
     {
@@ -5428,7 +5428,7 @@
     },
     {
       "path": "data/samples/CANARIO-D24-PESSOA-V1.json",
-      "sha": "77073018a95643e2e4710e13770df8742843eb61",
+      "sha": "e474cec0becc0daddac7bc3971ed65e84bf759f7",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -10300,7 +10300,7 @@
     },
     {
       "path": "docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md",
-      "sha": "f3db12b7e74be7ca0f7bc28b7ce24b36e920599b",
+      "sha": "32868e553970b1ba36d5c3ab509e0d8a2cc210f0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -14360,7 +14360,7 @@
     },
     {
       "path": "provas/canario_d24_video_de_pessoa.py",
-      "sha": "a37333629a335f22dc23f08e7832bd07b58db69a",
+      "sha": "56c598c5695d43503d632ebc4cc14f29118833f6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -49186,7 +49186,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 36,
+        "line": 43,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -49197,7 +49197,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 291,
+        "line": 329,
         "snippet": "import admissao  # noqa: F401"
       }
     },
@@ -49208,7 +49208,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 38,
+        "line": 46,
         "snippet": "import adaptador_linkedin as al       # noqa: E402"
       }
     },
@@ -49219,7 +49219,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 40,
+        "line": 48,
         "snippet": "import ingresso as ing                # noqa: E402"
       }
     },
@@ -49230,7 +49230,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 41,
+        "line": 49,
         "snippet": "import scrap_colheita as SC           # noqa: E402"
       }
     },
@@ -49241,7 +49241,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 39,
+        "line": 47,
         "snippet": "import scrap_http as http             # noqa: E402"
       }
     },
@@ -49252,7 +49252,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 57,
+        "line": 67,
         "snippet": "SAIDA = os.path.join(RAIZ, 'data', 'samples', 'CANARIO-D24-PESSOA-V1.json')"
       }
     },
@@ -49263,7 +49263,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 43,
+        "line": 51,
         "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
       }
     },
@@ -49274,8 +49274,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/canario_d24_video_de_pessoa.py",
-        "line": 42,
+        "line": 50,
         "snippet": "from guarda.preservar_coleta import ArmazemLocal  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/canario_d24_video_de_pessoa.py",
+      "to_file": "superficie/rede.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/canario_d24_video_de_pessoa.py",
+        "line": 45,
+        "snippet": "import rede as superficie             # noqa: E402 — o DONO do portao de egresso"
       }
     },
     {
@@ -78929,7 +78940,7 @@
     "files_tracked": 2709,
     "files_readable": 1239,
     "files_code_dir": 1048,
-    "file_edges": 5399,
+    "file_edges": 5400,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
