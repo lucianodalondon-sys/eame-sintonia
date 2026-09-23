@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "worker-pendurado-v1",
-    "HEAD": "84e8d3cd69676d45c58e33fe56baeba2e04332bd",
-    "GENERATED_AT": "2026-09-22T22:45:06-03:00",
-    "SOURCE_TREE_FINGERPRINT": "91b1adee913b4b238e76dedc198713aea6c07c4c9f55b64c21d023a03319dade"
+    "HEAD": "17026583ee3a6815c4e453a1dbe7ad1958fcb9c2",
+    "GENERATED_AT": "2026-09-22T23:59:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "dd437ddb1835fe715aa3a0883a7fc9d5439a1dcdb166110fff59685507e731de"
   },
   "FILES": [
     {
@@ -276,7 +276,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "4008865940c5e07a2a555d71d5917f69ce695ab8",
+      "sha": "54c5242795e060fc5da29b3a5c477460e3ae45e3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1984,7 +1984,7 @@
     },
     {
       "path": "curadoria/WORKER-PENDURADO-PROOF-V1.json",
-      "sha": "7a2b580cfa966db51dc00481052756568693d6ef",
+      "sha": "35a009424a5109b144e2b474fb457262f11cdf4a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -2076,6 +2076,13 @@
     {
       "path": "curadoria/emparelhar_com_atlas.py",
       "sha": "fc771d670a4ee76707c0532add8cdb02d43e3455",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/ensaiar_dois_escritores.py",
+      "sha": "7f5f88e5c409a77dbf36e9a5f5c74acc8fd3fe33",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2383,7 +2390,7 @@
     },
     {
       "path": "curadoria/test_worker_pendurado.py",
-      "sha": "938491304509d659eab0d1da6fa7958d9bd54b09",
+      "sha": "448f5c25fe0b6f37540e187ffae7d08437db89c8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2411,7 +2418,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "fb5d2b74550d14be598ccac16d8107e7b1696877",
+      "sha": "1356ca839cc38ee5895779bee8a3f45cd9e2f09c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -20798,6 +20805,28 @@
         "file": "curadoria/emparelhar_com_atlas.py",
         "line": 99,
         "snippet": "p = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_dois_escritores.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_dois_escritores.py",
+        "line": 48,
+        "snippet": "import fila as F"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_dois_escritores.py",
+      "to_file": "curadoria/supervisor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_dois_escritores.py",
+        "line": 49,
+        "snippet": "import supervisor as S"
       }
     },
     {
@@ -67537,10 +67566,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2211,
-    "files_readable": 884,
+    "files_tracked": 2212,
+    "files_readable": 885,
     "files_code_dir": 883,
-    "file_edges": 4685,
+    "file_edges": 4687,
     "escritas_em_pasta": 75,
     "declared_missing_here": 0
   },
