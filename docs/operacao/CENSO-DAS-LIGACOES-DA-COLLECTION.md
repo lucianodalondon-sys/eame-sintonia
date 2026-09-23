@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  41ab844778e08b2e7766ce863acf3c3b6450e49e
-BRANCH           relevancia-elegiveis-v1
-GERADO_EM        2026-09-22T21:40:23-03:00
+HEAD_DA_MEDICAO  9b4dea1da7190cb747d46fce2aa544bce13d5413
+BRANCH           regua-t2-t12-v1
+GERADO_EM        2026-09-22T21:56:01-03:00
 CARDS            82
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
