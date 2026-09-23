@@ -61,5 +61,35 @@ class TestAditamentoV3(unittest.TestCase):
         self.assertIsNotNone(e)
 
 
+
+_s2 = importlib.util.spec_from_file_location(
+    "propor_receitas_v3", RAIZ / "scripts" / "receitas" / "propor_receitas_v3.py")
+PV3 = importlib.util.module_from_spec(_s2)
+_s2.loader.exec_module(PV3)
+
+
+class TestEntradaDaV3(unittest.TestCase):
+    def _p(self, url, papel, veredito):
+        return {"URL": url, "PAPEL": papel, "VEREDITO": veredito}
+
+    def test_a_pagina_do_indice_de_hoje_e_a_entrada(self):
+        ps = [self._p("https://a.it/velho", "CAPA_INDICE", "MATERIA"),
+              self._p("https://a.it/news", "CAPA_INDICE", "CAPA")]
+        out = PV3._entrada_primeiro(ps, "https://a.it/news/")
+        self.assertEqual(out[0]["URL"], "https://a.it/news")
+        self.assertEqual([p["PAPEL"] for p in out[1:]], ["CAPA_ANTIGO_INDICE"])
+
+    def test_sem_pagina_de_hoje_uma_listagem_antiga_serve(self):
+        ps = [self._p("https://a.it/notizie", "CAPA_INDICE", "CAPA"),
+              self._p("https://a.it/notizie/x", "MATERIA", "MATERIA")]
+        out = PV3._entrada_primeiro(ps, "https://a.it/")
+        self.assertEqual(out[0]["PAPEL"], "CAPA_INDICE")
+
+    def test_uma_materia_nunca_e_entrada(self):
+        ps = [self._p("https://a.it/fiera-2026", "CAPA_INDICE", "MATERIA")]
+        out = PV3._entrada_primeiro(ps, "https://a.it/")
+        self.assertFalse([p for p in out if p["PAPEL"] == "CAPA_INDICE"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -19453,3 +19453,33 @@ página de uma feira. Com essa receita corrigida (simulado), a V1 domina.
   casam o `LINK_PATTERN` da própria fonte.
 - **Segunda leitura às cegas:** 20/20 concordam, mas rotulador e revisor são ambos agentes
   Claude. Declara-se o limite; não se vende como validação humana.
+
+---
+
+# O CUSTO DE UMA REGRA DE MORADA É A TAXA DE MORADAS ERRADAS
+
+*Missão LD2 (listing-detail-v2), 23/09/2026. Prova: `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`,
+controlo `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, relatório `RELATORIO-LISTING-DETAIL-V2.md`.*
+
+**O que se fez.** O gate capa/matéria foi medido num gabarito de controlo independente: 50 sites
+nunca usados, recolhidos depois de as receitas estarem congeladas e rotulados antes de medir.
+A V1 («a página do `INDEX_URL` é capa») deixa passar muito menos capas (5/49 contra 28/49), mas
+barra uma matéria a mais — no original e no controlo. `LISTING_DETAIL_GATE_PROVEN = NO`.
+
+**O que se aprendeu.**
+
+- **O erro residual da V1 não é aleatório.** As duas matérias que ela barra a mais são as duas
+  páginas que o contrato declara como índice e que são artigos (#28 IT-T11-010, #34 Agrinsieme).
+  O custo de uma regra que confia na morada do contrato é a taxa de moradas erradas nos
+  contratos. Corrigir `INDEX_URL` é o que fecha o gate, não mexer na regra.
+- **A ordem prova a independência.** Receitas congeladas num commit, depois a recolha, depois
+  os rótulos noutro commit, e só então a medição. As horas dos commits são a prova de que o
+  controlo não escolheu nada.
+- **Um rótulo discutido decide o resultado, e não se muda depois de medir.** A segunda leitura
+  (agente separado, às cegas) discordou numa página em 10, e era exatamente a página que
+  decidia a V1 no controlo. Regista-se a discordância; trocar o rótulo agora seria escolher a
+  resposta.
+- **Uma listagem paginada de 3 em 3 não prova um índice pela régua dos 10 links.** A régua fica;
+  falta uma visita com uma página maior, e essa decisão é do coordenador.
+- **O detector de hoje deixa passar 57% das capas também em dados independentes** (28/49). A
+  6-PREP-c não era um artefacto do seu gabarito.
