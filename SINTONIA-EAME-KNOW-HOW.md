@@ -18886,6 +18886,31 @@ crescer sem fim. Travão proposto, não aplicado: profundidade máxima 2.
   importa) é parte da prova.
 - **No ensaio, a produção reproduziu o defeito tal qual**: 149/150, 1 órfã, 1 morte RC=1 por
   `PermissionError`, 240 s parados. O novo: 150/150, 20 s, 0 falsos pendurados, 1 worker.
+
+# § (sem número) · A PEÇA EXISTIA E NÃO ESTAVA LIGADA — E LIGÁ-LA FABRICAVA TERRITÓRIO
+
+**A HIPÓTESE.** 105 QUALIFY em BLOCK SEMANTIC («território indeterminado pelo nome»),
+incluindo AGEA (CAND-0253), SIAN (CAND-0010) e Rete Rurale (CAND-0009). O worker chamava
+`atribuir_source_id.territorio_de` com `CONTENT_VALUE_TYPE: []`; a peça que mede o tema
+(`amostrar.caracterizar`) existia e nunca era chamada. **Confirmado: não estava ligada.**
+
+**A MEDIÇÃO (23/09, cópia da fila do serviço).** Sem rede: 0 das 105 tinham amostra ou
+caracterização guardada. Com rede (egresso IT medido antes de cada site, 105/105; robots +
+índice + 1 item, ≤3 pedidos por site), ligando a peça como ela é:
+
+| resultado | fontes |
+|---|---|
+| nenhum item achado no índice (inclui AGEA, SIAN, Rete Rurale) | 68 |
+| item colhido, sem tema reconhecível | 23 |
+| robots proíbe ou ilegível | 7 |
+| site não respondeu | 1 |
+| **território decidido pela amostra** | **6** |
+
+Dos 6, pelo menos 4 foram para a gaveta errada: Presidenza del Consiglio → T8 por uma
+notícia de viagem; Sherwood (revista florestal) → T10 por uma página de doação;
+`lombardianotizie` → T5 por um artigo sobre baterias; «Frutta nelle scuole» → T7. Só o
+Consiglio Regionale da Campânia → T4 parece certo.
+
 **A DECISÃO.** A ligação foi escrita e testada (`572fe46b`: 7 testes, 4 mutantes
 executados e apanhados) e **revertida** (`be2433ad`). Ligar a peça não resolve 99 e
 fabrica território nas que resolve. O próprio `atribuir_source_id` já avisava:
