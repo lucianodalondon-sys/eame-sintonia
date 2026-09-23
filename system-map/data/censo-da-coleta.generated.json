@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T19:19:36+00:00",
-    "HEAD": "1849e096287a1fb870492d7b29904cd43aac573d",
+    "GENERATED_AT": "2026-09-23T20:26:12+00:00",
+    "HEAD": "00bddeaf376eecc7de0509f9392d43cd7647fa0f",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "3a8fbb16de5fcffb5d6c9dc811d099a4e03f8856bb302b41aae3b7f1604325c0",
-    "FICHEIROS_NA_IMPRESSAO": 2897,
+    "SOURCE_TREE_FINGERPRINT": "1747c1700fd987dbdc47c4541ffb11e99f363b9d1c3a8794dbf439ffc0b3a054",
+    "FICHEIROS_NA_IMPRESSAO": 2905,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -412,7 +412,7 @@
       {
         "PATH": "coleta/rota_forward_documento.py",
         "PAPEL": "FONTE",
-        "VERSAO": "734e7702a926ac5f1af24725006d335f2881a062",
+        "VERSAO": "3e0f74bdf64ab1397e215011cbf83787c6541090",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -433,21 +433,21 @@
       {
         "PATH": "coleta/scrap_capacidades.py",
         "PAPEL": "FONTE",
-        "VERSAO": "44ea25f02ad4a5449efa0333cb64565f404fd672",
+        "VERSAO": "78df1d20718802361a7529bde87d1aee1d215c39",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/scrap_colheita.py",
         "PAPEL": "FONTE",
-        "VERSAO": "499049e459d8952e49aa289bef779c06cf5d3e0f",
+        "VERSAO": "f485a1a58e8770142804967e593c5dc18f16ce4b",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
       {
         "PATH": "coleta/scrap_executor.py",
         "PAPEL": "FONTE",
-        "VERSAO": "779f9fa088f397764e1a625070f7e1e6c8026cf6",
+        "VERSAO": "9c5b02ce55f38134abd11aec57769e58492dcd6f",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -482,7 +482,7 @@
       {
         "PATH": "coleta/social_envelope.py",
         "PAPEL": "FONTE",
-        "VERSAO": "4287915a4c28fd750a78ea21e175de34bf2c0d70",
+        "VERSAO": "d6110a48e52bb4db3903c9eef63da1ebcb124efa",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -664,7 +664,7 @@
       {
         "PATH": "ferramentas/reel_transcricao.py",
         "PAPEL": "FONTE",
-        "VERSAO": "7b9845754bd4318352a55939deb9bd1a0ecc1557",
+        "VERSAO": "80f7de73ecce7e34ef8bc113435fea30ca629634",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -951,7 +951,7 @@
       {
         "PATH": "pedido/receitas.py",
         "PAPEL": "FONTE",
-        "VERSAO": "e5b85b8e0f0fd6811dad0ddf8ecae42a9505c5be",
+        "VERSAO": "953c32c65c053ef85959f1878cc293bc3eb71aa8",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -979,7 +979,7 @@
       {
         "PATH": "regras/contratos_de_fonte.py",
         "PAPEL": "FONTE",
-        "VERSAO": "3a7bd4a9f11c7ec41515a5634e0311dab8e614c8",
+        "VERSAO": "0e9a3c404a67da2b070484ae1278973b7fa29147",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "medir() · read_text"
       },
@@ -1097,7 +1097,7 @@
       }
     ],
     "INPUTS_COUNT": 155,
-    "INPUTS_DIGEST": "8db5210a4b3fd0be483a3836b8ba1e10842d660c23d269099b1104f720d46e5f",
+    "INPUTS_DIGEST": "e048dde41e032aebc0055f6a46445a0dabd40f244671633df9c912e0ece86f59",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -1133,7 +1133,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 767,
+      "linhas": 787,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1715,7 +1715,7 @@
         "ferramentas/reel_transcricao.py",
         "ferramentas/youtube_transcrever.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "ferramentas/html_text.mjs",
@@ -1833,7 +1833,7 @@
     {
       "ficheiro": "ferramentas/reel_transcricao.py",
       "gaveta": "ferramentas",
-      "linhas": 1729,
+      "linhas": 1784,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -1856,7 +1856,7 @@
         "coleta/social_scrap.py",
         "ferramentas/instagram_transcrever.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "ferramentas/unificacao/aplicar_d13_capacidade.py",
@@ -2976,7 +2976,7 @@
     {
       "ficheiro": "coleta/rota_forward_documento.py",
       "gaveta": "coleta",
-      "linhas": 611,
+      "linhas": 634,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3036,7 +3036,7 @@
     {
       "ficheiro": "coleta/scrap_capacidades.py",
       "gaveta": "coleta",
-      "linhas": 423,
+      "linhas": 485,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -3065,7 +3065,7 @@
     {
       "ficheiro": "coleta/scrap_colheita.py",
       "gaveta": "coleta",
-      "linhas": 779,
+      "linhas": 900,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -3083,14 +3083,15 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
-        "pedido/receitas.py"
+        "pedido/receitas.py",
+        "regras/contratos_de_fonte.py"
       ],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/scrap_executor.py",
       "gaveta": "coleta",
-      "linhas": 843,
+      "linhas": 913,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -3229,7 +3230,7 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 364,
+      "linhas": 465,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -3565,17 +3566,21 @@
     {
       "ficheiro": "regras/contratos_de_fonte.py",
       "gaveta": "regras",
-      "linhas": 245,
+      "linhas": 400,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "YOUTUBE"
+      ],
       "ferramentas": [],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/scrap_colheita.py"
+      ],
       "no_ci": false
     },
     {
@@ -3653,6 +3658,7 @@
         "candidatas/italy_write_matrix.mjs",
         "coleta/italy_pilot_collect.mjs",
         "coleta/italy_recurrent_collect.mjs",
+        "coleta/scrap_colheita.py",
         "pedido/receitas.py",
         "regras/contratos_de_fonte.py",
         "regras/italy_pilot_guards.mjs"
@@ -4307,7 +4313,7 @@
     "ficheiros_de_codigo": 155,
     "pontos_de_entrada": 111,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 61,
+    "sem_chamador_e_fora_do_ci": 60,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 84,
     "deitam_fora_alguma_coisa": 45,
@@ -4505,7 +4511,6 @@
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",
       "coleta/universo_ciencia_it.py",
-      "regras/contratos_de_fonte.py",
       "regras/incrementalidade_test.mjs",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
