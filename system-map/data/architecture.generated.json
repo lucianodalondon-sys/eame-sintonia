@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "catalogo-proposta-v1",
-    "HEAD": "6d9dda3d2c4504896ab48ea6379401b4b8b9f5d3",
-    "GENERATED_AT": "2026-09-23T01:21:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917"
+    "HEAD": "c3473971a879c7bdba04dd4a82081036bcd6396b",
+    "GENERATED_AT": "2026-09-23T01:36:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3cc2153f379796163643d71109e5e92ecf5a634c56f4e902d6936061f18f8c99"
   },
   "FILES": [
     {
@@ -346,7 +346,7 @@
     },
     {
       "path": "RELATORIO-PROPOSTA-CATALOGO.md",
-      "sha": "4969895b08b7ceb7d541417a52588f3a0d919cc1",
+      "sha": "481c0c04d9e8eefb8c2fa36d365f7591830e2814",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2047,7 +2047,7 @@
     },
     {
       "path": "curadoria/PROPOSTA-CATALOGO-V1.json",
-      "sha": "716deaec38a723409311b1e78fb53229d5b9460e",
+      "sha": "e211cc932e6cdbedd4533ecd3b70073f91ca62c0",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -12183,7 +12183,7 @@
     },
     {
       "path": "medidas/montar_proposta_catalogo.py",
-      "sha": "559ee8dadd177d8513f8272481c49e658157cea0",
+      "sha": "7bdd98e7c554db316fc64ba9c4d4dd49902e5f89",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17105,6 +17105,13 @@
     {
       "path": "tests/test_prioridade_comercial.py",
       "sha": "5bde89fe1b8e49a68002a431dce24ef9f5c6c25d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_proposta_catalogo.py",
+      "sha": "12af949919c6a13e1eb8860330520d0d05b1e8bb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -34678,7 +34685,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "medidas/montar_proposta_catalogo.py",
-        "line": 197,
+        "line": 199,
         "snippet": "for p in _json(CUR / \"CATALOGO-PROVA-V1.json\")[\"PAGINAS\"]:"
       }
     },
@@ -34700,7 +34707,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "medidas/montar_proposta_catalogo.py",
-        "line": 274,
+        "line": 300,
         "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -34711,7 +34718,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "medidas/montar_proposta_catalogo.py",
-        "line": 213,
+        "line": 222,
         "snippet": "for l in _json(CUR / \"ROTAS-ELEGIVEIS-V1.json\")[\"LINHAS\"]:"
       }
     },
@@ -34722,7 +34729,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "medidas/montar_proposta_catalogo.py",
-        "line": 211,
+        "line": 216,
         "snippet": "(\"IT-T2-004\", \"data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html\")]:"
       }
     },
@@ -34733,7 +34740,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "medidas/montar_proposta_catalogo.py",
-        "line": 180,
+        "line": 181,
         "snippet": "atlas = (RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -69168,6 +69175,17 @@
       }
     },
     {
+      "from_file": "tests/test_proposta_catalogo.py",
+      "to_file": "curadoria/PROPOSTA-CATALOGO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_proposta_catalogo.py",
+        "line": 18,
+        "snippet": "PROPOSTA = RAIZ / \"curadoria\" / \"PROPOSTA-CATALOGO-V1.json\""
+      }
+    },
+    {
       "from_file": "tests/test_proveniencia.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -73009,10 +73027,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2486,
-    "files_readable": 1101,
-    "files_code_dir": 956,
-    "file_edges": 5003,
+    "files_tracked": 2487,
+    "files_readable": 1102,
+    "files_code_dir": 957,
+    "file_edges": 5004,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

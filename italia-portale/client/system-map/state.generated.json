@@ -2518,6 +2518,7 @@
       "tests/test_preservar_coleta_no_banco.py",
       "tests/test_preservar_derivado.py",
       "tests/test_prioridade_comercial.py",
+      "tests/test_proposta_catalogo.py",
       "tests/test_proveniencia.py",
       "tests/test_psql_argv.py",
       "tests/test_qualidade_t3.py",
@@ -2604,16 +2605,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "13 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · PROPOSTA-CATALOGO-V1.json · RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json … e mais 5",
+      "titulo": "12 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json … e mais 4",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
-        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json"
+        "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "data/samples/EXPERT-DIRECTORY-EAME-V1.json"
       ]
     },
     {
@@ -3080,9 +3081,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "catalogo-proposta-v1",
-    "HEAD": "6d9dda3d2c4504896ab48ea6379401b4b8b9f5d3",
-    "GENERATED_AT": "2026-09-23T01:21:14-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917"
+    "HEAD": "c3473971a879c7bdba04dd4a82081036bcd6396b",
+    "GENERATED_AT": "2026-09-23T01:36:01-03:00",
+    "SOURCE_TREE_FINGERPRINT": "3cc2153f379796163643d71109e5e92ecf5a634c56f4e902d6936061f18f8c99"
   },
   "FAMILIES": [
     {
@@ -18357,12 +18358,13 @@
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
-      "entregue_a_inteligencia": [],
+      "entregue_a_inteligencia": [
+        "curadoria/PROPOSTA-CATALOGO-V1.json"
+      ],
       "parado_na_coleta": [
         "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
-        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
@@ -18413,16 +18415,16 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json e este mapa nao viu ninguem ler",
-      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "rule_role": "MEASURES",
+      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-TESTES",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
+      "ROLE_RULE": "M3_REGUA_QUE_MEDE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "OPERATIONAL_STEP",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "medidas/canario_rotas_elegiveis.py abre ligacao de rede: vai buscar dado fora da arvore",
+      "ROLE_EVIDENCE": "rule_role medido: escreve curadoria/CATALOGO-PROVA-V1.json, e quem le nao esta na esteira: C-TESTES",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -18454,7 +18456,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_gabarito_t2_t12.py:9"
+          "tests/test_gabarito_t2_t12.py:9",
+          "tests/test_proposta_catalogo.py:18"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -39983,6 +39986,7 @@
         "tests/test_preservar_coleta_no_banco.py",
         "tests/test_preservar_derivado.py",
         "tests/test_prioridade_comercial.py",
+        "tests/test_proposta_catalogo.py",
         "tests/test_proveniencia.py",
         "tests/test_psql_argv.py",
         "tests/test_qualidade_t3.py",
@@ -40026,7 +40030,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 202,
+      "file_count": 203,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -40451,6 +40455,7 @@
         "curadoria/CANARY-LOTE-YOUTUBE-FEED.json",
         "curadoria/CONTRATOS-PASSO-2-V1.json",
         "curadoria/HANDOFF-INTEGRACAO-04.md",
+        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/READY-FOR-COLLECTION-V1.json",
         "curadoria/REAL-EXAMPLE-MANIFEST-V1.json",
         "curadoria/SOURCE-ID-ALLOCATION-V1.json",
@@ -46872,7 +46877,7 @@
       "evidence": [
         {
           "file": "medidas/montar_proposta_catalogo.py",
-          "line": 180,
+          "line": 181,
           "snippet": "atlas = (RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -51026,6 +51031,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O canario das rotas das fontes aprovadas alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_proposta_catalogo.py",
+          "line": 18,
+          "snippet": "PROPOSTA = RAIZ / \"curadoria\" / \"PROPOSTA-CATALOGO-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+            "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -102848,12 +102888,12 @@
     "components_pending": 185,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1155,
-    "edges_proven": 1091,
+    "edges": 1156,
+    "edges_proven": 1092,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2486,
-    "files_covered": 1083,
+    "files_tracked": 2487,
+    "files_covered": 1084,
     "files_code_unclaimed": 0,
     "roles_proven": 154,
     "roles_declared_only": 9,

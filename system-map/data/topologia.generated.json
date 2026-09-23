@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T04:28:03+00:00",
-  "HEAD": "6d9dda3d2c4504896ab48ea6379401b4b8b9f5d3",
+  "GENERATED_AT": "2026-09-23T04:39:34+00:00",
+  "HEAD": "c3473971a879c7bdba04dd4a82081036bcd6396b",
   "BRANCH": "catalogo-proposta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917",
-  "FICHEIROS_NA_IMPRESSAO": 2634,
+  "SOURCE_TREE_FINGERPRINT": "3cc2153f379796163643d71109e5e92ecf5a634c56f4e902d6936061f18f8c99",
+  "FICHEIROS_NA_IMPRESSAO": 2635,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1658,7 +1658,7 @@
    {
     "PATH": "medidas/montar_proposta_catalogo.py",
     "PAPEL": "FONTE",
-    "VERSAO": "559ee8dadd177d8513f8272481c49e658157cea0",
+    "VERSAO": "7bdd98e7c554db316fc64ba9c4d4dd49902e5f89",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3254,14 +3254,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917",
+    "VERSAO": "3cc2153f379796163643d71109e5e92ecf5a634c56f4e902d6936061f18f8c99",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917",
+    "VERSAO": "3cc2153f379796163643d71109e5e92ecf5a634c56f4e902d6936061f18f8c99",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4652,6 +4652,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "tests/test_proposta_catalogo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "12af949919c6a13e1eb8860330520d0d05b1e8bb",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "tests/test_proveniencia.py",
     "PAPEL": "FONTE",
     "VERSAO": "8fbd8182bac2783d806b77607fcfa5eaf58bc51e",
@@ -4946,8 +4953,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 701,
-  "INPUTS_DIGEST": "fcbaf5014730f3cb0a99a733992e472292bebed14b5b8d11f03857124ae3c7d4",
+  "INPUTS_COUNT": 702,
+  "INPUTS_DIGEST": "192436a5a9553086d0ef6436a38499e3cc913fd23a7ef77b6e1fe0a240a7a07f",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4980,8 +4987,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "5683530862f59309e9a8e11a23f161ac6ec562bb8f5e030642a7cbaabb6788b4",
-  "SEMANTIC_HASH": "fd38e37d0dfa8c239eca47a27440b9dd2b6126ae9782749fc06a8406fe57f71d"
+  "MEASUREMENT_HASH": "7859394dc22720c322145ebce181331c4963ce957124558f437a502fd83e421f",
+  "SEMANTIC_HASH": "28a27a001bdeba41bd1b2d25ce985d10a06908ea31933ac8ce64cebac6e6b0b0"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7551,7 +7558,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "medidas/montar_proposta_catalogo.py",
-      "LINHA": 180,
+      "LINHA": 181,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
@@ -9593,6 +9600,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--IMPORTS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
+    "FROM": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_proposta_catalogo.py",
+      "LINHA": 18,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CANARIO-ROTAS-ELEGIVEIS--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -38641,12 +38670,12 @@
     ]
    }
   ],
-  "COUNT": 1089
+  "COUNT": 1090
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 165,
   "CARTOES_AUDITADOS": 165,
-  "ARESTAS_RELACIONADAS": 1089,
+  "ARESTAS_RELACIONADAS": 1090,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -39024,7 +39053,7 @@
    "CODE": 184,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 362,
+   "PROOF": 363,
    "READ": 247,
    "RULE": 185,
    "WRITE": 8
@@ -39836,7 +39865,7 @@
     "urllib"
    ],
    "ENTRAM": 4,
-   "SAEM": 1,
+   "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "READ",
@@ -46852,6 +46881,7 @@
     "tests/test_preservar_coleta_no_banco.py",
     "tests/test_preservar_derivado.py",
     "tests/test_prioridade_comercial.py",
+    "tests/test_proposta_catalogo.py",
     "tests/test_proveniencia.py",
     "tests/test_psql_argv.py",
     "tests/test_qualidade_t3.py",
@@ -47014,7 +47044,7 @@
     "v_saude_da_rota",
     "x"
    ],
-   "ENTRAM": 188,
+   "ENTRAM": 189,
    "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
