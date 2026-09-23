@@ -20500,3 +20500,86 @@ Cinco, cinco mortos:
     MI3 ligacoesDoIndice sem deduplicação (motor)      morre em I1, I2, I3  (sobrevivia antes da foto+título)
     MT1 disjuntor desligado                            morre em T1 (tempo e adiadas)
     MT2 a adiada escrita no livro                      morre em T1 (livro)
+
+## TTL-1 · MUTABLE COM PRAZO: VOLTA, MAS NÃO TODAS AS CORRIDAS
+
+**Missão T1** (`ttl-mutable-v1`, a partir de `recollection-prova-v2` @ `0ac7947b`,
+2026-09-23). Sem rede, nada colhido, nada na Sala.
+
+**DE ONDE VEM O MUTABLE.** §167-3: pelas datas que os próprios artigos declaram,
+três fontes de notícias reescrevem artigos meses depois, na mesma morada (Riunite,
+Balsamico, Zootecnica). A regra fazia-as revisitar TODAS as conhecidas em TODAS as
+corridas — ~37 páginas por corrida só na Riunite e na Zootecnica — e o `TTL_SECONDS` do
+contrato só juntava mais uma razão a quem já ia.
+
+**A MEDIÇÃO — `provas/ttl_mutable_simulacao.py`.** Duas etapas. `--extrair` lê os bytes
+guardados nos livros desta máquina (fora do Git) e escreve `TTL-MUTABLE-DATAS-T1.json`:
+52 matérias, 39 com modificação real. Uma `modified_time` a menos de 10 min de uma
+captura nossa seria a nossa visita e não conta — descartadas: 0. A simulação lê só esse
+JSON: uma corrida a cada C horas, cada matéria entra no índice quando publicada e sai
+quando `MAX_TARGETS` mais novas a empurram; a edição é apanhada na 1.ª revisita depois dela.
+
+    atrasos de edição (modified - published), 39 matérias:
+      <= 6 h 13 · <= 1 d 19 · <= 3 d 22 · <= 7 d 27 · <= 14 d 30 · <= 30 d 35 · máx 72 d
+    26 dessas edições acontecem DEPOIS da 1.ª captura (as outras chegam antes dela)
+
+    Riunite + Zootecnica (23 edições)   revisitas/corrida    atraso máx da edição
+                                        diária   a cada 6 h   diária   a cada 6 h
+      ATUAL (sempre)                     37,2      37,3         0,7 d    0,2 d
+      TTL 1 d                            37,2       9,3         0,7 d    0,9 d
+      TTL 3 d   ← escolhido              12,4       3,1         2,7 d    2,3 d
+      TTL 7 d                             5,3       1,3         6,7 d    6,3 d
+      TTL 14 d                            2,6       0,7        13,7 d   13,3 d
+      CURVA (idade/6, tecto 14 d)         4,1       1,2        12,5 d    7,5 d
+    edições PERDIDAS: 0 em todas as políticas.
+
+⚠️ **O QUE O DADO NÃO DIZ.** Cada página declara só a ÚLTIMA modificação: o número de
+edições é um mínimo. A cadência das corridas em produção é NÃO SEI; por isso as duas
+colunas. E «perdida» só existe se a matéria sair do índice antes da revisita — com
+índices que guardam meses (Riunite: 30 matérias de 2023 a 2026) isso não acontece com
+prazos de dias. Uma edição feita DEPOIS de a matéria sair do índice perde-se hoje
+também, com ou sem prazo.
+
+**PORQUÊ 3 DIAS.** É o menor prazo que poupa a sério na cadência diária (37 → 12) e o
+atraso fica abaixo de 3 dias em qualquer cadência, porque o prazo é o tecto do atraso.
+A CURVA poupa mais (37 → 4), mas o atraso máximo sobe a 12,5 dias e exige guardar a
+1.ª visita na memória. Sem saber o que as edições mudam, escolheu-se o atraso curto.
+
+**A REGRA — `regras/incrementalidade.mjs` (`decidirSobreDetalhe`).**
+
+    MUTABLE sem prazo            -> revisita sempre (boletins na mesma morada: a revisita É a coleta)
+    MUTABLE com prazo, dentro    -> SKIP_KNOWN, DECLARADA, «prazo de X s; a última visita tem Y s»
+    MUTABLE com prazo, vencido   -> REVALIDATE por TTL_EXPIRED
+    MUTABLE com idade ilegível   -> REVALIDATE por CONTRACT_DECLARES_MUTABLE
+                                    (o «não sei» não cega o que o dono disse que muda —
+                                     ao contrário do IMMUTABLE+TTL, onde não autoriza rede)
+
+O prazo entra SÓ em IT-T7-017 e IT-T10-022 (`TTL_SECONDS: 259200` + `TTL_PORQUE` na
+tabela onboarded). IT-T7-042 (Balsamico) tem o mesmo perfil e fica sem prazo: não é da
+coorte e o briefing pedia as duas. IT-T3-005, IT-T2-002 e IT-T2-004 continuam sem prazo.
+
+**A PROVA — `provas/ttl_mutable_local.mjs` (12/0).** Riunite (contrato real, com o
+prazo) e o boletim IT-T3-005 (MUTABLE sem prazo, o controlo) na MESMA corrida, contra
+127.0.0.1. O tempo simula-se no LIVRO descartável (as `CAPTURED_AT` recuam N dias entre
+corridas), não no relógio. A mesma história corre com e sem prazo:
+
+    ANTES  C1=3 C2=3 C3=3 C4=3 C5=3   pedidos a matérias = 15
+    T1     C1=3 C2=0 C3=0 C4=3 C5=0   pedidos a matérias =  6
+    a edição feita depois de C2 é vista em C3 (antes) / em C4, a 1.ª depois do prazo (T1)
+
+**MUTANTES** (execução provada por marca; cada um contra o teste da regra E a prova):
+
+    MT1 o prazo ignorado                     teste MATA · prova MATA
+    MT2 idade ilegível salta                 teste MATA · prova —  (a prova não fabrica data ilegível)
+    MT3 limite inclusivo (>= em vez de >)    teste MATA · prova —  (a prova não cai no segundo exacto)
+    MT4 MUTABLE sem prazo deixa de voltar    teste MATA · prova MATA
+    MT5 prazo vencido não volta              teste MATA · prova MATA
+
+Os dois red teams da R1 atacavam a linha que a T1 reescreveu: o M8 deixou de casar
+(«ANCORA NAO CASA» — o estrito conta-o como sobrevivente, e bem). Traduzido para a linha
+nova, o ataque é o mesmo: 12/12 e 12/12 pela dona.
+
+**ARMADILHA MINHA.** O script de mutação restaurava com `git checkout -- <ficheiro>`
+quando o mutante não compilava — e o ficheiro tinha a mudança da T1 por commitar. Apagou-a.
+Salvou-a uma cópia feita antes do primeiro ataque. Regra: **commitar antes de atacar**, e
+restaurar pela cópia, nunca pelo índice.
