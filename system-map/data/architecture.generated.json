@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "micro-prep-v1",
-    "HEAD": "bcb1324f5ee8438af64569209e400b837dab6c65",
-    "GENERATED_AT": "2026-09-22T22:03:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9c80cc76916867ddcef287b2b2cad1d96cb73d1fb140d43e101b7c2ab2ad9192"
+    "HEAD": "319df0baa7a7452778e2320ed8a29f521d72bec0",
+    "GENERATED_AT": "2026-09-22T22:14:43-03:00",
+    "SOURCE_TREE_FINGERPRINT": "a1063f21feeb925c08e0d7cc4d6194fa8248efb7fd12335c738e55962f12e0e5"
   },
   "FILES": [
     {
@@ -353,7 +353,7 @@
     },
     {
       "path": "RELATORIO-MICRO-PREP-B.md",
-      "sha": "34c9cd6fb8534fd16e958fe87d9aa4c35e4b7321",
+      "sha": "5937c46b414c8d446748c1b84c48808ce49dd8cc",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15123,7 +15123,7 @@
     },
     {
       "path": "scripts/micro_coleta/GABARITO-MICRO-V1.json",
-      "sha": "0a098dd9db52317ba63e58404fdc126f72d2b4d5",
+      "sha": "9ca5004061ea1977757e110a00421d52ae9dfbd8",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -15137,7 +15137,7 @@
     },
     {
       "path": "scripts/micro_coleta/micro_coleta.py",
-      "sha": "867cdc225b0bd1ae224b7d1675ea66da58ab16f7",
+      "sha": "f9849698157d2777dae0c63bfbe48ecb90004d60",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -17118,7 +17118,7 @@
     },
     {
       "path": "tests/test_micro_coleta_instrumento.py",
-      "sha": "380573423ee29dd7ef4f4c45607db5e8f193bbb2",
+      "sha": "a06a2c982d54cf47c2591819d715f510be6c9cea",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -52855,6 +52855,17 @@
       }
     },
     {
+      "from_file": "scripts/micro_coleta/micro_coleta.py",
+      "to_file": "scripts/micro_coleta/GABARITO-MICRO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/micro_coleta/micro_coleta.py",
+        "line": 389,
+        "snippet": "GABARITO = AQUI / \"GABARITO-MICRO-V1.json\""
+      }
+    },
+    {
       "from_file": "security/censo_do_cliente.py",
       "to_file": "security/cliente-classificacao.json",
       "type": "READS",
@@ -72891,7 +72902,7 @@
     "files_tracked": 2519,
     "files_readable": 1142,
     "files_code_dir": 955,
-    "file_edges": 4971,
+    "file_edges": 4972,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
