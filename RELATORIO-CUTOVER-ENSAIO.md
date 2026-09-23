@@ -17,7 +17,9 @@ e `passos_do_cutover.py` (+ 11 testes em `tests/test_medir_cutover.py`).
 | 3 | `8d2344bd` (4.ª passagem: + R1/R2 + Q1) | ordem corrigida, medidores, 7b |
 | 4 | `e752c3da` (D15, por empurrar) | só os livros de candidatas e alocação |
 
-`origin/unificacao-v1` = `8d2344bd` às 06:56. O runbook manda medir o FINAL_HEAD na hora.
+`origin/unificacao-v1` era `8d2344bd` às 06:56 e, no fecho do ensaio, `77077dee` = `e752c3da`
++ só o mapa: o código que entrou depois do ensaio 3 (a D15) é o que o ensaio 4 cobriu. O runbook
+manda medir o FINAL_HEAD na hora.
 
 ## Seis defeitos do SWITCH_PLAN, cada um provado
 

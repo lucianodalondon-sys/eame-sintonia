@@ -16,7 +16,7 @@
 
 | o quê | valor no ensaio | porque muda |
 |---|---|---|
-| `FINAL_HEAD` | `8d2344bd` = `origin/unificacao-v1` às 06:56 de 23/09; a worktree da M5 já estava em `e752c3da` (D15, por empurrar) | a M5 continua a juntar |
+| `FINAL_HEAD` | `77077dee` = `origin/unificacao-v1` no fecho do ensaio (= `e752c3da` + mapa; o código novo dele, a D15, foi o que o ensaio 4 cobriu). Às 06:56 era `8d2344bd` | a M5 continua a juntar |
 | correcções idempotentes a correr depois do 5b | `aplicar_d13_capacidade`, `aplicar_d15_politica` (só em `e752c3da`+), `corrigir_pais_das_candidatas` | cada decisão nova da M5 que reescreve linhas de candidatas traz a sua ferramenta |
 | reconciliar | 114 s em `8d2344bd` (66 s em `5a16d077`) | cresce com o livro |
 | elegíveis no portão | 29 (19 antes) | depende do estado do bot no corte |
