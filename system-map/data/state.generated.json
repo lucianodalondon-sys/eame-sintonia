@@ -30,6 +30,7 @@
       "RELATORIO-CANDIDATE-FEEDER-V1.md",
       "RELATORIO-CANONICAL-MICRO.md",
       "RELATORIO-CUTOVER.md",
+      "RELATORIO-DETECTOR-CAPA.md",
       "RELATORIO-DIAGNOSTICO-SALA.md",
       "RELATORIO-DUAS-PORTAS.md",
       "RELATORIO-INTAKE-GATE.md",
@@ -2221,6 +2222,11 @@
     ],
     "scripts": [
       "scripts/.gitkeep",
+      "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
+      "scripts/detector_capa/colher_gabarito.py",
+      "scripts/detector_capa/medir_gabarito.py",
+      "scripts/detector_capa/rotular_gabarito.py",
       "scripts/diagnostico_sala/ler_os_76.py",
       "scripts/diagnostico_sala/onde_casou.py",
       "scripts/micro_coleta/COORTE-PROPOSTA.json",
@@ -3112,10 +3118,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-prep-v1",
-    "HEAD": "319df0baa7a7452778e2320ed8a29f521d72bec0",
-    "GENERATED_AT": "2026-09-22T22:14:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a1063f21feeb925c08e0d7cc4d6194fa8248efb7fd12335c738e55962f12e0e5"
+    "BRANCH": "detector-capa-v1",
+    "HEAD": "fe2869f6c44d16e80991d346f6ef52f4ba1e5bd5",
+    "GENERATED_AT": "2026-09-22T22:57:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "68b7d0ee4d5bf5a11b9ea33600b11bc016ef9304ec7d547f5f8dbf93d782d451"
   },
   "FAMILIES": [
     {
@@ -3143,7 +3149,7 @@
         "Z-ADMISSAO",
         "Z-REFERENCIA"
       ],
-      "count": 83
+      "count": 84
     },
     {
       "id": "F-ESPERA",
@@ -3401,7 +3407,7 @@
       "y": 190,
       "w": 1235,
       "h": 8412,
-      "count": 18
+      "count": 19
     },
     {
       "id": "Z-ADMISSAO",
@@ -21976,6 +21982,131 @@
       "y": 682
     },
     {
+      "id": "C-DETECTOR-CAPA-GABARITO",
+      "name": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
+      "territory": "Z-MEDIDAS",
+      "kind": "engine",
+      "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
+      "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "diagnostic"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "scripts/detector_capa/GABARITO-CAPA-V1.json",
+        "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
+        "scripts/detector_capa/colher_gabarito.py",
+        "scripts/detector_capa/medir_gabarito.py",
+        "scripts/detector_capa/rotular_gabarito.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [
+        "handoff/paused-v2/MANIFESTO.json"
+      ],
+      "inbound": [],
+      "outbound": [
+        "C-PACOTE-CAMADAS",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [
+        "handoff/paused-v2/MANIFESTO.json"
+      ],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "JUIZES",
+          "L",
+          "SOCIAL"
+        ],
+        "palavras": 149,
+        "por_lingua": {
+          "PT": 2
+        },
+        "sem_marca_de_lingua": 147,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "handoff/paused-v2/MANIFESTO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "rule_role": "STAMPS",
+      "rule_role_evidence": "escreve handoff/paused-v2/MANIFESTO.json, e C-SCRAP-SOCIAL — peca da esteira — le isso",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M3_REGUA_QUE_CARIMBA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "rule_role medido: escreve handoff/paused-v2/MANIFESTO.json, e C-SCRAP-SOCIAL — peca da esteira — le isso",
+      "OWNER": "ENGENHARIA · INTELIGENCIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "curadoria/italy_contracts_curator.json",
+        "handoff/paused-v2/MANIFESTO.json",
+        "scripts/detector_capa/GABARITO-CAPA-V1.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/social_scrap.py:775",
+          "pacote/v21_handoff_json.py:106",
+          "tests/test_c10_8b_r_raw_entre_jobs.py:151"
+        ],
+        "PORQUE": "estas pecas importam-na — C-PACOTE-CAMADAS · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 10895,
+      "y": 1004
+    },
+    {
       "id": "C-DIAGNOSTICO",
       "name": "Os codigos de diagnostico — onde o fluxo parou e quem tem de agir",
       "territory": "Z-REGUAS",
@@ -22159,7 +22290,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1004
     },
     {
@@ -22703,7 +22834,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1004
     },
     {
@@ -23957,8 +24088,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
-      "y": 1004
+      "x": 10895,
+      "y": 1326
     },
     {
       "id": "C-GESTAO-DA-COLETA",
@@ -27291,7 +27422,7 @@
         ],
         "PORQUE": "estas pecas importam-na — C-DUAS-PORTAS-MEDIDORES · C-IT-NORMALIZACAO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1326
     },
     {
@@ -28754,7 +28885,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1326
     },
     {
@@ -28834,8 +28965,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
-      "y": 1326
+      "x": 10895,
+      "y": 1648
     },
     {
       "id": "C-NAVEGADOR",
@@ -29115,6 +29246,7 @@
         "C-ASK-SINTONIA",
         "C-CADEIA-V21",
         "C-CORPUS",
+        "C-DETECTOR-CAPA-GABARITO",
         "C-INT-CONVERGENCIA",
         "C-RELEVANCIA",
         "C-TESTES",
@@ -29476,7 +29608,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1648
     },
     {
@@ -34771,7 +34903,7 @@
         ],
         "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1648
     },
     {
@@ -35185,8 +35317,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11725,
-      "y": 1648
+      "x": 10895,
+      "y": 1970
     },
     {
       "id": "C-RECONCILIACAO-UNIVERSO",
@@ -35547,7 +35679,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 10895,
+      "x": 11310,
       "y": 1970
     },
     {
@@ -35711,7 +35843,7 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 11310,
+      "x": 11725,
       "y": 1970
     },
     {
@@ -36527,8 +36659,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 11725,
-      "y": 1970
+      "x": 10895,
+      "y": 2292
     },
     {
       "id": "C-SCRAP-COLHEITA",
@@ -37091,6 +37223,7 @@
         "C-COLETA-PUBLICA",
         "C-CONTRATO-ARTEFATO",
         "C-DERIVACAO-FORWARD",
+        "C-DETECTOR-CAPA-GABARITO",
         "C-MAPA-TESTES",
         "C-PROCEDENCIA",
         "C-ROTA-M2",
@@ -40198,6 +40331,7 @@
         "C-DECISAO-DA-FILA",
         "C-DERIVA-DA-BASE",
         "C-DERIVACAO-FORWARD",
+        "C-DETECTOR-CAPA-GABARITO",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
@@ -42818,7 +42952,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch micro-prep-v1"
+        "branch detector-capa-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -60462,6 +60596,111 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
             "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-PACOTE-CAMADAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Montagem do pacote por camadas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pacote/v21_handoff_json.py",
+          "line": 106,
+          "snippet": "\"handoff/paused-v2/MANIFESTO.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PACOTE-CAMADAS",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-PACOTE-CAMADAS",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 775,
+          "snippet": "with open(caminho_man, encoding='utf-8') as f:",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-SCRAP-SOCIAL",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
+            "TO": "C-SCRAP-SOCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DETECTOR-CAPA-GABARITO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+          "line": 151,
+          "snippet": "man = os.path.join(self.gaveta, RUN, 'MANIFESTO.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+            "FROM": "C-DETECTOR-CAPA-GABARITO",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -102908,7 +103147,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 201,
+      "PECAS_EM_DESACORDO": 202,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -102920,23 +103159,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 226
+      "TOTAL_DE_PECAS": 227
     }
   ],
   "COUNTS": {
-    "components": 226,
+    "components": 227,
     "components_proven": 31,
-    "components_pending": 186,
+    "components_pending": 187,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1156,
-    "edges_proven": 1092,
+    "edges": 1159,
+    "edges_proven": 1095,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2519,
-    "files_covered": 1074,
+    "files_tracked": 2525,
+    "files_covered": 1080,
     "files_code_unclaimed": 1,
-    "roles_proven": 155,
+    "roles_proven": 156,
     "roles_declared_only": 9,
     "roles_unknown": 62,
     "roles_conflict": 30,

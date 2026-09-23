@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "micro-prep-v1",
-    "HEAD": "319df0baa7a7452778e2320ed8a29f521d72bec0",
-    "GENERATED_AT": "2026-09-22T22:14:43-03:00",
-    "SOURCE_TREE_FINGERPRINT": "a1063f21feeb925c08e0d7cc4d6194fa8248efb7fd12335c738e55962f12e0e5"
+    "BRANCH": "detector-capa-v1",
+    "HEAD": "fe2869f6c44d16e80991d346f6ef52f4ba1e5bd5",
+    "GENERATED_AT": "2026-09-22T22:57:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "68b7d0ee4d5bf5a11b9ea33600b11bc016ef9304ec7d547f5f8dbf93d782d451"
   },
   "FILES": [
     {
@@ -303,6 +303,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-DETECTOR-CAPA.md",
+      "sha": "0be554823d2ea155763dcbb5e888f604e060422e",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-DIAGNOSTICO-SALA.md",
       "sha": "3e938a3cfae09213a47209966050a416384d86d1",
       "ext": ".md",
@@ -353,7 +360,7 @@
     },
     {
       "path": "RELATORIO-MICRO-PREP-B.md",
-      "sha": "5937c46b414c8d446748c1b84c48808ce49dd8cc",
+      "sha": "db149be80ee9e2f2a158b077a0aa1d26dab25571",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -15101,6 +15108,41 @@
       "code_dir": true
     },
     {
+      "path": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "sha": "81696bfd368092f943f4050da02e48c669bcec0e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
+      "sha": "d67a3e8c20389e0e6664fd24e09faff757609192",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/detector_capa/colher_gabarito.py",
+      "sha": "23486ca03507a0eb8ecb8b81a8518b96c62c49a8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/detector_capa/medir_gabarito.py",
+      "sha": "fa26be7373bff9ec3f4e4a73c61404ea763c760c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/detector_capa/rotular_gabarito.py",
+      "sha": "ab8f8b67172a6cfc071ea2866e1803032c38ed4a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "scripts/diagnostico_sala/ler_os_76.py",
       "sha": "a2aad3aace669c32401a41304bc032969430fe84",
       "ext": ".py",
@@ -15739,7 +15781,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1aa1d2a5d764ec20c9532ede108474e0654d28cd",
+      "sha": "fb9a88aa63a30da113b2e21d1195a144e9fa2f9a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -52712,6 +52754,83 @@
       }
     },
     {
+      "from_file": "scripts/detector_capa/colher_gabarito.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/colher_gabarito.py",
+        "line": 67,
+        "snippet": "c = json.loads((RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "scripts/detector_capa/colher_gabarito.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/colher_gabarito.py",
+        "line": 131,
+        "snippet": "mf = pasta / \"MANIFESTO.json\""
+      }
+    },
+    {
+      "from_file": "scripts/detector_capa/colher_gabarito.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/colher_gabarito.py",
+        "line": 178,
+        "snippet": "(pasta / \"MANIFESTO.json\").write_text(json.dumps("
+      }
+    },
+    {
+      "from_file": "scripts/detector_capa/medir_gabarito.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/medir_gabarito.py",
+        "line": 120,
+        "snippet": "(RAIZ / \"curadoria\" / \"italy_contracts_curator.json\").read_text(encoding=\"utf-8\"))[\"FONTES\"]}"
+      }
+    },
+    {
+      "from_file": "scripts/detector_capa/medir_gabarito.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/medir_gabarito.py",
+        "line": 30,
+        "snippet": "GABARITO = AQUI / \"GABARITO-CAPA-V1.json\""
+      }
+    },
+    {
+      "from_file": "scripts/detector_capa/rotular_gabarito.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/rotular_gabarito.py",
+        "line": 4,
+        "snippet": "d = json.load(open(p + 'MANIFESTO.json', encoding='utf-8'))"
+      }
+    },
+    {
+      "from_file": "scripts/detector_capa/rotular_gabarito.py",
+      "to_file": "scripts/detector_capa/GABARITO-CAPA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "scripts/detector_capa/rotular_gabarito.py",
+        "line": 72,
+        "snippet": "open('scripts/detector_capa/GABARITO-CAPA-V1.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)"
+      }
+    },
+    {
       "from_file": "scripts/diagnostico_sala/ler_os_76.py",
       "to_file": "admissao/admissao.py",
       "type": "IMPORTS",
@@ -72899,10 +73018,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2519,
-    "files_readable": 1142,
-    "files_code_dir": 955,
-    "file_edges": 4972,
+    "files_tracked": 2525,
+    "files_readable": 1145,
+    "files_code_dir": 960,
+    "file_edges": 4979,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },

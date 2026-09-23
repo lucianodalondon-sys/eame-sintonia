@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T01:17:40+00:00",
-  "HEAD": "319df0baa7a7452778e2320ed8a29f521d72bec0",
-  "BRANCH": "micro-prep-v1",
+  "GENERATED_AT": "2026-09-23T02:01:08+00:00",
+  "HEAD": "fe2869f6c44d16e80991d346f6ef52f4ba1e5bd5",
+  "BRANCH": "detector-capa-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a1063f21feeb925c08e0d7cc4d6194fa8248efb7fd12335c738e55962f12e0e5",
-  "FICHEIROS_NA_IMPRESSAO": 2667,
+  "SOURCE_TREE_FINGERPRINT": "68b7d0ee4d5bf5a11b9ea33600b11bc016ef9304ec7d547f5f8dbf93d782d451",
+  "FICHEIROS_NA_IMPRESSAO": 2673,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -3154,6 +3154,27 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "scripts/detector_capa/colher_gabarito.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "23486ca03507a0eb8ecb8b81a8518b96c62c49a8",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/detector_capa/medir_gabarito.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "fa26be7373bff9ec3f4e4a73c61404ea763c760c",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "scripts/detector_capa/rotular_gabarito.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "ab8f8b67172a6cfc071ea2866e1803032c38ed4a",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "scripts/diagnostico_sala/ler_os_76.py",
     "PAPEL": "FONTE",
     "VERSAO": "a2aad3aace669c32401a41304bc032969430fe84",
@@ -3233,14 +3254,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a1063f21feeb925c08e0d7cc4d6194fa8248efb7fd12335c738e55962f12e0e5",
+    "VERSAO": "68b7d0ee4d5bf5a11b9ea33600b11bc016ef9304ec7d547f5f8dbf93d782d451",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a1063f21feeb925c08e0d7cc4d6194fa8248efb7fd12335c738e55962f12e0e5",
+    "VERSAO": "68b7d0ee4d5bf5a11b9ea33600b11bc016ef9304ec7d547f5f8dbf93d782d451",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4918,8 +4939,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 697,
-  "INPUTS_DIGEST": "f2acdd66de3618d8268bacfa055c5ff1b3019432127623b245be5255aaddda8f",
+  "INPUTS_COUNT": 700,
+  "INPUTS_DIGEST": "d97317ae8c6ab34d85e36afd9a2901e62bd72492b423cf052574d8a2d7953291",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4945,15 +4966,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 455,
+  "DOCUMENTOS_LIDOS": 456,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4597fdf9d538ff5fcf7580a52bf8f46fe3d3a280c460f33c987720328f3da83a",
-  "SEMANTIC_HASH": "4dd7ba1ac52afd13dfc460d9d5176bf1f34d33c1c983617d95309a415a1e3b97"
+  "MEASUREMENT_HASH": "e236b551dbe0d40fd6e23142a827669dbeeb559a7e4830c6ce5bed0a83ce5aee",
+  "SEMANTIC_HASH": "ce068a55821cac6725abfbfbd1191ed85999418525100914769814ed7625a642"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4988,6 +5009,7 @@
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO-SALA",
    "C-DONO-DA-ESCRITA",
    "C-DONO-DO-DERIVADO",
@@ -5049,7 +5071,7 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 84
+  "COUNT": 85
  },
  "BOUNDARY_NEIGHBORS": {
   "UNIVERSE_ID": "TOPOLOGY_BOUNDARY_NEIGHBORS",
@@ -5192,6 +5214,7 @@
    "C-DECISAO-DA-FILA",
    "C-DERIVACAO-FORWARD",
    "C-DERIVED-ARTIFACT",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO",
    "C-DIAGNOSTICO-SALA",
    "C-DONO-DA-ESCRITA",
@@ -5316,16 +5339,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 166
+  "COUNT": 167
  },
  "ARITMETICA": {
-  "COLLECTION": 84,
+  "COLLECTION": 85,
   "BOUNDARY": 82,
-  "SOMA": 166,
-  "EXPANDED": 166,
+  "SOMA": 167,
+  "EXPANDED": 167,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 166,
+  "RESUMO_CARTOES_NO_UNIVERSO": 167,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -14945,6 +14968,72 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PACOTE-CAMADAS",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-PACOTE-CAMADAS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "pacote/v21_handoff_json.py",
+      "LINHA": 106,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-PACOTE-CAMADAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-SCRAP-SOCIAL",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-SCRAP-SOCIAL",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "RULE",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "coleta/social_scrap.py",
+      "LINHA": 775,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-SCRAP-SOCIAL",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
+    "FROM": "C-DETECTOR-CAPA-GABARITO",
+    "TO": "C-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "LINHA": 151,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-DETECTOR-CAPA-GABARITO--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -38605,12 +38694,12 @@
     ]
    }
   ],
-  "COUNT": 1090
+  "COUNT": 1093
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 166,
-  "CARTOES_AUDITADOS": 166,
-  "ARESTAS_RELACIONADAS": 1090,
+  "CARTOES_NO_UNIVERSO": 167,
+  "CARTOES_AUDITADOS": 167,
+  "ARESTAS_RELACIONADAS": 1093,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38757,6 +38846,7 @@
    "C-CORPUS",
    "C-CORRIDA-CANONICA",
    "C-DECISAO-DA-FILA",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-DIAGNOSTICO-SALA",
    "C-DONO-DO-DOCUMENTO",
    "C-DUAS-PORTAS-MEDIDORES",
@@ -38819,6 +38909,7 @@
    "C-CICATRIZES-BR",
    "C-CONTRATO-CAMPOS",
    "C-DECISAO-DA-FILA",
+   "C-DETECTOR-CAPA-GABARITO",
    "C-ESTRADAS-IT",
    "C-IT-CONTRATOS",
    "C-LASTMILE",
@@ -38882,6 +38973,9 @@
    ],
    "C-DATA-CLOCK": [
     "science"
+   ],
+   "C-DETECTOR-CAPA-GABARITO": [
+    "diagnostic"
    ],
    "C-DIAGNOSTICO": [
     "evolution"
@@ -38997,9 +39091,9 @@
    "CODE": 185,
    "CONTROL": 72,
    "DATA": 31,
-   "PROOF": 362,
+   "PROOF": 363,
    "READ": 248,
-   "RULE": 184,
+   "RULE": 186,
    "WRITE": 8
   },
   "GAPS_NOMEADOS": [
@@ -40983,6 +41077,49 @@
    "CATEGORIAS_QUE_SAEM": [],
    "PORQUE_SOZINHO": "ARMAZEM",
    "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-DETECTOR-CAPA-GABARITO",
+   "NOME": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
+   "FAMILIA": "F-COLETA",
+   "TERRITORIO": "Z-MEDIDAS",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "scripts/detector_capa/GABARITO-CAPA-V1.json",
+    "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json",
+    "scripts/detector_capa/colher_gabarito.py",
+    "scripts/detector_capa/medir_gabarito.py",
+    "scripts/detector_capa/rotular_gabarito.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [],
+   "DOCUMENTADO_COMO_CLI": [
+    "RELATORIO-DETECTOR-CAPA.md"
+   ],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "collections",
+    "datetime",
+    "pathlib",
+    "urllib"
+   ],
+   "ENTRAM": 0,
+   "SAEM": 3,
+   "CATEGORIAS_QUE_ENTRAM": [],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
+    "RULE"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [
+    "diagnostic"
+   ],
    "GAP": null
   },
   {
@@ -43319,7 +43456,7 @@
     "pacote_mercado",
     "pacote_normalizar"
    ],
-   "ENTRAM": 10,
+   "ENTRAM": 11,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -46248,7 +46385,7 @@
     "novo",
     "the"
    ],
-   "ENTRAM": 24,
+   "ENTRAM": 25,
    "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
@@ -47029,7 +47166,7 @@
     "v_coleta_por_hora",
     "v_saude_da_rota"
    ],
-   "ENTRAM": 188,
+   "ENTRAM": 189,
    "SAEM": 21,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

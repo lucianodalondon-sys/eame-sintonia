@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  319df0baa7a7452778e2320ed8a29f521d72bec0
-BRANCH           micro-prep-v1
-GERADO_EM        2026-09-22T22:14:43-03:00
-CARDS            83
+HEAD_DA_MEDICAO  fe2869f6c44d16e80991d346f6ef52f4ba1e5bd5
+BRANCH           detector-capa-v1
+GERADO_EM        2026-09-22T22:57:16-03:00
+CARDS            84
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -463,13 +463,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 24 · saem 21 |
-| **arestas provadas** | entram 21 · saem 21 |
+| **arestas no mapa** | entram 25 · saem 21 |
+| **arestas provadas** | entram 22 · saem 21 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 39 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 40 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -1391,6 +1391,31 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
+### `C-DETECTOR-CAPA-GABARITO` · Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao
+
+| | |
+|---|---|
+| **peça real** | `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/MANIFESTO-RECOLHA-V1.json`, `scripts/detector_capa/colher_gabarito.py`, `scripts/detector_capa/medir_gabarito.py`, `scripts/detector_capa/rotular_gabarito.py` |
+| **papel** | OPERATIONAL_STEP · medido no plano CODE |
+| **dono** | ENGENHARIA · INTELIGENCIA |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | coleta/social_scrap.py:775; pacote/v21_handoff_json.py:106; tests/test_c10_8b_r_raw_entre_jobs.py:151 |
+| **porquê** | estas pecas importam-na — C-PACOTE-CAMADAS · C-SCRAP-SOCIAL — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | `curadoria/italy_contracts_curator.json`, `handoff/paused-v2/MANIFESTO.json`, `scripts/detector_capa/GABARITO-CAPA-V1.json` |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | `handoff/paused-v2/MANIFESTO.json` |
+| **arestas no mapa** | entram 0 · saem 3 |
+| **arestas provadas** | entram 0 · saem 3 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 3 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
+| **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
+
 ### `C-DIAGNOSTICO-SALA` · Diagnostico da Sala — porque os itens nao entraram
 
 | | |
@@ -2132,11 +2157,11 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 ```
 OK                 37
-UNKNOWN            21
+UNKNOWN            22
 SYSTEM_GAP         11
 EXTERNAL_ENTRY     6
 TERMINAL           5
 ALVO_SEM_ESCRITOR_MEDIDO 2
 ORPHAN             1
-TOTAL              83
+TOTAL              84
 ```
