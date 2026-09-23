@@ -111,3 +111,57 @@ passa · lados trocados); 3 do 5c/7b (5c sem conferir aquisição · 7b sobre to
 escreve mesmo com PARAR · escreve sem `--escrever`). Na primeira versão do 5b (a que
 juntava, depois rejeitada), o mutante «escreve mesmo com PARAR» **sobreviveu**; ganhou um
 teste e morreu. Esse teste passou para a versão final.
+
+---
+
+# X2 · PRÉ-VOO NO VIVO, ENSAIO FINAL E O OBSERVADOR (23/09/2026)
+
+## Pré-voo (07:41, só leitura)
+
+O passo 0 e as fotografias do passo 2 foram corridos contra o serviço vivo, gravando só
+cópias fora dele. Supervisor **98512** (lançador 80772), observador **14960** (lançador
+98996), HEAD vivo `075501a0`, 11 ficheiros sujos. `pre` rc 0; serviço RUNNING, fila
+elegível 0. As 3 fotografias congelaram à primeira (33, 34 e 34 s), e os 12 livros tinham o
+mesmo sha256 do corte das 06:30. **Nenhum ABORTAR-0 nem ABORTAR-2 dispararia.**
+
+## Ensaio final sobre `516132fe`
+
+O runbook foi corrido à letra numa cópia, sobre `516132fe` (4.ª passagem FINAL, publicada)
+junto com `cutover-ensaio-v1`, e com os livros do pré-voo.
+
+| medida | resultado |
+|---|---|
+| reconciliar | 1882 → 2687; a 2.ª corrida acrescenta 0 |
+| 5b / G1 / 5c | 430 + 302 levados; 77 → 0; 6 marcas |
+| portão | 19 → **29**; 46/46 retiradas recusadas |
+| 1 worker | `pos` rc 0: 1 lançamento, 0 sobrepostos, RUNNING, NAO SEI vazio |
+| D10 | **7** na fila pelo 7b; processadas → RETRY «robots não pode ser lido» (sem rede) |
+| observador | da pasta própria com `--lane`: atravessou 2687 → 2694, portão 29 → 29, SAUDAVEL |
+| tempo parado | **353 s de comandos, 429 s no relógio**; o mapa (468 s) vai depois |
+
+**REVALIDAR — as duas medidas estão certas.** A M5D mediu 6 CONTRATO_NOVO no livro do bot
+antes da reconciliação, onde as 7 estão READY. No livro que o bot corre depois da troca
+elas estão CANARY_PENDING, e o REVALIDAR dá 0. O passo 7b continua necessário.
+
+## O observador (defeito 6)
+
+**Correr o observador dentro da pasta do serviço, como o briefing propunha, não é seguro.**
+O livro canónico da ponte vive onde o código corre (`LC.LIVRO`, `R.EVIDENCIA_A`,
+`R.CONTRATOS_A`). Na pasta do bot, o livro da ponte e o do bot seriam o mesmo ficheiro, com
+dois processos a escrever nele.
+
+A solução:
+- uma pasta própria (`$CASA`), criada no FINAL_HEAD, onde a troca acontece e de onde o
+  observador corre depois;
+- `--lane` na linha de comando, a apontar para o serviço;
+- uma trava que recusa (rc 2, `LANE_E_A_CASA_DA_PONTE`, sem escrever nada) quando algum dos
+  três livros seria o mesmo ficheiro.
+
+Provas:
+- 4 testes; 4 mutantes executados e 4 mortos. Um sobreviveu primeiro, e o teste foi
+  reforçado.
+- `test_ponte_automatica` 16/16 na linha.
+- No ensaio: recusa real com os 3 ficheiros, e o livro ficou byte a byte igual.
+
+Sem a junção da X1 na linha, o `LANE_DO_BOT` fixo já aponta para o serviço. Correr da
+`$CASA` sem `--lane` funciona, só falta a trava.

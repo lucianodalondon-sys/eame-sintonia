@@ -20984,3 +20984,35 @@ por uma linha mais velha. Quando dois lados escrevem no mesmo livro, copia-se o 
 - O amostrador de processos devolveu 0 com o worker vivo. A prova de «um só worker» é o
   diário (`WORKER_RELANCADO` / `WORKER_OCIOSO_SAIU`), não a lista de processos.
 - B2 conta identidades, não conteúdo: 906 = 906 com 75 linhas mudadas por dentro.
+
+---
+
+# §196 · A CASA DA PONTE NÃO PODE SER A PASTA DO BOT — E UM «ESPERADO» TEM DE DIZER EM QUE LIVRO
+
+**O PEDIDO.** Correr o observador da ponte a partir da pasta do serviço, e não da bancada
+onde a M5 trabalha (X2, 23/09).
+
+**O QUE O CÓDIGO DIZ.** O livro canónico da ponte é `RAIZ/curadoria/LIFECYCLE-LEDGER-V1.json`,
+e as provas e os contratos também: `RAIZ` é a pasta de onde o código corre. O bot escreve os
+mesmos nomes na pasta dele. Correr a ponte dentro do bot fazia do livro do bot o livro
+canónico. A reconciliação lê-o como C e grava-o como A, com o bot a escrever no mesmo ficheiro.
+
+**A REGRA.** Um observador que grava tem de ter casa própria. Nem a bancada de quem
+desenvolve (fica suja a cada volta), nem a pasta de quem é observado (dois escritores).
+`ponte_automatica --lane` diz quem se observa. `lane_separada()` recusa quando os ficheiros
+coincidem, antes de escrever uma linha. A troca acontece na mesma pasta de onde a ponte
+passa a correr (`$CASA`, no FINAL_HEAD).
+
+**O «6» E O «0» ESTAVAM OS DOIS CERTOS.** A M5 mediu «REVALIDAR: 6 CONTRATO_NOVO» e a X1
+mediu 0. As 7 fontes da D10 estão READY no livro do bot antes da reconciliação e
+CANARY_PENDING no livro que o bot corre depois dela. Um número esperado sem o nome do livro
+onde foi medido não serve para decidir.
+
+**ARMADILHAS.**
+- Um mutante sobreviveu porque o teste só olhava «ATRAVESSOU». Ignorar `--lane` lia o
+  serviço verdadeiro, que também atravessa. O teste tem de conferir **qual** livro foi
+  lido (o sha256).
+- Ensaiar o observador antigo numa cópia lê o serviço verdadeiro: o `LANE_DO_BOT` fixo
+  aponta para lá. Usar um invólucro com `lane=` ou o `--lane`.
+- O tempo parado no relógio (429 s) não é a soma dos comandos (353 s). O coordenador também
+  pausa entre passos; os dois números vão no runbook.

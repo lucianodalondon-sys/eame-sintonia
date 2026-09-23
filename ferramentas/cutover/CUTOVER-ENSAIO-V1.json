@@ -948,5 +948,79 @@
    "TRANSICOES": null
   },
   "NOTA": "corte usado nos ensaios 2, 3 e 4 (servico vivo @075501a0 e ponte @20c06500, 23/09 ~09:30Z); duas leituras a 30 s com bytes iguais em todos os ficheiros; B1 do medidor reconfere o sha256 antes de cada uso"
+ },
+ "PRE_VOO_X2": {
+  "QUANDO": "2026-09-23 07:41 -03 (so leitura)",
+  "HEAD_VIVO": "075501a0 (source-curator-service-v1), 11 sujos",
+  "PIDS": {
+   "supervisor": 98512,
+   "supervisor_lancador": 80772,
+   "observador": 14960,
+   "observador_lancador": 98996
+  },
+  "PONTE": "20c06500 (unificacao-plano-v1), 2 sujos",
+  "PRE": "rc 0 · A1 OK · A2 LEVAR_NO_5B 430/302 · A3 OK (telemetria.py so fim de linha)",
+  "SERVICO": "RUNNING, worker IDLE, fila elegivel 0, PID_CHECK_NAO_SEI []",
+  "FOTOGRAFIAS": "3/3 congelaram a primeira (33, 34, 34 s), em copias fora do servico; os 12 livros com o MESMO sha256 do corte das 06:30 do X1",
+  "ABORTAR_0_OU_2": "nenhum dispararia"
+ },
+ "ENSAIO_FINAL_X2": {
+  "BASE": "516132fe = origin/unificacao-v1 publicado (4.a passagem FINAL: R1+R2+Q1+D15) + cutover-ensaio-v1 2c08451d (ferramentas + --lane) -> 29667b88 no clone C:/x2 (apagado). Em codigo que corre, difere da linha so no ponte_automatica (--lane e trava).",
+  "COMO": "o CUTOVER-RUNBOOK.md a letra (versao X2: CASA propria), com VIVA/PONTE/CASA no clone; livros do vivo = fotografias do pre-voo (sha iguais ao vivo); supervisor e observador de mentira reais; rede cortada",
+  "TEMPOS_S": {
+   "passo0": 10,
+   "passo1_parar": 16,
+   "passo2_fotografias": 96,
+   "passo3_ramo_do_corte": 12,
+   "passo4_reconciliar_x2": 145,
+   "passo5": 39,
+   "passo6": 16,
+   "passo7_trocar": 6,
+   "passo7b": 18,
+   "passo8_relancar": 5,
+   "TEMPO_PARADO_RELOGIO": 429,
+   "TEMPO_PARADO_SO_COMANDOS": 353,
+   "passo10_mapa_com_o_bot_a_correr": 468
+  },
+  "RECONCILIAR": "1882 -> 2687 (805 apendidas, 643 provas); 2.a corrida 0",
+  "UNIR": "42 conflitos resolvidos pela regra dele",
+  "5B": "430 candidatas + 302 SOURCE_ID levados; D13 6, D15 69, PAIS aplicados",
+  "G1": "77 -> 0",
+  "5C": "6 marcas",
+  "D13_2A": 0,
+  "MEDIR_LIVROS_PASSO6": {
+   "RC": 2,
+   "VEREDITOS": {
+    "B1_CORTE_INTEGRO": "OK",
+    "B3_MARCA_D10_NO_LIVRO_DO_BOT": "OK",
+    "B4_D10_SEM_TAREFA": "PARAR",
+    "B2_FONTES-CANDIDATAS.json": "OK",
+    "B2_SOURCE-ID-ALLOCATION-V1.json": "OK",
+    "B5_PORTAO": "OK"
+   },
+   "PORTAO_ELEGIVEIS": 29,
+   "RETIRADAS_RECUSADAS": "46/46"
+  },
+  "PORTAO": "19 -> 29 (observador antigo via 8 no livro da ponte de 20c06500; depois da troca 29, e 29 -> 29 na 1.a travessia do observador novo)",
+  "7B": "7 VALIDATE_ROUTE (T02529..T02535), 2.a corrida 0, medir livros na viva rc 0",
+  "POS": {
+   "C1_UM_WORKER": {
+    "LANCAMENTOS": 1,
+    "RC": [],
+    "VEREDITO": "OK",
+    "PORQUE": "0 lancamentos sobrepostos; rc []"
+   },
+   "C2_ESTADO": {
+    "SOURCE_CURATOR_SERVICE": "RUNNING",
+    "WORKER_STATE": "WORKING",
+    "HEARTBEAT_AGE_S": 6.9,
+    "PID_CHECK_NAO_SEI": [],
+    "VEREDITO": "OK",
+    "PORQUE": "servico RUNNING, NAO SEI []"
+   }
+  },
+  "D10_DEPOIS": "as 7 processadas pelo worker -> WAITING_RETRY 'robots nao pode ser lido — UNKNOWN' (rede cortada)",
+  "OBSERVADOR": "da CASA com --lane VIVA: ARRANQUE regista LANE e CASA; 1.a volta ATRAVESSOU 2687 -> 2694 (7 transicoes do bot), 17 provas, portao 29 -> 29, SAUDAVEL; com --lane CASA: RECUSADO rc 2 LANE_E_A_CASA_DA_PONTE (3 ficheiros), livro byte a byte igual",
+  "REVALIDAR": "a M5 mediu 6 CONTRATO_NOVO no livro do bot DEPOIS do G1 e ANTES da reconciliacao (la as 7 estao READY_FOR_COLLECTION); no livro que o bot corre depois da troca (c242014d) as 7 estao CANARY_PENDING e o REVALIDAR (so olha READY) da 0. As duas medidas estao certas, cada uma no seu livro; o 7b continua necessario."
  }
 }
