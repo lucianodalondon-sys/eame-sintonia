@@ -65,8 +65,8 @@ P4_WORKTREE = Path(r"C:\Users\London1\orca\workspaces\eame-sintonia\pessoas-agro
 P4_ACHADOS = Path(r"C:\Users\London1\auditoria-madrugada")
 PAUSA_S = 2.0
 TIMEOUT_S = 20
-VIGIA_A_CADA = 40
-MAX_PESSOAS = 80
+VIGIA_A_CADA = 20   # a P4 viu a VPN cair e o vigia de 100 pedidos so parou 6 min depois
+MAX_PESSOAS = 200   # IBBR tem ~160 pessoas; 80 deixou 11 do ISAFOM por ler (1.a volta)
 MAX_LISTAGENS = 3
 
 
@@ -106,7 +106,8 @@ RE_LISTAGEM = re.compile(r"(docent|personale|persone|people|staff|rubrica|organi
                          r"componenti|afferenti|il-dipartimento/person|chi-siamo/person)", re.I)
 RE_PERFIL_HREF = re.compile(r"(/persone?/|/people/|/person/|/docenti?/|/personale/|/staff/|/p-doc|Show\?_id|"
                             r"/ugov/person|/rubrica/|/utenti/|/scheda|/members?/|/team/|/ricercator|"
-                            r"cnr\.it/people|/it/people/|/en/people/|sitoweb/)", re.I)
+                            r"cnr\.it/people|/it/people/|/en/people/|sitoweb/|/info/people/[\w-]+$|cercapersone_detail|"
+                            r"/cris/rp/)", re.I)
 RE_NOME = re.compile(r"^(?:(?:Prof|Dott|Dr|Ing)\.?(?:ssa)?\.?\s+)?"
                      r"[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\-]+(?:\s+[A-ZÀ-Ý][A-Za-zÀ-ÿ'’\-]+){1,3}$")
 NAV = re.compile(r"\b(home|dipartimento|contatti|ricerca|didattica|news|eventi|servizi|bandi|"
@@ -270,7 +271,7 @@ def _grava(d):
     SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1, sort_keys=False) + "\n", encoding="utf-8")
 
 
-def descobrir(max_pessoas=MAX_PESSOAS):
+def descobrir(max_pessoas=MAX_PESSOAS, refazer=False):
     sem = json.loads(SEMENTES.read_text(encoding="utf-8"))["SEMENTES"]
     d = json.loads(SAIDA.read_text(encoding="utf-8")) if SAIDA.exists() else {
         "_LEIA": "P5 · casa -> listagem de pessoal -> pagina de cada pessoa -> links sociais. "
@@ -282,10 +283,19 @@ def descobrir(max_pessoas=MAX_PESSOAS):
     ultimo = PEDIDOS[0]
     for s in sem:
         host = urllib.parse.urlparse(s["URL"]).hostname
-        if host in d["SEMENTES"] and d["SEMENTES"][host].get("FIM"):
-            continue                                    # ja feita (retoma depois de queda)
+        velho = d["SEMENTES"].get(host) or {}
+        lidas_antes = {p["URL"]: p for p in velho.get("PESSOAS", []) if p.get("STATUS") == 200}
+        if velho.get("FIM"):
+            # --refazer: so o que nao abriu, nao achou pessoas, ou deixou pessoas por ler.
+            por_ler = velho.get("PESSOAS_LISTADAS", 0) > velho.get("PESSOAS_LIDAS", 0)
+            if not (refazer and (velho.get("RESULTADO") in ("CASA_NAO_ABRE", "SEM_PESSOAS")
+                                 or por_ler or velho.get("FAMILIA") == "CNR")):
+                continue                                # ja feita (retoma depois de queda)
         r = {"URL": s["URL"], "DONO": s["DONO"], "FAMILIA": s["FAMILIA"], "INICIO": agora(),
              "LISTAGENS": [], "PESSOAS": []}
+        if velho.get("FIM"):
+            r["VOLTA_ANTERIOR"] = {k: velho.get(k) for k in ("INICIO", "FIM", "RESULTADO", "PESSOAS_LISTADAS",
+                                                             "PESSOAS_LIDAS", "COM_SOCIAL", "CASA")}
         d["SEMENTES"][host] = r
         casa = pagina(s["URL"])
         r["CASA"] = {k: casa.get(k) for k in ("STATUS", "URL_FINAL", "SHA256", "ROBOTS")}
@@ -330,8 +340,13 @@ def descobrir(max_pessoas=MAX_PESSOAS):
                 if dominio(h) != dom or pu in nav or pu == u or re.search(r"\.(pdf|docx?|jpe?g|png)$", pu, re.I):
                     continue
                 nome_ok = bool(RE_NOME.match(pa)) and not NAV.search(pa) and len(pa) <= 60
-                if nome_ok or (RE_PERFIL_HREF.search(pu) and pa and not NAV.search(pa) and len(pa) <= 60):
-                    pessoas.setdefault(pu, pa)
+                # 2.a volta: IBBA liga a pessoa por imagem (ancora vazia) e IBBR poe a ficha inteira na
+                # ancora (>60 letras). O caminho da pessoa chega; o nome le-se depois no H1 da pagina.
+                if nome_ok or (RE_PERFIL_HREF.search(pu) and not NAV.search(pa[:60])):
+                    if pa and not nome_ok:
+                        pa = " ".join(pa.split()[:3])
+                    if pu not in pessoas or (pa and not pessoas[pu]):
+                        pessoas[pu] = pa
         r["PESSOAS_LISTADAS"] = len(pessoas)
         # 2) a pagina de cada pessoa
         for pu, pa in list(pessoas.items())[:max_pessoas]:
@@ -340,6 +355,10 @@ def descobrir(max_pessoas=MAX_PESSOAS):
                 if not portao_ou_espera("vigia %s" % host, d["PORTOES"]):
                     _grava(d)
                     return 2
+            if pu in lidas_antes:                       # lida na volta anterior: nao se pede outra vez
+                r["PESSOAS"].append(dict(lidas_antes[pu], SOCIAIS=lidas_antes[pu].get("SOCIAIS_BRUTOS",
+                                                                                      lidas_antes[pu].get("SOCIAIS", []))))
+                continue
             pp = pagina(pu)
             reg = {"URL": pu, "ANCORA": pa, "STATUS": pp.get("STATUS"), "SHA256": pp.get("SHA256"),
                    "TITULO": pp.get("TITULO"), "H1": pp.get("H1"), "QUANDO": agora()}
@@ -347,6 +366,7 @@ def descobrir(max_pessoas=MAX_PESSOAS):
                 reg["SOCIAIS"] = [{"URL": c, "PLATAFORMA": p, "ANCORA": a}
                                   for c, (p, a) in links_sociais(pp["TEXTO"], pp["URL_FINAL"]).items()
                                   if c not in institucional]
+                reg["SOCIAIS_BRUTOS"] = list(reg["SOCIAIS"])
             r["PESSOAS"].append(reg)
         # 3) o rodape: o que se repete em >= 3 pessoas e da casa
         rep = Counter(x["URL"] for p in r["PESSOAS"] for x in p.get("SOCIAIS", []))
@@ -439,7 +459,7 @@ def main():
     a = sys.argv[1:]
     mx = next((int(x.split("=")[1]) for x in a if x.startswith("--max-pessoas=")), MAX_PESSOAS)
     if "--descobrir" in a:
-        return descobrir(mx)
+        return descobrir(mx, refazer="--refazer" in a)
     if "--registar" in a:
         return registar()
     if "--resumo" in a:

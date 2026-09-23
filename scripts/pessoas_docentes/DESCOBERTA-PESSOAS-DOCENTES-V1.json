@@ -1,0 +1,2240 @@
+{
+ "_LEIA": "P5 · casa -> listagem de pessoal -> pagina de cada pessoa -> links sociais. Rota descoberta-indireta:site-da-organizacao. Evidencia (html) em %TEMP%/p5-evidencia/<sha16>.html.",
+ "PORTOES": [
+  {
+   "ONDE": "antes",
+   "GATE": "BLOCKED",
+   "PAIS": "UNKNOWN",
+   "QUANDO": "2026-09-23T21:21:19+00:00"
+  },
+  {
+   "ONDE": "antes (repeticao 1)",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:22:28+00:00"
+  },
+  {
+   "ONDE": "vigia www.agraria.unirc.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:26:42+00:00"
+  },
+  {
+   "ONDE": "vigia www.tesaf.unipd.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:31:08+00:00"
+  },
+  {
+   "ONDE": "vigia www.tesaf.unipd.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:32:29+00:00"
+  },
+  {
+   "ONDE": "vigia www.bca.unipd.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:33:59+00:00"
+  },
+  {
+   "ONDE": "vigia www.maps.unipd.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:35:36+00:00"
+  },
+  {
+   "ONDE": "vigia www.d3a.univpm.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:37:34+00:00"
+  },
+  {
+   "ONDE": "vigia www.isafom.cnr.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:38:52+00:00"
+  },
+  {
+   "ONDE": "vigia www.isafom.cnr.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:40:14+00:00"
+  },
+  {
+   "ONDE": "vigia www.isafom.cnr.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:41:36+00:00"
+  },
+  {
+   "ONDE": "vigia www.isafom.cnr.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:43:05+00:00"
+  },
+  {
+   "ONDE": "vigia www.ibba.cnr.it",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:46:05+00:00"
+  },
+  {
+   "ONDE": "depois",
+   "GATE": "PASS",
+   "PAIS": "IT",
+   "QUANDO": "2026-09-23T21:46:26+00:00"
+  }
+ ],
+ "SEMENTES": {
+  "www.agraria.unimi.it": {
+   "URL": "https://www.agraria.unimi.it/",
+   "DONO": "Universita di Milano — DISAA (Agraria)",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:22:28+00:00",
+   "LISTAGENS": [],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 0,
+    "URL_FINAL": "https://www.agraria.unimi.it/",
+    "SHA256": "df9b55352d87755b9fa482db021cccbda743e32130368bdeb7b828d23f58b4b2",
+    "ROBOTS": "SEM_ROBOTS (404, urllib)"
+   },
+   "RESULTADO": "CASA_NAO_ABRE",
+   "FIM": "2026-09-23T21:23:09+00:00"
+  },
+  "www.divas.unimi.it": {
+   "URL": "https://www.divas.unimi.it/",
+   "DONO": "Universita di Milano — DIVAS (Veterinaria)",
+   "FAMILIA": "VETERINARIA",
+   "INICIO": "2026-09-23T21:23:09+00:00",
+   "LISTAGENS": [],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": "ROBOTS_NEGA",
+    "URL_FINAL": null,
+    "SHA256": null,
+    "ROBOTS": "ROBOTS_ILEGIVEL (HTTP 0, curl)"
+   },
+   "RESULTADO": "CASA_NAO_ABRE",
+   "FIM": "2026-09-23T21:24:06+00:00"
+  },
+  "smv.unipr.it": {
+   "URL": "https://smv.unipr.it/",
+   "DONO": "Universita di Parma — Scienze Medico-Veterinarie",
+   "FAMILIA": "VETERINARIA",
+   "INICIO": "2026-09-23T21:24:06+00:00",
+   "LISTAGENS": [],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": "ROBOTS_NEGA",
+    "URL_FINAL": null,
+    "SHA256": null,
+    "ROBOTS": "ROBOTS_ILEGIVEL (HTTP 0, curl)"
+   },
+   "RESULTADO": "CASA_NAO_ABRE",
+   "FIM": "2026-09-23T21:24:34+00:00"
+  },
+  "www.agraria.unirc.it": {
+   "URL": "https://www.agraria.unirc.it/",
+   "DONO": "Universita Mediterranea di Reggio Calabria — Agraria",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:24:34+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.unirc.it/internazionale/staff-contatti",
+     "ANCORA": "Staff - Contatti",
+     "STATUS": 200,
+     "SHA256": "ba889778fef5fbf93a0d0120cb09a764f69ebcdfe3df11d18afa146ecbd29164",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.unirc.it/rubrica",
+     "ANCORA": "RUBRICA",
+     "STATUS": 200,
+     "SHA256": "cae51d68fcadc8e2a31acd7e3e12014d95896cbc313f5287ec8ea7e8a6c4b83b",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://www.unirc.it/node/743",
+     "ANCORA": "Prof. Paolo Fuschi",
+     "STATUS": 0,
+     "SHA256": "df9b55352d87755b9fa482db021cccbda743e32130368bdeb7b828d23f58b4b2",
+     "TITULO": "",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:05+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/area-relazioni-internazionali-e-servizi-linguistici",
+     "ANCORA": "Dott.ssa Daniela Dattola",
+     "STATUS": 200,
+     "SHA256": "0627ef1d590bf10e385c4659944d4cf6893eac0c6ba42474c23d3f836035d66a",
+     "TITULO": "Area Relazioni internazionali e servizi linguistici | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:10+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/node/808",
+     "ANCORA": "Dott.ssa Monica Assunta Montenero",
+     "STATUS": 200,
+     "SHA256": "df2cdd2e1cdd1dfa087c24cfb442ba8420fd8a1348ff50575fdfb97974a3056c",
+     "TITULO": "Monica Assunta Montenero | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:17+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/dipartimento-di-agraria",
+     "ANCORA": "Dott.ssa Angela Antonia Pirrello",
+     "STATUS": 200,
+     "SHA256": "9c7f1c21b5346d30bf9207852aa6ebb0f371bc8e1ae9765d9cbd04aae1608208",
+     "TITULO": "Dipartimento di Agraria | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:23+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/dipartimento-di-architettura-e-design",
+     "ANCORA": "Dott.ssa Maria Teresa Ienna",
+     "STATUS": 200,
+     "SHA256": "5c9f23ccef4aade93d4d14677d5daa228a0ef77ea73244f229bae6519289d6a6",
+     "TITULO": "Dipartimento di Architettura e Design | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:30+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/dipartimento-di-giurisprudenza-economia-e-scienze-umane",
+     "ANCORA": "Dott.ssa Giovanna D’Angelo",
+     "STATUS": 200,
+     "SHA256": "7831730646e1dfe6cc1306e43e7b823f7182f9129dca89a362f6bfece117cfd2",
+     "TITULO": "Dipartimento di Giurisprudenza, Economia e Scienze Umane | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:34+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/dipartimento-di-ingegneria-civile-dellenergia-dellambiente-e-dei-materiali",
+     "ANCORA": "Dott.ssa Anna Romeo",
+     "STATUS": 200,
+     "SHA256": "73f9b5c8687601486eefa9678e50af5beb0fd395283e942b0c120365c00056b5",
+     "TITULO": "Dipartimento di Ingegneria Civile, dell'Energia, dell'Ambiente e dei Materiali | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:41+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/dipartimento-di-ingegneria-dellinformazione-delle-infrastrutture-e-dellenergia-sostenibile",
+     "ANCORA": "Dott.ssa Antonella Molinaro",
+     "STATUS": 200,
+     "SHA256": "9b14ebdb1389a0155ca39516cd8b312c435623fb453cd95a886ee258a21535d9",
+     "TITULO": "Dipartimento di Ingegneria dell'Informazione, delle Infrastrutture e dell'Energia Sostenibile | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:48+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unirc.it/ateneo/amministrazione/organigramma/settore-contabilita",
+     "ANCORA": "Settore Contabilità",
+     "STATUS": 200,
+     "SHA256": "5fdd064ead2fc7e1e9e14518cc6dda963e6047abeeddc9c6c051974c372b7a1e",
+     "TITULO": "Settore Contabilità | Università degli Studi Mediterranea - Reggio Calabria",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:26:52+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.unirc.it/ateneo/dipartimenti/dipartimento-di-agraria",
+    "SHA256": "9e801a84723929d1d5efae578671e8f39479f57c4247679097620089a028270b",
+    "ROBOTS": "SEM_ROBOTS (200, urllib)"
+   },
+   "PESSOAS_LISTADAS": 9,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/unircmedi"
+   ],
+   "PESSOAS_LIDAS": 8,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:26:52+00:00"
+  },
+  "www.dafnae.unipd.it": {
+   "URL": "https://www.dafnae.unipd.it/",
+   "DONO": "Universita di Padova — DAFNAE",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:26:52+00:00",
+   "LISTAGENS": [],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 0,
+    "URL_FINAL": "https://www.dafnae.unipd.it/",
+    "SHA256": "d5527e83968a3ba48985f5e2652b9666f93da1e085cc48f43ef92c2a1bb0ce66",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "RESULTADO": "CASA_NAO_ABRE",
+   "FIM": "2026-09-23T21:28:05+00:00"
+  },
+  "www.tesaf.unipd.it": {
+   "URL": "https://www.tesaf.unipd.it/",
+   "DONO": "Universita di Padova — TESAF",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:28:05+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.tesaf.unipd.it/bandi-di-reclutamento-docenti-e-di-ricerca",
+     "ANCORA": "Avvisi",
+     "STATUS": 200,
+     "SHA256": "545b8e838392bff620db44cedec804509dbb98c90a938becbbb5cedeeb2f06d4",
+     "ROBOTS": "LIDO (curl)"
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente",
+     "ANCORA": "Persone",
+     "STATUS": 200,
+     "SHA256": "1a424a60699d76e2e196efa1f17334f98678c9f6f14f70348abb889b0455af63",
+     "ROBOTS": "LIDO (curl)"
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/procedure-selettive-lassunzione-di-n-10-ricercatori-tempo-determinato-tenure-track-rtt",
+     "ANCORA": "Bandi di reclutamento docenti",
+     "STATUS": 200,
+     "SHA256": "dac111b69fb28f06045f0810aa80d74903b94db4216b2cf77b58a2fb4e472cbc",
+     "ROBOTS": "LIDO (curl)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://www.tesaf.unipd.it/bandi-0",
+     "ANCORA": "Programma Agripoldays",
+     "STATUS": 200,
+     "SHA256": "080120a9170ebb4980c56ab8fbbf29fcca158a36cc9d0f1dfa06fd2a7668b38b",
+     "TITULO": "Bandi | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:28:54+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/programma-agripoldays",
+     "ANCORA": "Programma Agripoldays",
+     "STATUS": 200,
+     "SHA256": "119438495430e6948f503c5c22fe55fbdbd98401d7c7c681bca366c966286e7e",
+     "TITULO": "",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:29:00+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=AE3FB1333126DE270F6295DDFF9A51D8",
+     "ANCORA": "DANIELE ASIOLI",
+     "STATUS": 0,
+     "SHA256": "d5527e83968a3ba48985f5e2652b9666f93da1e085cc48f43ef92c2a1bb0ce66",
+     "TITULO": "",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:29:47+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=6AB958BD7F9558581CC34FBFC59A24D3",
+     "ANCORA": "LUCA CARTURAN",
+     "STATUS": 200,
+     "SHA256": "b6558e7a96b3c96add1172cd5ef7f70391b61ed4a1811da17369c19fbc6565e5",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:30:18+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=18E7C8F5E9376F203E803AFD80B893A6",
+     "ANCORA": "LORENZO GUERRINI",
+     "STATUS": 200,
+     "SHA256": "71cef10d7705282faa854f4a03894e4994a7d540275da4c4d87383c191cdc4e7",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:01+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=0AFF9DEE7EC06E3D1EAD47C596199BDE",
+     "ANCORA": "GEORGIA PAPACHARALAMPOUS",
+     "STATUS": 200,
+     "SHA256": "cb6de8de3bc3f0a2ed3b6265d6d66879fec4423cb172f76404aa9bb4ee81e9b7",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:07+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=9F10CEC4F99CC421F74E309F7313F8BE",
+     "ANCORA": "OLGA PARSHINA",
+     "STATUS": 200,
+     "SHA256": "7903d44801ea11c9dc9a562ebcb064c04120b6eafce9a137fc95868e1c931716",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:13+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=96B95C8EDE29A02FFC134CAC08CF24F6",
+     "ANCORA": "ALESSANDRA SANTINI",
+     "STATUS": 200,
+     "SHA256": "4cfaa7bff9cb41bb9891a5ea296eb1d6a7123e9d43f6dee9263b31fb78ac454a",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:19+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=274A63DD0B7AC790090C5636395BA926",
+     "ANCORA": "LEONARDO CEI",
+     "STATUS": 200,
+     "SHA256": "b4394f1c0caa93d38ba8b95c2e31bb08c5490002dd7180ca452460370f866bcd",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:25+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=2B3FC5B8663400BC3AFA2A3F4CC61BB8",
+     "ANCORA": "ANGELA LUISA PRENDIN",
+     "STATUS": 200,
+     "SHA256": "8fdf723533121925dd9c07eba5afa777552004b7a69d98d4f8988a9f6683a1d1",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:32+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=CF00ECE9E895EA190B51CA8B34D973F1",
+     "ANCORA": "MARTINO BERNARD",
+     "STATUS": 200,
+     "SHA256": "51b0fdb31b7f5044d170357ce1a6f00eb9c5479d061aac2b65041a7ff5ca50e3",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:37+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=768260A23C8AA535D56221EF12EA9DA0",
+     "ANCORA": "CARLO BREGANT",
+     "STATUS": 200,
+     "SHA256": "53bd15b786c5717f2865f462d6216845fc11e55aeaac63762d3412a147066fa3",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:30:34+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=4A211ABA36FBDBA726F59CCF82A1DAEB",
+     "ANCORA": "ALESSIA COGATO",
+     "STATUS": 0,
+     "SHA256": "df9b55352d87755b9fa482db021cccbda743e32130368bdeb7b828d23f58b4b2",
+     "TITULO": "",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:12+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=5B4E53195C15B48377457A9C3C12544D",
+     "ANCORA": "ELEONORA DALLAN",
+     "STATUS": 0,
+     "SHA256": "df9b55352d87755b9fa482db021cccbda743e32130368bdeb7b828d23f58b4b2",
+     "TITULO": "",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:43+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=C917FA5E1BB26DF68272B6FAF1A2DCFD",
+     "ANCORA": "MAURIZIO VITTORIO FLICK",
+     "STATUS": 200,
+     "SHA256": "653866453e597d2acceccd90c41154b9d626158e07dc171f20be54e5b25fd72e",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:48+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=6D87E4613C7A21DE4FFF436F003FCB35",
+     "ANCORA": "SIMONE IACOPINO",
+     "STATUS": 200,
+     "SHA256": "149ecc72d919faec1adf563a60b4e7d7dc73ccb5f13fcd9763a1a97c9a2407ae",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:53+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=2592452076DB2A64CA489EE92992FBF3",
+     "ANCORA": "LUCA MARCHI",
+     "STATUS": 200,
+     "SHA256": "06b7b223727e28c24c2a15303a66cdb0a21f2b748452139e6dea00c9d4381bc2",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:31:58+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=D30A7A7D7137C1D125B2659A83E0D176",
+     "ANCORA": "ANGELA MORIGGI",
+     "STATUS": 200,
+     "SHA256": "09dd5734662c371321c44af0284a9c72b1648d909adf0568603db03e7fb6c627",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:03+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=FEC17226D8D0F5442F3FC1E2D74FCECB",
+     "ANCORA": "COSTANZA MORINO",
+     "STATUS": 200,
+     "SHA256": "f12f9133bd66da4e8c0e1f7d43316fab9ede46e50d802b214c12b054b07507e6",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:08+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=C090BC56086B12FB929640CB41C99843",
+     "ANCORA": "ARTURO PACHECO SOLANA",
+     "STATUS": 200,
+     "SHA256": "fd46d1dd53738265c4874dbb5913e4208e25d615515d26363df1875ab8215ea1",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:13+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=2713A5892E9C400D770AAC69EF882B7C",
+     "ANCORA": "GAIA PASQUALOTTO",
+     "STATUS": 200,
+     "SHA256": "ee26de7cc466b45244f4ecb927ef324f21b4c36d15104a0c7769a515c42e252c",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:18+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=3F94F15AAA7A726B20B9A60993ED6A7C",
+     "ANCORA": "GIOVANNA PIRACCI",
+     "STATUS": 200,
+     "SHA256": "7518a2f119e034ca95c4d3624776c651112e79dca1d6f7369461991604abddbc",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:22+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=9D589064159BE1DDD5E4FC99A226D07F",
+     "ANCORA": "EUGENIO STRAFFELINI",
+     "STATUS": 200,
+     "SHA256": "58e7653ca65dcb17aab75010d93c77f143c6310d5acb4c05d5894523cc8045e1",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:27+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/category/ruoli/personale-docente?key=F70FF9D86B7DC41D2AC55BE0259A7404",
+     "ANCORA": "ALESSANDRO ZANCHIN",
+     "STATUS": 200,
+     "SHA256": "253aa1261b318324d3dde84e6f829c570fb7bd7fa62cc945440e6ac1fd01cc28",
+     "TITULO": "Personale docente | Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:33+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/news/termine/75",
+     "ANCORA": "Summer School",
+     "STATUS": 200,
+     "SHA256": "9ffc8a6b553611d7e18e9d21f52d0747a487dc730374ba85359405e3ba5fc8e0",
+     "TITULO": "| Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:37+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/news/termine/82",
+     "ANCORA": "Visiting Professor",
+     "STATUS": 200,
+     "SHA256": "955ea7d6fab57a7c8b5890d8a80e189ef8597ff76b13309ae440b57485df73d6",
+     "TITULO": "| Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:40+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.tesaf.unipd.it/news/termine/83",
+     "ANCORA": "Visiting Scientist",
+     "STATUS": 200,
+     "SHA256": "84306158b0a7c6496332d5bde2ee752bd810dae81a80b9263290c8d26312bb8f",
+     "TITULO": "| Dipartimento Territorio e Sistemi Agro-Forestali | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:32:44+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.tesaf.unipd.it/",
+    "SHA256": "0beede77dadc3cc691b6cdb25127131bd51a65cffd88f35a70003f485210693f",
+    "ROBOTS": "LIDO (curl)"
+   },
+   "PESSOAS_LISTADAS": 27,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/tesaf.unipd",
+    "https://www.youtube.com/channel/UCsWOeyTkYiLNs6UXfqsaMdw"
+   ],
+   "PESSOAS_LIDAS": 24,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:32:44+00:00"
+  },
+  "www.bca.unipd.it": {
+   "URL": "https://www.bca.unipd.it/",
+   "DONO": "Universita di Padova — BCA",
+   "FAMILIA": "VETERINARIA",
+   "INICIO": "2026-09-23T21:32:44+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente",
+     "ANCORA": "Persone",
+     "STATUS": 200,
+     "SHA256": "9a7133330d915993af3e7dbd4075097b583ed6911a6498f6b12fff678d39e97f",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "http://www.unipd.it/rubrica",
+     "ANCORA": "Contatti",
+     "STATUS": 200,
+     "SHA256": "0a90bb2ab8ad242a2f81e8a03b243afa388d4f7a49c2311713f75b2e6066d574",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.bca.unipd.it/gruppo-di-supporto-al-personale-bca",
+     "ANCORA": "Gruppo di Supporto al personale BCA",
+     "STATUS": 200,
+     "SHA256": "3a9943997535737bd0c8b7288f289b1bcdef8387e624dc7f609bf9bd37dcec67",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=2A5D00048A5C0901C42FAB47F6BD0F0A",
+     "ANCORA": "VALENTINA BONFATTI",
+     "STATUS": 200,
+     "SHA256": "56e5f452c20abad7883edf11d80f8276bb783ddad7fd176d996c94cfc0845ac3",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:15+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=5F2678379CED400546FC5A815E007A0D",
+     "ANCORA": "BARBARA DE MORI",
+     "STATUS": 200,
+     "SHA256": "8802858de7ac8cf4782e69c969b05276b3673ea4d58c09959bad9acefbd4c04d",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:20+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=BD0F6F3E5F28441B8798CE2E4823B1C9",
+     "ANCORA": "MASSIMILIANO MAGRO",
+     "STATUS": 200,
+     "SHA256": "1497ffc50d4eb2853588da964b39ad0bf8c108f0a0d90287d9d87b850eda9dcd",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:25+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=7C933D35493592287EE8B9B12602A202",
+     "ANCORA": "SIMONA ROSARIA CARLA NORMANDO",
+     "STATUS": 200,
+     "SHA256": "c1a37742a9e6250fdc9ecb52603f54ec20b1a20c327db63563edc4c4026eb111",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:30+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=8CD72E9F06CCF028DE53E0C647E485CE",
+     "ANCORA": "SARAH CURRÒ",
+     "STATUS": 200,
+     "SHA256": "a3565ad2200f78b769acb557c05e26cdc73de0e8fd6a7a4df8b9cb3d1745b21f",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:34+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=BB2D1833F214550082525BA58CAF349B",
+     "ANCORA": "SARA FAGGION",
+     "STATUS": 200,
+     "SHA256": "37b09e14b466a895e137094bd3d5c62c81f12c194a0d65e0c04557f59a9b75cd",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:39+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=6AFE7B7B4A063D211D39157A33818B7D",
+     "ANCORA": "MARTINA BORTOLETTI",
+     "STATUS": 200,
+     "SHA256": "a84fcaf5ddb982f3250fc443d216d562a0be3ad02a7488c91f853e2955658a59",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:44+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=333F82B220C59B818D64AB5262FDFC1C",
+     "ANCORA": "FRANCESCO CICALA",
+     "STATUS": 200,
+     "SHA256": "1c33fe90da00cba1f4ea772391a3dc44ce12f8eada8c07b2eea93b0485da4c3a",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:49+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=466284ABC413919C8C6880677026BBF6",
+     "ANCORA": "VERONICA DI PAOLO",
+     "STATUS": 200,
+     "SHA256": "568a0692075e3eff16b32f1c35cd836bdf9a6514ff06946493801d27aeedae53",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:53+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=14ECF78BBCE39DA500D67702A6ED0085",
+     "ANCORA": "ELISA FONSATTI",
+     "STATUS": 200,
+     "SHA256": "cc3154251f33640dcd25f69f5482780e258e38a84b5849adaae7de3ebdb68a0c",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:33:58+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=1338D339489CD781BF1ED74CF450D231",
+     "ANCORA": "LUCA PERUZZA",
+     "STATUS": 200,
+     "SHA256": "6286e43bfb410a649717ff980568e200b5ace543618395a6012f60f2142eebf8",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:34:04+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=5511850C00AE3FE58E7172D86BF2418B",
+     "ANCORA": "GUIDO PIETROLUONGO",
+     "STATUS": 200,
+     "SHA256": "0ee0e3bf9d76d4a9bf68b7da1021bfa7dfa33c776275821cff2da5f8170dad57",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:34:10+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/category/ruoli/personale-docente?key=F9D9086FD6CF0E28F7E24E9395BD0011",
+     "ANCORA": "FEDERICA TONOLO",
+     "STATUS": 200,
+     "SHA256": "435fba4a5667975cad92cb24036fd702a5465849c9cf0928f9caaf2bb00644d9",
+     "TITULO": "Personale Docente | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:34:15+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unipd.it/sostieni-unipd",
+     "ANCORA": "Sostieni Unipd",
+     "STATUS": 200,
+     "SHA256": "ed740e8e87bbc4c18afd453d6ccdcffff06e460a8d69b5a3b7d59270e1b49187",
+     "TITULO": "Sostieni Unipd | Università di Padova",
+     "H1": "Sostieni Unipd",
+     "QUANDO": "2026-09-23T21:34:20+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unipd.it/campus-life",
+     "ANCORA": "Campus Life",
+     "STATUS": 200,
+     "SHA256": "868679784d7d8ad8149f4dd8f042930ef720866b4dc00c0216422cdabc6f6ccd",
+     "TITULO": "Campus life | Università di Padova",
+     "H1": "Campus Life",
+     "QUANDO": "2026-09-23T21:34:25+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.bca.unipd.it/stem-cells-delivery",
+     "ANCORA": "Stem Cells Delivery",
+     "STATUS": 200,
+     "SHA256": "e94096b249ebc663318a34c00151cfad3c6ab7ddd21bb00991b091cfdc6802db",
+     "TITULO": "Stem Cells Delivery | Dipartimento di Biomedicina Comparata e Alimentazione | Università di Padova",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:34:30+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.bca.unipd.it/",
+    "SHA256": "025169015ab75f7b6c82749306828024c2eedd78a14a025dd4bf448b625299a4",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 16,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/bca.unipd",
+    "https://www.instagram.com/unipd",
+    "https://www.youtube.com/user/UniPadova"
+   ],
+   "PESSOAS_LIDAS": 16,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:34:30+00:00"
+  },
+  "www.maps.unipd.it": {
+   "URL": "https://www.maps.unipd.it/",
+   "DONO": "Universita di Padova — MAPS",
+   "FAMILIA": "VETERINARIA",
+   "INICIO": "2026-09-23T21:34:30+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente",
+     "ANCORA": "Persone",
+     "STATUS": 200,
+     "SHA256": "67d68f749394520831c353415168f6335e89a96e094f07521e2293091f42b4e9",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.maps.unipd.it/content/dipartimento/persone/docenti",
+     "ANCORA": "Docenti",
+     "STATUS": 200,
+     "SHA256": "67d68f749394520831c353415168f6335e89a96e094f07521e2293091f42b4e9",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.unipd.it/hrs4r",
+     "ANCORA": "Carta Europea dei Ricercatori",
+     "STATUS": 200,
+     "SHA256": "e23ec1c8ee760901dffa7bdb247bf820fbb7eeeb77f5111afa936e235a682171",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=39606681BE358DC4C86EBA17151920CE",
+     "ANCORA": "MARCO BERNARDINI",
+     "STATUS": 200,
+     "SHA256": "94fea9d1468164de41f4fe2e546a0f320788fa9041dd963d12a7d5da534d226b",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:34:56+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=886E5AC698AAC3B06667554C8AAFE1D8",
+     "ANCORA": "CRISTIAN TACCIOLI",
+     "STATUS": 200,
+     "SHA256": "74742d0ba8500a0cce12a047ffaa8ffc53045508281a1f2e436ff34d6dd35bf0",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:00+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=632C85A212BA880D8F31B40ED81FB351",
+     "ANCORA": "ERIC ZINI",
+     "STATUS": 200,
+     "SHA256": "cb9e9a1675c112637a74d44b178e54f6bcfcc1781992c7ff637015a38be520b4",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:05+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=A989DEE2656218E1A046BCFDECF25DFE",
+     "ANCORA": "FEDERICO BONSEMBIANTE",
+     "STATUS": 200,
+     "SHA256": "c513850d59b8acb3695c7355037a723553e3fe3af75c1087979c20f234f12b3d",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:11+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=9F0376090539770539BE822EFF62AFBE",
+     "ANCORA": "MATTEO LEGNARDI",
+     "STATUS": 200,
+     "SHA256": "430fdc22c81bc9295443e76fbbca676aa32c317944673fa0fba4fdeb19197d6b",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:15+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=AECCF02BEE1A6A7A8713B991FAD3EE29",
+     "ANCORA": "ERICA MARCHIORI",
+     "STATUS": 200,
+     "SHA256": "72fa85c936f2563d9712d83bb26072b7e030441090c1c13d84bf930eed7e4d37",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:19+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=A97A5C2344E4A8576E950B6AB37ACDCA",
+     "ANCORA": "SILVIA BURTI",
+     "STATUS": 200,
+     "SHA256": "2375acdeb96b2cf0277a6d6d2ff24afa4a3ee743e0a59087be68da6fa5874209",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:25+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=26DB55865C4B0D10E19798B3EE680EA7",
+     "ANCORA": "GIULIA FORNI",
+     "STATUS": 200,
+     "SHA256": "f4714d15d8f201d53ccc524d365dacb2f1bc41a077c2e2d02050c4efb7c8c94d",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:30+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=64C271D56CD90270A4BD9696918AC86A",
+     "ANCORA": "MARIKA GRILLINI",
+     "STATUS": 200,
+     "SHA256": "b4c619b407f1a6e22c691e837b366348bc9e239d62781616163b44aed5450df8",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:35+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=039A970360581DC2523D4F2A68ACAC83",
+     "ANCORA": "PARASTOO MEMARIAN",
+     "STATUS": 200,
+     "SHA256": "83fe1c3b245ef5dbe8771230bbd13626ecc722e61c17788dfbeaf38d78746f38",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:40+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=CEAFED3A0305D5E73608CC2C70ED3881",
+     "ANCORA": "ROBERTA TOLOSI",
+     "STATUS": 200,
+     "SHA256": "1a80eddf736c5d7cd0ede18d46576b47c3514ae2092eb52a0341df4d00d94193",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:45+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.maps.unipd.it/category/ruoli/personale-docente?key=D9EB37E5660D16D859D06BAC7DAF7DF5",
+     "ANCORA": "CARLOTTA VALENTE",
+     "STATUS": 200,
+     "SHA256": "09ab0677a504d332211cc859ac17144451682fbf2c802bfe825952eca994f7d3",
+     "TITULO": "Personale docente | Dipartimento di Medicina Animale, Produzioni e Salute | Università di Padova",
+     "H1": "Produzioni e Salute\" />",
+     "QUANDO": "2026-09-23T21:35:49+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unipd.it/sostieni-unipd",
+     "ANCORA": "Sostieni Unipd",
+     "STATUS": 200,
+     "SHA256": "ed740e8e87bbc4c18afd453d6ccdcffff06e460a8d69b5a3b7d59270e1b49187",
+     "TITULO": "Sostieni Unipd | Università di Padova",
+     "H1": "Sostieni Unipd",
+     "QUANDO": "2026-09-23T21:35:54+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.unipd.it/campus-life",
+     "ANCORA": "Campus Life",
+     "STATUS": 200,
+     "SHA256": "7280a3599dce1d90851c5384bfd8cd4d8e7c897762d177d76e85f11cf50e4102",
+     "TITULO": "Campus life | Università di Padova",
+     "H1": "Campus Life",
+     "QUANDO": "2026-09-23T21:35:59+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.maps.unipd.it/",
+    "SHA256": "62892d6f1204e328f10930a3eb0bbd1273598b2adaad7ee37019bec58bae89ce",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 14,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/maps_unipd",
+    "https://www.instagram.com/unipd",
+    "https://www.youtube.com/user/UniPadova"
+   ],
+   "PESSOAS_LIDAS": 14,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:35:59+00:00"
+  },
+  "www.di3a.unict.it": {
+   "URL": "https://www.di3a.unict.it/",
+   "DONO": "Universita di Catania — Di3A",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:35:59+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://afiweb.unict.it/Segreterie_FE/app_segreterie/index.html",
+     "ANCORA": "Portale docenti / ricerca",
+     "STATUS": 200,
+     "SHA256": "52650fe02e235113715676b51f17a487857b1b689cd9f096e0762278741ff191",
+     "ROBOTS": "SEM_ROBOTS (404, urllib)"
+    },
+    {
+     "URL": "https://docenti.smartedu.unict.it/docenti/",
+     "ANCORA": "Portale docenti / didattica",
+     "STATUS": 200,
+     "SHA256": "5296d76717f90639b044b7d2700da5dd4995b8df4bd18a46cd9e361d2d62fe40",
+     "ROBOTS": "SEM_ROBOTS (404, urllib)"
+    },
+    {
+     "URL": "https://webmail.unict.it",
+     "ANCORA": "Webmail docenti e personale",
+     "STATUS": 200,
+     "SHA256": "3a50de3abbaca5d7382568dc68fdea0f8663669b48a80bc1664802c0662bd7da",
+     "ROBOTS": "SEM_ROBOTS (404, urllib)"
+    }
+   ],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.di3a.unict.it/",
+    "SHA256": "bc225d357fa74978f76b56274c1cdc8d8aa1367a21d03f81e2b167a984d230e1",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 0,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/di3aunict",
+    "https://www.youtube.com/channel/UCKdQcnPtPZs3k08e5jrFSNQ"
+   ],
+   "PESSOAS_LIDAS": 0,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "SEM_PESSOAS",
+   "FIM": "2026-09-23T21:36:30+00:00"
+  },
+  "www.d3a.univpm.it": {
+   "URL": "https://www.d3a.univpm.it/",
+   "DONO": "Universita Politecnica delle Marche — D3A",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:36:30+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "http://www.univpm.it/Entra/Engine/RAServePG.php/P/320010010411/T/Docenti-della-facolta-di-Agraria",
+     "ANCORA": "Docenti",
+     "STATUS": 0,
+     "SHA256": "fc60f6b94e690599ff792fd1800a8e8559486b689b004915a1e7b17d43140490",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.d3a.univpm.it/it/node/1518",
+     "ANCORA": "Docenti a contratto",
+     "STATUS": 200,
+     "SHA256": "f38367be7f6e7d01215aedfb7a7ed81c002347f8f0efa9bb6da757451345bc78",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "http://www.d3a.univpm.it/node/58",
+     "ANCORA": "Personale tec/amm",
+     "STATUS": 0,
+     "SHA256": "fc60f6b94e690599ff792fd1800a8e8559486b689b004915a1e7b17d43140490",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://www.univpm.it/Entra/Engine/RAServePG.php/P/667110011400/M/320010013480/T/Elenco-docenti-a-contratto-Agraria",
+     "ANCORA": "PROGRAMMMI DEGLI INSEGNAMENTI",
+     "STATUS": 404,
+     "SHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "TITULO": "",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:37:42+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.d3a.univpm.it/",
+    "SHA256": "e614030d1f99db092607eba41ad388dfb505447d4e883e02a6003e4bd5b7e2eb",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 1,
+   "INSTITUCIONAIS": [],
+   "PESSOAS_LIDAS": 0,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "SEM_PESSOAS",
+   "FIM": "2026-09-23T21:37:42+00:00"
+  },
+  "www.di4a.uniud.it": {
+   "URL": "https://www.di4a.uniud.it/",
+   "DONO": "Universita di Udine — DI4A",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:37:42+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://di4a.uniud.it/it/cercapersone/cercapersone_dept?afferenza=107404",
+     "ANCORA": "Cercapersone",
+     "STATUS": 200,
+     "SHA256": "c14e69edbbbcfe873de5a986659df97f316b33bf46b6dfa2a35227f77b75adbe",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://di4a.uniud.it/it/manual-links/highlights-banners/documenti/incendi-in-prealpi-e-monte-amariana-lanalisi-delluniversita-di-udine-su-impatti-vegetazionali-fauna-e-monitoraggio-satellitare",
+     "ANCORA": "Incendi in Prealpi e Monte Amariana: l'analisi dell’Universi",
+     "STATUS": 200,
+     "SHA256": "b6470f1a25658697e0e28858bdb90cd367fd760c3c08631a13d2dfba55d88ffa",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://di4a.uniud.it/it/manual-links/menu/orientamento/seminari-per-scuole-e-docenti",
+     "ANCORA": "Seminari del DI4A",
+     "STATUS": 200,
+     "SHA256": "6957fbe6124aa88fa4ccd361fc4bdf5cc8d518a779051574097101a698d66828",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://di4a.uniud.it/it",
+    "SHA256": "052a9ae7730e4c2f99792a668970ec6e2343973c06d9a5fc41a72b4fcb8594bc",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 0,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/universitadiudine",
+    "https://www.youtube.com/c/PlayUniud",
+    "https://www.youtube.com/user/UniversitaUdine"
+   ],
+   "PESSOAS_LIDAS": 0,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "SEM_PESSOAS",
+   "FIM": "2026-09-23T21:38:05+00:00"
+  },
+  "www.dafne.unifg.it": {
+   "URL": "https://www.dafne.unifg.it/",
+   "DONO": "Universita di Foggia — DAFNE",
+   "FAMILIA": "AGRARIA",
+   "INICIO": "2026-09-23T21:38:05+00:00",
+   "LISTAGENS": [],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": "ROBOTS_NEGA",
+    "URL_FINAL": null,
+    "SHA256": null,
+    "ROBOTS": "ROBOTS_ILEGIVEL (HTTP 0, curl)"
+   },
+   "RESULTADO": "CASA_NAO_ABRE",
+   "FIM": "2026-09-23T21:38:09+00:00"
+  },
+  "www.ibbr.cnr.it": {
+   "URL": "https://www.ibbr.cnr.it/",
+   "DONO": "CNR — IBBR",
+   "FAMILIA": "CNR",
+   "INICIO": "2026-09-23T21:38:09+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.ibbr.cnr.it/ibbr/info/people",
+     "ANCORA": "IBBR People",
+     "STATUS": 200,
+     "SHA256": "03c3f3bb5e54ae3b4ce1198f1c1698907cf5148864e990b189811ab2dc2c6d36",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.ibbr.cnr.it/ibbr/people/?opt=",
+     "ANCORA": "Full List",
+     "STATUS": 200,
+     "SHA256": "03c3f3bb5e54ae3b4ce1198f1c1698907cf5148864e990b189811ab2dc2c6d36",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.ibbr.cnr.it/ibbr/people/?opt=1",
+     "ANCORA": "Administration",
+     "STATUS": 200,
+     "SHA256": "7cea3fe23d03bc39f562f8d3bc79e4b49c147d3c358a88b571b4d0e601876253",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://www.ibbr.cnr.it/ibbr/info/people/staff",
+     "ANCORA": "Go to List",
+     "STATUS": 200,
+     "SHA256": "6adde3178097af96804351ba934029b6cd0fd63254551aaf0f83fc99484e0f6f",
+     "TITULO": "IBBR Non-Permanent Staff - IBBR-CNR",
+     "H1": "",
+     "QUANDO": "2026-09-23T21:38:34+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.ibbr.cnr.it/ibbr/",
+    "SHA256": "b9b7473bcdc3881eea2e86d743be1c2a49cc57ebc8f4c85a77a132748a52f078",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 1,
+   "INSTITUCIONAIS": [],
+   "PESSOAS_LIDAS": 1,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:38:34+00:00"
+  },
+  "www.isafom.cnr.it": {
+   "URL": "https://www.isafom.cnr.it/",
+   "DONO": "CNR — ISAFoM",
+   "FAMILIA": "CNR",
+   "INICIO": "2026-09-23T21:38:34+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://isafom.cnr.it/personale/",
+     "ANCORA": "Personale",
+     "STATUS": 200,
+     "SHA256": "1edb3a4fbd1e89f89f63bbdda5a57803b8cd6b3a513b45f5d9b4675cf5066ea5",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2875",
+     "ANCORA": "Accomando Filippo",
+     "STATUS": 200,
+     "SHA256": "d36d1d78e41e5067004841edcde0d30719f37a8ef832325dbc1d879d29b8ea05",
+     "TITULO": "Accomando Filippo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:38:57+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/albrizio-rossella/",
+     "ANCORA": "Albrizio Rossella",
+     "STATUS": 200,
+     "SHA256": "35e81aa2c058a421c9e46c3b86da45aebed3d5871ed331a30b7abfec7836aead",
+     "TITULO": "Albrizio Rossella - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:00+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/altieri-roberto/",
+     "ANCORA": "Altieri Roberto",
+     "STATUS": 200,
+     "SHA256": "3dd3f13b8915ce3f95f9bd9acc0c6cabb6c6eda03e763fe5f20c9cbbd1788321",
+     "TITULO": "Altieri Roberto - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:04+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/aurilia-vincenzo/",
+     "ANCORA": "Aurilia Vincenzo",
+     "STATUS": 200,
+     "SHA256": "5b9ee40241f121dd5cbffd4b634d8a087f26a03e3555a4a0fa807e3143045fb6",
+     "TITULO": "Aurilia Vincenzo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:08+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/bancheri-marialaura/",
+     "ANCORA": "Bancheri Marialaura",
+     "STATUS": 200,
+     "SHA256": "b76ef0dd54c1cb86c1a112ef14342b2874dfea4304582fba84fffbead58bc2bd",
+     "TITULO": "Bancheri Marialaura - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:12+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/basile/",
+     "ANCORA": "Basile Angelo",
+     "STATUS": 200,
+     "SHA256": "908a4a81796127b1fdb5757a803c675ae1974bb2b30f671193f7013ec36488e1",
+     "TITULO": "Basile Angelo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:16+00:00",
+     "SOCIAIS": [
+      {
+       "URL": "https://www.researchgate.net/profile/Angelo_Basile",
+       "PLATAFORMA": "RESEARCHGATE",
+       "ANCORA": "Angelo_Basile"
+      }
+     ]
+    },
+    {
+     "URL": "https://isafom.cnr.it/bedini-simonetta/",
+     "ANCORA": "Bedini Simonetta",
+     "STATUS": 200,
+     "SHA256": "eced74167128991ebd78f45cc54a4c64767ae025b45dd2bd1b90fd799176121d",
+     "TITULO": "Bedini Simonetta - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:20+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/binyam-alemu-yosef/",
+     "ANCORA": "Binyam Alemu Yosef",
+     "STATUS": 200,
+     "SHA256": "4829781a1315c881ca659a5ab106539fb5b3369f3942f0d834927ce0025f0ef3",
+     "TITULO": "Binyam Alemu Yosef - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:23+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/luciano-bosso/",
+     "ANCORA": "Bosso Luciano",
+     "STATUS": 200,
+     "SHA256": "9477ede794225c2a21f2a477739f876ffcfc6da6f65fca4ddea876afb1f4e75a",
+     "TITULO": "Bosso Luciano - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:28+00:00",
+     "SOCIAIS": [
+      {
+       "URL": "https://www.researchgate.net/profile/Luciano-Bosso",
+       "PLATAFORMA": "RESEARCHGATE",
+       "ANCORA": "https://www.researchgate.net/profile/Luciano-Bosso"
+      }
+     ]
+    },
+    {
+     "URL": "https://isafom.cnr.it/buonanno-maurizio/",
+     "ANCORA": "Buonanno Maurizio",
+     "STATUS": 200,
+     "SHA256": "ca5a26de0d8efb8ada19c0d02f143e1865101dafd7d447392cf02ce9c680cc69",
+     "TITULO": "Buonanno Maurizio - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:31+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/buttafuoco-bgabriele/",
+     "ANCORA": "Buttafuoco Gabriele",
+     "STATUS": 200,
+     "SHA256": "c17c6a6e85d1a33559b4af6996726011b35a06d649963666a99c6735e63f5af8",
+     "TITULO": "Buttafuoco Gabriele - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:35+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/calandrelli-davide/",
+     "ANCORA": "Calandrelli Davide",
+     "STATUS": 200,
+     "SHA256": "92fafd33b1762628e44d0628a65bb1c284c9753baab3b0d07200d9fc5dd160c8",
+     "TITULO": "Calandrelli Davide - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:39+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/calderaro-pietro/",
+     "ANCORA": "Calderaro Pietro",
+     "STATUS": 200,
+     "SHA256": "da9f3dc2990f0503094ac5298a65a0fee62704f141f4a1a23e850732bb2d1128",
+     "TITULO": "Calderaro Pietro - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:43+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/cantilena-giovanni/",
+     "ANCORA": "Cantilena Giovanni",
+     "STATUS": 200,
+     "SHA256": "e2d42f04232d0814a68813981a7b4470beda4d31c46772961984d1ec6903a57a",
+     "TITULO": "Cantilena Giovanni - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:46+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2809",
+     "ANCORA": "Carelli Martina",
+     "STATUS": 200,
+     "SHA256": "2c9dee594afb6b18b9194cb652831c3c5c4c38c407b699d6991a2be4fe70cff6",
+     "TITULO": "Carelli Martina - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:51+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2602",
+     "ANCORA": "Ceriello Giovanna",
+     "STATUS": 200,
+     "SHA256": "75e7e989fdbea00c9378f10f245bbf307bedf0ef117d5fa779734e72fc23382a",
+     "TITULO": "Ceriello Giovanna - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:39:56+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/ciccioli-piero/",
+     "ANCORA": "Ciccioli Piero",
+     "STATUS": 200,
+     "SHA256": "733f6c76c44e6773d361c5531062dece70e0395bced57f26ffba7851daacb86e",
+     "TITULO": "Ciccioli Piero - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:01+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/cipriani-maria-grazia/",
+     "ANCORA": "Cipriani Maria Grazia",
+     "STATUS": 200,
+     "SHA256": "cfcad0c0684170610e2df66a5add22dc730e0ffac4680676eac8a32edb66082d",
+     "TITULO": "Cipriani Maria Grazia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:04+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2583",
+     "ANCORA": "Ciurnelli Samuele",
+     "STATUS": 200,
+     "SHA256": "62ba0d521b2873394f06c98a8f67c60e88d866f0efa94edb84c14a9cdf9a07e9",
+     "TITULO": "Ciurnelli Samuele - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:09+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/ciuro-antonino/",
+     "ANCORA": "Ciuro Antonino",
+     "STATUS": 200,
+     "SHA256": "fd7295ca59fb7e0b09015562f39202ea22a719a0643fde0746943c043f239fc6",
+     "TITULO": "Ciuro Antonino - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:13+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/collalti-alessio/",
+     "ANCORA": "Collalti Alessio",
+     "STATUS": 200,
+     "SHA256": "57a92eded69b9a55bbda8aacb9635a5f83aa799c6504140101afd46ff5c7586a",
+     "TITULO": "Collalti Alessio - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:18+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/cucina-mirko/",
+     "ANCORA": "Cucina Mirko",
+     "STATUS": 200,
+     "SHA256": "4705e018ca939abf9471e7cb95be138f38c0f5230064edaa1e4659502d2905e6",
+     "TITULO": "Cucina Mirko - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:23+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/cuocolo-donato/",
+     "ANCORA": "Cuocolo Donato",
+     "STATUS": 200,
+     "SHA256": "d75b449e18047c148e06afbc6adb59956fe858097872721329bcdecaad6af10c",
+     "TITULO": "Cuocolo Donato - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:26+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/dalmonech-daniela/",
+     "ANCORA": "Dalmonech Daniela",
+     "STATUS": 200,
+     "SHA256": "2ff69e58701d8f7a5588b56679f8b5e044c26bf699f7c648fc487e63387483fd",
+     "TITULO": "Dalmonech Daniela - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:30+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/de-mascellis-roberto/",
+     "ANCORA": "De Mascellis Roberto",
+     "STATUS": 200,
+     "SHA256": "e64c47bbaba72c2f9ea72ddf0b4f84e4aea50cd588f395df51107d08e905195a",
+     "TITULO": "De Mascellis Roberto - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:34+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2606",
+     "ANCORA": "Di Dio Gennaro",
+     "STATUS": 200,
+     "SHA256": "1bc60a9e0f041eed8fcce0ed3f0e414145a166cf311a07d7048e6cbf2e380ef4",
+     "TITULO": "Di Dio Gennaro - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:39+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/di-martino-vincenzo/",
+     "ANCORA": "Di Martino Vincenzo",
+     "STATUS": 200,
+     "SHA256": "688710846e7b7fb100f482a3c54b6ecbe659d6bf609f7079451f745049e1a572",
+     "TITULO": "Di Martino Vincenzo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:44+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/di-matteo-ferdinando/",
+     "ANCORA": "Di Matteo Ferdinando",
+     "STATUS": 200,
+     "SHA256": "8f73daff6b74c865d2f9c7539e8a2439e58049493955b7d1a5f84c914a438e43",
+     "TITULO": "Di Matteo Ferdinando - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:47+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/di-matteo-bruno/",
+     "ANCORA": "Di Matteo Bruno",
+     "STATUS": 200,
+     "SHA256": "6b57fceb49d8da2bf204d4eb5e567d9d531c2c9f2bf8337c04e315d57be4c7b6",
+     "TITULO": "Di Matteo Bruno - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:51+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/di-tommasi-paul/",
+     "ANCORA": "Di Tommasi Paul",
+     "STATUS": 200,
+     "SHA256": "c19a877dc17c998a43e22bcc13608d764969409f7759da258a592f99da2ce7e9",
+     "TITULO": "Di Tommasi Paul - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:55+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/domesi-andrea/",
+     "ANCORA": "Domesi Andrea",
+     "STATUS": 200,
+     "SHA256": "76df1eec214389f18088e820fb661e963c97f7a14aa091c7a52fb251395aef75",
+     "TITULO": "Domesi Andrea - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:40:59+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2880",
+     "ANCORA": "Donadio Rosa",
+     "STATUS": 200,
+     "SHA256": "ca88477803c752f34dab626d29f4d78e5089c2f5c5cf54fa43ddb94671cdef4e",
+     "TITULO": "Donadio Rosa - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:04+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/esposito-alessandro/",
+     "ANCORA": "Esposito Alessandro",
+     "STATUS": 200,
+     "SHA256": "f3fd84d7188c88fc90855d9086add91462b5f15d258f44f54e4a6bdea162702c",
+     "TITULO": "Esposito Alessandro - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:08+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/esposito-maria/",
+     "ANCORA": "Esposito Maria",
+     "STATUS": 200,
+     "SHA256": "e1ca5d3cc360cfb611dd8793dab65633cc6ee5c7501b81eec5d94e8e3e364ce1",
+     "TITULO": "Esposito Maria - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:11+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/froio-raffaele/",
+     "ANCORA": "Froio Raffaele",
+     "STATUS": 200,
+     "SHA256": "d8e992730cde69d911c86bc9e5dbaf94c982439256c4ff4a3c107ca55735d2c7",
+     "TITULO": "Froio Raffaele - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:15+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/gargiulo-laura/",
+     "ANCORA": "Gargiulo Laura",
+     "STATUS": 200,
+     "SHA256": "332039de3dae5078a6f90dcf65c420c3f1b3ed06a6d67b34eed5d0a23453d667",
+     "TITULO": "Gargiulo Laura - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:19+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/genovese-claudia/",
+     "ANCORA": "Genovese Claudia",
+     "STATUS": 200,
+     "SHA256": "6d7f4369f22772a54b6ffa6c34c5dd652e75eea1b6259e7ee98af7ab24151834",
+     "TITULO": "Genovese Claudia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:23+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/giaccone-matteo/",
+     "ANCORA": "Giaccone Matteo",
+     "STATUS": 200,
+     "SHA256": "c0f6f9bdfbe313e1020f340c65d6da1cfef02ba6a4bf508f940063aa137b10d6",
+     "TITULO": "Giaccone Matteo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:27+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/giordano-stefania/",
+     "ANCORA": "Giordano Stefania",
+     "STATUS": 200,
+     "SHA256": "489027859a6ec559f3c578096c107d9d6bb7652260d1de1e0ecdbf12efa662ae",
+     "TITULO": "Giordano Stefania - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:31+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/giorio-pasquale/",
+     "ANCORA": "Giorio Pasquale",
+     "STATUS": 200,
+     "SHA256": "52d157d0f555efc1e55cb1240b5507fbd19f0f0154b90a5254c035b32f78ef11",
+     "TITULO": "Giorio Pasquale - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:35+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/giustino-gennaro/",
+     "ANCORA": "Giustino Gennaro",
+     "STATUS": 200,
+     "SHA256": "76a7837b7d10b69c2a7446c524758a94962176b38e61728bd35ff66ffe850327",
+     "TITULO": "Giustino Gennaro - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:40+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/elisa-grieco/",
+     "ANCORA": "Grieco Elisa",
+     "STATUS": 200,
+     "SHA256": "a87a8a0ac3b17a11b2d0179474309f4143e63b689f48a0fabd0b049bed7142f5",
+     "TITULO": "Grieco Elisa - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:44+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/guagliardi-ilaria/",
+     "ANCORA": "Guagliardi Ilaria",
+     "STATUS": 200,
+     "SHA256": "7b014ef752e10e980921378eff5b468bf38688f4e094383fbd159981a3a03f8a",
+     "TITULO": "Guagliardi Ilaria - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:48+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/indaco-giuseppina/",
+     "ANCORA": "Indaco Giuseppina",
+     "STATUS": 200,
+     "SHA256": "e00a0c044164116b316b40d6c5744f06b9519ec4b569888d79cdc71e403a4aba",
+     "TITULO": "Indaco Giuseppina - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:52+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2645",
+     "ANCORA": "Ingenito Giovanni",
+     "STATUS": 200,
+     "SHA256": "717ad19726c18d5f31d46ad9f415aa38f57ce90faf5c8ea8524c6c13e5907323",
+     "TITULO": "Ingenito Giovanni - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:41:56+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/lavini-antonella/",
+     "ANCORA": "Lavini Antonella",
+     "STATUS": 200,
+     "SHA256": "35ca82257b7aa7297cb8803c2db2e8f97fd397f837e9d50846249c422b83ef2e",
+     "TITULO": "Lavini Antonella - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:00+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/luisa-massaccesi/",
+     "ANCORA": "Luisa Massaccesi",
+     "STATUS": 200,
+     "SHA256": "db184422c3c5e651961fc1c95b12b1eeeec52d2cf36b50ab5223db7c713a7618",
+     "TITULO": "Luisa Massaccesi - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:04+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/magariello-angela/",
+     "ANCORA": "Magariello Angela",
+     "STATUS": 200,
+     "SHA256": "5cbbe6f8deabfe3ce01e289907e7bf7d072445f14e550b739bb33e731ab681cb",
+     "TITULO": "Magariello Angela - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:09+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/davide-mainieri/",
+     "ANCORA": "Mainieri Davide",
+     "STATUS": 200,
+     "SHA256": "f56d880c56912c9b031e7a3cc8b0c5133d9172fc2c34344cf2b1de46236f05e6",
+     "TITULO": "Mainieri Davide - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:13+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/manco-antonio/",
+     "ANCORA": "Manco Antonio",
+     "STATUS": 200,
+     "SHA256": "dfde10599c42a6264c18d408d8f63ed31873e160a8b50a1f56ddee733c9f47a2",
+     "TITULO": "Manco Antonio - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:17+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2830",
+     "ANCORA": "Manfellotto Giuseppe",
+     "STATUS": 200,
+     "SHA256": "c0bc028ccb992b52f2777b43eaa9e9720c85d2963611053d2b1eaee4cf0c6ae6",
+     "TITULO": "Manfellotto Giuseppe - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:23+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/manna-piero/",
+     "ANCORA": "Manna Piero",
+     "STATUS": 200,
+     "SHA256": "387bbe25c6865f4e223a340a5e47a884ba2ff83fb033c28dfa732259bd41e50b",
+     "TITULO": "Manna Piero - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:27+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2598",
+     "ANCORA": "Marsala Sabrina Maria",
+     "STATUS": 200,
+     "SHA256": "dd31a9e31507ed0295b4ae099eaf56c8512ba6f9bd616e82e39a4aa6b70b5b4a",
+     "TITULO": "Marsala Sabrina Maria - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:32+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/mazzei-rosalucia/",
+     "ANCORA": "Mazzei Rosalucia",
+     "STATUS": 200,
+     "SHA256": "abdd8948e3b4467cc0e652c9c7db1289764d4effb16777d1efb0a8d0e6f9b566",
+     "TITULO": "Mazzei Rosalucia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:36+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/mele-giacomo/",
+     "ANCORA": "Mele Giacomo",
+     "STATUS": 200,
+     "SHA256": "573a9ca85341a368ad11ecd192b5cf4835780142b6d834c380ad00dbf81aad89",
+     "TITULO": "Mele Giacomo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:41+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2378",
+     "ANCORA": "Mennella Raffaele",
+     "STATUS": 200,
+     "SHA256": "3979b5a2dfaae29b780f5342dcdb918076e76341a66e4e14afdadb156eb38c1c",
+     "TITULO": "Mennella Raffaele - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:46+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2221",
+     "ANCORA": "Monaco Eugenia",
+     "STATUS": 200,
+     "SHA256": "7f20a853d9b49640732290201055121b9e258072fcb1a8b1e64a16f67292cc8f",
+     "TITULO": "Monaco Eugenia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:52+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/morichetti-mauro/",
+     "ANCORA": "Morichetti Mauro",
+     "STATUS": 200,
+     "SHA256": "53cc3cf7cf38edd6ea25198010bddff3b01550876a38b1c634770ead06c2cf9e",
+     "TITULO": "Morichetti Mauro - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:42:56+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/musella-maria-elena/",
+     "ANCORA": "Musella Maria Elena",
+     "STATUS": 200,
+     "SHA256": "5be49db1ad3442b865c442438b4beba474f9102cc2d6376420b91598cfc02e52",
+     "TITULO": "Musella Maria Elena - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:00+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/orefice-nadia/",
+     "ANCORA": "Orefice Nadia",
+     "STATUS": 200,
+     "SHA256": "cad20010f544ba5e94a1b0a308e5b4a2f6d2151a3d77c46743c069b746a5f404",
+     "TITULO": "Orefice Nadia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:03+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/orrico-maria-rosaria/",
+     "ANCORA": "Orrico Maria Rosaria",
+     "STATUS": 200,
+     "SHA256": "4a659b1958adc65c25189d1402c239ea926e1cd4dd5899be3500103c7b845a6c",
+     "TITULO": "Orrico Maria Rosaria - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:09+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/lucia-ottaiano/",
+     "ANCORA": "Ottaiano Lucia",
+     "STATUS": 200,
+     "SHA256": "43825d6bf109d6f88f43c3058abade30f08d46554f289f0658af268627d1cfc5",
+     "TITULO": "Ottaiano Lucia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:12+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2748",
+     "ANCORA": "Pace Roberta",
+     "STATUS": 200,
+     "SHA256": "1c3bb98f7859d8df38df99becdcc6aae9f81f7b37f48bd05acbc35cfb4982501",
+     "TITULO": "Pace Roberta - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:17+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/palmisano-maurizio/",
+     "ANCORA": "Palmisano Maurizio",
+     "STATUS": 200,
+     "SHA256": "043f8a42dbc0b969e70c8e3a819e631b9770f869d410c94b01b80de3929088f1",
+     "TITULO": "Palmisano Maurizio - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:21+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/patitucci-alessandra/",
+     "ANCORA": "Patitucci Alessandra",
+     "STATUS": 200,
+     "SHA256": "194295d47740386ac9b504abd64b947ea7d5c26ba2345794c2b4dd123faee3bf",
+     "TITULO": "Patitucci Alessandra - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:25+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2839",
+     "ANCORA": "Pecis Ivano",
+     "STATUS": 200,
+     "SHA256": "28b51ba4dfdef03a98a2af8ac1cd73a7c5466dd7fb48a00ed8a9e5a3150cf351",
+     "TITULO": "Pecis Ivano - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:30+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2882",
+     "ANCORA": "Pelosi Maria Eleonora",
+     "STATUS": 200,
+     "SHA256": "fdc34b31bd5e424d907d343c8d2e35a371ec19de49069b26255839adf9eb6389",
+     "TITULO": "Pelosi Maria Eleonora - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:35+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/pernicola-paola/",
+     "ANCORA": "Pernicola Paola",
+     "STATUS": 200,
+     "SHA256": "7335125dd1413c8199685f7af0c8c03ab01365570120cbf0ba1264c966fa8a0b",
+     "TITULO": "Pernicola Paola - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:39+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2512",
+     "ANCORA": "Pin Lorenzo",
+     "STATUS": 200,
+     "SHA256": "1531550b8dee9722cd30e9de2948e54675d1978fdacbebb035e19d4a37ce9e2a",
+     "TITULO": "Pin Lorenzo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:44+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/lucio-pisano/",
+     "ANCORA": "Pisano Lucio",
+     "STATUS": 200,
+     "SHA256": "6f35d543aa02f05ba1f1630a52db89d2d64830dcaaf27d91615a06b8f92d2e35",
+     "TITULO": "Pisano Lucio - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:47+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/?page_id=2731",
+     "ANCORA": "Principio Luigia",
+     "STATUS": 200,
+     "SHA256": "3604b381c3688f5e609e35c845fc6cb41ca346fbfe1074b296a06b26f0f58fd0",
+     "TITULO": "Principio Luigia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:52+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/prisco-massimo/",
+     "ANCORA": "Prisco Massimo",
+     "STATUS": 200,
+     "SHA256": "7de26b6cad4ecb78b07c02a84f1d86ada488876a6f0d3582905b62ef96ebaf81",
+     "TITULO": "Prisco Massimo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:43:56+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/puglia-giuseppe-diego/",
+     "ANCORA": "Puglia Giuseppe Diego",
+     "STATUS": 200,
+     "SHA256": "ac390ef62023ebf44732b16d1c5c45d27ad135b09c1ae815915a1d04da71dd65",
+     "TITULO": "Puglia Giuseppe Diego - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:00+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/quarantotto-elisa/",
+     "ANCORA": "Quarantotto Elisa",
+     "STATUS": 200,
+     "SHA256": "04ea0479fe337c12f22252bd8c5bbc520c96df2ed42e330e1cfc0ec654edb7a5",
+     "TITULO": "Quarantotto Elisa - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:04+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/ricca-nicola/",
+     "ANCORA": "Ricca Nicola",
+     "STATUS": 200,
+     "SHA256": "72081ad505523469cb2c898860eff118023e0c90a3333c4ea5825d0b65a42d7a",
+     "TITULO": "Ricca Nicola - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:07+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/riccardi-maria/",
+     "ANCORA": "Riccardi Maria",
+     "STATUS": 200,
+     "SHA256": "f0b68d2ba3377619db8d3b98381e0adcd23132b9363d9b59e804ee911b7b86b6",
+     "TITULO": "Riccardi Maria - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:11+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/romano-claudio/",
+     "ANCORA": "Romano Claudio",
+     "STATUS": 200,
+     "SHA256": "802c7d9eb45aa854c934cf916322653ff0825d0e17e64f4f39a8c8312bdc822f",
+     "TITULO": "Romano Claudio - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:15+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/russo-luisa/",
+     "ANCORA": "Russo Luisa",
+     "STATUS": 200,
+     "SHA256": "f24eb6deabeb30873aa8bfba384852f4166ae4668e75b815739c227d335defdc",
+     "TITULO": "Russo Luisa - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:19+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/santangelo-giorgia/",
+     "ANCORA": "Santangelo Giorgia",
+     "STATUS": 200,
+     "SHA256": "4ae9feaa4360a274760a9d48128e74960f21644b6f47633fa52c84f1febbd07d",
+     "TITULO": "Santangelo Giorgia - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:23+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://isafom.cnr.it/saponaro-vincenzo/",
+     "ANCORA": "Saponaro Vincenzo",
+     "STATUS": 200,
+     "SHA256": "3c1710ab623577a7bc79339ccad0b11aec6230dc6ae16a57a380465a7e83d5dd",
+     "TITULO": "Saponaro Vincenzo - CNR - ISAFOM",
+     "H1": "CNR – ISAFOM",
+     "QUANDO": "2026-09-23T21:44:27+00:00",
+     "SOCIAIS": []
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://isafom.cnr.it/",
+    "SHA256": "65ce518d02bbe81b24024e2ae8e46ffe4dd8b7dbe69af0a964b84d84dcb909c3",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 91,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/cnr_isafom",
+    "https://www.youtube.com/channel/UCOiX7jy7G-NMPtaA9QaNQrg"
+   ],
+   "PESSOAS_LIDAS": 80,
+   "COM_SOCIAL": 2,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:44:27+00:00"
+  },
+  "www.ipsp.cnr.it": {
+   "URL": "https://www.ipsp.cnr.it/",
+   "DONO": "CNR — IPSP",
+   "FAMILIA": "CNR",
+   "INICIO": "2026-09-23T21:44:27+00:00",
+   "LISTAGENS": [],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 403,
+    "URL_FINAL": "https://www.ipsp.cnr.it/",
+    "SHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ROBOTS": "SEM_ROBOTS (404, urllib)"
+   },
+   "RESULTADO": "CASA_NAO_ABRE",
+   "FIM": "2026-09-23T21:44:36+00:00"
+  },
+  "www.iret.cnr.it": {
+   "URL": "https://www.iret.cnr.it/",
+   "DONO": "CNR — IRET",
+   "FAMILIA": "CNR",
+   "INICIO": "2026-09-23T21:44:36+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.iret.cnr.it/notte-europea-delle-ricercatrici-e-dei-ricercatori-iret-di-montelibretti-apre-le-phytodomes-e-non-solo/",
+     "ANCORA": "",
+     "STATUS": 200,
+     "SHA256": "fbfc555dcc1933dfc8c70062ca595417466612776649a6393928afb33263ffa7",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.iret.cnr.it/personale/",
+     "ANCORA": "Elenco personale",
+     "STATUS": 200,
+     "SHA256": "653615d398fde91336f7dbd1198a01057dc4b27bbb0ad075f3860eaa955dd851",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.iret.cnr.it/",
+    "SHA256": "a641e271cb22055d881f8ac1a7950fb220eb03f1a47c0fd7f55309a8db2c6ae7",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 0,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/cnr_iret",
+    "https://www.linkedin.com/in/cnr-iret-b99044249",
+    "https://www.youtube.com/@cnriret7301"
+   ],
+   "PESSOAS_LIDAS": 0,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "SEM_PESSOAS",
+   "FIM": "2026-09-23T21:44:55+00:00"
+  },
+  "www.ispaam.cnr.it": {
+   "URL": "https://www.ispaam.cnr.it/",
+   "DONO": "CNR — ISPAAM",
+   "FAMILIA": "CNR",
+   "INICIO": "2026-09-23T21:44:55+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://www.ispaam.cnr.it/staff-napoli/",
+     "ANCORA": "Staff Napoli",
+     "STATUS": 200,
+     "SHA256": "b13a73728e720cb753fea8a95d766e643b095a974ad8089c7cd36ff83c95bb81",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.ispaam.cnr.it/staff-sassari/",
+     "ANCORA": "Staff Sassari",
+     "STATUS": 200,
+     "SHA256": "5e10c9a958b5d110f9a9d7dfbb59203c68ee08186a4d42030a2edfb62b993626",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://www.ispaam.cnr.it/trasparenza/",
+     "ANCORA": "Richieste di Personale",
+     "STATUS": 200,
+     "SHA256": "c4fcaf2d9a38a509419dc0f4bf55f2bb674240f28c72c7d9e9ddc2710a1a98ab",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://www.ispaam.cnr.it/",
+    "SHA256": "6599fe7aa321e4b9b0e687ba88905a5ab1009e3483b3a8ea8ef37b7b731a6df3",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 0,
+   "INSTITUCIONAIS": [
+    "https://www.instagram.com/ispaam_cnr"
+   ],
+   "PESSOAS_LIDAS": 0,
+   "COM_SOCIAL": 0,
+   "RESULTADO": "SEM_PESSOAS",
+   "FIM": "2026-09-23T21:45:16+00:00"
+  },
+  "www.ibba.cnr.it": {
+   "URL": "https://www.ibba.cnr.it/",
+   "DONO": "CNR — IBBA",
+   "FAMILIA": "CNR",
+   "INICIO": "2026-09-23T21:45:16+00:00",
+   "LISTAGENS": [
+    {
+     "URL": "https://ibba.cnr.it/senza-categoria/dalla-genetica-dei-legumi-alle-foreste-che-nutrono-fino-alla-musica-delle-piante-libba-cnr-protagonista-della-notte-europea-della-ricerca-2026/",
+     "ANCORA": "Dalla genetica dei legumi alle foreste che nutrono, fino all",
+     "STATUS": 200,
+     "SHA256": "916034d1f7e0f33cffe12c8d2f58ad27c26eb6080ccea54f83a9bfd4e73cc5cd",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://ibba.cnr.it/senza-categoria/torna-il-fascination-of-plants-day-allibba-cnr/",
+     "ANCORA": "Torna il Fascination of Plants Day all’Ibba Cnr 5 Maggio 202",
+     "STATUS": 200,
+     "SHA256": "fdb86c54212aec75ed00eb7893b05ed183aa884fefae06069d8a1b96223aaf9d",
+     "ROBOTS": "LIDO (urllib)"
+    },
+    {
+     "URL": "https://ibba.cnr.it/staff-ibba/",
+     "ANCORA": "Staff",
+     "STATUS": 200,
+     "SHA256": "e2a0a001bc9e42a130769a4c260e7f6774282098361bb79b72de5fe85c48b160",
+     "ROBOTS": "LIDO (urllib)"
+    }
+   ],
+   "PESSOAS": [
+    {
+     "URL": "https://ibba.cnr.it/staff/bianca-castiglioni/",
+     "ANCORA": "Bianca Castiglioni",
+     "STATUS": 200,
+     "SHA256": "3433f26b056636e6055527801353f3bb8c269ace0d8b04c734dea161b0bef6cf",
+     "TITULO": "Bianca Castiglioni",
+     "H1": "Staff Bianca Castiglioni",
+     "QUANDO": "2026-09-23T21:46:10+00:00",
+     "SOCIAIS": [
+      {
+       "URL": "https://www.researchgate.net/profile/Bianca_Castiglioni",
+       "PLATAFORMA": "RESEARCHGATE",
+       "ANCORA": "Bianca Castiglioni"
+      },
+      {
+       "URL": "https://www.linkedin.com/in/bianca-castiglioni-12302a48",
+       "PLATAFORMA": "LINKEDIN",
+       "ANCORA": "Bianca Castiglioni"
+      }
+     ]
+    },
+    {
+     "URL": "https://ibba.cnr.it/staff/clara-maria-della-croce/",
+     "ANCORA": "Clara Della Croce",
+     "STATUS": 200,
+     "SHA256": "d542e0eb2f7abe920481d9fdcbb826597d56a77b5def279ceccb878f8972eb57",
+     "TITULO": "Clara Maria Della Croce",
+     "H1": "Staff Clara Maria Della Croce",
+     "QUANDO": "2026-09-23T21:46:16+00:00",
+     "SOCIAIS": []
+    },
+    {
+     "URL": "https://www.isb.cnr.it/cannarella-carmelo/",
+     "ANCORA": "Carmelo Cannarella",
+     "STATUS": 200,
+     "SHA256": "88fc3e21a4a4dbf2aab9d7a3d7b2f68d23782702c20b30829a7516f4c57d8811",
+     "TITULO": "Carmelo Cannarella – Istituto per i Sistemi Biologici",
+     "H1": "Carmelo Cannarella",
+     "QUANDO": "2026-09-23T21:46:24+00:00",
+     "SOCIAIS": [
+      {
+       "URL": "https://www.youtube.com/@cnrisb9684",
+       "PLATAFORMA": "YOUTUBE",
+       "ANCORA": ""
+      }
+     ]
+    }
+   ],
+   "CASA": {
+    "STATUS": 200,
+    "URL_FINAL": "https://ibba.cnr.it/",
+    "SHA256": "3061c7670cc4bfa5f412872fbc58fdb956214ba27d8337076a789033c9cb4f02",
+    "ROBOTS": "LIDO (urllib)"
+   },
+   "PESSOAS_LISTADAS": 3,
+   "INSTITUCIONAIS": [],
+   "PESSOAS_LIDAS": 3,
+   "COM_SOCIAL": 2,
+   "RESULTADO": "LIDA",
+   "FIM": "2026-09-23T21:46:24+00:00"
+  }
+ },
+ "PEDIDOS_DESTA_CORRIDA": 243
+}
