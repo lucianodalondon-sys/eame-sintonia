@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e6f72ce8d1ea46d3893daa00ac0b06b8e4eef232
+HEAD_DA_MEDICAO  3276c242325fcda116427569e8e580d38891017e
 BRANCH           unificacao-v1
-GERADO_EM        2026-09-23T06:08:46-03:00
+GERADO_EM        2026-09-23T06:36:29-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -132,7 +132,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | DESENVOLVIMENTO_MERCADO · TECNICO_CIENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:105; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:105; orquestrador/orquestrador.py:898 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | `data/samples/EXPERT-DIRECTORY-EAME-V1.json`, `data/samples/IT-CIENCIA/IT-CIENCIA-UNIVERSO-V1.json`, `data/samples/RESEARCHER-CORPUS-EAME-V1.json` |
@@ -207,7 +207,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:122; orquestrador/orquestrador.py:892 _(plano OBSERVED)_ |
+| **prova de quem ativa** | pedido/receitas.py:122; orquestrador/orquestrador.py:898 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -228,14 +228,14 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | | |
 |---|---|
 | **peça real** | `coleta/executor_texto_de_html.py` |
-| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-ROTA-DO-HTML, C-TESTES |
 | **prova de quem ativa** | provas/a_rota_do_html_nao_vai_a_rede.py:47; provas/red_team_duas_portas.py:44; tests/test_a_rota_do_html.py:35 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
-| **o que entra · ficheiros** | — NÃO SEI |
+| **o que entra · ficheiros** | `curadoria/retrato_html.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 4 · saem 3 |
@@ -307,7 +307,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
 | **status operacional** | green — outra peca do sistema importa isto para funcionar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:236; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:236; orquestrador/orquestrador.py:898 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json`, `data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json`, `supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql` |
@@ -357,7 +357,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | INTELIGENCIA · TECNICO_CIENCIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:170; orquestrador/orquestrador.py:892 _(plano OBSERVED)_ |
+| **prova de quem ativa** | pedido/receitas.py:170; orquestrador/orquestrador.py:898 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `candidatas/ITALY-SOURCE-MASTER-V1.json`, `candidatas/italy_profiles.mjs`, `coleta/italy_pilot_collect.mjs` |
@@ -382,7 +382,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | orquestrador/orquestrador.py:605; provas/a_linhagem_do_ready.py:60; provas/a_ponte_de_midia_no_postgres.py:67 |
+| **prova de quem ativa** | orquestrador/orquestrador.py:611; provas/a_linhagem_do_ready.py:60; provas/a_ponte_de_midia_no_postgres.py:67 |
 | **porquê** | estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -407,7 +407,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | REGULATORIO_PORTFOLIO · TECNICO_CIENCIA |
 | **status operacional** | green — outra peca do sistema importa isto para funcionar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:157; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:157; orquestrador/orquestrador.py:898 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | V-HTTP |
 | **o que entra · ficheiros** | `build/ITALY-REALITY-HANDOFF-V2/PREVIOUS-HANDOFF/01-DESIGN-READY/ADAMA/adama-italy-products.json`, `data/raw/IT-ROTULOS/_MANIFESTO.json`, `data/samples/ES-ADAMA-PORTFOLIO-ROPF.json` |
@@ -432,7 +432,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ORQUESTRADOR |
-| **prova de quem ativa** | pedido/receitas.py:410; orquestrador/orquestrador.py:892 _(plano CODE)_ |
+| **prova de quem ativa** | pedido/receitas.py:410; orquestrador/orquestrador.py:898 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -487,7 +487,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **prova de quem ativa** | tests/test_m2_rota_forward.py:1 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | C-IT-TEXTO-DERIVADO, C-IT-TEXTO-PESQUISAVEL, C-SCRAP-SOCIAL |
-| **o que entra · ficheiros** | `admissao/idioma.py`, `data/samples/LIVRO-DE-DECISOES.json` |
+| **o que entra · ficheiros** | `admissao/idioma.py`, `curadoria/politica_nao_sei.py`, `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | — NÃO SEI |
 | **arestas no mapa** | entram 6 · saem 35 |
@@ -775,13 +775,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `curadoria/BRIDGE-LEDGER-V1.json`, `curadoria/DISCOVERY-VISITED.json`, `curadoria/LIFECYCLE-EVIDENCE-V1.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `curadoria/LIFECYCLE-QUEUE-V1.json`, `curadoria/RED-TEAM-TELEMETRIA-V1.json`, `curadoria/red_team_telemetria.py` |
-| **arestas no mapa** | entram 4 · saem 0 |
-| **arestas provadas** | entram 4 · saem 0 |
+| **arestas no mapa** | entram 5 · saem 0 |
+| **arestas provadas** | entram 5 · saem 0 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 4 |
+| **prova das ligações** | CODE 5 |
 | **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -1073,7 +1073,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | orquestrador/orquestrador.py:512 |
+| **prova de quem ativa** | orquestrador/orquestrador.py:514 |
 | **porquê** | estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -1300,7 +1300,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | ferramentas/unificacao/provar_em_copia.py:109; scripts/desbloqueio/aplicar_desbloqueio.py:182; scripts/micro_coleta/micro_coleta.py:120 |
+| **prova de quem ativa** | ferramentas/unificacao/provar_em_copia.py:119; scripts/desbloqueio/aplicar_desbloqueio.py:182; scripts/micro_coleta/micro_coleta.py:120 |
 | **porquê** | estas pecas importam-na — C-CENSO-UNIFICACAO · C-DESBLOQUEIO-PACOTE · C-MICRO-COLETA-INSTRUMENTO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `curadoria/CATALOGO-PROVA-V1.json`, `curadoria/GABARITO-T2-T12-V1.json`, `curadoria/GABARITO-T2-T12-V2.json` |
@@ -1495,7 +1495,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V3.json` _(e mais 6)_ |
+| **peça real** | `medidas/ensaio_quarentena_naosei.py`, `scripts/detector_capa/GABARITO-CAPA-V1.json`, `scripts/detector_capa/GABARITO-CONTROLO-LD2.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V1.json`, `scripts/detector_capa/LISTING-DETAIL-GATE-V2.json` _(e mais 7)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
