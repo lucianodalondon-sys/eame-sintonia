@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "reparo-fontes-v1",
-    "HEAD": "bbc0df4fbbb42fff2d14196412bdce787536c66e",
-    "GENERATED_AT": "2026-09-23T17:00:08-03:00",
-    "SOURCE_TREE_FINGERPRINT": "1021e1e1e18493a0e87678e13983d76fc040eceeea65761fc72c44d7ceb4f6a6"
+    "HEAD": "b179dee39a4aca44519ffa1e4dd4b650ce00a252",
+    "GENERATED_AT": "2026-09-23T17:45:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "b5b1628c6ec0b81d6598305f65705859ce7eda50c9415282bc405a881e942536"
   },
   "FILES": [
     {
@@ -527,6 +527,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-R1-REPARO-FONTES.md",
+      "sha": "ff69dc0ae3c47380795b6d8cfa0499ee2d7a4fe3",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-RECEITAS-FONTES.md",
       "sha": "e552104418c1d2c2cc033fbe56f7d12ec7b74fcc",
       "ext": ".md",
@@ -626,7 +633,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "c8c23544d7a7b7d15a97d2ca965ceb0f942b28f1",
+      "sha": "bfe75a3ecf5129f96459b9b0e7485acb456c6a7a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3076,7 +3083,7 @@
     },
     {
       "path": "curadoria/red_team_service.py",
-      "sha": "98ff4e73b32397f18250a881ccd867ee7cf34e3e",
+      "sha": "36e6623c018cd7afa8f1fc5d2f5a412ede31a719",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3349,7 +3356,7 @@
     },
     {
       "path": "curadoria/test_reparar_contrato.py",
-      "sha": "48099087a55454255f440865a83292f2a367428b",
+      "sha": "a6b249266bc8def9462f870ae077412043b64fc3",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16718,6 +16725,20 @@
       "code_dir": true
     },
     {
+      "path": "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA-SEM-FILTRO.json",
+      "sha": "74ac29c2dceae8b3f3daf00cb4c1f5809ebcbff6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "scripts/reparo/R1-ANTES-DEPOIS-EM-COPIA.json",
+      "sha": "d0b009f5e9f16b1f91d49f615d3552d2fa0afe99",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/reparo/juntar_bancas.py",
       "sha": "14a496fb6accddfd9080f26d88300fa4a7c2c7d5",
       "ext": ".py",
@@ -29505,7 +29526,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 477,
+        "line": 485,
         "snippet": "import fonte_nova as FN"
       }
     },
@@ -29516,7 +29537,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_reparar_contrato.py",
-        "line": 475,
+        "line": 483,
         "snippet": "import decisao_semantica as DS"
       }
     },
@@ -29551,6 +29572,17 @@
         "file": "curadoria/test_reparar_contrato.py",
         "line": 19,
         "snippet": "import lifecycle as LC            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_reparar_contrato.py",
+      "to_file": "curadoria/provar_listagem.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_reparar_contrato.py",
+        "line": 162,
+        "snippet": "import provar_listagem as PL"
       }
     },
     {
@@ -80860,10 +80892,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2770,
+    "files_tracked": 2773,
     "files_readable": 1272,
-    "files_code_dir": 1088,
-    "file_edges": 5536,
+    "files_code_dir": 1090,
+    "file_edges": 5537,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
