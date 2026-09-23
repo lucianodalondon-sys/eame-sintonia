@@ -2057,6 +2057,7 @@
       "provas/_e2e01_janela_admissivel.py",
       "provas/_e2e02_janela_dois_posts.py",
       "provas/_flow01_janela_falsa.py",
+      "provas/_mutantes_c13_d23.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_collection_preserva_o_fato.py",
@@ -3294,8 +3295,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "a2a24019fe569110637952b682b1b369a6078489",
-    "GENERATED_AT": "2026-09-23T11:52:49-03:00",
+    "HEAD": "7da4b601fc86123c0bdf28f6177d74345b757137",
+    "GENERATED_AT": "2026-09-23T12:07:52-03:00",
     "SOURCE_TREE_FINGERPRINT": "d990a80e605e2a9efce2bd4c2923adf339a631285308bb54818f3d41e8ee636f"
   },
   "FAMILIES": [
@@ -37149,9 +37150,10 @@
       "files": [
         "provas/_diag_canario_d23.py",
         "provas/_diag_canario_d23_b.py",
+        "provas/_mutantes_c13_d23.py",
         "provas/canario_d23_linkedin_video.py"
       ],
-      "file_count": 3,
+      "file_count": 4,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -37163,6 +37165,7 @@
         "C-INGRESSO",
         "C-PROCEDENCIA",
         "C-SCRAP-COLHEITA",
+        "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL"
       ],
       "outbound": [],
@@ -42998,6 +43001,7 @@
         "C-ESTRADAS-IT",
         "C-FLUXO-NO-SECO",
         "C-FRONTEIRA-TELEMETRIA",
+        "C-PROVA-CANARIO-D23-LINKEDIN",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTAS-REAIS",
@@ -100658,6 +100662,41 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-CANARIO-D23-LINKEDIN",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por O canário do vídeo de organização no LinkedIn (D23) — e os dois bisturis da cadeia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/_mutantes_c13_d23.py",
+          "line": 23,
+          "snippet": "import social_matriz as mz",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-CANARIO-D23-LINKEDIN",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-CANARIO-D23-LINKEDIN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -111481,12 +111520,12 @@
     "components_pending": 193,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1195,
-    "edges_proven": 1131,
+    "edges": 1196,
+    "edges_proven": 1132,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2700,
-    "files_covered": 1168,
+    "files_tracked": 2701,
+    "files_covered": 1169,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,

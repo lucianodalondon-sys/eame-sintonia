@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-linkedin-v1",
-    "HEAD": "a2a24019fe569110637952b682b1b369a6078489",
-    "GENERATED_AT": "2026-09-23T11:52:49-03:00",
+    "HEAD": "7da4b601fc86123c0bdf28f6177d74345b757137",
+    "GENERATED_AT": "2026-09-23T12:07:52-03:00",
     "SOURCE_TREE_FINGERPRINT": "d990a80e605e2a9efce2bd4c2923adf339a631285308bb54818f3d41e8ee636f"
   },
   "FILES": [
@@ -14004,6 +14004,13 @@
     {
       "path": "provas/_flow01_janela_falsa.py",
       "sha": "9221cd113485daf2a377bbdf3a0112355b00c1e2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_mutantes_c13_d23.py",
+      "sha": "9c3f8b959dcce9b859833d91f7f12a0da8ed060e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -45341,6 +45348,28 @@
         "file": "provas/_diag_canario_d23_b.py",
         "line": 21,
         "snippet": "import artefato as art"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_c13_d23.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_mutantes_c13_d23.py",
+        "line": 22,
+        "snippet": "import _gavetas  # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/_mutantes_c13_d23.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_mutantes_c13_d23.py",
+        "line": 23,
+        "snippet": "import social_matriz as mz"
       }
     },
     {
@@ -78610,10 +78639,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2700,
-    "files_readable": 1234,
-    "files_code_dir": 1043,
-    "file_edges": 5376,
+    "files_tracked": 2701,
+    "files_readable": 1235,
+    "files_code_dir": 1044,
+    "file_edges": 5378,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
