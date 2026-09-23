@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  6e01e55f023a1c9ee4671db2913c96830b1d9e74
-BRANCH           curator-youtube-v1
-GERADO_EM        2026-09-23T08:47:27-03:00
+HEAD_DA_MEDICAO  8311f12ba2f460b72f4ad8345395d2da13695abc
+BRANCH           retencao-youtube-v1
+GERADO_EM        2026-09-23T10:32:02-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1018,7 +1018,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `guarda/banco_descartavel.py`, `guarda/banco_operacional.py`, `guarda/cliente_postgres.py`, `guarda/memoria_descartavel.py`, `guarda/memoria_postgres.py` _(e mais 2)_ |
+| **peça real** | `docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md`, `guarda/banco_descartavel.py`, `guarda/banco_operacional.py`, `guarda/cliente_postgres.py`, `guarda/memoria_descartavel.py` _(e mais 4)_ |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
@@ -1243,10 +1243,10 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 
 | | |
 |---|---|
-| **peça real** | `guarda/sql_conferir.py`, `supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql`, `supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql`, `supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql`, `supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql` _(e mais 49)_ |
+| **peça real** | `guarda/sql_conferir.py`, `supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql`, `supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql`, `supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql`, `supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql` _(e mais 50)_ |
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 10 ficheiro(s) novos que nunca foram lidos por gente. |
+| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 11 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CADEIA-V21 |
 | **prova de quem ativa** | motor/cadeia_canonica.sh:205 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |

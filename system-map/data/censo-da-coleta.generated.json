@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
-    "GENERATED_AT": "2026-09-23T11:49:46+00:00",
-    "HEAD": "6e01e55f023a1c9ee4671db2913c96830b1d9e74",
+    "GENERATED_AT": "2026-09-23T13:33:20+00:00",
+    "HEAD": "8311f12ba2f460b72f4ad8345395d2da13695abc",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "698b4b9b9dd48a43284f361022ee845e9b171ff4c5045f8b783a6eabba838863",
-    "FICHEIROS_NA_IMPRESSAO": 2856,
+    "SOURCE_TREE_FINGERPRINT": "2ee879981eba86bd6480bf1abd4fcd34d42202696220d69cfb90ee64fb45fa57",
+    "FICHEIROS_NA_IMPRESSAO": 2865,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -879,6 +879,13 @@
         "LIDO_POR": "medir() · read_text"
       },
       {
+        "PATH": "guarda/retencao_youtube_api.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ad119f7bad1d3c56127b80285f4436a6948d4521",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
         "PATH": "guarda/social_guarda.py",
         "PAPEL": "FONTE",
         "VERSAO": "431b97fb8264db0e1cf65ec1c5207eb405c68fab",
@@ -1054,8 +1061,8 @@
         "LIDO_POR": "medir() · read_text"
       }
     ],
-    "INPUTS_COUNT": 149,
-    "INPUTS_DIGEST": "b838ada57497bdaa977427cbdcf3ee6c8f687085e2473b42a3232d9998407a10",
+    "INPUTS_COUNT": 150,
+    "INPUTS_DIGEST": "b3e8560c105aa6384161522e55e885e8ece7ab6b4e7f4db499b966a3268ae26f",
     "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
@@ -3109,6 +3116,7 @@
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py",
         "ferramentas/reel_transcricao.py",
+        "guarda/retencao_youtube_api.py",
         "regras/proveniencia.py"
       ],
       "no_ci": true
@@ -3838,7 +3846,8 @@
       "chamado_por": [
         "guarda/banco_operacional.py",
         "guarda/cliente_postgres.py",
-        "guarda/memoria_postgres.py"
+        "guarda/memoria_postgres.py",
+        "guarda/retencao_youtube_api.py"
       ],
       "no_ci": false
     },
@@ -4044,7 +4053,8 @@
         "guarda/catalogo_importar.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py",
-        "guarda/preservar_documento.py"
+        "guarda/preservar_documento.py",
+        "guarda/retencao_youtube_api.py"
       ],
       "no_ci": true
     },
@@ -4088,6 +4098,24 @@
       "chamado_por": [
         "guarda/preservar_coleta.py"
       ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/retencao_youtube_api.py",
+      "gaveta": "guarda",
+      "linhas": 302,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
       "no_ci": false
     },
     {
@@ -4159,13 +4187,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 149,
-    "pontos_de_entrada": 106,
+    "ficheiros_de_codigo": 150,
+    "pontos_de_entrada": 107,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 58,
+    "sem_chamador_e_fora_do_ci": 59,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 81,
-    "deitam_fora_alguma_coisa": 44,
+    "deitam_fora_alguma_coisa": 45,
     "deitam_fora_SEM_escrever_o_motivo": 4,
     "ficheiros_com_decisao_escondida": 4,
     "decisoes_escondidas_ao_todo": 4
@@ -4275,6 +4303,7 @@
       "guarda/importar_italia.py",
       "guarda/italy_preserve.mjs",
       "guarda/portas_live.py",
+      "guarda/retencao_youtube_api.py",
       "guarda/social_guarda.py",
       "guarda/social_sessao.py",
       "guarda/sql_conferir.py"
@@ -4362,6 +4391,7 @@
       "guarda/banco_operacional.py",
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
+      "guarda/retencao_youtube_api.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [

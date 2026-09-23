@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "curator-youtube-v1",
-    "HEAD": "6e01e55f023a1c9ee4671db2913c96830b1d9e74",
-    "GENERATED_AT": "2026-09-23T08:47:27-03:00",
-    "SOURCE_TREE_FINGERPRINT": "698b4b9b9dd48a43284f361022ee845e9b171ff4c5045f8b783a6eabba838863"
+    "BRANCH": "retencao-youtube-v1",
+    "HEAD": "8311f12ba2f460b72f4ad8345395d2da13695abc",
+    "GENERATED_AT": "2026-09-23T10:32:02-03:00",
+    "SOURCE_TREE_FINGERPRINT": "2ee879981eba86bd6480bf1abd4fcd34d42202696220d69cfb90ee64fb45fa57"
   },
   "FILES": [
     {
@@ -541,6 +541,13 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-SOC3-RETENCAO-YOUTUBE.md",
+      "sha": "b42536dbb1be6858eba056bb4254477f18a63523",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-UNIFICACAO.md",
       "sha": "f320dcbb89c6a1f02f48bbddbdd709bd622c0cc1",
       "ext": ".md",
@@ -556,7 +563,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "5ef356ba843ab50567e8e708453c00aaf87e6914",
+      "sha": "0db656b841cd76de9c3ea896a259a1b2cccc24c0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -2172,6 +2179,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/D21-HERANCA-DO-TERRITORIO-V1.json",
+      "sha": "0da72c02bc88c9121863bb2442fa822e3932ed95",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/DECISOES-SEMANTICAS-V1.json",
       "sha": "939e55c49c018102650d56cb0eb8711d33d549a4",
       "ext": ".json",
@@ -2992,7 +3006,7 @@
     },
     {
       "path": "curadoria/rota_do_scrap_youtube.py",
-      "sha": "aabaf3c986277fb21e5e99aae380ecafd73e43a2",
+      "sha": "4c83a25844b969e9482870e38fb88bdac9f6bf80",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3077,6 +3091,13 @@
     {
       "path": "curadoria/test_correr_lote.py",
       "sha": "a79e337d42425e7b268bd70ed9d3b1723da1d1a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_d21_heranca.py",
+      "sha": "54b4c616c0ef48eb410acae560ca660e3c49ef53",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3314,7 +3335,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "0f4845e817a4a9b625a047c64f12bb40c362f965",
+      "sha": "e90a320077cda380cb7904322e1d8ac1d5147410",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -9620,6 +9641,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
+      "sha": "4fc9a59a1776cc7e349484fcb5a06e0675199e73",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "sha": "0face360db38446639db2a633063a31b42fbd1e0",
       "ext": ".md",
@@ -10861,6 +10889,13 @@
     {
       "path": "guarda/preservar_documento.py",
       "sha": "cabbb9e39d2a48b9005d1f922646f1fe72f0c289",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/retencao_youtube_api.py",
+      "sha": "ad119f7bad1d3c56127b80285f4436a6948d4521",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15052,6 +15087,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/roteamento_youtube_proposta.py",
+      "sha": "fe5eab69f86f2d4357f092958415872d69897d72",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/run_duravel_no_postgres.py",
       "sha": "7394d2e6a3e168d65454fa7337d7707793e907b6",
       "ext": ".py",
@@ -16809,6 +16851,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/033_a_lapide_da_retencao.sql",
+      "sha": "e4358c7580cc8da958e5bd8984b0c191792d8565",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -16964,7 +17013,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "63b9e71c333eb4baf62b2b3e4da1b18ae346a9dd",
+      "sha": "d36ead89e574aab5a9a4ca467fb0485d9aa6f173",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18734,6 +18783,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_retencao_youtube_api.py",
+      "sha": "afd2cea97eadff38b2c4ee83c64d1062c6c5d375",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_retirada_por_decisao.py",
       "sha": "730f94111ee490b4c0394d5fd670b0d809542dc7",
       "ext": ".py",
@@ -18743,6 +18799,13 @@
     {
       "path": "tests/test_retorno_da_coleta.py",
       "sha": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_roteamento_youtube_proposta.py",
+      "sha": "c65163d7734b4f90d717ef5500b0a2bcd197855a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26987,6 +27050,28 @@
     },
     {
       "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "curadoria/linkedin_pelo_site.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 200,
+        "snippet": "import linkedin_pelo_site as LPS"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 184,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
       "to_file": "leis/social_matriz.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27665,6 +27750,61 @@
         "file": "curadoria/test_correr_lote.py",
         "line": 23,
         "snippet": "import correr_lote as L  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 24,
+        "snippet": "import fonte_nova as FN               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 23,
+        "snippet": "import fila as F                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 25,
+        "snippet": "import lifecycle as LC                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 26,
+        "snippet": "import rota_do_scrap_youtube as RSY   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 27,
+        "snippet": "import worker as W                    # noqa: E402"
       }
     },
     {
@@ -32824,6 +32964,28 @@
         "file": "guarda/preservar_documento.py",
         "line": 51,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "guarda/retencao_youtube_api.py",
+      "to_file": "guarda/banco_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/retencao_youtube_api.py",
+        "line": 58,
+        "snippet": "import banco_descartavel as BD          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "guarda/retencao_youtube_api.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/retencao_youtube_api.py",
+        "line": 59,
+        "snippet": "import preservar_coleta as PC           # noqa: E402"
       }
     },
     {
@@ -55784,6 +55946,39 @@
       }
     },
     {
+      "from_file": "provas/roteamento_youtube_proposta.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/roteamento_youtube_proposta.py",
+        "line": 34,
+        "snippet": "import pedido as PD      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/roteamento_youtube_proposta.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/roteamento_youtube_proposta.py",
+        "line": 35,
+        "snippet": "import receitas as R     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/roteamento_youtube_proposta.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/roteamento_youtube_proposta.py",
+        "line": 54,
+        "snippet": "d = json.load(open(TABELA, encoding='utf-8'))"
+      }
+    },
+    {
       "from_file": "provas/run_duravel_no_postgres.py",
       "to_file": "coleta/coleta_checkpoint.py",
       "type": "IMPORTS",
@@ -75452,6 +75647,50 @@
       }
     },
     {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "guarda/banco_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 87,
+        "snippet": "import banco_descartavel as BD"
+      }
+    },
+    {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "guarda/retencao_youtube_api.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 26,
+        "snippet": "import retencao_youtube_api as RT  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "provas/a_porta_cli_liga_o_banco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 67,
+        "snippet": "import a_porta_cli_liga_o_banco as P"
+      }
+    },
+    {
       "from_file": "tests/test_retirada_por_decisao.py",
       "to_file": "regras/italy_contracts.mjs",
       "type": "READS",
@@ -75537,6 +75776,28 @@
         "file": "tests/test_retorno_da_coleta.py",
         "line": 244,
         "snippet": "with open(os.path.join(RAIZ, \"leis\", \"retorno_da_coleta.py\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_roteamento_youtube_proposta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_roteamento_youtube_proposta.py",
+        "line": 16,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_roteamento_youtube_proposta.py",
+      "to_file": "provas/roteamento_youtube_proposta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_roteamento_youtube_proposta.py",
+        "line": 18,
+        "snippet": "import roteamento_youtube_proposta as RP  # noqa: E402"
       }
     },
     {
@@ -78490,10 +78751,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2708,
-    "files_readable": 1238,
-    "files_code_dir": 1046,
-    "file_edges": 5360,
+    "files_tracked": 2717,
+    "files_readable": 1243,
+    "files_code_dir": 1050,
+    "file_edges": 5378,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
