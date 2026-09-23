@@ -197,8 +197,15 @@ class NadaFoiRotuladoNemAlterado(unittest.TestCase):
         # medicoes de cada termo, vive em
         # `tests/test_a_regra_de_t2.py::test_os_universos_que_ja_tinham_regra_nao_foram_tocados`
         # e em `tests/test_a_regra_de_t10.py`.
+        # ⚠️ E MUDOU OUTRA VEZ, PELA YT2 (2026-09-23), E OUTRA VEZ NAO E RELAXAMENTO.
+        # `T8` — FARMERS & INFLUENCERS, canonico no Atlas — ganhou regua depois de
+        # um gabarito de 20 SIM / 28 NAO rotulado ANTES dela
+        # (scripts/regua_t8/GABARITO-T8-V1.json), porque o YouTube da AgroNotizie
+        # chegava a porta e recebia `NAO_SE_APLICA`. `T2` continua sem regra, e
+        # nenhuma regua antiga mudou: 0 vereditos mudados em 798 julgamentos
+        # (scripts/regua_t8/MEDICAO-REGUA-T8-V1.json).
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T10", "T3", "T4", "T5", "T7", "T9"])
+                         ["T10", "T3", "T4", "T5", "T7", "T8", "T9"])
 
     def test_o_pacote_de_revisao_continua_vazio(self):
         with open(os.path.join(RAIZ, "data", "samples",

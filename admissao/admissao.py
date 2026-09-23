@@ -638,6 +638,36 @@ def _dobrar(texto: str) -> str:
 #: Um so fica `NAO_SEI` — ver `_do_universo`.
 SINAIS_MINIMOS = 2
 
+# ── T8: POR CONCEITO, PALAVRA INTEIRA, E TRANSVERSAL (YT2, 2026-09-23) ──────
+# Tres decisoes, e cada uma tem razao medida — nenhuma mexe nas reguas antigas:
+#
+# 1 · UM TERMO DE T8 E UM CONCEITO, e as formas dele vao separadas por «|»
+#     («agricoltore|agricoltori»). Conta UMA vez, apareca a forma que aparecer:
+#     singular e plural sao o mesmo indicio, e dois indicios da mesma palavra
+#     nao sao os dois sinais independentes que SINAIS_MINIMOS exige.
+# 2 · PALAVRA INTEIRA, SO EM T8. As reguas antigas casam por pedaco de palavra
+#     (`prova` dentro de «approval», `soci` dentro de «sociale» — as licoes
+#     estao nos comentarios delas). T8 nasce ja com fronteira de palavra; as
+#     outras ficam como estao, porque muda-las e outra missao, com outra medicao.
+# 3 · T8 E TRANSVERSAL. «Quem fala e o campo?» nao exclui «fala de praga?»: um
+#     video sobre a mosca da oliveira e T3 E T8 ao mesmo tempo. Por isso um
+#     termo de T8 NUNCA serve de «prova de outro universo» para dizer NAO a
+#     outro universo — e as decisoes antigas nao mudam por T8 existir.
+#
+#     A VOZ DO CAMPO NAO E UM ASSUNTO: E QUEM FALA DO ASSUNTO.
+PALAVRA_INTEIRA = frozenset({"T8"})
+TRANSVERSAIS = frozenset({"T8"})
+
+
+def _casa(termo: str, texto_dobrado: str) -> bool:
+    """Uma das formas do conceito (separadas por «|») esta no texto como PALAVRA INTEIRA?"""
+    import re
+    for forma in str(termo).split("|"):
+        f = _dobrar(forma)
+        if f and re.search(r"(?<![a-z0-9])" + re.escape(f) + r"(?![a-z0-9])", texto_dobrado):
+            return True
+    return False
+
 
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
@@ -693,7 +723,12 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     if lingua == "en":
         reguas = PERGUNTAS_EN
         palavras = PERGUNTAS_EN.get(universo, [])
-    achadas = [p for p in palavras if _dobrar(p) in texto]
+    # As reguas antigas continuam EXACTAMENTE na linha de sempre (pedaco de
+    # palavra); so T8 passa pela palavra inteira por conceito.
+    if universo in PALAVRA_INTEIRA:
+        achadas = [p for p in palavras if _casa(p, texto)]
+    else:
+        achadas = [p for p in palavras if _dobrar(p) in texto]
     # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
     # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
     # dentro de `approvazione`. Uma unica palavra pode ser um acidente de
@@ -720,7 +755,7 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
     for outro, termos in reguas.items():
-        if outro == universo:
+        if outro == universo or outro in TRANSVERSAIS:
             continue
         casou = [t for t in termos if t.lower() in texto]
         if casou:
@@ -768,6 +803,33 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
 #
 #     UMA CHAVE DE DICIONARIO TAMBEM E UMA DECLARACAO DE TAXONOMIA.
 PERGUNTAS_DO_UNIVERSO = {
+    # T8 · FARMERS & INFLUENCERS — a voz e a pratica do campo (YT2, 2026-09-23)
+    #
+    # Escrita DEPOIS do gabarito (scripts/regua_t8/GABARITO-T8-V1.json, 20 SIM /
+    # 28 NAO, commit 000ea1e0) e a partir do PROTOCOLO dele, nao do texto dos
+    # videos. Um termo = um conceito; as formas vao separadas por «|» e casam
+    # por PALAVRA INTEIRA (ver `PALAVRA_INTEIRA`). Nenhum repete T3/T5/T7/T10.
+    #
+    # ⚠️ FICARAM DE FORA ANTES DE MEDIR, com a razao de cada um:
+    #     raccolta  e tambem «recolha» (de residuos, de cereais no silo)
+    #     resa      e tambem o verbo («si e resa conto»)
+    #     campagna  e tambem campanha publicitaria — e ja e de T9
+    #     varieta   aparece em «varieta di piante autoctone», que nao e campo
+    "T8": ["agricoltore|agricoltori|agricultor|agricultores",
+           "azienda agricola|aziende agricole|exploracao agricola|exploracoes agricolas|propriedade rural",
+           "in campo|nei campi|no campo|nos campos",
+           "coltivatore|coltivatori|viticoltore|viticoltori|frutticoltore|frutticoltori|"
+           "olivicoltore|olivicoltori|produtor rural|produtores rurais",
+           "allevatore|allevatori|pecuarista|pecuaristas",
+           "raccolto|raccolti|colheita|colheitas",
+           "semina|semine|sementeira|plantio",
+           "potatura|poda",
+           "concimazione|concimi|fertilizzanti|adubacao|fertilizantes",
+           "irrigazione|irrigacao",
+           "ettaro|ettari|hectare|hectares",
+           "vigneto|vigneti|frutteto|frutteti|oliveto|oliveti|vinhedo|vinhedos|pomar|pomares",
+           "trattore|trattori|trator|tratores",
+           "redditivita|costi di produzione|rentabilidade|custos de producao"],
     # T5 · SCIENCE — papers, estudos, trials, institutos
     #
     # ⚠️ `prova` SAIU, E A MEDICAO QUE O TIROU E O MELHOR ARGUMENTO DESTE
@@ -1012,6 +1074,12 @@ PERGUNTAS_EN = {
            "weeds", "weed control", "herbicide", "parasit", "pathogen",
            "phytopatholog", "plant patholog", "oviposition",
            "downy mildew", "powdery mildew", "botrytis", "apple scab"],
+    # T8 · os mesmos conceitos, em ingles (palavra inteira, formas por «|»)
+    "T8": ["farmer|farmers", "farm|farms", "in the field|in the fields",
+           "grower|growers", "harvest|harvests", "sowing|planting", "pruning",
+           "fertiliser|fertilizer|fertilisers|fertilizers", "irrigation",
+           "hectare|hectares", "vineyard|vineyards|orchard|orchards",
+           "tractor|tractors", "yield|yields", "livestock"],
     "T10": ["commodity",                                      # sem lingua
             "price", "quotation", "imports", "exports", "supply and demand"],
 }

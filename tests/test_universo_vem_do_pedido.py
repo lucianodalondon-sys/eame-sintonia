@@ -135,9 +135,14 @@ class OUniversoSemReguaEDecisaoDaAdmissao(unittest.TestCase):
                          'o roteador não é o dono da validade do universo')
 
     def test_12_a_admissao_e_que_responde_por_universo_sem_regua(self):
-        self.assertNotIn('T8', A.PERGUNTAS_DO_UNIVERSO)
+        # ⚠️ O EXEMPLO ERA `T8`, E T8 GANHOU REGUA NA YT2 (2026-09-23), com
+        # gabarito rotulado antes (scripts/regua_t8/). A pergunta deste teste
+        # continua a mesma — «um universo SEM regua nao vira valido» — e o
+        # universo sem regua que a casa guarda de proposito e `T2`
+        # (tests/test_a_regra_de_t2.py). Muda o exemplo, nao a lei.
+        self.assertNotIn('T2', A.PERGUNTAS_DO_UNIVERSO)
         d = A.decidir({'id': 'x', 'texto': 'prova di campo su pomodoro',
-                       'source_id': 'IT-T8-001'}, 'T8')
+                       'source_id': 'IT-T8-001'}, 'T2')
         self.assertIn(d.resultado, ('NAO_SEI', 'NAO_SE_APLICA'),
                       'universo sem régua não pode virar universo válido')
 

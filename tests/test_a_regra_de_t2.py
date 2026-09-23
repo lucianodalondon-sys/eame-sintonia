@@ -166,8 +166,15 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         #
         # O que esta guarda protege continua inteiro, e e so isto: `T2` NAO
         # ganhou regra. Essa asserção esta acima e nao mudou.
+        # ⚠️ E MUDOU OUTRA VEZ, PELA YT2 (2026-09-23), E OUTRA VEZ NAO E RELAXAMENTO.
+        # `T8` — FARMERS & INFLUENCERS, canonico no Atlas — ganhou regua depois de
+        # um gabarito de 20 SIM / 28 NAO rotulado ANTES dela
+        # (scripts/regua_t8/GABARITO-T8-V1.json), porque o YouTube da AgroNotizie
+        # chegava a porta e recebia `NAO_SE_APLICA`. `T2` continua sem regra, e
+        # nenhuma regua antiga mudou: 0 vereditos mudados em 798 julgamentos
+        # (scripts/regua_t8/MEDICAO-REGUA-T8-V1.json).
         self.assertEqual(sorted(adm.PERGUNTAS_DO_UNIVERSO),
-                         ["T10", "T3", "T4", "T5", "T7", "T9"])
+                         ["T10", "T3", "T4", "T5", "T7", "T8", "T9"])
         # ⚠️ AS CONTAGENS MUDARAM, E A MENSAGEM ANTIGA JA NAO SE APLICA.
         # Ela dizia «a missao so autorizava mexer em T2» — e isso era verdade
         # da missao que escreveu esta guarda. A missao
@@ -217,7 +224,10 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         #     UM TERMO QUE SO ACERTA DENTRO DE OUTRAS PALAVRAS
         #     NAO ESTAVA A MEDIR NADA. SO NAO SE VIA.
         for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 11),
-                     ("T9", 12), ("T10", 17)):
+                     ("T9", 12), ("T10", 17),
+                     # T8 · 14 CONCEITOS (YT2): cada um com as suas formas por «|»,
+                     # palavra inteira; a lista e a medicao em scripts/regua_t8/.
+                     ("T8", 14)):
             with self.subTest(universo=u):
                 self.assertEqual(
                     len(adm.PERGUNTAS_DO_UNIVERSO[u]), n,
