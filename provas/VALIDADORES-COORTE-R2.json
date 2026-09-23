@@ -1,0 +1,188 @@
+{
+ "DATASET": "VALIDADORES-COORTE-R2",
+ "MISSAO": "R2 recollection-prova-v2",
+ "MEDIDO_EM": "2026-09-23T08:02:52+00:00",
+ "METODO": "1 HEAD por site ao INDEX_URL (curl -I -L, UA do coletor) + robots.txt; egresso IT antes de cada site",
+ "LIMITE": "o indice indica o servidor, nao cada pagina; sem pedido condicional nao se prova 304",
+ "COORTE": 8,
+ "MEDIDOS": 8,
+ "COM_VALIDADOR": 3,
+ "SITES": [
+  {
+   "SOURCE_ID": "IT-T10-018",
+   "INDEX_URL": "https://www.myfruit.it/",
+   "MAX_TARGETS": 30,
+   "RECOLLECTION": null,
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": null,
+    "CACHE_CONTROL": "no-cache, private",
+    "CONTENT_LENGTH": null,
+    "SERVER": "nginx"
+   },
+   "RESULTADO": "SEM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T10-021",
+   "INDEX_URL": "https://plantgest.imagelinenetwork.com/",
+   "MAX_TARGETS": 1,
+   "RECOLLECTION": null,
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": null,
+    "CACHE_CONTROL": "max-age=900, max-age=60",
+    "CONTENT_LENGTH": null,
+    "SERVER": "Apache"
+   },
+   "RESULTADO": "SEM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T10-022",
+   "INDEX_URL": "https://zootecnicainternational.com/news/",
+   "MAX_TARGETS": 14,
+   "RECOLLECTION": "MUTABLE",
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": null,
+    "CACHE_CONTROL": null,
+    "CONTENT_LENGTH": null,
+    "SERVER": "nginx"
+   },
+   "RESULTADO": "SEM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T2-051",
+   "INDEX_URL": "https://www.arpae.it/it",
+   "MAX_TARGETS": null,
+   "RECOLLECTION": null,
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": null,
+    "CACHE_CONTROL": "max-age=0, s-maxage=0, must-revalidate",
+    "CONTENT_LENGTH": null,
+    "SERVER": "Arpae"
+   },
+   "RESULTADO": "SEM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T7-017",
+   "INDEX_URL": "https://www.riuniteciv.com/news-e-eventi/",
+   "MAX_TARGETS": 30,
+   "RECOLLECTION": "MUTABLE",
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": null,
+    "CACHE_CONTROL": null,
+    "CONTENT_LENGTH": null,
+    "SERVER": "Apache"
+   },
+   "RESULTADO": "SEM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T7-033",
+   "INDEX_URL": "https://www.chianticlassico.com/news/",
+   "MAX_TARGETS": 15,
+   "RECOLLECTION": null,
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": "Tue, 22 Sep 2026 21:23:54 GMT",
+    "CACHE_CONTROL": "max-age=0, no-cache, no-store, must-revalidate",
+    "CONTENT_LENGTH": "118795",
+    "SERVER": "Apache"
+   },
+   "RESULTADO": "COM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T7-041",
+   "INDEX_URL": "https://www.bonificaromagna.it/news",
+   "MAX_TARGETS": 7,
+   "RECOLLECTION": null,
+   "ROBOTS": "lido",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": "Wed, 23 Sep 2026 08:01:50 GMT",
+    "CACHE_CONTROL": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+    "CONTENT_LENGTH": null,
+    "SERVER": "LiteSpeed"
+   },
+   "RESULTADO": "COM_VALIDADOR"
+  },
+  {
+   "SOURCE_ID": "IT-T7-043",
+   "INDEX_URL": "https://agrofarma.federchimica.it/news-ed-eventi",
+   "MAX_TARGETS": 2,
+   "RECOLLECTION": null,
+   "ROBOTS": "robots HTTP 404 — o host nao publica robots.txt (tudo permitido)",
+   "EGRESSO": [
+    "IT",
+    "149.22.91.171",
+    "Palermo"
+   ],
+   "HEAD": {
+    "STATUS": "200",
+    "SALTOS": 0,
+    "ETAG": null,
+    "LAST_MODIFIED": "Wed, 23 Sep 2026 01:38:18 GMT",
+    "CACHE_CONTROL": "public, max-age=0, s-maxage=43200",
+    "CONTENT_LENGTH": null,
+    "SERVER": "cloudflare"
+   },
+   "RESULTADO": "COM_VALIDADOR"
+  }
+ ]
+}
