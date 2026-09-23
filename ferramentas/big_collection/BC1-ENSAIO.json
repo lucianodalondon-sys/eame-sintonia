@@ -1,0 +1,235 @@
+{
+ "DATASET": "BC1-ENSAIO",
+ "MISSAO": "BC1, 23/09/2026",
+ "ARVORE": "instalacao ensaiada: origin/cutover-20260923-0923 (5c02bbe4) + merge origin/unificacao-v1 (940f3b14), livros=producao (4f494819, local, nao publicado); + livros vivos do bot as 13:01 (3a8b67ea, local)",
+ "INSTALACAO": {
+  "CONFLITOS": 13,
+  "SO_MAPA_GERADO": true,
+  "LIVROS_IGUAIS_A_PRODUCAO": 11,
+  "CODIGO_IGUAL_A_LINHA": "micro_coleta.py, incrementalidade.mjs, provar_backup_da_sala.py",
+  "JUNTADO_PELOS_DOIS_LADOS": "regras/italy_contracts_onboarded.json (TTL T1 + D9 G1), JSON valido"
+ },
+ "COORTE_PLANO_13H": {
+  "PORTAO": 37,
+  "PRONTAS": 10,
+  "BLOQUEADAS": 27,
+  "FORA_DO_PORTAO": 106,
+  "PRONTAS_LISTA": [
+   "IT-T10-018",
+   "IT-T10-021",
+   "IT-T10-022",
+   "IT-T2-034",
+   "IT-T2-051",
+   "IT-T7-017",
+   "IT-T7-021",
+   "IT-T7-033",
+   "IT-T7-042",
+   "IT-T7-043"
+  ],
+  "FALTA": {
+   "SEM_CONTRATO_DE_COLETA": 16,
+   "SEM_CONTRATO_DE_COLETA+SEM_RECEITA_WEB_T8": 8,
+   "SEM_CONTRATO_DE_COLETA+SEM_RECEITA_WEB_T12": 1,
+   "SEM_RECEITA_WEB_PARA_T9": 1,
+   "ROTA:CAPABILITY_BLOCK": 1
+  }
+ },
+ "BACKUP_SALA_REAL": {
+  "QUANDO": "2026-09-23T15:50:26Z",
+  "PG_DUMP_CODIGO": 0,
+  "BYTES": 2166408,
+  "INDICE_TEM_SALA_DE_ESPERA": true,
+  "SALA_REAL_ANTES": {
+   "sala_de_espera": {
+    "LINHAS": 61,
+    "MD5": "406520e3174c65611c458a0459215768"
+   },
+   "raw_asset": {
+    "LINHAS": 1405,
+    "MD5": "29327125d3c92234553362456ef3dc16"
+   },
+   "storage_object": {
+    "LINHAS": 1097,
+    "MD5": "0d072679f43c75b75fd94147f399191b"
+   },
+   "derived_artifact": {
+    "LINHAS": 908,
+    "MD5": "ee268d16e4eec46817a0ed046433ce64"
+   },
+   "collection_run": {
+    "LINHAS": 389,
+    "MD5": "bc79ad116cb37fac1c9602a4c312cfeb"
+   }
+  },
+  "SALA_REAL_MUDOU_DURANTE_O_DUMP": false,
+  "IGUAL_A_SALA_REAL": true,
+  "PROVA_VALE": true
+ },
+ "BACKUP_SHA256": "e6388fc099707331 (prefixo)",
+ "ENSAIO_1_LIVROS_DO_COMMIT": "as 3 fontes RECUSADAS pelo proprio coletor (ESTADO_NAO_READY: no commit da troca ainda estavam CANARY_PENDING) — prova negativa de que o coletor nao deixa passar quem o portao nao aprovou; 0 pedidos",
+ "ENSAIO_2_ROLLBACK": {
+  "FONTES": [
+   "IT-T10-018",
+   "IT-T10-022",
+   "IT-T7-033"
+  ],
+  "ROLLBACK": {
+   "METODO": "pg_dump -Fc antes; dropdb + createdb + pg_restore do dump",
+   "ANTES": {
+    "sala_de_espera": {
+     "LINHAS": 8,
+     "MD5": "7d975769544d19864a973b0042d9f7bb"
+    },
+    "raw_asset": {
+     "LINHAS": 30,
+     "MD5": "d9cac8f6064f8bb4709d3b111a277f58"
+    },
+    "storage_object": {
+     "LINHAS": 30,
+     "MD5": "3d1fc7260e8a4689d4150713d53e7d60"
+    },
+    "derived_artifact": {
+     "LINHAS": 30,
+     "MD5": "64b0a4c44e2a69b275e0adaffe7663f1"
+    },
+    "collection_run": {
+     "LINHAS": 1,
+     "MD5": "ce5ab83df0585d81981d7f3315299d71"
+    }
+   },
+   "DEPOIS_DA_CORRIDA": {
+    "sala_de_espera": {
+     "LINHAS": 12,
+     "MD5": "7d9b4b3bf3bbaad413ed5ff50a2580b9"
+    },
+    "raw_asset": {
+     "LINHAS": 55,
+     "MD5": "bd1f6aa114c2a76280b5b336980aeece"
+    },
+    "storage_object": {
+     "LINHAS": 55,
+     "MD5": "9839de593c5ec8be531c6a1d3a4a7649"
+    },
+    "derived_artifact": {
+     "LINHAS": 55,
+     "MD5": "4d6e4a5c14aaec69c10aa2fe41132f73"
+    },
+    "collection_run": {
+     "LINHAS": 3,
+     "MD5": "80a4b55b0f0e9b4fc2b3045d86b17300"
+    }
+   },
+   "DEPOIS_DO_ROLLBACK": {
+    "sala_de_espera": {
+     "LINHAS": 8,
+     "MD5": "7d975769544d19864a973b0042d9f7bb"
+    },
+    "raw_asset": {
+     "LINHAS": 30,
+     "MD5": "d9cac8f6064f8bb4709d3b111a277f58"
+    },
+    "storage_object": {
+     "LINHAS": 30,
+     "MD5": "3d1fc7260e8a4689d4150713d53e7d60"
+    },
+    "derived_artifact": {
+     "LINHAS": 30,
+     "MD5": "64b0a4c44e2a69b275e0adaffe7663f1"
+    },
+    "collection_run": {
+     "LINHAS": 1,
+     "MD5": "ce5ab83df0585d81981d7f3315299d71"
+    }
+   },
+   "IGUAL_AO_ANTES": true,
+   "A_CORRIDA_MUDOU_ALGO": true
+  },
+  "ADMISSION_POR_FONTE": {
+   "IT-T10-018": "SIM 8 NAO 6 NAO_SEI 16",
+   "IT-T10-022": "SIM 4 NAO 2 NAO_SEI 4",
+   "IT-T7-033": "SIM 0 NAO 2 NAO_SEI 13"
+  },
+  "SEGUNDA_PASSAGEM": {
+   "UNNECESSARY_REFETCHES": 0,
+   "FALSE_DOCUMENT_CHANGED": 0,
+   "FALSO_NOVO_DOCUMENTO": 0,
+   "SKIPPED_KNOWN": 55,
+   "REVALIDATED": 0,
+   "DETAIL_REQUESTS": 0,
+   "INDEX_REQUESTS": 3,
+   "OBSERVACOES": 0,
+   "RESULTADOS": {},
+   "PEDIDOS_AO_SERVIDOR": 6,
+   "RAW_NOVOS_NA_BASE": 0,
+   "SALA_DELTA": 0,
+   "EXEMPLOS_FALSO_MUDOU": [],
+   "EXEMPLOS_FALSO_NOVO": [],
+   "SALA_ITENS_EM_MAIS_DE_UMA_CORRIDA": []
+  }
+ },
+ "ENSAIO_3_RELATORIO": {
+  "FONTES": [
+   "IT-T10-018",
+   "IT-T10-022",
+   "IT-T7-033"
+  ],
+  "CAMPOS": {
+   "SOURCES_ATTEMPTED": 3,
+   "SOURCES_SUCCESS": 3,
+   "DETAIL_DOCUMENTS": 55,
+   "LISTINGS_REJECTED": "NAO SEI",
+   "RAW_CREATED": 55,
+   "DERIVED_CREATED": 55,
+   "ADMISSION_SIM": 12,
+   "ADMISSION_NAO": 10,
+   "ADMISSION_NAO_SEI": 33,
+   "SALA_BEFORE": 0,
+   "SALA_AFTER": 12,
+   "SALA_DELTA": 12,
+   "UNNECESSARY_REFETCHES": 0,
+   "FALSE_DOCUMENT_CHANGED": 0,
+   "PROVENANCE_FAILURES": 0,
+   "NETWORK_REQUESTS": 61,
+   "PAID_USD": 0
+  },
+  "RELATORIO_C1_C9": {
+   "C1_EGRESSO_IT_POR_CORRIDA": "FAIL",
+   "C2_MATERIA_NAO_CAPA": "PENDENTE_HUMANO",
+   "C3_PONTE_EM_RUNTIME": "PASS",
+   "C4_PROVENIENCIA_COMPLETA": "PASS",
+   "C5_FACT_TIME_LOCATION": "PASS",
+   "C6_ZERO_BYPASS": "PASS",
+   "C7_PROPORCAO_POR_FONTE_E_CLASSE": "PASS",
+   "C8_DUAS_PERGUNTAS": "PASS",
+   "C9_IDIOMA_NAO_DA_NAO_SEI": "PASS"
+  },
+  "SEGUNDA_PASSAGEM": {
+   "UNNECESSARY_REFETCHES": 0,
+   "FALSE_DOCUMENT_CHANGED": 0,
+   "FALSO_NOVO_DOCUMENTO": 0,
+   "SKIPPED_KNOWN": 55,
+   "REVALIDATED": 0,
+   "DETAIL_REQUESTS": 0,
+   "INDEX_REQUESTS": 3,
+   "OBSERVACOES": 0,
+   "RESULTADOS": {},
+   "PEDIDOS_AO_SERVIDOR": 6,
+   "RAW_NOVOS_NA_BASE": 0,
+   "SALA_DELTA": 0,
+   "EXEMPLOS_FALSO_MUDOU": [],
+   "EXEMPLOS_FALSO_NOVO": [],
+   "SALA_ITENS_EM_MAIS_DE_UMA_CORRIDA": []
+  },
+  "SEGUNDOS_POR_FONTE": [
+   134.4,
+   50.2,
+   62.2
+  ],
+  "PEDIDOS_POR_ESTADO": {
+   "200": 61,
+   "404": 6
+  },
+  "NOTA_C1": "FAIL esperado offline: o ipinfo cai no servidor local e da 404; o egresso fica NAO SEI, nunca um IT fingido"
+ },
+ "LIMITES": "sem internet (servidor local com 304 paginas guardadas; 6 404); Postgres descartavel; o condutor de robots/ritmo (A4) nao correu; a Sala real so foi lida (pg_dump)"
+}

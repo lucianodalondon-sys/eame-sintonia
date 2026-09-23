@@ -184,8 +184,12 @@ class ATabelaDoDonoTemAs18ESoAs18(unittest.TestCase):
                                  "a caracterizacao (com os NAO SEI) tem de chegar inteira")
 
     def test_a_tabela_tem_105_mais_18_mais_50(self):
-        self.assertEqual(173, len(self.onb["FONTES"]))
-        self.assertEqual(173, len(self.por_id), "SOURCE_ID repetido na tabela")
+        # as 173 da integracao 04A, mais as que o dono acrescenta DEPOIS, cada uma com o
+        # carimbo do canario que provou a rota (onboardar_rotas_provadas, BC2: +18)
+        depois = [f for f in self.onb["FONTES"]
+                  if str(f.get("ONBOARDED_BY", "")).startswith("ROTAS-ELEGIVEIS-V1")]
+        self.assertEqual(173, len(self.onb["FONTES"]) - len(depois))
+        self.assertEqual(len(self.onb["FONTES"]), len(self.por_id), "SOURCE_ID repetido na tabela")
 
     def test_as_50_youtube_entram_pela_rota_do_canal_e_nunca_pelo_feed(self):
         cur = {c["SOURCE_ID"]: c for c in self.cur["FONTES"] if c["BATCH_ID"] == "LOTE-YOUTUBE-FEED"}
@@ -277,7 +281,10 @@ class OMotorNaoAlcancaAs50PeloFeed(unittest.TestCase):
         self.assertEqual([], out["yt_fora"])
         self.assertEqual(50, len(out["yt_pelo_canal"]))
         self.assertEqual([], out["yt_invalidos"], "as 50 passam conferirAquisicao + conferirIdentidade")
-        self.assertEqual(173, out["onboarded"])
+        depois = sum(1 for f in json.load(open(os.path.join(RAIZ, "regras", "italy_contracts_onboarded.json"),
+                                          encoding="utf-8"))["FONTES"]
+                     if str(f.get("ONBOARDED_BY", "")).startswith("ROTAS-ELEGIVEIS-V1"))
+        self.assertEqual(173, out["onboarded"] - depois)
         for ob in out["onboarded_by"]:
             self.assertIn("SOURCE-CURATOR", ob, "o contrato expandido tem de dizer de onde veio")
         for ob in out["yt_onboarded_by"]:
