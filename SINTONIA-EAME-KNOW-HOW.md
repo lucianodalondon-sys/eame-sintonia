@@ -20988,3 +20988,85 @@ mais 1 por cada 50 vídeos de metadados: ~4.000 canais/dia sem comentários.
 **CANAIS IT COM IDENTIDADE PROVADA.** 51 com `channelId` e SOURCE_ID (50 em
 `regras/italy_contracts_onboarded.json` + IT-T8-001); +3 resolvidos pela API sem SOURCE_ID
 (`YOUTUBE-PILOTO-IT.json`). «Agro» é largo: os 50 incluem agências ambientais (ARPA, ISPRA).
+
+# §197 · YT2 · A RÉGUA T8 NASCEU DE UM GABARITO — E O YOUTUBE CHEGOU À SALA
+
+**Missão YT2** (`youtube-regua-t8-v1`, a partir de `youtube-oficial-v1` @ `7f651aa7`,
+2026-09-23). Rotas de YouTube tal como o Scrap as declara (D17.4: áudio público);
+nada pago, nenhuma conta; nada na Sala real (Postgres descartável novo por lote).
+
+**1 · O UNIVERSO É PERGUNTADO ANTES DA REDE.** A lei não mudou (o universo vem do
+PEDIDO, `--filtro universo=…`, sem fallback para o alvo — §148, `836a9c89`); mudou o
+QUANDO. `orquestrador.correr` recusa `UNIVERSO_NAO_DECLARADO` antes do executor (o
+`--seco` não chega à porta e não é recusado). Na YT1 a mesma recusa vinha depois de
+5,5 min de rede e ASR, sem recibo. E o irmão: `FILTRO_NAO_CONSUMIDO` recusava certo e
+depois `main()` rebentava em `guardar_recibo` («STATUS fora do contrato») — uma recusa
+não é corrida; agora diz porquê e sai com 1. `tests/test_universo_antes_da_rede.py` 8/0;
+4 mutantes, 4 mortos.
+
+**2 · O GABARITO, PELO MÉTODO M3c — ANTES DA RÉGUA.** Protocolo e selecção commitados
+antes do primeiro download (`scripts/regua_t8/`, `fc088d16`), e mais duas rondas de
+selecção, cada uma commitada antes do seu download (`55fadc6c`, `38b8016f`).
+
+    77 vídeos de 29 canais (≤ 3 por canal) · egresso IT 77/77 (Palermo)
+    57 com transcrição · 20 sem: 16 o YouTube não entregou (indisponível / 403),
+                                 4 com som e sem fala
+    UNIVERSE_MATCH  SIM 20 (12 canais) · NAO 28 (16 canais) · NAO_SEI 9
+    SINTONIA_RELEVANT  SIM 13 · NAO 41 · NAO_SEI 3
+    ASR faster-whisper small na GPU (~40 s por vídeo; na YT1, CPU, ~330 s)
+
+O TÍTULO NÃO É RÓTULO, e o gabarito prova-o: «La pianta del ricino» é crónica criminal,
+«CONSPAR agricoltori» é certificação de igualdade de género, «Il percoco» é identidade de
+produto. Os IDs vieram da amostra do curador (`SOURCE-CHARACTERIZATION-V1`), sem listagem
+nova — e só 1 dos 28 canais amostrados é T8 por território. **O gabarito mede a PERGUNTA
+T8 sobre conteúdo de 12 canais, não a população de canais T8.**
+
+**3 · A RÉGUA T8** (`admissao/admissao.py`, 14 conceitos IT/PT + 14 EN). Três decisões de
+forma, e nenhuma toca nas réguas antigas:
+
+    CONCEITO   um termo = um conceito, formas por «|»; conta uma vez
+    PALAVRA INTEIRA  só em T8; as antigas continuam na linha `_dobrar(p) in texto`
+    TRANSVERSAL      T8 nunca é «prova de outro universo»: o campo NÃO exclui o tema
+
+    MEDIDO DENTRO DA AMOSTRA:  precisão 0,769 (10/13) · recall 0,50 (10/20)
+    controlo negativo: 3 de 28 NAO entraram como SIM
+    IT_VERDICTS_CHANGED = 0 em 798 julgamentos (lote-76 + gabarito × T3 T4 T5 T7 T9 T10)
+
+Os erros caem sobretudo do lado seguro: 8 dos 10 positivos perdidos são NAO_SEI por um
+sinal só (`SINAIS_MINIMOS = 2`, lei da casa); 2 são NAO por palavras de OUTRAS réguas —
+«campagna» (a época agrícola, que em T9 é campanha publicitária) e «università». As 3
+entradas indevidas: a profissão de agrónomo, a certificação de uma organização agrícola,
+e uma conferência jurídica de 3,7 h que, por ser enorme, junta 7 conceitos.
+
+⚠️ **A TRANSVERSALIDADE ESCONDIA-SE ATRÁS DO «|».** O mutante que a desligava só morria
+na prova da LISTA: as entradas italianas levam «|» e nunca casam no teste antigo de «outro
+universo». As inglesas de forma única («pruning», «irrigation») casam — e foi aí que a
+prova de comportamento (`test_11b`) passou a apanhá-lo.
+
+Cinco guardas congelavam a lista de universos (`T10 T3 T4 T5 T7 T9`); ganharam T8 com a
+razão escrita ao lado. A guarda que exige a linha `_dobrar(p) in texto` (o defeito de
+substring «medido e não consertado») obrigou a deixar as réguas antigas na linha de sempre.
+
+**4 · O CANÁRIO.** Pela porta canónica, com `universo=T8` no comando, banco descartável:
+
+    X35K1b5_B78 (IT-T8-004, «prova in campo» de um tractor)
+    RAW   audio/wav 5.803.952 B · sha256 a0b01ab7…     DERIVED transcrição 2.473 B
+    ADMISSION T8  SIM («pertence ao universo»)          SALA DE TESTE 0 → 1 (WAITING,
+                  raw_observation_id=1, universo T8, fact_time NAO SEI — dito, não inventado)
+    ... pela porta de REPROCESSO (sem rede), porque a aquisicao nova tinha levado
+    «Sign in to confirm you're not a bot». 22 min depois, a AQUISICAO NOVA passou:
+    zaEk8LE6SOQ (IT-T8-001 AgroNotizie) · RAW 7.809.414 B · sha256 0167e225… — os MESMOS
+    bytes do C13 (18/09) e do gabarito · DERIVED 3.026 B · ADMISSION T8 SIM · SALA 0 → 1
+    (scripts/regua_t8/CANARIO-T8-V1.json). PUBLISHED_AT continua ausente na rota de audio
+    (e do engenheiro do Scrap); DOCUMENT_ID idem (scrap-portas-v1).
+
+**ARMADILHAS DESTA MÁQUINA.**
+- Outro processo apaga pastas `pg-prova-cli-*` do %TEMP% — matou o Postgres descartável a
+  meio de um lote (5 vídeos falharam por «connection refused» DEPOIS de descarregados).
+  O banco de um lote longo mora numa pasta só dele, e o arnês confere o banco antes de
+  cada vídeo.
+- Depois de ~80 descargas de áudio em poucas horas, do mesmo IP, o YouTube passou a pedir
+  «Sign in to confirm you're not a bot». A rota é `PUBLIC_AUDIO_ONLY`: não aceita cookies
+  nem conta (D17). Espera-se; não se troca de IP.
+- O resumo do orquestrador diz `CORRIDA SUCCESS` com 0 itens quando o envelope do Scrap diz
+  `PARTIAL / SOURCE_UNAVAILABLE` — o motivo está no envelope, não na linha de resumo.
