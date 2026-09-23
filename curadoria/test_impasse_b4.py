@@ -92,7 +92,9 @@ class TestD1NeedsMoreSampling(unittest.TestCase):
     """NEEDS_MORE_SAMPLING deve ser processada pela ponte, nao ignorada."""
 
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix="b4-d1-"))
+        self._td = tempfile.TemporaryDirectory(prefix="b4-d1-")
+        self.addCleanup(self._td.cleanup)
+        self.tmp = Path(self._td.name)
         importlib.reload(LC)
         importlib.reload(F)
         importlib.reload(FN)
@@ -185,7 +187,9 @@ class TestD2QualifyTentadas(unittest.TestCase):
     """HTML com QUALIFY BLOCKED nao deve aparecer no CANDIDATE_BACKLOG."""
 
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix="b4-d2-"))
+        self._td = tempfile.TemporaryDirectory(prefix="b4-d2-")
+        self.addCleanup(self._td.cleanup)
+        self.tmp = Path(self._td.name)
         self._orig_fila = F.FILA
         F.FILA = self.tmp / "fila.json"
 
@@ -278,7 +282,9 @@ class TestD3DispararImediato(unittest.TestCase):
     """Com fila=0 e acervo=0, discovery dispara imediatamente."""
 
     def setUp(self):
-        self.tmp = Path(tempfile.mkdtemp(prefix="b4-d3-"))
+        self._td = tempfile.TemporaryDirectory(prefix="b4-d3-")
+        self.addCleanup(self._td.cleanup)
+        self.tmp = Path(self._td.name)
         self._orig = {"F.FILA": F.FILA, "GD.CANDIDATAS": GD.CANDIDATAS}
         F.FILA = self.tmp / "fila.json"
         GD.CANDIDATAS = self.tmp / "cand.json"
