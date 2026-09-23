@@ -39,7 +39,9 @@ class OGatilho(unittest.TestCase):
 
     def setUp(self):
         # Isolar a fila para que _qualify_ja_tentadas() nao leia o disco real.
-        self.tmp = Path(tempfile.mkdtemp(prefix="nivel-test-"))
+        self._td = tempfile.TemporaryDirectory(prefix="nivel-test-")
+        self.addCleanup(self._td.cleanup)
+        self.tmp = Path(self._td.name)
         self._orig_fila = F.FILA
         F.FILA = self.tmp / "fila.json"
         F.FILA.write_text(json.dumps({"PROXIMO_ID": 1, "TAREFAS": []}),
