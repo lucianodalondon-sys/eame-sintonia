@@ -1,0 +1,617 @@
+"""MICRO-COLETA WEB — o instrumento unico (missao 6-PREP).
+
+Tres verbos, e so um deles vai a rede:
+
+    py scripts/micro_coleta/micro_coleta.py plano
+        Sem rede, sem banco. Para cada fonte da coorte proposta pergunta, no
+        instante, ao gate canonico (curadoria/collection_gate.py), se ha
+        contrato de coleta (regras/italy_contracts_onboarded.json) e se ha
+        receita que leve o universo ao italy_executor (pedido/receitas.py).
+        Imprime o comando exacto que `correr` lancaria.
+
+    py scripts/micro_coleta/micro_coleta.py correr --autorizado-pelo-dono
+        A UNICA porta para a rede. Recusa sem a bandeira, sem as quatro
+        variaveis da Sala operacional, com BANCO_DESCARTAVEL_URL presente, ou
+        com egresso que nao seja IT — medido ANTES e DEPOIS de cada corrida.
+        Cada fonte corre pela porta canonica:
+            orquestrador -> italy_executor -> ingresso -> preservar_coleta
+        e no fim chama `relatorio` sobre os RUN_ID que nasceram.
+
+    py scripts/micro_coleta/micro_coleta.py relatorio --run-id=<R> [--run-id=...]
+        So SELECT, e com a ligacao posta em `default_transaction_read_only`
+        pelo proprio Postgres: uma escrita seria recusada pelo banco, nao pela
+        nossa boa vontade. Mede os criterios de passagem (ver CRITERIOS) e
+        escreve RELATORIO-PASSAGEM.{json,md} fora do repositorio.
+
+LEIS QUE ESTE FICHEIRO NAO REPETE: a regra de elegibilidade (collection_gate),
+o juiz de capa (curadoria/retrato_html.py), a regua da Admission
+(admissao/admissao.py). Sao importados; nenhum limiar e copiado.
+"""
+from __future__ import annotations
+
+import json
+import os
+import re
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(RAIZ))
+sys.path.insert(0, str(RAIZ / "curadoria"))
+import _gavetas  # noqa: E402,F401
+
+import collection_gate as GATE        # noqa: E402
+import retrato_html as RETRATO        # noqa: E402
+from leis import territorios as TERR  # noqa: E402
+import receitas as REC                 # noqa: E402  (a gaveta pedido/ esta no caminho)
+from pedido import de_uma_frase        # noqa: E402
+
+AQUI = Path(__file__).resolve().parent
+COORTE = AQUI / "COORTE-PROPOSTA.json"
+CONTRATOS = RAIZ / "regras" / "italy_contracts_onboarded.json"
+LIVRO = RAIZ / "data" / "samples" / "LIVRO-DE-DECISOES.json"
+EXECUTOR = "coleta/italy_executor.py"
+
+VARIAVEIS_DA_SALA = ("SINTONIA_COLLECTION_DSN", "SINTONIA_SALA_DSN",
+                     "SINTONIA_SALA_BACKEND", "SINTONIA_PSQL_EXE")
+AUSENCIA = "NAO SEI"
+
+
+def agora() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+# ── PLANO ─────────────────────────────────────────────────────────────────
+def ler_coorte(caminho: Path = COORTE) -> dict:
+    return json.loads(Path(caminho).read_text(encoding="utf-8"))
+
+
+def universo_de(source_id: str) -> str:
+    return source_id.split("-")[1]
+
+
+def apelido_de(universo: str) -> str | None:
+    """A palavra que faz a frase do pedido resolver o territorio.
+
+    ⚠️ O orquestrador junta na frase todo argumento que nao comece por `--` —
+    e o valor de `--filtro fonte=X` nao comeca. A frase so resolve porque
+    `alvo_de` procura um apelido la dentro. Uma so palavra, a primeira que o
+    dono (`leis/territorios.APELIDOS`) declara para o universo.
+    """
+    for palavra, cod in TERR.APELIDOS.items():
+        if cod == universo and " " not in palavra:
+            return palavra
+    return None
+
+
+def receita_web(universo: str) -> dict | None:
+    for r in REC.EXECUTORES.get(universo) or []:
+        if EXECUTOR in (r.get("roda") or []):
+            return r
+    return None
+
+
+def comando(source_id: str) -> list[str]:
+    u = universo_de(source_id)
+    return [sys.executable, "orquestrador/orquestrador.py", apelido_de(u) or u,
+            "--filtro", f"fonte={source_id}", "--filtro", f"universo={u}"]
+
+
+# ── FILTROS DE OUTRAS MISSOES ───────────────────────────────────────────────
+# ⚠️ ESTE BLOCO JA MENTIU, E CALADO. A 6-PREP lia «curadoria/RELEVANCIA-POR-
+# FONTE-V1.json» com a forma {"LINHAS": [...]}, e tratava ficheiro AUSENTE como
+# «sem opiniao». Nome e forma eram palpite meu; a 3b real escreveu outro ficheiro
+# com outra forma. Resultado medido pelo coordenador: filtro da 3b = nenhum, sem
+# aviso. O filtro da M3 tinha o mesmo buraco (ficheiro que nao existe nesta linha).
+#
+#     FILTRO DECLARADO E AUSENTE = FALHA ALTA. NUNCA «SEM OPINIAO».
+#
+# Cada filtro le-se da BRANCH DO DONO por `git show` (sem merge), pelo NOME DA
+# BRANCH e nao por um hash fixo — um REF fixo mata o filtro futuro em silencio.
+# O hash resolvido fica no plano. Um filtro so BLOQUEIA; nunca promove.
+class FiltroAusente(Exception):
+    """Um filtro declarado nao se conseguiu ler. Nao e «sem opiniao»."""
+
+
+FILTROS = [
+    {"ID": "M3-ROTAS", "ATIVO": True, "REF": "origin/rotas-elegiveis-v1",
+     "DADOS": "curadoria/ROTAS-ELEGIVEIS-V1.json"},
+    {"ID": "M3b-RELEVANCIA", "ATIVO": True, "REF": "origin/relevancia-elegiveis-v1",
+     "DADOS": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+     "DECISAO": "RELATORIO-RELEVANCIA-ELEGIVEIS.md"},
+    # A 3c (regua T2/T12) ainda nao publicou. O ponto de leitura existe e esta
+    # DESLIGADO de proposito: o nome da branch e do ficheiro vem do coordenador
+    # ou da branch publicada — nao se adivinha outra vez. Ligar = pôr ATIVO,
+    # REF, DADOS e escrever o leitor; ate la o plano diz que ela falta.
+    {"ID": "M3c-REGUA-T2-T12", "ATIVO": False, "REF": None, "DADOS": None,
+     "NOTA": "aguarda publicacao da missao 3c; nome por confirmar"},
+]
+ENTRA_3B = "ENTRA_NA_MICRO"
+_LINHA_3B = re.compile(r"^\|\s*(IT-T\d+-\d+)\b[^|]*\|.*\|\s*\*\*([A-Z_]+)\*\*\s*\|[^|]*\|\s*$")
+
+
+def git_show(ref: str, caminho: str) -> tuple[str, str]:
+    """(texto, hash) de `ref:caminho`. Qualquer falha e FiltroAusente."""
+    try:
+        h = subprocess.run(["git", "rev-parse", "--short", ref], cwd=RAIZ,
+                           capture_output=True, text=True, timeout=30)
+        r = subprocess.run(["git", "show", f"{ref}:{caminho}"], cwd=RAIZ,
+                           capture_output=True, timeout=60)
+    except Exception as ex:                                    # noqa: BLE001
+        raise FiltroAusente(f"{ref}:{caminho}: {type(ex).__name__}: {ex}") from ex
+    if h.returncode != 0 or r.returncode != 0:
+        raise FiltroAusente(f"{ref}:{caminho}: " + (r.stderr or b"").decode("utf-8", "replace")[-200:].strip())
+    return r.stdout.decode("utf-8"), h.stdout.strip()
+
+
+def ler_rotas(ler=git_show) -> dict:
+    f = FILTROS[0]
+    txt, h = ler(f["REF"], f["DADOS"])
+    try:
+        linhas = json.loads(txt)["LINHAS"]
+        vered = {l["SOURCE_ID"]: l["VEREDITO"] for l in linhas}
+    except (ValueError, KeyError, TypeError) as ex:
+        raise FiltroAusente(f"{f['ID']}: forma inesperada ({type(ex).__name__}: {ex})") from ex
+    if not vered:
+        raise FiltroAusente(f"{f['ID']}: zero linhas — vazio nao e «tudo aprovado»")
+    return {"HASH": h, "POR_FONTE": vered}
+
+
+def ler_relevancia(ler=git_show) -> dict:
+    """A decisao por fonte da 3b, com regra escrita.
+
+    O JSON da 3b NAO tem veredito de coorte: tem AMOSTRAS com o DECIDIR de cada
+    uma. A decisao e do DONO da 3b e esta na coluna «coorte» do relatorio dela
+    (ex.: a myfruit ENTRA com as duas amostras NAO_SEI, pelo historico 5/9 na
+    Sala; a feira escolar FICA_FORA contra dois SIM). Derivar das amostras
+    daria outra coorte — e seria a minha decisao a passar por cima da dele.
+
+    REGRA: ENTRA_NA_MICRO passa; qualquer outra decisao bloqueia; fonte que o
+    JSON mediu e o relatorio nao decide (ou o inverso) = FiltroAusente.
+    Fonte que a 3b nao mediu de todo bloqueia com RELEVANCIA_NAO_MEDIDA.
+    As contagens das amostras vao ao lado, para quem quiser ver a divergencia.
+    """
+    f = FILTROS[1]
+    dados, h = ler(f["REF"], f["DADOS"])
+    rel, _ = ler(f["REF"], f["DECISAO"])
+    try:
+        fontes = json.loads(dados)["FONTES"]
+        amostras = {x["SOURCE_ID"]: [a["DECIDIR"]["RESULTADO"] for a in x.get("AMOSTRAS") or []]
+                    for x in fontes}
+    except (ValueError, KeyError, TypeError) as ex:
+        raise FiltroAusente(f"{f['ID']}: forma inesperada ({type(ex).__name__}: {ex})") from ex
+    decisao = {}
+    for linha in rel.splitlines():
+        m = _LINHA_3B.match(linha.strip())
+        if m:
+            decisao[m.group(1)] = m.group(2)
+    if not amostras or set(decisao) != set(amostras):
+        raise FiltroAusente(
+            f"{f['ID']}: o relatorio decide {sorted(set(decisao) - set(amostras))} a mais e "
+            f"{sorted(set(amostras) - set(decisao))} a menos do que o JSON mediu")
+    return {"HASH": h, "POR_FONTE": decisao, "AMOSTRAS": amostras}
+
+
+def filtros_externos(ler=git_show) -> dict:
+    """Le TODOS os filtros ativos, ou rebenta. Nao ha meio-termo."""
+    return {"M3-ROTAS": ler_rotas(ler), "M3b-RELEVANCIA": ler_relevancia(ler),
+            "DESLIGADOS": [x["ID"] for x in FILTROS if not x["ATIVO"]]}
+
+
+def plano(ids: list[str] | None = None, *, ctx: dict | None = None,
+          ler=git_show) -> dict:
+    coorte = ler_coorte()
+    ids = ids or [f["SOURCE_ID"] for f in coorte["PROPOSTAS"]]
+    ctx = ctx if ctx is not None else GATE._contexto()
+    contratos = {f["SOURCE_ID"]: f for f in
+                 json.loads(CONTRATOS.read_text(encoding="utf-8"))["FONTES"]}
+    fx = filtros_externos(ler)                      # rebenta se faltar um
+    rotas = fx["M3-ROTAS"]["POR_FONTE"]
+    relevancia = fx["M3b-RELEVANCIA"]["POR_FONTE"]
+    linhas = []
+    for s in ids:
+        g = GATE.avaliar(s, **ctx)
+        u = universo_de(s)
+        falta = []
+        if not g["COLLECTION_ELIGIBLE"]:
+            falta.append(f"GATE:{g['MOTIVO']}")
+        if s not in contratos:
+            falta.append("SEM_CONTRATO_DE_COLETA")
+        if receita_web(u) is None:
+            falta.append(f"SEM_RECEITA_WEB_PARA_{u}")
+        if apelido_de(u) is None:
+            falta.append(f"SEM_APELIDO_PARA_{u}")
+        rv = rotas.get(s)
+        if rv and rv not in ("ROUTE_PROVEN",):
+            falta.append(f"ROTA:{rv}")
+        rl = relevancia.get(s)
+        if rl is None:
+            falta.append("RELEVANCIA_NAO_MEDIDA_PELA_3b")
+        elif rl != ENTRA_3B:
+            falta.append(f"RELEVANCIA:{rl}")
+        # A frase que o orquestrador vai montar, resolvida AQUI e sem rede:
+        # alvo certo e executor web. Foi a frase que parou a canonical-micro.
+        cmd = comando(s)
+        try:
+            ped = de_uma_frase(" ".join(a for a in cmd[2:] if not a.startswith("--")))
+            ped.filtros.update({"fonte": s, "universo": u})
+            pl = REC.resolver(ped)
+            frase_ok = ped.alvo == u and any(EXECUTOR in (e.get("roda") or [])
+                                             for e in pl.executores)
+        except Exception as ex:                                # noqa: BLE001
+            frase_ok = False
+            falta.append(f"FRASE_RECUSADA:{type(ex).__name__}")
+        if not frase_ok and not any(f.startswith("SEM_RECEITA") for f in falta):
+            falta.append("FRASE_NAO_RESOLVE_PARA_O_EXECUTOR_WEB")
+        linhas.append({"SOURCE_ID": s, "UNIVERSO": u,
+                       "GATE": g["MOTIVO"], "READY_RULE": g["READY_RULE"],
+                       "CONTRATO": s in contratos,
+                       "RECEITA_WEB": receita_web(u) is not None,
+                       "FRASE_RESOLVE": frase_ok,
+                       "ROTA_M3": rotas.get(s, "NAO_MEDIDA"),
+                       "RELEVANCIA_3b": rl or "NAO_MEDIDA",
+                       "AMOSTRAS_3b": fx["M3b-RELEVANCIA"]["AMOSTRAS"].get(s),
+                       "ESTADO": "PRONTA" if not falta else "BLOQUEADA",
+                       "FALTA": falta,
+                       "COMANDO": " ".join(comando(s)[1:])})
+    return {"GERADO_EM": agora(), "GATE": GATE.CONTRATO,
+            "PAINEL_DO_GATE": GATE.painel(ctx=ctx),
+            "EXCLUIDAS": coorte.get("EXCLUIDAS", []),
+            "FILTROS": {"M3-ROTAS": fx["M3-ROTAS"]["HASH"],
+                        "M3b-RELEVANCIA": fx["M3b-RELEVANCIA"]["HASH"],
+                        "DESLIGADOS": fx["DESLIGADOS"]},
+            "PRONTAS": sum(1 for l in linhas if l["ESTADO"] == "PRONTA"),
+            "BLOQUEADAS": sum(1 for l in linhas if l["ESTADO"] != "PRONTA"),
+            "LINHAS": linhas}
+
+
+# ── BANCO, SO LEITURA ─────────────────────────────────────────────────────
+class EscritaRecusada(Exception):
+    pass
+
+
+def _dsn() -> str:
+    d = os.environ.get("SINTONIA_SALA_DSN")
+    if d:
+        return d
+    f = Path.home() / "sintonia-sala-italia" / "SALA_DSN.txt"
+    return f.read_text(encoding="utf-8").strip()
+
+
+def _psql() -> str:
+    return os.environ.get("SINTONIA_PSQL_EXE") or str(
+        Path.home() / "orca" / "pgtmp" / "pgsql" / "bin" / "psql.exe")
+
+
+def sql(consulta: str) -> list[list[str]]:
+    """SELECT e nada mais — duas travas, uma nossa e uma do banco."""
+    if not re.match(r"^\s*(select|with)\b", consulta, re.I) or ";" in consulta.strip().rstrip(";"):
+        raise EscritaRecusada(consulta[:80])
+    env = {**os.environ, "PGOPTIONS": "-c default_transaction_read_only=on"}
+    # psql no Windows nao permuta opcoes: todas antes da DSN.
+    r = subprocess.run([_psql(), "-X", "-At", "-F", "\t", "-v", "ON_ERROR_STOP=1",
+                        "-c", consulta, _dsn()], capture_output=True, text=True,
+                       encoding="utf-8", errors="replace", env=env, timeout=120)
+    if r.returncode != 0:
+        raise RuntimeError(r.stderr.strip()[-300:])
+    return [l.rstrip("\r").split("\t") for l in r.stdout.splitlines() if l.strip()]
+
+
+# ── CORRER (a unica porta para a rede) ────────────────────────────────────
+def medir_egresso() -> dict:
+    r = subprocess.run(["curl", "-s", "-m", "15", "https://ipinfo.io/json"],
+                       capture_output=True, text=True, timeout=30)
+    try:
+        d = json.loads(r.stdout)
+        return {"PAIS": d.get("country", AUSENCIA), "IP": d.get("ip", AUSENCIA),
+                "CIDADE": d.get("city", AUSENCIA), "QUANDO": agora()}
+    except ValueError:
+        return {"PAIS": AUSENCIA, "QUANDO": agora()}
+
+
+def precondicoes(ambiente=None) -> list[str]:
+    env = os.environ if ambiente is None else ambiente
+    falta = [v for v in VARIAVEIS_DA_SALA if not env.get(v)]
+    if env.get("SINTONIA_SALA_BACKEND") and env["SINTONIA_SALA_BACKEND"] != "POSTGRES":
+        falta.append("SINTONIA_SALA_BACKEND!=POSTGRES (a Sala cairia em FICHEIRO)")
+    if env.get("BANCO_DESCARTAVEL_URL"):
+        falta.append("BANCO_DESCARTAVEL_URL presente (ModosEmConflito)")
+    return falta
+
+
+def correr(ids=None, *, autorizado=False, lancar=None, egresso=medir_egresso,
+           ambiente=None, consulta=sql, saida: Path | None = None,
+           ler=git_show) -> dict:
+    if not autorizado:
+        return {"CORREU": False, "PORQUE": "falta --autorizado-pelo-dono"}
+    falta = precondicoes(ambiente)
+    if falta:
+        return {"CORREU": False, "PORQUE": "precondicoes", "FALTA": falta}
+    p = plano(ids, ler=ler)                  # FiltroAusente sobe: nada se lanca
+    corridas = []
+    for l in p["LINHAS"]:
+        if l["ESTADO"] != "PRONTA":
+            corridas.append({"SOURCE_ID": l["SOURCE_ID"], "CORREU": False,
+                             "PORQUE": l["FALTA"]})
+            continue
+        antes = egresso()
+        if antes.get("PAIS") != "IT":
+            corridas.append({"SOURCE_ID": l["SOURCE_ID"], "CORREU": False,
+                             "PORQUE": "EGRESSO_NAO_IT", "EGRESSO_ANTES": antes})
+            continue
+        # O veredito do gate no INSTANTE da corrida fica no relatorio: e a prova
+        # de que a decisao do bot atravessou em runtime, nao por fotografia.
+        g = GATE.avaliar(l["SOURCE_ID"], **GATE._contexto())
+        cmd = comando(l["SOURCE_ID"])
+        if lancar is not None:
+            r = lancar(cmd)
+        else:
+            x = subprocess.run(cmd, cwd=RAIZ, capture_output=True, text=True,
+                               encoding="utf-8", errors="replace", timeout=1800)
+            r = {"CODIGO": x.returncode, "SAIDA": x.stdout[-4000:], "ERRO": x.stderr[-1500:]}
+        m = re.search(r"CORRIDA (\S+) · (\S+)", r.get("SAIDA", ""))
+        corridas.append({"SOURCE_ID": l["SOURCE_ID"], "CORREU": True,
+                         "STATUS": m.group(1) if m else AUSENCIA,
+                         "RUN_ID": m.group(2) if m else AUSENCIA,
+                         "GATE_NO_INSTANTE": g["MOTIVO"],
+                         "EGRESSO_ANTES": antes, "EGRESSO_DEPOIS": egresso(),
+                         "CODIGO": r.get("CODIGO")})
+    runs = [c for c in corridas if c.get("RUN_ID") not in (None, AUSENCIA)]
+    rel = relatorio([c["RUN_ID"] for c in runs], corridas=corridas,
+                    consulta=consulta, saida=saida) if runs else None
+    return {"CORREU": True, "CORRIDAS": corridas, "RELATORIO": rel}
+
+
+# ── RELATORIO DE PASSAGEM ─────────────────────────────────────────────────
+def _em(run_ids: list[str]) -> str:
+    for r in run_ids:
+        if not re.fullmatch(r"[A-Za-z0-9_.:-]+", r):
+            raise ValueError(f"RUN_ID com caracteres fora da forma: {r!r}")
+    return ",".join(f"'{r}'" for r in run_ids)
+
+
+def controlo_negativo_de_capa() -> dict:
+    """O juiz de capa tem de reprovar uma listagem e aprovar uma materia.
+    Se nao distinguir as duas aqui, o `0 capas` do relatorio nao vale nada."""
+    listagem = ("<html><body>" + "".join(
+        f'<a href="/news/n{i}">Notizia {i}</a> ' for i in range(120)) + "</body></html>").encode()
+    materia = ("<html><body><h1>Titolo</h1>" + "<p>" + ("Il prezzo delle pere "
+               "e salito del dieci per cento sui mercati all'ingrosso. " * 40)
+               + "</p></body></html>").encode()
+    a = RETRATO.retrato_do_html(listagem)["CAPA_OU_MATERIA"]
+    b = RETRATO.retrato_do_html(materia)["CAPA_OU_MATERIA"]
+    return {"LISTAGEM": a, "MATERIA": b,
+            "PASSA": a == "CAPA_PROVAVEL" and b == "MATERIA_PROVAVEL"}
+
+
+GABARITO = AQUI / "GABARITO-MICRO-V1.json"
+_PALAVRAS = {
+    "en": {"the", "and", "of", "to", "is", "for", "with", "that", "are", "on"},
+    "it": {"il", "della", "di", "che", "per", "con", "sono", "gli", "nel", "delle"},
+    "pt": {"o", "da", "do", "que", "para", "com", "os", "das", "dos", "uma"},
+}
+
+
+def idioma(texto: str) -> str:
+    """Leitura grosseira e declarada: a lingua cujas dez palavras mais comuns
+    aparecem mais. Serve para CONTAR (C9), nunca para decidir entrada."""
+    pal = re.findall(r"[a-zà-ú]+", texto.lower())
+    conta = {lg: sum(1 for p in pal if p in ws) for lg, ws in _PALAVRAS.items()}
+    lg = max(conta, key=conta.get)
+    return lg if conta[lg] >= 20 else AUSENCIA
+
+
+def _armazem() -> Path:
+    r = os.environ.get("SINTONIA_ARMAZEM_RAIZ")
+    return Path(r) if r else Path.home() / "sintonia-sala-italia" / "armazem"
+
+
+def relatorio(run_ids: list[str], *, corridas: list | None = None,
+              consulta=sql, livro: Path = LIVRO, armazem: Path | None = None,
+              saida: Path | None = None) -> dict:
+    em = _em(run_ids)
+    armazem = armazem or _armazem()
+    obs = consulta(
+        "select r.id, r.source_id, r.media_type, r.storage_path, r.storage_object_id,"
+        " coalesce(d.id::text,''), r.captured_at::text, r.run_id,"
+        " coalesce(r.source_url,''), coalesce(d.storage_path,'')"
+        " from raw_asset r left join derived_artifact d on d.raw_asset_id = r.id"
+        f" where r.run_id in ({em}) order by r.id")
+    sala = consulta(
+        "select s.item_id, s.raw_observation_id, s.source_id, s.fact_time,"
+        " s.fact_location, s.captured_at::text, s.run_id,"
+        " (select count(*) from raw_asset r join storage_object so on so.id = r.storage_object_id"
+        "   join derived_artifact d on d.raw_asset_id = r.id"
+        "   join collection_run c on c.run_id = r.run_id"
+        "  where r.id::text = s.raw_observation_id::text and 'derived:' || d.id = s.item_id)"
+        f" from sala_de_espera s where s.run_id in ({em})")
+    decisoes = [d for d in json.loads(Path(livro).read_text(encoding="utf-8"))["DECISOES"]
+                if d.get("corrida") in run_ids]
+    por_item = {d["item"]: d for d in decisoes}
+
+    # C2 — materia individual, pelo juiz canonico, sobre os BYTES brutos
+    capas, sem_bytes, julgados = [], 0, 0
+    for o in obs:
+        if "html" not in (o[2] or ""):
+            continue
+        f = armazem / o[3]
+        if not f.exists():
+            sem_bytes += 1
+            continue
+        julgados += 1
+        if RETRATO.retrato_do_html(f.read_bytes())["CAPA_OU_MATERIA"] == "CAPA_PROVAVEL":
+            capas.append(o[0])
+    neg = controlo_negativo_de_capa()
+
+    # C7 — proporcao por fonte
+    por_fonte: dict = {}
+    for o in obs:
+        v = por_item.get(f"derived:{o[5]}", {}).get("resultado", "SEM_DECISAO") if o[5] else "SEM_DERIVADO"
+        por_fonte.setdefault(o[1], {}).setdefault(v, 0)
+        por_fonte[o[1]][v] += 1
+
+    sala_sem_sim = [s[0] for s in sala if por_item.get(s[0], {}).get("resultado") != "SIM"]
+    sim_fora_da_sala = [i for i, d in por_item.items()
+                        if d["resultado"] == "SIM" and i not in {s[0] for s in sala}]
+    fact_time_unknown = sum(1 for s in sala if s[3] in (AUSENCIA, "", "UNKNOWN"))
+    fact_loc_unknown = sum(1 for s in sala if s[4] in (AUSENCIA, "", "UNKNOWN"))
+    fact_time_fabricado = sum(1 for s in sala if s[3] and s[3] == s[5])
+    egressos = [c for c in (corridas or []) if c.get("CORREU")]
+
+    C = {
+        "C1_EGRESSO_IT_POR_CORRIDA": {
+            "MEDIDO": [(c["SOURCE_ID"], c["EGRESSO_ANTES"].get("PAIS"),
+                        c["EGRESSO_DEPOIS"].get("PAIS")) for c in egressos],
+            "PASSA": bool(egressos) and all(c["EGRESSO_ANTES"].get("PAIS") == "IT" and
+                                            c["EGRESSO_DEPOIS"].get("PAIS") == "IT"
+                                            for c in egressos)},
+        # ⚠️ O juiz canonico (CAPA_NAO_E_MATERIA/v1) mede ESTRUTURA, e reprova
+        # noticia curta com menu grande: no lote-76 apontou 6 de 76, e os 6
+        # sao noticias individuais com data (RELATORIO-MICRO-PREP). Por isso
+        # uma capa apontada nao reprova sozinha: vai para CAPAS-A-CONFIRMAR.tsv
+        # e o criterio fica PENDENTE_HUMANO ate uma pessoa ler.
+        "C2_MATERIA_NAO_CAPA": {
+            "HTML_JULGADOS": julgados, "CAPAS_DO_JUIZ": capas, "SEM_BYTES": sem_bytes,
+            "CONTROLO_NEGATIVO": neg,
+            "ESTADO": ("FAIL" if not neg["PASSA"] or julgados == 0 or sem_bytes
+                       else "PENDENTE_HUMANO" if capas else "PASS"),
+            "PASSA": neg["PASSA"] and julgados > 0 and not capas and sem_bytes == 0},
+        "C3_PONTE_EM_RUNTIME": {
+            "GATE_NO_INSTANTE": [(c["SOURCE_ID"], c.get("GATE_NO_INSTANTE")) for c in egressos],
+            "FONTES_NOS_RAW": sorted(por_fonte),
+            "PASSA": bool(egressos) and all(c.get("GATE_NO_INSTANTE") == "ELIGIBLE" for c in egressos)
+                     and set(por_fonte) <= {c["SOURCE_ID"] for c in egressos}},
+        "C4_PROVENIENCIA_COMPLETA": {
+            "SALA_LINHAS": len(sala),
+            "SALA_COM_CADEIA_INTEIRA": sum(1 for s in sala if s[7] == "1"),
+            "OBSERVACOES": len(obs),
+            "COM_STORAGE": sum(1 for o in obs if o[4]),
+            "COM_DERIVADO": sum(1 for o in obs if o[5]),
+            "COM_DECISAO": sum(1 for o in obs if f"derived:{o[5]}" in por_item),
+            "PASSA": len(sala) > 0 and all(s[7] == "1" for s in sala)
+                     and all(o[4] and o[5] and f"derived:{o[5]}" in por_item for o in obs)},
+        "C5_FACT_TIME_LOCATION": {
+            "SALA": len(sala), "FACT_TIME_UNKNOWN": fact_time_unknown,
+            "FACT_LOCATION_UNKNOWN": fact_loc_unknown,
+            "FACT_TIME_IGUAL_A_CAPTURED_AT": fact_time_fabricado,
+            "PASSA": fact_time_fabricado == 0},
+        "C6_ZERO_BYPASS": {
+            "SALA_SEM_SIM_NO_LIVRO": sala_sem_sim, "SIM_FORA_DA_SALA": sim_fora_da_sala,
+            "PASSA": not sala_sem_sim and not sim_fora_da_sala},
+        "C7_PROPORCAO_POR_FONTE_E_CLASSE": {
+            "POR_FONTE": por_fonte,
+            "CLASSE_POR_ITEM": "folha CLASSES.tsv — preenchida por pessoa (FONTE/ROTA/REGUA/TEMA/UNKNOWN)",
+            "PASSA": bool(por_fonte) and not any(
+                k in v for v in por_fonte.values() for k in ("SEM_DECISAO", "SEM_DERIVADO"))},
+    }
+    # ── C8 · AS DUAS PERGUNTAS (lei D2 do dono, 2026-09-23) ──────────────────
+    # A Admission so responde UNIVERSE_MATCH. SINTONIA_RELEVANT e outra
+    # pergunta: mede-se contra o gabarito validado (por URL) e, para o resto,
+    # fica na folha CLASSES.tsv para uma pessoa. As duas nunca se somam.
+    gab = {g["DOCUMENTO"]: g for g in json.loads(GABARITO.read_text(encoding="utf-8"))["ITENS"]}
+    no_gab = []
+    for o in obs:
+        g = gab.get(o[8] if len(o) > 8 else "")
+        if g:
+            v = por_item.get(f"derived:{o[5]}", {}).get("resultado", AUSENCIA)
+            no_gab.append({"N": g["N"], "SOURCE_ID": o[1], "ADMISSION": v,
+                           "ESPERADO": g["ESPERADO"], "UNIVERSE_MATCH": g["UNIVERSE_MATCH"],
+                           "SINTONIA_RELEVANT": g["SINTONIA_RELEVANT"], "ACTION": g["ACTION"],
+                           "UNIVERSO_ACERTA": (v == "SIM") == (g["UNIVERSE_MATCH"] == "YES"),
+                           "SIM_ERRADO": v == "SIM" and g["UNIVERSE_MATCH"] == "NO",
+                           "RELEVANTE_PERDIDO": v != "SIM" and g["SINTONIA_RELEVANT"] == "YES"})
+    C["C8_DUAS_PERGUNTAS"] = {
+        "ITENS_DO_GABARITO": no_gab,
+        # binario ENTRA/NAO ENTRA (NAO_SEI conta como NAO ENTRA) e estrito
+        # (NAO_SEI conta como pergunta nao respondida). Os dois, lado a lado.
+        "UNIVERSE_MATCH_ACERTOS_ENTRA_OU_NAO": f"{sum(x['UNIVERSO_ACERTA'] for x in no_gab)}/{len(no_gab)}",
+        "UNIVERSE_MATCH_ACERTOS_ESTRITO": f"{sum(1 for x in no_gab if x['ADMISSION'] == ('SIM' if x['UNIVERSE_MATCH'] == 'YES' else 'NAO'))}/{len(no_gab)}",
+        "SIM_ERRADO": sum(x["SIM_ERRADO"] for x in no_gab),
+        "RELEVANTE_AO_SINTONIA_FORA_DA_SALA": [x["N"] for x in no_gab if x["RELEVANTE_PERDIDO"]],
+        "REROUTE": [(x["N"], x["ACTION"]) for x in no_gab if x["ACTION"].startswith("REROUTE")],
+        "ESTADO": "PASS" if no_gab and not any(x["SIM_ERRADO"] for x in no_gab)
+                  else "NAO_SE_APLICA" if not no_gab else "FAIL",
+        "PASSA": bool(no_gab) and not any(x["SIM_ERRADO"] for x in no_gab)}
+
+    # ── C9 · IDIOMA (lei D3): idioma sozinho nao pode dar NAO_SEI ─────────────
+    # Contado A PARTE. Um item em lingua estrangeira que ficou NAO_SEI sem
+    # nenhum sinal e uma violacao a contar — mesmo que a Admission nao mude.
+    idiomas, violacoes = {}, []
+    for o in obs:
+        dp = o[9] if len(o) > 9 else ""
+        f = armazem / dp if dp else None
+        if not f or not f.exists():
+            continue
+        lg = idioma(f.read_text(encoding="utf-8", errors="replace"))
+        idiomas[lg] = idiomas.get(lg, 0) + 1
+        d = por_item.get(f"derived:{o[5]}", {})
+        if lg not in ("it", "pt") and d.get("resultado") == "NAO_SEI"                 and not (d.get("evidencia") or {}).get("palavras"):
+            violacoes.append({"RAW": o[0], "SOURCE_ID": o[1], "IDIOMA": lg})
+    C["C9_IDIOMA_NAO_DA_NAO_SEI"] = {
+        "IDIOMAS": idiomas, "NAO_SEI_ESTRANGEIRO_SEM_SINAL": violacoes,
+        "CONTADOS": len(violacoes), "PASSA": not violacoes}
+
+    rel = {"GERADO_EM": agora(), "RUN_IDS": run_ids, "CRITERIOS": C,
+           "PASSOU": sum(1 for c in C.values() if c["PASSA"]), "DE": len(C),
+           "LEI": "so SELECT; default_transaction_read_only=on na ligacao"}
+    if saida:
+        saida = Path(saida)
+        saida.mkdir(parents=True, exist_ok=True)
+        (saida / "RELATORIO-PASSAGEM.json").write_text(
+            json.dumps(rel, ensure_ascii=False, indent=1), encoding="utf-8")
+        folha = ["derived\tsource_id\tveredito\tCLASSE\tporque"]
+        for o in obs:
+            v = por_item.get(f"derived:{o[5]}", {}).get("resultado", AUSENCIA)
+            if v != "SIM":
+                folha.append(f"{o[5]}\t{o[1]}\t{v}\t\t")
+        (saida / "CLASSES.tsv").write_text("\n".join(folha) + "\n", encoding="utf-8")
+        (saida / "CAPAS-A-CONFIRMAR.tsv").write_text(
+            "raw_id\tsource_id\tstorage_path\tE_CAPA(SIM/NAO)\tporque\n" + "".join(
+                f"{o[0]}\t{o[1]}\t{o[3]}\t\t\n" for o in obs if o[0] in capas),
+            encoding="utf-8")
+        md = [f"# RELATORIO DE PASSAGEM — {', '.join(run_ids)}", "",
+              f"PASSOU {rel['PASSOU']} de {rel['DE']}", ""]
+        for k, c in C.items():
+            md.append(f"- **{k}** = {c.get('ESTADO') or ('PASS' if c['PASSA'] else 'FAIL')}")
+        (saida / "RELATORIO-PASSAGEM.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    return rel
+
+
+def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    verbo = argv[0] if argv else "plano"
+    saida = next((Path(a.split("=", 1)[1]) for a in argv if a.startswith("--saida=")),
+                 Path(os.environ.get("TEMP", "/tmp")) / "micro-coleta")
+    if verbo == "plano":
+        try:
+            p = plano()
+        except FiltroAusente as ex:
+            print(f"FILTRO_AUSENTE — o plano NAO corre sem ele: {ex}", file=sys.stderr)
+            return 3
+        print(json.dumps(p, ensure_ascii=False, indent=1))
+        return 0
+    if verbo == "correr":
+        try:
+            r = correr(autorizado="--autorizado-pelo-dono" in argv, saida=saida)
+        except FiltroAusente as ex:
+            print(f"FILTRO_AUSENTE — nada foi lancado: {ex}", file=sys.stderr)
+            return 3
+        print(json.dumps(r, ensure_ascii=False, indent=1))
+        return 0 if r.get("CORREU") else 2
+    if verbo == "relatorio":
+        ids = [a.split("=", 1)[1] for a in argv if a.startswith("--run-id=")]
+        if not ids:
+            print("uso: relatorio --run-id=<RUN_ID> [...]", file=sys.stderr)
+            return 2
+        r = relatorio(ids, saida=saida)
+        print(json.dumps(r, ensure_ascii=False, indent=1))
+        print(f"escrito em {saida}", file=sys.stderr)
+        return 0
+    print(__doc__)
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
