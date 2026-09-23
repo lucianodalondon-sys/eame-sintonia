@@ -864,7 +864,7 @@ MATRIZ = {
               'Quatro posts de agrônomos italianos medidos um a um: 200 · 93 752 a '
               '115 946 bytes · título e texto servidos em italiano (ex.: «Si è appena '
               'concluso il corso di formazione sulla potatura e sulla gestione '
-              'dell\'olivo»). A descoberta NÃO usa buscador: os endereços saem do acervo '
+              'dell\'olivo»). A D24 autoriza este alvo; e a descoberta NÃO usa buscador: os endereços saem do acervo '
               'que a casa já tem, e a regra da D23 vale inteira — a URL vem de '
               'propriedade ou de acervo próprio, nunca de serviço que revende LinkedIn. '
               'A página de PERFIL continua 999 (rota declarada ao lado, `BLOCKED`).',
@@ -905,15 +905,17 @@ MATRIZ = {
               owner_authorized='SIM', platform_policy='DISALLOWED',
               limite='PUBLIC_ORG_VIDEO_ONLY'),
             r('linkedin:data-sources-mp4-de-pessoa', 'DIRECT_HTTP', 'SIM',
-              'POSSIBLE_NOT_PROVED', 'zero',
-              'A MESMA técnica da D23, aplicada à página pública do post de uma pessoa: '
-              'se o post traz vídeo, a etiqueta `<video data-sources>` declara o MP4 '
-              'progressivo e o CDN serve os bytes a convidado. O QUE FALTA, e diz-se em '
-              'vez de se supor: nas quatro páginas de agrônomo italiano medidas e na '
-              'amostra de posts de pessoa que o acervo da casa tinha, NENHUMA trouxe '
-              '`data-sources` — o mecanismo está provado em página de publicação, e a '
-              'OBSERVAÇÃO de um vídeo de pessoa ainda não aconteceu. '
-              'Um vídeo não encontrado é resultado, e não permissão inventada.',
+              'PROVED', 'zero',
+              'A D24 autoriza este alvo. A MESMA técnica da D23, aplicada à página '
+              'pública do post de uma pessoa — e MEDIDA: o canário de 2026-09-23 '
+              'adquiriu, de um post público de pessoa, MP4 de 6 935 096 bytes '
+              '(`video/mp4`, sha `bff909e5…`) e legenda WebVTT de 1 371 bytes '
+              '(sha `09712870…`), US$ 0, sem conta e sem cookie. '
+              'E O CAMINHO ATÉ LÁ FICA ESCRITO, porque ele é o resultado: numa amostra '
+              'de 15 posts públicos de PESSOA, TODOS responderam 200 e apenas UM trazia '
+              'vídeo — e nenhum dos quatro posts de agrônomo ITALIANO medidos trazia. '
+              'Vídeo em post de pessoa é MINORIA, e um vídeo não encontrado é '
+              'resultado, não permissão inventada.',
               'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
               owner_authorized='SIM', platform_policy='DISALLOWED',
               limite='PUBLIC_PERSON_VIDEO_ONLY'),
@@ -935,12 +937,16 @@ MATRIZ = {
               owner_authorized='SIM', platform_policy='DISALLOWED',
               limite='PUBLIC_ORG_VIDEO_ONLY'),
             r('linkedin:data-captions-url-de-pessoa', 'DIRECT_HTTP', 'SIM',
-              'POSSIBLE_NOT_PROVED', 'zero',
-              'Idem, para a faixa de legenda: a mesma etiqueta declara '
+              'PROVED', 'zero',
+              'A D24 autoriza este alvo, e vale o mesmo: a etiqueta declara '
               '`data-captions-url` quando o vídeo tem faixa automática, e a espécie do '
               'texto viaja declarada (ASR do provedor, nunca a fala original). '
-              'Não observada em post de pessoa — pelo mesmo motivo medido acima: '
-              'nenhum dos posts públicos de pessoa medidos trazia vídeo.',
+              'MEDIDA no mesmo canário: 1 371 bytes, `text/vtt`, WebVTT real, com o '
+              'formato declarado no endereço a bater com os BYTES. E a legenda do post '
+              'de pessoa reproduz o que a D23 já tinha medido na organização: a '
+              'plataforma DECLARA uma língua no `data-language` e serve o texto '
+              'noutra — o campo guarda o que ela declarou, e a nota da divergência '
+              'viaja no objeto.',
               'docs/sintonia-scrap/D24-VIDEO-DE-PESSOA.md',
               owner_authorized='SIM', platform_policy='DISALLOWED',
               limite='PUBLIC_PERSON_VIDEO_ONLY'),

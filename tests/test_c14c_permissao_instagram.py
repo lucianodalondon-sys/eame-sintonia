@@ -116,6 +116,14 @@ class OVocabularioGanhouUmLimite(unittest.TestCase):
         ORGANIZAÇÃO no LinkedIn, com o risco assumido e a política da
         plataforma medida ao lado (`DISALLOWED`).
 
+        ⚠️ E PASSOU DE TRÊS PARA QUATRO NO MESMO DIA, pela mesma porta e pelo
+        mesmo dono: `PUBLIC_PERSON_VIDEO_ONLY` nasceu do **D24** — o dono
+        autorizou, também por escrito, o VÍDEO de PESSOAS do agro. O limite
+        nomeia o que abre (vídeo, legenda e o texto do próprio post) e o que
+        NÃO abre (contatos, seguidores, mensagens, comentários de terceiros,
+        perfil, pontuação de pessoa). O que ele NÃO reabre continua com o dono
+        dele: a tela de pessoas nomeadas é da revisão jurídica.
+
             UM LIMITE NOVO POR DECISÃO NÃO É UM VOCABULÁRIO ABERTO.
             É UM VOCABULÁRIO QUE REGISTA QUEM O AMPLIOU.
 
@@ -123,7 +131,8 @@ class OVocabularioGanhouUmLimite(unittest.TestCase):
         passos: a lista é FECHADA, e nenhum nome dela é decorativo.
         """
         self.assertEqual({'PUBLIC_AUDIO_ONLY', 'PUBLIC_PROFILE_DISCOVERY_ONLY',
-                          'PUBLIC_ORG_VIDEO_ONLY'}, set(mz.LIMITES))
+                          'PUBLIC_ORG_VIDEO_ONLY',
+                          'PUBLIC_PERSON_VIDEO_ONLY'}, set(mz.LIMITES))
         # Nenhum limite é vocabulário decorativo: cada um é DECLARADO por pelo
         # menos uma rota da matriz. Um limite que ninguém usa promete travar o
         # que já ninguém faz.
