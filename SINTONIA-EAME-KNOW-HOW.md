@@ -19414,3 +19414,10 @@ redundante (a comparação do contrato inteiro já apanhava o grupo T) e uma
 idempotência que dava o resultado certo com o motivo errado («o livro mudou» em
 vez de «já aplicada»). A cura foi o teste exigir o **motivo**, não só o
 resultado.
+
+**D9 no mesmo pacote (23/09):** dois blocos que tocam a mesma fonte em sentidos
+opostos — o bloco 1 punha na tabela do coletor uma rota provada, o bloco 2
+retirava a fonte pelo catálogo — dão um pacote que **não é idempotente**: na
+2.ª passagem o bloco 2 dizia «já aplicada» e o bloco 1 voltava a pôr a fonte.
+O ensaio de duas passagens apanhou-o (1 alteração na 2.ª). Cura na raiz, não
+no sintoma: fonte `RETIRADA_POR_DECISAO` nunca entra na tabela.
