@@ -18757,3 +18757,46 @@ não o soma a `CRASHES_SEM_PROGRESSO`.
   Três mutantes, cada um com diff de 1 linha, todos mortos.
 - `WORKER_MORTO` continua a ser anotado antes de `WORKER_SAIU_LIMPO` (traz o RC).
   Nenhum leitor o consome hoje; quem o vier a contar tem de excluir RC 0.
+
+---
+
+# §172 · UM CANO SEM LEITOR NÃO É UM LOG, É UM TRAVÃO
+
+*Missão 2d (worker-pendurado-v1), 23/09/2026. Prova: `curadoria/WORKER-PENDURADO-PROOF-V1.json`,
+`curadoria/ensaiar_worker_pendurado.py` (worker real numa cópia), `curadoria/test_worker_pendurado.py`.*
+
+**A PERGUNTA.** O supervisor dava ~54 «mortes» por dia com RC vazio. RC vazio não é
+morte: é um processo que ainda existe e cujo heartbeat envelheceu 300 s.
+
+**O QUE SE MEDIU — DUAS CAUSAS, NÃO UMA.**
+
+1. **O cano.** `_lancar_worker` punha o stdout em `subprocess.PIPE` e ninguém o lia. O
+   cano anónimo do Windows guarda ~4 KB. Repro mínima: bloqueia aos 4.000 bytes (a linha
+   que levaria a 4.100 já não cabe). Worker real, lançado pela própria `_lancar_worker`:
+   3.994 bytes, 64 de 80 tarefas, vivo e parado para sempre. Com ficheiro ou DEVNULL,
+   10 MB passam.
+2. **O pulso por volta.** O heartbeat é a última linha do run-log, e o worker só escreve a
+   `VOLTA` no fim de TODAS as tarefas elegíveis. Nos dados reais, 37 das 50 mortes de RC
+   vazio foram na 1.ª volta, com o ledger a receber transições até 1–125 s antes da
+   «morte»: trabalhavam, e morreram por o relógio só ver o fim.
+
+**E O QUE ISSO ESCONDIA.** Declarado morto com RC vazio, o worker não era terminado: o
+supervisor lançava outro. Dois escritores numa fila que grava sem trinco, até o antigo
+rebentar no print seguinte (o cano fechava quando o `Popen` antigo era largado). Visto
+ao vivo: 98460 declarado morto às 01:37:15Z com 44 transições feitas, 121156 lançado no
+mesmo segundo.
+
+**O QUE MUDOU.** stdout → `WORKER-STDOUT.log` (roda para `.1` acima de 5 MB no arranque);
+pulso por tarefa em `WORKER-HEARTBEAT.json`, e o heartbeat é o mais recente dos dois;
+RC vazio → `terminate`/`kill` e `WORKER_PENDURADO_TERMINADO` antes de relançar.
+
+**O QUE SE APRENDEU.**
+
+- **O que o worker escrevia nunca foi lido por ninguém**: o log que parecia existir era um
+  cano de 4 KB. «Imprime-se» não quer dizer «fica registado».
+- **A estimativa pela VOLTA não vê a 1.ª volta.** Só o ledger (transições com hora) mostrou
+  que os «mortos» ainda trabalhavam. Medir a vida pelo mesmo relógio que a declara morta
+  dá sempre razão ao relógio.
+- **NÃO SEI:** nos dados antigos não se separa caso a caso se o cano encheu antes dos
+  300 s ou se só o pulso envelheceu, porque o worker não anotava cada tarefa. As duas
+  causas estão provadas; a proporção entre elas, não.
