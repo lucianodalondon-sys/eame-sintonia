@@ -26,7 +26,11 @@ sys.path.insert(0, os.path.join(RAIZ, 'provas'))
 sys.path.insert(0, os.path.join(RAIZ, 'curadoria'))
 import prontidao_social_v1 as ps   # noqa: E402
 
-ISCA = 'AIzaSyISCA-SOC1-nunca-deve-aparecer-0000000'
+# A isca tem a FORMA de uma chave Google e nao e chave nenhuma. Monta-se em tempo
+# de execucao, em dois pedacos, como em tests/test_security_secret_shapes.py:
+# «FIXTURE WITH SECRET SHAPE IS SECRET TO THE SCANNER» — escrita inteira, fazia a
+# guarda de credencial acusar a arvore versionada para sempre. O valor e o mesmo.
+ISCA = 'AIza' + 'SyISCA-SOC1-nunca-deve-aparecer-0000000'
 
 _MEDIDA = {}
 

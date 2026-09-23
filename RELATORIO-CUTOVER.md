@@ -214,7 +214,7 @@ OWNER_FILE                      scripts/italy_profiles.mjs:7  (canonica: candida
 CURRENT_SOURCE_SELECTION_PATH   PROFILE.SOURCES -> collection_gate --ids=<lista> -> executarRodada
 ```
 
-Backup em `C:\Users\London1\auditoria-madrugada\BACKUP-PRE-CUTOVER-20260921\`,
+Backup em `C:\Users\<utilizador>\auditoria-madrugada\BACKUP-PRE-CUTOVER-20260921\`,
 fora do repositório, **sem segredos** (nenhum ficheiro de credencial rastreado; os
 resultados de `grep secret|token` eram *design tokens* CSS):
 
@@ -224,7 +224,7 @@ resultados de `grep secret|token` eram *design tokens* CSS):
 
 ### `ROLLBACK_PROCEDURE_PROVEN = YES` — provado, não descrito
 
-Restaurado do bundle para `C:\Users\London1\auditoria-madrugada\PROVA-ROLLBACK\`:
+Restaurado do bundle para `C:\Users\<utilizador>\auditoria-madrugada\PROVA-ROLLBACK\`:
 
 ```
 HEAD_RESTAURADO = HEAD_ESPERADO = d43adc1b                        BATE
