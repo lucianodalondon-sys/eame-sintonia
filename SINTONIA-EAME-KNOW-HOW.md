@@ -18819,3 +18819,11 @@ RC vazio → `terminate`/`kill` e `WORKER_PENDURADO_TERMINADO` antes de relança
   verificava que o `correr` o arranca sozinho. Teste acrescentado; o mutante morre.
 - **CRASH_MAX (3 em 120 s) não é alcançável** com mortes a 303 s umas das outras: o
   risco destas mortes nunca foi BLOCKED, foi o escritor duplicado.
+- **O segundo escritor deixou rasto ao vivo.** T01510 (IT-T7-107) ficou IN_PROGRESS na fila, mas
+  o ledger já a dava por concluída (01:52:27.102Z, CANARY_PENDING), e a tarefa seguinte que o
+  worker cria ao concluir não existe. Um escritor só não perde as próprias escritas; foi
+  gravado por cima um retrato antigo da fila. **O ledger é o que desmente a fila.**
+- **Uma órfã não acorda ninguém.** IN_PROGRESS não é elegível; `recuperar_orfas` só corria no
+  arranque do supervisor e no início de cada volta do worker. Com o serviço IDLE, a órfã
+  ficava presa para sempre. Agora o supervisor recupera-as (> 30 min) no único ponto em
+  que sabe que não há worker vivo.

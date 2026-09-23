@@ -153,6 +153,40 @@ class TestPulsoDuranteATarefa(_Isolado):
         self.assertLess(max(em_curso), 0.3 + 0.25, p)    # e calou-se no teto
 
 
+class TestOrfaComServicoParado(_Isolado):
+    def test_orfa_velha_e_recuperada_e_acorda_o_worker(self):
+        t = F.enfileirar("IT-T7-107", F.BUILD_CONTRACT, priority=45, motivo="t")
+        velho = (datetime.now(timezone.utc) - timedelta(minutes=31)).isoformat()
+        d = F._ler()
+        d["TAREFAS"][0].update({"STATUS": F.IN_PROGRESS, "UPDATED_AT": velho})
+        F._gravar(d)
+        self.assertEqual(F.elegiveis(), [])          # a orfa nao acorda ninguem
+        estado = {"CRASHES_SEM_PROGRESSO": [], "RESTARTS_TOTAL": 0}
+        orig = S._lancar_worker
+        S._lancar_worker = lambda pausa=1.0, cmd=None: subprocess.Popen(
+            [sys.executable, "-c", "pass"])
+        try:
+            accao, estado, novo = S.uma_volta_sup(estado, None)
+        finally:
+            S._lancar_worker = orig
+        if novo:
+            novo.wait(timeout=30)
+        self.assertEqual(accao, "RELANCADO")
+        self.assertEqual(F._ler()["TAREFAS"][0]["STATUS"], F.PENDING)
+        evs = [json.loads(l)["EVENTO"] for l in
+               S.DIARIO.read_text(encoding="utf-8").splitlines() if l.strip()]
+        self.assertIn("ORFAS_RECUPERADAS", evs)
+
+    def test_tarefa_em_curso_recente_nao_e_tocada(self):
+        F.enfileirar("IT-X-9", F.CANARY, priority=1, motivo="t")
+        d = F._ler()
+        d["TAREFAS"][0]["STATUS"] = F.IN_PROGRESS    # UPDATED_AT = agora
+        F._gravar(d)
+        accao, _, _ = S.uma_volta_sup({"CRASHES_SEM_PROGRESSO": []}, None)
+        self.assertEqual(accao, "IDLE")
+        self.assertEqual(F._ler()["TAREFAS"][0]["STATUS"], F.IN_PROGRESS)
+
+
 class TestUmSoEscritor(_Isolado):
     def test_pendurado_e_terminado_antes_de_relancar(self):
         pendurado = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"])

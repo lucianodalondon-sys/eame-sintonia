@@ -268,5 +268,18 @@
   "LEITURA": "anterior: ate 3 workers vivos e 3 PIDs a fechar tarefas intercaladas da mesma fila (~25 s de escrita cruzada); nenhuma tarefa duplicada nesta corrida, sem nada que o impeca. Novo: nunca mais de 1 vivo; WORKER_PENDURADO_TERMINADO antes de cada relancamento.",
   "NOTA_METRICA": "SEGUNDOS_COM_2_OU_MAIS_VIVOS subconta: cada amostra consulta o tasklist por PID e demora varios segundos; os tempos de fecho por PID sao a medida.",
   "SUPERVISOR_BLOCKED_NO_ANTERIOR": "artefacto do relogio encurtado: 3 mortes em <120 s. Em producao, a 303 s umas das outras, nao acontece."
+ },
+ "10_ORFA_T01510_SEGUNDO_ESCRITOR_REAL": {
+  "FONTE": "fila, ledger e run-log da worktree viva copiados (~02:10Z)",
+  "FACTOS": {
+   "FILA": "T01510 IT-T7-107 BUILD_CONTRACT IN_PROGRESS, UPDATED_AT 01:52:26.777Z, ATTEMPTS 0; nenhuma tarefa seguinte para IT-T7-107",
+   "LEDGER": "01:52:27.102Z CONTRACT_PENDING -> CANARY_PENDING, EV-IT-T7-107-BUILD_CONTRACT-1768 — a tarefa FOI executada e concluida",
+   "RUN_LOG": "01:52:25.856 WORKER_MORTO 119492 RC None (nao terminado); 01:52:25.881 WORKER_RELANCADO 81524; 01:52:26.742 ARRANQUE; 01:53:55 VOLTA 36; saiu limpo"
+  },
+  "LEITURA": "depois de concluir, o worker grava DONE e enfileira VALIDATE_ROUTE; a fila perdeu as duas escritas. Um escritor so relê a fila antes de cada gravacao e nao perde as proprias; so um segundo escritor a gravar um retrato antigo explica. CONFIRMADO: escrita perdida por dois escritores.",
+  "NAO_MEDIDO": "quem gravou por cima (a fila nao guarda PID). Inferido: 119492, o unico outro vivo. Os 35 ms entre ARRANQUE e a reclamacao cabem no 81524 (recuperar_orfas + proxima).",
+  "ORFA_PRESA": "recuperar_orfas so corria no arranque do supervisor e no inicio de cada volta do worker; IN_PROGRESS nao e elegivel; com o servico IDLE ninguem a recuperava. IT-T7-107 fica em CANARY_PENDING sem tarefa que a mova.",
+  "FIX": "supervisor.uma_volta_sup chama F.recuperar_orfas() (limite 1800 s) no ramo sem worker vivo e anota ORFAS_RECUPERADAS; a orfa volta a PENDING e o worker e relancado. Reprocessar o BUILD_CONTRACT reescreve o contrato e reenfileira VALIDATE_ROUTE — repara tambem a tarefa perdida.",
+  "MUTACAO": "orfas = [] no ramo novo (1 linha) -> test_orfa_velha_e_recuperada_e_acorda_o_worker reprova"
  }
 }

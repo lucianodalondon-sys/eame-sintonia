@@ -506,6 +506,20 @@ def uma_volta_sup(
         _anotar({"EVENTO": "SUPERVISOR_BLOCKED", "MOTIVO": motivo})
         return "BLOQUEADO", estado, None
 
+    # --- orfas: aqui NAO ha worker vivo (acabou de se confirmar acima) ---
+    # ⚠️ UMA ORFA NAO E ELEGIVEL, LOGO NUNCA ACORDAVA NINGUEM. recuperar_orfas
+    # so corria no arranque do supervisor e no inicio de cada volta do worker;
+    # uma tarefa IN_PROGRESS nao conta em F.elegiveis(), e com o servico IDLE o
+    # worker nunca era relancado. Visto ao vivo (M2d): T01510 (IT-T7-107)
+    # ficou IN_PROGRESS depois de o ledger ja a dar por concluida — escrita
+    # perdida por um segundo escritor — e ficaria assim ate um reinicio.
+    # Este e o unico ponto do supervisor sem worker vivo: um so escritor.
+    orfas = F.recuperar_orfas()
+    if orfas:
+        _anotar({"EVENTO": "ORFAS_RECUPERADAS", "TOTAL": len(orfas),
+                 "TASK_IDS": [t["TASK_ID"] for t in orfas][:20],
+                 "ONDE": "supervisor, ramo sem worker vivo"})
+
     # --- sem trabalho elegivel -> IDLE ---
     n_elegiveis = len(F.elegiveis())
     if n_elegiveis == 0:
