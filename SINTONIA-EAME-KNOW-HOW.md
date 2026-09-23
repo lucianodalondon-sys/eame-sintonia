@@ -19327,6 +19327,100 @@ O mutante estava morto. Quem estava cega era a leitura da morte.
 
 Corrigido sem afrouxar a verificação: guardam-se **todas** as falhas.
 
+## RECEITAS-1 · O PADRÃO DE MORADA DOS CONTRATOS ESTAVA EM MOLDE
+
+*(6-PREP-d, 23/09/2026 · número de secção a atribuir na unificação: 168–172
+estão ocupados noutras branches.)*
+
+Três sintomas eram o mesmo defeito: 22 de 34 matérias reais que não casam o
+`LINK_PATTERN` da própria fonte (6-PREP-c), 45 fontes revividas que voltaram a
+`EMPTY_LIST` («nenhum dos N endereços da entrada casa o padrão», 2b), e uma
+micro-coleta com 1 fonte pronta em 14. A receita da maioria das fontes é o
+mesmo molde WordPress (`^https?://host/(?!category|tag|author…)…`), escrito em
+lote e nunca medido contra uma página do site.
+
+Censo de 121 fontes (livro vivo lido **por cópia**): 61 com o padrão a não casar
+**nenhum** link da própria página de entrada; 31 a não casar a matéria
+confirmada; 3 com o `INDEX_URL` a apontar para uma notícia.
+
+> Um padrão novo só nasce de uma matéria **lida**, de uma família de ≥ 2 links
+> na entrada com o mesmo esqueleto, e passa por um guarda que recusa quem case
+> o índice, a navegação ou uma capa conhecida. `.*` é a forma extrema do molde,
+> e o guarda recusa-a — com mutante que o prova.
+
+Das 121: 14 padrões e 2 índices propostos com prova; 105 ficam **NÃO SEI**
+(sem matéria lida, sem família, recusado pelo guarda, ou sem defeito medido —
+«não se mexe no que funciona»). No gabarito: matérias casadas 11 → 21 de 37,
+capas casadas 0 → 0 de 109.
+
+## RECEITAS-2 · CORRIGIR A RECEITA NÃO PÕE UMA FONTE PRONTA
+
+Das 14 fontes da micro, as que têm receita provada passam de 3 para 6. As
+prontas continuam **1**: as três ganhas estão todas `FICA_FORA` na relevância
+da 3b. A rota certa para uma fonte que não serve é só uma rota certa.
+
+> Medir o efeito de uma correção no número que se quer mexer — não no número
+> que ela mexe. Aqui: 3 → 6 receitas, 1 → 1 prontas.
+
+## COORTE-1 · O FUNIL DA MICRO-COLETA CORTA ANTES DA RELEVÂNCIA
+
+*(G0, 23/09/2026 · número a atribuir na unificação.)*
+
+Universo de 134 fontes (READY vivo ∪ gate desta linha ∪ M3 ∪ censo das
+receitas). Funil em cadeia: **A pronta 45 → B rota executável 14 → C receita
+reconhece notícia lida 8 → D relevante 5 → E 5** (números finais, com a VPN de
+volta e com a D8 do dono: a propaganda deixa de ser cortada em E e passa a ser
+julgada notícia a notícia — só passa a que tem facto de mercado). O maior corte é
+**A** (89 não estão prontas; 69 delas por `EMPTY_LIST`, a receita), e dentro
+das prontas é **B** (31: 24 sem contrato na tabela do coletor, 7 dos quais com
+rota já provada pela M3 à espera de aplicação).
+
+> A relevância quase nunca é o degrau que corta. Quando chega a ser medida,
+> passa. O que falta é a fonte chegar lá: pronta, com contrato, com receita
+> que reconheça uma notícia real.
+
+E a 3b tinha tirado uma fonte por **idioma** (Zootecnica, inglês). A lei D3
+proíbe-o, e o dono já a tinha validado noutras notícias: a decisão do dono vence
+a da 3b.
+
+Uma VPN que cai a meio não é uma fonte que falha. A recolha mediu o egresso
+antes de cada site, viu BR no 8.º e parou **antes** do pedido — 0 pedidos pelo
+Brasil. O que ficou por ler fica NÃO SEI, com nome.
+
+E contar SOURCE_ID não é contar sites: com os desbloqueios, 11 códigos são 9
+sites (IT-T2-051/056 e IT-T7-043/100 são a mesma fonte com dois nomes).
+
+## DESBLOQUEIO-1 · O COLETOR TEM A SUA PRÓPRIA CÓPIA DA RECEITA
+
+*(G1, 23/09/2026 · número a atribuir na unificação.)*
+
+Há dois livros de contratos: o do Curator (`italy_contracts_curator.json`) e a
+tabela do coletor (`regras/italy_contracts_onboarded.json`). O coletor usa a
+**sua** cópia da aquisição. Corrigir a receita só no Curator deixa o coletor a
+colher pela receita velha, calado.
+
+> Uma receita nova só vai para a tabela do coletor com um canário que provou
+> **exactamente** essa aquisição. Receita mudada sem canário novo: a tabela fica
+> como está, e o pacote diz porquê.
+
+O pacote G1 (`scripts/desbloqueio/aplicar_desbloqueio.py`) aplica-se uma vez, no
+cutover, sobre o livro corrente: cada mudança só entra se a prova ainda bater
+(sha256 da página guardada, padrão que casa a notícia e nenhuma das 109 capas do
+gabarito, livro ainda no valor ANTES); correr duas vezes dá zero; nunca muda
+grupo T nem retira fonte.
+
+Dois mutantes sobreviveram à primeira bateria sem serem buracos: uma trava
+redundante (a comparação do contrato inteiro já apanhava o grupo T) e uma
+idempotência que dava o resultado certo com o motivo errado («o livro mudou» em
+vez de «já aplicada»). A cura foi o teste exigir o **motivo**, não só o
+resultado.
+
+**D9 no mesmo pacote (23/09):** dois blocos que tocam a mesma fonte em sentidos
+opostos — o bloco 1 punha na tabela do coletor uma rota provada, o bloco 2
+retirava a fonte pelo catálogo — dão um pacote que **não é idempotente**: na
+2.ª passagem o bloco 2 dizia «já aplicada» e o bloco 1 voltava a pôr a fonte.
+O ensaio de duas passagens apanhou-o (1 alteração na 2.ª). Cura na raiz, não
+no sintoma: fonte `RETIRADA_POR_DECISAO` nunca entra na tabela.
 ---
 
 # §168 · UM BOT QUE ESCREVE NUM LIVRO QUE NINGUÉM LÊ É TRABALHO PERDIDO

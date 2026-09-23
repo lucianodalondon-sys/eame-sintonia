@@ -600,6 +600,104 @@
    ]
   },
   {
+   "id": "C-DESBLOQUEIO-PACOTE",
+   "name": "Pacote de desbloqueio da coorte — aplica-se uma vez no cutover",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Aplica, sobre o livro corrente e so com --escrever, as receitas provadas (PROPOSTA-RECEITAS-V1/V2) no livro do Curator e as rotas com canario da aquisicao exacta na tabela do coletor (pela linha_da_tabela da peca da M3). Cada alteracao so entra se a prova ainda bater; idempotente; nunca muda grupo T nem retira fonte; ledger por alteracao. O canario usa a peca da M3 com 3 pedidos por site.",
+   "why_here": "O livro de contratos e escrito pelo bot vivo e a M5 unifica: aplicar antes seria uma segunda fonte de verdade. E o coletor tem a sua propria copia da receita: corrigir so o Curator deixava-o a colher pela velha.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/desbloqueio/aplicar_desbloqueio.py",
+    "scripts/desbloqueio/canario_desbloqueio.py",
+    "scripts/desbloqueio/CANARIO-DESBLOQUEIO-V1.json",
+    "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
+    "scripts/desbloqueio/LEDGER-ENSAIO-G1.jsonl"
+   ]
+  },
+  {
+   "id": "C-COORTE-MICRO-FUNIL",
+   "name": "Coorte da micro-coleta — funil A→E no universo inteiro e desbloqueios",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Junta o universo (READY vivo por copia, gate desta linha, M3, censo das receitas), passa cada fonte por cinco degraus — pronta, rota executavel, receita que reconhece noticia lida, relevancia D2, nao-marca — e simula em memoria os desbloqueios com dono conhecido, sem baixar regua. Propoe receitas V2 pelo metodo da 6-PREP-d. Nao aplica nada.",
+   "why_here": "A micro-coleta tinha 1 fonte em 14 e ninguem sabia que degrau cortava. O funil mostra que o corte e antes da relevancia: prontidao e contrato.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/coorte_micro/funil.py",
+    "scripts/coorte_micro/receitas_v2.py",
+    "scripts/coorte_micro/FUNIL-COORTE-MICRO-V1.json",
+    "scripts/coorte_micro/UNIVERSO-G0.json",
+    "scripts/coorte_micro/ROTULOS-RELEVANCIA-G0.json",
+    "scripts/coorte_micro/ROTULOS-PAGINAS-COORTE-G0.json",
+    "curadoria/PROPOSTA-RECEITAS-V2.json"
+   ]
+  },
+  {
+   "id": "C-RECEITAS-PROPOSTA",
+   "name": "Receitas das fontes — censo do defeito e proposta com prova (nao aplicada)",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "what": "Le uma COPIA do livro de contratos do Curator e as paginas com veredito (gabarito do detector + paginas novas), classifica o defeito de cada receita (LINK_PATTERN que nao casa nada / nao casa a materia / generico; INDEX_URL que aponta para materia) e propoe LINK_PATTERN e INDEX_URL novos so com prova: materia lida, familia >= 2 na entrada, guarda contra padrao generico. Mede o efeito em memoria. Nunca escreve nos contratos.",
+   "why_here": "O mesmo defeito aparecia de tres lados (22/34 materias fora do padrao, 45 fontes revividas em EMPTY_LIST, micro com 1 fonte pronta): a receita escrita em molde e nunca medida contra o site.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/receitas/censo_e_proposta.py",
+    "scripts/receitas/provar_indices.py",
+    "scripts/receitas/medir_efeito.py",
+    "scripts/receitas/ROTULOS-PAGINAS-RECEITAS-V1.json",
+    "curadoria/PROPOSTA-RECEITAS-V1.json"
+   ]
+  },
+  {
+   "id": "C-DETECTOR-CAPA-GABARITO",
+   "name": "Gabarito do detector CAPA != MATERIA — recolha, rotulo e medicao",
+   "territory": "Z-MEDIDAS",
+   "kind": "engine",
+   "icon": "◎",
+   "views": [
+    "audit",
+    "diagnostic"
+   ],
+   "what": "Recolhe paginas reais (egresso IT medido por site, max 3 pedidos, robots da casa) para uma pasta de gabarito fora da Sala e do armazem; rotula-as com veredito humano-proposto; e mede em memoria o detector actual de curadoria/retrato_html.py contra propostas, com matriz de confusao. Nao altera o detector.",
+   "why_here": "A medicao anterior do detector era circular (materias escolhidas pelo proprio padrao de morada). Este gabarito escolhe as paginas sem o padrao e separa as capas que sao o INDEX_URL das que nao sao.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "scripts/detector_capa/colher_gabarito.py",
+    "scripts/detector_capa/rotular_gabarito.py",
+    "scripts/detector_capa/medir_gabarito.py",
+    "scripts/detector_capa/GABARITO-CAPA-V1.json",
+    "scripts/detector_capa/MANIFESTO-RECOLHA-V1.json"
+   ]
+  },
+  {
    "id": "C-MICRO-COLETA-INSTRUMENTO",
    "name": "Micro-coleta web — plano, corrida autorizada e relatorio de passagem",
    "territory": "Z-MEDIDAS",
