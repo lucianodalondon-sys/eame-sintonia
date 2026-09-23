@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "unificacao-v1",
-    "HEAD": "11ca4da481ec70af87b8f34d8dbf026f4c40523f",
-    "GENERATED_AT": "2026-09-23T11:26:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "9f80367aa4e86b8673f768721cc15fdea115aea636b179648f2292c69f81490d"
+    "BRANCH": "youtube-pronto-v1",
+    "HEAD": "93ae0b6e68d5ea6f4ef7165b784c430e67e57e1b",
+    "GENERATED_AT": "2026-09-23T13:01:59-03:00",
+    "SOURCE_TREE_FINGERPRINT": "0462b5c0afe6e57f1a9830b10980ddf90554df4e38238c2f33c53e74db64f85a"
   },
   "FILES": [
     {
@@ -81,6 +81,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/curator-youtube-handles.yml",
+      "sha": "4b4d8566818446456361e86eb5cf8280fb1ee319",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -555,6 +562,20 @@
       "code_dir": false
     },
     {
+      "path": "RELATORIO-SOC2-CURATOR-YOUTUBE.md",
+      "sha": "bdb90814656ad191992051db8ece661899269a0f",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-SOC3-RETENCAO-YOUTUBE.md",
+      "sha": "b42536dbb1be6858eba056bb4254477f18a63523",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "RELATORIO-TTL-MUTABLE-T1.md",
       "sha": "09550466564a5a0a4db8c62149800dc5d2d5f087",
       "ext": ".md",
@@ -584,7 +605,7 @@
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "9f5340a9611ec60b43c5689cf592376ffac1027d",
+      "sha": "7f304c425ba4fe341c1ebe66aa5ab1acc54f1fac",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1823,7 +1844,7 @@
     },
     {
       "path": "coleta/italy_pilot_collect.mjs",
-      "sha": "1ecb84042dcea2e1966f95e65f13e6571eae0acd",
+      "sha": "e068c80154e52d9e6d586735d3decc27dd381663",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -2200,6 +2221,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/D21-HERANCA-DO-TERRITORIO-V1.json",
+      "sha": "0da72c02bc88c9121863bb2442fa822e3932ed95",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/DECISOES-SEMANTICAS-V1.json",
       "sha": "939e55c49c018102650d56cb0eb8711d33d549a4",
       "ext": ".json",
@@ -2543,6 +2571,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/SOC2-LINKEDIN-PELO-SITE-V1.json",
+      "sha": "5e676203ec95d53fa5c1077635976b304a8c6e86",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/SOC2-QUALIFY-YOUTUBE-ENSAIO-V1.json",
+      "sha": "d09a22a848e2ed6e85eb5262bb277dc997094bd5",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/SOURCE-CAPABILITY-GAPS-V1.json",
       "sha": "26d2bacd6d1ecb1764401aac5f04a0c225f2a60c",
       "ext": ".json",
@@ -2739,6 +2781,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/ensaiar_qualify_youtube.py",
+      "sha": "9e9ea0caddebeb25d2414301d053d93610e3a5a3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/ensaiar_worker_pendurado.py",
       "sha": "282343fbec7745c70ef16aa6da9732cdd4dbe6b8",
       "ext": ".py",
@@ -2747,7 +2796,7 @@
     },
     {
       "path": "curadoria/escrever_contratos.py",
-      "sha": "76717a801ffd47c570f9a003be29a6d53ee8fc87",
+      "sha": "ec8a9b8b4e81b18c4b417d9a065d07354f2d52c1",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2811,6 +2860,13 @@
     {
       "path": "curadoria/linhagem_das_candidatas.py",
       "sha": "563211ca829d4ae072ca8f5a5cf916cb29f38c82",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/linkedin_pelo_site.py",
+      "sha": "074e5adaa9a79065a4e165f687ea8aa2b6d9e657",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -2984,8 +3040,22 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/resolver_handles_youtube.py",
+      "sha": "43b7655a53dd0091965639c605afb07aad7168f1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/retrato_html.py",
       "sha": "5f7b732e9b774bd7060a2c6c49bec33b8c482b70",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/rota_do_scrap_youtube.py",
+      "sha": "0b8431d4eb0209e1866b96e94ad8fb0b5234b0e8",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3055,7 +3125,7 @@
     },
     {
       "path": "curadoria/test_collection_gate.py",
-      "sha": "11ad64d009338f0e57d2806d8f667be7ae208ce1",
+      "sha": "5b1296e3a768ba333b8de4ba39f80a6b27b2eff0",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3070,6 +3140,13 @@
     {
       "path": "curadoria/test_correr_lote.py",
       "sha": "a79e337d42425e7b268bd70ed9d3b1723da1d1a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_d21_heranca.py",
+      "sha": "54b4c616c0ef48eb410acae560ca660e3c49ef53",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3222,6 +3299,20 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/test_soc2_curator_youtube.py",
+      "sha": "47c4c40d3d0193713729927518c65ff2df5aad0b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/test_soc4_handles.py",
+      "sha": "78b300b55b1d9f33b74a9d35ff194ea2df204acc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/test_status_liveness.py",
       "sha": "220a27958c02cd6465d7afa219ac2a18ce232ab1",
       "ext": ".py",
@@ -3286,7 +3377,7 @@
     },
     {
       "path": "curadoria/validar_contratos.py",
-      "sha": "00e7c0eaff3434f8dec2806ea78c3cc950119e1a",
+      "sha": "43b3e250fa387cb223e2e301d00a707c68dded8c",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -3300,7 +3391,7 @@
     },
     {
       "path": "curadoria/worker.py",
-      "sha": "d00a040fe236dc11e5568246a165db3192f2163a",
+      "sha": "4700a06d6e754d1dd8919c9cfa70bb37c8b741ad",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -9606,6 +9697,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/PARA-O-RUNBOOK-X2-SOCIAL.md",
+      "sha": "4fc9a59a1776cc7e349484fcb5a06e0675199e73",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "sha": "0face360db38446639db2a633063a31b42fbd1e0",
       "ext": ".md",
@@ -10917,6 +11015,13 @@
     {
       "path": "guarda/preservar_documento.py",
       "sha": "cabbb9e39d2a48b9005d1f922646f1fe72f0c289",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "guarda/retencao_youtube_api.py",
+      "sha": "ad119f7bad1d3c56127b80285f4436a6948d4521",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13982,7 +14087,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "e5b85b8e0f0fd6811dad0ddf8ecae42a9505c5be",
+      "sha": "2971670f1c73dece98dc2346a83e940d4aaaef06",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15122,6 +15227,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/roteamento_youtube_proposta.py",
+      "sha": "bedf612bdadac5178d8585a647bf97f17beafd31",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/run_duravel_no_postgres.py",
       "sha": "7394d2e6a3e168d65454fa7337d7707793e907b6",
       "ext": ".py",
@@ -15382,7 +15494,7 @@
     },
     {
       "path": "regras/italy_contracts.mjs",
-      "sha": "bac158ed9da4b457c5bcfc32e3021de2b8a6759b",
+      "sha": "49f5c2872c8e2ddab8461f3625003cc01d9b1267",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -16256,6 +16368,13 @@
       "code_dir": true
     },
     {
+      "path": "scripts/desbloqueio/ENSAIO-SOC2-BLOCO4-V1.json",
+      "sha": "d76df538ebf9fb4224cace8b058fd9af759a484e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "scripts/desbloqueio/FUNIL-APOS-ENSAIO-G1.json",
       "sha": "4e452cfc6ae8e4618d5adc52fd7ac5b6a35513c6",
       "ext": ".json",
@@ -16271,7 +16390,7 @@
     },
     {
       "path": "scripts/desbloqueio/aplicar_desbloqueio.py",
-      "sha": "cfd6a0e443ebf0b1e587ba932235579f398631db",
+      "sha": "81a3abb7f75f7b43a77b3135469d453a66e5ba51",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -16914,6 +17033,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/033_a_lapide_da_retencao.sql",
+      "sha": "e4358c7580cc8da958e5bd8984b0c191792d8565",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -17069,7 +17195,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "b703f8501a2b93270063deb81b421b3af0ec4d36",
+      "sha": "1002ba4f5eaaac3c9925990a7069a744c78f8cac",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -18853,6 +18979,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_retencao_youtube_api.py",
+      "sha": "afd2cea97eadff38b2c4ee83c64d1062c6c5d375",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_retirada_por_decisao.py",
       "sha": "730f94111ee490b4c0394d5fd670b0d809542dc7",
       "ext": ".py",
@@ -18862,6 +18995,13 @@
     {
       "path": "tests/test_retorno_da_coleta.py",
       "sha": "507a94ffa7b2f68f6fb3946e64b19d8c08246c77",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_roteamento_youtube_proposta.py",
+      "sha": "865e4a785d622d8579ed036f6d23bd10fe554b2e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -19732,6 +19872,17 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/curator-youtube-handles.yml",
+      "to_file": "guarda/social_guarda.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/curator-youtube-handles.yml",
+        "line": 64,
+        "snippet": "run: PYTHONIOENCODING=utf-8 python3 guarda/social_guarda.py"
       }
     },
     {
@@ -22392,7 +22543,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_pilot_collect.mjs",
-        "line": 268,
+        "line": 276,
         "snippet": "return [{ url: c.CANONICAL_ENTRY_URL, nome: \"monitoraggio.html\" }];"
       }
     },
@@ -24883,6 +25034,61 @@
       }
     },
     {
+      "from_file": "curadoria/ensaiar_qualify_youtube.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_qualify_youtube.py",
+        "line": 30,
+        "snippet": "import fonte_nova as FN  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_qualify_youtube.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_qualify_youtube.py",
+        "line": 29,
+        "snippet": "import fila as F  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_qualify_youtube.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_qualify_youtube.py",
+        "line": 31,
+        "snippet": "import lifecycle as LC  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_qualify_youtube.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_qualify_youtube.py",
+        "line": 32,
+        "snippet": "import rota_do_scrap_youtube as RSY  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/ensaiar_qualify_youtube.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/ensaiar_qualify_youtube.py",
+        "line": 33,
+        "snippet": "import worker as W  # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/ensaiar_worker_pendurado.py",
       "to_file": "curadoria/fila.py",
       "type": "IMPORTS",
@@ -24911,7 +25117,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/escrever_contratos.py",
-        "line": 205,
+        "line": 243,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -24922,7 +25128,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/escrever_contratos.py",
-        "line": 203,
+        "line": 241,
         "snippet": "alloc = json.loads((RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\")"
       }
     },
@@ -24944,7 +25150,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/escrever_contratos.py",
-        "line": 284,
+        "line": 322,
         "snippet": "p = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -24955,8 +25161,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/escrever_contratos.py",
-        "line": 285,
+        "line": 323,
         "snippet": "p.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "curadoria/escrever_contratos.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/escrever_contratos.py",
+        "line": 167,
+        "snippet": "import rota_do_scrap_youtube as RSY"
       }
     },
     {
@@ -25441,6 +25658,61 @@
         "file": "curadoria/linhagem_das_candidatas.py",
         "line": 30,
         "snippet": "import ready_split as RS   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/linkedin_pelo_site.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/linkedin_pelo_site.py",
+        "line": 43,
+        "snippet": "import fonte_nova as FN  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/linkedin_pelo_site.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linkedin_pelo_site.py",
+        "line": 46,
+        "snippet": "LIVRO = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/linkedin_pelo_site.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/linkedin_pelo_site.py",
+        "line": 99,
+        "snippet": "import lifecycle as LC"
+      }
+    },
+    {
+      "from_file": "curadoria/linkedin_pelo_site.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linkedin_pelo_site.py",
+        "line": 47,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/linkedin_pelo_site.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/linkedin_pelo_site.py",
+        "line": 45,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
       }
     },
     {
@@ -26940,6 +27212,138 @@
       }
     },
     {
+      "from_file": "curadoria/resolver_handles_youtube.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/resolver_handles_youtube.py",
+        "line": 51,
+        "snippet": "import fonte_nova as FN              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/resolver_handles_youtube.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/resolver_handles_youtube.py",
+        "line": 91,
+        "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "curadoria/resolver_handles_youtube.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/resolver_handles_youtube.py",
+        "line": 52,
+        "snippet": "import rota_do_scrap_youtube as RSY  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 73,
+        "snippet": "import scrap_capacidades as cap"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 72,
+        "snippet": "import scrap_colheita as sc"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "curadoria/SOURCE-ID-ALLOCATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 44,
+        "snippet": "ALLOCATION = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "curadoria/italy_contracts_curator.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 43,
+        "snippet": "LIVRO = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "curadoria/linkedin_pelo_site.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 200,
+        "snippet": "import linkedin_pelo_site as LPS"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 184,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 74,
+        "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 46,
+        "snippet": "CONTRATOS_MJS = RAIZ / \"regras\" / \"italy_contracts.mjs\""
+      }
+    },
+    {
+      "from_file": "curadoria/rota_do_scrap_youtube.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/rota_do_scrap_youtube.py",
+        "line": 42,
+        "snippet": "TABELA = RAIZ / \"regras\" / \"italy_contracts_onboarded.json\""
+      }
+    },
+    {
       "from_file": "curadoria/semear_lifecycle.py",
       "to_file": "curadoria/READY-FOR-COLLECTION-V1.json",
       "type": "READS",
@@ -27353,7 +27757,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/test_collection_gate.py",
-        "line": 352,
+        "line": 354,
         "snippet": "perfil = (RAIZ / \"candidatas\" / \"italy_profiles.mjs\").read_text("
       }
     },
@@ -27364,7 +27768,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/test_collection_gate.py",
-        "line": 457,
+        "line": 459,
         "snippet": "import italy_executor as adapter   # noqa: PLC0415"
       }
     },
@@ -27480,6 +27884,17 @@
     },
     {
       "from_file": "curadoria/test_collection_gate.py",
+      "to_file": "curadoria/test_soc2_curator_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_collection_gate.py",
+        "line": 290,
+        "snippet": "\"curadoria/test_soc2_curator_youtube.py\": (\"TEST_ONLY\", False),"
+      }
+    },
+    {
+      "from_file": "curadoria/test_collection_gate.py",
       "to_file": "ferramentas/italy-forward-only-live.cmd",
       "type": "READS",
       "payload": "artefacto",
@@ -27586,6 +28001,61 @@
         "file": "curadoria/test_correr_lote.py",
         "line": 23,
         "snippet": "import correr_lote as L  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 24,
+        "snippet": "import fonte_nova as FN               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 23,
+        "snippet": "import fila as F                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 25,
+        "snippet": "import lifecycle as LC                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 26,
+        "snippet": "import rota_do_scrap_youtube as RSY   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_d21_heranca.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_d21_heranca.py",
+        "line": 27,
+        "snippet": "import worker as W                    # noqa: E402"
       }
     },
     {
@@ -28667,6 +29137,182 @@
       }
     },
     {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 36,
+        "snippet": "import fonte_nova as FN               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "coleta/italy_pilot_collect.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 319,
+        "snippet": "\"import { alvosDe } from './coleta/italy_pilot_collect.mjs';\""
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/escrever_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 233,
+        "snippet": "import escrever_contratos as EC"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 35,
+        "snippet": "import fila as F                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 37,
+        "snippet": "import lifecycle as LC                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/linkedin_pelo_site.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 337,
+        "snippet": "import linkedin_pelo_site as LPS"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 38,
+        "snippet": "import rota_do_scrap_youtube as RSY   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/validar_contratos.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 39,
+        "snippet": "import validar_contratos as VC        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 40,
+        "snippet": "import worker as W                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc2_curator_youtube.py",
+      "to_file": "regras/italy_contracts.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "curadoria/test_soc2_curator_youtube.py",
+        "line": 318,
+        "snippet": "prog = (\"import { CONTRACTS } from './regras/italy_contracts.mjs';\""
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc4_handles.py",
+      "to_file": "candidatas/fonte_nova.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc4_handles.py",
+        "line": 25,
+        "snippet": "import fonte_nova as FN                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc4_handles.py",
+      "to_file": "curadoria/fila.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc4_handles.py",
+        "line": 24,
+        "snippet": "import fila as F                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc4_handles.py",
+      "to_file": "curadoria/lifecycle.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc4_handles.py",
+        "line": 26,
+        "snippet": "import lifecycle as LC                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc4_handles.py",
+      "to_file": "curadoria/resolver_handles_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc4_handles.py",
+        "line": 27,
+        "snippet": "import resolver_handles_youtube as RH   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc4_handles.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc4_handles.py",
+        "line": 28,
+        "snippet": "import rota_do_scrap_youtube as RSY     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/test_soc4_handles.py",
+      "to_file": "curadoria/worker.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/test_soc4_handles.py",
+        "line": 29,
+        "snippet": "import worker as W                      # noqa: E402"
+      }
+    },
+    {
       "from_file": "curadoria/test_status_liveness.py",
       "to_file": "curadoria/fila.py",
       "type": "IMPORTS",
@@ -29245,7 +29891,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/validar_contratos.py",
-        "line": 158,
+        "line": 167,
         "snippet": "(RAIZ / \"curadoria\" / \"CONTRACT-VALIDATION-V1.json\").write_text("
       }
     },
@@ -29258,6 +29904,17 @@
         "file": "curadoria/validar_contratos.py",
         "line": 31,
         "snippet": "TABELA = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
+      }
+    },
+    {
+      "from_file": "curadoria/validar_contratos.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/validar_contratos.py",
+        "line": 95,
+        "snippet": "import rota_do_scrap_youtube as RSY"
       }
     },
     {
@@ -29344,7 +30001,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 65,
+        "line": 66,
         "snippet": "EVIDENCIA = RAIZ / \"curadoria\" / \"LIFECYCLE-EVIDENCE-V1.json\""
       }
     },
@@ -29355,7 +30012,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 106,
+        "line": 107,
         "snippet": "EVIDENCIA.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -29366,7 +30023,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 225,
+        "line": 267,
         "snippet": "car = json.loads((RAIZ / \"curadoria\" / \"SOURCE-CHARACTERIZATION-V1.json\")"
       }
     },
@@ -29377,7 +30034,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 66,
+        "line": 67,
         "snippet": "ALLOCATION = RAIZ / \"curadoria\" / \"SOURCE-ID-ALLOCATION-V1.json\""
       }
     },
@@ -29421,7 +30078,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 199,
+        "line": 225,
         "snippet": "import escrever_contratos as EC"
       }
     },
@@ -29454,7 +30111,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 64,
+        "line": 65,
         "snippet": "CONTRATOS = RAIZ / \"curadoria\" / \"italy_contracts_curator.json\""
       }
     },
@@ -29465,7 +30122,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 261,
+        "line": 304,
         "snippet": "CONTRATOS.write_text(json.dumps(d, ensure_ascii=False, indent=1),"
       }
     },
@@ -29487,8 +30144,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 61,
+        "line": 62,
         "snippet": "import ready_split as RS           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "curadoria/worker.py",
+      "to_file": "curadoria/rota_do_scrap_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "curadoria/worker.py",
+        "line": 61,
+        "snippet": "import rota_do_scrap_youtube as RSY  # noqa: E402"
       }
     },
     {
@@ -29498,7 +30166,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "curadoria/worker.py",
-        "line": 200,
+        "line": 226,
         "snippet": "import validar_contratos as VC"
       }
     },
@@ -32767,6 +33435,28 @@
         "file": "guarda/preservar_documento.py",
         "line": 51,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "guarda/retencao_youtube_api.py",
+      "to_file": "guarda/banco_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/retencao_youtube_api.py",
+        "line": 58,
+        "snippet": "import banco_descartavel as BD          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "guarda/retencao_youtube_api.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "guarda/retencao_youtube_api.py",
+        "line": 59,
+        "snippet": "import preservar_coleta as PC           # noqa: E402"
       }
     },
     {
@@ -55727,6 +56417,39 @@
       }
     },
     {
+      "from_file": "provas/roteamento_youtube_proposta.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/roteamento_youtube_proposta.py",
+        "line": 31,
+        "snippet": "import pedido as PD      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/roteamento_youtube_proposta.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/roteamento_youtube_proposta.py",
+        "line": 32,
+        "snippet": "import receitas as R     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/roteamento_youtube_proposta.py",
+      "to_file": "regras/italy_contracts_onboarded.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/roteamento_youtube_proposta.py",
+        "line": 38,
+        "snippet": "d = json.load(open(TABELA, encoding='utf-8'))"
+      }
+    },
+    {
       "from_file": "provas/run_duravel_no_postgres.py",
       "to_file": "coleta/coleta_checkpoint.py",
       "type": "IMPORTS",
@@ -57482,7 +58205,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 182,
+        "line": 188,
         "snippet": "f = RAIZ / \"curadoria\" / \"PROPOSTA-CATALOGO-V1.json\""
       }
     },
@@ -57493,7 +58216,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 208,
+        "line": 214,
         "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\","
       }
     },
@@ -57504,7 +58227,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 208,
+        "line": 214,
         "snippet": "for nome in (\"PROPOSTA-RECEITAS-V1.json\", \"PROPOSTA-RECEITAS-V2.json\","
       }
     },
@@ -57515,7 +58238,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 209,
+        "line": 215,
         "snippet": "\"PROPOSTA-RECEITAS-V3.json\"):   # V3 = aditamento LD2"
       }
     },
@@ -57526,7 +58249,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 231,
+        "line": 238,
         "snippet": "m3 = json.loads(_da_arvore_ou_da_m3(\"curadoria/ROTAS-ELEGIVEIS-V1.json\")[0])"
       }
     },
@@ -57537,7 +58260,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 98,
+        "line": 104,
         "snippet": "src, origem = _da_arvore_ou_da_m3(\"curadoria/onboardar_rotas_provadas.py\")"
       }
     },
@@ -57548,7 +58271,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 67,
+        "line": 73,
         "snippet": "MANIFESTOS = [HOME / \"detector-capa-gabarito\" / \"MANIFESTO.json\","
       }
     },
@@ -57559,7 +58282,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 233,
+        "line": 240,
         "snippet": "f = AQUI / \"CANARIO-DESBLOQUEIO-V1.json\""
       }
     },
@@ -57570,7 +58293,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "scripts/desbloqueio/aplicar_desbloqueio.py",
-        "line": 137,
+        "line": 143,
         "snippet": "g = _json(RAIZ / \"scripts\" / \"detector_capa\" / \"GABARITO-CAPA-V1.json\")"
       }
     },
@@ -75780,6 +76503,50 @@
       }
     },
     {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "guarda/banco_descartavel.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 87,
+        "snippet": "import banco_descartavel as BD"
+      }
+    },
+    {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "guarda/retencao_youtube_api.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 26,
+        "snippet": "import retencao_youtube_api as RT  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_retencao_youtube_api.py",
+      "to_file": "provas/a_porta_cli_liga_o_banco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_retencao_youtube_api.py",
+        "line": 67,
+        "snippet": "import a_porta_cli_liga_o_banco as P"
+      }
+    },
+    {
       "from_file": "tests/test_retirada_por_decisao.py",
       "to_file": "regras/italy_contracts.mjs",
       "type": "READS",
@@ -75865,6 +76632,50 @@
         "file": "tests/test_retorno_da_coleta.py",
         "line": 244,
         "snippet": "with open(os.path.join(RAIZ, \"leis\", \"retorno_da_coleta.py\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_roteamento_youtube_proposta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_roteamento_youtube_proposta.py",
+        "line": 17,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_roteamento_youtube_proposta.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_roteamento_youtube_proposta.py",
+        "line": 20,
+        "snippet": "import pedido as PD                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_roteamento_youtube_proposta.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_roteamento_youtube_proposta.py",
+        "line": 21,
+        "snippet": "import receitas as R                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_roteamento_youtube_proposta.py",
+      "to_file": "provas/roteamento_youtube_proposta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_roteamento_youtube_proposta.py",
+        "line": 22,
+        "snippet": "import roteamento_youtube_proposta as RP  # noqa: E402"
       }
     },
     {
@@ -78818,10 +79629,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2725,
-    "files_readable": 1245,
-    "files_code_dir": 1065,
-    "file_edges": 5379,
+    "files_tracked": 2745,
+    "files_readable": 1257,
+    "files_code_dir": 1071,
+    "file_edges": 5440,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
