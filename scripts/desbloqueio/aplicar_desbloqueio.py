@@ -59,6 +59,10 @@ AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parents[1]
 HOME = Path.home()
 MISSAO = "G1-DESBLOQUEIO-COORTE"
+# A proposta de catalogo que o coordenador conferiu (87 accoes com prova, 23/09).
+# Nao e um REF fixo de leitura — le-se pelo nome da branch —, e so a referencia
+# contra a qual o pacote AVISA se a branch tiver andado.
+CATALOGO_CONFERIDO = "0644a916"
 CAMPOS_DO_LIVRO = ("LINK_PATTERN", "INDEX_URL")
 MANIFESTOS = [HOME / "detector-capa-gabarito" / "MANIFESTO.json",
               HOME / "receitas-paginas" / "MANIFESTO.json",
@@ -419,6 +423,13 @@ def main(argv=None) -> int:
     livro_p, tab_p = Path(arg["livro"]), Path(arg["tabela"])
     ledger = Path(arg.get("ledger", livro_p.parent / "DESBLOQUEIO-LEDGER-V1.jsonl"))
     livro, tabela = _json(livro_p), _json(tab_p)
+    if not (RAIZ / "curadoria" / "PROPOSTA-CATALOGO-V1.json").exists():
+        h = subprocess.run(["git", "rev-parse", "--short=8", "origin/catalogo-proposta-v1"], cwd=RAIZ,
+                           capture_output=True, text=True).stdout.strip()
+        print(f"CATALOGO D9 lido de origin/catalogo-proposta-v1 @ {h or 'NAO SEI'}")
+        if h and not h.startswith(CATALOGO_CONFERIDO):
+            print(f"AVISO: a branch andou desde o head conferido ({CATALOGO_CONFERIDO}); "
+                  f"confirmar com o coordenador antes de --escrever", file=sys.stderr)
     try:
         plano = planear(livro, tabela)
     except InvarianteQuebrado as ex:
