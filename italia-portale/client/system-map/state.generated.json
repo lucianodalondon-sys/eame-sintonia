@@ -2554,6 +2554,7 @@
       "tests/fixtures/comunicacao/COMPETITOR-CROSSWALK.fixture.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/medir_multilingue.py",
+      "tests/mutacao_do_scrap_portas.py",
       "tests/test_a_collection_preserva_o_fato.py",
       "tests/test_a_demanda_de_dados_da_italia.py",
       "tests/test_a_fase_10_entra_no_acervo.py",
@@ -3287,9 +3288,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-portas-v1",
-    "HEAD": "f5c4947317b522f7711e4e199fe51d39b7654a0a",
-    "GENERATED_AT": "2026-09-23T08:57:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3050c192480570f95c015106060c255a77ec0ab7b73d57cd491aadb2dac63633"
+    "HEAD": "00c0d7058008670c179357536165386d3dd69dcd",
+    "GENERATED_AT": "2026-09-23T09:43:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6fb1606c6f3853a66dd0b3a97689b9091af7e83c88393fb17865f89a19891d72"
   },
   "FAMILIES": [
     {
@@ -45950,6 +45951,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/medir_multilingue.py",
+        "tests/mutacao_do_scrap_portas.py",
         "tests/test_a_collection_preserva_o_fato.py",
         "tests/test_a_demanda_de_dados_da_italia.py",
         "tests/test_a_fase_10_entra_no_acervo.py",
@@ -46164,7 +46166,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 216,
+      "file_count": 217,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 16 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -46388,6 +46390,7 @@
           "CAMPOS_DO_FATO",
           "CANONICAS",
           "CANONICA_DE_PE",
+          "CASOS",
           "CATALOGO",
           "COMPLETA",
           "CONTRATO",
@@ -46451,13 +46454,13 @@
           "WAV",
           "_GAVETA_DE"
         ],
-        "palavras": 1175,
+        "palavras": 1193,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 1163,
+        "sem_marca_de_lingua": 1181,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -46886,6 +46889,7 @@
         "referencia/adama/SOURCE-ID-MAP.json",
         "regras/comunicacao_identidade.py",
         "regras/comunicacao_universo.py",
+        "regras/contratos_de_fonte.py",
         "regras/italy_contracts.mjs",
         "regras/italy_contracts_onboarded.json",
         "regras/motor_de_rota.mjs",
@@ -78805,8 +78809,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 74,
+          "snippet": "(\"regras/contratos_de_fonte.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-TESTES",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 237,
@@ -101117,8 +101137,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 56,
+          "snippet": "(\"leis/social_matriz.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--READS-->C-TESTES",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_c10_4_route_gate.py",
           "line": 265,
@@ -102824,7 +102860,7 @@
         },
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
-          "line": 235,
+          "line": 265,
           "snippet": "import adaptador_youtube as ay",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
@@ -102840,7 +102876,7 @@
         },
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
-          "line": 248,
+          "line": 278,
           "snippet": "import youtube_oficial as yt",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
@@ -102856,7 +102892,7 @@
         },
         {
           "file": "tests/test_as_duas_portas_do_scrap.py",
-          "line": 437,
+          "line": 467,
           "snippet": "import social_envelope as se",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-TESTES",
@@ -102983,11 +103019,59 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 66 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 69 linhas de codigo.",
       "evidence": [
         {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 62,
+          "snippet": "(\"coleta/scrap_executor.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 68,
+          "snippet": "(\"coleta/scrap_capacidades.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 80,
+          "snippet": "(\"coleta/social_envelope.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
           "file": "tests/test_as_duas_portas_do_scrap.py",
-          "line": 510,
+          "line": 540,
           "snippet": "self.assertEqual(['coleta/social_envelope.py'], donos,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
@@ -103117,54 +103201,6 @@
           "file": "tests/test_c10_4c_rota_aposentada.py",
           "line": 327,
           "snippet": "'coleta/scrap_registo.py', 'ferramentas/fala_local.py',",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 289,
-          "snippet": "self.assertTrue(any(rel == 'coleta/adaptador_instagram.py'",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 355,
-          "snippet": "self.assertEqual(leitores, ['coleta/scrap_http.py'],",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
-            "FROM": "C-SCRAP-SOCIAL",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 248,
-          "snippet": "self.assertNotEqual('coleta/scrap_capacidades.py', 'leis/social_matriz.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
             "FROM": "C-SCRAP-SOCIAL",
@@ -108371,8 +108407,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 37 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 38 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/mutacao_do_scrap_portas.py",
+          "line": 86,
+          "snippet": "(\"ferramentas/reel_transcricao.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_c10_1_source_id.py",
           "line": 182,
@@ -108537,22 +108589,6 @@
           "file": "tests/test_c10_5d_decisao_instagram.py",
           "line": 264,
           "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
-            "FROM": "C-TRANSCRICAO",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 349,
-          "snippet": "'ferramentas/reel_transcricao.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-TESTES",
             "FROM": "C-TRANSCRICAO",
@@ -110862,8 +110898,8 @@
     "edges_proven": 1123,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2693,
-    "files_covered": 1165,
+    "files_tracked": 2694,
+    "files_covered": 1166,
     "files_code_unclaimed": 0,
     "roles_proven": 160,
     "roles_declared_only": 8,

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f5c4947317b522f7711e4e199fe51d39b7654a0a
+HEAD_DA_MEDICAO  00c0d7058008670c179357536165386d3dd69dcd
 BRANCH           scrap-portas-v1
-GERADO_EM        2026-09-23T08:57:25-03:00
+GERADO_EM        2026-09-23T09:43:40-03:00
 CARDS            89
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

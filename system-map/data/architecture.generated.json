@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "scrap-portas-v1",
-    "HEAD": "f5c4947317b522f7711e4e199fe51d39b7654a0a",
-    "GENERATED_AT": "2026-09-23T08:57:25-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3050c192480570f95c015106060c255a77ec0ab7b73d57cd491aadb2dac63633"
+    "HEAD": "00c0d7058008670c179357536165386d3dd69dcd",
+    "GENERATED_AT": "2026-09-23T09:43:40-03:00",
+    "SOURCE_TREE_FINGERPRINT": "6fb1606c6f3853a66dd0b3a97689b9091af7e83c88393fb17865f89a19891d72"
   },
   "FILES": [
     {
@@ -17362,6 +17362,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/mutacao_do_scrap_portas.py",
+      "sha": "0b7194937d81f1066e36502b3c5eac2b8052eabb",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_a_collection_preserva_o_fato.py",
       "sha": "62c18c23220dfcc889a7d6a504ae99b63710af9e",
       "ext": ".py",
@@ -17552,7 +17559,7 @@
     },
     {
       "path": "tests/test_as_duas_portas_do_scrap.py",
-      "sha": "aa8f63a331382aabf41704028515158c1a6ebe93",
+      "sha": "68e9300ccee69438dfa9533c727872b1aeef393d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -60882,6 +60889,72 @@
       }
     },
     {
+      "from_file": "tests/mutacao_do_scrap_portas.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_do_scrap_portas.py",
+        "line": 68,
+        "snippet": "(\"coleta/scrap_capacidades.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_do_scrap_portas.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_do_scrap_portas.py",
+        "line": 62,
+        "snippet": "(\"coleta/scrap_executor.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_do_scrap_portas.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_do_scrap_portas.py",
+        "line": 80,
+        "snippet": "(\"coleta/social_envelope.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_do_scrap_portas.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_do_scrap_portas.py",
+        "line": 86,
+        "snippet": "(\"ferramentas/reel_transcricao.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_do_scrap_portas.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_do_scrap_portas.py",
+        "line": 56,
+        "snippet": "(\"leis/social_matriz.py\","
+      }
+    },
+    {
+      "from_file": "tests/mutacao_do_scrap_portas.py",
+      "to_file": "regras/contratos_de_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/mutacao_do_scrap_portas.py",
+        "line": 74,
+        "snippet": "(\"regras/contratos_de_fonte.py\","
+      }
+    },
+    {
       "from_file": "tests/test_a_collection_preserva_o_fato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -62692,7 +62765,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_as_duas_portas_do_scrap.py",
-        "line": 235,
+        "line": 265,
         "snippet": "import adaptador_youtube as ay"
       }
     },
@@ -62747,7 +62820,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_as_duas_portas_do_scrap.py",
-        "line": 437,
+        "line": 467,
         "snippet": "import social_envelope as se"
       }
     },
@@ -62758,7 +62831,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_as_duas_portas_do_scrap.py",
-        "line": 510,
+        "line": 540,
         "snippet": "self.assertEqual(['coleta/social_envelope.py'], donos,"
       }
     },
@@ -62769,7 +62842,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_as_duas_portas_do_scrap.py",
-        "line": 248,
+        "line": 278,
         "snippet": "import youtube_oficial as yt"
       }
     },
@@ -78253,10 +78326,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2693,
-    "files_readable": 1231,
-    "files_code_dir": 1040,
-    "file_edges": 5348,
+    "files_tracked": 2694,
+    "files_readable": 1232,
+    "files_code_dir": 1041,
+    "file_edges": 5354,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
