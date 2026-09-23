@@ -386,6 +386,23 @@ def controlo_negativo_de_capa() -> dict:
             "PASSA": a == "CAPA_PROVAVEL" and b == "MATERIA_PROVAVEL"}
 
 
+GABARITO = AQUI / "GABARITO-MICRO-V1.json"
+_PALAVRAS = {
+    "en": {"the", "and", "of", "to", "is", "for", "with", "that", "are", "on"},
+    "it": {"il", "della", "di", "che", "per", "con", "sono", "gli", "nel", "delle"},
+    "pt": {"o", "da", "do", "que", "para", "com", "os", "das", "dos", "uma"},
+}
+
+
+def idioma(texto: str) -> str:
+    """Leitura grosseira e declarada: a lingua cujas dez palavras mais comuns
+    aparecem mais. Serve para CONTAR (C9), nunca para decidir entrada."""
+    pal = re.findall(r"[a-zà-ú]+", texto.lower())
+    conta = {lg: sum(1 for p in pal if p in ws) for lg, ws in _PALAVRAS.items()}
+    lg = max(conta, key=conta.get)
+    return lg if conta[lg] >= 20 else AUSENCIA
+
+
 def _armazem() -> Path:
     r = os.environ.get("SINTONIA_ARMAZEM_RAIZ")
     return Path(r) if r else Path.home() / "sintonia-sala-italia" / "armazem"
@@ -398,7 +415,8 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
     armazem = armazem or _armazem()
     obs = consulta(
         "select r.id, r.source_id, r.media_type, r.storage_path, r.storage_object_id,"
-        " coalesce(d.id::text,''), r.captured_at::text, r.run_id"
+        " coalesce(d.id::text,''), r.captured_at::text, r.run_id,"
+        " coalesce(r.source_url,''), coalesce(d.storage_path,'')"
         " from raw_asset r left join derived_artifact d on d.raw_asset_id = r.id"
         f" where r.run_id in ({em}) order by r.id")
     sala = consulta(
@@ -488,6 +506,53 @@ def relatorio(run_ids: list[str], *, corridas: list | None = None,
             "PASSA": bool(por_fonte) and not any(
                 k in v for v in por_fonte.values() for k in ("SEM_DECISAO", "SEM_DERIVADO"))},
     }
+    # ── C8 · AS DUAS PERGUNTAS (lei D2 do dono, 2026-09-23) ──────────────────
+    # A Admission so responde UNIVERSE_MATCH. SINTONIA_RELEVANT e outra
+    # pergunta: mede-se contra o gabarito validado (por URL) e, para o resto,
+    # fica na folha CLASSES.tsv para uma pessoa. As duas nunca se somam.
+    gab = {g["DOCUMENTO"]: g for g in json.loads(GABARITO.read_text(encoding="utf-8"))["ITENS"]}
+    no_gab = []
+    for o in obs:
+        g = gab.get(o[8] if len(o) > 8 else "")
+        if g:
+            v = por_item.get(f"derived:{o[5]}", {}).get("resultado", AUSENCIA)
+            no_gab.append({"N": g["N"], "SOURCE_ID": o[1], "ADMISSION": v,
+                           "ESPERADO": g["ESPERADO"], "UNIVERSE_MATCH": g["UNIVERSE_MATCH"],
+                           "SINTONIA_RELEVANT": g["SINTONIA_RELEVANT"], "ACTION": g["ACTION"],
+                           "UNIVERSO_ACERTA": (v == "SIM") == (g["UNIVERSE_MATCH"] == "YES"),
+                           "SIM_ERRADO": v == "SIM" and g["UNIVERSE_MATCH"] == "NO",
+                           "RELEVANTE_PERDIDO": v != "SIM" and g["SINTONIA_RELEVANT"] == "YES"})
+    C["C8_DUAS_PERGUNTAS"] = {
+        "ITENS_DO_GABARITO": no_gab,
+        # binario ENTRA/NAO ENTRA (NAO_SEI conta como NAO ENTRA) e estrito
+        # (NAO_SEI conta como pergunta nao respondida). Os dois, lado a lado.
+        "UNIVERSE_MATCH_ACERTOS_ENTRA_OU_NAO": f"{sum(x['UNIVERSO_ACERTA'] for x in no_gab)}/{len(no_gab)}",
+        "UNIVERSE_MATCH_ACERTOS_ESTRITO": f"{sum(1 for x in no_gab if x['ADMISSION'] == ('SIM' if x['UNIVERSE_MATCH'] == 'YES' else 'NAO'))}/{len(no_gab)}",
+        "SIM_ERRADO": sum(x["SIM_ERRADO"] for x in no_gab),
+        "RELEVANTE_AO_SINTONIA_FORA_DA_SALA": [x["N"] for x in no_gab if x["RELEVANTE_PERDIDO"]],
+        "REROUTE": [(x["N"], x["ACTION"]) for x in no_gab if x["ACTION"].startswith("REROUTE")],
+        "ESTADO": "PASS" if no_gab and not any(x["SIM_ERRADO"] for x in no_gab)
+                  else "NAO_SE_APLICA" if not no_gab else "FAIL",
+        "PASSA": bool(no_gab) and not any(x["SIM_ERRADO"] for x in no_gab)}
+
+    # ── C9 · IDIOMA (lei D3): idioma sozinho nao pode dar NAO_SEI ─────────────
+    # Contado A PARTE. Um item em lingua estrangeira que ficou NAO_SEI sem
+    # nenhum sinal e uma violacao a contar — mesmo que a Admission nao mude.
+    idiomas, violacoes = {}, []
+    for o in obs:
+        dp = o[9] if len(o) > 9 else ""
+        f = armazem / dp if dp else None
+        if not f or not f.exists():
+            continue
+        lg = idioma(f.read_text(encoding="utf-8", errors="replace"))
+        idiomas[lg] = idiomas.get(lg, 0) + 1
+        d = por_item.get(f"derived:{o[5]}", {})
+        if lg not in ("it", "pt") and d.get("resultado") == "NAO_SEI"                 and not (d.get("evidencia") or {}).get("palavras"):
+            violacoes.append({"RAW": o[0], "SOURCE_ID": o[1], "IDIOMA": lg})
+    C["C9_IDIOMA_NAO_DA_NAO_SEI"] = {
+        "IDIOMAS": idiomas, "NAO_SEI_ESTRANGEIRO_SEM_SINAL": violacoes,
+        "CONTADOS": len(violacoes), "PASSA": not violacoes}
+
     rel = {"GERADO_EM": agora(), "RUN_IDS": run_ids, "CRITERIOS": C,
            "PASSOU": sum(1 for c in C.values() if c["PASSA"]), "DE": len(C),
            "LEI": "so SELECT; default_transaction_read_only=on na ligacao"}

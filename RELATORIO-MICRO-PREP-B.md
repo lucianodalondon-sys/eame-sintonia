@@ -219,6 +219,61 @@ da cadeia.
 
 ---
 
+## 4 — AS DECISÕES DO DONO (23/09), INCORPORADAS
+
+Fonte: `auditoria-madrugada/DECISOES-DONO-2026-09-23.md`.
+
+**D1 — gabarito validado.** `GABARITO-MICRO-V1.json` passa a
+`VALIDADO_POR_HUMANO (Luciano, 2026-09-23)`, com a ressalva do dono escrita.
+Pergunta estrita da gaveta: **4 ENTRA / 6 NÃO ENTRA**, as 10 linhas mantêm-se.
+Cada item ganhou três campos:
+
+| N | UNIVERSE_MATCH | SINTONIA_RELEVANT | ACTION |
+|---|---|---|---|
+| 1, 2, 5, 6 | YES | YES | ENTRA |
+| 3, 4, 7 | NO | **NAO_DECIDIDO_PELO_DONO** | NAO_ENTRA |
+| 8 | NO | NAO_SEI | não entra nesta régua — pode servir a eventos (T11) |
+| 9 | NO | YES | **REROUTE → T10** (facturação, preço pago pela uva) |
+| 10 | NO | YES | **REROUTE → T1** (campanha do azeite DOP 2025) |
+
+⚠️ Em 3, 4 e 7 o dono decidiu a gaveta, não a relevância ao Sintonia. Não
+preenchi por ele.
+
+**D2 — duas perguntas, nunca uma.** Novo critério **C8_DUAS_PERGUNTAS** no
+relatório de passagem: casa cada observação com o gabarito **por URL**, e mede
+à parte (a) se a Admission acertou a gaveta e (b) que itens relevantes ao
+Sintonia ficaram fora da Sala. `SIM_ERRADO` (SIM onde a gaveta diz NO) reprova.
+Ensaio sobre o lote-76, só a ler:
+
+```
+UNIVERSE_MATCH  ENTRA/NÃO ENTRA  8/10   (NAO_SEI conta como não entra)
+UNIVERSE_MATCH  ESTRITO          3/10   (NAO_SEI conta como pergunta não respondida)
+SIM_ERRADO                       0
+RELEVANTE AO SINTONIA FORA DA SALA = itens 5, 6, 9, 10
+REROUTE                          = 9 → T10 · 10 → T1
+```
+
+**D3 — o idioma sozinho não pode dar NAO_SEI.** Novo critério
+**C9_IDIOMA_NAO_DA_NAO_SEI**, contado à parte: item em língua que não é
+italiano nem português, com NAO_SEI e **zero** sinais. Identificação do idioma
+grosseira e declarada (as dez palavras mais comuns de cada língua; serve para
+contar, nunca para decidir). Sobre o lote-76:
+
+```
+IDIOMAS                      it 66 · en 10
+NAO_SEI_ESTRANGEIRO_SEM_SINAL 10/10 ingleses (raw 1340–1349, IT-T10-022)  → C9 = FAIL
+```
+
+A Admission **não foi alterada** (trava). C9 vai reprovar em qualquer
+micro-coleta com a Zootecnica até a régua mudar — é esse o propósito.
+
+D4 (recolha de exemplos T2/T12) e D5 (catálogo) não são desta missão.
+
+Provas: **25/25**; mutantes novos (idioma não contado · SIM errado calado)
+mortos.
+
+---
+
 ## ENTREGA
 
 ```
@@ -230,6 +285,8 @@ FALSE_CAPA                       = 6/76
 FALSE_MATERIA                    = 5/14  (4/13 sem a IT-T9-021, cujo índice é duvidoso)
 PROPOSED_FIX                     = morada antes da estrutura — não aplicado
 R1                               = actualizado (cópia 76/76; raiz sem XX/)
+GABARITO                         = VALIDADO_POR_HUMANO (D1) + UNIVERSE_MATCH/SINTONIA_RELEVANT/ACTION
+CRITERIOS                        = 9 (novos: C8 duas perguntas, C9 idioma)
 ```
 
 ---
@@ -256,6 +313,13 @@ O problema é que ele só olha o **formato** da página. Proponho que olhe prime
 a **morada**: cada site já nos disse como é a morada de uma notícia. Nos
 números que tenho, isso zerava os dois erros. Não mudei nada — é só proposta, e
 tem um ponto fraco que está escrito no relatório.
+
+**E as decisões que você tomou de madrugada já estão lá dentro.** A folha
+de respostas agora diz "conferida pelo Luciano". Cada notícia recebe agora duas
+respostas: "é da gaveta certa?" e "serve ao Sintonia?". Duas notícias (o
+balanço da cooperativa e o azeite) não são da gaveta, mas servem, e vão
+marcadas para mudar de gaveta. E o relatório conta à parte as notícias em
+inglês que ficaram "não sei" só por estarem em inglês: no lote-76 são 10.
 
 **Terceira coisa:** a cópia de segurança das 76 notícias que o coordenador fez
 está boa (76 de 76 iguais), mas está guardada numa pasta com um nível a menos

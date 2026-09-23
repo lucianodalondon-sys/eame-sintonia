@@ -240,6 +240,8 @@ class TestRelatorioComFixture(unittest.TestCase):
         (self.t / "XX" / "capa.html").write_bytes(
             b"<html><body>" + b"".join(b'<a href="/n%d">n</a>' % i for i in range(200))
             + b"</body></html>")
+        (self.t / "XX" / "en.txt").write_text("the price of the pears and of the apples is up for the market " * 5, encoding="utf-8")
+        (self.t / "XX" / "it.txt").write_text("il prezzo delle pere e di che per con gli nel " * 5, encoding="utf-8")
         self.livro = self.t / "livro.json"
         self.livro.write_text(json.dumps({"DECISOES": [
             {"item": "derived:10", "resultado": "SIM", "corrida": "R1"},
@@ -248,8 +250,9 @@ class TestRelatorioComFixture(unittest.TestCase):
     def _consulta(self, sala_item="derived:10", cadeia="1"):
         def q(s):
             if "from raw_asset r left join" in s:
-                return [["1", "IT-X-1", "text/html", "XX/materia.html", "7", "10", "t", "R1"],
-                        ["2", "IT-X-1", "text/html", "XX/capa.html", "8", "11", "t", "R1"]]
+                return [["1", "IT-X-1", "text/html", "XX/materia.html", "7", "10", "t", "R1",
+                         "https://www.myfruit.it/news/dai-mercati-pomodori-sempre-alle-stelle", "XX/en.txt"],
+                        ["2", "IT-X-1", "text/html", "XX/capa.html", "8", "11", "t", "R1", "", "XX/it.txt"]]
             if "from sala_de_espera" in s:
                 return [[sala_item, "1", "IT-X-1", "NAO SEI", "NAO SEI", "t", "R1", cadeia]]
             raise AssertionError(s)
@@ -271,6 +274,32 @@ class TestRelatorioComFixture(unittest.TestCase):
         self.assertEqual(C["C7_PROPORCAO_POR_FONTE_E_CLASSE"]["POR_FONTE"],
                          {"IT-X-1": {"SIM": 1, "NAO": 1}})
         self.assertIn("2\tIT-X-1", (self.t / "out" / "CAPAS-A-CONFIRMAR.tsv").read_text(encoding="utf-8"))
+
+    def test_duas_perguntas_e_idioma_contados_a_parte(self):
+        livro = self.t / "livro2.json"
+        livro.write_text(json.dumps({"DECISOES": [
+            {"item": "derived:10", "resultado": "NAO_SEI", "corrida": "R1", "evidencia": {}},
+            {"item": "derived:11", "resultado": "NAO", "corrida": "R1"}]}), encoding="utf-8")
+        r = MC.relatorio(["R1"], consulta=self._consulta(sala_item="derived:99"),
+                         livro=livro, armazem=self.t)
+        c8, c9 = r["CRITERIOS"]["C8_DUAS_PERGUNTAS"], r["CRITERIOS"]["C9_IDIOMA_NAO_DA_NAO_SEI"]
+        self.assertEqual([x["N"] for x in c8["ITENS_DO_GABARITO"]], [1])   # casado por URL
+        self.assertEqual(c8["RELEVANTE_AO_SINTONIA_FORA_DA_SALA"], [1])
+        self.assertEqual(c8["SIM_ERRADO"], 0)
+        self.assertEqual(c9["IDIOMAS"], {"en": 1, "it": 1})
+        self.assertEqual(c9["CONTADOS"], 1)                                # ingles + NAO_SEI sem sinal
+        self.assertFalse(c9["PASSA"])
+
+    def test_sim_errado_reprova_c8(self):
+        livro = self.t / "livro3.json"
+        livro.write_text(json.dumps({"DECISOES": [{"item": "derived:10", "resultado": "SIM", "corrida": "R1"}]}))
+        with mock.patch.object(MC, "GABARITO", self.t / "g.json"):
+            (self.t / "g.json").write_text(json.dumps({"ITENS": [{"N": 3, "DOCUMENTO":
+                "https://www.myfruit.it/news/dai-mercati-pomodori-sempre-alle-stelle", "ESPERADO": "NAO",
+                "UNIVERSE_MATCH": "NO", "SINTONIA_RELEVANT": "NO", "ACTION": "NAO_ENTRA"}]}))
+            r = MC.relatorio(["R1"], consulta=self._consulta(), livro=livro, armazem=self.t)
+        self.assertEqual(r["CRITERIOS"]["C8_DUAS_PERGUNTAS"]["SIM_ERRADO"], 1)
+        self.assertFalse(r["CRITERIOS"]["C8_DUAS_PERGUNTAS"]["PASSA"])
 
     def test_bypass_e_cadeia_partida_reprovam(self):
         r = MC.relatorio(["R1"], consulta=self._consulta(sala_item="derived:11", cadeia="0"),
