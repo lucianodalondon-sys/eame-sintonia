@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-23T03:41:33+00:00",
-  "HEAD": "b8027212633bf152e9d025f05dfb61b8d7ab36d2",
-  "BRANCH": "regua-t2-t12-v1",
+  "GENERATED_AT": "2026-09-23T04:28:03+00:00",
+  "HEAD": "6d9dda3d2c4504896ab48ea6379401b4b8b9f5d3",
+  "BRANCH": "catalogo-proposta-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "3e197f0e75629605c05c7403245335e502497c415e78011211827156ddaef592",
-  "FICHEIROS_NA_IMPRESSAO": 2629,
+  "SOURCE_TREE_FINGERPRINT": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917",
+  "FICHEIROS_NA_IMPRESSAO": 2634,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -1656,6 +1656,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "medidas/montar_proposta_catalogo.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "559ee8dadd177d8513f8272481c49e658157cea0",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "medidas/o_contrato_do_universo.py",
     "PAPEL": "FONTE",
     "VERSAO": "7fbf22b226cdea810c257afcd715d8af32059f56",
@@ -1694,6 +1701,13 @@
     "PATH": "medidas/portoes_eame.py",
     "PAPEL": "FONTE",
     "VERSAO": "19d35c34a97651fa85a941d88b3890978c910cef",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "medidas/prova_catalogo_t2_t12.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "fb5404eb440c4d34e49c54caebca321b64453dea",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3240,14 +3254,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3e197f0e75629605c05c7403245335e502497c415e78011211827156ddaef592",
+    "VERSAO": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3e197f0e75629605c05c7403245335e502497c415e78011211827156ddaef592",
+    "VERSAO": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -4932,8 +4946,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 699,
-  "INPUTS_DIGEST": "30531e3a13224219c43467c8ccce87776afd5181c4ea22700207b70c9f414e2f",
+  "INPUTS_COUNT": 701,
+  "INPUTS_DIGEST": "fcbaf5014730f3cb0a99a733992e472292bebed14b5b8d11f03857124ae3c7d4",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -4959,15 +4973,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 452,
+  "DOCUMENTOS_LIDOS": 453,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ca2682f07201ed058096eb60d067c3e03bcfa99ce2f6c46062315f2bcdac8a5b",
-  "SEMANTIC_HASH": "c1a77c3fc6b128f6d8ef096828d30bd0b9c6cb5d3243d0bcdb2ca493b276084f"
+  "MEASUREMENT_HASH": "5683530862f59309e9a8e11a23f161ac6ec562bb8f5e030642a7cbaabb6788b4",
+  "SEMANTIC_HASH": "fd38e37d0dfa8c239eca47a27440b9dd2b6126ae9782749fc06a8406fe57f71d"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7520,6 +7534,28 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": null,
       "ASSERTION_PLANE": null
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-AS-FONTES--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+    "FROM": "C-AS-FONTES",
+    "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "medidas/montar_proposta_catalogo.py",
+      "LINHA": 180,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -38605,12 +38641,12 @@
     ]
    }
   ],
-  "COUNT": 1088
+  "COUNT": 1089
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 165,
   "CARTOES_AUDITADOS": 165,
-  "ARESTAS_RELACIONADAS": 1088,
+  "ARESTAS_RELACIONADAS": 1089,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -38989,7 +39025,7 @@
    "CONTROL": 72,
    "DATA": 31,
    "PROOF": 362,
-   "READ": 246,
+   "READ": 247,
    "RULE": 185,
    "WRITE": 8
   },
@@ -39386,7 +39422,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 0,
-   "SAEM": 19,
+   "SAEM": 20,
    "CATEGORIAS_QUE_ENTRAM": [],
    "CATEGORIAS_QUE_SAEM": [
     "DATA",
@@ -39780,6 +39816,8 @@
     "medidas/canario_rotas_elegiveis.py",
     "medidas/gabarito_t2_t12.py",
     "medidas/gabarito_t2_t12_ida3.py",
+    "medidas/montar_proposta_catalogo.py",
+    "medidas/prova_catalogo_t2_t12.py",
     "medidas/relevancia_antes_da_coleta.py"
    ],
    "CHAMADORES_DE_RUNTIME": [],
@@ -39792,14 +39830,16 @@
    "LE_DE": [
     "__future__",
     "coleta",
+    "collections",
     "datetime",
     "pathlib",
     "urllib"
    ],
-   "ENTRAM": 3,
+   "ENTRAM": 4,
    "SAEM": 1,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
+    "READ",
     "RULE"
    ],
    "CATEGORIAS_QUE_SAEM": [

@@ -36,6 +36,7 @@
       "RELATORIO-MICRO-COLLECTION.md",
       "RELATORIO-PARIDADE.md",
       "RELATORIO-PONTE-CURADOR.md",
+      "RELATORIO-PROPOSTA-CATALOGO.md",
       "RELATORIO-PROVAS-P1.md",
       "RELATORIO-RECOLLECTION.md",
       "RELATORIO-RECONCILIACAO.md",
@@ -288,6 +289,7 @@
       "curadoria/CANDIDATE-BUCKETS-V1.json",
       "curadoria/CANDIDATE-LINEAGE-V1.json",
       "curadoria/CANDIDATE-TO-SOURCE-MATCH-V1.json",
+      "curadoria/CATALOGO-PROVA-V1.json",
       "curadoria/COLLECTION-INTAKE-V1.json",
       "curadoria/CONTRACT-VALIDATION-V1.json",
       "curadoria/CONTRATOS-PASSO-2-V1.json",
@@ -313,6 +315,7 @@
       "curadoria/POLITICA-MODELO.json",
       "curadoria/PONTE-CURADOR-PROOF-V1.json",
       "curadoria/PROPOSTA-CATALOGO-T2-T12-V1.json",
+      "curadoria/PROPOSTA-CATALOGO-V1.json",
       "curadoria/READY-BATCHES-V1.json",
       "curadoria/READY-FOR-COLLECTION-V1.json",
       "curadoria/READY-SOURCES-V1.json",
@@ -1780,12 +1783,14 @@
       "medidas/lastmile/REDE-T7-043.json",
       "medidas/lastmile/REDE-T7-043b.json",
       "medidas/micro_colheita.py",
+      "medidas/montar_proposta_catalogo.py",
       "medidas/o_contrato_do_universo.py",
       "medidas/padrao_da_coleta.py",
       "medidas/paridade_replay.mjs",
       "medidas/porque_a_sala_nao_recebeu.py",
       "medidas/portao.py",
       "medidas/portoes_eame.py",
+      "medidas/prova_catalogo_t2_t12.py",
       "medidas/rastro_da_coleta.py",
       "medidas/recollection_censo.mjs",
       "medidas/recollection_diff.mjs",
@@ -2599,16 +2604,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "11 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json … e mais 3",
+      "titulo": "13 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: CATALOGO-PROVA-V1.json · GABARITO-T2-T12-V2.json · GABARITO-T2-T12-V3.json · PROPOSTA-CATALOGO-V1.json · RELEVANCIA-ELEGIVEIS-V1.json · ROTAS-ELEGIVEIS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json … e mais 5",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
+        "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
+        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-        "curadoria/ROTAS-ELEGIVEIS-V1.json",
-        "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-        "data/samples/IT-REGUA/IT-ADAMA-EU-ACTIVE-SUBSTANCE-V1.json"
+        "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ]
     },
     {
@@ -3074,10 +3079,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "regua-t2-t12-v1",
-    "HEAD": "b8027212633bf152e9d025f05dfb61b8d7ab36d2",
-    "GENERATED_AT": "2026-09-23T00:33:44-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3e197f0e75629605c05c7403245335e502497c415e78011211827156ddaef592"
+    "BRANCH": "catalogo-proposta-v1",
+    "HEAD": "6d9dda3d2c4504896ab48ea6379401b4b8b9f5d3",
+    "GENERATED_AT": "2026-09-23T01:21:14-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917"
   },
   "FAMILIES": [
     {
@@ -4577,6 +4582,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [
+        "C-CANARIO-ROTAS-ELEGIVEIS",
         "C-CI-COLETA",
         "C-COLETA-PUBLICA",
         "C-DECISAO-DA-FILA",
@@ -18321,20 +18327,25 @@
         "medidas/canario_rotas_elegiveis.py",
         "medidas/gabarito_t2_t12.py",
         "medidas/gabarito_t2_t12_ida3.py",
+        "medidas/montar_proposta_catalogo.py",
+        "medidas/prova_catalogo_t2_t12.py",
         "medidas/relevancia_antes_da_coleta.py"
       ],
-      "file_count": 4,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 4 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [
+        "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
+        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
       "inbound": [
         "C-ADMISSAO",
+        "C-AS-FONTES",
         "C-IT-CONTRATOS",
         "C-ORQUESTRADOR"
       ],
@@ -18342,24 +18353,31 @@
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [
+        "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
+        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json"
       ],
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "D",
+          "F",
+          "FALTAM",
           "PRIORIDADE",
           "SITES"
         ],
-        "palavras": 208,
+        "palavras": 426,
         "por_lingua": {},
-        "sem_marca_de_lingua": 208,
+        "sem_marca_de_lingua": 426,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -18369,6 +18387,12 @@
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "curadoria/CATALOGO-PROVA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "curadoria/GABARITO-T2-T12-V2.json",
@@ -18383,20 +18407,14 @@
         },
         {
           "onde": "GIT",
-          "file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        },
-        {
-          "onde": "GIT",
-          "file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+          "file": "curadoria/PROPOSTA-CATALOGO-V1.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "NAO SEI",
-      "rule_role_evidence": "escreve curadoria/GABARITO-T2-T12-V2.json e este mapa nao viu ninguem ler",
+      "rule_role_evidence": "escreve curadoria/CATALOGO-PROVA-V1.json e este mapa nao viu ninguem ler",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
       "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
@@ -18410,11 +18428,15 @@
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "curadoria/CATALOGO-PROVA-V1.json",
         "curadoria/GABARITO-T2-T12-V1.json",
         "curadoria/GABARITO-T2-T12-V2.json",
         "curadoria/GABARITO-T2-T12-V3.json",
+        "curadoria/PROPOSTA-CATALOGO-V1.json",
         "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
         "curadoria/ROTAS-ELEGIVEIS-V1.json",
+        "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html",
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "regras/motor_de_rota.mjs"
       ],
       "consumes_plane": "CODE",
@@ -42688,7 +42710,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch regua-t2-t12-v1"
+        "branch catalogo-proposta-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -46821,6 +46843,41 @@
             "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-V21-COMERCIAL",
             "FROM": "C-ARTEFACTO-V21",
             "TO": "C-V21-COMERCIAL",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-CANARIO-ROTAS-ELEGIVEIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta O canario das rotas das fontes aprovadas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "medidas/montar_proposta_catalogo.py",
+          "line": 180,
+          "snippet": "atlas = (RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\").read_text(encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-AS-FONTES--READS-->C-CANARIO-ROTAS-ELEGIVEIS",
+            "FROM": "C-AS-FONTES",
+            "TO": "C-CANARIO-ROTAS-ELEGIVEIS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -102606,7 +102663,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 1402,
+  "UNCLAIMED_FILES_COUNT": 1403,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -102791,12 +102848,12 @@
     "components_pending": 185,
     "components_broken": 0,
     "components_unknown": 9,
-    "edges": 1154,
-    "edges_proven": 1090,
+    "edges": 1155,
+    "edges_proven": 1091,
     "edges_unknown": 64,
     "business_edges": 4,
-    "files_tracked": 2481,
-    "files_covered": 1079,
+    "files_tracked": 2486,
+    "files_covered": 1083,
     "files_code_unclaimed": 0,
     "roles_proven": 154,
     "roles_declared_only": 9,

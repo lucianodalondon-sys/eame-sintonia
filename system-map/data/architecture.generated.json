@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "regua-t2-t12-v1",
-    "HEAD": "b8027212633bf152e9d025f05dfb61b8d7ab36d2",
-    "GENERATED_AT": "2026-09-23T00:33:44-03:00",
-    "SOURCE_TREE_FINGERPRINT": "3e197f0e75629605c05c7403245335e502497c415e78011211827156ddaef592"
+    "BRANCH": "catalogo-proposta-v1",
+    "HEAD": "6d9dda3d2c4504896ab48ea6379401b4b8b9f5d3",
+    "GENERATED_AT": "2026-09-23T01:21:14-03:00",
+    "SOURCE_TREE_FINGERPRINT": "ad74b6e25790f95d417b43142326a6e27fa4c14cb291ad31ee173547f0f06917"
   },
   "FILES": [
     {
@@ -340,6 +340,13 @@
     {
       "path": "RELATORIO-PONTE-CURADOR.md",
       "sha": "6d1970d86ef473210f2695d42ed9ecf0cca11e17",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "RELATORIO-PROPOSTA-CATALOGO.md",
+      "sha": "4969895b08b7ceb7d541417a52588f3a0d919cc1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1857,6 +1864,13 @@
       "code_dir": false
     },
     {
+      "path": "curadoria/CATALOGO-PROVA-V1.json",
+      "sha": "4d8f22a18262ad73e19faf4cd4b113da86900004",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "curadoria/COLLECTION-INTAKE-V1.json",
       "sha": "0e8af7a4021049d525c23244e7b49d8acdcb77e7",
       "ext": ".json",
@@ -2027,6 +2041,13 @@
     {
       "path": "curadoria/PROPOSTA-CATALOGO-T2-T12-V1.json",
       "sha": "ce459fa42d769270ce00b3296bc45e1cbea28b8f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "curadoria/PROPOSTA-CATALOGO-V1.json",
+      "sha": "716deaec38a723409311b1e78fb53229d5b9460e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -12161,6 +12182,13 @@
       "code_dir": true
     },
     {
+      "path": "medidas/montar_proposta_catalogo.py",
+      "sha": "559ee8dadd177d8513f8272481c49e658157cea0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "medidas/o_contrato_do_universo.py",
       "sha": "7fbf22b226cdea810c257afcd715d8af32059f56",
       "ext": ".py",
@@ -12198,6 +12226,13 @@
     {
       "path": "medidas/portoes_eame.py",
       "sha": "19d35c34a97651fa85a941d88b3890978c910cef",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "medidas/prova_catalogo_t2_t12.py",
+      "sha": "fb5404eb440c4d34e49c54caebca321b64453dea",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -15466,7 +15501,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "abf4bb6cdd289f78f2f839bcfe50feb43f33ddb2",
+      "sha": "db94bfc59b0d34cf08e47cb5ccee46e147e62575",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -34637,6 +34672,72 @@
       }
     },
     {
+      "from_file": "medidas/montar_proposta_catalogo.py",
+      "to_file": "curadoria/CATALOGO-PROVA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/montar_proposta_catalogo.py",
+        "line": 197,
+        "snippet": "for p in _json(CUR / \"CATALOGO-PROVA-V1.json\")[\"PAGINAS\"]:"
+      }
+    },
+    {
+      "from_file": "medidas/montar_proposta_catalogo.py",
+      "to_file": "curadoria/PROPOSTA-CATALOGO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/montar_proposta_catalogo.py",
+        "line": 39,
+        "snippet": "SAIDA = CUR / \"PROPOSTA-CATALOGO-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/montar_proposta_catalogo.py",
+      "to_file": "curadoria/PROPOSTA-CATALOGO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/montar_proposta_catalogo.py",
+        "line": 274,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "medidas/montar_proposta_catalogo.py",
+      "to_file": "curadoria/ROTAS-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/montar_proposta_catalogo.py",
+        "line": 213,
+        "snippet": "for l in _json(CUR / \"ROTAS-ELEGIVEIS-V1.json\")[\"LINHAS\"]:"
+      }
+    },
+    {
+      "from_file": "medidas/montar_proposta_catalogo.py",
+      "to_file": "data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/montar_proposta_catalogo.py",
+        "line": 211,
+        "snippet": "(\"IT-T2-004\", \"data/samples/IT-SOURCE-SAMPLES/IT-T2-004/NHEOWL0530_00.html\")]:"
+      }
+    },
+    {
+      "from_file": "medidas/montar_proposta_catalogo.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/montar_proposta_catalogo.py",
+        "line": 180,
+        "snippet": "atlas = (RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
       "from_file": "medidas/o_contrato_do_universo.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -35151,6 +35252,50 @@
         "file": "medidas/portoes_eame.py",
         "line": 244,
         "snippet": "if not existe('supabase', 'tests', 'regressoes_regulatorio_es.sql'):"
+      }
+    },
+    {
+      "from_file": "medidas/prova_catalogo_t2_t12.py",
+      "to_file": "curadoria/CATALOGO-PROVA-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/prova_catalogo_t2_t12.py",
+        "line": 45,
+        "snippet": "SAIDA = RAIZ / \"curadoria\" / \"CATALOGO-PROVA-V1.json\""
+      }
+    },
+    {
+      "from_file": "medidas/prova_catalogo_t2_t12.py",
+      "to_file": "curadoria/CATALOGO-PROVA-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/prova_catalogo_t2_t12.py",
+        "line": 135,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "medidas/prova_catalogo_t2_t12.py",
+      "to_file": "curadoria/RELEVANCIA-ELEGIVEIS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "medidas/prova_catalogo_t2_t12.py",
+        "line": 69,
+        "snippet": "for l in json.loads((RAIZ / \"curadoria\" / \"RELEVANCIA-ELEGIVEIS-V1.json\")"
+      }
+    },
+    {
+      "from_file": "medidas/prova_catalogo_t2_t12.py",
+      "to_file": "medidas/gabarito_t2_t12.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "medidas/prova_catalogo_t2_t12.py",
+        "line": 40,
+        "snippet": "import gabarito_t2_t12 as G2   # noqa: E402  (egresso, texto_de, CAN, GATE)"
       }
     },
     {
@@ -72864,10 +73009,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 2481,
-    "files_readable": 1099,
-    "files_code_dir": 954,
-    "file_edges": 4993,
+    "files_tracked": 2486,
+    "files_readable": 1101,
+    "files_code_dir": 956,
+    "file_edges": 5003,
     "escritas_em_pasta": 82,
     "declared_missing_here": 0
   },
